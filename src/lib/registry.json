@@ -1,0 +1,17 @@
+[
+  {
+    "id": "pomodoro-timer",
+    "slug": "pomodoro-timer",
+    "title": {
+      "en": "Pomodoro Focus Timer",
+      "ko": "뽀모도로 집중 타이머"
+    },
+    "description": {
+      "en": "Boost productivity with the 25/5 minute Pomodoro technique.",
+      "ko": "25분 집중, 5분 휴식. 뽀모도로 기법으로 생산성을 높이세요."
+    },
+    "category": "Productivity",
+    "tags": ["timer", "focus", "study", "work"],
+    "createdAt": "2024-12-30"
+  }
+]
