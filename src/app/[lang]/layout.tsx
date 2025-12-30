@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Micro-Tools Factory",
   description: "Self-Evolving Web Tools",
+  verification: {
+    google: "0NXsXGlhJH7ejTyAzu0XyLDGmN0Yu6ZlMcfR1HA4ZZs",
+  },
 };
 
 export async function generateStaticParams() {
