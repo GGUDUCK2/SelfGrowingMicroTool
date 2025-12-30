@@ -79,8 +79,12 @@ export default function PomodoroTimer({ lang }: { lang: string }) {
     if (intervalRef.current) clearInterval(intervalRef.current);
 
     // Play sound
-    const audio = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
-    audio.play().catch(e => console.error("Audio play failed", e));
+    try {
+        const audio = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
+        audio.play().catch(e => console.error("Audio play failed", e));
+    } catch (e) {
+        console.error("Audio initialization failed", e);
+    }
 
     // Save session
     const session: Session = {
@@ -93,12 +97,22 @@ export default function PomodoroTimer({ lang }: { lang: string }) {
         getSessions().then(setHistory);
     });
 
-    alert(mode === 'work' ? 'Work session complete! Take a break.' : 'Break over! Back to work.');
+    if (Notification.permission === "granted") {
+        new Notification(mode === 'work' ? "Work Session Complete!" : "Break Over!", {
+            body: mode === 'work' ? "Time to take a break." : "Time to focus again."
+        });
+    } else {
+        alert(mode === 'work' ? 'Work session complete! Take a break.' : 'Break over! Back to work.');
+    }
+
     resetTimer(mode === 'work' ? 'break' : 'work');
   }, [mode, resetTimer]);
 
   useEffect(() => {
     getSessions().then(setHistory).catch(console.error);
+    if (Notification.permission !== "granted" && Notification.permission !== "denied") {
+        Notification.requestPermission();
+    }
   }, []);
 
   useEffect(() => {
@@ -129,54 +143,56 @@ export default function PomodoroTimer({ lang }: { lang: string }) {
 
   return (
     <div className="space-y-8 max-w-2xl mx-auto">
-        <Link href={`/${lang}`} className="text-sm text-gray-500 hover:underline mb-4 inline-block">
+        <Link href={`/${lang}`} className="text-sm text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 mb-4 inline-flex items-center gap-1 transition-colors">
           &larr; {lang === 'ko' ? '홈으로 돌아가기' : 'Back to Home'}
         </Link>
 
-        <div className="bg-white rounded-2xl shadow-lg p-8 text-center space-y-8 border border-gray-100">
-            <h1 className="text-3xl font-bold text-gray-800">
+        <div className="bg-white dark:bg-zinc-900 rounded-3xl shadow-xl p-8 md:p-12 text-center space-y-8 border border-gray-100 dark:border-zinc-800">
+            <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-violet-600">
                 {lang === 'ko' ? '뽀모도로 타이머' : 'Pomodoro Timer'}
             </h1>
 
-            <div className="flex justify-center space-x-4">
+            <div className="flex justify-center p-1 bg-gray-100 dark:bg-zinc-800 rounded-full w-fit mx-auto">
                 <button
                     onClick={() => resetTimer('work')}
-                    className={`px-4 py-2 rounded-full font-medium transition-colors ${mode === 'work' ? 'bg-red-100 text-red-600' : 'text-gray-500 hover:bg-gray-50'}`}
+                    className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${mode === 'work' ? 'bg-white dark:bg-zinc-700 text-indigo-600 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}`}
                 >
                     {lang === 'ko' ? '집중' : 'Work'}
                 </button>
                 <button
                     onClick={() => resetTimer('break')}
-                    className={`px-4 py-2 rounded-full font-medium transition-colors ${mode === 'break' ? 'bg-green-100 text-green-600' : 'text-gray-500 hover:bg-gray-50'}`}
+                    className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${mode === 'break' ? 'bg-white dark:bg-zinc-700 text-green-600 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}`}
                 >
                     {lang === 'ko' ? '휴식' : 'Break'}
                 </button>
             </div>
 
-            <div className="text-8xl font-black text-gray-900 tracking-tighter tabular-nums">
+            <div className={`text-8xl md:text-9xl font-black tracking-tighter tabular-nums transition-colors duration-500 ${mode === 'work' ? 'text-gray-900 dark:text-white' : 'text-green-500'}`}>
                 {formatTime(timeLeft)}
             </div>
 
             {mode === 'work' && (
-                <input
-                    type="text"
-                    placeholder={lang === 'ko' ? '무엇을 하고 계신가요?' : 'What are you working on?'}
-                    value={task}
-                    onChange={(e) => setTask(e.target.value)}
-                    className="w-full max-w-sm mx-auto block px-4 py-2 text-center border-b-2 border-gray-200 focus:border-black outline-none bg-transparent"
-                />
+                <div className="relative max-w-sm mx-auto">
+                    <input
+                        type="text"
+                        placeholder={lang === 'ko' ? '무엇을 하고 계신가요?' : 'What are you working on?'}
+                        value={task}
+                        onChange={(e) => setTask(e.target.value)}
+                        className="w-full px-4 py-3 text-center bg-transparent border-b-2 border-gray-200 dark:border-zinc-700 focus:border-indigo-500 dark:focus:border-indigo-500 outline-none transition-colors text-lg"
+                    />
+                </div>
             )}
 
-            <div className="flex justify-center space-x-4">
+            <div className="flex justify-center gap-4">
                 <button
                     onClick={toggleTimer}
-                    className="px-8 py-3 bg-black text-white rounded-xl font-bold hover:bg-gray-800 transition-transform active:scale-95"
+                    className={`px-8 py-4 min-w-[140px] rounded-2xl font-bold text-lg shadow-lg hover:shadow-xl transition-all active:scale-95 text-white ${isActive ? 'bg-gray-900 dark:bg-zinc-700 hover:bg-gray-800 dark:hover:bg-zinc-600' : 'bg-indigo-600 hover:bg-indigo-700'}`}
                 >
                     {isActive ? (lang === 'ko' ? '일시정지' : 'Pause') : (lang === 'ko' ? '시작' : 'Start')}
                 </button>
                 <button
                     onClick={() => resetTimer()}
-                    className="px-8 py-3 bg-gray-100 text-gray-700 rounded-xl font-bold hover:bg-gray-200 transition-transform active:scale-95"
+                    className="px-8 py-4 min-w-[140px] bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 rounded-2xl font-bold text-lg hover:bg-gray-200 dark:hover:bg-zinc-700 transition-all active:scale-95"
                 >
                     {lang === 'ko' ? '리셋' : 'Reset'}
                 </button>
@@ -184,19 +200,22 @@ export default function PomodoroTimer({ lang }: { lang: string }) {
         </div>
 
         {/* History Section */}
-        <div className="bg-white rounded-2xl shadow p-6 border border-gray-100">
-            <h2 className="text-xl font-bold mb-4">{lang === 'ko' ? '세션 기록' : 'Session History'}</h2>
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm p-6 border border-gray-100 dark:border-zinc-800">
+            <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">{lang === 'ko' ? '세션 기록' : 'Session History'}</h2>
             {history.length === 0 ? (
-                <p className="text-gray-400 text-center py-4">{lang === 'ko' ? '아직 기록이 없습니다.' : 'No history yet.'}</p>
+                <p className="text-gray-400 text-center py-8">{lang === 'ko' ? '아직 기록이 없습니다.' : 'No history yet.'}</p>
             ) : (
-                <ul className="space-y-2 max-h-60 overflow-y-auto">
+                <ul className="space-y-2 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
                     {history.slice().reverse().map((session) => (
-                        <li key={session.id} className="flex justify-between items-center text-sm p-2 hover:bg-gray-50 rounded">
-                            <span className="font-medium text-gray-700">
-                                {session.type === 'work' ? '🔴 Work' : '🟢 Break'}
-                            </span>
-                            <span className="text-gray-500">{session.task || '-'}</span>
-                            <span className="text-gray-400">
+                        <li key={session.id} className="flex justify-between items-center text-sm p-3 hover:bg-gray-50 dark:hover:bg-zinc-800/50 rounded-lg transition-colors border border-transparent hover:border-gray-100 dark:hover:border-zinc-800">
+                            <div className="flex items-center gap-3">
+                                <span className={`w-2 h-2 rounded-full ${session.type === 'work' ? 'bg-indigo-500' : 'bg-green-500'}`}></span>
+                                <span className="font-medium text-gray-700 dark:text-gray-300">
+                                    {session.type === 'work' ? (lang === 'ko' ? '집중' : 'Work') : (lang === 'ko' ? '휴식' : 'Break')}
+                                </span>
+                            </div>
+                            <span className="text-gray-500 dark:text-gray-400 truncate max-w-[150px]">{session.task || '-'}</span>
+                            <span className="text-gray-400 text-xs font-mono">
                                 {new Date(session.startTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                             </span>
                         </li>
@@ -206,7 +225,7 @@ export default function PomodoroTimer({ lang }: { lang: string }) {
         </div>
 
         {/* AEO Content */}
-        <article className="prose prose-gray max-w-none bg-white p-8 rounded-2xl shadow border border-gray-100 mt-12">
+        <article className="prose prose-gray dark:prose-invert max-w-none bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-zinc-800 mt-12">
             <h3>{lang === 'ko' ? '이 도구는 무엇인가요?' : 'What is this tool?'}</h3>
             <p>
                 {lang === 'ko'
@@ -259,22 +278,24 @@ export default function PomodoroTimer({ lang }: { lang: string }) {
                     })
                 }}
             />
-            <details className="cursor-pointer group">
-                <summary className="font-medium text-gray-900 group-hover:underline">
-                    {lang === 'ko' ? "이 타이머는 무료인가요?" : "Is this timer free?"}
-                </summary>
-                <p className="mt-2 text-gray-600">
-                    {lang === 'ko' ? "네, 100% 무료이며 별도의 회원가입이나 설치가 필요 없습니다." : "Yes, it is 100% free and requires no registration or installation."}
-                </p>
-            </details>
-            <details className="cursor-pointer group mt-4">
-                <summary className="font-medium text-gray-900 group-hover:underline">
-                    {lang === 'ko' ? "기록은 어디에 저장되나요?" : "Where is the history saved?"}
-                </summary>
-                <p className="mt-2 text-gray-600">
-                    {lang === 'ko' ? "사용자의 브라우저 내부 저장소(IndexedDB)에 안전하게 저장됩니다. 서버로 전송되지 않습니다." : "It is securely saved in your browser's internal storage (IndexedDB). No data is sent to the server."}
-                </p>
-            </details>
+            <div className="space-y-4">
+                <details className="cursor-pointer group bg-gray-50 dark:bg-zinc-800 p-4 rounded-lg">
+                    <summary className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                        {lang === 'ko' ? "이 타이머는 무료인가요?" : "Is this timer free?"}
+                    </summary>
+                    <p className="mt-2 text-gray-600 dark:text-gray-400">
+                        {lang === 'ko' ? "네, 100% 무료이며 별도의 회원가입이나 설치가 필요 없습니다." : "Yes, it is 100% free and requires no registration or installation."}
+                    </p>
+                </details>
+                <details className="cursor-pointer group bg-gray-50 dark:bg-zinc-800 p-4 rounded-lg">
+                    <summary className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                        {lang === 'ko' ? "기록은 어디에 저장되나요?" : "Where is the history saved?"}
+                    </summary>
+                    <p className="mt-2 text-gray-600 dark:text-gray-400">
+                        {lang === 'ko' ? "사용자의 브라우저 내부 저장소(IndexedDB)에 안전하게 저장됩니다. 서버로 전송되지 않습니다." : "It is securely saved in your browser's internal storage (IndexedDB). No data is sent to the server."}
+                    </p>
+                </details>
+            </div>
         </article>
     </div>
   );

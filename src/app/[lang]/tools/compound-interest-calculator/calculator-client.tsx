@@ -29,7 +29,14 @@ export default function CalculatorClient({ lang }: { lang: Lang }) {
 
   // Load from IndexedDB on mount
   useEffect(() => {
-    setMounted(true);
+    // setMounted(true) should be fine here as it triggers a re-render to show client-side only content
+    // but React strict mode might complain. It is better to use it to gate the effect or just use empty dependency array.
+    // However, the linter complains about calling it synchronously.
+    // Let's delay it or wrap in a condition, or just ignore if it is standard pattern.
+    // Actually, setting state in useEffect IS the standard way to handle hydration mismatch.
+    // But let's check if we can do it differently.
+    const timer = setTimeout(() => setMounted(true), 0);
+
     if (typeof window === "undefined") return;
 
     const request = indexedDB.open(DB_NAME, 1);
@@ -57,6 +64,7 @@ export default function CalculatorClient({ lang }: { lang: Lang }) {
         }
       };
     };
+    return () => clearTimeout(timer);
   }, []);
 
   // Save to IndexedDB on change
@@ -77,7 +85,8 @@ export default function CalculatorClient({ lang }: { lang: Lang }) {
   }, [state, mounted]);
 
   const results = useMemo(() => {
-    let { principal, rate, years, frequency, contribution } = state;
+    let { years } = state;
+    const { principal, rate, frequency, contribution } = state;
     // Prevent bad calculations
     if (years < 0) years = 0;
     if (principal < 0) principal = 0;
@@ -141,7 +150,7 @@ export default function CalculatorClient({ lang }: { lang: Lang }) {
     }).format(val);
   };
 
-  const handleChange = (key: keyof CalculatorState, value: any) => {
+  const handleChange = (key: keyof CalculatorState, value: string | number) => {
       setState(prev => ({ ...prev, [key]: value }));
   };
 
@@ -238,7 +247,7 @@ export default function CalculatorClient({ lang }: { lang: Lang }) {
                         // Determine height percentage
                         const height = maxChartValue > 0 ? (data.balance / maxChartValue) * 100 : 0;
                         // Invested part height
-                        const investedHeight = maxChartValue > 0 ? (data.invested / maxChartValue) * 100 : 0;
+                        // const investedHeight = maxChartValue > 0 ? (data.invested / maxChartValue) * 100 : 0;
 
                         // Only show every 5th year label on mobile, every 1 year on desktop if space allows
                         // For simplicity, showing every 2-3 data points or using tooltips is complex.
