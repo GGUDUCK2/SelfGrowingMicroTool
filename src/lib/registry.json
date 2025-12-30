@@ -28,5 +28,20 @@
     "category": "Finance",
     "tags": ["finance", "calculator", "investment", "money"],
     "createdAt": "2025-01-26"
+  },
+  {
+    "id": "color-palette-generator",
+    "slug": "color-palette-generator",
+    "title": {
+      "en": "Color Palette Generator",
+      "ko": "색상 팔레트 생성기"
+    },
+    "description": {
+      "en": "Generate beautiful random color palettes. Lock colors, copy hex codes, and save favorites.",
+      "ko": "아름다운 랜덤 색상 팔레트를 생성하세요. 색상 고정, Hex 코드 복사, 즐겨찾기 저장 기능 제공."
+    },
+    "category": "Design",
+    "tags": ["design", "color", "palette", "generator", "hex"],
+    "createdAt": "2025-01-27"
   }
 ]
