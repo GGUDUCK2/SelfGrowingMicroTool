@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -21,21 +22,25 @@ export async function generateStaticParams() {
   return [{ lang: 'en' }, { lang: 'ko' }]
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-  params: _params,
+  params,
 }: Readonly<{
   children: React.ReactNode;
   params: Promise<{ lang: string }>;
 }>) {
+  const { lang } = await params;
+  const gaId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
+
   return (
-    <html lang="en">
+    <html lang={lang}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900 min-h-screen`}
       >
         <main className="max-w-4xl mx-auto p-4 md:p-8">
           {children}
         </main>
+        {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>
     </html>
   );
