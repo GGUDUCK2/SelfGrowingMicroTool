@@ -13,5 +13,20 @@
     "category": "Productivity",
     "tags": ["timer", "focus", "study", "work"],
     "createdAt": "2024-12-30"
+  },
+  {
+    "id": "compound-interest-calculator",
+    "slug": "compound-interest-calculator",
+    "title": {
+      "en": "Compound Interest Calculator",
+      "ko": "복리 계산기"
+    },
+    "description": {
+      "en": "Calculate how your investments grow over time with compound interest.",
+      "ko": "복리 이자를 통해 시간이 지남에 따라 투자가 어떻게 성장하는지 계산해보세요."
+    },
+    "category": "Finance",
+    "tags": ["finance", "calculator", "investment", "money"],
+    "createdAt": "2025-01-26"
   }
 ]
