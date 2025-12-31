@@ -1,0 +1,32 @@
+[
+  {
+    "id": "pomodoro-timer",
+    "slug": "pomodoro-timer",
+    "title": {
+      "en": "Pomodoro Focus Timer",
+      "ko": "뽀모도로 집중 타이머"
+    },
+    "description": {
+      "en": "Boost productivity with the 25/5 minute Pomodoro technique.",
+      "ko": "25분 집중, 5분 휴식. 뽀모도로 기법으로 생산성을 높이세요."
+    },
+    "category": "Productivity",
+    "tags": ["timer", "focus", "study", "work"],
+    "createdAt": "2024-12-30"
+  },
+  {
+    "id": "compound-interest-calculator",
+    "slug": "compound-interest-calculator",
+    "title": {
+      "en": "Compound Interest Calculator",
+      "ko": "복리 계산기"
+    },
+    "description": {
+      "en": "Calculate how your investments grow over time with compound interest.",
+      "ko": "복리 이자를 통해 시간이 지남에 따라 투자가 어떻게 성장하는지 계산해보세요."
+    },
+    "category": "Finance",
+    "tags": ["finance", "calculator", "investment", "money"],
+    "createdAt": "2025-01-26"
+  }
+]

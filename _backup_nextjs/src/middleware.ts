@@ -6,6 +6,12 @@ const defaultLocale = "en";
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+
+  // 정적 파일 요청은 리다이렉트하지 않음 (확장자가 있는 파일)
+  if (pathname.includes(".")) {
+    return NextResponse.next();
+  }
+
   const pathnameIsMissingLocale = locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
@@ -20,6 +26,13 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next|favicon.ico|api|.*\\..*).*)",
+    /*
+     * Match all request paths except:
+     * - _next (static files)
+     * - favicon.ico
+     * - api routes
+     * - public directory files (files with extensions)
+     */
+    "/((?!_next|api|favicon\\.ico|.*\\.xml|.*\\.txt|.*\\.svg|.*\\.png|.*\\.jpg|.*\\.ico).*)",
   ],
 };
