@@ -1,9 +1,11 @@
 import registry from '$lib/registry.json';
 
+export const prerender = true;
+
 const BASE_URL = 'https://selfgrowingmicrotool.com';
 
 export async function GET() {
-    const rss = `<?xml version="1.0" encoding="UTF-8" ?>
+  const rss = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
   <channel>
     <title>Micro-Tools Factory</title>
@@ -22,10 +24,10 @@ export async function GET() {
   </channel>
 </rss>`;
 
-    return new Response(rss, {
-        headers: {
-            'Content-Type': 'application/xml',
-            'Cache-Control': 'public, max-age=3600'
-        }
-    });
+  return new Response(rss, {
+    headers: {
+      'Content-Type': 'application/xml',
+      'Cache-Control': 'public, max-age=3600'
+    }
+  });
 }

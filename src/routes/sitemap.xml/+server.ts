@@ -1,5 +1,7 @@
 import registry from '$lib/registry.json';
 
+export const prerender = true;
+
 const BASE_URL = 'https://selfgrowingmicrotool.com';
 const LOCALES = ['en', 'ko'];
 

@@ -1,3 +1,5 @@
+export const prerender = true;
+
 const BASE_URL = 'https://selfgrowingmicrotool.com';
 
 export async function GET() {
