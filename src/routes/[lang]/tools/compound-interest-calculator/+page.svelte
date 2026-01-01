@@ -23,6 +23,7 @@
   let contribution = 500;
   let inflationRate = 0;
   let compoundFrequency = 12; // 12 = Monthly, 4 = Quarterly, 1 = Annually
+  let taxRate = 0; // Tax rate on interest
   let isLoaded = false;
 
   // Validation State
@@ -31,6 +32,9 @@
   // Load data from URL or IndexedDB on mount
   onMount(async () => {
     try {
+      // Load History
+      await loadHistory();
+
       // 1. Try URL Params first
       const params = $page.url.searchParams;
       if (params.has("principal")) {
@@ -40,8 +44,9 @@
         contribution = Number(params.get("contribution"));
         inflationRate = Number(params.get("inflationRate") || 0);
         compoundFrequency = Number(params.get("compoundFrequency") || 12);
+        taxRate = Number(params.get("taxRate") || 0);
       } else {
-        // 2. Fallback to IndexedDB
+        // 2. Fallback to IndexedDB Config
         const config = await db.compoundInterestConfig
           .orderBy("updatedAt")
           .last();
@@ -52,6 +57,7 @@
           contribution = config.contribution;
           inflationRate = config.inflationRate ?? 0;
           compoundFrequency = config.compoundFrequency ?? 12;
+          taxRate = config.taxRate ?? 0;
         }
       }
     } catch (error) {
@@ -61,8 +67,8 @@
     }
   });
 
-  // Save data to IndexedDB
-  async function saveData() {
+  // Save Config to IndexedDB (Last Session)
+  async function saveConfig() {
     if (Object.keys(errors).length > 0) return;
 
     try {
@@ -74,10 +80,11 @@
         contribution,
         inflationRate,
         compoundFrequency,
+        taxRate,
         updatedAt: new Date(),
       });
     } catch (error) {
-      console.error("Failed to save data to IndexedDB:", error);
+      console.error("Failed to save config to IndexedDB:", error);
     }
   }
 
@@ -94,11 +101,12 @@
     url.searchParams.set("contribution", String(contribution));
     url.searchParams.set("inflationRate", String(inflationRate));
     url.searchParams.set("compoundFrequency", String(compoundFrequency));
+    url.searchParams.set("taxRate", String(taxRate));
 
     await goto(url, { replaceState: true, noScroll: true, keepFocus: true });
 
     // Save to DB
-    await saveData();
+    await saveConfig();
   }, 500);
 
   $: {
@@ -109,7 +117,8 @@
       years !== undefined &&
       contribution !== undefined &&
       inflationRate !== undefined &&
-      compoundFrequency !== undefined
+      compoundFrequency !== undefined &&
+      taxRate !== undefined
     ) {
       syncState();
     }
@@ -143,6 +152,11 @@
         lang === "ko"
           ? "0 이상의 값을 입력하세요."
           : "Value must be 0 or greater.";
+    if (taxRate < 0 || taxRate > 100)
+      errors.taxRate =
+        lang === "ko"
+          ? "0에서 100 사이의 값을 입력하세요."
+          : "Value must be between 0 and 100.";
   }
 
   $: results = calculateCompoundInterest(
@@ -152,6 +166,7 @@
     contribution,
     inflationRate,
     compoundFrequency,
+    taxRate
   );
   $: totalInvested = principal + contribution * 12 * years;
   $: totalInterest =
@@ -168,18 +183,14 @@
     c: number,
     inflation: number,
     freq: number,
+    tax: number
   ) {
     // Limit years to avoid freezing
     if (y > 100) y = 100;
 
-    if (p < 0 || r < 0 || y <= 0 || c < 0 || inflation < 0) return [];
+    if (p < 0 || r < 0 || y <= 0 || c < 0 || inflation < 0 || tax < 0) return [];
 
     let nominalBalance = p;
-    // For real balance, we discount future value to present terms usually,
-    // but here we want to show "purchasing power at that future time relative to today".
-    // So Future Real Value = Future Nominal Value / (1 + inflation)^years.
-    // Yes, this is correct.
-
     const nominalRatePerPeriod = r / 100 / freq;
     const data = [];
     const totalMonths = y * 12;
@@ -190,7 +201,11 @@
 
       // Apply interest based on frequency
       if (i % (12 / freq) === 0) {
-        nominalBalance *= 1 + nominalRatePerPeriod;
+        const interest = nominalBalance * nominalRatePerPeriod;
+        // Apply Tax on Interest immediately (simulating tax drag/annual tax payment)
+        const taxAmount = interest * (tax / 100);
+        const netInterest = interest - taxAmount;
+        nominalBalance += netInterest;
       }
 
       if (i % 12 === 0) {
@@ -209,7 +224,7 @@
   function downloadCSV() {
     const headers = [
       lang === "ko" ? "연도" : "Year",
-      lang === "ko" ? "명목 금액" : "Nominal Balance",
+      lang === "ko" ? "명목 금액 (세후)" : "Nominal Balance (Post-Tax)",
       lang === "ko"
         ? "실질 금액 (인플레이션 반영)"
         : "Real Balance (Inflation Adjusted)",
@@ -235,13 +250,75 @@
   $: maxBalance =
     results.length > 0 ? results[results.length - 1].nominalBalance : 100;
 
-  // History (placeholder)
+  // History Implementation
   let history: { id?: number; data: any; createdAt: Date }[] = [];
-  function restoreHistory(_item: any) {
-    /* Not implemented */
+
+  async function loadHistory() {
+    try {
+      const items = await db.compoundInterestHistory
+        .orderBy('createdAt')
+        .reverse()
+        .toArray();
+      // Map DB items to the format HistoryList expects
+      history = items.map(item => ({
+        id: item.id,
+        createdAt: item.createdAt,
+        data: {
+            principal: item.principal,
+            rate: item.rate,
+            years: item.years,
+            contribution: item.contribution,
+            inflationRate: item.inflationRate,
+            compoundFrequency: item.compoundFrequency,
+            taxRate: item.taxRate
+        }
+      }));
+    } catch (error) {
+      console.error("Failed to load history:", error);
+    }
   }
-  function deleteHistory(_id: number) {
-    /* Not implemented */
+
+  async function saveToHistory() {
+     if (Object.keys(errors).length > 0) return;
+     try {
+       await db.compoundInterestHistory.add({
+         principal,
+         rate,
+         years,
+         contribution,
+         inflationRate,
+         compoundFrequency,
+         taxRate,
+         createdAt: new Date()
+       });
+       await loadHistory();
+     } catch (error) {
+       console.error("Failed to save history:", error);
+     }
+  }
+
+  async function restoreHistory(item: any) {
+    if (!item || !item.data) return;
+    const d = item.data;
+    principal = d.principal;
+    rate = d.rate;
+    years = d.years;
+    contribution = d.contribution;
+    inflationRate = d.inflationRate;
+    compoundFrequency = d.compoundFrequency;
+    taxRate = d.taxRate ?? 0;
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function deleteHistory(id: number) {
+    try {
+      await db.compoundInterestHistory.delete(id);
+      await loadHistory();
+    } catch (error) {
+       console.error("Failed to delete history:", error);
+    }
   }
 
   // FAQ Data
@@ -259,8 +336,8 @@
     </h1>
     <p class="text-gray-500 max-w-2xl mx-auto">
       {lang === "ko"
-        ? "시간이 지남에 따라 자산이 어떻게 성장하는지 확인하세요. 인플레이션까지 고려한 복리의 마법을 경험해보세요."
-        : "Visualize how your investment grows over time with the power of compound interest, adjusted for inflation."}
+        ? "시간이 지남에 따라 자산이 어떻게 성장하는지 확인하세요. 인플레이션과 세금까지 고려한 복리의 마법을 경험해보세요."
+        : "Visualize how your investment grows over time with the power of compound interest, adjusted for inflation and taxes."}
     </p>
   </div>
 
@@ -269,41 +346,50 @@
     <div
       class="lg:col-span-1 bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 h-fit space-y-6"
     >
-      <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-sliders-horizontal text-indigo-600"
-          ><line x1="21" x2="14" y1="4" y2="4" /><line
-            x1="10"
-            x2="3"
-            y1="4"
-            y2="4"
-          /><line x1="21" x2="12" y1="12" y2="12" /><line
-            x1="8"
-            x2="3"
-            y1="12"
-            y2="12"
-          /><line x1="21" x2="16" y1="20" y2="20" /><line
-            x1="12"
-            x2="3"
-            y1="20"
-            y2="20"
-          /><line x1="14" y1="2" y2="6" /><line x1="8" y1="10" y2="14" /><line
-            x1="16"
-            y1="18"
-            y2="22"
-          /></svg
+      <div class="flex justify-between items-center">
+        <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-sliders-horizontal text-indigo-600"
+            ><line x1="21" x2="14" y1="4" y2="4" /><line
+                x1="10"
+                x2="3"
+                y1="4"
+                y2="4"
+            /><line x1="21" x2="12" y1="12" y2="12" /><line
+                x1="8"
+                x2="3"
+                y1="12"
+                y2="12"
+            /><line x1="21" x2="16" y1="20" y2="20" /><line
+                x1="12"
+                x2="3"
+                y1="20"
+                y2="20"
+            /><line x1="14" y1="2" y2="6" /><line x1="8" y1="10" y2="14" /><line
+                x1="16"
+                y1="18"
+                y2="22"
+            /></svg
+            >
+            {dict.config}
+        </h2>
+        <button
+            on:click={saveToHistory}
+            class="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
+            title={lang === "ko" ? "현재 설정을 기록에 저장" : "Save current configuration to history"}
         >
-        {dict.config}
-      </h2>
+            {lang === "ko" ? "저장" : "Save"}
+        </button>
+      </div>
 
       <div class="space-y-4">
         <div>
@@ -382,6 +468,30 @@
         </div>
 
         <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+              {lang === "ko"
+                ? "이자 소득세율 (%)"
+                : "Tax Rate on Interest (%)"}
+              <div class="relative mt-1">
+                <input
+                  type="number"
+                  step="0.1"
+                  bind:value={taxRate}
+                  class="w-full pl-4 pr-8 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                  class:border-red-500={errors.taxRate}
+                />
+                <span
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                  >%</span
+                >
+              </div>
+            </label>
+            {#if errors.taxRate}<p class="text-red-500 text-xs mt-1">
+                {errors.taxRate}
+              </p>{/if}
+          </div>
+
+        <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">
             {lang === "ko"
               ? "물가 상승률 (인플레이션 %)"
@@ -439,7 +549,7 @@
               <input
                 type="range"
                 min="1"
-                max="50"
+                max="100"
                 bind:value={years}
                 class="flex-1 accent-indigo-600 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                 aria-label={lang === "ko"
