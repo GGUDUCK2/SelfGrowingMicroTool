@@ -37,6 +37,21 @@ export const dictionaries = {
         q3: "Can I use this for stocks or real estate?",
         a3: "Yes, you can use the estimated annual return rate to project growth for any investment vehicle.",
       }
+    },
+    pwa: {
+      title: "Install MicroFactory",
+      description: "Install MicroFactory as an app on your device for quick access and offline support.",
+      installButton: "Install App",
+      installedMessage: "App is already installed!",
+      iosInstructions: "To install on iOS:",
+      iosStep1: "1. Tap the Share button",
+      iosStep2: "2. Select 'Add to Home Screen'",
+      androidInstructions: "Click the button below to install:",
+      benefits: "Benefits of installing:",
+      benefit1: "Quick access from home screen",
+      benefit2: "Works offline",
+      benefit3: "Faster loading times",
+      benefit4: "App-like experience"
     }
   },
   ko: {
@@ -77,6 +92,21 @@ export const dictionaries = {
         q3: "주식이나 부동산 투자에도 사용할 수 있나요?",
         a3: "네, 예상 연 수익률을 입력하여 다양한 투자의 미래 가치를 예측하는 데 사용할 수 있습니다.",
       }
+    },
+    pwa: {
+      title: "앱 설치하기",
+      description: "MicroFactory를 앱으로 설치하면 빠른 접근과 오프라인 지원이 가능합니다.",
+      installButton: "앱 설치",
+      installedMessage: "이미 앱이 설치되어 있습니다!",
+      iosInstructions: "iOS에서 설치하려면:",
+      iosStep1: "1. 공유 버튼을 탭하세요",
+      iosStep2: "2. '홈 화면에 추가'를 선택하세요",
+      androidInstructions: "아래 버튼을 클릭하여 설치하세요:",
+      benefits: "설치의 장점:",
+      benefit1: "홈 화면에서 바로 접근",
+      benefit2: "오프라인에서도 작동",
+      benefit3: "더 빠른 로딩 속도",
+      benefit4: "앱과 같은 사용 경험"
     }
   }
 } as const;
