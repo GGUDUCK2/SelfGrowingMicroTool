@@ -3,6 +3,8 @@
   import { fade, slide } from "svelte/transition";
   import { db } from "$lib/db";
   import { dictionaries } from "$lib/dictionaries";
+  import { page } from "$app/stores";
+  import { goto } from "$app/navigation";
 
   export let data;
   $: lang = (data.lang as "en" | "ko") || "en";
@@ -11,43 +13,62 @@
     dictionaries.en.tools.compoundInterest;
 
   // State
-  // Initialize from URL if in browser, otherwise defaults
-  // We need to parse URL params synchronously if possible or rely on onMount to override before sync kicks in?
-  // Actually, we can check $page.url directly during init if we are careful.
-  // But $page is a store.
-
   let principal = 10000;
   let rate = 5;
   let years = 10;
   let contribution = 500;
   let inflationRate = 0;
   let compoundFrequency = 12; // 12 = Monthly, 4 = Quarterly, 1 = Annually
+  let isLoaded = false;
 
   // Validation State
   let errors: Record<string, string> = {};
 
-  // Load data from IndexedDB on mount
+  // Debounce Utility
+  function debounce(func: Function, wait: number) {
+    let timeout: ReturnType<typeof setTimeout>;
+    return function (...args: any[]) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+  }
+
+  // Load data from URL or IndexedDB on mount
   onMount(async () => {
     try {
-      const config = await db.compoundInterestConfig
-        .orderBy("updatedAt")
-        .last();
-      if (config) {
-        principal = config.principal;
-        rate = config.rate;
-        years = config.years;
-        contribution = config.contribution;
-        inflationRate = config.inflationRate ?? 0;
-        compoundFrequency = config.compoundFrequency ?? 12;
+      // 1. Try URL Params first
+      const params = $page.url.searchParams;
+      if (params.has("principal")) {
+        principal = Number(params.get("principal"));
+        rate = Number(params.get("rate"));
+        years = Number(params.get("years"));
+        contribution = Number(params.get("contribution"));
+        inflationRate = Number(params.get("inflationRate") || 0);
+        compoundFrequency = Number(params.get("compoundFrequency") || 12);
+      } else {
+        // 2. Fallback to IndexedDB
+        const config = await db.compoundInterestConfig
+          .orderBy("updatedAt")
+          .last();
+        if (config) {
+          principal = config.principal;
+          rate = config.rate;
+          years = config.years;
+          contribution = config.contribution;
+          inflationRate = config.inflationRate ?? 0;
+          compoundFrequency = config.compoundFrequency ?? 12;
+        }
       }
     } catch (error) {
-      console.error("Failed to load data from IndexedDB:", error);
+      console.error("Failed to load data:", error);
+    } finally {
+      isLoaded = true;
     }
   });
 
-  // Save data to IndexedDB whenever state changes
+  // Save data to IndexedDB
   async function saveData() {
-    if (Object.keys(errors).length > 0) return; // Don't save if there are errors
+    if (Object.keys(errors).length > 0) return;
 
     try {
       await db.compoundInterestConfig.put({
@@ -65,12 +86,37 @@
     }
   }
 
+  // Sync state to URL and DB (Debounced)
+  const syncState = debounce(async () => {
+    if (!isLoaded) return;
+    if (Object.keys(errors).length > 0) return;
+
+    // Update URL
+    const url = new URL($page.url);
+    url.searchParams.set("principal", String(principal));
+    url.searchParams.set("rate", String(rate));
+    url.searchParams.set("years", String(years));
+    url.searchParams.set("contribution", String(contribution));
+    url.searchParams.set("inflationRate", String(inflationRate));
+    url.searchParams.set("compoundFrequency", String(compoundFrequency));
+
+    await goto(url, { replaceState: true, noScroll: true, keepFocus: true });
+
+    // Save to DB
+    await saveData();
+  }, 500);
+
   $: {
-    // Trigger save when values change
-    // We put this in a reactive block but we want to debounce it slightly in a real app.
-    // For now, let's just call it.
-    if (principal && rate && years && contribution !== undefined) {
-      saveData();
+    if (
+      isLoaded &&
+      principal !== undefined &&
+      rate !== undefined &&
+      years !== undefined &&
+      contribution !== undefined &&
+      inflationRate !== undefined &&
+      compoundFrequency !== undefined
+    ) {
+      syncState();
     }
   }
 
@@ -128,37 +174,29 @@
     inflation: number,
     freq: number,
   ) {
+    // Limit years to avoid freezing
+    if (y > 100) y = 100;
+
     if (p < 0 || r < 0 || y <= 0 || c < 0 || inflation < 0) return [];
 
     let nominalBalance = p;
-    let realBalance = p;
+    // For real balance, we discount future value to present terms usually,
+    // but here we want to show "purchasing power at that future time relative to today".
+    // So Future Real Value = Future Nominal Value / (1 + inflation)^years.
+    // Yes, this is correct.
+
     const nominalRatePerPeriod = r / 100 / freq;
-    // const inflationRatePerMonth = inflation / 100 / 12; // Unused for now as we apply annually effectively
-
     const data = [];
-
-    // We simulate month by month for accuracy with monthly contributions
-    // let currentMonth = 0; // Unused
     const totalMonths = y * 12;
 
     for (let i = 1; i <= totalMonths; i++) {
       // Add contribution at the end of the month
       nominalBalance += c;
-      realBalance += c;
 
       // Apply interest based on frequency
-      // If frequency is 12 (monthly), apply every month.
-      // If frequency is 1 (annually), apply every 12 months.
       if (i % (12 / freq) === 0) {
         nominalBalance *= 1 + nominalRatePerPeriod;
       }
-
-      // Apply inflation deflation monthly for the real balance
-      // Real Balance = Nominal Balance / (1 + inflation)^years
-      // Or iteratively: Real Balance gets "eaten" by inflation.
-      // A simpler standard approach: Discount the nominal balance at the end.
-
-      // Let's stick to standard formula for Real Value: Future Value / (1 + inflationRate)^years
 
       if (i % 12 === 0) {
         const currentYear = i / 12;
@@ -210,7 +248,7 @@
   $: maxBalance =
     results.length > 0 ? results[results.length - 1].nominalBalance : 100;
 
-  // History (placeholder - no history feature yet)
+  // History (placeholder)
   let history: { id?: number; data: any; createdAt: Date }[] = [];
   function restoreHistory(_item: any) {
     /* Not implemented */
@@ -339,6 +377,9 @@
               step="0.1"
               bind:value={rate}
               class="w-full mt-2 accent-indigo-600 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              aria-label={lang === "ko"
+                ? "연 수익률 슬라이더"
+                : "Interest Rate Slider"}
             />
           </label>
           {#if errors.rate}<p class="text-red-500 text-xs mt-1">
@@ -407,6 +448,9 @@
                 max="50"
                 bind:value={years}
                 class="flex-1 accent-indigo-600 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                aria-label={lang === "ko"
+                  ? "투자 기간 슬라이더"
+                  : "Investment Years Slider"}
               />
               <span class="font-bold text-indigo-600 w-12 text-right"
                 >{years}</span
@@ -505,6 +549,10 @@
       <!-- Chart -->
       <div
         class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 min-h-[350px] relative"
+        role="img"
+        aria-label={lang === "ko"
+          ? "시간 경과에 따른 복리 성장 그래프"
+          : "Compound interest growth chart over time"}
       >
         <h3 class="text-lg font-semibold text-gray-900 mb-6">
           {lang === "ko" ? "성장 그래프" : "Growth Chart"}
@@ -514,6 +562,7 @@
           <!-- Y-axis labels -->
           <div
             class="absolute left-0 top-0 bottom-6 w-8 flex flex-col justify-between text-[10px] text-gray-400"
+            aria-hidden="true"
           >
             <span>{formatMoney(maxBalance)}</span>
             <span>{formatMoney(maxBalance / 2)}</span>
@@ -527,7 +576,6 @@
             >
               <!-- Real Value Bar (Background/Lower) -->
               <!-- We stack them visually. Real Value is always <= Nominal Value (assuming positive inflation) -->
-              <!-- Actually, to show both, we can make Real Value overlap Nominal. -->
 
               <div class="w-full flex flex-col-reverse items-end h-full">
                 <!-- Top part (Inflation gap) -->
@@ -561,6 +609,7 @@
           <!-- X-axis labels -->
           <div
             class="absolute bottom-0 left-8 right-0 flex justify-between text-xs text-gray-400 pt-2"
+            aria-hidden="true"
           >
             <span>Year 1</span>
             <span>Year {Math.round(years / 2)}</span>
