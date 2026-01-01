@@ -57,6 +57,13 @@ export const dictionaries = {
         a2: "The `backdrop-filter` CSS property lets you apply graphical effects such as blurring or color shifting to the area behind an element.",
         q3: "Is Glassmorphism supported in all browsers?",
         a3: "Most modern browsers support `backdrop-filter`. However, you may need vendor prefixes or fallbacks for older versions or specific browsers (like some versions of Firefox).",
+        history: "History",
+        save: "Save to History",
+        restore: "Restore",
+        delete: "Delete",
+        shareLink: "Share Link",
+        linkCopied: "Link Copied!",
+        clearHistory: "Clear History",
       }
     },
     pwa: {
@@ -133,6 +140,13 @@ export const dictionaries = {
         a2: "`backdrop-filter` CSS 속성은 요소 뒤 영역에 블러나 색상 변화 같은 그래픽 효과를 적용할 수 있게 해줍니다.",
         q3: "모든 브라우저에서 지원되나요?",
         a3: "대부분의 최신 브라우저는 `backdrop-filter`를 지원합니다. 하지만 구형 버전이나 특정 브라우저(일부 파이어폭스 버전 등)를 위해 벤더 접두사나 대체 스타일이 필요할 수 있습니다.",
+        history: "기록",
+        save: "기록에 저장",
+        restore: "불러오기",
+        delete: "삭제",
+        shareLink: "링크 공유",
+        linkCopied: "링크 복사됨!",
+        clearHistory: "기록 초기화",
       }
     },
     pwa: {

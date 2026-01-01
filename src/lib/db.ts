@@ -24,9 +24,20 @@ export interface CompoundInterestHistory {
   createdAt: Date;
 }
 
+export interface GlassmorphismHistory {
+  id?: number;
+  blur: number;
+  transparency: number;
+  color: string;
+  outline: number;
+  radius: number;
+  createdAt: Date;
+}
+
 class MySubClassedDexie extends Dexie {
   compoundInterestConfig!: Table<CompoundInterestConfig>;
   compoundInterestHistory!: Table<CompoundInterestHistory>;
+  glassmorphismHistory!: Table<GlassmorphismHistory>;
 
   constructor() {
     super('webFactoryDB');
@@ -36,6 +47,11 @@ class MySubClassedDexie extends Dexie {
     this.version(2).stores({
       compoundInterestConfig: '++id, updatedAt',
       compoundInterestHistory: '++id, createdAt'
+    });
+    this.version(3).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt'
     });
   }
 }

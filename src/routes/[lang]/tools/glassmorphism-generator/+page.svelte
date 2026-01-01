@@ -1,11 +1,13 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { fade, fly } from "svelte/transition";
+  import { fade, fly, slide } from "svelte/transition";
   import { dictionaries } from "$lib/dictionaries";
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
   import { debounce } from "$lib/utils";
   import FAQSection from "$lib/components/FAQSection.svelte";
+  import { db, type GlassmorphismHistory } from "$lib/db";
+  import { liveQuery } from "dexie";
 
   export let data;
   $: lang = (data.lang as "en" | "ko") || "en";
@@ -21,6 +23,7 @@
   let radius = 16;
   let isLoaded = false;
   let copied = false;
+  let linkCopied = false;
 
   // Load data from URL
   onMount(() => {
@@ -94,6 +97,48 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     }
   }
 
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      linkCopied = true;
+      setTimeout(() => (linkCopied = false), 2000);
+    } catch (err) {
+      console.error("Failed to copy link!", err);
+    }
+  }
+
+  // History
+  let history = liveQuery(() =>
+    db.glassmorphismHistory.orderBy("createdAt").reverse().toArray()
+  );
+
+  async function saveToHistory() {
+    await db.glassmorphismHistory.add({
+      blur,
+      transparency,
+      color,
+      outline,
+      radius,
+      createdAt: new Date(),
+    });
+  }
+
+  function restoreHistory(item: GlassmorphismHistory) {
+    blur = item.blur;
+    transparency = item.transparency;
+    color = item.color;
+    outline = item.outline;
+    radius = item.radius;
+  }
+
+  async function deleteHistory(id: number) {
+    await db.glassmorphismHistory.delete(id);
+  }
+
+  async function clearHistory() {
+    await db.glassmorphismHistory.clear();
+  }
+
   // FAQ Data
   $: faqItems = [
     { q: dict.q1, a: dict.a1 },
@@ -117,6 +162,19 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
+      },
+      "mainEntity": {
+        "@type": "FAQPage",
+        "mainEntity": [
+          ${faqItems.map(item => `{
+            "@type": "Question",
+            "name": "${item.q}",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "${item.a}"
+            }
+          }`).join(',')}
+        ]
       }
     }
   </script>
@@ -130,6 +188,36 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     <p class="text-gray-500 max-w-2xl mx-auto">
       {dict.description}
     </p>
+    <div class="flex justify-center">
+        <button
+          on:click={copyLink}
+          class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-share-2"
+          >
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" />
+            <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" />
+          </svg>
+          {#if linkCopied}
+            {dict.linkCopied}
+          {:else}
+            {dict.shareLink}
+          {/if}
+        </button>
+    </div>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -137,31 +225,39 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     <div
       class="lg:col-span-1 bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 h-fit space-y-6"
     >
-      <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-sliders-horizontal text-indigo-600"
+      <div class="flex justify-between items-center">
+        <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-sliders-horizontal text-indigo-600"
+            >
+            <line x1="21" x2="14" y1="4" y2="4" />
+            <line x1="10" x2="3" y1="4" y2="4" />
+            <line x1="21" x2="12" y1="12" y2="12" />
+            <line x1="8" x2="3" y1="12" y2="12" />
+            <line x1="21" x2="16" y1="20" y2="20" />
+            <line x1="12" x2="3" y1="20" y2="20" />
+            <line x1="14" y1="2" y2="6" />
+            <line x1="8" y1="10" y2="14" />
+            <line x1="16" y1="18" y2="22" />
+            </svg>
+            {dict.config}
+        </h2>
+        <button
+            on:click={saveToHistory}
+            class="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
         >
-          <line x1="21" x2="14" y1="4" y2="4" />
-          <line x1="10" x2="3" y1="4" y2="4" />
-          <line x1="21" x2="12" y1="12" y2="12" />
-          <line x1="8" x2="3" y1="12" y2="12" />
-          <line x1="21" x2="16" y1="20" y2="20" />
-          <line x1="12" x2="3" y1="20" y2="20" />
-          <line x1="14" y1="2" y2="6" />
-          <line x1="8" y1="10" y2="14" />
-          <line x1="16" y1="18" y2="22" />
-        </svg>
-        {dict.config}
-      </h2>
+            {dict.save}
+        </button>
+      </div>
 
       <div class="space-y-6">
         <div>
@@ -292,6 +388,54 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
           {/if}
         </button>
       </div>
+
+      <!-- History Section -->
+      {#if $history && $history.length > 0}
+        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-history text-indigo-600"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12"/><path d="M3 3v9h9"/><path d="M12 7v5l4 2"/></svg>
+                    {dict.history}
+                </h3>
+                <button
+                    on:click={clearHistory}
+                    class="text-sm text-red-500 hover:text-red-700 font-medium"
+                >
+                    {dict.clearHistory}
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {#each $history as item (item.id)}
+                    <div class="group relative bg-gray-50 rounded-xl p-4 border border-gray-200 hover:shadow-md transition-all">
+                        <button class="w-full text-left" on:click={() => restoreHistory(item)}>
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-4 h-4 rounded-full border border-gray-300" style="background: {item.color}; opacity: {item.transparency}"></div>
+                                <span class="text-xs text-gray-500">{new Date(item.createdAt).toLocaleString()}</span>
+                            </div>
+                            <div class="space-y-1 text-xs text-gray-600">
+                                <div class="flex justify-between">
+                                    <span>{dict.blur}:</span>
+                                    <span class="font-medium">{item.blur}px</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>{dict.transparency}:</span>
+                                    <span class="font-medium">{Math.round(item.transparency * 100)}%</span>
+                                </div>
+                            </div>
+                        </button>
+                         <button
+                            on:click|stopPropagation={() => item.id && deleteHistory(item.id)}
+                            class="absolute top-2 right-2 p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg opacity-0 group-hover:opacity-100 transition-all"
+                            aria-label={dict.delete}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                        </button>
+                    </div>
+                {/each}
+            </div>
+        </div>
+      {/if}
 
       <!-- FAQ Section -->
       <FAQSection title={dict.faqTitle} items={faqItems} />
