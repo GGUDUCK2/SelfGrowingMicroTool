@@ -4,9 +4,15 @@
   import { db } from '$lib/db';
   
   export let data;
-  $: lang = data.lang; // layout data
-  
+  $: lang = (data.lang as 'en' | 'ko') || 'en';
+  $: dict = dictionaries[lang]?.tools?.compoundInterest || dictionaries.en.tools.compoundInterest;
+
   // State
+  // Initialize from URL if in browser, otherwise defaults
+  // We need to parse URL params synchronously if possible or rely on onMount to override before sync kicks in?
+  // Actually, we can check $page.url directly during init if we are careful.
+  // But $page is a store.
+
   let principal = 10000;
   let rate = 5;
   let years = 10;
@@ -172,7 +178,7 @@
     <div class="lg:col-span-1 bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 h-fit space-y-6">
       <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sliders-horizontal text-indigo-600"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" y1="2" y2="6"/><line x1="8" y1="10" y2="14"/><line x1="16" y1="18" y2="22"/></svg>
-        {lang === 'ko' ? '설정' : 'Configuration'}
+        {dict.config}
       </h2>
       
       <div class="space-y-4">
@@ -340,6 +346,59 @@
             </div>
          </div>
        </div>
+
+       <!-- History Section -->
+       {#if history.length > 0}
+       <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100" transition:slide>
+         <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-history"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12"/><path d="M3 3v9h9"/><path d="M12 7v5l4 2"/></svg>
+           {dict.history}
+         </h3>
+         <div class="space-y-3">
+           {#each history as item (item.id)}
+             <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+               <button class="text-left cursor-pointer flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1" on:click={() => restoreHistory(item)}>
+                 <div class="font-medium text-gray-900">{formatMoney(item.data.finalBalance)}</div>
+                 <div class="text-sm text-gray-500">
+                   {formatMoney(item.data.principal)} + {formatMoney(item.data.contribution)}/mo @ {item.data.rate}%
+                 </div>
+                 <div class="text-xs text-gray-400 mt-1">{item.createdAt.toLocaleString()}</div>
+               </button>
+               <button
+                 on:click={() => item.id && deleteHistory(item.id)}
+                 class="p-2 text-gray-400 hover:text-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 rounded-full"
+                 aria-label={dict.delete}
+               >
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+               </button>
+             </div>
+           {/each}
+         </div>
+       </div>
+       {/if}
+
+       <!-- FAQ Section -->
+       <div class="bg-indigo-900 text-white p-8 rounded-2xl shadow-lg">
+         <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+           {dict.faqTitle}
+         </h3>
+         <div class="space-y-6">
+           <div>
+             <h4 class="font-semibold text-indigo-200 mb-2">{dict.q1}</h4>
+             <p class="text-indigo-100 text-sm leading-relaxed">{dict.a1}</p>
+           </div>
+           <div>
+             <h4 class="font-semibold text-indigo-200 mb-2">{dict.q2}</h4>
+             <p class="text-indigo-100 text-sm leading-relaxed">{dict.a2}</p>
+           </div>
+           <div>
+             <h4 class="font-semibold text-indigo-200 mb-2">{dict.q3}</h4>
+             <p class="text-indigo-100 text-sm leading-relaxed">{dict.a3}</p>
+           </div>
+         </div>
+       </div>
+
     </div>
   </div>
 </div>
