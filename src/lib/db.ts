@@ -1,21 +1,25 @@
 import Dexie, { type Table } from 'dexie';
 
-export interface HistoryItem {
+export interface CompoundInterestConfig {
   id?: number;
-  toolId: string;
-  data: any;
-  createdAt: Date;
+  principal: number;
+  rate: number;
+  years: number;
+  contribution: number;
+  inflationRate: number;
+  compoundFrequency: number; // 12 for monthly, 1 for annually, etc.
+  updatedAt: Date;
 }
 
-export class WebFactoryDB extends Dexie {
-  history!: Table<HistoryItem>;
+class MySubClassedDexie extends Dexie {
+  compoundInterestConfig!: Table<CompoundInterestConfig>;
 
   constructor() {
-    super('WebFactoryDB');
+    super('webFactoryDB');
     this.version(1).stores({
-      history: '++id, toolId, createdAt'
+      compoundInterestConfig: '++id, updatedAt'
     });
   }
 }
 
-export const db = new WebFactoryDB();
+export const db = new MySubClassedDexie();
