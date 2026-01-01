@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { onMount, onDestroy } from "svelte";
-  import { fade, scale } from "svelte/transition";
+  import { onDestroy } from "svelte";
   import type { PageData } from "./$types";
+  import { formatTime } from "$lib/utils";
 
   export let data: PageData;
 
@@ -35,12 +35,6 @@
     },
   };
 
-  function formatTime(seconds: number) {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-  }
-
   function toggleTimer() {
     if (isRunning) {
       clearInterval(timerInterval);
@@ -51,7 +45,7 @@
         } else {
           clearInterval(timerInterval);
           isRunning = false;
-          // 알림 소리 재생 등
+          // Play notification sound
           new Audio("/notification.mp3").play().catch(() => {});
         }
       }, 1000);
