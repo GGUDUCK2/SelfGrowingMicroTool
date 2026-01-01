@@ -28,5 +28,20 @@
     "category": "Finance",
     "tags": ["finance", "calculator", "investment", "money"],
     "createdAt": "2025-01-26"
+  },
+  {
+    "id": "glassmorphism-generator",
+    "slug": "glassmorphism-generator",
+    "title": {
+      "en": "CSS Glassmorphism Generator",
+      "ko": "CSS 글래스모피즘 생성기"
+    },
+    "description": {
+      "en": "Create beautiful glassmorphism CSS effects with a simple and intuitive generator.",
+      "ko": "직관적인 생성기로 아름다운 글래스모피즘 CSS 효과를 만들어보세요."
+    },
+    "category": "Design",
+    "tags": ["css", "generator", "design", "glassmorphism", "ui"],
+    "createdAt": "2025-01-28"
   }
 ]
