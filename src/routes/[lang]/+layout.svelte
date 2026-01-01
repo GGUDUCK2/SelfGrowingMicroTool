@@ -45,6 +45,28 @@
           class="text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors"
           >Tools</a
         >
+        <a
+          href="/{lang}/pwa"
+          class="text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors flex items-center gap-1"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-download"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" x2="12" y1="15" y2="3" />
+          </svg>
+          {lang === "ko" ? "설치" : "Install"}
+        </a>
         <div class="h-4 w-px bg-gray-200"></div>
         <div class="flex items-center gap-2">
           <a
