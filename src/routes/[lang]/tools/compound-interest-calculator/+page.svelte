@@ -1,10 +1,14 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { fade, slide } from "svelte/transition";
+  import { fade } from "svelte/transition";
   import { db } from "$lib/db";
   import { dictionaries } from "$lib/dictionaries";
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
+  import { debounce, formatMoney } from "$lib/utils";
+  import FAQSection from "$lib/components/FAQSection.svelte";
+  import GrowthChart from "$lib/components/GrowthChart.svelte";
+  import HistoryList from "$lib/components/HistoryList.svelte";
 
   export let data;
   $: lang = (data.lang as "en" | "ko") || "en";
@@ -23,15 +27,6 @@
 
   // Validation State
   let errors: Record<string, string> = {};
-
-  // Debounce Utility
-  function debounce(func: Function, wait: number) {
-    let timeout: ReturnType<typeof setTimeout>;
-    return function (...args: any[]) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(this, args), wait);
-    };
-  }
 
   // Load data from URL or IndexedDB on mount
   onMount(async () => {
@@ -211,14 +206,6 @@
     return data;
   }
 
-  function formatMoney(amount: number) {
-    return new Intl.NumberFormat(lang === "ko" ? "ko-KR" : "en-US", {
-      style: "currency",
-      currency: lang === "ko" ? "KRW" : "USD",
-      maximumFractionDigits: 0,
-    }).format(amount);
-  }
-
   function downloadCSV() {
     const headers = [
       lang === "ko" ? "연도" : "Year",
@@ -256,6 +243,13 @@
   function deleteHistory(_id: number) {
     /* Not implemented */
   }
+
+  // FAQ Data
+  $: faqItems = [
+    { q: dict.q1, a: dict.a1 },
+    { q: dict.q2, a: dict.a2 },
+    { q: dict.q3, a: dict.a3 },
+  ];
 </script>
 
 <div class="max-w-6xl mx-auto py-12 space-y-12 px-4">
@@ -502,12 +496,14 @@
               results.length > 0
                 ? results[results.length - 1].nominalBalance
                 : 0,
+              lang
             )}
           >
             {formatMoney(
               results.length > 0
                 ? results[results.length - 1].nominalBalance
                 : 0,
+              lang
             )}
           </div>
         </div>
@@ -519,9 +515,9 @@
           </div>
           <div
             class="text-lg lg:text-xl font-bold text-gray-900 truncate"
-            title={formatMoney(realValue)}
+            title={formatMoney(realValue, lang)}
           >
-            {formatMoney(realValue)}
+            {formatMoney(realValue, lang)}
           </div>
         </div>
         <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
@@ -531,7 +527,7 @@
             {lang === "ko" ? "총 투자 원금" : "Total Invested"}
           </div>
           <div class="text-lg font-bold text-gray-900 truncate">
-            {formatMoney(totalInvested)}
+            {formatMoney(totalInvested, lang)}
           </div>
         </div>
         <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
@@ -541,208 +537,30 @@
             {lang === "ko" ? "총 이자 수익" : "Total Interest"}
           </div>
           <div class="text-lg font-bold text-emerald-600 truncate">
-            +{formatMoney(totalInterest)}
+            +{formatMoney(totalInterest, lang)}
           </div>
         </div>
       </div>
 
       <!-- Chart -->
-      <div
-        class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 min-h-[350px] relative"
-        role="img"
-        aria-label={lang === "ko"
-          ? "시간 경과에 따른 복리 성장 그래프"
-          : "Compound interest growth chart over time"}
-      >
-        <h3 class="text-lg font-semibold text-gray-900 mb-6">
-          {lang === "ko" ? "성장 그래프" : "Growth Chart"}
-        </h3>
-
-        <div class="h-[250px] w-full flex items-end gap-1 relative pl-8 pb-6">
-          <!-- Y-axis labels -->
-          <div
-            class="absolute left-0 top-0 bottom-6 w-8 flex flex-col justify-between text-[10px] text-gray-400"
-            aria-hidden="true"
-          >
-            <span>{formatMoney(maxBalance)}</span>
-            <span>{formatMoney(maxBalance / 2)}</span>
-            <span>0</span>
-          </div>
-
-          {#each results as result, i}
-            <!-- Bar Group -->
-            <div
-              class="flex-1 flex flex-col justify-end gap-0 relative group h-full"
-            >
-              <!-- Real Value Bar (Background/Lower) -->
-              <!-- We stack them visually. Real Value is always <= Nominal Value (assuming positive inflation) -->
-
-              <div class="w-full flex flex-col-reverse items-end h-full">
-                <!-- Top part (Inflation gap) -->
-                <div
-                  class="w-full bg-indigo-200 hover:bg-indigo-300 transition-colors cursor-pointer rounded-t-sm"
-                  style="height: {((result.nominalBalance -
-                    result.realBalance) /
-                    maxBalance) *
-                    100}%"
-                ></div>
-                <!-- Bottom part (Real Value) -->
-                <div
-                  class="w-full bg-indigo-600 hover:bg-indigo-700 transition-colors cursor-pointer"
-                  style="height: {(result.realBalance / maxBalance) * 100}%"
-                ></div>
-              </div>
-
-              <!-- Tooltip -->
-              <div
-                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-gray-900 text-white text-xs px-3 py-2 rounded shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 pointer-events-none"
-              >
-                <div class="font-bold mb-1">Year {result.year}</div>
-                <div>Nominal: {formatMoney(result.nominalBalance)}</div>
-                <div class="text-indigo-200">
-                  Real: {formatMoney(result.realBalance)}
-                </div>
-              </div>
-            </div>
-          {/each}
-
-          <!-- X-axis labels -->
-          <div
-            class="absolute bottom-0 left-8 right-0 flex justify-between text-xs text-gray-400 pt-2"
-            aria-hidden="true"
-          >
-            <span>Year 1</span>
-            <span>Year {Math.round(years / 2)}</span>
-            <span>Year {years}</span>
-          </div>
-        </div>
-
-        <div class="flex justify-center gap-6 mt-6">
-          <div class="flex items-center gap-2 text-xs text-gray-600">
-            <div class="w-3 h-3 bg-indigo-600 rounded-sm"></div>
-            {lang === "ko" ? "실질 가치" : "Real Value"}
-          </div>
-          <div class="flex items-center gap-2 text-xs text-gray-600">
-            <div class="w-3 h-3 bg-indigo-200 rounded-sm"></div>
-            {lang === "ko" ? "인플레이션 효과" : "Inflation Effect"}
-          </div>
-        </div>
-      </div>
+      <GrowthChart {results} {maxBalance} {years} {lang} />
 
       <!-- History Section -->
       {#if history.length > 0}
-        <div
-          class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100"
-          transition:slide
-        >
-          <h3
-            class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-history"
-              ><path
-                d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12"
-              /><path d="M3 3v9h9" /><path d="M12 7v5l4 2" /></svg
-            >
-            {dict.history}
-          </h3>
-          <div class="space-y-3">
-            {#each history as item (item.id)}
-              <div
-                class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
-              >
-                <button
-                  class="text-left cursor-pointer flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1"
-                  on:click={() => restoreHistory(item)}
-                >
-                  <div class="font-medium text-gray-900">
-                    {formatMoney(item.data.finalBalance)}
-                  </div>
-                  <div class="text-sm text-gray-500">
-                    {formatMoney(item.data.principal)} + {formatMoney(
-                      item.data.contribution,
-                    )}/mo @ {item.data.rate}%
-                  </div>
-                  <div class="text-xs text-gray-400 mt-1">
-                    {item.createdAt.toLocaleString()}
-                  </div>
-                </button>
-                <button
-                  on:click={() => item.id && deleteHistory(item.id)}
-                  class="p-2 text-gray-400 hover:text-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 rounded-full"
-                  aria-label={dict.delete}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-trash-2"
-                    ><path d="M3 6h18" /><path
-                      d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"
-                    /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /><line
-                      x1="10"
-                      x2="10"
-                      y1="11"
-                      y2="17"
-                    /><line x1="14" x2="14" y1="11" y2="17" /></svg
-                  >
-                </button>
-              </div>
-            {/each}
-          </div>
+        <div transition:fade>
+          <HistoryList
+            {history}
+            {lang}
+            title={dict.history}
+            deleteLabel={dict.delete}
+            {restoreHistory}
+            {deleteHistory}
+          />
         </div>
       {/if}
 
       <!-- FAQ Section -->
-      <div class="bg-indigo-900 text-white p-8 rounded-2xl shadow-lg">
-        <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-help-circle"
-            ><circle cx="12" cy="12" r="10" /><path
-              d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-            /><path d="M12 17h.01" /></svg
-          >
-          {dict.faqTitle}
-        </h3>
-        <div class="space-y-6">
-          <div>
-            <h4 class="font-semibold text-indigo-200 mb-2">{dict.q1}</h4>
-            <p class="text-indigo-100 text-sm leading-relaxed">{dict.a1}</p>
-          </div>
-          <div>
-            <h4 class="font-semibold text-indigo-200 mb-2">{dict.q2}</h4>
-            <p class="text-indigo-100 text-sm leading-relaxed">{dict.a2}</p>
-          </div>
-          <div>
-            <h4 class="font-semibold text-indigo-200 mb-2">{dict.q3}</h4>
-            <p class="text-indigo-100 text-sm leading-relaxed">{dict.a3}</p>
-          </div>
-        </div>
-      </div>
+      <FAQSection title={dict.faqTitle} items={faqItems} />
     </div>
   </div>
 </div>
