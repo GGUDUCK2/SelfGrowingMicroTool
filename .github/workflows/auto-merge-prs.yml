@@ -74,7 +74,7 @@ jobs:
                   owner,
                   repo,
                   pull_number: pr.number,
-                  merge_method: 'squash' // 'merge', 'squash', 'rebase' 중 선택
+                  merge_method: 'merge' // 'merge', 'squash', 'rebase' 중 선택
                 });
                 
                 console.log(`✅ Successfully merged PR #${pr.number}`);
