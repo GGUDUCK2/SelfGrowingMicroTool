@@ -1,0 +1,25 @@
+
+> web-factory-svelte@0.0.1 dev
+> vite dev
+
+
+  VITE v6.4.1  ready in 1074 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+
+[1;31m[500] GET /en/tools/json-architect[0m
+TypeError: Cannot read properties of undefined (reading 'title')
+    at /app/src/routes/[lang]/tools/json-architect/+page.svelte:168:13
+    at /app/node_modules/svelte/src/internal/server/renderer.js:300:4
+    at Renderer.child (node_modules/svelte/src/internal/server/renderer.js:185:18)
+    at Renderer.title (node_modules/svelte/src/internal/server/renderer.js:298:8)
+    at eval (src/routes/[lang]/tools/json-architect/+page.svelte:203:17)
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+4:09:18 PM [vite] (client) page reload src/lib/dictionaries.ts
+4:09:18 PM [vite] (ssr) page reload src/lib/dictionaries.ts
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+
+[1;31m[404] GET /_vercel/insights/script.js[0m

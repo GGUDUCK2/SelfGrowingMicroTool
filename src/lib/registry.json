@@ -43,5 +43,20 @@
     "category": "Design",
     "tags": ["css", "generator", "design", "glassmorphism", "ui"],
     "createdAt": "2025-01-28"
+  },
+  {
+    "id": "json-architect",
+    "slug": "json-architect",
+    "title": {
+      "en": "JSON Architect: Formatter & Validator",
+      "ko": "JSON 아키텍트: 포맷터 및 검사기"
+    },
+    "description": {
+      "en": "The definitive tool to format, validate, minify, and visualize JSON. Includes TypeScript/Go conversion.",
+      "ko": "JSON 포맷, 검증, 축소 및 시각화를 위한 완벽한 도구입니다. TypeScript/Go 변환 기능을 포함합니다."
+    },
+    "category": "Developer Tools",
+    "tags": ["json", "formatter", "validator", "converter", "developer"],
+    "createdAt": "2025-01-29"
   }
 ]
