@@ -52,13 +52,56 @@ jobs:
               console.log(`\n🔄 Processing PR #${pr.number}: ${pr.title}`);
               
               try {
-                // PR이 머지 가능한지 확인
-                const { data: prDetails } = await github.rest.pulls.get({
+                // PR 상세 정보 가져오기
+                let { data: prDetails } = await github.rest.pulls.get({
                   owner,
                   repo,
                   pull_number: pr.number
                 });
                 
+                // Draft PR인 경우 Ready for Review 상태로 변경
+                if (prDetails.draft) {
+                  console.log(`📝 PR #${pr.number} is a draft. Converting to ready for review...`);
+                  
+                  try {
+                    // GraphQL mutation을 사용하여 draft 상태 해제
+                    await github.graphql(`
+                      mutation($pullRequestId: ID!) {
+                        markPullRequestReadyForReview(input: { pullRequestId: $pullRequestId }) {
+                          pullRequest {
+                            isDraft
+                          }
+                        }
+                      }
+                    `, {
+                      pullRequestId: prDetails.node_id
+                    });
+                    
+                    console.log(`✅ PR #${pr.number} is now ready for review.`);
+                    
+                    // 상태 변경 후 잠시 대기 (GitHub가 mergeable 상태를 업데이트할 시간)
+                    await new Promise(resolve => setTimeout(resolve, 3000));
+                    
+                    // PR 정보 다시 가져오기
+                    const updatedPr = await github.rest.pulls.get({
+                      owner,
+                      repo,
+                      pull_number: pr.number
+                    });
+                    prDetails = updatedPr.data;
+                    
+                  } catch (draftError) {
+                    console.log(`⚠️ Failed to convert draft PR #${pr.number}: ${draftError.message}`);
+                    results.failed.push({
+                      number: pr.number,
+                      title: pr.title,
+                      reason: `Failed to convert from draft: ${draftError.message}`
+                    });
+                    continue;
+                  }
+                }
+                
+                // PR이 머지 가능한지 확인
                 if (!prDetails.mergeable) {
                   console.log(`⚠️ PR #${pr.number} is not mergeable (conflicts or pending checks).`);
                   results.failed.push({
