@@ -43,5 +43,35 @@
     "category": "Design",
     "tags": ["css", "generator", "design", "glassmorphism", "ui"],
     "createdAt": "2025-01-28"
+  },
+  {
+    "id": "json-architect",
+    "slug": "json-architect",
+    "title": {
+      "en": "JSON Architect: Formatter & Validator",
+      "ko": "JSON 아키텍트: 포맷터 및 검사기"
+    },
+    "description": {
+      "en": "The definitive tool to format, validate, minify, and visualize JSON. Includes TypeScript/Go conversion.",
+      "ko": "JSON 포맷, 검증, 축소 및 시각화를 위한 완벽한 도구입니다. TypeScript/Go 변환 기능을 포함합니다."
+    },
+    "category": "Developer Tools",
+    "tags": ["json", "formatter", "validator", "converter", "developer"],
+    "createdAt": "2025-01-29"
+  },
+  {
+    "id": "cron-editor",
+    "slug": "cron-editor",
+    "title": {
+      "en": "Cronos: Professional Cron Editor",
+      "ko": "Cronos: 전문가용 Cron 에디터"
+    },
+    "description": {
+      "en": "The ultimate tool to build, debug, and translate Cron schedule expressions into human-readable text.",
+      "ko": "Cron 스케줄 표현식을 작성, 디버깅 및 사람이 읽을 수 있는 텍스트로 변환하는 최고의 도구입니다."
+    },
+    "category": "Developer Tools",
+    "tags": ["cron", "scheduler", "developer", "server", "linux"],
+    "createdAt": "2025-01-31"
   }
 ]

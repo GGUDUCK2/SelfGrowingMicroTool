@@ -34,10 +34,26 @@ export interface GlassmorphismHistory {
   createdAt: Date;
 }
 
+export interface JsonHistory {
+  id?: number;
+  content: string;
+  action: 'format' | 'minify' | 'validate' | 'convert';
+  createdAt: Date;
+}
+
+export interface CronHistory {
+  id?: number;
+  expression: string;
+  description: string;
+  createdAt: Date;
+}
+
 class MySubClassedDexie extends Dexie {
   compoundInterestConfig!: Table<CompoundInterestConfig>;
   compoundInterestHistory!: Table<CompoundInterestHistory>;
   glassmorphismHistory!: Table<GlassmorphismHistory>;
+  jsonHistory!: Table<JsonHistory>;
+  cronHistory!: Table<CronHistory>;
 
   constructor() {
     super('webFactoryDB');
@@ -52,6 +68,19 @@ class MySubClassedDexie extends Dexie {
       compoundInterestConfig: '++id, updatedAt',
       compoundInterestHistory: '++id, createdAt',
       glassmorphismHistory: '++id, createdAt'
+    });
+    this.version(4).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt'
+    });
+    this.version(5).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt'
     });
   }
 }
