@@ -48,12 +48,20 @@ export interface CronHistory {
   createdAt: Date;
 }
 
+export interface RegexHistory {
+  id?: number;
+  pattern: string;
+  flags: string;
+  createdAt: Date;
+}
+
 class MySubClassedDexie extends Dexie {
   compoundInterestConfig!: Table<CompoundInterestConfig>;
   compoundInterestHistory!: Table<CompoundInterestHistory>;
   glassmorphismHistory!: Table<GlassmorphismHistory>;
   jsonHistory!: Table<JsonHistory>;
   cronHistory!: Table<CronHistory>;
+  regexHistory!: Table<RegexHistory>;
 
   constructor() {
     super('webFactoryDB');
@@ -81,6 +89,14 @@ class MySubClassedDexie extends Dexie {
       glassmorphismHistory: '++id, createdAt',
       jsonHistory: '++id, createdAt',
       cronHistory: '++id, createdAt'
+    });
+    this.version(6).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt'
     });
   }
 }
