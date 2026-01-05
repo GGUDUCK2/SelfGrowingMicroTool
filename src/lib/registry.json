@@ -88,5 +88,20 @@
     "category": "Developer Tools",
     "tags": ["regex", "regexp", "tester", "developer", "debug"],
     "createdAt": "2025-02-01"
+  },
+  {
+    "id": "color-master",
+    "slug": "color-master",
+    "title": {
+      "en": "Lumina: Color & A11y Master",
+      "ko": "Lumina: 컬러 & 접근성 마스터"
+    },
+    "description": {
+      "en": "The definitive color tool for designers and developers. Generate harmonies, check accessibility, simulate vision, and export code.",
+      "ko": "디자이너와 개발자를 위한 완벽한 색상 도구입니다. 조화로운 색상을 생성하고, 접근성을 확인하며, 시각을 시뮬레이션하고 코드를 내보내세요."
+    },
+    "category": "Design",
+    "tags": ["color", "palette", "accessibility", "a11y", "design", "css"],
+    "createdAt": "2025-02-02"
   }
 ]

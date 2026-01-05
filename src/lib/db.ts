@@ -55,6 +55,13 @@ export interface RegexHistory {
   createdAt: Date;
 }
 
+export interface ColorHistory {
+  id?: number;
+  baseColor: string; // Hex
+  paletteType: string;
+  createdAt: Date;
+}
+
 class MySubClassedDexie extends Dexie {
   compoundInterestConfig!: Table<CompoundInterestConfig>;
   compoundInterestHistory!: Table<CompoundInterestHistory>;
@@ -62,6 +69,7 @@ class MySubClassedDexie extends Dexie {
   jsonHistory!: Table<JsonHistory>;
   cronHistory!: Table<CronHistory>;
   regexHistory!: Table<RegexHistory>;
+  colorHistory!: Table<ColorHistory>;
 
   constructor() {
     super('webFactoryDB');
@@ -97,6 +105,15 @@ class MySubClassedDexie extends Dexie {
       jsonHistory: '++id, createdAt',
       cronHistory: '++id, createdAt',
       regexHistory: '++id, createdAt'
+    });
+    this.version(7).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt'
     });
   }
 }
