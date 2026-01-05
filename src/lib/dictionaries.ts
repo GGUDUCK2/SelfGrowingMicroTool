@@ -133,27 +133,47 @@ export const dictionaries = {
         a2: "A standard cron expression has 5 fields: Minute, Hour, Day of Month, Month, and Day of Week.",
         q3: "Does this support non-standard characters?",
         a3: "Yes, it supports common extensions like 'L' (Last), 'W' (Weekday), and '#' (Nth weekday) where applicable.",
-        presets: "Common Presets",
-        buttons: {
-            copy: "Copy",
-            download: "Download Crontab Snippet",
-            share: "Share"
-        },
-        feedback: {
-            copied: "Copied!",
-            processing: "Processing...",
-            saved: "Saved to history",
-            downloadStarted: "Download started!"
-        },
-        shortcuts: {
-            title: "Shortcuts",
-            copy: "Copy",
-            clear: "Clear"
-        },
-        historyTitle: "History",
-        clearAll: "Clear All",
-        emptyHistory: "No history yet.",
-        loading: "Loading..."
+        presets: "Presets"
+      },
+      regexTester: {
+        title: "Regex Pro: Visual Tester & Debugger",
+        description: "Test, debug, and understand Regular Expressions with real-time highlighting.",
+        pattern: "Regular Expression",
+        flags: "Flags",
+        testString: "Test String",
+        matches: "Matches",
+        noMatches: "No matches found",
+        cheatsheet: "Cheat Sheet",
+        library: "Library",
+        history: "History",
+        save: "Save",
+        restore: "Restore",
+        delete: "Delete",
+        clear: "Clear",
+        copy: "Copy Pattern",
+        copied: "Copied!",
+        share: "Share",
+        explanation: "Explanation",
+        groups: "Capture Groups",
+        replace: "Replace",
+        replacementString: "Replacement String",
+        result: "Result",
+        error: "Invalid Regex",
+        faqTitle: "Regex Tester FAQ",
+        q1: "What is a Regular Expression?",
+        a1: "A regular expression (shortened as regex or regexp) is a sequence of characters that specifies a search pattern in text. Usually such patterns are used by string-searching algorithms for 'find' or 'find and replace' operations on strings.",
+        q2: "Which regex flavor is supported?",
+        a2: "This tool uses the JavaScript (ECMAScript) regex flavor, as it runs directly in your browser.",
+        q3: "What do the flags do?",
+        a3: "Flags modify the search behavior. 'g' (global) finds all matches, 'i' (case-insensitive) ignores case, 'm' (multiline) affects ^ and $, etc.",
+        presets: {
+          email: "Email Address",
+          url: "URL",
+          date: "Date (YYYY-MM-DD)",
+          ipv4: "IPv4 Address",
+          hex: "Hex Color",
+          slug: "URL Slug"
+        }
       }
     },
     pwa: {
@@ -306,27 +326,47 @@ export const dictionaries = {
         a2: "표준 Cron 표현식은 5개의 필드(분, 시, 일, 월, 요일)로 구성됩니다.",
         q3: "특수 문자를 지원하나요?",
         a3: "네, 'L'(마지막), 'W'(평일), '#'(N번째 요일)과 같은 일반적인 확장 기능을 지원합니다.",
-        presets: "자주 쓰는 예제",
-        buttons: {
-            copy: "복사",
-            download: "Crontab 스니펫 다운로드",
-            share: "공유"
-        },
-        feedback: {
-            copied: "복사되었습니다!",
-            processing: "처리 중...",
-            saved: "기록에 저장됨",
-            downloadStarted: "다운로드 시작!"
-        },
-        shortcuts: {
-            title: "단축키",
-            copy: "복사",
-            clear: "초기화"
-        },
-        historyTitle: "히스토리",
-        clearAll: "모두 지우기",
-        emptyHistory: "기록이 없습니다.",
-        loading: "로딩 중..."
+        presets: "프리셋"
+      },
+      regexTester: {
+        title: "Regex Pro: 정규표현식 테스터",
+        description: "실시간 하이라이팅으로 정규표현식을 테스트하고 디버깅하세요.",
+        pattern: "정규표현식",
+        flags: "플래그",
+        testString: "테스트 문자열",
+        matches: "일치 항목",
+        noMatches: "일치하는 항목이 없습니다",
+        cheatsheet: "치트 시트",
+        library: "라이브러리",
+        history: "기록",
+        save: "저장",
+        restore: "불러오기",
+        delete: "삭제",
+        clear: "초기화",
+        copy: "패턴 복사",
+        copied: "복사됨!",
+        share: "공유",
+        explanation: "설명",
+        groups: "캡처 그룹",
+        replace: "바꾸기",
+        replacementString: "바꿀 문자열",
+        result: "결과",
+        error: "유효하지 않은 정규식",
+        faqTitle: "정규표현식 FAQ",
+        q1: "정규표현식이란 무엇인가요?",
+        a1: "정규표현식(Regex 또는 Regexp)은 텍스트에서 검색 패턴을 지정하는 문자열의 순서입니다. 주로 문자열 검색 알고리즘에서 '찾기' 또는 '찾아 바꾸기' 작업에 사용됩니다.",
+        q2: "어떤 정규식 엔진을 지원하나요?",
+        a2: "이 도구는 브라우저에서 직접 실행되므로 JavaScript (ECMAScript) 정규식 엔진을 사용합니다.",
+        q3: "플래그는 무엇을 하나요?",
+        a3: "플래그는 검색 동작을 수정합니다. 'g'(전역)는 모든 일치 항목을 찾고, 'i'(대소문자 무시)는 대소문자를 구분하지 않으며, 'm'(멀티라인)은 ^와 $의 동작에 영향을 줍니다.",
+        presets: {
+          email: "이메일 주소",
+          url: "URL",
+          date: "날짜 (YYYY-MM-DD)",
+          ipv4: "IPv4 주소",
+          hex: "Hex 색상",
+          slug: "URL 슬러그"
+        }
       }
     },
     pwa: {
