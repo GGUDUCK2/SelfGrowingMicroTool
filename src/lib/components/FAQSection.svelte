@@ -3,7 +3,7 @@
   export let items: { q: string; a: string }[];
 </script>
 
-<div class="bg-indigo-900 text-white p-8 rounded-2xl shadow-lg">
+<div class="bg-indigo-900 text-white p-6 md:p-8 rounded-2xl shadow-lg">
   <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
     <svg
       xmlns="http://www.w3.org/2000/svg"

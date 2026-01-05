@@ -34,7 +34,7 @@
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="lucide lucide-zap sm:w-5 sm:h-5"
+            class="lucide lucide-zap w-5 h-5 sm:w-6 sm:h-6"
             ><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg
           >
         </div>

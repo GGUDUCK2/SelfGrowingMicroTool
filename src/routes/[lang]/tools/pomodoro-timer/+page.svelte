@@ -84,7 +84,7 @@
   </div>
 
   <div
-    class="bg-white rounded-3xl shadow-xl border border-gray-100 p-12 space-y-12 relative overflow-hidden"
+    class="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 md:p-12 space-y-12 relative overflow-hidden"
   >
     <!-- Background Decor -->
     <div

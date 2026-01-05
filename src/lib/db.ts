@@ -125,11 +125,13 @@ class MySubClassedDexie extends Dexie {
       regexHistory: '++id, createdAt',
       colorHistory: '++id, createdAt, starred'
     }).upgrade(tx => {
-       return tx.table('colorHistory').toCollection().modify(item => {
-          item.starred = 0;
-       });
+      return tx.table('colorHistory').toCollection().modify(item => {
+        item.starred = 0;
+      });
     });
   }
 }
 
-export const db = new MySubClassedDexie();
+import { browser } from '$app/environment';
+
+export const db = (browser ? new MySubClassedDexie() : {}) as MySubClassedDexie;

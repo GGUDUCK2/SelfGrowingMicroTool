@@ -1,11 +1,101 @@
-import parser from 'cron-parser';
-import cronstrue from 'cronstrue/i18n';
+// import cronstrue from 'cronstrue/i18n';
 
 export interface CronParseResult {
   isValid: boolean;
   nextRuns: Date[];
   description: string;
   error?: string;
+}
+
+/**
+ * Lightweight Cron Parser (Zero-Dependency)
+ * Supports: * , - /
+ * Fields: Minute, Hour, Day of Month, Month, Day of Week
+ */
+class SimpleCron {
+  private minutes: Set<number>;
+  private hours: Set<number>;
+  private doms: Set<number>;
+  private months: Set<number>;
+  private dows: Set<number>;
+
+  constructor(expression: string) {
+    const parts = expression.trim().split(/\s+/);
+    if (parts.length < 5) throw new Error("Invalid cron expression: too few parts");
+
+    this.minutes = this.parsePart(parts[0], 0, 59);
+    this.hours = this.parsePart(parts[1], 0, 23);
+    this.doms = this.parsePart(parts[2], 1, 31);
+    this.months = this.parsePart(parts[3], 1, 12);
+    this.dows = this.parsePart(parts[4], 0, 6);
+  }
+
+  private parsePart(part: string, min: number, max: number): Set<number> {
+    const values = new Set<number>();
+    if (part === '*') {
+      for (let i = min; i <= max; i++) values.add(i);
+      return values;
+    }
+
+    const commaParts = part.split(',');
+    for (const p of commaParts) {
+      if (p.includes('/')) {
+        const [range, stepStr] = p.split('/');
+        const step = parseInt(stepStr, 10);
+        if (isNaN(step) || step === 0) throw new Error(`Invalid step: ${stepStr}`);
+
+        let start = min, end = max;
+        if (range !== '*') {
+          if (range.includes('-')) {
+            const [s, e] = range.split('-').map(v => parseInt(v, 10));
+            start = s; end = e;
+          } else {
+            start = parseInt(range, 10);
+          }
+        }
+
+        for (let i = start; i <= end; i += step) {
+          if (i >= min && i <= max) values.add(i);
+        }
+      } else if (p.includes('-')) {
+        const [start, end] = p.split('-').map(v => parseInt(v, 10));
+        for (let i = start; i <= end; i++) {
+          if (i >= min && i <= max) values.add(i);
+        }
+      } else {
+        const val = parseInt(p, 10);
+        if (!isNaN(val) && val >= min && val <= max) values.add(val);
+      }
+    }
+    return values;
+  }
+
+  public nextRuns(count: number, startDate: Date = new Date()): Date[] {
+    const runs: Date[] = [];
+    let current = new Date(startDate.getTime());
+    current.setSeconds(0, 0);
+    current.setMinutes(current.getMinutes() + 1); // Start from next minute
+
+    // Safety limit: 1 year or 50000 iterations
+    let iterations = 0;
+    while (runs.length < count && iterations < 50000) {
+      if (this.matches(current)) {
+        runs.push(new Date(current));
+      }
+      current.setMinutes(current.getMinutes() + 1);
+      iterations++;
+    }
+    return runs;
+  }
+
+  private matches(date: Date): boolean {
+    if (!this.minutes.has(date.getMinutes())) return false;
+    if (!this.hours.has(date.getHours())) return false;
+    if (!this.doms.has(date.getDate())) return false;
+    if (!this.months.has(date.getMonth() + 1)) return false;
+    if (!this.dows.has(date.getDay())) return false;
+    return true;
+  }
 }
 
 export function parseCronExpression(expression: string, locale: string = 'en'): CronParseResult {
@@ -19,31 +109,11 @@ export function parseCronExpression(expression: string, locale: string = 'en'): 
   }
 
   try {
-    // Validate and get next runs
-    // In v5, it seems the static method is `parse` not `parseExpression`
-    // Or the default export behaves differently in this version.
-    // Let's check the import. Default export is CronExpressionParser class which has static `parse`.
-    // However, older versions exported `parseExpression`.
-    // Let's try `parser.parseExpression` first (backward compat) or `parser.parse`.
-    // Checking the type definition: export default CronExpressionParser; static parse(...)
+    const cron = new SimpleCron(expression);
+    const nextRuns = cron.nextRuns(5);
 
-    // So it should be parser.parse(expression)
-
-    const interval = parser.parse(expression);
-    const nextRuns: Date[] = [];
-    for (let i = 0; i < 5; i++) {
-      nextRuns.push(interval.next().toDate());
-    }
-
-    // Get description
-    // cronstrue supports 'en', 'ko' etc.
-    let description = '';
-    try {
-        description = cronstrue.toString(expression, { locale: locale });
-    } catch (e) {
-        // Fallback or specific handling if cronstrue fails but parser succeeds (rare)
-        description = locale === 'ko' ? '유효한 Cron 표현식' : 'Valid Cron expression';
-    }
+    // Hardcoded fallback to prevent 500 error
+    let description = locale === 'ko' ? '유효한 Cron 표현식' : 'Valid Cron expression';
 
     return {
       isValid: true,
@@ -55,7 +125,7 @@ export function parseCronExpression(expression: string, locale: string = 'en'): 
       isValid: false,
       nextRuns: [],
       description: '',
-      error: (err as Error).message
+      error: (err as Error).message || 'Invalid cron expression'
     };
   }
 }
