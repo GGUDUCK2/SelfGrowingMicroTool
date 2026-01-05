@@ -234,7 +234,15 @@ export const dictionaries = {
         blackText: "Black Text",
         onSelection: "on Selection",
         recentPalettes: "Recent Palettes",
-        noHistory: "No recent history"
+        starredPalettes: "Starred Palettes",
+        noHistory: "No recent history",
+        inspire: "Inspire Me",
+        shortcuts: "Shortcuts",
+        shortcutsHelp: "Keyboard Shortcuts",
+        press: "Press",
+        random: "Randomize",
+        copyHex: "Copy Hex",
+        reset: "Reset"
       }
     },
     pwa: {
@@ -488,7 +496,15 @@ export const dictionaries = {
         blackText: "검은색 텍스트",
         onSelection: "선택한 색상 위",
         recentPalettes: "최근 팔레트",
-        noHistory: "최근 기록이 없습니다"
+        starredPalettes: "즐겨찾기",
+        noHistory: "최근 기록이 없습니다",
+        inspire: "영감 얻기",
+        shortcuts: "단축키",
+        shortcutsHelp: "키보드 단축키",
+        press: "누르기",
+        random: "무작위 색상",
+        copyHex: "Hex 복사",
+        reset: "초기화"
       }
     },
     pwa: {

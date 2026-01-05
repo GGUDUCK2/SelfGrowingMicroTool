@@ -41,6 +41,10 @@ ${palette.map((c, i) => `$color-harmony-${i + 1}: ${c.hex};`).join('\n')}`;
     }, null, 2);
   }
 
+  function generateUrl() {
+    return window.location.href;
+  }
+
   function copyCode(generator: () => string, mode: string) {
     const code = generator();
     navigator.clipboard.writeText(code);
@@ -52,7 +56,7 @@ ${palette.map((c, i) => `$color-harmony-${i + 1}: ${c.hex};`).join('\n')}`;
 <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
   <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t.export}</h3>
 
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+  <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
     <button
       class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none"
       on:click={() => copyCode(generateCSS, 'CSS')}
@@ -83,6 +87,14 @@ ${palette.map((c, i) => `$color-harmony-${i + 1}: ${c.hex};`).join('\n')}`;
     >
       <span class="font-bold text-amber-500">JSON</span>
       <span class="text-xs text-slate-500 mt-1">{copiedMode === 'JSON' ? t.copied : 'Object'}</span>
+    </button>
+
+    <button
+      class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+      on:click={() => copyCode(generateUrl, 'URL')}
+    >
+      <span class="font-bold text-indigo-500">URL</span>
+      <span class="text-xs text-slate-500 mt-1">{copiedMode === 'URL' ? t.copied : 'Share Link'}</span>
     </button>
   </div>
 </div>
