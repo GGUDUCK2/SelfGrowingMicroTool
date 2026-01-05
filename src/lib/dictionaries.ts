@@ -133,7 +133,27 @@ export const dictionaries = {
         a2: "A standard cron expression has 5 fields: Minute, Hour, Day of Month, Month, and Day of Week.",
         q3: "Does this support non-standard characters?",
         a3: "Yes, it supports common extensions like 'L' (Last), 'W' (Weekday), and '#' (Nth weekday) where applicable.",
-        presets: "Presets"
+        presets: "Common Presets",
+        buttons: {
+            copy: "Copy",
+            download: "Download Crontab Snippet",
+            share: "Share"
+        },
+        feedback: {
+            copied: "Copied!",
+            processing: "Processing...",
+            saved: "Saved to history",
+            downloadStarted: "Download started!"
+        },
+        shortcuts: {
+            title: "Shortcuts",
+            copy: "Copy",
+            clear: "Clear"
+        },
+        historyTitle: "History",
+        clearAll: "Clear All",
+        emptyHistory: "No history yet.",
+        loading: "Loading..."
       }
     },
     pwa: {
@@ -286,7 +306,27 @@ export const dictionaries = {
         a2: "표준 Cron 표현식은 5개의 필드(분, 시, 일, 월, 요일)로 구성됩니다.",
         q3: "특수 문자를 지원하나요?",
         a3: "네, 'L'(마지막), 'W'(평일), '#'(N번째 요일)과 같은 일반적인 확장 기능을 지원합니다.",
-        presets: "프리셋"
+        presets: "자주 쓰는 예제",
+        buttons: {
+            copy: "복사",
+            download: "Crontab 스니펫 다운로드",
+            share: "공유"
+        },
+        feedback: {
+            copied: "복사되었습니다!",
+            processing: "처리 중...",
+            saved: "기록에 저장됨",
+            downloadStarted: "다운로드 시작!"
+        },
+        shortcuts: {
+            title: "단축키",
+            copy: "복사",
+            clear: "초기화"
+        },
+        historyTitle: "히스토리",
+        clearAll: "모두 지우기",
+        emptyHistory: "기록이 없습니다.",
+        loading: "로딩 중..."
       }
     },
     pwa: {

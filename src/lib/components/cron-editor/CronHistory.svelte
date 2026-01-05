@@ -1,73 +1,81 @@
 <script lang="ts">
   import { liveQuery } from 'dexie';
-  import { db, type CronHistory } from '$lib/db';
+  import { db, type CronHistory as CronHistoryType } from '$lib/db';
   import { slide } from 'svelte/transition';
-  import { browser } from '$app/environment';
+  import { getDictionary } from '$lib/dictionaries';
 
-  export let onSelect: (expression: string) => void;
   export let lang: string = 'en';
+  export let onSelect: (expression: string) => void;
+
+  $: dict = getDictionary(lang).tools.cronEditor;
 
   let history = liveQuery(async () => {
-    if (!browser) return [];
-    return await db.cronHistory.orderBy('createdAt').reverse().limit(10).toArray();
+    return await db.cronHistory
+      .orderBy('createdAt')
+      .reverse()
+      .limit(20)
+      .toArray();
   });
 
   async function deleteItem(id: number) {
-    await db.cronHistory.delete(id);
+    if (id) await db.cronHistory.delete(id);
+  }
+
+  async function clearHistory() {
+    await db.cronHistory.clear();
   }
 
   function formatDate(date: Date) {
-     if (lang === 'ko') {
-        return new Intl.DateTimeFormat('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(date);
-     }
-     return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(date);
+      return new Intl.DateTimeFormat(lang === 'ko' ? 'ko-KR' : 'en-US', {
+          month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+      }).format(date);
   }
 </script>
 
-<div class="mt-8">
-  <h3 class="mb-4 text-lg font-semibold text-white">
-    {lang === 'ko' ? '최근 기록' : 'Recent History'}
-  </h3>
+<div class="bg-white/5 border border-white/10 rounded-xl p-6 min-h-[200px]">
+  <div class="flex items-center justify-between mb-4">
+    <h3 class="text-lg font-semibold text-white">
+      {dict.historyTitle}
+    </h3>
+    {#if $history && $history.length > 0}
+      <button
+        class="text-xs text-red-400 hover:text-red-300 transition-colors"
+        on:click={clearHistory}
+      >
+        {dict.clearAll}
+      </button>
+    {/if}
+  </div>
 
-  {#if $history}
-    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+  {#if !$history}
+    <p class="text-gray-500 text-sm animate-pulse">{dict.loading}</p>
+  {:else if $history.length === 0}
+    <p class="text-gray-500 text-sm">{dict.emptyHistory}</p>
+  {:else}
+    <div class="space-y-2 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
       {#each $history as item (item.id)}
-        <div
-          class="group relative flex flex-col justify-between rounded-lg border border-white/10 bg-white/5 p-4 transition-all hover:bg-white/10 hover:shadow-lg hover:border-indigo-500/30"
-          in:slide
-        >
+        <div class="group flex items-center justify-between p-3 rounded-lg bg-black/20 hover:bg-black/40 border border-white/5 hover:border-white/10 transition-all" transition:slide>
           <button
             class="flex-1 text-left"
             on:click={() => onSelect(item.expression)}
           >
-            <div class="mb-2 font-mono text-lg font-bold text-indigo-400">
-              {item.expression}
-            </div>
-            <div class="text-sm text-gray-300 line-clamp-2">
-              {item.description}
-            </div>
-            <div class="mt-2 text-xs text-gray-500">
-              {formatDate(item.createdAt)}
-            </div>
+             <div class="flex items-center space-x-2">
+                 <span class="font-mono text-indigo-300 font-medium">{item.expression}</span>
+                 <span class="text-xs text-gray-500">{formatDate(item.createdAt)}</span>
+             </div>
+             <p class="text-xs text-gray-400 mt-1 truncate max-w-[200px] lg:max-w-[300px]">
+                 {item.description}
+             </p>
           </button>
-
           <button
-            on:click|stopPropagation={() => item.id && deleteItem(item.id)}
-            class="absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100 p-1 text-gray-400 hover:text-red-400"
+            class="p-1.5 text-gray-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all rounded hover:bg-white/5"
             aria-label="Delete"
+            on:click={() => item.id && deleteItem(item.id)}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
           </button>
         </div>
       {/each}
-
-      {#if $history.length === 0}
-        <div class="col-span-full py-8 text-center text-gray-500 italic">
-          {lang === 'ko' ? '저장된 기록이 없습니다.' : 'No history yet.'}
-        </div>
-      {/if}
     </div>
-  {:else}
-    <div class="py-8 text-center text-gray-500">Loading...</div>
   {/if}
 </div>
