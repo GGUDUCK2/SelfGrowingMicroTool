@@ -29,6 +29,7 @@
     "type": "module",
     "dependencies": {
         "@types/prismjs": "^1.26.5",
+        "colord": "^2.9.3",
         "cron-parser": "^5.4.0",
         "cronstrue": "^3.9.0",
         "dexie": "^4.2.1",
