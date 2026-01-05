@@ -1,0 +1,64 @@
+<script lang="ts">
+  import { getContrast, type ColorData } from './color-utils';
+  import { dictionaries } from '$lib/dictionaries';
+
+  type T = typeof dictionaries.en.tools.colorMaster;
+  export let colors: ColorData[];
+  export let t: T;
+
+  function getRating(ratio: number) {
+    if (ratio >= 7) return 'AAA';
+    if (ratio >= 4.5) return 'AA';
+    if (ratio >= 3) return 'AA+'; // Large text
+    return 'Fail';
+  }
+
+  function getRatingColor(rating: string) {
+    switch (rating) {
+      case 'AAA': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300';
+      case 'AA': return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300';
+      case 'AA+': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300';
+      default: return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300';
+    }
+  }
+</script>
+
+<div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+  <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t.contrastGrid.title || 'Contrast Grid'}</h3>
+
+  <div class="overflow-x-auto">
+    <table class="w-full text-center border-collapse">
+      <thead>
+        <tr>
+          <th class="p-2 border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900"></th>
+          {#each colors as color}
+            <th class="p-2 border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 min-w-[60px]">
+              <div class="w-6 h-6 rounded-full mx-auto border border-slate-200 dark:border-slate-600" style="background-color: {color.hex}"></div>
+            </th>
+          {/each}
+        </tr>
+      </thead>
+      <tbody>
+        {#each colors as rowColor}
+          <tr>
+            <th class="p-2 border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+              <div class="w-6 h-6 rounded-full mx-auto border border-slate-200 dark:border-slate-600" style="background-color: {rowColor.hex}"></div>
+            </th>
+            {#each colors as colColor}
+              {@const ratio = getContrast(rowColor.hex, colColor.hex)}
+              {@const rating = getRating(ratio)}
+              <td class="p-2 border border-slate-100 dark:border-slate-700">
+                <div class="flex flex-col items-center">
+                  <span class="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">{ratio.toFixed(1)}</span>
+                  {#if rowColor.hex !== colColor.hex}
+                    <span class="text-[10px] px-1.5 py-0.5 rounded-full font-bold {getRatingColor(rating)}">{rating}</span>
+                  {/if}
+                </div>
+              </td>
+            {/each}
+          </tr>
+        {/each}
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -225,7 +225,7 @@ export const dictionaries = {
           technicalTitle: "Technical Deep Dive",
           tech1: "Lumina operates entirely on the client-side using the `colord` library for manipulation. This ensures zero latency and absolute privacy.",
           tech2: "All calculations are performed in the HSL (Hue, Saturation, Lightness) space, which provides more intuitive results for human perception compared to RGB.",
-          tech3: "The application leverages Svelte's reactive stores and IndexedDB (via Dexie.js) to provide a persistent, app-like experience without a backend."
+          tech3: "The application leverages Svelte's reactive stores and IndexedDB (Dexie.js) to provide a persistent, app-like experience without a backend."
         },
         asTextColor: "As Text Color",
         asBackground: "As Background",
@@ -249,6 +249,13 @@ export const dictionaries = {
           inputs: "Inputs",
           primaryButton: "Primary Action",
           secondaryButton: "Secondary Action"
+        },
+        imageExtraction: {
+          title: "Extract from Image",
+          dragDrop: "Drag & drop or click to upload"
+        },
+        contrastGrid: {
+          title: "Contrast Matrix"
         }
       }
     },
@@ -518,6 +525,13 @@ export const dictionaries = {
           inputs: "입력창",
           primaryButton: "주요 동작",
           secondaryButton: "보조 동작"
+        },
+        imageExtraction: {
+          title: "이미지에서 추출",
+          dragDrop: "이미지를 드래그 앤 드롭하거나 클릭하여 업로드하세요"
+        },
+        contrastGrid: {
+          title: "대조 매트릭스"
         }
       }
     },

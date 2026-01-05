@@ -2,13 +2,24 @@
 > web-factory-svelte@0.0.1 dev
 > vite dev
 
-12:08:28 PM [vite] (client) Forced re-optimization of dependencies
+8:06:41 PM [vite] (client) Forced re-optimization of dependencies
 
-  VITE v6.4.1  ready in 1111 ms
+  VITE v6.4.1  ready in 1194 ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
+8:11:55 PM [vite] (client) hmr update /src/lib/components/color-master/ImageExtractor.svelte, /src/app.css
+8:11:55 PM [vite] (ssr) page reload src/lib/components/color-master/ImageExtractor.svelte
+8:12:05 PM [vite] (client) hmr update /src/lib/components/color-master/ContrastGrid.svelte, /src/app.css
+8:12:05 PM [vite] (ssr) page reload src/lib/components/color-master/ContrastGrid.svelte
+8:12:17 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+8:12:17 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+8:12:17 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/2.js
+8:12:17 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
+8:12:17 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
+8:12:17 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+8:12:17 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+8:12:17 PM [vite] (client) page reload .svelte-kit/generated/root.js
+8:12:17 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
