@@ -12,6 +12,8 @@
   import UIPreview from '$lib/components/color-master/UIPreview.svelte';
   import ExportPanel from '$lib/components/color-master/ExportPanel.svelte';
   import HistoryPanel from '$lib/components/color-master/HistoryPanel.svelte';
+  import ImageExtractor from '$lib/components/color-master/ImageExtractor.svelte';
+  import ContrastGrid from '$lib/components/color-master/ContrastGrid.svelte';
   import { getDictionary } from '$lib/dictionaries';
 
   // --- Props ---
@@ -174,7 +176,9 @@
         "Algorithmic Harmony Generation",
         "Real-time WCAG Accessibility Checking",
         "Color Blindness Vision Simulation",
-        "Code Export (CSS, Tailwind, SCSS, JSON)"
+        "Code Export (CSS, Tailwind, SCSS, JSON)",
+        "Image Color Extraction",
+        "Contrast Matrix Grid"
       ]
     }
   </script>
@@ -313,6 +317,13 @@
         {/if}
       </div>
 
+      <!-- New Feature: Image Extractor -->
+      <ImageExtractor {t} on:colorSelected={(e) => {
+        baseColor = e.detail;
+        updateUrl();
+        saveToHistory();
+      }} />
+
       <HistoryPanel {t} on:load={loadHistory} />
     </div>
 
@@ -323,6 +334,9 @@
       <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
         <PaletteDisplay colors={displayedHarmonies} {t} title="{t.harmonies[harmonyType]} Palette" />
       </div>
+
+      <!-- New Feature: Contrast Grid -->
+      <ContrastGrid colors={displayedHarmonies} {t} />
 
       <A11yChecker color={displayedBaseColor} {t} />
 
