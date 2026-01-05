@@ -107,3 +107,29 @@ export const simulateVision = (colorHex: string, type: keyof typeof simMatrices)
 
   return colord({ r, g, b }).toHex();
 };
+
+export const suggestPassingColor = (textColor: string, bgColor: string, level: 'AA' | 'AAA' = 'AA'): string | null => {
+  const bg = colord(bgColor);
+  let text = colord(textColor);
+  const isLight = text.isLight();
+
+  // Limit iterations to prevent infinite loops
+  for (let i = 0; i < 100; i++) {
+    if (text.isReadable(bg, { level })) {
+      return text.toHex();
+    }
+    // Shift luminance
+    text = isLight ? text.lighten(0.01) : text.darken(0.01);
+  }
+
+  // Try the other direction if failed
+  text = colord(textColor);
+  for (let i = 0; i < 100; i++) {
+    if (text.isReadable(bg, { level })) {
+      return text.toHex();
+    }
+    text = isLight ? text.darken(0.01) : text.lighten(0.01);
+  }
+
+  return null;
+};

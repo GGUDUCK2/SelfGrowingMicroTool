@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getReadability } from './color-utils';
+  import { getReadability, suggestPassingColor } from './color-utils';
 
   export let color = '#000000'; // The selected color
   export let t: any; // Dictionary
@@ -11,6 +11,10 @@
   // We also check White and Black text ON the selected color
   $: whiteOnColor = getReadability('#ffffff', color);
   $: blackOnColor = getReadability('#000000', color);
+
+  // Suggestions
+  $: whiteSuggestion = whiteOnColor.level === 'Fail' ? suggestPassingColor('#ffffff', color) : null;
+  $: blackSuggestion = blackOnColor.level === 'Fail' ? suggestPassingColor('#000000', color) : null;
 </script>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -70,8 +74,13 @@
           <div class="text-2xl font-bold text-white drop-shadow-md">
             {whiteOnColor.contrast.toFixed(2)}
           </div>
-          <div class="flex gap-1 justify-end mt-1">
+          <div class="flex flex-col items-end mt-1">
             <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-white/20 text-white backdrop-blur-sm">AA: {whiteOnColor.level}</span>
+            {#if whiteSuggestion}
+              <div class="mt-1 text-[10px] text-white/80 text-right">
+                Try: <span class="font-mono font-bold select-all">{whiteSuggestion}</span>
+              </div>
+            {/if}
           </div>
         </div>
       </div>
@@ -86,8 +95,13 @@
           <div class="text-2xl font-bold text-black drop-shadow-md">
             {blackOnColor.contrast.toFixed(2)}
           </div>
-          <div class="flex gap-1 justify-end mt-1">
+          <div class="flex flex-col items-end mt-1">
             <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-black/10 text-black backdrop-blur-sm">AA: {blackOnColor.level}</span>
+            {#if blackSuggestion}
+              <div class="mt-1 text-[10px] text-black/70 text-right">
+                Try: <span class="font-mono font-bold select-all">{blackSuggestion}</span>
+              </div>
+            {/if}
           </div>
         </div>
       </div>

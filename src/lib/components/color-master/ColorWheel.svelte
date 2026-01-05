@@ -1,9 +1,10 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte';
   import { colord } from 'colord';
+  import type { ToolDictionary } from '$lib/types/color-master';
 
   export let color = '#6366f1'; // Default Indigo
-  export let t: any; // Dictionary
+  export let t: any;
 
   const dispatch = createEventDispatcher();
 

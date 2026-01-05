@@ -242,7 +242,14 @@ export const dictionaries = {
         press: "Press",
         random: "Randomize",
         copyHex: "Copy Hex",
-        reset: "Reset"
+        reset: "Reset",
+        uiPreview: {
+          title: "UI Component Preview",
+          buttons: "Buttons",
+          inputs: "Inputs",
+          primaryButton: "Primary Action",
+          secondaryButton: "Secondary Action"
+        }
       }
     },
     pwa: {
@@ -504,7 +511,14 @@ export const dictionaries = {
         press: "누르기",
         random: "무작위 색상",
         copyHex: "Hex 복사",
-        reset: "초기화"
+        reset: "초기화",
+        uiPreview: {
+          title: "UI 컴포넌트 미리보기",
+          buttons: "버튼",
+          inputs: "입력창",
+          primaryButton: "주요 동작",
+          secondaryButton: "보조 동작"
+        }
       }
     },
     pwa: {
