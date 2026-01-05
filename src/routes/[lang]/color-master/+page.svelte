@@ -9,6 +9,7 @@
   import ColorWheel from '$lib/components/color-master/ColorWheel.svelte';
   import PaletteDisplay from '$lib/components/color-master/PaletteDisplay.svelte';
   import A11yChecker from '$lib/components/color-master/A11yChecker.svelte';
+  import UIPreview from '$lib/components/color-master/UIPreview.svelte';
   import ExportPanel from '$lib/components/color-master/ExportPanel.svelte';
   import HistoryPanel from '$lib/components/color-master/HistoryPanel.svelte';
   import { getDictionary } from '$lib/dictionaries';
@@ -63,7 +64,7 @@
   }
 
   // Debounced Save
-  let saveTimeout: NodeJS.Timeout;
+  let saveTimeout: ReturnType<typeof setTimeout>;
   function handleColorChange(e: CustomEvent<string>) {
     baseColor = e.detail;
     updateUrl();
@@ -109,7 +110,7 @@
     }
   }
 
-  function loadHistory(e: CustomEvent<any>) {
+  function loadHistory(e: CustomEvent<{ baseColor: string; paletteType: typeof harmonyType }>) {
     baseColor = e.detail.baseColor;
     harmonyType = e.detail.paletteType;
     updateUrl();
@@ -324,6 +325,8 @@
       </div>
 
       <A11yChecker color={displayedBaseColor} {t} />
+
+      <UIPreview primaryColor={displayedBaseColor} {t} />
 
       <ExportPanel baseColor={baseColor} palette={harmonies} {t} />
 
