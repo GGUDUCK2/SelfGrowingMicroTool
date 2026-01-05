@@ -60,6 +60,7 @@ export interface ColorHistory {
   baseColor: string; // Hex
   paletteType: string;
   createdAt: Date;
+  starred?: number; // 0 or 1, using number for Dexie ease of indexing if needed
 }
 
 class MySubClassedDexie extends Dexie {
@@ -114,6 +115,19 @@ class MySubClassedDexie extends Dexie {
       cronHistory: '++id, createdAt',
       regexHistory: '++id, createdAt',
       colorHistory: '++id, createdAt'
+    });
+    this.version(8).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred'
+    }).upgrade(tx => {
+       return tx.table('colorHistory').toCollection().modify(item => {
+          item.starred = 0;
+       });
     });
   }
 }
