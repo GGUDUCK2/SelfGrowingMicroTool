@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { colord } from 'colord';
-  import type { ColorData } from './color-utils';
+  import type { ColorData } from '$lib/types/color-master';
   import type { ColorMasterDictionary } from '$lib/types/color-master';
 
   export let palette: ColorData[] = [];
