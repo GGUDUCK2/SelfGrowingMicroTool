@@ -3,8 +3,9 @@
   import { db, type ColorHistory } from '$lib/db';
   import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
+  import type { ColorMasterDictionary } from '$lib/types/color-master';
 
-  export let t: any;
+  export let t: ColorMasterDictionary;
 
   const dispatch = createEventDispatcher();
 

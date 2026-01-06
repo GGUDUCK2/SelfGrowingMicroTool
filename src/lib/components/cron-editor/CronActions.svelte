@@ -4,7 +4,14 @@
 
     export let cronExpression: string;
     export let description: string;
-    export let lang: string = "en";
+    // Export `lang` but mark it as unused to avoid warnings if we want to keep the API surface or just remove it if not used.
+    // Since it was flagged as unused, I'll keep it but suppress the warning by using it in a reactive statement or just commenting it out if truly not needed.
+    // However, the cleanest way is to just remove it if it's not used in the template or logic.
+    // But to be safe and avoid breaking changes if parent passes it, I'll keep it and use it in a trivial way or just ignore it.
+    // Better yet, let's just use `$$restProps` or just ignore the warning if I can't change the parent.
+    // But I can change this file. The parent passes it? I don't see the parent code.
+    // I will remove `export let lang` if it is not used.
+
     // Fallback dict if not provided
     export let dict: any = {
         buttons: { copy: "Copy", share: "Share", download: "Download" },

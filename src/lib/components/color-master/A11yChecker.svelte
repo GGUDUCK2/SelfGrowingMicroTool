@@ -1,8 +1,9 @@
 <script lang="ts">
   import { getReadability, suggestPassingColor } from './color-utils';
+  import type { ColorMasterDictionary } from '$lib/types/color-master';
 
   export let color = '#000000'; // The selected color
-  export let t: any; // Dictionary
+  export let t: ColorMasterDictionary;
 
   // We check the selected color against White and Black backgrounds
   $: onWhite = getReadability(color, '#ffffff');
