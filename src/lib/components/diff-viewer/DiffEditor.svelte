@@ -1,17 +1,22 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, createEventDispatcher } from 'svelte';
 
   export let value = '';
   export let placeholder = '';
   export let label = '';
   export let readonly = false;
 
+  const dispatch = createEventDispatcher();
+
   let textarea: HTMLTextAreaElement;
   let lineNumbers: HTMLDivElement;
+  let isScrolling = false;
 
   function updateLineNumbers() {
     if (!textarea || !lineNumbers) return;
     const lines = value.split('\n').length;
+    // Optimize: only update if line count changed to avoid DOM thrashing,
+    // though here simplified.
     lineNumbers.innerHTML = Array(lines).fill(0).map((_, i) => `<div>${i + 1}</div>`).join('');
   }
 
@@ -19,18 +24,20 @@
     if (lineNumbers && textarea) {
       lineNumbers.scrollTop = textarea.scrollTop;
     }
-    dispatchScroll();
-  }
-
-  function dispatchScroll() {
-      // Logic to sync scroll with other editors if needed
-      // For now, we emit a custom event or just let the parent handle sync via binding
+    if (!isScrolling) {
+        dispatch('scroll', { scrollTop: textarea.scrollTop });
+    }
   }
 
   $: if (value !== undefined) updateLineNumbers();
 
   export function scrollTo(top: number) {
-      if (textarea) textarea.scrollTop = top;
+      if (textarea && Math.abs(textarea.scrollTop - top) > 1) {
+          isScrolling = true;
+          textarea.scrollTop = top;
+          // Small timeout to prevent feedback loop
+          setTimeout(() => isScrolling = false, 50);
+      }
   }
 
   export function getScrollTop() {
@@ -65,6 +72,7 @@
       on:input={updateLineNumbers}
       class="flex-1 p-2 font-mono text-sm leading-6 bg-transparent resize-none outline-none dark:text-gray-200 w-full"
       spellcheck="false"
+      aria-label={label}
     ></textarea>
   </div>
 </div>

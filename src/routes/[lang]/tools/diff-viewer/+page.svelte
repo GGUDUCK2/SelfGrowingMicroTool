@@ -9,7 +9,7 @@
   import DiffVisualizer from '$lib/components/diff-viewer/DiffVisualizer.svelte';
   import DiffHistory from '$lib/components/diff-viewer/DiffHistory.svelte';
   import DiffStats from '$lib/components/diff-viewer/DiffStats.svelte';
-  import { Split, Columns, History, RotateCcw, Save, Trash2, ArrowLeftRight, Check, X, Code, FileJson, AlignLeft, Type, Copy, Share2, Info } from 'lucide-svelte';
+  import { Split, Columns, History, RotateCcw, Save, Trash2, ArrowLeftRight, Check, X, Code, FileJson, AlignLeft, Type, Copy, Share2, Info, Keyboard, FileText } from 'lucide-svelte';
   import Head from '$lib/components/Head.svelte';
 
   $: lang = $page.params.lang || 'en';
@@ -34,8 +34,6 @@
   // Re-calculate diff whenever inputs change
   $: {
       if (original || modified) {
-          // Debounce slightly if needed, but diffing small text is fast.
-          // For now, instant.
           diffResult = calculateDiff(original, modified, mode, { ignoreWhitespace, ignoreCase });
       } else {
           diffResult = { diffs: [], stats: { additions: 0, deletions: 0, unchanged: 0 } };
@@ -43,8 +41,14 @@
   }
 
   // Handle Scroll Sync
-  // Using a simplified approach: we don't strictly sync scroll between input editors because users might want to edit independently.
-  // But for the visualizer, it handles its own scrolling.
+  function handleEditorScroll(e: CustomEvent, source: 'original' | 'modified') {
+      const scrollTop = e.detail.scrollTop;
+      if (source === 'original' && modifiedEditor) {
+          modifiedEditor.scrollTo(scrollTop);
+      } else if (source === 'modified' && originalEditor) {
+          originalEditor.scrollTo(scrollTop);
+      }
+  }
 
   async function saveToHistory() {
       if (!original && !modified) return;
@@ -85,19 +89,63 @@
   }
 
   function copyShareLink() {
-      // In a real app, we would compress the content and put it in URL, or save to server.
-      // Since we are client-side only and local-first, sharing huge text via URL is not feasible without a backend store or compression.
-      // We'll fall back to copying the current URL which users expect, but maybe warn it doesn't persist state for this tool?
-      // Or we can just copy the result stats?
-      // Let's just copy the current page URL for now.
-      navigator.clipboard.writeText(window.location.href);
+      const url = new URL(window.location.href);
+      // We don't store state in URL for privacy and size reasons, but we copy the link.
+      navigator.clipboard.writeText(url.toString());
       showCopyNotification = true;
       setTimeout(() => showCopyNotification = false, 2000);
   }
 
-  // Load initial state from URL or generic restore?
-  // We skip URL state syncing for huge text blobs to avoid URL limit errors.
+  // Example Data
+  const examples = {
+    code: {
+        original: `function calculateTotal(items) {
+  let total = 0;
+  for (let i = 0; i < items.length; i++) {
+    total += items[i].price;
+  }
+  return total;
+}`,
+        modified: `function calculateTotal(items) {
+  return items.reduce((total, item) => {
+    return total + item.price;
+  }, 0);
+}`
+    },
+    json: {
+        original: `{\n  "name": "Project A",\n  "version": "1.0.0",\n  "active": true\n}`,
+        modified: `{\n  "name": "Project A",\n  "version": "1.0.1",\n  "active": false,\n  "description": "Updated project"\n}`
+    },
+    text: {
+        original: "The quick brown fox jumps over the lazy dog.\nIt was a sunny day in the park.",
+        modified: "The quick brown fox jumped over the lazy dog.\nIt was a rainy day in the park."
+    }
+  };
+
+  function loadExample(type: 'code' | 'json' | 'text') {
+      original = examples[type].original;
+      modified = examples[type].modified;
+      mode = type === 'json' ? 'json' : 'lines';
+  }
+
+  // Keyboard Shortcuts
+  function handleKeydown(e: KeyboardEvent) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+         // Trigger diff (automatic but good for feedback)
+         e.preventDefault();
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          clearAll();
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key === '/') {
+          e.preventDefault();
+          isHistoryOpen = !isHistoryOpen;
+      }
+  }
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <Head
   title={t.title}
@@ -119,10 +167,17 @@
       </div>
 
       <div class="flex items-center gap-2">
+         <!-- Example Dropdown (Simple) -->
+         <div class="hidden sm:flex items-center gap-1 mr-2">
+            <button class="text-xs px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded text-gray-500" on:click={() => loadExample('code')}>Code</button>
+            <button class="text-xs px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded text-gray-500" on:click={() => loadExample('json')}>JSON</button>
+            <button class="text-xs px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded text-gray-500" on:click={() => loadExample('text')}>Text</button>
+         </div>
+
         <button
           class="p-2 text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors relative"
           on:click={() => isHistoryOpen = !isHistoryOpen}
-          title={t.history}
+          title={t.history + ' (Cmd+/)'}
           aria-label={t.history}
         >
           <History class="w-5 h-5" />
@@ -147,20 +202,29 @@
 
     <!-- History Sidebar -->
     {#if isHistoryOpen}
-        <div class="absolute top-0 right-0 bottom-0 z-40 h-[calc(100vh-4rem)] shadow-2xl" transition:fly={{ x: 300, duration: 300 }}>
+        <div class="fixed inset-y-0 right-0 z-50 w-80 shadow-2xl bg-white dark:bg-gray-800" transition:fly={{ x: 300, duration: 300 }}>
             <DiffHistory {translations} onSelect={loadHistoryItem} />
              <!-- Backdrop -->
-            <button
-                class="fixed inset-0 bg-black/20 z-[-1] border-none cursor-default w-full h-full"
-                aria-label="Close History"
+             <button
+                class="absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                 on:click={() => isHistoryOpen = false}
-                on:keydown={(e) => e.key === 'Escape' && (isHistoryOpen = false)}
-            ></button>
+                aria-label="Close"
+             >
+                <X class="w-5 h-5" />
+             </button>
         </div>
+        <!-- Overlay -->
+        <button
+            class="fixed inset-0 bg-black/20 z-40 cursor-default w-full h-full border-none"
+            aria-label="Close History Overlay"
+            on:click={() => isHistoryOpen = false}
+            on:keydown={(e) => e.key === 'Escape' && (isHistoryOpen = false)}
+            transition:fade={{ duration: 200 }}
+        ></button>
     {/if}
 
     <!-- Toolbar -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 mb-6 flex flex-wrap gap-4 items-center justify-between">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 mb-6 flex flex-wrap gap-4 items-center justify-between sticky top-20 z-20">
 
         <div class="flex flex-wrap gap-4 items-center">
             <!-- Mode Selection -->
@@ -206,7 +270,7 @@
                 <ArrowLeftRight class="w-4 h-4" />
                 <span class="hidden sm:inline">{t.swap}</span>
             </button>
-            <button class="btn-secondary text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 dark:text-red-400 flex items-center gap-2" on:click={clearAll} title={t.clear}>
+            <button class="btn-secondary text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 dark:text-red-400 flex items-center gap-2" on:click={clearAll} title={t.clear + ' (Cmd+K)'}>
                 <Trash2 class="w-4 h-4" />
                 <span class="hidden sm:inline">{t.clear}</span>
             </button>
@@ -232,12 +296,14 @@
             bind:value={original}
             label={t.original}
             placeholder="Paste original text here..."
+            on:scroll={(e) => handleEditorScroll(e, 'original')}
         />
         <DiffEditor
             bind:this={modifiedEditor}
             bind:value={modified}
             label={t.modified}
             placeholder="Paste modified text here..."
+            on:scroll={(e) => handleEditorScroll(e, 'modified')}
         />
     </div>
 
@@ -328,7 +394,7 @@
                 "priceCurrency": "USD"
               },
               "description": "${t.description}",
-              "featureList": "Diff comparison, JSON sorting, Syntax highlighting, Local history"
+              "featureList": "Diff comparison, JSON sorting, Syntax highlighting, Local history, Scroll sync, Dark mode"
             }
             </script>`}
             {@html `<script type="application/ld+json">

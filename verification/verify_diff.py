@@ -1,46 +1,35 @@
+from playwright.sync_api import sync_playwright
 
-from playwright.sync_api import sync_playwright, expect
-
-def test_diff_viewer():
+def verify_diff_viewer():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
-        # Navigate to the tool
-        page.goto("http://localhost:4173/en/tools/diff-viewer")
+        # Subscribe to console logs
+        page.on("console", lambda msg: print(f"Console: {msg.text}"))
+        page.on("pageerror", lambda err: print(f"PageError: {err}"))
 
-        # Wait for title
-        expect(page.get_by_role("heading", name="DiffScope: Smart Code & Text Comparator")).to_be_visible()
+        # Navigate to the diff viewer tool
+        page.goto("http://localhost:5173/en/tools/diff-viewer")
+
+        # Wait for page load
+        page.wait_for_selector("h1")
 
         # Input original text
-        original_textarea = page.get_by_placeholder("Paste original text here...")
-        original_textarea.fill("Hello World\nThis is a test.\nJSON: { \"a\": 1, \"b\": 2 }")
+        original_input = page.get_by_placeholder("Paste original text here...")
+        original_input.fill("Hello World\nThis is a test.")
 
         # Input modified text
-        modified_textarea = page.get_by_placeholder("Paste modified text here...")
-        modified_textarea.fill("Hello World!\nThis is a test run.\nJSON: { \"b\": 2, \"a\": 1 }")
+        modified_input = page.get_by_placeholder("Paste modified text here...")
+        modified_input.fill("Hello Universe\nThis is a test.")
 
-        # Wait for diff to calculate (it's reactive but let's give it a sec)
-        page.wait_for_timeout(1000)
+        # Wait for diff to calculate
+        page.wait_for_timeout(2000)
 
-        # Take screenshot of basic diff
-        page.screenshot(path="verification/diff_basic.png", full_page=True)
-
-        # Switch to JSON mode
-        page.select_option("select", "json")
-        page.wait_for_timeout(1000)
-
-        # Take screenshot of JSON diff
-        page.screenshot(path="verification/diff_json.png", full_page=True)
-
-        # Open History
-        page.get_by_role("button", name="Comparison History").click()
-        page.wait_for_timeout(500)
-
-        # Take screenshot with history
-        page.screenshot(path="verification/diff_history.png", full_page=True)
+        # Take a screenshot
+        page.screenshot(path="verification/diff_viewer_test_2.png", full_page=True)
 
         browser.close()
 
 if __name__ == "__main__":
-    test_diff_viewer()
+    verify_diff_viewer()

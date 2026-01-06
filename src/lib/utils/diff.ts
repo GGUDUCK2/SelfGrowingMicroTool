@@ -23,9 +23,9 @@ export function calculateDiff(
   if (original.length > MAX_INPUT_LENGTH) original = original.slice(0, MAX_INPUT_LENGTH);
   if (modified.length > MAX_INPUT_LENGTH) modified = modified.slice(0, MAX_INPUT_LENGTH);
 
-  let diffs: Diff.Change[] = [];
+  let diffs: Diff.Change[] | undefined;
 
-  const diffOptions = {
+  const diffOptions: any = {
     ignoreCase: options.ignoreCase,
     ignoreWhitespace: options.ignoreWhitespace,
     newlineIsToken: false
@@ -40,31 +40,34 @@ export function calculateDiff(
           const obj2 = JSON.parse(modified);
           const sorted1 = JSON.stringify(sortKeys(obj1), null, 2);
           const sorted2 = JSON.stringify(sortKeys(obj2), null, 2);
-          // diffJson expects objects, not strings, or just strings?
-          // Actually diffJson in jsdiff takes strings or objects.
-          // But the type definition might be strict about options.
-          // Let's coerce options to any to satisfy TS or remove unsupported options for JSON diff.
-          diffs = Diff.diffJson(sorted1, sorted2, diffOptions as any) || [];
+          const result = Diff.diffJson(sorted1, sorted2, diffOptions);
+          diffs = result || [];
         } catch (e) {
             // Fallback to line diff if invalid JSON
-            diffs = Diff.diffLines(original, modified, diffOptions);
+            const result = Diff.diffLines(original, modified, diffOptions);
+            diffs = result || [];
         }
         break;
       case 'words':
-        diffs = Diff.diffWordsWithSpace(original, modified, diffOptions);
+        {
+            const result = Diff.diffWordsWithSpace(original, modified, diffOptions);
+            diffs = result || [];
+        }
         break;
       case 'chars':
-        diffs = Diff.diffChars(original, modified, diffOptions);
+        {
+            const result = Diff.diffChars(original, modified, diffOptions);
+            diffs = result || [];
+        }
         break;
       case 'lines':
       default:
-        // diffLines doesn't support ignoreWhitespace natively in the same way,
-        // but we can try diffTrimmedLines or pass options if supported.
-        // Actually diffLines does accept options in newer versions.
         if (options.ignoreWhitespace) {
-            diffs = Diff.diffTrimmedLines(original, modified, diffOptions);
+            const result = Diff.diffTrimmedLines(original, modified, diffOptions);
+            diffs = result || [];
         } else {
-            diffs = Diff.diffLines(original, modified, diffOptions);
+            const result = Diff.diffLines(original, modified, diffOptions);
+            diffs = result || [];
         }
         break;
     }
@@ -81,32 +84,36 @@ export function calculateDiff(
   let deletions = 0;
   let unchanged = 0;
 
-  diffs.forEach(part => {
-    const count = part.count || 0;
-    if (part.added) {
-      additions += count;
-    } else if (part.removed) {
-      deletions += count;
-    } else {
-      unchanged += count;
-    }
-  });
+  if (diffs && Array.isArray(diffs)) {
+    diffs.forEach(part => {
+        const count = part.count || 0;
+        if (part.added) {
+        additions += count;
+        } else if (part.removed) {
+        deletions += count;
+        } else {
+        unchanged += count;
+        }
+    });
+  } else {
+      diffs = [];
+  }
 
   return {
-    diffs,
+    diffs: diffs,
     stats: { additions, deletions, unchanged }
   };
 }
 
 // Helper to sort object keys recursively for consistent JSON comparison
-function sortKeys(obj: any): any {
+function sortKeys(obj: unknown): unknown {
   if (Array.isArray(obj)) {
     return obj.map(sortKeys);
   } else if (obj !== null && typeof obj === 'object') {
-    return Object.keys(obj)
+    return Object.keys(obj as object)
       .sort()
-      .reduce((acc: any, key) => {
-        acc[key] = sortKeys(obj[key]);
+      .reduce((acc: Record<string, unknown>, key) => {
+        acc[key] = sortKeys((obj as Record<string, unknown>)[key]);
         return acc;
       }, {});
   }
