@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { getContrast, type ColorData } from './color-utils';
-  import type { ColorMasterDictionary } from '$lib/types/color-master';
+  import { getContrast } from './color-utils';
+  import type { ColorData, ColorMasterDictionary } from '$lib/types/color-master';
 
   export let colors: ColorData[];
   export let t: ColorMasterDictionary;

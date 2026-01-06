@@ -256,6 +256,12 @@ export const dictionaries = {
         },
         contrastGrid: {
           title: "Contrast Matrix"
+        },
+        gradientGenerator: {
+          title: "Gradient Generator",
+          type: "Gradient Type",
+          direction: "Direction",
+          copy: "Copy Gradient CSS"
         }
       }
     },
@@ -532,6 +538,12 @@ export const dictionaries = {
         },
         contrastGrid: {
           title: "대조 매트릭스"
+        },
+        gradientGenerator: {
+          title: "그라데이션 생성기",
+          type: "그라데이션 유형",
+          direction: "방향",
+          copy: "그라데이션 CSS 복사"
         }
       }
     },

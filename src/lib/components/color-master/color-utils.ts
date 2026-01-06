@@ -5,13 +5,7 @@ import namesPlugin from 'colord/plugins/names';
 
 extend([a11yPlugin, harmoniesPlugin, namesPlugin]);
 
-export interface ColorData {
-  hex: string;
-  rgb: string;
-  hsl: string;
-  name: string;
-  isDark: boolean;
-}
+import type { ColorData } from '$lib/types/color-master';
 
 export const getColorData = (color: string | Colord): ColorData => {
   const c = typeof color === 'string' ? colord(color) : color;
@@ -24,7 +18,7 @@ export const getColorData = (color: string | Colord): ColorData => {
   };
 };
 
-export const getHarmonies = (color: string, type: 'complementary' | 'analogous' | 'triadic' | 'tetradic' | 'split-complementary' | 'monochromatic') => {
+export const getHarmonies = (color: string, type: string) => {
   const c = colord(color);
   let harmonies: Colord[] = [];
 

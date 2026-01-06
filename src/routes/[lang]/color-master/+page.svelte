@@ -4,7 +4,8 @@
   import { page } from '$app/stores';
   import { fade, fly } from 'svelte/transition';
   import { db } from '$lib/db';
-  import { getColorData, getHarmonies, simulateVision, type ColorData } from '$lib/components/color-master/color-utils';
+  import { getColorData, getHarmonies, simulateVision } from '$lib/components/color-master/color-utils';
+  import type { HarmonyType, VisionType } from '$lib/types/color-master';
   import { colord } from 'colord';
   import ColorWheel from '$lib/components/color-master/ColorWheel.svelte';
   import PaletteDisplay from '$lib/components/color-master/PaletteDisplay.svelte';
@@ -14,6 +15,7 @@
   import HistoryPanel from '$lib/components/color-master/HistoryPanel.svelte';
   import ImageExtractor from '$lib/components/color-master/ImageExtractor.svelte';
   import ContrastGrid from '$lib/components/color-master/ContrastGrid.svelte';
+  import GradientGenerator from '$lib/components/color-master/GradientGenerator.svelte';
   import { getDictionary } from '$lib/dictionaries';
 
   // --- Props ---
@@ -21,8 +23,8 @@
 
   // --- State ---
   let baseColor = '#6366f1';
-  let harmonyType: 'complementary' | 'analogous' | 'triadic' | 'tetradic' | 'split-complementary' | 'monochromatic' = 'complementary';
-  let visionType: 'none' | 'protanopia' | 'deuteranopia' | 'tritanopia' | 'achromatopsia' = 'none';
+  let harmonyType: HarmonyType = 'complementary';
+  let visionType: VisionType = 'none';
   let showShortcuts = false;
 
   $: dict = getDictionary(data.lang);
@@ -337,6 +339,8 @@
 
       <!-- New Feature: Contrast Grid -->
       <ContrastGrid colors={displayedHarmonies} {t} />
+
+      <GradientGenerator baseColor={displayedBaseColor} colors={displayedHarmonies} {t} />
 
       <A11yChecker color={displayedBaseColor} {t} />
 
