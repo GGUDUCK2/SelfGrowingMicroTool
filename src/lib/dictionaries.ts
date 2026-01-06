@@ -262,6 +262,10 @@ export const dictionaries = {
           type: "Gradient Type",
           direction: "Direction",
           copy: "Copy Gradient CSS"
+        },
+        scaleGenerator: {
+          title: "Smart Scale Generator (50-950)",
+          copy: "Copy JSON Scale"
         }
       }
     },
@@ -544,6 +548,10 @@ export const dictionaries = {
           type: "그라데이션 유형",
           direction: "방향",
           copy: "그라데이션 CSS 복사"
+        },
+        scaleGenerator: {
+          title: "스마트 스케일 생성기 (50-950)",
+          copy: "JSON 스케일 복사"
         }
       }
     },

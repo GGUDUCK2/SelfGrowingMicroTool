@@ -16,7 +16,9 @@
   import ImageExtractor from '$lib/components/color-master/ImageExtractor.svelte';
   import ContrastGrid from '$lib/components/color-master/ContrastGrid.svelte';
   import GradientGenerator from '$lib/components/color-master/GradientGenerator.svelte';
+  import ScaleGenerator from '$lib/components/color-master/ScaleGenerator.svelte';
   import { getDictionary } from '$lib/dictionaries';
+  import type { ScaleStep } from '$lib/types/color-master';
 
   // --- Props ---
   export let data;
@@ -26,6 +28,7 @@
   let harmonyType: HarmonyType = 'complementary';
   let visionType: VisionType = 'none';
   let showShortcuts = false;
+  let currentScale: ScaleStep[] = [];
 
   $: dict = getDictionary(data.lang);
   $: t = dict.tools.colorMaster;
@@ -46,9 +49,11 @@
     const urlParams = $page.url.searchParams;
     const colorParam = urlParams.get('c');
     const typeParam = urlParams.get('t');
+    const visionParam = urlParams.get('v');
 
     if (colorParam) baseColor = '#' + colorParam;
     if (typeParam) harmonyType = typeParam as any;
+    if (visionParam) visionType = visionParam as any;
 
     window.addEventListener('keydown', handleKeydown);
   });
@@ -64,6 +69,11 @@
     const url = new URL(window.location.href);
     url.searchParams.set('c', baseColor.replace('#', ''));
     url.searchParams.set('t', harmonyType);
+    if (visionType !== 'none') {
+        url.searchParams.set('v', visionType);
+    } else {
+        url.searchParams.delete('v');
+    }
     window.history.replaceState({}, '', url);
   }
 
@@ -176,6 +186,7 @@
       },
       "featureList": [
         "Algorithmic Harmony Generation",
+        "Smart Tailwind-like Scale Generator (50-950)",
         "Real-time WCAG Accessibility Checking",
         "Color Blindness Vision Simulation",
         "Code Export (CSS, Tailwind, SCSS, JSON)",
@@ -340,13 +351,15 @@
       <!-- New Feature: Contrast Grid -->
       <ContrastGrid colors={displayedHarmonies} {t} />
 
+      <ScaleGenerator baseColor={displayedBaseColor} {t} on:scaleChange={(e) => currentScale = e.detail} />
+
       <GradientGenerator baseColor={displayedBaseColor} colors={displayedHarmonies} {t} />
 
       <A11yChecker color={displayedBaseColor} {t} />
 
       <UIPreview primaryColor={displayedBaseColor} {t} />
 
-      <ExportPanel baseColor={baseColor} palette={harmonies} {t} />
+      <ExportPanel baseColor={baseColor} palette={harmonies} scale={currentScale} {t} />
 
     </div>
   </div>
