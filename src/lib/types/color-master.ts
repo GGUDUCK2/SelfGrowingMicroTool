@@ -12,3 +12,8 @@ export interface ColorData {
 
 export type HarmonyType = 'complementary' | 'analogous' | 'triadic' | 'tetradic' | 'split-complementary' | 'monochromatic';
 export type VisionType = 'none' | 'protanopia' | 'deuteranopia' | 'tritanopia' | 'achromatopsia';
+
+export interface ScaleStep {
+  step: number;
+  hex: string;
+}

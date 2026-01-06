@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { ColorData } from '$lib/types/color-master';
-  import type { ColorMasterDictionary } from '$lib/types/color-master';
+  import type { ColorData, ColorMasterDictionary, ScaleStep } from '$lib/types/color-master';
 
   export let palette: ColorData[] = [];
   export let baseColor: string;
+  export let scale: ScaleStep[] = [];
   export let t: ColorMasterDictionary;
 
   let copiedMode = '';
@@ -17,13 +17,23 @@ ${palette.map((c, i) => `  --color-harmony-${i + 1}: ${c.hex};`).join('\n')}
   }
 
   function generateTailwind() {
+    const scaleObj = scale.reduce((acc, curr) => {
+        acc[curr.step] = curr.hex;
+        return acc;
+    }, {} as any);
+
     return `// tailwind.config.js
 module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '${baseColor}',
-        ${palette.map((c, i) => `'harmony-${i + 1}': '${c.hex}',`).join('\n        ')}
+        primary: {
+          DEFAULT: '${baseColor}',
+          ${Object.entries(scaleObj).map(([k, v]) => `'${k}': '${v}',`).join('\n          ')}
+        },
+        harmonies: {
+          ${palette.map((c, i) => `'${i + 1}': '${c.hex}',`).join('\n          ')}
+        }
       }
     }
   }
@@ -46,10 +56,27 @@ ${palette.map((c, i) => `$color-harmony-${i + 1}: ${c.hex};`).join('\n')}`;
     return window.location.href;
   }
 
-  function copyCode(generator: () => string, mode: string) {
+  async function copyCode(generator: () => string, mode: string) {
     const code = generator();
-    navigator.clipboard.writeText(code);
-    copiedMode = mode;
+
+    if (mode === 'URL' && navigator.share) {
+        try {
+            await navigator.share({
+                title: 'Lumina Palette',
+                text: 'Check out this color palette created with Lumina',
+                url: code
+            });
+            copiedMode = mode;
+        } catch (err) {
+            // Fallback to clipboard
+            navigator.clipboard.writeText(code);
+            copiedMode = mode;
+        }
+    } else {
+        navigator.clipboard.writeText(code);
+        copiedMode = mode;
+    }
+
     setTimeout(() => copiedMode = '', 2000);
   }
 
