@@ -1,9 +1,10 @@
 <script lang="ts">
   import { colord } from 'colord';
   import { getReadability } from './color-utils';
+  import type { ColorMasterDictionary } from '$lib/types/color-master';
 
   export let primaryColor: string;
-  export let t: any;
+  export let t: ColorMasterDictionary;
 
   // Derived state for component colors
   $: primary = colord(primaryColor);
