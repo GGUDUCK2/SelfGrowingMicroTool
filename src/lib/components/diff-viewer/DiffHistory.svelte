@@ -4,8 +4,15 @@
   import { slide } from 'svelte/transition';
   import { Trash2, RotateCcw, Star, Calendar } from 'lucide-svelte';
 
+  // Explicitly define the translation type
+  type DiffHistoryTranslations = {
+      history: string;
+      noHistory: string;
+      [key: string]: string;
+  };
+
   export let onSelect: (item: DiffHistory) => void;
-  export let translations: any;
+  export let translations: DiffHistoryTranslations;
 
   // Use liveQuery to make the list reactive
   let history = liveQuery(async () => {
@@ -35,6 +42,12 @@
   function getModeLabel(mode: string) {
       return mode.charAt(0).toUpperCase() + mode.slice(1);
   }
+
+  function handleKeydown(e: KeyboardEvent, item: DiffHistory) {
+      if (e.key === 'Enter') {
+          onSelect(item);
+      }
+  }
 </script>
 
 <div class="h-full flex flex-col bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 w-80">
@@ -51,10 +64,11 @@
                 <div
                     class="group relative bg-gray-50 dark:bg-gray-900 rounded-lg p-3 border border-gray-200 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all cursor-pointer"
                     on:click={() => onSelect(item)}
-                    on:keydown={(e) => e.key === 'Enter' && onSelect(item)}
+                    on:keydown={(e) => handleKeydown(e, item)}
                     role="button"
                     tabindex="0"
                     transition:slide={{ duration: 200 }}
+                    aria-label={`Restore history from ${formatDate(item.createdAt)}`}
                 >
                     <div class="flex justify-between items-start mb-2">
                         <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300">
@@ -65,6 +79,7 @@
                                 class="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded text-gray-500 hover:text-yellow-500"
                                 on:click={(e) => toggleStar(item, e)}
                                 title="Star"
+                                aria-label="Toggle Star"
                             >
                                 <Star class="w-3.5 h-3.5 {item.starred ? 'fill-yellow-500 text-yellow-500' : ''}" />
                             </button>
@@ -72,6 +87,7 @@
                                 class="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded text-gray-500 hover:text-red-500"
                                 on:click={(e) => deleteItem(item.id!, e)}
                                 title="Delete"
+                                aria-label="Delete history item"
                             >
                                 <Trash2 class="w-3.5 h-3.5" />
                             </button>
