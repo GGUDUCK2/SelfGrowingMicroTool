@@ -118,5 +118,20 @@
     "category": "Developer Tools",
     "tags": ["diff", "compare", "text", "code", "json", "developer"],
     "createdAt": "2025-02-03"
+  },
+  {
+    "id": "id-forge",
+    "slug": "id-forge",
+    "title": {
+      "en": "ID Forge: Ultimate Identifier Architect",
+      "ko": "ID Forge: 궁극의 식별자 아키텍트"
+    },
+    "description": {
+      "en": "The definitive tool to generate, analyze, and manage UUIDs (v1-v7), ULIDs, CUIDs, and NanoIDs.",
+      "ko": "UUID (v1-v7), ULID, CUID, NanoID를 생성, 분석 및 관리하는 완벽한 도구입니다."
+    },
+    "category": "Developer Tools",
+    "tags": ["uuid", "ulid", "nanoid", "cuid", "generator", "developer"],
+    "createdAt": "2025-02-04"
   }
 ]
