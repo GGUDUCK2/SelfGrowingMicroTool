@@ -72,6 +72,15 @@ export interface DiffHistory {
   starred?: number;
 }
 
+export interface IdForgeHistory {
+  id?: number;
+  type: string;
+  count: number;
+  sample: string; // First generated ID as sample
+  createdAt: Date;
+  starred?: number;
+}
+
 class MySubClassedDexie extends Dexie {
   compoundInterestConfig!: Table<CompoundInterestConfig>;
   compoundInterestHistory!: Table<CompoundInterestHistory>;
@@ -81,6 +90,7 @@ class MySubClassedDexie extends Dexie {
   regexHistory!: Table<RegexHistory>;
   colorHistory!: Table<ColorHistory>;
   diffHistory!: Table<DiffHistory>;
+  idForgeHistory!: Table<IdForgeHistory>;
 
   constructor() {
     super('webFactoryDB');
@@ -148,6 +158,17 @@ class MySubClassedDexie extends Dexie {
       regexHistory: '++id, createdAt',
       colorHistory: '++id, createdAt, starred',
       diffHistory: '++id, createdAt, starred'
+    });
+    this.version(10).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      idForgeHistory: '++id, createdAt, starred'
     });
   }
 }
