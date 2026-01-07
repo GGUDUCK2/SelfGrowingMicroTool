@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { fade, fly } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
   import { page } from '$app/stores';
   import Generator from '$lib/components/id-forge/Generator.svelte';
   import Output from '$lib/components/id-forge/Output.svelte';
@@ -8,11 +8,15 @@
   import Collision from '$lib/components/id-forge/Collision.svelte';
   import History from '$lib/components/id-forge/History.svelte';
   import { generateIds, formatOutput, type GenerationOptions } from '$lib/utils/id-forge/id-forge';
-  import { db } from '$lib/db';
+  import { db, type IdForgeHistory } from '$lib/db';
+  import { getDictionary } from '$lib/dictionaries';
 
   let activeTab: 'generate' | 'analyze' | 'collision' = 'generate';
   let generatedOutput = '';
   let currentFormat: GenerationOptions['format'] = 'plain';
+
+  // Get localized dictionary
+  $: dict = getDictionary($page.params.lang ?? 'en').tools.idForge;
 
   // Default Options
   let genOptions: GenerationOptions = {
@@ -30,20 +34,78 @@
     const ids = generateIds(opts);
     generatedOutput = formatOutput(ids, opts.format);
 
-    // Save to History
-    await db.idForgeHistory.add({
+    // Save to History (Debounce or just save?)
+    // Saving every generation is fine, we rely on Dexie speed.
+    // Pruning logic: keep 100 non-starred.
+    // We can do a quick check or just add and let a background process clean up,
+    // or clean up right here.
+    const id = await db.idForgeHistory.add({
         type: opts.type,
         count: opts.quantity,
         sample: ids[0],
         createdAt: new Date(),
         starred: 0
     });
+
+    // Prune old history
+    // Get count of non-starred items
+    const count = await db.idForgeHistory.where('starred').equals(0).count();
+    if (count > 100) {
+        // Delete oldest non-starred
+        const oldest = await db.idForgeHistory.where('starred').equals(0).sortBy('createdAt');
+        const toDelete = oldest.slice(0, count - 100);
+        const deleteIds = toDelete.map(item => item.id).filter((id): id is number => id !== undefined);
+        await db.idForgeHistory.bulkDelete(deleteIds);
+    }
+  }
+
+  function handleRestore(event: CustomEvent<IdForgeHistory>) {
+      // Note: History only stores type and sample. It doesn't store full config.
+      // We can infer type. Count we can default to 1 or try to guess?
+      // Actually, we can just copy the sample to clipboard or set it as output?
+      // Wait, the prompt says "Restore" action.
+      // If we only store sample, we can't fully restore the *generator state*.
+      // But we stored 'type' and 'count' in history!
+      // So we can restore those.
+      const item = event.detail;
+      genOptions = {
+          ...genOptions,
+          type: item.type as any, // Cast because string in DB vs specific union type
+          quantity: item.count
+      };
+      // Auto-regenerate or just set options?
+      // Let's set options and maybe notify user.
+      // Ideally we would regenerate, but maybe the user just wants the settings.
+      // Let's trigger generation to match the "Restore" feeling.
+      handleGenerate(new CustomEvent('generate', { detail: genOptions }));
+  }
+
+  // Keyboard Shortcuts
+  function handleKeydown(e: KeyboardEvent) {
+      // Ctrl/Cmd + Enter: Generate
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          if (activeTab === 'generate') {
+              e.preventDefault();
+              handleGenerate(new CustomEvent('generate', { detail: genOptions }));
+          }
+      }
+      // Ctrl/Cmd + K: Clear Output (or Reset)
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          e.preventDefault();
+          generatedOutput = '';
+      }
+      // Ctrl/Cmd + S: Copy Output (handled in Output component but we can try globally if needed)
+      // Actually Output component handles its own copy button, but global shortcut is nice.
+      // We'll leave it to the user to click copy or implement a focus check?
+      // Let's keep it simple.
   }
 </script>
 
+<svelte:window on:keydown={handleKeydown} />
+
 <svelte:head>
-  <title>ID Forge: UUID, ULID, NanoID Generator & Analyzer</title>
-  <meta name="description" content="Generate and analyze UUIDs (v1-v7), ULIDs, CUIDs, and NanoIDs. Includes collision probability calculator and developer tools." />
+  <title>{dict.title}</title>
+  <meta name="description" content={dict.description} />
   <meta name="keywords" content="uuid generator, ulid generator, nanoid generator, guid, uuid v7, collision calculator" />
 
   <!-- JSON-LD for SoftwareApplication -->
@@ -60,7 +122,7 @@
       "priceCurrency": "USD"
     },
     "featureList": "UUID Generation (v1, v3, v4, v5, v7), ULID Generation, Collision Probability Calculator, ID Analysis",
-    "description": "A professional-grade identifier generation suite for developers."
+    "description": "${dict.description}"
   }
   </script>`}
 </svelte:head>
@@ -75,7 +137,7 @@
       ID <span class="text-indigo-600 dark:text-indigo-400">Forge</span>
     </h1>
     <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-      The definitive architect for Unique Identifiers. Generate, Analyze, and Validate with precision.
+      {dict.description}
     </p>
   </div>
 
@@ -88,7 +150,7 @@
                 on:click={() => activeTab = tab}
                 class="flex-1 py-3 text-sm font-bold rounded-xl transition-all {activeTab === tab ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
             >
-                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                {dict[tab]}
             </button>
         {/each}
     </div>
@@ -98,8 +160,14 @@
         {#if activeTab === 'generate'}
             <div in:fade class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="space-y-6">
-                    <Generator options={genOptions} on:generate={handleGenerate} />
-                    <History />
+                    <Generator bind:options={genOptions} on:generate={handleGenerate} />
+
+                    <!-- Shortcuts Helper -->
+                    <div class="text-xs text-slate-400 flex items-center justify-between px-2">
+                        <span>{dict.shortcuts}: <kbd class="font-mono bg-slate-100 dark:bg-slate-800 px-1 rounded">Cmd/Ctrl + Enter</kbd> {dict.generate}</span>
+                    </div>
+
+                    <History on:restore={handleRestore} />
                 </div>
                 <div class="space-y-6">
                     <Output output={generatedOutput} format={currentFormat} />
@@ -119,49 +187,49 @@
 
   <!-- Documentation / SEO Content -->
   <div class="prose prose-slate dark:prose-invert max-w-none">
-    <h2>Why ID Forge?</h2>
+    <h2>{dict.guide.title}</h2>
     <p>
-      In modern distributed systems, choosing the right identifier strategy is critical. ID Forge provides a unified interface for the most robust standards available today, from the classic UUID v4 to the modern, time-sortable UUID v7 and ULID.
+      {dict.guide.intro}
     </p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 not-prose my-8">
         <div class="p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
-            <h3 class="text-lg font-bold mb-2">UUID v7 (The New Standard)</h3>
+            <h3 class="text-lg font-bold mb-2">UUID v7</h3>
             <p class="text-slate-600 dark:text-slate-300 text-sm">
-                Combines a Unix timestamp with random bits. It's time-sortable, making it index-friendly for databases like PostgreSQL and MySQL, avoiding the fragmentation issues of v4.
+                {dict.faqTitle === 'ID Forge FAQ' ? "Combines a Unix timestamp with random bits. It's time-sortable, making it index-friendly for databases like PostgreSQL and MySQL, avoiding the fragmentation issues of v4." : "Time-sortable UUID."}
             </p>
         </div>
         <div class="p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
             <h3 class="text-lg font-bold mb-2">ULID</h3>
             <p class="text-slate-600 dark:text-slate-300 text-sm">
-                Universally Unique Lexicographically Sortable Identifier. Uses Crockford's Base32 encoding for URL safety and compactness (26 chars).
+                 {dict.faqTitle === 'ID Forge FAQ' ? "Universally Unique Lexicographically Sortable Identifier. Uses Crockford's Base32 encoding for URL safety and compactness (26 chars)." : "URL-safe sortable ID."}
             </p>
         </div>
     </div>
 
-    <h2>Frequently Asked Questions</h2>
+    <h2>{dict.faqTitle}</h2>
     <div class="space-y-6 not-prose">
         <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <summary class="flex items-center justify-between p-6 cursor-pointer font-medium">
-                <span>When should I use NanoID over UUID?</span>
+                <span>{dict.q1}</span>
                 <span class="transition-transform group-open:rotate-180">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
             </summary>
             <div class="px-6 pb-6 text-slate-600 dark:text-slate-300">
-                NanoID is perfect for frontend-generated IDs (like short URLs or component keys) where you need a compact string. It's safe to use in URLs and is significantly smaller than a UUID. However, for primary database keys, UUID v7 or ULID is often preferred for sorting performance.
+                {dict.a1}
             </div>
         </details>
 
         <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <summary class="flex items-center justify-between p-6 cursor-pointer font-medium">
-                <span>Is UUID v4 still good?</span>
+                <span>{dict.q2}</span>
                 <span class="transition-transform group-open:rotate-180">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
             </summary>
             <div class="px-6 pb-6 text-slate-600 dark:text-slate-300">
-                Yes, UUID v4 (completely random) is excellent for general purpose use where sorting is not required. However, inserting millions of random v4 UUIDs into a B-Tree index (like in SQL databases) can cause performance degradation due to page splitting.
+                {dict.a2}
             </div>
         </details>
     </div>
