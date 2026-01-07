@@ -2,13 +2,14 @@ name: Auto Merge PRs
 
 on:
   schedule:
-    # 하루 6번 실행 (KST 기준)
+    # 하루 7번 실행 (KST 기준)
     - cron: '0 17 * * *'  # 오전 2시 KST
     - cron: '0 21 * * *'  # 오전 6시 KST
     - cron: '0 1 * * *'   # 오전 10시 KST
     - cron: '0 5 * * *'   # 오후 2시 KST
     - cron: '0 9 * * *'   # 오후 6시 KST
     - cron: '0 13 * * *'  # 오후 10시 KST
+    - cron: '30 14 * * *' # 오후 11시 30분 KST
   workflow_dispatch: # 수동 실행 허용
 
 permissions:
