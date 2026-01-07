@@ -2,10 +2,9 @@
   import { fade } from 'svelte/transition';
   import { extractColorsFromImage } from '$lib/utils/image-color-extractor';
   import { createEventDispatcher } from 'svelte';
-  import { dictionaries } from '$lib/dictionaries';
+  import type { ColorMasterDictionary } from '$lib/types/color-master';
 
-  type T = typeof dictionaries.en.tools.colorMaster;
-  export let t: T;
+  export let t: ColorMasterDictionary;
 
   const dispatch = createEventDispatcher();
   let dragging = false;

@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { getContrast, type ColorData } from './color-utils';
-  import { dictionaries } from '$lib/dictionaries';
+  import { getContrast } from './color-utils';
+  import type { ColorData, ColorMasterDictionary } from '$lib/types/color-master';
 
-  type T = typeof dictionaries.en.tools.colorMaster;
   export let colors: ColorData[];
-  export let t: T;
+  export let t: ColorMasterDictionary;
 
   function getRating(ratio: number) {
     if (ratio >= 7) return 'AAA';

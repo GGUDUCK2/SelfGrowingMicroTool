@@ -1,0 +1,569 @@
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import { fade, fly } from 'svelte/transition';
+  import { getDictionary } from '$lib/dictionaries';
+  import { page } from '$app/stores';
+  import { db } from '$lib/db';
+  import { calculateDiff, parseMergeConflict, type DiffResult, type DiffMode } from '$lib/utils/diff';
+  import DiffEditor from '$lib/components/diff-viewer/DiffEditor.svelte';
+  import DiffVisualizer from '$lib/components/diff-viewer/DiffVisualizer.svelte';
+  import DiffHistory from '$lib/components/diff-viewer/DiffHistory.svelte';
+  import DiffStats from '$lib/components/diff-viewer/DiffStats.svelte';
+  import { Split, Columns, History, RotateCcw, Save, Trash2, ArrowLeftRight, Check, X, Code, FileJson, AlignLeft, Type, Copy, Share2, Info, Keyboard, FileText, Download, GitMerge } from 'lucide-svelte';
+  import Head from '$lib/components/Head.svelte';
+
+  $: lang = $page.params.lang || 'en';
+  $: dict = getDictionary(lang);
+  $: t = dict.tools.diffViewer;
+
+  let original = '';
+  let modified = '';
+  let mode: DiffMode = 'lines';
+  let viewMode: 'split' | 'unified' = 'split';
+  let ignoreWhitespace = false;
+  let ignoreCase = false;
+
+  let diffResult: DiffResult = { diffs: [], stats: { additions: 0, deletions: 0, unchanged: 0 } };
+  let isHistoryOpen = false;
+  let showSaveNotification = false;
+  let showCopyNotification = false;
+  let showConflictModal = false;
+  let conflictInput = '';
+  let conflictMessage = '';
+
+  let originalEditor: DiffEditor;
+  let modifiedEditor: DiffEditor;
+
+  // Re-calculate diff whenever inputs change
+  $: {
+      if (original || modified) {
+          diffResult = calculateDiff(original, modified, mode, { ignoreWhitespace, ignoreCase });
+      } else {
+          diffResult = { diffs: [], stats: { additions: 0, deletions: 0, unchanged: 0 } };
+      }
+  }
+
+  // Handle Scroll Sync
+  function handleEditorScroll(e: CustomEvent, source: 'original' | 'modified') {
+      const scrollTop = e.detail.scrollTop;
+      if (source === 'original' && modifiedEditor) {
+          modifiedEditor.scrollTo(scrollTop);
+      } else if (source === 'modified' && originalEditor) {
+          originalEditor.scrollTo(scrollTop);
+      }
+  }
+
+  async function saveToHistory() {
+      if (!original && !modified) return;
+
+      try {
+          await db.diffHistory.add({
+              original,
+              modified,
+              mode,
+              createdAt: new Date(),
+              starred: 0
+          });
+          showSaveNotification = true;
+          setTimeout(() => showSaveNotification = false, 2000);
+      } catch (e) {
+          console.error("Failed to save history", e);
+      }
+  }
+
+  function loadHistoryItem(item: any) {
+      original = item.original;
+      modified = item.modified;
+      mode = item.mode as DiffMode;
+      isHistoryOpen = false;
+  }
+
+  function swapSides() {
+      const temp = original;
+      original = modified;
+      modified = temp;
+  }
+
+  function clearAll() {
+      if (confirm('Are you sure you want to clear all text?')) {
+          original = '';
+          modified = '';
+      }
+  }
+
+  function copyShareLink() {
+      const url = new URL(window.location.href);
+      // We don't store state in URL for privacy and size reasons, but we copy the link.
+      navigator.clipboard.writeText(url.toString());
+      showCopyNotification = true;
+      setTimeout(() => showCopyNotification = false, 2000);
+  }
+
+  function escapeHtml(text: string) {
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+  }
+
+  function downloadReport() {
+    const htmlContent = `
+<!DOCTYPE html>
+<html lang="${lang}">
+<head>
+    <meta charset="UTF-8">
+    <title>${escapeHtml(t.title)} - Report</title>
+    <style>
+        body { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; line-height: 1.5; padding: 20px; background: #f9fafb; color: #111827; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .header { margin-bottom: 20px; border-bottom: 1px solid #e5e7eb; padding-bottom: 10px; }
+        .diff-block { margin-bottom: 5px; }
+        .added { background-color: #dcfce7; color: #166534; }
+        .removed { background-color: #fee2e2; color: #991b1b; }
+        .stats { margin-bottom: 20px; font-size: 0.9em; color: #6b7280; }
+        pre { margin: 0; white-space: pre-wrap; word-break: break-all; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>${escapeHtml(t.title)} - Comparison Report</h1>
+            <p>Generated on ${new Date().toLocaleString()}</p>
+        </div>
+        <div class="stats">
+            Additions: ${diffResult.stats.additions} | Deletions: ${diffResult.stats.deletions} | Unchanged: ${diffResult.stats.unchanged}
+        </div>
+        <div class="diff-content">
+            ${diffResult.diffs.map(part => {
+                const colorClass = part.added ? 'added' : part.removed ? 'removed' : '';
+                const symbol = part.added ? '+' : part.removed ? '-' : ' ';
+                return `<div class="diff-block ${colorClass}"><pre>${symbol} ${escapeHtml(part.value)}</pre></div>`;
+            }).join('')}
+        </div>
+    </div>
+</body>
+</html>`;
+
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `diff-report-${new Date().toISOString().slice(0,10)}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function handleConflictParse() {
+      const result = parseMergeConflict(conflictInput);
+      if (result.success) {
+          original = result.original;
+          modified = result.modified;
+          showConflictModal = false;
+          conflictInput = '';
+          conflictMessage = '';
+          showSaveNotification = true; // Recycle save notification for simplicity or create a new one
+          // Ideally we would change the notification text dynamically but for now "Saved" (icon check) implies success.
+          // Better: just trigger a visual feedback.
+          // Let's rely on the modal closing and result appearing.
+      } else {
+          conflictMessage = t.noConflictFound;
+      }
+  }
+
+  // Example Data
+  const examples = {
+    code: {
+        original: `function calculateTotal(items) {
+  let total = 0;
+  for (let i = 0; i < items.length; i++) {
+    total += items[i].price;
+  }
+  return total;
+}`,
+        modified: `function calculateTotal(items) {
+  return items.reduce((total, item) => {
+    return total + item.price;
+  }, 0);
+}`
+    },
+    json: {
+        original: `{\n  "name": "Project A",\n  "version": "1.0.0",\n  "active": true\n}`,
+        modified: `{\n  "name": "Project A",\n  "version": "1.0.1",\n  "active": false,\n  "description": "Updated project"\n}`
+    },
+    text: {
+        original: "The quick brown fox jumps over the lazy dog.\nIt was a sunny day in the park.",
+        modified: "The quick brown fox jumped over the lazy dog.\nIt was a rainy day in the park."
+    }
+  };
+
+  function loadExample(type: 'code' | 'json' | 'text') {
+      original = examples[type].original;
+      modified = examples[type].modified;
+      mode = type === 'json' ? 'json' : 'lines';
+  }
+
+  // Keyboard Shortcuts
+  function handleKeydown(e: KeyboardEvent) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+         // Trigger diff (automatic but good for feedback)
+         e.preventDefault();
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          clearAll();
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key === '/') {
+          e.preventDefault();
+          isHistoryOpen = !isHistoryOpen;
+      }
+  }
+</script>
+
+<svelte:window on:keydown={handleKeydown} />
+
+<Head
+  title={t.title}
+  description={t.description}
+  image="https://web-factory.vercel.app/og/diff-viewer.png"
+/>
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20">
+  <!-- Header -->
+  <div class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="/{lang}" class="p-2 -ml-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-500 dark:text-gray-400">
+           <ArrowLeftRight class="w-5 h-5" />
+        </a>
+        <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">
+          {t.title}
+        </h1>
+      </div>
+
+      <div class="flex items-center gap-2">
+         <!-- Example Dropdown (Simple) -->
+         <div class="hidden sm:flex items-center gap-1 mr-2">
+            <button class="text-xs px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded text-gray-500" on:click={() => loadExample('code')}>Code</button>
+            <button class="text-xs px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded text-gray-500" on:click={() => loadExample('json')}>JSON</button>
+            <button class="text-xs px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded text-gray-500" on:click={() => loadExample('text')}>Text</button>
+         </div>
+
+        <button
+          class="p-2 text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors relative"
+          on:click={() => isHistoryOpen = !isHistoryOpen}
+          title={t.history + ' (Cmd+/)'}
+          aria-label={t.history}
+        >
+          <History class="w-5 h-5" />
+        </button>
+        <button
+          class="p-2 text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors"
+          on:click={copyShareLink}
+          title={t.share}
+          aria-label={t.share}
+        >
+            {#if showCopyNotification}
+                <Check class="w-5 h-5 text-green-500" />
+            {:else}
+                <Share2 class="w-5 h-5" />
+            {/if}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
+
+    <!-- Conflict Modal -->
+    {#if showConflictModal}
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <button
+                class="absolute inset-0 bg-black/50 backdrop-blur-sm border-none w-full h-full cursor-default"
+                aria-label="Close Modal"
+                on:click={() => showConflictModal = false}
+                on:keydown={(e) => e.key === 'Escape' && (showConflictModal = false)}
+            ></button>
+            <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-2xl p-6 overflow-hidden flex flex-col max-h-[90vh]">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                        <GitMerge class="w-5 h-5 text-indigo-500" />
+                        {t.mergeConflict}
+                    </h3>
+                    <button class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" on:click={() => showConflictModal = false}>
+                        <X class="w-5 h-5" />
+                    </button>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">{t.pasteConflict}</p>
+                <textarea
+                    bind:value={conflictInput}
+                    class="flex-1 w-full p-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg font-mono text-xs focus:ring-2 focus:ring-indigo-500 outline-none resize-none mb-4 min-h-[200px]"
+                    placeholder={`<<<<<<< HEAD\nvar x = 1;\n=======\nvar x = 2;\n>>>>>>> feature/new-x`}
+                ></textarea>
+                {#if conflictMessage}
+                    <p class="text-red-500 text-sm mb-4">{conflictMessage}</p>
+                {/if}
+                <div class="flex justify-end gap-2">
+                    <button class="btn-secondary" on:click={() => showConflictModal = false}>Cancel</button>
+                    <button class="btn-primary" on:click={handleConflictParse}>Parse Conflict</button>
+                </div>
+            </div>
+        </div>
+    {/if}
+
+    <!-- History Sidebar -->
+    {#if isHistoryOpen}
+        <div class="fixed inset-y-0 right-0 z-50 w-80 shadow-2xl bg-white dark:bg-gray-800" transition:fly={{ x: 300, duration: 300 }}>
+            <DiffHistory {translations} onSelect={loadHistoryItem} />
+             <!-- Backdrop -->
+             <button
+                class="absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                on:click={() => isHistoryOpen = false}
+                aria-label="Close"
+             >
+                <X class="w-5 h-5" />
+             </button>
+        </div>
+        <!-- Overlay -->
+        <button
+            class="fixed inset-0 bg-black/20 z-40 cursor-default w-full h-full border-none"
+            aria-label="Close History Overlay"
+            on:click={() => isHistoryOpen = false}
+            on:keydown={(e) => e.key === 'Escape' && (isHistoryOpen = false)}
+            transition:fade={{ duration: 200 }}
+        ></button>
+    {/if}
+
+    <!-- Toolbar -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 mb-6 flex flex-wrap gap-4 items-center justify-between sticky top-20 z-20">
+
+        <div class="flex flex-wrap gap-4 items-center">
+            <!-- Mode Selection -->
+            <div class="flex items-center gap-2">
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{t.mode}:</span>
+                <select bind:value={mode} class="bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white">
+                    <option value="lines">{t.lines}</option>
+                    <option value="words">{t.words}</option>
+                    <option value="chars">{t.chars}</option>
+                    <option value="json">{t.json}</option>
+                </select>
+            </div>
+
+            <!-- View Mode -->
+            <div class="flex bg-gray-100 dark:bg-gray-900 rounded-lg p-1">
+                <button
+                    class="px-3 py-1.5 rounded-md text-sm font-medium transition-all {viewMode === 'split' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
+                    on:click={() => viewMode = 'split'}
+                >
+                    <Columns class="w-4 h-4 inline mr-1" /> {t.split}
+                </button>
+                <button
+                    class="px-3 py-1.5 rounded-md text-sm font-medium transition-all {viewMode === 'unified' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
+                    on:click={() => viewMode = 'unified'}
+                >
+                    <AlignLeft class="w-4 h-4 inline mr-1" /> {t.unified}
+                </button>
+            </div>
+
+            <!-- Options -->
+            <label class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
+                <input type="checkbox" bind:checked={ignoreWhitespace} class="rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800">
+                {t.ignoreWhitespace}
+            </label>
+            <label class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
+                <input type="checkbox" bind:checked={ignoreCase} class="rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800">
+                {t.ignoreCase}
+            </label>
+        </div>
+
+        <div class="flex gap-2 flex-wrap sm:flex-nowrap">
+            <button class="btn-secondary flex items-center gap-2" on:click={() => showConflictModal = true} title={t.mergeConflict}>
+                <GitMerge class="w-4 h-4 text-orange-500" />
+                <span class="hidden md:inline">{t.mergeConflict}</span>
+            </button>
+             <button class="btn-secondary flex items-center gap-2" on:click={downloadReport} title={t.downloadReport}>
+                <Download class="w-4 h-4 text-blue-500" />
+                <span class="hidden md:inline">Report</span>
+            </button>
+            <div class="w-px h-8 bg-gray-200 dark:bg-gray-700 mx-1 hidden sm:block"></div>
+            <button class="btn-secondary flex items-center gap-2" on:click={swapSides} title={t.swap}>
+                <ArrowLeftRight class="w-4 h-4" />
+                <span class="hidden sm:inline">{t.swap}</span>
+            </button>
+            <button class="btn-secondary text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 dark:text-red-400 flex items-center gap-2" on:click={clearAll} title={t.clear + ' (Cmd+K)'}>
+                <Trash2 class="w-4 h-4" />
+                <span class="hidden sm:inline">{t.clear}</span>
+            </button>
+            <button class="btn-primary flex items-center gap-2 relative" on:click={saveToHistory} title={t.save}>
+                {#if showSaveNotification}
+                    <Check class="w-4 h-4" />
+                    <span>Saved</span>
+                {:else}
+                    <Save class="w-4 h-4" />
+                    <span>{t.save}</span>
+                {/if}
+            </button>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <DiffStats stats={diffResult.stats} />
+
+    <!-- Editors Area -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6 h-[400px]">
+        <DiffEditor
+            bind:this={originalEditor}
+            bind:value={original}
+            label={t.original}
+            placeholder="Paste original text here..."
+            on:scroll={(e) => handleEditorScroll(e, 'original')}
+        />
+        <DiffEditor
+            bind:this={modifiedEditor}
+            bind:value={modified}
+            label={t.modified}
+            placeholder="Paste modified text here..."
+            on:scroll={(e) => handleEditorScroll(e, 'modified')}
+        />
+    </div>
+
+    <!-- Visualizer Area -->
+    <div class="h-[500px]">
+        <DiffVisualizer {diffResult} mode={viewMode} />
+    </div>
+
+    <!-- Guide & SEO Content -->
+    <div class="mt-16 prose dark:prose-invert max-w-none">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm border border-gray-200 dark:border-gray-700">
+        <h2 class="flex items-center gap-2 text-2xl font-bold mb-6">
+          <Info class="w-6 h-6 text-indigo-500" />
+          {t.guide.title}
+        </h2>
+
+        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
+          {t.guide.intro}
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+          <div class="bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-xl">
+            <h3 class="font-semibold text-indigo-900 dark:text-indigo-200 mb-2">{t.guide.featuresTitle}</h3>
+            <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+              <li class="flex gap-2">
+                <FileJson class="w-4 h-4 mt-1 flex-shrink-0 text-indigo-500" />
+                <span>{@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+              </li>
+              <li class="flex gap-2">
+                <Type class="w-4 h-4 mt-1 flex-shrink-0 text-indigo-500" />
+                <span>{@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+              </li>
+              <li class="flex gap-2">
+                <Check class="w-4 h-4 mt-1 flex-shrink-0 text-indigo-500" />
+                <span>{@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-violet-50 dark:bg-violet-900/20 p-6 rounded-xl">
+            <h3 class="font-semibold text-violet-900 dark:text-violet-200 mb-2">{t.guide.tipsTitle}</h3>
+             <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+              <li class="flex gap-2">
+                <ArrowLeftRight class="w-4 h-4 mt-1 flex-shrink-0 text-violet-500" />
+                <span>{@html t.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+              </li>
+              <li class="flex gap-2">
+                <Code class="w-4 h-4 mt-1 flex-shrink-0 text-violet-500" />
+                <span>{@html t.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+              </li>
+              <li class="flex gap-2">
+                <History class="w-4 h-4 mt-1 flex-shrink-0 text-violet-500" />
+                <span>{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <h3 class="text-xl font-bold mb-6">{t.faqTitle}</h3>
+        <div class="space-y-6">
+          <div>
+            <h4 class="font-medium text-gray-900 dark:text-white mb-2">{t.q1}</h4>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">{t.a1}</p>
+          </div>
+          <div>
+            <h4 class="font-medium text-gray-900 dark:text-white mb-2">{t.q2}</h4>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">{t.a2}</p>
+          </div>
+          <div>
+            <h4 class="font-medium text-gray-900 dark:text-white mb-2">{t.q3}</h4>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">{t.a3}</p>
+          </div>
+        </div>
+
+        <!-- JSON-LD Schema -->
+        <Head>
+            {@html `<script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "${t.title}",
+              "operatingSystem": "Web",
+              "applicationCategory": "DeveloperApplication",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              },
+              "description": "${t.description}",
+              "featureList": "Diff comparison, JSON sorting, Syntax highlighting, Local history, Scroll sync, Dark mode"
+            }
+            </script>`}
+            {@html `<script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "${t.q1}",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "${t.a1}"
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "${t.q2}",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "${t.a2}"
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "${t.q3}",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "${t.a3}"
+                  }
+                }
+              ]
+            }
+            </script>`}
+        </Head>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .btn-primary {
+    @apply px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-sm;
+  }
+  .btn-secondary {
+    @apply px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg font-medium transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 text-sm;
+  }
+</style>

@@ -63,6 +63,15 @@ export interface ColorHistory {
   starred?: number; // 0 or 1, using number for Dexie ease of indexing if needed
 }
 
+export interface DiffHistory {
+  id?: number;
+  original: string;
+  modified: string;
+  mode: string;
+  createdAt: Date;
+  starred?: number;
+}
+
 class MySubClassedDexie extends Dexie {
   compoundInterestConfig!: Table<CompoundInterestConfig>;
   compoundInterestHistory!: Table<CompoundInterestHistory>;
@@ -71,6 +80,7 @@ class MySubClassedDexie extends Dexie {
   cronHistory!: Table<CronHistory>;
   regexHistory!: Table<RegexHistory>;
   colorHistory!: Table<ColorHistory>;
+  diffHistory!: Table<DiffHistory>;
 
   constructor() {
     super('webFactoryDB');
@@ -128,6 +138,16 @@ class MySubClassedDexie extends Dexie {
       return tx.table('colorHistory').toCollection().modify(item => {
         item.starred = 0;
       });
+    });
+    this.version(9).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred'
     });
   }
 }
