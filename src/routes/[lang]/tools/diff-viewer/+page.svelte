@@ -5,16 +5,20 @@
   import { page } from '$app/stores';
   import { db } from '$lib/db';
   import { calculateDiff, parseMergeConflict, type DiffResult, type DiffMode } from '$lib/utils/diff';
+  import { compressState, decompressState } from '$lib/utils/url-state';
+  import * as Diff from 'diff';
   import DiffEditor from '$lib/components/diff-viewer/DiffEditor.svelte';
   import DiffVisualizer from '$lib/components/diff-viewer/DiffVisualizer.svelte';
   import DiffHistory from '$lib/components/diff-viewer/DiffHistory.svelte';
   import DiffStats from '$lib/components/diff-viewer/DiffStats.svelte';
-  import { Split, Columns, History, RotateCcw, Save, Trash2, ArrowLeftRight, Check, X, Code, FileJson, AlignLeft, Type, Copy, Share2, Info, Keyboard, FileText, Download, GitMerge } from 'lucide-svelte';
+  import MergeConflictResolver from '$lib/components/diff-viewer/MergeConflictResolver.svelte';
+  import { Split, Columns, History, RotateCcw, Save, Trash2, ArrowLeftRight, Check, X, Code, FileJson, AlignLeft, Type, Copy, Share2, Info, Keyboard, FileText, Download, GitMerge, FileUp } from 'lucide-svelte';
   import Head from '$lib/components/Head.svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
   $: t = dict.tools.diffViewer;
+  $: translations = t; // For passing to components
 
   let original = '';
   let modified = '';
@@ -28,11 +32,29 @@
   let showSaveNotification = false;
   let showCopyNotification = false;
   let showConflictModal = false;
+  let isResolving = false;
   let conflictInput = '';
   let conflictMessage = '';
 
   let originalEditor: DiffEditor;
   let modifiedEditor: DiffEditor;
+
+  // Initialize from URL
+  onMount(async () => {
+      const hash = window.location.hash.slice(1);
+      if (hash) {
+          try {
+              const state = JSON.parse(await decompressState(hash));
+              if (state.original) original = state.original;
+              if (state.modified) modified = state.modified;
+              if (state.mode) mode = state.mode;
+              // Clean hash
+              window.history.replaceState(null, '', window.location.pathname);
+          } catch (e) {
+              console.error("Failed to load state from URL", e);
+          }
+      }
+  });
 
   // Re-calculate diff whenever inputs change
   $: {
@@ -91,12 +113,32 @@
       }
   }
 
-  function copyShareLink() {
-      const url = new URL(window.location.href);
-      // We don't store state in URL for privacy and size reasons, but we copy the link.
-      navigator.clipboard.writeText(url.toString());
-      showCopyNotification = true;
-      setTimeout(() => showCopyNotification = false, 2000);
+  async function copyShareLink() {
+      const state = JSON.stringify({ original, modified, mode });
+      try {
+          const compressed = await compressState(state);
+          const url = new URL(window.location.href);
+          url.hash = compressed;
+          await navigator.clipboard.writeText(url.toString());
+          showCopyNotification = true;
+          setTimeout(() => showCopyNotification = false, 2000);
+      } catch (e) {
+          console.error("Failed to share", e);
+          alert("Content too large to share via URL.");
+      }
+  }
+
+  function downloadPatch() {
+      const patch = Diff.createTwoFilesPatch("original", "modified", original, modified);
+      const blob = new Blob([patch], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `changes-${new Date().toISOString().slice(0,10)}.patch`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
   }
 
   function escapeHtml(text: string) {
@@ -157,21 +199,27 @@
     URL.revokeObjectURL(url);
   }
 
-  function handleConflictParse() {
-      const result = parseMergeConflict(conflictInput);
-      if (result.success) {
-          original = result.original;
-          modified = result.modified;
-          showConflictModal = false;
-          conflictInput = '';
-          conflictMessage = '';
-          showSaveNotification = true; // Recycle save notification for simplicity or create a new one
-          // Ideally we would change the notification text dynamically but for now "Saved" (icon check) implies success.
-          // Better: just trigger a visual feedback.
-          // Let's rely on the modal closing and result appearing.
-      } else {
-          conflictMessage = t.noConflictFound;
-      }
+  function handleConflictResolve(e: CustomEvent) {
+      const resolvedText = e.detail.text;
+      // Put resolved text in original and empty modified? Or ask user?
+      // Usually resolved goes to one place. Let's put it in "Original" and clear "Modified" to show it's done,
+      // or put same in both.
+      original = resolvedText;
+      modified = resolvedText;
+      showConflictModal = false;
+      conflictInput = '';
+      isResolving = false;
+  }
+
+  function startResolving() {
+      if (!conflictInput.trim()) return;
+      isResolving = true;
+  }
+
+  function cancelConflict() {
+      showConflictModal = false;
+      conflictInput = '';
+      isResolving = false;
   }
 
   // Example Data
@@ -287,29 +335,39 @@
                 on:click={() => showConflictModal = false}
                 on:keydown={(e) => e.key === 'Escape' && (showConflictModal = false)}
             ></button>
-            <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-2xl p-6 overflow-hidden flex flex-col max-h-[90vh]">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                        <GitMerge class="w-5 h-5 text-indigo-500" />
-                        {t.mergeConflict}
-                    </h3>
-                    <button class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" on:click={() => showConflictModal = false}>
-                        <X class="w-5 h-5" />
-                    </button>
-                </div>
-                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">{t.pasteConflict}</p>
-                <textarea
-                    bind:value={conflictInput}
-                    class="flex-1 w-full p-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg font-mono text-xs focus:ring-2 focus:ring-indigo-500 outline-none resize-none mb-4 min-h-[200px]"
-                    placeholder={`<<<<<<< HEAD\nvar x = 1;\n=======\nvar x = 2;\n>>>>>>> feature/new-x`}
-                ></textarea>
-                {#if conflictMessage}
-                    <p class="text-red-500 text-sm mb-4">{conflictMessage}</p>
-                {/if}
-                <div class="flex justify-end gap-2">
-                    <button class="btn-secondary" on:click={() => showConflictModal = false}>Cancel</button>
-                    <button class="btn-primary" on:click={handleConflictParse}>Parse Conflict</button>
-                </div>
+            <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl p-0 overflow-hidden flex flex-col max-h-[90vh]">
+                 {#if !isResolving}
+                    <!-- Input State -->
+                     <div class="p-6 flex flex-col h-full">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                <GitMerge class="w-5 h-5 text-indigo-500" />
+                                {t.mergeConflict}
+                            </h3>
+                            <button class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" on:click={cancelConflict}>
+                                <X class="w-5 h-5" />
+                            </button>
+                        </div>
+                         <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">{t.pasteConflict}</p>
+                         <textarea
+                            bind:value={conflictInput}
+                            class="flex-1 w-full p-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg font-mono text-xs focus:ring-2 focus:ring-indigo-500 outline-none resize-none mb-4 min-h-[300px]"
+                            placeholder={`<<<<<<< HEAD\nvar x = 1;\n=======\nvar x = 2;\n>>>>>>> feature/new-x`}
+                        ></textarea>
+                         <div class="flex justify-end gap-2 mt-4">
+                            <button class="btn-secondary" on:click={cancelConflict}>Cancel</button>
+                            <button class="btn-primary" on:click={startResolving}>Start Resolving</button>
+                        </div>
+                     </div>
+                 {:else}
+                    <!-- Resolver State -->
+                    <MergeConflictResolver
+                        content={conflictInput}
+                        translations={t}
+                        on:apply={handleConflictResolve}
+                        on:cancel={() => isResolving = false}
+                    />
+                 {/if}
             </div>
         </div>
     {/if}
@@ -387,6 +445,10 @@
              <button class="btn-secondary flex items-center gap-2" on:click={downloadReport} title={t.downloadReport}>
                 <Download class="w-4 h-4 text-blue-500" />
                 <span class="hidden md:inline">Report</span>
+            </button>
+            <button class="btn-secondary flex items-center gap-2" on:click={downloadPatch} title="Download Patch (.patch)">
+                <FileUp class="w-4 h-4 text-green-500" />
+                <span class="hidden md:inline">Patch</span>
             </button>
             <div class="w-px h-8 bg-gray-200 dark:bg-gray-700 mx-1 hidden sm:block"></div>
             <button class="btn-secondary flex items-center gap-2" on:click={swapSides} title={t.swap}>
