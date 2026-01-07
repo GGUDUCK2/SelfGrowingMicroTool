@@ -4,12 +4,12 @@
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
   import { db } from '$lib/db';
-  import { calculateDiff, type DiffResult, type DiffMode } from '$lib/utils/diff';
+  import { calculateDiff, parseMergeConflict, type DiffResult, type DiffMode } from '$lib/utils/diff';
   import DiffEditor from '$lib/components/diff-viewer/DiffEditor.svelte';
   import DiffVisualizer from '$lib/components/diff-viewer/DiffVisualizer.svelte';
   import DiffHistory from '$lib/components/diff-viewer/DiffHistory.svelte';
   import DiffStats from '$lib/components/diff-viewer/DiffStats.svelte';
-  import { Split, Columns, History, RotateCcw, Save, Trash2, ArrowLeftRight, Check, X, Code, FileJson, AlignLeft, Type, Copy, Share2, Info, Keyboard, FileText } from 'lucide-svelte';
+  import { Split, Columns, History, RotateCcw, Save, Trash2, ArrowLeftRight, Check, X, Code, FileJson, AlignLeft, Type, Copy, Share2, Info, Keyboard, FileText, Download, GitMerge } from 'lucide-svelte';
   import Head from '$lib/components/Head.svelte';
 
   $: lang = $page.params.lang || 'en';
@@ -27,6 +27,9 @@
   let isHistoryOpen = false;
   let showSaveNotification = false;
   let showCopyNotification = false;
+  let showConflictModal = false;
+  let conflictInput = '';
+  let conflictMessage = '';
 
   let originalEditor: DiffEditor;
   let modifiedEditor: DiffEditor;
@@ -94,6 +97,81 @@
       navigator.clipboard.writeText(url.toString());
       showCopyNotification = true;
       setTimeout(() => showCopyNotification = false, 2000);
+  }
+
+  function escapeHtml(text: string) {
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+  }
+
+  function downloadReport() {
+    const htmlContent = `
+<!DOCTYPE html>
+<html lang="${lang}">
+<head>
+    <meta charset="UTF-8">
+    <title>${escapeHtml(t.title)} - Report</title>
+    <style>
+        body { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; line-height: 1.5; padding: 20px; background: #f9fafb; color: #111827; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .header { margin-bottom: 20px; border-bottom: 1px solid #e5e7eb; padding-bottom: 10px; }
+        .diff-block { margin-bottom: 5px; }
+        .added { background-color: #dcfce7; color: #166534; }
+        .removed { background-color: #fee2e2; color: #991b1b; }
+        .stats { margin-bottom: 20px; font-size: 0.9em; color: #6b7280; }
+        pre { margin: 0; white-space: pre-wrap; word-break: break-all; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>${escapeHtml(t.title)} - Comparison Report</h1>
+            <p>Generated on ${new Date().toLocaleString()}</p>
+        </div>
+        <div class="stats">
+            Additions: ${diffResult.stats.additions} | Deletions: ${diffResult.stats.deletions} | Unchanged: ${diffResult.stats.unchanged}
+        </div>
+        <div class="diff-content">
+            ${diffResult.diffs.map(part => {
+                const colorClass = part.added ? 'added' : part.removed ? 'removed' : '';
+                const symbol = part.added ? '+' : part.removed ? '-' : ' ';
+                return `<div class="diff-block ${colorClass}"><pre>${symbol} ${escapeHtml(part.value)}</pre></div>`;
+            }).join('')}
+        </div>
+    </div>
+</body>
+</html>`;
+
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `diff-report-${new Date().toISOString().slice(0,10)}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function handleConflictParse() {
+      const result = parseMergeConflict(conflictInput);
+      if (result.success) {
+          original = result.original;
+          modified = result.modified;
+          showConflictModal = false;
+          conflictInput = '';
+          conflictMessage = '';
+          showSaveNotification = true; // Recycle save notification for simplicity or create a new one
+          // Ideally we would change the notification text dynamically but for now "Saved" (icon check) implies success.
+          // Better: just trigger a visual feedback.
+          // Let's rely on the modal closing and result appearing.
+      } else {
+          conflictMessage = t.noConflictFound;
+      }
   }
 
   // Example Data
@@ -200,6 +278,42 @@
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
 
+    <!-- Conflict Modal -->
+    {#if showConflictModal}
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <button
+                class="absolute inset-0 bg-black/50 backdrop-blur-sm border-none w-full h-full cursor-default"
+                aria-label="Close Modal"
+                on:click={() => showConflictModal = false}
+                on:keydown={(e) => e.key === 'Escape' && (showConflictModal = false)}
+            ></button>
+            <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-2xl p-6 overflow-hidden flex flex-col max-h-[90vh]">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                        <GitMerge class="w-5 h-5 text-indigo-500" />
+                        {t.mergeConflict}
+                    </h3>
+                    <button class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" on:click={() => showConflictModal = false}>
+                        <X class="w-5 h-5" />
+                    </button>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">{t.pasteConflict}</p>
+                <textarea
+                    bind:value={conflictInput}
+                    class="flex-1 w-full p-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg font-mono text-xs focus:ring-2 focus:ring-indigo-500 outline-none resize-none mb-4 min-h-[200px]"
+                    placeholder={`<<<<<<< HEAD\nvar x = 1;\n=======\nvar x = 2;\n>>>>>>> feature/new-x`}
+                ></textarea>
+                {#if conflictMessage}
+                    <p class="text-red-500 text-sm mb-4">{conflictMessage}</p>
+                {/if}
+                <div class="flex justify-end gap-2">
+                    <button class="btn-secondary" on:click={() => showConflictModal = false}>Cancel</button>
+                    <button class="btn-primary" on:click={handleConflictParse}>Parse Conflict</button>
+                </div>
+            </div>
+        </div>
+    {/if}
+
     <!-- History Sidebar -->
     {#if isHistoryOpen}
         <div class="fixed inset-y-0 right-0 z-50 w-80 shadow-2xl bg-white dark:bg-gray-800" transition:fly={{ x: 300, duration: 300 }}>
@@ -265,7 +379,16 @@
             </label>
         </div>
 
-        <div class="flex gap-2">
+        <div class="flex gap-2 flex-wrap sm:flex-nowrap">
+            <button class="btn-secondary flex items-center gap-2" on:click={() => showConflictModal = true} title={t.mergeConflict}>
+                <GitMerge class="w-4 h-4 text-orange-500" />
+                <span class="hidden md:inline">{t.mergeConflict}</span>
+            </button>
+             <button class="btn-secondary flex items-center gap-2" on:click={downloadReport} title={t.downloadReport}>
+                <Download class="w-4 h-4 text-blue-500" />
+                <span class="hidden md:inline">Report</span>
+            </button>
+            <div class="w-px h-8 bg-gray-200 dark:bg-gray-700 mx-1 hidden sm:block"></div>
             <button class="btn-secondary flex items-center gap-2" on:click={swapSides} title={t.swap}>
                 <ArrowLeftRight class="w-4 h-4" />
                 <span class="hidden sm:inline">{t.swap}</span>

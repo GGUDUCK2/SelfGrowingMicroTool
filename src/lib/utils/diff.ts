@@ -119,3 +119,33 @@ function sortKeys(obj: unknown): unknown {
   }
   return obj;
 }
+
+export function parseMergeConflict(input: string): { original: string; modified: string; success: boolean } {
+  const conflictRegex = /<<<<<<< (.*?)\n([\s\S]*?)=======\n([\s\S]*?)>>>>>>> (.*?)/g;
+  let original = "";
+  let modified = "";
+  let lastIndex = 0;
+  let match;
+  let found = false;
+
+  while ((match = conflictRegex.exec(input)) !== null) {
+    found = true;
+    // Append content before the match
+    const before = input.slice(lastIndex, match.index);
+    original += before;
+    modified += before;
+
+    // Append ours (original) and theirs (modified)
+    original += match[2];
+    modified += match[3];
+
+    lastIndex = conflictRegex.lastIndex;
+  }
+
+  // Append remaining content
+  const remaining = input.slice(lastIndex);
+  original += remaining;
+  modified += remaining;
+
+  return { original, modified, success: found };
+}
