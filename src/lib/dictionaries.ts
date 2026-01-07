@@ -317,6 +317,61 @@ export const dictionaries = {
           tip2: "Enable **Ignore Whitespace** when comparing code with different indentation styles.",
           tip3: "Save your frequent comparisons to **History** for quick regression checking."
         }
+      },
+      idForge: {
+        title: "ID Forge: Ultimate Identifier Architect",
+        description: "The definitive tool to generate, analyze, and manage UUIDs (v1-v7), ULIDs, CUIDs, and NanoIDs.",
+        generate: "Generate",
+        analyze: "Analyze",
+        collision: "Collision",
+        type: "ID Type",
+        quantity: "Quantity",
+        format: "Format",
+        length: "Length",
+        alphabet: "Alphabet",
+        history: "Recent Activity",
+        save: "Save",
+        restore: "Restore",
+        delete: "Delete",
+        copy: "Copy",
+        copied: "Copied!",
+        share: "Share",
+        download: "Download",
+        emptyHistory: "No recent history.",
+        shortcuts: "Shortcuts",
+        shortcutsHelp: "Keyboard Shortcuts",
+        press: "Press",
+        faqTitle: "ID Forge FAQ",
+        q1: "When should I use NanoID over UUID?",
+        a1: "NanoID is perfect for frontend-generated IDs (like short URLs or component keys) where you need a compact string. It's safe to use in URLs and is significantly smaller than a UUID.",
+        q2: "Is UUID v4 still good?",
+        a2: "Yes, UUID v4 (completely random) is excellent for general purpose use where sorting is not required. However, inserting millions of random v4 UUIDs into a B-Tree index can cause performance degradation.",
+        q3: "What is UUID v7?",
+        a3: "UUID v7 is a new standard that combines a timestamp with random bits. It is time-sortable, making it much better for database indexing than v4.",
+        guide: {
+          title: "Why ID Forge?",
+          intro: "In modern distributed systems, choosing the right identifier strategy is critical. ID Forge provides a unified interface for the most robust standards available today.",
+          featuresTitle: "Supported Standards",
+          f1: "**UUID v7:** The modern, time-sortable standard for databases.",
+          f2: "**ULID:** Universally Unique Lexicographically Sortable Identifier. URL-safe and compact.",
+          f3: "**NanoID:** Tiny, secure, URL-friendly unique string ID generator for JavaScript.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use **UUID v7** for primary keys in databases like PostgreSQL or MySQL.",
+          tip2: "Use **NanoID** for public-facing IDs like short links or React keys.",
+          tip3: "Use the **Collision Calculator** to verify the safety of your chosen ID parameters."
+        },
+        buttons: {
+          copy: "Copy",
+          download: "Download",
+          share: "Share",
+          star: "Star",
+          delete: "Delete"
+        },
+        feedback: {
+          copied: "Copied!",
+          saved: "Saved!",
+          processing: "Processing..."
+        }
       }
     },
     pwa: {
@@ -652,6 +707,61 @@ export const dictionaries = {
           tip1: "**좌우 반전** 버튼을 사용하여 비교 방향을 빠르게 바꿀 수 있습니다.",
           tip2: "들여쓰기 스타일이 다른 코드를 비교할 때는 **공백 무시**를 켜세요.",
           tip3: "자주 사용하는 비교를 **기록**에 저장하여 빠르게 다시 확인할 수 있습니다."
+        }
+      },
+      idForge: {
+        title: "ID Forge: 궁극의 식별자 아키텍트",
+        description: "UUID (v1-v7), ULID, CUID, NanoID를 생성, 분석 및 관리하는 완벽한 도구입니다.",
+        generate: "생성",
+        analyze: "분석",
+        collision: "충돌 확률",
+        type: "ID 유형",
+        quantity: "수량",
+        format: "포맷",
+        length: "길이",
+        alphabet: "문자셋",
+        history: "최근 활동",
+        save: "저장",
+        restore: "복원",
+        delete: "삭제",
+        copy: "복사",
+        copied: "복사됨!",
+        share: "공유",
+        download: "다운로드",
+        emptyHistory: "최근 기록이 없습니다.",
+        shortcuts: "단축키",
+        shortcutsHelp: "키보드 단축키",
+        press: "누르기",
+        faqTitle: "ID Forge FAQ",
+        q1: "NanoID는 언제 사용해야 하나요?",
+        a1: "NanoID는 짧은 URL이나 컴포넌트 키처럼 프론트엔드에서 생성되는 ID에 적합합니다. URL에 안전하고 UUID보다 훨씬 작습니다.",
+        q2: "UUID v4는 여전히 좋은가요?",
+        a2: "네, 정렬이 필요 없는 일반적인 용도에는 무작위 UUID v4가 훌륭합니다. 하지만 대량의 무작위 v4 UUID를 B-Tree 인덱스에 삽입하면 성능 저하가 발생할 수 있습니다.",
+        q3: "UUID v7이 무엇인가요?",
+        a3: "UUID v7은 타임스탬프와 무작위 비트를 결합한 새로운 표준입니다. 시간순 정렬이 가능하여 데이터베이스 인덱싱에 훨씬 유리합니다.",
+        guide: {
+          title: "왜 ID Forge인가요?",
+          intro: "현대 분산 시스템에서 올바른 식별자 전략을 선택하는 것은 중요합니다. ID Forge는 가장 강력한 표준들을 위한 통합 인터페이스를 제공합니다.",
+          featuresTitle: "지원하는 표준",
+          f1: "**UUID v7:** 데이터베이스를 위한 현대적인 시간 정렬 표준.",
+          f2: "**ULID:** 대소문자를 구별하지 않고 URL에 안전한 정렬 가능 식별자.",
+          f3: "**NanoID:** JavaScript를 위한 작고 안전한 URL 친화적 ID 생성기.",
+          tipsTitle: "프로 팁",
+          tip1: "PostgreSQL이나 MySQL 같은 데이터베이스의 기본 키로는 **UUID v7**을 사용하세요.",
+          tip2: "단축 링크나 리액트 키에는 **NanoID**를 사용하세요.",
+          tip3: "**충돌 계산기**를 사용하여 선택한 ID 파라미터의 안전성을 검증하세요."
+        },
+        buttons: {
+          copy: "복사",
+          download: "다운로드",
+          share: "공유",
+          star: "즐겨찾기",
+          delete: "삭제"
+        },
+        feedback: {
+          copied: "복사되었습니다!",
+          saved: "저장되었습니다!",
+          processing: "처리 중..."
         }
       }
     },

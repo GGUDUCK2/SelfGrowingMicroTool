@@ -61,8 +61,7 @@ export const generateIds = (options: GenerationOptions): string[] => {
         default:
           id = v4();
       }
-    } catch (e) {
-      console.error('Generation error', e);
+    } catch {
       id = 'Error';
     }
 
