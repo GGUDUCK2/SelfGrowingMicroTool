@@ -371,6 +371,16 @@ export const dictionaries = {
           copied: "Copied!",
           saved: "Saved!",
           processing: "Processing..."
+        },
+        analyzer: {
+          type: "Type",
+          timestamp: "Embedded Timestamp",
+          details: "Details",
+          anatomy: "Structure Anatomy",
+          conversions: "Conversions",
+          isValid: "Valid",
+          invalid: "Invalid / Unknown",
+          pastePlaceholder: "Paste UUID, ULID, or any ID here..."
         }
       }
     },
@@ -762,6 +772,16 @@ export const dictionaries = {
           copied: "복사되었습니다!",
           saved: "저장되었습니다!",
           processing: "처리 중..."
+        },
+        analyzer: {
+          type: "유형",
+          timestamp: "내장 타임스탬프",
+          details: "상세 정보",
+          anatomy: "구조 분석",
+          conversions: "변환",
+          isValid: "유효함",
+          invalid: "유효하지 않음 / 알 수 없음",
+          pastePlaceholder: "UUID, ULID 또는 아무 ID나 붙여넣으세요..."
         }
       }
     },
