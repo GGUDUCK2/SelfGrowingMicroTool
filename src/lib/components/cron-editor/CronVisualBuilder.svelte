@@ -148,7 +148,7 @@
          {#each OPTIONS.minutes as m}
            <button
              class="rounded p-1 text-xs font-mono transition-colors
-             {isSelected(0, m) ? 'bg-indigo-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'}"
+             {isSelected(0, m) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-white/5 text-gray-400 hover:bg-white/10'}"
              on:click={() => toggleSpecific(0, m)}
            >
              {m}
@@ -160,7 +160,7 @@
          {#each OPTIONS.hours as h}
            <button
              class="rounded p-2 text-sm font-mono transition-colors
-             {isSelected(1, h) ? 'bg-indigo-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'}"
+             {isSelected(1, h) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-white/5 text-gray-400 hover:bg-white/10'}"
              on:click={() => toggleSpecific(1, h)}
            >
              {String(h).padStart(2, '0')}:00
@@ -172,7 +172,7 @@
          {#each OPTIONS.days as d}
            <button
              class="rounded p-2 text-sm font-mono transition-colors
-             {isSelected(2, d) ? 'bg-indigo-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'}"
+             {isSelected(2, d) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-white/5 text-gray-400 hover:bg-white/10'}"
              on:click={() => toggleSpecific(2, d)}
            >
              {d}
@@ -184,7 +184,7 @@
          {#each OPTIONS.months as m}
            <button
              class="rounded p-2 text-sm transition-colors
-             {isSelected(3, m.val) ? 'bg-indigo-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'}"
+             {isSelected(3, m.val) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-white/5 text-gray-400 hover:bg-white/10'}"
              on:click={() => toggleSpecific(3, m.val)}
            >
              {lang === 'ko' ? m.label.ko : m.label.en}
@@ -196,7 +196,7 @@
          {#each OPTIONS.weekdays as d}
            <button
              class="rounded p-2 text-sm transition-colors
-             {isSelected(4, d.val) ? 'bg-indigo-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'}"
+             {isSelected(4, d.val) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-white/5 text-gray-400 hover:bg-white/10'}"
              on:click={() => toggleSpecific(4, d.val)}
            >
              {lang === 'ko' ? d.label.ko : d.label.en}
