@@ -218,8 +218,9 @@
             id="cron-input"
             type="text"
             bind:value={cronExpression}
-            class="w-full bg-black/40 border border-white/20 rounded-lg px-4 py-4 text-xl font-mono text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-gray-600"
-            placeholder="* * * * *"
+            class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-4 text-xl font-mono text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-gray-400"
+            placeholder={lang === 'ko' ? "0 0 * * * (매일 자정)" : "0 0 * * * (Daily Midnight)"}
+            aria-label="Cron 표현식 입력"
           />
           <div
             class="absolute right-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"

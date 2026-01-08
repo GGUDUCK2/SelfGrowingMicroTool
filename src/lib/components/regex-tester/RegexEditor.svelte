@@ -58,11 +58,12 @@
       <div class="flex flex-wrap gap-2">
         {#each availableFlags as flag}
           <button
-            class="px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 border {flags.includes(flag.char)
-              ? 'bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800'
-              : 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-750'}"
+            class="px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 border cursor-pointer {flags.includes(flag.char)
+              ? 'bg-indigo-500 text-white shadow-lg border-transparent'
+              : 'bg-slate-700 text-slate-400 border-slate-600 hover:bg-slate-600'}"
             on:click={() => toggleFlag(flag.char)}
             title={flag.desc}
+            aria-pressed={flags.includes(flag.char)}
           >
             <span class="font-bold mr-1">{flag.char}</span>
             {flag.label}

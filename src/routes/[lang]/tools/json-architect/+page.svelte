@@ -189,13 +189,15 @@
     <p class="mt-2 text-lg text-gray-600 dark:text-gray-400">{t.description}</p>
   </div>
 
-  <Toolbar {t} on:action={handleAction} />
+  <div class="sticky top-0 z-10 bg-slate-900/95 backdrop-blur py-2">
+      <Toolbar {t} on:action={handleAction} />
+  </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 min-h-[600px]">
+  <div class="flex flex-col lg:flex-row gap-6 min-h-[600px]">
       <!-- Input Column -->
-      <div class="flex flex-col gap-2">
+      <div class="flex-1 flex flex-col gap-2">
           <div class="flex justify-between items-center">
-             <label for="json-input" class="text-sm font-medium text-gray-700 dark:text-gray-300">{t.input}</label>
+             <label for="json-input" class="text-sm font-semibold text-slate-300">입력 JSON ({t.input})</label>
              {#if error}
                 <span class="text-xs text-red-600 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded">{error}</span>
              {:else if parsedData}
@@ -205,11 +207,14 @@
           <JsonEditor bind:value={input} placeholder={t.input} />
       </div>
 
+      <!-- Divider -->
+      <div class="hidden lg:block w-px bg-slate-600 self-stretch"></div>
+
       <!-- Output Column -->
-      <div class="flex flex-col gap-2">
+      <div class="flex-1 flex flex-col gap-2">
           <div class="flex justify-between items-center">
-             <label for="json-output" class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t.output}
+             <label for="json-output" class="text-sm font-semibold text-slate-300">
+                포맷된 결과 ({t.output})
                 {#if mode !== 'json'}
                   <span class="ml-2 px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-xs text-gray-500">{mode.toUpperCase()}</span>
                 {/if}
