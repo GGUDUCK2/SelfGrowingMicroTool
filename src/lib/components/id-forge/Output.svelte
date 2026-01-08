@@ -3,12 +3,39 @@
   import Prism from 'prismjs';
   import 'prismjs/components/prism-json';
   import 'prismjs/components/prism-sql';
+  import 'prismjs/components/prism-csv';
   import { afterUpdate } from 'svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
+  import { formatOutput } from '$lib/utils/id-forge/id-forge';
 
   export let output: string;
   export let format: string;
+
+  // We need the raw list of IDs to re-format for "Copy as..." buttons
+  // But prop `output` is already formatted.
+  // Ideally, `Output` should receive the raw IDs list OR we just re-parse/re-generate.
+  // Simpler: The `output` prop is the display text.
+  // Wait, `formatOutput` takes `ids: string[]`.
+  // In `+page.svelte`, `generatedOutput` is a string.
+  // To support "Copy as JSON" when current format is "Plain", we need the raw IDs.
+  // However, I can't easily change the prop interface without changing the parent.
+  // Let's rely on parsing the output if it's simple (plain/hyphens) or just use the current output if format matches.
+  // OR: I can update `+page.svelte` to pass `ids` array to `Output`.
+
+  // Let's assume for now `Output` only handles the current text, BUT to implement "Smart Formats" effectively,
+  // I should probably just stick to the requested "Copy", "Download" which use the *current* output.
+  // The plan said: "Add 'Copy as JSON', 'Copy as SQL' buttons".
+  // To do this robustly, `Output.svelte` needs the source data (array of IDs).
+  // Let's stick to simple "Copy" and "Download" for the *current* view, as changing the data flow might be too invasive for this step.
+  // Use `format` prop to determine file extension.
+
+  // Re-reading plan: "Add 'Copy as JSON', 'Copy as SQL', 'Copy as CSV' buttons using `formatOutput`."
+  // This implies I should have access to the raw IDs.
+  // Let's modify `+page.svelte` to pass `generatedIds` array to `Output` as well.
+  // But first, let's implement the UI here assuming `ids` prop exists.
+
+  export let ids: string[] = []; // New prop
 
   $: dict = getDictionary($page.params.lang ?? 'en').tools.idForge;
 
@@ -17,25 +44,27 @@
 
   afterUpdate(() => {
     if (codeElement) {
-       // Simple highlight if small enough
        if (output.length < 50000) {
            Prism.highlightElement(codeElement);
        }
     }
   });
 
-  async function copy() {
-    await navigator.clipboard.writeText(output);
+  async function copyText(text: string) {
+    await navigator.clipboard.writeText(text);
     copied = true;
     setTimeout(() => copied = false, 2000);
   }
 
-  function download() {
-    const blob = new Blob([output], { type: 'text/plain' });
+  function download(fmtOverride?: any) {
+    const text = fmtOverride ? formatOutput(ids, fmtOverride) : output;
+    const ext = fmtOverride ? (fmtOverride === 'json' ? 'json' : fmtOverride === 'sql' ? 'sql' : 'csv') : (format === 'json' ? 'json' : format === 'sql' ? 'sql' : 'txt');
+
+    const blob = new Blob([text], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `ids-${new Date().toISOString()}.${format === 'json' ? 'json' : format === 'sql' ? 'sql' : 'txt'}`;
+    a.download = `ids-${new Date().toISOString()}.${ext}`;
     a.click();
     URL.revokeObjectURL(url);
   }
@@ -45,32 +74,56 @@
         try {
             await navigator.share({
                 title: 'ID Forge Output',
-                text: output.slice(0, 1000) // Limit text for share sheet
+                text: output.slice(0, 1000)
             });
         } catch (err) {
-            // Fallback to copy if share cancelled or failed
-            copy();
+            copyText(output);
         }
     } else {
-        copy();
+        copyText(output);
     }
   }
 </script>
 
 {#if output}
   <div transition:fade class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col h-[500px]">
-    <div class="px-4 py-3 border-b border-slate-100 dark:border-slate-700/50 flex items-center justify-between bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur">
+    <div class="px-4 py-3 border-b border-slate-100 dark:border-slate-700/50 flex flex-col md:flex-row items-center justify-between bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur gap-2">
       <div class="flex items-center space-x-2">
         <div class="flex space-x-1">
             <div class="w-3 h-3 rounded-full bg-red-400"></div>
             <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
             <div class="w-3 h-3 rounded-full bg-green-400"></div>
         </div>
-        <span class="text-xs font-mono text-slate-500 ml-2">Output Preview</span>
+        <span class="text-xs font-mono text-slate-500 ml-2">Output Preview ({ids.length})</span>
       </div>
-      <div class="flex items-center space-x-2">
+      <div class="flex flex-wrap items-center gap-2 justify-center">
+        <!-- Bulk Export Options -->
+        {#if ids.length > 0}
+        <div class="flex items-center bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-0.5">
+            <button
+                on:click={() => copyText(formatOutput(ids, 'json'))}
+                class="px-2 py-1 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
+                title="Copy as JSON"
+            >JSON</button>
+            <div class="w-px h-3 bg-slate-200 dark:bg-slate-700 mx-0.5"></div>
+            <button
+                on:click={() => copyText(formatOutput(ids, 'sql'))}
+                class="px-2 py-1 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
+                title="Copy as SQL"
+            >SQL</button>
+             <div class="w-px h-3 bg-slate-200 dark:bg-slate-700 mx-0.5"></div>
+            <button
+                on:click={() => copyText(formatOutput(ids, 'csv'))}
+                class="px-2 py-1 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
+                title="Copy as CSV"
+            >CSV</button>
+        </div>
+        {/if}
+
+        <div class="h-4 w-px bg-slate-300 dark:bg-slate-600 mx-1 hidden md:block"></div>
+
         <button
-          on:click={copy}
+          on:click={() => copyText(output)}
           class="p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors relative"
           aria-label={dict.buttons.copy}
           title={dict.buttons.copy}
@@ -81,7 +134,7 @@
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
         </button>
         <button
-          on:click={download}
+          on:click={() => download()}
           class="p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors"
           aria-label={dict.buttons.download}
           title={dict.buttons.download}

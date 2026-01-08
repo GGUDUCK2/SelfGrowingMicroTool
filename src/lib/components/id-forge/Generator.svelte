@@ -56,31 +56,37 @@
   }
 
   // Smart Examples
-  function loadExample(type: IdType, qty: number, fmt: GenerationOptions['format'] = 'plain') {
+  function loadExample(type: IdType, qty: number, fmt: GenerationOptions['format'] = 'plain', extra: Partial<GenerationOptions> = {}) {
       selectedType = type;
       quantity = qty;
       format = fmt;
+      if (extra.nanoidLength) nanoidLength = extra.nanoidLength;
+
       updateOptions();
-      generate();
+      // Use setTimeout to allow state to propagate and then generate
+      setTimeout(() => generate(), 0);
   }
 </script>
 
 <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 space-y-6">
 
   <!-- Smart Examples -->
-  <div class="flex flex-wrap gap-2 pb-2">
-      <button on:click={() => loadExample('uuid-v7', 5, 'json')} class="px-3 py-1 text-xs font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors">
-          UUID v7 (JSON Batch)
-      </button>
-      <button on:click={() => loadExample('ulid', 1, 'plain')} class="px-3 py-1 text-xs font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-300 rounded-full hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors">
-          ULID (Sortable)
-      </button>
-      <button on:click={() => loadExample('nanoid', 1, 'plain')} class="px-3 py-1 text-xs font-medium bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-300 rounded-full hover:bg-rose-100 dark:hover:bg-rose-900/50 transition-colors">
-          NanoID (Short Link)
-      </button>
-      <button on:click={() => loadExample('uuid-v4', 10, 'sql')} class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
-          SQL Bulk Insert
-      </button>
+  <div class="flex flex-col space-y-2">
+      <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-1">Quick Presets</span>
+      <div class="flex flex-wrap gap-2">
+        <button on:click={() => loadExample('uuid-v7', 5, 'json')} class="px-3 py-1.5 text-xs font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors border border-transparent hover:border-indigo-200 dark:hover:border-indigo-800">
+            UUID v7 (JSON Batch)
+        </button>
+        <button on:click={() => loadExample('ulid', 1, 'plain')} class="px-3 py-1.5 text-xs font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-300 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors border border-transparent hover:border-emerald-200 dark:hover:border-emerald-800">
+            ULID (Sortable)
+        </button>
+        <button on:click={() => loadExample('nanoid', 1, 'plain', { nanoidLength: 10 })} class="px-3 py-1.5 text-xs font-medium bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-300 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-900/50 transition-colors border border-transparent hover:border-rose-200 dark:hover:border-rose-800">
+            Short NanoID (10)
+        </button>
+        <button on:click={() => loadExample('uuid-v4', 100, 'sql')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors border border-transparent hover:border-slate-300 dark:hover:border-slate-500">
+            SQL Bulk Insert (100)
+        </button>
+      </div>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -184,11 +190,15 @@
     {/if}
     <label class="flex items-center space-x-2 cursor-pointer">
         <input type="radio" bind:group={format} value="json" on:change={updateOptions} class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" />
-        <span class="text-sm text-slate-700 dark:text-slate-300">JSON Array</span>
+        <span class="text-sm text-slate-700 dark:text-slate-300">JSON</span>
     </label>
     <label class="flex items-center space-x-2 cursor-pointer">
         <input type="radio" bind:group={format} value="sql" on:change={updateOptions} class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" />
-        <span class="text-sm text-slate-700 dark:text-slate-300">SQL Insert</span>
+        <span class="text-sm text-slate-700 dark:text-slate-300">SQL</span>
+    </label>
+     <label class="flex items-center space-x-2 cursor-pointer">
+        <input type="radio" bind:group={format} value="csv" on:change={updateOptions} class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" />
+        <span class="text-sm text-slate-700 dark:text-slate-300">CSV</span>
     </label>
   </div>
 

@@ -12,7 +12,7 @@ export interface GenerationOptions {
   name?: string; // For v3, v5
   nanoidLength?: number;
   nanoidAlphabet?: string;
-  format: 'plain' | 'hyphens' | 'json' | 'sql' | 'guid';
+  format: 'plain' | 'hyphens' | 'json' | 'sql' | 'guid' | 'csv';
 }
 
 const NAMESPACE_DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
@@ -88,6 +88,9 @@ export const formatOutput = (ids: string[], format: GenerationOptions['format'])
   if (format === 'sql') {
     return `INSERT INTO ids (id) VALUES \n${ids.map(id => `('${id}')`).join(',\n')};`;
   }
+  if (format === 'csv') {
+      return `id\n${ids.join('\n')}`;
+  }
   return ids.join('\n');
 };
 
@@ -136,6 +139,7 @@ export const analyzeId = (id: string): IdAnalysis => {
   }
 
   // ULID Check (26 chars, Base32)
+  // Hard to validate strictly, but usually alphanumeric.
   const ulidRegex = /^[0-9A-HJKMNP-TV-Z]{26}$/i;
   if (ulidRegex.test(cleanId)) {
     let timestamp: Date | undefined;
