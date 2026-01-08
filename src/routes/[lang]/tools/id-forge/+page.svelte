@@ -2,12 +2,15 @@
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
   import { page } from '$app/stores';
+  import { replaceState } from '$app/navigation';
+  import { browser } from '$app/environment';
+
   import Generator from '$lib/components/id-forge/Generator.svelte';
   import Output from '$lib/components/id-forge/Output.svelte';
   import Analyzer from '$lib/components/id-forge/Analyzer.svelte';
   import Collision from '$lib/components/id-forge/Collision.svelte';
   import History from '$lib/components/id-forge/History.svelte';
-  import { generateIds, formatOutput, type GenerationOptions } from '$lib/utils/id-forge/id-forge';
+  import { generateIds, formatOutput, type GenerationOptions, type IdType } from '$lib/utils/id-forge/id-forge';
   import { db, type IdForgeHistory } from '$lib/db';
   import { getDictionary } from '$lib/dictionaries';
 
@@ -23,60 +26,100 @@
     type: 'uuid-v4',
     quantity: 1,
     format: 'plain',
-    nanoidLength: 21
+    nanoidLength: 21,
+    nanoidAlphabet: '',
+    namespace: '',
+    name: ''
   };
+
+  // Sync state from URL on mount
+  onMount(() => {
+    if (browser) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const type = urlParams.get('type') as IdType;
+        const quantity = parseInt(urlParams.get('qty') || '0');
+        const format = urlParams.get('fmt') as any;
+        const nanoLen = parseInt(urlParams.get('len') || '0');
+        const tab = urlParams.get('tab');
+
+        if (type) genOptions.type = type;
+        if (quantity) genOptions.quantity = quantity;
+        if (format) genOptions.format = format;
+        if (nanoLen) genOptions.nanoidLength = nanoLen;
+
+        if (tab === 'analyze' || tab === 'collision') {
+            activeTab = tab;
+        }
+
+        // Auto-generate if specific intent is detected (e.g. shared link)
+        if (type && quantity) {
+            handleGenerate(new CustomEvent('generate', { detail: genOptions }));
+        }
+    }
+  });
+
+  // Sync state to URL
+  function updateUrl(opts: GenerationOptions) {
+      if (!browser) return;
+      const url = new URL(window.location.href);
+      url.searchParams.set('type', opts.type);
+      url.searchParams.set('qty', opts.quantity.toString());
+      url.searchParams.set('fmt', opts.format);
+      if (opts.nanoidLength) url.searchParams.set('len', opts.nanoidLength.toString());
+
+      replaceState(url.toString(), {});
+  }
+
+  $: if (browser && activeTab) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('tab', activeTab);
+      replaceState(url.toString(), {});
+  }
 
   async function handleGenerate(event: CustomEvent<GenerationOptions>) {
     const opts = event.detail;
     currentFormat = opts.format;
+
+    // Sync URL
+    updateUrl(opts);
 
     // Generate
     const ids = generateIds(opts);
     generatedOutput = formatOutput(ids, opts.format);
 
     // Save to History (Debounce or just save?)
-    // Saving every generation is fine, we rely on Dexie speed.
-    // Pruning logic: keep 100 non-starred.
-    // We can do a quick check or just add and let a background process clean up,
-    // or clean up right here.
-    const id = await db.idForgeHistory.add({
-        type: opts.type,
-        count: opts.quantity,
-        sample: ids[0],
-        createdAt: new Date(),
-        starred: 0
-    });
+    if (browser) {
+        try {
+            await db.idForgeHistory.add({
+                type: opts.type,
+                count: opts.quantity,
+                sample: ids[0],
+                createdAt: new Date(),
+                starred: 0
+            });
 
-    // Prune old history
-    // Get count of non-starred items
-    const count = await db.idForgeHistory.where('starred').equals(0).count();
-    if (count > 100) {
-        // Delete oldest non-starred
-        const oldest = await db.idForgeHistory.where('starred').equals(0).sortBy('createdAt');
-        const toDelete = oldest.slice(0, count - 100);
-        const deleteIds = toDelete.map(item => item.id).filter((id): id is number => id !== undefined);
-        await db.idForgeHistory.bulkDelete(deleteIds);
+            // Prune old history
+            const count = await db.idForgeHistory.where('starred').equals(0).count();
+            if (count > 100) {
+                const oldest = await db.idForgeHistory.where('starred').equals(0).sortBy('createdAt');
+                const toDelete = oldest.slice(0, count - 100);
+                const deleteIds = toDelete.map(item => item.id).filter((id): id is number => id !== undefined);
+                await db.idForgeHistory.bulkDelete(deleteIds);
+            }
+        } catch (e) {
+            console.error('Failed to save history', e);
+        }
     }
   }
 
   function handleRestore(event: CustomEvent<IdForgeHistory>) {
-      // Note: History only stores type and sample. It doesn't store full config.
-      // We can infer type. Count we can default to 1 or try to guess?
-      // Actually, we can just copy the sample to clipboard or set it as output?
-      // Wait, the prompt says "Restore" action.
-      // If we only store sample, we can't fully restore the *generator state*.
-      // But we stored 'type' and 'count' in history!
-      // So we can restore those.
       const item = event.detail;
       genOptions = {
           ...genOptions,
-          type: item.type as any, // Cast because string in DB vs specific union type
+          type: item.type as any,
           quantity: item.count
       };
-      // Auto-regenerate or just set options?
-      // Let's set options and maybe notify user.
-      // Ideally we would regenerate, but maybe the user just wants the settings.
-      // Let's trigger generation to match the "Restore" feeling.
+      // Trigger generation to provide immediate feedback
       handleGenerate(new CustomEvent('generate', { detail: genOptions }));
   }
 
@@ -89,15 +132,11 @@
               handleGenerate(new CustomEvent('generate', { detail: genOptions }));
           }
       }
-      // Ctrl/Cmd + K: Clear Output (or Reset)
+      // Ctrl/Cmd + K: Clear Output
       if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
           e.preventDefault();
           generatedOutput = '';
       }
-      // Ctrl/Cmd + S: Copy Output (handled in Output component but we can try globally if needed)
-      // Actually Output component handles its own copy button, but global shortcut is nice.
-      // We'll leave it to the user to click copy or implement a focus check?
-      // Let's keep it simple.
   }
 </script>
 
@@ -150,7 +189,7 @@
                 on:click={() => activeTab = tab}
                 class="flex-1 py-3 text-sm font-bold rounded-xl transition-all {activeTab === tab ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
             >
-                {dict[tab]}
+                {dict[tab] || tab}
             </button>
         {/each}
     </div>
@@ -165,6 +204,7 @@
                     <!-- Shortcuts Helper -->
                     <div class="text-xs text-slate-400 flex items-center justify-between px-2">
                         <span>{dict.shortcuts}: <kbd class="font-mono bg-slate-100 dark:bg-slate-800 px-1 rounded">Cmd/Ctrl + Enter</kbd> {dict.generate}</span>
+                        <span><kbd class="font-mono bg-slate-100 dark:bg-slate-800 px-1 rounded">Cmd/Ctrl + K</kbd> {dict.buttons.delete || 'Clear'}</span>
                     </div>
 
                     <History on:restore={handleRestore} />
@@ -230,6 +270,18 @@
             </summary>
             <div class="px-6 pb-6 text-slate-600 dark:text-slate-300">
                 {dict.a2}
+            </div>
+        </details>
+
+        <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+            <summary class="flex items-center justify-between p-6 cursor-pointer font-medium">
+                <span>{dict.q3}</span>
+                <span class="transition-transform group-open:rotate-180">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+            </summary>
+            <div class="px-6 pb-6 text-slate-600 dark:text-slate-300">
+                {dict.a3}
             </div>
         </details>
     </div>
