@@ -16,6 +16,7 @@
 
   let activeTab: 'generate' | 'analyze' | 'collision' = 'generate';
   let generatedOutput = '';
+  let generatedIds: string[] = [];
   let currentFormat: GenerationOptions['format'] = 'plain';
 
   // Get localized dictionary
@@ -32,19 +33,23 @@
     name: ''
   };
 
+  function isValidFormat(fmt: any): fmt is GenerationOptions['format'] {
+      return ['plain', 'hyphens', 'json', 'sql', 'guid', 'csv'].includes(fmt);
+  }
+
   // Sync state from URL on mount
   onMount(() => {
     if (browser) {
         const urlParams = new URLSearchParams(window.location.search);
         const type = urlParams.get('type') as IdType;
         const quantity = parseInt(urlParams.get('qty') || '0');
-        const format = urlParams.get('fmt') as any;
+        const format = urlParams.get('fmt');
         const nanoLen = parseInt(urlParams.get('len') || '0');
         const tab = urlParams.get('tab');
 
         if (type) genOptions.type = type;
         if (quantity) genOptions.quantity = quantity;
-        if (format) genOptions.format = format;
+        if (format && isValidFormat(format)) genOptions.format = format;
         if (nanoLen) genOptions.nanoidLength = nanoLen;
 
         if (tab === 'analyze' || tab === 'collision') {
@@ -85,6 +90,7 @@
 
     // Generate
     const ids = generateIds(opts);
+    generatedIds = ids;
     generatedOutput = formatOutput(ids, opts.format);
 
     // Save to History (Debounce or just save?)
@@ -136,6 +142,7 @@
       if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
           e.preventDefault();
           generatedOutput = '';
+          generatedIds = [];
       }
   }
 </script>
@@ -210,7 +217,7 @@
                     <History on:restore={handleRestore} />
                 </div>
                 <div class="space-y-6">
-                    <Output output={generatedOutput} format={currentFormat} />
+                    <Output output={generatedOutput} format={currentFormat} ids={generatedIds} />
                 </div>
             </div>
         {:else if activeTab === 'analyze'}
