@@ -390,7 +390,8 @@ export const dictionaries = {
           hash: "Hash & HMAC",
           encoders: "Encoders",
           jwt: "JWT Debugger",
-          password: "Password Forge"
+          password: "Password Forge",
+          keygen: "Key Forge"
         },
         input: "Input Text / Payload",
         key: "Secret Key (for HMAC)",
@@ -426,7 +427,8 @@ export const dictionaries = {
           sha256: "SHA-256 (Standard)",
           sha384: "SHA-384",
           sha512: "SHA-512 (Strong)",
-          hmac: "HMAC Mode"
+          hmac: "HMAC Mode",
+          bulk: "Bulk Mode (One per line)"
         },
         encoding: {
           base64: "Base64",
@@ -456,6 +458,15 @@ export const dictionaries = {
           decoded: "Decoded Token",
           paste: "Paste JWT here (ey...)",
           invalid: "Invalid JWT Format"
+        },
+        keygen: {
+          type: "Key Type",
+          generate: "Generate Keys",
+          public: "Public Key",
+          private: "Private Key",
+          warning: "Warning: This key is generated locally. Do not share the private key.",
+          rsa: "RSA-OAEP (2048-bit)",
+          ecdsa: "ECDSA (P-256)"
         },
         feedback: {
             saved: "Saved to secure history"
@@ -888,7 +899,8 @@ export const dictionaries = {
           hash: "해시 & HMAC",
           encoders: "인코더",
           jwt: "JWT 디버거",
-          password: "비밀번호 제작소"
+          password: "비밀번호 제작소",
+          keygen: "키 제작소"
         },
         input: "입력 텍스트 / 페이로드",
         key: "비밀 키 (HMAC용)",
@@ -924,7 +936,8 @@ export const dictionaries = {
           sha256: "SHA-256 (표준)",
           sha384: "SHA-384",
           sha512: "SHA-512 (강력)",
-          hmac: "HMAC 모드"
+          hmac: "HMAC 모드",
+          bulk: "대량 모드 (한 줄에 하나씩)"
         },
         encoding: {
           base64: "Base64",
@@ -954,6 +967,15 @@ export const dictionaries = {
           decoded: "디코딩된 토큰",
           paste: "JWT를 여기에 붙여넣으세요 (ey...)",
           invalid: "유효하지 않은 JWT 형식"
+        },
+        keygen: {
+          type: "키 유형",
+          generate: "키 생성",
+          public: "공개 키",
+          private: "비공개 키",
+          warning: "경고: 이 키는 로컬에서 생성되었습니다. 비공개 키를 공유하지 마세요.",
+          rsa: "RSA-OAEP (2048비트)",
+          ecdsa: "ECDSA (P-256)"
         },
         feedback: {
             saved: "보안 기록에 저장되었습니다"

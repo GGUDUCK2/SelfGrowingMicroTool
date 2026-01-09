@@ -5,8 +5,9 @@
   import { Copy, Save, CheckCircle, XCircle } from 'lucide-svelte';
   import Prism from 'prismjs';
   import 'prismjs/components/prism-json';
+  import type { CipherDictionary } from '$lib/types/cipher';
 
-  export let dict: any;
+  export let dict: CipherDictionary;
 
   let token = '';
   let parsed: ParsedJWT | null = null;

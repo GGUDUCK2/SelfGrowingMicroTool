@@ -7,15 +7,16 @@
   import EncoderDecoder from '$lib/components/cipher-lab/EncoderDecoder.svelte';
   import JwtDebugger from '$lib/components/cipher-lab/JwtDebugger.svelte';
   import PasswordForge from '$lib/components/cipher-lab/PasswordForge.svelte';
+  import KeyGenerator from '$lib/components/cipher-lab/KeyGenerator.svelte';
   import HistoryPanel from '$lib/components/cipher-lab/HistoryPanel.svelte';
-  import { Shield, Hash, Code, Key, Lock, Check, Star } from 'lucide-svelte';
+  import { Shield, Hash, Code, Key, Lock, Check, Star, KeyRound } from 'lucide-svelte';
   import { onMount, onDestroy } from 'svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang).tools.cipherLab;
   $: common = getDictionary(lang).common;
 
-  let activeTab: 'hash' | 'encoders' | 'jwt' | 'password' = 'hash';
+  let activeTab: 'hash' | 'encoders' | 'jwt' | 'password' | 'keygen' = 'hash';
   let showToast = false;
   let toastMessage = '';
 
@@ -24,6 +25,7 @@
   let encoderComponent: EncoderDecoder;
   let jwtComponent: JwtDebugger;
   let passwordComponent: PasswordForge;
+  let keygenComponent: KeyGenerator;
 
   function handleSave(event: CustomEvent) {
     const { type, content, details, input, settings } = event.detail;
@@ -176,6 +178,15 @@
              <Lock size={16} />
              <span>{dict.tabs.password}</span>
            </button>
+           <button
+             role="tab"
+             aria-selected={activeTab === 'keygen'}
+             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'keygen' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+             on:click={() => activeTab = 'keygen'}
+           >
+             <KeyRound size={16} />
+             <span>Key Forge</span>
+           </button>
         </div>
 
         <!-- Component Container -->
@@ -188,6 +199,8 @@
              <JwtDebugger bind:this={jwtComponent} {dict} on:save={handleSave} on:copy={handleCopy} />
            {:else if activeTab === 'password'}
              <PasswordForge bind:this={passwordComponent} {dict} on:save={handleSave} on:copy={handleCopy} />
+           {:else if activeTab === 'keygen'}
+             <KeyGenerator bind:this={keygenComponent} {dict} on:save={handleSave} on:copy={handleCopy} />
            {/if}
         </div>
 
