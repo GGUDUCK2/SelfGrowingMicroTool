@@ -81,6 +81,15 @@ export interface IdForgeHistory {
   starred?: number;
 }
 
+export interface CipherHistory {
+  id?: number;
+  type: 'hash' | 'hmac' | 'encode' | 'jwt' | 'password';
+  content: string; // The result or summary
+  details?: string; // Extra details like algorithm or key hint
+  createdAt: Date;
+  starred?: number;
+}
+
 class MySubClassedDexie extends Dexie {
   compoundInterestConfig!: Table<CompoundInterestConfig>;
   compoundInterestHistory!: Table<CompoundInterestHistory>;
@@ -91,6 +100,7 @@ class MySubClassedDexie extends Dexie {
   colorHistory!: Table<ColorHistory>;
   diffHistory!: Table<DiffHistory>;
   idForgeHistory!: Table<IdForgeHistory>;
+  cipherHistory!: Table<CipherHistory>;
 
   constructor() {
     super('webFactoryDB');
@@ -169,6 +179,18 @@ class MySubClassedDexie extends Dexie {
       colorHistory: '++id, createdAt, starred',
       diffHistory: '++id, createdAt, starred',
       idForgeHistory: '++id, createdAt, starred'
+    });
+    this.version(11).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      idForgeHistory: '++id, createdAt, starred',
+      cipherHistory: '++id, createdAt, starred'
     });
   }
 }
