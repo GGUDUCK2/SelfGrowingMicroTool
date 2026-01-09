@@ -11,31 +11,7 @@
 
   export let output: string;
   export let format: string;
-
-  // We need the raw list of IDs to re-format for "Copy as..." buttons
-  // But prop `output` is already formatted.
-  // Ideally, `Output` should receive the raw IDs list OR we just re-parse/re-generate.
-  // Simpler: The `output` prop is the display text.
-  // Wait, `formatOutput` takes `ids: string[]`.
-  // In `+page.svelte`, `generatedOutput` is a string.
-  // To support "Copy as JSON" when current format is "Plain", we need the raw IDs.
-  // However, I can't easily change the prop interface without changing the parent.
-  // Let's rely on parsing the output if it's simple (plain/hyphens) or just use the current output if format matches.
-  // OR: I can update `+page.svelte` to pass `ids` array to `Output`.
-
-  // Let's assume for now `Output` only handles the current text, BUT to implement "Smart Formats" effectively,
-  // I should probably just stick to the requested "Copy", "Download" which use the *current* output.
-  // The plan said: "Add 'Copy as JSON', 'Copy as SQL' buttons".
-  // To do this robustly, `Output.svelte` needs the source data (array of IDs).
-  // Let's stick to simple "Copy" and "Download" for the *current* view, as changing the data flow might be too invasive for this step.
-  // Use `format` prop to determine file extension.
-
-  // Re-reading plan: "Add 'Copy as JSON', 'Copy as SQL', 'Copy as CSV' buttons using `formatOutput`."
-  // This implies I should have access to the raw IDs.
-  // Let's modify `+page.svelte` to pass `generatedIds` array to `Output` as well.
-  // But first, let's implement the UI here assuming `ids` prop exists.
-
-  export let ids: string[] = []; // New prop
+  export let ids: string[] = [];
 
   $: dict = getDictionary($page.params.lang ?? 'en').tools.idForge;
 
@@ -124,12 +100,12 @@
 
         <button
           on:click={() => copyText(output)}
-          class="p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors relative"
+          class="p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors relative group"
           aria-label={dict.buttons.copy}
           title={dict.buttons.copy}
         >
           {#if copied}
-            <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-black text-white text-xs rounded shadow animate-bounce">Copied!</span>
+            <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-black text-white text-xs rounded shadow animate-bounce z-10 whitespace-nowrap">Copied!</span>
           {/if}
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
         </button>
