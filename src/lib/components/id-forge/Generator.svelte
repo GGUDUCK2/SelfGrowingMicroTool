@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher, afterUpdate } from 'svelte';
+  import { createEventDispatcher, tick } from 'svelte';
   import { slide } from 'svelte/transition';
   import type { GenerationOptions, IdType } from '$lib/utils/id-forge/id-forge';
 
@@ -56,15 +56,18 @@
   }
 
   // Smart Examples
-  function loadExample(type: IdType, qty: number, fmt: GenerationOptions['format'] = 'plain', extra: Partial<GenerationOptions> = {}) {
+  async function loadExample(type: IdType, qty: number, fmt: GenerationOptions['format'] = 'plain', extra: Partial<GenerationOptions> = {}) {
       selectedType = type;
       quantity = qty;
       format = fmt;
-      if (extra.nanoidLength) nanoidLength = extra.nanoidLength;
+      nanoidLength = extra.nanoidLength || 21;
+      nanoidAlphabet = extra.nanoidAlphabet || '';
+      namespace = extra.namespace || '';
+      name = extra.name || '';
 
       updateOptions();
-      // Use setTimeout to allow state to propagate and then generate
-      setTimeout(() => generate(), 0);
+      await tick();
+      generate();
   }
 </script>
 

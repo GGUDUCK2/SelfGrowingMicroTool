@@ -1,35 +1,40 @@
 from playwright.sync_api import sync_playwright
 
-def verify_id_forge(page):
-    print("Navigating to ID Forge...")
-    page.goto("http://localhost:5173/en/tools/id-forge")
-    page.wait_for_timeout(2000)
+def verify_id_forge():
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
 
-    print("Checking title...")
-    title = page.title()
-    print(f"Title: {title}")
+        # Navigate to ID Forge with 'en' locale
+        url = "http://localhost:5173/en/tools/id-forge"
+        print(f"Navigating to {url}")
+        page.goto(url)
 
-    print("Generating IDs...")
-    # Click the main Generate button which has "Generate 1 IDs" text usually, but might change based on quantity
-    # The tab button is also named "Generate"
-    # Let's target the one that says "Generate 1 IDs" or just target the one that looks like a submit button
-    page.get_by_role("button", name="Generate 1 IDs").click()
-    page.wait_for_timeout(1000)
+        # Wait for hydration
+        page.wait_for_timeout(2000)
 
-    print("Checking History...")
-    page.wait_for_timeout(1000)
+        # 2. Click on "UUID v7 (JSON Batch)" preset
+        print("Clicking preset...")
+        page.get_by_text("UUID v7 (JSON Batch)").click()
+        page.wait_for_timeout(1000)
 
-    print("Taking screenshot...")
-    page.screenshot(path="verification/id-forge.png", full_page=True)
+        # 3. Verify Output format (should be JSON)
+        # Target the code inside the pre tag
+        output_code = page.locator("pre code").text_content()
+        print("Output excerpt:", output_code[:50] if output_code else "No output")
+
+        # 4. Take screenshot
+        page.screenshot(path="verification/id-forge-json.png", full_page=True)
+
+        # 5. Click "ULID (Sortable)"
+        print("Clicking ULID preset...")
+        page.get_by_text("ULID (Sortable)").click()
+        page.wait_for_timeout(1000)
+
+        # 6. Take screenshot
+        page.screenshot(path="verification/id-forge-ulid.png", full_page=True)
+
+        browser.close()
 
 if __name__ == "__main__":
-    with sync_playwright() as p:
-        browser = p.chromium.launch()
-        page = browser.new_page()
-        try:
-            verify_id_forge(page)
-        except Exception as e:
-            print(f"Error: {e}")
-            page.screenshot(path="verification/error.png")
-        finally:
-            browser.close()
+    verify_id_forge()

@@ -75,10 +75,13 @@
       replaceState(url.toString(), {});
   }
 
-  $: if (browser && activeTab) {
-      const url = new URL(window.location.href);
-      url.searchParams.set('tab', activeTab);
-      replaceState(url.toString(), {});
+  function handleTabChange(tab: 'generate' | 'analyze' | 'collision') {
+      activeTab = tab;
+      if (browser) {
+          const url = new URL(window.location.href);
+          url.searchParams.set('tab', tab);
+          replaceState(url.toString(), {});
+      }
   }
 
   async function handleGenerate(event: CustomEvent<GenerationOptions>) {
@@ -144,6 +147,12 @@
           generatedOutput = '';
           generatedIds = [];
       }
+      // Esc: Clear Output
+       if (e.key === 'Escape' && generatedOutput) {
+           e.preventDefault();
+           generatedOutput = '';
+           generatedIds = [];
+       }
   }
 </script>
 
@@ -152,7 +161,16 @@
 <svelte:head>
   <title>{dict.title}</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content="uuid generator, ulid generator, nanoid generator, guid, uuid v7, collision calculator" />
+  <meta name="keywords" content="uuid generator, ulid generator, nanoid generator, guid, uuid v7, collision calculator, id generator" />
+
+  <meta property="og:title" content={dict.title} />
+  <meta property="og:description" content={dict.description} />
+  <meta property="og:url" content="https://web-factory.vercel.app/tools/id-forge" />
+  <meta property="og:type" content="website" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={dict.title} />
+  <meta name="twitter:description" content={dict.description} />
 
   <!-- JSON-LD for SoftwareApplication -->
   {@html `<script type="application/ld+json">
@@ -167,7 +185,7 @@
       "price": "0",
       "priceCurrency": "USD"
     },
-    "featureList": "UUID Generation (v1, v3, v4, v5, v7), ULID Generation, Collision Probability Calculator, ID Analysis",
+    "featureList": "UUID Generation (v1, v3, v4, v5, v7), ULID Generation, Collision Probability Calculator, ID Analysis, Bulk Generation (JSON/SQL/CSV)",
     "description": "${dict.description}"
   }
   </script>`}
@@ -193,7 +211,7 @@
     <div class="flex p-1 space-x-1 bg-slate-100 dark:bg-slate-800 rounded-2xl mb-6">
         {#each ['generate', 'analyze', 'collision'] as tab}
             <button
-                on:click={() => activeTab = tab}
+                on:click={() => handleTabChange(tab)}
                 class="flex-1 py-3 text-sm font-bold rounded-xl transition-all {activeTab === tab ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
             >
                 {dict[tab] || tab}
