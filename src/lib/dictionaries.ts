@@ -490,6 +490,88 @@ export const dictionaries = {
           tip2: "When generating passwords, a length of **16+ characters** significantly increases entropy.",
           tip3: "Always verify the **Signature** when debugging JWTs to ensure the token hasn't been tampered with."
         }
+      },
+      seoForge: {
+        title: "SEO Forge: Meta & Social Architect",
+        description: "The definitive tool to craft perfect Meta Tags, Open Graph previews, and JSON-LD schema.",
+        tabs: {
+          meta: "Meta Tags",
+          social: "Social Previews",
+          jsonld: "JSON-LD Builder",
+          history: "History"
+        },
+        meta: {
+          title: "Page Title",
+          description: "Meta Description",
+          url: "Canonical URL",
+          keywords: "Keywords (comma separated)",
+          author: "Author",
+          themeColor: "Theme Color",
+          robots: "Robots",
+          viewport: "Viewport"
+        },
+        social: {
+          ogTitle: "Open Graph Title",
+          ogDesc: "Open Graph Description",
+          ogImage: "OG Image URL",
+          ogType: "OG Type",
+          twitterCard: "Twitter Card Type",
+          previewTitle: "Social Previews",
+          google: "Google Search",
+          facebook: "Facebook / LinkedIn",
+          twitter: "Twitter / X",
+          slack: "Slack",
+          uploadImage: "Upload Image (Preview only)"
+        },
+        jsonld: {
+          type: "Schema Type",
+          name: "Name / Headline",
+          headline: "Headline",
+          description: "Description",
+          image: "Image URL",
+          datePublished: "Date Published",
+          authorName: "Author Name",
+          generate: "Generate JSON-LD",
+          copy: "Copy Script"
+        },
+        validation: {
+          titleLength: "Title length: {current}/{max}",
+          descLength: "Description length: {current}/{max}",
+          perfect: "Perfect",
+          tooShort: "Too Short",
+          tooLong: "Too Long",
+          missing: "Missing",
+          ok: "OK"
+        },
+        actions: {
+          copyHtml: "Copy HTML",
+          save: "Save Project",
+          restore: "Restore",
+          delete: "Delete",
+          clear: "Clear All",
+          magicPaste: "Import from HTML/URL",
+          copied: "Copied!",
+          saved: "Saved!"
+        },
+        faqTitle: "SEO Forge FAQ",
+        q1: "Why are Meta Tags important?",
+        a1: "Meta tags provide search engines with information about your page content. They affect how your site appears in search results and social media feeds.",
+        q2: "What is JSON-LD?",
+        a2: "JSON-LD (JavaScript Object Notation for Linked Data) is a method of encoding linked data using JSON. It is recommended by Google for structured data markup.",
+        q3: "Does this tool upload my images?",
+        a3: "No. Image uploads for preview are processed locally in your browser using the FileReader API. No data is sent to any server.",
+        guide: {
+          title: "Why SEO Forge?",
+          intro: "SEO Forge is the ultimate companion for web developers and content creators. It unifies meta tag management, social preview simulation, and structured data generation into one workflow.",
+          featuresTitle: "Key Features",
+          f1: "**Real-time Social Previews:** See exactly how your link will look on Facebook, Twitter, and Google before you publish.",
+          f2: "**Smart Validation:** Get instant feedback on character counts to ensure your titles and descriptions are not truncated.",
+          f3: "**JSON-LD Builder:** Easily generate complex Schema.org markup without writing code.",
+          tipsTitle: "SEO Tips",
+          tip1: "Keep your **Meta Description** under 160 characters to avoid truncation in search results.",
+          tip2: "Use high-quality images for **og:image** with a 1.91:1 aspect ratio (e.g., 1200x630px).",
+          tip3: "Always include a **Canonical URL** to prevent duplicate content issues."
+        }
       }
     },
     pwa: {
@@ -998,6 +1080,88 @@ export const dictionaries = {
           tip1: "최고 수준의 해싱 보안을 위해서는 **SHA-512**를 사용하세요.",
           tip2: "비밀번호 생성 시, **16자 이상**의 길이는 엔트로피를 획기적으로 높여줍니다.",
           tip3: "JWT 디버깅 시 항상 **서명(Signature)**을 검증하여 토큰이 변조되지 않았는지 확인하세요."
+        }
+      },
+      seoForge: {
+        title: "SEO Forge: 메타 태그 & 소셜 아키텍트",
+        description: "완벽한 메타 태그, 오픈 그래프 미리보기, JSON-LD 스키마를 제작하는 궁극의 도구입니다.",
+        tabs: {
+          meta: "메타 태그",
+          social: "소셜 미리보기",
+          jsonld: "JSON-LD 빌더",
+          history: "기록"
+        },
+        meta: {
+          title: "페이지 제목",
+          description: "메타 설명 (Description)",
+          url: "Canonical URL",
+          keywords: "키워드 (쉼표로 구분)",
+          author: "작성자",
+          themeColor: "테마 색상",
+          robots: "Robots",
+          viewport: "Viewport"
+        },
+        social: {
+          ogTitle: "Open Graph 제목",
+          ogDesc: "Open Graph 설명",
+          ogImage: "OG 이미지 URL",
+          ogType: "OG 타입",
+          twitterCard: "Twitter 카드 타입",
+          previewTitle: "소셜 미리보기",
+          google: "Google 검색",
+          facebook: "Facebook / LinkedIn",
+          twitter: "Twitter / X",
+          slack: "Slack",
+          uploadImage: "이미지 업로드 (미리보기용)"
+        },
+        jsonld: {
+          type: "스키마 유형",
+          name: "이름 / 헤드라인",
+          headline: "헤드라인",
+          description: "설명",
+          image: "이미지 URL",
+          datePublished: "게시일",
+          authorName: "작성자 이름",
+          generate: "JSON-LD 생성",
+          copy: "스크립트 복사"
+        },
+        validation: {
+          titleLength: "제목 길이: {current}/{max}",
+          descLength: "설명 길이: {current}/{max}",
+          perfect: "완벽함",
+          tooShort: "너무 짧음",
+          tooLong: "너무 김",
+          missing: "누락됨",
+          ok: "좋음"
+        },
+        actions: {
+          copyHtml: "HTML 복사",
+          save: "프로젝트 저장",
+          restore: "복원",
+          delete: "삭제",
+          clear: "모두 지우기",
+          magicPaste: "HTML/URL에서 가져오기",
+          copied: "복사됨!",
+          saved: "저장됨!"
+        },
+        faqTitle: "SEO Forge FAQ",
+        q1: "메타 태그가 왜 중요한가요?",
+        a1: "메타 태그는 검색 엔진에 페이지 콘텐츠에 대한 정보를 제공합니다. 이는 사이트가 검색 결과와 소셜 미디어 피드에 어떻게 표시되는지에 영향을 줍니다.",
+        q2: "JSON-LD가 무엇인가요?",
+        a2: "JSON-LD(JavaScript Object Notation for Linked Data)는 JSON을 사용하여 연결된 데이터를 인코딩하는 방법입니다. Google은 구조화된 데이터 마크업으로 이를 권장합니다.",
+        q3: "이 도구가 이미지를 업로드하나요?",
+        a3: "아니요. 미리보기용 이미지 업로드는 FileReader API를 사용하여 브라우저에서 로컬로 처리됩니다. 데이터는 서버로 전송되지 않습니다.",
+        guide: {
+          title: "왜 SEO Forge인가요?",
+          intro: "SEO Forge는 웹 개발자와 콘텐츠 제작자를 위한 최고의 동반자입니다. 메타 태그 관리, 소셜 미리보기 시뮬레이션, 구조화된 데이터 생성을 하나의 워크플로우로 통합합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**실시간 소셜 미리보기:** 게시하기 전에 Facebook, Twitter, Google에서 링크가 어떻게 보일지 정확하게 확인하세요.",
+          f2: "**스마트 검증:** 글자 수에 대한 즉각적인 피드백을 받아 제목과 설명이 잘리지 않도록 하세요.",
+          f3: "**JSON-LD 빌더:** 코드 작성 없이 복잡한 Schema.org 마크업을 쉽게 생성하세요.",
+          tipsTitle: "SEO 팁",
+          tip1: "**메타 설명**은 검색 결과에서 잘리지 않도록 160자 미만으로 유지하세요.",
+          tip2: "**og:image**에는 1.91:1 비율(예: 1200x630px)의 고품질 이미지를 사용하세요.",
+          tip3: "중복 콘텐츠 문제를 방지하기 위해 항상 **Canonical URL**을 포함하세요."
         }
       }
     },
