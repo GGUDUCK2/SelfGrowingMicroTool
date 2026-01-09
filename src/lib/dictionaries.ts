@@ -391,7 +391,8 @@ export const dictionaries = {
           encoders: "Encoders",
           jwt: "JWT Debugger",
           password: "Password Forge",
-          keygen: "Key Forge"
+          keygen: "Key Forge",
+          vault: "Secure Vault"
         },
         input: "Input Text / Payload",
         key: "Secret Key (for HMAC)",
@@ -467,6 +468,15 @@ export const dictionaries = {
           warning: "Warning: This key is generated locally. Do not share the private key.",
           rsa: "RSA-OAEP (2048-bit)",
           ecdsa: "ECDSA (P-256)"
+        },
+        vault: {
+          encrypt: "Encrypt",
+          decrypt: "Decrypt",
+          plainText: "Plain Text",
+          encryptedText: "Encrypted Text (Base64)",
+          password: "Password",
+          warning: "Warning: If you lose this password, the data cannot be recovered.",
+          desc: "Securely encrypt text using AES-GCM with PBKDF2 key derivation."
         },
         feedback: {
             saved: "Saved to secure history"
@@ -900,7 +910,8 @@ export const dictionaries = {
           encoders: "인코더",
           jwt: "JWT 디버거",
           password: "비밀번호 제작소",
-          keygen: "키 제작소"
+          keygen: "키 제작소",
+          vault: "보안 금고"
         },
         input: "입력 텍스트 / 페이로드",
         key: "비밀 키 (HMAC용)",
@@ -976,6 +987,15 @@ export const dictionaries = {
           warning: "경고: 이 키는 로컬에서 생성되었습니다. 비공개 키를 공유하지 마세요.",
           rsa: "RSA-OAEP (2048비트)",
           ecdsa: "ECDSA (P-256)"
+        },
+        vault: {
+          encrypt: "암호화",
+          decrypt: "복호화",
+          plainText: "평문 (Plain Text)",
+          encryptedText: "암호문 (Encrypted Text)",
+          password: "비밀번호",
+          warning: "경고: 비밀번호를 분실하면 데이터를 복구할 수 없습니다.",
+          desc: "AES-GCM과 PBKDF2 키 파생을 사용하여 텍스트를 안전하게 암호화합니다."
         },
         feedback: {
             saved: "보안 기록에 저장되었습니다"

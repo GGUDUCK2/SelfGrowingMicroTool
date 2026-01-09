@@ -8,15 +8,16 @@
   import JwtDebugger from '$lib/components/cipher-lab/JwtDebugger.svelte';
   import PasswordForge from '$lib/components/cipher-lab/PasswordForge.svelte';
   import KeyGenerator from '$lib/components/cipher-lab/KeyGenerator.svelte';
+  import SecureVault from '$lib/components/cipher-lab/SecureVault.svelte';
   import HistoryPanel from '$lib/components/cipher-lab/HistoryPanel.svelte';
-  import { Shield, Hash, Code, Key, Lock, Check, Star, KeyRound } from 'lucide-svelte';
+  import { Shield, Hash, Code, Key, Lock, Check, Star, KeyRound, Vault } from 'lucide-svelte';
   import { onMount, onDestroy } from 'svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang).tools.cipherLab;
   $: common = getDictionary(lang).common;
 
-  let activeTab: 'hash' | 'encoders' | 'jwt' | 'password' | 'keygen' = 'hash';
+  let activeTab: 'hash' | 'encoders' | 'jwt' | 'password' | 'keygen' | 'vault' = 'hash';
   let showToast = false;
   let toastMessage = '';
 
@@ -26,6 +27,7 @@
   let jwtComponent: JwtDebugger;
   let passwordComponent: PasswordForge;
   let keygenComponent: KeyGenerator;
+  let vaultComponent: SecureVault;
 
   function handleSave(event: CustomEvent) {
     const { type, content, details, input, settings } = event.detail;
@@ -85,10 +87,21 @@
   // Keyboard Shortcuts
   function handleKeydown(e: KeyboardEvent) {
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-      // Trigger "Generate" or "Calculate" depending on active tab
-      // This is a bit tricky to target generically without knowing internal methods.
-      // Ideally, pass a prop or call a method on the child component.
-      // For now, we'll let the focused element handle it or implement specific logic if needed.
+       e.preventDefault();
+       // Trigger actions based on active tab
+       // Since we don't have a uniform interface, we rely on focus or specific implementation
+       // Ideally we would add `calculate()` method to each component and call it here.
+       // For now, let's just trigger a "Calculate" if possible.
+       if (activeTab === 'hash' && hashComponent) {
+           // Hash component auto-calculates, but maybe we want to force save?
+           // Or if it was manual.
+       }
+    }
+
+    // Ctrl+K to clear
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        // Implement clear logic per component if needed
     }
   }
 </script>
@@ -185,7 +198,16 @@
              on:click={() => activeTab = 'keygen'}
            >
              <KeyRound size={16} />
-             <span>Key Forge</span>
+             <span>{dict.tabs.keygen}</span>
+           </button>
+           <button
+             role="tab"
+             aria-selected={activeTab === 'vault'}
+             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'vault' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+             on:click={() => activeTab = 'vault'}
+           >
+             <Vault size={16} />
+             <span>{dict.tabs.vault}</span>
            </button>
         </div>
 
@@ -201,6 +223,8 @@
              <PasswordForge bind:this={passwordComponent} {dict} on:save={handleSave} on:copy={handleCopy} />
            {:else if activeTab === 'keygen'}
              <KeyGenerator bind:this={keygenComponent} {dict} on:save={handleSave} on:copy={handleCopy} />
+           {:else if activeTab === 'vault'}
+             <SecureVault bind:this={vaultComponent} {dict} on:save={handleSave} on:copy={handleCopy} />
            {/if}
         </div>
 
