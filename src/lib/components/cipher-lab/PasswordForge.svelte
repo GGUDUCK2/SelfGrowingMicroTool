@@ -3,8 +3,9 @@
   import { slide } from 'svelte/transition';
   import { generatePassword, calculateEntropy, estimateCrackTime, type PasswordOptions } from '$lib/utils/cipher/password';
   import { Copy, Save, RefreshCw } from 'lucide-svelte';
+  import type { CipherDictionary } from '$lib/types/cipher';
 
-  export let dict: any;
+  export let dict: CipherDictionary;
 
   // Restore options via binding or method if needed, but for now we keep local state
   export const restore = (savedOptions: Partial<PasswordOptions>) => {

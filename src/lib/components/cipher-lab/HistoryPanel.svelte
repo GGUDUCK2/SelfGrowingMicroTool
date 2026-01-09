@@ -3,8 +3,9 @@
   import { db, type CipherHistory } from '$lib/db';
   import { createEventDispatcher } from 'svelte';
   import { Trash2, Copy, RotateCcw } from 'lucide-svelte';
+  import type { CipherDictionary } from '$lib/types/cipher';
 
-  export let dict: any;
+  export let dict: CipherDictionary;
 
   let history = liveQuery(() => db.cipherHistory.orderBy('createdAt').reverse().limit(50).toArray());
 

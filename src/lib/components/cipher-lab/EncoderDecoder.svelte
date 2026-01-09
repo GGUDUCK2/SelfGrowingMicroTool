@@ -9,8 +9,9 @@
     toHtmlEntity, fromHtmlEntity
   } from '$lib/utils/cipher/encoding';
   import { Copy, Save, ArrowLeftRight } from 'lucide-svelte';
+  import type { CipherDictionary } from '$lib/types/cipher';
 
-  export let dict: any;
+  export let dict: CipherDictionary;
 
   let input = '';
   let output = '';

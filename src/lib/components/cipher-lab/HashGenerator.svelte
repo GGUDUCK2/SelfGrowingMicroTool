@@ -3,14 +3,16 @@
   import { slide } from 'svelte/transition';
   import { computeHash, computeHmac } from '$lib/utils/cipher/hashing';
   import { Copy, Save, Search, Wand2 } from 'lucide-svelte';
+  import type { CipherDictionary } from '$lib/types/cipher';
 
-  export let dict: any; // Type inferred in parent
+  export let dict: CipherDictionary;
 
   let input = '';
   let key = '';
   let output = '';
   let algorithm: 'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512' = 'SHA-256';
   let mode: 'hash' | 'hmac' = 'hash';
+  let isBulk = false;
   let isCalculating = false;
   let detectedType: string | null = null;
 
@@ -39,15 +41,29 @@
 
     isCalculating = true;
     try {
-      if (mode === 'hmac') {
-        if (!key) {
-           output = ''; // Wait for key
-           isCalculating = false;
-           return;
-        }
-        output = await computeHmac(input, key, algorithm);
+      if (isBulk) {
+        const lines = input.split('\n');
+        const promises = lines.map(async (line) => {
+          if (!line.trim()) return '';
+          if (mode === 'hmac') {
+             return key ? await computeHmac(line, key, algorithm) : '';
+          } else {
+             return await computeHash(line, algorithm);
+          }
+        });
+        const results = await Promise.all(promises);
+        output = results.join('\n');
       } else {
-        output = await computeHash(input, algorithm);
+        if (mode === 'hmac') {
+          if (!key) {
+             output = ''; // Wait for key
+             isCalculating = false;
+             return;
+          }
+          output = await computeHmac(input, key, algorithm);
+        } else {
+          output = await computeHash(input, algorithm);
+        }
       }
     } catch (e) {
       console.error(e);
@@ -104,9 +120,15 @@
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <!-- Mode Selection -->
     <div class="space-y-2">
-      <label for="mode" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
-        {dict.mode}
-      </label>
+      <div class="flex justify-between items-center">
+        <label for="mode" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+            {dict.mode}
+        </label>
+        <label class="flex items-center space-x-2 text-xs text-slate-500 cursor-pointer">
+           <input type="checkbox" bind:checked={isBulk} on:change={calculate} class="rounded text-indigo-600 focus:ring-indigo-500 dark:bg-slate-800 dark:border-slate-600" />
+           <span class="font-medium text-indigo-600 dark:text-indigo-400">{dict.hashing.bulk}</span>
+        </label>
+      </div>
       <div class="flex rounded-lg bg-slate-100 dark:bg-slate-800 p-1">
         <button
           class="flex-1 py-1.5 text-sm font-medium rounded-md transition-all {mode === 'hash' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"

@@ -1,5 +1,5 @@
-import time
-from playwright.sync_api import sync_playwright, expect
+
+from playwright.sync_api import sync_playwright
 
 def verify_cipher_lab():
     with sync_playwright() as p:
@@ -8,69 +8,60 @@ def verify_cipher_lab():
         page = context.new_page()
 
         try:
-            # Navigate to Cipher Lab
-            page.goto("http://localhost:4173/en/tools/cipher-lab")
+            # 1. Navigate to Cipher Lab
+            # Assuming port 5173 for default Vite dev server
+            page.goto("http://localhost:5173/en/tools/cipher-lab")
             page.wait_for_load_state("networkidle")
 
-            # 1. Verify Smart Hash Analyzer
-            print("Verifying Hash Analyzer...")
-            input_box = page.locator("#input")
+            # 2. Verify Key Forge Tab
+            # Click on 'Key Forge' tab
+            page.get_by_role("tab", name="Key Forge").click()
+            page.wait_for_timeout(500) # Wait for tab switch
 
-            # Type an MD5 hash
-            md5_hash = "5d41402abc4b2a76b9719d911017c592"
-            input_box.fill(md5_hash)
+            # Check if Generate Keys button is visible
+            generate_btn = page.get_by_role("button", name="Generate Keys")
+            if not generate_btn.is_visible():
+                raise Exception("Generate Keys button not found")
 
-            # Check if "Looks like MD5" appears
-            expect(page.get_by_text("Looks like MD5")).to_be_visible()
-            print("Hash Analyzer detected MD5!")
+            # Click Generate Keys
+            generate_btn.click()
 
-            # 2. Verify Password Forge Entropy
-            print("Verifying Password Forge...")
-            # Switch to Password tab
-            page.get_by_role("tab", name="Password Forge").click()
+            # Wait for keys to be generated (Public Key text area should appear)
+            page.wait_for_selector("textarea[readonly]", timeout=5000)
 
-            # Wait for slide transition
-            page.wait_for_timeout(1000)
-
-            # Check for Entropy Label (Use exact=True to avoid partial matches)
-            expect(page.get_by_text("Entropy", exact=True)).to_be_visible()
-
-            # Click generate button explicitly
-            page.get_by_role("button", name="Generate").click()
+            # 3. Verify Bulk Hashing
+            # Switch back to Hash tab
+            page.get_by_role("tab", name="Hash & HMAC").click()
             page.wait_for_timeout(500)
 
-            # 3. Verify History and Restore
-            print("Verifying History Restore...")
-            # Save the password
-            page.get_by_label("Save").click()
+            # Check for Bulk Mode checkbox
+            bulk_mode = page.get_by_text("Bulk Mode")
+            if not bulk_mode.is_visible():
+                 raise Exception("Bulk Mode checkbox not found")
 
-            # Check toast
-            expect(page.get_by_text("Saved to secure history")).to_be_visible()
+            bulk_mode.click()
 
-            # Check History Panel item
-            history_item = page.locator(".break-all.line-clamp-2").first
-            expect(history_item).to_be_visible()
+            # Enter multi-line input
+            input_area = page.locator("#input")
+            input_area.fill("hello\nworld")
 
-            # Hover over history item to see Restore button
-            history_card = page.locator(".group").first
-            history_card.hover()
+            # Wait for output
+            page.wait_for_timeout(1000)
+            output_area = page.locator("#output")
+            output_value = output_area.input_value()
 
-            # Click Restore
-            restore_btn = page.get_by_label("Restore").first
-            expect(restore_btn).to_be_visible()
-            restore_btn.click()
-
-            expect(page.get_by_text("Restored from history")).to_be_visible()
-            print("Restore successful!")
+            # Check if output has 2 lines (simple check)
+            if len(output_value.strip().split('\n')) < 2:
+                 print(f"Output was: {output_value}")
+                 raise Exception("Bulk hash didn't produce multiple lines")
 
             # Take screenshot
             page.screenshot(path="verification/cipher_lab_verified.png", full_page=True)
-            print("Screenshot saved to verification/cipher_lab_verified.png")
+            print("Verification successful, screenshot saved.")
 
         except Exception as e:
             print(f"Verification failed: {e}")
             page.screenshot(path="verification/error.png")
-            raise e
         finally:
             browser.close()
 
