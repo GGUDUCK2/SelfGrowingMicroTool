@@ -382,6 +382,98 @@ export const dictionaries = {
           invalid: "Invalid / Unknown",
           pastePlaceholder: "Paste UUID, ULID, or any ID here..."
         }
+      },
+      cipherLab: {
+        title: "Cipher Lab: Crypto & Token Suite",
+        description: "The definitive tool for hashing, encoding, JWT debugging, and password generation. Zero data transfer.",
+        tabs: {
+          hash: "Hash & HMAC",
+          encoders: "Encoders",
+          jwt: "JWT Debugger",
+          password: "Password Forge"
+        },
+        input: "Input Text / Payload",
+        key: "Secret Key (for HMAC)",
+        output: "Output",
+        algo: "Algorithm",
+        action: "Action",
+        history: "Secure History",
+        save: "Save",
+        delete: "Delete",
+        clear: "Clear All",
+        copy: "Copy",
+        copied: "Copied!",
+        share: "Share",
+        mode: "Mode",
+        encode: "Encode",
+        decode: "Decode",
+        length: "Length",
+        quantity: "Quantity",
+        options: "Options",
+        generate: "Generate",
+        strength: "Strength",
+        entropy: "Entropy",
+        verify: "Verify Signature",
+        validSignature: "Signature Verified",
+        invalidSignature: "Invalid Signature",
+        calculating: "Calculating...",
+        hashResult: "Hash Result",
+        emptyHistory: "No recent history.",
+        hashing: {
+          sha1: "SHA-1 (Legacy)",
+          sha256: "SHA-256 (Standard)",
+          sha384: "SHA-384",
+          sha512: "SHA-512 (Strong)",
+          hmac: "HMAC Mode"
+        },
+        encoding: {
+          base64: "Base64",
+          url: "URL Encode",
+          hex: "Hexadecimal",
+          binary: "Binary (0101)",
+          html: "HTML Entity"
+        },
+        password: {
+          uppercase: "A-Z",
+          lowercase: "a-z",
+          numbers: "0-9",
+          symbols: "!@#",
+          ambiguous: "No Ambiguous (Il1O0)",
+          strengthRating: {
+            weak: "Weak",
+            fair: "Fair",
+            good: "Good",
+            strong: "Strong",
+            crackTime: "Time to crack:"
+          }
+        },
+        jwt: {
+          header: "Header",
+          payload: "Payload",
+          signature: "Signature",
+          decoded: "Decoded Token",
+          paste: "Paste JWT here (ey...)",
+          invalid: "Invalid JWT Format"
+        },
+        faqTitle: "Cipher Lab FAQ",
+        q1: "Is my data safe?",
+        a1: "Yes, absolutely. Cipher Lab uses the Web Crypto API, which runs entirely within your browser. No text, keys, or passwords are ever sent to a server.",
+        q2: "What is HMAC?",
+        a2: "HMAC (Hash-based Message Authentication Code) combines a cryptographic hash function with a secret key. It's used to verify both the data integrity and the authentication of a message.",
+        q3: "Why use SHA-256 over SHA-1?",
+        a3: "SHA-1 is considered cryptographically broken and vulnerable to collision attacks. SHA-256 is the current industry standard for security.",
+        guide: {
+          title: "Why Cipher Lab?",
+          intro: "Cipher Lab brings native, military-grade cryptography to your browser. It eliminates the risk of sending sensitive data to online tools.",
+          featuresTitle: "Security Suite",
+          f1: "**Web Crypto API:** Uses the browser's native, high-performance cryptography engine.",
+          f2: "**JWT Inspector:** Debug JSON Web Tokens with color-coded segments and signature verification.",
+          f3: "**Password Forge:** Generate high-entropy passwords with estimated crack times.",
+          tipsTitle: "Security Tips",
+          tip1: "Use **SHA-512** for the highest level of hashing security.",
+          tip2: "When generating passwords, a length of **16+ characters** significantly increases entropy.",
+          tip3: "Always verify the **Signature** when debugging JWTs to ensure the token hasn't been tampered with."
+        }
       }
     },
     pwa: {
@@ -782,6 +874,98 @@ export const dictionaries = {
           isValid: "유효함",
           invalid: "유효하지 않음 / 알 수 없음",
           pastePlaceholder: "UUID, ULID 또는 아무 ID나 붙여넣으세요..."
+        }
+      },
+      cipherLab: {
+        title: "Cipher Lab: 암호화 & 토큰 연구소",
+        description: "해싱, 인코딩, JWT 디버깅 및 비밀번호 생성을 위한 완벽한 도구입니다. 데이터 전송 제로.",
+        tabs: {
+          hash: "해시 & HMAC",
+          encoders: "인코더",
+          jwt: "JWT 디버거",
+          password: "비밀번호 제작소"
+        },
+        input: "입력 텍스트 / 페이로드",
+        key: "비밀 키 (HMAC용)",
+        output: "출력",
+        algo: "알고리즘",
+        action: "동작",
+        history: "보안 기록",
+        save: "저장",
+        delete: "삭제",
+        clear: "모두 지우기",
+        copy: "복사",
+        copied: "복사됨!",
+        share: "공유",
+        mode: "모드",
+        encode: "인코딩",
+        decode: "디코딩",
+        length: "길이",
+        quantity: "수량",
+        options: "옵션",
+        generate: "생성",
+        strength: "강도",
+        entropy: "엔트로피",
+        verify: "서명 검증",
+        validSignature: "서명 유효함",
+        invalidSignature: "서명 유효하지 않음",
+        calculating: "계산 중...",
+        hashResult: "해시 결과",
+        emptyHistory: "최근 기록이 없습니다.",
+        hashing: {
+          sha1: "SHA-1 (레거시)",
+          sha256: "SHA-256 (표준)",
+          sha384: "SHA-384",
+          sha512: "SHA-512 (강력)",
+          hmac: "HMAC 모드"
+        },
+        encoding: {
+          base64: "Base64",
+          url: "URL 인코딩",
+          hex: "16진수 (Hex)",
+          binary: "이진수 (Binary)",
+          html: "HTML 엔티티"
+        },
+        password: {
+          uppercase: "대문자 (A-Z)",
+          lowercase: "소문자 (a-z)",
+          numbers: "숫자 (0-9)",
+          symbols: "특수문자 (!@#)",
+          ambiguous: "모호한 문자 제외 (Il1O0)",
+          strengthRating: {
+            weak: "약함",
+            fair: "보통",
+            good: "좋음",
+            strong: "강력함",
+            crackTime: "해킹 예상 시간:"
+          }
+        },
+        jwt: {
+          header: "헤더 (Header)",
+          payload: "페이로드 (Payload)",
+          signature: "서명 (Signature)",
+          decoded: "디코딩된 토큰",
+          paste: "JWT를 여기에 붙여넣으세요 (ey...)",
+          invalid: "유효하지 않은 JWT 형식"
+        },
+        faqTitle: "Cipher Lab FAQ",
+        q1: "내 데이터는 안전한가요?",
+        a1: "네, 완벽하게 안전합니다. Cipher Lab은 브라우저의 기본 Web Crypto API를 사용하여 모든 처리를 수행합니다. 텍스트, 키, 비밀번호는 절대 서버로 전송되지 않습니다.",
+        q2: "HMAC이 무엇인가요?",
+        a2: "HMAC(Hash-based Message Authentication Code)은 암호화 해시 함수와 비밀 키를 결합한 것입니다. 데이터의 무결성과 인증을 동시에 검증하는 데 사용됩니다.",
+        q3: "왜 SHA-1 대신 SHA-256을 써야 하나요?",
+        a3: "SHA-1은 암호학적으로 취약하여 충돌 공격의 위험이 있습니다. SHA-256은 현재 보안 업계 표준입니다.",
+        guide: {
+          title: "왜 Cipher Lab인가요?",
+          intro: "Cipher Lab은 군사 등급의 암호화 기술을 브라우저로 가져옵니다. 민감한 데이터를 온라인 도구로 보내는 위험을 제거합니다.",
+          featuresTitle: "보안 제품군",
+          f1: "**Web Crypto API:** 브라우저의 기본 고성능 암호화 엔진을 사용합니다.",
+          f2: "**JWT 관리자:** 색상으로 구분된 세그먼트와 서명 검증으로 JSON Web Token을 디버깅하세요.",
+          f3: "**비밀번호 제작소:** 해킹 예상 시간이 포함된 고엔트로피 비밀번호를 생성합니다.",
+          tipsTitle: "보안 팁",
+          tip1: "최고 수준의 해싱 보안을 위해서는 **SHA-512**를 사용하세요.",
+          tip2: "비밀번호 생성 시, **16자 이상**의 길이는 엔트로피를 획기적으로 높여줍니다.",
+          tip3: "JWT 디버깅 시 항상 **서명(Signature)**을 검증하여 토큰이 변조되지 않았는지 확인하세요."
         }
       }
     },

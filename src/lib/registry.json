@@ -133,5 +133,20 @@
     "category": "Developer Tools",
     "tags": ["uuid", "ulid", "nanoid", "cuid", "generator", "developer"],
     "createdAt": "2025-02-04"
+  },
+  {
+    "id": "cipher-lab",
+    "slug": "cipher-lab",
+    "title": {
+      "en": "Cipher Lab: Crypto & Token Suite",
+      "ko": "Cipher Lab: 암호화 & 토큰 연구소"
+    },
+    "description": {
+      "en": "Securely generate hashes, decode JWTs, encode text, and forge strong passwords. 100% Client-side.",
+      "ko": "해시 생성, JWT 디코딩, 텍스트 인코딩, 강력한 비밀번호 생성을 안전하게 수행하세요. 100% 클라이언트 처리."
+    },
+    "category": "Developer Tools",
+    "tags": ["crypto", "hash", "jwt", "password", "base64", "security"],
+    "createdAt": "2025-02-05"
   }
 ]
