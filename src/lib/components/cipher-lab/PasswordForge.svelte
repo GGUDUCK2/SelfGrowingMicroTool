@@ -6,6 +6,12 @@
 
   export let dict: any;
 
+  // Restore options via binding or method if needed, but for now we keep local state
+  export const restore = (savedOptions: Partial<PasswordOptions>) => {
+     options = { ...options, ...savedOptions };
+     generate();
+  };
+
   let options: PasswordOptions = {
     length: 16,
     uppercase: true,
@@ -43,7 +49,8 @@
       dispatch('save', {
         type: 'password',
         content: password,
-        details: `Entropy: ${entropy} bits`
+        details: `Entropy: ${entropy} bits`,
+        settings: JSON.stringify(options)
       });
     }
   }
@@ -71,6 +78,7 @@
       type="text"
       readonly
       value={password}
+      aria-label="Generated Password"
       class="w-full text-center text-2xl font-mono py-4 rounded-xl border-2 bg-slate-50 dark:bg-slate-900 dark:text-white outline-none transition-colors
       {strength === 'weak' ? 'border-red-200 dark:border-red-900' :
        strength === 'fair' ? 'border-yellow-200 dark:border-yellow-900' :
@@ -82,24 +90,35 @@
         on:click={generate}
         class="p-2 text-slate-400 hover:text-indigo-600 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
         title={dict.generate}
+        aria-label={dict.generate}
       >
         <RefreshCw size={20} />
       </button>
     </div>
   </div>
 
+  <!-- Entropy Bar -->
+  <div class="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+     <div
+       class="h-full transition-all duration-500 ease-out"
+       style="width: {Math.min(100, (entropy / 128) * 100)}%; background-color: {strength === 'weak' ? '#ef4444' : strength === 'fair' ? '#eab308' : strength === 'good' ? '#3b82f6' : '#22c55e'}"
+     ></div>
+  </div>
+
   <!-- Actions -->
   <div class="flex justify-center space-x-4">
      <button
         on:click={copyToClipboard}
-        class="flex items-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm"
+        aria-label={dict.copy}
+        class="flex items-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
      >
        <Copy size={16} />
        <span>{dict.copy}</span>
      </button>
      <button
         on:click={saveToHistory}
-        class="flex items-center space-x-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm"
+        aria-label={dict.save}
+        class="flex items-center space-x-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
      >
        <Save size={16} />
        <span>{dict.save}</span>
@@ -108,11 +127,11 @@
 
   <!-- Metrics -->
   <div class="grid grid-cols-2 gap-4 text-center">
-    <div class="p-3 bg-slate-50 dark:bg-slate-900 rounded-lg">
+    <div class="p-3 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800">
       <span class="block text-xs text-slate-500 uppercase tracking-wide">{dict.entropy}</span>
       <span class="text-lg font-bold text-slate-800 dark:text-slate-200">{entropy} bits</span>
     </div>
-    <div class="p-3 bg-slate-50 dark:bg-slate-900 rounded-lg">
+    <div class="p-3 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800">
       <span class="block text-xs text-slate-500 uppercase tracking-wide">{dict.password.strengthRating.crackTime}</span>
       <span class="text-lg font-bold text-slate-800 dark:text-slate-200">{crackTime}</span>
     </div>
@@ -135,7 +154,7 @@
            max="64"
            bind:value={options.length}
            on:input={generate}
-           class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700 accent-indigo-600"
+           class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700 accent-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
          />
        </div>
 

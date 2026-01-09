@@ -2,7 +2,7 @@
   import { liveQuery } from 'dexie';
   import { db, type CipherHistory } from '$lib/db';
   import { createEventDispatcher } from 'svelte';
-  import { Trash2, Copy } from 'lucide-svelte';
+  import { Trash2, Copy, RotateCcw } from 'lucide-svelte';
 
   export let dict: any;
 
@@ -23,6 +23,10 @@
     db.cipherHistory.clear();
   }
 
+  function restoreItem(item: CipherHistory) {
+    dispatch('restore', item);
+  }
+
   function formatDate(date: Date) {
     return new Intl.DateTimeFormat('en-US', {
       hour: 'numeric',
@@ -35,7 +39,7 @@
 <div class="space-y-4">
   <div class="flex items-center justify-between">
     <h3 class="text-lg font-medium text-slate-900 dark:text-white">{dict.history}</h3>
-    <button on:click={clearAll} class="text-xs text-red-500 hover:text-red-600 font-medium">
+    <button on:click={clearAll} class="text-xs text-red-500 hover:text-red-600 font-medium" aria-label={dict.clear}>
       {dict.clear}
     </button>
   </div>
@@ -60,15 +64,26 @@
             <span class="text-[10px] text-slate-400">{formatDate(item.createdAt)}</span>
           </div>
 
-          <div class="font-mono text-sm text-slate-800 dark:text-slate-200 break-all line-clamp-2">
+          {#if item.input && item.type !== 'password'}
+             <div class="text-[10px] text-slate-400 mb-0.5 truncate border-b border-slate-100 dark:border-slate-700 pb-1">
+               Input: {item.input}
+             </div>
+          {/if}
+
+          <div class="font-mono text-sm text-slate-800 dark:text-slate-200 break-all line-clamp-2 mt-1">
             {item.content}
           </div>
 
-          <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex space-x-1 bg-white dark:bg-slate-800 rounded shadow-sm">
-             <button on:click={() => item.id && copy(item.content)} class="p-1.5 text-slate-400 hover:text-indigo-600" title={dict.copy}>
+          <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex space-x-1 bg-white dark:bg-slate-800 rounded shadow-sm border border-slate-100 dark:border-slate-700">
+             {#if item.input || item.settings}
+                <button on:click={() => restoreItem(item)} class="p-1.5 text-slate-400 hover:text-green-600" title={dict.restore} aria-label={dict.restore}>
+                   <RotateCcw size={14} />
+                </button>
+             {/if}
+             <button on:click={() => item.id && copy(item.content)} class="p-1.5 text-slate-400 hover:text-indigo-600" title={dict.copy} aria-label={dict.copy}>
                <Copy size={14} />
              </button>
-             <button on:click={() => item.id && deleteItem(item.id)} class="p-1.5 text-slate-400 hover:text-red-600" title={dict.delete}>
+             <button on:click={() => item.id && deleteItem(item.id)} class="p-1.5 text-slate-400 hover:text-red-600" title={dict.delete} aria-label={dict.delete}>
                <Trash2 size={14} />
              </button>
           </div>
