@@ -1,5 +1,6 @@
 import registry from '$lib/registry.json';
 
+export const trailingSlash = 'never';
 export const prerender = true;
 
 const BASE_URL = 'https://selfgrowingmicrotool.com';
