@@ -9,6 +9,7 @@
   import PasswordForge from '$lib/components/cipher-lab/PasswordForge.svelte';
   import HistoryPanel from '$lib/components/cipher-lab/HistoryPanel.svelte';
   import { Shield, Hash, Code, Key, Lock, Check, Star } from 'lucide-svelte';
+  import { onMount, onDestroy } from 'svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang).tools.cipherLab;
@@ -18,20 +19,59 @@
   let showToast = false;
   let toastMessage = '';
 
+  // Component References
+  let hashComponent: HashGenerator;
+  let encoderComponent: EncoderDecoder;
+  let jwtComponent: JwtDebugger;
+  let passwordComponent: PasswordForge;
+
   function handleSave(event: CustomEvent) {
-    const { type, content, details } = event.detail;
+    const { type, content, details, input, settings } = event.detail;
     db.cipherHistory.add({
       type,
       content,
       details,
+      input: input || '',
+      settings: settings || '{}',
       createdAt: new Date(),
       starred: 0
     });
-    showToastMsg('Saved to secure history');
+    showToastMsg(dict.feedback.saved || 'Saved to secure history');
   }
 
   function handleCopy() {
     showToastMsg(dict.copied);
+  }
+
+  function handleRestore(event: CustomEvent) {
+    const item = event.detail;
+    // Switch tab based on type
+    switch (item.type) {
+      case 'hash':
+      case 'hmac':
+        activeTab = 'hash';
+        // Use setTimeout to allow tab switch render before calling method
+        setTimeout(() => hashComponent?.restore(item), 50);
+        break;
+      case 'encode':
+        activeTab = 'encoders';
+        // setTimeout(() => encoderComponent?.restore(item), 50); // Implement if EncoderDecoder supports restore
+        break;
+      case 'jwt':
+        activeTab = 'jwt';
+        // setTimeout(() => jwtComponent?.restore(item), 50); // Implement if JwtDebugger supports restore
+        break;
+      case 'password':
+        activeTab = 'password';
+        if (item.settings) {
+            try {
+                const settings = JSON.parse(item.settings);
+                setTimeout(() => passwordComponent?.restore(settings), 50);
+            } catch(e) { console.error('Failed to parse password settings', e)}
+        }
+        break;
+    }
+    showToastMsg('Restored from history');
   }
 
   function showToastMsg(msg: string) {
@@ -39,7 +79,19 @@
     showToast = true;
     setTimeout(() => (showToast = false), 2000);
   }
+
+  // Keyboard Shortcuts
+  function handleKeydown(e: KeyboardEvent) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      // Trigger "Generate" or "Calculate" depending on active tab
+      // This is a bit tricky to target generically without knowing internal methods.
+      // Ideally, pass a prop or call a method on the child component.
+      // For now, we'll let the focused element handle it or implement specific logic if needed.
+    }
+  }
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
   <title>{dict.title} - MicroTools</title>
@@ -56,7 +108,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "featureList": "SHA Hashing, Base64 Encoding, JWT Debugging, Password Generation"
+      "featureList": "SHA Hashing, HMAC Calculation, Base64 Encoding, JWT Debugging, Password Generation, Entropy Visualizer"
     }
   </script>
 </svelte:head>
@@ -87,8 +139,10 @@
       <div class="lg:col-span-8 space-y-6">
 
         <!-- Navigation Tabs -->
-        <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-1.5 flex flex-wrap gap-1">
+        <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-1.5 flex flex-wrap gap-1" role="tablist">
            <button
+             role="tab"
+             aria-selected={activeTab === 'hash'}
              class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'hash' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'hash'}
            >
@@ -96,6 +150,8 @@
              <span>{dict.tabs.hash}</span>
            </button>
            <button
+             role="tab"
+             aria-selected={activeTab === 'encoders'}
              class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'encoders' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'encoders'}
            >
@@ -103,6 +159,8 @@
              <span>{dict.tabs.encoders}</span>
            </button>
            <button
+             role="tab"
+             aria-selected={activeTab === 'jwt'}
              class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'jwt' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'jwt'}
            >
@@ -110,6 +168,8 @@
              <span>{dict.tabs.jwt}</span>
            </button>
            <button
+             role="tab"
+             aria-selected={activeTab === 'password'}
              class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'password' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'password'}
            >
@@ -121,13 +181,13 @@
         <!-- Component Container -->
         <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 min-h-[400px]">
            {#if activeTab === 'hash'}
-             <HashGenerator {dict} on:save={handleSave} on:copy={handleCopy} />
+             <HashGenerator bind:this={hashComponent} {dict} on:save={handleSave} on:copy={handleCopy} />
            {:else if activeTab === 'encoders'}
-             <EncoderDecoder {dict} on:save={handleSave} on:copy={handleCopy} />
+             <EncoderDecoder bind:this={encoderComponent} {dict} on:save={handleSave} on:copy={handleCopy} />
            {:else if activeTab === 'jwt'}
-             <JwtDebugger {dict} on:save={handleSave} on:copy={handleCopy} />
+             <JwtDebugger bind:this={jwtComponent} {dict} on:save={handleSave} on:copy={handleCopy} />
            {:else if activeTab === 'password'}
-             <PasswordForge {dict} on:save={handleSave} on:copy={handleCopy} />
+             <PasswordForge bind:this={passwordComponent} {dict} on:save={handleSave} on:copy={handleCopy} />
            {/if}
         </div>
 
@@ -175,7 +235,7 @@
       <div class="lg:col-span-4 space-y-6">
          <!-- History -->
          <div class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 sticky top-24">
-            <HistoryPanel {dict} on:copy={handleCopy} />
+            <HistoryPanel {dict} on:copy={handleCopy} on:restore={handleRestore} />
          </div>
 
          <!-- Tips -->

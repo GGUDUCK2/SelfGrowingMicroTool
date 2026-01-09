@@ -86,6 +86,8 @@ export interface CipherHistory {
   type: 'hash' | 'hmac' | 'encode' | 'jwt' | 'password';
   content: string; // The result or summary
   details?: string; // Extra details like algorithm or key hint
+  input?: string; // Original input to restore state
+  settings?: string; // JSON string of settings (algo, mode, etc.)
   createdAt: Date;
   starred?: number;
 }
@@ -191,6 +193,23 @@ class MySubClassedDexie extends Dexie {
       diffHistory: '++id, createdAt, starred',
       idForgeHistory: '++id, createdAt, starred',
       cipherHistory: '++id, createdAt, starred'
+    });
+    this.version(12).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      idForgeHistory: '++id, createdAt, starred',
+      cipherHistory: '++id, createdAt, starred'
+    }).upgrade(tx => {
+      return tx.table('cipherHistory').toCollection().modify(item => {
+        if (!item.input) item.input = '';
+        if (!item.settings) item.settings = '{}';
+      });
     });
   }
 }

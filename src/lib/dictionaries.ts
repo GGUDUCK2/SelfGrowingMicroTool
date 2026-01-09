@@ -399,6 +399,7 @@ export const dictionaries = {
         action: "Action",
         history: "Secure History",
         save: "Save",
+        restore: "Restore",
         delete: "Delete",
         clear: "Clear All",
         copy: "Copy",
@@ -419,6 +420,7 @@ export const dictionaries = {
         calculating: "Calculating...",
         hashResult: "Hash Result",
         emptyHistory: "No recent history.",
+        swap: "Swap",
         hashing: {
           sha1: "SHA-1 (Legacy)",
           sha256: "SHA-256 (Standard)",
@@ -454,6 +456,9 @@ export const dictionaries = {
           decoded: "Decoded Token",
           paste: "Paste JWT here (ey...)",
           invalid: "Invalid JWT Format"
+        },
+        feedback: {
+            saved: "Saved to secure history"
         },
         faqTitle: "Cipher Lab FAQ",
         q1: "Is my data safe?",
@@ -912,6 +917,8 @@ export const dictionaries = {
         calculating: "계산 중...",
         hashResult: "해시 결과",
         emptyHistory: "최근 기록이 없습니다.",
+        restore: "복원",
+        swap: "교체",
         hashing: {
           sha1: "SHA-1 (레거시)",
           sha256: "SHA-256 (표준)",
@@ -947,6 +954,9 @@ export const dictionaries = {
           decoded: "디코딩된 토큰",
           paste: "JWT를 여기에 붙여넣으세요 (ey...)",
           invalid: "유효하지 않은 JWT 형식"
+        },
+        feedback: {
+            saved: "보안 기록에 저장되었습니다"
         },
         faqTitle: "Cipher Lab FAQ",
         q1: "내 데이터는 안전한가요?",

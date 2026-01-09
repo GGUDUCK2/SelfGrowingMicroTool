@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
   import { computeHash, computeHmac } from '$lib/utils/cipher/hashing';
-  import { Copy, Save } from 'lucide-svelte';
+  import { Copy, Save, Search, Wand2 } from 'lucide-svelte';
 
   export let dict: any; // Type inferred in parent
 
@@ -12,14 +12,31 @@
   let algorithm: 'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512' = 'SHA-256';
   let mode: 'hash' | 'hmac' = 'hash';
   let isCalculating = false;
+  let detectedType: string | null = null;
+
+  // Restore state method
+  export const restore = (savedState: any) => {
+    input = savedState.input || '';
+    if (savedState.settings) {
+       const settings = JSON.parse(savedState.settings);
+       algorithm = settings.algorithm || 'SHA-256';
+       mode = settings.mode || 'hash';
+       key = settings.key || '';
+    }
+  };
 
   const dispatch = createEventDispatcher();
 
   async function calculate() {
     if (!input) {
       output = '';
+      detectedType = null;
       return;
     }
+
+    // Auto-detect if input looks like a hash
+    detectHashType(input);
+
     isCalculating = true;
     try {
       if (mode === 'hmac') {
@@ -40,6 +57,23 @@
     }
   }
 
+  function detectHashType(str: string) {
+    const len = str.trim().length;
+    const isHex = /^[0-9a-fA-F]+$/.test(str.trim());
+
+    if (!isHex) {
+      detectedType = null;
+      return;
+    }
+
+    if (len === 32) detectedType = 'MD5';
+    else if (len === 40) detectedType = 'SHA-1';
+    else if (len === 64) detectedType = 'SHA-256';
+    else if (len === 96) detectedType = 'SHA-384';
+    else if (len === 128) detectedType = 'SHA-512';
+    else detectedType = null;
+  }
+
   $: {
     if (input || (mode === 'hmac' && key)) {
       calculate();
@@ -58,7 +92,9 @@
       dispatch('save', {
         type: mode === 'hmac' ? 'hmac' : 'hash',
         content: output,
-        details: `${algorithm} ${mode === 'hmac' ? '(HMAC)' : ''}`
+        details: `${algorithm} ${mode === 'hmac' ? '(HMAC)' : ''}`,
+        input: input,
+        settings: JSON.stringify({ algorithm, mode, key })
       });
     }
   }
@@ -75,12 +111,14 @@
         <button
           class="flex-1 py-1.5 text-sm font-medium rounded-md transition-all {mode === 'hash' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
           on:click={() => (mode = 'hash')}
+          aria-label="Switch to Hash mode"
         >
           Hash
         </button>
         <button
           class="flex-1 py-1.5 text-sm font-medium rounded-md transition-all {mode === 'hmac' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
           on:click={() => (mode = 'hmac')}
+          aria-label="Switch to HMAC mode"
         >
           HMAC
         </button>
@@ -107,10 +145,17 @@
 
   <!-- Inputs -->
   <div class="space-y-4">
-    <div class="space-y-2">
-      <label for="input" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
-        {dict.input}
-      </label>
+    <div class="space-y-2 relative">
+      <div class="flex justify-between">
+        <label for="input" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+          {dict.input}
+        </label>
+        {#if detectedType}
+           <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 flex items-center animate-pulse">
+              <Wand2 size={12} class="mr-1"/> Looks like {detectedType}
+           </span>
+        {/if}
+      </div>
       <textarea
         id="input"
         bind:value={input}
@@ -147,6 +192,7 @@
           on:click={copyToClipboard}
           class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
           disabled={!output}
+          aria-label={dict.copy}
         >
           <Copy size={14} />
           <span>{dict.copy}</span>
@@ -155,6 +201,7 @@
           on:click={saveToHistory}
           class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
           disabled={!output}
+          aria-label={dict.save}
         >
           <Save size={14} />
           <span>{dict.save}</span>
@@ -168,6 +215,7 @@
         readonly
         rows="2"
         class="w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 font-mono break-all"
+        aria-label="Hash Result"
       ></textarea>
       {#if isCalculating}
         <div class="absolute inset-0 flex items-center justify-center bg-white/50 dark:bg-black/50 rounded-lg">

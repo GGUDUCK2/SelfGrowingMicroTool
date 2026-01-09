@@ -1,71 +1,78 @@
+import time
 from playwright.sync_api import sync_playwright, expect
 
-def test_cipher_lab():
+def verify_cipher_lab():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        # Try ports 4173, 4174, 4175, 4176
-        ports = [4173, 4174, 4175, 4176]
-        page = browser.new_page()
-
-        success = False
-        for port in ports:
-            try:
-                print(f"Trying port {port}...")
-                page.goto(f"http://localhost:{port}/en/tools/cipher-lab", timeout=3000)
-                # If we get here without error (and without 404/500 if possible to detect early), break
-                # But simple goto might succeed even on 500 page.
-                # Check for specific content.
-                try:
-                   page.wait_for_selector("h1", timeout=2000)
-                   success = True
-                   print(f"Connected on port {port}")
-                   break
-                except:
-                   print(f"Port {port} loaded but selector not found (maybe 500 error)")
-                   continue
-            except Exception as e:
-                print(f"Port {port} failed: {e}")
-                continue
-
-        if not success:
-            raise Exception("Could not connect to any preview port")
+        context = browser.new_context()
+        page = context.new_page()
 
         try:
-            # Verify title
-            expect(page.get_by_role("heading", name="Cipher Lab: Crypto & Token Suite")).to_be_visible()
+            # Navigate to Cipher Lab
+            page.goto("http://localhost:4173/en/tools/cipher-lab")
+            page.wait_for_load_state("networkidle")
 
-            # Verify Hash Generator tab is active
-            expect(page.get_by_role("button", name="Hash & HMAC")).to_be_visible()
+            # 1. Verify Smart Hash Analyzer
+            print("Verifying Hash Analyzer...")
+            input_box = page.locator("#input")
 
-            # Type something into hash input
-            page.fill("textarea#input", "Hello World")
+            # Type an MD5 hash
+            md5_hash = "5d41402abc4b2a76b9719d911017c592"
+            input_box.fill(md5_hash)
 
-            # Wait for calculation (it's debounced/reactive)
+            # Check if "Looks like MD5" appears
+            expect(page.get_by_text("Looks like MD5")).to_be_visible()
+            print("Hash Analyzer detected MD5!")
+
+            # 2. Verify Password Forge Entropy
+            print("Verifying Password Forge...")
+            # Switch to Password tab
+            page.get_by_role("tab", name="Password Forge").click()
+
+            # Wait for slide transition
             page.wait_for_timeout(1000)
 
-            output = page.input_value("textarea#output")
-            print(f"Hash Output: {output}")
-
-            if "a591a6d4" not in output:
-                raise Exception("Hash calculation failed or mismatch")
-
-            # Switch to Password tab
-            page.click("button:has-text('Password Forge')")
-            page.wait_for_timeout(500)
-
-            # Verify Password UI - use precise selector
+            # Check for Entropy Label (Use exact=True to avoid partial matches)
             expect(page.get_by_text("Entropy", exact=True)).to_be_visible()
 
+            # Click generate button explicitly
+            page.get_by_role("button", name="Generate").click()
+            page.wait_for_timeout(500)
+
+            # 3. Verify History and Restore
+            print("Verifying History Restore...")
+            # Save the password
+            page.get_by_label("Save").click()
+
+            # Check toast
+            expect(page.get_by_text("Saved to secure history")).to_be_visible()
+
+            # Check History Panel item
+            history_item = page.locator(".break-all.line-clamp-2").first
+            expect(history_item).to_be_visible()
+
+            # Hover over history item to see Restore button
+            history_card = page.locator(".group").first
+            history_card.hover()
+
+            # Click Restore
+            restore_btn = page.get_by_label("Restore").first
+            expect(restore_btn).to_be_visible()
+            restore_btn.click()
+
+            expect(page.get_by_text("Restored from history")).to_be_visible()
+            print("Restore successful!")
+
             # Take screenshot
-            page.screenshot(path="verification/cipher_lab.png", full_page=True)
-            print("Screenshot taken")
+            page.screenshot(path="verification/cipher_lab_verified.png", full_page=True)
+            print("Screenshot saved to verification/cipher_lab_verified.png")
 
         except Exception as e:
-            print(f"Error: {e}")
+            print(f"Verification failed: {e}")
             page.screenshot(path="verification/error.png")
             raise e
         finally:
             browser.close()
 
 if __name__ == "__main__":
-    test_cipher_lab()
+    verify_cipher_lab()

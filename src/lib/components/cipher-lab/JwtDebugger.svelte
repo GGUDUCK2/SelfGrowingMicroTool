@@ -15,6 +15,24 @@
 
   const dispatch = createEventDispatcher();
 
+  export const restore = (savedState: any) => {
+      // JWT usually just restores the input (token) and maybe the secret key if it was saved
+      // But typically we don't save secret keys in history for security, but user might want to.
+      // We will assume only input is safe to restore from 'input' field.
+      // But wait, the 'input' field in history is usually the source content.
+      // In JWT debugger, 'token' is the input.
+
+      // If we saved 'input' in history when saving (which we didn't before), we could restore it.
+      // Let's modify saveToHistory to save input as well.
+      if (savedState.input) {
+         token = savedState.input;
+      }
+
+      // Secret is sensitive, maybe avoid restoring it unless explicitly saved?
+      // For now, let's not restore secret.
+  };
+
+
   $: {
     if (token) {
       parsed = parseJwt(token);
@@ -44,7 +62,9 @@
       dispatch('save', {
         type: 'jwt',
         content: JSON.stringify(parsed.payload), // Save payload as content
-        details: 'JWT Decode'
+        details: 'JWT Decode',
+        input: token,
+        settings: JSON.stringify({}) // No specific settings for JWT debug
       });
     }
   }
@@ -71,7 +91,7 @@
       <div class="space-y-2">
         <div class="flex items-center justify-between">
           <span class="text-xs font-bold uppercase tracking-wider text-red-500">{dict.jwt.header}</span>
-          <button on:click={() => copyToClipboard(JSON.stringify(parsed?.header, null, 2))} class="text-xs text-slate-400 hover:text-indigo-500">
+          <button on:click={() => copyToClipboard(JSON.stringify(parsed?.header, null, 2))} class="text-xs text-slate-400 hover:text-indigo-500" aria-label={dict.copy}>
              <Copy size={12}/>
           </button>
         </div>
@@ -85,10 +105,10 @@
         <div class="flex items-center justify-between">
           <span class="text-xs font-bold uppercase tracking-wider text-purple-500">{dict.jwt.payload}</span>
           <div class="flex space-x-2">
-             <button on:click={saveToHistory} class="text-xs text-slate-400 hover:text-indigo-500">
+             <button on:click={saveToHistory} class="text-xs text-slate-400 hover:text-indigo-500" aria-label={dict.save}>
                <Save size={12}/>
              </button>
-             <button on:click={() => copyToClipboard(JSON.stringify(parsed?.payload, null, 2))} class="text-xs text-slate-400 hover:text-indigo-500">
+             <button on:click={() => copyToClipboard(JSON.stringify(parsed?.payload, null, 2))} class="text-xs text-slate-400 hover:text-indigo-500" aria-label={dict.copy}>
                <Copy size={12}/>
              </button>
           </div>

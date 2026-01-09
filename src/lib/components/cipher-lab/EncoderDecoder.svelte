@@ -19,6 +19,18 @@
 
   const dispatch = createEventDispatcher();
 
+  export const restore = (savedState: any) => {
+    input = savedState.input || '';
+    if (savedState.settings) {
+        try {
+            const settings = JSON.parse(savedState.settings);
+            mode = settings.mode || 'encode';
+            method = settings.method || 'base64';
+        } catch(e) {}
+    }
+  };
+
+
   function process() {
     if (!input) {
       output = '';
@@ -67,7 +79,9 @@
       dispatch('save', {
         type: 'encode',
         content: output,
-        details: `${method.toUpperCase()} (${mode})`
+        details: `${method.toUpperCase()} (${mode})`,
+        input: input,
+        settings: JSON.stringify({ mode, method })
       });
     }
   }
@@ -102,12 +116,14 @@
         <button
           class="flex-1 py-1.5 text-sm font-medium rounded-md transition-all {mode === 'encode' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
           on:click={() => (mode = 'encode')}
+          aria-label={dict.encode}
         >
           {dict.encode}
         </button>
         <button
           class="flex-1 py-1.5 text-sm font-medium rounded-md transition-all {mode === 'decode' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
           on:click={() => (mode = 'decode')}
+          aria-label={dict.decode}
         >
           {dict.decode}
         </button>
@@ -122,7 +138,7 @@
         <label for="enc-input" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
           {dict.input}
         </label>
-        <button on:click={swap} class="text-xs text-slate-500 hover:text-indigo-600 flex items-center space-x-1" title={dict.swap}>
+        <button on:click={swap} class="text-xs text-slate-500 hover:text-indigo-600 flex items-center space-x-1" title={dict.swap || "Swap"} aria-label={dict.swap || "Swap"}>
            <ArrowLeftRight size={14} />
            <span>Swap</span>
         </button>
@@ -148,6 +164,7 @@
           on:click={copyToClipboard}
           class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
           disabled={!output}
+          aria-label={dict.copy}
         >
           <Copy size={14} />
           <span>{dict.copy}</span>
@@ -156,6 +173,7 @@
           on:click={saveToHistory}
           class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
           disabled={!output}
+          aria-label={dict.save}
         >
           <Save size={14} />
           <span>{dict.save}</span>
