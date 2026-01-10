@@ -2,7 +2,17 @@ export interface CodeGenOptions {
   name: string;
 }
 
-export type CodeGenLanguage = 'typescript' | 'go' | 'python_dataclass' | 'json_schema';
+export type CodeGenLanguage = 'typescript' | 'zod' | 'go' | 'python' | 'pydantic' | 'json_schema';
+
+/**
+ * Helper to capitalize first letter
+ */
+const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+
+/**
+ * Helper to convert string to PascalCase
+ */
+const toPascalCase = (str: string) => str.replace(/(^\w|-\w|_\w)/g, (c) => c.replace(/[-_]/, '').toUpperCase());
 
 /**
  * Generates TypeScript Interface definition from an object.
@@ -10,7 +20,15 @@ export type CodeGenLanguage = 'typescript' | 'go' | 'python_dataclass' | 'json_s
 function generateTypeScript(data: unknown, name: string): string {
   if (Array.isArray(data)) {
     const itemType = data.length > 0 ? generateTypeScript(data[0], 'Item').replace('export interface Item ', '') : 'any';
-    return `export type ${name} = ${itemType}[];`;
+    // Remove trailing semicolon and newline from recursive call if present
+    const cleanItemType = itemType.trim().replace(/;$/, '');
+
+    // If it's a complex object (starts with {), we need to extract it or name it
+    if (cleanItemType.startsWith('{')) {
+       // Ideally we would extract interfaces, but for simplicity:
+       return `export type ${name} = ${cleanItemType}[];`;
+    }
+    return `export type ${name} = ${cleanItemType}[];`;
   }
 
   if (typeof data === 'object' && data !== null) {
@@ -20,8 +38,19 @@ function generateTypeScript(data: unknown, name: string): string {
       if (typeof value === 'string') type = 'string';
       else if (typeof value === 'number') type = 'number';
       else if (typeof value === 'boolean') type = 'boolean';
-      else if (Array.isArray(value)) type = 'any[]'; // Simplified array handling
-      else if (typeof value === 'object') type = 'object'; // Simplified nested object
+      else if (Array.isArray(value)) {
+          // Simple array type inference
+          if (value.length > 0) {
+              const first = value[0];
+              if (typeof first === 'string') type = 'string[]';
+              else if (typeof first === 'number') type = 'number[]';
+              else if (typeof first === 'boolean') type = 'boolean[]';
+              else type = 'any[]'; // Deep nesting handled simply for now
+          } else {
+              type = 'any[]';
+          }
+      }
+      else if (typeof value === 'object') type = 'Record<string, any>'; // Simplified nested object
 
       output += `  ${key}: ${type};\n`;
     }
@@ -33,16 +62,42 @@ function generateTypeScript(data: unknown, name: string): string {
 }
 
 /**
+ * Generates Zod Schema
+ */
+function generateZod(data: unknown, name: string): string {
+    const imports = `import { z } from 'zod';\n\n`;
+
+    const inferZod = (val: unknown): string => {
+        if (val === null) return "z.null()";
+        if (typeof val === 'string') return "z.string()";
+        if (typeof val === 'number') return "z.number()";
+        if (typeof val === 'boolean') return "z.boolean()";
+
+        if (Array.isArray(val)) {
+            const itemType = val.length > 0 ? inferZod(val[0]) : "z.any()";
+            return `z.array(${itemType})`;
+        }
+
+        if (typeof val === 'object') {
+            const lines: string[] = [];
+            for (const [k, v] of Object.entries(val)) {
+                lines.push(`  ${k}: ${inferZod(v)}`);
+            }
+            return `z.object({\n${lines.join(',\n')}\n})`;
+        }
+
+        return "z.any()";
+    };
+
+    return `${imports}export const ${name}Schema = ${inferZod(data)};\n\nexport type ${name} = z.infer<typeof ${name}Schema>;`;
+}
+
+/**
  * Generates Go Struct definition from an object.
  */
 function generateGo(data: unknown, name: string): string {
-  const toPascalCase = (str: string) => str.replace(/(^\w|-\w)/g, (c) => c.replace('-', '').toUpperCase());
-
   if (Array.isArray(data)) {
-      // For top-level array, we can't really define a struct, so we define the item struct.
-      if (data.length > 0) {
-          return generateGo(data[0], name);
-      }
+      if (data.length > 0) return generateGo(data[0], name);
       return `type ${name} []interface{}`;
   }
 
@@ -54,6 +109,7 @@ function generateGo(data: unknown, name: string): string {
       if (typeof value === 'string') type = 'string';
       else if (typeof value === 'number') type = 'float64';
       else if (typeof value === 'boolean') type = 'bool';
+      else if (Array.isArray(value)) type = '[]interface{}'; // Simplified
 
       output += `\t${fieldName} ${type} \`json:"${key}"\`\n`;
     }
@@ -78,8 +134,34 @@ function generatePython(data: unknown, name: string): string {
         for (const [key, value] of Object.entries(data)) {
             let type = 'Any';
             if (typeof value === 'string') type = 'str';
-            else if (typeof value === 'number') type = 'float'; // or int
+            else if (typeof value === 'number') type = 'float';
             else if (typeof value === 'boolean') type = 'bool';
+            else if (Array.isArray(value)) type = 'List[Any]';
+
+            output += `    ${key}: ${type}\n`;
+        }
+        return output;
+    }
+    return `# Primitive type`;
+}
+
+/**
+ * Generates Pydantic v2 Model
+ */
+function generatePydantic(data: unknown, name: string): string {
+     if (Array.isArray(data)) {
+        if (data.length > 0) return generatePydantic(data[0], name);
+        return `# List of items`;
+    }
+
+    if (typeof data === 'object' && data !== null) {
+        let output = `from pydantic import BaseModel\nfrom typing import Any, List, Optional\n\nclass ${name}(BaseModel):\n`;
+        for (const [key, value] of Object.entries(data)) {
+            let type = 'Any';
+            if (typeof value === 'string') type = 'str';
+            else if (typeof value === 'number') type = 'float';
+            else if (typeof value === 'boolean') type = 'bool';
+            else if (Array.isArray(value)) type = 'List[Any]';
 
             output += `    ${key}: ${type}\n`;
         }
@@ -92,7 +174,6 @@ function generatePython(data: unknown, name: string): string {
  * Generates JSON Schema.
  */
 function generateJsonSchema(data: unknown, name: string): string {
-    // Basic inference
     const schema: any = {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": name,
@@ -131,10 +212,14 @@ export function generateCode(data: unknown, language: CodeGenLanguage, options: 
     switch (language) {
       case 'typescript':
         return generateTypeScript(data, options.name);
+      case 'zod':
+        return generateZod(data, options.name);
       case 'go':
         return generateGo(data, options.name);
-      case 'python_dataclass':
+      case 'python':
         return generatePython(data, options.name);
+      case 'pydantic':
+        return generatePydantic(data, options.name);
       case 'json_schema':
         return generateJsonSchema(data, options.name);
       default:

@@ -5,10 +5,11 @@
   import DataEditor from '$lib/components/structura/DataEditor.svelte';
   import Toolbar from '$lib/components/structura/Toolbar.svelte';
   import SettingsPanel from '$lib/components/structura/SettingsPanel.svelte';
+  import TreeVisualizer from '$lib/components/structura/visualizer/TreeVisualizer.svelte';
   import { convertData, detectFormat, type Format } from '$lib/utils/structura/converter';
   import { generateCode, type CodeGenLanguage } from '$lib/utils/structura/codegen';
   import { structuraExamples } from '$lib/utils/structura/examples';
-  import { ArrowRight, Settings, Code, History, Zap, Star, Trash2 } from 'lucide-svelte';
+  import { ArrowRight, Settings, Code, History, Zap, Star, Trash2, Network } from 'lucide-svelte';
   import { structuraWorkspace } from '$lib/db/workspace';
   import type { StructuraHistory } from '$lib/db';
   import { liveQuery, type Subscription } from 'dexie';
@@ -18,7 +19,7 @@
   $: t = data.dict.tools.structura;
 
   // Tabs
-  type Tab = 'convert' | 'codegen' | 'history';
+  type Tab = 'convert' | 'codegen' | 'visualizer' | 'history';
   let activeTab: Tab = 'convert';
 
   // State
@@ -36,6 +37,9 @@
   let codeGenLang: CodeGenLanguage = 'typescript';
   let rootName = 'Root';
   let generatedCode = '';
+
+  // Visualizer State
+  let visualizerData: any = null;
 
   // History
   let history: StructuraHistory[] = [];
@@ -60,6 +64,11 @@
       // Auto-update code gen if active
       if (activeTab === 'codegen') {
         runCodeGen();
+      }
+
+      // Auto-update visualizer if active
+      if (activeTab === 'visualizer') {
+        runVisualizer();
       }
     }, 500);
   }
@@ -106,6 +115,23 @@
     }
   }
 
+  function runVisualizer() {
+    if (!input.trim()) {
+        visualizerData = null;
+        return;
+    }
+    const result = convertData(input, inputFormat, 'json', { indent: 2 });
+    if (result.error) {
+        // Don't show error in visualizer, just clear or keep old
+        return;
+    }
+    try {
+        visualizerData = JSON.parse(result.data);
+    } catch (e) {
+        // ignore
+    }
+  }
+
   function loadExample(ex: typeof structuraExamples[0]) {
       input = ex.data;
       inputFormat = ex.format as Format;
@@ -143,6 +169,7 @@
     output = '';
     error = '';
     generatedCode = '';
+    visualizerData = null;
   }
 
   // Keyboard Shortcuts
@@ -151,6 +178,7 @@
           e.preventDefault();
           if (activeTab === 'convert') runConversion();
           if (activeTab === 'codegen') runCodeGen();
+          if (activeTab === 'visualizer') runVisualizer();
       }
   }
 
@@ -191,7 +219,7 @@
         "priceCurrency": "USD"
       },
       "description": t.description,
-      "featureList": ["JSON Converter", "YAML Converter", "XML Converter", "CSV Converter", "Code Generator"]
+      "featureList": ["JSON Converter", "YAML Converter", "XML Converter", "CSV Converter", "Code Generator", "Tree Visualizer"]
     })}
   </script>
 </svelte:head>
@@ -210,9 +238,9 @@
   <!-- Main Interface -->
   <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
       <!-- Tabs -->
-      <div class="flex border-b border-gray-200 dark:border-gray-700">
+      <div class="flex border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
           <button
-            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative {activeTab === 'convert' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] {activeTab === 'convert' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => activeTab = 'convert'}
           >
               <Zap size={18} />
@@ -222,7 +250,7 @@
               {/if}
           </button>
           <button
-            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative {activeTab === 'codegen' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] {activeTab === 'codegen' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => { activeTab = 'codegen'; runCodeGen(); }}
           >
               <Code size={18} />
@@ -232,7 +260,17 @@
               {/if}
           </button>
           <button
-            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] {activeTab === 'visualizer' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            on:click={() => { activeTab = 'visualizer'; runVisualizer(); }}
+          >
+              <Network size={18} />
+              {t.tabs.visualizer}
+              {#if activeTab === 'visualizer'}
+                <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400" transition:slide={{ axis: 'x' }}></div>
+              {/if}
+          </button>
+          <button
+            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => activeTab = 'history'}
           >
               <History size={18} />
@@ -387,8 +425,10 @@
                                 class="w-full pl-3 pr-8 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg text-sm"
                             >
                                 <option value="typescript">{t.codegen.typescript}</option>
+                                <option value="zod">{t.codegen.zod}</option>
                                 <option value="go">{t.codegen.go}</option>
-                                <option value="python_dataclass">{t.codegen.python}</option>
+                                <option value="python">{t.codegen.python}</option>
+                                <option value="pydantic">{t.codegen.pydantic}</option>
                                 <option value="json_schema">{t.codegen.jsonSchema}</option>
                             </select>
                         </div>
@@ -435,7 +475,7 @@
                          <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 relative">
                              <DataEditor
                                 bind:value={generatedCode}
-                                language={codeGenLang === 'go' ? 'go' : codeGenLang === 'python_dataclass' ? 'python' : 'typescript'}
+                                language={codeGenLang === 'go' ? 'go' : codeGenLang === 'python' || codeGenLang === 'pydantic' ? 'python' : 'typescript'}
                                 readonly={true}
                             />
                              {#if error}
@@ -447,6 +487,41 @@
                      </div>
                 </div>
             </div>
+
+        <!-- Visualizer Tab -->
+        {:else if activeTab === 'visualizer'}
+             <div transition:fade={{ duration: 200 }} class="h-[600px] flex flex-col">
+                 <div class="flex-1 min-h-0 flex gap-4">
+                     <!-- Input Side (Small) -->
+                     <div class="w-1/3 flex flex-col gap-2">
+                        <div class="flex justify-between items-center px-1">
+                             <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.input}</span>
+                        </div>
+                        <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+                             <DataEditor bind:value={input} language={inputFormat} placeholder={t.inputPlaceholder} />
+                         </div>
+                     </div>
+
+                     <!-- Visualizer Side -->
+                     <div class="w-2/3 flex flex-col gap-2">
+                         <div class="flex justify-between items-center px-1">
+                             <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.visualizer.title}</span>
+                         </div>
+                         <div class="flex-1 min-h-0">
+                            {#if visualizerData}
+                                <TreeVisualizer data={visualizerData} />
+                            {:else}
+                                <div class="h-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-400 p-8 text-center">
+                                    <div>
+                                        <Network size={48} class="mx-auto mb-4 opacity-20" />
+                                        <p>{t.visualizer.empty}</p>
+                                    </div>
+                                </div>
+                            {/if}
+                         </div>
+                     </div>
+                 </div>
+             </div>
 
         <!-- History Tab -->
         {:else if activeTab === 'history'}
