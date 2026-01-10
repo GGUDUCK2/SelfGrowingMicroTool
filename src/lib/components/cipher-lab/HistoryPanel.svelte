@@ -1,13 +1,14 @@
 <script lang="ts">
   import { liveQuery } from 'dexie';
   import { db, type CipherHistory } from '$lib/db';
+  import { cipherWorkspace } from '$lib/db/workspace';
   import { createEventDispatcher } from 'svelte';
-  import { Trash2, Copy, RotateCcw } from 'lucide-svelte';
+  import { Trash2, Copy, RotateCcw, Star } from 'lucide-svelte';
   import type { CipherDictionary } from '$lib/types/cipher';
 
   export let dict: CipherDictionary;
 
-  let history = liveQuery(() => db.cipherHistory.orderBy('createdAt').reverse().limit(50).toArray());
+  let history = liveQuery(() => cipherWorkspace.loadHistory(20));
 
   const dispatch = createEventDispatcher();
 
@@ -17,11 +18,15 @@
   }
 
   function deleteItem(id: number) {
-    db.cipherHistory.delete(id);
+    cipherWorkspace.delete(id);
+  }
+
+  function toggleStar(id: number) {
+    cipherWorkspace.toggleStar(id);
   }
 
   function clearAll() {
-    db.cipherHistory.clear();
+    cipherWorkspace.clear();
   }
 
   function restoreItem(item: CipherHistory) {
@@ -46,7 +51,7 @@
   </div>
 
   {#if $history && $history.length > 0}
-    <div class="space-y-3">
+    <div class="space-y-3 max-h-[600px] overflow-y-auto pr-1 custom-scrollbar">
       {#each $history as item (item.id)}
         <div class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-3 shadow-sm hover:shadow-md transition-shadow relative group">
           <div class="flex justify-between items-start mb-1">
@@ -75,7 +80,12 @@
             {item.content}
           </div>
 
-          <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex space-x-1 bg-white dark:bg-slate-800 rounded shadow-sm border border-slate-100 dark:border-slate-700">
+          <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex space-x-1 bg-white dark:bg-slate-800 rounded shadow-sm border border-slate-100 dark:border-slate-700 p-0.5 z-10">
+             {#if item.id}
+               <button on:click={() => toggleStar(item.id!)} class="p-1.5 text-slate-400 hover:text-yellow-500 {item.starred ? 'text-yellow-500' : ''}" title="Star" aria-label="Star">
+                 <Star size={14} fill={item.starred ? 'currentColor' : 'none'} />
+               </button>
+             {/if}
              {#if item.input || item.settings}
                 <button on:click={() => restoreItem(item)} class="p-1.5 text-slate-400 hover:text-green-600" title={dict.restore} aria-label={dict.restore}>
                    <RotateCcw size={14} />
@@ -84,7 +94,7 @@
              <button on:click={() => item.id && copy(item.content)} class="p-1.5 text-slate-400 hover:text-indigo-600" title={dict.copy} aria-label={dict.copy}>
                <Copy size={14} />
              </button>
-             <button on:click={() => item.id && deleteItem(item.id)} class="p-1.5 text-slate-400 hover:text-red-600" title={dict.delete} aria-label={dict.delete}>
+             <button on:click={() => item.id && deleteItem(item.id!)} class="p-1.5 text-slate-400 hover:text-red-600" title={dict.delete} aria-label={dict.delete}>
                <Trash2 size={14} />
              </button>
           </div>
@@ -97,3 +107,19 @@
     </div>
   {/if}
 </div>
+
+<style>
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 2px;
+  }
+  :global(.dark) .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #475569;
+  }
+</style>
