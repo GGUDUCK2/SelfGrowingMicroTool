@@ -148,5 +148,20 @@
     "category": "Developer Tools",
     "tags": ["crypto", "hash", "jwt", "password", "base64", "security"],
     "createdAt": "2025-02-05"
+  },
+  {
+    "id": "structura",
+    "slug": "structura",
+    "title": {
+      "en": "Structura: Universal Data Converter",
+      "ko": "Structura: 만능 데이터 변환기"
+    },
+    "description": {
+      "en": "The definitive engine to transform, validate, and format JSON, YAML, XML, and CSV with professional precision.",
+      "ko": "JSON, YAML, XML, CSV를 전문적인 정밀도로 변환, 검증 및 포맷하는 완벽한 엔진입니다."
+    },
+    "category": "Developer Tools",
+    "tags": ["converter", "json", "yaml", "xml", "csv", "format", "developer"],
+    "createdAt": "2025-02-06"
   }
 ]

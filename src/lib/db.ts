@@ -92,6 +92,15 @@ export interface CipherHistory {
   starred?: number;
 }
 
+export interface StructuraHistory {
+  id?: number;
+  inputFormat: string;
+  outputFormat: string;
+  inputPreview: string; // Short preview of input
+  createdAt: Date;
+  starred?: number;
+}
+
 class MySubClassedDexie extends Dexie {
   compoundInterestConfig!: Table<CompoundInterestConfig>;
   compoundInterestHistory!: Table<CompoundInterestHistory>;
@@ -103,6 +112,7 @@ class MySubClassedDexie extends Dexie {
   diffHistory!: Table<DiffHistory>;
   idForgeHistory!: Table<IdForgeHistory>;
   cipherHistory!: Table<CipherHistory>;
+  structuraHistory!: Table<StructuraHistory>;
 
   constructor() {
     super('webFactoryDB');
@@ -210,6 +220,19 @@ class MySubClassedDexie extends Dexie {
         if (!item.input) item.input = '';
         if (!item.settings) item.settings = '{}';
       });
+    });
+    this.version(13).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      idForgeHistory: '++id, createdAt, starred',
+      cipherHistory: '++id, createdAt, starred',
+      structuraHistory: '++id, createdAt, starred'
     });
   }
 }
