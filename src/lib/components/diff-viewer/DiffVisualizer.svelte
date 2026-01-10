@@ -33,8 +33,8 @@
         if (lines.length > 0 && lines[lines.length - 1] === '') lines.pop();
 
         const type = part.added ? 'added' : part.removed ? 'removed' : 'unchanged';
-        const colorClass = type === 'added' ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200' :
-                           type === 'removed' ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200' :
+        const colorClass = type === 'added' ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' :
+                           type === 'removed' ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300' :
                            'text-gray-600 dark:text-gray-400';
 
         lines.forEach(line => {
@@ -61,8 +61,8 @@
 
                  unifiedHtml += `
                     <div class="flex hover:bg-gray-50 dark:hover:bg-gray-800/50 ${colorClass}">
-                        <div class="w-10 text-right pr-2 select-none text-gray-400 text-xs border-r border-gray-200 dark:border-gray-700 py-0.5">${lnLeft}</div>
-                        <div class="w-10 text-right pr-2 select-none text-gray-400 text-xs border-r border-gray-200 dark:border-gray-700 py-0.5">${lnRight}</div>
+                        <div class="w-10 text-right pr-2 select-none text-slate-500 text-xs border-r border-gray-200 dark:border-gray-700 py-0.5">${lnLeft}</div>
+                        <div class="w-10 text-right pr-2 select-none text-slate-500 text-xs border-r border-gray-200 dark:border-gray-700 py-0.5">${lnRight}</div>
                         <div class="w-6 text-center select-none text-gray-400 text-xs py-0.5">${prefix}</div>
                         <div class="flex-1 font-mono text-sm whitespace-pre-wrap break-all py-0.5 px-2">${line || ' '}</div>
                     </div>
@@ -85,17 +85,17 @@
                 const lineHtml = `<div class="font-mono text-sm whitespace-pre-wrap break-all py-0.5 px-2 ${colorClass} min-h-[1.5rem]">${line || ' '}</div>`;
 
                 if (type === 'removed') {
-                    leftHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-gray-400 text-xs select-none py-0.5 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">${leftLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
+                    leftHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">${leftLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
                     // Push empty to right? No, better to leave it blank or handle later.
                     // For now, let's just make "Split" actually two separate synchronized scrolls of the changes.
                     // But true split view needs empty blocks on the other side.
-                    rightHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-gray-400 text-xs select-none py-0.5 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900"></div><div class="flex-1 bg-gray-50/50 dark:bg-gray-900/50"></div></div>`;
+                    rightHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900"></div><div class="flex-1 bg-gray-50/50 dark:bg-gray-900/50"></div></div>`;
                 } else if (type === 'added') {
-                    leftHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-gray-400 text-xs select-none py-0.5 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900"></div><div class="flex-1 bg-gray-50/50 dark:bg-gray-900/50"></div></div>`;
-                    rightHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-gray-400 text-xs select-none py-0.5 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">${rightLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
+                    leftHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900"></div><div class="flex-1 bg-gray-50/50 dark:bg-gray-900/50"></div></div>`;
+                    rightHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">${rightLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
                 } else {
-                    leftHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-gray-400 text-xs select-none py-0.5 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">${leftLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
-                    rightHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-gray-400 text-xs select-none py-0.5 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">${rightLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
+                    leftHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">${leftLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
+                    rightHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">${rightLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
                 }
              });
         }
