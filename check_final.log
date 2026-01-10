@@ -1,0 +1,3 @@
+
+> web-factory-svelte@0.0.1 check
+> svelte-kit sync && tsc || tsc

@@ -1,31 +1,46 @@
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
 
-def verify_cipher_lab():
+def test_cipher_lab():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        # Use port 4173 for preview, or 5173 for dev. Check which one is running.
-        # Assuming dev server is running on 5173
         page = browser.new_page()
-        try:
-            page.goto("http://localhost:5173/en/tools/cipher-lab")
-            page.wait_for_timeout(2000) # Wait for hydration
+        page.on("console", lambda msg: print(f"PAGE LOG: {msg.text}"))
 
-            # Verify Secure Vault tab exists
-            vault_tab = page.get_by_role("tab", name="Secure Vault")
-            if vault_tab.is_visible():
-                print("Secure Vault tab is visible")
-                vault_tab.click()
-                page.wait_for_timeout(500)
-                page.screenshot(path="verification/cipher-lab-vault.png")
-            else:
-                print("Secure Vault tab not found!")
-                page.screenshot(path="verification/cipher-lab-fail.png")
+        try:
+            print("Navigating...")
+            page.goto("http://localhost:5173/en/tools/cipher-lab")
+
+            # 1. Verify Title
+            expect(page).to_have_title("Cipher Lab: Crypto & Token Suite - MicroTools")
+
+            # Wait for transition
+            page.wait_for_timeout(1000)
+
+            print("Clicking Simple Text...")
+            # 2. Click "Simple Text" Example
+            btn = page.get_by_role("button", name="Simple Text")
+            btn.click()
+
+            # 3. Verify Input is populated
+            print("Verifying input...")
+            input_area = page.get_by_label("Input Text / Payload")
+            expect(input_area).to_contain_text("The quick brown fox", timeout=5000)
+
+            # 4. Verify Output
+            print("Verifying output...")
+            output_area = page.get_by_label("Hash Result")
+            expect(output_area).to_contain_text("d7a8fbb3", timeout=5000)
+
+            # 5. Take Screenshot
+            page.screenshot(path="verification/cipher_lab_verified.png")
+            print("Verification successful!")
 
         except Exception as e:
             print(f"Error: {e}")
             page.screenshot(path="verification/error.png")
+            raise e
         finally:
             browser.close()
 
 if __name__ == "__main__":
-    verify_cipher_lab()
+    test_cipher_lab()

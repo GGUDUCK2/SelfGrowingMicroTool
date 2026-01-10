@@ -3,6 +3,7 @@
   import { page } from '$app/stores';
   import { fade, slide } from 'svelte/transition';
   import { db } from '$lib/db';
+  import { cipherWorkspace } from '$lib/db/workspace';
   import HashGenerator from '$lib/components/cipher-lab/HashGenerator.svelte';
   import EncoderDecoder from '$lib/components/cipher-lab/EncoderDecoder.svelte';
   import JwtDebugger from '$lib/components/cipher-lab/JwtDebugger.svelte';
@@ -29,16 +30,14 @@
   let keygenComponent: KeyGenerator;
   let vaultComponent: SecureVault;
 
-  function handleSave(event: CustomEvent) {
+  async function handleSave(event: CustomEvent) {
     const { type, content, details, input, settings } = event.detail;
-    db.cipherHistory.add({
+    await cipherWorkspace.save({
       type,
       content,
       details,
       input: input || '',
-      settings: settings || '{}',
-      createdAt: new Date(),
-      starred: 0
+      settings: settings || '{}'
     });
     showToastMsg(dict.feedback.saved || 'Saved to secure history');
   }
@@ -86,22 +85,9 @@
 
   // Keyboard Shortcuts
   function handleKeydown(e: KeyboardEvent) {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-       e.preventDefault();
-       // Trigger actions based on active tab
-       // Since we don't have a uniform interface, we rely on focus or specific implementation
-       // Ideally we would add `calculate()` method to each component and call it here.
-       // For now, let's just trigger a "Calculate" if possible.
-       if (activeTab === 'hash' && hashComponent) {
-           // Hash component auto-calculates, but maybe we want to force save?
-           // Or if it was manual.
-       }
-    }
-
     // Ctrl+K to clear
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        // Implement clear logic per component if needed
+       // Handled by individual components
     }
   }
 </script>
@@ -111,6 +97,24 @@
 <svelte:head>
   <title>{dict.title} - MicroTools</title>
   <meta name="description" content={dict.description} />
+  <meta name="keywords" content="hash generator, hmac calculator, jwt debugger, password generator, aes encryption, web crypto api, sha-256, sha-512, md5, base64 encoder" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={dict.title} />
+  <meta property="og:description" content={dict.description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://web-factory.vercel.app/{lang}/tools/cipher-lab" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={dict.title} />
+  <meta name="twitter:description" content={dict.description} />
+
+  <link rel="canonical" href="https://web-factory.vercel.app/{lang}/tools/cipher-lab" />
+  <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/cipher-lab" />
+  <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/cipher-lab" />
+  <link rel="alternate" hreflang="x-default" href="https://web-factory.vercel.app/en/tools/cipher-lab" />
+
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
