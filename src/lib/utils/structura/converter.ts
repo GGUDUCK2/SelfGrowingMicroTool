@@ -18,30 +18,30 @@ export interface ConvertResult {
 /**
  * Normalizes input string to a JavaScript Object/Array.
  */
-const parseInput = (input: string, format: Format): any => {
+const parseInput = (input: string, format: Format): unknown => {
   if (!input.trim()) return null;
 
   switch (format) {
     case 'json':
       try {
         return JSON.parse(input);
-      } catch (e: any) {
-        throw new Error(`Invalid JSON: ${e.message}`);
+      } catch (e) {
+        throw new Error(`Invalid JSON: ${e instanceof Error ? e.message : String(e)}`);
       }
     case 'yaml':
       try {
         const res = yaml.load(input);
         return res;
-      } catch (e: any) {
-        throw new Error(`Invalid YAML: ${e.message}`);
+      } catch (e) {
+        throw new Error(`Invalid YAML: ${e instanceof Error ? e.message : String(e)}`);
       }
     case 'xml':
       try {
         // xml2js returns a JS object representation of XML
         const result = xml2js(input, { compact: true, ignoreComment: true, nativeType: true });
         return result;
-      } catch (e: any) {
-        throw new Error(`Invalid XML: ${e.message}`);
+      } catch (e) {
+        throw new Error(`Invalid XML: ${e instanceof Error ? e.message : String(e)}`);
       }
     case 'csv':
       // PapaParse returns { data: any[], meta: ... }
@@ -58,7 +58,7 @@ const parseInput = (input: string, format: Format): any => {
 /**
  * Stringifies a JavaScript Object/Array to the target format.
  */
-const stringifyOutput = (data: any, format: Format, options: ConvertOptions): string => {
+const stringifyOutput = (data: unknown, format: Format, options: ConvertOptions): string => {
   if (data === null || data === undefined) return '';
 
   switch (format) {
@@ -69,11 +69,12 @@ const stringifyOutput = (data: any, format: Format, options: ConvertOptions): st
     case 'xml':
       // data needs to be in a format xml-js accepts.
       // If converting from JSON/CSV to XML, we might need to wrap in a root element if it's an array or doesn't have a single root.
-      let xmlData = data;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let xmlData: any = data;
       // Simple heuristic: if it's an array, wrap in <root><item>...</item></root>
       if (Array.isArray(data)) {
         xmlData = { root: { item: data } };
-      } else if (typeof data === 'object' && Object.keys(data).length > 1) {
+      } else if (typeof data === 'object' && data !== null && Object.keys(data).length > 1) {
         // If object has multiple keys, it lacks a single root, wrap it.
         xmlData = { root: data };
       }
@@ -81,7 +82,8 @@ const stringifyOutput = (data: any, format: Format, options: ConvertOptions): st
       return js2xml(xmlData, { compact: true, spaces: options.indent });
     case 'csv':
       // Papa.unparse expects array of objects or array of arrays
-      return Papa.unparse(data, { delimiter: options.csvDelimiter || ',' });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return Papa.unparse(data as any, { delimiter: options.csvDelimiter || ',' });
     default:
       throw new Error(`Unsupported output format: ${format}`);
   }
@@ -92,8 +94,8 @@ export const convertData = (input: string, inputFormat: Format, outputFormat: Fo
     const parsed = parseInput(input, inputFormat);
     const output = stringifyOutput(parsed, outputFormat, options);
     return { data: output };
-  } catch (err: any) {
-    return { data: '', error: err.message };
+  } catch (err) {
+    return { data: '', error: err instanceof Error ? err.message : String(err) };
   }
 };
 
@@ -111,12 +113,16 @@ export const detectFormat = (input: string): Format => {
   try {
     JSON.parse(trimmed);
     return 'json';
-  } catch {}
+  } catch {
+    // ignore
+  }
 
   try {
     yaml.load(trimmed);
     return 'yaml';
-  } catch {}
+  } catch {
+    // ignore
+  }
 
   return 'json'; // Default
 };

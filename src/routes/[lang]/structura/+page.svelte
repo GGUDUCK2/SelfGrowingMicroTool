@@ -1,18 +1,25 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { fade, fly } from 'svelte/transition';
-  import { db } from '$lib/db';
+  import { onMount, onDestroy } from 'svelte';
+  import { fade, fly, slide } from 'svelte/transition';
   import { browser } from '$app/environment';
   import DataEditor from '$lib/components/structura/DataEditor.svelte';
   import Toolbar from '$lib/components/structura/Toolbar.svelte';
   import SettingsPanel from '$lib/components/structura/SettingsPanel.svelte';
   import { convertData, detectFormat, type Format } from '$lib/utils/structura/converter';
-  import { ArrowRight, Settings } from 'lucide-svelte';
-  import { page } from '$app/stores';
+  import { generateCode, type CodeGenLanguage } from '$lib/utils/structura/codegen';
+  import { structuraExamples } from '$lib/utils/structura/examples';
+  import { ArrowRight, Settings, Code, History, Zap, Star, Trash2 } from 'lucide-svelte';
+  import { structuraWorkspace } from '$lib/db/workspace';
+  import type { StructuraHistory } from '$lib/db';
+  import { liveQuery, type Subscription } from 'dexie';
 
   export let data;
 
   $: t = data.dict.tools.structura;
+
+  // Tabs
+  type Tab = 'convert' | 'codegen' | 'history';
+  let activeTab: Tab = 'convert';
 
   // State
   let input = '';
@@ -25,25 +32,34 @@
   let csvDelimiter = ',';
   let isConverting = false;
 
+  // Code Gen State
+  let codeGenLang: CodeGenLanguage = 'typescript';
+  let rootName = 'Root';
+  let generatedCode = '';
+
   // History
-  let history: any[] = [];
-  $: if (browser) {
-    loadHistory();
+  let history: StructuraHistory[] = [];
+  let historySubscription: Subscription;
+
+  if (browser) {
+    historySubscription = liveQuery(() => structuraWorkspace.loadHistory(20)).subscribe(val => {
+      history = val;
+    });
   }
 
-  async function loadHistory() {
-    if (!browser) return;
-    history = await db.structuraHistory.orderBy('createdAt').reverse().limit(10).toArray();
-  }
-
-  // React to input changes for auto-detection (simplified)
-  let inputDebounceTimer: any;
-  $: if (input && input.length < 5000) {
+  // React to input changes for auto-detection
+  let inputDebounceTimer: ReturnType<typeof setTimeout>;
+  $: if (input && input.length < 10000) {
     clearTimeout(inputDebounceTimer);
     inputDebounceTimer = setTimeout(() => {
       const detected = detectFormat(input);
-      if (detected !== inputFormat) {
-        // "Smart Default" logic could go here
+      if (detected !== inputFormat && input.trim().length > 0) {
+        inputFormat = detected;
+      }
+
+      // Auto-update code gen if active
+      if (activeTab === 'codegen') {
+        runCodeGen();
       }
     }, 500);
   }
@@ -60,18 +76,47 @@
       } else {
         output = result.data;
         if (input.trim().length > 0 && output.trim().length > 0) {
-          await db.structuraHistory.add({
+          await structuraWorkspace.save({
             inputFormat,
             outputFormat,
-            inputPreview: input.substring(0, 100),
-            createdAt: new Date(),
-            starred: 0
+            inputPreview: input.substring(0, 150),
           });
-          loadHistory();
         }
       }
       isConverting = false;
     }, 50);
+  }
+
+  function runCodeGen() {
+    if (!input.trim()) return;
+
+    // First need to parse input to object
+    const result = convertData(input, inputFormat, 'json', { indent: 2 });
+    if (result.error) {
+        error = result.error;
+        return;
+    }
+
+    try {
+        const jsonObj = JSON.parse(result.data);
+        generatedCode = generateCode(jsonObj, codeGenLang, { name: rootName });
+        error = '';
+    } catch (e) {
+        error = String(e);
+    }
+  }
+
+  function loadExample(ex: typeof structuraExamples[0]) {
+      input = ex.data;
+      inputFormat = ex.format as Format;
+      // Trigger conversion automatically
+      setTimeout(runConversion, 100);
+  }
+
+  async function restoreHistory(item: StructuraHistory) {
+      input = item.inputPreview;
+      inputFormat = item.inputFormat as Format;
+      outputFormat = item.outputFormat as Format;
   }
 
   function handleCopy(text: string) {
@@ -97,10 +142,29 @@
     input = '';
     output = '';
     error = '';
+    generatedCode = '';
+  }
+
+  // Keyboard Shortcuts
+  function handleKeydown(e: KeyboardEvent) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          if (activeTab === 'convert') runConversion();
+          if (activeTab === 'codegen') runCodeGen();
+      }
   }
 
   onMount(() => {
-    // URL state loading if implemented
+    window.addEventListener('keydown', handleKeydown);
+  });
+
+  onDestroy(() => {
+    if (historySubscription) {
+        historySubscription.unsubscribe();
+    }
+    if (browser) {
+        window.removeEventListener('keydown', handleKeydown);
+    }
   });
 
   const formats: { value: Format; label: string }[] = [
@@ -114,6 +178,22 @@
 <svelte:head>
   <title>{t.title} | Web Factory</title>
   <meta name="description" content={t.description} />
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Structura",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": t.description,
+      "featureList": ["JSON Converter", "YAML Converter", "XML Converter", "CSV Converter", "Code Generator"]
+    })}
+  </script>
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -127,144 +207,298 @@
     </p>
   </div>
 
-  <!-- Toolbar -->
-  <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-    <div class="flex items-center gap-4 w-full md:w-auto">
-      <div class="relative w-full md:w-48">
-        <select
-          bind:value={inputFormat}
-          class="w-full pl-3 pr-10 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500"
-        >
-          {#each formats as f}
-            <option value={f.value}>{f.label}</option>
-          {/each}
-        </select>
-      </div>
-
-      <ArrowRight class="hidden md:block text-gray-400" size={20} />
-
-      <div class="relative w-full md:w-48">
-        <select
-          bind:value={outputFormat}
-          class="w-full pl-3 pr-10 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500"
-        >
-          {#each formats as f}
-            <option value={f.value}>{f.label}</option>
-          {/each}
-        </select>
-      </div>
-    </div>
-
-    <div class="flex items-center gap-2">
-      <button
-        class="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        on:click={runConversion}
-      >
-        <span>{t.convert}</span>
-        {#if isConverting}
-          <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-        {/if}
-      </button>
-
-      <button
-        class="p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-        on:click={() => showSettings = !showSettings}
-        aria-label={t.settings}
-      >
-        <Settings size={20} />
-      </button>
-    </div>
-  </div>
-
-  {#if showSettings}
-    <div transition:fade>
-      <SettingsPanel
-        bind:indent
-        bind:csvDelimiter
-        labels={{
-          title: t.settings,
-          indent: t.indent,
-          delimiter: t.delimiter,
-          options: t.options
-        }}
-      />
-    </div>
-  {/if}
-
-  <!-- Editor Area -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[600px]">
-    <!-- Input -->
-    <div class="flex flex-col gap-2 h-full">
-      <div class="flex justify-between items-center px-1">
-        <span class="text-sm font-medium text-gray-500 uppercase tracking-wider">{t.input}</span>
-        <Toolbar
-          showDownload={false}
-          on:copy={() => handleCopy(input)}
-          on:clear={handleClear}
-          labels={{ copy: t.copy, download: t.download, clear: t.clear }}
-        />
-      </div>
-      <div class="flex-1 min-h-0 shadow-lg rounded-lg overflow-hidden">
-        <DataEditor bind:value={input} language={inputFormat} placeholder={t.inputPlaceholder} />
-      </div>
-    </div>
-
-    <!-- Output -->
-    <div class="flex flex-col gap-2 h-full">
-      <div class="flex justify-between items-center px-1">
-        <span class="text-sm font-medium text-gray-500 uppercase tracking-wider">{t.output}</span>
-        <Toolbar
-          showClear={false}
-          on:copy={() => handleCopy(output)}
-          on:download={() => handleDownload(output, outputFormat)}
-          labels={{ copy: t.copy, download: t.download, clear: t.clear }}
-        />
-      </div>
-      <div class="flex-1 min-h-0 shadow-lg rounded-lg overflow-hidden relative">
-        <DataEditor bind:value={output} language={outputFormat} readonly={true} placeholder={t.outputPlaceholder} />
-
-        {#if error}
-          <div class="absolute inset-x-0 bottom-0 p-4 bg-red-50 dark:bg-red-900/20 border-t border-red-100 dark:border-red-900/50 backdrop-blur-sm" transition:fly={{ y: 20 }}>
-            <div class="flex items-start gap-2 text-red-600 dark:text-red-400">
-              <span class="font-bold text-sm">{t.error}:</span>
-              <span class="text-sm font-mono">{error}</span>
-            </div>
-          </div>
-        {/if}
-      </div>
-    </div>
-  </div>
-
-  <!-- History -->
-  {#if history.length > 0}
-    <div class="mt-12 space-y-4">
-      <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{t.history}</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {#each history as item}
+  <!-- Main Interface -->
+  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+      <!-- Tabs -->
+      <div class="flex border-b border-gray-200 dark:border-gray-700">
           <button
-            class="text-left p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow group"
-            on:click={() => {
-              // Restore functionality could be added here
-            }}
+            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative {activeTab === 'convert' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            on:click={() => activeTab = 'convert'}
           >
-            <div class="flex items-center justify-between mb-2">
-              <div class="flex items-center gap-2 text-xs font-mono text-gray-500">
-                <span class="bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">{item.inputFormat}</span>
-                <ArrowRight size={12} />
-                <span class="bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded">{item.outputFormat}</span>
-              </div>
-              <span class="text-xs text-gray-400">{new Date(item.createdAt).toLocaleTimeString()}</span>
-            </div>
-            <p class="text-sm text-gray-600 dark:text-gray-300 font-mono truncate">
-              {item.inputPreview}
-            </p>
+              <Zap size={18} />
+              {t.tabs.convert}
+              {#if activeTab === 'convert'}
+                <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400" transition:slide={{ axis: 'x' }}></div>
+              {/if}
           </button>
-        {/each}
+          <button
+            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative {activeTab === 'codegen' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            on:click={() => { activeTab = 'codegen'; runCodeGen(); }}
+          >
+              <Code size={18} />
+              {t.tabs.codegen}
+              {#if activeTab === 'codegen'}
+                <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400" transition:slide={{ axis: 'x' }}></div>
+              {/if}
+          </button>
+          <button
+            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            on:click={() => activeTab = 'history'}
+          >
+              <History size={18} />
+              {t.tabs.history}
+              {#if activeTab === 'history'}
+                <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400" transition:slide={{ axis: 'x' }}></div>
+              {/if}
+          </button>
       </div>
-    </div>
-  {/if}
 
-  <!-- Documentation -->
+      <div class="p-6">
+        <!-- Convert Tab -->
+        {#if activeTab === 'convert'}
+            <div transition:fade={{ duration: 200 }} class="space-y-6">
+                <!-- Toolbar -->
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-4 w-full md:w-auto">
+                        <!-- Examples Dropdown -->
+                        <div class="relative group">
+                            <button class="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                <span class="text-indigo-600 dark:text-indigo-400">★</span>
+                                {t.examples.label}
+                            </button>
+                            <div class="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-1 hidden group-hover:block z-20">
+                                {#each structuraExamples as ex}
+                                    <button
+                                        class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors"
+                                        on:click={() => loadExample(ex)}
+                                    >
+                                        <span class="font-bold text-xs bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded mr-2">{ex.format}</span>
+                                        {ex.label}
+                                    </button>
+                                {/each}
+                            </div>
+                        </div>
+
+                        <div class="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
+
+                        <label for="input-format" class="sr-only">Input Format</label>
+                        <select
+                            id="input-format"
+                            bind:value={inputFormat}
+                            class="pl-3 pr-8 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500"
+                        >
+                            {#each formats as f}
+                                <option value={f.value}>{f.label}</option>
+                            {/each}
+                        </select>
+
+                        <ArrowRight class="text-gray-400" size={16} />
+
+                        <label for="output-format" class="sr-only">Output Format</label>
+                        <select
+                            id="output-format"
+                            bind:value={outputFormat}
+                            class="pl-3 pr-8 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500"
+                        >
+                            {#each formats as f}
+                                <option value={f.value}>{f.label}</option>
+                            {/each}
+                        </select>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <button
+                            class="flex items-center gap-2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            on:click={runConversion}
+                        >
+                            <span>{t.convert}</span>
+                            {#if isConverting}
+                                <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                            {/if}
+                        </button>
+                        <button
+                            class="p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                            on:click={() => showSettings = !showSettings}
+                            aria-label={t.settings}
+                        >
+                            <Settings size={20} />
+                        </button>
+                    </div>
+                </div>
+
+                {#if showSettings}
+                    <div transition:slide>
+                        <SettingsPanel
+                            bind:indent
+                            bind:csvDelimiter
+                            labels={{
+                                title: t.settings,
+                                indent: t.indent,
+                                delimiter: t.delimiter,
+                                options: t.options
+                            }}
+                        />
+                    </div>
+                {/if}
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[500px]">
+                    <div class="flex flex-col gap-2 h-full">
+                        <div class="flex justify-between items-center px-1">
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.input}</span>
+                            <Toolbar
+                                showDownload={false}
+                                on:copy={() => handleCopy(input)}
+                                on:clear={handleClear}
+                                labels={{ copy: t.copy, download: t.download, clear: t.clear }}
+                            />
+                        </div>
+                        <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+                            <DataEditor bind:value={input} language={inputFormat} placeholder={t.inputPlaceholder} />
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-2 h-full">
+                        <div class="flex justify-between items-center px-1">
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.output}</span>
+                            <Toolbar
+                                showClear={false}
+                                on:copy={() => handleCopy(output)}
+                                on:download={() => handleDownload(output, outputFormat)}
+                                labels={{ copy: t.copy, download: t.download, clear: t.clear }}
+                            />
+                        </div>
+                        <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 relative">
+                            <DataEditor bind:value={output} language={outputFormat} readonly={true} placeholder={t.outputPlaceholder} />
+
+                            {#if error}
+                                <div class="absolute inset-x-0 bottom-0 p-4 bg-red-50 dark:bg-red-900/20 border-t border-red-100 dark:border-red-900/50 backdrop-blur-sm" transition:fly={{ y: 20 }}>
+                                    <div class="flex items-start gap-2 text-red-600 dark:text-red-400">
+                                        <span class="font-bold text-sm">{t.error}:</span>
+                                        <span class="text-sm font-mono break-all">{error}</span>
+                                    </div>
+                                </div>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Code Gen Tab -->
+        {:else if activeTab === 'codegen'}
+            <div transition:fade={{ duration: 200 }} class="space-y-6">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-gray-50 dark:bg-gray-700/50 p-4 rounded-xl">
+                    <div class="flex items-center gap-4 w-full">
+                        <div class="flex-1">
+                            <label for="codegen-lang" class="block text-xs font-medium text-gray-500 mb-1">{t.codegen.language}</label>
+                            <select
+                                id="codegen-lang"
+                                bind:value={codeGenLang}
+                                on:change={runCodeGen}
+                                class="w-full pl-3 pr-8 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg text-sm"
+                            >
+                                <option value="typescript">{t.codegen.typescript}</option>
+                                <option value="go">{t.codegen.go}</option>
+                                <option value="python_dataclass">{t.codegen.python}</option>
+                                <option value="json_schema">{t.codegen.jsonSchema}</option>
+                            </select>
+                        </div>
+                        <div class="flex-1">
+                            <label for="codegen-name" class="block text-xs font-medium text-gray-500 mb-1">{t.codegen.name}</label>
+                            <input
+                                id="codegen-name"
+                                type="text"
+                                bind:value={rootName}
+                                on:input={runCodeGen}
+                                class="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg text-sm"
+                            />
+                        </div>
+                    </div>
+                    <div class="self-end">
+                        <button
+                            class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors"
+                            on:click={runCodeGen}
+                        >
+                            {t.codegen.generate}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[500px]">
+                     <div class="flex flex-col gap-2 h-full">
+                         <div class="flex justify-between items-center px-1">
+                             <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.input}</span>
+                         </div>
+                         <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+                             <DataEditor bind:value={input} language={inputFormat} placeholder={t.inputPlaceholder} />
+                         </div>
+                     </div>
+                     <div class="flex flex-col gap-2 h-full">
+                        <div class="flex justify-between items-center px-1">
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.codegen.title}</span>
+                             <Toolbar
+                                showDownload={false}
+                                showClear={false}
+                                on:copy={() => handleCopy(generatedCode)}
+                                labels={{ copy: t.copy, download: t.download, clear: t.clear }}
+                            />
+                        </div>
+                         <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 relative">
+                             <DataEditor
+                                bind:value={generatedCode}
+                                language={codeGenLang === 'go' ? 'go' : codeGenLang === 'python_dataclass' ? 'python' : 'typescript'}
+                                readonly={true}
+                            />
+                             {#if error}
+                                <div class="absolute inset-x-0 bottom-0 p-4 bg-red-50 dark:bg-red-900/20 border-t border-red-100 dark:border-red-900/50 backdrop-blur-sm">
+                                    <div class="text-red-600 dark:text-red-400 text-sm font-mono">{error}</div>
+                                </div>
+                            {/if}
+                         </div>
+                     </div>
+                </div>
+            </div>
+
+        <!-- History Tab -->
+        {:else if activeTab === 'history'}
+             <div transition:fade={{ duration: 200 }}>
+                 {#if history && history.length > 0}
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {#each history as item}
+                            <div class="group relative bg-gray-50 dark:bg-gray-700/30 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex items-center gap-2 text-xs font-mono">
+                                        <span class="bg-white dark:bg-gray-800 px-2 py-1 rounded shadow-sm">{item.inputFormat}</span>
+                                        <ArrowRight size={12} class="text-gray-400" />
+                                        <span class="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 px-2 py-1 rounded shadow-sm">{item.outputFormat}</span>
+                                    </div>
+                                    <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <button
+                                            class="p-1.5 hover:bg-white dark:hover:bg-gray-600 rounded-lg text-gray-400 hover:text-yellow-500 transition-colors"
+                                            on:click|stopPropagation={() => structuraWorkspace.toggleStar(item.id || 0)}
+                                            aria-label={t.tools?.idForge?.buttons?.star ?? "Star"}
+                                        >
+                                            <Star size={16} fill={item.starred ? "currentColor" : "none"} class={item.starred ? "text-yellow-500" : ""} />
+                                        </button>
+                                        <button
+                                            class="p-1.5 hover:bg-white dark:hover:bg-gray-600 rounded-lg text-gray-400 hover:text-red-500 transition-colors"
+                                            on:click|stopPropagation={() => structuraWorkspace.delete(item.id || 0)}
+                                            aria-label={t.tools?.idForge?.buttons?.delete ?? "Delete"}
+                                        >
+                                            <Trash2 size={16} />
+                                        </button>
+                                    </div>
+                                </div>
+                                <button class="w-full text-left" on:click={() => restoreHistory(item)}>
+                                    <p class="text-xs text-gray-500 mb-2">{new Date(item.createdAt).toLocaleString()}</p>
+                                    <p class="text-sm font-mono text-gray-700 dark:text-gray-300 line-clamp-3 bg-white dark:bg-gray-800 p-2 rounded border border-gray-100 dark:border-gray-700">
+                                        {item.inputPreview}
+                                    </p>
+                                </button>
+                            </div>
+                        {/each}
+                    </div>
+                 {:else}
+                    <div class="text-center py-20 text-gray-500">
+                        <History size={48} class="mx-auto mb-4 opacity-20" />
+                        <p>{t.history} {t.tools?.structura?.history ?? ''}</p>
+                    </div>
+                 {/if}
+             </div>
+        {/if}
+      </div>
+  </div>
+
+  <!-- Documentation & Guides -->
   <article class="prose dark:prose-invert max-w-none mt-20 p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
     <h2>{t.guide.title}</h2>
     <p>
@@ -302,4 +536,12 @@
       </div>
     </div>
   </article>
+
+  <div class="flex justify-center mt-8 text-sm text-gray-400">
+      <div class="flex items-center gap-2">
+          <span>{t.shortcuts.help}:</span>
+          <kbd class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 text-xs">Ctrl + Enter</kbd>
+          <span>to Convert</span>
+      </div>
+  </div>
 </div>
