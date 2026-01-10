@@ -13,7 +13,9 @@
         "@sveltejs/adapter-vercel": "^5.5.2",
         "@sveltejs/kit": "^2.15.1",
         "@sveltejs/vite-plugin-svelte": "^5.0.3",
+        "@types/js-yaml": "^4.0.9",
         "@types/node": "^22.10.2",
+        "@types/papaparse": "^5.5.2",
         "@types/uuid": "^10.0.0",
         "autoprefixer": "^10.4.20",
         "clsx": "^2.1.1",
@@ -36,9 +38,12 @@
         "cronstrue": "^3.9.0",
         "dexie": "^4.2.1",
         "diff": "^8.0.2",
+        "js-yaml": "^4.1.1",
         "nanoid": "^5.1.6",
+        "papaparse": "^5.5.3",
         "prismjs": "^1.30.0",
         "ulid": "^3.0.2",
-        "uuid": "^13.0.0"
+        "uuid": "^13.0.0",
+        "xml-js": "^1.6.11"
     }
 }

@@ -582,6 +582,53 @@ export const dictionaries = {
           tip2: "Use high-quality images for **og:image** with a 1.91:1 aspect ratio (e.g., 1200x630px).",
           tip3: "Always include a **Canonical URL** to prevent duplicate content issues."
         }
+      },
+      structura: {
+        title: "Structura: Universal Data Converter",
+        description: "The definitive engine to transform, validate, and format JSON, YAML, XML, and CSV with professional precision.",
+        input: "Input Data",
+        output: "Transformed Data",
+        convert: "Convert",
+        converting: "Converting...",
+        settings: "Settings",
+        indent: "Indentation",
+        delimiter: "CSV Delimiter",
+        inputPlaceholder: "Paste your data here...",
+        outputPlaceholder: "Result will appear here...",
+        options: {
+          spaces2: "2 Spaces",
+          spaces4: "4 Spaces",
+          minified: "Minified (0)",
+          comma: "Comma (,)",
+          semicolon: "Semicolon (;)",
+          pipe: "Pipe (|)",
+          tab: "Tab (\\t)"
+        },
+        history: "History",
+        clear: "Clear",
+        copy: "Copy",
+        download: "Download",
+        error: "Conversion Error",
+        faqTitle: "Structura FAQ",
+        q1: "How are conversions handled?",
+        a1: "All conversions happen locally in your browser using robust libraries like js-yaml, xml-js, and PapaParse. No data leaves your machine.",
+        q2: "Can I convert large files?",
+        a2: "Yes, but extremely large files (50MB+) might cause browser lag. The tool is optimized for typical configuration and data files.",
+        q3: "Does it validate schema?",
+        a3: "It validates syntax (well-formedness) for all formats. Full JSON Schema validation is planned for a future update.",
+        guide: {
+          title: "Why Structura?",
+          intro: "Structura solves the chaos of file format incompatibility. Whether you are migrating data, debugging an API, or just need to read a minified file, Structura provides a clean, reliable workspace.",
+          featuresTitle: "Supported Formats",
+          f1: "**JSON:** The web standard. Format, minify, and validate.",
+          f2: "**YAML:** Human-readable data serialization. Perfect for config files.",
+          f3: "**XML:** Extensible Markup Language. Seamlessly convert to modern JSON.",
+          f4: "**CSV:** Comma-Separated Values. Parse spreadsheet data instantly.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use **Minified (0 spaces)** indentation when preparing data for network transmission.",
+          tip2: "Check the **History** tab to recover previous conversions if you accidentally cleared the editor.",
+          tip3: "Use the **Download** button to save complex conversions directly to a file."
+        }
       }
     },
     pwa: {
@@ -1182,6 +1229,53 @@ export const dictionaries = {
           tip1: "**메타 설명**은 검색 결과에서 잘리지 않도록 160자 미만으로 유지하세요.",
           tip2: "**og:image**에는 1.91:1 비율(예: 1200x630px)의 고품질 이미지를 사용하세요.",
           tip3: "중복 콘텐츠 문제를 방지하기 위해 항상 **Canonical URL**을 포함하세요."
+        }
+      },
+      structura: {
+        title: "Structura: 만능 데이터 변환기",
+        description: "JSON, YAML, XML, CSV를 전문적인 정밀도로 변환, 검증 및 포맷하는 완벽한 엔진입니다.",
+        input: "입력 데이터",
+        output: "변환된 데이터",
+        convert: "변환",
+        converting: "변환 중...",
+        settings: "설정",
+        indent: "들여쓰기",
+        delimiter: "CSV 구분자",
+        inputPlaceholder: "데이터를 여기에 붙여넣으세요...",
+        outputPlaceholder: "결과가 여기에 표시됩니다...",
+        options: {
+          spaces2: "2칸 (Spaces)",
+          spaces4: "4칸 (Spaces)",
+          minified: "최소화 (Minified)",
+          comma: "쉼표 (,)",
+          semicolon: "세미콜론 (;)",
+          pipe: "파이프 (|)",
+          tab: "탭 (\\t)"
+        },
+        history: "기록",
+        clear: "초기화",
+        copy: "복사",
+        download: "다운로드",
+        error: "변환 오류",
+        faqTitle: "Structura FAQ",
+        q1: "변환은 어떻게 처리되나요?",
+        a1: "모든 변환은 js-yaml, xml-js, PapaParse와 같은 강력한 라이브러리를 사용하여 브라우저 내에서 로컬로 수행됩니다. 데이터는 기기를 벗어나지 않습니다.",
+        q2: "대용량 파일도 변환할 수 있나요?",
+        a2: "네, 하지만 매우 큰 파일(50MB 이상)은 브라우저 지연을 유발할 수 있습니다. 이 도구는 일반적인 설정 파일과 데이터 파일에 최적화되어 있습니다.",
+        q3: "스키마 검증을 하나요?",
+        a3: "모든 포맷에 대해 문법적 유효성(Well-formedness)을 검사합니다. 전체 JSON 스키마 검증은 추후 업데이트에 포함될 예정입니다.",
+        guide: {
+          title: "왜 Structura인가요?",
+          intro: "Structura는 파일 포맷 호환성 문제를 해결합니다. 데이터 마이그레이션, API 디버깅, 또는 단순히 축소된 파일을 읽어야 할 때 Structura는 깨끗하고 신뢰할 수 있는 작업 공간을 제공합니다.",
+          featuresTitle: "지원 포맷",
+          f1: "**JSON:** 웹 표준. 포맷, 축소 및 검증.",
+          f2: "**YAML:** 사람이 읽기 쉬운 데이터 직렬화. 설정 파일에 적합.",
+          f3: "**XML:** 확장 마크업 언어. 최신 JSON으로 매끄럽게 변환.",
+          f4: "**CSV:** 쉼표로 구분된 값. 스프레드시트 데이터를 즉시 파싱.",
+          tipsTitle: "프로 팁",
+          tip1: "네트워크 전송을 위해 데이터를 준비할 때는 **Minified (0 공백)** 들여쓰기를 사용하세요.",
+          tip2: "실수로 에디터를 초기화했다면 **기록** 탭을 확인하여 이전 변환을 복구하세요.",
+          tip3: "**다운로드** 버튼을 사용하여 복잡한 변환 결과를 파일로 직접 저장하세요."
         }
       }
     },
