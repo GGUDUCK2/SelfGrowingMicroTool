@@ -2,9 +2,9 @@
 > web-factory-svelte@0.0.1 dev
 > vite dev
 
-8:43:20 AM [vite] (client) Forced re-optimization of dependencies
+12:18:03 PM [vite] (client) Forced re-optimization of dependencies
 
-  VITE v6.4.1  ready in 1256 ms
+  VITE v6.4.1  ready in 1814 ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
@@ -12,49 +12,21 @@
 [1;31m[404] GET /_vercel/insights/script.js[0m
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
+12:19:18 PM [vite] (ssr) Error when evaluating SSR module /src/routes/[lang]/tools/structura/+layout.svelte: Failed to load url ../../../app.css (resolved id: ../../../app.css) in /app/src/routes/[lang]/tools/structura/+layout.svelte. Does the file exist?
+      at loadAndTransform (file:///app/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:35729:17)
+
+[1;31m[500] GET /en/tools/structura[0m
+Error: Failed to load url ../../../app.css (resolved id: ../../../app.css) in /app/src/routes/[lang]/tools/structura/+layout.svelte. Does the file exist?
+    at loadAndTransform (file:///app/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:35729:17)
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
-8:47:10 AM [vite] (client) page reload src/lib/dictionaries.ts
-8:47:10 AM [vite] (ssr) page reload src/lib/dictionaries.ts
-8:47:25 AM [vite] (client) page reload src/lib/dictionaries.ts
-8:47:25 AM [vite] (ssr) page reload src/lib/dictionaries.ts
-8:47:34 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
-8:47:34 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
-8:47:34 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/2.js
-8:47:34 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/3.js
-8:47:34 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/7.js
-8:47:34 AM [vite] (client) page reload .svelte-kit/generated/client/app.js
-8:47:34 AM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
-8:47:34 AM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-8:47:34 AM [vite] (client) page reload .svelte-kit/generated/root.js
-8:47:34 AM [vite] (ssr) page reload .svelte-kit/generated/root.js
-8:48:12 AM [vite] (client) page reload src/lib/dictionaries.ts
-8:48:12 AM [vite] (ssr) page reload src/lib/dictionaries.ts
-8:48:27 AM [vite] (client) page reload src/lib/dictionaries.ts
-8:48:27 AM [vite] (ssr) page reload src/lib/dictionaries.ts
-8:48:33 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
-8:48:33 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
-8:48:33 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/2.js
-8:48:33 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/3.js
-8:48:33 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/7.js
-8:48:33 AM [vite] (client) page reload .svelte-kit/generated/client/app.js
-8:48:33 AM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
-8:48:33 AM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-8:48:33 AM [vite] (client) page reload .svelte-kit/generated/root.js
-8:48:33 AM [vite] (ssr) page reload .svelte-kit/generated/root.js
-8:49:13 AM [vite] (client) page reload src/lib/dictionaries.ts
-8:49:13 AM [vite] (ssr) page reload src/lib/dictionaries.ts
-8:50:51 AM [vite] (client) page reload src/lib/dictionaries.ts
-8:50:51 AM [vite] (ssr) page reload src/lib/dictionaries.ts
-8:51:00 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
-8:51:00 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
-8:51:00 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/2.js
-8:51:00 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/3.js
-8:51:00 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/7.js
-8:51:00 AM [vite] (client) page reload .svelte-kit/generated/client/app.js
-8:51:00 AM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
-8:51:00 AM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-8:51:00 AM [vite] (client) page reload .svelte-kit/generated/root.js
-8:51:00 AM [vite] (ssr) page reload .svelte-kit/generated/root.js
+12:19:46 PM [vite] (client) page reload src/routes/[lang]/tools/structura/+layout.svelte
+12:19:46 PM [vite] (ssr) page reload src/routes/[lang]/tools/structura/+layout.svelte
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
