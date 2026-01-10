@@ -128,8 +128,31 @@
       </div>
     </div>
 
-    <div class="relative flex-1 overflow-auto bg-slate-50 dark:bg-[#1e1e1e]">
-        <pre class="m-0 p-4 text-sm font-mono leading-relaxed min-h-full"><code bind:this={codeElement} class="language-{format === 'sql' ? 'sql' : format === 'json' ? 'json' : 'text'}">{output}</code></pre>
+    <div class="relative flex-1 overflow-auto bg-slate-50 dark:bg-[#1e1e1e] flex flex-col md:flex-row">
+        <div class="flex-1 relative overflow-auto">
+            <pre class="m-0 p-4 text-sm font-mono leading-relaxed min-h-full"><code bind:this={codeElement} class="language-{format === 'sql' ? 'sql' : format === 'json' ? 'json' : 'text'}">{output}</code></pre>
+        </div>
+
+        {#if ids.length > 0}
+        <div class="w-full md:w-64 border-l border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 overflow-y-auto max-h-[500px]">
+            <div class="p-2 space-y-1">
+                <div class="text-xs font-semibold text-slate-500 uppercase px-2 py-1">Generated IDs</div>
+                {#each ids as id}
+                <div class="flex items-center gap-2 p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors group">
+                    <span class="flex-1 font-mono text-xs text-slate-600 dark:text-slate-400 truncate" title={id}>{id}</span>
+                    <button
+                        class="w-8 h-8 flex items-center justify-center bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 opacity-0 group-hover:opacity-100 transition-all focus:opacity-100"
+                        on:click={() => copyText(id)}
+                        aria-label="Copy ID"
+                        title="Copy"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+                {/each}
+            </div>
+        </div>
+        {/if}
     </div>
   </div>
 {/if}
