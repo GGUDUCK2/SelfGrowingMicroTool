@@ -604,6 +604,26 @@ export const dictionaries = {
           pipe: "Pipe (|)",
           tab: "Tab (\\t)"
         },
+        tabs: {
+            convert: "Converter",
+            codegen: "Code Gen",
+            history: "History"
+        },
+        codegen: {
+            title: "Code Generator",
+            language: "Target Language",
+            generate: "Generate Code",
+            name: "Root Name",
+            typescript: "TypeScript Interface",
+            go: "Go Struct",
+            python: "Python Dataclass",
+            jsonSchema: "JSON Schema",
+            copy: "Copy Code"
+        },
+        examples: {
+            label: "Load Example",
+            select: "Select an example..."
+        },
         history: "History",
         clear: "Clear",
         copy: "Copy",
@@ -628,6 +648,9 @@ export const dictionaries = {
           tip1: "Use **Minified (0 spaces)** indentation when preparing data for network transmission.",
           tip2: "Check the **History** tab to recover previous conversions if you accidentally cleared the editor.",
           tip3: "Use the **Download** button to save complex conversions directly to a file."
+        },
+        shortcuts: {
+            help: "Keyboard Shortcuts"
         }
       }
     },
@@ -1149,88 +1172,6 @@ export const dictionaries = {
           tip3: "JWT 디버깅 시 항상 **서명(Signature)**을 검증하여 토큰이 변조되지 않았는지 확인하세요."
         }
       },
-      seoForge: {
-        title: "SEO Forge: 메타 태그 & 소셜 아키텍트",
-        description: "완벽한 메타 태그, 오픈 그래프 미리보기, JSON-LD 스키마를 제작하는 궁극의 도구입니다.",
-        tabs: {
-          meta: "메타 태그",
-          social: "소셜 미리보기",
-          jsonld: "JSON-LD 빌더",
-          history: "기록"
-        },
-        meta: {
-          title: "페이지 제목",
-          description: "메타 설명 (Description)",
-          url: "Canonical URL",
-          keywords: "키워드 (쉼표로 구분)",
-          author: "작성자",
-          themeColor: "테마 색상",
-          robots: "Robots",
-          viewport: "Viewport"
-        },
-        social: {
-          ogTitle: "Open Graph 제목",
-          ogDesc: "Open Graph 설명",
-          ogImage: "OG 이미지 URL",
-          ogType: "OG 타입",
-          twitterCard: "Twitter 카드 타입",
-          previewTitle: "소셜 미리보기",
-          google: "Google 검색",
-          facebook: "Facebook / LinkedIn",
-          twitter: "Twitter / X",
-          slack: "Slack",
-          uploadImage: "이미지 업로드 (미리보기용)"
-        },
-        jsonld: {
-          type: "스키마 유형",
-          name: "이름 / 헤드라인",
-          headline: "헤드라인",
-          description: "설명",
-          image: "이미지 URL",
-          datePublished: "게시일",
-          authorName: "작성자 이름",
-          generate: "JSON-LD 생성",
-          copy: "스크립트 복사"
-        },
-        validation: {
-          titleLength: "제목 길이: {current}/{max}",
-          descLength: "설명 길이: {current}/{max}",
-          perfect: "완벽함",
-          tooShort: "너무 짧음",
-          tooLong: "너무 김",
-          missing: "누락됨",
-          ok: "좋음"
-        },
-        actions: {
-          copyHtml: "HTML 복사",
-          save: "프로젝트 저장",
-          restore: "복원",
-          delete: "삭제",
-          clear: "모두 지우기",
-          magicPaste: "HTML/URL에서 가져오기",
-          copied: "복사됨!",
-          saved: "저장됨!"
-        },
-        faqTitle: "SEO Forge FAQ",
-        q1: "메타 태그가 왜 중요한가요?",
-        a1: "메타 태그는 검색 엔진에 페이지 콘텐츠에 대한 정보를 제공합니다. 이는 사이트가 검색 결과와 소셜 미디어 피드에 어떻게 표시되는지에 영향을 줍니다.",
-        q2: "JSON-LD가 무엇인가요?",
-        a2: "JSON-LD(JavaScript Object Notation for Linked Data)는 JSON을 사용하여 연결된 데이터를 인코딩하는 방법입니다. Google은 구조화된 데이터 마크업으로 이를 권장합니다.",
-        q3: "이 도구가 이미지를 업로드하나요?",
-        a3: "아니요. 미리보기용 이미지 업로드는 FileReader API를 사용하여 브라우저에서 로컬로 처리됩니다. 데이터는 서버로 전송되지 않습니다.",
-        guide: {
-          title: "왜 SEO Forge인가요?",
-          intro: "SEO Forge는 웹 개발자와 콘텐츠 제작자를 위한 최고의 동반자입니다. 메타 태그 관리, 소셜 미리보기 시뮬레이션, 구조화된 데이터 생성을 하나의 워크플로우로 통합합니다.",
-          featuresTitle: "주요 기능",
-          f1: "**실시간 소셜 미리보기:** 게시하기 전에 Facebook, Twitter, Google에서 링크가 어떻게 보일지 정확하게 확인하세요.",
-          f2: "**스마트 검증:** 글자 수에 대한 즉각적인 피드백을 받아 제목과 설명이 잘리지 않도록 하세요.",
-          f3: "**JSON-LD 빌더:** 코드 작성 없이 복잡한 Schema.org 마크업을 쉽게 생성하세요.",
-          tipsTitle: "SEO 팁",
-          tip1: "**메타 설명**은 검색 결과에서 잘리지 않도록 160자 미만으로 유지하세요.",
-          tip2: "**og:image**에는 1.91:1 비율(예: 1200x630px)의 고품질 이미지를 사용하세요.",
-          tip3: "중복 콘텐츠 문제를 방지하기 위해 항상 **Canonical URL**을 포함하세요."
-        }
-      },
       structura: {
         title: "Structura: 만능 데이터 변환기",
         description: "JSON, YAML, XML, CSV를 전문적인 정밀도로 변환, 검증 및 포맷하는 완벽한 엔진입니다.",
@@ -1251,6 +1192,26 @@ export const dictionaries = {
           semicolon: "세미콜론 (;)",
           pipe: "파이프 (|)",
           tab: "탭 (\\t)"
+        },
+        tabs: {
+            convert: "변환기",
+            codegen: "코드 생성",
+            history: "기록"
+        },
+        codegen: {
+            title: "코드 생성기",
+            language: "대상 언어",
+            generate: "코드 생성",
+            name: "루트 이름",
+            typescript: "TypeScript 인터페이스",
+            go: "Go 구조체",
+            python: "Python 데이터클래스",
+            jsonSchema: "JSON 스키마",
+            copy: "코드 복사"
+        },
+        examples: {
+            label: "예제 불러오기",
+            select: "예제를 선택하세요..."
         },
         history: "기록",
         clear: "초기화",
@@ -1276,6 +1237,9 @@ export const dictionaries = {
           tip1: "네트워크 전송을 위해 데이터를 준비할 때는 **Minified (0 공백)** 들여쓰기를 사용하세요.",
           tip2: "실수로 에디터를 초기화했다면 **기록** 탭을 확인하여 이전 변환을 복구하세요.",
           tip3: "**다운로드** 버튼을 사용하여 복잡한 변환 결과를 파일로 직접 저장하세요."
+        },
+        shortcuts: {
+            help: "키보드 단축키"
         }
       }
     },

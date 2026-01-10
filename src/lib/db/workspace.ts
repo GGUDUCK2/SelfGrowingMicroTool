@@ -1,4 +1,4 @@
-import { db, type CipherHistory } from '$lib/db';
+import { db, type CipherHistory, type StructuraHistory } from '$lib/db';
 import type { Table } from 'dexie';
 
 /**
@@ -76,3 +76,4 @@ export class ToolWorkspace<T extends { id?: number; createdAt: Date; starred?: n
 
 // Singleton instances for specific tools can be exported here if needed
 export const cipherWorkspace = new ToolWorkspace<CipherHistory>(db.cipherHistory);
+export const structuraWorkspace = new ToolWorkspace<StructuraHistory>(db.structuraHistory);
