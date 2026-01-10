@@ -1,3 +1,7 @@
+import { browser } from '$app/environment';
+import { goto } from '$app/navigation';
+import { page } from '$app/stores';
+import { get } from 'svelte/store';
 
 export async function compressState(state: string): Promise<string> {
   const stream = new Blob([state]).stream();
@@ -24,4 +28,39 @@ export async function decompressState(compressed: string): Promise<string> {
     console.error("Decompression failed", e);
     return "";
   }
+}
+
+/**
+ * Encodes an object to a compressed URL-safe string and updates the URL hash.
+ */
+export async function setUrlState(state: Record<string, any>) {
+  if (!browser) return;
+
+  const json = JSON.stringify(state);
+  const compressed = await compressState(json);
+
+  // Use replaceState to avoid cluttering history
+  const url = new URL(window.location.href);
+  url.hash = compressed;
+
+  window.history.replaceState(history.state, '', url);
+}
+
+/**
+ * Decodes the state from the URL hash.
+ */
+export async function getUrlState<T = Record<string, any>>(): Promise<T | null> {
+    if (!browser) return null;
+
+    const hash = window.location.hash.slice(1); // Remove #
+    if (!hash) return null;
+
+    try {
+        const json = await decompressState(hash);
+        if (!json) return null;
+        return JSON.parse(json) as T;
+    } catch (e) {
+        console.error("Failed to parse state", e);
+        return null;
+    }
 }

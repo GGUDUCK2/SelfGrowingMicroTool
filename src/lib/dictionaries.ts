@@ -618,8 +618,11 @@ export const dictionaries = {
             go: "Go Struct",
             python: "Python Dataclass",
             jsonSchema: "JSON Schema",
+            zod: "Zod Schema",
+            rust: "Rust Struct",
             copy: "Copy Code"
         },
+        autoConvert: "Auto Convert",
         examples: {
             label: "Load Example",
             select: "Select an example..."
@@ -650,7 +653,13 @@ export const dictionaries = {
           tip3: "Use the **Download** button to save complex conversions directly to a file."
         },
         shortcuts: {
-            help: "Keyboard Shortcuts"
+            help: "Keyboard Shortcuts",
+            clear: "Clear",
+            copy: "Copy"
+        },
+        feedback: {
+            copied: "Copied!",
+            shared: "Shared!",
         }
       }
     },
@@ -1207,8 +1216,11 @@ export const dictionaries = {
             go: "Go 구조체",
             python: "Python 데이터클래스",
             jsonSchema: "JSON 스키마",
+            zod: "Zod 스키마",
+            rust: "Rust 구조체",
             copy: "코드 복사"
         },
+        autoConvert: "자동 변환",
         examples: {
             label: "예제 불러오기",
             select: "예제를 선택하세요..."
@@ -1239,7 +1251,13 @@ export const dictionaries = {
           tip3: "**다운로드** 버튼을 사용하여 복잡한 변환 결과를 파일로 직접 저장하세요."
         },
         shortcuts: {
-            help: "키보드 단축키"
+            help: "키보드 단축키",
+            clear: "초기화",
+            copy: "복사"
+        },
+        feedback: {
+            copied: "복사됨!",
+            shared: "공유됨!",
         }
       }
     },

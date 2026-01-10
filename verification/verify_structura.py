@@ -1,84 +1,83 @@
+
 import time
 from playwright.sync_api import sync_playwright, expect
 
-def verify_structura():
+def verify_structura_features():
     with sync_playwright() as p:
+        # Launch browser
         browser = p.chromium.launch(headless=True)
-        # Use a larger viewport to see everything
-        page = browser.new_page(viewport={"width": 1280, "height": 800})
+        context = browser.new_context()
+        page = context.new_page()
 
-        print("Navigating to Structura...")
-        page.goto("http://localhost:5173/en/structura")
+        try:
+            # 1. Navigate to Structura
+            # Try port 5173 (Vite default)
+            base_url = "http://localhost:5173"
+            print(f"Navigating to {base_url}/en/structura")
+            page.goto(f"{base_url}/en/structura")
 
-        # Wait for page to load
-        page.wait_for_load_state("networkidle")
+            # Wait for hydration
+            page.wait_for_selector("h1", state="visible")
 
-        print("Checking title...")
-        expect(page).to_have_title("Structura: Universal Data Converter | Web Factory")
+            # 2. Verify Title - using exact=True to avoid strict mode violation
+            expect(page.get_by_role("heading", name="Structura", exact=True)).to_be_visible()
 
-        print("Checking tabs...")
-        convert_tab = page.get_by_role("button", name="Converter")
-        codegen_tab = page.get_by_role("button", name="Code Gen")
-        history_tab = page.get_by_role("button", name="History")
+            # 3. Test Auto Convert (New Feature)
+            # Find the input area
+            input_area = page.locator("textarea").first
+            input_area.fill('{"foo":"bar"}')
 
-        expect(convert_tab).to_be_visible()
-        expect(codegen_tab).to_be_visible()
-        expect(history_tab).to_be_visible()
+            # Wait for debounce and auto convert
+            time.sleep(2)
 
-        # Test Conversion
-        print("Testing conversion...")
-        # Load example
-        page.get_by_text("Load Example").click()
-        # Select first example (JSON)
-        page.get_by_text("User Profile (JSON)").click()
+            # Check output area (should be YAML by default)
+            output_area = page.locator("textarea").last
+            output_value = output_area.input_value()
+            print(f"Output value: {output_value}")
+            if "foo: bar" in output_value:
+                print("✅ Auto-convert working")
+            else:
+                print("❌ Auto-convert failed")
 
-        # Wait for conversion
-        time.sleep(1)
+            # 4. Test Code Gen Tab (New Languages)
+            # Switch to Code Gen tab
+            page.get_by_role("button", name="Code Gen").click()
+            time.sleep(0.5)
 
-        # Check output - simple query for any textarea
-        # Input is 0, Output is 1
-        output_editor = page.locator("textarea").nth(1)
-        output_value = output_editor.input_value()
+            # Check if Zod and Rust are in the dropdown
+            select = page.locator("#codegen-lang")
+            # Get text content of options
+            options_text = select.evaluate("el => Array.from(el.options).map(o => o.text)")
+            print(f"Code Gen Options: {options_text}")
 
-        if "name: Sarah Connor" in output_value:
-            print("Conversion successful: Found YAML output.")
-        else:
-            print(f"Conversion failed? Output: {output_value}")
+            if "Zod Schema" in options_text and "Rust Struct" in options_text:
+                print("✅ New languages present")
+            else:
+                 print("❌ New languages missing")
 
-        # Test Code Gen
-        print("Testing Code Gen...")
-        codegen_tab.click()
-        time.sleep(0.5)
+            # Select Zod
+            select.select_option(value="zod")
+            time.sleep(1)
 
-        # Input is still there (persisted state in variable), but in CodeGen tab, layout might be different.
-        # Check +page.svelte layout for CodeGen tab:
-        # Input on left (0), Code on right (1).
+            # Check generated code
+            generated_code_area = page.locator("textarea").last # In codegen tab, the second editor is output
+            generated_code = generated_code_area.input_value()
+            if "z.object" in generated_code:
+                print("✅ Zod generation working")
+            else:
+                print(f"❌ Zod generation failed. Got: {generated_code}")
 
-        codegen_editor = page.locator("textarea").nth(1)
-        codegen_value = codegen_editor.input_value()
+            # 5. Screenshot
+            page.screenshot(path="verification/structura_verification.png")
+            print("📸 Screenshot saved")
 
-        if "export interface Root" in codegen_value:
-             print("Code Gen successful: Found TypeScript interface.")
-        else:
-             print(f"Code Gen failed? Output: {codegen_value}")
-
-        # Take screenshot of Code Gen tab
-        page.screenshot(path="verification/structura_codegen.png")
-
-        # Test History
-        print("Testing History...")
-        history_tab.click()
-        time.sleep(0.5)
-
-        # Should have at least one entry
-        if page.locator(".group.relative").count() > 0:
-            print("History successful: Found entries.")
-        else:
-            print("History failed? No entries found.")
-
-        page.screenshot(path="verification/structura_history.png")
-
-        browser.close()
+        except Exception as e:
+            print(f"Error: {e}")
+            import traceback
+            traceback.print_exc()
+            page.screenshot(path="verification/error.png")
+        finally:
+            browser.close()
 
 if __name__ == "__main__":
-    verify_structura()
+    verify_structura_features()

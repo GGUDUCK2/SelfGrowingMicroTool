@@ -2,7 +2,7 @@ export interface CodeGenOptions {
   name: string;
 }
 
-export type CodeGenLanguage = 'typescript' | 'go' | 'python_dataclass' | 'json_schema';
+export type CodeGenLanguage = 'typescript' | 'go' | 'python_dataclass' | 'json_schema' | 'zod' | 'rust';
 
 /**
  * Generates TypeScript Interface definition from an object.
@@ -126,6 +126,63 @@ function generateJsonSchema(data: unknown, name: string): string {
     return JSON.stringify(schema, null, 2);
 }
 
+/**
+ * Generates Zod Schema.
+ */
+function generateZod(data: unknown, name: string): string {
+  const inferZod = (val: any): string => {
+    if (val === null) return "z.null()";
+    if (Array.isArray(val)) {
+      const itemType = val.length > 0 ? inferZod(val[0]) : "z.any()";
+      return `z.array(${itemType})`;
+    }
+    if (typeof val === 'object') {
+      const props: string[] = [];
+      for (const [k, v] of Object.entries(val)) {
+        props.push(`  ${k}: ${inferZod(v)}`);
+      }
+      return `z.object({\n${props.join(',\n')}\n})`;
+    }
+    if (typeof val === 'string') return "z.string()";
+    if (typeof val === 'number') return "z.number()";
+    if (typeof val === 'boolean') return "z.boolean()";
+    return "z.any()";
+  };
+
+  return `import { z } from 'zod';\n\nexport const ${name}Schema = ${inferZod(data)};\n\nexport type ${name} = z.infer<typeof ${name}Schema>;`;
+}
+
+/**
+ * Generates Rust Struct.
+ */
+function generateRust(data: unknown, name: string): string {
+  const toPascalCase = (str: string) => str.replace(/(^\w|-\w)/g, (c) => c.replace('-', '').toUpperCase());
+  const toSnakeCase = (str: string) => str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+
+  if (Array.isArray(data)) {
+    if (data.length > 0) return generateRust(data[0], name);
+    return `// Array of unknown items`;
+  }
+
+  if (typeof data === 'object' && data !== null) {
+    let output = `use serde::{Deserialize, Serialize};\n\n#[derive(Debug, Serialize, Deserialize)]\npub struct ${name} {\n`;
+    for (const [key, value] of Object.entries(data)) {
+      const fieldName = key.includes('-') ? toSnakeCase(key) : key; // Simple handling
+      const rename = key !== fieldName ? `    #[serde(rename = "${key}")]\n` : '';
+
+      let type = 'serde_json::Value';
+      if (typeof value === 'string') type = 'String';
+      else if (typeof value === 'number') type = 'f64'; // Default to float
+      else if (typeof value === 'boolean') type = 'bool';
+
+      output += `${rename}    pub ${fieldName}: ${type},\n`;
+    }
+    output += `}`;
+    return output;
+  }
+  return `// Primitive type`;
+}
+
 export function generateCode(data: unknown, language: CodeGenLanguage, options: CodeGenOptions = { name: 'Root' }): string {
   try {
     switch (language) {
@@ -137,6 +194,10 @@ export function generateCode(data: unknown, language: CodeGenLanguage, options: 
         return generatePython(data, options.name);
       case 'json_schema':
         return generateJsonSchema(data, options.name);
+      case 'zod':
+        return generateZod(data, options.name);
+      case 'rust':
+        return generateRust(data, options.name);
       default:
         return '// Unsupported language';
     }

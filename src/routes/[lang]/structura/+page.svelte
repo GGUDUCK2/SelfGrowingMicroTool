@@ -12,6 +12,7 @@
   import { structuraWorkspace } from '$lib/db/workspace';
   import type { StructuraHistory } from '$lib/db';
   import { liveQuery, type Subscription } from 'dexie';
+  import { setUrlState, getUrlState } from '$lib/utils/url-state';
 
   export let data;
 
@@ -31,6 +32,7 @@
   let indent = 2;
   let csvDelimiter = ',';
   let isConverting = false;
+  let autoConvert = true;
 
   // Code Gen State
   let codeGenLang: CodeGenLanguage = 'typescript';
@@ -41,30 +43,65 @@
   let history: StructuraHistory[] = [];
   let historySubscription: Subscription;
 
-  if (browser) {
-    historySubscription = liveQuery(() => structuraWorkspace.loadHistory(20)).subscribe(val => {
-      history = val;
-    });
-  }
+  // Initialize from URL state if present
+  onMount(async () => {
+    if (browser) {
+      const state = await getUrlState();
+      if (state) {
+        input = state.input || '';
+        inputFormat = state.inputFormat || 'json';
+        outputFormat = state.outputFormat || 'yaml';
+        activeTab = state.activeTab || 'convert';
+        codeGenLang = state.codeGenLang || 'typescript';
+        rootName = state.rootName || 'Root';
+        if (input) runConversion();
+      }
 
-  // React to input changes for auto-detection
+      historySubscription = liveQuery(() => structuraWorkspace.loadHistory(20)).subscribe(val => {
+        history = val;
+      });
+
+      window.addEventListener('keydown', handleKeydown);
+    }
+  });
+
+  // React to input changes for auto-detection and processing
   let inputDebounceTimer: ReturnType<typeof setTimeout>;
-  $: if (input && input.length < 10000) {
-    clearTimeout(inputDebounceTimer);
-    inputDebounceTimer = setTimeout(() => {
-      const detected = detectFormat(input);
-      if (detected !== inputFormat && input.trim().length > 0) {
-        inputFormat = detected;
-      }
+  $: if (input !== undefined) {
+    if (browser) {
+      // Debounced state update
+      clearTimeout(inputDebounceTimer);
+      inputDebounceTimer = setTimeout(() => {
+        // Only auto-detect if input length is reasonable
+        if (input.length < 50000 && input.trim().length > 0) {
+            const detected = detectFormat(input);
+            if (detected !== inputFormat) {
+                inputFormat = detected;
+            }
+        }
 
-      // Auto-update code gen if active
-      if (activeTab === 'codegen') {
-        runCodeGen();
-      }
-    }, 500);
+        if (activeTab === 'convert' && autoConvert) {
+           runConversion();
+        }
+        if (activeTab === 'codegen') {
+            runCodeGen();
+        }
+
+        // Sync to URL
+        setUrlState({
+            input,
+            inputFormat,
+            outputFormat,
+            activeTab,
+            codeGenLang,
+            rootName
+        });
+      }, 500);
+    }
   }
 
   function runConversion() {
+    if (!input.trim()) return;
     isConverting = true;
     error = '';
 
@@ -117,6 +154,8 @@
       input = item.inputPreview;
       inputFormat = item.inputFormat as Format;
       outputFormat = item.outputFormat as Format;
+      // Trigger conversion will happen via reactivity or user action
+      setTimeout(runConversion, 100);
   }
 
   function handleCopy(text: string) {
@@ -138,6 +177,18 @@
     URL.revokeObjectURL(url);
   }
 
+  function handleShare() {
+      if (browser && navigator.share) {
+          navigator.share({
+              title: 'Structura Data',
+              text: 'Check out this converted data',
+              url: window.location.href
+          }).catch(console.error);
+      } else {
+          handleCopy(window.location.href);
+      }
+  }
+
   function handleClear() {
     input = '';
     output = '';
@@ -147,16 +198,24 @@
 
   // Keyboard Shortcuts
   function handleKeydown(e: KeyboardEvent) {
+      // Ctrl + Enter: Run
       if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
           e.preventDefault();
           if (activeTab === 'convert') runConversion();
           if (activeTab === 'codegen') runCodeGen();
       }
+      // Ctrl + K: Clear
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          e.preventDefault();
+          handleClear();
+      }
+      // Ctrl + S: Copy Result
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+          e.preventDefault();
+          if (activeTab === 'convert' && output) handleCopy(output);
+          if (activeTab === 'codegen' && generatedCode) handleCopy(generatedCode);
+      }
   }
-
-  onMount(() => {
-    window.addEventListener('keydown', handleKeydown);
-  });
 
   onDestroy(() => {
     if (historySubscription) {
@@ -191,7 +250,7 @@
         "priceCurrency": "USD"
       },
       "description": t.description,
-      "featureList": ["JSON Converter", "YAML Converter", "XML Converter", "CSV Converter", "Code Generator"]
+      "featureList": ["JSON Converter", "YAML Converter", "XML Converter", "CSV Converter", "Code Generator", "Zod Schema Generator", "Rust Struct Generator"]
     })}
   </script>
 </svelte:head>
@@ -249,7 +308,7 @@
             <div transition:fade={{ duration: 200 }} class="space-y-6">
                 <!-- Toolbar -->
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div class="flex items-center gap-4 w-full md:w-auto">
+                    <div class="flex items-center gap-4 w-full md:w-auto flex-wrap">
                         <!-- Examples Dropdown -->
                         <div class="relative group">
                             <button class="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
@@ -269,7 +328,7 @@
                             </div>
                         </div>
 
-                        <div class="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
+                        <div class="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2 hidden md:block"></div>
 
                         <label for="input-format" class="sr-only">Input Format</label>
                         <select
@@ -282,7 +341,7 @@
                             {/each}
                         </select>
 
-                        <ArrowRight class="text-gray-400" size={16} />
+                        <ArrowRight class="text-gray-400 hidden md:block" size={16} />
 
                         <label for="output-format" class="sr-only">Output Format</label>
                         <select
@@ -294,18 +353,25 @@
                                 <option value={f.value}>{f.label}</option>
                             {/each}
                         </select>
+
+                         <label class="flex items-center gap-2 text-sm text-gray-500 ml-2 cursor-pointer select-none">
+                            <input type="checkbox" bind:checked={autoConvert} class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                            {t.autoConvert}
+                        </label>
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <button
-                            class="flex items-center gap-2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            on:click={runConversion}
-                        >
-                            <span>{t.convert}</span>
-                            {#if isConverting}
-                                <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                            {/if}
-                        </button>
+                         {#if !autoConvert}
+                            <button
+                                class="flex items-center gap-2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                on:click={runConversion}
+                            >
+                                <span>{t.convert}</span>
+                                {#if isConverting}
+                                    <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                {/if}
+                            </button>
+                        {/if}
                         <button
                             class="p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
                             on:click={() => showSettings = !showSettings}
@@ -339,7 +405,7 @@
                                 showDownload={false}
                                 on:copy={() => handleCopy(input)}
                                 on:clear={handleClear}
-                                labels={{ copy: t.copy, download: t.download, clear: t.clear }}
+                                labels={{ copy: t.copy, download: t.download, clear: t.shortcuts.clear }}
                             />
                         </div>
                         <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
@@ -352,9 +418,11 @@
                             <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.output}</span>
                             <Toolbar
                                 showClear={false}
+                                showShare={true}
                                 on:copy={() => handleCopy(output)}
                                 on:download={() => handleDownload(output, outputFormat)}
-                                labels={{ copy: t.copy, download: t.download, clear: t.clear }}
+                                on:share={handleShare}
+                                labels={{ copy: t.copy, download: t.download, clear: t.shortcuts.clear, share: t.share }}
                             />
                         </div>
                         <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 relative">
@@ -388,7 +456,9 @@
                             >
                                 <option value="typescript">{t.codegen.typescript}</option>
                                 <option value="go">{t.codegen.go}</option>
+                                <option value="rust">{t.codegen.rust}</option>
                                 <option value="python_dataclass">{t.codegen.python}</option>
+                                <option value="zod">{t.codegen.zod}</option>
                                 <option value="json_schema">{t.codegen.jsonSchema}</option>
                             </select>
                         </div>
@@ -417,6 +487,13 @@
                      <div class="flex flex-col gap-2 h-full">
                          <div class="flex justify-between items-center px-1">
                              <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.input}</span>
+                             <Toolbar
+                                showDownload={false}
+                                showClear={true}
+                                on:copy={() => handleCopy(input)}
+                                on:clear={handleClear}
+                                labels={{ copy: t.copy, download: t.download, clear: t.shortcuts.clear }}
+                            />
                          </div>
                          <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
                              <DataEditor bind:value={input} language={inputFormat} placeholder={t.inputPlaceholder} />
@@ -428,14 +505,16 @@
                              <Toolbar
                                 showDownload={false}
                                 showClear={false}
+                                showShare={true}
                                 on:copy={() => handleCopy(generatedCode)}
-                                labels={{ copy: t.copy, download: t.download, clear: t.clear }}
+                                on:share={handleShare}
+                                labels={{ copy: t.copy, download: t.download, clear: t.shortcuts.clear, share: t.share }}
                             />
                         </div>
                          <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 relative">
                              <DataEditor
                                 bind:value={generatedCode}
-                                language={codeGenLang === 'go' ? 'go' : codeGenLang === 'python_dataclass' ? 'python' : 'typescript'}
+                                language={codeGenLang === 'go' ? 'go' : codeGenLang === 'rust' ? 'rust' : codeGenLang === 'python_dataclass' ? 'python' : 'typescript'}
                                 readonly={true}
                             />
                              {#if error}
@@ -538,10 +617,20 @@
   </article>
 
   <div class="flex justify-center mt-8 text-sm text-gray-400">
-      <div class="flex items-center gap-2">
-          <span>{t.shortcuts.help}:</span>
-          <kbd class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 text-xs">Ctrl + Enter</kbd>
-          <span>to Convert</span>
+      <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+              <span>{t.shortcuts.help}:</span>
+              <kbd class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 text-xs">Ctrl + Enter</kbd>
+              <span>to Convert</span>
+          </div>
+          <div class="flex items-center gap-2">
+              <kbd class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 text-xs">Ctrl + K</kbd>
+              <span>{t.shortcuts.clear}</span>
+          </div>
+          <div class="flex items-center gap-2">
+              <kbd class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 text-xs">Ctrl + S</kbd>
+              <span>{t.shortcuts.copy}</span>
+          </div>
       </div>
   </div>
 </div>

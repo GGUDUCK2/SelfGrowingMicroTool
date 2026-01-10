@@ -1,24 +1,33 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Copy, Check, Download, RotateCcw } from 'lucide-svelte';
+  import { Copy, Check, Download, RotateCcw, Share2 } from 'lucide-svelte';
 
   export let showCopy = true;
   export let showDownload = true;
   export let showClear = true;
+  export let showShare = false;
 
   export let labels = {
     copy: 'Copy',
     download: 'Download',
-    clear: 'Clear'
+    clear: 'Clear',
+    share: 'Share'
   };
 
   const dispatch = createEventDispatcher();
   let copied = false;
+  let shared = false;
 
   function handleCopy() {
     dispatch('copy');
     copied = true;
     setTimeout(() => copied = false, 2000);
+  }
+
+  function handleShare() {
+      dispatch('share');
+      shared = true;
+      setTimeout(() => shared = false, 2000);
   }
 </script>
 
@@ -48,6 +57,21 @@
       title={labels.download}
     >
       <Download size={18} />
+    </button>
+  {/if}
+
+  {#if showShare}
+    <button
+      class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300"
+      on:click={handleShare}
+      aria-label={labels.share}
+      title={labels.share}
+    >
+       {#if shared}
+         <Check size={18} class="text-green-500" />
+       {:else}
+         <Share2 size={18} />
+       {/if}
     </button>
   {/if}
 
