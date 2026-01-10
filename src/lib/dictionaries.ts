@@ -652,6 +652,66 @@ export const dictionaries = {
         shortcuts: {
             help: "Keyboard Shortcuts"
         }
+      },
+      markFlow: {
+        title: "MarkFlow: Pro Markdown Studio",
+        description: "The definitive markdown editor with real-time preview, HTML export, smart templates, and GitHub style support.",
+        input: "Markdown Input",
+        preview: "Live Preview",
+        toolbar: "Toolbar",
+        history: "History",
+        save: "Save",
+        restore: "Restore",
+        delete: "Delete",
+        clear: "Clear",
+        copy: "Copy Markdown",
+        copyHtml: "Copy HTML",
+        download: "Download .md",
+        print: "Print / PDF",
+        stats: "Statistics",
+        words: "Words",
+        chars: "Characters",
+        readingTime: "Reading Time",
+        templates: "Templates",
+        faqTitle: "MarkFlow FAQ",
+        q1: "How does the preview work?",
+        a1: "MarkFlow uses a high-performance parser (Marked) to render your markdown in real-time within the browser. No server processing is required.",
+        q2: "Is my writing saved?",
+        a2: "Yes, MarkFlow automatically saves your work to your browser's local storage (IndexedDB), so you won't lose your progress if you accidentally close the tab.",
+        q3: "Can I export to PDF?",
+        a3: "Yes! Use the 'Print / PDF' button. It applies a clean, document-optimized stylesheet to your content, perfect for saving as PDF.",
+        guide: {
+          title: "Why MarkFlow?",
+          intro: "MarkFlow is designed for developers, technical writers, and note-takers who need a distraction-free yet powerful environment. It bridges the gap between raw text editing and rich document creation.",
+          featuresTitle: "Key Features",
+          f1: "**Live Preview:** See your changes instantly with GitHub-flavored rendering.",
+          f2: "**Smart Templates:** Quickly insert standard layouts like Readmes, Changelogs, or Blog Posts.",
+          f3: "**Local First:** Your data never leaves your device. Work offline with confidence.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use **Ctrl/Cmd + S** to manually save a snapshot to your history.",
+          tip2: "The **Print** function is optimized to strip UI elements, giving you a clean document ready for PDF export.",
+          tip3: "Use the **Templates** menu to jumpstart your documentation."
+        },
+        actions: {
+            bold: "Bold",
+            italic: "Italic",
+            heading: "Heading",
+            link: "Link",
+            image: "Image",
+            listUl: "Bulleted List",
+            listOl: "Numbered List",
+            quote: "Blockquote",
+            code: "Code Block",
+            table: "Table",
+            rule: "Horizontal Rule"
+        },
+        placeholders: {
+            input: "Start typing your markdown here..."
+        },
+        feedback: {
+            copied: "Copied!",
+            saved: "Saved to history!"
+        }
       }
     },
     pwa: {
@@ -1111,7 +1171,7 @@ export const dictionaries = {
         },
         password: {
           uppercase: "대문자 (A-Z)",
-          lowercase: "소문자 (a-z)",
+          lowercase: "a-z",
           numbers: "숫자 (0-9)",
           symbols: "특수문자 (!@#)",
           ambiguous: "모호한 문자 제외 (Il1O0)",
@@ -1240,6 +1300,66 @@ export const dictionaries = {
         },
         shortcuts: {
             help: "키보드 단축키"
+        }
+      },
+      markFlow: {
+        title: "MarkFlow: 프로 마크다운 스튜디오",
+        description: "실시간 미리보기, HTML 내보내기, 스마트 템플릿, GitHub 스타일 지원을 갖춘 완벽한 마크다운 에디터입니다.",
+        input: "마크다운 입력",
+        preview: "실시간 미리보기",
+        toolbar: "도구 모음",
+        history: "기록",
+        save: "저장",
+        restore: "복원",
+        delete: "삭제",
+        clear: "지우기",
+        copy: "마크다운 복사",
+        copyHtml: "HTML 복사",
+        download: "다운로드 .md",
+        print: "인쇄 / PDF",
+        stats: "통계",
+        words: "단어",
+        chars: "글자",
+        readingTime: "읽는 시간",
+        templates: "템플릿",
+        faqTitle: "MarkFlow FAQ",
+        q1: "미리보기는 어떻게 작동하나요?",
+        a1: "MarkFlow는 고성능 파서(Marked)를 사용하여 브라우저 내에서 실시간으로 마크다운을 렌더링합니다. 서버 처리가 필요하지 않습니다.",
+        q2: "작성 중인 내용은 저장되나요?",
+        a2: "네, MarkFlow는 브라우저의 로컬 스토리지(IndexedDB)에 작업을 자동으로 저장하므로 탭을 실수로 닫아도 진행 상황을 잃지 않습니다.",
+        q3: "PDF로 내보낼 수 있나요?",
+        a3: "네! '인쇄 / PDF' 버튼을 사용하세요. 문서에 최적화된 스타일시트를 적용하여 깔끔한 PDF로 저장할 수 있습니다.",
+        guide: {
+          title: "왜 MarkFlow인가요?",
+          intro: "MarkFlow는 방해 없는 강력한 환경이 필요한 개발자, 기술 작가, 노트 테이커를 위해 설계되었습니다. 단순 텍스트 편집과 풍부한 문서 작성 사이의 격차를 해소합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**실시간 미리보기:** GitHub 스타일 렌더링으로 변경 사항을 즉시 확인하세요.",
+          f2: "**스마트 템플릿:** Readme, 변경 로그, 블로그 게시물과 같은 표준 레이아웃을 빠르게 삽입하세요.",
+          f3: "**로컬 우선:** 데이터는 기기를 절대 벗어나지 않습니다. 오프라인에서도 안심하고 작업하세요.",
+          tipsTitle: "프로 팁",
+          tip1: "**Ctrl/Cmd + S**를 사용하여 기록에 스냅샷을 수동으로 저장하세요.",
+          tip2: "**인쇄** 기능은 UI 요소를 제거하도록 최적화되어 있어 PDF 내보내기에 완벽한 문서를 제공합니다.",
+          tip3: "**템플릿** 메뉴를 사용하여 문서 작성을 빠르게 시작하세요."
+        },
+        actions: {
+            bold: "굵게",
+            italic: "기울임",
+            heading: "제목",
+            link: "링크",
+            image: "이미지",
+            listUl: "글머리 기호",
+            listOl: "번호 매기기",
+            quote: "인용",
+            code: "코드 블록",
+            table: "표",
+            rule: "가로선"
+        },
+        placeholders: {
+            input: "여기에 마크다운을 입력하세요..."
+        },
+        feedback: {
+            copied: "복사됨!",
+            saved: "기록에 저장되었습니다!"
         }
       }
     },

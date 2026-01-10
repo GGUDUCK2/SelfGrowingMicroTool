@@ -1,0 +1,404 @@
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import { fade, slide } from 'svelte/transition';
+  import { page } from '$app/stores';
+  import Head from '$lib/components/Head.svelte';
+  import { getDictionary } from '$lib/dictionaries';
+  import MarkdownEditor from '$lib/components/markdown-studio/MarkdownEditor.svelte';
+  import MarkdownPreview from '$lib/components/markdown-studio/MarkdownPreview.svelte';
+  import MarkdownToolbar from '$lib/components/markdown-studio/MarkdownToolbar.svelte';
+  import HistoryList from '$lib/components/HistoryList.svelte';
+  import { db } from '$lib/db';
+  import { liveQuery } from 'dexie';
+  import FAQSection from '$lib/components/FAQSection.svelte';
+
+  // State
+  let content = "";
+  let activeTab = "editor"; // 'editor', 'preview', 'split' (desktop only)
+  let editorComponent: MarkdownEditor;
+  let showHistory = false;
+  let notification: string | null = null;
+  let windowWidth = 1024;
+  let mounted = false;
+
+  // Reactivity
+  $: lang = $page.params.lang || 'en';
+  $: dict = getDictionary(lang).tools.markFlow;
+  $: commonDict = getDictionary(lang).common;
+
+  // Stats
+  $: wordCount = content ? content.trim().split(/\s+/).length : 0;
+  $: charCount = content ? content.length : 0;
+  $: readingTime = Math.ceil(wordCount / 200);
+
+  // History observable
+  $: history = liveQuery(() => db.markFlowHistory?.orderBy('createdAt').reverse().toArray() || []);
+
+  onMount(() => {
+    mounted = true;
+    windowWidth = window.innerWidth;
+    window.addEventListener('resize', () => windowWidth = window.innerWidth);
+
+    // Auto-load last draft if empty
+    db.markFlowHistory?.orderBy('createdAt').last().then((item) => {
+       if (item && !content) {
+          content = item.content;
+       }
+    });
+
+    return () => {
+      window.removeEventListener('resize', () => windowWidth = window.innerWidth);
+    };
+  });
+
+  // Actions
+  function handleAction(event: CustomEvent<string>) {
+    const action = event.detail;
+
+    switch(action) {
+      case 'bold': insert('**text**', 2, 4); break;
+      case 'italic': insert('*text*', 1, 4); break;
+      case 'heading': insert('# ', 2, 0); break;
+      case 'link': insert('[text](url)', 1, 4); break;
+      case 'image': insert('![alt](url)', 2, 3); break;
+      case 'listUl': insert('\n- ', 3, 0); break;
+      case 'listOl': insert('\n1. ', 4, 0); break;
+      case 'quote': insert('\n> ', 3, 0); break;
+      case 'code': insert('```\ncode\n```', 4, 4); break;
+      case 'table': insert('\n| Header | Header |\n| --- | --- |\n| Cell | Cell |', 0, 0); break;
+      case 'rule': insert('\n---\n', 0, 0); break;
+      case 'save': saveToHistory(); break;
+      case 'clear':
+        if(confirm('Are you sure?')) content = "";
+        break;
+      case 'copy': copyToClipboard(content); break;
+      case 'copyHtml': copyHtml(); break;
+      case 'download': downloadMarkdown(); break;
+      case 'print': window.print(); break;
+    }
+  }
+
+  function insert(text: string, offset: number, length: number) {
+    if (editorComponent) {
+      editorComponent.insertAtCursor(text, offset, length);
+    }
+  }
+
+  async function saveToHistory() {
+    if (!content.trim()) return;
+    try {
+      await db.markFlowHistory.add({
+        content: content,
+        createdAt: new Date(),
+        starred: 0
+      });
+      showNotification(dict.feedback.saved);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  function loadHistoryItem(item: any) {
+    content = item.content;
+    showHistory = false;
+  }
+
+  function deleteHistoryItem(id: number) {
+    db.markFlowHistory.delete(id);
+  }
+
+  function clearHistory() {
+    db.markFlowHistory.clear();
+  }
+
+  async function copyToClipboard(text: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      showNotification(dict.feedback.copied);
+    } catch (err) {
+      console.error('Failed to copy', err);
+    }
+  }
+
+  async function copyHtml() {
+     // We need to render it first if not already rendered,
+     // but we can trust the preview logic or use marked directly again.
+     // For simplicity, we can grab the HTML from the preview component if accessible,
+     // or just re-parse. Re-parsing is safer.
+     // Importing marked dynamically or using the same instance would be best.
+     // Since MarkdownPreview does it, let's just use a hidden helper or just re-import marked here.
+     // Actually, let's just use the rendered HTML from the DOM if possible,
+     // but cleaner is to use marked.
+     const { marked: markedParser } = await import('marked');
+     const html = await markedParser.parse(content);
+     copyToClipboard(html as string);
+  }
+
+  function downloadMarkdown() {
+    const blob = new Blob([content], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `markflow-${new Date().toISOString().slice(0, 10)}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function showNotification(msg: string) {
+    notification = msg;
+    setTimeout(() => notification = null, 2000);
+  }
+
+  // Templates
+  const templates = [
+    { name: 'README', content: '# Project Title\n\nDescription of the project.\n\n## Installation\n\n```bash\nnpm install\n```\n\n## Usage\n\n```javascript\nimport { foo } from "bar";\n```' },
+    { name: 'Blog Post', content: '---\ntitle: Blog Post Title\ndate: 2024-01-01\n---\n\n# Introduction\n\nWrite your intro here.\n\n## Section 1\n\nDetails...' },
+    { name: 'Checklist', content: '# Checklist\n\n- [ ] Task 1\n- [ ] Task 2\n- [x] Completed Task' }
+  ];
+
+  function applyTemplate(tmpl: { content: string }) {
+    if (content && !confirm('Replace current content?')) return;
+    content = tmpl.content;
+  }
+
+</script>
+
+<Head
+  title={dict.title}
+  description={dict.description}
+  image="https://web-factory.vercel.app/og-image.jpg"
+/>
+
+<div class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900 font-sans">
+
+  <!-- Header -->
+  <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30 print:hidden">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="/{lang}" class="text-slate-500 hover:text-indigo-600 transition-colors" aria-label={commonDict.back}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+        </a>
+        <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">
+          MarkFlow
+        </h1>
+      </div>
+
+      <div class="flex items-center gap-3">
+         <!-- Template Dropdown (simplified as select for mobile friendly) -->
+         <select
+           class="bg-slate-100 dark:bg-slate-800 border-none text-sm rounded-md px-2 py-1 focus:ring-1 focus:ring-indigo-500"
+           on:change={(e) => applyTemplate(templates[e.currentTarget.selectedIndex - 1])}
+         >
+           <option disabled selected>{dict.templates}</option>
+           {#each templates as tmpl}
+             <option>{tmpl.name}</option>
+           {/each}
+         </select>
+
+         <button
+           class="p-2 text-slate-500 hover:text-indigo-600 relative"
+           on:click={() => showHistory = !showHistory}
+           title={dict.history}
+         >
+           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+         </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="flex-1 flex flex-col max-w-7xl mx-auto w-full px-0 sm:px-4 py-4 gap-4 h-[calc(100vh-4rem)]">
+
+    <!-- Toolbar -->
+    <div class="sticky top-16 z-20 shadow-sm print:hidden">
+       <MarkdownToolbar {dictionary} hasContent={content.length > 0} on:action={handleAction} />
+    </div>
+
+    <!-- Mobile Tabs -->
+    <div class="sm:hidden flex border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 print:hidden">
+      <button
+        class="flex-1 py-2 text-sm font-medium {activeTab === 'editor' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
+        on:click={() => activeTab = 'editor'}
+      >
+        {dict.input}
+      </button>
+      <button
+        class="flex-1 py-2 text-sm font-medium {activeTab === 'preview' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
+        on:click={() => activeTab = 'preview'}
+      >
+        {dict.preview}
+      </button>
+    </div>
+
+    <!-- Editor / Preview Split -->
+    <div class="flex-1 flex flex-col sm:flex-row gap-4 min-h-0 relative">
+
+      <!-- Editor Pane -->
+      <div class="flex-1 flex flex-col bg-white dark:bg-slate-800 rounded-b-lg sm:rounded-lg shadow-sm overflow-hidden
+                  {activeTab === 'preview' ? 'hidden sm:flex' : 'flex'}"
+           class:sm:hidden={false}
+      >
+        <div class="flex-1 relative overflow-y-auto">
+          <MarkdownEditor
+            bind:this={editorComponent}
+            bind:value={content}
+            {dictionary}
+            on:save={saveToHistory}
+            on:change={() => {}}
+          />
+        </div>
+        <!-- Stats Bar -->
+        <div class="h-8 bg-slate-100 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 flex items-center px-4 text-xs text-slate-500 gap-4 select-none print:hidden">
+           <span>{wordCount} {dict.words}</span>
+           <span>{charCount} {dict.chars}</span>
+           <span>{readingTime} min read</span>
+        </div>
+      </div>
+
+      <!-- Preview Pane -->
+      <div class="flex-1 flex flex-col bg-white dark:bg-slate-800 rounded-b-lg sm:rounded-lg shadow-sm overflow-hidden
+                  {activeTab === 'editor' ? 'hidden sm:flex' : 'flex'}"
+           class:sm:hidden={false}
+      >
+        <div class="flex-1 overflow-y-auto print:overflow-visible">
+          <MarkdownPreview {content} />
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Content for SEO/Landing below the tool -->
+  <section class="max-w-4xl mx-auto px-6 py-12 space-y-12 print:hidden">
+    <div class="bg-indigo-50 dark:bg-indigo-900/10 rounded-2xl p-8 border border-indigo-100 dark:border-indigo-900/30">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{dict.guide.title}</h2>
+      <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
+        {dict.guide.intro}
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2">{dict.guide.featuresTitle}</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li class="flex items-start gap-2">
+              <span class="text-indigo-500 mt-1">✓</span>
+              <span>{@html marked.parseInline(dict.guide.f1)}</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-indigo-500 mt-1">✓</span>
+              <span>{@html marked.parseInline(dict.guide.f2)}</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-indigo-500 mt-1">✓</span>
+              <span>{@html marked.parseInline(dict.guide.f3)}</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2">{dict.guide.tipsTitle}</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+             <li class="flex items-start gap-2">
+              <span class="text-amber-500 mt-1">💡</span>
+              <span>{@html marked.parseInline(dict.guide.tip1)}</span>
+            </li>
+             <li class="flex items-start gap-2">
+              <span class="text-amber-500 mt-1">💡</span>
+              <span>{@html marked.parseInline(dict.guide.tip2)}</span>
+            </li>
+             <li class="flex items-start gap-2">
+              <span class="text-amber-500 mt-1">💡</span>
+              <span>{@html marked.parseInline(dict.guide.tip3)}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <FAQSection
+      title={dict.faqTitle}
+      items={[
+        { question: dict.q1, answer: dict.a1 },
+        { question: dict.q2, answer: dict.a2 },
+        { question: dict.q3, answer: dict.a3 }
+      ]}
+    />
+  </section>
+
+  <!-- History Drawer -->
+  {#if showHistory}
+    <div class="fixed inset-0 z-50 flex justify-end" transition:fade={{ duration: 200 }}>
+      <button class="absolute inset-0 bg-black/20 backdrop-blur-sm" on:click={() => showHistory = false} aria-label="Close history"></button>
+      <div class="relative w-full max-w-sm bg-white dark:bg-slate-900 shadow-2xl h-full overflow-y-auto" transition:slide={{ axis: 'x', duration: 300 }}>
+        <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+          <h3 class="font-semibold text-slate-900 dark:text-white">{dict.history}</h3>
+          <button class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300" on:click={() => showHistory = false} aria-label="Close history">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        <div class="p-4">
+           {#if $history}
+             <div class="space-y-2">
+               {#each $history as item}
+                 <div class="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg group hover:ring-1 hover:ring-indigo-500 transition-all cursor-pointer relative"
+                      on:click={() => loadHistoryItem(item)}
+                      on:keydown={(e) => e.key === 'Enter' && loadHistoryItem(item)}
+                      role="button"
+                      tabindex="0"
+                 >
+                   <div class="text-xs text-slate-400 mb-1">{item.createdAt.toLocaleString()}</div>
+                   <div class="text-sm text-slate-700 dark:text-slate-300 line-clamp-2 font-mono text-xs">
+                     {item.content || '(Empty)'}
+                   </div>
+                   <button
+                     class="absolute top-2 right-2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                     on:click|stopPropagation={() => deleteHistoryItem(item.id)}
+                   >
+                     <Trash2 size={14} />
+                   </button>
+                 </div>
+               {/each}
+               {#if $history.length === 0}
+                 <p class="text-center text-slate-500 py-8">{dict.historyEmpty || "No history"}</p>
+               {/if}
+             </div>
+             {#if $history.length > 0}
+                <button
+                  class="w-full mt-4 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                  on:click={clearHistory}
+                >
+                  {dict.clear}
+                </button>
+             {/if}
+           {/if}
+        </div>
+      </div>
+    </div>
+  {/if}
+
+  <!-- Notification Toast -->
+  {#if notification}
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-2 rounded-full shadow-lg text-sm z-50 flex items-center gap-2" transition:fade>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      {notification}
+    </div>
+  {/if}
+
+</div>
+
+<style>
+  /* Print Styles */
+  @media print {
+    :global(body), :global(main) {
+      background: white !important;
+      color: black !important;
+      height: auto !important;
+      overflow: visible !important;
+    }
+    :global(header), :global(footer), :global(.print\:hidden) {
+      display: none !important;
+    }
+    :global(.prose) {
+      max-width: 100% !important;
+    }
+  }
+</style>
