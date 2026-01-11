@@ -163,5 +163,20 @@
     "category": "Developer Tools",
     "tags": ["converter", "json", "yaml", "xml", "csv", "format", "developer"],
     "createdAt": "2025-02-06"
+  },
+  {
+    "id": "markdown-studio",
+    "slug": "markdown-studio",
+    "title": {
+      "en": "MarkFlow: Pro Markdown Studio",
+      "ko": "MarkFlow: 프로 마크다운 스튜디오"
+    },
+    "description": {
+      "en": "The definitive markdown editor with real-time preview, HTML export, smart templates, and GitHub style support.",
+      "ko": "실시간 미리보기, HTML 내보내기, 스마트 템플릿, GitHub 스타일 지원을 갖춘 완벽한 마크다운 에디터입니다."
+    },
+    "category": "Developer Tools",
+    "tags": ["markdown", "editor", "preview", "converter", "html", "writer"],
+    "createdAt": "2025-02-07"
   }
 ]

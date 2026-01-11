@@ -101,6 +101,13 @@ export interface StructuraHistory {
   starred?: number;
 }
 
+export interface MarkFlowHistory {
+  id?: number;
+  content: string;
+  createdAt: Date;
+  starred?: number;
+}
+
 class MySubClassedDexie extends Dexie {
   compoundInterestConfig!: Table<CompoundInterestConfig>;
   compoundInterestHistory!: Table<CompoundInterestHistory>;
@@ -113,6 +120,7 @@ class MySubClassedDexie extends Dexie {
   idForgeHistory!: Table<IdForgeHistory>;
   cipherHistory!: Table<CipherHistory>;
   structuraHistory!: Table<StructuraHistory>;
+  markFlowHistory!: Table<MarkFlowHistory>;
 
   constructor() {
     super('webFactoryDB');
@@ -233,6 +241,20 @@ class MySubClassedDexie extends Dexie {
       idForgeHistory: '++id, createdAt, starred',
       cipherHistory: '++id, createdAt, starred',
       structuraHistory: '++id, createdAt, starred'
+    });
+    this.version(14).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      idForgeHistory: '++id, createdAt, starred',
+      cipherHistory: '++id, createdAt, starred',
+      structuraHistory: '++id, createdAt, starred',
+      markFlowHistory: '++id, createdAt, starred'
     });
   }
 }
