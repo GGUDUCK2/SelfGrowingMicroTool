@@ -129,6 +129,14 @@
                 {@html htmlParts.unified}
             </div>
         {:else}
+            <div class="sticky top-0 z-10 flex w-full min-w-[800px] border-b border-gray-200 dark:border-gray-700 bg-slate-800">
+                <div class="w-1/2 px-4 py-2 text-lg font-semibold text-slate-200 border-r border-gray-200 dark:border-gray-700">
+                    원본 텍스트
+                </div>
+                <div class="w-1/2 px-4 py-2 text-lg font-semibold text-slate-200">
+                    수정된 텍스트
+                </div>
+            </div>
             <div class="flex w-full min-w-[800px]"> <!-- Force min width for split view -->
                 <div class="w-1/2 border-r border-gray-200 dark:border-gray-700">
                     {@html htmlParts.left}

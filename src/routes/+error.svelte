@@ -11,7 +11,7 @@
     </div>
     <h1 class="text-4xl font-bold mb-4">Page Not Found</h1>
     <p class="text-slate-400 mb-8 text-lg">
-      페이지를 찾을 수 없습니다. (The page you are looking for might have been removed or is temporarily unavailable.)
+      페이지를 찾을 수 없습니다. (요청하신 페이지가 삭제되었거나 일시적으로 사용할 수 없습니다.)
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <a
