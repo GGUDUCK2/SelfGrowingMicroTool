@@ -1,181 +1,67 @@
 
 > web-factory-svelte@0.0.1 dev
-> vite dev
+> vite dev --port 4174
 
-▲ [WARNING] Cannot find base config file "./.svelte-kit/tsconfig.json" [tsconfig.json]
+8:12:25 PM [vite] (client) Forced re-optimization of dependencies
 
-    tsconfig.json:2:15:
-      2 │     "extends": "./.svelte-kit/tsconfig.json",
-        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  VITE v6.4.1  ready in 2075 ms
 
-4:22:30 AM [vite] (client) Forced re-optimization of dependencies
-
-  VITE v6.4.1  ready in 1808 ms
-
-  ➜  Local:   http://localhost:5173/
+  ➜  Local:   http://localhost:4174/
   ➜  Network: use --host to expose
-4:22:44 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:216:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-4:22:44 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:216:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-4:22:44 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:284:12 A form label must be associated with a control
+8:13:07 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:320:12 A form label must be associated with a control
 https://svelte.dev/e/a11y_label_has_associated_control
-4:22:44 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:292:12 A form label must be associated with a control
+8:13:07 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:328:12 A form label must be associated with a control
 https://svelte.dev/e/a11y_label_has_associated_control
-4:22:58 AM [vite-plugin-svelte] src/lib/components/restro/HistorySidebar.svelte:60:12 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-4:22:58 AM [vite-plugin-svelte] src/lib/components/restro/HistorySidebar.svelte:60:12 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-4:22:58 AM [vite-plugin-svelte] src/lib/components/restro/HistorySidebar.svelte:93:12 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-4:22:58 AM [vite-plugin-svelte] src/lib/components/restro/HistorySidebar.svelte:93:12 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-4:23:00 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:216:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-4:23:00 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:216:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-4:23:00 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:284:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-4:23:00 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:292:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-4:23:00 AM [vite-plugin-svelte] src/lib/components/restro/HistorySidebar.svelte:60:12 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-4:23:00 AM [vite-plugin-svelte] src/lib/components/restro/HistorySidebar.svelte:60:12 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-4:23:00 AM [vite-plugin-svelte] src/lib/components/restro/HistorySidebar.svelte:93:12 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-4:23:00 AM [vite-plugin-svelte] src/lib/components/restro/HistorySidebar.svelte:93:12 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-4:25:11 AM [vite] (client) hmr update /src/routes/[lang]/restro/+page.svelte, /src/app.css
-4:25:11 AM [vite] (ssr) page reload src/routes/[lang]/restro/+page.svelte
-4:25:16 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:177:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-4:25:16 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:177:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-4:25:16 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:245:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-4:25:16 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:253:12 A form label must be associated with a control
+8:13:07 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:336:12 A form label must be associated with a control
 https://svelte.dev/e/a11y_label_has_associated_control
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
-4:25:17 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:177:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-4:25:17 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:177:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-4:25:17 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:245:12 A form label must be associated with a control
+8:13:29 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:320:12 A form label must be associated with a control
 https://svelte.dev/e/a11y_label_has_associated_control
-4:25:17 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:253:12 A form label must be associated with a control
+8:13:29 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:328:12 A form label must be associated with a control
 https://svelte.dev/e/a11y_label_has_associated_control
-4:26:08 AM [vite] (client) hmr update /src/lib/components/restro/ResponsePanel.svelte, /src/app.css
-4:26:08 AM [vite] (ssr) page reload src/lib/components/restro/ResponsePanel.svelte
-4:26:11 AM [vite] (client) hmr update /src/app.css, /src/routes/[lang]/restro/+page.svelte
-4:26:11 AM [vite] (ssr) page reload src/lib/utils/restro/client.ts
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-4:34:28 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
-4:34:28 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
-4:34:28 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/2.js
-4:34:28 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/7.js
-4:34:28 AM [vite] (client) page reload .svelte-kit/generated/client/app.js
-4:34:28 AM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
-4:34:28 AM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-4:34:28 AM [vite] (client) page reload .svelte-kit/generated/root.js
-4:34:28 AM [vite] (ssr) page reload .svelte-kit/generated/root.js
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-4:38:28 AM [vite] (client) hmr update /src/lib/components/restro/RequestPanel.svelte, /src/app.css
-4:38:28 AM [vite] (ssr) page reload src/lib/components/restro/RequestPanel.svelte
-4:38:28 AM [vite] (client) hmr update /src/lib/components/restro/RequestTabs.svelte, /src/app.css
-4:38:28 AM [vite] (ssr) page reload src/lib/components/restro/RequestTabs.svelte
-4:38:29 AM [vite] (client) hmr update /src/lib/components/restro/ResponsePanel.svelte, /src/app.css
-4:38:29 AM [vite] (ssr) page reload src/lib/components/restro/ResponsePanel.svelte
-4:38:29 AM [vite] (ssr) page reload src/lib/components/restro/HistorySidebar.svelte
-4:38:29 AM [vite] (client) hmr update /src/routes/[lang]/restro/+page.svelte, /src/app.css
-4:38:29 AM [vite] (ssr) page reload src/routes/[lang]/restro/+page.svelte
-4:38:50 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:256:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-4:38:50 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:264:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-4:38:50 AM [vite] (ssr) Error when evaluating SSR module /src/routes/[lang]/restro/+page.svelte: src/lib/components/restro/HistorySidebar.svelte:80:14 `<button>` cannot be a child of `<button>`. The browser will 'repair' the HTML (by moving, removing, or inserting elements) which breaks Svelte's assumptions about the structure of your components.
-https://svelte.dev/e/node_invalid_placement
-  Plugin: vite-plugin-svelte
-  File: src/lib/components/restro/HistorySidebar.svelte:80:14
-   78 |                 {/if}
-   79 |
-   80 |                <button
-                               ^
-   81 |                   class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity bg-white/80 dark:bg-slate-800/80 rounded shadow-sm"
-   82 |                   on:click|stopPropagation={() => deleteHistory(req.id!)}
-
-[1;31m[500] GET /en/restro[0m
-
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[500] GET /en/restro[0m
-
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-4:40:44 AM [vite] (client) hmr update /src/lib/components/restro/HistorySidebar.svelte, /src/app.css, /src/lib/components/restro/HistorySidebar.svelte?svelte&type=style&lang.css
-4:40:44 AM [vite] (ssr) page reload src/lib/components/restro/HistorySidebar.svelte
-
-[1;31m[500] GET /en/restro[0m
-TypeError: Cannot read properties of undefined (reading 'title')
-    at /app/src/routes/[lang]/restro/+page.svelte:164:16
-    at /app/node_modules/svelte/src/internal/server/renderer.js:300:4
-    at Renderer.child (node_modules/svelte/src/internal/server/renderer.js:185:18)
-    at Renderer.title (node_modules/svelte/src/internal/server/renderer.js:298:8)
-    at eval (src/routes/[lang]/restro/+page.svelte:192:17)
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-4:41:52 AM [vite] (client) hmr update /src/routes/[lang]/restro/+page.svelte, /src/app.css
-4:41:52 AM [vite] (ssr) page reload src/routes/[lang]/restro/+page.svelte
-4:41:57 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:258:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-4:41:57 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:266:12 A form label must be associated with a control
+8:13:29 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:336:12 A form label must be associated with a control
 https://svelte.dev/e/a11y_label_has_associated_control
 
-[1;31m[500] GET /en/restro[0m
-TypeError: Cannot read properties of undefined (reading 'title')
-    at /app/src/routes/[lang]/restro/+page.svelte:166:16
-    at /app/node_modules/svelte/src/internal/server/renderer.js:300:4
-    at Renderer.child (node_modules/svelte/src/internal/server/renderer.js:185:18)
-    at Renderer.title (node_modules/svelte/src/internal/server/renderer.js:298:8)
-    at eval (src/routes/[lang]/restro/+page.svelte:197:17)
+[1;31m[404] GET /_vercel/insights/script.js[0m
+8:18:12 PM [vite] (client) hmr update /src/routes/[lang]/restro/+page.svelte, /src/app.css
+8:18:12 PM [vite] (ssr) page reload src/routes/[lang]/restro/+page.svelte
+8:18:21 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:323:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+8:18:21 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:331:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+8:18:21 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:339:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+Restro dictionary missing for lang: en
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
-4:42:55 AM [vite] (client) hmr update /src/routes/[lang]/restro/+page.svelte, /src/app.css
-4:42:55 AM [vite] (ssr) page reload src/routes/[lang]/restro/+page.svelte
-4:43:04 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:260:12 A form label must be associated with a control
+8:18:22 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:323:12 A form label must be associated with a control
 https://svelte.dev/e/a11y_label_has_associated_control
-4:43:04 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:268:12 A form label must be associated with a control
+8:18:22 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:331:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+8:18:22 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:339:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+8:18:39 PM [vite] (client) hmr update /src/routes/[lang]/restro/+page.svelte, /src/app.css
+8:18:39 PM [vite] (ssr) page reload src/routes/[lang]/restro/+page.svelte
+8:18:46 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:323:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+8:18:46 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:331:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+8:18:46 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:339:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+8:19:37 PM [vite] (client) hmr update /src/lib/components/restro/RequestPanel.svelte, /src/app.css
+8:19:37 PM [vite] (ssr) page reload src/lib/components/restro/RequestPanel.svelte
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+8:20:00 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:323:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+8:20:00 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:331:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+8:20:00 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:339:12 A form label must be associated with a control
 https://svelte.dev/e/a11y_label_has_associated_control
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
-4:43:54 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
-4:43:54 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
-4:43:54 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/2.js
-4:43:54 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/7.js
-4:43:54 AM [vite] (client) page reload .svelte-kit/generated/client/app.js
-4:43:54 AM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
-4:43:54 AM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-4:43:54 AM [vite] (client) page reload .svelte-kit/generated/root.js
-4:43:54 AM [vite] (ssr) page reload .svelte-kit/generated/root.js

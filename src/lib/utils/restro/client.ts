@@ -84,3 +84,38 @@ export async function executeRequest(
     };
   }
 }
+
+export function substituteVariables(
+    target: string,
+    lastResponse: HttpResponse | null
+): string {
+    if (!lastResponse || !target) return target;
+
+    return target.replace(/{{last_response\.(.*?)}}/g, (_, path) => {
+        try {
+            // Check if looking for headers
+            if (path.startsWith('headers.')) {
+                const headerKey = path.split('.')[1];
+                // Case insensitive header lookup
+                const val = Object.entries(lastResponse.headers)
+                    .find(([k]) => k.toLowerCase() === headerKey.toLowerCase())?.[1];
+                return val || '';
+            }
+
+            // Assume body is JSON
+            const body = JSON.parse(lastResponse.body);
+            // Simple path parser: data.users[0].id
+            // Split by dot, but handle brackets
+            const keys = path.replace(/\[(\d+)\]/g, '.$1').split('.');
+
+            let current = body;
+            for (const key of keys) {
+                if (current === undefined || current === null) return '';
+                current = current[key];
+            }
+            return String(current);
+        } catch (e) {
+            return '';
+        }
+    });
+}

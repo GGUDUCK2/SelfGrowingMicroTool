@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Clock, Star, Trash2, ArrowRight } from 'lucide-svelte';
+  import { Clock, Star, Trash2, ArrowRight, Folder, FolderOpen, ChevronRight, ChevronDown } from 'lucide-svelte';
   import type { RestroRequest } from '$lib/db/restro';
   import { liveQuery } from 'dexie';
   import { db } from '$lib/db/restro';
@@ -9,9 +9,27 @@
   export let dict: RestroDictionary;
 
   let activeTab = 'history'; // history, saved
+  let expandedFolders: Record<string, boolean> = { 'Default': true };
 
   let history$ = liveQuery(() => db.history.orderBy('timestamp').reverse().toArray());
   let saved$ = liveQuery(() => db.collections.orderBy('timestamp').reverse().toArray());
+
+  $: folders = $saved$ ? groupRequestsByFolder($saved$) : {};
+  $: sortedFolderNames = Object.keys(folders).sort();
+
+  function groupRequestsByFolder(requests: RestroRequest[]) {
+    const groups: Record<string, RestroRequest[]> = {};
+    requests.forEach(req => {
+      const f = req.folder || 'Default';
+      if (!groups[f]) groups[f] = [];
+      groups[f].push(req);
+    });
+    return groups;
+  }
+
+  function toggleFolder(name: string) {
+    expandedFolders[name] = !expandedFolders[name];
+  }
 
   function formatDate(ts: number) {
     return new Date(ts).toLocaleString(undefined, {
@@ -95,28 +113,52 @@
       {/if}
     {:else}
        {#if $saved$}
-        <div class="divide-y divide-slate-100 dark:divide-slate-700/50">
-          {#each $saved$ as req (req.id)}
-            <div class="group relative w-full text-left hover:bg-white dark:hover:bg-slate-700/50 transition-colors p-3 cursor-pointer outline-none focus:bg-white dark:focus:bg-slate-700/50">
-               <button class="absolute inset-0 w-full h-full cursor-pointer z-0" on:click={() => onLoadRequest(req)} aria-label="Load request"></button>
+        <div class="pb-2">
+            {#each sortedFolderNames as folderName}
+                <div class="border-b border-slate-100 dark:border-slate-800">
+                    <button
+                        class="w-full flex items-center gap-2 px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        on:click={() => toggleFolder(folderName)}
+                    >
+                        {#if expandedFolders[folderName]}
+                            <ChevronDown class="w-4 h-4 text-slate-400" />
+                            <FolderOpen class="w-4 h-4 text-indigo-500" />
+                        {:else}
+                            <ChevronRight class="w-4 h-4 text-slate-400" />
+                            <Folder class="w-4 h-4 text-slate-400" />
+                        {/if}
+                        <span>{folderName}</span>
+                        <span class="ml-auto text-xs text-slate-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded-full">{folders[folderName].length}</span>
+                    </button>
 
-               <div class="relative z-10 pointer-events-none">
-                   <div class="font-medium text-sm text-slate-800 dark:text-slate-200 mb-1">{req.name || 'Untitled'}</div>
-                   <div class="flex items-center gap-2">
-                      <span class="px-1.5 py-0.5 rounded text-[10px] font-bold {getMethodColor(req.method)}">{req.method}</span>
-                      <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate max-w-[120px]">{req.url}</div>
-                   </div>
-               </div>
+                    {#if expandedFolders[folderName]}
+                        <div class="pl-0 divide-y divide-slate-100 dark:divide-slate-800/50 bg-slate-50/50 dark:bg-slate-900/20">
+                            {#each folders[folderName] as req (req.id)}
+                                <div class="group relative w-full text-left hover:bg-white dark:hover:bg-slate-700/50 transition-colors p-3 pl-8 cursor-pointer outline-none border-l-2 border-transparent hover:border-indigo-500">
+                                    <button class="absolute inset-0 w-full h-full cursor-pointer z-0" on:click={() => onLoadRequest(req)} aria-label="Load request"></button>
 
-               <button
-                 class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity bg-white/80 dark:bg-slate-800/80 rounded shadow-sm z-20 pointer-events-auto"
-                 on:click|stopPropagation={() => deleteSaved(req.id!)}
-                 aria-label="Delete saved item"
-              >
-                <Trash2 class="w-3.5 h-3.5" />
-              </button>
-            </div>
-          {/each}
+                                    <div class="relative z-10 pointer-events-none">
+                                        <div class="font-medium text-sm text-slate-800 dark:text-slate-200 mb-1">{req.name || 'Untitled'}</div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold {getMethodColor(req.method)}">{req.method}</span>
+                                            <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate max-w-[120px]">{req.url}</div>
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity bg-white/80 dark:bg-slate-800/80 rounded shadow-sm z-20 pointer-events-auto"
+                                        on:click|stopPropagation={() => deleteSaved(req.id!)}
+                                        aria-label="Delete saved item"
+                                    >
+                                        <Trash2 class="w-3.5 h-3.5" />
+                                    </button>
+                                </div>
+                            {/each}
+                        </div>
+                    {/if}
+                </div>
+            {/each}
+
            {#if $saved$.length === 0}
             <div class="p-8 text-center text-slate-400 text-sm">No saved requests.</div>
           {/if}

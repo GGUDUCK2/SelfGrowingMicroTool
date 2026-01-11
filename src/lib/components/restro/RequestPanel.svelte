@@ -33,6 +33,7 @@
       bind:value={url}
       on:keydown={handleKeydown}
       placeholder="https://api.example.com/v1/resource"
+      aria-label={dict.url}
       class="flex-1 rounded-r-lg sm:rounded-r-none border border-slate-300 dark:border-slate-600 dark:bg-slate-800 px-4 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none text-slate-900 dark:text-white font-mono"
     />
   </div>
