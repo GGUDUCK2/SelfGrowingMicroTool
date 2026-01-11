@@ -719,6 +719,36 @@ export const dictionaries = {
             copied: "Copied!",
             saved: "Saved to history!"
         }
+      },
+      restro: {
+        title: "Restro: API Client",
+        description: "A professional-grade API client and testing tool right in your browser. Debug REST APIs, inspect responses, and generate code snippets.",
+        method: "Method",
+        url: "URL",
+        send: "Send",
+        save: "Save",
+        history: "History",
+        collections: "Saved Requests",
+        params: "Params",
+        headers: "Headers",
+        body: "Body",
+        response: "Response",
+        status: "Status",
+        time: "Time",
+        size: "Size",
+        generateCode: "Generate Code",
+        guide: {
+          title: "Why use Restro?",
+          intro: "Restro is a professional-grade API testing tool built directly into your browser. Engineered for performance and privacy, it allows developers to craft complex HTTP requests, debug APIs, and analyze responses without leaving their workflow.",
+          featuresTitle: "Key Features",
+          f1: "**Zero Latency:** Runs locally in your browser. No server round-trips for UI.",
+          f2: "**Privacy First:** Your requests and history are stored in IndexedDB, never on our servers.",
+          f3: "**Developer Friendly:** Syntax highlighting, cURL import/export, and instant code generation.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use **Ctrl/Cmd + Enter** to quickly send a request.",
+          tip2: "Click on any response status code to see a detailed breakdown.",
+          tip3: "Toggle parameters on/off to test different query combinations without deleting them."
+        }
       }
     },
     pwa: {
@@ -1374,6 +1404,36 @@ export const dictionaries = {
         feedback: {
             copied: "복사됨!",
             saved: "기록에 저장되었습니다!"
+        }
+      },
+      restro: {
+        title: "Restro: API 클라이언트",
+        description: "브라우저에서 바로 사용하는 전문가용 API 클라이언트 및 테스트 도구입니다. REST API를 디버깅하고, 응답을 검사하고, 코드 스니펫을 생성하세요.",
+        method: "메서드",
+        url: "URL",
+        send: "보내기",
+        save: "저장",
+        history: "기록",
+        collections: "저장된 요청",
+        params: "파라미터",
+        headers: "헤더",
+        body: "본문 (Body)",
+        response: "응답",
+        status: "상태",
+        time: "시간",
+        size: "크기",
+        generateCode: "코드 생성",
+        guide: {
+          title: "왜 Restro를 사용해야 하나요?",
+          intro: "Restro는 브라우저에 내장된 전문가용 API 테스트 도구입니다. 성능과 개인정보 보호를 위해 설계되었으며, 개발자가 워크플로우를 벗어나지 않고도 복잡한 HTTP 요청을 작성하고 API를 디버깅할 수 있습니다.",
+          featuresTitle: "주요 기능",
+          f1: "**제로 레이턴시:** 브라우저에서 로컬로 실행됩니다. UI를 위한 서버 왕복이 없습니다.",
+          f2: "**개인정보 우선:** 요청과 기록은 IndexedDB에 저장되며 서버로 전송되지 않습니다.",
+          f3: "**개발자 친화적:** 구문 강조, cURL 가져오기/내보내기, 즉각적인 코드 생성.",
+          tipsTitle: "프로 팁",
+          tip1: "**Ctrl/Cmd + Enter**를 사용하여 빠르게 요청을 보내세요.",
+          tip2: "응답 상태 코드를 클릭하여 상세 내역을 확인하세요.",
+          tip3: "파라미터를 삭제하지 않고 켜고 꺼서 다양한 쿼리 조합을 테스트하세요."
         }
       }
     },

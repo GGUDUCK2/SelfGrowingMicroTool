@@ -178,5 +178,20 @@
     "category": "Developer Tools",
     "tags": ["markdown", "editor", "preview", "converter", "html", "writer"],
     "createdAt": "2025-02-07"
+  },
+  {
+    "id": "restro",
+    "slug": "restro",
+    "title": {
+      "en": "Restro: API Client",
+      "ko": "Restro: API 클라이언트"
+    },
+    "description": {
+      "en": "A professional-grade API client and testing tool right in your browser. Debug REST APIs, inspect responses, and generate code snippets.",
+      "ko": "브라우저에서 바로 사용하는 전문가용 API 클라이언트 및 테스트 도구입니다. REST API를 디버깅하고, 응답을 검사하고, 코드 스니펫을 생성하세요."
+    },
+    "category": "Developer Tools",
+    "tags": ["api", "rest", "http", "client", "fetch", "curl", "developer"],
+    "createdAt": "2025-02-08"
   }
 ]
