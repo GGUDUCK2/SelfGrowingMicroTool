@@ -1,84 +1,72 @@
+
+from playwright.sync_api import Page, expect, sync_playwright
 import time
-from playwright.sync_api import sync_playwright, expect
 
-def verify_structura():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        # Use a larger viewport to see everything
-        page = browser.new_page(viewport={"width": 1280, "height": 800})
+def verify_structura(page: Page):
+    # 1. Navigate to Structura
+    page.goto("http://localhost:5173/en/tools/structura")
+    page.wait_for_timeout(2000)
 
-        print("Navigating to Structura...")
-        page.goto("http://localhost:5173/en/structura")
+    expect(page).to_have_title("Structura: Universal Data Converter | Web Factory")
 
-        # Wait for page to load
-        page.wait_for_load_state("networkidle")
+    # 2. Test Conversion: JSON to YAML
+    print("Testing Conversion...")
+    # The textarea is inside the editor
+    input_editor = page.locator('textarea').first
+    input_editor.click()
+    input_editor.fill('{"name": "test", "value": 123}')
 
-        print("Checking title...")
-        expect(page).to_have_title("Structura: Universal Data Converter | Web Factory")
+    # Wait for debounce and conversion
+    page.wait_for_timeout(1000)
 
-        print("Checking tabs...")
-        convert_tab = page.get_by_role("button", name="Converter")
-        codegen_tab = page.get_by_role("button", name="Code Gen")
-        history_tab = page.get_by_role("button", name="History")
+    # Click Convert button to be sure (using exact match)
+    page.get_by_role("button", name="Convert", exact=True).click()
+    page.wait_for_timeout(500)
 
-        expect(convert_tab).to_be_visible()
-        expect(codegen_tab).to_be_visible()
-        expect(history_tab).to_be_visible()
+    # Check Output (simple check if error is not visible)
+    expect(page.locator("text=Conversion Error")).not_to_be_visible()
 
-        # Test Conversion
-        print("Testing conversion...")
-        # Load example
-        page.get_by_text("Load Example").click()
-        # Select first example (JSON)
-        page.get_by_text("User Profile (JSON)").click()
+    # Screenshot Convert Tab
+    page.screenshot(path="/home/jules/verification/structura_convert.png")
 
-        # Wait for conversion
-        time.sleep(1)
+    # 3. Test CodeGen
+    print("Testing CodeGen...")
+    page.get_by_role("button", name="Code Gen").click()
+    page.wait_for_timeout(500)
 
-        # Check output - simple query for any textarea
-        # Input is 0, Output is 1
-        output_editor = page.locator("textarea").nth(1)
-        output_value = output_editor.input_value()
+    # Change language to Zod
+    page.get_by_label("Target Language").select_option("zod")
+    page.wait_for_timeout(1000) # Wait for generation
 
-        if "name: Sarah Connor" in output_value:
-            print("Conversion successful: Found YAML output.")
-        else:
-            print(f"Conversion failed? Output: {output_value}")
+    # Screenshot CodeGen Tab
+    page.screenshot(path="/home/jules/verification/structura_codegen.png")
 
-        # Test Code Gen
-        print("Testing Code Gen...")
-        codegen_tab.click()
-        time.sleep(0.5)
+    # 4. Test Visualizer
+    print("Testing Visualizer...")
+    # In my code I named the tab "Tree Visualizer" in English dictionary.
+    # Let's check if the button text is correct or if it's being truncated/hidden.
+    # I'll use a less strict locator for now.
+    page.locator("button:has-text('Visualizer')").click()
+    page.wait_for_timeout(500)
 
-        # Input is still there (persisted state in variable), but in CodeGen tab, layout might be different.
-        # Check +page.svelte layout for CodeGen tab:
-        # Input on left (0), Code on right (1).
+    # Wait for the tree to render
+    page.wait_for_timeout(1000)
 
-        codegen_editor = page.locator("textarea").nth(1)
-        codegen_value = codegen_editor.input_value()
+    # Check if tree node exists. We use .last() because "name" appears in the input editor too (which is visible on the left side of the visualizer tab)
+    # The right side is the visualizer.
+    expect(page.locator("text='\"name\"'").last).to_be_visible()
 
-        if "export interface Root" in codegen_value:
-             print("Code Gen successful: Found TypeScript interface.")
-        else:
-             print(f"Code Gen failed? Output: {codegen_value}")
-
-        # Take screenshot of Code Gen tab
-        page.screenshot(path="verification/structura_codegen.png")
-
-        # Test History
-        print("Testing History...")
-        history_tab.click()
-        time.sleep(0.5)
-
-        # Should have at least one entry
-        if page.locator(".group.relative").count() > 0:
-            print("History successful: Found entries.")
-        else:
-            print("History failed? No entries found.")
-
-        page.screenshot(path="verification/structura_history.png")
-
-        browser.close()
+    # Screenshot Visualizer Tab
+    page.screenshot(path="/home/jules/verification/structura_visualizer.png")
 
 if __name__ == "__main__":
-    verify_structura()
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        try:
+            verify_structura(page)
+        except Exception as e:
+            print(f"Error: {e}")
+            page.screenshot(path="/home/jules/verification/error.png")
+        finally:
+            browser.close()

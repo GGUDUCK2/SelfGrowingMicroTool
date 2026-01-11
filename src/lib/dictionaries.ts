@@ -607,6 +607,7 @@ export const dictionaries = {
         tabs: {
             convert: "Converter",
             codegen: "Code Gen",
+            visualizer: "Visualizer",
             history: "History"
         },
         codegen: {
@@ -615,10 +616,16 @@ export const dictionaries = {
             generate: "Generate Code",
             name: "Root Name",
             typescript: "TypeScript Interface",
+            zod: "Zod Schema",
             go: "Go Struct",
             python: "Python Dataclass",
+            pydantic: "Pydantic Model (v2)",
             jsonSchema: "JSON Schema",
             copy: "Copy Code"
+        },
+        visualizer: {
+            title: "Tree Visualizer",
+            empty: "Convert or paste valid JSON/YAML to visualize structure."
         },
         examples: {
             label: "Load Example",
@@ -1256,6 +1263,7 @@ export const dictionaries = {
         tabs: {
             convert: "변환기",
             codegen: "코드 생성",
+            visualizer: "시각화",
             history: "기록"
         },
         codegen: {
@@ -1264,10 +1272,16 @@ export const dictionaries = {
             generate: "코드 생성",
             name: "루트 이름",
             typescript: "TypeScript 인터페이스",
+            zod: "Zod 스키마",
             go: "Go 구조체",
             python: "Python 데이터클래스",
+            pydantic: "Pydantic 모델 (v2)",
             jsonSchema: "JSON 스키마",
             copy: "코드 복사"
+        },
+        visualizer: {
+            title: "트리 시각화",
+            empty: "구조를 시각화하려면 유효한 JSON/YAML을 변환하거나 붙여넣으세요."
         },
         examples: {
             label: "예제 불러오기",
