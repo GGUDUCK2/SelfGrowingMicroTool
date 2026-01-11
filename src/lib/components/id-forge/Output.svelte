@@ -26,10 +26,20 @@
     }
   });
 
+  // Store copied state for each ID separately if needed, but for simplicity
+  // we can just use a global toast or a mapped state.
+  // Given the requirement for "Toast notification (Top Right)", let's implement a global toast.
+  let showToast = false;
+  let toastMessage = '복사됨!';
+
   async function copyText(text: string) {
     await navigator.clipboard.writeText(text);
     copied = true;
-    setTimeout(() => copied = false, 2000);
+    showToast = true;
+    setTimeout(() => {
+        copied = false;
+        showToast = false;
+    }, 2000);
   }
 
   function download(fmtOverride?: any) {
@@ -60,6 +70,13 @@
     }
   }
 </script>
+
+{#if showToast}
+    <div transition:fade class="fixed top-4 right-4 z-50 bg-slate-800 text-white px-4 py-2 rounded shadow-lg flex items-center gap-2 border border-slate-700">
+        <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <span class="font-medium">{toastMessage}</span>
+    </div>
+{/if}
 
 {#if output}
   <div transition:fade class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col h-[500px]">
