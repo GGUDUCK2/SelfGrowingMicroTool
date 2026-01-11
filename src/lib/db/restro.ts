@@ -14,6 +14,7 @@ export interface RestroRequest {
   responseSize?: number;
   isFavorite?: boolean;
   name?: string; // For saved collections
+  folder?: string; // For organizing into folders
 }
 
 export class RestroDB extends Dexie {
@@ -24,7 +25,15 @@ export class RestroDB extends Dexie {
     super('RestroDB');
     this.version(1).stores({
       history: '++id, timestamp, method, url',
-      collections: '++id, name, timestamp'
+      collections: '++id, name, timestamp, folder'
+    });
+    this.version(2).stores({
+      history: '++id, timestamp, method, url',
+      collections: '++id, name, timestamp, folder'
+    }).upgrade(tx => {
+      return tx.table('collections').toCollection().modify(item => {
+        if (!item.folder) item.folder = 'Default';
+      });
     });
   }
 }

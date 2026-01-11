@@ -5,8 +5,8 @@
   import RequestTabs from '$lib/components/restro/RequestTabs.svelte';
   import ResponsePanel from '$lib/components/restro/ResponsePanel.svelte';
   import HistorySidebar from '$lib/components/restro/HistorySidebar.svelte';
-  import { executeRequest, type HttpResponse } from '$lib/utils/restro/client';
-  import { generateCurl, generateFetch } from '$lib/utils/restro/code-gen';
+  import { executeRequest, substituteVariables, type HttpResponse } from '$lib/utils/restro/client';
+  import { generateCurl, generateFetch, generateMarkdownDocs } from '$lib/utils/restro/code-gen';
   import { db, addToHistory, type RestroRequest } from '$lib/db/restro';
   import { Code, Share2, Menu, X } from 'lucide-svelte';
   import { getDictionary } from '$lib/dictionaries';
@@ -15,7 +15,10 @@
   // Ensure dict is always available
   $: lang = $page.params.lang || 'en';
   // Fallback to English if dict is missing or loading
-  $: dict = (getDictionary(lang) || getDictionary('en')).restro;
+  $: dictionary = getDictionary(lang) || getDictionary('en');
+  $: dict = dictionary?.tools?.restro;
+
+  $: if (!dict) console.error("Restro dictionary missing for lang:", lang);
 
   let method = 'GET';
   let url = '';
@@ -25,6 +28,7 @@
   let bodyContent = '';
 
   let response: HttpResponse | null = null;
+  let lastResponse: HttpResponse | null = null; // For chaining
   let loading = false;
   let showSidebar = false;
   let showCodeModal = false;
@@ -49,11 +53,18 @@
     if (!url) return;
     loading = true;
 
+    // Variable substitution
+    const sub = (s: string) => substituteVariables(s, lastResponse);
+
     // Construct final URL
-    let finalUrl = url;
+    let finalUrl = sub(url);
+    const finalParams = params.map(p => ({ ...p, value: sub(p.value) }));
+    const finalHeaders = headers.map(h => ({ ...h, value: sub(h.value) }));
+    const finalBody = sub(bodyContent);
+
     try {
        // If URL doesn't start with http, assume https (unless localhost)
-       if (!finalUrl.startsWith('http')) {
+       if (!finalUrl.startsWith('http') && !finalUrl.startsWith('{{')) {
            finalUrl = 'https://' + finalUrl;
            // If user typed "localhost:5173", we should probably default to http
            if (url.includes('localhost') || url.includes('127.0.0.1')) {
@@ -62,7 +73,7 @@
        }
 
        const urlObj = new URL(finalUrl);
-       params.forEach(p => {
+       finalParams.forEach(p => {
          if (p.enabled && p.key) {
            urlObj.searchParams.append(p.key, p.value);
          }
@@ -75,20 +86,24 @@
     const reqData: RestroRequest = {
       method,
       url: finalUrl,
-      headers: headers.map(h => ({ ...h })),
-      params: params.map(p => ({ ...p })),
+      headers: finalHeaders.map(h => ({ ...h })),
+      params: finalParams.map(p => ({ ...p })),
       bodyType,
-      bodyContent,
+      bodyContent: finalBody,
       timestamp: Date.now()
     };
 
     response = await executeRequest(
       method,
       finalUrl,
-      headers,
+      finalHeaders,
       bodyType,
-      bodyContent
+      finalBody
     );
+
+    if (response.ok) {
+        lastResponse = response;
+    }
 
     // Add to history
     await addToHistory({
@@ -102,8 +117,16 @@
   }
 
   async function handleSave() {
-    const name = prompt(dict.save + ':');
-    if (name) {
+    const input = prompt(dict.save + ' (Name or Folder/Name):', 'My Request');
+    if (input) {
+       let folder = 'Default';
+       let name = input;
+       if (input.includes('/')) {
+           const parts = input.split('/');
+           folder = parts[0].trim();
+           name = parts.slice(1).join('/').trim();
+       }
+
        await db.collections.add({
          method,
          url,
@@ -112,9 +135,11 @@
          bodyType,
          bodyContent,
          timestamp: Date.now(),
-         name
+         name,
+         folder
        });
-       alert(dict.save + '!');
+       // alert(dict.saved); // Dictionary update needed, using fallback
+       alert('Saved!');
     }
   }
 
@@ -134,12 +159,16 @@
     bodyType = req.bodyType;
     bodyContent = req.bodyContent;
 
+    // If request has a stored folder, we don't need to do anything special here
+    // unless we want to show it in UI.
+
     showSidebar = false;
   }
 
   // Snippets
   let snippetCurl = '';
   let snippetFetch = '';
+  let snippetDocs = '';
 
   $: {
     const req: RestroRequest = {
@@ -148,7 +177,7 @@
     // We need constructed URL for snippets
     let finalUrl = url;
     try {
-        if (finalUrl && !finalUrl.startsWith('http')) finalUrl = 'https://' + finalUrl;
+        if (finalUrl && !finalUrl.startsWith('http') && !finalUrl.startsWith('{{')) finalUrl = 'https://' + finalUrl;
         const u = new URL(finalUrl || 'http://localhost');
         params.forEach(p => { if (p.enabled && p.key) u.searchParams.append(p.key, p.value); });
         req.url = u.toString();
@@ -156,6 +185,7 @@
 
     snippetCurl = generateCurl(req);
     snippetFetch = generateFetch(req);
+    snippetDocs = generateMarkdownDocs(req);
   }
 
   function copySnippet(txt: string) {
@@ -164,8 +194,41 @@
 </script>
 
 <svelte:head>
-  <title>{dict?.title ?? 'Restro'}</title>
+  <title>{dict?.title ?? 'Restro'} | MicroFactory</title>
   <meta name="description" content={dict?.description ?? 'API Client'} />
+  <meta name="keywords" content="api client, rest, http, testing, debug, fetch, curl, developer tools" />
+
+  <meta property="og:title" content={dict?.title ?? 'Restro'} />
+  <meta property="og:description" content={dict?.description ?? 'Professional API Client in your browser.'} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={$page.url.href} />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={dict?.title ?? 'Restro'} />
+  <meta name="twitter:description" content={dict?.description ?? 'Professional API Client in your browser.'} />
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "${dict?.title ?? 'Restro'}",
+    "description": "${dict?.description ?? 'API Client'}",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Client-side API Testing",
+      "Request Chaining",
+      "Code Generation",
+      "Offline History",
+      "Smart Variable Substitution"
+    ]
+  }
+  </script>`}
 </svelte:head>
 
 {#if dict}
@@ -269,6 +332,14 @@
             <button on:click={() => copySnippet(snippetFetch)} class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Copy</button>
           </div>
           <pre class="bg-slate-100 dark:bg-slate-900 p-4 rounded-lg text-xs font-mono overflow-x-auto text-slate-800 dark:text-slate-200">{snippetFetch}</pre>
+        </div>
+
+        <div>
+           <div class="flex items-center justify-between mb-2">
+            <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Markdown Docs</label>
+            <button on:click={() => copySnippet(snippetDocs)} class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Copy</button>
+          </div>
+          <pre class="bg-slate-100 dark:bg-slate-900 p-4 rounded-lg text-xs font-mono overflow-x-auto text-slate-800 dark:text-slate-200 whitespace-pre-wrap">{snippetDocs}</pre>
         </div>
       </div>
     </div>

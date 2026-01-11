@@ -59,3 +59,33 @@ export function generateFetch(req: RestroRequest): string {
   headers: ${headersStr},${bodyStr}
 });`;
 }
+
+export function generateMarkdownDocs(req: RestroRequest): string {
+  const method = req.method.toUpperCase();
+  const url = req.url;
+
+  let md = `### ${method} ${url}\n\n`;
+
+  if (req.headers && req.headers.some(h => h.enabled)) {
+      md += `**Headers**\n\n| Key | Value |\n|---|---|\n`;
+      req.headers.forEach(h => {
+          if (h.enabled) md += `| ${h.key} | ${h.value} |\n`;
+      });
+      md += `\n`;
+  }
+
+  if (req.params && req.params.some(p => p.enabled)) {
+      md += `**Query Parameters**\n\n| Key | Value |\n|---|---|\n`;
+      req.params.forEach(p => {
+          if (p.enabled) md += `| ${p.key} | ${p.value} |\n`;
+      });
+      md += `\n`;
+  }
+
+  if (req.method !== 'GET' && req.method !== 'HEAD' && req.bodyType !== 'none' && req.bodyContent) {
+      const lang = req.bodyType === 'json' ? 'json' : 'text';
+      md += `**Body** (${req.bodyType})\n\n\`\`\`${lang}\n${req.bodyContent}\n\`\`\`\n`;
+  }
+
+  return md;
+}
