@@ -45,11 +45,15 @@ export const addToHistory = async (record: Omit<ConversionRecord, 'id' | 'timest
     });
 
     // Prune history (keep last 50 non-favorites)
-    const count = await db.history.where('isFavorite').equals(0).count();
-    if (count > 50) {
-      const limit = count - 50;
-      const keys = await db.history.where('isFavorite').equals(0).orderBy('timestamp').limit(limit).primaryKeys();
-      await db.history.bulkDelete(keys);
+    const nonFavorites = await db.history.where('isFavorite').equals(0).toArray();
+    if (nonFavorites.length > 50) {
+      // Sort by timestamp ascending (oldest first)
+      nonFavorites.sort((a, b) => a.timestamp - b.timestamp);
+
+      const itemsToDelete = nonFavorites.slice(0, nonFavorites.length - 50);
+      const keysToDelete = itemsToDelete.map(item => item.id!);
+
+      await db.history.bulkDelete(keysToDelete);
     }
   } catch (error) {
     console.error('Failed to add to history:', error);

@@ -1,9 +1,10 @@
 <script lang="ts">
   import { liveQuery } from 'dexie';
   import { db, toggleFavorite, clearHistory, type ConversionRecord } from '$lib/db/unit-verse';
-  import { Star, Trash2, RotateCcw } from 'lucide-svelte';
+  import { Star, Trash2, RotateCcw, Download } from 'lucide-svelte';
   import { slide } from 'svelte/transition';
   import { createEventDispatcher } from 'svelte';
+  import Papa from 'papaparse';
 
   export let t: any;
   const dispatch = createEventDispatcher();
@@ -23,6 +24,30 @@
       if (Math.abs(val) < 1e-6 && val !== 0) return val.toExponential(4);
       return parseFloat(val.toFixed(6));
   }
+
+  async function exportHistory() {
+      if (!$history || $history.length === 0) return;
+
+      const data = $history.map(item => ({
+          Category: item.categoryId,
+          From_Value: item.fromValue,
+          From_Unit: item.fromUnitId,
+          To_Value: item.resultValue,
+          To_Unit: item.toUnitId,
+          Date: new Date(item.timestamp).toISOString(),
+          Favorite: item.isFavorite ? 'Yes' : 'No'
+      }));
+
+      const csv = Papa.unparse(data);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `unit_verse_history_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  }
 </script>
 
 <div class="bg-slate-800 rounded-2xl shadow-xl border border-slate-700 overflow-hidden flex flex-col h-full">
@@ -31,13 +56,27 @@
       <RotateCcw size={18} class="mr-2 text-indigo-400" />
       {t.history}
     </h3>
-    <button
-      on:click={clearHistory}
-      class="text-xs text-red-400 hover:text-red-300 transition-colors flex items-center px-2 py-1 rounded hover:bg-red-900/20"
-    >
-      <Trash2 size={12} class="mr-1" />
-      {t.clear}
-    </button>
+
+    <div class="flex items-center space-x-1">
+        {#if $history && $history.length > 0}
+            <button
+                on:click={exportHistory}
+                class="p-1.5 text-slate-400 hover:text-indigo-400 hover:bg-slate-700 rounded transition-colors"
+                title={t.export || "Export CSV"}
+                aria-label={t.export || "Export CSV"}
+            >
+                <Download size={14} />
+            </button>
+        {/if}
+        <button
+          on:click={clearHistory}
+          class="text-xs text-red-400 hover:text-red-300 transition-colors flex items-center px-2 py-1 rounded hover:bg-red-900/20"
+          aria-label={t.clear}
+        >
+          <Trash2 size={12} class="mr-1" />
+          {t.clear}
+        </button>
+    </div>
   </div>
 
   <div class="overflow-y-auto flex-1 max-h-[400px] p-2 space-y-2 custom-scrollbar">
@@ -63,6 +102,7 @@
           <button
             class="w-full text-left"
             on:click={() => restore(item)}
+            aria-label="Restore conversion"
           >
               <div class="flex items-center space-x-2 text-sm">
                   <span class="text-white font-mono">{formatValue(item.fromValue)} {item.fromUnitId}</span>
