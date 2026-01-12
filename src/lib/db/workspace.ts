@@ -1,79 +1,165 @@
-import { db, type CipherHistory, type StructuraHistory } from '$lib/db';
-import type { Table } from 'dexie';
+import Dexie, { type Table } from 'dexie';
+import { db, type CipherHistory, type StructuraHistory } from '../db'; // Import from src/lib/db.ts
+import { liveQuery } from 'dexie';
 
-/**
- * Generic Tool Workspace Manager
- * Handles history management (save, load, delete) with a unified interface.
- */
-export class ToolWorkspace<T extends { id?: number; createdAt: Date; starred?: number; input?: string }> {
-  constructor(private table: Table<T>) {}
+export interface ToolHistoryItem<T = any, R = any> {
+  id?: number;
+  toolId: string;
+  input: T;
+  result: R;
+  timestamp: number;
+  starred: boolean;
+  name?: string; // Optional name for starred items
+}
 
-  /**
-   * Saves an item to history, maintaining a limit of 100 non-starred items.
-   */
-  async save(item: Omit<T, 'id' | 'createdAt'>): Promise<number> {
-    const newItem = {
-      ...item,
-      createdAt: new Date(),
-      starred: 0
-    } as T;
+export class ToolWorkspace extends Dexie {
+  history!: Table<ToolHistoryItem>;
 
-    const id = await this.table.add(newItem);
-
-    // Prune old history
-    await this.prune();
-
-    return id as number;
-  }
-
-  /**
-   * Prunes history to keep only the latest 100 non-starred items.
-   */
-  async prune(limit = 100): Promise<void> {
-    const count = await this.table.where('starred').equals(0).count();
-    if (count > limit) {
-      const deleteCount = count - limit;
-      // Get the oldest non-starred items
-      const keys = await this.table
-        .where('starred')
-        .equals(0)
-        .sortBy('createdAt');
-
-      const keysToDelete = keys.slice(0, deleteCount).map(k => k.id!);
-      await this.table.bulkDelete(keysToDelete);
-    }
-  }
-
-  /**
-   * Loads history sorted by creation date descending.
-   */
-  async loadHistory(limit = 50): Promise<T[]> {
-    return await this.table
-      .orderBy('createdAt')
-      .reverse()
-      .limit(limit)
-      .toArray();
-  }
-
-  /**
-   * Toggles the starred status of an item.
-   */
-  async toggleStar(id: number): Promise<void> {
-    const item = await this.table.get(id);
-    if (item) {
-      await this.table.update(id, { starred: item.starred ? 0 : 1 } as any);
-    }
-  }
-
-  async delete(id: number): Promise<void> {
-    await this.table.delete(id);
-  }
-
-  async clear(): Promise<void> {
-    await this.table.clear();
+  constructor() {
+    super('MicroFactoryWorkspace');
+    this.version(1).stores({
+      history: '++id, toolId, timestamp, starred, [toolId+starred]'
+    });
   }
 }
 
-// Singleton instances for specific tools can be exported here if needed
-export const cipherWorkspace = new ToolWorkspace<CipherHistory>(db.cipherHistory);
-export const structuraWorkspace = new ToolWorkspace<StructuraHistory>(db.structuraHistory);
+export const workspace = new ToolWorkspace();
+
+export async function saveToHistory<T, R>(
+    toolId: string,
+    input: T,
+    result: R
+) {
+    // Add new item
+    await workspace.history.add({
+        toolId,
+        input,
+        result,
+        timestamp: Date.now(),
+        starred: false
+    });
+
+    // Prune old non-starred items (keep max 100 per tool)
+    // We only count non-starred items for pruning
+    const count = await workspace.history
+        .where({ toolId, starred: 0 }) // 0 is false in IndexedDB index
+        .count();
+
+    if (count > 100) {
+        // Delete oldest non-starred
+        const oldest = await workspace.history
+            .where({ toolId, starred: 0 })
+            .sortBy('timestamp');
+
+        const toDelete = oldest.slice(0, count - 100);
+        await workspace.history.bulkDelete(toDelete.map(i => i.id!));
+    }
+}
+
+export async function toggleStar(id: number) {
+    const item = await workspace.history.get(id);
+    if (item) {
+        await workspace.history.update(id, { starred: !item.starred });
+    }
+}
+
+export async function deleteHistoryItem(id: number) {
+    await workspace.history.delete(id);
+}
+
+export async function clearHistory(toolId: string) {
+    // Only clear non-starred
+    await workspace.history
+        .where({ toolId, starred: 0 })
+        .delete();
+}
+
+export function getHistoryObservable(toolId: string) {
+    return workspace.history
+        .where('toolId')
+        .equals(toolId)
+        .reverse()
+        .sortBy('timestamp');
+}
+
+// Restore CipherWorkspace functionality using the EXISTING db (webFactoryDB)
+export class CipherWorkspaceAdapter {
+  async save(item: Omit<CipherHistory, 'id' | 'createdAt' | 'starred'>) {
+    // Use the existing main DB
+    await db.cipherHistory.add({
+      ...item,
+      createdAt: new Date(),
+      starred: 0
+    });
+
+    // Prune
+    const count = await db.cipherHistory.where('starred').equals(0).count();
+    if (count > 100) {
+       const oldest = await db.cipherHistory.orderBy('createdAt').limit(count - 100).keys();
+       await db.cipherHistory.bulkDelete(oldest as number[]);
+    }
+  }
+
+  loadHistory(limit: number) {
+     return db.cipherHistory.orderBy('createdAt').reverse().limit(limit).toArray();
+  }
+
+  async delete(id: number) {
+    await db.cipherHistory.delete(id);
+  }
+
+  async toggleStar(id: number) {
+    const item = await db.cipherHistory.get(id);
+    if (item) {
+        await db.cipherHistory.update(id, { starred: item.starred ? 0 : 1 });
+    }
+  }
+
+  async clear() {
+      // Delete only non-starred
+      const nonStarred = await db.cipherHistory.where('starred').equals(0).primaryKeys();
+      await db.cipherHistory.bulkDelete(nonStarred);
+  }
+}
+
+export const cipherWorkspace = new CipherWorkspaceAdapter();
+
+// Restore StructuraWorkspace functionality
+export class StructuraWorkspaceAdapter {
+  async save(item: Omit<StructuraHistory, 'id' | 'createdAt' | 'starred'>) {
+    await db.structuraHistory.add({
+      ...item,
+      createdAt: new Date(),
+      starred: 0
+    });
+
+    // Prune
+    const count = await db.structuraHistory.where('starred').equals(0).count();
+    if (count > 100) {
+       const oldest = await db.structuraHistory.orderBy('createdAt').limit(count - 100).keys();
+       await db.structuraHistory.bulkDelete(oldest as number[]);
+    }
+  }
+
+  loadHistory(limit: number) {
+     return db.structuraHistory.orderBy('createdAt').reverse().limit(limit).toArray();
+  }
+
+  async delete(id: number) {
+    await db.structuraHistory.delete(id);
+  }
+
+  async toggleStar(id: number) {
+    const item = await db.structuraHistory.get(id);
+    if (item) {
+        await db.structuraHistory.update(id, { starred: item.starred ? 0 : 1 });
+    }
+  }
+
+  async clear() {
+      const nonStarred = await db.structuraHistory.where('starred').equals(0).primaryKeys();
+      await db.structuraHistory.bulkDelete(nonStarred);
+  }
+}
+
+export const structuraWorkspace = new StructuraWorkspaceAdapter();

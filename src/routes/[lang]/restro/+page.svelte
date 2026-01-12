@@ -5,12 +5,15 @@
   import RequestTabs from '$lib/components/restro/RequestTabs.svelte';
   import ResponsePanel from '$lib/components/restro/ResponsePanel.svelte';
   import HistorySidebar from '$lib/components/restro/HistorySidebar.svelte';
-  import { executeRequest, substituteVariables, type HttpResponse } from '$lib/utils/restro/client';
+  import VariableManager from '$lib/components/restro/VariableManager.svelte';
+  import BatchRunner from '$lib/components/restro/BatchRunner.svelte';
+  import { executeRequest, sub, type HttpResponse } from '$lib/utils/restro/client';
   import { generateCurl, generateFetch, generateMarkdownDocs } from '$lib/utils/restro/code-gen';
   import { db, addToHistory, type RestroRequest } from '$lib/db/restro';
-  import { Code, Share2, Menu, X } from 'lucide-svelte';
+  import { Code, Share2, Menu, X, Settings2, PlayCircle } from 'lucide-svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
+  import { liveQuery } from 'dexie';
 
   // Ensure dict is always available
   $: lang = $page.params.lang || 'en';
@@ -32,6 +35,11 @@
   let loading = false;
   let showSidebar = false;
   let showCodeModal = false;
+  let showVariables = false;
+  let showBatch = false;
+
+  let variables$ = liveQuery(() => db.variables.where('enabled').equals(1).toArray());
+  let savedRequests$ = liveQuery(() => db.collections.toArray());
 
   function parseUrlParams() {
     try {
@@ -53,14 +61,17 @@
     if (!url) return;
     loading = true;
 
-    // Variable substitution
-    const sub = (s: string) => substituteVariables(s, lastResponse);
+    // Get current global vars
+    const globalVars = ($variables$ || []).map(v => ({ key: v.key, value: v.value }));
+
+    // Helper to run substitution
+    const doSub = async (s: string) => await sub(s, lastResponse, globalVars);
 
     // Construct final URL
-    let finalUrl = sub(url);
-    const finalParams = params.map(p => ({ ...p, value: sub(p.value) }));
-    const finalHeaders = headers.map(h => ({ ...h, value: sub(h.value) }));
-    const finalBody = sub(bodyContent);
+    let finalUrl = await doSub(url);
+    const finalParams = await Promise.all(params.map(async p => ({ ...p, value: await doSub(p.value) })));
+    const finalHeaders = await Promise.all(headers.map(async h => ({ ...h, value: await doSub(h.value) })));
+    const finalBody = await doSub(bodyContent);
 
     try {
        // If URL doesn't start with http, assume https (unless localhost)
@@ -191,7 +202,16 @@
   function copySnippet(txt: string) {
     navigator.clipboard.writeText(txt);
   }
+
+  function handleKeydown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+          showCodeModal = false;
+          showBatch = false;
+      }
+  }
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
   <title>{dict?.title ?? 'Restro'} | MicroFactory</title>
@@ -225,7 +245,9 @@
       "Request Chaining",
       "Code Generation",
       "Offline History",
-      "Smart Variable Substitution"
+      "Smart Variable Substitution",
+      "Batch Runner",
+      "Environment Variables"
     ]
   }
   </script>`}
@@ -258,18 +280,34 @@
   <div class="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
     <!-- Toolbar -->
     <div class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-2 flex items-center gap-2 justify-between">
-       <button
-         class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"
-         on:click={() => showSidebar = true}
-       >
-         <Menu class="w-5 h-5" />
-       </button>
+       <div class="flex items-center gap-2">
+           <button
+             class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"
+             on:click={() => showSidebar = true}
+           >
+             <Menu class="w-5 h-5" />
+           </button>
 
-       <h1 class="text-lg font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent hidden sm:block px-2">
-         Restro <span class="text-xs font-medium text-slate-500 dark:text-slate-400 font-mono">v1.0</span>
-       </h1>
+           <h1 class="text-lg font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent hidden sm:block px-2">
+             Restro <span class="text-xs font-medium text-slate-500 dark:text-slate-400 font-mono">v1.1</span>
+           </h1>
+       </div>
 
        <div class="flex items-center gap-2">
+         <button
+            on:click={() => showBatch = true}
+            class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            title="Batch Runner"
+         >
+             <PlayCircle class="w-4 h-4" /> <span class="hidden sm:inline">Runner</span>
+         </button>
+         <button
+            on:click={() => showVariables = true}
+            class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            title="Variables"
+         >
+             <Settings2 class="w-4 h-4" /> <span class="hidden sm:inline">Env</span>
+         </button>
          <button
            on:click={() => showCodeModal = true}
            class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
@@ -305,6 +343,37 @@
     </div>
   </div>
 </div>
+
+<!-- Variable Manager Modal -->
+{#if showVariables}
+    <VariableManager onClose={() => showVariables = false} />
+{/if}
+
+<!-- Batch Runner Modal -->
+{#if showBatch}
+  <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden">
+      <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
+        <h3 class="font-bold text-lg text-slate-800 dark:text-white">Batch Collection Runner</h3>
+        <button on:click={() => showBatch = false} class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+          <X class="w-5 h-5" />
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-6">
+          {#if $savedRequests$ && $savedRequests$.length > 0}
+            <BatchRunner requests={$savedRequests$} />
+          {:else}
+            <div class="text-center py-8 text-slate-500">
+                <p>No saved collections found.</p>
+                <p class="text-sm mt-2">Save requests to your collection to run them in batch.</p>
+            </div>
+          {/if}
+      </div>
+    </div>
+  </div>
+{/if}
+
 
 <!-- Code Snippet Modal -->
 {#if showCodeModal}

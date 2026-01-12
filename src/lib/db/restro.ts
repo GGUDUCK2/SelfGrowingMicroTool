@@ -17,9 +17,17 @@ export interface RestroRequest {
   folder?: string; // For organizing into folders
 }
 
+export interface RestroVariable {
+  id?: number;
+  key: string;
+  value: string;
+  enabled: boolean;
+}
+
 export class RestroDB extends Dexie {
   history!: Table<RestroRequest>;
   collections!: Table<RestroRequest>;
+  variables!: Table<RestroVariable>;
 
   constructor() {
     super('RestroDB');
@@ -35,6 +43,11 @@ export class RestroDB extends Dexie {
         if (!item.folder) item.folder = 'Default';
       });
     });
+    this.version(3).stores({
+      history: '++id, timestamp, method, url',
+      collections: '++id, name, timestamp, folder',
+      variables: '++id, key, enabled'
+    });
   }
 }
 
@@ -42,7 +55,9 @@ export const db = new RestroDB();
 
 // Helper to add request to history (limits to 100 items)
 export async function addToHistory(req: RestroRequest) {
-  await db.history.add({ ...req, id: undefined, timestamp: Date.now() });
+  // Omit id so it auto-increments
+  const { id, ...reqData } = req;
+  await db.history.add({ ...reqData, timestamp: Date.now() });
   const count = await db.history.count();
   if (count > 100) {
     const oldest = await db.history.orderBy('timestamp').limit(count - 100).keys();

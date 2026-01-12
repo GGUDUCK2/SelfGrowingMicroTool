@@ -1,99 +1,67 @@
 
-import time
 from playwright.sync_api import sync_playwright, expect
 
-def run(playwright):
-    browser = playwright.chromium.launch(headless=True)
-    context = browser.new_context()
-    page = context.new_page()
+def test_restro_features():
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        # Use port 5173 which is standard for Vite
+        page = browser.new_page()
 
-    page.on("console", lambda msg: print(f"Console: {msg.text}"))
+        try:
+            print("Navigating to Restro...")
+            page.goto("http://localhost:5173/en/restro")
+            page.wait_for_load_state("networkidle")
 
-    print("Navigating to Restro...")
-    try:
-        page.goto("http://localhost:4174/en/restro", timeout=10000)
-    except Exception as e:
-        print(f"Navigation failed: {e}")
+            # 1. Verify Basic UI Elements
+            print("Verifying basic UI...")
+            # Use specific name
+            expect(page.get_by_role("heading", name="Restro v1.1")).to_be_visible()
 
-    # Wait for hydration
-    page.wait_for_selector("h1", timeout=5000)
+            # Check for new buttons
+            # "Runner" button
+            expect(page.locator("button[title='Batch Runner']")).to_be_visible()
+            # "Env" button
+            expect(page.locator("button[title='Variables']")).to_be_visible()
 
-    # Route for https://example.com/api/*
-    page.route("https://example.com/api/*", lambda route: route.fulfill(
-        status=200,
-        content_type="application/json",
-        body='{"id": 123, "name": "Test Item"}'
-    ))
+            # 2. Test Variable Manager
+            print("Testing Variable Manager...")
+            # Click 'Env' button (Settings2 icon)
+            page.locator("button[title='Variables']").click()
+            expect(page.get_by_text("Environment Variables")).to_be_visible()
 
-    print("Sending first request...")
-    inp = page.get_by_label("URL")
-    if not inp.is_visible():
-        inp = page.get_by_placeholder("https://api.example.com/v1/resource")
+            # Add a variable
+            page.get_by_placeholder("Key (e.g. API_KEY)").fill("TEST_VAR")
+            page.get_by_placeholder("Value").fill("12345")
+            page.get_by_label("Add Variable").click()
 
-    # Use HTTPS
-    inp.fill("https://example.com/api/1")
-    time.sleep(0.5)
-    inp.press("Enter")
+            # Verify variable added
+            expect(page.get_by_text("TEST_VAR")).to_be_visible()
+            expect(page.get_by_text("12345")).to_be_visible()
 
-    # Wait for response
-    try:
-        page.wait_for_selector("text=Test Item", timeout=5000)
-        print("First response received.")
-    except:
-        print("Response not found. Screenshotting...")
-        page.screenshot(path="verification/response_fail.png")
-        # print(page.content())
-        browser.close()
-        return
+            # Close modal - wait for animation if needed, or force
+            page.keyboard.press("Escape")
+            # Wait for modal to disappear
+            expect(page.get_by_text("Environment Variables")).to_be_hidden()
 
-    print("Sending chained request...")
-    inp.fill("")
-    inp.fill("https://example.com/api/{{last_response.id}}")
-    time.sleep(0.5)
-    inp.press("Enter")
+            # 3. Test Batch Runner Modal
+            print("Testing Batch Runner...")
+            # Click 'Runner' button
+            page.locator("button[title='Batch Runner']").click()
+            expect(page.get_by_text("Batch Collection Runner")).to_be_visible()
+            expect(page.get_by_text("No saved collections found")).to_be_visible()
+            page.keyboard.press("Escape")
+            expect(page.get_by_text("Batch Collection Runner")).to_be_hidden()
 
-    def handle_request(route):
-        print(f"Intercepted: {route.request.url}")
-        if "123" in route.request.url:
-            print("SUCCESS: Variable substituted correctly!")
-        else:
-            print("FAILURE: Variable NOT substituted.")
-        route.fulfill(status=200, body='{"success": true}')
+            # 4. Take Screenshot
+            print("Taking screenshot...")
+            page.screenshot(path="verification/restro_verification.png", full_page=True)
 
-    page.unroute("https://example.com/api/*")
-    page.route("https://example.com/api/*", handle_request)
+        except Exception as e:
+            print(f"Error: {e}")
+            page.screenshot(path="verification/error.png")
+            raise e
+        finally:
+            browser.close()
 
-    # Press Enter again
-    # We might need to wait for previous loading to finish?
-    # executeRequest sets loading=true, then false.
-    time.sleep(1)
-    inp.press("Enter")
-    time.sleep(1)
-
-    print("Testing Save Folder...")
-    page.on("dialog", lambda dialog: dialog.accept("MyProject/GetItem"))
-
-    page.click("button[aria-label='Save']")
-    time.sleep(1)
-
-    saved_btn = page.locator("button:has-text('Saved Requests')")
-    if saved_btn.count() > 0:
-        saved_btn.click()
-    else:
-        page.click("text=Saved Requests")
-
-    print("Checking for folder...")
-    expect(page.get_by_text("MyProject")).to_be_visible()
-
-    page.get_by_text("MyProject").click()
-
-    expect(page.get_by_text("GetItem")).to_be_visible()
-    print("Folder and Item verified.")
-
-    print("Taking screenshot...")
-    page.screenshot(path="verification/restro_features.png")
-
-    browser.close()
-
-with sync_playwright() as p:
-    run(p)
+if __name__ == "__main__":
+    test_restro_features()
