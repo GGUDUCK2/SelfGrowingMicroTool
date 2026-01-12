@@ -1,67 +1,67 @@
 
 > web-factory-svelte@0.0.1 dev
-> vite dev --port 4174
+> vite dev
 
-8:12:25 PM [vite] (client) Forced re-optimization of dependencies
+12:36:34 AM [vite] (client) Forced re-optimization of dependencies
 
-  VITE v6.4.1  ready in 2075 ms
+  VITE v6.4.1  ready in 1092 ms
 
-  ➜  Local:   http://localhost:4174/
+  ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
-8:13:07 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:320:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-8:13:07 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:328:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-8:13:07 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:336:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
+
+[1;31m[404] GET /en/tools/restro[0m
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
-8:13:29 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:320:12 A form label must be associated with a control
+12:38:11 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:383:12 A form label must be associated with a control
 https://svelte.dev/e/a11y_label_has_associated_control
-8:13:29 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:328:12 A form label must be associated with a control
+12:38:11 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:391:12 A form label must be associated with a control
 https://svelte.dev/e/a11y_label_has_associated_control
-8:13:29 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:336:12 A form label must be associated with a control
+12:38:11 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:399:12 A form label must be associated with a control
 https://svelte.dev/e/a11y_label_has_associated_control
+12:38:24 AM [vite-plugin-svelte] src/lib/components/restro/BatchRunner.svelte:8:13 Component has unused export property 'onFinished'. If it is for external reference only, please consider using `export const onFinished`
+https://svelte.dev/e/export_let_unused
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
-8:18:12 PM [vite] (client) hmr update /src/routes/[lang]/restro/+page.svelte, /src/app.css
-8:18:12 PM [vite] (ssr) page reload src/routes/[lang]/restro/+page.svelte
-8:18:21 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:323:12 A form label must be associated with a control
+12:38:25 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:383:12 A form label must be associated with a control
 https://svelte.dev/e/a11y_label_has_associated_control
-8:18:21 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:331:12 A form label must be associated with a control
+12:38:25 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:391:12 A form label must be associated with a control
 https://svelte.dev/e/a11y_label_has_associated_control
-8:18:21 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:339:12 A form label must be associated with a control
+12:38:25 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:399:12 A form label must be associated with a control
 https://svelte.dev/e/a11y_label_has_associated_control
-Restro dictionary missing for lang: en
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-8:18:22 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:323:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-8:18:22 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:331:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-8:18:22 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:339:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-8:18:39 PM [vite] (client) hmr update /src/routes/[lang]/restro/+page.svelte, /src/app.css
-8:18:39 PM [vite] (ssr) page reload src/routes/[lang]/restro/+page.svelte
-8:18:46 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:323:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-8:18:46 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:331:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-8:18:46 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:339:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-8:19:37 PM [vite] (client) hmr update /src/lib/components/restro/RequestPanel.svelte, /src/app.css
-8:19:37 PM [vite] (ssr) page reload src/lib/components/restro/RequestPanel.svelte
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-8:20:00 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:323:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-8:20:00 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:331:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-8:20:00 PM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:339:12 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
+12:38:25 AM [vite-plugin-svelte] src/lib/components/restro/BatchRunner.svelte:8:13 Component has unused export property 'onFinished'. If it is for external reference only, please consider using `export const onFinished`
+https://svelte.dev/e/export_let_unused
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
+12:39:55 AM [vite] (client) hmr update /src/lib/components/restro/VariableManager.svelte, /src/app.css
+12:39:55 AM [vite] (ssr) page reload src/lib/components/restro/VariableManager.svelte
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+12:40:51 AM [vite] (client) hmr update /src/routes/[lang]/restro/+page.svelte, /src/app.css
+12:40:51 AM [vite] (ssr) page reload src/routes/[lang]/restro/+page.svelte
+12:41:07 AM [vite] (client) hmr update /src/lib/components/restro/BatchRunner.svelte, /src/app.css
+12:41:07 AM [vite] (ssr) page reload src/lib/components/restro/BatchRunner.svelte
+12:41:12 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+12:41:12 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+12:41:12 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/2.js
+12:41:12 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/7.js
+12:41:12 AM [vite] (client) page reload .svelte-kit/generated/client/app.js
+12:41:12 AM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+12:41:12 AM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+12:41:12 AM [vite] (client) page reload .svelte-kit/generated/root.js
+12:41:12 AM [vite] (ssr) page reload .svelte-kit/generated/root.js
+12:42:16 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:392:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+12:42:16 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:400:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+12:42:16 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:408:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+12:42:17 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:392:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+12:42:17 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:400:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+12:42:17 AM [vite-plugin-svelte] src/routes/[lang]/restro/+page.svelte:408:12 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
