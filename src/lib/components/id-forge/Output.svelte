@@ -26,15 +26,18 @@
     }
   });
 
-  // Store copied state for each ID separately if needed, but for simplicity
-  // we can just use a global toast or a mapped state.
-  // Given the requirement for "Toast notification (Top Right)", let's implement a global toast.
+  // Global toast state
   let showToast = false;
   let toastMessage = '복사됨!';
 
   async function copyText(text: string) {
     await navigator.clipboard.writeText(text);
-    copied = true;
+
+    // Check if it was the main output copy or individual ID copy
+    if (text === output) {
+        copied = true;
+    }
+
     showToast = true;
     setTimeout(() => {
         copied = false;
@@ -158,7 +161,7 @@
                 <div class="flex items-center gap-2 p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors group">
                     <span class="flex-1 font-mono text-xs text-slate-600 dark:text-slate-400 truncate" title={id}>{id}</span>
                     <button
-                        class="w-8 h-8 flex items-center justify-center bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 opacity-0 group-hover:opacity-100 transition-all focus:opacity-100"
+                        class="w-8 h-8 flex items-center justify-center bg-slate-700 hover:bg-slate-600 rounded border border-slate-600 text-slate-300 opacity-0 group-hover:opacity-100 transition-all focus:opacity-100"
                         on:click={() => copyText(id)}
                         aria-label="Copy ID"
                         title="Copy"

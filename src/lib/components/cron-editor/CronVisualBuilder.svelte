@@ -210,10 +210,10 @@
        <div class="mt-4 p-4 bg-white/5 rounded-lg">
            <div class="flex items-center space-x-4">
                <span class="text-gray-300">{lang === 'ko' ? '시작' : 'Start'}:</span>
-               <input type="number" min="0" max="60" class="bg-black/20 border border-white/10 rounded px-2 py-1 text-white w-20" bind:value={stepState.start} on:change={() => updateStep(activeTab)} />
+               <input type="number" min="0" max="60" class="bg-slate-700 text-slate-50 border border-slate-600 rounded px-2 py-1 w-20 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none" aria-label="{lang === 'ko' ? '시작 값' : 'Start value'}" bind:value={stepState.start} on:change={() => updateStep(activeTab)} />
                <span class="text-gray-300">/</span>
                <span class="text-gray-300">{lang === 'ko' ? '간격' : 'Step'}:</span>
-               <input type="number" min="1" max="60" class="bg-black/20 border border-white/10 rounded px-2 py-1 text-white w-20" bind:value={stepState.step} on:change={() => updateStep(activeTab)} />
+               <input type="number" min="1" max="60" class="bg-slate-700 text-slate-50 border border-slate-600 rounded px-2 py-1 w-20 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none" aria-label="{lang === 'ko' ? '간격 값' : 'Step value'}" bind:value={stepState.step} on:change={() => updateStep(activeTab)} />
            </div>
            <p class="mt-2 text-xs text-gray-500">
                {lang === 'ko' ? '예: */5는 5마다, 2/10은 2에서 시작하여 10마다' : 'Example: */5 means every 5. 2/10 means starting at 2, every 10.'}
