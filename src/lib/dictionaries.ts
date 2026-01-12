@@ -726,6 +726,26 @@ export const dictionaries = {
           binaryEnc: "Binary Encode",
           binaryDec: "Binary Decode"
         },
+        generators: {
+          title: "Generators",
+          lorem: "Lorem Ipsum",
+          uuid: "UUID v4",
+          random: "Random String",
+          generated: "Generated"
+        },
+        extractors: {
+          title: "Magic Extractors",
+          itemsFound: "Items Found",
+          copyAll: "Copy All",
+          email: "Emails",
+          url: "URLs",
+          phone: "Phone Numbers",
+          hashtag: "Hashtags",
+          mention: "Mentions",
+          ipv4: "IPv4 Addresses",
+          ipv6: "IPv6 Addresses",
+          hexColor: "Hex Colors"
+        },
         guide: {
           title: "Why String Theory?",
           intro: "String Theory is the ultimate text manipulation suite for developers and writers. It treats text as data, allowing for complex transformations and deep analysis in milliseconds.",
@@ -1556,6 +1576,26 @@ export const dictionaries = {
           hexDec: "Hex 디코딩",
           binaryEnc: "이진수 인코딩",
           binaryDec: "이진수 디코딩"
+        },
+        generators: {
+          title: "생성기",
+          lorem: "Lorem Ipsum",
+          uuid: "UUID v4",
+          random: "무작위 문자열",
+          generated: "생성됨"
+        },
+        extractors: {
+          title: "매직 추출기",
+          itemsFound: "개 발견됨",
+          copyAll: "모두 복사",
+          email: "이메일",
+          url: "URL",
+          phone: "전화번호",
+          hashtag: "해시태그",
+          mention: "멘션",
+          ipv4: "IPv4 주소",
+          ipv6: "IPv6 주소",
+          hexColor: "Hex 색상"
         },
         guide: {
           title: "왜 String Theory인가요?",
