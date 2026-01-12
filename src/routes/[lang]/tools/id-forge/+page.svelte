@@ -214,7 +214,7 @@
                 on:click={() => handleTabChange(tab)}
                 class="flex-1 py-3 text-sm font-bold rounded-xl transition-all {activeTab === tab ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
             >
-                {dict[tab] || tab}
+                {dict.tabs[tab] || tab}
             </button>
         {/each}
     </div>

@@ -44,13 +44,13 @@ export const addToHistory = async (record: Omit<ConversionRecord, 'id' | 'timest
       isFavorite: false
     });
 
-    // Prune history (keep last 50 non-favorites)
+    // Prune history (keep last 100 non-favorites)
     const nonFavorites = await db.history.where('isFavorite').equals(0).toArray();
-    if (nonFavorites.length > 50) {
+    if (nonFavorites.length > 100) {
       // Sort by timestamp ascending (oldest first)
       nonFavorites.sort((a, b) => a.timestamp - b.timestamp);
 
-      const itemsToDelete = nonFavorites.slice(0, nonFavorites.length - 50);
+      const itemsToDelete = nonFavorites.slice(0, nonFavorites.length - 100);
       const keysToDelete = itemsToDelete.map(item => item.id!);
 
       await db.history.bulkDelete(keysToDelete);
