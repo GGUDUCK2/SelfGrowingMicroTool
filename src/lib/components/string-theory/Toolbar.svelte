@@ -12,9 +12,23 @@
   function emit(type: 'transform' | 'clean' | 'security' | 'encode', mode: string) {
     dispatch('action', { type, mode });
   }
+
+  function emitGenerate(type: string, param?: number) {
+      dispatch('generate', { type, param });
+  }
 </script>
 
 <div class="space-y-6">
+  <!-- Generators -->
+  <div>
+      <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">{mainDict.generators.title}</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+          <button on:click={() => emitGenerate('lorem')} class="btn-secondary text-indigo-600 dark:text-indigo-400">{mainDict.generators.lorem}</button>
+          <button on:click={() => emitGenerate('uuid')} class="btn-secondary text-indigo-600 dark:text-indigo-400">{mainDict.generators.uuid}</button>
+          <button on:click={() => emitGenerate('random')} class="btn-secondary text-indigo-600 dark:text-indigo-400">{mainDict.generators.random}</button>
+      </div>
+  </div>
+
   <!-- Transformation -->
   <div>
     <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">{mainDict.transform}</h3>
@@ -83,6 +97,6 @@
 
 <style>
   .btn-secondary {
-    @apply px-3 py-2 text-sm font-medium text-slate-700 bg-slate-100 rounded-lg hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600 transition-colors;
+    @apply px-3 py-2 text-sm font-medium text-slate-700 bg-slate-100 rounded-lg hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600 transition-colors truncate;
   }
 </style>

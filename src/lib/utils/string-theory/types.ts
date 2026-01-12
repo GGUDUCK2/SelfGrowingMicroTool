@@ -35,3 +35,11 @@ export type EncodeMode =
   | 'base64Encode' | 'base64Decode' | 'urlEncode' | 'urlDecode'
   | 'htmlEntityEncode' | 'htmlEntityDecode' | 'hexEncode' | 'hexDecode'
   | 'binaryEncode' | 'binaryDecode';
+
+export interface ExtractionResult {
+  type: string;
+  value: string;
+  count: number;
+}
+
+export type ExtractionType = 'email' | 'url' | 'phone' | 'hashtag' | 'mention' | 'ipv4' | 'ipv6' | 'hexColor';
