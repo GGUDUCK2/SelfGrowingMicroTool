@@ -193,5 +193,20 @@
     "category": "Developer Tools",
     "tags": ["api", "rest", "http", "client", "fetch", "curl", "developer"],
     "createdAt": "2025-02-08"
+  },
+  {
+    "id": "unit-verse",
+    "slug": "unit-verse",
+    "title": {
+      "en": "Unit Verse: Universal Unit Converter",
+      "ko": "Unit Verse: 만능 단위 변환기"
+    },
+    "description": {
+      "en": "The definitive converter for length, mass, digital, energy, and more. Includes formula views and smart precision.",
+      "ko": "길이, 무게, 디지털, 에너지 등 모든 단위를 변환하는 완벽한 도구입니다. 공식 보기 및 스마트 정밀도를 지원합니다."
+    },
+    "category": "Utility",
+    "tags": ["converter", "unit", "length", "weight", "calculator", "utility"],
+    "createdAt": "2025-02-09"
   }
 ]
