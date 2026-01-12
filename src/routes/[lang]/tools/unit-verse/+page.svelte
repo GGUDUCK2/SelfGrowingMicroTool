@@ -3,6 +3,7 @@
   import { page } from '$app/stores';
   import CategorySelector from '$lib/components/unit-verse/CategorySelector.svelte';
   import Converter from '$lib/components/unit-verse/Converter.svelte';
+  import ReferenceTable from '$lib/components/unit-verse/ReferenceTable.svelte';
   import History from '$lib/components/unit-verse/History.svelte';
   import { MoveLeft } from 'lucide-svelte';
 
@@ -76,6 +77,13 @@
             bind:inputValue
             bind:fromUnitId
             bind:toUnitId
+            {t}
+        />
+
+        <ReferenceTable
+            {selectedCategory}
+            {inputValue}
+            {fromUnitId}
             {t}
         />
 
