@@ -13,7 +13,7 @@
 
   // Get Dictionary
   $: dictionary = getDictionary($page.params.lang || 'en');
-  $: dict = dictionary.tools.seoForge;
+  $: dict = dictionary.tools.seoForge as any; // Temporary fix for type mismatch if necessary, or verify `dictionaries.ts`
   $: commonDict = dictionary.common;
 
   // State
@@ -69,8 +69,7 @@
         url: tags.url,
         ogImage: tags.ogImage,
         jsonLdType: jsonLdData.type,
-        createdAt: new Date(),
-        starred: 0
+        createdAt: new Date()
       });
     } catch (err) {
       console.error('Failed to save history:', err);

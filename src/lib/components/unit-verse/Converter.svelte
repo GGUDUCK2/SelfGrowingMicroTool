@@ -2,10 +2,12 @@
   import { ArrowRightLeft, Copy, Check } from 'lucide-svelte';
   import { categories, type UnitDefinition } from '$lib/utils/unit-verse/definitions';
   import { unitEngine } from '$lib/utils/unit-verse/engine';
+  import SmartContext from './features/SmartContext.svelte';
+  import FormulaView from './features/FormulaView.svelte';
   import { addToHistory } from '$lib/db/unit-verse';
   import { onMount, tick } from 'svelte';
   import { browser } from '$app/environment';
-    import { page } from '$app/stores';
+  import { page } from '$app/stores';
 
   export let selectedCategory: string;
   export let t: any;
@@ -20,8 +22,28 @@
   let formula: string = '';
   let copied = false;
 
+  function handleKeydown(e: KeyboardEvent) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      e.preventDefault();
+      copyResult();
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      inputValue = null;
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      e.preventDefault();
+      copyResult();
+    }
+    if (e.key === 'Escape') {
+      inputValue = 1;
+    }
+  }
+
   $: currentCategory = categories.find(c => c.id === selectedCategory);
   $: units = currentCategory?.units || [];
+  $: fromUnitSymbol = units.find(u => u.id === fromUnitId)?.symbol || '';
+  $: toUnitSymbol = units.find(u => u.id === toUnitId)?.symbol || '';
 
   // Reset units when category changes
   $: if (selectedCategory) {
@@ -113,6 +135,8 @@
 
 </script>
 
+<svelte:window on:keydown={handleKeydown} />
+
 <div class="bg-slate-800 rounded-2xl p-6 shadow-xl border border-slate-700">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start relative">
 
@@ -194,18 +218,28 @@
   </div>
 
   <!-- Formula & Precision -->
-  <div class="mt-8 pt-6 border-t border-slate-700 flex flex-col md:flex-row justify-between items-center gap-4">
+  <div class="mt-8 pt-6 border-t border-slate-700">
 
-      <div class="flex-1 w-full md:w-auto">
-         {#if formula}
-            <div class="text-sm text-slate-400 font-mono bg-slate-900/50 p-3 rounded border border-slate-700/50 overflow-x-auto">
-                <span class="text-indigo-400 font-bold">f(x)</span> = {formula}
-            </div>
-         {/if}
-      </div>
+      {#if formula && inputValue !== null}
+        <FormulaView
+            {formula}
+            {inputValue}
+            {fromUnitSymbol}
+            {toUnitSymbol}
+            {resultValue}
+            {t}
+        />
 
-      <div class="flex items-center space-x-3 w-full md:w-auto justify-end" role="group" aria-labelledby="precision-label">
-          <span id="precision-label" class="text-sm text-slate-400 whitespace-nowrap">{t.precision}:</span>
+        <SmartContext
+            value={inputValue}
+            {fromUnitId}
+            categoryId={selectedCategory}
+            {t}
+        />
+      {/if}
+
+      <div class="flex items-center justify-end mt-6" role="group" aria-labelledby="precision-label">
+          <span id="precision-label" class="text-sm text-slate-400 whitespace-nowrap mr-3">{t.precision}:</span>
           <div class="flex bg-slate-900 rounded-lg p-1 border border-slate-700">
              {#each [2, 4, 6, 10] as p}
                  <button

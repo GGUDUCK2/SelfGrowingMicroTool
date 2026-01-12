@@ -68,6 +68,7 @@ export const dictionaries = {
       jsonArchitect: {
         title: "JSON Architect",
         description: "The definitive tool to format, validate, minify, and visualize JSON.",
+        linkCopied: "Link Copied!",
         input: "Input (JSON)",
         output: "Output",
         format: "Format",
@@ -159,6 +160,7 @@ export const dictionaries = {
         replacementString: "Replacement String",
         result: "Result",
         error: "Invalid Regex",
+        historyEmpty: "No history yet",
         faqTitle: "Regex Tester FAQ",
         q1: "What is a Regular Expression?",
         a1: "A regular expression (shortened as regex or regexp) is a sequence of characters that specifies a search pattern in text. Usually such patterns are used by string-searching algorithms for 'find' or 'find and replace' operations on strings.",
@@ -298,6 +300,8 @@ export const dictionaries = {
         noDiff: "No differences found.",
         patchDownload: "Download Patch",
         resolveConflict: "Interactive Resolver",
+        share: "Share",
+        noHistory: "No history",
         faqTitle: "DiffScope FAQ",
         q1: "How does the JSON mode work?",
         a1: "The JSON mode first sorts all keys in your JSON objects alphabetically and then formats them. This ensures that even if keys are in a different order, they are compared correctly.",
@@ -635,6 +639,8 @@ export const dictionaries = {
         clear: "Clear",
         copy: "Copy",
         download: "Download",
+        star: "Star",
+        delete: "Delete",
         error: "Conversion Error",
         faqTitle: "Structura FAQ",
         q1: "How are conversions handled?",
@@ -784,6 +790,11 @@ export const dictionaries = {
           frequency: "Frequency",
           power: "Power"
         },
+        context: "Did you know?",
+        // formula: "Formula", // Key removed to avoid duplicate
+        calculation: "Calculation",
+        howItWorks: "How it works",
+        // result: "Result", // Key removed to avoid duplicate
         guide: {
           title: "Why Unit Verse?",
           intro: "Unit Verse is not just another converter. It is a scientific-grade tool designed for accuracy and transparency. It provides the exact formula used for every conversion, ensuring you understand the math behind the numbers.",
@@ -890,6 +901,7 @@ export const dictionaries = {
       jsonArchitect: {
         title: "JSON 아키텍트",
         description: "JSON 포맷, 검증, 축소 및 시각화를 위한 완벽한 도구입니다.",
+        linkCopied: "링크 복사됨!",
         input: "입력 (JSON)",
         output: "출력",
         format: "포맷 (Prettify)",
@@ -981,6 +993,7 @@ export const dictionaries = {
         replacementString: "바꿀 문자열",
         result: "결과",
         error: "유효하지 않은 정규식",
+        historyEmpty: "기록이 없습니다",
         faqTitle: "정규표현식 FAQ",
         q1: "정규표현식이란 무엇인가요?",
         a1: "정규표현식(Regex 또는 Regexp)은 텍스트에서 검색 패턴을 지정하는 문자열의 순서입니다. 주로 문자열 검색 알고리즘에서 '찾기' 또는 '찾아 바꾸기' 작업에 사용됩니다.",
@@ -1120,6 +1133,8 @@ export const dictionaries = {
         noDiff: "차이점이 없습니다.",
         patchDownload: "패치 다운로드",
         resolveConflict: "대화형 해결 도구",
+        share: "공유",
+        noHistory: "기록 없음",
         faqTitle: "DiffScope FAQ",
         q1: "JSON 모드는 어떻게 작동하나요?",
         a1: "JSON 모드는 먼저 JSON 객체의 모든 키를 알파벳순으로 정렬한 다음 포맷팅합니다. 이를 통해 키 순서가 달라도 내용이 같으면 동일하게 인식합니다.",
@@ -1375,6 +1390,8 @@ export const dictionaries = {
         clear: "초기화",
         copy: "복사",
         download: "다운로드",
+        star: "즐겨찾기",
+        delete: "삭제",
         error: "변환 오류",
         faqTitle: "Structura FAQ",
         q1: "변환은 어떻게 처리되나요?",
@@ -1524,6 +1541,11 @@ export const dictionaries = {
           frequency: "주파수 (Frequency)",
           power: "일률/전력 (Power)"
         },
+        context: "알고 계셨나요?",
+        // formula: "공식", // Key removed to avoid duplicate
+        calculation: "계산 과정",
+        howItWorks: "작동 원리",
+        // result: "결과", // Key removed to avoid duplicate
         guide: {
           title: "왜 Unit Verse인가요?",
           intro: "Unit Verse는 단순한 변환기가 아닙니다. 정확성과 투명성을 위해 설계된 과학적 등급의 도구입니다. 모든 변환에 사용된 정확한 공식을 제공하여 숫자 뒤의 수학을 이해할 수 있도록 합니다.",

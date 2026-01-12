@@ -32,7 +32,7 @@
   $: {
     if (browser) {
       updateUrl();
-      runRegex(pattern, flags, testString);
+      runRegex(pattern, flags, testString || '');
     }
   }
 

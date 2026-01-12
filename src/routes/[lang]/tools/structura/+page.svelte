@@ -540,14 +540,14 @@
                                         <button
                                             class="p-1.5 hover:bg-white dark:hover:bg-gray-600 rounded-lg text-gray-400 hover:text-yellow-500 transition-colors"
                                             on:click|stopPropagation={() => structuraWorkspace.toggleStar(item.id || 0)}
-                                            aria-label={t.tools?.idForge?.buttons?.star ?? "Star"}
+                                            aria-label={t.star || "Star"}
                                         >
                                             <Star size={16} fill={item.starred ? "currentColor" : "none"} class={item.starred ? "text-yellow-500" : ""} />
                                         </button>
                                         <button
                                             class="p-1.5 hover:bg-white dark:hover:bg-gray-600 rounded-lg text-gray-400 hover:text-red-500 transition-colors"
                                             on:click|stopPropagation={() => structuraWorkspace.delete(item.id || 0)}
-                                            aria-label={t.tools?.idForge?.buttons?.delete ?? "Delete"}
+                                            aria-label={t.delete || "Delete"}
                                         >
                                             <Trash2 size={16} />
                                         </button>
@@ -565,7 +565,7 @@
                  {:else}
                     <div class="text-center py-20 text-gray-500">
                         <History size={48} class="mx-auto mb-4 opacity-20" />
-                        <p>{t.history} {t.tools?.structura?.history ?? ''}</p>
+                        <p>{t.history}</p>
                     </div>
                  {/if}
              </div>
