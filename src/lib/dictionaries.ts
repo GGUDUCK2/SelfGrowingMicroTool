@@ -780,6 +780,64 @@ export const dictionaries = {
         q3: "Does it support Unicode?",
         a3: "Yes, String Theory is fully Unicode-aware and handles multi-byte characters (like emojis and Korean Hangul) correctly."
       },
+      qrForge: {
+        title: "QR Forge: Pro Code Generator",
+        description: "The definitive QR code generator. Generate, customize, and download QR codes for URLs, WiFi, VCards, and more.",
+        type: "Content Type",
+        types: {
+            url: "URL",
+            text: "Text",
+            wifi: "WiFi",
+            email: "Email",
+            sms: "SMS",
+            vcard: "VCard",
+            crypto: "Crypto"
+        },
+        content: "Content",
+        placeholders: {
+            text: "Enter text here..."
+        },
+        design: "Design",
+        colors: {
+            dark: "Foreground Color",
+            light: "Background Color"
+        },
+        errorLevel: "Error Correction",
+        margin: "Margin",
+        save: "Save",
+        history: "History",
+        restore: "Restore",
+        delete: "Delete",
+        clear: "Clear All",
+        emptyHistory: "No saved QR codes yet.",
+        copyImage: "Copy Image",
+        copied: "Copied!",
+        feedback: {
+            saved: "Saved!"
+        },
+        guide: {
+          title: "Why QR Forge?",
+          intro: "QR Forge is the definitive tool for generating high-quality, permanent QR codes directly in your browser.",
+          featuresTitle: "Key Features",
+          f1_title: "Privacy First:",
+          f1_desc: "100% Client-side generation. No data is ever sent to a server.",
+          f2_title: "Universal Formats:",
+          f2_desc: "Support for WiFi, VCard 3.0, Crypto, and more.",
+          f3_title: "Pro Customization:",
+          f3_desc: "Control error correction levels, margins, and colors.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use \"High\" error correction if you plan to add a logo or print on damaged surfaces.",
+          tip2: "WiFi QR codes work natively on iOS and Android. Just scan to join.",
+          tip3: "Always test your QR code with a phone camera before printing."
+        },
+        faqTitle: "QR Forge FAQ",
+        q1: "Do these QR codes expire?",
+        a1: "No. The QR codes generated here contain the data directly (Static QR Code). They do not rely on any redirect service, so they will work forever.",
+        q2: "Is it safe for WiFi passwords?",
+        a2: "Yes. The generation happens locally on your device. Your WiFi password is never transmitted over the internet.",
+        q3: "What is Error Correction?",
+        a3: "Error correction allows the QR code to be readable even if part of it is damaged or covered. Level H allows up to 30% damage recovery."
+      },
       markFlow: {
         title: "MarkFlow: Pro Markdown Studio",
         description: "The definitive markdown editor with real-time preview, HTML export, smart templates, and GitHub style support.",
@@ -1644,6 +1702,64 @@ export const dictionaries = {
         a2: "브라우저 메모리에 따라 다르지만, 일반적으로 String Theory는 문제없이 수 메가바이트의 텍스트를 처리할 수 있습니다.",
         q3: "유니코드를 지원하나요?",
         a3: "네, String Theory는 유니코드를 완벽하게 인식하며 한글이나 이모지 같은 멀티바이트 문자를 올바르게 처리합니다."
+      },
+      qrForge: {
+        title: "QR Forge: 프로 QR 코드 생성기",
+        description: "완벽한 QR 코드 생성기입니다. URL, WiFi, VCard 등을 위한 QR 코드를 생성하고, 커스터마이징하고, 다운로드하세요.",
+        type: "콘텐츠 유형",
+        types: {
+            url: "URL",
+            text: "텍스트",
+            wifi: "WiFi",
+            email: "이메일",
+            sms: "SMS",
+            vcard: "VCard (연락처)",
+            crypto: "암호화폐"
+        },
+        content: "내용",
+        placeholders: {
+            text: "여기에 텍스트를 입력하세요..."
+        },
+        design: "디자인",
+        colors: {
+            dark: "전경색 (QR)",
+            light: "배경색"
+        },
+        errorLevel: "오류 복원 레벨",
+        margin: "여백 (Margin)",
+        save: "저장",
+        history: "기록",
+        restore: "복원",
+        delete: "삭제",
+        clear: "모두 지우기",
+        emptyHistory: "저장된 QR 코드가 없습니다.",
+        copyImage: "이미지 복사",
+        copied: "복사됨!",
+        feedback: {
+            saved: "저장되었습니다!"
+        },
+        guide: {
+          title: "왜 QR Forge인가요?",
+          intro: "QR Forge는 브라우저에서 직접 고품질의 영구적인 QR 코드를 생성하는 완벽한 도구입니다.",
+          featuresTitle: "주요 기능",
+          f1_title: "개인정보 보호:",
+          f1_desc: "100% 클라이언트 생성. 데이터가 서버로 전송되지 않습니다.",
+          f2_title: "다양한 포맷:",
+          f2_desc: "WiFi, VCard 3.0, 암호화폐 등을 지원합니다.",
+          f3_title: "전문가용 커스터마이징:",
+          f3_desc: "오류 복원 수준, 여백, 색상을 제어하세요.",
+          tipsTitle: "프로 팁",
+          tip1: "로고를 추가하거나 손상된 표면에 인쇄할 계획이라면 \"High\" 오류 복원 수준을 사용하세요.",
+          tip2: "WiFi QR 코드는 iOS와 Android에서 기본적으로 작동합니다. 스캔만 하면 연결됩니다.",
+          tip3: "인쇄하기 전에 항상 스마트폰 카메라로 QR 코드를 테스트하세요."
+        },
+        faqTitle: "QR Forge FAQ",
+        q1: "이 QR 코드는 만료되나요?",
+        a1: "아니요. 여기서 생성된 QR 코드는 데이터를 직접 포함하고 있습니다(정적 QR 코드). 리다이렉트 서비스에 의존하지 않으므로 영구적으로 작동합니다.",
+        q2: "WiFi 비밀번호에 안전한가요?",
+        a2: "네. 생성 과정은 기기 내에서 로컬로 이루어집니다. WiFi 비밀번호는 인터넷을 통해 전송되지 않습니다.",
+        q3: "오류 복원이란 무엇인가요?",
+        a3: "오류 복원은 QR 코드의 일부가 손상되거나 가려져도 읽을 수 있게 해줍니다. 레벨 H는 최대 30%의 손상을 복구할 수 있습니다."
       },
       markFlow: {
         title: "MarkFlow: 프로 마크다운 스튜디오",
