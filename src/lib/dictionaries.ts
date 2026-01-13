@@ -797,6 +797,15 @@ export const dictionaries = {
         placeholders: {
             text: "Enter text here..."
         },
+        branding: "Branding & Style",
+        logo: "Center Logo",
+        uploadLogo: "Upload Image",
+        logoSize: "Logo Size",
+        frame: "Frame",
+        frameNone: "None",
+        frameSimple: "Simple Border",
+        frameScanMe: "\"Scan Me\" Label",
+        frameTextPlaceholder: "SCAN ME",
         design: "Design",
         colors: {
             dark: "Foreground Color",
@@ -1720,6 +1729,15 @@ export const dictionaries = {
         placeholders: {
             text: "여기에 텍스트를 입력하세요..."
         },
+        branding: "브랜딩 & 스타일",
+        logo: "로고 (중앙)",
+        uploadLogo: "이미지 업로드",
+        logoSize: "로고 크기",
+        frame: "프레임",
+        frameNone: "없음",
+        frameSimple: "단순 테두리",
+        frameScanMe: "\"Scan Me\" 라벨",
+        frameTextPlaceholder: "SCAN ME",
         design: "디자인",
         colors: {
             dark: "전경색 (QR)",

@@ -48,6 +48,13 @@ export interface QRDesign {
     margin: number;
     scale: number; // Pixels per module (approx)
     width?: number; // Target width
+
+    // Branding
+    logo?: string; // DataURL
+    logoSize?: number; // 0.1 to 0.3 of QR width
+    frame?: 'none' | 'simple' | 'scan_me';
+    frameText?: string;
+    frameColor?: string;
 }
 
 export interface QRState {
