@@ -24,6 +24,8 @@ export class TextTransformer {
       case 'sortLinesAlpha': return text.split('\n').sort().join('\n');
       case 'sortLinesLength': return text.split('\n').sort((a, b) => a.length - b.length).join('\n');
       case 'uniqueLines': return [...new Set(text.split('\n'))].join('\n');
+      case 'shuffleWords': return this.shuffleWords(text);
+      case 'removeNonAlphaNumeric': return text.replace(/[^a-zA-Z0-9\s]/g, '');
       default: return text;
     }
   }
@@ -113,5 +115,14 @@ export class TextTransformer {
       [lines[i], lines[j]] = [lines[j], lines[i]];
     }
     return lines.join('\n');
+  }
+
+  private static shuffleWords(text: string): string {
+    const words = text.split(/\s+/);
+    for (let i = words.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [words[i], words[j]] = [words[j], words[i]];
+    }
+    return words.join(' ');
   }
 }
