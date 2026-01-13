@@ -12,7 +12,10 @@ export class TextExtractor {
       ipv6: /([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}/g, // Simplified IPv6
       hexColor: /#(?:[0-9a-fA-F]{3}){1,2}\b/g,
       date: /\b\d{4}-\d{2}-\d{2}\b/g, // YYYY-MM-DD
-      time: /\b\d{2}:\d{2}(:\d{2})?\b/g // HH:MM or HH:MM:SS
+      time: /\b\d{2}:\d{2}(:\d{2})?\b/g, // HH:MM or HH:MM:SS
+      creditCard: /\b(?:\d{4}[ -]?){3}\d{4}\b/g, // Basic regex, not checking Luhn
+      jwt: /eyJ[a-zA-Z0-9_-]+\.eyJ[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+/g,
+      uuid: /\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b/g
     };
 
     const matches = text.match(patterns[type]) || [];
@@ -20,7 +23,10 @@ export class TextExtractor {
   }
 
   static analyzeAll(text: string): ExtractionResult[] {
-    const types: ExtractionType[] = ['email', 'url', 'phone', 'hashtag', 'mention', 'ipv4', 'hexColor', 'date', 'time'];
+    const types: ExtractionType[] = [
+        'email', 'url', 'phone', 'hashtag', 'mention',
+        'ipv4', 'hexColor', 'date', 'time', 'creditCard', 'jwt', 'uuid'
+    ];
     const results: ExtractionResult[] = [];
 
     for (const type of types) {

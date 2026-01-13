@@ -732,6 +732,8 @@ export const dictionaries = {
           title: "Generators",
           lorem: "Lorem Ipsum",
           uuid: "UUID v4",
+          ulid: "ULID",
+          nanoid: "NanoID",
           random: "Random String",
           generated: "Generated"
         },
@@ -746,13 +748,17 @@ export const dictionaries = {
           mention: "Mentions",
           ipv4: "IPv4 Addresses",
           ipv6: "IPv6 Addresses",
-          hexColor: "Hex Colors"
+          hexColor: "Hex Colors",
+          creditCard: "Credit Cards",
+          jwt: "JWT Tokens",
+          uuid: "UUIDs"
         },
         smartMagic: {
           formatJson: "Format JSON",
           decodeBase64: "Decode Base64",
           decodeUrl: "URL Decode",
-          cleanWhitespace: "Clean Whitespace"
+          cleanWhitespace: "Clean Whitespace",
+          decodeHtml: "Decode HTML Entities"
         },
         guide: {
           title: "Why String Theory?",
@@ -1591,6 +1597,8 @@ export const dictionaries = {
           title: "생성기",
           lorem: "Lorem Ipsum",
           uuid: "UUID v4",
+          ulid: "ULID",
+          nanoid: "NanoID",
           random: "무작위 문자열",
           generated: "생성됨"
         },
@@ -1605,13 +1613,17 @@ export const dictionaries = {
           mention: "멘션",
           ipv4: "IPv4 주소",
           ipv6: "IPv6 주소",
-          hexColor: "Hex 색상"
+          hexColor: "Hex 색상",
+          creditCard: "신용카드 번호",
+          jwt: "JWT 토큰",
+          uuid: "UUID"
         },
         smartMagic: {
           formatJson: "JSON 포맷",
           decodeBase64: "Base64 디코딩",
           decodeUrl: "URL 디코딩",
-          cleanWhitespace: "공백 정리"
+          cleanWhitespace: "공백 정리",
+          decodeHtml: "HTML 엔티티 디코딩"
         },
         guide: {
           title: "왜 String Theory인가요?",

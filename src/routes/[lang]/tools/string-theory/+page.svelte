@@ -13,7 +13,7 @@
   import { TextExtractor } from '$lib/utils/string-theory/extractor';
   import { TextGenerator } from '$lib/utils/string-theory/generator';
   import type { TextStats, TransformMode, CleanMode, SecurityMode, EncodeMode, ExtractionResult } from '$lib/utils/string-theory/types';
-  import { db } from '$lib/db/string-theory';
+  import { StringHistoryManager } from '$lib/db/string-theory';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
 
@@ -30,28 +30,27 @@
     let result = text;
     let operationName = mode;
 
-    if (type === 'transform') {
-      result = TextTransformer.transform(text, mode as TransformMode);
-    } else if (type === 'clean') {
-      result = TextCleaner.clean(text, mode as CleanMode);
-    } else if (type === 'security') {
-      result = TextCleaner.redact(text, mode as SecurityMode);
-    } else if (type === 'encode') {
-      result = TextCleaner.encode(text, mode as EncodeMode);
-    }
+    try {
+      if (type === 'transform') {
+        result = TextTransformer.transform(text, mode as TransformMode);
+      } else if (type === 'clean') {
+        result = TextCleaner.clean(text, mode as CleanMode);
+      } else if (type === 'security') {
+        result = TextCleaner.redact(text, mode as SecurityMode);
+      } else if (type === 'encode') {
+        result = TextCleaner.encode(text, mode as EncodeMode);
+      }
 
-    if (result !== text) {
-      text = result;
-      // Save to history
-      db.history.add({
-        text: result,
-        operation: mode,
-        timestamp: Date.now(),
-        isFavorite: false
-      });
-      showToast('Action Applied: ' + mode);
-    } else {
-        showToast('No changes made');
+      if (result !== text) {
+        text = result;
+        // Save to history
+        StringHistoryManager.add(result, mode);
+        showToast('Action Applied: ' + mode);
+      } else {
+          showToast('No changes made');
+      }
+    } catch (e) {
+      showToast('Error: ' + (e as Error).message);
     }
   }
 
@@ -63,6 +62,10 @@
           newText = TextGenerator.loremIpsum(3);
       } else if (type === 'uuid') {
           newText = TextGenerator.uuid();
+      } else if (type === 'ulid') {
+          newText = TextGenerator.ulid();
+      } else if (type === 'nanoid') {
+          newText = TextGenerator.nanoid();
       } else if (type === 'random') {
           newText = TextGenerator.randomString(32);
       }
@@ -72,6 +75,7 @@
       } else {
           text = newText;
       }
+      // Save generated content to history too? Maybe only on explicit save, but sticking to "Action Applied" pattern
       showToast('Generated: ' + type);
   }
 
@@ -101,8 +105,7 @@
 
     if ((event.ctrlKey || event.metaKey) && event.key === 's') {
         event.preventDefault();
-        navigator.clipboard.writeText(text);
-        showToast('Copied to clipboard');
+        copyText();
     }
   }
 
@@ -115,6 +118,45 @@
           text = '  This is   some \n messy   text.\n\n\nIt needs cleaning!  ';
       }
       showToast('Example Loaded: ' + type);
+  }
+
+  async function copyText() {
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast('Copied to clipboard');
+    } catch (e) {
+      showToast('Failed to copy');
+    }
+  }
+
+  function downloadText() {
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'string-theory-export.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('Downloaded');
+  }
+
+  async function shareText() {
+      if (navigator.share) {
+          try {
+              await navigator.share({
+                  title: 'String Theory Text',
+                  text: text.slice(0, 10000) // Share limit
+              });
+              showToast('Shared');
+          } catch (e) {
+              // Share cancelled or failed
+          }
+      } else {
+          // Fallback
+          copyText();
+      }
   }
 
   // Reactive updates for extractions
@@ -140,7 +182,8 @@
         "Case Conversion",
         "String Cleaning",
         "Security Redaction",
-        "Base64 Encoding"
+        "Base64 Encoding",
+        "ULID/NanoID Generation"
     ],
     "isAccessibleForFree": true,
     "author": {
@@ -157,7 +200,7 @@
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content="string manipulation, text converter, case converter, slugify, base64, url encode, text analysis" />
+  <meta name="keywords" content="string manipulation, text converter, case converter, slugify, base64, url encode, text analysis, ulid generator, nanoid generator" />
   <link rel="canonical" href={canonicalUrl} />
 
   <!-- Open Graph -->
@@ -197,6 +240,28 @@
                 <button on:click={() => loadExample('json')} class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-medium">JSON</button>
                 <button on:click={() => loadExample('log')} class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-medium">Log</button>
             </div>
+
+             <div class="h-4 w-px bg-slate-300 dark:bg-slate-700"></div>
+
+            <div class="flex gap-2">
+                 <button on:click={copyText} class="text-slate-500 hover:text-indigo-600 transition-colors" aria-label="Copy" title="Copy">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                      </svg>
+                 </button>
+                  <button on:click={downloadText} class="text-slate-500 hover:text-indigo-600 transition-colors" aria-label="Download" title="Download">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                 </button>
+                 <button on:click={shareText} class="text-slate-500 hover:text-indigo-600 transition-colors" aria-label="Share" title="Share">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                      </svg>
+                 </button>
+            </div>
+
+             <div class="h-4 w-px bg-slate-300 dark:bg-slate-700"></div>
 
             <button
               on:click={() => showHistory = !showHistory}
