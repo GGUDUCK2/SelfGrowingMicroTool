@@ -11,6 +11,12 @@ export class TextCleaner {
       case 'stripHtml': return text.replace(/<[^>]*>?/gm, '');
       case 'stripPunctuation': return text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
       case 'removeNumbers': return text.replace(/\d+/g, '');
+      case 'formatJson':
+          try {
+              return JSON.stringify(JSON.parse(text), null, 2);
+          } catch (e) {
+              return text;
+          }
       default: return text;
     }
   }
