@@ -8,13 +8,25 @@ export interface StringHistory {
   isFavorite: boolean;
 }
 
+export interface StringTemplate {
+  id?: number;
+  title: string;
+  content: string;
+  createdAt: number;
+}
+
 export class StringTheoryDB extends Dexie {
   history!: Table<StringHistory>;
+  templates!: Table<StringTemplate>;
 
   constructor() {
     super('StringTheoryDB');
     this.version(1).stores({
-      history: '++id, timestamp, isFavorite' // Indexed for performance
+      history: '++id, timestamp, isFavorite'
+    });
+    this.version(2).stores({
+      history: '++id, timestamp, isFavorite',
+      templates: '++id, title, createdAt'
     });
   }
 }

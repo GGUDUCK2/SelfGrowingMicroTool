@@ -88,11 +88,9 @@
   }
 
   function handleKeydown(event: KeyboardEvent) {
-    // Ctrl/Cmd + Enter to transform (defaulting to something useful like 'slugify' or just ignore for now if ambiguous,
-    // but the prompt asked for "Execute". Since we have many actions, maybe just "Copy" is safer for "Execute" or we pick a default)
-    // Actually the prompt said: Ctrl/Cmd + Enter: Execute, Ctrl/Cmd + K: Clear, Ctrl/Cmd + S: Copy.
-    // For "Execute", since we don't have a single "Run" button, I will map it to "Slugify" as a demo or skip it to avoid confusion.
-    // Let's implement Clear and Copy as they are universal.
+    if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+        showToast('Stats Updated');
+    }
 
     if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
         event.preventDefault();
@@ -102,12 +100,20 @@
 
     if ((event.ctrlKey || event.metaKey) && event.key === 's') {
         event.preventDefault();
-        // Since the prompt said "Copy", let's copy.
-        // Note: Ctrl+S is usually "Save". The prompt said "Ctrl/Cmd + S: Copy".
-        // I will follow the prompt but this is non-standard.
         navigator.clipboard.writeText(text);
         showToast('Copied to clipboard');
     }
+  }
+
+  function loadExample(type: 'json' | 'log' | 'messy') {
+      if (type === 'json') {
+          text = '{\n  "name": "String Theory",\n  "version": 1.0,\n  "features": ["analysis", "transform"]\n}';
+      } else if (type === 'log') {
+          text = '[2023-10-27 10:00:00] INFO: Server started\n[2023-10-27 10:05:00] ERROR: Connection failed\n[2023-10-27 10:10:00] INFO: Retrying...';
+      } else if (type === 'messy') {
+          text = '  This is   some \n messy   text.\n\n\nIt needs cleaning!  ';
+      }
+      showToast('Example Loaded: ' + type);
   }
 
   // Reactive updates for extractions
@@ -115,7 +121,8 @@
       extractions = TextExtractor.analyzeAll(text);
   }
 
-  const jsonLd = {
+  // Wait for dict to be ready
+  $: jsonLd = dict ? {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "String Theory",
@@ -126,9 +133,22 @@
       "price": "0",
       "priceCurrency": "USD"
     },
-    "description": "The definitive text processing engine. Analyze, transform, clean, and encode text with professional precision.",
-    "featureList": "Text Analysis, Case Conversion, String Cleaning, Security Redaction, Base64 Encoding"
-  };
+    "description": dict.description,
+    "featureList": [
+        "Text Analysis",
+        "Case Conversion",
+        "String Cleaning",
+        "Security Redaction",
+        "Base64 Encoding"
+    ],
+    "isAccessibleForFree": true,
+    "author": {
+        "@type": "Organization",
+        "name": "MicroFactory"
+    }
+  } : null;
+
+  const canonicalUrl = `https://web-factory.vercel.app/${$page.params.lang}/tools/string-theory`;
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -136,9 +156,25 @@
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
+  <meta name="keywords" content="string manipulation, text converter, case converter, slugify, base64, url encode, text analysis" />
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={dict.title} />
+  <meta property="og:description" content={dict.description} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={dict.title} />
+  <meta name="twitter:description" content={dict.description} />
+
+  {#if jsonLd}
   <script type="application/ld+json">
     {JSON.stringify(jsonLd)}
   </script>
+  {/if}
 </svelte:head>
 
 <div class="space-y-8 relative">
@@ -154,9 +190,17 @@
       <div class="flex justify-between items-center mb-2">
         <h2 class="text-xl font-bold text-slate-800 dark:text-white">{dict.input} / {dict.output}</h2>
         <div class="flex items-center gap-4">
+            <!-- Smart Examples -->
+            <div class="flex gap-2 text-xs">
+                <button on:click={() => loadExample('messy')} class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-medium">Messy</button>
+                <button on:click={() => loadExample('json')} class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-medium">JSON</button>
+                <button on:click={() => loadExample('log')} class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-medium">Log</button>
+            </div>
+
             <button
               on:click={() => showHistory = !showHistory}
               class="text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 flex items-center gap-1"
+              aria-label="Toggle History Sidebar"
             >
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />

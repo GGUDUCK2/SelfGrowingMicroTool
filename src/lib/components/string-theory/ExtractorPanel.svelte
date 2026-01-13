@@ -12,9 +12,10 @@
     navigator.clipboard.writeText(text);
   }
 
-  function getLabel(type: string) {
+  function getLabel(type: string): string {
       // Use dictionary keys if available, otherwise fallback to type
-      return (dict as any)[type] || type;
+      const label = (dict as Record<string, string>)[type];
+      return label || type;
   }
 </script>
 
@@ -35,6 +36,7 @@
             <button
               on:click={() => copy(item.value)}
               class="text-xs text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium"
+              aria-label="Copy all extracted {item.type}"
             >
               {dict.copyAll}
             </button>

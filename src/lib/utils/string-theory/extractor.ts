@@ -10,7 +10,9 @@ export class TextExtractor {
       mention: /@[a-zA-Z0-9_]+/g,
       ipv4: /\b(?:\d{1,3}\.){3}\d{1,3}\b/g,
       ipv6: /([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}/g, // Simplified IPv6
-      hexColor: /#(?:[0-9a-fA-F]{3}){1,2}\b/g
+      hexColor: /#(?:[0-9a-fA-F]{3}){1,2}\b/g,
+      date: /\b\d{4}-\d{2}-\d{2}\b/g, // YYYY-MM-DD
+      time: /\b\d{2}:\d{2}(:\d{2})?\b/g // HH:MM or HH:MM:SS
     };
 
     const matches = text.match(patterns[type]) || [];
@@ -18,7 +20,7 @@ export class TextExtractor {
   }
 
   static analyzeAll(text: string): ExtractionResult[] {
-    const types: ExtractionType[] = ['email', 'url', 'phone', 'hashtag', 'mention', 'ipv4', 'hexColor'];
+    const types: ExtractionType[] = ['email', 'url', 'phone', 'hashtag', 'mention', 'ipv4', 'hexColor', 'date', 'time'];
     const results: ExtractionResult[] = [];
 
     for (const type of types) {

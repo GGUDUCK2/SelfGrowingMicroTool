@@ -22,7 +22,7 @@ export type TransformMode =
   | 'dotCase' | 'pathCase' | 'sentenceCase' | 'titleCase'
   | 'alternatingCase' | 'inverseCase' | 'slugify'
   | 'reverse' | 'reverseWords' | 'shuffleLines' | 'sortLinesAlpha'
-  | 'sortLinesLength' | 'uniqueLines';
+  | 'sortLinesLength' | 'uniqueLines' | 'shuffleWords' | 'removeNonAlphaNumeric';
 
 export type CleanMode =
   | 'trim' | 'trimLines' | 'removeEmptyLines' | 'removeDuplicateLines'
@@ -42,4 +42,4 @@ export interface ExtractionResult {
   count: number;
 }
 
-export type ExtractionType = 'email' | 'url' | 'phone' | 'hashtag' | 'mention' | 'ipv4' | 'ipv6' | 'hexColor';
+export type ExtractionType = 'email' | 'url' | 'phone' | 'hashtag' | 'mention' | 'ipv4' | 'ipv6' | 'hexColor' | 'date' | 'time';
