@@ -113,7 +113,7 @@
   <div class="flex overflow-x-auto border-b border-white/10">
     {#each TABS as tab, i}
       <button
-        class="flex-1 px-4 py-3 text-sm font-medium transition-colors hover:bg-white/5 focus:outline-none whitespace-nowrap
+        class="flex-1 px-4 py-3 text-sm font-medium transition-colors hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-inset whitespace-nowrap
         {activeTab === i ? 'bg-white/10 text-indigo-400 border-b-2 border-indigo-400' : 'text-gray-400'}"
         on:click={() => activeTab = i}
       >
@@ -147,7 +147,7 @@
        <div class="grid grid-cols-10 gap-2">
          {#each OPTIONS.minutes as m}
            <button
-             class="rounded p-1 text-xs font-mono transition-colors
+             class="rounded p-1 text-xs font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900
              {isSelected(0, m) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-white/5 text-gray-400 hover:bg-white/10'}"
              on:click={() => toggleSpecific(0, m)}
            >
@@ -159,7 +159,7 @@
         <div class="grid grid-cols-6 gap-2">
          {#each OPTIONS.hours as h}
            <button
-             class="rounded p-2 text-sm font-mono transition-colors
+             class="rounded p-2 text-sm font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900
              {isSelected(1, h) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-white/5 text-gray-400 hover:bg-white/10'}"
              on:click={() => toggleSpecific(1, h)}
            >
@@ -171,7 +171,7 @@
         <div class="grid grid-cols-7 gap-2">
          {#each OPTIONS.days as d}
            <button
-             class="rounded p-2 text-sm font-mono transition-colors
+             class="rounded p-2 text-sm font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900
              {isSelected(2, d) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-white/5 text-gray-400 hover:bg-white/10'}"
              on:click={() => toggleSpecific(2, d)}
            >
@@ -183,7 +183,7 @@
         <div class="grid grid-cols-4 gap-2">
          {#each OPTIONS.months as m}
            <button
-             class="rounded p-2 text-sm transition-colors
+             class="rounded p-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900
              {isSelected(3, m.val) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-white/5 text-gray-400 hover:bg-white/10'}"
              on:click={() => toggleSpecific(3, m.val)}
            >
@@ -195,7 +195,7 @@
         <div class="grid grid-cols-4 gap-2">
          {#each OPTIONS.weekdays as d}
            <button
-             class="rounded p-2 text-sm transition-colors
+             class="rounded p-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900
              {isSelected(4, d.val) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-white/5 text-gray-400 hover:bg-white/10'}"
              on:click={() => toggleSpecific(4, d.val)}
            >
