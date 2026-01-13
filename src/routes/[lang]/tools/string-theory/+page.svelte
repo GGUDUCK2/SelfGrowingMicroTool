@@ -6,6 +6,7 @@
   import Toolbar from '$lib/components/string-theory/Toolbar.svelte';
   import HistorySidebar from '$lib/components/string-theory/HistorySidebar.svelte';
   import ExtractorPanel from '$lib/components/string-theory/ExtractorPanel.svelte';
+  import SmartAssistant from '$lib/components/string-theory/SmartAssistant.svelte';
   import { TextAnalyzer } from '$lib/utils/string-theory/analyzer';
   import { TextTransformer } from '$lib/utils/string-theory/transformer';
   import { TextCleaner } from '$lib/utils/string-theory/cleaner';
@@ -210,7 +211,10 @@
         </div>
       </div>
 
-      <Editor bind:text bind:stats />
+      <div class="relative">
+        <Editor bind:text bind:stats />
+        <SmartAssistant {text} on:action={handleAction} />
+      </div>
     </div>
 
     <!-- Toolbar -->

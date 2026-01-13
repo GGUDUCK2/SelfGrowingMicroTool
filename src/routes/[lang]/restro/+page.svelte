@@ -389,26 +389,26 @@
       <div class="flex-1 overflow-y-auto p-6 space-y-6">
         <div>
           <div class="flex items-center justify-between mb-2">
-            <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">cURL</label>
-            <button on:click={() => copySnippet(snippetCurl)} class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Copy</button>
+            <label for="curl-snippet" class="text-sm font-semibold text-slate-700 dark:text-slate-300">cURL</label>
+            <button on:click={() => copySnippet(snippetCurl)} aria-label="Copy cURL" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Copy</button>
           </div>
-          <pre class="bg-slate-100 dark:bg-slate-900 p-4 rounded-lg text-xs font-mono overflow-x-auto text-slate-800 dark:text-slate-200">{snippetCurl}</pre>
+          <textarea id="curl-snippet" readonly class="w-full h-32 bg-slate-100 dark:bg-slate-900 p-4 rounded-lg text-xs font-mono overflow-x-auto text-slate-800 dark:text-slate-200 resize-none focus:outline-none" value={snippetCurl}></textarea>
         </div>
 
         <div>
            <div class="flex items-center justify-between mb-2">
-            <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">JavaScript (Fetch)</label>
-            <button on:click={() => copySnippet(snippetFetch)} class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Copy</button>
+            <label for="fetch-snippet" class="text-sm font-semibold text-slate-700 dark:text-slate-300">JavaScript (Fetch)</label>
+            <button on:click={() => copySnippet(snippetFetch)} aria-label="Copy Fetch" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Copy</button>
           </div>
-          <pre class="bg-slate-100 dark:bg-slate-900 p-4 rounded-lg text-xs font-mono overflow-x-auto text-slate-800 dark:text-slate-200">{snippetFetch}</pre>
+          <textarea id="fetch-snippet" readonly class="w-full h-32 bg-slate-100 dark:bg-slate-900 p-4 rounded-lg text-xs font-mono overflow-x-auto text-slate-800 dark:text-slate-200 resize-none focus:outline-none" value={snippetFetch}></textarea>
         </div>
 
         <div>
            <div class="flex items-center justify-between mb-2">
-            <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Markdown Docs</label>
-            <button on:click={() => copySnippet(snippetDocs)} class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Copy</button>
+            <label for="docs-snippet" class="text-sm font-semibold text-slate-700 dark:text-slate-300">Markdown Docs</label>
+            <button on:click={() => copySnippet(snippetDocs)} aria-label="Copy Docs" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Copy</button>
           </div>
-          <pre class="bg-slate-100 dark:bg-slate-900 p-4 rounded-lg text-xs font-mono overflow-x-auto text-slate-800 dark:text-slate-200 whitespace-pre-wrap">{snippetDocs}</pre>
+          <textarea id="docs-snippet" readonly class="w-full h-32 bg-slate-100 dark:bg-slate-900 p-4 rounded-lg text-xs font-mono overflow-x-auto text-slate-800 dark:text-slate-200 resize-none focus:outline-none whitespace-pre-wrap" value={snippetDocs}></textarea>
         </div>
       </div>
     </div>

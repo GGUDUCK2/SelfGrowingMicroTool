@@ -748,6 +748,12 @@ export const dictionaries = {
           ipv6: "IPv6 Addresses",
           hexColor: "Hex Colors"
         },
+        smartMagic: {
+          formatJson: "Format JSON",
+          decodeBase64: "Decode Base64",
+          decodeUrl: "URL Decode",
+          cleanWhitespace: "Clean Whitespace"
+        },
         guide: {
           title: "Why String Theory?",
           intro: "String Theory is the ultimate text manipulation suite for developers and writers. It treats text as data, allowing for complex transformations and deep analysis in milliseconds.",
@@ -1600,6 +1606,12 @@ export const dictionaries = {
           ipv4: "IPv4 주소",
           ipv6: "IPv6 주소",
           hexColor: "Hex 색상"
+        },
+        smartMagic: {
+          formatJson: "JSON 포맷",
+          decodeBase64: "Base64 디코딩",
+          decodeUrl: "URL 디코딩",
+          cleanWhitespace: "공백 정리"
         },
         guide: {
           title: "왜 String Theory인가요?",

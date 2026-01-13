@@ -26,7 +26,7 @@ export type TransformMode =
 
 export type CleanMode =
   | 'trim' | 'trimLines' | 'removeEmptyLines' | 'removeDuplicateLines'
-  | 'normalizeSpace' | 'stripHtml' | 'stripPunctuation' | 'removeNumbers';
+  | 'normalizeSpace' | 'stripHtml' | 'stripPunctuation' | 'removeNumbers' | 'formatJson';
 
 export type SecurityMode =
   | 'redactEmail' | 'redactPhone' | 'redactIp' | 'redactCreditCard';

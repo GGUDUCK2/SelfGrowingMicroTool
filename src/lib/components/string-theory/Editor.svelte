@@ -26,15 +26,14 @@
   // Reactive analysis
   $: {
     stats = TextAnalyzer.analyze(text);
-    if (text) resize();
+    if (text && textarea) resize();
   }
 
   onMount(() => {
     resize();
   });
 
-  function handleInput(e: Event) {
-    text = (e.target as HTMLTextAreaElement).value;
+  function handleInput() {
     resize();
   }
 </script>
@@ -42,10 +41,11 @@
 <div class="relative group">
   <textarea
     bind:this={textarea}
-    value={text}
+    bind:value={text}
     on:input={handleInput}
     class="w-full min-h-[300px] p-6 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-mono text-sm leading-relaxed text-slate-800 dark:text-slate-200 resize-none shadow-inner"
     placeholder={dict.input}
+    aria-label="Input Text"
   ></textarea>
 
   <div class="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
