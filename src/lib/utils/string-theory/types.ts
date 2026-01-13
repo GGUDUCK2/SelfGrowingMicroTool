@@ -42,4 +42,4 @@ export interface ExtractionResult {
   count: number;
 }
 
-export type ExtractionType = 'email' | 'url' | 'phone' | 'hashtag' | 'mention' | 'ipv4' | 'ipv6' | 'hexColor' | 'date' | 'time';
+export type ExtractionType = 'email' | 'url' | 'phone' | 'hashtag' | 'mention' | 'ipv4' | 'ipv6' | 'hexColor' | 'date' | 'time' | 'creditCard' | 'jwt' | 'uuid';

@@ -1,3 +1,7 @@
+import { v4 as uuidv4 } from 'uuid';
+import { ulid } from 'ulid';
+import { nanoid } from 'nanoid';
+
 export class TextGenerator {
     static loremIpsum(paragraphs: number = 3): string {
         const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
@@ -19,9 +23,14 @@ export class TextGenerator {
     }
 
     static uuid(): string {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
+        return uuidv4();
+    }
+
+    static ulid(): string {
+        return ulid();
+    }
+
+    static nanoid(size: number = 21): string {
+        return nanoid(size);
     }
 }

@@ -22,32 +22,35 @@ export class SmartMagic {
              suggestions.push({
                 id: 'format-json',
                 label: 'formatJson',
-                action: 'clean', // We might need a 'format' action or piggyback
-                mode: 'formatJson', // We need to add this mode
+                action: 'clean',
+                mode: 'formatJson',
                 confidence: 0.95
              });
         }
       } catch (e) {
-         // Invalid JSON, maybe suggest fixing?
+         // Invalid JSON
       }
     }
 
     // Base64 Detection (naive)
+    // Needs to be at least some length and match chars.
     if (trimmed.length > 8 && /^[A-Za-z0-9+/]+={0,2}$/.test(trimmed)) {
        try {
-           atob(trimmed);
-           suggestions.push({
-               id: 'decode-base64',
-               label: 'decodeBase64',
-               action: 'encode',
-               mode: 'base64Decode',
-               confidence: 0.8
-           });
+           const decoded = atob(trimmed);
+           if (decoded.length > 0) {
+                suggestions.push({
+                    id: 'decode-base64',
+                    label: 'decodeBase64',
+                    action: 'encode',
+                    mode: 'base64Decode',
+                    confidence: 0.8
+                });
+           }
        } catch (e) {}
     }
 
     // URL Encoded
-    if (trimmed.includes('%20') || trimmed.includes('%2F')) {
+    if (trimmed.includes('%20') || trimmed.includes('%2F') || trimmed.includes('%3A') || trimmed.includes('%3F')) {
         suggestions.push({
             id: 'decode-url',
             label: 'decodeUrl',
@@ -57,14 +60,17 @@ export class SmartMagic {
         });
     }
 
-    // JWT Detection
+    // JWT Detection - suggest decoding
     if (trimmed.split('.').length === 3 && trimmed.startsWith('ey')) {
+         // JWT usually can be base64 decoded parts.
+         // But String Theory might not be the best place for full JWT debug.
+         // Just base64 decode is fine.
          suggestions.push({
-            id: 'decode-jwt',
-            label: 'decodeBase64',
-            action: 'encode', // We might not have a JWT decoder in String Theory yet, maybe just Base64 decode parts?
-            mode: 'base64Decode', // Fallback
-            confidence: 0.95
+            id: 'decode-jwt-header',
+            label: 'decodeBase64', // Reuse existing label or add new one
+            action: 'encode',
+            mode: 'base64Decode',
+            confidence: 0.85
         });
     }
 
@@ -76,6 +82,17 @@ export class SmartMagic {
             action: 'clean',
             mode: 'normalizeSpace',
             confidence: 0.7
+        });
+    }
+
+    // HTML Entity Detection
+    if (/&[a-z]+;|&#[0-9]+;/i.test(text)) {
+        suggestions.push({
+            id: 'decode-html',
+            label: 'decodeHtml', // Need to add this label
+            action: 'encode',
+            mode: 'htmlEntityDecode',
+            confidence: 0.9
         });
     }
 

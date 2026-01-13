@@ -25,6 +25,8 @@
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
           <button on:click={() => emitGenerate('lorem')} class="btn-secondary text-indigo-600 dark:text-indigo-400" aria-label="{mainDict.generators.lorem}">{mainDict.generators.lorem}</button>
           <button on:click={() => emitGenerate('uuid')} class="btn-secondary text-indigo-600 dark:text-indigo-400" aria-label="{mainDict.generators.uuid}">{mainDict.generators.uuid}</button>
+          <button on:click={() => emitGenerate('ulid')} class="btn-secondary text-indigo-600 dark:text-indigo-400" aria-label="{mainDict.generators.ulid}">{mainDict.generators.ulid}</button>
+          <button on:click={() => emitGenerate('nanoid')} class="btn-secondary text-indigo-600 dark:text-indigo-400" aria-label="{mainDict.generators.nanoid}">{mainDict.generators.nanoid}</button>
           <button on:click={() => emitGenerate('random')} class="btn-secondary text-indigo-600 dark:text-indigo-400" aria-label="{mainDict.generators.random}">{mainDict.generators.random}</button>
       </div>
   </div>
