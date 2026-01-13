@@ -223,5 +223,20 @@
     "category": "Developer Tools",
     "tags": ["text", "converter", "string", "analysis", "encoder", "developer"],
     "createdAt": "2025-02-10"
+  },
+  {
+    "id": "qr-forge",
+    "slug": "qr-forge",
+    "title": {
+      "en": "QR Forge: Pro Code Generator",
+      "ko": "QR Forge: 프로 QR 코드 생성기"
+    },
+    "description": {
+      "en": "The definitive QR code generator. Generate, customize, and download QR codes for URLs, WiFi, VCards, and more. 100% Client-side.",
+      "ko": "완벽한 QR 코드 생성기입니다. URL, WiFi, VCard 등을 위한 QR 코드를 생성하고, 커스터마이징하고, 다운로드하세요. 100% 클라이언트 처리."
+    },
+    "category": "Utility",
+    "tags": ["qrcode", "generator", "wifi", "vcard", "utility", "tool"],
+    "createdAt": "2025-02-11"
   }
 ]
