@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { QRState } from '$lib/utils/qr-forge/types';
   import { slide } from 'svelte/transition';
+  import { Upload, X } from 'lucide-svelte';
 
   export let state: QRState;
   export let dictionary: any;
@@ -22,7 +23,32 @@
     state.crypto = { currency: 'BTC', address: '' };
   }
 
+  // Ensure branding defaults
+  $: if (!state.design.logoSize) state.design.logoSize = 0.2;
+  $: if (!state.design.frame) state.design.frame = 'none';
+
   const d = dictionary.tools.qrForge || {};
+
+  let fileInput: HTMLInputElement;
+
+  const handleLogoUpload = (e: Event) => {
+      const target = e.target as HTMLInputElement;
+      const file = target.files?.[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+              if (ev.target?.result && typeof ev.target.result === 'string') {
+                  state.design.logo = ev.target.result;
+              }
+          };
+          reader.readAsDataURL(file);
+      }
+  };
+
+  const clearLogo = () => {
+      state.design.logo = undefined;
+      if (fileInput) fileInput.value = '';
+  };
 </script>
 
 <div class="space-y-6 p-4 bg-slate-800 rounded-xl border border-slate-700 shadow-sm">
@@ -33,7 +59,7 @@
       {#each ['url', 'text', 'wifi', 'email', 'sms', 'vcard', 'crypto'] as type}
         <button
           class="px-3 py-2 text-sm rounded-lg border transition-all duration-200 {state.type === type ? 'bg-indigo-600 border-indigo-500 text-white font-medium shadow-md ring-2 ring-indigo-500/20' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600 hover:border-slate-500'}"
-          on:click={() => state.type = type}
+          on:click={() => state.type = type as any}
         >
           {d.types?.[type] || type.toUpperCase()}
         </button>
@@ -167,6 +193,68 @@
         </label>
       </div>
     {/if}
+  </div>
+
+  <div class="h-px bg-slate-700 my-4"></div>
+
+  <!-- Branding -->
+  <div>
+    <h3 class="text-lg font-semibold text-slate-200 mb-3">{d.branding || 'Branding & Style'}</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <!-- Logo Upload -->
+        <div>
+             <span class="block text-sm font-medium text-slate-300 mb-2">{d.logo || 'Center Logo'}</span>
+             <div class="flex items-center gap-3">
+                {#if state.design.logo}
+                    <div class="relative w-12 h-12 bg-white rounded-lg p-1 border border-slate-600">
+                        <img src={state.design.logo} alt="Logo" class="w-full h-full object-contain" />
+                        <button on:click={clearLogo} class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-0.5 shadow-md hover:bg-red-600">
+                            <X size={12} />
+                        </button>
+                    </div>
+                {/if}
+                <label class="flex-1">
+                    <input
+                        type="file"
+                        accept="image/*"
+                        bind:this={fileInput}
+                        on:change={handleLogoUpload}
+                        class="hidden"
+                    />
+                    <div class="flex items-center justify-center space-x-2 w-full px-4 py-2 bg-slate-700 border border-slate-600 border-dashed rounded-lg cursor-pointer hover:bg-slate-600 transition-colors">
+                        <Upload size={16} class="text-slate-400" />
+                        <span class="text-sm text-slate-300">{d.uploadLogo || 'Upload Image'}</span>
+                    </div>
+                </label>
+             </div>
+             {#if state.design.logo}
+                <div class="mt-2">
+                    <span class="block text-xs text-slate-400 mb-1">{d.logoSize || 'Logo Size'}</span>
+                    <input type="range" min="0.1" max="0.3" step="0.01" bind:value={state.design.logoSize} class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500" />
+                </div>
+             {/if}
+        </div>
+
+        <!-- Frame -->
+        <div>
+             <span class="block text-sm font-medium text-slate-300 mb-2">{d.frame || 'Frame'}</span>
+             <select aria-label={d.frame || 'Frame'} bind:value={state.design.frame} class="w-full bg-slate-700 border-slate-600 rounded-lg px-3 py-2 text-slate-50 mb-2">
+                 <option value="none">{d.frameNone || 'None'}</option>
+                 <option value="simple">{d.frameSimple || 'Simple Border'}</option>
+                 <option value="scan_me">{d.frameScanMe || '"Scan Me" Label'}</option>
+             </select>
+             {#if state.design.frame && state.design.frame !== 'none'}
+                <div transition:slide>
+                    <input
+                        type="text"
+                        bind:value={state.design.frameText}
+                        placeholder={d.frameTextPlaceholder || 'SCAN ME'}
+                        class="w-full bg-slate-700 border-slate-600 rounded-lg px-3 py-2 text-slate-50 text-sm"
+                    />
+                </div>
+             {/if}
+        </div>
+    </div>
   </div>
 
   <div class="h-px bg-slate-700 my-4"></div>

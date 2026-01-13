@@ -8,6 +8,7 @@
   import { db } from '$lib/db/qr-forge';
   import { Save, History } from 'lucide-svelte';
   import { fade } from 'svelte/transition';
+  import { onMount, onDestroy } from 'svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dictionary = getDictionary(lang);
@@ -24,7 +25,9 @@
         colorLight: '#ffffff',
         errorCorrectionLevel: 'M',
         margin: 4,
-        scale: 4
+        scale: 4,
+        logoSize: 0.2,
+        frame: 'none'
     },
     createdAt: Date.now()
   };
@@ -58,14 +61,40 @@
             scale: 4
           };
       }
+      // Ensure new props
+      if (!state.design.logoSize) state.design.logoSize = 0.2;
+      if (!state.design.frame) state.design.frame = 'none';
+
       showHistory = false;
   };
+
+  const handleKeydown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+          e.preventDefault();
+          saveToHistory();
+      }
+  };
+
+  onMount(() => {
+      if (typeof window !== 'undefined') {
+          window.addEventListener('keydown', handleKeydown);
+      }
+  });
+
+  onDestroy(() => {
+      if (typeof window !== 'undefined') {
+          window.removeEventListener('keydown', handleKeydown);
+      }
+  });
 </script>
 
 <svelte:head>
   <title>{t.title} | MicroFactory</title>
   <meta name="description" content={t.description} />
   <meta name="keywords" content="qr code generator, wifi qr code, vcard qr code, crypto qr code, free qr generator, no expiry qr code" />
+  <meta property="og:title" content={t.title} />
+  <meta property="og:description" content={t.description} />
+  <meta property="og:type" content="website" />
   <script type="application/ld+json">
     {JSON.stringify({
       "@context": "https://schema.org",
@@ -78,7 +107,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "featureList": "Generate QR Codes for URL, WiFi, VCard, Crypto, Email, SMS",
+      "featureList": "Generate QR Codes for URL, WiFi, VCard, Crypto, Email, SMS. Add logos and custom frames.",
       "description": "Professional client-side QR code generator with customization and privacy focus."
     })}
   </script>
@@ -109,6 +138,7 @@
                     <button
                         on:click={saveToHistory}
                         class="flex items-center space-x-1 px-3 py-1.5 bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600/30 rounded-lg text-sm transition-colors border border-indigo-500/30"
+                        title="Save to History (Ctrl+S)"
                     >
                         <Save size={16} />
                         <span>{saveStatus || (t.save || 'Save')}</span>
