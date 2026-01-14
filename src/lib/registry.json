@@ -238,5 +238,20 @@
     "category": "Utility",
     "tags": ["qrcode", "generator", "wifi", "vcard", "utility", "tool"],
     "createdAt": "2025-02-11"
+  },
+  {
+    "id": "subnet-scope",
+    "slug": "subnet-scope",
+    "title": {
+      "en": "Subnet Scope: Network Architect",
+      "ko": "Subnet Scope: 네트워크 아키텍트"
+    },
+    "description": {
+      "en": "The definitive tool to calculate, visualize, and plan IPv4/IPv6 subnets. Includes CIDR calculator, binary visualization, and VLSM support.",
+      "ko": "IPv4/IPv6 서브넷을 계산, 시각화 및 계획하는 완벽한 도구입니다. CIDR 계산기, 이진 시각화 및 VLSM 지원을 포함합니다."
+    },
+    "category": "Developer Tools",
+    "tags": ["network", "subnet", "cidr", "ip", "calculator", "ipv6", "developer"],
+    "createdAt": "2025-02-12"
   }
 ]
