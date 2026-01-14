@@ -41,6 +41,8 @@
         "@types/prismjs": "^1.26.5",
         "colord": "^2.9.3",
         "cronstrue": "^3.9.0",
+        "date-fns": "^4.1.0",
+        "date-fns-tz": "^3.2.0",
         "dexie": "^4.2.1",
         "diff": "^8.0.2",
         "dompurify": "^3.3.1",
