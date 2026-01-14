@@ -791,8 +791,13 @@ export const dictionaries = {
             email: "Email",
             sms: "SMS",
             vcard: "VCard",
-            crypto: "Crypto"
+            crypto: "Crypto",
+            bulk: "Bulk"
         },
+        bulkInputLabel: "Bulk Input (One per line)",
+        bulkPlaceholder: "https://site1.com\nhttps://site2.com\n...",
+        bulkPrefix: "Prefix (Optional)",
+        generateZip: "Generate ZIP",
         content: "Content",
         placeholders: {
             text: "Enter text here..."
@@ -1723,8 +1728,13 @@ export const dictionaries = {
             email: "이메일",
             sms: "SMS",
             vcard: "VCard (연락처)",
-            crypto: "암호화폐"
+            crypto: "암호화폐",
+            bulk: "대량 생성"
         },
+        bulkInputLabel: "대량 입력 (한 줄에 하나씩)",
+        bulkPlaceholder: "https://site1.com\nhttps://site2.com\n...",
+        bulkPrefix: "접두사 (선택 사항)",
+        generateZip: "ZIP 생성",
         content: "내용",
         placeholders: {
             text: "여기에 텍스트를 입력하세요..."

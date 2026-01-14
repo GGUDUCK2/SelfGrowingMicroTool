@@ -1,10 +1,13 @@
 <script lang="ts">
-  import type { QRState } from '$lib/utils/qr-forge/types';
+  import type { QRState, QRType } from '$lib/utils/qr-forge/types';
+  import QRBulk from './QRBulk.svelte';
   import { slide } from 'svelte/transition';
   import { Upload, X } from 'lucide-svelte';
+  import { dictionaries } from '$lib/dictionaries';
 
   export let state: QRState;
-  export let dictionary: any;
+  type Dictionary = typeof dictionaries.en;
+  export let dictionary: Dictionary;
 
   // Helper to ensure objects exist if type changes
   $: if (state.type === 'wifi' && !state.wifi) {
@@ -21,6 +24,9 @@
   }
   $: if (state.type === 'crypto' && !state.crypto) {
     state.crypto = { currency: 'BTC', address: '' };
+  }
+  $: if (state.type === 'bulk' && !state.bulk) {
+    state.bulk = { items: '' };
   }
 
   // Ensure branding defaults
@@ -49,6 +55,8 @@
       state.design.logo = undefined;
       if (fileInput) fileInput.value = '';
   };
+
+  const types: QRType[] = ['url', 'text', 'wifi', 'email', 'sms', 'vcard', 'crypto', 'bulk'];
 </script>
 
 <div class="space-y-6 p-4 bg-slate-800 rounded-xl border border-slate-700 shadow-sm">
@@ -56,10 +64,10 @@
   <div>
     <span class="block text-sm font-medium text-slate-300 mb-2">{d.type || 'Content Type'}</span>
     <div class="grid grid-cols-3 sm:grid-cols-4 gap-2">
-      {#each ['url', 'text', 'wifi', 'email', 'sms', 'vcard', 'crypto'] as type}
+      {#each types as type}
         <button
           class="px-3 py-2 text-sm rounded-lg border transition-all duration-200 {state.type === type ? 'bg-indigo-600 border-indigo-500 text-white font-medium shadow-md ring-2 ring-indigo-500/20' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600 hover:border-slate-500'}"
-          on:click={() => state.type = type as any}
+          on:click={() => state.type = type}
         >
           {d.types?.[type] || type.toUpperCase()}
         </button>
@@ -192,9 +200,14 @@
           <input type="number" step="any" bind:value={state.crypto.amount} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500" />
         </label>
       </div>
+    {:else if state.type === 'bulk' && state.bulk}
+      <div transition:slide>
+         <QRBulk bind:state {dictionary} />
+      </div>
     {/if}
   </div>
 
+  {#if state.type !== 'bulk'}
   <div class="h-px bg-slate-700 my-4"></div>
 
   <!-- Branding -->
@@ -256,6 +269,7 @@
         </div>
     </div>
   </div>
+  {/if}
 
   <div class="h-px bg-slate-700 my-4"></div>
 

@@ -1,4 +1,4 @@
-export type QRType = 'text' | 'url' | 'wifi' | 'email' | 'sms' | 'vcard' | 'crypto';
+export type QRType = 'text' | 'url' | 'wifi' | 'email' | 'sms' | 'vcard' | 'crypto' | 'bulk';
 
 export type WiFiEncryption = 'WPA' | 'WEP' | 'nopass';
 
@@ -41,6 +41,11 @@ export interface CryptoConfig {
     message?: string;
 }
 
+export interface BulkConfig {
+    items: string; // Newline separated content
+    prefix?: string;
+}
+
 export interface QRDesign {
     colorDark: string;
     colorLight: string;
@@ -71,6 +76,7 @@ export interface QRState {
     email?: EmailConfig;
     sms?: SMSConfig;
     crypto?: CryptoConfig;
+    bulk?: BulkConfig;
 
     design: QRDesign;
 
