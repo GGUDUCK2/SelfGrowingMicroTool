@@ -32,7 +32,7 @@ export class SubnetCalculator {
       try {
         const ip4 = new Address4(input);
         return this.analyzeIPv4(ip4);
-      } catch (e) {
+      } catch {
          // ignore
       }
     }
@@ -41,7 +41,7 @@ export class SubnetCalculator {
       try {
         const ip6 = new Address6(input);
         return this.analyzeIPv6(ip6);
-      } catch (e) {
+      } catch {
         // ignore
       }
     }
@@ -86,7 +86,7 @@ export class SubnetCalculator {
         }
         return subnets;
 
-    } catch (e) {
+    } catch {
         return [];
     }
   }

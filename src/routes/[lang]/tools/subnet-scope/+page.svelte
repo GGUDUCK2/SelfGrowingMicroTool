@@ -4,6 +4,7 @@
   import { SubnetCalculator, type NetworkInfo, type SubnetResult } from '$lib/utils/subnet-scope/calculator';
   import Visualizer from './Visualizer.svelte';
   import SubnetTable from './SubnetTable.svelte';
+  import SubnetPlanner from './SubnetPlanner.svelte';
   import { workspace, saveToHistory, deleteHistoryItem, clearHistory, getHistoryObservable, toggleStar, type ToolHistoryItem } from '$lib/db/workspace';
   import { liveQuery, type Observable } from 'dexie';
   import { onMount } from 'svelte';
@@ -72,25 +73,50 @@
       analyze();
   }
 
+  function share() {
+      if (!browser) return;
+      const url = new URL(window.location.href);
+      url.searchParams.set('input', input);
+      if (activeTab !== 'analyze') {
+          url.searchParams.set('tab', activeTab);
+      }
+      navigator.clipboard.writeText(url.toString());
+      showToast(dict.tools.subnetScope.linkCopied || 'Link Copied!');
+  }
+
   // History
   let history$: Observable<ToolHistoryItem[]> | undefined;
   $: if (browser) {
-      history$ = liveQuery(() => getHistoryObservable('subnet-scope').toArray());
+      history$ = liveQuery(() => getHistoryObservable('subnet-scope'));
   }
 
   function restore(item: ToolHistoryItem) {
-      input = item.input;
-      analyze();
-      activeTab = 'analyze';
+      if (typeof item.input === 'string') {
+          input = item.input;
+          analyze();
+          activeTab = 'analyze';
+      }
   }
 
   // Initial load
   onMount(() => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const sharedInput = urlParams.get('input');
+      const sharedTab = urlParams.get('tab');
+
+      if (sharedInput) {
+          input = sharedInput;
+      }
+
       analyze();
+
+      if (sharedTab && ['analyze', 'subnetting', 'planner', 'history'].includes(sharedTab)) {
+          activeTab = sharedTab as any;
+      }
   });
 
   // Tabs
-  let activeTab: 'analyze' | 'subnetting' | 'history' = 'analyze';
+  let activeTab: 'analyze' | 'subnetting' | 'planner' | 'history' = 'analyze';
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -195,6 +221,13 @@
           >
             {dict.tools.subnetScope.analyze}
           </button>
+          <button
+             on:click={share}
+             class="px-4 py-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 font-bold rounded-xl transition-colors"
+             aria-label="Share Configuration"
+          >
+             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          </button>
       </div>
   </div>
 
@@ -212,6 +245,12 @@
               on:click={() => activeTab = 'subnetting'}
           >
               {dict.tools.subnetScope.subnetting}
+          </button>
+          <button
+              class="pb-4 text-sm font-medium transition-colors border-b-2 {activeTab === 'planner' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+              on:click={() => activeTab = 'planner'}
+          >
+              Network Planner
           </button>
           <button
               class="pb-4 text-sm font-medium transition-colors border-b-2 {activeTab === 'history' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
@@ -331,7 +370,7 @@
                         </div>
                     </div>
 
-                    <SubnetTable {subnets} {dict} />
+                    <SubnetTable {subnets} dict={dict.tools.subnetScope} commonDict={dict.common} />
                 </div>
             {/if}
         {:else}
@@ -339,6 +378,12 @@
                  <p class="text-red-600 dark:text-red-400 font-medium">{result.error}</p>
              </div>
         {/if}
+      {/if}
+
+      {#if activeTab === 'planner'}
+          <div in:fade>
+              <SubnetPlanner dict={dict.tools.subnetScope} />
+          </div>
       {/if}
 
       {#if activeTab === 'history'}
@@ -417,12 +462,18 @@
 
       <h3 class="text-2xl font-bold mt-12 mb-6">{dict.tools.subnetScope.faqTitle}</h3>
       <div class="space-y-6">
-          {#each ['q1', 'q2', 'q3'] as q}
-            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-100 dark:border-slate-700">
-                <h4 class="font-bold text-lg mb-2">{dict.tools.subnetScope[q]}</h4>
-                <p class="text-slate-600 dark:text-slate-400">{dict.tools.subnetScope['a' + q.slice(1)]}</p>
-            </div>
-          {/each}
+      <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-100 dark:border-slate-700">
+          <h4 class="font-bold text-lg mb-2">{dict.tools.subnetScope.q1}</h4>
+          <p class="text-slate-600 dark:text-slate-400">{dict.tools.subnetScope.a1}</p>
+      </div>
+      <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-100 dark:border-slate-700">
+          <h4 class="font-bold text-lg mb-2">{dict.tools.subnetScope.q2}</h4>
+          <p class="text-slate-600 dark:text-slate-400">{dict.tools.subnetScope.a2}</p>
+      </div>
+      <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-100 dark:border-slate-700">
+          <h4 class="font-bold text-lg mb-2">{dict.tools.subnetScope.q3}</h4>
+          <p class="text-slate-600 dark:text-slate-400">{dict.tools.subnetScope.a3}</p>
+      </div>
       </div>
   </article>
 </div>

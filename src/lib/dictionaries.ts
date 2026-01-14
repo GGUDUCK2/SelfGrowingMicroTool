@@ -7,6 +7,7 @@ export const dictionaries = {
     },
     common: {
       back: "Back to Home",
+      actions: "Actions",
     },
     tools: {
       compoundInterest: {
@@ -1035,6 +1036,7 @@ export const dictionaries = {
         exportJSON: "Export JSON",
         downloaded: "Downloaded!",
         copied: "Copied!",
+        linkCopied: "Link Copied!",
         error: "Invalid IP Address",
         faqTitle: "Subnet Scope FAQ",
         q1: "Does it support IPv6?",
@@ -1143,6 +1145,7 @@ export const dictionaries = {
     },
     common: {
       back: "홈으로 돌아가기",
+      actions: "작업",
     },
     tools: {
       compoundInterest: {
@@ -2089,6 +2092,7 @@ export const dictionaries = {
         exportJSON: "JSON 내보내기",
         downloaded: "다운로드됨!",
         copied: "복사됨!",
+        linkCopied: "링크 복사됨!",
         error: "유효하지 않은 IP 주소",
         faqTitle: "Subnet Scope FAQ",
         q1: "IPv6를 지원하나요?",

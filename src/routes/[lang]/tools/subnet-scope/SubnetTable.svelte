@@ -5,7 +5,8 @@
   import type { dictionaries } from '$lib/dictionaries';
 
   export let subnets: SubnetResult[] = [];
-  export let dict: typeof dictionaries.en;
+  export let dict: any;
+  export let commonDict: any;
 
   let toast: string | null = null;
   let toastTimeout: any;
@@ -18,7 +19,7 @@
 
   function copy(text: string) {
       navigator.clipboard.writeText(text);
-      showToast(dict.tools.subnetScope.copied || 'Copied!');
+      showToast(dict.copied || 'Copied!');
   }
 
   function downloadCSV() {
@@ -42,7 +43,7 @@
       a.download = filename;
       a.click();
       URL.revokeObjectURL(url);
-      showToast(dict.tools.subnetScope.downloaded || 'Downloaded!');
+      showToast(dict.downloaded || 'Downloaded!');
   }
 </script>
 
@@ -55,11 +56,11 @@
 {#if subnets.length > 0}
   <div class="space-y-4" transition:slide>
     <div class="flex justify-end gap-2">
-        <button on:click={downloadCSV} class="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-            {dict.tools.subnetScope.exportCSV || 'Export CSV'}
+        <button on:click={downloadCSV} aria-label="Export CSV" class="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+            {dict.exportCSV || 'Export CSV'}
         </button>
-        <button on:click={downloadJSON} class="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-            {dict.tools.subnetScope.exportJSON || 'Export JSON'}
+        <button on:click={downloadJSON} aria-label="Export JSON" class="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+            {dict.exportJSON || 'Export JSON'}
         </button>
     </div>
 
@@ -68,9 +69,9 @@
         <thead class="bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-medium">
           <tr>
             <th class="px-4 py-3">#</th>
-            <th class="px-4 py-3">{dict.tools.subnetScope.network}</th>
-            <th class="px-4 py-3">{dict.tools.subnetScope.range}</th>
-            <th class="px-4 py-3 text-right">{dict.common?.actions || 'Actions'}</th>
+            <th class="px-4 py-3">{dict.network}</th>
+            <th class="px-4 py-3">{dict.range}</th>
+            <th class="px-4 py-3 text-right">{commonDict.actions || 'Actions'}</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-slate-100 dark:divide-slate-700 bg-white dark:bg-slate-900">
