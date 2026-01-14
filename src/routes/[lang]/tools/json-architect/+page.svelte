@@ -197,7 +197,7 @@
       <!-- Input Column -->
       <div class="flex-1 flex flex-col gap-2">
           <div class="flex justify-between items-center">
-             <label for="json-input" class="text-sm font-semibold text-slate-300">입력 JSON ({t.input})</label>
+             <label for="json-input" class="text-sm font-semibold text-slate-300">입력 JSON</label>
              {#if error}
                 <span class="text-xs text-red-600 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded">{error}</span>
              {:else if parsedData}
@@ -214,7 +214,7 @@
       <div class="flex-1 flex flex-col gap-2">
           <div class="flex justify-between items-center">
              <label for="json-output" class="text-sm font-semibold text-slate-300">
-                포맷된 결과 ({t.output})
+                포맷된 결과
                 {#if mode !== 'json'}
                   <span class="ml-2 px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-xs text-gray-500">{mode.toUpperCase()}</span>
                 {/if}
