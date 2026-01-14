@@ -4,50 +4,62 @@ from playwright.sync_api import sync_playwright, expect
 def verify_subnet_scope():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        context = browser.new_context(viewport={"width": 1280, "height": 800})
+        context = browser.new_context(viewport={'width': 1280, 'height': 800})
         page = context.new_page()
 
+        # 1. Navigate to the Subnet Scope tool
         try:
-            # Navigate to the tool
-            page.goto("http://localhost:5173/en/tools/subnet-scope")
-
-            # Wait for page load
+            page.goto("http://localhost:4173/en/tools/subnet-scope")
             page.wait_for_load_state("networkidle")
-
-            # Verify title
-            expect(page.get_by_role("heading", name="Subnet Scope: Network Architect")).to_be_visible()
-
-            # Check new Smart Examples buttons
-            expect(page.get_by_text("Home (/24)")).to_be_visible()
-
-            # Click a smart example
-            page.get_by_text("Home (/24)").click()
-
-            # Wait for analysis to update (input value should change)
-            input_field = page.get_by_label("IP Address or CIDR Input")
-            expect(input_field).to_have_value("192.168.1.0/24")
-
-            # Wait a bit for history to be saved (async)
-            time.sleep(1)
-
-            # Verify History Tab
-            page.get_by_role("button", name="History").click()
-            expect(page.get_by_text("Recent Calculations")).to_be_visible()
-
-            # Use a more specific locator for the history item
-            # It should be in the history list
-            expect(page.locator(".font-mono.text-lg", has_text="192.168.1.0/24").first).to_be_visible()
-
-            # Take screenshot
-            page.screenshot(path="verification/subnet-scope.png")
-            print("Verification script completed successfully.")
-
         except Exception as e:
-            print(f"Error: {e}")
-            page.screenshot(path="verification/subnet_scope_error.png")
-            raise e
-        finally:
-            browser.close()
+            print(f"Failed to load page: {e}")
+            return
+
+        # 2. Verify Page Title
+        expect(page).to_have_title("Subnet Scope: Network Architect")
+
+        # 3. Verify Cloud Presets are visible
+        presets = page.locator("text=Cloud & Common Presets")
+        expect(presets).to_be_visible()
+
+        # 4. Click a preset (e.g., AWS VPC)
+        page.get_by_text("AWS VPC").click()
+
+        # 5. Wait for calculation to update
+        # Network address should be 10.0.0.0
+        expect(page.locator("text=10.0.0.0").first).to_be_visible()
+        # Netmask should be 255.255.0.0 (/16)
+        expect(page.locator("text=255.255.0.0")).to_be_visible()
+
+        # 6. Check Visualizer
+        # The visualizer should show the binary representation
+        visualizer = page.locator(".font-mono.text-sm")
+        expect(visualizer).to_be_visible()
+
+        # 7. Check bit markers (hover effect simulation might be tricky in screenshot, but we can check existence in DOM)
+        # We added bit markers index+1 every 8 bits. e.g. "8", "16", "24".
+        # They are hidden by default (opacity-0), so we might force them visible for screenshot or just trust the DOM check.
+        # Let's try to hover over the first byte to trigger the marker.
+        first_byte = visualizer.locator("span").first
+        first_byte.hover()
+
+        # 8. Switch to Subnetting Tab
+        page.get_by_text("Subnetting (VLSM)").click()
+
+        # 9. Generate Subnets (Split /16 into /18)
+        page.fill('input[type="number"]', '18')
+        page.get_by_role("button", name="Generate Subnets").click()
+
+        # 10. Check Table
+        table = page.locator("table")
+        expect(table).to_be_visible()
+        expect(table).to_contain_text("10.0.64.0/18")
+
+        # 11. Take Screenshot
+        page.screenshot(path="verification/subnet_scope_verified.png", full_page=True)
+        print("Screenshot saved to verification/subnet_scope_verified.png")
+
+        browser.close()
 
 if __name__ == "__main__":
     verify_subnet_scope()

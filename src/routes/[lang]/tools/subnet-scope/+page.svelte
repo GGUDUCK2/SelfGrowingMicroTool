@@ -98,19 +98,36 @@
 <svelte:head>
   <title>{dict.tools.subnetScope.title}</title>
   <meta name="description" content={dict.tools.subnetScope.description} />
+
+  <meta property="og:title" content={dict.tools.subnetScope.title} />
+  <meta property="og:description" content={dict.tools.subnetScope.description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://micro-tools-factory.vercel.app/{data.lang}/tools/subnet-scope" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={dict.tools.subnetScope.title} />
+  <meta name="twitter:description" content={dict.tools.subnetScope.description} />
+
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Subnet Scope",
       "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Web",
+      "operatingSystem": "Web, iOS, Android",
       "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": "Calculate, visualize, and plan IPv4/IPv6 subnets with VLSM support."
+      "description": "Calculate, visualize, and plan IPv4/IPv6 subnets with VLSM support.",
+      "featureList": [
+        "IPv4 & IPv6 CIDR Calculator",
+        "Binary Visualization",
+        "VLSM Subnet Generator",
+        "Private/Public IP Detection",
+        "Export Subnet Plan (CSV/JSON)"
+      ]
     }
   </script>
 </svelte:head>
@@ -135,23 +152,29 @@
     </p>
   </div>
 
-  <!-- Smart Examples -->
-  <div class="flex flex-wrap justify-center gap-2">
-      <button on:click={() => loadExample('192.168.1.0/24')} class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors">
-          Home (/24)
-      </button>
-      <button on:click={() => loadExample('10.0.0.0/16')} class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors">
-          Enterprise (/16)
-      </button>
-      <button on:click={() => loadExample('10.0.0.0/8')} class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors">
-          Large Block (/8)
-      </button>
-      <button on:click={() => loadExample('172.16.1.0/30')} class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors">
-          P2P Link (/30)
-      </button>
-      <button on:click={() => loadExample('2001:db8::/64')} class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors">
-          IPv6 Site (/64)
-      </button>
+  <!-- Cloud & Common Presets -->
+  <div class="space-y-3 max-w-2xl mx-auto">
+      <div class="text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">{dict.tools.subnetScope.presets.title}</div>
+      <div class="flex flex-wrap justify-center gap-2">
+          <button on:click={() => loadExample('10.0.0.0/16')} class="px-3 py-1 text-xs font-medium bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-100 dark:border-orange-800 rounded-full hover:bg-orange-100 dark:hover:bg-orange-900/40 transition-colors">
+              {dict.tools.subnetScope.presets.aws}
+          </button>
+          <button on:click={() => loadExample('10.0.0.0/16')} class="px-3 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800 rounded-full hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
+              {dict.tools.subnetScope.presets.azure}
+          </button>
+          <button on:click={() => loadExample('192.168.1.0/24')} class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+              {dict.tools.subnetScope.presets.home}
+          </button>
+          <button on:click={() => loadExample('172.17.0.0/16')} class="px-3 py-1 text-xs font-medium bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-300 border border-cyan-100 dark:border-cyan-800 rounded-full hover:bg-cyan-100 dark:hover:bg-cyan-900/40 transition-colors">
+              {dict.tools.subnetScope.presets.docker}
+          </button>
+          <button on:click={() => loadExample('10.10.10.0/30')} class="px-3 py-1 text-xs font-medium bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-800 rounded-full hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors">
+              {dict.tools.subnetScope.presets.p2p}
+          </button>
+          <button on:click={() => loadExample('2001:db8::/64')} class="px-3 py-1 text-xs font-medium bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300 border border-violet-100 dark:border-violet-800 rounded-full hover:bg-violet-100 dark:hover:bg-violet-900/40 transition-colors">
+              IPv6 Site (/64)
+          </button>
+      </div>
   </div>
 
   <!-- Main Input -->
