@@ -2,9 +2,10 @@
   import type { SubnetResult } from '$lib/utils/subnet-scope/calculator';
   import { slide, fade } from 'svelte/transition';
   import { browser } from '$app/environment';
+  import type { dictionaries } from '$lib/dictionaries';
 
   export let subnets: SubnetResult[] = [];
-  export let dict: any; // Dictionary for localization
+  export let dict: typeof dictionaries.en;
 
   let toast: string | null = null;
   let toastTimeout: any;

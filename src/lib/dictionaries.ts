@@ -1054,6 +1054,14 @@ export const dictionaries = {
           tip1: "Enter a bare IP (e.g., 192.168.1.1) to see default classful masking, or add a slash (e.g., /24) for CIDR.",
           tip2: "Use the **History** tab to compare different subnetting scenarios.",
           tip3: "The **Binary Visualization** is interactive - hover to see bit positions."
+        },
+        presets: {
+            title: "Cloud & Common Presets",
+            aws: "AWS VPC",
+            azure: "Azure VNet",
+            home: "Home Network",
+            docker: "Docker Bridge",
+            p2p: "P2P Link"
         }
       }
     },
@@ -2046,6 +2054,14 @@ export const dictionaries = {
           tip1: "IP만 입력하면(예: 192.168.1.1) 기본 클래스 마스크를 보여주고, 슬래시(/24)를 추가하면 CIDR로 계산합니다.",
           tip2: "**기록** 탭을 사용하여 다양한 서브넷팅 시나리오를 비교하세요.",
           tip3: "**이진 시각화**에 마우스를 올리면 비트 위치를 확인할 수 있습니다."
+        },
+        presets: {
+            title: "클라우드 & 공통 프리셋",
+            aws: "AWS VPC",
+            azure: "Azure VNet",
+            home: "홈 네트워크",
+            docker: "도커 브릿지",
+            p2p: "P2P 링크"
         }
       }
     },

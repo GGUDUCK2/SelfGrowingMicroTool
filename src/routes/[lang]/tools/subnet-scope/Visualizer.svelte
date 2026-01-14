@@ -33,18 +33,25 @@
 
 <div class="p-6 bg-slate-900 rounded-xl overflow-x-auto border border-slate-700 shadow-inner">
     <div class="flex flex-wrap gap-y-2 font-mono text-sm md:text-base leading-relaxed break-all max-w-full">
-        {#each chars as { char, type }, i}
-            <span
-                class="inline-block transition-colors duration-300"
-                class:text-indigo-400={type === 'network'}
-                class:font-bold={type === 'network'}
-                class:text-slate-500={type === 'host'}
-                class:text-slate-700={type === 'separator'}
-                class:mx-1={type === 'separator'}
-            >
-                {char}
-            </span>
-            <!-- Add a small break for IPv6 readability if needed, but flex-wrap handles it -->
+        {#each chars as { char, type, index }, i}
+            <div class="relative inline-flex flex-col items-center group">
+                 <span
+                    class="inline-block transition-colors duration-300 text-lg md:text-xl"
+                    class:text-indigo-400={type === 'network'}
+                    class:font-bold={type === 'network'}
+                    class:text-slate-500={type === 'host'}
+                    class:text-slate-700={type === 'separator'}
+                    class:mx-1={type === 'separator'}
+                >
+                    {char}
+                </span>
+                <!-- Bit Marker (only for bits, not separators, every 8th bit for v4, 16th for v6? No, let's do 8th) -->
+                {#if type !== 'separator' && (index + 1) % 8 === 0}
+                    <span class="absolute -bottom-4 text-[10px] text-slate-600 dark:text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                        {index + 1}
+                    </span>
+                {/if}
+            </div>
         {/each}
     </div>
 
