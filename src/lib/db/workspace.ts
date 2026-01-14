@@ -1,8 +1,7 @@
 import Dexie, { type Table } from 'dexie';
 import { db, type CipherHistory, type StructuraHistory } from '../db'; // Import from src/lib/db.ts
-import { liveQuery } from 'dexie';
 
-export interface ToolHistoryItem<T = any, R = any> {
+export interface ToolHistoryItem<T = unknown, R = unknown> {
   id?: number;
   toolId: string;
   input: T;
