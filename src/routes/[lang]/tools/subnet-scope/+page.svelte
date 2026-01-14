@@ -4,8 +4,8 @@
   import { SubnetCalculator, type NetworkInfo, type SubnetResult } from '$lib/utils/subnet-scope/calculator';
   import Visualizer from './Visualizer.svelte';
   import SubnetTable from './SubnetTable.svelte';
-  import { workspace, saveToHistory, deleteHistoryItem, clearHistory, getHistoryObservable } from '$lib/db/workspace';
-  import { liveQuery } from 'dexie';
+  import { workspace, saveToHistory, deleteHistoryItem, clearHistory, getHistoryObservable, toggleStar, type ToolHistoryItem } from '$lib/db/workspace';
+  import { liveQuery, type Observable } from 'dexie';
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
 
@@ -16,22 +16,39 @@
   let result: NetworkInfo | null = null;
   let subnets: SubnetResult[] = [];
   let newMask = 26; // Default for demo
+  let toast: string | null = null;
+  let toastTimeout: any;
 
-  // Reactive analysis
-  // We don't want to analyze on every keystroke if it's invalid, but let's try to be responsive.
-  // Debouncing might be good, but calculation is fast.
+  // Shortcuts
+  function handleKeydown(e: KeyboardEvent) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          analyze();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          e.preventDefault();
+          input = '';
+          result = null;
+      }
+  }
+
+  function showToast(msg: string) {
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toast = msg;
+      toastTimeout = setTimeout(() => toast = null, 2000);
+  }
+
+  function copyText(text: string) {
+      if (!text || text === 'N/A') return;
+      navigator.clipboard.writeText(text);
+      showToast('Copied!');
+  }
 
   function analyze() {
     if (!input) return;
     const res = SubnetCalculator.analyze(input);
     result = res;
     if (res.valid) {
-       // Save to history (debounced or on valid)
-       // Let's save only when user explicitly hits "Enter" or "Analyze" button, OR we can save valid results.
-       // For this tool, saving every valid calculation might be noisy. Let's add a "Save" button or just save on valid result after a delay.
-       // Let's save on successful analysis if it's different from last?
-       // Let's just save manually or on specific action. "History" tab usually implies auto-save in this suite.
-       // I'll add a saveToHistory call.
        saveToHistory('subnet-scope', input, null).catch(() => {});
 
        // Reset newMask default if needed
@@ -50,15 +67,21 @@
       }
   }
 
+  function loadExample(example: string) {
+      input = example;
+      analyze();
+  }
+
   // History
-  let history$: any;
+  let history$: Observable<ToolHistoryItem[]> | undefined;
   $: if (browser) {
       history$ = liveQuery(() => getHistoryObservable('subnet-scope').toArray());
   }
 
-  function restore(item: any) {
+  function restore(item: ToolHistoryItem) {
       input = item.input;
       analyze();
+      activeTab = 'analyze';
   }
 
   // Initial load
@@ -70,10 +93,34 @@
   let activeTab: 'analyze' | 'subnetting' | 'history' = 'analyze';
 </script>
 
+<svelte:window on:keydown={handleKeydown} />
+
 <svelte:head>
   <title>{dict.tools.subnetScope.title}</title>
   <meta name="description" content={dict.tools.subnetScope.description} />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Subnet Scope",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Calculate, visualize, and plan IPv4/IPv6 subnets with VLSM support."
+    }
+  </script>
 </svelte:head>
+
+<!-- Toast -->
+{#if toast}
+<div class="fixed bottom-6 right-6 z-50 px-4 py-2 bg-slate-900 text-white rounded-lg shadow-lg text-sm font-medium animate-bounce" in:fade>
+    {toast}
+</div>
+{/if}
 
 <div class="max-w-6xl mx-auto px-4 py-12 space-y-12">
   <!-- Header -->
@@ -88,6 +135,25 @@
     </p>
   </div>
 
+  <!-- Smart Examples -->
+  <div class="flex flex-wrap justify-center gap-2">
+      <button on:click={() => loadExample('192.168.1.0/24')} class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors">
+          Home (/24)
+      </button>
+      <button on:click={() => loadExample('10.0.0.0/16')} class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors">
+          Enterprise (/16)
+      </button>
+      <button on:click={() => loadExample('10.0.0.0/8')} class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors">
+          Large Block (/8)
+      </button>
+      <button on:click={() => loadExample('172.16.1.0/30')} class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors">
+          P2P Link (/30)
+      </button>
+      <button on:click={() => loadExample('2001:db8::/64')} class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors">
+          IPv6 Site (/64)
+      </button>
+  </div>
+
   <!-- Main Input -->
   <div class="max-w-3xl mx-auto bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-2 md:p-4 border border-slate-100 dark:border-slate-700">
       <div class="flex flex-col md:flex-row gap-4 p-4">
@@ -97,10 +163,12 @@
             on:keydown={(e) => e.key === 'Enter' && analyze()}
             placeholder="e.g. 192.168.1.1/24 or 2001:db8::/64"
             class="flex-1 px-5 py-4 text-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all dark:text-white font-mono"
+            aria-label="IP Address or CIDR Input"
           />
           <button
             on:click={analyze}
             class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/30 transition-all active:scale-95"
+            aria-label="Analyze IP"
           >
             {dict.tools.subnetScope.analyze}
           </button>
@@ -139,32 +207,59 @@
                 <div class="space-y-8" in:fade>
                     <!-- Visualizer -->
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">{dict.tools.subnetScope.binary}</h3>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">{dict.tools.subnetScope.binary}</h3>
+                        </div>
                         <Visualizer binary={result.binary || ''} maskLength={result.subnetMaskLength || 0} version={result.version} />
                     </div>
 
                     <!-- Details Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div class="card">
-                            <span class="label">{dict.tools.subnetScope.network}</span>
+                        <div class="card group">
+                            <div class="flex justify-between items-start">
+                                <span class="label">{dict.tools.subnetScope.network}</span>
+                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600" on:click={() => copyText(result?.networkAddress || '')} aria-label="Copy Network Address">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                </button>
+                            </div>
                             <div class="value">{result.networkAddress}</div>
                         </div>
                         {#if result.version === 4}
-                        <div class="card">
-                            <span class="label">{dict.tools.subnetScope.broadcast}</span>
+                        <div class="card group">
+                            <div class="flex justify-between items-start">
+                                <span class="label">{dict.tools.subnetScope.broadcast}</span>
+                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600" on:click={() => copyText(result?.broadcastAddress || '')} aria-label="Copy Broadcast Address">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                </button>
+                            </div>
                             <div class="value">{result.broadcastAddress}</div>
                         </div>
-                        <div class="card">
-                            <span class="label">{dict.tools.subnetScope.netmask}</span>
+                        <div class="card group">
+                            <div class="flex justify-between items-start">
+                                <span class="label">{dict.tools.subnetScope.netmask}</span>
+                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600" on:click={() => copyText(result?.subnetMask || '')} aria-label="Copy Netmask">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                </button>
+                            </div>
                             <div class="value">{result.subnetMask}</div>
                         </div>
                         {/if}
-                        <div class="card">
-                            <span class="label">{dict.tools.subnetScope.firstHost}</span>
+                        <div class="card group">
+                            <div class="flex justify-between items-start">
+                                <span class="label">{dict.tools.subnetScope.firstHost}</span>
+                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600" on:click={() => copyText(result?.firstHost || '')} aria-label="Copy First Host">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                </button>
+                            </div>
                             <div class="value">{result.firstHost}</div>
                         </div>
-                        <div class="card">
-                            <span class="label">{dict.tools.subnetScope.lastHost}</span>
+                        <div class="card group">
+                            <div class="flex justify-between items-start">
+                                <span class="label">{dict.tools.subnetScope.lastHost}</span>
+                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600" on:click={() => copyText(result?.lastHost || '')} aria-label="Copy Last Host">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                </button>
+                            </div>
                             <div class="value">{result.lastHost}</div>
                         </div>
                         <div class="card">
@@ -194,7 +289,7 @@
                             </div>
                             <div class="flex-1 min-w-[200px]">
                                 <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                    {dict.tools.subnetScope.newMask} (/{result.subnetMaskLength + 1} - /{result.version === 4 ? 32 : 128})
+                                    {dict.tools.subnetScope.newMask} (/{result.subnetMaskLength ? result.subnetMaskLength + 1 : 0} - /{result.version === 4 ? 32 : 128})
                                     <input
                                         type="number"
                                         bind:value={newMask}
@@ -245,13 +340,20 @@
                             </div>
                             <div class="flex gap-2">
                                 <button
+                                    on:click={() => toggleStar(item.id!)}
+                                    class="p-2 transition-colors {item.starred ? 'text-yellow-400' : 'text-slate-300 hover:text-yellow-400'}"
+                                    aria-label="Toggle Star"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill={item.starred ? "currentColor" : "none"} stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                </button>
+                                <button
                                     on:click={() => restore(item)}
                                     class="px-3 py-1.5 text-sm bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50"
                                 >
                                     {dict.tools.subnetScope.restore}
                                 </button>
                                 <button
-                                    on:click={() => deleteHistoryItem(item.id)}
+                                    on:click={() => deleteHistoryItem(item.id!)}
                                     aria-label="Delete"
                                     class="p-2 text-slate-400 hover:text-red-500 transition-colors"
                                 >
