@@ -73,6 +73,12 @@ export const generatePayload = (state: QRState): string => {
         case 'email': return generateEmailPayload(state.email);
         case 'sms': return generateSMSPayload(state.sms);
         case 'crypto': return generateCryptoPayload(state.crypto);
+        case 'bulk': {
+            const items = state.bulk?.items?.split('\n').filter(l => l.trim()) || [];
+            const prefix = state.bulk?.prefix || '';
+            if (items.length > 0) return prefix + items[0];
+            return 'BULK MODE';
+        }
         default: return '';
     }
 };

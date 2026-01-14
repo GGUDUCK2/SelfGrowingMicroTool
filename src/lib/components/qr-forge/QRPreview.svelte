@@ -1,18 +1,20 @@
 <script lang="ts">
-  import { generatePayload, generateQRCodeDataURL } from '$lib/utils/qr-forge/generator';
+  import { generatePayload } from '$lib/utils/qr-forge/generator';
   import type { QRState } from '$lib/utils/qr-forge/types';
   import QRCode from 'qrcode';
   import { Download, Copy, Check } from 'lucide-svelte';
-  import { fade } from 'svelte/transition';
+  import { dictionaries } from '$lib/dictionaries';
 
   export let state: QRState;
-  export let dictionary: any;
+
+  type Dictionary = typeof dictionaries.en;
+  export let dictionary: Dictionary;
 
   let canvas: HTMLCanvasElement;
   let finalDataUrl = '';
   let error = '';
   let copied = false;
-  let timeout: any;
+  let timeout: ReturnType<typeof setTimeout>;
 
   // Reactive generation
   $: generate(state);
@@ -74,24 +76,12 @@
           const x = (img.width - size) / 2;
           const y = (img.height - size) / 2;
 
-          // Optional: Draw white background for logo?
-          // Check if user wants it transparent or not. usually white box is safer for scanning
-          ctx.fillStyle = s.design.colorLight;
-          // Draw a circle or square bg? Square matches QR.
-          // ctx.fillRect(x, y, size, size);
-
-          // Better: Draw the logo directly. If it has transparency, it might need a bg.
-          // Let's assume user handles transparency or we add a small border.
-
           // Draw Image
           ctx.drawImage(logoImg, x, y, size, size);
       }
 
       // Draw Frame
       if (s.design.frame && s.design.frame !== 'none') {
-         // This implies expanding the canvas or drawing over.
-         // Drawing over obscures data. Expanding is better.
-
          if (s.design.frame === 'scan_me') {
             const extraHeight = 100; // px
             const oldData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -142,9 +132,6 @@
   const downloadSVG = async () => {
      // SVG with embedded logo is complex with node-qrcode.
      // We will stick to basic SVG if no logo, or warn user.
-     // For now, if logo exists, we might just download PNG or try to embed image in SVG manually.
-     // Let's keep original SVG logic but warn if features are missing.
-
      const payload = generatePayload(state);
      if (!payload) return;
      try {
