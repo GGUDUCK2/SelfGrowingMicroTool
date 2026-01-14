@@ -28,18 +28,22 @@ export interface SubnetResult {
 
 export class SubnetCalculator {
   static analyze(input: string): NetworkInfo {
-    try {
-      const ip4 = new Address4(input);
-      return this.analyzeIPv4(ip4);
-    } catch (e) {
-      // Ignore
+    if (Address4.isValid(input)) {
+      try {
+        const ip4 = new Address4(input);
+        return this.analyzeIPv4(ip4);
+      } catch (e) {
+         // ignore
+      }
     }
 
-    try {
-      const ip6 = new Address6(input);
-      return this.analyzeIPv6(ip6);
-    } catch (e) {
-      // Ignore
+    if (Address6.isValid(input)) {
+      try {
+        const ip6 = new Address6(input);
+        return this.analyzeIPv6(ip6);
+      } catch (e) {
+        // ignore
+      }
     }
 
     return { valid: false, error: 'Invalid IP address or CIDR' };
@@ -47,37 +51,31 @@ export class SubnetCalculator {
 
   static generateSubnets(input: string, newMask: number): SubnetResult[] {
     // Basic VLSM generator for IPv4
-    // If input is /24 and newMask is /26, we generate 4 subnets.
-    // Limit to reasonable number (e.g., 256) to prevent browser crash.
     try {
+        if (!Address4.isValid(input)) return [];
+
         const ip4 = new Address4(input);
         const currentMask = ip4.subnetMask;
         if (newMask <= currentMask) return [];
         if (newMask > 32) return [];
 
         const subnets: SubnetResult[] = [];
-        // Number of new bits = newMask - currentMask
-        // Number of subnets = 2 ^ newBits
         const newBits = newMask - currentMask;
         const numSubnets = Math.pow(2, newBits);
 
         if (numSubnets > 1024) {
-            // Cap it
             return [{ network: "Too many subnets to display", range: "" }];
         }
 
-        // We can use the start address as a BigInt
         const startParts = ip4.startAddress().address.split('.').map(Number);
-        let startVal = (BigInt(startParts[0]) << 24n) | (BigInt(startParts[1]) << 16n) | (BigInt(startParts[2]) << 8n) | BigInt(startParts[3]);
+        const startVal = (BigInt(startParts[0]) << 24n) | (BigInt(startParts[1]) << 16n) | (BigInt(startParts[2]) << 8n) | BigInt(startParts[3]);
 
-        // Increment size = 2 ^ (32 - newMask)
         const increment = BigInt(2) ** BigInt(32 - newMask);
 
         for (let i = 0; i < numSubnets; i++) {
             const subnetVal = startVal + (BigInt(i) * increment);
             const subnetIp = this.bigIntToIp4(subnetVal);
 
-            // Calculate range
             const broadcastVal = subnetVal + increment - 1n;
             const broadcastIp = this.bigIntToIp4(broadcastVal);
 
@@ -102,9 +100,6 @@ export class SubnetCalculator {
   }
 
   private static analyzeIPv4(ip: Address4): NetworkInfo {
-    const valid = ip.isValid();
-    if (!valid) return { valid: false, error: 'Invalid IPv4 address' };
-
     const start = ip.startAddress();
     const end = ip.endAddress();
     const mask = ip.subnetMask;
@@ -128,14 +123,11 @@ export class SubnetCalculator {
       binaryMask: this.formatBinary4(binaryMask),
       type: this.getIPv4Type(ip),
       isPrivate: this.isPrivateIPv4(ip),
-      isLoopback: ip.isLoopback()
+      isLoopback: this.isLoopbackIPv4(ip)
     };
   }
 
   private static analyzeIPv6(ip: Address6): NetworkInfo {
-    const valid = ip.isValid();
-    if (!valid) return { valid: false, error: 'Invalid IPv6 address' };
-
     const start = ip.startAddress();
     const end = ip.endAddress();
     const mask = ip.subnetMask;
@@ -154,7 +146,7 @@ export class SubnetCalculator {
       binary: this.formatBinary6(ip.binaryZeroPad()),
       binaryMask: 'N/A',
       type: ip.getType(),
-      isPrivate: ip.isUniqueLocal() || ip.isLinkLocal(),
+      isPrivate: this.isUniqueLocalIPv6(ip) || ip.isLinkLocal(),
       isLoopback: ip.isLoopback()
     };
   }
@@ -175,10 +167,32 @@ export class SubnetCalculator {
   }
 
   private static getIPv4Type(ip: Address4): string {
-    if (ip.isLoopback()) return 'Loopback';
+    if (this.isLoopbackIPv4(ip)) return 'Loopback';
     if (ip.isMulticast()) return 'Multicast';
     if (this.isPrivateIPv4(ip)) return 'Private';
     return 'Public';
+  }
+
+  private static isLoopbackIPv4(ip: Address4): boolean {
+    // 127.0.0.0/8
+    const loopback = new Address4('127.0.0.0/8');
+    return ip.isInSubnet(loopback);
+  }
+
+  private static isUniqueLocalIPv6(ip: Address6): boolean {
+      // fc00::/7 (Unique Local)
+      // ip-address library might not have this, check manually
+      // fc00::/7 covers fc00... to fdff...
+      // Check first hextet
+      const parts = ip.parse(ip.address); // returns array of strings
+      if (parts.length > 0) {
+          const first = parseInt(parts[0], 16);
+          // fc00 is 64512
+          // fdff is 65023
+          // Binary: 1111 110x ...
+          return (first & 0xfe00) === 0xfc00;
+      }
+      return false;
   }
 
   private static isPrivateIPv4(ip: Address4): boolean {
@@ -191,7 +205,6 @@ export class SubnetCalculator {
   }
 
   private static maskLengthToDecimal(length: number): string {
-      // Convert /24 to 255.255.255.0
       const binaryMask = '1'.repeat(length) + '0'.repeat(32 - length);
       const parts = binaryMask.match(/.{1,8}/g)?.map(bin => parseInt(bin, 2)) || [];
       return parts.join('.');
