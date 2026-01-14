@@ -253,5 +253,35 @@
     "category": "Developer Tools",
     "tags": ["network", "subnet", "cidr", "ip", "calculator", "ipv6", "developer"],
     "createdAt": "2025-02-12"
+  },
+  {
+    "id": "chrono-shift",
+    "slug": "chrono-shift",
+    "title": {
+      "en": "Chrono Shift: Time Zone Architect",
+      "ko": "Chrono Shift: 시간대 아키텍트"
+    },
+    "description": {
+      "en": "Plan meetings across time zones effortlessly. Visualize overlaps, find golden hours, and manage team schedules.",
+      "ko": "시간대를 넘어 회의를 쉽게 계획하세요. 중복 시간을 시각화하고, 골든 아워를 찾고, 팀 일정을 관리하세요."
+    },
+    "category": "Productivity",
+    "tags": ["timezone", "meeting", "planner", "clock", "world"],
+    "createdAt": "2025-02-13"
+  },
+  {
+    "id": "seo-forge",
+    "slug": "seo-forge",
+    "title": {
+      "en": "SEO Forge: Meta Tags & Social Preview",
+      "ko": "SEO Forge: 메타 태그 & 소셜 미리보기"
+    },
+    "description": {
+      "en": "The definitive tool to generate and preview SEO meta tags, Open Graph, Twitter Cards, and JSON-LD structured data.",
+      "ko": "SEO 메타 태그, Open Graph, Twitter 카드 및 JSON-LD 구조화된 데이터를 생성하고 미리 볼 수 있는 완벽한 도구입니다."
+    },
+    "category": "Developer Tools",
+    "tags": ["seo", "meta", "opengraph", "jsonld", "preview", "social"],
+    "createdAt": "2025-02-14"
   }
 ]
