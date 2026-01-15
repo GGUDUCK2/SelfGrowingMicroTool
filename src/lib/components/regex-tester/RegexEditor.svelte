@@ -58,6 +58,7 @@
       <div class="flex flex-wrap gap-2">
         {#each availableFlags as flag}
           <button
+            type="button"
             class="px-3 py-1.5 rounded-md text-sm transition-all duration-200 cursor-pointer border {flags.includes(flag.char)
               ? 'bg-indigo-500 text-white shadow-lg font-medium border-transparent hover:bg-indigo-600'
               : 'bg-slate-700 text-slate-400 border-slate-600 hover:bg-slate-600'}"
