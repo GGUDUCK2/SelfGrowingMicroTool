@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import type { MetaTags } from '$lib/utils/seo';
+  import { type MetaTags, extractKeywords } from '$lib/utils/seo';
 
   export let tags: MetaTags;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -9,9 +9,41 @@
   const dispatch = createEventDispatcher();
 
   function handleInput(field: keyof MetaTags) {
-    // If user changes meta title, auto-sync OG/Twitter title if they match or are empty
-    // but this might be annoying, so we'll keep it manual or simple reactive in parent
     dispatch('change', { field, value: tags[field] });
+  }
+
+  function suggestKeywords() {
+      const source = `${tags.title} ${tags.description}`;
+      if (!source.trim()) return;
+
+      const suggested = extractKeywords(source, 8);
+      if (suggested.length > 0) {
+          tags.keywords = suggested.join(', ');
+          handleInput('keywords');
+      }
+  }
+
+  let imgValidating = false;
+  let imgError = false;
+  let imgWarning = '';
+
+  function handleImageLoad(e: Event) {
+      const img = e.target as HTMLImageElement;
+      imgValidating = false;
+      imgError = false;
+      if (img.naturalWidth < 200 || img.naturalHeight < 200) {
+          imgWarning = dictionary.warnings.imgSmall
+              .replace('{w}', img.naturalWidth)
+              .replace('{h}', img.naturalHeight);
+      } else {
+          imgWarning = '';
+      }
+  }
+
+  function handleImageError() {
+      imgValidating = false;
+      imgError = true;
+      imgWarning = dictionary.warnings.imgUnreachable;
   }
 </script>
 
@@ -73,9 +105,19 @@
 
     <!-- Keywords -->
     <div class="space-y-1">
-        <label for="keywords" class="text-sm font-medium text-slate-700 dark:text-slate-300">
-            {dictionary.meta.keywords}
-        </label>
+        <div class="flex justify-between items-center">
+            <label for="keywords" class="text-sm font-medium text-slate-700 dark:text-slate-300">
+                {dictionary.meta.keywords}
+            </label>
+            <button
+                type="button"
+                on:click={suggestKeywords}
+                class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L12 3Z"/></svg>
+                {dictionary.actions.suggest}
+            </button>
+        </div>
         <input
             id="keywords"
             type="text"
@@ -85,6 +127,19 @@
             class="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
         />
     </div>
+
+    <!-- OG Image Warning (Integrated here for visibility) -->
+    {#if tags.ogImage}
+        <div class="hidden">
+             <!-- Hidden image for validation -->
+             <img src={tags.ogImage} alt="validation" on:load={handleImageLoad} on:error={handleImageError} />
+        </div>
+        {#if imgWarning || imgError}
+            <div class="text-xs px-3 py-2 rounded bg-amber-50 text-amber-800 border border-amber-200 dark:bg-amber-900/20 dark:text-amber-200 dark:border-amber-800">
+                {imgWarning}
+            </div>
+        {/if}
+    {/if}
 
     <!-- Advanced Grid -->
     <div class="grid grid-cols-2 gap-4 pt-2">

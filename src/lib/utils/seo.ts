@@ -110,7 +110,7 @@ export interface JsonLdData {
 }
 
 export function generateJsonLd(data: JsonLdData): string {
-  let schema: Record<string, any> = {
+  let schema: Record<string, unknown> = {
     "@context": "https://schema.org"
   };
 
@@ -228,12 +228,29 @@ export interface AuditIssue {
   fixAvailable?: boolean;
 }
 
-// Keyword extraction (Simple implementation)
-function extractKeywords(text: string): string[] {
+// Keyword extraction (Simple implementation with frequency analysis)
+export function extractKeywords(text: string, limit = 5): string[] {
     if (!text) return [];
-    // Remove punctuation and common stop words (very basic list)
-    const stopWords = new Set(['and', 'the', 'is', 'in', 'at', 'of', 'a', 'an', 'to', 'for', 'on', 'with', 'by', 'as', 'it']);
-    return text.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/).filter(w => w.length > 2 && !stopWords.has(w));
+    const stopWords = new Set([
+        'and', 'the', 'is', 'in', 'at', 'of', 'a', 'an', 'to', 'for', 'on', 'with', 'by', 'as', 'it',
+        'this', 'that', 'from', 'or', 'are', 'was', 'be', 'how', 'what', 'why', 'when', 'where', 'which',
+        'your', 'you', 'we', 'our', 'us', 'can', 'will', 'do', 'not', 'have', 'has', 'had', 'but', 'so'
+    ]);
+
+    const words = text.toLowerCase()
+        .replace(/[^\w\s-]/g, '') // Keep hyphens
+        .split(/[\s-]+/) // Split by space or hyphen
+        .filter(w => w.length > 2 && !stopWords.has(w));
+
+    // Count frequency
+    const freq: Record<string, number> = {};
+    words.forEach(w => freq[w] = (freq[w] || 0) + 1);
+
+    // Sort by frequency
+    return Object.entries(freq)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, limit)
+        .map(([w]) => w);
 }
 
 export function validateMetaTags(tags: MetaTags): AuditIssue[] {

@@ -584,7 +584,13 @@ export const dictionaries = {
           share: "Share Link",
           export: "Export HTML",
           copied: "Copied!",
-          saved: "Saved!"
+          saved: "Saved!",
+          suggest: "Suggest",
+          projectPlaceholder: "Project Name (Optional)"
+        },
+        warnings: {
+          imgSmall: "Image is too small ({w}x{h}). Facebook recommends at least 1200x630.",
+          imgUnreachable: "Could not load image. Check the URL."
         },
         faqTitle: "SEO Forge FAQ",
         q1: "Why are Meta Tags important?",
