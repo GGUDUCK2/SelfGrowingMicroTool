@@ -112,4 +112,54 @@
         {/if}
     </div>
   </div>
+
+  <!-- LinkedIn -->
+  <div class="space-y-2">
+    <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">{dictionary.social.linkedin || 'LinkedIn'}</h3>
+    <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden max-w-[500px]">
+        {#if tags.ogImage}
+          <div class="w-full h-[260px] bg-slate-100 relative">
+             <img src={tags.ogImage} alt="LinkedIn" class="w-full h-full object-cover" />
+          </div>
+        {:else}
+           <div class="w-full h-[260px] bg-slate-100 flex items-center justify-center text-slate-400">
+             No Image
+           </div>
+        {/if}
+        <div class="p-4 bg-white border-t border-slate-200">
+            <div class="font-semibold text-slate-900 leading-tight mb-1 truncate">
+                {tags.ogTitle || tags.title || 'Page Title'}
+            </div>
+            <div class="text-xs text-slate-500 truncate">
+                {getDomain(tags.url) || 'example.com'}
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- Slack -->
+  <div class="space-y-2">
+    <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">{dictionary.social.slack}</h3>
+    <div class="bg-white rounded pl-3 border-l-[3px] border-slate-300 p-2 max-w-[500px]">
+        <div class="flex gap-3">
+             <div class="flex-grow">
+                 <div class="text-xs text-slate-500 font-bold mb-1 flex items-center gap-1">
+                     <img src={`https://www.google.com/s2/favicons?domain=${tags.url}`} alt="" class="w-3 h-3"/>
+                     {getDomain(tags.url) || 'example.com'}
+                 </div>
+                 <div class="text-blue-600 font-bold mb-1 hover:underline cursor-pointer">
+                     {tags.ogTitle || tags.title || 'Page Title'}
+                 </div>
+                 <div class="text-sm text-slate-700">
+                     {tags.ogDesc || tags.description || 'Description'}
+                 </div>
+             </div>
+             {#if tags.ogImage}
+                 <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-slate-100">
+                     <img src={tags.ogImage} alt="Slack" class="w-full h-full object-cover" />
+                 </div>
+             {/if}
+        </div>
+    </div>
+  </div>
 </div>
