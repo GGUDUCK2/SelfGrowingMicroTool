@@ -104,7 +104,7 @@
  }
 </script>
 
-<div class="border border-gray-700 rounded-lg overflow-hidden bg-gray-800 shadow-sm flex flex-col h-full">
+<div class="border border-gray-700 rounded-lg overflow-hidden bg-gray-800 shadow-sm flex flex-col h-full" aria-label="Diff Viewer">
     <div class="bg-gray-900 px-4 py-2 border-b border-gray-700 font-medium text-sm text-gray-300 flex justify-between items-center">
         <span>Diff Output</span>
         <div class="flex gap-2 text-xs">
