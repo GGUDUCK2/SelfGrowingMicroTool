@@ -115,6 +115,7 @@ export interface SeoHistory {
   url: string;
   ogImage?: string;
   jsonLdType?: string;
+  projectName?: string;
   createdAt: Date;
 }
 
@@ -281,6 +282,25 @@ class MySubClassedDexie extends Dexie {
       structuraHistory: '++id, createdAt, starred',
       markFlowHistory: '++id, createdAt, starred',
       seoHistory: '++id, createdAt'
+    });
+    this.version(16).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      idForgeHistory: '++id, createdAt, starred',
+      cipherHistory: '++id, createdAt, starred',
+      structuraHistory: '++id, createdAt, starred',
+      markFlowHistory: '++id, createdAt, starred',
+      seoHistory: '++id, createdAt, projectName'
+    }).upgrade(tx => {
+      return tx.table('seoHistory').toCollection().modify(item => {
+        if (!item.projectName) item.projectName = '';
+      });
     });
   }
 }

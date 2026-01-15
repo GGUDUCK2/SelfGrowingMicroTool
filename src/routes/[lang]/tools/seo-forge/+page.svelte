@@ -11,6 +11,10 @@
   import { defaultMetaTags, generateHtml, generateJsonLd, parseHtml, seoTemplates, type MetaTags, type JsonLdData } from '$lib/utils/seo';
   import { page } from '$app/stores';
   import { liveQuery } from 'dexie';
+  import Prism from 'prismjs';
+  import 'prismjs/components/prism-json';
+  import 'prismjs/components/prism-markup';
+  import 'prismjs/themes/prism-tomorrow.css';
 
   // Get Dictionary
   $: dictionary = getDictionary($page.params.lang || 'en');
@@ -28,10 +32,14 @@
   };
   let showToast = false;
   let toastMessage = '';
+  let projectName = '';
 
   // Derived
   $: generatedHtml = generateHtml(tags);
   $: generatedJsonLd = generateJsonLd(jsonLdData);
+  $: highlightedCode = activeTab === 'jsonld'
+      ? Prism.highlight(generatedJsonLd, Prism.languages.json, 'json')
+      : Prism.highlight(generatedHtml, Prism.languages.markup, 'markup');
 
   // History
   let history = liveQuery(() => db.seoHistory.orderBy('createdAt').reverse().limit(50).toArray());
@@ -84,6 +92,7 @@
         url: tags.url,
         ogImage: tags.ogImage,
         jsonLdType: jsonLdData.type,
+        projectName: projectName,
         createdAt: new Date()
       });
       triggerToast(dict.actions.saved);
@@ -291,15 +300,23 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wand"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8 19 13"/><path d="M15 9h0"/><path d="M17.8 6.2 19 5"/><path d="M3 21l9-9"/><path d="M12.2 6.2 11 5"/></svg>
                         {dict.actions.magicPaste}
                      </button>
-                     <button
-                        on:click={saveToHistory}
-                        aria-label={dict.actions.save}
-                        class="px-3 py-1.5 text-xs font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-900 transition-colors flex items-center gap-1"
-                        title="Ctrl+S"
-                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
-                        {dict.actions.save}
-                     </button>
+                     <div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-700/50 rounded-lg px-2">
+                         <input
+                             type="text"
+                             bind:value={projectName}
+                             placeholder={dict.actions.projectPlaceholder}
+                             class="bg-transparent border-none text-xs w-32 focus:ring-0 text-slate-700 dark:text-slate-200"
+                         />
+                         <button
+                            on:click={saveToHistory}
+                            aria-label={dict.actions.save}
+                            class="px-3 py-1.5 text-xs font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-900 transition-colors flex items-center gap-1 my-1"
+                            title="Ctrl+S"
+                         >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
+                            {dict.actions.save}
+                         </button>
+                     </div>
                  </div>
              </div>
 
@@ -344,7 +361,12 @@
                                  {#each $history as item (item.id)}
                                      <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg border border-slate-100 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors group">
                                          <div class="overflow-hidden">
-                                             <div class="font-medium text-sm truncate">{item.title || 'Untitled'}</div>
+                                             <div class="font-medium text-sm truncate">
+                                                {item.title || 'Untitled'}
+                                                {#if item.projectName}
+                                                    <span class="ml-2 text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300">{item.projectName}</span>
+                                                {/if}
+                                             </div>
                                              <div class="text-xs text-slate-500 truncate">{item.url || 'No URL'}</div>
                                          </div>
                                          <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -403,7 +425,7 @@
                 </div>
              </div>
              <div class="p-4 bg-slate-900 overflow-x-auto">
-                 <pre class="text-xs font-mono text-green-400 whitespace-pre-wrap">{activeTab === 'jsonld' ? generatedJsonLd : generatedHtml}</pre>
+                 <pre class="text-xs font-mono text-white whitespace-pre-wrap">{@html highlightedCode}</pre>
              </div>
         </div>
       </div>
