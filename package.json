@@ -10,6 +10,7 @@
         "check:watch": "svelte-kit sync && tsc -w || tsc -w"
     },
     "devDependencies": {
+        "@eslint/js": "^9.39.2",
         "@sveltejs/adapter-vercel": "^5.5.2",
         "@sveltejs/kit": "^2.15.1",
         "@sveltejs/vite-plugin-svelte": "^5.0.3",

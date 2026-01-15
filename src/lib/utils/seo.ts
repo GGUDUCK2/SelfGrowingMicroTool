@@ -31,6 +31,29 @@ export const defaultMetaTags: MetaTags = {
   twitterCard: 'summary_large_image'
 };
 
+export const seoTemplates: Record<string, Partial<MetaTags>> = {
+  blog: {
+    ogType: 'article',
+    twitterCard: 'summary_large_image',
+    robots: 'index, follow'
+  },
+  product: {
+    ogType: 'product',
+    twitterCard: 'summary_large_image',
+    robots: 'index, follow'
+  },
+  portfolio: {
+    ogType: 'website',
+    twitterCard: 'summary_large_image',
+    robots: 'index, follow'
+  },
+  landing: {
+    ogType: 'website',
+    twitterCard: 'summary_large_image',
+    robots: 'index, follow'
+  }
+};
+
 export function validateLength(text: string, min: number, max: number): 'perfect' | 'tooShort' | 'tooLong' | 'ok' | 'missing' {
   if (!text) return 'missing';
   if (text.length < min) return 'tooShort';
@@ -87,7 +110,7 @@ export interface JsonLdData {
 }
 
 export function generateJsonLd(data: JsonLdData): string {
-  let schema: any = {
+  let schema: Record<string, any> = {
     "@context": "https://schema.org"
   };
 
@@ -164,6 +187,9 @@ export function generateJsonLd(data: JsonLdData): string {
 }
 
 export function parseHtml(html: string): Partial<MetaTags> {
+  // Check if we are in a browser environment
+  if (typeof window === 'undefined') return {};
+
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
   const tags: Partial<MetaTags> = {};

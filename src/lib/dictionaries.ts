@@ -559,6 +559,19 @@ export const dictionaries = {
           missing: "Missing",
           ok: "OK"
         },
+        templates: {
+          title: "Smart Templates",
+          blog: "Blog Post",
+          product: "Product Page",
+          portfolio: "Portfolio",
+          landing: "Landing Page"
+        },
+        shortcuts: {
+          title: "Keyboard Shortcuts",
+          save: "Save",
+          copy: "Copy Code",
+          clear: "Clear"
+        },
         actions: {
           copyHtml: "Copy HTML",
           save: "Save Project",
