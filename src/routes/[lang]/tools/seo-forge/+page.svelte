@@ -6,14 +6,15 @@
   import SocialEditor from '$lib/components/seo-forge/SocialEditor.svelte';
   import JsonLdEditor from '$lib/components/seo-forge/JsonLdEditor.svelte';
   import PreviewCard from '$lib/components/seo-forge/PreviewCard.svelte';
-  import { db } from '$lib/db';
+  import AuditPanel from '$lib/components/seo-forge/AuditPanel.svelte';
+  import { db, type SeoHistory } from '$lib/db';
   import { defaultMetaTags, generateHtml, generateJsonLd, parseHtml, type MetaTags, type JsonLdData } from '$lib/utils/seo';
   import { page } from '$app/stores';
   import { liveQuery } from 'dexie';
 
   // Get Dictionary
   $: dictionary = getDictionary($page.params.lang || 'en');
-  $: dict = dictionary.tools.seoForge as any; // Temporary fix for type mismatch if necessary, or verify `dictionaries.ts`
+  $: dict = dictionary.tools.seoForge;
   $: commonDict = dictionary.common;
 
   // State
@@ -76,13 +77,13 @@
     }
   }
 
-  function restoreHistory(item: any) {
+  function restoreHistory(item: SeoHistory) {
      tags = {
          ...defaultMetaTags,
          title: item.title,
          description: item.description,
          url: item.url,
-         ogImage: item.ogImage,
+         ogImage: item.ogImage || '',
          ogTitle: item.title, // infer
          ogDesc: item.description // infer
      };
@@ -91,7 +92,7 @@
   }
 
   async function deleteHistory(id: number) {
-      await db.seoHistory.delete(id);
+      if (id) await db.seoHistory.delete(id);
   }
 
   async function clearHistory() {
@@ -101,6 +102,12 @@
   function copyToClipboard(text: string) {
     navigator.clipboard.writeText(text);
     // Could show a toast here
+  }
+
+  function handleFix(event: CustomEvent) {
+      const { field, value } = event.detail;
+      if (field === 'title') tags.title = value;
+      if (field === 'description') tags.description = value;
   }
 </script>
 
@@ -122,26 +129,34 @@
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden">
 
           <!-- Tabs -->
-          <div class="flex border-b border-slate-200 dark:border-slate-700 overflow-x-auto">
+          <div class="flex border-b border-slate-200 dark:border-slate-700 overflow-x-auto" role="tablist">
             <button
+                role="tab"
+                aria-selected={activeTab === 'meta'}
                 class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'meta' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'}"
                 on:click={() => activeTab = 'meta'}
             >
                 {dict.tabs.meta}
             </button>
             <button
+                role="tab"
+                aria-selected={activeTab === 'social'}
                 class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'social' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'}"
                 on:click={() => activeTab = 'social'}
             >
                 {dict.tabs.social}
             </button>
             <button
+                role="tab"
+                aria-selected={activeTab === 'jsonld'}
                 class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'jsonld' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'}"
                 on:click={() => activeTab = 'jsonld'}
             >
                 {dict.tabs.jsonld}
             </button>
             <button
+                role="tab"
+                aria-selected={activeTab === 'history'}
                 class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'history' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'}"
                 on:click={() => activeTab = 'history'}
             >
@@ -155,6 +170,7 @@
              <div class="flex justify-end mb-4 gap-2">
                  <button
                     on:click={() => showMagicPaste = !showMagicPaste}
+                    aria-label={dict.actions.magicPaste}
                     class="px-3 py-1.5 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-1"
                  >
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wand"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8 19 13"/><path d="M15 9h0"/><path d="M17.8 6.2 19 5"/><path d="M3 21l9-9"/><path d="M12.2 6.2 11 5"/></svg>
@@ -162,6 +178,7 @@
                  </button>
                  <button
                     on:click={saveToHistory}
+                    aria-label={dict.actions.save}
                     class="px-3 py-1.5 text-xs font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-900 transition-colors flex items-center gap-1"
                  >
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
@@ -176,6 +193,7 @@
                         bind:value={magicInput}
                         placeholder="Paste raw HTML <head> content here..."
                         class="w-full h-32 p-3 text-xs font-mono bg-white dark:bg-slate-900 border border-indigo-200 dark:border-indigo-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-2"
+                        aria-label="Raw HTML Input"
                     ></textarea>
                     <div class="flex justify-end gap-2">
                         <button on:click={() => showMagicPaste = false} class="px-3 py-1 text-xs text-slate-500 hover:text-slate-700">Cancel</button>
@@ -213,10 +231,10 @@
                                              <div class="text-xs text-slate-500 truncate">{item.url || 'No URL'}</div>
                                          </div>
                                          <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                             <button on:click={() => restoreHistory(item)} class="p-1.5 hover:bg-white dark:hover:bg-slate-600 rounded text-indigo-600" title={dict.actions.restore}>
+                                             <button aria-label={dict.actions.restore} on:click={() => restoreHistory(item)} class="p-1.5 hover:bg-white dark:hover:bg-slate-600 rounded text-indigo-600" title={dict.actions.restore}>
                                                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74-2.74L3 12"/><path d="M3 3v9h9"/></svg>
                                              </button>
-                                             <button on:click={() => deleteHistory(item.id!)} class="p-1.5 hover:bg-white dark:hover:bg-slate-600 rounded text-red-500" title={dict.actions.delete}>
+                                             <button aria-label={dict.actions.delete} on:click={() => deleteHistory(item.id!)} class="p-1.5 hover:bg-white dark:hover:bg-slate-600 rounded text-red-500" title={dict.actions.delete}>
                                                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                                              </button>
                                          </div>
@@ -236,6 +254,7 @@
                 <span>Output Code</span>
                 <button
                   on:click={() => copyToClipboard(activeTab === 'jsonld' ? generatedJsonLd : generatedHtml)}
+                  aria-label="Copy Code"
                   class="text-indigo-600 hover:text-indigo-700 text-xs font-medium flex items-center gap-1"
                 >
                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
@@ -251,6 +270,11 @@
       <!-- Preview Column (Right) -->
       <div class="lg:col-span-5 space-y-6">
           <div class="sticky top-6">
+             <!-- Audit Panel -->
+             <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 mb-6">
+                 <AuditPanel {tags} on:fix={handleFix} />
+             </div>
+
              <div class="flex items-center gap-2 mb-4">
                  <h2 class="text-xl font-bold text-slate-800 dark:text-white">Live Preview</h2>
                  <span class="px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-[10px] font-bold uppercase tracking-wider">Realtime</span>
@@ -339,7 +363,7 @@
 <svelte:head>
   <title>{dict.title} - MicroTools Factory</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content={dict.guide.tipsTitle} />
+  <meta name="keywords" content="seo, meta tags, open graph, json-ld, preview, social media, metadata, generator" />
 
   <script type="application/ld+json">
   {

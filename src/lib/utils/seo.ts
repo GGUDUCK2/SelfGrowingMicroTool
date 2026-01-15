@@ -79,6 +79,11 @@ export interface JsonLdData {
   datePublished?: string;
   authorName?: string;
   url?: string;
+  // New fields
+  logo?: string;
+  sameAs?: string[];
+  breadcrumbs?: { name: string; item: string }[];
+  faq?: { question: string; answer: string }[];
 }
 
 export function generateJsonLd(data: JsonLdData): string {
@@ -86,33 +91,73 @@ export function generateJsonLd(data: JsonLdData): string {
     "@context": "https://schema.org"
   };
 
-  if (data.type === 'Article') {
-    schema = {
-      ...schema,
-      "@type": "Article",
-      "headline": data.headline,
-      "image": data.image ? [data.image] : [],
-      "datePublished": data.datePublished,
-      "author": [{
-          "@type": "Person",
-          "name": data.authorName
-      }]
-    };
-  } else if (data.type === 'Website') {
-    schema = {
-      ...schema,
-      "@type": "WebSite",
-      "name": data.name,
-      "url": data.url
-    };
-  } else if (data.type === 'Product') {
-    schema = {
-      ...schema,
-      "@type": "Product",
-      "name": data.name,
-      "description": data.description,
-      "image": data.image
-    };
+  switch (data.type) {
+    case 'Article':
+      schema = {
+        ...schema,
+        "@type": "Article",
+        "headline": data.headline,
+        "image": data.image ? [data.image] : [],
+        "datePublished": data.datePublished,
+        "author": [{
+            "@type": "Person",
+            "name": data.authorName
+        }]
+      };
+      break;
+    case 'Website':
+      schema = {
+        ...schema,
+        "@type": "WebSite",
+        "name": data.name,
+        "url": data.url
+      };
+      break;
+    case 'Product':
+      schema = {
+        ...schema,
+        "@type": "Product",
+        "name": data.name,
+        "description": data.description,
+        "image": data.image
+      };
+      break;
+    case 'Organization':
+      schema = {
+        ...schema,
+        "@type": "Organization",
+        "name": data.name,
+        "url": data.url,
+        "logo": data.logo,
+        "sameAs": data.sameAs
+      };
+      break;
+    case 'BreadcrumbList':
+      schema = {
+        ...schema,
+        "@type": "BreadcrumbList",
+        "itemListElement": data.breadcrumbs?.map((crumb, index) => ({
+          "@type": "ListItem",
+          "position": index + 1,
+          "name": crumb.name,
+          "item": crumb.item
+        })) || []
+      };
+      break;
+    case 'FAQPage':
+      schema = {
+        ...schema,
+        "@type": "FAQPage",
+        "mainEntity": data.faq?.map(item => ({
+          "@type": "Question",
+          "name": item.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": item.answer
+          }
+        })) || []
+      };
+      break;
   }
 
   return JSON.stringify(schema, null, 2);
@@ -147,4 +192,57 @@ export function parseHtml(html: string): Partial<MetaTags> {
   else tags.url = getProp('og:url');
 
   return tags;
+}
+
+// Audit Interface
+export interface AuditIssue {
+  id: string;
+  severity: 'critical' | 'warning' | 'info' | 'success';
+  message: string;
+  fixAvailable?: boolean;
+}
+
+export function validateMetaTags(tags: MetaTags): AuditIssue[] {
+  const issues: AuditIssue[] = [];
+
+  // Title
+  if (!tags.title) {
+    issues.push({ id: 'title-missing', severity: 'critical', message: 'Page Title is missing.' });
+  } else if (tags.title.length < 30) {
+    issues.push({ id: 'title-short', severity: 'warning', message: 'Title is too short (recommended: 30-60 chars).', fixAvailable: true });
+  } else if (tags.title.length > 60) {
+    issues.push({ id: 'title-long', severity: 'warning', message: 'Title is too long (recommended: 30-60 chars).', fixAvailable: true });
+  } else {
+    issues.push({ id: 'title-ok', severity: 'success', message: 'Title length is perfect.' });
+  }
+
+  // Description
+  if (!tags.description) {
+    issues.push({ id: 'desc-missing', severity: 'critical', message: 'Meta Description is missing.' });
+  } else if (tags.description.length < 70) {
+    issues.push({ id: 'desc-short', severity: 'warning', message: 'Description is too short (recommended: 70-155 chars).' });
+  } else if (tags.description.length > 160) {
+    issues.push({ id: 'desc-long', severity: 'warning', message: 'Description is too long (recommended: 70-155 chars).', fixAvailable: true });
+  } else {
+    issues.push({ id: 'desc-ok', severity: 'success', message: 'Description length is perfect.' });
+  }
+
+  // OG Image
+  if (!tags.ogImage) {
+    issues.push({ id: 'og-image-missing', severity: 'critical', message: 'Open Graph Image is missing. Your link will look empty on social media.' });
+  } else {
+    issues.push({ id: 'og-image-ok', severity: 'success', message: 'Open Graph Image is set.' });
+  }
+
+  // Canonical
+  if (!tags.url) {
+    issues.push({ id: 'url-missing', severity: 'warning', message: 'Canonical URL is missing. This is important to prevent duplicate content.' });
+  }
+
+  // Keywords (optional but good for checking)
+  if (!tags.keywords) {
+     issues.push({ id: 'keywords-missing', severity: 'info', message: 'Meta Keywords are missing. While Google ignores them, some engines still use them.' });
+  }
+
+  return issues;
 }

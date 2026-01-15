@@ -533,7 +533,8 @@ export const dictionaries = {
           twitterCard: "Twitter Card Type",
           previewTitle: "Social Previews",
           google: "Google Search",
-          facebook: "Facebook / LinkedIn",
+          facebook: "Facebook",
+          linkedin: "LinkedIn",
           twitter: "Twitter / X",
           slack: "Slack",
           uploadImage: "Upload Image (Preview only)"
