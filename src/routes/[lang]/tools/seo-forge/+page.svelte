@@ -8,7 +8,7 @@
   import PreviewCard from '$lib/components/seo-forge/PreviewCard.svelte';
   import AuditPanel from '$lib/components/seo-forge/AuditPanel.svelte';
   import { db, type SeoHistory } from '$lib/db';
-  import { defaultMetaTags, generateHtml, generateJsonLd, parseHtml, type MetaTags, type JsonLdData } from '$lib/utils/seo';
+  import { defaultMetaTags, generateHtml, generateJsonLd, parseHtml, seoTemplates, type MetaTags, type JsonLdData } from '$lib/utils/seo';
   import { page } from '$app/stores';
   import { liveQuery } from 'dexie';
 
@@ -26,6 +26,8 @@
     url: '',
     description: ''
   };
+  let showToast = false;
+  let toastMessage = '';
 
   // Derived
   $: generatedHtml = generateHtml(tags);
@@ -38,26 +40,33 @@
   let showMagicPaste = false;
   let magicInput = '';
 
+  function triggerToast(msg: string) {
+    toastMessage = msg;
+    showToast = true;
+    setTimeout(() => showToast = false, 2000);
+  }
+
   function handleMagicPaste() {
     if (!magicInput) return;
     try {
         // Basic heuristic: if it starts with <, treat as HTML, else treat as URL (mock)
         if (magicInput.trim().startsWith('<')) {
             const parsed = parseHtml(magicInput);
-            tags = { ...tags, ...parsed };
+            tags = { ...tags, ...parsed } as MetaTags;
             // Auto-fill JSON-LD basics if empty
             if (!jsonLdData.name) jsonLdData.name = tags.title;
             if (!jsonLdData.description) jsonLdData.description = tags.description;
             if (!jsonLdData.url) jsonLdData.url = tags.url;
             showMagicPaste = false;
+            triggerToast('Imported successfully!');
         } else {
              // Mock URL fetch for now as we can't do real CORS requests easily without a proxy
              // In a real app we'd fetch the URL via a server endpoint
-             alert("URL fetching requires a backend proxy. Please paste the HTML source code instead.");
+             triggerToast("URL fetching requires a backend proxy. Please paste the HTML source code instead.");
         }
     } catch (e) {
         console.error(e);
-        alert("Failed to parse input.");
+        triggerToast("Failed to parse input.");
     }
   }
 
@@ -72,6 +81,7 @@
         jsonLdType: jsonLdData.type,
         createdAt: new Date()
       });
+      triggerToast(dict.actions.saved);
     } catch (err) {
       console.error('Failed to save history:', err);
     }
@@ -89,6 +99,7 @@
      };
      jsonLdData.type = item.jsonLdType || 'Website';
      activeTab = 'meta';
+     triggerToast('Restored from history');
   }
 
   async function deleteHistory(id: number) {
@@ -101,7 +112,7 @@
 
   function copyToClipboard(text: string) {
     navigator.clipboard.writeText(text);
-    // Could show a toast here
+    triggerToast(dict.actions.copied);
   }
 
   function handleFix(event: CustomEvent) {
@@ -109,9 +120,44 @@
       if (field === 'title') tags.title = value;
       if (field === 'description') tags.description = value;
   }
+
+  function applyTemplate(key: string) {
+      if (seoTemplates[key]) {
+          tags = { ...tags, ...seoTemplates[key] };
+          triggerToast(`Applied ${key} template`);
+      }
+  }
+
+  // Shortcuts
+  function handleKeydown(e: KeyboardEvent) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+          e.preventDefault();
+          saveToHistory();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+          // If text is selected, let default copy happen
+          if (window.getSelection()?.toString()) return;
+
+          e.preventDefault();
+          copyToClipboard(activeTab === 'jsonld' ? generatedJsonLd : generatedHtml);
+      }
+  }
+
+  onMount(() => {
+      window.addEventListener('keydown', handleKeydown);
+      return () => window.removeEventListener('keydown', handleKeydown);
+  });
 </script>
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white pb-20">
+
+  <!-- Toast -->
+  {#if showToast}
+      <div transition:fade class="fixed bottom-6 right-6 z-50 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-4 py-2 rounded-lg shadow-xl font-medium text-sm flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          {toastMessage}
+      </div>
+  {/if}
 
   <!-- Header -->
   <div class="bg-indigo-600 text-white py-12 px-4 shadow-lg">
@@ -167,23 +213,40 @@
           <!-- Content -->
           <div class="p-6">
              <!-- Toolbar -->
-             <div class="flex justify-end mb-4 gap-2">
-                 <button
-                    on:click={() => showMagicPaste = !showMagicPaste}
-                    aria-label={dict.actions.magicPaste}
-                    class="px-3 py-1.5 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-1"
-                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wand"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8 19 13"/><path d="M15 9h0"/><path d="M17.8 6.2 19 5"/><path d="M3 21l9-9"/><path d="M12.2 6.2 11 5"/></svg>
-                    {dict.actions.magicPaste}
-                 </button>
-                 <button
-                    on:click={saveToHistory}
-                    aria-label={dict.actions.save}
-                    class="px-3 py-1.5 text-xs font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-900 transition-colors flex items-center gap-1"
-                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
-                    {dict.actions.save}
-                 </button>
+             <div class="flex flex-wrap justify-between items-center mb-4 gap-2">
+                 <!-- Templates Dropdown -->
+                 <div class="relative group">
+                     <button class="px-3 py-1.5 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-1">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-template"><rect width="18" height="7" x="3" y="3" rx="1"/><rect width="9" height="7" x="3" y="14" rx="1"/><rect width="5" height="7" x="16" y="14" rx="1"/></svg>
+                         {dict.templates.title}
+                     </button>
+                     <div class="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-100 dark:border-slate-700 hidden group-hover:block z-10">
+                         <button on:click={() => applyTemplate('blog')} class="block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict.templates.blog}</button>
+                         <button on:click={() => applyTemplate('product')} class="block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict.templates.product}</button>
+                         <button on:click={() => applyTemplate('portfolio')} class="block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict.templates.portfolio}</button>
+                         <button on:click={() => applyTemplate('landing')} class="block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict.templates.landing}</button>
+                     </div>
+                 </div>
+
+                 <div class="flex gap-2">
+                     <button
+                        on:click={() => showMagicPaste = !showMagicPaste}
+                        aria-label={dict.actions.magicPaste}
+                        class="px-3 py-1.5 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-1"
+                     >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wand"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8 19 13"/><path d="M15 9h0"/><path d="M17.8 6.2 19 5"/><path d="M3 21l9-9"/><path d="M12.2 6.2 11 5"/></svg>
+                        {dict.actions.magicPaste}
+                     </button>
+                     <button
+                        on:click={saveToHistory}
+                        aria-label={dict.actions.save}
+                        class="px-3 py-1.5 text-xs font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-900 transition-colors flex items-center gap-1"
+                        title="Ctrl+S"
+                     >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
+                        {dict.actions.save}
+                     </button>
+                 </div>
              </div>
 
              {#if showMagicPaste}
@@ -251,7 +314,13 @@
         <!-- Code Output -->
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden mt-8">
              <div class="p-4 border-b border-slate-200 dark:border-slate-700 font-semibold text-sm flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
-                <span>Output Code</span>
+                <div class="flex items-center gap-4">
+                    <span>Output Code</span>
+                    <span class="text-xs font-normal text-slate-500 hidden sm:inline-block">
+                        <span class="bg-slate-200 dark:bg-slate-700 rounded px-1.5 py-0.5 text-[10px] mr-1">Ctrl+S</span> Save
+                        <span class="bg-slate-200 dark:bg-slate-700 rounded px-1.5 py-0.5 text-[10px] mx-1">Ctrl+C</span> Copy
+                    </span>
+                </div>
                 <button
                   on:click={() => copyToClipboard(activeTab === 'jsonld' ? generatedJsonLd : generatedHtml)}
                   aria-label="Copy Code"
@@ -365,6 +434,20 @@
   <meta name="description" content={dict.description} />
   <meta name="keywords" content="seo, meta tags, open graph, json-ld, preview, social media, metadata, generator" />
 
+  <!-- Open Graph -->
+  <meta property="og:title" content="{dict.title}" />
+  <meta property="og:description" content="{dict.description}" />
+  <meta property="og:url" content="https://microfactory.app/tools/seo-forge" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{dict.title}" />
+  <meta name="twitter:description" content="{dict.description}" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://microfactory.app/tools/seo-forge" />
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -377,7 +460,13 @@
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
-    }
+    },
+    "featureList": [
+      "Real-time Social Previews",
+      "JSON-LD Schema Generator",
+      "Meta Tag Analysis",
+      "Smart Templates"
+    ]
   }
   </script>
   <script type="application/ld+json">
