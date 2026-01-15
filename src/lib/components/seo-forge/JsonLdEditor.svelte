@@ -3,6 +3,7 @@
   import type { JsonLdData } from '$lib/utils/seo';
 
   export let data: JsonLdData;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export let dictionary: any;
 
   const dispatch = createEventDispatcher();
@@ -226,7 +227,7 @@
                  <h4 class="text-sm font-medium text-slate-700 dark:text-slate-300">Breadcrumbs</h4>
                  <button on:click={addCrumb} class="text-xs text-indigo-600 hover:underline">+ Add</button>
              </div>
-             {#each data.breadcrumbs as crumb, i}
+             {#each data.breadcrumbs as crumb, i (i)}
                 <div class="flex gap-2 items-center">
                     <span class="text-xs text-slate-500 w-4">{i + 1}.</span>
                     <input
@@ -255,7 +256,7 @@
                  <h4 class="text-sm font-medium text-slate-700 dark:text-slate-300">Questions & Answers</h4>
                  <button on:click={addFaq} class="text-xs text-indigo-600 hover:underline">+ Add</button>
              </div>
-             {#each data.faq as item, i}
+             {#each data.faq as item, i (i)}
                 <div class="p-3 bg-slate-50 dark:bg-slate-700/30 rounded-lg border border-slate-200 dark:border-slate-700 space-y-2">
                     <div class="flex justify-between">
                          <span class="text-xs text-slate-500">Question #{i + 1}</span>

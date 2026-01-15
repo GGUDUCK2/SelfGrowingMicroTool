@@ -6,7 +6,7 @@ def test_seo_forge():
         page = browser.new_page()
         try:
             # Navigate to the page
-            page.goto("http://localhost:5173/en/tools/seo-forge")
+            page.goto("http://localhost:3000/en/tools/seo-forge")
 
             # Wait for content to load
             page.wait_for_selector("h1")

@@ -228,6 +228,14 @@ export interface AuditIssue {
   fixAvailable?: boolean;
 }
 
+// Keyword extraction (Simple implementation)
+function extractKeywords(text: string): string[] {
+    if (!text) return [];
+    // Remove punctuation and common stop words (very basic list)
+    const stopWords = new Set(['and', 'the', 'is', 'in', 'at', 'of', 'a', 'an', 'to', 'for', 'on', 'with', 'by', 'as', 'it']);
+    return text.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/).filter(w => w.length > 2 && !stopWords.has(w));
+}
+
 export function validateMetaTags(tags: MetaTags): AuditIssue[] {
   const issues: AuditIssue[] = [];
 
@@ -235,9 +243,9 @@ export function validateMetaTags(tags: MetaTags): AuditIssue[] {
   if (!tags.title) {
     issues.push({ id: 'title-missing', severity: 'critical', message: 'Page Title is missing.' });
   } else if (tags.title.length < 30) {
-    issues.push({ id: 'title-short', severity: 'warning', message: 'Title is too short (recommended: 30-60 chars).', fixAvailable: true });
+    issues.push({ id: 'title-short', severity: 'warning', message: `Title is too short (${tags.title.length}/30+ chars).` });
   } else if (tags.title.length > 60) {
-    issues.push({ id: 'title-long', severity: 'warning', message: 'Title is too long (recommended: 30-60 chars).', fixAvailable: true });
+    issues.push({ id: 'title-long', severity: 'warning', message: `Title is too long (${tags.title.length}/60 chars).`, fixAvailable: true });
   } else {
     issues.push({ id: 'title-ok', severity: 'success', message: 'Title length is perfect.' });
   }
@@ -246,9 +254,9 @@ export function validateMetaTags(tags: MetaTags): AuditIssue[] {
   if (!tags.description) {
     issues.push({ id: 'desc-missing', severity: 'critical', message: 'Meta Description is missing.' });
   } else if (tags.description.length < 70) {
-    issues.push({ id: 'desc-short', severity: 'warning', message: 'Description is too short (recommended: 70-155 chars).' });
+    issues.push({ id: 'desc-short', severity: 'warning', message: `Description is too short (${tags.description.length}/70+ chars).` });
   } else if (tags.description.length > 160) {
-    issues.push({ id: 'desc-long', severity: 'warning', message: 'Description is too long (recommended: 70-155 chars).', fixAvailable: true });
+    issues.push({ id: 'desc-long', severity: 'warning', message: `Description is too long (${tags.description.length}/160 chars).`, fixAvailable: true });
   } else {
     issues.push({ id: 'desc-ok', severity: 'success', message: 'Description length is perfect.' });
   }
@@ -263,11 +271,21 @@ export function validateMetaTags(tags: MetaTags): AuditIssue[] {
   // Canonical
   if (!tags.url) {
     issues.push({ id: 'url-missing', severity: 'warning', message: 'Canonical URL is missing. This is important to prevent duplicate content.' });
+  } else if (!tags.url.startsWith('https://')) {
+    issues.push({ id: 'url-insecure', severity: 'warning', message: 'URL should start with https:// for better SEO and security.' });
   }
 
-  // Keywords (optional but good for checking)
-  if (!tags.keywords) {
-     issues.push({ id: 'keywords-missing', severity: 'info', message: 'Meta Keywords are missing. While Google ignores them, some engines still use them.' });
+  // Smart Keyword Check
+  if (tags.title && tags.description) {
+      const titleKeywords = extractKeywords(tags.title);
+      const descKeywords = extractKeywords(tags.description);
+      const overlap = titleKeywords.filter(k => descKeywords.includes(k));
+
+      if (overlap.length === 0 && titleKeywords.length > 0) {
+          issues.push({ id: 'keyword-mismatch', severity: 'info', message: 'Title keywords not found in description. Consider including your main keyword in both.' });
+      } else if (overlap.length > 0) {
+           issues.push({ id: 'keyword-ok', severity: 'success', message: `Keywords aligned: "${overlap.slice(0, 3).join(', ')}..."` });
+      }
   }
 
   return issues;

@@ -60,8 +60,6 @@
             showMagicPaste = false;
             triggerToast('Imported successfully!');
         } else {
-             // Mock URL fetch for now as we can't do real CORS requests easily without a proxy
-             // In a real app we'd fetch the URL via a server endpoint
              triggerToast("URL fetching requires a backend proxy. Please paste the HTML source code instead.");
         }
     } catch (e) {
@@ -73,6 +71,13 @@
   // Actions
   async function saveToHistory() {
     try {
+      // Limit check
+      const count = await db.seoHistory.count();
+      if (count >= 100) {
+          const oldest = await db.seoHistory.orderBy('createdAt').limit(count - 99).keys();
+          await db.seoHistory.bulkDelete(oldest);
+      }
+
       await db.seoHistory.add({
         title: tags.title,
         description: tags.description,
@@ -115,6 +120,54 @@
     triggerToast(dict.actions.copied);
   }
 
+  function downloadHtml() {
+      const blob = new Blob([generatedHtml], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'meta-tags.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      triggerToast('Downloaded HTML file');
+  }
+
+  function shareLink() {
+      // Encode state to Base64
+      const state = {
+          t: tags,
+          j: jsonLdData
+      };
+      const jsonStr = JSON.stringify(state);
+      // Use standard btoa with unicode handling
+      const encoded = btoa(unescape(encodeURIComponent(jsonStr)));
+      const url = new URL(window.location.href);
+      url.searchParams.set('s', encoded);
+
+      navigator.clipboard.writeText(url.toString());
+      triggerToast('Link copied to clipboard');
+  }
+
+  // Load from URL
+  function loadFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const encoded = urlParams.get('s');
+      if (encoded) {
+          try {
+              const jsonStr = decodeURIComponent(escape(atob(encoded)));
+              const state = JSON.parse(jsonStr);
+              if (state.t) tags = { ...defaultMetaTags, ...state.t };
+              if (state.j) jsonLdData = state.j;
+              // Clean URL
+              window.history.replaceState({}, '', window.location.pathname);
+              triggerToast('Loaded shared configuration');
+          } catch (e) {
+              console.error('Failed to load shared state', e);
+          }
+      }
+  }
+
   function handleFix(event: CustomEvent) {
       const { field, value } = event.detail;
       if (field === 'title') tags.title = value;
@@ -144,6 +197,7 @@
   }
 
   onMount(() => {
+      loadFromUrl();
       window.addEventListener('keydown', handleKeydown);
       return () => window.removeEventListener('keydown', handleKeydown);
   });
@@ -321,14 +375,32 @@
                         <span class="bg-slate-200 dark:bg-slate-700 rounded px-1.5 py-0.5 text-[10px] mx-1">Ctrl+C</span> Copy
                     </span>
                 </div>
-                <button
-                  on:click={() => copyToClipboard(activeTab === 'jsonld' ? generatedJsonLd : generatedHtml)}
-                  aria-label="Copy Code"
-                  class="text-indigo-600 hover:text-indigo-700 text-xs font-medium flex items-center gap-1"
-                >
-                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                   Copy
-                </button>
+                <div class="flex gap-2">
+                    <button
+                        on:click={shareLink}
+                        aria-label="Share Link"
+                        class="text-indigo-600 hover:text-indigo-700 text-xs font-medium flex items-center gap-1"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share-2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                        Share
+                    </button>
+                    <button
+                        on:click={downloadHtml}
+                        aria-label="Download HTML"
+                        class="text-indigo-600 hover:text-indigo-700 text-xs font-medium flex items-center gap-1"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        Export
+                    </button>
+                    <button
+                      on:click={() => copyToClipboard(activeTab === 'jsonld' ? generatedJsonLd : generatedHtml)}
+                      aria-label="Copy Code"
+                      class="text-indigo-600 hover:text-indigo-700 text-xs font-medium flex items-center gap-1"
+                    >
+                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                       Copy
+                    </button>
+                </div>
              </div>
              <div class="p-4 bg-slate-900 overflow-x-auto">
                  <pre class="text-xs font-mono text-green-400 whitespace-pre-wrap">{activeTab === 'jsonld' ? generatedJsonLd : generatedHtml}</pre>
