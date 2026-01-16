@@ -35,7 +35,7 @@
         const type = part.added ? 'added' : part.removed ? 'removed' : 'unchanged';
         const colorClass = type === 'added' ? 'bg-green-900/30 text-green-300' :
                            type === 'removed' ? 'bg-red-900/30 text-red-300' :
-                           'text-gray-400'; // Standardized dark mode colors
+                           'text-slate-500'; // Standardized line colors
 
         lines.forEach(line => {
              // Unified View
@@ -119,8 +119,8 @@
                 {@html htmlParts.unified}
             </div>
         {:else}
-            <div class="sticky top-0 z-10 flex w-full min-w-[800px] border-b border-gray-700 bg-slate-800">
-                <div class="w-1/2 px-4 py-2 text-lg font-semibold text-slate-200 border-r border-gray-700">
+            <div class="sticky top-0 z-10 flex w-full min-w-[800px] border-b border-slate-600 bg-slate-800">
+                <div class="w-1/2 px-4 py-2 text-lg font-semibold text-slate-200 border-r border-slate-600">
                     원본 텍스트
                 </div>
                 <div class="w-1/2 px-4 py-2 text-lg font-semibold text-slate-200">

@@ -49,9 +49,9 @@
   });
 </script>
 
-<div class="flex flex-col h-full border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-gray-800 shadow-sm">
+<div class="flex flex-col h-full border border-slate-200 dark:border-slate-600 rounded-lg overflow-hidden bg-white dark:bg-slate-700 shadow-sm">
   {#if label}
-    <div class="bg-gray-50 dark:bg-gray-900 px-4 py-2 border-b border-gray-200 dark:border-gray-700 text-lg font-semibold text-gray-700 dark:text-slate-200">
+    <div class="bg-slate-50 dark:bg-slate-900 px-4 py-2 border-b border-slate-200 dark:border-slate-600 text-lg font-semibold text-slate-700 dark:text-slate-200">
       {label}
     </div>
   {/if}
@@ -59,7 +59,7 @@
     <!-- Line Numbers -->
     <div
       bind:this={lineNumbers}
-      class="bg-gray-100 dark:bg-gray-900 text-gray-400 dark:text-gray-500 text-right pr-2 pl-2 pt-2 select-none font-mono text-sm leading-6 overflow-hidden w-12 border-r border-gray-200 dark:border-gray-700"
+      class="bg-slate-100 dark:bg-slate-900 text-slate-400 dark:text-slate-500 text-right pr-2 pl-2 pt-2 select-none font-mono text-sm leading-6 overflow-hidden w-12 border-r border-slate-200 dark:border-slate-600"
     ></div>
 
     <!-- Text Area -->
@@ -70,7 +70,7 @@
       {readonly}
       on:scroll={handleScroll}
       on:input={updateLineNumbers}
-      class="flex-1 p-2 font-mono text-sm leading-6 bg-transparent resize-none outline-none dark:text-gray-200 w-full"
+      class="flex-1 p-2 font-mono text-sm leading-6 bg-transparent resize-none outline-none text-slate-900 dark:text-slate-50 w-full"
       spellcheck="false"
       aria-label={label}
     ></textarea>

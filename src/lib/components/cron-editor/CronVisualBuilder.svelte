@@ -108,7 +108,7 @@
 
 </script>
 
-<div class="rounded-xl border border-white/10 bg-black/20 backdrop-blur-sm">
+<div class="rounded-xl border border-slate-600 bg-black/20 backdrop-blur-sm">
   <!-- Tab Headers -->
   <div class="flex overflow-x-auto border-b border-white/10">
     {#each TABS as tab, i}
