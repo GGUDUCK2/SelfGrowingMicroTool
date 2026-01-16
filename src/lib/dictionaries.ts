@@ -508,7 +508,7 @@ export const dictionaries = {
       },
       seoForge: {
         title: "SEO Forge: Meta & Social Architect",
-        description: "The definitive tool to craft perfect Meta Tags, Open Graph previews, and JSON-LD schema.",
+        description: "The definitive tool to generate and preview SEO meta tags, Open Graph, Twitter Cards, and JSON-LD structured data.",
         tabs: {
           meta: "Meta Tags",
           social: "Social Previews",
@@ -586,7 +586,8 @@ export const dictionaries = {
           copied: "Copied!",
           saved: "Saved!",
           suggest: "Suggest",
-          projectPlaceholder: "Project Name (Optional)"
+          projectPlaceholder: "Project Name (Optional)",
+          projectFilter: "Filter by Project"
         },
         warnings: {
           imgSmall: "Image is too small ({w}x{h}). Facebook recommends at least 1200x630.",
@@ -1222,19 +1223,19 @@ export const dictionaries = {
       }
     },
     pwa: {
-      title: "앱 설치하기",
-      description: "MicroFactory를 앱으로 설치하면 빠른 접근과 오프라인 지원이 가능합니다.",
-      installButton: "앱 설치",
-      installedMessage: "이미 앱이 설치되어 있습니다!",
-      iosInstructions: "iOS에서 설치하려면:",
-      iosStep1: "1. 공유 버튼을 탭하세요",
-      iosStep2: "2. '홈 화면에 추가'를 선택하세요",
-      androidInstructions: "아래 버튼을 클릭하여 설치하세요:",
-      benefits: "설치의 장점:",
-      benefit1: "홈 화면에서 바로 접근",
-      benefit2: "오프라인에서도 작동",
-      benefit3: "더 빠른 로딩 속도",
-      benefit4: "앱과 같은 사용 경험"
+      title: "Install App",
+      description: "Install MicroFactory as an app for quick access and offline support.",
+      installButton: "Install App",
+      installedMessage: "App is already installed!",
+      iosInstructions: "To install on iOS:",
+      iosStep1: "1. Tap the Share button",
+      iosStep2: "2. Select 'Add to Home Screen'",
+      androidInstructions: "Click the button below to install:",
+      benefits: "Benefits of installing:",
+      benefit1: "Access directly from home screen",
+      benefit2: "Works offline",
+      benefit3: "Faster loading speeds",
+      benefit4: "App-like experience"
     }
   }
 } as const;

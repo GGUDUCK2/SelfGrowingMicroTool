@@ -228,17 +228,21 @@ export interface AuditIssue {
   fixAvailable?: boolean;
 }
 
-// Keyword extraction (Simple implementation with frequency analysis)
+// Keyword extraction (Improved implementation with frequency analysis)
 export function extractKeywords(text: string, limit = 5): string[] {
     if (!text) return [];
+
+    // Extended stop words list
     const stopWords = new Set([
         'and', 'the', 'is', 'in', 'at', 'of', 'a', 'an', 'to', 'for', 'on', 'with', 'by', 'as', 'it',
         'this', 'that', 'from', 'or', 'are', 'was', 'be', 'how', 'what', 'why', 'when', 'where', 'which',
-        'your', 'you', 'we', 'our', 'us', 'can', 'will', 'do', 'not', 'have', 'has', 'had', 'but', 'so'
+        'your', 'you', 'we', 'our', 'us', 'can', 'will', 'do', 'not', 'have', 'has', 'had', 'but', 'so',
+        'if', 'then', 'else', 'my', 'mine', 'all', 'any', 'some', 'no', 'yes', 'out', 'up', 'down',
+        'about', 'into', 'over', 'after', 'beneath', 'under', 'above'
     ]);
 
     const words = text.toLowerCase()
-        .replace(/[^\w\s-]/g, '') // Keep hyphens
+        .replace(/[^\w\s-]/g, '') // Keep hyphens, remove other punctuation
         .split(/[\s-]+/) // Split by space or hyphen
         .filter(w => w.length > 2 && !stopWords.has(w));
 
@@ -246,9 +250,12 @@ export function extractKeywords(text: string, limit = 5): string[] {
     const freq: Record<string, number> = {};
     words.forEach(w => freq[w] = (freq[w] || 0) + 1);
 
-    // Sort by frequency
+    // Sort by frequency and then by length (longer is better for SEO usually)
     return Object.entries(freq)
-        .sort((a, b) => b[1] - a[1])
+        .sort((a, b) => {
+            if (b[1] !== a[1]) return b[1] - a[1];
+            return b[0].length - a[0].length;
+        })
         .slice(0, limit)
         .map(([w]) => w);
 }

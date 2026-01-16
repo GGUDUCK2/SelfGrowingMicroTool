@@ -1,103 +1,94 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
+  import { onMount } from 'svelte';
+  import { fade } from 'svelte/transition';
 
   export let imageUrl: string = '';
 
-  let imageStatus: 'idle' | 'loading' | 'success' | 'error' = 'idle';
-  let imageDetails: { width: number; height: number; ratio: number } | null = null;
+  let status: 'idle' | 'loading' | 'success' | 'error' = 'idle';
+  let width = 0;
+  let height = 0;
+  let type = '';
 
-  const dispatch = createEventDispatcher();
-
-  function validateImage() {
-    if (!imageUrl) return;
-    imageStatus = 'loading';
-
-    const img = new Image();
-    img.onload = () => {
-      imageStatus = 'success';
-      const ratio = img.width / img.height;
-      imageDetails = {
-        width: img.width,
-        height: img.height,
-        ratio: Number(ratio.toFixed(2))
-      };
-
-      // Check for Facebook reccomendation (1200x630, ~1.91:1)
-      const isOptimal = img.width >= 1200 && img.height >= 630 && ratio >= 1.9 && ratio <= 1.92;
-
-      dispatch('validate', {
-        valid: true,
-        details: imageDetails,
-        isOptimal
-      });
-    };
-
-    img.onerror = () => {
-      imageStatus = 'error';
-      imageDetails = null;
-      dispatch('validate', { valid: false });
-    };
-
-    // Cross-origin might fail for some images without CORS headers,
-    // but we can still try.
-    img.crossOrigin = 'anonymous';
-    img.src = imageUrl;
+  $: if (imageUrl) {
+      checkImage(imageUrl);
+  } else {
+      status = 'idle';
   }
 
-  $: if(imageUrl) {
-      validateImage();
+  async function checkImage(url: string) {
+      if (!url) return;
+      status = 'loading';
+
+      const img = new Image();
+      img.onload = () => {
+          width = img.naturalWidth;
+          height = img.naturalHeight;
+          status = 'success';
+      };
+      img.onerror = () => {
+          status = 'error';
+      };
+      // Add random query param to avoid cache if needed, but for preview we want cache usually.
+      // However, to check validity of *new* url, standard load is fine.
+      img.src = url;
+  }
+
+  function getDimensionClass(w: number, h: number) {
+      if (w < 200 || h < 200) return 'text-red-600 bg-red-100 dark:bg-red-900/30 dark:text-red-400';
+      if (w < 1200 || h < 630) return 'text-orange-600 bg-orange-100 dark:bg-orange-900/30 dark:text-orange-400';
+      return 'text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-400';
+  }
+
+  function getMessage(w: number, h: number) {
+      if (w < 200 || h < 200) return 'Too Small';
+      if (w < 600) return 'Low Res';
+      if (w < 1200) return 'Acceptable';
+      return 'High Res';
   }
 </script>
 
-{#if imageUrl}
-  <div class="mt-4 p-3 bg-slate-50 dark:bg-slate-700/30 rounded-lg border border-slate-100 dark:border-slate-700 text-sm">
-    <div class="flex items-center gap-2 mb-2">
-      <span class="font-semibold text-slate-700 dark:text-slate-300">Image Analysis</span>
-      {#if imageStatus === 'loading'}
-        <span class="text-xs text-slate-500 animate-pulse">Checking...</span>
-      {:else if imageStatus === 'error'}
-         <span class="text-xs text-red-500">Could not load image (CORS or Invalid URL)</span>
-      {:else if imageStatus === 'success' && imageDetails}
-         <span class="text-xs text-green-600 dark:text-green-400 font-medium">Loaded Successfully</span>
-      {/if}
-    </div>
+{#if status !== 'idle'}
+<div class="p-4 bg-white dark:bg-slate-700/50 rounded-lg border border-slate-200 dark:border-slate-700 mt-4" transition:fade>
+    <h4 class="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+        Image Analysis
+    </h4>
 
-    {#if imageStatus === 'success' && imageDetails}
-      <div class="grid grid-cols-3 gap-2 text-xs">
-         <div class="bg-white dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-600">
-            <div class="text-slate-500 dark:text-slate-400">Dimensions</div>
-            <div class="font-mono font-medium">{imageDetails.width} x {imageDetails.height}px</div>
-         </div>
-         <div class="bg-white dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-600">
-            <div class="text-slate-500 dark:text-slate-400">Aspect Ratio</div>
-            <div class="font-mono font-medium flex items-center gap-1">
-                {imageDetails.ratio}:1
-                {#if imageDetails.ratio >= 1.9 && imageDetails.ratio <= 1.92}
-                    <span class="text-green-500" title="Perfect for OG">✓</span>
-                {:else}
-                    <span class="text-amber-500" title="Recommended: 1.91:1">⚠</span>
-                {/if}
+    {#if status === 'loading'}
+        <div class="flex items-center gap-2 text-sm text-slate-500">
+            <div class="w-3 h-3 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+            Checking image...
+        </div>
+    {:else if status === 'error'}
+        <div class="text-sm text-red-500 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-triangle"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+            Could not load image. Check URL or CORS permissions.
+        </div>
+    {:else if status === 'success'}
+        <div class="space-y-3">
+            <div class="flex items-center justify-between text-sm">
+                <span class="text-slate-500">Dimensions:</span>
+                <span class="font-mono font-medium">{width} x {height}px</span>
             </div>
-         </div>
-         <div class="bg-white dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-600">
-            <div class="text-slate-500 dark:text-slate-400">Quality Score</div>
-            <div class="font-mono font-medium">
-                {#if imageDetails.width >= 1200}
-                    <span class="text-green-600">High Resolution</span>
-                {:else if imageDetails.width >= 600}
-                    <span class="text-amber-600">Acceptable</span>
-                {:else}
-                    <span class="text-red-500">Too Small</span>
-                {/if}
+
+            <div class="flex items-center justify-between text-sm">
+                <span class="text-slate-500">Aspect Ratio:</span>
+                <span class="font-mono font-medium">{(width / height).toFixed(2)}</span>
             </div>
-         </div>
-      </div>
-      {#if imageDetails.width < 1200 || imageDetails.height < 630}
-         <div class="mt-2 text-xs text-amber-600 flex items-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-triangle"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-            Recommend 1200x630px for best results on high-DPI screens.
-         </div>
-      {/if}
+
+            <div class="flex items-center justify-between text-sm">
+                <span class="text-slate-500">Quality Score:</span>
+                <span class="px-2 py-0.5 rounded text-xs font-bold {getDimensionClass(width, height)}">
+                    {getMessage(width, height)}
+                </span>
+            </div>
+
+            {#if width < 1200 || height < 630}
+                <div class="text-xs text-orange-600 bg-orange-50 dark:bg-orange-900/20 p-2 rounded border border-orange-100 dark:border-orange-800">
+                    Recommend 1200x630px for best results on high-DPI screens.
+                </div>
+            {/if}
+        </div>
     {/if}
-  </div>
+</div>
 {/if}
