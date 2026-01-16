@@ -55,6 +55,7 @@
         "js-yaml": "^4.1.1",
         "jszip": "^3.10.1",
         "marked": "^17.0.1",
+        "mermaid": "^11.12.2",
         "nanoid": "^5.1.6",
         "papaparse": "^5.5.3",
         "prismjs": "^1.30.0",
