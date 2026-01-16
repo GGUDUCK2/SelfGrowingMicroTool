@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import type { MetaTags } from '$lib/utils/seo';
+  import ImageValidator from './ImageValidator.svelte';
 
   export let tags: MetaTags;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -78,6 +79,10 @@
                 class="flex-1 px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
             />
         </div>
+
+        <!-- Image Validator Component -->
+        <ImageValidator url={tags.ogImage} {dictionary} />
+
         <div class="mt-2">
              <label class="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg cursor-pointer text-xs font-medium text-slate-700 dark:text-slate-200 transition-colors">
                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
