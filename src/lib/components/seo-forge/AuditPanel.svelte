@@ -1,7 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { validateMetaTags, extractKeywords, type MetaTags, type AuditIssue } from '$lib/utils/seo';
-  import ImageValidator from './ImageValidator.svelte';
 
   export let tags: MetaTags;
   const dispatch = createEventDispatcher();
@@ -91,7 +90,4 @@
             </div>
         {/each}
     </div>
-
-    <!-- Image Validator -->
-    <ImageValidator imageUrl={tags.ogImage} />
 </div>

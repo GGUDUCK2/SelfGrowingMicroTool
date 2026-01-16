@@ -116,6 +116,7 @@ export interface SeoHistory {
   ogImage?: string;
   jsonLdType?: string;
   projectName?: string;
+  starred?: number; // Added starred field
   createdAt: Date;
 }
 
@@ -328,6 +329,26 @@ class MySubClassedDexie extends Dexie {
       markFlowHistory: '++id, createdAt, starred',
       seoHistory: '++id, createdAt, projectName',
       schemaForgeProjects: '++id, createdAt, starred'
+    });
+    this.version(18).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      idForgeHistory: '++id, createdAt, starred',
+      cipherHistory: '++id, createdAt, starred',
+      structuraHistory: '++id, createdAt, starred',
+      markFlowHistory: '++id, createdAt, starred',
+      seoHistory: '++id, createdAt, projectName, starred',
+      schemaForgeProjects: '++id, createdAt, starred'
+    }).upgrade(tx => {
+       return tx.table('seoHistory').toCollection().modify(item => {
+           if (item.starred === undefined) item.starred = 0;
+       });
     });
   }
 }

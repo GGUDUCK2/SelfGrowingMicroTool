@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { type MetaTags, extractKeywords } from '$lib/utils/seo';
+  import KeywordSuggester from './KeywordSuggester.svelte';
 
   export let tags: MetaTags;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -109,14 +110,6 @@
             <label for="keywords" class="text-sm font-medium text-slate-700 dark:text-slate-300">
                 {dictionary.meta.keywords}
             </label>
-            <button
-                type="button"
-                on:click={suggestKeywords}
-                class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L12 3Z"/></svg>
-                {dictionary.actions.suggest}
-            </button>
         </div>
         <input
             id="keywords"
@@ -126,6 +119,8 @@
             placeholder="seo, tools, generator"
             class="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
         />
+
+        <KeywordSuggester bind:tags {dictionary} />
     </div>
 
     <!-- OG Image Warning (Integrated here for visibility) -->
