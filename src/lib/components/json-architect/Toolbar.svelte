@@ -6,32 +6,32 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="flex flex-wrap items-center gap-2 mb-4 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-700">
+<div class="flex flex-wrap items-center gap-2 mb-4 p-2 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700">
   <div class="flex gap-2 mr-auto">
       <button
         type="button"
         on:click={() => dispatch('action', 'format')}
-        class="px-3 py-1.5 text-xs font-medium bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+        class="px-3 py-1.5 text-xs font-medium bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors"
       >
         {t.format}
       </button>
       <button
         type="button"
         on:click={() => dispatch('action', 'minify')}
-        class="px-3 py-1.5 text-xs font-medium bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+        class="px-3 py-1.5 text-xs font-medium bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors"
       >
         {t.minify}
       </button>
       <button
         type="button"
         on:click={() => dispatch('action', 'validate')}
-        class="px-3 py-1.5 text-xs font-medium bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+        class="px-3 py-1.5 text-xs font-medium bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors"
       >
         {t.validate}
       </button>
   </div>
 
-  <div class="h-4 w-px bg-gray-300 dark:bg-gray-600 mx-2 hidden sm:block"></div>
+  <div class="h-4 w-px bg-slate-300 dark:bg-slate-600 mx-2 hidden sm:block"></div>
 
   <div class="flex gap-2">
     <button
@@ -50,20 +50,20 @@
       </button>
   </div>
 
-  <div class="h-4 w-px bg-gray-300 dark:bg-gray-600 mx-2 hidden sm:block"></div>
+  <div class="h-4 w-px bg-slate-300 dark:bg-slate-600 mx-2 hidden sm:block"></div>
 
   <div class="flex gap-2">
       <button
         type="button"
         on:click={() => dispatch('action', 'copy')}
-        class="px-3 py-1.5 text-xs font-medium bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+        class="px-3 py-1.5 text-xs font-medium bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors"
       >
         {t.copy}
       </button>
       <button
         type="button"
         on:click={() => dispatch('action', 'share')}
-        class="px-3 py-1.5 text-xs font-medium bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+        class="px-3 py-1.5 text-xs font-medium bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors"
       >
         {t.shareLink}
       </button>
