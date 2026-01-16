@@ -29,6 +29,7 @@
   let showToast = false;
   let toastMessage = '';
   let projectName = '';
+  let historyFilter = '';
 
   // Prism State
   let Prism: any = null;
@@ -39,9 +40,10 @@
       // Dynamic import for Prism to avoid SSR issues
       const prismModule = await import('prismjs');
       Prism = prismModule.default;
-      // @ts-ignore
+
+      // Use standard imports or dynamic with casting if needed
+      // Prism plugins often don't have types exported nicely
       await import('prismjs/components/prism-json');
-      // @ts-ignore
       await import('prismjs/components/prism-markup');
       await import('prismjs/themes/prism-tomorrow.css');
 
@@ -78,6 +80,13 @@
 
   // History
   let history = liveQuery(() => db.seoHistory.orderBy('createdAt').reverse().limit(50).toArray());
+
+  $: filteredHistory = $history ? $history.filter(item => {
+      if (!historyFilter) return true;
+      return item.projectName === historyFilter;
+  }) : [];
+
+  $: uniqueProjects = $history ? Array.from(new Set($history.map(h => h.projectName).filter(Boolean))) : [];
 
   // Magic Paste
   let showMagicPaste = false;
@@ -147,6 +156,7 @@
          ogDesc: item.description // infer
      };
      jsonLdData.type = item.jsonLdType || 'Website';
+     if (item.projectName) projectName = item.projectName;
      activeTab = 'meta';
      triggerToast(dict.actions.restore);
   }
@@ -177,7 +187,7 @@
       triggerToast(dict.actions.export);
   }
 
-  function shareLink() {
+  async function shareLink() {
       // Encode state to Base64
       const state = {
           t: tags,
@@ -192,9 +202,26 @@
 
       const url = new URL(window.location.href);
       url.searchParams.set('s', encoded);
+      const shareUrl = url.toString();
 
-      navigator.clipboard.writeText(url.toString());
-      triggerToast(dict.actions.share);
+      if (navigator.share) {
+          try {
+              await navigator.share({
+                  title: 'SEO Forge Project',
+                  text: 'Check out my meta tags configuration on SEO Forge!',
+                  url: shareUrl
+              });
+              triggerToast('Shared successfully!');
+          } catch (err) {
+              // Fallback if user cancels or fails
+              console.log('Share canceled or failed', err);
+              navigator.clipboard.writeText(shareUrl);
+              triggerToast(dict.actions.share);
+          }
+      } else {
+          navigator.clipboard.writeText(shareUrl);
+          triggerToast(dict.actions.share);
+      }
   }
 
   // Load from URL
@@ -316,7 +343,7 @@
              <div class="flex flex-wrap justify-between items-center mb-4 gap-2">
                  <!-- Templates Dropdown -->
                  <div class="relative group">
-                     <button class="px-3 py-1.5 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-1">
+                     <button type="button" class="px-3 py-1.5 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-1">
                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-template"><rect width="18" height="7" x="3" y="3" rx="1"/><rect width="9" height="7" x="3" y="14" rx="1"/><rect width="5" height="7" x="16" y="14" rx="1"/></svg>
                          {dict.templates.title}
                      </button>
@@ -332,6 +359,7 @@
                      <button
                         on:click={() => showMagicPaste = !showMagicPaste}
                         aria-label={dict.actions.magicPaste}
+                        type="button"
                         class="px-3 py-1.5 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-1"
                      >
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wand"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8 19 13"/><path d="M15 9h0"/><path d="M17.8 6.2 19 5"/><path d="M3 21l9-9"/><path d="M12.2 6.2 11 5"/></svg>
@@ -347,6 +375,7 @@
                          <button
                             on:click={saveToHistory}
                             aria-label={dict.actions.save}
+                            type="button"
                             class="px-3 py-1.5 text-xs font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-900 transition-colors flex items-center gap-1 my-1"
                             title="Ctrl+S"
                          >
@@ -387,21 +416,37 @@
                  </div>
              {:else if activeTab === 'history'}
                 <div transition:fade>
-                    <div class="space-y-3">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-sm">Saved Projects</h3>
+                            <div class="flex items-center gap-2">
+                                {#if uniqueProjects.length > 0}
+                                    <select
+                                        bind:value={historyFilter}
+                                        class="text-xs border rounded p-1 bg-white dark:bg-slate-700 text-slate-700 dark:text-white"
+                                        aria-label={dict.actions.projectFilter}
+                                    >
+                                        <option value="">All Projects</option>
+                                        {#each uniqueProjects as proj}
+                                            <option value={proj}>{proj}</option>
+                                        {/each}
+                                    </select>
+                                {/if}
+                                <button on:click={clearHistory} class="text-xs text-red-500 hover:text-red-600 underline">{dict.actions.clear}</button>
+                            </div>
+                        </div>
+
                          {#if $history}
-                             {#if $history.length === 0}
-                                <div class="text-center text-slate-500 py-12">No history yet. Start creating!</div>
+                             {#if filteredHistory.length === 0}
+                                <div class="text-center text-slate-500 py-12">No history found.</div>
                              {:else}
-                                 <div class="flex justify-end">
-                                     <button on:click={clearHistory} class="text-xs text-red-500 hover:text-red-600 underline">{dict.actions.clear}</button>
-                                 </div>
-                                 {#each $history as item (item.id)}
+                                 {#each filteredHistory as item (item.id)}
                                      <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg border border-slate-100 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors group">
                                          <div class="overflow-hidden">
-                                             <div class="font-medium text-sm truncate">
+                                             <div class="font-medium text-sm truncate flex items-center gap-2">
                                                 {item.title || 'Untitled'}
                                                 {#if item.projectName}
-                                                    <span class="ml-2 text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300">{item.projectName}</span>
+                                                    <span class="text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300">{item.projectName}</span>
                                                 {/if}
                                              </div>
                                              <div class="text-xs text-slate-500 truncate">{item.url || 'No URL'}</div>
@@ -438,26 +483,29 @@
                     <button
                         on:click={shareLink}
                         aria-label="Share Link"
+                        type="button"
                         class="text-indigo-600 hover:text-indigo-700 text-xs font-medium flex items-center gap-1"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share-2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
-                        Share
+                        {dict.actions.share}
                     </button>
                     <button
                         on:click={downloadHtml}
                         aria-label="Download HTML"
+                        type="button"
                         class="text-indigo-600 hover:text-indigo-700 text-xs font-medium flex items-center gap-1"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                        Export
+                        {dict.actions.export}
                     </button>
                     <button
                       on:click={() => copyToClipboard(activeTab === 'jsonld' ? generatedJsonLd : generatedHtml)}
                       aria-label="Copy Code"
+                      type="button"
                       class="text-indigo-600 hover:text-indigo-700 text-xs font-medium flex items-center gap-1"
                     >
                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                       Copy
+                       {dict.actions.copyHtml}
                     </button>
                 </div>
              </div>
@@ -561,7 +609,7 @@
 </div>
 
 <svelte:head>
-  <title>{dict.title} - MicroTools Factory</title>
+  <title>{tags.title ? `${tags.title} | ` : ''}{dict.title} - MicroTools Factory</title>
   <meta name="description" content={dict.description} />
   <meta name="keywords" content="seo, meta tags, open graph, json-ld, preview, social media, metadata, generator" />
 
@@ -598,34 +646,6 @@
       "Meta Tag Analysis",
       "Smart Templates"
     ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [{
-      "@type": "Question",
-      "name": "{dict.q1}",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "{dict.a1}"
-      }
-    }, {
-      "@type": "Question",
-      "name": "{dict.q2}",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "{dict.a2}"
-      }
-    }, {
-      "@type": "Question",
-      "name": "{dict.q3}",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "{dict.a3}"
-      }
-    }]
   }
   </script>
 </svelte:head>

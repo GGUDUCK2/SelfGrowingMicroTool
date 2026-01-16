@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { validateMetaTags, type MetaTags, type AuditIssue } from '$lib/utils/seo';
+  import { validateMetaTags, extractKeywords, type MetaTags, type AuditIssue } from '$lib/utils/seo';
   import ImageValidator from './ImageValidator.svelte';
 
   export let tags: MetaTags;
@@ -16,15 +16,6 @@
   $: titleKeywords = extractKeywords(tags.title);
   $: descKeywords = extractKeywords(tags.description);
   $: missingKeywords = titleKeywords.filter(k => !tags.description.toLowerCase().includes(k.toLowerCase()));
-
-  function extractKeywords(text: string): string[] {
-      if (!text) return [];
-      const stopWords = new Set(['and', 'or', 'the', 'a', 'an', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by']);
-      return text.toLowerCase()
-        .replace(/[^\w\s]/g, '')
-        .split(/\s+/)
-        .filter(w => w.length > 3 && !stopWords.has(w));
-  }
 
   function fixIssue(issue: AuditIssue) {
       if (issue.id === 'title-long') {
