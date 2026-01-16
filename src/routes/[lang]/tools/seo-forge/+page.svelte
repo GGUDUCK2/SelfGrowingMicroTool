@@ -11,10 +11,6 @@
   import { defaultMetaTags, generateHtml, generateJsonLd, parseHtml, seoTemplates, type MetaTags, type JsonLdData } from '$lib/utils/seo';
   import { page } from '$app/stores';
   import { liveQuery } from 'dexie';
-  import Prism from 'prismjs';
-  import 'prismjs/components/prism-json';
-  import 'prismjs/components/prism-markup';
-  import 'prismjs/themes/prism-tomorrow.css';
 
   // Get Dictionary
   $: dictionary = getDictionary($page.params.lang || 'en');
@@ -34,12 +30,51 @@
   let toastMessage = '';
   let projectName = '';
 
+  // Prism State
+  let Prism: any = null;
+  let highlightedCode = '';
+
+  onMount(() => {
+    const init = async () => {
+      // Dynamic import for Prism to avoid SSR issues
+      const prismModule = await import('prismjs');
+      Prism = prismModule.default;
+      // @ts-ignore
+      await import('prismjs/components/prism-json');
+      // @ts-ignore
+      await import('prismjs/components/prism-markup');
+      await import('prismjs/themes/prism-tomorrow.css');
+
+      updateHighlight();
+    };
+
+    init();
+    loadFromUrl();
+    window.addEventListener('keydown', handleKeydown);
+    return () => window.removeEventListener('keydown', handleKeydown);
+  });
+
   // Derived
   $: generatedHtml = generateHtml(tags);
   $: generatedJsonLd = generateJsonLd(jsonLdData);
-  $: highlightedCode = activeTab === 'jsonld'
-      ? Prism.highlight(generatedJsonLd, Prism.languages.json, 'json')
-      : Prism.highlight(generatedHtml, Prism.languages.markup, 'markup');
+  $: {
+    generatedHtml;
+    generatedJsonLd;
+    activeTab;
+    if (Prism) updateHighlight();
+  }
+
+  function updateHighlight() {
+     if (!Prism) return;
+     try {
+        highlightedCode = activeTab === 'jsonld'
+          ? Prism.highlight(generatedJsonLd, Prism.languages.json, 'json')
+          : Prism.highlight(generatedHtml, Prism.languages.markup, 'markup');
+     } catch (e) {
+        console.warn('Prism highlight failed', e);
+        highlightedCode = activeTab === 'jsonld' ? generatedJsonLd : generatedHtml;
+     }
+  }
 
   // History
   let history = liveQuery(() => db.seoHistory.orderBy('createdAt').reverse().limit(50).toArray());
@@ -113,10 +148,10 @@
      };
      jsonLdData.type = item.jsonLdType || 'Website';
      activeTab = 'meta';
-     triggerToast('Restored from history');
+     triggerToast(dict.actions.restore);
   }
 
-  async function deleteHistory(id: number) {
+  async function deleteHistory(id: number | undefined) {
       if (id) await db.seoHistory.delete(id);
   }
 
@@ -139,7 +174,7 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      triggerToast('Downloaded HTML file');
+      triggerToast(dict.actions.export);
   }
 
   function shareLink() {
@@ -149,13 +184,17 @@
           j: jsonLdData
       };
       const jsonStr = JSON.stringify(state);
-      // Use standard btoa with unicode handling
-      const encoded = btoa(unescape(encodeURIComponent(jsonStr)));
+      // Use proper unicode handling without deprecated escape/unescape
+      const encoded = btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g,
+        function toSolidBytes(match, p1) {
+            return String.fromCharCode(parseInt(p1, 16));
+        }));
+
       const url = new URL(window.location.href);
       url.searchParams.set('s', encoded);
 
       navigator.clipboard.writeText(url.toString());
-      triggerToast('Link copied to clipboard');
+      triggerToast(dict.actions.share);
   }
 
   // Load from URL
@@ -164,13 +203,17 @@
       const encoded = urlParams.get('s');
       if (encoded) {
           try {
-              const jsonStr = decodeURIComponent(escape(atob(encoded)));
+              // Decode Unicode
+              const jsonStr = decodeURIComponent(Array.prototype.map.call(atob(encoded), function(c: string) {
+                  return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+              }).join(''));
+
               const state = JSON.parse(jsonStr);
               if (state.t) tags = { ...defaultMetaTags, ...state.t };
               if (state.j) jsonLdData = state.j;
               // Clean URL
               window.history.replaceState({}, '', window.location.pathname);
-              triggerToast('Loaded shared configuration');
+              triggerToast(dict.actions.restore);
           } catch (e) {
               console.error('Failed to load shared state', e);
           }
@@ -204,12 +247,6 @@
           copyToClipboard(activeTab === 'jsonld' ? generatedJsonLd : generatedHtml);
       }
   }
-
-  onMount(() => {
-      loadFromUrl();
-      window.addEventListener('keydown', handleKeydown);
-      return () => window.removeEventListener('keydown', handleKeydown);
-  });
 </script>
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white pb-20">
@@ -373,7 +410,7 @@
                                              <button aria-label={dict.actions.restore} on:click={() => restoreHistory(item)} class="p-1.5 hover:bg-white dark:hover:bg-slate-600 rounded text-indigo-600" title={dict.actions.restore}>
                                                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74-2.74L3 12"/><path d="M3 3v9h9"/></svg>
                                              </button>
-                                             <button aria-label={dict.actions.delete} on:click={() => deleteHistory(item.id!)} class="p-1.5 hover:bg-white dark:hover:bg-slate-600 rounded text-red-500" title={dict.actions.delete}>
+                                             <button aria-label={dict.actions.delete} on:click={() => deleteHistory(item.id)} class="p-1.5 hover:bg-white dark:hover:bg-slate-600 rounded text-red-500" title={dict.actions.delete}>
                                                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                                              </button>
                                          </div>

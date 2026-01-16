@@ -592,6 +592,25 @@ export const dictionaries = {
           imgSmall: "Image is too small ({w}x{h}). Facebook recommends at least 1200x630.",
           imgUnreachable: "Could not load image. Check the URL."
         },
+        imageValidator: {
+          title: "Image Analysis",
+          loading: "Checking...",
+          error: "Could not load image (CORS or Invalid URL)",
+          success: "Loaded Successfully",
+          dimensions: "Dimensions",
+          ratio: "Aspect Ratio",
+          quality: "Quality Score",
+          highRes: "High Resolution",
+          acceptable: "Acceptable",
+          tooSmall: "Too Small",
+          recommendation: "Recommend 1200x630px for best results on high-DPI screens."
+        },
+        keywordAnalysis: {
+          title: "Keyword Consistency",
+          found: "Found in description",
+          missing: "Missing from description",
+          suggestion: "Consider adding **{keywords}** to your description for better relevance."
+        },
         faqTitle: "SEO Forge FAQ",
         q1: "Why are Meta Tags important?",
         a1: "Meta tags provide search engines with information about your page content. They affect how your site appears in search results and social media feeds.",
