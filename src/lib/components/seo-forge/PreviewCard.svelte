@@ -8,6 +8,7 @@
   // Additional preview platforms
   let activePreview: 'google' | 'facebook' | 'twitter' | 'linkedin' | 'slack' | 'discord' | 'whatsapp' = 'google';
   let isDarkMode = false;
+  let isMobile = true; // For Google SERP preview
 
   // Helper to truncate text for previews
   function truncate(text: string, length: number): string {
@@ -28,12 +29,23 @@
           return displayUrl;
       }
   })();
+  $: displayPath = (() => {
+      try {
+          const u = new URL(displayUrl);
+          // Show breadcrumb style path for Google
+          const parts = u.pathname.split('/').filter(Boolean);
+          if (parts.length === 0) return '';
+          return ' › ' + parts.join(' › ');
+      } catch {
+          return '';
+      }
+  })();
 </script>
 
 <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden border border-slate-100 dark:border-slate-700">
     <div class="border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 p-2 flex justify-between items-center">
         <!-- Tabs -->
-        <div class="flex gap-1 overflow-x-auto no-scrollbar max-w-[calc(100%-40px)]">
+        <div class="flex gap-1 overflow-x-auto no-scrollbar max-w-[calc(100%-80px)]">
              <button
                 class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors {activePreview === 'google' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}"
                 on:click={() => activePreview = 'google'}
@@ -78,39 +90,75 @@
              </button>
         </div>
 
-        <!-- Theme Toggle -->
-        <button
-            on:click={() => isDarkMode = !isDarkMode}
-            class="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 transition-colors"
-            aria-label="Toggle Preview Theme"
-        >
-            {#if isDarkMode}
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-            {:else}
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-            {/if}
-        </button>
+        <div class="flex gap-1">
+             {#if activePreview === 'google'}
+                 <button
+                    on:click={() => isMobile = !isMobile}
+                    class="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 transition-colors"
+                    aria-label="Toggle Mobile/Desktop"
+                    title={isMobile ? "Switch to Desktop" : "Switch to Mobile"}
+                 >
+                    {#if isMobile}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smartphone"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                    {:else}
+                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-monitor"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+                    {/if}
+                 </button>
+             {/if}
+            <!-- Theme Toggle -->
+            <button
+                on:click={() => isDarkMode = !isDarkMode}
+                class="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 transition-colors"
+                aria-label="Toggle Preview Theme"
+            >
+                {#if isDarkMode}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                {:else}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                {/if}
+            </button>
+        </div>
     </div>
 
     <div class="p-6 {isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'} transition-colors duration-300 min-h-[300px] flex items-center justify-center">
 
         <!-- Google -->
         {#if activePreview === 'google'}
-            <div class="w-full max-w-[600px] font-sans text-left">
-                <div class="flex items-center gap-2 mb-1">
-                     <div class="bg-slate-200 rounded-full w-7 h-7 flex items-center justify-center overflow-hidden">
-                         <img src={`https://www.google.com/s2/favicons?domain=${displayDomain}`} alt="favicon" class="w-4 h-4" on:error={(e) => e.currentTarget.style.display = 'none'} />
-                     </div>
-                     <div class="flex flex-col text-sm">
-                         <span class="{isDarkMode ? 'text-slate-300' : 'text-[#202124]'}">{displayDomain}</span>
-                         <span class="{isDarkMode ? 'text-slate-400' : 'text-[#5f6368]'} text-xs">{displayUrl}</span>
-                     </div>
+            {#if isMobile}
+                 <!-- Mobile SERP -->
+                <div class="w-full max-w-[375px] font-sans text-left">
+                    <div class="flex items-center gap-2 mb-2">
+                         <div class="bg-slate-200 rounded-full w-7 h-7 flex items-center justify-center overflow-hidden">
+                             <img src={`https://www.google.com/s2/favicons?domain=${displayDomain}`} alt="favicon" class="w-4 h-4" on:error={(e) => e.currentTarget.style.display = 'none'} />
+                         </div>
+                         <div class="flex flex-col text-sm leading-tight">
+                             <span class="{isDarkMode ? 'text-[#dadce0]' : 'text-[#202124]'} font-medium">{displayDomain}</span>
+                             <span class="{isDarkMode ? 'text-[#bdc1c6]' : 'text-[#5f6368]'} text-xs">{displayUrl.split('//').pop()} {displayPath}</span>
+                         </div>
+                    </div>
+                    <h3 class="{isDarkMode ? 'text-[#8ab4f8]' : 'text-[#1967d2]'} text-xl leading-6 font-medium cursor-pointer mb-1">{tags.title || 'Page Title'}</h3>
+                    <p class="{isDarkMode ? 'text-[#bdc1c6]' : 'text-[#4d5156]'} text-sm leading-6">
+                        {truncate(tags.description || 'Page description will appear here...', 160)}
+                    </p>
                 </div>
-                <h3 class="{isDarkMode ? 'text-[#8ab4f8]' : 'text-[#1a0dab]'} text-xl hover:underline cursor-pointer truncate mb-1">{displayTitle}</h3>
-                <p class="{isDarkMode ? 'text-slate-300' : 'text-[#4d5156]'} text-sm leading-6">
-                    {truncate(displayDesc, 160)}
-                </p>
-            </div>
+            {:else}
+                <!-- Desktop SERP -->
+                <div class="w-full max-w-[600px] font-sans text-left">
+                    <div class="flex items-center gap-2 mb-1">
+                         <div class="bg-slate-200 rounded-full w-7 h-7 flex items-center justify-center overflow-hidden">
+                             <img src={`https://www.google.com/s2/favicons?domain=${displayDomain}`} alt="favicon" class="w-4 h-4" on:error={(e) => e.currentTarget.style.display = 'none'} />
+                         </div>
+                         <div class="flex flex-col text-sm">
+                             <span class="{isDarkMode ? 'text-slate-300' : 'text-[#202124]'}">{displayDomain}</span>
+                             <span class="{isDarkMode ? 'text-slate-400' : 'text-[#5f6368]'} text-xs">{displayUrl} {displayPath}</span>
+                         </div>
+                    </div>
+                    <h3 class="{isDarkMode ? 'text-[#8ab4f8]' : 'text-[#1a0dab]'} text-xl hover:underline cursor-pointer truncate mb-1">{tags.title || 'Page Title'}</h3>
+                    <p class="{isDarkMode ? 'text-slate-300' : 'text-[#4d5156]'} text-sm leading-6">
+                        {truncate(tags.description || 'Page description will appear here...', 160)}
+                    </p>
+                </div>
+            {/if}
 
         <!-- Facebook -->
         {:else if activePreview === 'facebook'}

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { validateMetaTags, type MetaTags, type AuditIssue } from '$lib/utils/seo';
+  import ImageValidator from './ImageValidator.svelte';
 
   export let tags: MetaTags;
   const dispatch = createEventDispatcher();
@@ -10,6 +11,20 @@
   $: warningCount = issues.filter(i => i.severity === 'warning').length;
   $: successCount = issues.filter(i => i.severity === 'success').length;
   $: score = Math.max(0, 100 - (criticalCount * 25) - (warningCount * 10));
+
+  // Keyword Analysis
+  $: titleKeywords = extractKeywords(tags.title);
+  $: descKeywords = extractKeywords(tags.description);
+  $: missingKeywords = titleKeywords.filter(k => !tags.description.toLowerCase().includes(k.toLowerCase()));
+
+  function extractKeywords(text: string): string[] {
+      if (!text) return [];
+      const stopWords = new Set(['and', 'or', 'the', 'a', 'an', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by']);
+      return text.toLowerCase()
+        .replace(/[^\w\s]/g, '')
+        .split(/\s+/)
+        .filter(w => w.length > 3 && !stopWords.has(w));
+  }
 
   function fixIssue(issue: AuditIssue) {
       if (issue.id === 'title-long') {
@@ -30,7 +45,8 @@
   }
 </script>
 
-<div class="space-y-4">
+<div class="space-y-6">
+    <!-- Score Header -->
     <div class="flex items-center justify-between">
         <h3 class="font-bold text-lg dark:text-white">SEO Audit</h3>
         <div class="flex items-center gap-2">
@@ -41,6 +57,29 @@
         </div>
     </div>
 
+    <!-- Keyword Analysis -->
+    {#if titleKeywords.length > 0}
+        <div class="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg border border-indigo-100 dark:border-indigo-800">
+            <h4 class="text-sm font-semibold text-indigo-900 dark:text-indigo-300 mb-2 flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-key"><path d="m21 2-2 2m-7.6 7.6a6.5 6.5 0 1 1-5.3-5.3"/><circle cx="8" cy="8" r="3"/><path d="M7 17v5"/><path d="M12 17h5"/></svg>
+                Keyword Consistency
+            </h4>
+            <div class="flex flex-wrap gap-1.5">
+                 {#each titleKeywords as kw}
+                     <span class="px-2 py-0.5 rounded text-xs font-medium border {tags.description.toLowerCase().includes(kw) ? 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-300 dark:border-green-800' : 'bg-slate-100 text-slate-500 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700'}" title={tags.description.toLowerCase().includes(kw) ? 'Found in description' : 'Missing from description'}>
+                         {kw}
+                     </span>
+                 {/each}
+            </div>
+            {#if missingKeywords.length > 0}
+                <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+                    Consider adding <strong>{missingKeywords.slice(0, 3).join(', ')}</strong> to your description for better relevance.
+                </p>
+            {/if}
+        </div>
+    {/if}
+
+    <!-- Issues List -->
     <div class="space-y-2 max-h-[300px] overflow-y-auto pr-1">
         {#each issues as issue (issue.id)}
             <div class="p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-sm border-l-4 {issue.severity === 'critical' ? 'border-red-500' : issue.severity === 'warning' ? 'border-orange-500' : issue.severity === 'success' ? 'border-green-500' : 'border-blue-500'}">
@@ -61,4 +100,7 @@
             </div>
         {/each}
     </div>
+
+    <!-- Image Validator -->
+    <ImageValidator imageUrl={tags.ogImage} />
 </div>

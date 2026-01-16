@@ -2,13 +2,11 @@
 > web-factory-svelte@0.0.1 dev
 > vite dev
 
-8:09:41 AM [vite] (client) Forced re-optimization of dependencies
+12:29:48 AM [vite] (client) Forced re-optimization of dependencies
 
-  VITE v6.4.1  ready in 1180 ms
+  VITE v6.4.1  ready in 3642 ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
