@@ -1162,6 +1162,63 @@ export const dictionaries = {
         a2: "Yes, Chrono Shift uses the IANA time zone database (via date-fns-tz) to accurately handle DST transitions for every location.",
         q3: "Can I use 24-hour format?",
         a3: "Currently, the visual timeline uses a mix, but we plan to add a strict 24h toggle in the future."
+      },
+      schemaForge: {
+        title: "Schema Forge: DB Architect",
+        description: "The definitive tool to design, visualize, and export database schemas. Supports MySQL, Postgres, SQLite, Prisma, and TypeScript.",
+        tables: {
+           title: "Tables",
+           add: "Add Table",
+           noTables: "No tables yet",
+           start: "Click + to start modeling"
+        },
+        editor: {
+           tableName: "Table Name",
+           comment: "Description (Optional)",
+           columns: "Columns",
+           addCol: "Add Column",
+           pk: "PK",
+           name: "Name",
+           type: "Type",
+           flags: "Flags",
+           nullable: "Nullable (N)",
+           unique: "Unique (U)",
+           autoInc: "Auto Increment (AI)"
+        },
+        toolbar: {
+           projects: "Projects",
+           newProject: "New Project",
+           save: "Save",
+           export: "Export",
+           clear: "Clear",
+           delete: "Delete Project"
+        },
+        tabs: {
+           design: "Design",
+           diagram: "Diagram",
+           sql: "SQL",
+           prisma: "Prisma",
+           typescript: "TypeScript"
+        },
+        guide: {
+           title: "Why Schema Forge?",
+           intro: "Schema Forge is a professional-grade database modeling tool that runs entirely in your browser. It bridges the gap between visual design and production code.",
+           featuresTitle: "Key Features",
+           f1: "**Visual Modeling:** Intuitive interface to design tables, columns, and relationships.",
+           f2: "**Multi-Export:** Generate production-ready SQL for MySQL, PostgreSQL, SQLite, and Prisma.",
+           f3: "**Mermaid Diagrams:** Automatic ER diagram generation for documentation.",
+           tipsTitle: "Pro Tips",
+           tip1: "Use the **Diagram** tab to visualize relationships between your tables.",
+           tip2: "Toggle **PK** (Primary Key) to automatically handle ID fields.",
+           tip3: "Export to **Prisma** to get a full schema.prisma file ready for your next project."
+        },
+        faqTitle: "Schema Forge FAQ",
+        q1: "Is my schema sent to a server?",
+        a1: "No. Your schema design and project data are stored locally in your browser (IndexedDB).",
+        q2: "Can I import existing SQL?",
+        a2: "Import functionality is planned for a future update. Currently, you can design from scratch.",
+        q3: "How do I create relationships?",
+        a3: "You can define foreign keys in the Table Editor (Coming in v1.1) or rely on naming conventions for now."
       }
     },
     pwa: {
