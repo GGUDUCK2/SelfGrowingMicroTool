@@ -71,30 +71,64 @@ export class ImageProcessor {
 
     if (closeBitmap) bitmap.close();
 
-    // Convert to Blob
-    let blob: Blob;
-    if (canvas instanceof OffscreenCanvas) {
-        blob = await canvas.convertToBlob({
-            type: options.format,
-            quality: options.quality
-        });
-    } else {
-        blob = await new Promise<Blob>((resolve, reject) => {
-            (canvas as HTMLCanvasElement).toBlob(
-                (b) => {
-                    if (b) resolve(b);
-                    else reject(new Error('Canvas toBlob failed'));
-                },
-                options.format,
-                options.quality
-            );
-        });
+    // Smart Target Size Logic
+    let finalQuality = options.quality;
+    if (options.targetSizeKB && options.targetSizeKB > 0) {
+       finalQuality = await this.findQualityForTargetSize(canvas, options.format, options.targetSizeKB);
     }
+
+    // Convert to Blob
+    const blob = await this.canvasToBlob(canvas, options.format, finalQuality);
 
     return {
       blob,
       dimensions: { width: targetWidth, height: targetHeight }
     };
+  }
+
+  static async canvasToBlob(canvas: HTMLCanvasElement | OffscreenCanvas, format: string, quality: number): Promise<Blob> {
+      if (canvas instanceof OffscreenCanvas) {
+          return await canvas.convertToBlob({
+              type: format,
+              quality: quality
+          });
+      } else {
+          return await new Promise<Blob>((resolve, reject) => {
+              (canvas as HTMLCanvasElement).toBlob(
+                  (b) => {
+                      if (b) resolve(b);
+                      else reject(new Error('Canvas toBlob failed'));
+                  },
+                  format,
+                  quality
+              );
+          });
+      }
+  }
+
+  static async findQualityForTargetSize(
+      canvas: HTMLCanvasElement | OffscreenCanvas,
+      format: string,
+      targetKB: number
+  ): Promise<number> {
+      let min = 0.01;
+      let max = 1.0;
+      let bestQuality = 0.8; // default
+      const targetBytes = targetKB * 1024;
+
+      // Binary search (max 6 iterations => precision ~0.015)
+      for (let i = 0; i < 6; i++) {
+          const mid = (min + max) / 2;
+          const blob = await this.canvasToBlob(canvas, format, mid);
+
+          if (blob.size > targetBytes) {
+              max = mid;
+          } else {
+              min = mid;
+              bestQuality = mid; // Keep the highest quality that fits
+          }
+      }
+      return bestQuality;
   }
 
   static getFormatExtension(format: ImageFormat): string {

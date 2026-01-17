@@ -1,16 +1,18 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { Trash2, Download, RefreshCw, FileImage, Sliders, ArrowRight } from 'lucide-svelte';
-  import type { ImageJob, ExportOptions } from '$lib/utils/pixel-forge/types';
+  import { Trash2, Download, RefreshCw, FileImage, Sliders, ArrowRight, Eye, Split, Target } from 'lucide-svelte';
+  import type { ImageJob, ExportOptions, PixelForgeDictionary } from '$lib/utils/pixel-forge/types';
   import { ImageProcessor } from '$lib/utils/pixel-forge/processor';
+  import DiffSlider from './DiffSlider.svelte';
 
   export let job: ImageJob;
   export let onRemove: (id: string) => void;
   export let onUpdate: (id: string, updates: Partial<ImageJob>) => void;
-  export let dict: any;
+  export let dict: PixelForgeDictionary;
 
   let isProcessing = false;
   let processingTime = 0;
+  let showDiff = false;
 
   $: if (job.status === 'pending') {
     processImage();
@@ -87,11 +89,36 @@
 
 <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 flex flex-col md:flex-row gap-6 transition-all hover:border-slate-600">
   <!-- Preview -->
-  <div class="relative w-full md:w-48 aspect-video md:aspect-square bg-slate-900 rounded-lg overflow-hidden flex-shrink-0 border border-slate-700 group">
-    <img src={job.previewUrl} alt="Preview" class="w-full h-full object-contain" />
-    <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-        <span class="text-xs text-slate-300 font-mono">{dict.pixelForge.card.original}: {job.originalDimensions.width}x{job.originalDimensions.height}</span>
-    </div>
+  <div class="relative w-full md:w-64 aspect-video md:aspect-square bg-slate-900 rounded-lg overflow-hidden flex-shrink-0 border border-slate-700 group">
+    {#if showDiff && job.result}
+        <DiffSlider
+            originalUrl={job.previewUrl}
+            optimizedUrl={job.result.url}
+            labelOriginal={dict.card.original || "Original"}
+            labelOptimized={dict.card.optimized || "Optimized"}
+        />
+        <button
+            on:click={() => showDiff = false}
+            class="absolute top-2 right-2 p-1.5 bg-slate-800/80 hover:bg-slate-700 text-slate-300 rounded-lg z-30 transition-colors"
+            title="Close Diff View"
+        >
+            <Eye class="w-4 h-4" />
+        </button>
+    {:else}
+        <img src={job.previewUrl} alt="Preview" class="w-full h-full object-contain" />
+        {#if job.status === 'done' && job.result}
+            <button
+                on:click={() => showDiff = true}
+                class="absolute top-2 right-2 p-1.5 bg-indigo-600/90 hover:bg-indigo-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-lg"
+                title="Compare"
+            >
+                <Split class="w-4 h-4" />
+            </button>
+        {/if}
+        <div class="absolute inset-x-0 bottom-0 bg-black/60 p-2 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            <span class="text-xs text-slate-300 font-mono">{job.originalDimensions.width}x{job.originalDimensions.height}</span>
+        </div>
+    {/if}
   </div>
 
   <!-- Controls & Stats -->
@@ -128,7 +155,7 @@
     <!-- Quick Settings -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         <label class="block">
-            <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.pixelForge.controls.format}</span>
+            <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.controls.format}</span>
             <select
                 bind:value={job.options.format}
                 on:change={handleOptionChange}
@@ -141,20 +168,37 @@
         </label>
 
         <label class="block">
-            <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.pixelForge.controls.quality} ({Math.round(job.options.quality * 100)}%)</span>
+            <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">
+                {dict.controls.quality} ({job.options.targetSizeKB ? 'Auto' : Math.round(job.options.quality * 100) + '%'})
+            </span>
             <input
                 type="range"
                 min="0.1"
                 max="1"
                 step="0.05"
                 bind:value={job.options.quality}
+                on:input={() => { job.options.targetSizeKB = undefined; handleOptionChange(); }}
+                disabled={!!job.options.targetSizeKB}
+                class="w-full accent-indigo-500 h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer disabled:opacity-50"
+            />
+        </label>
+
+        <label class="block relative">
+            <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block flex items-center gap-1">
+                {dict.controls.targetSize || "Target Size (KB)"}
+                <Target class="w-3 h-3 text-indigo-400" />
+            </span>
+            <input
+                type="number"
+                bind:value={job.options.targetSizeKB}
+                placeholder="Optional"
                 on:input={handleOptionChange}
-                class="w-full accent-indigo-500 h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer"
+                class="w-full bg-slate-700 border border-slate-600 text-xs text-slate-200 rounded px-2 py-1.5 focus:border-indigo-500 focus:outline-none placeholder:text-slate-500"
             />
         </label>
 
         <label class="block">
-            <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.pixelForge.controls.width}</span>
+            <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.controls.width}</span>
             <input
                 type="number"
                 bind:value={job.options.width}
@@ -171,7 +215,7 @@
                 on:click={download}
              >
                 <Download class="w-3.5 h-3.5" />
-                {dict.pixelForge.controls.download}
+                {dict.controls.download}
              </button>
          </div>
     </div>

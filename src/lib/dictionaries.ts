@@ -1236,7 +1236,10 @@ export const dictionaries = {
             download: "Download",
             downloadAll: "Download All",
             clear: "Clear",
-            applyAll: "Apply to All"
+            applyAll: "Apply to All",
+            preset: "Preset",
+            targetSize: "Target Size (KB)",
+            custom: "Custom"
         },
         card: {
             original: "Original",
@@ -1294,7 +1297,10 @@ export const dictionaries = {
             download: "다운로드",
             downloadAll: "모두 다운로드",
             clear: "지우기",
-            applyAll: "모두 적용"
+            applyAll: "모두 적용",
+            preset: "프리셋",
+            targetSize: "목표 크기 (KB)",
+            custom: "사용자 지정"
         },
         card: {
             original: "원본",

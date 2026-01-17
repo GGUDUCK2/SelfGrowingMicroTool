@@ -5,12 +5,13 @@
   import DropZone from './DropZone.svelte';
   import ImageCard from './ImageCard.svelte';
   import HistoryList from './HistoryList.svelte';
-  import type { ImageJob, ExportOptions } from '$lib/utils/pixel-forge/types';
+  import type { ImageJob, ExportOptions, PixelForgeDictionary } from '$lib/utils/pixel-forge/types';
   import { nanoid } from 'nanoid';
   import { addToHistory } from '$lib/utils/pixel-forge/db';
   import { ImageProcessor } from '$lib/utils/pixel-forge/processor';
+  import { presets } from '$lib/utils/pixel-forge/presets';
 
-  export let dict: any;
+  export let dict: PixelForgeDictionary;
 
   let jobs: ImageJob[] = [];
   let historyComponent: HistoryList;
@@ -19,8 +20,19 @@
   let globalOptions: ExportOptions = {
     format: 'image/webp',
     quality: 0.8,
-    maintainAspectRatio: true
+    maintainAspectRatio: true,
+    targetSizeKB: undefined
   };
+
+  let selectedPreset = '';
+
+  function handlePresetChange() {
+      if (!selectedPreset) return;
+      const preset = presets.find(p => p.id === selectedPreset);
+      if (preset) {
+          globalOptions = { ...globalOptions, ...preset.options };
+      }
+  }
 
   async function handleFilesSelected(files: FileList) {
     for (let i = 0; i < files.length; i++) {
@@ -136,28 +148,57 @@
 <div class="space-y-8">
   <!-- Top Bar -->
   <div class="flex flex-col md:flex-row gap-4 items-center justify-between bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-     <div class="flex items-center gap-4 w-full md:w-auto">
+     <div class="flex flex-wrap items-center gap-4 w-full md:w-auto">
+
+        <!-- Preset Selector -->
+        <div class="flex flex-col">
+             <label>
+               <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.controls.preset || "Preset"}</span>
+               <select
+                   bind:value={selectedPreset}
+                   on:change={handlePresetChange}
+                   class="bg-slate-700 border border-slate-600 text-sm text-slate-200 rounded px-3 py-2 focus:border-indigo-500 focus:outline-none w-full md:w-40"
+               >
+                   <option value="">{dict.controls.custom || "Custom"}</option>
+                   {#each presets as preset}
+                       <option value={preset.id}>{preset.name}</option>
+                   {/each}
+               </select>
+             </label>
+        </div>
+
+        <div class="w-px h-10 bg-slate-700 mx-2 hidden md:block"></div>
+
         <div class="flex flex-col">
             <label>
-              <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.pixelForge.controls.format}</span>
-              <select bind:value={globalOptions.format} class="bg-slate-700 border border-slate-600 text-sm text-slate-200 rounded px-3 py-2 focus:border-indigo-500 focus:outline-none min-w-[120px]">
-                  <option value="image/webp">WebP (Best)</option>
+              <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.controls.format}</span>
+              <select bind:value={globalOptions.format} class="bg-slate-700 border border-slate-600 text-sm text-slate-200 rounded px-3 py-2 focus:border-indigo-500 focus:outline-none min-w-[100px]">
+                  <option value="image/webp">WebP</option>
                   <option value="image/jpeg">JPEG</option>
                   <option value="image/png">PNG</option>
               </select>
             </label>
         </div>
 
-        <div class="flex flex-col flex-1 md:w-48">
+        <div class="flex flex-col flex-1 md:min-w-[12rem]">
              <label>
                <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">
-                 {dict.pixelForge.controls.quality} ({Math.round(globalOptions.quality * 100)}%)
+                 {dict.controls.quality} ({globalOptions.targetSizeKB ? 'Auto' : Math.round(globalOptions.quality * 100) + '%'})
                </span>
-               <input type="range" min="0.1" max="1" step="0.05" bind:value={globalOptions.quality} class="accent-indigo-500 h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer mt-2" />
+               <input
+                  type="range"
+                  min="0.1"
+                  max="1"
+                  step="0.05"
+                  bind:value={globalOptions.quality}
+                  disabled={!!globalOptions.targetSizeKB}
+                  on:input={() => { selectedPreset = ''; globalOptions.targetSizeKB = undefined; }}
+                  class="accent-indigo-500 h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer mt-2 disabled:opacity-50"
+               />
              </label>
         </div>
 
-        <button on:click={applyGlobalSettingsToAll} class="mt-4 p-2 text-slate-400 hover:text-indigo-400" title={dict.pixelForge.controls.applyAll}>
+        <button on:click={applyGlobalSettingsToAll} class="mt-4 p-2 text-slate-400 hover:text-indigo-400" title={dict.controls.applyAll}>
             <Sliders class="w-5 h-5" />
         </button>
      </div>
@@ -166,13 +207,13 @@
         {#if jobs.some(j => j.status === 'done')}
             <button on:click={downloadAll} class="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors shadow-lg shadow-indigo-900/20">
                 <Archive class="w-4 h-4" />
-                <span>{dict.pixelForge.controls.downloadAll}</span>
+                <span>{dict.controls.downloadAll}</span>
             </button>
         {/if}
         {#if jobs.length > 0}
             <button on:click={clearAll} class="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-red-900/30 hover:text-red-400 text-slate-300 rounded-lg font-medium transition-colors">
                 <Trash2 class="w-4 h-4" />
-                <span>{dict.pixelForge.controls.clear}</span>
+                <span>{dict.controls.clear}</span>
             </button>
         {/if}
      </div>
@@ -188,7 +229,7 @@
       </div>
   {:else}
       <div class="text-center py-12 text-slate-500">
-          <p>{dict.pixelForge.dropZone.sub}</p>
+          <p>{dict.dropZone.sub}</p>
       </div>
   {/if}
 

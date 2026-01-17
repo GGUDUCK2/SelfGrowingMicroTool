@@ -1,3 +1,5 @@
+import type { dictionaries } from '$lib/dictionaries';
+
 export type ImageFormat = 'image/jpeg' | 'image/png' | 'image/webp';
 
 export interface ExportOptions {
@@ -6,6 +8,13 @@ export interface ExportOptions {
   width?: number;
   height?: number;
   maintainAspectRatio: boolean;
+  targetSizeKB?: number;
+}
+
+export interface Preset {
+  id: string;
+  name: string;
+  options: Partial<ExportOptions>;
 }
 
 export interface ImageJob {
@@ -35,3 +44,6 @@ export interface PixelHistoryItem {
   savings: number; // Percentage
   timestamp: number;
 }
+
+export type PixelForgeDictionary = typeof dictionaries['en']['tools']['pixelForge'];
+export type Dictionary = typeof dictionaries['en'];
