@@ -69,6 +69,11 @@ export class ImageProcessor {
 
     ctx.drawImage(bitmap, 0, 0, targetWidth, targetHeight);
 
+    // Apply Watermark if exists
+    if (options.watermark && options.watermark.text) {
+        this.applyWatermark(ctx, targetWidth, targetHeight, options.watermark);
+    }
+
     if (closeBitmap) bitmap.close();
 
     // Smart Target Size Logic
@@ -138,5 +143,61 @@ export class ImageProcessor {
       case 'image/webp': return 'webp';
       default: return 'jpg';
     }
+  }
+
+  static applyWatermark(
+      ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+      width: number,
+      height: number,
+      watermark: NonNullable<ExportOptions['watermark']>
+  ) {
+      const fontSize = Math.max(12, Math.round(width * 0.05)); // 5% of width
+      ctx.font = `bold ${fontSize}px sans-serif`;
+      ctx.fillStyle = watermark.color;
+      ctx.globalAlpha = watermark.opacity;
+
+      const text = watermark.text;
+      const metrics = ctx.measureText(text);
+      const textWidth = metrics.width;
+      const textHeight = fontSize; // approx
+      const padding = fontSize;
+
+      let x = 0;
+      let y = 0;
+
+      switch (watermark.position) {
+          case 'center':
+              x = (width - textWidth) / 2;
+              y = (height + textHeight) / 2;
+              break;
+          case 'top-left':
+              x = padding;
+              y = padding + textHeight;
+              break;
+          case 'top-right':
+              x = width - textWidth - padding;
+              y = padding + textHeight;
+              break;
+          case 'bottom-left':
+              x = padding;
+              y = height - padding;
+              break;
+          case 'bottom-right':
+              x = width - textWidth - padding;
+              y = height - padding;
+              break;
+      }
+
+      // Add simple shadow for readability
+      ctx.shadowColor = 'rgba(0,0,0,0.5)';
+      ctx.shadowBlur = 4;
+      ctx.shadowOffsetX = 2;
+      ctx.shadowOffsetY = 2;
+
+      ctx.fillText(text, x, y);
+
+      // Reset
+      ctx.globalAlpha = 1.0;
+      ctx.shadowColor = 'transparent';
   }
 }

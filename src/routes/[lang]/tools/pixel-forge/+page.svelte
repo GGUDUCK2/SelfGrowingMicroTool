@@ -9,7 +9,7 @@
   $: toolDict = dict.tools.pixelForge;
 
   // SEO & Meta
-  $: title = toolDict.title;
+  $: title = `${toolDict.title} - ${dict.common.category}`; // e.g. Pixel Forge - Image Tools
   $: description = toolDict.description;
   $: canonical = `https://web-factory.vercel.app/${$page.params.lang}/tools/pixel-forge`;
 
@@ -29,7 +29,9 @@
        "Client-side processing",
        "WebP/JPEG/PNG conversion",
        "Smart compression",
-       "Privacy focused",
+       "Privacy focused metadata stripping",
+       "Text Watermarking",
+       "Magic Palette Extraction",
        "Offline capability"
     ]
   });
@@ -41,7 +43,7 @@
 <svelte:head>
   <title>{title}</title>
   <meta name="description" content={description} />
-  <meta name="keywords" content="image optimizer, webp converter, image compressor, resize image, privacy focused, client side, pixel forge, online tool" />
+  <meta name="keywords" content="image optimizer, webp converter, watermark images, extract color palette, strip exif metadata, image compressor, resize image, privacy focused, client side, pixel forge" />
 
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
