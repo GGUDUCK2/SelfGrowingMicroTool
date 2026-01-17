@@ -6,10 +6,33 @@
   import { marked } from 'marked';
 
   $: dict = getDictionary($page.params.lang);
+  $: toolDict = dict.tools.pixelForge;
 
   // SEO & Meta
-  $: title = dict.pixelForge.title;
-  $: description = dict.pixelForge.description;
+  $: title = toolDict.title;
+  $: description = toolDict.description;
+  $: canonical = `https://web-factory.vercel.app/${$page.params.lang}/tools/pixel-forge`;
+
+  $: jsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Pixel Forge",
+    "description": description,
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web, Android, iOS",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+       "Client-side processing",
+       "WebP/JPEG/PNG conversion",
+       "Smart compression",
+       "Privacy focused",
+       "Offline capability"
+    ]
+  });
 
   // Helper to render markdown safely
   const renderMarkdown = (text: string) => marked.parse(text);
@@ -18,9 +41,23 @@
 <svelte:head>
   <title>{title}</title>
   <meta name="description" content={description} />
+  <meta name="keywords" content="image optimizer, webp converter, image compressor, resize image, privacy focused, client side, pixel forge, online tool" />
+
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+
+  <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/pixel-forge" />
+  <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/pixel-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://web-factory.vercel.app/en/tools/pixel-forge" />
+
+  {@html `<script type="application/ld+json">${jsonLd}</script>`}
 </svelte:head>
 
 <div class="max-w-5xl mx-auto px-4 py-8 md:py-12 space-y-12">
@@ -40,7 +77,7 @@
 
   <!-- Main Tool -->
   <main>
-    <Workspace {dict} />
+    <Workspace dict={toolDict} />
   </main>
 
   <!-- Features Grid -->
@@ -51,7 +88,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-200">Lightning Fast</h3>
         <div class="text-slate-400 text-sm leading-relaxed">
-            {@html renderMarkdown(dict.pixelForge.guide.featuresTitle.f1)}
+            {@html renderMarkdown(toolDict.guide.f1)}
         </div>
      </div>
 
@@ -61,7 +98,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-200">Privacy First</h3>
         <div class="text-slate-400 text-sm leading-relaxed">
-             {@html renderMarkdown(dict.pixelForge.guide.featuresTitle.f2)}
+             {@html renderMarkdown(toolDict.guide.f2)}
         </div>
      </div>
 
@@ -71,16 +108,16 @@
         </div>
         <h3 class="text-lg font-bold text-slate-200">Mobile Optimized</h3>
         <div class="text-slate-400 text-sm leading-relaxed">
-             {@html renderMarkdown(dict.pixelForge.guide.featuresTitle.f3)}
+             {@html renderMarkdown(toolDict.guide.f3)}
         </div>
      </div>
   </section>
 
   <!-- Documentation -->
   <article class="prose prose-invert prose-slate max-w-none pt-12 border-t border-slate-800">
-    <h2>{dict.pixelForge.guide.title}</h2>
+    <h2>{toolDict.guide.title}</h2>
     <p>
-      {dict.pixelForge.guide.intro}
+      {toolDict.guide.intro}
     </p>
 
     <h3>Supported Formats</h3>
@@ -90,27 +127,27 @@
       <li><strong>PNG:</strong> Lossless compression, ideal for graphics and transparent images.</li>
     </ul>
 
-    <h3>{dict.pixelForge.guide.tipsTitle}</h3>
+    <h3>{toolDict.guide.tipsTitle}</h3>
     <ul>
-        <li>{@html renderMarkdown(dict.pixelForge.guide.tip1)}</li>
-        <li>{@html renderMarkdown(dict.pixelForge.guide.tip2)}</li>
-        <li>{@html renderMarkdown(dict.pixelForge.guide.tip3)}</li>
+        <li>{@html renderMarkdown(toolDict.guide.tip1)}</li>
+        <li>{@html renderMarkdown(toolDict.guide.tip2)}</li>
+        <li>{@html renderMarkdown(toolDict.guide.tip3)}</li>
     </ul>
 
     <!-- FAQ for Schema -->
-    <h3>{dict.pixelForge.faqTitle}</h3>
+    <h3>{toolDict.faqTitle}</h3>
     <dl class="space-y-4">
         <div>
-            <dt class="font-bold text-slate-200">{dict.pixelForge.q1}</dt>
-            <dd class="text-slate-400">{dict.pixelForge.a1}</dd>
+            <dt class="font-bold text-slate-200">{toolDict.q1}</dt>
+            <dd class="text-slate-400">{toolDict.a1}</dd>
         </div>
         <div>
-            <dt class="font-bold text-slate-200">{dict.pixelForge.q2}</dt>
-            <dd class="text-slate-400">{dict.pixelForge.a2}</dd>
+            <dt class="font-bold text-slate-200">{toolDict.q2}</dt>
+            <dd class="text-slate-400">{toolDict.a2}</dd>
         </div>
         <div>
-            <dt class="font-bold text-slate-200">{dict.pixelForge.q3}</dt>
-            <dd class="text-slate-400">{dict.pixelForge.a3}</dd>
+            <dt class="font-bold text-slate-200">{toolDict.q3}</dt>
+            <dd class="text-slate-400">{toolDict.a3}</dd>
         </div>
     </dl>
   </article>

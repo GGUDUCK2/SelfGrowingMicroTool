@@ -1,11 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { Clock, Trash2, ArrowRight } from 'lucide-svelte';
-  import type { PixelHistoryItem } from '$lib/utils/pixel-forge/types';
+  import type { PixelHistoryItem, PixelForgeDictionary } from '$lib/utils/pixel-forge/types';
   import { getHistory, clearHistory } from '$lib/utils/pixel-forge/db';
   import { format } from 'date-fns';
 
-  export let dict: any;
+  export let dict: PixelForgeDictionary;
 
   let history: PixelHistoryItem[] = [];
 
@@ -13,7 +13,7 @@
     await loadHistory();
   });
 
-  async function loadHistory() {
+  export async function loadHistory() {
     history = await getHistory();
   }
 
@@ -41,7 +41,7 @@
   <div class="flex items-center justify-between">
     <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2">
       <Clock class="w-5 h-5 text-indigo-400" />
-      {dict.pixelForge.history?.title || "History"}
+      {dict.history?.title || "History"}
     </h3>
     {#if history.length > 0}
       <button
@@ -49,14 +49,14 @@
         class="text-xs text-slate-400 hover:text-red-400 flex items-center gap-1 transition-colors"
       >
         <Trash2 class="w-3.5 h-3.5" />
-        {dict.pixelForge.controls.clear || "Clear"}
+        {dict.controls.clear || "Clear"}
       </button>
     {/if}
   </div>
 
   {#if history.length === 0}
     <div class="text-center py-8 text-slate-500 bg-slate-800/30 rounded-lg border border-slate-700 border-dashed">
-      <p>{dict.pixelForge.history?.empty || "No history yet"}</p>
+      <p>{dict.history?.empty || "No history yet"}</p>
     </div>
   {:else}
     <div class="space-y-3">
