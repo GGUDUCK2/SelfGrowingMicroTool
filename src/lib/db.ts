@@ -1,4 +1,5 @@
-import Dexie, { type Table } from 'dexie';
+import Dexie, { type Table as DexieTable } from 'dexie';
+import type { Table as SchemaTable, Relation as SchemaRelation } from './types/schema-forge';
 
 export interface CompoundInterestConfig {
   id?: number;
@@ -123,28 +124,28 @@ export interface SeoHistory {
 export interface SchemaForgeProject {
   id?: number;
   name: string;
-  tables: any[];
-  relations: any[];
+  tables: SchemaTable[];
+  relations: SchemaRelation[];
   createdAt: Date;
   updatedAt: Date;
   starred?: number;
 }
 
 class MySubClassedDexie extends Dexie {
-  compoundInterestConfig!: Table<CompoundInterestConfig>;
-  compoundInterestHistory!: Table<CompoundInterestHistory>;
-  glassmorphismHistory!: Table<GlassmorphismHistory>;
-  jsonHistory!: Table<JsonHistory>;
-  cronHistory!: Table<CronHistory>;
-  regexHistory!: Table<RegexHistory>;
-  colorHistory!: Table<ColorHistory>;
-  diffHistory!: Table<DiffHistory>;
-  idForgeHistory!: Table<IdForgeHistory>;
-  cipherHistory!: Table<CipherHistory>;
-  structuraHistory!: Table<StructuraHistory>;
-  markFlowHistory!: Table<MarkFlowHistory>;
-  seoHistory!: Table<SeoHistory>;
-  schemaForgeProjects!: Table<SchemaForgeProject>;
+  compoundInterestConfig!: DexieTable<CompoundInterestConfig>;
+  compoundInterestHistory!: DexieTable<CompoundInterestHistory>;
+  glassmorphismHistory!: DexieTable<GlassmorphismHistory>;
+  jsonHistory!: DexieTable<JsonHistory>;
+  cronHistory!: DexieTable<CronHistory>;
+  regexHistory!: DexieTable<RegexHistory>;
+  colorHistory!: DexieTable<ColorHistory>;
+  diffHistory!: DexieTable<DiffHistory>;
+  idForgeHistory!: DexieTable<IdForgeHistory>;
+  cipherHistory!: DexieTable<CipherHistory>;
+  structuraHistory!: DexieTable<StructuraHistory>;
+  markFlowHistory!: DexieTable<MarkFlowHistory>;
+  seoHistory!: DexieTable<SeoHistory>;
+  schemaForgeProjects!: DexieTable<SchemaForgeProject>;
 
   constructor() {
     super('webFactoryDB');

@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { Table, Column } from '$lib/types/schema-forge';
   import { DATA_TYPES } from '$lib/types/schema-forge';
-  import { Plus, Trash2, Key, Check, Info } from 'lucide-svelte';
+  import { inferColumnDetails } from '$lib/utils/schema-forge/smart-inference';
+  import { Plus, Trash2, Key, Check, Info, Sparkles } from 'lucide-svelte';
   import { createEventDispatcher } from 'svelte';
   import { nanoid } from 'nanoid';
   import { slide } from 'svelte/transition';
@@ -13,7 +14,7 @@
   function addColumn() {
       const newCol: Column = {
           id: nanoid(),
-          name: 'new_column',
+          name: '',
           type: 'varchar',
           length: 255,
           isPk: false,
@@ -42,6 +43,16 @@
   }
 
   function handleNameChange() {
+      dispatch('change');
+  }
+
+  function handleColumnNameInput(col: Column) {
+      const inferred = inferColumnDetails(col.name);
+      if (inferred) {
+          // Only apply inference if the user hasn't explicitly set conflicting types
+          // For now, we just auto-apply for better UX, effectively "Smart Mode"
+          Object.assign(col, inferred);
+      }
       dispatch('change');
   }
 </script>
@@ -99,13 +110,18 @@
                          </button>
 
                          <!-- Name -->
-                         <input
-                             type="text"
-                             bind:value={col.name}
-                             on:input={() => dispatch('change')}
-                             class="w-full bg-transparent border border-transparent hover:border-slate-300 dark:hover:border-slate-600 focus:border-indigo-500 rounded px-2 py-1 text-sm font-mono text-slate-900 dark:text-slate-200 transition-colors outline-none"
-                             placeholder="column_name"
-                         />
+                         <div class="relative">
+                            <input
+                                type="text"
+                                bind:value={col.name}
+                                on:input={() => handleColumnNameInput(col)}
+                                class="w-full bg-transparent border border-transparent hover:border-slate-300 dark:hover:border-slate-600 focus:border-indigo-500 rounded px-2 py-1 text-sm font-mono text-slate-900 dark:text-slate-200 transition-colors outline-none"
+                                placeholder="column_name"
+                            />
+                            {#if col.name && !col.name.includes('_') && !col.name.includes('id')}
+                                <!-- Maybe show a small icon if inferred? -->
+                            {/if}
+                         </div>
 
                          <!-- Type & Options -->
                          <div class="flex gap-2">
