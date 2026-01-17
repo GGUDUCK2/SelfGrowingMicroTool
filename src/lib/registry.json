@@ -283,5 +283,20 @@
     "category": "Developer Tools",
     "tags": ["seo", "meta", "opengraph", "jsonld", "preview", "social"],
     "createdAt": "2025-02-14"
+  },
+  {
+    "id": "pixel-forge",
+    "slug": "pixel-forge",
+    "title": {
+      "en": "Pixel Forge: Image Optimizer",
+      "ko": "Pixel Forge: 이미지 최적화 도구"
+    },
+    "description": {
+      "en": "The definitive tool to compress, resize, and convert images (WebP, JPG, PNG) with professional precision. 100% Client-side.",
+      "ko": "이미지(WebP, JPG, PNG)를 전문적인 정밀도로 압축, 크기 조정 및 변환하는 완벽한 도구입니다. 100% 클라이언트 처리."
+    },
+    "category": "Design",
+    "tags": ["image", "compressor", "converter", "webp", "resize", "tool"],
+    "createdAt": "2025-02-15"
   }
 ]

@@ -1220,6 +1220,108 @@ export const dictionaries = {
         a2: "Import functionality is planned for a future update. Currently, you can design from scratch.",
         q3: "How do I create relationships?",
         a3: "You can define foreign keys in the Table Editor (Coming in v1.1) or rely on naming conventions for now."
+      },
+      pixelForge: {
+        title: "Pixel Forge: Image Optimizer",
+        description: "The definitive tool to compress, resize, and convert images (WebP, JPG, PNG) with professional precision. 100% Client-side.",
+        dropZone: {
+            title: "Drop images here",
+            sub: "Drop images or click to browse",
+            info: "Supports JPG, PNG, WebP. High-quality client-side compression."
+        },
+        controls: {
+            format: "Format",
+            quality: "Quality",
+            width: "Width (px)",
+            download: "Download",
+            downloadAll: "Download All",
+            clear: "Clear",
+            applyAll: "Apply to All"
+        },
+        card: {
+            original: "Original",
+            optimized: "Optimized",
+            savings: "Savings",
+            processing: "Processing..."
+        },
+        guide: {
+          title: "Why Pixel Forge?",
+          intro: "In the modern web, image optimization is crucial for performance (Core Web Vitals) and SEO. Pixel Forge provides a professional suite of tools to ensure your visuals are crisp, lightweight, and ready for production.",
+          featuresTitle: "Key Features",
+          f1: "**Lightning Fast:** Powered by modern browser APIs (WebAssembly & Canvas) for instant processing without network latency.",
+          f2: "**Privacy First:** Your images never leave your device. All processing happens locally in your browser sandbox.",
+          f3: "**Mobile Optimized:** Full support for touch devices. Optimize photos directly from your camera roll on the go.",
+          tipsTitle: "Pro Tips",
+          tip1: "**Batch Processing:** Drag multiple files at once to apply global settings. Perfect for converting assets for a landing page.",
+          tip2: "**Quality Balance:** For WebP, a quality setting of 80% is often indistinguishable from the original but 50% smaller.",
+          tip3: "**Privacy:** Since no data is uploaded, you can safely process sensitive documents or personal photos."
+        },
+        faqTitle: "Pixel Forge FAQ",
+        q1: "Is this tool free?",
+        a1: "Yes, Pixel Forge is completely free and open-source.",
+        q2: "Do you store my images?",
+        a2: "No. Pixel Forge runs entirely in your browser. No files are ever sent to a server.",
+        q3: "What is the file size limit?",
+        a3: "It depends on your device's available memory (RAM), but generally supports files up to 50MB-100MB smoothly."
+      }
+    },
+    pwa: {
+    }
+  },
+  ko: {
+    home: {
+      title: "마이크로 팩토리",
+      description: "스스로 진화하는 웹 도구 모음.",
+      search: "도구 검색...",
+    },
+    common: {
+      back: "홈으로 돌아가기",
+      actions: "작업",
+    },
+    tools: {
+      pixelForge: {
+        title: "Pixel Forge: 이미지 최적화 도구",
+        description: "이미지(WebP, JPG, PNG)를 전문적인 정밀도로 압축, 크기 조정 및 변환하는 완벽한 도구입니다. 100% 클라이언트 처리.",
+        dropZone: {
+            title: "여기에 이미지를 놓으세요",
+            sub: "이미지를 놓거나 클릭하여 찾아보세요",
+            info: "JPG, PNG, WebP 지원. 고품질 클라이언트 사이드 압축."
+        },
+        controls: {
+            format: "형식",
+            quality: "품질",
+            width: "너비 (px)",
+            download: "다운로드",
+            downloadAll: "모두 다운로드",
+            clear: "지우기",
+            applyAll: "모두 적용"
+        },
+        card: {
+            original: "원본",
+            optimized: "최적화됨",
+            savings: "절약",
+            processing: "처리 중..."
+        },
+        guide: {
+          title: "왜 Pixel Forge인가요?",
+          intro: "현대 웹에서 이미지 최적화는 성능(Core Web Vitals)과 SEO에 매우 중요합니다. Pixel Forge는 비주얼이 선명하고 가벼우며 프로덕션 준비가 완료되도록 보장하는 전문 도구 모음을 제공합니다.",
+          featuresTitle: {
+            f1: "**초고속:** 최신 브라우저 API(WebAssembly & Canvas)로 구동되어 네트워크 지연 없이 즉시 처리됩니다.",
+            f2: "**프라이버시 우선:** 이미지가 기기를 벗어나지 않습니다. 모든 처리는 브라우저 샌드박스 내에서 로컬로 이루어집니다.",
+            f3: "**모바일 최적화:** 터치 디바이스를 완벽하게 지원합니다. 이동 중에도 카메라 롤에서 사진을 바로 최적화하세요."
+          },
+          tipsTitle: "전문가 팁",
+          tip1: "**일괄 처리:** 여러 파일을 한 번에 드래그하여 전역 설정을 적용하세요. 랜딩 페이지 자산 변환에 완벽합니다.",
+          tip2: "**품질 균형:** WebP의 경우 품질 설정 80%는 원본과 구별하기 어렵지만 크기는 50% 더 작습니다.",
+          tip3: "**프라이버시:** 데이터가 업로드되지 않으므로 민감한 문서나 개인 사진을 안전하게 처리할 수 있습니다."
+        },
+        faqTitle: "Pixel Forge 자주 묻는 질문",
+        q1: "이 도구는 무료인가요?",
+        a1: "네, Pixel Forge는 완전히 무료이며 오픈 소스입니다.",
+        q2: "이미지를 저장하나요?",
+        a2: "아니요. Pixel Forge는 전적으로 브라우저에서 실행됩니다. 파일은 서버로 전송되지 않습니다.",
+        q3: "파일 크기 제한은 무엇인가요?",
+        a3: "기기의 사용 가능한 메모리(RAM)에 따라 다르지만 일반적으로 50MB-100MB까지 원활하게 지원합니다."
       }
     },
     pwa: {
