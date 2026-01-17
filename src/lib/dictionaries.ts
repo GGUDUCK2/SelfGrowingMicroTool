@@ -1239,13 +1239,17 @@ export const dictionaries = {
             applyAll: "Apply to All",
             preset: "Preset",
             targetSize: "Target Size (KB)",
-            custom: "Custom"
+            custom: "Custom",
+            watermark: "Watermark Settings"
         },
         card: {
             original: "Original",
             optimized: "Optimized",
             savings: "Savings",
-            processing: "Processing..."
+            processing: "Processing...",
+            palette: "Magic Palette",
+            privacy: "Privacy Scanner",
+            stripped: "Stripped"
         },
         guide: {
           title: "Why Pixel Forge?",
@@ -1300,22 +1304,25 @@ export const dictionaries = {
             applyAll: "모두 적용",
             preset: "프리셋",
             targetSize: "목표 크기 (KB)",
-            custom: "사용자 지정"
+            custom: "사용자 지정",
+            watermark: "워터마크 설정"
         },
         card: {
             original: "원본",
             optimized: "최적화됨",
             savings: "절약",
-            processing: "처리 중..."
+            processing: "처리 중...",
+            palette: "매직 팔레트",
+            privacy: "프라이버시 스캐너",
+            stripped: "제거됨"
         },
         guide: {
           title: "왜 Pixel Forge인가요?",
           intro: "현대 웹에서 이미지 최적화는 성능(Core Web Vitals)과 SEO에 매우 중요합니다. Pixel Forge는 비주얼이 선명하고 가벼우며 프로덕션 준비가 완료되도록 보장하는 전문 도구 모음을 제공합니다.",
-          featuresTitle: {
-            f1: "**초고속:** 최신 브라우저 API(WebAssembly & Canvas)로 구동되어 네트워크 지연 없이 즉시 처리됩니다.",
-            f2: "**프라이버시 우선:** 이미지가 기기를 벗어나지 않습니다. 모든 처리는 브라우저 샌드박스 내에서 로컬로 이루어집니다.",
-            f3: "**모바일 최적화:** 터치 디바이스를 완벽하게 지원합니다. 이동 중에도 카메라 롤에서 사진을 바로 최적화하세요."
-          },
+          featuresTitle: "주요 기능",
+          f1: "**초고속:** 최신 브라우저 API(WebAssembly & Canvas)로 구동되어 네트워크 지연 없이 즉시 처리됩니다.",
+          f2: "**프라이버시 우선:** 이미지가 기기를 벗어나지 않습니다. 모든 처리는 브라우저 샌드박스 내에서 로컬로 이루어집니다.",
+          f3: "**모바일 최적화:** 터치 디바이스를 완벽하게 지원합니다. 이동 중에도 카메라 롤에서 사진을 바로 최적화하세요.",
           tipsTitle: "전문가 팁",
           tip1: "**일괄 처리:** 여러 파일을 한 번에 드래그하여 전역 설정을 적용하세요. 랜딩 페이지 자산 변환에 완벽합니다.",
           tip2: "**품질 균형:** WebP의 경우 품질 설정 80%는 원본과 구별하기 어렵지만 크기는 50% 더 작습니다.",

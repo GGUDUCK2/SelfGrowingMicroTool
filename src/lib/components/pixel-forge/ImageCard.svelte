@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { Trash2, Download, RefreshCw, FileImage, Sliders, ArrowRight, Eye, Split, Target } from 'lucide-svelte';
+  import { Trash2, Download, RefreshCw, FileImage, Sliders, ArrowRight, Eye, Split, Target, Copy, Check } from 'lucide-svelte';
   import type { ImageJob, ExportOptions, PixelForgeDictionary } from '$lib/utils/pixel-forge/types';
   import { ImageProcessor } from '$lib/utils/pixel-forge/processor';
   import DiffSlider from './DiffSlider.svelte';
@@ -13,6 +13,7 @@
   let isProcessing = false;
   let processingTime = 0;
   let showDiff = false;
+  let copiedColor: string | null = null;
 
   $: if (job.status === 'pending') {
     processImage();
@@ -50,9 +51,10 @@
           dimensions: result.dimensions
         }
       });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      onUpdate(job.id, { status: 'error', error: err.message });
+      const message = err instanceof Error ? err.message : 'Unknown error';
+      onUpdate(job.id, { status: 'error', error: message });
     } finally {
       processingTime = Math.round(performance.now() - start);
       isProcessing = false;
@@ -85,6 +87,12 @@
     a.click();
     document.body.removeChild(a);
   }
+
+  function copyColor(color: string) {
+      navigator.clipboard.writeText(color);
+      copiedColor = color;
+      setTimeout(() => copiedColor = null, 2000);
+  }
 </script>
 
 <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 flex flex-col md:flex-row gap-6 transition-all hover:border-slate-600">
@@ -94,13 +102,14 @@
         <DiffSlider
             originalUrl={job.previewUrl}
             optimizedUrl={job.result.url}
-            labelOriginal={dict.card.original || "Original"}
-            labelOptimized={dict.card.optimized || "Optimized"}
+            labelOriginal={dict.card?.original || "Original"}
+            labelOptimized={dict.card?.optimized || "Optimized"}
         />
         <button
             on:click={() => showDiff = false}
             class="absolute top-2 right-2 p-1.5 bg-slate-800/80 hover:bg-slate-700 text-slate-300 rounded-lg z-30 transition-colors"
             title="Close Diff View"
+            aria-label="Close Diff View"
         >
             <Eye class="w-4 h-4" />
         </button>
@@ -111,6 +120,7 @@
                 on:click={() => showDiff = true}
                 class="absolute top-2 right-2 p-1.5 bg-indigo-600/90 hover:bg-indigo-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-lg"
                 title="Compare"
+                aria-label="Compare Original and Optimized"
             >
                 <Split class="w-4 h-4" />
             </button>
@@ -137,7 +147,7 @@
                 </span>
                 <span class="text-slate-500">({getSavings()})</span>
             {:else if job.status === 'processing'}
-                <span class="text-indigo-400 animate-pulse">{dict.pixelForge.card.processing}</span>
+                <span class="text-indigo-400 animate-pulse">{dict.card?.processing || "Processing..."}</span>
             {:else}
                 <span>...</span>
             {/if}
@@ -208,16 +218,64 @@
             />
         </label>
 
-         <div class="flex items-end pb-1">
+         <div class="flex items-end pb-1 col-span-2 md:col-span-4 mt-2">
              <button
-                class="w-full h-[30px] flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                class="w-full h-[36px] flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
                 disabled={job.status !== 'done'}
                 on:click={download}
              >
-                <Download class="w-3.5 h-3.5" />
+                <Download class="w-4 h-4" />
                 {dict.controls.download}
              </button>
          </div>
     </div>
+
+    <!-- Smart Analysis (Palette & Privacy) -->
+    {#if job.palette || (job.metadataFound && job.metadataFound.length > 0)}
+        <div class="border-t border-slate-700 pt-3 flex flex-col gap-3">
+             <!-- Magic Palette -->
+             {#if job.palette && job.palette.length > 0}
+                <div>
+                     <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.card?.palette || "Magic Palette"}</span>
+                     <div class="flex items-center gap-2">
+                         {#each job.palette as color}
+                             <button
+                                 class="w-6 h-6 rounded-full border border-white/10 relative group"
+                                 style="background-color: {color};"
+                                 on:click={() => copyColor(color)}
+                                 title={color}
+                                 aria-label={`Copy color ${color}`}
+                             >
+                                 <span class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/20 rounded-full transition-opacity">
+                                      {#if copiedColor === color}
+                                          <Check class="w-3 h-3 text-white" />
+                                      {:else}
+                                          <Copy class="w-3 h-3 text-white" />
+                                      {/if}
+                                 </span>
+                             </button>
+                         {/each}
+                    </div>
+                </div>
+             {/if}
+
+             <!-- Privacy Scanner -->
+             {#if job.metadataFound && job.metadataFound.length > 0}
+                <div>
+                    <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block flex items-center gap-1">
+                        {dict.card?.privacy || "Privacy Scanner"}
+                        <span class="bg-indigo-500/20 text-indigo-400 px-1.5 py-0.5 rounded text-[9px]">{dict.card?.stripped || "Stripped"}</span>
+                    </span>
+                    <div class="flex flex-wrap gap-2">
+                        {#each job.metadataFound as meta}
+                            <span class="text-[10px] bg-red-900/20 text-red-300 border border-red-900/30 px-2 py-0.5 rounded flex items-center gap-1">
+                                {meta}
+                            </span>
+                        {/each}
+                    </div>
+                </div>
+             {/if}
+        </div>
+    {/if}
   </div>
 </div>

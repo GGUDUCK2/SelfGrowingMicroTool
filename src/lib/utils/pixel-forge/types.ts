@@ -9,6 +9,12 @@ export interface ExportOptions {
   height?: number;
   maintainAspectRatio: boolean;
   targetSizeKB?: number;
+  watermark?: {
+    text: string;
+    opacity: number; // 0 to 1
+    position: 'center' | 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
+    color: string;
+  };
 }
 
 export interface Preset {
@@ -30,6 +36,8 @@ export interface ImageJob {
     size: number;
     dimensions: { width: number; height: number };
   };
+  palette?: string[];
+  metadataFound?: string[];
   options: ExportOptions;
   error?: string;
   createdAt: number;
