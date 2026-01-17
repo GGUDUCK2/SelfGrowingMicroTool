@@ -46,7 +46,7 @@
           type="text"
           value={pattern}
           on:input={handleInput}
-          class="w-full pl-6 pr-6 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
+          class="w-full pl-6 pr-6 py-2 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
           placeholder="[a-z]+"
         />
         <span class="absolute right-3 top-3 text-slate-400 select-none">/{flags}</span>
