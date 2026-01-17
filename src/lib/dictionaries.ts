@@ -1217,9 +1217,9 @@ export const dictionaries = {
         q1: "Is my schema sent to a server?",
         a1: "No. Your schema design and project data are stored locally in your browser (IndexedDB).",
         q2: "Can I import existing SQL?",
-        a2: "Import functionality is planned for a future update. Currently, you can design from scratch.",
+        a2: "Yes! Use the 'Import SQL' button to paste basic CREATE TABLE statements and visualize them instantly.",
         q3: "How do I create relationships?",
-        a3: "You can define foreign keys in the Table Editor (Coming in v1.1) or rely on naming conventions for now."
+        a3: "You can define foreign keys in the Table Editor or rely on naming conventions for now."
       },
       pixelForge: {
         title: "Pixel Forge: Image Optimizer",
@@ -1286,6 +1286,63 @@ export const dictionaries = {
       actions: "작업",
     },
     tools: {
+      schemaForge: {
+        title: "Schema Forge: DB 아키텍트",
+        description: "데이터베이스 스키마를 설계, 시각화 및 내보내는 완벽한 도구입니다. MySQL, Postgres, SQLite, Prisma 및 TypeScript를 지원합니다.",
+        tables: {
+           title: "테이블",
+           add: "테이블 추가",
+           noTables: "테이블이 없습니다",
+           start: "+ 버튼을 눌러 모델링을 시작하세요"
+        },
+        editor: {
+           tableName: "테이블 이름",
+           comment: "설명 (선택)",
+           columns: "컬럼",
+           addCol: "컬럼 추가",
+           pk: "PK",
+           name: "이름",
+           type: "타입",
+           flags: "옵션",
+           nullable: "널 허용 (N)",
+           unique: "유니크 (U)",
+           autoInc: "자동 증가 (AI)"
+        },
+        toolbar: {
+           projects: "프로젝트",
+           newProject: "새 프로젝트",
+           save: "저장",
+           export: "내보내기",
+           clear: "초기화",
+           delete: "프로젝트 삭제"
+        },
+        tabs: {
+           design: "디자인",
+           diagram: "다이어그램",
+           sql: "SQL",
+           prisma: "Prisma",
+           typescript: "타입스크립트"
+        },
+        guide: {
+           title: "왜 Schema Forge인가요?",
+           intro: "Schema Forge는 브라우저에서 완전히 실행되는 전문가급 데이터베이스 모델링 도구입니다. 시각적 디자인과 프로덕션 코드 사이의 격차를 해소합니다.",
+           featuresTitle: "주요 기능",
+           f1: "**시각적 모델링:** 테이블, 컬럼, 관계를 설계하는 직관적인 인터페이스.",
+           f2: "**다중 내보내기:** MySQL, PostgreSQL, SQLite, Prisma용 프로덕션 준비 SQL 생성.",
+           f3: "**Mermaid 다이어그램:** 문서를 위한 자동 ER 다이어그램 생성.",
+           tipsTitle: "전문가 팁",
+           tip1: "**다이어그램** 탭을 사용하여 테이블 간의 관계를 시각화하세요.",
+           tip2: "**PK** (Primary Key)를 토글하여 ID 필드를 자동으로 처리하세요.",
+           tip3: "**Prisma**로 내보내어 다음 프로젝트를 위한 완전한 schema.prisma 파일을 얻으세요."
+        },
+        faqTitle: "Schema Forge FAQ",
+        q1: "내 스키마가 서버로 전송되나요?",
+        a1: "아니요. 스키마 디자인과 프로젝트 데이터는 브라우저(IndexedDB)에 로컬로 저장됩니다.",
+        q2: "기존 SQL을 가져올 수 있나요?",
+        a2: "네! 'SQL 가져오기' 기능을 사용하여 CREATE TABLE 문을 붙여넣고 즉시 시각화할 수 있습니다.",
+        q3: "관계는 어떻게 생성하나요?",
+        a3: "현재는 테이블 에디터에서 외래 키를 정의하거나 명명 규칙을 따를 수 있습니다."
+      },
       pixelForge: {
         title: "Pixel Forge: 이미지 최적화 도구",
         description: "이미지(WebP, JPG, PNG)를 전문적인 정밀도로 압축, 크기 조정 및 변환하는 완벽한 도구입니다. 100% 클라이언트 처리.",

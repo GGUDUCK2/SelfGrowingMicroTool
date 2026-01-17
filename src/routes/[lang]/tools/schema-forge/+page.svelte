@@ -11,7 +11,9 @@
   import SchemaVisualizer from '$lib/components/schema-forge/SchemaVisualizer.svelte';
   import CodePreview from '$lib/components/schema-forge/CodePreview.svelte';
   import { generateCode } from '$lib/utils/schema-forge/generators';
-  import { Save, FolderOpen, Plus, Trash2, Check, Layout, Database, Code, FileCode } from 'lucide-svelte';
+  import { TEMPLATES } from '$lib/utils/schema-forge/templates';
+  import { parseSQL } from '$lib/utils/schema-forge/sql-parser';
+  import { Save, FolderOpen, Plus, Trash2, Check, Layout, Database, Code, FileCode, Wand2, Upload } from 'lucide-svelte';
 
   $: lang = $page.params.lang || 'en';
   $: t = getDictionary(lang).tools?.schemaForge || getDictionary('en').tools.schemaForge;
@@ -30,6 +32,9 @@
   let activeTab: 'design' | 'diagram' | 'sql' | 'prisma' | 'typescript' = 'design';
   let isSaving = false;
   let showProjects = false;
+  let showTemplates = false;
+  let showImport = false;
+  let importSqlContent = '';
   let projects: SchemaProject[] = [];
 
   // Derived
@@ -54,6 +59,45 @@
       activeTableId = null;
       activeTab = 'design';
       loadProjects();
+  }
+
+  async function loadTemplate(templateId: string) {
+      const template = TEMPLATES.find(t => t.id === templateId);
+      if (template) {
+          const newProject = template.factory();
+          const id = await schemaForgeWorkspace.save(newProject);
+          newProject.id = id;
+          activeProject = newProject;
+          activeTableId = newProject.tables[0]?.id || null;
+          activeTab = 'design';
+          showTemplates = false;
+          loadProjects();
+      }
+  }
+
+  async function importSQL() {
+      if (!importSqlContent.trim()) return;
+
+      const tables = parseSQL(importSqlContent);
+      if (tables.length > 0) {
+          const newProject: SchemaProject = {
+            name: `Imported ${new Date().toLocaleDateString()}`,
+            tables: tables,
+            relations: [], // Basic parser doesn't extract foreign keys yet
+            createdAt: new Date(),
+            updatedAt: new Date()
+          };
+
+          const id = await schemaForgeWorkspace.save(newProject);
+          newProject.id = id;
+          activeProject = newProject;
+          activeTableId = tables[0]?.id || null;
+          showImport = false;
+          importSqlContent = '';
+          loadProjects();
+      } else {
+          alert('No tables found in SQL');
+      }
   }
 
   async function loadProject(id: number) {
@@ -135,7 +179,46 @@
 <svelte:head>
   <title>{t.title} - MicroFactory</title>
   <meta name="description" content={t.description} />
-  <!-- Open Graph & Schema omitted for brevity but should be here -->
+  <meta name="keywords" content="database schema, sql generator, prisma schema, db diagram, entity relationship diagram, mysql, postgres, sqlite" />
+  <link rel="canonical" href="https://microfactory.app/en/tools/schema-forge" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://microfactory.app/{lang}/tools/schema-forge" />
+  <meta property="og:title" content={t.title} />
+  <meta property="og:description" content={t.description} />
+  <meta property="og:image" content="https://microfactory.app/og/schema-forge.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={t.title} />
+  <meta name="twitter:description" content={t.description} />
+  <meta name="twitter:image" content="https://microfactory.app/og/schema-forge.png" />
+
+  <!-- JSON-LD -->
+  {@html `<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "${t.title}",
+      "description": "${t.description}",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Visual Database Schema Design",
+        "SQL Export (MySQL, Postgres, SQLite)",
+        "Prisma Schema Generation",
+        "TypeScript Interface Generation",
+        "Entity Relationship Diagram (ERD)",
+        "Smart Column Inference"
+      ]
+    }
+  </script>`}
 </svelte:head>
 
 <div class="h-[calc(100vh-64px)] flex flex-col bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white overflow-hidden">
@@ -192,6 +275,43 @@
         </div>
 
         <div class="flex items-center gap-2">
+            <!-- New Features: Templates & Import -->
+            <div class="flex items-center gap-2 mr-2">
+                <div class="relative">
+                    <button
+                        class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold flex items-center gap-2 transition-colors"
+                        on:click={() => showTemplates = !showTemplates}
+                    >
+                        <Wand2 size={14} />
+                        Templates
+                    </button>
+                    {#if showTemplates}
+                        <div class="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50" transition:slide>
+                            <div class="text-xs font-bold text-slate-500 uppercase px-2 mb-2">Start with...</div>
+                            <div class="space-y-1">
+                                {#each TEMPLATES as tmpl}
+                                    <button
+                                        class="w-full text-left px-3 py-2 rounded hover:bg-slate-50 dark:hover:bg-slate-700/50"
+                                        on:click={() => loadTemplate(tmpl.id)}
+                                    >
+                                        <div class="text-sm font-medium text-slate-900 dark:text-white">{tmpl.name}</div>
+                                        <div class="text-xs text-slate-500">{tmpl.description}</div>
+                                    </button>
+                                {/each}
+                            </div>
+                        </div>
+                    {/if}
+                </div>
+
+                <button
+                    class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold flex items-center gap-2 transition-colors"
+                    on:click={() => showImport = true}
+                >
+                    <Upload size={14} />
+                    Import SQL
+                </button>
+            </div>
+
             <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1 mr-4">
                 <button
                     class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'design' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
@@ -282,21 +402,43 @@
     </div>
 </div>
 
-<!-- Documentation Section (Below the fold, accessible if page scrolled, but here we used 100vh) -->
-<!-- Wait, 100vh hides footer. The user requested 1000+ words doc. -->
-<!-- I should make the MAIN container scrollable, or the Documentation reachable. -->
-<!-- Solution: The tool is "The Definitive Edition". Usually these are full-screen apps. -->
-<!-- I will add a "Guide" button or make the Documentation appear in a modal or below. -->
-<!-- However, typically for SEO, content must be visible. -->
-<!-- Let's change layout: Toolbar is sticky, Content is scrollable IF needed, but for App-like feel, usually fixed. -->
-<!-- I'll add the documentation BELOW the app container, letting the whole page scroll if the app height is fixed? -->
-<!-- No, `h-[calc(100vh-64px)]` forces fixed height. -->
-<!-- I'll put the doc inside a "Guide" tab? Or a specific "Help" modal? -->
-<!-- The prompt says: "Write a 1,000+ word professional documentation section below the tool." -->
-<!-- So I MUST allow scrolling. -->
-<!-- I will remove `h-[calc(100vh-64px)]` and `overflow-hidden` from the main wrapper, and instead set a min-height for the tool area. -->
+<!-- Import Modal -->
+{#if showImport}
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" transition:fade>
+        <div class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col border border-slate-200 dark:border-slate-800">
+            <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                <h3 class="font-bold text-lg">Import SQL</h3>
+                <button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded" on:click={() => showImport = false}>
+                     <!-- Using generic close or icon -->
+                     <span class="text-xl">&times;</span>
+                </button>
+            </div>
+            <div class="p-4 flex-1 overflow-hidden flex flex-col">
+                <p class="text-sm text-slate-500 mb-2">Paste your <code class="bg-slate-100 dark:bg-slate-800 px-1 rounded">CREATE TABLE</code> statements here.</p>
+                <textarea
+                    bind:value={importSqlContent}
+                    class="w-full flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-3 font-mono text-sm resize-none focus:border-indigo-500 focus:ring-0"
+                    placeholder="CREATE TABLE users ( id INT PRIMARY KEY... );"
+                ></textarea>
+            </div>
+            <div class="p-4 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-2">
+                <button
+                    class="px-4 py-2 rounded-lg text-sm font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"
+                    on:click={() => showImport = false}
+                >
+                    Cancel
+                </button>
+                <button
+                    class="px-4 py-2 rounded-lg text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white transition-colors"
+                    on:click={importSQL}
+                >
+                    Import Tables
+                </button>
+            </div>
+        </div>
+    </div>
+{/if}
 
-<!-- Redesign for Doc Support -->
 <div class="min-h-screen flex flex-col bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white">
     <!-- Tool Area -->
     <div class="h-[800px] flex flex-col border-b border-slate-200 dark:border-slate-800 shrink-0">
