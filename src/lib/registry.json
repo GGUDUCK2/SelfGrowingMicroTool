@@ -298,5 +298,35 @@
     "category": "Design",
     "tags": ["image", "compressor", "converter", "webp", "resize", "tool"],
     "createdAt": "2025-02-15"
+  },
+  {
+    "id": "deploy-forge",
+    "slug": "deploy-forge",
+    "title": {
+      "en": "Deploy Forge: Container Architect",
+      "ko": "Deploy Forge: 컨테이너 아키텍트"
+    },
+    "description": {
+      "en": "The definitive container configuration architect. Generate production-ready Dockerfiles and Docker Compose files for Node.js, Python, Go, Rust, and more.",
+      "ko": "완벽한 컨테이너 구성 아키텍트입니다. Node.js, Python, Go, Rust 등을 위한 프로덕션 준비 완료 Dockerfile 및 Docker Compose 파일을 생성하세요."
+    },
+    "category": "Developer Tools",
+    "tags": ["docker", "devops", "generator", "compose", "container"],
+    "createdAt": "2025-02-16"
+  },
+  {
+    "id": "schema-forge",
+    "slug": "schema-forge",
+    "title": {
+      "en": "Schema Forge: DB Architect",
+      "ko": "Schema Forge: DB 아키텍트"
+    },
+    "description": {
+      "en": "The definitive tool to design, visualize, and export database schemas. Supports MySQL, Postgres, SQLite, Prisma, and TypeScript.",
+      "ko": "데이터베이스 스키마를 설계, 시각화 및 내보내는 완벽한 도구입니다. MySQL, Postgres, SQLite, Prisma 및 TypeScript를 지원합니다."
+    },
+    "category": "Developer Tools",
+    "tags": ["database", "sql", "schema", "prisma", "diagram", "mysql", "postgres"],
+    "createdAt": "2025-02-17"
   }
 ]
