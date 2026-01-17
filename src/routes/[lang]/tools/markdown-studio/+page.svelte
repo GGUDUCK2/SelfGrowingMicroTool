@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { marked } from 'marked';
   import { fade, slide } from 'svelte/transition';
   import { page } from '$app/stores';
   import Head from '$lib/components/Head.svelte';
@@ -211,7 +212,7 @@
 
     <!-- Toolbar -->
     <div class="sticky top-16 z-20 shadow-sm print:hidden">
-       <MarkdownToolbar {dictionary} hasContent={content.length > 0} on:action={handleAction} />
+       <MarkdownToolbar dictionary={dict} hasContent={content.length > 0} on:action={handleAction} />
     </div>
 
     <!-- Mobile Tabs -->
@@ -242,7 +243,7 @@
           <MarkdownEditor
             bind:this={editorComponent}
             bind:value={content}
-            {dictionary}
+            dictionary={dict}
             on:save={saveToHistory}
             on:change={() => {}}
           />
