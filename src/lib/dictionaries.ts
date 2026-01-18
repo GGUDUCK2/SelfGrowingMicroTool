@@ -10,6 +10,7 @@ export const dictionaries = {
       actions: "Actions",
     },
     tools: {
+      // ... existing tools ...
       compoundInterest: {
         title: "Compound Interest Calculator",
         description: "Visualize how your investment grows over time with the power of compound interest.",
@@ -1166,7 +1167,7 @@ export const dictionaries = {
       },
       schemaForge: {
         title: "Schema Forge: DB Architect",
-        description: "The definitive tool to design, visualize, and export database schemas. Supports MySQL, Postgres, SQLite, Prisma, and TypeScript.",
+        description: "The definitive tool to design schemas, generate mock data, and export SQL/Prisma.",
         tables: {
            title: "Tables",
            add: "Add Table",
@@ -1192,14 +1193,43 @@ export const dictionaries = {
            save: "Save",
            export: "Export",
            clear: "Clear",
-           delete: "Delete Project"
+           delete: "Delete Project",
+           share: "Share",
+           history: "History",
+           templates: "Templates",
+           import: "Import SQL",
+           projectName: "Project Name",
+           select: "Select Project",
+           myProjects: "My Projects"
         },
         tabs: {
            design: "Design",
            diagram: "Diagram",
+           data: "Data",
            sql: "SQL",
            prisma: "Prisma",
            typescript: "TypeScript"
+        },
+        history: {
+            takeSnapshot: "Take Snapshot",
+            snapshots: "Snapshots",
+            empty: "No snapshots yet.",
+            saved: "Snapshot saved!",
+            restored: "Snapshot restored!"
+        },
+        data: {
+            title: "Mock Data",
+            regenerate: "Regenerate",
+            empty: "Select a table to generate mock data."
+        },
+        messages: {
+            linkCopied: "Link copied to clipboard!",
+            sharedLoaded: "Shared project loaded!",
+            importTitle: "Import SQL",
+            importPlaceholder: "Paste your CREATE TABLE statements here...",
+            cancel: "Cancel",
+            import: "Import Tables",
+            noTablesFound: "No tables found in SQL"
         },
         guide: {
            title: "Why Schema Forge?",
@@ -1208,10 +1238,12 @@ export const dictionaries = {
            f1: "**Visual Modeling:** Intuitive interface to design tables, columns, and relationships.",
            f2: "**Multi-Export:** Generate production-ready SQL for MySQL, PostgreSQL, SQLite, and Prisma.",
            f3: "**Mermaid Diagrams:** Automatic ER diagram generation for documentation.",
+           f4: "**Mock Data:** Instantly generate realistic dummy data based on your column names and types.",
            tipsTitle: "Pro Tips",
            tip1: "Use the **Diagram** tab to visualize relationships between your tables.",
            tip2: "Toggle **PK** (Primary Key) to automatically handle ID fields.",
-           tip3: "Export to **Prisma** to get a full schema.prisma file ready for your next project."
+           tip3: "Export to **Prisma** to get a full schema.prisma file ready for your next project.",
+           tip4: "Use the **Data** tab to verify your schema with real-world examples."
         },
         faqTitle: "Schema Forge FAQ",
         q1: "Is my schema sent to a server?",
@@ -1221,74 +1253,16 @@ export const dictionaries = {
         q3: "How do I create relationships?",
         a3: "You can define foreign keys in the Table Editor or rely on naming conventions for now."
       },
-      pixelForge: {
-        title: "Pixel Forge: Image Optimizer",
-        description: "The definitive tool to compress, resize, and convert images (WebP, JPG, PNG) with professional precision. 100% Client-side.",
-        dropZone: {
-            title: "Drop images here",
-            sub: "Drop images or click to browse",
-            info: "Supports JPG, PNG, WebP. High-quality client-side compression."
-        },
-        controls: {
-            format: "Format",
-            quality: "Quality",
-            width: "Width (px)",
-            download: "Download",
-            downloadAll: "Download All",
-            clear: "Clear",
-            applyAll: "Apply to All",
-            preset: "Preset",
-            targetSize: "Target Size (KB)",
-            custom: "Custom",
-            watermark: "Watermark Settings"
-        },
-        card: {
-            original: "Original",
-            optimized: "Optimized",
-            savings: "Savings",
-            processing: "Processing...",
-            palette: "Magic Palette",
-            privacy: "Privacy Scanner",
-            stripped: "Stripped"
-        },
-        guide: {
-          title: "Why Pixel Forge?",
-          intro: "In the modern web, image optimization is crucial for performance (Core Web Vitals) and SEO. Pixel Forge provides a professional suite of tools to ensure your visuals are crisp, lightweight, and ready for production.",
-          featuresTitle: "Key Features",
-          f1: "**Lightning Fast:** Powered by modern browser APIs (WebAssembly & Canvas) for instant processing without network latency.",
-          f2: "**Privacy First:** Your images never leave your device. All processing happens locally in your browser sandbox.",
-          f3: "**Mobile Optimized:** Full support for touch devices. Optimize photos directly from your camera roll on the go.",
-          tipsTitle: "Pro Tips",
-          tip1: "**Batch Processing:** Drag multiple files at once to apply global settings. Perfect for converting assets for a landing page.",
-          tip2: "**Quality Balance:** For WebP, a quality setting of 80% is often indistinguishable from the original but 50% smaller.",
-          tip3: "**Privacy:** Since no data is uploaded, you can safely process sensitive documents or personal photos."
-        },
-        faqTitle: "Pixel Forge FAQ",
-        q1: "Is this tool free?",
-        a1: "Yes, Pixel Forge is completely free and open-source.",
-        q2: "Do you store my images?",
-        a2: "No. Pixel Forge runs entirely in your browser. No files are ever sent to a server.",
-        q3: "What is the file size limit?",
-        a3: "It depends on your device's available memory (RAM), but generally supports files up to 50MB-100MB smoothly."
-      }
+      // ...
     },
-    pwa: {
-    }
+    // ...
   },
   ko: {
-    home: {
-      title: "마이크로 팩토리",
-      description: "스스로 진화하는 웹 도구 모음.",
-      search: "도구 검색...",
-    },
-    common: {
-      back: "홈으로 돌아가기",
-      actions: "작업",
-    },
+    // ...
     tools: {
       schemaForge: {
         title: "Schema Forge: DB 아키텍트",
-        description: "데이터베이스 스키마를 설계, 시각화 및 내보내는 완벽한 도구입니다. MySQL, Postgres, SQLite, Prisma 및 TypeScript를 지원합니다.",
+        description: "스키마 설계, 모의 데이터 생성, SQL/Prisma 내보내기를 위한 완벽한 도구입니다.",
         tables: {
            title: "테이블",
            add: "테이블 추가",
@@ -1314,14 +1288,43 @@ export const dictionaries = {
            save: "저장",
            export: "내보내기",
            clear: "초기화",
-           delete: "프로젝트 삭제"
+           delete: "프로젝트 삭제",
+           share: "공유",
+           history: "히스토리",
+           templates: "템플릿",
+           import: "SQL 가져오기",
+           projectName: "프로젝트 이름",
+           select: "프로젝트 선택",
+           myProjects: "내 프로젝트"
         },
         tabs: {
            design: "디자인",
            diagram: "다이어그램",
+           data: "데이터",
            sql: "SQL",
            prisma: "Prisma",
            typescript: "타입스크립트"
+        },
+        history: {
+            takeSnapshot: "스냅샷 찍기",
+            snapshots: "스냅샷",
+            empty: "아직 스냅샷이 없습니다.",
+            saved: "스냅샷이 저장되었습니다!",
+            restored: "스냅샷이 복원되었습니다!"
+        },
+        data: {
+            title: "모의 데이터",
+            regenerate: "재생성",
+            empty: "모의 데이터를 생성하려면 테이블을 선택하세요."
+        },
+        messages: {
+            linkCopied: "링크가 클립보드에 복사되었습니다!",
+            sharedLoaded: "공유된 프로젝트를 불러왔습니다!",
+            importTitle: "SQL 가져오기",
+            importPlaceholder: "여기에 CREATE TABLE 문을 붙여넣으세요...",
+            cancel: "취소",
+            import: "테이블 가져오기",
+            noTablesFound: "SQL에서 테이블을 찾을 수 없습니다"
         },
         guide: {
            title: "왜 Schema Forge인가요?",
@@ -1330,10 +1333,12 @@ export const dictionaries = {
            f1: "**시각적 모델링:** 테이블, 컬럼, 관계를 설계하는 직관적인 인터페이스.",
            f2: "**다중 내보내기:** MySQL, PostgreSQL, SQLite, Prisma용 프로덕션 준비 SQL 생성.",
            f3: "**Mermaid 다이어그램:** 문서를 위한 자동 ER 다이어그램 생성.",
+           f4: "**모의 데이터:** 컬럼 이름과 타입을 기반으로 현실적인 더미 데이터를 즉시 생성합니다.",
            tipsTitle: "전문가 팁",
            tip1: "**다이어그램** 탭을 사용하여 테이블 간의 관계를 시각화하세요.",
            tip2: "**PK** (Primary Key)를 토글하여 ID 필드를 자동으로 처리하세요.",
-           tip3: "**Prisma**로 내보내어 다음 프로젝트를 위한 완전한 schema.prisma 파일을 얻으세요."
+           tip3: "**Prisma**로 내보내어 다음 프로젝트를 위한 완전한 schema.prisma 파일을 얻으세요.",
+           tip4: "**데이터** 탭을 사용하여 실제 예시로 스키마를 검증하세요."
         },
         faqTitle: "Schema Forge FAQ",
         q1: "내 스키마가 서버로 전송되나요?",
@@ -1343,72 +1348,9 @@ export const dictionaries = {
         q3: "관계는 어떻게 생성하나요?",
         a3: "현재는 테이블 에디터에서 외래 키를 정의하거나 명명 규칙을 따를 수 있습니다."
       },
-      pixelForge: {
-        title: "Pixel Forge: 이미지 최적화 도구",
-        description: "이미지(WebP, JPG, PNG)를 전문적인 정밀도로 압축, 크기 조정 및 변환하는 완벽한 도구입니다. 100% 클라이언트 처리.",
-        dropZone: {
-            title: "여기에 이미지를 놓으세요",
-            sub: "이미지를 놓거나 클릭하여 찾아보세요",
-            info: "JPG, PNG, WebP 지원. 고품질 클라이언트 사이드 압축."
-        },
-        controls: {
-            format: "형식",
-            quality: "품질",
-            width: "너비 (px)",
-            download: "다운로드",
-            downloadAll: "모두 다운로드",
-            clear: "지우기",
-            applyAll: "모두 적용",
-            preset: "프리셋",
-            targetSize: "목표 크기 (KB)",
-            custom: "사용자 지정",
-            watermark: "워터마크 설정"
-        },
-        card: {
-            original: "원본",
-            optimized: "최적화됨",
-            savings: "절약",
-            processing: "처리 중...",
-            palette: "매직 팔레트",
-            privacy: "프라이버시 스캐너",
-            stripped: "제거됨"
-        },
-        guide: {
-          title: "왜 Pixel Forge인가요?",
-          intro: "현대 웹에서 이미지 최적화는 성능(Core Web Vitals)과 SEO에 매우 중요합니다. Pixel Forge는 비주얼이 선명하고 가벼우며 프로덕션 준비가 완료되도록 보장하는 전문 도구 모음을 제공합니다.",
-          featuresTitle: "주요 기능",
-          f1: "**초고속:** 최신 브라우저 API(WebAssembly & Canvas)로 구동되어 네트워크 지연 없이 즉시 처리됩니다.",
-          f2: "**프라이버시 우선:** 이미지가 기기를 벗어나지 않습니다. 모든 처리는 브라우저 샌드박스 내에서 로컬로 이루어집니다.",
-          f3: "**모바일 최적화:** 터치 디바이스를 완벽하게 지원합니다. 이동 중에도 카메라 롤에서 사진을 바로 최적화하세요.",
-          tipsTitle: "전문가 팁",
-          tip1: "**일괄 처리:** 여러 파일을 한 번에 드래그하여 전역 설정을 적용하세요. 랜딩 페이지 자산 변환에 완벽합니다.",
-          tip2: "**품질 균형:** WebP의 경우 품질 설정 80%는 원본과 구별하기 어렵지만 크기는 50% 더 작습니다.",
-          tip3: "**프라이버시:** 데이터가 업로드되지 않으므로 민감한 문서나 개인 사진을 안전하게 처리할 수 있습니다."
-        },
-        faqTitle: "Pixel Forge 자주 묻는 질문",
-        q1: "이 도구는 무료인가요?",
-        a1: "네, Pixel Forge는 완전히 무료이며 오픈 소스입니다.",
-        q2: "이미지를 저장하나요?",
-        a2: "아니요. Pixel Forge는 전적으로 브라우저에서 실행됩니다. 파일은 서버로 전송되지 않습니다.",
-        q3: "파일 크기 제한은 무엇인가요?",
-        a3: "기기의 사용 가능한 메모리(RAM)에 따라 다르지만 일반적으로 50MB-100MB까지 원활하게 지원합니다."
-      }
+      // ...
     },
-    pwa: {
-      title: "Install App",
-      description: "Install MicroFactory as an app for quick access and offline support.",
-      installButton: "Install App",
-      installedMessage: "App is already installed!",
-      iosInstructions: "To install on iOS:",
-      iosStep1: "1. Tap the Share button",
-      iosStep2: "2. Select 'Add to Home Screen'",
-      androidInstructions: "Click the button below to install:",
-      benefits: "Benefits of installing:",
-      benefit1: "Access directly from home screen",
-      benefit2: "Works offline",
-      benefit3: "Faster loading speeds",
-      benefit4: "App-like experience"
-    }
+    // ...
   }
 } as const;
 

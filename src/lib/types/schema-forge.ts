@@ -29,17 +29,28 @@ export interface Relation {
   fromColumnId: string;
   toTableId: string;
   toColumnId: string;
-  type: '1:1' | '1:n' | 'n:m'; // n:m usually requires join table, maybe stick to 1:1 and 1:n for simple generator
+  type: '1:1' | '1:n' | 'n:m';
+}
+
+export interface SchemaSnapshot {
+  id: string;
+  name: string;
+  date: Date;
+  data: {
+    tables: Table[];
+    relations: Relation[];
+  };
 }
 
 export interface SchemaProject {
-  id?: number; // Dexie uses number for auto-inc
+  id?: number;
   name: string;
   tables: Table[];
   relations: Relation[];
+  snapshots?: SchemaSnapshot[];
   createdAt: Date;
   updatedAt: Date;
-  starred?: number; // 0 or 1
+  starred?: number;
 }
 
 export type ExportFormat = 'mysql' | 'postgres' | 'sqlite' | 'prisma' | 'typescript' | 'mermaid';
