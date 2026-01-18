@@ -343,5 +343,20 @@
     "category": "Design",
     "tags": ["icon", "favicon", "pwa", "generator", "design", "maskable", "logo"],
     "createdAt": "2025-02-18"
+  },
+  {
+    "id": "prompt-forge",
+    "slug": "prompt-forge",
+    "title": {
+      "en": "Prompt Forge: AI Engineer Studio",
+      "ko": "Prompt Forge: AI 엔지니어 스튜디오"
+    },
+    "description": {
+      "en": "The definitive tool to engineer, test, and manage AI prompts. Features variable extraction, token estimation, and template history.",
+      "ko": "AI 프롬프트를 엔지니어링, 테스트 및 관리하는 완벽한 도구입니다. 변수 추출, 토큰 추정 및 템플릿 히스토리를 제공합니다."
+    },
+    "category": "Developer Tools",
+    "tags": ["ai", "prompt", "llm", "engineer", "generator", "gpt", "tools"],
+    "createdAt": "2025-02-19"
   }
 ]

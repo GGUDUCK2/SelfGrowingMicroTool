@@ -1382,6 +1382,60 @@ export const dictionaries = {
         q3: "Is my logo uploaded to a server?",
         a3: "No. All image processing (resizing, masking, color extraction) happens 100% locally in your browser using the Canvas API."
       },
+      promptForge: {
+        title: "Prompt Forge: AI Engineer Studio",
+        description: "The definitive tool to engineer, test, and manage AI prompts. Features variable extraction, token estimation, and template history.",
+        editor: {
+          title: "Prompt Editor",
+          template: "Template",
+          variables: "Variables",
+          preview: "Preview",
+          placeholder: "Write your prompt here using {{variable_name}}...",
+          system: "System Prompt (Optional)",
+          user: "User Prompt"
+        },
+        toolbar: {
+          save: "Save",
+          copy: "Copy",
+          clear: "Clear",
+          export: "Export JSON",
+          history: "Library",
+          copied: "Copied!",
+          saved: "Saved!",
+          cleared: "Cleared"
+        },
+        stats: {
+          tokens: "Est. Tokens",
+          chars: "Chars",
+          cost: "Est. Cost (GPT-4)"
+        },
+        history: {
+          title: "Prompt Library",
+          empty: "No saved prompts yet.",
+          search: "Search prompts...",
+          load: "Load",
+          delete: "Delete"
+        },
+        guide: {
+          title: "Why Prompt Forge?",
+          intro: "Prompt Forge is the ultimate workspace for AI engineers and enthusiasts. It treats prompts as code, allowing for robust variable management and versioning.",
+          featuresTitle: "Key Features",
+          f1: "**Dynamic Variables:** Automatically detects `{{variable}}` syntax and generates input fields.",
+          f2: "**Token Estimation:** Real-time token counting helps you stay within context window limits.",
+          f3: "**Local Library:** Save your best prompts to your browser's local storage for instant access.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use snake_case for variables like `{{product_name}}` for better readability.",
+          tip2: "The **Preview** pane is editable! Tweaking the final output won't affect your template.",
+          tip3: "Export to **JSON** to get a format ready for the OpenAI API."
+        },
+        faqTitle: "Prompt Forge FAQ",
+        q1: "How are tokens calculated?",
+        a1: "We use a heuristic (approx. 4 chars per token) which is accurate enough for estimation. For exact counts, use the official OpenAI tokenizer.",
+        q2: "Is my data private?",
+        a2: "Yes. All prompts and history are stored locally in your browser via IndexedDB. Nothing is sent to our servers.",
+        q3: "Can I use this for Claude/Gemini?",
+        a3: "Absolutely. The text generation is universal. You can copy the result to any LLM interface."
+      },
       // ...
     },
     // ...
@@ -1670,6 +1724,60 @@ export const dictionaries = {
         a2: "최신 브라우저는 PNG 파비콘을 지원하지만, `.ico` 형식은 여전히 레거시 지원(IE) 및 일부 북마크 바 표시를 위해 필요합니다.",
         q3: "내 로고가 서버에 업로드되나요?",
         a3: "아니요. 모든 이미지 처리(크기 조정, 마스킹, 색상 추출)는 Canvas API를 사용하여 브라우저에서 100% 로컬로 수행됩니다."
+      },
+      promptForge: {
+        title: "Prompt Forge: AI 엔지니어 스튜디오",
+        description: "AI 프롬프트를 엔지니어링, 테스트 및 관리하는 완벽한 도구입니다. 변수 추출, 토큰 추정 및 템플릿 히스토리 기능을 제공합니다.",
+        editor: {
+          title: "프롬프트 에디터",
+          template: "템플릿",
+          variables: "변수",
+          preview: "미리보기",
+          placeholder: "{{variable_name}}을 사용하여 프롬프트를 작성하세요...",
+          system: "시스템 프롬프트 (선택)",
+          user: "유저 프롬프트"
+        },
+        toolbar: {
+          save: "저장",
+          copy: "복사",
+          clear: "초기화",
+          export: "JSON 내보내기",
+          history: "라이브러리",
+          copied: "복사됨!",
+          saved: "저장됨!",
+          cleared: "초기화됨"
+        },
+        stats: {
+          tokens: "예상 토큰",
+          chars: "글자 수",
+          cost: "예상 비용 (GPT-4)"
+        },
+        history: {
+          title: "프롬프트 라이브러리",
+          empty: "저장된 프롬프트가 없습니다.",
+          search: "검색...",
+          load: "불러오기",
+          delete: "삭제"
+        },
+        guide: {
+          title: "왜 Prompt Forge인가요?",
+          intro: "Prompt Forge는 AI 엔지니어와 매니아를 위한 최고의 작업 공간입니다. 프롬프트를 코드처럼 취급하여 강력한 변수 관리 및 버전 관리를 가능하게 합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**동적 변수:** `{{variable}}` 구문을 자동으로 감지하고 입력 필드를 생성합니다.",
+          f2: "**토큰 추정:** 실시간 토큰 카운팅으로 컨텍스트 창 제한 내에서 작업할 수 있습니다.",
+          f3: "**로컬 라이브러리:** 최고의 프롬프트를 브라우저의 로컬 저장소에 저장하여 즉시 액세스하세요.",
+          tipsTitle: "전문가 팁",
+          tip1: "가독성을 위해 `{{product_name}}`과 같이 snake_case 변수를 사용하세요.",
+          tip2: "**미리보기** 창은 편집 가능합니다! 최종 출력을 수정해도 템플릿에는 영향을 미치지 않습니다.",
+          tip3: "**JSON**으로 내보내어 OpenAI API에 즉시 사용할 수 있는 형식을 얻으세요."
+        },
+        faqTitle: "Prompt Forge FAQ",
+        q1: "토큰은 어떻게 계산되나요?",
+        a1: "저희는 토큰당 약 4자의 휴리스틱 방식을 사용하며, 이는 추정에 충분히 정확합니다. 정확한 계산을 위해서는 공식 OpenAI 토크나이저를 사용하세요.",
+        q2: "내 데이터는 비공개인가요?",
+        a2: "네. 모든 프롬프트와 히스토리는 IndexedDB를 통해 브라우저에 로컬로 저장됩니다. 서버로 전송되는 것은 아무것도 없습니다.",
+        q3: "Claude나 Gemini에도 사용할 수 있나요?",
+        a3: "물론입니다. 텍스트 생성은 보편적입니다. 결과를 복사하여 모든 LLM 인터페이스에 붙여넣을 수 있습니다."
       },
       // ...
     },
