@@ -1,10 +1,11 @@
 <script lang="ts">
   import { Copy, Check, Terminal } from 'lucide-svelte';
   import { IconProcessor, type IconConfig } from '$lib/utils/icon-forge/processor';
+  import type { IconForgeDictionary } from '$lib/types/icon-forge';
 
   export let file: File | null;
   export let config: IconConfig;
-  export let t: any;
+  export let t: IconForgeDictionary;
 
   let base64 = '';
   let activeTab: 'html' | 'manifest' | 'base64' = 'html';

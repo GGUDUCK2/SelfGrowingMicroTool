@@ -1,12 +1,15 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
+  import { ShieldCheck, Circle } from 'lucide-svelte';
   import type { IconConfig } from '$lib/utils/icon-forge/processor';
+  import type { IconForgeDictionary } from '$lib/types/icon-forge';
 
   export let file: File | null;
   export let config: IconConfig;
-  export let t: any;
+  export let t: IconForgeDictionary;
 
   let imgUrl: string = '';
+  let showSafeZone = false;
 
   $: if (file) {
     if (imgUrl) URL.revokeObjectURL(imgUrl);
@@ -25,9 +28,6 @@
   `;
 
   // Image style (padding)
-  // Padding in config is %, so we can use padding on container + box-sizing
-  // OR just scale the image.
-  // Let's use padding on container.
   $: paddingStyle = `padding: ${config.padding}%;`;
 
 </script>
@@ -37,7 +37,78 @@
     Upload an image to see previews.
   </div>
 {:else}
+  <!-- Toolbar -->
+  <div class="flex items-center justify-end mb-4">
+      <button
+        class="flex items-center space-x-2 text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors
+        {showSafeZone ? 'bg-indigo-500/10 border-indigo-500/50 text-indigo-400' : 'bg-slate-800 border-slate-700 text-slate-400 hover:text-slate-200'}"
+        on:click={() => showSafeZone = !showSafeZone}
+      >
+        <Circle class="w-3.5 h-3.5" />
+        <span>{t.safeZone || 'Show Safe Zone'}</span>
+      </button>
+  </div>
+
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <!-- Maskable Icon (Android) -->
+    <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+        <div class="bg-slate-900/50 px-4 py-3 border-b border-slate-700 flex items-center justify-between">
+            <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">{t.platforms.android}</span>
+            <div class="flex space-x-1">
+                <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                <div class="w-2 h-2 rounded-full bg-green-500"></div>
+            </div>
+        </div>
+        <div class="p-6 flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-900 relative">
+
+            <div class="relative w-32 h-32">
+                <!-- The Icon -->
+                <div class="w-full h-full relative z-10 overflow-hidden" style="background-color: {config.background};">
+                     <!-- We don't apply user radius here because Android applies the mask. Maskable icons are full square. -->
+                     <div class="w-full h-full" style="{paddingStyle}">
+                        <img src={imgUrl} class="w-full h-full object-contain" alt="Maskable" />
+                     </div>
+                </div>
+
+                <!-- Safe Zone Overlay -->
+                {#if showSafeZone}
+                    <div class="absolute inset-0 z-20 pointer-events-none">
+                        <!-- Safe zone is a circle with diameter 80% of the icon -->
+                        <!-- Actually spec says safe zone is within radius 40% (diameter 80%) -->
+                        <div class="absolute top-[10%] left-[10%] w-[80%] h-[80%] rounded-full border-2 border-red-500/50 bg-red-500/10 flex items-center justify-center">
+                            <span class="text-[10px] text-red-500 font-bold opacity-75">SAFE</span>
+                        </div>
+                    </div>
+                {/if}
+            </div>
+
+            <p class="mt-4 text-xs text-slate-500 text-center max-w-[200px]">
+                Android will crop your icon to a circle, square, or squircle. Keep content inside the safe zone.
+            </p>
+        </div>
+    </div>
+
+    <!-- iPhone Home Screen -->
+    <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+      <div class="bg-slate-900/50 px-4 py-3 border-b border-slate-700">
+        <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">{t.platforms.iphone}</span>
+      </div>
+      <div class="p-6 flex justify-center bg-gray-900 relative overflow-hidden">
+        <!-- Wallpaper Effect -->
+        <div class="absolute inset-0 opacity-30 bg-gradient-to-br from-indigo-900 to-purple-900"></div>
+
+        <div class="relative flex flex-col items-center space-y-2">
+            <div class="w-16 h-16 bg-white shadow-lg overflow-hidden relative" style="border-radius: 22%; {config.transparent ? '' : `background-color: ${config.background};`}">
+                 <div class="w-full h-full flex items-center justify-center" style="{paddingStyle}">
+                    <img src={imgUrl} class="w-full h-full object-contain" alt="App Icon" />
+                 </div>
+            </div>
+            <span class="text-[10px] text-white font-medium drop-shadow-md">{config.name || 'My App'}</span>
+        </div>
+      </div>
+    </div>
 
     <!-- Browser Tab Preview -->
     <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
@@ -52,7 +123,7 @@
                  <img src={imgUrl} class="w-full h-full object-contain" style="{paddingStyle}" alt="Favicon" />
               </div>
               <div class="text-xs text-slate-700 dark:text-slate-300 font-medium truncate w-32">
-                 My Awesome Website
+                 {config.name || 'My Awesome App'}
               </div>
               <div class="ml-auto text-slate-400">×</div>
            </div>
@@ -62,31 +133,6 @@
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
             </div>
             <div class="flex-1 bg-slate-100 dark:bg-slate-900 rounded-md h-7"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- iPhone Home Screen -->
-    <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
-      <div class="bg-slate-900/50 px-4 py-3 border-b border-slate-700">
-        <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">{t.platforms.iphone}</span>
-      </div>
-      <div class="p-6 flex justify-center bg-gray-900 relative overflow-hidden">
-        <!-- Wallpaper Effect -->
-        <div class="absolute inset-0 opacity-30 bg-gradient-to-br from-indigo-900 to-purple-900"></div>
-
-        <div class="relative flex flex-col items-center space-y-2">
-            <!-- iOS Icon is always rounded square (approx 22% radius), regardless of user input if they add to homescreen -->
-            <!-- But here we show what we generate. User can adjust radius to match or we force it? -->
-            <!-- Typically Apple Touch Icon is square, iOS rounds it. So we show it Square with the system applying rounding? -->
-            <!-- Let's show it as the system would render it (Rounded). -->
-            <div class="w-16 h-16 bg-white shadow-lg overflow-hidden relative" style="border-radius: 22%; {config.transparent ? '' : `background-color: ${config.background};`}">
-                 <!-- If transparent, we need to handle it. iOS fills black usually. We'll assume bg color. -->
-                 <div class="w-full h-full flex items-center justify-center" style="{paddingStyle}">
-                    <img src={imgUrl} class="w-full h-full object-contain" alt="App Icon" />
-                 </div>
-            </div>
-            <span class="text-[10px] text-white font-medium drop-shadow-md">My App</span>
         </div>
       </div>
     </div>
@@ -105,7 +151,7 @@
                          </div>
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-sm text-gray-800 font-medium leading-none">My Awesome Website</span>
+                        <span class="text-sm text-gray-800 font-medium leading-none">{config.name || 'My Awesome Website'}</span>
                         <span class="text-xs text-gray-500">https://example.com › tools</span>
                     </div>
                 </div>

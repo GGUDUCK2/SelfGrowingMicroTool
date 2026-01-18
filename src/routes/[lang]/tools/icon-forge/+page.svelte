@@ -108,6 +108,8 @@
         "Generate ICO, PNG, and SVG favicons",
         "Create PWA Manifest JSON",
         "Real-time preview for iOS, Android, and Windows",
+        "Smart Maskable Icon Safe Zone Visualization",
+        "Magic Palette Color Extraction",
         "Client-side processing (Privacy First)"
       ]
     }
@@ -229,7 +231,7 @@
                             {/if}
                         </button>
                     </div>
-                    <ConfigEditor bind:config {t} on:change={handleConfigChange} />
+                    <ConfigEditor bind:config {file} {t} on:change={handleConfigChange} />
                 </div>
 
                 <!-- Export -->

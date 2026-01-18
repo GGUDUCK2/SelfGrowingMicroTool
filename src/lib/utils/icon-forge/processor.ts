@@ -5,6 +5,8 @@ export interface IconConfig {
   transparent: boolean;
   name?: string; // PWA Name
   shortName?: string; // PWA Short Name
+  startUrl?: string;
+  display?: 'standalone' | 'fullscreen' | 'minimal-ui' | 'browser';
 }
 
 export interface GeneratedAsset {
@@ -16,6 +18,9 @@ export interface GeneratedAsset {
 
 export class IconProcessor {
   private static async loadImage(source: File | string): Promise<HTMLImageElement> {
+    if (typeof window === 'undefined') {
+        throw new Error('IconProcessor requires a browser environment');
+    }
     return new Promise((resolve, reject) => {
       const img = new Image();
       const url = typeof source === 'string' ? source : URL.createObjectURL(source);
@@ -31,12 +36,80 @@ export class IconProcessor {
     });
   }
 
+  static async extractColors(source: File | HTMLImageElement): Promise<string[]> {
+      if (typeof window === 'undefined') return [];
+
+      let img: HTMLImageElement;
+      if (source instanceof HTMLImageElement) {
+          img = source;
+      } else {
+          img = await this.loadImage(source);
+      }
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return [];
+
+      // Resize for performance (max 100px)
+      const max = 100;
+      const scale = Math.min(max / img.width, max / img.height);
+      const w = Math.floor(img.width * scale);
+      const h = Math.floor(img.height * scale);
+
+      canvas.width = w;
+      canvas.height = h;
+
+      ctx.drawImage(img, 0, 0, w, h);
+      const data = ctx.getImageData(0, 0, w, h).data;
+
+      const colorMap = new Map<string, number>();
+
+      for (let i = 0; i < data.length; i += 4) {
+          const r = data[i];
+          const g = data[i+1];
+          const b = data[i+2];
+          const a = data[i+3];
+
+          if (a < 128) continue; // Skip transparent
+
+          // Quantize (group similar colors)
+          const qR = Math.round(r / 20) * 20;
+          const qG = Math.round(g / 20) * 20;
+          const qB = Math.round(b / 20) * 20;
+
+          const key = `#${((1 << 24) + (qR << 16) + (qG << 8) + qB).toString(16).slice(1)}`;
+          colorMap.set(key, (colorMap.get(key) || 0) + 1);
+      }
+
+      // Sort by frequency
+      const sorted = [...colorMap.entries()].sort((a, b) => b[1] - a[1]);
+      return sorted.slice(0, 5).map(x => x[0]);
+  }
+
   static async generate(
     source: File,
     config: IconConfig
   ): Promise<GeneratedAsset[]> {
+    if (typeof window === 'undefined') return [];
+
     const img = await this.loadImage(source);
     const assets: GeneratedAsset[] = [];
+
+    // 0. Pass through SVG if source is SVG
+    if (source.type === 'image/svg+xml') {
+        assets.push({
+            name: 'icon.svg',
+            blob: source,
+            size: 0,
+            type: 'image/svg+xml'
+        });
+        assets.push({
+            name: 'safari-pinned-tab.svg',
+            blob: source,
+            size: 0,
+            type: 'image/svg+xml'
+        });
+    }
 
     // 1. Generate PNGs (Favicon & PWA)
     const sizes = [16, 32, 48, 64, 128, 192, 512];
@@ -68,16 +141,7 @@ export class IconProcessor {
     });
 
     // 3. Generate Apple Touch Icon (180x180, usually white background, no transparency)
-    const appleConfig = { ...config, transparent: false, radius: 0 }; // iOS adds radius automatically, better to provide square
-    // Actually, iOS expects a square image and applies the mask.
-    // If user wants transparent, it will render black on iOS.
-    // Standard practice: If transparent, fill with background.
-
-    // However, for "Apple Touch Icon", we should probably force a background if the user has selected one,
-    // or default to white if transparent is selected but that might be wrong.
-    // Let's stick to user config but ensure it's square (which it is).
-
-    const appleBlob = await this.createPng(img, 180, { ...config, transparent: false });
+    const appleBlob = await this.createPng(img, 180, { ...config, transparent: false, radius: 0 });
     assets.push({
       name: 'apple-touch-icon.png',
       blob: appleBlob,
@@ -86,12 +150,7 @@ export class IconProcessor {
     });
 
     // 4. Generate Maskable Icon (Safe Zone)
-    // Maskable icons should have padding to ensure critical content is within the safe zone (center 80%).
-    // We can offer a specific "Maskable" version with more padding if needed,
-    // or just use the 512 version if the user set appropriate padding.
-    // For now, let's generate a specific 'maskable-icon.png' with forced minimum padding if user padding is low?
-    // No, let's trust the user config but provide a 'maskable' variant.
-    const maskableBlob = await this.createPng(img, 512, { ...config, transparent: false });
+    const maskableBlob = await this.createPng(img, 512, { ...config, transparent: false, radius: 0 });
     assets.push({
         name: 'maskable-icon.png',
         blob: maskableBlob,
@@ -110,7 +169,8 @@ export class IconProcessor {
       ],
       theme_color: config.background,
       background_color: config.background,
-      display: "standalone"
+      display: config.display || "standalone",
+      start_url: config.startUrl || "/"
     };
 
     assets.push({
@@ -128,6 +188,8 @@ export class IconProcessor {
     size: number,
     config: IconConfig
   ): Promise<Blob> {
+    if (typeof window === 'undefined') throw new Error('Browser only');
+
     const canvas = document.createElement('canvas');
     canvas.width = size;
     canvas.height = size;
@@ -164,9 +226,6 @@ export class IconProcessor {
         ctx.fillRect(0, 0, size, size);
       }
     } else {
-       // If transparent, we still might want radius clipping?
-       // Usually icons with radius have a background.
-       // If transparent, radius doesn't make much sense unless we clip the image itself.
        if (config.radius > 0) {
           const r = (size * config.radius) / 100;
           ctx.beginPath();
@@ -189,7 +248,6 @@ export class IconProcessor {
     const drawSize = size - (paddingPx * 2);
 
     // Center the image (contain)
-    // We assume the input image might not be square, so we center it.
     const aspect = img.width / img.height;
     let dw = drawSize;
     let dh = drawSize;

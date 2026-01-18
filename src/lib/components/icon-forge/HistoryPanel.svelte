@@ -4,8 +4,9 @@
   import { Star, Trash2, History as HistoryIcon, ArrowUpRight } from 'lucide-svelte';
   import { createEventDispatcher } from 'svelte';
   import { fade, slide } from 'svelte/transition';
+  import type { IconForgeDictionary } from '$lib/types/icon-forge';
 
-  export let t: any;
+  export let t: IconForgeDictionary;
 
   const dispatch = createEventDispatcher<{
     restore: IconForgeProject;
