@@ -10,8 +10,8 @@
   import VariableForm from '$lib/components/prompt-forge/VariableForm.svelte';
   import PromptPreview from '$lib/components/prompt-forge/PromptPreview.svelte';
   import HistorySidebar from '$lib/components/prompt-forge/HistorySidebar.svelte';
-  import { Menu, X, Save, Copy, Trash2, Download } from 'lucide-svelte';
-  import { browser } from '$app/environment';
+  import CodeExport from '$lib/components/prompt-forge/CodeExport.svelte';
+  import { Menu, X, Save, Copy, Trash2, Download, Code } from 'lucide-svelte';
 
   // Locale
   $: lang = $page.params.lang || 'en';
@@ -23,7 +23,12 @@
   let userPrompt = "";
   let values: Record<string, string> = {};
 
+  // Scenario Management
+  let scenarios: Record<string, Record<string, string>> = { 'default': {} };
+  let activeScenarioId: string = 'default';
+
   let showSidebar = false;
+  let showCodeExport = false;
   let notification: string | null = null;
 
   // Derived
@@ -34,6 +39,22 @@
   // Stats
   $: totalTokens = estimateTokens(compiledSystem) + estimateTokens(compiledUser);
   $: totalCost = estimateCost(totalTokens, 'gpt-4');
+
+  // Shortcuts
+  onMount(() => {
+      const handleKeydown = (e: KeyboardEvent) => {
+          if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+              e.preventDefault();
+              handleSave();
+          }
+          if ((e.metaKey || e.ctrlKey) && e.key === 'e') {
+              e.preventDefault();
+              showCodeExport = true;
+          }
+      };
+      window.addEventListener('keydown', handleKeydown);
+      return () => window.removeEventListener('keydown', handleKeydown);
+  });
 
   // Actions
   function showNotification(msg: string) {
@@ -48,45 +69,28 @@
     let title = userPrompt.split('\n')[0].slice(0, 50) || 'Untitled Prompt';
     if (title.length === 50) title += '...';
 
-    // Check if we are updating an existing one?
-    // For simplicity, always create new or prompt?
-    // Let's simple add for now, "Save As".
-    // Or ask for name.
     const name = prompt("Enter a name for this prompt:", title);
     if (!name) return;
+
+    // Create payload (store system & user prompt as JSON in template field)
+    const payload = JSON.stringify({ s: systemPrompt, u: userPrompt });
 
     try {
         await db.promptForgeHistory.add({
             title: name,
-            template: userPrompt, // Main template
-            // We need to store system prompt too.
-            // The DB schema has 'template', maybe we store JSON or pack it?
-            // Or just append?
-            // Let's Pack it into 'template' field as JSON string if we want, or just stick to userPrompt as main.
-            // Actually, for "Professional Grade", we should handle both.
-            // I'll store it as a JSON string in 'template' if it detects object, or legacy string.
-            // Wait, I can't easily change schema now without migration.
-            // But 'template' is a string. I can stringify an object: { system, user }.
-            // The `variables` field in DB is Record<string, string>.
-            variables: values,
+            template: payload,
+            variables: values, // Stores current active values
+            scenarios: scenarios, // Stores all scenarios
             createdAt: new Date(),
             starred: 0
-            // I'll cheat a bit and store JSON in `template` field,
-            // but for backward compatibility with my own thought process, I'll prefix it.
-            // Actually, let's just use the `template` field for User Prompt and maybe append System Prompt with a separator?
-            // Or better: `JSON.stringify({ s: systemPrompt, u: userPrompt })`.
-        } as any);
-        // Forced cast because I defined template as string.
-        // To be cleaner, I will store JSON string.
+        });
 
         showNotification(dict.toolbar.saved);
     } catch (e) {
         console.error(e);
+        alert('Failed to save history.');
     }
   }
-
-  // Actually, I should just update the save logic to store JSON in the template field
-  // and handle parsing on load.
 
   function handleLoad(item: PromptForgeHistory) {
       try {
@@ -101,12 +105,27 @@
               systemPrompt = "";
           }
       } catch {
-          // Plain text
+          // Plain text fallback
           userPrompt = item.template;
           systemPrompt = "";
       }
 
       values = item.variables || {};
+
+      // Load scenarios if available
+      if (item.scenarios) {
+          scenarios = item.scenarios;
+          activeScenarioId = 'default';
+          // Ensure values match scenario default?
+          // item.variables should be the values at save time.
+          // If scenarios['default'] exists, it might be same as variables.
+          // Let's trust item.variables as the active state.
+      } else {
+          // Reset scenarios if loading legacy item
+          scenarios = { 'default': { ...values } };
+          activeScenarioId = 'default';
+      }
+
       showSidebar = false;
   }
 
@@ -115,6 +134,8 @@
           systemPrompt = "";
           userPrompt = "";
           values = {};
+          scenarios = { 'default': {} };
+          activeScenarioId = 'default';
           showNotification(dict.toolbar.cleared);
       }
   }
@@ -129,30 +150,26 @@
       a.click();
       URL.revokeObjectURL(url);
   }
-
-  // Custom save handling to encode proper format
-  async function saveToDb() {
-      if (!userPrompt.trim() && !systemPrompt.trim()) return;
-      const name = prompt("Enter a name for this prompt:", "My Prompt");
-      if (!name) return;
-
-      const payload = JSON.stringify({ s: systemPrompt, u: userPrompt });
-
-      await db.promptForgeHistory.add({
-          title: name,
-          template: payload,
-          variables: values,
-          createdAt: new Date(),
-          starred: 0
-      });
-      showNotification(dict.toolbar.saved);
-  }
-
 </script>
 
 <svelte:head>
   <title>{dict.title}</title>
   <meta name="description" content={dict.description} />
+  <meta name="keywords" content="prompt engineering, ai prompt generator, llm prompt testing, prompt variables, openai prompt optimization, prompt management" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={dict.title} />
+  <meta property="og:description" content={dict.description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={$page.url.href} />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={dict.title} />
+  <meta name="twitter:description" content={dict.description} />
+
+  <link rel="canonical" href={$page.url.href} />
+
   <!-- JSON-LD -->
   {@html `<script type="application/ld+json">
     {
@@ -165,7 +182,13 @@
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
-      }
+      },
+      "featureList": [
+        "Dynamic Variable Extraction",
+        "Multi-Scenario Testing",
+        "Token Cost Estimation",
+        "Code Export (cURL, Python, Node.js)"
+      ]
     }
   </script>`}
 </svelte:head>
@@ -175,7 +198,7 @@
   <!-- Sidebar -->
   <div class="fixed inset-y-0 left-0 z-50 w-80 bg-white dark:bg-slate-800 shadow-xl transform transition-transform duration-300 md:relative md:translate-x-0 md:shadow-none border-r border-slate-200 dark:border-slate-700 {showSidebar ? 'translate-x-0' : '-translate-x-full'}">
       <div class="absolute top-4 right-4 md:hidden">
-        <button on:click={() => showSidebar = false} class="p-2 text-slate-500">
+        <button on:click={() => showSidebar = false} class="p-2 text-slate-500" aria-label="Close sidebar">
             <X class="w-6 h-6" />
         </button>
       </div>
@@ -199,6 +222,7 @@
             <button
                 class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"
                 on:click={() => showSidebar = true}
+                aria-label="Open sidebar"
             >
                 <Menu class="w-5 h-5" />
             </button>
@@ -215,13 +239,16 @@
                 <span>~${totalCost.toFixed(5)}</span>
              </div>
 
-             <button on:click={handleClear} class="p-2 text-slate-500 hover:text-red-500 transition-colors" title={dict.toolbar.clear}>
+             <button on:click={handleClear} class="p-2 text-slate-500 hover:text-red-500 transition-colors" title={dict.toolbar.clear} aria-label={dict.toolbar.clear}>
                  <Trash2 class="w-5 h-5" />
              </button>
-             <button on:click={handleExport} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors" title={dict.toolbar.export}>
+             <button on:click={handleExport} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors" title={dict.toolbar.export} aria-label={dict.toolbar.export}>
                  <Download class="w-5 h-5" />
              </button>
-             <button on:click={saveToDb} class="flex items-center gap-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg font-medium text-sm transition-colors shadow-sm">
+             <button on:click={() => showCodeExport = true} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors" title="Export Code (Ctrl+E)" aria-label="Export Code">
+                 <Code class="w-5 h-5" />
+             </button>
+             <button on:click={handleSave} class="flex items-center gap-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg font-medium text-sm transition-colors shadow-sm" aria-label={dict.toolbar.save} title="Save (Ctrl+S)">
                  <Save class="w-4 h-4" />
                  <span class="hidden sm:inline">{dict.toolbar.save}</span>
              </button>
@@ -239,7 +266,7 @@
 
             <!-- Column 2: Variables (3/12) -->
             <div class="lg:col-span-3 flex flex-col h-full min-h-[200px]">
-                 <VariableForm {variables} bind:values {dict} />
+                 <VariableForm {variables} bind:values bind:scenarios bind:activeScenarioId {dict} />
             </div>
 
             <!-- Column 3: Preview (4/12) -->
@@ -304,6 +331,14 @@
     <div class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-2 rounded-full shadow-lg text-sm z-[60] flex items-center gap-2 animate-bounce-in">
        <span class="text-green-400">✓</span> {notification}
     </div>
+  {/if}
+
+  <!-- Code Export Modal -->
+  {#if showCodeExport}
+     <CodeExport
+        data={generateExport(systemPrompt, userPrompt, values)}
+        onClose={() => showCodeExport = false}
+     />
   {/if}
 </div>
 

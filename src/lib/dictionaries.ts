@@ -1416,6 +1416,13 @@ export const dictionaries = {
           load: "Load",
           delete: "Delete"
         },
+        magicFill: "Magic Fill",
+        scenarios: "Scenarios",
+        exportCode: "Export Code",
+        addScenario: "Add Scenario",
+        deleteScenario: "Delete Scenario",
+        scenarioName: "Scenario Name",
+        defaultScenario: "Default Case",
         guide: {
           title: "Why Prompt Forge?",
           intro: "Prompt Forge is the ultimate workspace for AI engineers and enthusiasts. It treats prompts as code, allowing for robust variable management and versioning.",
@@ -1759,6 +1766,13 @@ export const dictionaries = {
           load: "불러오기",
           delete: "삭제"
         },
+        magicFill: "자동 채우기",
+        scenarios: "시나리오",
+        exportCode: "코드 내보내기",
+        addScenario: "시나리오 추가",
+        deleteScenario: "시나리오 삭제",
+        scenarioName: "시나리오 이름",
+        defaultScenario: "기본 케이스",
         guide: {
           title: "왜 Prompt Forge인가요?",
           intro: "Prompt Forge는 AI 엔지니어와 매니아를 위한 최고의 작업 공간입니다. 프롬프트를 코드처럼 취급하여 강력한 변수 관리 및 버전 관리를 가능하게 합니다.",
