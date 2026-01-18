@@ -60,10 +60,10 @@
                  }
 
                  unifiedHtml += `
-                    <div class="flex hover:bg-gray-800/50 ${colorClass}">
-                        <div class="w-10 text-right pr-2 select-none text-slate-500 text-xs border-r border-gray-700 py-0.5">${lnLeft}</div>
-                        <div class="w-10 text-right pr-2 select-none text-slate-500 text-xs border-r border-gray-700 py-0.5">${lnRight}</div>
-                        <div class="w-6 text-center select-none text-gray-400 text-xs py-0.5">${prefix}</div>
+                    <div class="flex hover:bg-slate-800/50 ${colorClass}">
+                        <div class="w-10 text-right pr-2 select-none text-slate-500 text-xs border-r border-slate-700 py-0.5">${lnLeft}</div>
+                        <div class="w-10 text-right pr-2 select-none text-slate-500 text-xs border-r border-slate-700 py-0.5">${lnRight}</div>
+                        <div class="w-6 text-center select-none text-slate-400 text-xs py-0.5">${prefix}</div>
                         <div class="flex-1 font-mono text-sm whitespace-pre-wrap break-all py-0.5 px-2">${line || ' '}</div>
                     </div>
                  `;
@@ -78,14 +78,14 @@
                 const lineHtml = `<div class="font-mono text-sm whitespace-pre-wrap break-all py-0.5 px-2 ${colorClass} min-h-[1.5rem]">${line || ' '}</div>`;
 
                 if (type === 'removed') {
-                    leftHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-gray-700 bg-gray-900">${leftLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
-                    rightHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-gray-700 bg-gray-900"></div><div class="flex-1 bg-gray-900/50"></div></div>`;
+                    leftHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-slate-700 bg-slate-900">${leftLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
+                    rightHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-slate-700 bg-slate-900"></div><div class="flex-1 bg-slate-900/50"></div></div>`;
                 } else if (type === 'added') {
-                    leftHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-gray-700 bg-gray-900"></div><div class="flex-1 bg-gray-900/50"></div></div>`;
-                    rightHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-gray-700 bg-gray-900">${rightLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
+                    leftHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-slate-700 bg-slate-900"></div><div class="flex-1 bg-slate-900/50"></div></div>`;
+                    rightHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-slate-700 bg-slate-900">${rightLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
                 } else {
-                    leftHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-gray-700 bg-gray-900">${leftLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
-                    rightHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-gray-700 bg-gray-900">${rightLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
+                    leftHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-slate-700 bg-slate-900">${leftLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
+                    rightHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-slate-700 bg-slate-900">${rightLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;
                 }
              });
         }
@@ -104,8 +104,8 @@
  }
 </script>
 
-<div class="border border-gray-700 rounded-lg overflow-hidden bg-gray-800 shadow-sm flex flex-col h-full" aria-label="Diff Viewer">
-    <div class="bg-gray-900 px-4 py-2 border-b border-gray-700 font-medium text-sm text-gray-300 flex justify-between items-center">
+<div class="border border-slate-700 rounded-lg overflow-hidden bg-slate-800 shadow-sm flex flex-col h-full" aria-label="Diff Viewer">
+    <div class="bg-slate-900 px-4 py-2 border-b border-slate-700 font-medium text-sm text-slate-300 flex justify-between items-center">
         <span>Diff Output</span>
         <div class="flex gap-2 text-xs">
             <span class="flex items-center gap-1"><span class="w-3 h-3 bg-red-900/50 rounded-full"></span> Removed</span>
@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    <div class="flex-1 overflow-auto bg-gray-800 relative">
+    <div class="flex-1 overflow-auto bg-slate-800 relative">
         {#if mode === 'unified'}
             <div class="w-full">
                 {@html htmlParts.unified}
@@ -128,7 +128,7 @@
                 </div>
             </div>
             <div class="flex w-full min-w-[800px]"> <!-- Force min width for split view -->
-                <div class="w-1/2 border-r border-gray-700">
+                <div class="w-1/2 border-r border-slate-700">
                     {@html htmlParts.left}
                 </div>
                 <div class="w-1/2">
@@ -138,7 +138,7 @@
         {/if}
 
         {#if diffResult.diffs.length === 0}
-            <div class="absolute inset-0 flex items-center justify-center text-gray-400">
+            <div class="absolute inset-0 flex items-center justify-center text-slate-400">
                 No differences found or empty input.
             </div>
         {/if}
