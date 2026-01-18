@@ -1,11 +1,12 @@
 <script lang="ts">
   import { Download, Loader2, FileArchive, CheckCircle2 } from 'lucide-svelte';
   import { IconProcessor, type IconConfig, type GeneratedAsset } from '$lib/utils/icon-forge/processor';
+  import type { IconForgeDictionary } from '$lib/types/icon-forge';
   import JSZip from 'jszip';
 
   export let file: File | null;
   export let config: IconConfig;
-  export let t: any;
+  export let t: IconForgeDictionary;
 
   let isGenerating = false;
   let progress = 0;

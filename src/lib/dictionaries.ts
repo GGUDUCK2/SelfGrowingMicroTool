@@ -1350,6 +1350,11 @@ export const dictionaries = {
           manifest: "Manifest JSON",
           copy: "Copy"
         },
+        magicPalette: "Magic Palette",
+        safeZone: "Show Safe Zone",
+        manifestSettings: {
+            title: "Manifest Settings"
+        },
         history: {
           title: "Recent Icons",
           save: "Save",
@@ -1568,6 +1573,11 @@ export const dictionaries = {
           base64: "Base64 (32px)",
           manifest: "매니페스트 JSON",
           copy: "복사"
+        },
+        magicPalette: "매직 팔레트",
+        safeZone: "안전 구역 표시",
+        manifestSettings: {
+            title: "매니페스트 설정"
         },
         history: {
           title: "최근 아이콘",
