@@ -1253,6 +1253,69 @@ export const dictionaries = {
         q3: "How do I create relationships?",
         a3: "You can define foreign keys in the Table Editor or rely on naming conventions for now."
       },
+      iconForge: {
+        title: "Icon Forge: Favicon & PWA Architect",
+        description: "The definitive tool to generate, visualize, and package favicons and PWA assets. Supports ICO, PNG, SVG, and maskable icons.",
+        upload: {
+          title: "Upload Logo",
+          dragDrop: "Drag & drop or click to upload",
+          formats: "Supports PNG, JPG, SVG, WebP (Max 10MB)",
+          reupload: "Upload New Image"
+        },
+        config: {
+          title: "Icon Configuration",
+          background: "Background Color",
+          padding: "Padding (%)",
+          radius: "Border Radius (%)",
+          transparent: "Transparent Background",
+          preview: "Preview Background"
+        },
+        platforms: {
+          browser: "Browser Tab",
+          iphone: "iPhone Home Screen",
+          android: "Android Launcher",
+          windows: "Windows Tile",
+          macos: "macOS Dock",
+          search: "Google Search"
+        },
+        export: {
+          title: "Export Assets",
+          download: "Download All (ZIP)",
+          formats: "Included Formats:",
+          favicon: "Favicon (.ico)",
+          pwa: "PWA Icons (.png)",
+          svg: "Safari Pin (.svg)",
+          manifest: "Web Manifest (.json)",
+          generating: "Generating...",
+          downloaded: "Downloaded!"
+        },
+        history: {
+          title: "Recent Icons",
+          save: "Save",
+          restore: "Restore",
+          delete: "Delete",
+          empty: "No recent icons."
+        },
+        guide: {
+          title: "Why Icon Forge?",
+          intro: "Icon Forge eliminates the hassle of creating dozens of icon sizes for modern web development. It intelligently generates pixel-perfect assets for every platform.",
+          featuresTitle: "Key Capabilities",
+          f1: "**Smart Masking:** Ensures your icon looks great on Android (Adaptive Icons) and iOS (Rounded Squares).",
+          f2: "**Live Previews:** Instantly see how your brand appears on a Google Search result or an iPhone home screen.",
+          f3: "**PWA Ready:** Generates a complete `manifest.json` snippet and all required sizes (192, 512, maskable).",
+          tipsTitle: "Pro Tips",
+          tip1: "Upload an **SVG** for the crispest results at any size.",
+          tip2: "Use a **20-30% padding** if your logo is a square shape to prevent it from being cut off by circle masks (Android).",
+          tip3: "Check the **'Transparent Background'** option if your source image already has transparency."
+        },
+        faqTitle: "Icon Forge FAQ",
+        q1: "What is a Maskable Icon?",
+        a1: "Maskable icons are a new format for PWAs that allow the browser to crop the icon into any shape (circle, square, squircle) without cutting off important content.",
+        q2: "Why do I need an .ico file?",
+        a2: "While modern browsers support PNG favicons, the `.ico` format is still required for legacy support (IE) and for showing up in some bookmark bars.",
+        q3: "Is my logo uploaded to a server?",
+        a3: "No. All image processing (resizing, masking, color extraction) happens 100% locally in your browser using the Canvas API."
+      },
       // ...
     },
     // ...
@@ -1347,6 +1410,69 @@ export const dictionaries = {
         a2: "네! 'SQL 가져오기' 기능을 사용하여 CREATE TABLE 문을 붙여넣고 즉시 시각화할 수 있습니다.",
         q3: "관계는 어떻게 생성하나요?",
         a3: "현재는 테이블 에디터에서 외래 키를 정의하거나 명명 규칙을 따를 수 있습니다."
+      },
+      iconForge: {
+        title: "Icon Forge: 파비콘 & PWA 아키텍트",
+        description: "파비콘 및 PWA 자산을 생성, 시각화 및 패키징하는 완벽한 도구입니다. ICO, PNG, SVG 및 마스크 가능한 아이콘을 지원합니다.",
+        upload: {
+          title: "로고 업로드",
+          dragDrop: "드래그 앤 드롭 또는 클릭하여 업로드",
+          formats: "PNG, JPG, SVG, WebP 지원 (최대 10MB)",
+          reupload: "새 이미지 업로드"
+        },
+        config: {
+          title: "아이콘 설정",
+          background: "배경색",
+          padding: "여백 (%)",
+          radius: "테두리 반경 (%)",
+          transparent: "투명 배경",
+          preview: "배경 미리보기"
+        },
+        platforms: {
+          browser: "브라우저 탭",
+          iphone: "아이폰 홈 화면",
+          android: "안드로이드 런처",
+          windows: "윈도우 타일",
+          macos: "macOS Dock",
+          search: "구글 검색 결과"
+        },
+        export: {
+          title: "자산 내보내기",
+          download: "모두 다운로드 (ZIP)",
+          formats: "포함된 형식:",
+          favicon: "파비콘 (.ico)",
+          pwa: "PWA 아이콘 (.png)",
+          svg: "사파리 핀 (.svg)",
+          manifest: "웹 매니페스트 (.json)",
+          generating: "생성 중...",
+          downloaded: "다운로드 완료!"
+        },
+        history: {
+          title: "최근 아이콘",
+          save: "저장",
+          restore: "복원",
+          delete: "삭제",
+          empty: "최근 아이콘이 없습니다."
+        },
+        guide: {
+          title: "왜 Icon Forge인가요?",
+          intro: "Icon Forge는 최신 웹 개발을 위해 수십 가지 아이콘 크기를 만드는 번거로움을 없애줍니다. 모든 플랫폼에 맞는 픽셀 완벽한 자산을 지능적으로 생성합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**스마트 마스킹:** 안드로이드(적응형 아이콘)와 iOS(둥근 사각형)에서 아이콘이 멋지게 보이도록 보장합니다.",
+          f2: "**실시간 미리보기:** 구글 검색 결과나 아이폰 홈 화면에서 브랜드가 어떻게 보이는지 즉시 확인하세요.",
+          f3: "**PWA 준비:** 완전한 `manifest.json` 스니펫과 필요한 모든 크기(192, 512, 마스크 가능)를 생성합니다.",
+          tipsTitle: "전문가 팁",
+          tip1: "가장 선명한 결과를 얻으려면 **SVG**를 업로드하세요.",
+          tip2: "로고가 정사각형 모양인 경우 **20-30%의 여백**을 사용하여 원형 마스크(안드로이드)에 의해 잘리는 것을 방지하세요.",
+          tip3: "소스 이미지에 이미 투명도가 있는 경우 **'투명 배경'** 옵션을 확인하세요."
+        },
+        faqTitle: "Icon Forge FAQ",
+        q1: "마스크 가능한(Maskable) 아이콘이란 무엇인가요?",
+        a1: "마스크 가능한 아이콘은 브라우저가 중요한 콘텐츠를 자르지 않고 아이콘을 어떤 모양(원, 사각형, 스쿼클)으로든 자를 수 있게 하는 PWA용 새 형식입니다.",
+        q2: ".ico 파일이 왜 필요한가요?",
+        a2: "최신 브라우저는 PNG 파비콘을 지원하지만, `.ico` 형식은 여전히 레거시 지원(IE) 및 일부 북마크 바 표시를 위해 필요합니다.",
+        q3: "내 로고가 서버에 업로드되나요?",
+        a3: "아니요. 모든 이미지 처리(크기 조정, 마스킹, 색상 추출)는 Canvas API를 사용하여 브라우저에서 100% 로컬로 수행됩니다."
       },
       // ...
     },
