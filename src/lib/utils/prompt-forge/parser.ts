@@ -30,10 +30,21 @@ export function compilePrompt(template: string, variables: Record<string, string
     });
 }
 
+export interface OpenAIMessage {
+    role: 'system' | 'user' | 'assistant';
+    content: string;
+}
+
+export interface PromptExport {
+    messages: OpenAIMessage[];
+    model: string;
+    temperature: number;
+}
+
 /**
  * Generates a JSON export object compatible with OpenAI chat completion format (partial).
  */
-export function generateExport(system: string, user: string, variables: Record<string, string>) {
+export function generateExport(system: string, user: string, variables: Record<string, string>): PromptExport {
     const compiledSystem = compilePrompt(system, variables);
     const compiledUser = compilePrompt(user, variables);
 

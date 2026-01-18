@@ -146,6 +146,7 @@ export interface PromptForgeHistory {
   title: string;
   template: string;
   variables: Record<string, string>;
+  scenarios?: Record<string, Record<string, string>>;
   folder?: string;
   tags?: string[];
   createdAt: Date;
@@ -392,6 +393,24 @@ class MySubClassedDexie extends Dexie {
       iconForgeProjects: '++id, createdAt, starred'
     });
     this.version(20).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      idForgeHistory: '++id, createdAt, starred',
+      cipherHistory: '++id, createdAt, starred',
+      structuraHistory: '++id, createdAt, starred',
+      markFlowHistory: '++id, createdAt, starred',
+      seoHistory: '++id, createdAt, projectName, starred',
+      schemaForgeProjects: '++id, createdAt, starred',
+      iconForgeProjects: '++id, createdAt, starred',
+      promptForgeHistory: '++id, createdAt, starred'
+    });
+    this.version(21).stores({
       compoundInterestConfig: '++id, updatedAt',
       compoundInterestHistory: '++id, createdAt',
       glassmorphismHistory: '++id, createdAt',
