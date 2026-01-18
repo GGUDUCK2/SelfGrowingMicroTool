@@ -3,6 +3,8 @@ export interface IconConfig {
   padding: number; // 0 to 100
   radius: number; // 0 to 50 (50 is circle)
   transparent: boolean;
+  name?: string; // PWA Name
+  shortName?: string; // PWA Short Name
 }
 
 export interface GeneratedAsset {
@@ -99,8 +101,8 @@ export class IconProcessor {
 
     // 5. Generate Manifest
     const manifest = {
-      name: "My PWA",
-      short_name: "PWA",
+      name: config.name || "My PWA",
+      short_name: config.shortName || "PWA",
       icons: [
         { src: "/icon-192.png", type: "image/png", sizes: "192x192" },
         { src: "/icon-512.png", type: "image/png", sizes: "512x512" },
@@ -248,6 +250,6 @@ export class IconProcessor {
       parts.push(png.buffer);
     }
 
-    return new Blob(parts, { type: 'image/x-icon' });
+    return new Blob(parts as BlobPart[], { type: 'image/x-icon' });
   }
 }

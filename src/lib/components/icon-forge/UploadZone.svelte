@@ -45,6 +45,22 @@
     const file = e.clipboardData?.files[0];
     if (file) validateAndEmit(file);
   }
+
+  function loadExample() {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <defs>
+        <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect width="512" height="512" rx="100" fill="url(#g)" />
+      <path d="M256 120L380 380H132L256 120Z" fill="white" stroke="white" stroke-width="20" stroke-linejoin="round"/>
+    </svg>`;
+    const blob = new Blob([svg], { type: 'image/svg+xml' });
+    const file = new File([blob], "example-logo.svg", { type: 'image/svg+xml' });
+    dispatch('upload', file);
+  }
 </script>
 
 <svelte:window on:paste={handlePaste} />
@@ -87,6 +103,16 @@
       <ImageIcon class="w-3.5 h-3.5" />
       <span>{t.upload.formats}</span>
     </div>
+  </div>
+
+  <div class="mt-4 flex justify-center">
+    <button
+        type="button"
+        class="text-sm text-indigo-400 hover:text-indigo-300 transition-colors flex items-center space-x-1"
+        on:click|stopPropagation={loadExample}
+    >
+        <span>{t.upload.example}</span>
+    </button>
   </div>
 
   {#if error}

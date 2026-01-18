@@ -25,6 +25,34 @@
 </script>
 
 <div class="space-y-6">
+  <!-- App Info -->
+  <div class="space-y-3">
+    <div class="space-y-1">
+      <label class="text-sm font-medium text-slate-300" for="appName">{t.config.name}</label>
+      <input
+        type="text"
+        id="appName"
+        class="w-full h-10 px-3 bg-slate-700 text-slate-50 border border-slate-600 rounded-lg text-sm focus:border-indigo-500 focus:outline-none"
+        bind:value={config.name}
+        placeholder="My Awesome App"
+        on:input={update}
+      />
+    </div>
+    <div class="space-y-1">
+      <label class="text-sm font-medium text-slate-300" for="shortName">{t.config.shortName}</label>
+      <input
+        type="text"
+        id="shortName"
+        class="w-full h-10 px-3 bg-slate-700 text-slate-50 border border-slate-600 rounded-lg text-sm focus:border-indigo-500 focus:outline-none"
+        bind:value={config.shortName}
+        placeholder="App"
+        on:input={update}
+      />
+    </div>
+  </div>
+
+  <div class="h-px bg-slate-700/50"></div>
+
   <!-- Background Color -->
   <div class="space-y-3">
     <div class="flex items-center justify-between">

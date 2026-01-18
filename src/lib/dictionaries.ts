@@ -1253,6 +1253,58 @@ export const dictionaries = {
         q3: "How do I create relationships?",
         a3: "You can define foreign keys in the Table Editor or rely on naming conventions for now."
       },
+      pixelForge: {
+        title: "Pixel Forge: Image Optimizer",
+        description: "The definitive tool to compress, resize, and convert images (WebP, JPG, PNG) with professional precision. 100% Client-side.",
+        upload: {
+          title: "Upload Image",
+          dragDrop: "Drag & drop or click to upload",
+          formats: "Supports PNG, JPG, WebP, AVIF",
+          reupload: "Upload New Image",
+          example: "Load Example Logo"
+        },
+        config: {
+          title: "Configuration",
+          format: "Format",
+          quality: "Quality",
+          dimensions: "Dimensions",
+          width: "Width",
+          height: "Height",
+          maintainAspect: "Maintain Aspect Ratio",
+          watermark: "Watermark"
+        },
+        actions: {
+          compress: "Compress",
+          download: "Download",
+          clear: "Clear"
+        },
+        history: {
+          title: "History",
+          save: "Save",
+          restore: "Restore",
+          delete: "Delete",
+          empty: "No history"
+        },
+        guide: {
+          title: "Why Pixel Forge?",
+          intro: "Pixel Forge provides professional-grade image optimization directly in your browser.",
+          featuresTitle: "Key Features",
+          f1: "**Client-side:** No server uploads.",
+          f2: "**WebP Support:** Modern formats supported.",
+          f3: "**Batch Processing:** Process multiple images at once.",
+          tipsTitle: "Tips",
+          tip1: "Use WebP for web.",
+          tip2: "Adjust quality to 80% for best balance.",
+          tip3: "Use presets for quick settings."
+        },
+        faqTitle: "Pixel Forge FAQ",
+        q1: "Is it secure?",
+        a1: "Yes, 100% client-side.",
+        q2: "What formats?",
+        a2: "JPG, PNG, WebP.",
+        q3: "Limit?",
+        a3: "Depends on device memory."
+      },
       iconForge: {
         title: "Icon Forge: Favicon & PWA Architect",
         description: "The definitive tool to generate, visualize, and package favicons and PWA assets. Supports ICO, PNG, SVG, and maskable icons.",
@@ -1268,7 +1320,9 @@ export const dictionaries = {
           padding: "Padding (%)",
           radius: "Border Radius (%)",
           transparent: "Transparent Background",
-          preview: "Preview Background"
+          preview: "Preview Background",
+          name: "App Name",
+          shortName: "Short Name"
         },
         platforms: {
           browser: "Browser Tab",
@@ -1288,6 +1342,13 @@ export const dictionaries = {
           manifest: "Web Manifest (.json)",
           generating: "Generating...",
           downloaded: "Downloaded!"
+        },
+        snippets: {
+          title: "Code Snippets",
+          html: "HTML Tags",
+          base64: "Base64 (32px)",
+          manifest: "Manifest JSON",
+          copy: "Copy"
         },
         history: {
           title: "Recent Icons",
@@ -1411,6 +1472,58 @@ export const dictionaries = {
         q3: "관계는 어떻게 생성하나요?",
         a3: "현재는 테이블 에디터에서 외래 키를 정의하거나 명명 규칙을 따를 수 있습니다."
       },
+      pixelForge: {
+        title: "Pixel Forge: 이미지 최적화 도구",
+        description: "이미지(WebP, JPG, PNG)를 전문적인 정밀도로 압축, 크기 조정 및 변환하는 완벽한 도구입니다. 100% 클라이언트 처리.",
+        upload: {
+          title: "이미지 업로드",
+          dragDrop: "드래그 앤 드롭 또는 클릭하여 업로드",
+          formats: "PNG, JPG, WebP, AVIF 지원",
+          reupload: "새 이미지 업로드",
+          example: "예시 로고 불러오기"
+        },
+        config: {
+          title: "설정",
+          format: "포맷",
+          quality: "품질",
+          dimensions: "크기",
+          width: "너비",
+          height: "높이",
+          maintainAspect: "비율 유지",
+          watermark: "워터마크"
+        },
+        actions: {
+          compress: "압축",
+          download: "다운로드",
+          clear: "초기화"
+        },
+        history: {
+          title: "히스토리",
+          save: "저장",
+          restore: "복원",
+          delete: "삭제",
+          empty: "기록 없음"
+        },
+        guide: {
+          title: "왜 Pixel Forge인가요?",
+          intro: "Pixel Forge는 브라우저에서 직접 전문적인 이미지 최적화를 제공합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**클라이언트 측:** 서버 업로드 없음.",
+          f2: "**WebP 지원:** 최신 포맷 지원.",
+          f3: "**일괄 처리:** 여러 이미지 동시 처리.",
+          tipsTitle: "팁",
+          tip1: "웹용으로는 WebP를 사용하세요.",
+          tip2: "품질 80%가 균형이 좋습니다.",
+          tip3: "프리셋을 사용하여 빠르게 설정하세요."
+        },
+        faqTitle: "Pixel Forge FAQ",
+        q1: "안전한가요?",
+        a1: "네, 100% 클라이언트 측에서 처리됩니다.",
+        q2: "어떤 포맷을 지원하나요?",
+        a2: "JPG, PNG, WebP를 지원합니다.",
+        q3: "용량 제한이 있나요?",
+        a3: "기기 메모리에 따라 다릅니다."
+      },
       iconForge: {
         title: "Icon Forge: 파비콘 & PWA 아키텍트",
         description: "파비콘 및 PWA 자산을 생성, 시각화 및 패키징하는 완벽한 도구입니다. ICO, PNG, SVG 및 마스크 가능한 아이콘을 지원합니다.",
@@ -1426,7 +1539,9 @@ export const dictionaries = {
           padding: "여백 (%)",
           radius: "테두리 반경 (%)",
           transparent: "투명 배경",
-          preview: "배경 미리보기"
+          preview: "배경 미리보기",
+          name: "앱 이름",
+          shortName: "단축 이름"
         },
         platforms: {
           browser: "브라우저 탭",
@@ -1446,6 +1561,13 @@ export const dictionaries = {
           manifest: "웹 매니페스트 (.json)",
           generating: "생성 중...",
           downloaded: "다운로드 완료!"
+        },
+        snippets: {
+          title: "코드 스니펫",
+          html: "HTML 태그",
+          base64: "Base64 (32px)",
+          manifest: "매니페스트 JSON",
+          copy: "복사"
         },
         history: {
           title: "최근 아이콘",

@@ -7,6 +7,7 @@
   import PreviewGallery from '$lib/components/icon-forge/PreviewGallery.svelte';
   import ConfigEditor from '$lib/components/icon-forge/ConfigEditor.svelte';
   import ExportManager from '$lib/components/icon-forge/ExportManager.svelte';
+  import SnippetPanel from '$lib/components/icon-forge/SnippetPanel.svelte';
   import HistoryPanel from '$lib/components/icon-forge/HistoryPanel.svelte';
   import type { IconConfig } from '$lib/utils/icon-forge/processor';
   import { db, type IconForgeProject } from '$lib/db';
@@ -61,15 +62,35 @@
           config = project.config;
       }
   }
+
+  function handleKeydown(e: KeyboardEvent) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      e.preventDefault();
+      if (file) {
+        saveProject();
+      }
+    }
+  }
 </script>
 
+<svelte:window on:keydown={handleKeydown} />
+
 <svelte:head>
-  <title>{t.title}</title>
+  <title>{t.title} - {t.category || 'Design'}</title>
   <meta name="description" content={t.description} />
+
+  <!-- Open Graph -->
   <meta property="og:title" content={t.title} />
   <meta property="og:description" content={t.description} />
   <meta property="og:type" content="website" />
-  <meta name="keywords" content="favicon generator, pwa icon, maskable icon, app icon generator, ios icon generator, android icon generator" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={t.title} />
+  <meta name="twitter:description" content={t.description} />
+
+  <meta name="keywords" content="favicon generator, pwa icon, maskable icon, app icon generator, ios icon generator, android icon generator, svg to ico" />
+
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -82,7 +103,13 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": "${t.description}"
+      "description": "${t.description}",
+      "featureList": [
+        "Generate ICO, PNG, and SVG favicons",
+        "Create PWA Manifest JSON",
+        "Real-time preview for iOS, Android, and Windows",
+        "Client-side processing (Privacy First)"
+      ]
     }
   </script>`}
 </svelte:head>
@@ -207,6 +234,9 @@
 
                 <!-- Export -->
                 <ExportManager {file} {config} {t} />
+
+                <!-- Snippets -->
+                <SnippetPanel {file} {config} {t} />
             </div>
         {/if}
 
