@@ -141,6 +141,17 @@ export interface IconForgeProject {
   starred?: number;
 }
 
+export interface PromptForgeHistory {
+  id?: number;
+  title: string;
+  template: string;
+  variables: Record<string, string>;
+  folder?: string;
+  tags?: string[];
+  createdAt: Date;
+  starred?: number;
+}
+
 class MySubClassedDexie extends Dexie {
   compoundInterestConfig!: DexieTable<CompoundInterestConfig>;
   compoundInterestHistory!: DexieTable<CompoundInterestHistory>;
@@ -157,6 +168,7 @@ class MySubClassedDexie extends Dexie {
   seoHistory!: DexieTable<SeoHistory>;
   schemaForgeProjects!: DexieTable<SchemaForgeProject>;
   iconForgeProjects!: DexieTable<IconForgeProject>;
+  promptForgeHistory!: DexieTable<PromptForgeHistory>;
 
   constructor() {
     super('webFactoryDB');
@@ -378,6 +390,24 @@ class MySubClassedDexie extends Dexie {
       seoHistory: '++id, createdAt, projectName, starred',
       schemaForgeProjects: '++id, createdAt, starred',
       iconForgeProjects: '++id, createdAt, starred'
+    });
+    this.version(20).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      idForgeHistory: '++id, createdAt, starred',
+      cipherHistory: '++id, createdAt, starred',
+      structuraHistory: '++id, createdAt, starred',
+      markFlowHistory: '++id, createdAt, starred',
+      seoHistory: '++id, createdAt, projectName, starred',
+      schemaForgeProjects: '++id, createdAt, starred',
+      iconForgeProjects: '++id, createdAt, starred',
+      promptForgeHistory: '++id, createdAt, starred'
     });
   }
 }
