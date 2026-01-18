@@ -1,5 +1,6 @@
 import Dexie, { type Table as DexieTable } from 'dexie';
 import type { Table as SchemaTable, Relation as SchemaRelation } from './types/schema-forge';
+import type { IconConfig } from './utils/icon-forge/processor';
 
 export interface CompoundInterestConfig {
   id?: number;
@@ -131,6 +132,15 @@ export interface SchemaForgeProject {
   starred?: number;
 }
 
+export interface IconForgeProject {
+  id?: number;
+  name: string;
+  config: IconConfig;
+  blob?: Blob;
+  createdAt: Date;
+  starred?: number;
+}
+
 class MySubClassedDexie extends Dexie {
   compoundInterestConfig!: DexieTable<CompoundInterestConfig>;
   compoundInterestHistory!: DexieTable<CompoundInterestHistory>;
@@ -146,6 +156,7 @@ class MySubClassedDexie extends Dexie {
   markFlowHistory!: DexieTable<MarkFlowHistory>;
   seoHistory!: DexieTable<SeoHistory>;
   schemaForgeProjects!: DexieTable<SchemaForgeProject>;
+  iconForgeProjects!: DexieTable<IconForgeProject>;
 
   constructor() {
     super('webFactoryDB');
@@ -350,6 +361,23 @@ class MySubClassedDexie extends Dexie {
        return tx.table('seoHistory').toCollection().modify(item => {
            if (item.starred === undefined) item.starred = 0;
        });
+    });
+    this.version(19).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      idForgeHistory: '++id, createdAt, starred',
+      cipherHistory: '++id, createdAt, starred',
+      structuraHistory: '++id, createdAt, starred',
+      markFlowHistory: '++id, createdAt, starred',
+      seoHistory: '++id, createdAt, projectName, starred',
+      schemaForgeProjects: '++id, createdAt, starred',
+      iconForgeProjects: '++id, createdAt, starred'
     });
   }
 }

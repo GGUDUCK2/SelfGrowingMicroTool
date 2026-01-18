@@ -328,5 +328,20 @@
     "category": "Developer Tools",
     "tags": ["database", "sql", "schema", "prisma", "diagram", "mysql", "postgres"],
     "createdAt": "2025-02-17"
+  },
+  {
+    "id": "icon-forge",
+    "slug": "icon-forge",
+    "title": {
+      "en": "Icon Forge: Favicon & PWA Architect",
+      "ko": "Icon Forge: 파비콘 & PWA 아키텍트"
+    },
+    "description": {
+      "en": "The definitive tool to generate, visualize, and package favicons and PWA assets. Supports ICO, PNG, SVG, and maskable icons.",
+      "ko": "파비콘 및 PWA 자산을 생성, 시각화 및 패키징하는 완벽한 도구입니다. ICO, PNG, SVG 및 마스크 가능한 아이콘을 지원합니다."
+    },
+    "category": "Design",
+    "tags": ["icon", "favicon", "pwa", "generator", "design", "maskable", "logo"],
+    "createdAt": "2025-02-18"
   }
 ]
