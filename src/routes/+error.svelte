@@ -23,13 +23,13 @@
         href="/"
         class="bg-indigo-500 text-white px-6 py-3 rounded-lg hover:bg-indigo-600 transition-colors font-medium"
       >
-        Home / 홈
+        Go Home / 홈으로 돌아가기
       </a>
       <button
          class="border border-slate-600 text-slate-300 px-6 py-3 rounded-lg hover:bg-slate-800 transition-colors"
          on:click={() => window.location.href = 'https://github.com/microfactory/issues'}
       >
-        Report Issue / 문제 신고
+        Report Issue / 문제 신고하기
       </button>
     </div>
   </div>

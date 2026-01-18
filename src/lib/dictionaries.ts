@@ -1389,6 +1389,71 @@ export const dictionaries = {
   ko: {
     // ...
     tools: {
+      idForge: {
+        title: "ID Forge: ID 생성기",
+        description: "UUID(v1-v7), ULID, CUID, NanoID를 생성, 분석 및 관리하는 완벽한 도구입니다.",
+        generate: "생성",
+        analyze: "분석",
+        collision: "충돌",
+        type: "ID 타입",
+        quantity: "수량",
+        format: "포맷",
+        length: "길이",
+        alphabet: "알파벳",
+        history: "최근 활동",
+        save: "저장",
+        restore: "복원",
+        delete: "삭제",
+        copy: "복사",
+        copied: "복사됨!",
+        share: "공유",
+        download: "다운로드",
+        emptyHistory: "최근 기록이 없습니다.",
+        shortcuts: "단축키",
+        shortcutsHelp: "키보드 단축키",
+        press: "누르기",
+        faqTitle: "ID Forge FAQ",
+        q1: "NanoID는 언제 사용하나요?",
+        a1: "NanoID는 짧은 URL이나 컴포넌트 키와 같이 간결한 문자열이 필요한 프론트엔드 생성 ID에 적합합니다.",
+        q2: "UUID v4는 여전히 좋은가요?",
+        a2: "네, 정렬이 필요 없는 일반적인 용도에는 무작위 UUID v4가 훌륭합니다.",
+        q3: "UUID v7이란 무엇인가요?",
+        a3: "UUID v7은 타임스탬프와 무작위 비트를 결합한 새로운 표준으로, 데이터베이스 인덱싱에 최적화되어 있습니다.",
+        guide: {
+          title: "왜 ID Forge인가요?",
+          intro: "분산 시스템에서 올바른 식별자 전략을 선택하는 것은 중요합니다. ID Forge는 최신 표준을 위한 통합 인터페이스를 제공합니다.",
+          featuresTitle: "지원 표준",
+          f1: "**UUID v7:** 데이터베이스를 위한 최신 시간 정렬 표준.",
+          f2: "**ULID:** URL에 안전하고 정렬 가능한 식별자.",
+          f3: "**NanoID:** 작고 안전한 URL 친화적 ID 생성기.",
+          tipsTitle: "전문가 팁",
+          tip1: "PostgreSQL이나 MySQL의 기본 키로 **UUID v7**을 사용하세요.",
+          tip2: "짧은 링크나 React 키에는 **NanoID**를 사용하세요.",
+          tip3: "**충돌 계산기**를 사용하여 선택한 파라미터의 안전성을 확인하세요."
+        },
+        buttons: {
+          copy: "복사",
+          download: "다운로드",
+          share: "공유",
+          star: "즐겨찾기",
+          delete: "삭제"
+        },
+        feedback: {
+          copied: "복사됨!",
+          saved: "저장됨!",
+          processing: "처리 중..."
+        },
+        analyzer: {
+          type: "타입",
+          timestamp: "내장 타임스탬프",
+          details: "상세 정보",
+          anatomy: "구조 분석",
+          conversions: "변환",
+          isValid: "유효함",
+          invalid: "유효하지 않음 / 알 수 없음",
+          pastePlaceholder: "여기에 UUID, ULID 등을 붙여넣으세요..."
+        }
+      },
       schemaForge: {
         title: "Schema Forge: DB 아키텍트",
         description: "스키마 설계, 모의 데이터 생성, SQL/Prisma 내보내기를 위한 완벽한 도구입니다.",

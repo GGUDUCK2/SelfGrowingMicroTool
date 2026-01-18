@@ -178,29 +178,29 @@
   <!-- Format Options -->
   <div class="flex flex-wrap gap-4 pt-2">
     <label class="flex items-center space-x-2 cursor-pointer">
-        <input type="radio" bind:group={format} value="plain" on:change={updateOptions} class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" />
+        <input type="radio" bind:group={format} value="plain" on:change={updateOptions} class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-slate-300" />
         <span class="text-sm text-slate-700 dark:text-slate-300">Plain</span>
     </label>
     {#if selectedType.startsWith('uuid')}
     <label class="flex items-center space-x-2 cursor-pointer">
-        <input type="radio" bind:group={format} value="hyphens" on:change={updateOptions} class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" />
+        <input type="radio" bind:group={format} value="hyphens" on:change={updateOptions} class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-slate-300" />
         <span class="text-sm text-slate-700 dark:text-slate-300">Hyphens</span>
     </label>
     <label class="flex items-center space-x-2 cursor-pointer">
-        <input type="radio" bind:group={format} value="guid" on:change={updateOptions} class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" />
+        <input type="radio" bind:group={format} value="guid" on:change={updateOptions} class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-slate-300" />
         <span class="text-sm text-slate-700 dark:text-slate-300">GUID {`{...}`}</span>
     </label>
     {/if}
     <label class="flex items-center space-x-2 cursor-pointer">
-        <input type="radio" bind:group={format} value="json" on:change={updateOptions} class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" />
+        <input type="radio" bind:group={format} value="json" on:change={updateOptions} class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-slate-300" />
         <span class="text-sm text-slate-700 dark:text-slate-300">JSON</span>
     </label>
     <label class="flex items-center space-x-2 cursor-pointer">
-        <input type="radio" bind:group={format} value="sql" on:change={updateOptions} class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" />
+        <input type="radio" bind:group={format} value="sql" on:change={updateOptions} class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-slate-300" />
         <span class="text-sm text-slate-700 dark:text-slate-300">SQL</span>
     </label>
      <label class="flex items-center space-x-2 cursor-pointer">
-        <input type="radio" bind:group={format} value="csv" on:change={updateOptions} class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" />
+        <input type="radio" bind:group={format} value="csv" on:change={updateOptions} class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-slate-300" />
         <span class="text-sm text-slate-700 dark:text-slate-300">CSV</span>
     </label>
   </div>

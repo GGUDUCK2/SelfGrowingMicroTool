@@ -185,8 +185,8 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
   <div class="mb-8">
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl">{t.title}</h1>
-    <p class="mt-2 text-lg text-gray-600 dark:text-gray-400">{t.description}</p>
+    <h1 class="text-3xl font-bold text-slate-900 dark:text-slate-100 sm:text-4xl">{t.title}</h1>
+    <p class="mt-2 text-lg text-slate-600 dark:text-slate-400">{t.description}</p>
   </div>
 
   <div class="sticky top-0 z-10 bg-slate-900/95 backdrop-blur py-2">
@@ -216,20 +216,20 @@
              <label for="json-output" class="text-sm font-semibold text-slate-300">
                 포맷된 결과
                 {#if mode !== 'json'}
-                  <span class="ml-2 px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-xs text-gray-500">{mode.toUpperCase()}</span>
+                  <span class="ml-2 px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-xs text-slate-500">{mode.toUpperCase()}</span>
                 {/if}
              </label>
              <div class="flex gap-2">
                  <button
                    on:click={() => view = 'text'}
-                   class="text-xs px-2 py-1 rounded {view === 'text' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-gray-500'}"
+                   class="text-xs px-2 py-1 rounded {view === 'text' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-500'}"
                  >
                     {t.textView}
                  </button>
                  {#if mode === 'json' && parsedData}
                  <button
                    on:click={() => view = 'tree'}
-                   class="text-xs px-2 py-1 rounded {view === 'tree' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-gray-500'}"
+                   class="text-xs px-2 py-1 rounded {view === 'tree' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-500'}"
                  >
                     {t.treeView}
                  </button>
@@ -238,7 +238,7 @@
           </div>
 
           {#if view === 'tree' && parsedData}
-             <div class="relative w-full h-full min-h-[400px] border border-gray-200 dark:border-gray-700 rounded-lg overflow-auto bg-white dark:bg-gray-800 shadow-sm p-4">
+             <div class="relative w-full h-full min-h-[400px] border border-slate-200 dark:border-slate-700 rounded-lg overflow-auto bg-white dark:bg-slate-800 shadow-sm p-4">
                  <JsonTree data={parsedData} />
              </div>
           {:else}
@@ -250,30 +250,30 @@
   <History {t} on:restore={handleRestore} />
 
   <!-- FAQ Section -->
-  <section class="mt-16 border-t border-gray-200 dark:border-gray-700 pt-12">
-    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-8">{t.faqTitle}</h2>
+  <section class="mt-16 border-t border-slate-200 dark:border-slate-700 pt-12">
+    <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-8">{t.faqTitle}</h2>
     <div class="grid gap-8 md:grid-cols-2">
       <div>
-        <h3 class="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">{t.q1}</h3>
-        <p class="text-gray-600 dark:text-gray-400">{t.a1}</p>
+        <h3 class="font-semibold text-lg text-slate-900 dark:text-slate-100 mb-2">{t.q1}</h3>
+        <p class="text-slate-600 dark:text-slate-400">{t.a1}</p>
       </div>
       <div>
-        <h3 class="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">{t.q2}</h3>
-        <p class="text-gray-600 dark:text-gray-400">{t.a2}</p>
+        <h3 class="font-semibold text-lg text-slate-900 dark:text-slate-100 mb-2">{t.q2}</h3>
+        <p class="text-slate-600 dark:text-slate-400">{t.a2}</p>
       </div>
       <div>
-        <h3 class="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">{t.q3}</h3>
-        <p class="text-gray-600 dark:text-gray-400">{t.a3}</p>
+        <h3 class="font-semibold text-lg text-slate-900 dark:text-slate-100 mb-2">{t.q3}</h3>
+        <p class="text-slate-600 dark:text-slate-400">{t.a3}</p>
       </div>
     </div>
   </section>
 
   <section class="mt-12 mb-8">
      <!-- Related Tools (Simple Placeholder or Dynamic) -->
-     <h3 class="text-lg font-bold mb-4 text-gray-900 dark:text-gray-100">Related Tools</h3>
+     <h3 class="text-lg font-bold mb-4 text-slate-900 dark:text-slate-100">Related Tools</h3>
      <div class="flex gap-4">
          <a href="/{lang}/tools/glassmorphism-generator" class="text-indigo-600 dark:text-indigo-400 hover:underline">Glassmorphism Generator</a>
-         <span class="text-gray-300">|</span>
+         <span class="text-slate-300">|</span>
          <a href="/{lang}/tools/pomodoro-timer" class="text-indigo-600 dark:text-indigo-400 hover:underline">Pomodoro Timer</a>
      </div>
   </section>
