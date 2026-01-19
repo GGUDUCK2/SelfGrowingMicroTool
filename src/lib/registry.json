@@ -1,362 +1,197 @@
 [
   {
-    "id": "pomodoro-timer",
-    "slug": "pomodoro-timer",
+    "id": "time-forge",
+    "slug": "time-forge",
     "title": {
-      "en": "Pomodoro Focus Timer",
-      "ko": "뽀모도로 집중 타이머"
+      "en": "Time Forge",
+      "ko": "타임 포지"
     },
     "description": {
-      "en": "Boost productivity with the 25/5 minute Pomodoro technique.",
-      "ko": "25분 집중, 5분 휴식. 뽀모도로 기법으로 생산성을 높이세요."
+      "en": "Professional world clock and meeting scheduler for distributed teams.",
+      "ko": "분산된 팀을 위한 전문 세계 시계 및 회의 일정 스케줄러입니다."
     },
-    "category": "Productivity",
-    "tags": ["timer", "focus", "study", "work"],
-    "createdAt": "2024-12-30"
-  },
-  {
-    "id": "compound-interest-calculator",
-    "slug": "compound-interest-calculator",
-    "title": {
-      "en": "Compound Interest Calculator",
-      "ko": "복리 계산기"
-    },
-    "description": {
-      "en": "Calculate how your investments grow over time with compound interest.",
-      "ko": "복리 이자를 통해 시간이 지남에 따라 투자가 어떻게 성장하는지 계산해보세요."
-    },
-    "category": "Finance",
-    "tags": ["finance", "calculator", "investment", "money"],
-    "createdAt": "2025-01-26"
-  },
-  {
-    "id": "glassmorphism-generator",
-    "slug": "glassmorphism-generator",
-    "title": {
-      "en": "CSS Glassmorphism Generator",
-      "ko": "CSS 글래스모피즘 생성기"
-    },
-    "description": {
-      "en": "Create beautiful glassmorphism CSS effects with a simple and intuitive generator.",
-      "ko": "직관적인 생성기로 아름다운 글래스모피즘 CSS 효과를 만들어보세요."
-    },
-    "category": "Design",
-    "tags": ["css", "generator", "design", "glassmorphism", "ui"],
-    "createdAt": "2025-01-28"
-  },
-  {
-    "id": "json-architect",
-    "slug": "json-architect",
-    "title": {
-      "en": "JSON Architect: Formatter & Validator",
-      "ko": "JSON 아키텍트: 포맷터 및 검사기"
-    },
-    "description": {
-      "en": "The definitive tool to format, validate, minify, and visualize JSON. Includes TypeScript/Go conversion.",
-      "ko": "JSON 포맷, 검증, 축소 및 시각화를 위한 완벽한 도구입니다. TypeScript/Go 변환 기능을 포함합니다."
-    },
-    "category": "Developer Tools",
-    "tags": ["json", "formatter", "validator", "converter", "developer"],
-    "createdAt": "2025-01-29"
+    "category": "productivity",
+    "tags": ["timezone", "clock", "meeting", "calendar", "world-time"],
+    "createdAt": "2024-05-22"
   },
   {
     "id": "cron-editor",
     "slug": "cron-editor",
     "title": {
-      "en": "Cronos: Professional Cron Editor",
-      "ko": "Cronos: 전문가용 Cron 에디터"
+      "en": "Cron Editor",
+      "ko": "Cron 에디터"
     },
     "description": {
-      "en": "The ultimate tool to build, debug, and translate Cron schedule expressions into human-readable text.",
-      "ko": "Cron 스케줄 표현식을 작성, 디버깅 및 사람이 읽을 수 있는 텍스트로 변환하는 최고의 도구입니다."
+      "en": "Edit and validate cron expressions with ease.",
+      "ko": "Cron 표현식을 쉽게 편집하고 검증하세요."
     },
-    "category": "Developer Tools",
-    "tags": ["cron", "scheduler", "developer", "server", "linux"],
-    "createdAt": "2025-01-31"
+    "category": "dev",
+    "tags": ["cron", "scheduler", "timer"],
+    "createdAt": "2024-01-15"
+  },
+  {
+    "id": "json-architect",
+    "slug": "json-architect",
+    "title": {
+      "en": "JSON Architect",
+      "ko": "JSON 아키텍트"
+    },
+    "description": {
+      "en": "Visualize, edit, and format JSON data.",
+      "ko": "JSON 데이터를 시각화, 편집 및 포맷팅하세요."
+    },
+    "category": "dev",
+    "tags": ["json", "viewer", "formatter"],
+    "createdAt": "2024-01-20"
   },
   {
     "id": "regex-tester",
     "slug": "regex-tester",
     "title": {
-      "en": "Regex Pro: Visual Tester & Debugger",
-      "ko": "Regex Pro: 정규표현식 테스터 및 디버거"
+      "en": "Regex Tester",
+      "ko": "정규식 테스터"
     },
     "description": {
-      "en": "The ultimate tool to test, debug, and understand Regular Expressions. Includes real-time highlighting and a cheat sheet.",
-      "ko": "정규표현식을 테스트, 디버그 및 이해하기 위한 최고의 도구입니다. 실시간 하이라이팅 및 치트 시트를 포함합니다."
+      "en": "Test and debug regular expressions.",
+      "ko": "정규 표현식을 테스트하고 디버깅하세요."
     },
-    "category": "Developer Tools",
-    "tags": ["regex", "regexp", "tester", "developer", "debug"],
-    "createdAt": "2025-02-01"
-  },
-  {
-    "id": "color-master",
-    "slug": "color-master",
-    "title": {
-      "en": "Lumina: Color & A11y Master",
-      "ko": "Lumina: 컬러 & 접근성 마스터"
-    },
-    "description": {
-      "en": "The definitive color tool for designers and developers. Generate harmonies, check accessibility, simulate vision, and export code.",
-      "ko": "디자이너와 개발자를 위한 완벽한 색상 도구입니다. 조화로운 색상을 생성하고, 접근성을 확인하며, 시각을 시뮬레이션하고 코드를 내보내세요."
-    },
-    "category": "Design",
-    "tags": ["color", "palette", "accessibility", "a11y", "design", "css"],
-    "createdAt": "2025-02-02"
+    "category": "dev",
+    "tags": ["regex", "pattern", "test"],
+    "createdAt": "2024-02-01"
   },
   {
     "id": "diff-viewer",
     "slug": "diff-viewer",
     "title": {
-      "en": "DiffScope: Smart Text & Code Comparator",
-      "ko": "DiffScope: 스마트 텍스트 & 코드 비교기"
+      "en": "Diff Viewer",
+      "ko": "Diff 뷰어"
     },
     "description": {
-      "en": "Compare text, code, or JSON with high-precision. Visualize differences, merge conflicts, and track changes.",
-      "ko": "텍스트, 코드, JSON을 정밀하게 비교하세요. 차이점을 시각화하고 변경 사항을 추적할 수 있습니다."
+      "en": "Compare text files and see differences.",
+      "ko": "텍스트 파일을 비교하고 차이점을 확인하세요."
     },
-    "category": "Developer Tools",
-    "tags": ["diff", "compare", "text", "code", "json", "developer"],
-    "createdAt": "2025-02-03"
+    "category": "dev",
+    "tags": ["diff", "compare", "text"],
+    "createdAt": "2024-02-10"
   },
   {
     "id": "id-forge",
     "slug": "id-forge",
     "title": {
-      "en": "ID Forge: Ultimate Identifier Architect",
-      "ko": "ID Forge: 궁극의 식별자 아키텍트"
+      "en": "ID Forge",
+      "ko": "ID 포지"
     },
     "description": {
-      "en": "The definitive tool to generate, analyze, and manage UUIDs (v1-v7), ULIDs, CUIDs, and NanoIDs.",
-      "ko": "UUID (v1-v7), ULID, CUID, NanoID를 생성, 분석 및 관리하는 완벽한 도구입니다."
+      "en": "Generate UUIDs, CUIDs, NanoIDs, and more.",
+      "ko": "UUID, CUID, NanoID 등을 생성하세요."
     },
-    "category": "Developer Tools",
-    "tags": ["uuid", "ulid", "nanoid", "cuid", "generator", "developer"],
-    "createdAt": "2025-02-04"
+    "category": "dev",
+    "tags": ["uuid", "id", "generator"],
+    "createdAt": "2024-02-15"
   },
   {
-    "id": "cipher-lab",
-    "slug": "cipher-lab",
+    "id": "color-master",
+    "slug": "color-master",
     "title": {
-      "en": "Cipher Lab: Crypto & Token Suite",
-      "ko": "Cipher Lab: 암호화 & 토큰 연구소"
+      "en": "Color Master",
+      "ko": "컬러 마스터"
     },
     "description": {
-      "en": "Securely generate hashes, decode JWTs, encode text, and forge strong passwords. 100% Client-side.",
-      "ko": "해시 생성, JWT 디코딩, 텍스트 인코딩, 강력한 비밀번호 생성을 안전하게 수행하세요. 100% 클라이언트 처리."
+      "en": "Advanced color picker and palette generator.",
+      "ko": "고급 색상 선택기 및 팔레트 생성기입니다."
     },
-    "category": "Developer Tools",
-    "tags": ["crypto", "hash", "jwt", "password", "base64", "security"],
-    "createdAt": "2025-02-05"
-  },
-  {
-    "id": "structura",
-    "slug": "structura",
-    "title": {
-      "en": "Structura: Universal Data Converter",
-      "ko": "Structura: 만능 데이터 변환기"
-    },
-    "description": {
-      "en": "The definitive engine to transform, validate, and format JSON, YAML, XML, and CSV with professional precision.",
-      "ko": "JSON, YAML, XML, CSV를 전문적인 정밀도로 변환, 검증 및 포맷하는 완벽한 엔진입니다."
-    },
-    "category": "Developer Tools",
-    "tags": ["converter", "json", "yaml", "xml", "csv", "format", "developer"],
-    "createdAt": "2025-02-06"
-  },
-  {
-    "id": "markdown-studio",
-    "slug": "markdown-studio",
-    "title": {
-      "en": "MarkFlow: Pro Markdown Studio",
-      "ko": "MarkFlow: 프로 마크다운 스튜디오"
-    },
-    "description": {
-      "en": "The definitive markdown editor with real-time preview, HTML export, smart templates, and GitHub style support.",
-      "ko": "실시간 미리보기, HTML 내보내기, 스마트 템플릿, GitHub 스타일 지원을 갖춘 완벽한 마크다운 에디터입니다."
-    },
-    "category": "Developer Tools",
-    "tags": ["markdown", "editor", "preview", "converter", "html", "writer"],
-    "createdAt": "2025-02-07"
-  },
-  {
-    "id": "restro",
-    "slug": "restro",
-    "title": {
-      "en": "Restro: API Client",
-      "ko": "Restro: API 클라이언트"
-    },
-    "description": {
-      "en": "A professional-grade API client and testing tool right in your browser. Debug REST APIs, inspect responses, and generate code snippets.",
-      "ko": "브라우저에서 바로 사용하는 전문가용 API 클라이언트 및 테스트 도구입니다. REST API를 디버깅하고, 응답을 검사하고, 코드 스니펫을 생성하세요."
-    },
-    "category": "Developer Tools",
-    "tags": ["api", "rest", "http", "client", "fetch", "curl", "developer"],
-    "createdAt": "2025-02-08"
-  },
-  {
-    "id": "unit-verse",
-    "slug": "unit-verse",
-    "title": {
-      "en": "Unit Verse: Universal Unit Converter",
-      "ko": "Unit Verse: 만능 단위 변환기"
-    },
-    "description": {
-      "en": "The definitive converter for length, mass, digital, energy, and more. Includes formula views and smart precision.",
-      "ko": "길이, 무게, 디지털, 에너지 등 모든 단위를 변환하는 완벽한 도구입니다. 공식 보기 및 스마트 정밀도를 지원합니다."
-    },
-    "category": "Utility",
-    "tags": ["converter", "unit", "length", "weight", "calculator", "utility"],
-    "createdAt": "2025-02-09"
-  },
-  {
-    "id": "string-theory",
-    "slug": "string-theory",
-    "title": {
-      "en": "String Theory: Text Engine",
-      "ko": "String Theory: 텍스트 엔진"
-    },
-    "description": {
-      "en": "The definitive text processing engine. Analyze, transform, clean, and encode text with professional precision.",
-      "ko": "완벽한 텍스트 처리 엔진입니다. 텍스트를 분석, 변환, 정리 및 인코딩하세요."
-    },
-    "category": "Developer Tools",
-    "tags": ["text", "converter", "string", "analysis", "encoder", "developer"],
-    "createdAt": "2025-02-10"
-  },
-  {
-    "id": "qr-forge",
-    "slug": "qr-forge",
-    "title": {
-      "en": "QR Forge: Pro Code Generator",
-      "ko": "QR Forge: 프로 QR 코드 생성기"
-    },
-    "description": {
-      "en": "The definitive QR code generator. Generate, customize, and download QR codes for URLs, WiFi, VCards, and more. 100% Client-side.",
-      "ko": "완벽한 QR 코드 생성기입니다. URL, WiFi, VCard 등을 위한 QR 코드를 생성하고, 커스터마이징하고, 다운로드하세요. 100% 클라이언트 처리."
-    },
-    "category": "Utility",
-    "tags": ["qrcode", "generator", "wifi", "vcard", "utility", "tool"],
-    "createdAt": "2025-02-11"
-  },
-  {
-    "id": "subnet-scope",
-    "slug": "subnet-scope",
-    "title": {
-      "en": "Subnet Scope: Network Architect",
-      "ko": "Subnet Scope: 네트워크 아키텍트"
-    },
-    "description": {
-      "en": "The definitive tool to calculate, visualize, and plan IPv4/IPv6 subnets. Includes CIDR calculator, binary visualization, and VLSM support.",
-      "ko": "IPv4/IPv6 서브넷을 계산, 시각화 및 계획하는 완벽한 도구입니다. CIDR 계산기, 이진 시각화 및 VLSM 지원을 포함합니다."
-    },
-    "category": "Developer Tools",
-    "tags": ["network", "subnet", "cidr", "ip", "calculator", "ipv6", "developer"],
-    "createdAt": "2025-02-12"
-  },
-  {
-    "id": "chrono-shift",
-    "slug": "chrono-shift",
-    "title": {
-      "en": "Chrono Shift: Time Zone Architect",
-      "ko": "Chrono Shift: 시간대 아키텍트"
-    },
-    "description": {
-      "en": "Plan meetings across time zones effortlessly. Visualize overlaps, find golden hours, and manage team schedules.",
-      "ko": "시간대를 넘어 회의를 쉽게 계획하세요. 중복 시간을 시각화하고, 골든 아워를 찾고, 팀 일정을 관리하세요."
-    },
-    "category": "Productivity",
-    "tags": ["timezone", "meeting", "planner", "clock", "world"],
-    "createdAt": "2025-02-13"
+    "category": "design",
+    "tags": ["color", "picker", "palette"],
+    "createdAt": "2024-02-20"
   },
   {
     "id": "seo-forge",
     "slug": "seo-forge",
     "title": {
-      "en": "SEO Forge: Meta Tags & Social Preview",
-      "ko": "SEO Forge: 메타 태그 & 소셜 미리보기"
+      "en": "SEO Forge",
+      "ko": "SEO 포지"
     },
     "description": {
-      "en": "The definitive tool to generate and preview SEO meta tags, Open Graph, Twitter Cards, and JSON-LD structured data.",
-      "ko": "SEO 메타 태그, Open Graph, Twitter 카드 및 JSON-LD 구조화된 데이터를 생성하고 미리 볼 수 있는 완벽한 도구입니다."
+      "en": "Analyze and optimize your meta tags.",
+      "ko": "메타 태그를 분석하고 최적화하세요."
     },
-    "category": "Developer Tools",
-    "tags": ["seo", "meta", "opengraph", "jsonld", "preview", "social"],
-    "createdAt": "2025-02-14"
+    "category": "marketing",
+    "tags": ["seo", "meta", "social"],
+    "createdAt": "2024-03-01"
   },
   {
     "id": "pixel-forge",
     "slug": "pixel-forge",
     "title": {
-      "en": "Pixel Forge: Image Optimizer",
-      "ko": "Pixel Forge: 이미지 최적화 도구"
+      "en": "Pixel Forge",
+      "ko": "픽셀 포지"
     },
     "description": {
-      "en": "The definitive tool to compress, resize, and convert images (WebP, JPG, PNG) with professional precision. 100% Client-side.",
-      "ko": "이미지(WebP, JPG, PNG)를 전문적인 정밀도로 압축, 크기 조정 및 변환하는 완벽한 도구입니다. 100% 클라이언트 처리."
+      "en": "Optimize, resize, and convert images locally.",
+      "ko": "이미지를 로컬에서 최적화, 크기 조정 및 변환하세요."
     },
-    "category": "Design",
-    "tags": ["image", "compressor", "converter", "webp", "resize", "tool"],
-    "createdAt": "2025-02-15"
-  },
-  {
-    "id": "deploy-forge",
-    "slug": "deploy-forge",
-    "title": {
-      "en": "Deploy Forge: Container Architect",
-      "ko": "Deploy Forge: 컨테이너 아키텍트"
-    },
-    "description": {
-      "en": "The definitive container configuration architect. Generate production-ready Dockerfiles and Docker Compose files for Node.js, Python, Go, Rust, and more.",
-      "ko": "완벽한 컨테이너 구성 아키텍트입니다. Node.js, Python, Go, Rust 등을 위한 프로덕션 준비 완료 Dockerfile 및 Docker Compose 파일을 생성하세요."
-    },
-    "category": "Developer Tools",
-    "tags": ["docker", "devops", "generator", "compose", "container"],
-    "createdAt": "2025-02-16"
+    "category": "design",
+    "tags": ["image", "optimize", "convert"],
+    "createdAt": "2024-03-10"
   },
   {
     "id": "schema-forge",
     "slug": "schema-forge",
     "title": {
-      "en": "Schema Forge: DB Architect",
-      "ko": "Schema Forge: DB 아키텍트"
+      "en": "Schema Forge",
+      "ko": "스키마 포지"
     },
     "description": {
-      "en": "The definitive tool to design, visualize, and export database schemas. Supports MySQL, Postgres, SQLite, Prisma, and TypeScript.",
-      "ko": "데이터베이스 스키마를 설계, 시각화 및 내보내는 완벽한 도구입니다. MySQL, Postgres, SQLite, Prisma 및 TypeScript를 지원합니다."
+      "en": "Design database schemas and export SQL.",
+      "ko": "데이터베이스 스키마를 설계하고 SQL을 내보내세요."
     },
-    "category": "Developer Tools",
-    "tags": ["database", "sql", "schema", "prisma", "diagram", "mysql", "postgres"],
-    "createdAt": "2025-02-17"
-  },
-  {
-    "id": "icon-forge",
-    "slug": "icon-forge",
-    "title": {
-      "en": "Icon Forge: Favicon & PWA Architect",
-      "ko": "Icon Forge: 파비콘 & PWA 아키텍트"
-    },
-    "description": {
-      "en": "The definitive tool to generate, visualize, and package favicons and PWA assets. Supports ICO, PNG, SVG, and maskable icons.",
-      "ko": "파비콘 및 PWA 자산을 생성, 시각화 및 패키징하는 완벽한 도구입니다. ICO, PNG, SVG 및 마스크 가능한 아이콘을 지원합니다."
-    },
-    "category": "Design",
-    "tags": ["icon", "favicon", "pwa", "generator", "design", "maskable", "logo"],
-    "createdAt": "2025-02-18"
+    "category": "dev",
+    "tags": ["database", "sql", "schema"],
+    "createdAt": "2024-03-15"
   },
   {
     "id": "prompt-forge",
     "slug": "prompt-forge",
     "title": {
-      "en": "Prompt Forge: AI Engineer Studio",
-      "ko": "Prompt Forge: AI 엔지니어 스튜디오"
+      "en": "Prompt Forge",
+      "ko": "프롬프트 포지"
     },
     "description": {
-      "en": "The definitive tool to engineer, test, and manage AI prompts. Features variable extraction, token estimation, and template history.",
-      "ko": "AI 프롬프트를 엔지니어링, 테스트 및 관리하는 완벽한 도구입니다. 변수 추출, 토큰 추정 및 템플릿 히스토리를 제공합니다."
+      "en": "Craft and manage AI prompts effectively.",
+      "ko": "AI 프롬프트를 효과적으로 작성하고 관리하세요."
     },
-    "category": "Developer Tools",
-    "tags": ["ai", "prompt", "llm", "engineer", "generator", "gpt", "tools"],
-    "createdAt": "2025-02-19"
+    "category": "ai",
+    "tags": ["prompt", "ai", "gpt"],
+    "createdAt": "2024-03-20"
+  },
+  {
+    "id": "icon-forge",
+    "slug": "icon-forge",
+    "title": {
+      "en": "Icon Forge",
+      "ko": "아이콘 포지"
+    },
+    "description": {
+      "en": "Generate app icons and favicons.",
+      "ko": "앱 아이콘과 파비콘을 생성하세요."
+    },
+    "category": "design",
+    "tags": ["icon", "favicon", "generator"],
+    "createdAt": "2024-04-01"
+  },
+  {
+    "id": "input-lab",
+    "slug": "input-lab",
+    "title": {
+      "en": "Input Lab",
+      "ko": "인풋 랩"
+    },
+    "description": {
+      "en": "Test keyboards, mice, and gamepads.",
+      "ko": "키보드, 마우스, 게임패드를 테스트하세요."
+    },
+    "category": "util",
+    "tags": ["input", "test", "gamepad"],
+    "createdAt": "2024-04-10"
   }
 ]
