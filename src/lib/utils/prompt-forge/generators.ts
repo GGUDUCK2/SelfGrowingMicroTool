@@ -1,4 +1,4 @@
-import type { PromptExport } from './parser';
+import type { PromptExport, TestSuiteExport } from './parser';
 
 export function generateCurl(data: PromptExport): string {
     const escapedMessages = JSON.stringify(data.messages).replace(/'/g, "'\\''");
@@ -55,4 +55,45 @@ template = ChatPromptTemplate.from_messages([
 
 prompt_value = template.invoke({})
 # chain.invoke(prompt_value)`;
+}
+
+export function generateTestSuiteJson(data: TestSuiteExport): string {
+    return JSON.stringify(data, null, 2);
+}
+
+export function generateTestSuitePython(data: TestSuiteExport): string {
+    return `import openai
+import json
+
+client = openai.OpenAI(api_key="YOUR_API_KEY")
+
+SYSTEM_TEMPLATE = """${data.template.system.replace(/"""/g, '\\"\\"\\"')}"""
+USER_TEMPLATE = """${data.template.user.replace(/"""/g, '\\"\\"\\"')}"""
+
+test_cases = ${JSON.stringify(data.cases, null, 4)}
+
+def compile_prompt(template, variables):
+    res = template
+    for key, val in variables.items():
+        res = res.replace(f"{{{{{key}}}}}", str(val))
+    return res
+
+for case in test_cases:
+    print(f"Running Case: {case['name']}")
+
+    sys_prompt = compile_prompt(SYSTEM_TEMPLATE, case['variables'])
+    user_prompt = compile_prompt(USER_TEMPLATE, case['variables'])
+
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": sys_prompt},
+            {"role": "user", "content": user_prompt}
+        ],
+        temperature=0.7
+    )
+
+    print(f"Response: {response.choices[0].message.content}")
+    print("-" * 40)
+`;
 }

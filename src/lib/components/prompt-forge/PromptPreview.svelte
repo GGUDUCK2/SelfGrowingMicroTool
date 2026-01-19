@@ -3,7 +3,7 @@
 
   export let compiledSystem: string = "";
   export let compiledUser: string = "";
-  export let dict: any;
+  export let dict: Record<string, any>;
 
   let copiedSystem = false;
   let copiedUser = false;
@@ -29,6 +29,7 @@
         <button
             on:click={() => copy(compiledSystem, 'system')}
             class="text-xs px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors {copiedSystem ? 'text-green-500' : 'text-slate-500'}"
+            aria-label={copiedSystem ? dict.toolbar.copied : dict.toolbar.copy}
         >
             {copiedSystem ? dict.toolbar.copied : dict.toolbar.copy}
         </button>
@@ -46,6 +47,7 @@
         <button
             on:click={() => copy(compiledUser, 'user')}
             class="text-xs px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors {copiedUser ? 'text-green-500' : 'text-slate-500'}"
+            aria-label={copiedUser ? dict.toolbar.copied : dict.toolbar.copy}
         >
             {copiedUser ? dict.toolbar.copied : dict.toolbar.copy}
         </button>

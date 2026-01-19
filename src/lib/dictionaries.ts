@@ -1417,6 +1417,7 @@ export const dictionaries = {
           delete: "Delete"
         },
         magicFill: "Magic Fill",
+        templates: "Templates",
         scenarios: "Scenarios",
         exportCode: "Export Code",
         addScenario: "Add Scenario",
@@ -1851,6 +1852,7 @@ export const dictionaries = {
           delete: "삭제"
         },
         magicFill: "자동 채우기",
+        templates: "템플릿",
         scenarios: "시나리오",
         exportCode: "코드 내보내기",
         addScenario: "시나리오 추가",
