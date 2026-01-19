@@ -26,6 +26,6 @@
   });
 </script>
 
-<div class="relative w-full h-full min-h-[400px] border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-[#2d2d2d] shadow-sm">
+<div class="relative w-full h-full min-h-[400px] border border-slate-600 rounded-lg overflow-hidden bg-slate-900 shadow-sm">
   <pre class="!m-0 !p-4 !bg-transparent h-full overflow-auto text-sm"><code bind:this={codeElement} class="language-{language}">{content}</code></pre>
 </div>

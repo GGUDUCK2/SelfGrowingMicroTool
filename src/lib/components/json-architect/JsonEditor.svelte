@@ -4,6 +4,7 @@
   export let value: string = '';
   export let placeholder: string = '';
   export let readonly: boolean = false;
+  export let id: string = '';
 
   let textarea: HTMLTextAreaElement;
 
@@ -26,16 +27,17 @@
   }
 </script>
 
-<div class="relative w-full h-full min-h-[400px] border border-slate-200 dark:border-slate-600 rounded-lg overflow-hidden flex flex-col bg-white dark:bg-slate-700 shadow-sm focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20 transition-all">
+<div class="relative w-full h-full min-h-[400px] border border-slate-600 rounded-lg overflow-hidden flex flex-col bg-slate-700 shadow-sm focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20 transition-all">
   <div class="flex-1 relative">
       <textarea
+        {id}
         bind:this={textarea}
         {value}
         on:input={handleInput}
         on:keydown={handleKeydown}
         {placeholder}
         {readonly}
-        class="w-full h-full p-4 font-mono text-sm bg-transparent border-none resize-none focus:ring-0 focus:outline-none text-slate-900 dark:text-slate-50 placeholder:text-slate-400"
+        class="w-full h-full p-4 font-mono text-sm bg-transparent border-none resize-none focus:ring-0 focus:outline-none text-slate-50 placeholder:text-slate-400"
         spellcheck="false"
       ></textarea>
   </div>

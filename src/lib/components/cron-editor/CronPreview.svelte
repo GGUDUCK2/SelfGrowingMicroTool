@@ -26,7 +26,7 @@
           on:input={handleInput}
           placeholder="0 0 * * * (매일 자정)"
           aria-label="Cron 표현식 입력"
-          class="w-full text-2xl font-mono font-bold bg-slate-700 text-slate-50 border border-slate-600 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all placeholder:text-slate-500"
+          class="w-full text-2xl font-mono font-bold bg-slate-700 text-slate-50 border border-slate-600 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all placeholder:text-slate-400"
           spellcheck="false"
         />
       </div>

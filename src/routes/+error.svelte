@@ -11,7 +11,7 @@
         </svg>
     </div>
     <h1 class="text-4xl font-bold mb-2">Page Not Found</h1>
-    <h2 class="text-2xl font-bold mb-4 text-slate-400">페이지를 찾을 수 없습니다</h2>
+    <h2 class="text-2xl font-bold mb-4 text-slate-50">페이지를 찾을 수 없습니다</h2>
 
     <p class="text-slate-400 mb-8 text-lg">
       The page you are looking for might have been removed or is temporarily unavailable.<br>
