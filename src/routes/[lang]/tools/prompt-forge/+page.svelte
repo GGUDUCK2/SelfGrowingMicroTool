@@ -54,6 +54,10 @@
               e.preventDefault();
               showCodeExport = true;
           }
+          if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+              e.preventDefault();
+              handleClear();
+          }
       };
       window.addEventListener('keydown', handleKeydown);
       return () => window.removeEventListener('keydown', handleKeydown);

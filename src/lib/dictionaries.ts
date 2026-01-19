@@ -1436,6 +1436,12 @@ export const dictionaries = {
           tip2: "The **Preview** pane is editable! Tweaking the final output won't affect your template.",
           tip3: "Export to **JSON** to get a format ready for the OpenAI API."
         },
+        preview: {
+          mode: "View Mode",
+          raw: "Raw Text",
+          chat: "Chat Simulation",
+          chatPlaceholder: "Type a user message to simulate a conversation..."
+        },
         faqTitle: "Prompt Forge FAQ",
         q1: "How are tokens calculated?",
         a1: "We use a heuristic (approx. 4 chars per token) which is accurate enough for estimation. For exact counts, use the official OpenAI tokenizer.",
@@ -1870,6 +1876,12 @@ export const dictionaries = {
           tip1: "가독성을 위해 `{{product_name}}`과 같이 snake_case 변수를 사용하세요.",
           tip2: "**미리보기** 창은 편집 가능합니다! 최종 출력을 수정해도 템플릿에는 영향을 미치지 않습니다.",
           tip3: "**JSON**으로 내보내어 OpenAI API에 즉시 사용할 수 있는 형식을 얻으세요."
+        },
+        preview: {
+          mode: "보기 모드",
+          raw: "원본 텍스트",
+          chat: "채팅 시뮬레이션",
+          chatPlaceholder: "대화를 시뮬레이션하려면 메시지를 입력하세요..."
         },
         faqTitle: "Prompt Forge FAQ",
         q1: "토큰은 어떻게 계산되나요?",

@@ -2,10 +2,11 @@
   import { slide } from 'svelte/transition';
   import { Sparkles, Plus, Trash2, Layers } from 'lucide-svelte';
   import { autoFillVariables } from '$lib/utils/prompt-forge/magic';
+  import type { PromptForgeDictionary } from '$lib/types/prompt-forge';
 
   export let variables: string[] = [];
   export let values: Record<string, string> = {};
-  export let dict: Record<string, any>;
+  export let dict: PromptForgeDictionary;
 
   // Scenario Management
   export let scenarios: Record<string, Record<string, string>> = { 'default': {} };
@@ -57,6 +58,16 @@
       });
   }
 
+  function clearAllVariables() {
+      if(confirm("Clear all variable values?")) {
+           // We reassign values to a new object to trigger Svelte reactivity
+           const newValues = { ...values };
+           variables.forEach(v => newValues[v] = "");
+           values = newValues;
+           scenarios[activeScenarioId] = values;
+      }
+  }
+
   // Reactively ensure all variables exist in values object
   $: {
     variables.forEach(v => {
@@ -71,7 +82,7 @@
   }
 </script>
 
-<div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col h-full">
+<div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col h-full shadow-sm">
   <div class="p-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 space-y-3">
 
     <div class="flex justify-between items-center">
@@ -79,16 +90,27 @@
             <Layers class="w-4 h-4 text-indigo-500" />
             {dict.editor.variables}
         </h3>
-        <span class="text-xs text-slate-500 px-2 py-1 bg-slate-200 dark:bg-slate-700 rounded-full font-mono">
-        {variables.length}
-        </span>
+        <div class="flex items-center gap-2">
+             {#if variables.length > 0}
+                <button
+                    on:click={clearAllVariables}
+                    class="ml-auto text-[10px] text-slate-400 hover:text-red-500 transition-colors uppercase font-bold tracking-wider"
+                    aria-label="Clear All Variables"
+                >
+                    Clear
+                </button>
+             {/if}
+            <span class="text-xs text-slate-500 px-2 py-1 bg-slate-200 dark:bg-slate-700 rounded-full font-mono">
+            {variables.length}
+            </span>
+        </div>
     </div>
 
     <!-- Scenarios Toolbar -->
     <div class="flex gap-2">
         <div class="relative flex-1">
             <select
-                class="w-full h-9 pl-3 pr-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium focus:ring-2 focus:ring-indigo-500 outline-none appearance-none"
+                class="w-full h-9 pl-3 pr-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium focus:ring-2 focus:ring-indigo-500 outline-none appearance-none cursor-pointer"
                 value={activeScenarioId}
                 on:change={handleScenarioChange}
                 aria-label={dict.scenarios || 'Scenarios'}
@@ -114,7 +136,8 @@
     {#if variables.length > 0}
         <button
             on:click={handleMagicFill}
-            class="w-full flex items-center justify-center gap-2 py-2 bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 text-xs font-medium rounded-lg transition-colors group"
+            class="w-full flex items-center justify-center gap-2 py-2 bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 text-xs font-medium rounded-lg transition-colors group border border-indigo-100 dark:border-indigo-900/30"
+            aria-label={dict.magicFill || "Magic Fill"}
         >
             <Sparkles class="w-3.5 h-3.5 group-hover:animate-pulse" />
             {dict.magicFill || 'Magic Fill'}
@@ -139,7 +162,7 @@
             id="var-{variable}"
             type="text"
             bind:value={values[variable]}
-            class="w-full h-10 px-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
+            class="w-full h-10 px-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all placeholder-slate-400"
             placeholder="Value for {variable}..."
           />
         </div>
