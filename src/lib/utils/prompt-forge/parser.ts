@@ -57,3 +57,24 @@ export function generateExport(system: string, user: string, variables: Record<s
         temperature: 0.7
     };
 }
+
+export interface TestSuiteExport {
+    template: {
+        system: string;
+        user: string;
+    };
+    cases: Array<{
+        name: string;
+        variables: Record<string, string>;
+    }>;
+}
+
+export function generateTestSuite(system: string, user: string, scenarios: Record<string, Record<string, string>>): TestSuiteExport {
+    return {
+        template: { system, user },
+        cases: Object.entries(scenarios).map(([name, vars]) => ({
+            name,
+            variables: vars
+        }))
+    };
+}

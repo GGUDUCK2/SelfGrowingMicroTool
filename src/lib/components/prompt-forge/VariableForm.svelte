@@ -5,7 +5,7 @@
 
   export let variables: string[] = [];
   export let values: Record<string, string> = {};
-  export let dict: any;
+  export let dict: Record<string, any>;
 
   // Scenario Management
   export let scenarios: Record<string, Record<string, string>> = { 'default': {} };
@@ -93,7 +93,7 @@
                 on:change={handleScenarioChange}
                 aria-label={dict.scenarios || 'Scenarios'}
             >
-                {#each Object.keys(scenarios) as id}
+                {#each Object.keys(scenarios) as id (id)}
                     <option value={id}>{id === 'default' ? (dict.defaultScenario || 'Default Case') : id}</option>
                 {/each}
             </select>

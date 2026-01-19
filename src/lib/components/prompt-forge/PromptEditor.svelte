@@ -1,12 +1,7 @@
 <script lang="ts">
   export let systemPrompt: string = "";
   export let userPrompt: string = "";
-  export let dict: any;
-
-  function handleInput(e: Event) {
-    const target = e.target as HTMLTextAreaElement;
-    // Auto-resize logic could go here if needed, but flex layout is usually better
-  }
+  export let dict: Record<string, any>;
 </script>
 
 <div class="flex flex-col h-full gap-4">

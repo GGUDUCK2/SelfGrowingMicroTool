@@ -1,9 +1,9 @@
 <script lang="ts">
   import { liveQuery } from 'dexie';
   import { db, type PromptForgeHistory } from '$lib/db';
-  import { slide, fade } from 'svelte/transition';
+  import { slide } from 'svelte/transition';
 
-  export let dict: any;
+  export let dict: Record<string, any>;
   export let onLoad: (item: PromptForgeHistory) => void;
 
   let searchTerm = "";
@@ -20,7 +20,8 @@
     return items;
   });
 
-  async function deleteItem(id: number) {
+  async function deleteItem(id: number | undefined) {
+    if (!id) return;
     if (confirm('Are you sure you want to delete this prompt?')) {
         await db.promptForgeHistory.delete(id);
     }
@@ -76,8 +77,9 @@
 
                 <button
                     class="absolute top-2 right-2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
-                    on:click|stopPropagation={() => deleteItem(item.id!)}
+                    on:click|stopPropagation={() => deleteItem(item.id)}
                     title={dict.history.delete}
+                    aria-label={dict.history.delete}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                 </button>

@@ -3,15 +3,17 @@
   import { getDictionary } from '$lib/dictionaries';
   import { onMount } from 'svelte';
   import { db, type PromptForgeHistory } from '$lib/db';
-  import { extractVariables, compilePrompt, generateExport } from '$lib/utils/prompt-forge/parser';
+  import { extractVariables, compilePrompt, generateExport, generateTestSuite } from '$lib/utils/prompt-forge/parser';
   import { estimateTokens, estimateCost } from '$lib/utils/prompt-forge/tokenizer';
+  import { type PromptTemplate } from '$lib/utils/prompt-forge/templates';
 
   import PromptEditor from '$lib/components/prompt-forge/PromptEditor.svelte';
   import VariableForm from '$lib/components/prompt-forge/VariableForm.svelte';
   import PromptPreview from '$lib/components/prompt-forge/PromptPreview.svelte';
   import HistorySidebar from '$lib/components/prompt-forge/HistorySidebar.svelte';
   import CodeExport from '$lib/components/prompt-forge/CodeExport.svelte';
-  import { Menu, X, Save, Copy, Trash2, Download, Code } from 'lucide-svelte';
+  import TemplateModal from '$lib/components/prompt-forge/TemplateModal.svelte';
+  import { Menu, X, Save, Copy, Trash2, Download, Code, BookTemplate } from 'lucide-svelte';
 
   // Locale
   $: lang = $page.params.lang || 'en';
@@ -29,6 +31,7 @@
 
   let showSidebar = false;
   let showCodeExport = false;
+  let showTemplateModal = false;
   let notification: string | null = null;
 
   // Derived
@@ -69,7 +72,7 @@
     let title = userPrompt.split('\n')[0].slice(0, 50) || 'Untitled Prompt';
     if (title.length === 50) title += '...';
 
-    const name = prompt("Enter a name for this prompt:", title);
+    const name = prompt(dict.scenarioName || "Enter a name for this prompt:", title);
     if (!name) return;
 
     // Create payload (store system & user prompt as JSON in template field)
@@ -116,10 +119,6 @@
       if (item.scenarios) {
           scenarios = item.scenarios;
           activeScenarioId = 'default';
-          // Ensure values match scenario default?
-          // item.variables should be the values at save time.
-          // If scenarios['default'] exists, it might be same as variables.
-          // Let's trust item.variables as the active state.
       } else {
           // Reset scenarios if loading legacy item
           scenarios = { 'default': { ...values } };
@@ -149,6 +148,16 @@
       a.download = `prompt-forge-${Date.now()}.json`;
       a.click();
       URL.revokeObjectURL(url);
+  }
+
+  function handleTemplateSelect(t: PromptTemplate) {
+      systemPrompt = t.system;
+      userPrompt = t.user;
+      values = { ...t.variables };
+      scenarios = { 'default': { ...t.variables } };
+      activeScenarioId = 'default';
+      showTemplateModal = false;
+      showNotification('Template loaded!');
   }
 </script>
 
@@ -187,7 +196,9 @@
         "Dynamic Variable Extraction",
         "Multi-Scenario Testing",
         "Token Cost Estimation",
-        "Code Export (cURL, Python, Node.js)"
+        "Code Export (cURL, Python, Node.js)",
+        "Template Library",
+        "Test Suite Generation (JSON/Python)"
       ]
     }
   </script>`}
@@ -241,6 +252,9 @@
 
              <button on:click={handleClear} class="p-2 text-slate-500 hover:text-red-500 transition-colors" title={dict.toolbar.clear} aria-label={dict.toolbar.clear}>
                  <Trash2 class="w-5 h-5" />
+             </button>
+             <button on:click={() => showTemplateModal = true} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors" title="Templates" aria-label="Templates">
+                 <BookTemplate class="w-5 h-5" />
              </button>
              <button on:click={handleExport} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors" title={dict.toolbar.export} aria-label={dict.toolbar.export}>
                  <Download class="w-5 h-5" />
@@ -337,7 +351,16 @@
   {#if showCodeExport}
      <CodeExport
         data={generateExport(systemPrompt, userPrompt, values)}
+        testSuite={generateTestSuite(systemPrompt, userPrompt, scenarios)}
         onClose={() => showCodeExport = false}
+     />
+  {/if}
+
+  <!-- Template Modal -->
+  {#if showTemplateModal}
+     <TemplateModal
+        onSelect={handleTemplateSelect}
+        onClose={() => showTemplateModal = false}
      />
   {/if}
 </div>
