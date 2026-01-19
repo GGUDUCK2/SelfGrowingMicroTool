@@ -1443,7 +1443,91 @@ export const dictionaries = {
         q3: "Can I use this for Claude/Gemini?",
         a3: "Absolutely. The text generation is universal. You can copy the result to any LLM interface."
       },
-      // ...
+      inputLab: {
+        title: "Input Lab: Device & Event Master",
+        description: "The definitive suite to test, debug, and analyze Keyboards, Gamepads, Pointers, and Touch inputs.",
+        tabs: {
+          keyboard: "Keyboard",
+          gamepad: "Gamepad",
+          pointer: "Pointer / Touch",
+          screen: "Screen & Device",
+          history: "Event Log"
+        },
+        keyboard: {
+          pressAnyKey: "Press any key to start testing...",
+          lastPress: "Last Press",
+          code: "Code",
+          key: "Key",
+          which: "Which",
+          location: "Location",
+          modifiers: "Modifiers",
+          ghosting: "Ghosting Check",
+          activeKeys: "Active Keys",
+          latency: "Est. Latency",
+          reset: "Reset"
+        },
+        gamepad: {
+          connect: "Connect a gamepad and press any button.",
+          noGamepad: "No gamepad detected.",
+          axes: "Axes",
+          buttons: "Buttons",
+          vibration: "Test Vibration",
+          index: "Index",
+          id: "ID"
+        },
+        pointer: {
+          draw: "Draw here to test pressure and tilt...",
+          pressure: "Pressure",
+          tiltX: "Tilt X",
+          tiltY: "Tilt Y",
+          type: "Type",
+          buttons: "Buttons",
+          width: "Width",
+          height: "Height",
+          clear: "Clear Canvas"
+        },
+        screen: {
+          info: "Device Information",
+          resolution: "Screen Resolution",
+          viewport: "Viewport Size",
+          pixelRatio: "Device Pixel Ratio",
+          colorDepth: "Color Depth",
+          orientation: "Orientation",
+          userAgent: "User Agent",
+          language: "Language",
+          online: "Online Status",
+          cores: "Logical Cores",
+          memory: "Device Memory (GB)"
+        },
+        history: {
+          clear: "Clear Log",
+          export: "Export JSON",
+          filter: "Filter Events",
+          noEvents: "No events captured yet.",
+          time: "Time",
+          type: "Type",
+          detail: "Detail"
+        },
+        guide: {
+          title: "Why Input Lab?",
+          intro: "Input Lab is an essential utility for gamers, developers, and hardware enthusiasts. It provides a granular look at how your browser interprets inputs from various devices.",
+          featuresTitle: "Key Features",
+          f1: "**Ghosting Test:** Visualize simultaneous key presses to check for N-Key Rollover limitations.",
+          f2: "**Gamepad API:** Debug controllers with real-time visualization of axes and buttons.",
+          f3: "**Pointer Precision:** Analyze stylus pressure and tilt for digital art applications.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use the **Ghosting Check** to see if your keyboard supports 'N-Key Rollover' (NKRO).",
+          tip2: "Connect your controller via Bluetooth or USB to test the **Gamepad API**.",
+          tip3: "Check **Device Pixel Ratio** to understand how your screen scales high-resolution content."
+        },
+        faqTitle: "Input Lab FAQ",
+        q1: "Is my keystroke data sent to a server?",
+        a1: "No. Input Lab runs 100% locally in your browser. No keylogs or input data are ever transmitted.",
+        q2: "Why doesn't my gamepad show up?",
+        a2: "Browsers require a user interaction (pressing a button) before the Gamepad API reveals the device for privacy reasons.",
+        q3: "What is 'Ghosting'?",
+        a3: "Ghosting occurs when a keyboard cannot register valid key combinations when multiple keys are pressed simultaneously."
+      }
     },
     // ...
   },
@@ -1793,9 +1877,92 @@ export const dictionaries = {
         q3: "Claude나 Gemini에도 사용할 수 있나요?",
         a3: "물론입니다. 텍스트 생성은 보편적입니다. 결과를 복사하여 모든 LLM 인터페이스에 붙여넣을 수 있습니다."
       },
-      // ...
-    },
-    // ...
+      inputLab: {
+        title: "Input Lab: 입력 장치 마스터",
+        description: "키보드, 게임패드, 포인터, 터치 입력을 테스트, 디버그 및 분석하는 완벽한 도구입니다.",
+        tabs: {
+          keyboard: "키보드",
+          gamepad: "게임패드",
+          pointer: "포인터 / 터치",
+          screen: "화면 & 기기",
+          history: "이벤트 로그"
+        },
+        keyboard: {
+          pressAnyKey: "키를 눌러 테스트를 시작하세요...",
+          lastPress: "마지막 입력",
+          code: "코드 (Code)",
+          key: "키 (Key)",
+          which: "값 (Which)",
+          location: "위치",
+          modifiers: "조합키",
+          ghosting: "고스팅 체크",
+          activeKeys: "활성 키",
+          latency: "예상 지연시간",
+          reset: "초기화"
+        },
+        gamepad: {
+          connect: "게임패드를 연결하고 버튼을 누르세요.",
+          noGamepad: "게임패드가 감지되지 않았습니다.",
+          axes: "축 (Axes)",
+          buttons: "버튼",
+          vibration: "진동 테스트",
+          index: "인덱스",
+          id: "ID"
+        },
+        pointer: {
+          draw: "압력과 기울기를 테스트하려면 이곳에 그리세요...",
+          pressure: "압력",
+          tiltX: "기울기 X",
+          tiltY: "기울기 Y",
+          type: "타입",
+          buttons: "버튼",
+          width: "너비",
+          height: "높이",
+          clear: "캔버스 초기화"
+        },
+        screen: {
+          info: "기기 정보",
+          resolution: "화면 해상도",
+          viewport: "뷰포트 크기",
+          pixelRatio: "픽셀 비율 (DPR)",
+          colorDepth: "색상 깊이",
+          orientation: "화면 방향",
+          userAgent: "유저 에이전트",
+          language: "언어",
+          online: "온라인 상태",
+          cores: "논리 코어 수",
+          memory: "기기 메모리 (GB)"
+        },
+        history: {
+          clear: "로그 지우기",
+          export: "JSON 내보내기",
+          filter: "이벤트 필터",
+          noEvents: "아직 캡처된 이벤트가 없습니다.",
+          time: "시간",
+          type: "타입",
+          detail: "상세"
+        },
+        guide: {
+          title: "왜 Input Lab인가요?",
+          intro: "Input Lab은 게이머, 개발자, 하드웨어 애호가를 위한 필수 유틸리티입니다. 브라우저가 다양한 장치의 입력을 어떻게 해석하는지 세밀하게 보여줍니다.",
+          featuresTitle: "주요 기능",
+          f1: "**고스팅 테스트:** 동시 입력을 시각화하여 키보드의 N-Key 롤오버 제한을 확인합니다.",
+          f2: "**게임패드 API:** 축과 버튼을 실시간으로 시각화하여 컨트롤러를 디버깅합니다.",
+          f3: "**포인터 정밀도:** 디지털 아트를 위한 스타일러스 압력과 기울기를 분석합니다.",
+          tipsTitle: "전문가 팁",
+          tip1: "**고스팅 체크**를 사용하여 키보드가 '무한 동시 입력'(NKRO)을 지원하는지 확인하세요.",
+          tip2: "블루투스나 USB로 컨트롤러를 연결하여 **게임패드 API**를 테스트하세요.",
+          tip3: "**픽셀 비율**을 확인하여 고해상도 콘텐츠가 화면에서 어떻게 스케일링되는지 이해하세요."
+        },
+        faqTitle: "Input Lab FAQ",
+        q1: "내 키 입력 데이터가 서버로 전송되나요?",
+        a1: "아니요. Input Lab은 브라우저에서 100% 로컬로 실행됩니다. 키로그나 입력 데이터는 절대 전송되지 않습니다.",
+        q2: "게임패드가 왜 나타나지 않나요?",
+        a2: "브라우저는 개인정보 보호를 위해 사용자가 버튼을 누르는 상호작용이 있을 때만 게임패드 API를 통해 장치를 노출합니다.",
+        q3: "고스팅이란 무엇인가요?",
+        a3: "고스팅은 여러 키를 동시에 눌렀을 때 키보드 하드웨어의 한계로 인해 특정 키 입력을 인식하지 못하는 현상입니다."
+      }
+    }
   }
 } as const;
 

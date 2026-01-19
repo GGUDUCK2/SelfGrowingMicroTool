@@ -2,56 +2,41 @@
 > web-factory-svelte@0.0.1 dev
 > vite dev
 
-8:07:03 AM [vite] (client) Forced re-optimization of dependencies
+▲ [WARNING] Cannot find base config file "./.svelte-kit/tsconfig.json" [tsconfig.json]
 
-  VITE v6.4.1  ready in 1486 ms
+    tsconfig.json:2:15:
+      2 │     "extends": "./.svelte-kit/tsconfig.json",
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+4:29:00 AM [vite] (client) Forced re-optimization of dependencies
+
+  VITE v6.4.1  ready in 2078 ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
-
-[1;31m[500] GET /en/tools/pixel-forge[0m
-TypeError: Cannot read properties of undefined (reading 'title')
-    at /app/src/routes/[lang]/tools/pixel-forge/+page.svelte:11:30
-    at Renderer.child (node_modules/svelte/src/internal/server/renderer.js:185:18)
-    at Renderer.component (node_modules/svelte/src/internal/server/renderer.js:210:22)
-    at _page (src/routes/[lang]/tools/pixel-forge/+page.svelte:14:13)
-    at eval (.svelte-kit/generated/root.svelte:112:11)
-    at Module.slot (node_modules/svelte/src/internal/server/index.js:326:3)
-    at eval (src/routes/[lang]/+layout.svelte:111:26)
-    at Renderer.child (node_modules/svelte/src/internal/server/renderer.js:185:18)
-    at Renderer.component (node_modules/svelte/src/internal/server/renderer.js:210:22)
-    at _layout (src/routes/[lang]/+layout.svelte:10:13)
+4:30:40 AM [vite-plugin-svelte] src/lib/components/input-lab/HistoryPanel.svelte:7:13 Component has unused export property 'dict'. If it is for external reference only, please consider using `export const dict`
+https://svelte.dev/e/export_let_unused
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
-8:08:58 AM [vite] (client) page reload src/routes/[lang]/tools/pixel-forge/+page.svelte
-8:08:58 AM [vite] (ssr) page reload src/routes/[lang]/tools/pixel-forge/+page.svelte
-8:09:30 AM [vite] (client) page reload src/lib/components/pixel-forge/Workspace.svelte
-8:09:30 AM [vite] (ssr) page reload src/lib/components/pixel-forge/Workspace.svelte
-8:09:54 AM [vite] (client) page reload src/lib/components/pixel-forge/ImageCard.svelte
-8:09:54 AM [vite] (ssr) page reload src/lib/components/pixel-forge/ImageCard.svelte
-8:10:04 AM [vite] (client) page reload src/lib/components/pixel-forge/DropZone.svelte
-8:10:04 AM [vite] (ssr) page reload src/lib/components/pixel-forge/DropZone.svelte
-8:10:16 AM [vite] (client) page reload src/lib/components/pixel-forge/DropZone.svelte
-8:10:16 AM [vite] (ssr) page reload src/lib/components/pixel-forge/DropZone.svelte
-8:10:26 AM [vite] (client) page reload src/lib/components/pixel-forge/HistoryList.svelte
-8:10:26 AM [vite] (ssr) page reload src/lib/components/pixel-forge/HistoryList.svelte
-
-[1;31m[500] GET /en/tools/pixel-forge[0m
-Error: marked(): input parameter is undefined or null
-Please report this to https://github.com/markedjs/marked.
-    at B.parse (file:/app/node_modules/marked/lib/marked.esm.js:70:7295)
-    at Function.d [as parse] (file:/app/node_modules/marked/lib/marked.esm.js:71:238)
-    at renderMarkdown (src/routes/[lang]/tools/pixel-forge/+page.svelte:38:51)
-    at /app/src/routes/[lang]/tools/pixel-forge/+page.svelte:91:20
-    at Renderer.child (node_modules/svelte/src/internal/server/renderer.js:185:18)
-    at Renderer.component (node_modules/svelte/src/internal/server/renderer.js:210:22)
-    at _page (src/routes/[lang]/tools/pixel-forge/+page.svelte:14:13)
-    at eval (.svelte-kit/generated/root.svelte:112:11)
-    at Module.slot (node_modules/svelte/src/internal/server/index.js:326:3)
-    at eval (src/routes/[lang]/+layout.svelte:111:26)
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-8:11:11 AM [vite] (client) page reload src/routes/[lang]/tools/pixel-forge/+page.svelte
-8:11:11 AM [vite] (ssr) page reload src/routes/[lang]/tools/pixel-forge/+page.svelte
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
+4:30:43 AM [vite-plugin-svelte] src/lib/components/input-lab/HistoryPanel.svelte:7:13 Component has unused export property 'dict'. If it is for external reference only, please consider using `export const dict`
+https://svelte.dev/e/export_let_unused
+4:31:07 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+4:31:07 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+4:31:07 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/2.js
+4:31:07 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/17.js
+4:31:07 AM [vite] (client) page reload .svelte-kit/generated/client/app.js
+4:31:07 AM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+4:31:07 AM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+4:31:07 AM [vite] (client) page reload .svelte-kit/generated/root.js
+4:31:07 AM [vite] (ssr) page reload .svelte-kit/generated/root.js
+4:33:03 AM [vite] (client) hmr update /src/lib/components/input-lab/HistoryPanel.svelte, /src/app.css
+4:33:03 AM [vite] (ssr) page reload src/lib/components/input-lab/HistoryPanel.svelte
+4:33:10 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+4:33:10 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+4:33:10 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/2.js
+4:33:10 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/17.js
+4:33:10 AM [vite] (client) page reload .svelte-kit/generated/client/app.js
+4:33:10 AM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+4:33:10 AM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+4:33:10 AM [vite] (client) page reload .svelte-kit/generated/root.js
+4:33:10 AM [vite] (ssr) page reload .svelte-kit/generated/root.js
