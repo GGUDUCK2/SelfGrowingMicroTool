@@ -204,7 +204,7 @@
                 <span class="text-xs text-green-600 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded">{t.validJson}</span>
              {/if}
           </div>
-          <JsonEditor bind:value={input} placeholder={t.input} />
+          <JsonEditor id="json-input" bind:value={input} placeholder={t.input} />
       </div>
 
       <!-- Divider -->
