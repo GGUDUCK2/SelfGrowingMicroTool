@@ -999,6 +999,11 @@ export const dictionaries = {
         // formula: "Formula", // Key removed to avoid duplicate
         calculation: "Calculation",
         howItWorks: "How it works",
+        promoTitle: "Did you know?",
+        promoText: "Need to calculate compound interest for your investments? Check out our Financial Calculator.",
+        promoAction: "Try Calculator",
+        keywords: "unit converter, length converter, weight converter, scientific calculator, formula, physics, engineering, digital storage",
+        featureList: "Length conversion, Mass conversion, Temperature conversion with formula display, Data storage conversion, Energy conversion, Speed conversion",
         // result: "Result", // Key removed to avoid duplicate
         guide: {
           title: "Why Unit Verse?",
