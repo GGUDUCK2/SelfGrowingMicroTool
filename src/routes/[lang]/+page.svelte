@@ -15,6 +15,25 @@
 <svelte:head>
   <title>{dict.home.title}</title>
   <meta name="description" content={dict.home.description} />
+  <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={dict.home.title} />
+  <meta property="og:description" content={dict.home.description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}" />
+  <meta property="og:site_name" content="MicroFactory" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "{dict.home.title}",
+      "url": "https://selfgrowingmicrotool.com/{lang}",
+      "description": "{dict.home.description}"
+    }
+  </script>
 </svelte:head>
 
 <div class="space-y-12">

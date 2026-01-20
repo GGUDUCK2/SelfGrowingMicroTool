@@ -167,11 +167,19 @@
 <svelte:head>
   <title>{t.title} - MicroFactory</title>
   <meta name="description" content={t.description} />
+  <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}/tools/json-architect" />
+
+  <meta property="og:title" content="{t.title} - MicroFactory" />
+  <meta property="og:description" content={t.description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}/tools/json-architect" />
+
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "JSON Architect",
+      "name": "{t.title}",
+      "description": "{t.description}",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Web",
       "offers": {
@@ -197,7 +205,7 @@
       <!-- Input Column -->
       <div class="flex-1 flex flex-col gap-2">
           <div class="flex justify-between items-center">
-             <label for="json-input" class="text-sm font-semibold text-slate-300">입력 JSON</label>
+             <label for="json-input" class="text-sm font-semibold text-slate-300">{t.input}</label>
              {#if error}
                 <span class="text-xs text-red-600 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded">{error}</span>
              {:else if parsedData}
@@ -214,7 +222,7 @@
       <div class="flex-1 flex flex-col gap-2">
           <div class="flex justify-between items-center">
              <label for="json-output" class="text-sm font-semibold text-slate-300">
-                포맷된 결과
+                {t.output}
                 {#if mode !== 'json'}
                   <span class="ml-2 px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-xs text-slate-500">{mode.toUpperCase()}</span>
                 {/if}
@@ -269,12 +277,11 @@
   </section>
 
   <section class="mt-12 mb-8">
-     <!-- Related Tools (Simple Placeholder or Dynamic) -->
      <h3 class="text-lg font-bold mb-4 text-slate-900 dark:text-slate-100">Related Tools</h3>
      <div class="flex gap-4">
-         <a href="/{lang}/tools/glassmorphism-generator" class="text-indigo-600 dark:text-indigo-400 hover:underline">Glassmorphism Generator</a>
+         <a href="/{lang}/tools/diff-viewer" class="text-indigo-600 dark:text-indigo-400 hover:underline">Diff Viewer</a>
          <span class="text-slate-300">|</span>
-         <a href="/{lang}/tools/pomodoro-timer" class="text-indigo-600 dark:text-indigo-400 hover:underline">Pomodoro Timer</a>
+         <a href="/{lang}/tools/schema-forge" class="text-indigo-600 dark:text-indigo-400 hover:underline">Schema Forge</a>
      </div>
   </section>
 </div>
