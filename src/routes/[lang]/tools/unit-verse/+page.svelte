@@ -40,10 +40,14 @@
 <svelte:head>
   <title>{t.title} | {dict.home.title}</title>
   <meta name="description" content={t.description} />
-  <meta name="keywords" content="unit converter, length converter, weight converter, scientific calculator" />
+  <meta name="keywords" content={t.keywords} />
+  <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}/tools/unit-verse" />
   <meta property="og:title" content={t.title} />
   <meta property="og:description" content={t.description} />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}/tools/unit-verse" />
+  <meta property="og:image" content="https://selfgrowingmicrotool.com/og/unit-verse.png" />
+  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <div class="min-h-screen bg-slate-900 text-slate-100 pb-20">
@@ -134,12 +138,12 @@
 
           <!-- Promo / Cross-link -->
           <div class="bg-gradient-to-br from-indigo-900/50 to-violet-900/50 border border-indigo-500/30 rounded-2xl p-6">
-              <h3 class="font-semibold text-white mb-2">Did you know?</h3>
+              <h3 class="font-semibold text-white mb-2">{t.promoTitle}</h3>
               <p class="text-sm text-indigo-200 mb-4">
-                  Need to calculate compound interest for your investments? Check out our Financial Calculator.
+                  {t.promoText}
               </p>
               <a href="/{lang}/tools/compound-interest-calculator" class="block w-full text-center py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors text-sm font-medium">
-                  Try Calculator
+                  {t.promoAction}
               </a>
           </div>
       </div>
@@ -149,19 +153,21 @@
 
   <!-- JSON-LD for SEO -->
   {@html `<script type="application/ld+json">
-    {
+    ${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Unit Verse",
+      "url": `https://selfgrowingmicrotool.com/${lang}/tools/unit-verse`,
       "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
+      "operatingSystem": "Any",
       "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": "${t.description}",
-      "featureList": "Length conversion, Mass conversion, Temperature conversion with formula display"
-    }
+      "description": t.description,
+      "featureList": t.featureList,
+      "screenshot": "https://selfgrowingmicrotool.com/og/unit-verse.png"
+    })}
   </script>`}
 </div>
