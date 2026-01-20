@@ -1,17 +1,17 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { timeStore, cityTimes } from '$lib/utils/time-forge/store';
+  import { timeStore } from '$lib/utils/time-forge/store';
   import { type City } from '$lib/utils/time-forge/cities';
   import { getTeams, saveTeam, deleteTeam, type TimeForgeTeam } from '$lib/utils/time-forge/db';
-  import { Users, Save, Trash2, FolderOpen } from 'lucide-svelte';
+  import { Save, Trash2, FolderOpen } from 'lucide-svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
 
   let teams: TimeForgeTeam[] = [];
-  let isSaving = false;
   let newTeamName = '';
   let showSaveModal = false;
   let showLoadModal = false;
+  let inputElement: HTMLInputElement;
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
@@ -48,6 +48,11 @@
         await loadTeams();
     }
   }
+
+  // Focus input when modal opens
+  $: if (showSaveModal && inputElement) {
+      setTimeout(() => inputElement.focus(), 50);
+  }
 </script>
 
 <div class="flex items-center space-x-3 mb-6">
@@ -76,10 +81,10 @@
       <h3 class="text-lg font-semibold text-white mb-4">{t.buttons.saveTeam}</h3>
       <input
         type="text"
+        bind:this={inputElement}
         bind:value={newTeamName}
         placeholder="e.g. Engineering Team, Client A..."
         class="w-full h-11 px-4 bg-slate-700 text-slate-50 border border-slate-600 rounded-lg focus:border-indigo-500 mb-4 focus:outline-none"
-        autofocus
       />
       <div class="flex justify-end space-x-3">
         <button
