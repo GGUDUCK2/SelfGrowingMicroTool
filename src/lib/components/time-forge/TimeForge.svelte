@@ -1,18 +1,19 @@
 <script lang="ts">
-  import { timeStore, cityTimes } from '$lib/utils/time-forge/store';
+  import { timeStore, cityTimes, meetingSlots } from '$lib/utils/time-forge/store';
   import CitySearch from './CitySearch.svelte';
   import TimeCard from './TimeCard.svelte';
   import TimeSlider from './TimeSlider.svelte';
   import TeamManager from './TeamManager.svelte';
-  import { RotateCcw, Copy, Share2, Calendar, Users, Briefcase } from 'lucide-svelte';
-  import { addMinutes, format } from 'date-fns';
-  import { createEventDispatcher, onMount } from 'svelte';
+  import { RotateCcw, Share2, Users, Briefcase, Calendar, Sparkles } from 'lucide-svelte';
+  import { format } from 'date-fns';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
+  import { generateICS, downloadICS } from '$lib/utils/time-forge/ics-generator';
 
   // --- State ---
   let showToast = false;
   let toastMessage = '';
+  let toastType: 'success' | 'info' = 'info';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
@@ -54,11 +55,12 @@
     const url = `${window.location.origin}${window.location.pathname}?state=${blob}`;
 
     await navigator.clipboard.writeText(url);
-    showToastMessage(t.toasts.linkCopied);
+    showToastMessage(t.toasts.linkCopied, 'success');
   }
 
-  function showToastMessage(msg: string) {
+  function showToastMessage(msg: string, type: 'success' | 'info' = 'info') {
     toastMessage = msg;
+    toastType = type;
     showToast = true;
     setTimeout(() => showToast = false, 3000);
   }
@@ -69,6 +71,41 @@
           toggleMeetingMode();
       }
   }
+
+  function findGoldenHour() {
+      // Find the absolute best slot in the next 3 days
+      // meetingSlots is already sorted by score (best first) due to our fix in meeting-scheduler.ts
+
+      // Temporarily enable meeting mode if off to calculate slots (actually slots calculate even if mode is off? No, derived store checks mode)
+      // So we must manually check or enable mode.
+
+      const wasModeOff = !$timeStore.isMeetingMode;
+      if (wasModeOff) {
+          timeStore.toggleMeetingMode();
+      }
+
+      // Wait for store update (next tick) or just calculate manually.
+      // Ideally we'd calculate manually here to avoid UI flicker if we want to stay in current mode,
+      // but "Meeting Mode" is the context where finding slots makes sense.
+
+      setTimeout(() => {
+        const slots = $meetingSlots;
+        if (slots.length > 0) {
+            const best = slots[0];
+            timeStore.setReferenceTime(best.start);
+            showToastMessage('Found best time!', 'success');
+        } else {
+             showToastMessage('No good times found in next 3 days.', 'info');
+        }
+      }, 50); // Small delay to let store update
+  }
+
+  function exportICS() {
+      const content = generateICS($timeStore.referenceTime, $timeStore.selectedCities);
+      downloadICS(content, 'global-meeting.ics');
+      showToastMessage('Calendar invite downloaded!', 'success');
+  }
+
 </script>
 
 <svelte:window on:keydown={handleGlobalKeydown} />
@@ -76,10 +113,30 @@
 <div class="space-y-8 relative">
 
   <!-- Toolbar -->
-  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
+  <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4 bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
     <CitySearch on:add={handleAddCity} />
 
-    <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
+    <div class="flex flex-wrap items-center gap-2 w-full xl:w-auto justify-end">
+
+        <!-- Creative Feature: Golden Hour -->
+        <button
+            class="flex items-center space-x-2 px-3 py-2 bg-gradient-to-r from-amber-500/10 to-orange-500/10 hover:from-amber-500/20 hover:to-orange-500/20 text-amber-500 border border-amber-500/30 rounded-lg transition-all"
+            on:click={findGoldenHour}
+        >
+            <Sparkles class="w-4 h-4" />
+            <span class="text-sm font-medium">Find Best Time</span>
+        </button>
+
+        <!-- Creative Feature: ICS Export -->
+        <button
+            class="flex items-center space-x-2 px-3 py-2 bg-slate-700/50 hover:bg-slate-700 text-slate-300 border border-slate-600 rounded-lg transition-all"
+            on:click={exportICS}
+        >
+            <Calendar class="w-4 h-4" />
+            <span class="text-sm font-medium">Export .ics</span>
+        </button>
+
+       <div class="w-px h-6 bg-slate-700 mx-1 hidden sm:block"></div>
 
       <button
         type="button"
@@ -90,8 +147,6 @@
         <Briefcase class="w-5 h-5" />
         <span class="text-sm font-medium hidden sm:inline">{t.buttons.meetingMode}</span>
       </button>
-
-       <div class="w-px h-6 bg-slate-700 mx-1"></div>
 
        <button
         type="button"
@@ -158,8 +213,8 @@
 
   <!-- Toast -->
   {#if showToast}
-    <div class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-3 rounded-lg shadow-xl border border-indigo-500/50 flex items-center space-x-3 animate-in slide-in-from-bottom-5">
-        <div class="w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></div>
+    <div class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-3 rounded-lg shadow-xl border {toastType === 'success' ? 'border-emerald-500/50' : 'border-indigo-500/50'} flex items-center space-x-3 animate-in slide-in-from-bottom-5">
+        <div class="w-2 h-2 {toastType === 'success' ? 'bg-emerald-500' : 'bg-indigo-500'} rounded-full animate-pulse"></div>
         <span>{toastMessage}</span>
     </div>
   {/if}

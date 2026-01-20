@@ -1183,6 +1183,72 @@ export const dictionaries = {
       }
     },
     pwa: {
+      title: "Install App",
+      description: "Install MicroFactory for offline access.",
+      installButton: "Install",
+      installedMessage: "App is already installed!",
+      iosInstructions: "To install on iOS:",
+      iosStep1: "1. Tap Share",
+      iosStep2: "2. Select 'Add to Home Screen'",
+      androidInstructions: "Click below to install:",
+      benefits: "Benefits:",
+      benefit1: "Instant access",
+      benefit2: "Offline support",
+      benefit3: "Faster loading",
+      benefit4: "Native feel"
+    }
+  },
+  ko: {
+    home: {
+      title: "마이크로 팩토리",
+      description: "스스로 진화하는 웹 도구 모음입니다.",
+      search: "도구 검색...",
+    },
+    common: {
+      back: "홈으로 돌아가기",
+      actions: "작업",
+    },
+    tools: {
+      timeForge: {
+        title: "타임 포지",
+        description: "분산된 팀을 위한 전문 세계 시계 및 회의 일정 스케줄러입니다.",
+        shortcuts: {
+            title: "키보드 단축키",
+            meetingMode: "미팅 모드 전환",
+            nextSlot: "다음 최적 시간",
+            prevDay: "이전 날짜",
+            nextDay: "다음 날짜",
+            reset: "현재로 초기화"
+        },
+        buttons: {
+            saveTeam: "팀 저장",
+            loadTeam: "팀 불러오기",
+            share: "공유",
+            reset: "초기화",
+            meetingMode: "미팅 모드"
+        },
+        meetingMode: {
+            active: "미팅 플래너 활성화",
+            desc: "타임라인이 선택된 모든 도시의 최적 겹치는 시간을 강조 표시합니다. 녹색 슬롯은 모든 사람이 가능한 시간입니다.",
+            good: "좋은 시간",
+            perfect: "완벽한 시간",
+            off: "업무 외 시간"
+        },
+        toasts: {
+            linkCopied: "링크가 클립보드에 복사되었습니다!",
+            teamSaved: "팀이 성공적으로 저장되었습니다!",
+            teamDeleted: "팀이 삭제되었습니다."
+        },
+        faqTitle: "타임 포지 FAQ",
+        q1: "타임 슬라이더는 어떻게 작동하나요?",
+        a1: "슬라이더는 선택된 모든 도시의 기준 시간을 동시에 조정합니다. 현재 날짜를 중심으로 작동하지만 시간을 앞뒤로 이동할 수 있습니다.",
+        q2: "팀 구성을 저장할 수 있나요?",
+        a2: "네! '팀 저장' 버튼을 사용하여 현재 도시 구성을 브라우저 로컬 저장소에 영구 저장할 수 있습니다.",
+        q3: "색상 바는 무엇을 의미하나요?",
+        a3: "노란색은 아침(7-9), 녹색은 업무 시간(9-17), 주황색은 저녁(17-22), 짙은 파란색은 밤을 의미합니다."
+      }
+    },
+    pwa: {
       title: "앱 설치하기",
       description: "MicroFactory를 앱으로 설치하면 빠른 접근과 오프라인 지원이 가능합니다.",
       installButton: "앱 설치",

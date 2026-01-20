@@ -85,10 +85,9 @@ export function findBestMeetingSlots(cities: City[], referenceDate: Date, daysTo
     }
   }
 
-  // Group contiguous slots?
-  // For now, return raw 30-min slots. The UI can group them.
-  return slots.sort((a, b) => b.score - a.score); // Best first? Or chronological?
-  // Usually chronological is better for display, filtered by score.
-
-  return slots.sort((a, b) => a.start.getTime() - b.start.getTime());
+  // Sort by score descending (best first), then by time ascending
+  return slots.sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return a.start.getTime() - b.start.getTime();
+  });
 }
