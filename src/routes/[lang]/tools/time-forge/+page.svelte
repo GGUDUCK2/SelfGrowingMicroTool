@@ -5,6 +5,12 @@
   import FAQSection from '$lib/components/FAQSection.svelte';
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
+  import { getDictionary } from '$lib/dictionaries';
+
+  // State initialization
+  $: lang = $page.params.lang || 'en';
+  $: dict = getDictionary(lang);
+  $: t = dict.tools.timeForge;
 
   // Load state from URL if present
   onMount(() => {
@@ -12,8 +18,6 @@
     if (stateParam) {
       try {
         const decoded = JSON.parse(atob(stateParam));
-        // We need to fetch full city objects based on IDs.
-        // Importing POPULAR_CITIES dynamically to avoid bundling issues if this were server-side only
         import('$lib/utils/time-forge/cities').then(({ POPULAR_CITIES }) => {
              const selectedCities = decoded.cities.map((id: string) => POPULAR_CITIES.find(c => c.id === id)).filter(Boolean);
              if (selectedCities.length > 0) {
@@ -30,29 +34,25 @@
     }
   });
 
-  const faqs = [
+  $: faqs = [
     {
-      question: "How does the Time Slider work?",
-      answer: "The slider adjusts the reference time for ALL selected cities simultaneously. It centers around the current day but allows you to shift time forward or backward to visualize availability across timezones."
+      question: t.q1,
+      answer: t.a1
     },
     {
-      question: "Can I save my team's cities?",
-      answer: "Yes! Use the 'Save Team' button to persist your current configuration of cities to your local browser storage. You can create multiple groups (e.g., 'Engineering', 'Sales')."
+      question: t.q2,
+      answer: t.a2
     },
     {
-      question: "What do the colored bars indicate?",
-      answer: "The colored bars on the time cards indicate the time of day: Yellow for Morning (7-9), Green for Business Hours (9-17), Orange for Evening (17-22), and Blue/Grey for Night."
-    },
-    {
-      question: "Is the data stored on a server?",
-      answer: "No. All your data, including saved teams, is stored locally in your browser using IndexedDB. No personal data is ever sent to a server."
+      question: t.q3,
+      answer: t.a3
     }
   ];
 
-  const schema = {
+  $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Time Forge",
+    "name": t.title,
     "applicationCategory": "ProductivityApplication",
     "operatingSystem": "Web",
     "offers": {
@@ -60,23 +60,23 @@
         "price": "0",
         "priceCurrency": "USD"
     },
-    "description": "Professional world clock and meeting scheduler for distributed teams."
+    "description": t.description
   };
 
 </script>
 
 <Head
-  title="Time Forge - World Clock & Meeting Planner"
-  description="Visualize timezones, schedule meetings across the globe, and manage distributed teams with Time Forge."
+  title="{t.title} - {t.description}"
+  description={t.description}
   image="https://microfactory.dev/og/time-forge.png"
 />
 
 <div class="max-w-4xl mx-auto px-4 py-12">
 
   <div class="mb-10 text-center">
-    <h1 class="text-4xl font-extrabold text-white mb-4 tracking-tight">Time Forge</h1>
+    <h1 class="text-4xl font-extrabold text-white mb-4 tracking-tight">{t.title}</h1>
     <p class="text-lg text-slate-400 max-w-2xl mx-auto">
-      Coordinate globally, act locally. The ultimate timezone command center for distributed teams.
+      {t.description}
     </p>
   </div>
 
