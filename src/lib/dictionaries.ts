@@ -1137,6 +1137,44 @@ export const dictionaries = {
         a2: "Yes, Chrono Shift uses the IANA time zone database (via date-fns-tz) to accurately handle DST transitions for every location.",
         q3: "Can I use 24-hour format?",
         a3: "Currently, the visual timeline uses a mix, but we plan to add a strict 24h toggle in the future."
+      },
+      timeForge: {
+        title: "Time Forge",
+        description: "Professional world clock and meeting scheduler for distributed teams.",
+        shortcuts: {
+            title: "Keyboard Shortcuts",
+            meetingMode: "Toggle Meeting Mode",
+            nextSlot: "Next Best Slot",
+            prevDay: "Previous Day",
+            nextDay: "Next Day",
+            reset: "Reset to Now"
+        },
+        buttons: {
+            saveTeam: "Save Team",
+            loadTeam: "Load Team",
+            share: "Share",
+            reset: "Reset",
+            meetingMode: "Meeting Mode"
+        },
+        meetingMode: {
+            active: "Meeting Planner Active",
+            desc: "The timeline now highlights the best overlapping times for all selected cities. Green slots indicate times when everyone is available.",
+            good: "Good Time",
+            perfect: "Perfect Overlap",
+            off: "Off Hours"
+        },
+        toasts: {
+            linkCopied: "Link copied to clipboard!",
+            teamSaved: "Team saved successfully!",
+            teamDeleted: "Team deleted."
+        },
+        faqTitle: "Time Forge FAQ",
+        q1: "How does the Time Slider work?",
+        a1: "The slider adjusts the reference time for ALL selected cities simultaneously. It centers around the current day but allows you to shift time forward or backward.",
+        q2: "Can I save my team's cities?",
+        a2: "Yes! Use the 'Save Team' button to persist your current configuration of cities to your local browser storage.",
+        q3: "What do the colored bars indicate?",
+        a3: "Yellow for Morning (7-9), Green for Business Hours (9-17), Orange for Evening (17-22), and Dark Blue for Night."
       }
     },
     pwa: {

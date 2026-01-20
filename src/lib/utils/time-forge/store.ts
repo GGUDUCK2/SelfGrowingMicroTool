@@ -2,6 +2,7 @@ import { writable, derived } from 'svelte/store';
 import { type City, POPULAR_CITIES } from './cities';
 import { startOfHour } from 'date-fns';
 import { toZonedTime } from 'date-fns-tz';
+import { findBestMeetingSlots, type MeetingSlot } from './meeting-scheduler';
 
 // --- State Interfaces ---
 
@@ -55,41 +56,23 @@ export const timeStore = createTimeStore();
 
 // --- Derived Stores ---
 
-// Helper to get zoned time for a city based on reference time
-// We assume referenceTime is the time in the *home city*.
-// If no home city is set, we treat referenceTime as Local Device Time.
 export const cityTimes = derived(timeStore, ($s) => {
   const homeCity = $s.selectedCities.find(c => c.id === $s.homeCityId) || $s.selectedCities[0];
   if (!homeCity) return [];
 
-  // 1. Get the UTC timestamp of the reference time *as if* it were in the home city's timezone.
-  // Actually, easiest way: referenceTime is just a JS Date object.
-  // If we want the slider to control "Seoul Time", and the slider says "15:00",
-  // we construct a date that is 15:00 in Seoul.
-
-  // However, simpler model: referenceTime is the ACTUAL moment in time (UTC).
-  // The slider adjusts this absolute moment.
-
   return $s.selectedCities.map(city => {
-    // toZonedTime takes a date and a time zone, and returns a Date object
-    // whose internal parts (getHour, etc.) match that time zone.
     const zoned = toZonedTime($s.referenceTime, city.timezone);
     return {
       city,
       time: zoned,
-      // Calculate offset string relative to home city? Or UTC?
-      // Let's just return the zoned date object for display.
     };
   });
 });
 
 // Calculate overlap for meeting mode
 export const meetingSlots = derived(timeStore, ($s) => {
-    if (!$s.isMeetingMode) return null;
+    if (!$s.isMeetingMode) return [];
 
-    // Logic to find best slots... for now just return the current status
-    // A slot is "good" if time is between 9am and 6pm for all cities?
-    // That might be impossible.
-    // We'll handle visual highlighting in the UI components.
-    return {};
+    // Calculate best slots for the next 3 days starting from reference time
+    return findBestMeetingSlots($s.selectedCities, $s.referenceTime, 3);
 });

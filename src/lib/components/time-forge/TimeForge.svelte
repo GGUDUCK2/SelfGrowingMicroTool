@@ -4,13 +4,19 @@
   import TimeCard from './TimeCard.svelte';
   import TimeSlider from './TimeSlider.svelte';
   import TeamManager from './TeamManager.svelte';
-  import { RotateCcw, Copy, Share2, Calendar } from 'lucide-svelte';
+  import { RotateCcw, Copy, Share2, Calendar, Users, Briefcase } from 'lucide-svelte';
   import { addMinutes, format } from 'date-fns';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
+  import { getDictionary } from '$lib/dictionaries';
+  import { page } from '$app/stores';
 
   // --- State ---
   let showToast = false;
   let toastMessage = '';
+
+  $: lang = $page.params.lang || 'en';
+  $: dict = getDictionary(lang);
+  $: t = dict.tools.timeForge;
 
   // --- Actions ---
 
@@ -34,9 +40,11 @@
     timeStore.reset();
   }
 
+  function toggleMeetingMode() {
+      timeStore.toggleMeetingMode();
+  }
+
   async function copyLink() {
-    // Generate a simple permalink using query params?
-    // Or just a base64 encoded state object.
     const state = {
         cities: $timeStore.selectedCities.map(c => c.id),
         home: $timeStore.homeCityId,
@@ -46,7 +54,7 @@
     const url = `${window.location.origin}${window.location.pathname}?state=${blob}`;
 
     await navigator.clipboard.writeText(url);
-    showToastMessage('Link copied to clipboard!');
+    showToastMessage(t.toasts.linkCopied);
   }
 
   function showToastMessage(msg: string) {
@@ -55,13 +63,15 @@
     setTimeout(() => showToast = false, 3000);
   }
 
-  // TODO: Implement meeting ICS export
-  function exportIcs() {
-    // Basic implementation placeholder
-    showToastMessage('Calendar export coming soon!');
+  function handleGlobalKeydown(e: KeyboardEvent) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'm') {
+          e.preventDefault();
+          toggleMeetingMode();
+      }
   }
-
 </script>
+
+<svelte:window on:keydown={handleGlobalKeydown} />
 
 <div class="space-y-8 relative">
 
@@ -69,35 +79,53 @@
   <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
     <CitySearch on:add={handleAddCity} />
 
-    <div class="flex items-center space-x-2">
+    <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
+
+      <button
+        type="button"
+        class={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all border ${$timeStore.isMeetingMode ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/50' : 'text-slate-400 hover:text-indigo-400 bg-slate-700/50 border-transparent hover:border-slate-600'}`}
+        title={t.shortcuts.meetingMode}
+        on:click={toggleMeetingMode}
+      >
+        <Briefcase class="w-5 h-5" />
+        <span class="text-sm font-medium hidden sm:inline">{t.buttons.meetingMode}</span>
+      </button>
+
+       <div class="w-px h-6 bg-slate-700 mx-1"></div>
+
        <button
         type="button"
         class="p-2 text-slate-400 hover:text-indigo-400 bg-slate-700/50 rounded-lg transition-colors border border-transparent hover:border-slate-600"
-        title="Share Configuration"
+        title={t.buttons.share}
+        aria-label={t.buttons.share}
         on:click={copyLink}
       >
         <Share2 class="w-5 h-5" />
       </button>
 
-       <!-- <button
-        type="button"
-        class="p-2 text-slate-400 hover:text-indigo-400 bg-slate-700/50 rounded-lg transition-colors border border-transparent hover:border-slate-600"
-        title="Export to Calendar"
-        on:click={exportIcs}
-      >
-        <Calendar class="w-5 h-5" />
-      </button> -->
-
       <button
         type="button"
         class="p-2 text-slate-400 hover:text-indigo-400 bg-slate-700/50 rounded-lg transition-colors border border-transparent hover:border-slate-600"
-        title="Reset All"
+        title={t.buttons.reset}
+        aria-label={t.buttons.reset}
         on:click={reset}
       >
         <RotateCcw class="w-5 h-5" />
       </button>
     </div>
   </div>
+
+  {#if $timeStore.isMeetingMode}
+    <div class="bg-indigo-500/10 border border-indigo-500/20 p-4 rounded-xl flex items-start space-x-3 animate-in slide-in-from-top-2">
+        <Users class="w-5 h-5 text-indigo-400 mt-0.5 shrink-0" />
+        <div>
+            <h4 class="text-sm font-semibold text-indigo-300">{t.meetingMode.active}</h4>
+            <p class="text-xs text-indigo-200/70 mt-1">
+                {t.meetingMode.desc}
+            </p>
+        </div>
+    </div>
+  {/if}
 
   <!-- Time Slider -->
   <TimeSlider value={$timeStore.referenceTime} on:change={handleTimeChange} />

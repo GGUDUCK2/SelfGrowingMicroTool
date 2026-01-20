@@ -4,12 +4,18 @@
   import { type City } from '$lib/utils/time-forge/cities';
   import { getTeams, saveTeam, deleteTeam, type TimeForgeTeam } from '$lib/utils/time-forge/db';
   import { Users, Save, Trash2, FolderOpen } from 'lucide-svelte';
+  import { getDictionary } from '$lib/dictionaries';
+  import { page } from '$app/stores';
 
   let teams: TimeForgeTeam[] = [];
   let isSaving = false;
   let newTeamName = '';
   let showSaveModal = false;
   let showLoadModal = false;
+
+  $: lang = $page.params.lang || 'en';
+  $: dict = getDictionary(lang);
+  $: t = dict.tools.timeForge;
 
   async function loadTeams() {
     teams = await getTeams();
@@ -26,16 +32,12 @@
     newTeamName = '';
     showSaveModal = false;
     await loadTeams();
+    // Ideally trigger a toast via a store, but simple alert for now if needed or just silent
   }
 
   async function handleLoadTeam(team: TimeForgeTeam) {
-    // We need to map cityIds back to City objects.
-    // This requires access to the full city list.
-    // We can import POPULAR_CITIES again.
     const { POPULAR_CITIES } = await import('$lib/utils/time-forge/cities');
-
     const cities = team.cityIds.map(id => POPULAR_CITIES.find(c => c.id === id)).filter(Boolean) as City[];
-
     timeStore.reorderCities(cities);
     showLoadModal = false;
   }
@@ -55,7 +57,7 @@
     on:click={() => showSaveModal = true}
   >
     <Save class="w-4 h-4 mr-2" />
-    Save Team
+    {t.buttons.saveTeam}
   </button>
 
   <button
@@ -64,21 +66,20 @@
     on:click={() => showLoadModal = true}
   >
     <FolderOpen class="w-4 h-4 mr-2" />
-    Load Team
+    {t.buttons.loadTeam}
   </button>
 </div>
 
-<!-- Save Modal -->
 {#if showSaveModal}
   <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
     <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-2xl w-full max-w-sm">
-      <h3 class="text-lg font-semibold text-white mb-4">Save Team Workspace</h3>
+      <h3 class="text-lg font-semibold text-white mb-4">{t.buttons.saveTeam}</h3>
       <input
         type="text"
         bind:value={newTeamName}
         placeholder="e.g. Engineering Team, Client A..."
         class="w-full h-11 px-4 bg-slate-700 text-slate-50 border border-slate-600 rounded-lg focus:border-indigo-500 mb-4 focus:outline-none"
-        autoFocus
+        autofocus
       />
       <div class="flex justify-end space-x-3">
         <button
@@ -94,11 +95,10 @@
   </div>
 {/if}
 
-<!-- Load Modal -->
 {#if showLoadModal}
   <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
     <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-2xl w-full max-w-md">
-      <h3 class="text-lg font-semibold text-white mb-4">Load Team</h3>
+      <h3 class="text-lg font-semibold text-white mb-4">{t.buttons.loadTeam}</h3>
 
       {#if teams.length === 0}
         <p class="text-slate-400 text-sm mb-4">No saved teams found.</p>
