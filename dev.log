@@ -1,42 +1,37 @@
 
 > web-factory-svelte@0.0.1 dev
-> vite dev
+> vite dev --port 3000
 
-▲ [WARNING] Cannot find base config file "./.svelte-kit/tsconfig.json" [tsconfig.json]
+12:21:47 AM [vite] (client) Forced re-optimization of dependencies
 
-    tsconfig.json:2:15:
-      2 │     "extends": "./.svelte-kit/tsconfig.json",
-        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  VITE v6.4.1  ready in 1605 ms
 
-4:29:00 AM [vite] (client) Forced re-optimization of dependencies
-
-  VITE v6.4.1  ready in 2078 ms
-
-  ➜  Local:   http://localhost:5173/
+  ➜  Local:   http://localhost:3000/
   ➜  Network: use --host to expose
-4:30:40 AM [vite-plugin-svelte] src/lib/components/input-lab/HistoryPanel.svelte:7:13 Component has unused export property 'dict'. If it is for external reference only, please consider using `export const dict`
-https://svelte.dev/e/export_let_unused
+12:22:40 AM [vite-plugin-svelte] src/lib/components/time-forge/ShortcutsModal.svelte:34:2 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:22:40 AM [vite-plugin-svelte] src/lib/components/time-forge/ShortcutsModal.svelte:34:2 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+12:22:40 AM [vite-plugin-svelte] src/lib/components/time-forge/ShortcutsModal.svelte:35:6 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:22:40 AM [vite-plugin-svelte] src/lib/components/time-forge/ShortcutsModal.svelte:35:6 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
-4:30:43 AM [vite-plugin-svelte] src/lib/components/input-lab/HistoryPanel.svelte:7:13 Component has unused export property 'dict'. If it is for external reference only, please consider using `export const dict`
-https://svelte.dev/e/export_let_unused
-4:31:07 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
-4:31:07 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
-4:31:07 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/2.js
-4:31:07 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/17.js
-4:31:07 AM [vite] (client) page reload .svelte-kit/generated/client/app.js
-4:31:07 AM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
-4:31:07 AM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-4:31:07 AM [vite] (client) page reload .svelte-kit/generated/root.js
-4:31:07 AM [vite] (ssr) page reload .svelte-kit/generated/root.js
-4:33:03 AM [vite] (client) hmr update /src/lib/components/input-lab/HistoryPanel.svelte, /src/app.css
-4:33:03 AM [vite] (ssr) page reload src/lib/components/input-lab/HistoryPanel.svelte
-4:33:10 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
-4:33:10 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
-4:33:10 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/2.js
-4:33:10 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/17.js
-4:33:10 AM [vite] (client) page reload .svelte-kit/generated/client/app.js
-4:33:10 AM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
-4:33:10 AM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-4:33:10 AM [vite] (client) page reload .svelte-kit/generated/root.js
-4:33:10 AM [vite] (ssr) page reload .svelte-kit/generated/root.js
+12:22:42 AM [vite-plugin-svelte] src/lib/components/time-forge/ShortcutsModal.svelte:34:2 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:22:42 AM [vite-plugin-svelte] src/lib/components/time-forge/ShortcutsModal.svelte:34:2 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+12:22:42 AM [vite-plugin-svelte] src/lib/components/time-forge/ShortcutsModal.svelte:35:6 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:22:42 AM [vite-plugin-svelte] src/lib/components/time-forge/ShortcutsModal.svelte:35:6 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+12:23:22 AM [vite] (client) hmr update /src/app.css, /src/routes/[lang]/tools/time-forge/+page.svelte, /src/lib/components/time-forge/TimeForge.svelte, /src/lib/components/time-forge/TimeCard.svelte, /src/lib/components/time-forge/TimeSlider.svelte, /src/lib/components/time-forge/MeetingSuggestions.svelte, /src/lib/components/time-forge/TeamManager.svelte
+12:23:22 AM [vite] (ssr) page reload src/lib/utils/time-forge/meeting-scheduler.ts
+12:23:29 AM [vite] (client) hmr update /src/lib/components/time-forge/MeetingSuggestions.svelte, /src/app.css
+12:23:29 AM [vite] (ssr) page reload src/lib/components/time-forge/MeetingSuggestions.svelte
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+12:25:07 AM [vite] (client) hmr update /src/routes/[lang]/tools/time-forge/+page.svelte, /src/app.css
+12:25:07 AM [vite] (ssr) page reload src/routes/[lang]/tools/time-forge/+page.svelte
+12:25:07 AM [vite] (ssr) page reload src/lib/components/time-forge/ShortcutsModal.svelte

@@ -1089,6 +1089,34 @@ export const dictionaries = {
             p2p: "P2P Link"
         }
       },
+      pixelForge: {
+        title: "Pixel Forge: Image Optimizer",
+        description: "Optimize, resize, and convert images locally.",
+        uiPreview: {
+          title: "UI Component Preview",
+          buttons: "Buttons",
+          inputs: "Inputs",
+          primaryButton: "Primary Action",
+          secondaryButton: "Secondary Action"
+        },
+        imageExtraction: {
+          title: "Extract from Image",
+          dragDrop: "Drag & drop or click to upload"
+        },
+        contrastGrid: {
+          title: "Contrast Matrix"
+        },
+        gradientGenerator: {
+          title: "Gradient Generator",
+          type: "Gradient Type",
+          direction: "Direction",
+          copy: "Copy Gradient CSS"
+        },
+        scaleGenerator: {
+          title: "Smart Scale Generator (50-950)",
+          copy: "Copy JSON Scale"
+        }
+      },
       chronoShift: {
         title: "Chrono Shift: Time Zone Architect",
         description: "The definitive tool for global scheduling. Visualize time overlaps, plan meetings, and manage teams across time zones.",
@@ -1152,14 +1180,31 @@ export const dictionaries = {
             nextSlot: "Next Best Slot",
             prevDay: "Previous Day",
             nextDay: "Next Day",
-            reset: "Reset to Now"
+            reset: "Reset to Now",
+            help: "Shortcuts",
+            close: "Close",
+            press: "Press",
+            esc: "Esc",
+            toClose: "to close"
+        },
+        suggestions: {
+            title: "Smart Suggestions (Next 5 Days)",
+            score: "Score"
+        },
+        timeline: {
+            night: "Night",
+            morning: "Morning",
+            work: "Work",
+            evening: "Evening"
         },
         buttons: {
             saveTeam: "Save Team",
             loadTeam: "Load Team",
             share: "Share",
             reset: "Reset",
-            meetingMode: "Meeting Mode"
+            meetingMode: "Meeting Mode",
+            findBest: "Find Best Time",
+            exportIcs: "Export .ics"
         },
         meetingMode: {
             active: "Meeting Planner Active",
@@ -1218,14 +1263,31 @@ export const dictionaries = {
             nextSlot: "다음 최적 시간",
             prevDay: "이전 날짜",
             nextDay: "다음 날짜",
-            reset: "현재로 초기화"
+            reset: "현재로 초기화",
+            help: "단축키",
+            close: "닫기",
+            press: "",
+            esc: "Esc",
+            toClose: "키를 눌러 닫기"
+        },
+        suggestions: {
+            title: "스마트 제안 (향후 5일)",
+            score: "점수"
+        },
+        timeline: {
+            night: "밤",
+            morning: "아침",
+            work: "업무",
+            evening: "저녁"
         },
         buttons: {
             saveTeam: "팀 저장",
             loadTeam: "팀 불러오기",
             share: "공유",
             reset: "초기화",
-            meetingMode: "미팅 모드"
+            meetingMode: "미팅 모드",
+            findBest: "최적 시간 찾기",
+            exportIcs: ".ics 내보내기"
         },
         meetingMode: {
             active: "미팅 플래너 활성화",

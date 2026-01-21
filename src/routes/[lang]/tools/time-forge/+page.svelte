@@ -65,6 +65,10 @@
 
 </script>
 
+<svelte:head>
+    {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
+</svelte:head>
+
 <Head
   title="{t.title} - {t.description}"
   description={t.description}
