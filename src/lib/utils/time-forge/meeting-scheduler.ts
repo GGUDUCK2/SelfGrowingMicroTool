@@ -27,7 +27,7 @@ export function getSlotStatus(date: Date, timezone: string): 'working' | 'extend
   return 'sleeping';
 }
 
-export function findBestMeetingSlots(cities: City[], referenceDate: Date, daysToCheck: number = 3): MeetingSlot[] {
+export function findBestMeetingSlots(cities: City[], referenceDate: Date, daysToCheck: number = 3, minScore: number = 0.4): MeetingSlot[] {
   if (cities.length === 0) return [];
 
   const slots: MeetingSlot[] = [];
@@ -43,10 +43,6 @@ export function findBestMeetingSlots(cities: City[], referenceDate: Date, daysTo
     }));
 
     // Score calculation
-    // All working: 1.0
-    // Working + Extended: 0.8
-    // Any sleeping: 0.0 (or very low)
-
     let workingCount = 0;
     let extendedCount = 0;
     let sleepingCount = 0;
@@ -61,10 +57,14 @@ export function findBestMeetingSlots(cities: City[], referenceDate: Date, daysTo
     let label = '';
 
     if (sleepingCount > 0) {
-      // If someone is sleeping, it's generally bad, unless we want to find "just wake up" times.
-      // Let's penalize heavily.
-      score = 0.1;
-      label = 'Unlikely';
+       // Allow some flexibility for difficult teams
+       if (sleepingCount === 1 && cities.length > 2) {
+           score = 0.3;
+           label = 'Hard';
+       } else {
+           score = 0.1;
+           label = 'Unlikely';
+       }
     } else if (workingCount === cities.length) {
       score = 1.0;
       label = 'Perfect';
@@ -73,8 +73,8 @@ export function findBestMeetingSlots(cities: City[], referenceDate: Date, daysTo
       label = 'Good';
     }
 
-    // Filter out bad slots to save memory
-    if (score > 0.4) {
+    // Filter out bad slots
+    if (score >= minScore) {
       slots.push({
         start: current,
         end: addMinutes(current, interval),

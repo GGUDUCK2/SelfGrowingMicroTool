@@ -4,7 +4,9 @@
   import TimeCard from './TimeCard.svelte';
   import TimeSlider from './TimeSlider.svelte';
   import TeamManager from './TeamManager.svelte';
-  import { RotateCcw, Share2, Users, Briefcase, Calendar, Sparkles } from 'lucide-svelte';
+  import MeetingSuggestions from './MeetingSuggestions.svelte';
+  import ShortcutsModal from './ShortcutsModal.svelte';
+  import { RotateCcw, Share2, Users, Briefcase, Calendar, Sparkles, HelpCircle } from 'lucide-svelte';
   import { format } from 'date-fns';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
@@ -14,6 +16,7 @@
   let showToast = false;
   let toastMessage = '';
   let toastType: 'success' | 'info' = 'info';
+  let showShortcuts = false;
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
@@ -66,9 +69,22 @@
   }
 
   function handleGlobalKeydown(e: KeyboardEvent) {
+      // Ignore if user is typing in an input
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+          return;
+      }
+
       if ((e.metaKey || e.ctrlKey) && e.key === 'm') {
           e.preventDefault();
           toggleMeetingMode();
+      }
+      if (e.key === '?' && e.shiftKey) {
+          e.preventDefault();
+          showShortcuts = true;
+      }
+      if (e.key === 'r' && !e.metaKey && !e.ctrlKey) {
+          e.preventDefault();
+          reset();
       }
   }
 
@@ -124,7 +140,7 @@
             on:click={findGoldenHour}
         >
             <Sparkles class="w-4 h-4" />
-            <span class="text-sm font-medium">Find Best Time</span>
+            <span class="text-sm font-medium">{t.buttons.findBest}</span>
         </button>
 
         <!-- Creative Feature: ICS Export -->
@@ -133,7 +149,7 @@
             on:click={exportICS}
         >
             <Calendar class="w-4 h-4" />
-            <span class="text-sm font-medium">Export .ics</span>
+            <span class="text-sm font-medium">{t.buttons.exportIcs}</span>
         </button>
 
        <div class="w-px h-6 bg-slate-700 mx-1 hidden sm:block"></div>
@@ -167,6 +183,16 @@
       >
         <RotateCcw class="w-5 h-5" />
       </button>
+
+      <button
+        type="button"
+        class="p-2 text-slate-400 hover:text-indigo-400 bg-slate-700/50 rounded-lg transition-colors border border-transparent hover:border-slate-600"
+        title="{t.shortcuts.help} (?)"
+        aria-label={t.shortcuts.help}
+        on:click={() => showShortcuts = true}
+      >
+        <HelpCircle class="w-5 h-5" />
+      </button>
     </div>
   </div>
 
@@ -180,6 +206,9 @@
             </p>
         </div>
     </div>
+
+    <!-- Smart Suggestions -->
+    <MeetingSuggestions />
   {/if}
 
   <!-- Time Slider -->
@@ -218,5 +247,7 @@
         <span>{toastMessage}</span>
     </div>
   {/if}
+
+  <ShortcutsModal isOpen={showShortcuts} on:close={() => showShortcuts = false} />
 
 </div>

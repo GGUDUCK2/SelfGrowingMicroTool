@@ -5,6 +5,7 @@
   import { X, Home, Clock, AlertCircle } from 'lucide-svelte';
   import { timeStore } from '$lib/utils/time-forge/store';
   import { getSlotStatus } from '$lib/utils/time-forge/meeting-scheduler';
+  import TimelineBar from './TimelineBar.svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
 
@@ -102,5 +103,9 @@
         Home
       </span>
     {/if}
+  </div>
+
+  <div class="absolute bottom-2 left-[180px] right-[100px] hidden md:block opacity-60 hover:opacity-100 transition-opacity">
+       <TimelineBar timezone={city.timezone} time={time} />
   </div>
 </div>
