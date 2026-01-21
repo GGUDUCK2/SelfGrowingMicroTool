@@ -1,7 +1,24 @@
 <script lang="ts">
   export let title: string;
   export let items: { q: string; a: string }[];
+
+  $: schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": items.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
 </script>
+
+<svelte:head>
+  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
+</svelte:head>
 
 <div class="bg-indigo-900 text-white p-6 md:p-8 rounded-2xl shadow-lg">
   <h3 class="text-xl font-bold mb-6 flex items-center gap-2">

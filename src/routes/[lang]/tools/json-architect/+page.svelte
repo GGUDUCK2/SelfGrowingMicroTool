@@ -7,6 +7,7 @@
   import JsonTree from '$lib/components/json-architect/JsonTree.svelte';
   import Toolbar from '$lib/components/json-architect/Toolbar.svelte';
   import History from '$lib/components/json-architect/History.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
   import { validateJson, formatJson, minifyJson, jsonToTypescript, jsonToGo } from '$lib/utils/json';
   import { db } from '$lib/db';
 
@@ -174,21 +175,19 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}/tools/json-architect" />
 
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "{t.title}",
-      "description": "{t.description}",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Web",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
+  {@html `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": t.title,
+    "description": t.description,
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
     }
-  </script>
+  })}</script>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -230,14 +229,14 @@
              <div class="flex gap-2">
                  <button
                    on:click={() => view = 'text'}
-                   class="text-xs px-2 py-1 rounded {view === 'text' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-500'}"
+                   class="text-sm px-4 py-2 sm:px-3 sm:py-1.5 rounded touch-manipulation {view === 'text' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-500'}"
                  >
                     {t.textView}
                  </button>
                  {#if mode === 'json' && parsedData}
                  <button
                    on:click={() => view = 'tree'}
-                   class="text-xs px-2 py-1 rounded {view === 'tree' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-500'}"
+                   class="text-sm px-4 py-2 sm:px-3 sm:py-1.5 rounded touch-manipulation {view === 'tree' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-500'}"
                  >
                     {t.treeView}
                  </button>
@@ -258,23 +257,13 @@
   <History {t} on:restore={handleRestore} />
 
   <!-- FAQ Section -->
-  <section class="mt-16 border-t border-slate-200 dark:border-slate-700 pt-12">
-    <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-8">{t.faqTitle}</h2>
-    <div class="grid gap-8 md:grid-cols-2">
-      <div>
-        <h3 class="font-semibold text-lg text-slate-900 dark:text-slate-100 mb-2">{t.q1}</h3>
-        <p class="text-slate-600 dark:text-slate-400">{t.a1}</p>
-      </div>
-      <div>
-        <h3 class="font-semibold text-lg text-slate-900 dark:text-slate-100 mb-2">{t.q2}</h3>
-        <p class="text-slate-600 dark:text-slate-400">{t.a2}</p>
-      </div>
-      <div>
-        <h3 class="font-semibold text-lg text-slate-900 dark:text-slate-100 mb-2">{t.q3}</h3>
-        <p class="text-slate-600 dark:text-slate-400">{t.a3}</p>
-      </div>
-    </div>
-  </section>
+  <div class="mt-16">
+      <FAQSection title={t.faqTitle} items={[
+        { q: t.q1, a: t.a1 },
+        { q: t.q2, a: t.a2 },
+        { q: t.q3, a: t.a3 }
+      ]} />
+  </div>
 
   <section class="mt-12 mb-8">
      <h3 class="text-lg font-bold mb-4 text-slate-900 dark:text-slate-100">Related Tools</h3>
