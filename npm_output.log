@@ -1,0 +1,27 @@
+
+> web-factory-svelte@0.0.1 dev
+> vite dev --port 3000
+
+▲ [WARNING] Cannot find base config file "./.svelte-kit/tsconfig.json" [tsconfig.json]
+
+    tsconfig.json:2:15:
+      2 │     "extends": "./.svelte-kit/tsconfig.json",
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+8:20:46 AM [vite] (client) Forced re-optimization of dependencies
+
+  VITE v6.4.1  ready in 1935 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: use --host to expose
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+8:21:50 AM [vite] (client) page reload page_content.html
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+8:21:51 AM [vite] (client) page reload page_content.html
+8:21:51 AM [vite] (client) page reload page_content.html
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
