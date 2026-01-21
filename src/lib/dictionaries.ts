@@ -1144,6 +1144,8 @@ export const dictionaries = {
         copy: "Copy",
         download: "Download",
         simplify: "Simplify",
+        repair: "Repair WKT",
+        snapshot: "Snapshot",
         reverse: "Reverse",
         clear: "Clear",
         area: "Area",
@@ -1160,7 +1162,8 @@ export const dictionaries = {
           tipsTitle: "Pro Tips",
           tip1: "Paste any WKT string directly into the Data Editor to visualize it instantly.",
           tip2: "Use the **Simplify** tool to reduce vertex count for web optimization.",
-          tip3: "Drag and drop (coming soon) or use the **Examples** menu to get started."
+          tip3: "Use the **Camera** button to save a high-res image of your map.",
+          tip4: "The **Repair** tool automatically fixes common WKT formatting errors."
         },
         faqTitle: "Geo Forge FAQ",
         q1: "What is WKT?",
@@ -1389,6 +1392,8 @@ export const dictionaries = {
         copy: "복사",
         download: "다운로드",
         simplify: "단순화",
+        repair: "WKT 복구",
+        snapshot: "스냅샷",
         reverse: "뒤집기",
         clear: "지우기",
         area: "면적",
@@ -1405,7 +1410,8 @@ export const dictionaries = {
           tipsTitle: "프로 팁",
           tip1: "데이터 에디터에 WKT 문자열을 직접 붙여넣어 즉시 시각화하세요.",
           tip2: "**단순화** 도구를 사용하여 웹 최적화를 위해 정점 수를 줄이세요.",
-          tip3: "**예제** 메뉴를 사용하여 빠르게 시작해보세요."
+          tip3: "**카메라** 버튼을 사용하여 지도의 고해상도 이미지를 저장하세요.",
+          tip4: "**수정(Repair)** 도구는 흔한 WKT 포맷 오류를 자동으로 수정합니다."
         },
         faqTitle: "지오 포지 FAQ",
         q1: "WKT가 무엇인가요?",
