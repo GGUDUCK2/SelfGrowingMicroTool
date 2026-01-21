@@ -31,11 +31,12 @@
 <svelte:window on:keydown={handleKeydown} />
 
 {#if isOpen}
-  <button
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
+  <div
       class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 w-full h-full border-0 cursor-default"
       on:click={close}
       on:keydown={(e) => e.key === 'Escape' && close()}
-      aria-label="Close modal"
   >
       <div
           class="bg-slate-900 border border-slate-700 p-6 rounded-2xl shadow-2xl max-w-sm w-full relative cursor-auto text-left"
