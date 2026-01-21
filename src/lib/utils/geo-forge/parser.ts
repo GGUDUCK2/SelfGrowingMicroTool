@@ -1,11 +1,13 @@
-import type { FeatureCollection, Geometry, Position, Feature, GeoJSON } from './types';
+import type { FeatureCollection, Geometry, Position, Feature, GeoJSON, Point } from './types';
 import Papa from 'papaparse';
 
 // --- CSV Parser ---
 
+interface CSVRow extends Record<string, unknown> {}
+
 export function parseCSV(csv: string): FeatureCollection {
   const result = Papa.parse(csv, { header: true, dynamicTyping: true, skipEmptyLines: true });
-  const data = result.data as Record<string, any>[];
+  const data = result.data as CSVRow[];
 
   if (!data || data.length === 0) {
     return { type: 'FeatureCollection', features: [] };
@@ -25,21 +27,23 @@ export function parseCSV(csv: string): FeatureCollection {
     throw new Error("Could not detect Latitude/Longitude columns in CSV.");
   }
 
-  const features: Feature[] = data.map(row => {
-    const lat = parseFloat(row[latKey!] as string);
-    const lon = parseFloat(row[lonKey!] as string);
+  const features = data.map((row): Feature | null => {
+    const lat = typeof row[latKey!] === 'number' ? row[latKey!] as number : parseFloat(row[latKey!] as string);
+    const lon = typeof row[lonKey!] === 'number' ? row[lonKey!] as number : parseFloat(row[lonKey!] as string);
 
     if (isNaN(lat) || isNaN(lon)) return null;
 
+    const geometry: Point = {
+      type: 'Point',
+      coordinates: [lon, lat]
+    };
+
     return {
       type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [lon, lat]
-      },
+      geometry,
       properties: row
     };
-  }).filter(f => f !== null) as Feature[];
+  }).filter((f): f is Feature => f !== null);
 
   return {
     type: 'FeatureCollection',
@@ -52,20 +56,23 @@ export function toCSV(geo: GeoJSON): string {
 
   function extract(g: GeoJSON) {
      if (g.type === 'FeatureCollection') {
-         g.features.forEach(extract);
+         (g as FeatureCollection).features.forEach(extract);
      } else if (g.type === 'Feature') {
-         if (g.geometry.type === 'Point') {
-             features.push(g);
+         const f = g as Feature;
+         if (f.geometry.type === 'Point') {
+             features.push(f);
          }
      } else if (g.type === 'Point') {
-         features.push({ type: 'Feature', geometry: g, properties: {} });
+         features.push({ type: 'Feature', geometry: g as Geometry, properties: {} });
      }
   }
 
   extract(geo);
 
   const rows = features.map(f => {
-      const [lon, lat] = (f.geometry as any).coordinates;
+      // Safe access to coordinates for Point type
+      const coords = f.geometry.coordinates as Position;
+      const [lon, lat] = coords;
       return {
           latitude: lat,
           longitude: lon,

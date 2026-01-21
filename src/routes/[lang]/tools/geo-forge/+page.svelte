@@ -4,9 +4,10 @@
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import {
-    parseWKT, toWKT, parseCSV, toCSV, simplify,
+    parseWKT, toWKT, parseCSV, toCSV,
     type GeoJSON
   } from '$lib/utils/geo-forge';
+  import { repairWKT } from '$lib/utils/geo-forge/repair';
 
   import Toolbar from '$lib/components/geo-forge/Toolbar.svelte';
   import StatsPanel from '$lib/components/geo-forge/StatsPanel.svelte';
@@ -33,16 +34,21 @@
   let geo: GeoJSON | null = null;
   let error = '';
   let showHistory = false;
+  let mapCanvas: MapCanvas; // Reference to MapCanvas
 
   // Recent History
   let historyItems = liveQuery(() => getRecentProjects(5));
 
   // Auto-save debounce
   let saveTimer: NodeJS.Timeout;
-  $: if (input && !error) {
+  $: if (input && !error && geo) {
       clearTimeout(saveTimer);
-      saveTimer = setTimeout(() => {
-          saveProject('AutoSave', input, format);
+      saveTimer = setTimeout(async () => {
+          let preview: string | undefined;
+          if (mapCanvas) {
+              preview = await mapCanvas.getSnapshot();
+          }
+          saveProject('AutoSave', input, format, preview);
       }, 5000);
   }
 
@@ -65,10 +71,12 @@
                 geo = JSON.parse(input);
             }
             error = '';
-        } catch (e: any) {
-            // Don't clear geo on typing error to keep map stable?
-            // Or maybe visual feedback.
-            error = e.message;
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                error = e.message;
+            } else {
+                error = String(e);
+            }
         }
     } else {
         geo = null;
@@ -95,23 +103,18 @@
               input = JSON.stringify(geo, null, 2);
               format = 'geojson';
           }
-      } catch (e: any) {
-          alert("Conversion failed: " + e.message);
+      } catch (e: unknown) {
+          const msg = e instanceof Error ? e.message : String(e);
+          alert("Conversion failed: " + msg);
       }
   }
 
   function handleSimplify() {
-      if (!geo || !('coordinates' in geo)) return; // Only simplify geometry
-      // We need to cast carefully. Simplify works on points array.
-      // This is complex for FeatureCollections.
-      // For MVP, let's just skip deep simplification or implement generic traverse.
-      // Actually simplify util handles Point[] only.
-      // Let's implement a simple traverse in simplify or just say "Not supported for complex types" for now.
+      // Simplification logic...
       alert("Simplify is currently available for raw LineStrings in pro version.");
   }
 
   function handleReverse() {
-      // Reverses coordinate order
       alert("Feature coming soon!");
   }
 
@@ -124,10 +127,14 @@
       navigator.clipboard.writeText(input);
   }
 
-  function handleSaveManual() {
+  async function handleSaveManual() {
      const name = prompt("Project Name:", "My Geometry");
      if (name) {
-         saveProject(name, input, format);
+         let preview: string | undefined;
+         if (mapCanvas) {
+             preview = await mapCanvas.getSnapshot();
+         }
+         saveProject(name, input, format, preview);
      }
   }
 
@@ -142,7 +149,31 @@
       document.body.removeChild(a);
   }
 
-  // --- Layout ---
+  async function handleSnapshot() {
+      if (mapCanvas) {
+          const dataUrl = await mapCanvas.getSnapshot();
+          const a = document.createElement('a');
+          a.href = dataUrl;
+          a.download = 'geoforge-map.png';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+      }
+  }
+
+  function handleRepair() {
+      if (format === 'wkt') {
+          const repaired = repairWKT(input);
+          if (repaired !== input) {
+              input = repaired;
+              // alert("Repaired WKT!");
+          } else {
+              alert("No repairs needed or could not repair.");
+          }
+      } else {
+          alert("Repair only available for WKT.");
+      }
+  }
 </script>
 
 <svelte:head>
@@ -276,19 +307,30 @@
                     on:clear={handleClear}
                     on:simplify={handleSimplify}
                     on:reverse={handleReverse}
+                    on:snapshot={handleSnapshot}
+                    on:repair={handleRepair}
                   />
               </div>
           </div>
 
           <!-- History Overlay -->
           {#if showHistory}
-              <div class="absolute top-20 right-4 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 z-30 p-2" transition:slide>
+              <div class="absolute top-20 right-4 w-72 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 z-30 p-2" transition:slide>
                   <div class="px-2 py-1 mb-2 border-b border-slate-100 dark:border-slate-700 text-xs font-bold text-slate-500 uppercase">Recent Projects</div>
                   {#if $historyItems && $historyItems.length > 0}
                       {#each $historyItems as item}
-                          <button class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-sm" on:click={() => handleLoadProject(item)}>
-                              <div class="font-medium text-slate-800 dark:text-slate-200">{item.name}</div>
-                              <div class="text-xs text-slate-500">{new Date(item.updatedAt).toLocaleTimeString()} · {item.format}</div>
+                          <button class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-sm flex gap-3 items-center" on:click={() => handleLoadProject(item)}>
+                              {#if item.preview}
+                                  <img src={item.preview} alt="Preview" class="w-10 h-10 object-cover rounded bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-600" />
+                              {:else}
+                                  <div class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 flex items-center justify-center">
+                                      <Globe class="w-5 h-5 text-slate-400" />
+                                  </div>
+                              {/if}
+                              <div class="overflow-hidden">
+                                  <div class="font-medium text-slate-800 dark:text-slate-200 truncate">{item.name}</div>
+                                  <div class="text-xs text-slate-500">{new Date(item.updatedAt).toLocaleTimeString()} · {item.format}</div>
+                              </div>
                           </button>
                       {/each}
                   {:else}
@@ -300,7 +342,7 @@
           <!-- Tab Content -->
           <div class="flex-1 overflow-hidden relative">
               {#if activeTab === 'map'}
-                  <MapCanvas {geo} {dict} />
+                  <MapCanvas bind:this={mapCanvas} {geo} {dict} />
 
                   <!-- Mobile Stats Overlay -->
                   <div class="lg:hidden absolute bottom-0 left-0 right-0 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 p-4 max-h-[40%] overflow-y-auto">
@@ -311,7 +353,12 @@
                       <div class="flex justify-between items-center mb-2 px-1">
                          <span class="text-xs font-bold uppercase text-slate-500">Input Data ({format})</span>
                          {#if error}
-                            <span class="text-xs text-red-500 font-bold">{error}</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs text-red-500 font-bold">{error}</span>
+                                {#if format === 'wkt'}
+                                    <button class="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded hover:bg-red-200" on:click={handleRepair}>Auto-Repair</button>
+                                {/if}
+                            </div>
                          {/if}
                       </div>
                       <div class="flex-1 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-inner">

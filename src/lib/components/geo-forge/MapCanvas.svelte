@@ -8,6 +8,7 @@
   export let dict: any;
 
   let container: HTMLDivElement;
+  let svgElement: SVGSVGElement;
   let width = 0;
   let height = 0;
   let pathD = '';
@@ -25,9 +26,6 @@
   let mouseGeo: Position | null = null;
 
   $: if (geo && width > 0 && height > 0) {
-      // Recalculate base viewport only when geometry changes or resize,
-      // NOT when panning/zooming (unless we want to reset).
-      // Actually, we should separate base calculation from user transform.
       updateBaseViewport();
   }
 
@@ -39,23 +37,6 @@
 
   function render() {
       if (!geo || !vp) return;
-
-      // Apply user transform to viewport before generating path?
-      // No, `generatePath` uses `projectToScreen` which uses `vp`.
-      // We can create a "derived" viewport.
-
-      const activeVp: Viewport = {
-          ...vp,
-          scale: vp.scale * zoom,
-          width: vp.width,
-          height: vp.height,
-          offsetX: vp.offsetX - (panX / vp.scale / zoom), // Adjust center based on pan?
-          offsetY: vp.offsetY + (panY / vp.scale / zoom)  // Complex.
-      };
-
-      // Simpler approach:
-      // Generate path using base viewport.
-      // Apply transform to the SVG group.
       pathD = generatePath(geo, vp);
   }
 
@@ -97,22 +78,13 @@
       }
 
       if (vp) {
-          // Convert screen mouse to geo
-          // Need to reverse the SVG transform
-          // Screen relative to container
           const rect = container.getBoundingClientRect();
           const mx = e.clientX - rect.left;
           const my = e.clientY - rect.top;
 
-          // Apply inverse transform of the group: translate(panX, panY) scale(zoom) around center?
-          // The group transform is `translate(${panX}px, ${panY}px) scale(${zoom})` from center (width/2, height/2).
-          // Actually, let's keep it simple: transform-origin is center.
-
-          // Calculate coordinate in "base viewport space"
           const cx = width / 2;
           const cy = height / 2;
 
-          // (mx - cx - panX) / zoom + cx = baseScreenX
           const baseScreenX = (mx - cx - panX) / zoom + cx;
           const baseScreenY = (my - cy - panY) / zoom + cy;
 
@@ -122,6 +94,34 @@
 
   function handleMouseUp() {
       isDragging = false;
+  }
+
+  export async function getSnapshot(): Promise<string> {
+      if (!svgElement) return '';
+
+      const svgData = new XMLSerializer().serializeToString(svgElement);
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return '';
+
+      // Fill background
+      ctx.fillStyle = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? '#0f172a' : '#ffffff';
+      ctx.fillRect(0, 0, width, height);
+
+      const img = new Image();
+      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(svgBlob);
+
+      return new Promise((resolve) => {
+          img.onload = () => {
+              ctx.drawImage(img, 0, 0);
+              URL.revokeObjectURL(url);
+              resolve(canvas.toDataURL('image/png'));
+          };
+          img.src = url;
+      });
   }
 </script>
 
@@ -144,7 +144,7 @@
       <p>{dict?.empty || 'Load geometry to visualize'}</p>
     </div>
   {:else}
-    <svg class="w-full h-full pointer-events-none">
+    <svg class="w-full h-full pointer-events-none" bind:this={svgElement}>
       <defs>
         <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
           <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" class="text-slate-200 dark:text-slate-800" stroke-width="1"/>
@@ -169,13 +169,13 @@
 
     <!-- Controls -->
     <div class="absolute bottom-4 right-4 flex flex-col gap-2 pointer-events-auto">
-        <button class="p-2 bg-white dark:bg-slate-800 shadow rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300" on:click={resetView}>
+        <button class="p-2 bg-white dark:bg-slate-800 shadow rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300" on:click={resetView} aria-label="Reset View">
             <Maximize class="w-5 h-5" />
         </button>
-        <button class="p-2 bg-white dark:bg-slate-800 shadow rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300" on:click={() => zoom = Math.min(10, zoom * 1.2)}>
+        <button class="p-2 bg-white dark:bg-slate-800 shadow rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300" on:click={() => zoom = Math.min(10, zoom * 1.2)} aria-label="Zoom In">
             <Plus class="w-5 h-5" />
         </button>
-        <button class="p-2 bg-white dark:bg-slate-800 shadow rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300" on:click={() => zoom = Math.max(0.1, zoom / 1.2)}>
+        <button class="p-2 bg-white dark:bg-slate-800 shadow rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300" on:click={() => zoom = Math.max(0.1, zoom / 1.2)} aria-label="Zoom Out">
             <Minus class="w-5 h-5" />
         </button>
     </div>

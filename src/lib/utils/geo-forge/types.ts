@@ -38,7 +38,7 @@ export interface MultiPolygon extends Geometry {
 export interface Feature {
   type: 'Feature';
   geometry: Geometry;
-  properties?: Record<string, any>;
+  properties?: Record<string, unknown>;
 }
 
 export interface FeatureCollection {
