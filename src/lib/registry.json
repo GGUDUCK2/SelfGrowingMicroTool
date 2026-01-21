@@ -193,5 +193,20 @@
     "category": "util",
     "tags": ["input", "test", "gamepad"],
     "createdAt": "2024-04-10"
+  },
+  {
+    "id": "geo-forge",
+    "slug": "geo-forge",
+    "title": {
+      "en": "Geo Forge",
+      "ko": "지오 포지"
+    },
+    "description": {
+      "en": "The definitive geospatial toolkit. Convert, analyze, and visualize WKT/GeoJSON/CSV.",
+      "ko": "결정적인 지리 공간 툴킷입니다. WKT/GeoJSON/CSV를 변환, 분석 및 시각화하세요."
+    },
+    "category": "util",
+    "tags": ["geojson", "wkt", "map", "gis"],
+    "createdAt": "2024-05-25"
   }
 ]

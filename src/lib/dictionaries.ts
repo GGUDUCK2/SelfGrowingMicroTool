@@ -1134,6 +1134,42 @@ export const dictionaries = {
           copy: "Copy JSON Scale"
         }
       },
+      geoForge: {
+        title: "Geo Forge: Geospatial Toolkit",
+        description: "The definitive tool to analyze, visualize, and convert geospatial data (WKT, GeoJSON, CSV).",
+        empty: "Load geometry or use the editor to visualize.",
+        examples: {
+            label: "Load Example"
+        },
+        copy: "Copy",
+        download: "Download",
+        simplify: "Simplify",
+        reverse: "Reverse",
+        clear: "Clear",
+        area: "Area",
+        length: "Length",
+        center: "Center",
+        type: "Type",
+        guide: {
+          title: "Why Geo Forge?",
+          intro: "Geo Forge is a professional-grade environment for working with vector geometry. It bridges the gap between text-based formats like WKT and visual maps.",
+          featuresTitle: "Key Features",
+          f1: "**Universal Converter:** Seamlessly switch between WKT, GeoJSON, and CSV formats.",
+          f2: "**Privacy First:** All processing happens in your browser. No data is sent to the cloud.",
+          f3: "**Precision Stats:** Calculate accurate geodesic area and length using WGS84 ellipsoid logic.",
+          tipsTitle: "Pro Tips",
+          tip1: "Paste any WKT string directly into the Data Editor to visualize it instantly.",
+          tip2: "Use the **Simplify** tool to reduce vertex count for web optimization.",
+          tip3: "Drag and drop (coming soon) or use the **Examples** menu to get started."
+        },
+        faqTitle: "Geo Forge FAQ",
+        q1: "What is WKT?",
+        a1: "Well-Known Text (WKT) is a text markup language for representing vector geometry objects. It is a standard used in databases like PostGIS and Oracle Spatial.",
+        q2: "How is area calculated?",
+        a2: "We use the Shoelace formula adapted for spherical coordinates (Geodesic area) to ensure accuracy even for large polygons.",
+        q3: "Can I use this offline?",
+        a3: "Yes! Geo Forge runs entirely on your device."
+      },
       chronoShift: {
         title: "Chrono Shift: Time Zone Architect",
         description: "The definitive tool for global scheduling. Visualize time overlaps, plan meetings, and manage teams across time zones.",
@@ -1342,6 +1378,42 @@ export const dictionaries = {
         a2: "네! '팀 저장' 버튼을 사용하여 현재 도시 구성을 브라우저 로컬 저장소에 영구 저장할 수 있습니다.",
         q3: "색상 바는 무엇을 의미하나요?",
         a3: "노란색은 아침(7-9), 녹색은 업무 시간(9-17), 주황색은 저녁(17-22), 짙은 파란색은 밤을 의미합니다."
+      },
+      geoForge: {
+        title: "지오 포지: 지리 공간 툴킷",
+        description: "지리 공간 데이터(WKT, GeoJSON, CSV)를 분석, 시각화 및 변환하는 결정적인 도구입니다.",
+        empty: "지오메트리를 로드하거나 에디터를 사용하여 시각화하세요.",
+        examples: {
+            label: "예제 불러오기"
+        },
+        copy: "복사",
+        download: "다운로드",
+        simplify: "단순화",
+        reverse: "뒤집기",
+        clear: "지우기",
+        area: "면적",
+        length: "길이",
+        center: "중심",
+        type: "타입",
+        guide: {
+          title: "왜 지오 포지인가요?",
+          intro: "지오 포지는 벡터 지오메트리 작업을 위한 전문가급 환경입니다. WKT와 같은 텍스트 기반 형식과 시각적 지도 사이의 격차를 해소합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**만능 변환기:** WKT, GeoJSON 및 CSV 형식 간에 원활하게 전환하세요.",
+          f2: "**프라이버시 우선:** 모든 처리는 브라우저에서 이루어집니다. 데이터는 클라우드로 전송되지 않습니다.",
+          f3: "**정밀 통계:** WGS84 타원체 로직을 사용하여 정확한 측지 면적과 길이를 계산합니다.",
+          tipsTitle: "프로 팁",
+          tip1: "데이터 에디터에 WKT 문자열을 직접 붙여넣어 즉시 시각화하세요.",
+          tip2: "**단순화** 도구를 사용하여 웹 최적화를 위해 정점 수를 줄이세요.",
+          tip3: "**예제** 메뉴를 사용하여 빠르게 시작해보세요."
+        },
+        faqTitle: "지오 포지 FAQ",
+        q1: "WKT가 무엇인가요?",
+        a1: "WKT(Well-Known Text)는 벡터 지오메트리 객체를 표현하기 위한 텍스트 마크업 언어입니다. PostGIS 및 Oracle Spatial과 같은 데이터베이스에서 사용되는 표준입니다.",
+        q2: "면적은 어떻게 계산되나요?",
+        a2: "우리는 구면 좌표계에 맞춰 조정된 신발끈 공식(Shoelace formula)을 사용하여 큰 다각형에 대해서도 정확성을 보장합니다.",
+        q3: "오프라인에서 사용할 수 있나요?",
+        a3: "네! 지오 포지는 기기에서 완전히 독립적으로 실행됩니다."
       }
     },
     pwa: {

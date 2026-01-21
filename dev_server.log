@@ -1,0 +1,25 @@
+
+> web-factory-svelte@0.0.1 dev
+> vite dev --port 3000
+
+4:40:57 PM [vite] (client) Forced re-optimization of dependencies
+
+  VITE v6.4.1  ready in 1280 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: use --host to expose
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+4:44:28 PM [vite] (client) hmr update /src/lib/components/geo-forge/StatsPanel.svelte, /src/app.css
+4:44:28 PM [vite] (ssr) page reload src/lib/components/geo-forge/StatsPanel.svelte
+4:45:00 PM [vite] (client) hmr update /src/routes/[lang]/tools/geo-forge/+page.svelte, /src/app.css
+4:45:00 PM [vite] (ssr) page reload src/routes/[lang]/tools/geo-forge/+page.svelte
+4:45:07 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+4:45:07 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+4:45:07 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/2.js
+4:45:07 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/14.js
+4:45:07 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
+4:45:07 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+4:45:07 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+4:45:07 PM [vite] (client) page reload .svelte-kit/generated/root.js
+4:45:07 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
