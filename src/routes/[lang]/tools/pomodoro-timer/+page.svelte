@@ -2,11 +2,14 @@
   import { onDestroy } from "svelte";
   import type { PageData } from "./$types";
   import { formatTime } from "$lib/utils";
+  import { dictionaries } from "$lib/dictionaries";
+  import FAQSection from "$lib/components/FAQSection.svelte";
 
   export let data: PageData;
 
   type Language = "en" | "ko";
   $: lang = data.lang as Language;
+  $: dict = dictionaries[lang]?.tools?.pomodoroTimer || dictionaries.en.tools.pomodoroTimer;
 
   // Timer State
   let timeLeft = 25 * 60;
@@ -17,19 +20,19 @@
   const MODES = {
     focus: {
       time: 25 * 60,
-      label: { en: "Focus", ko: "집중" },
+      key: "focus",
       color: "text-indigo-600",
       bg: "bg-indigo-50",
     },
     short: {
       time: 5 * 60,
-      label: { en: "Short Break", ko: "짧은 휴식" },
+      key: "shortBreak",
       color: "text-emerald-600",
       bg: "bg-emerald-50",
     },
     long: {
       time: 15 * 60,
-      label: { en: "Long Break", ko: "긴 휴식" },
+      key: "longBreak",
       color: "text-blue-600",
       bg: "bg-blue-50",
     },
@@ -69,17 +72,53 @@
   onDestroy(() => {
     if (timerInterval) clearInterval(timerInterval);
   });
+
+  $: faqItems = [
+    { q: dict.q1, a: dict.a1 },
+    { q: dict.q2, a: dict.a2 },
+    { q: dict.q3, a: dict.a3 },
+  ];
+
+  $: schema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": dict.title,
+    "description": dict.description,
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": "Timer, Pomodoro Technique, Productivity, Focus Mode",
+    "mainEntity": {
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    }
+  };
 </script>
 
-<div class="max-w-2xl mx-auto text-center space-y-12 py-12">
+<svelte:head>
+  <title>{dict.title} - MicroFactory</title>
+  <meta name="description" content={dict.description} />
+  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
+</svelte:head>
+
+<div class="max-w-2xl mx-auto text-center space-y-12 py-12 px-4">
   <div class="space-y-4">
-    <h1 class="text-4xl font-bold text-gray-900">
-      {lang === "ko" ? "뽀모도로 타이머" : "Pomodoro Timer"}
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">
+      {dict.title}
     </h1>
     <p class="text-gray-500">
-      {lang === "ko"
-        ? "25분 집중하고 5분 쉬는 효율적인 시간 관리"
-        : "Boost productivity with the 25/5 technique"}
+      {dict.description}
     </p>
   </div>
 
@@ -93,18 +132,18 @@
 
     <!-- Mode Selector -->
     <div
-      class="flex justify-center gap-2 p-1 bg-gray-100 rounded-xl w-fit mx-auto"
+      class="flex flex-wrap justify-center gap-2 p-1 bg-gray-100 rounded-xl w-fit mx-auto"
     >
       {#each Object.keys(MODES) as m}
         {@const modeKey = m as keyof typeof MODES}
         <button
           on:click={() => setMode(modeKey)}
-          class="px-6 py-2 rounded-lg text-sm font-medium transition-all {mode ===
+          class="px-4 py-2 sm:px-6 sm:py-2 rounded-lg text-sm font-medium transition-all {mode ===
           modeKey
             ? 'bg-white text-gray-900 shadow-sm'
             : 'text-gray-500 hover:text-gray-900'}"
         >
-          {MODES[modeKey].label[lang]}
+          {dict[MODES[modeKey].key]}
         </button>
       {/each}
     </div>
@@ -112,22 +151,18 @@
     <!-- Timer Display -->
     <div class="relative">
       <div
-        class="text-9xl font-mono font-bold tracking-tighter tabular-nums {MODES[
+        class="text-6xl sm:text-8xl md:text-9xl font-mono font-bold tracking-tighter tabular-nums {MODES[
           mode
         ].color} transition-colors duration-500"
       >
         {formatTime(timeLeft)}
       </div>
       <div
-        class="text-sm uppercase tracking-widest text-gray-400 font-semibold mt-4"
+        class="text-xs sm:text-sm uppercase tracking-widest text-gray-400 font-semibold mt-4"
       >
         {isRunning
-          ? lang === "ko"
-            ? "집중 중..."
-            : "RUNNING"
-          : lang === "ko"
-            ? "일시정지"
-            : "PAUSED"}
+          ? dict.running
+          : dict.paused}
       </div>
     </div>
 
@@ -135,7 +170,8 @@
     <div class="flex items-center justify-center gap-6">
       <button
         on:click={toggleTimer}
-        class="h-16 w-16 flex items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:scale-105 active:scale-95 transition-all"
+        class="h-14 w-14 sm:h-16 sm:w-16 flex items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:scale-105 active:scale-95 transition-all"
+        aria-label={isRunning ? dict.paused : dict.running}
       >
         {#if isRunning}
           <svg
@@ -175,8 +211,8 @@
 
       <button
         on:click={reset}
-        class="h-12 w-12 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-900 transition-colors"
-        aria-label="Reset"
+        class="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-900 transition-colors"
+        aria-label={dict.reset}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -196,4 +232,6 @@
       </button>
     </div>
   </div>
+
+  <FAQSection title={dict.faqTitle} items={faqItems} />
 </div>
