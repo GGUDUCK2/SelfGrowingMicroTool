@@ -10,6 +10,23 @@ export const dictionaries = {
       actions: "Actions",
     },
     tools: {
+      pomodoroTimer: {
+        title: "Focus Flow: Pomodoro Timer",
+        description: "Boost productivity with the scientifically proven 25/5 minute work-rest cycle. Customizable and simple.",
+        focus: "Focus",
+        shortBreak: "Short Break",
+        longBreak: "Long Break",
+        running: "RUNNING",
+        paused: "PAUSED",
+        reset: "Reset",
+        faqTitle: "Pomodoro Timer FAQ",
+        q1: "What is the Pomodoro Technique?",
+        a1: "The Pomodoro Technique is a time management method that uses a timer to break work into intervals, traditionally 25 minutes in length, separated by short breaks.",
+        q2: "Why 25 minutes?",
+        a2: "25 minutes is short enough to maintain high focus without fatigue, but long enough to get significant work done.",
+        q3: "How do I use this?",
+        a3: "Select a task, start the 'Focus' timer (25m), work until it rings, then take a 'Short Break' (5m). After 4 cycles, take a 'Long Break' (15m)."
+      },
       compoundInterest: {
         title: "Compound Interest Calculator",
         description: "Visualize how your investment grows over time with the power of compound interest.",
@@ -1254,6 +1271,23 @@ export const dictionaries = {
       actions: "작업",
     },
     tools: {
+      pomodoroTimer: {
+        title: "포커스 플로우: 뽀모도로 타이머",
+        description: "과학적으로 입증된 25분 집중, 5분 휴식 주기로 생산성을 높이세요. 간편하고 강력합니다.",
+        focus: "집중",
+        shortBreak: "짧은 휴식",
+        longBreak: "긴 휴식",
+        running: "집중 중...",
+        paused: "일시정지",
+        reset: "초기화",
+        faqTitle: "뽀모도로 타이머 FAQ",
+        q1: "뽀모도로 기법이란 무엇인가요?",
+        a1: "뽀모도로 기법은 타이머를 사용하여 업무를 25분간의 집중 시간과 짧은 휴식 시간으로 나누어 수행하는 시간 관리 방법입니다.",
+        q2: "왜 25분인가요?",
+        a2: "25분은 피로감 없이 높은 집중력을 유지하기에 적당하며, 유의미한 업무 성과를 내기에 충분한 시간입니다.",
+        q3: "어떻게 사용하나요?",
+        a3: "할 일을 정하고 '집중' 타이머(25분)를 시작하세요. 알람이 울리면 '짧은 휴식'(5분)을 취합니다. 4번 반복 후에는 '긴 휴식'(15분)을 취하세요."
+      },
       timeForge: {
         title: "타임 포지",
         description: "분산된 팀을 위한 전문 세계 시계 및 회의 일정 스케줄러입니다.",

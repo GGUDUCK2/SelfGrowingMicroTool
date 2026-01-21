@@ -150,34 +150,30 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "${dict.title}",
-      "description": "${dict.description}",
-      "applicationCategory": "DesignApplication",
-      "operatingSystem": "Web",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "mainEntity": {
-        "@type": "FAQPage",
-        "mainEntity": [
-          ${faqItems.map(item => `{
-            "@type": "Question",
-            "name": "${item.q}",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "${item.a}"
-            }
-          }`).join(',')}
-        ]
-      }
+  {@html `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": dict.title,
+    "description": dict.description,
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "mainEntity": {
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
     }
-  </script>
+  })}</script>`}
 </svelte:head>
 
 <div class="max-w-6xl mx-auto py-12 space-y-12 px-4">
@@ -379,7 +375,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
         <button
           on:click={copyToClipboard}
-          class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 backdrop-blur-sm"
+          class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white px-4 py-2 sm:px-3 sm:py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 backdrop-blur-sm touch-manipulation"
         >
           {#if copied}
             <span in:fly={{ y: 5 }} class="text-green-400">{dict.copied}</span>
