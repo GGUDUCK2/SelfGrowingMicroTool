@@ -6,6 +6,7 @@
   import { goto } from "$app/navigation";
   import { debounce } from "$lib/utils";
   import FAQSection from "$lib/components/FAQSection.svelte";
+  import GuideSection from "$lib/components/GuideSection.svelte";
   import { db, type GlassmorphismHistory } from "$lib/db";
   import { liveQuery } from "dexie";
 
@@ -150,6 +151,12 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
+  <link rel="canonical" href="https://selfgrowingmicrotool.com/tools/glassmorphism-generator" />
+  <meta property="og:title" content={dict.title} />
+  <meta property="og:description" content={dict.description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://selfgrowingmicrotool.com/tools/glassmorphism-generator" />
+  <meta property="og:image" content="https://selfgrowingmicrotool.com/og-glassmorphism.jpg" />
   {@html `<script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -187,7 +194,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     <div class="flex justify-center">
         <button
           on:click={copyLink}
-          class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors"
+          class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors touch-manipulation"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -249,7 +256,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
         </h2>
         <button
             on:click={saveToHistory}
-            class="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
+            class="text-sm text-indigo-600 hover:text-indigo-800 font-medium touch-manipulation"
         >
             {dict.save}
         </button>
@@ -265,7 +272,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               max="40"
               step="1"
               bind:value={blur}
-              class="w-full mt-2 accent-indigo-600 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation"
             />
           </label>
         </div>
@@ -279,7 +286,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               max="1"
               step="0.01"
               bind:value={transparency}
-              class="w-full mt-2 accent-indigo-600 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation"
             />
           </label>
         </div>
@@ -291,7 +298,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               <input
                 type="color"
                 bind:value={color}
-                class="h-10 w-12 p-0 border-0 rounded cursor-pointer"
+                class="h-10 w-12 p-0 border-0 rounded cursor-pointer touch-manipulation"
               />
               <input
                 type="text"
@@ -311,7 +318,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               max="10"
               step="1"
               bind:value={outline}
-              class="w-full mt-2 accent-indigo-600 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation"
             />
           </label>
         </div>
@@ -325,7 +332,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               max="100"
               step="1"
               bind:value={radius}
-              class="w-full mt-2 accent-indigo-600 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation"
             />
           </label>
         </div>
@@ -395,7 +402,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                 </h3>
                 <button
                     on:click={clearHistory}
-                    class="text-sm text-red-500 hover:text-red-700 font-medium"
+                    class="text-sm text-red-500 hover:text-red-700 font-medium touch-manipulation"
                 >
                     {dict.clearHistory}
                 </button>
@@ -403,7 +410,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {#each $history as item (item.id)}
-                    <div class="group relative bg-gray-50 rounded-xl p-4 border border-gray-200 hover:shadow-md transition-all">
+                    <div class="group relative bg-gray-50 rounded-xl p-4 border border-gray-200 hover:shadow-md transition-all touch-manipulation">
                         <button class="w-full text-left" on:click={() => restoreHistory(item)}>
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-4 h-4 rounded-full border border-gray-300" style="background: {item.color}; opacity: {item.transparency}"></div>
@@ -422,7 +429,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                         </button>
                          <button
                             on:click|stopPropagation={() => item.id && deleteHistory(item.id)}
-                            class="absolute top-2 right-2 p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg opacity-0 group-hover:opacity-100 transition-all"
+                            class="absolute top-2 right-2 p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg opacity-0 group-hover:opacity-100 transition-all touch-manipulation"
                             aria-label={dict.delete}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
@@ -432,6 +439,22 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
             </div>
         </div>
       {/if}
+
+       <!-- Guide Section -->
+       {#if dict.guide}
+        <GuideSection
+          title={dict.guide.title}
+          intro={dict.guide.intro}
+          featuresTitle={dict.guide.featuresTitle}
+          f1={dict.guide.f1}
+          f2={dict.guide.f2}
+          f3={dict.guide.f3}
+          tipsTitle={dict.guide.tipsTitle}
+          tip1={dict.guide.tip1}
+          tip2={dict.guide.tip2}
+          tip3={dict.guide.tip3}
+        />
+       {/if}
 
       <!-- FAQ Section -->
       <FAQSection title={dict.faqTitle} items={faqItems} />
