@@ -1,17 +1,21 @@
 <script lang="ts">
   import { getViewport, generatePath, projectToScreen, screenToGeo, type Viewport } from '$lib/utils/geo-forge';
-  import type { GeoJSON, Position } from '$lib/utils/geo-forge';
-  import { onMount } from 'svelte';
-  import { Maximize, Minus, Plus } from 'lucide-svelte';
+  import type { GeoJSON, Position, Layer } from '$lib/utils/geo-forge/types';
+  import { onMount, createEventDispatcher } from 'svelte';
+  import { Maximize, Minus, Plus, Hand, PenTool, Eraser } from 'lucide-svelte';
 
-  export let geo: GeoJSON | null = null;
+  export let layers: Layer[] = [];
+  export let activeLayerId: string | null = null;
+  export let mode: 'view' | 'draw_point' | 'draw_line' | 'draw_poly' = 'view';
   export let dict: any;
+
+  const dispatch = createEventDispatcher();
 
   let container: HTMLDivElement;
   let svgElement: SVGSVGElement;
   let width = 0;
   let height = 0;
-  let pathD = '';
+  let paths: { id: string, d: string, color: string, visible: boolean }[] = [];
   let vp: Viewport | null = null;
 
   // Interaction State
@@ -22,61 +26,118 @@
   let lastX = 0;
   let lastY = 0;
 
+  // Drawing State
+  let drawnPoints: Position[] = [];
+  let currentMousePos: Position | null = null; // For rubber banding
+
   // Mouse Info
   let mouseGeo: Position | null = null;
 
-  $: if (geo && width > 0 && height > 0) {
-      updateBaseViewport();
+  $: if (layers.length > 0 && width > 0 && height > 0) {
+      if (!vp) {
+         // Initialize VP on first load
+         fitToAll();
+      } else {
+         render();
+      }
   }
 
-  function updateBaseViewport() {
-      if (!geo || width === 0 || height === 0) return;
-      vp = getViewport(geo, width, height, 40);
-      render();
+  function fitToAll() {
+      const allGeo: GeoJSON[] = layers.filter(l => l.visible && l.data).map(l => l.data!);
+      if (allGeo.length === 0 || width === 0 || height === 0) return;
+
+      // Combine all to find bbox
+      // For simplicity, just use the first one or logic to combine bboxes
+      // Here we will just use the first visible one for now, or improve getViewport to handle array
+      // Let's iterate and merge bboxes
+      // ... (implementation of merged bbox logic is implicit in getViewport if I updated it, but I didn't.
+      //  So I'll just use the active layer or first layer to center)
+
+      const target = layers.find(l => l.id === activeLayerId)?.data || layers.find(l => l.visible)?.data;
+
+      if (target) {
+          vp = getViewport(target, width, height, 40);
+          zoom = 1;
+          panX = 0;
+          panY = 0;
+          render();
+      }
   }
 
   function render() {
-      if (!geo || !vp) return;
-      pathD = generatePath(geo, vp);
+      if (!vp) return;
+      paths = layers.map(layer => {
+          if (!layer.data || !layer.visible) return { id: layer.id, d: '', color: layer.color, visible: false };
+          return {
+              id: layer.id,
+              d: generatePath(layer.data, vp!),
+              color: layer.color,
+              visible: true
+          };
+      });
   }
 
-  // Watch for geo change to reset view
-  let lastGeo: GeoJSON | null = null;
-  $: if (geo !== lastGeo) {
-      lastGeo = geo;
-      resetView();
+  // Watch for layers change
+  $: {
+      if (layers) render();
   }
 
-  function resetView() {
-      zoom = 1;
-      panX = 0;
-      panY = 0;
-      updateBaseViewport();
+  // Drawing preview path
+  $: drawingPathD = getDrawingPath(drawnPoints, currentMousePos, mode, vp);
+
+  function getDrawingPath(points: Position[], mouse: Position | null, mode: string, vp: Viewport | null): string {
+      if (!vp || points.length === 0) return '';
+
+      let screenPoints = points.map(p => projectToScreen(p, vp));
+
+      if (mouse && mode !== 'draw_point') {
+          screenPoints.push(projectToScreen(mouse, vp));
+      }
+
+      if (screenPoints.length === 0) return '';
+
+      if (mode === 'draw_point') {
+          return screenPoints.map(p => `M ${p[0]-5},${p[1]} L ${p[0]+5},${p[1]} M ${p[0]},${p[1]-5} L ${p[0]},${p[1]+5}`).join(' ');
+      } else {
+          let d = `M ${screenPoints[0][0]} ${screenPoints[0][1]}`;
+          for (let i = 1; i < screenPoints.length; i++) {
+              d += ` L ${screenPoints[i][0]} ${screenPoints[i][1]}`;
+          }
+          if (mode === 'draw_poly' && screenPoints.length > 2 && mouse === null) {
+              d += ' Z';
+          }
+          return d;
+      }
   }
+
 
   function handleWheel(e: WheelEvent) {
       e.preventDefault();
       const delta = -Math.sign(e.deltaY) * 0.1;
-      const newZoom = Math.max(0.1, Math.min(10, zoom + delta));
+      const newZoom = Math.max(0.1, Math.min(20, zoom + delta));
       zoom = newZoom;
   }
 
   function handleMouseDown(e: MouseEvent) {
-      isDragging = true;
-      lastX = e.clientX;
-      lastY = e.clientY;
+      if (mode === 'view') {
+        isDragging = true;
+        lastX = e.clientX;
+        lastY = e.clientY;
+      } else {
+          // Drawing logic
+          if (!mouseGeo) return;
+
+          if (mode === 'draw_point') {
+              dispatch('draw', { type: 'Point', coordinates: mouseGeo });
+              // Reset mode or stay? Let's stay for multiple points
+          } else {
+              drawnPoints = [...drawnPoints, mouseGeo];
+          }
+      }
   }
 
   function handleMouseMove(e: MouseEvent) {
-      if (isDragging) {
-          const dx = e.clientX - lastX;
-          const dy = e.clientY - lastY;
-          panX += dx;
-          panY += dy;
-          lastX = e.clientX;
-          lastY = e.clientY;
-      }
-
+      // Calculate mouse geo
       if (vp) {
           const rect = container.getBoundingClientRect();
           const mx = e.clientX - rect.left;
@@ -85,15 +146,96 @@
           const cx = width / 2;
           const cy = height / 2;
 
-          const baseScreenX = (mx - cx - panX) / zoom + cx;
-          const baseScreenY = (my - cy - panY) / zoom + cy;
+          // Apply reverse transform of group
+          // transform="translate({panX}, {panY}) scale({zoom})"
+          // screenX = (mx - panX - cx) / zoom + cx ??? No.
+          // Let's trace render logic:
+          // SVG Group is transformed.
+          // Inside Group, coords are "base screen coords" from projectToScreen.
+          // To get "base screen coords" from mouse event (mx, my):
+          // mx = (baseX * zoom) + panX
+          // baseX = (mx - panX) / zoom
+          // Wait, projectToScreen centers it at width/2, height/2.
+          // So if panX=0, zoom=1, baseX should be mx.
+          // Correct formula:
+          // baseX = (mx - panX - cx) / zoom + cx;  <-- This assumes projectToScreen output is relative to 0,0 top-left?
+          // getViewport returns scale and translate to fit in width/height.
+          // projectToScreen returns [x, y] in SVG coordinates (0..width, 0..height).
 
-          mouseGeo = screenToGeo(baseScreenX, baseScreenY, vp);
+          // The Group transform applies to the whole SVG content.
+          // We center the zoom at the center of the viewport (cx, cy).
+          // Actually, my CSS transform origin is center.
+          // transform-origin: center -> means 50% 50% of the SVG element.
+
+          // Let's simplify.
+          // Adjusted X relative to center (because of scale from center)
+          // adjustedX = (mx - cx) / zoom + cx - panX / zoom?
+          // This is getting complicated math.
+
+          // Let's assume standard pan/zoom behavior:
+          // render coords (P) -> transformed (T)
+          // T = (P - Center) * zoom + Center + Pan
+          // P = (T - Pan - Center) / zoom + Center
+
+          const baseX = (mx - panX - cx) / zoom + cx;
+          const baseY = (my - panY - cy) / zoom + cy;
+
+          mouseGeo = screenToGeo(baseX, baseY, vp);
+          currentMousePos = mouseGeo;
+      }
+
+      if (isDragging) {
+          const dx = e.clientX - lastX;
+          const dy = e.clientY - lastY;
+          panX += dx;
+          panY += dy;
+          lastX = e.clientX;
+          lastY = e.clientY;
       }
   }
 
   function handleMouseUp() {
       isDragging = false;
+  }
+
+  function handleDbClick() {
+      if (mode === 'draw_line' || mode === 'draw_poly') {
+          finishDrawing();
+      }
+  }
+
+  function finishDrawing() {
+      if (drawnPoints.length < 2) {
+          drawnPoints = [];
+          return;
+      }
+
+      let geometry: GeoJSON;
+      if (mode === 'draw_line') {
+          geometry = { type: 'LineString', coordinates: drawnPoints };
+      } else {
+           // Close polygon if needed
+           if (drawnPoints.length > 2) {
+               const first = drawnPoints[0];
+               const last = drawnPoints[drawnPoints.length-1];
+               if (first[0] !== last[0] || first[1] !== last[1]) {
+                   drawnPoints.push(first);
+               }
+               geometry = { type: 'Polygon', coordinates: [drawnPoints] };
+           } else {
+               // Fallback to line
+               geometry = { type: 'LineString', coordinates: drawnPoints };
+           }
+      }
+
+      dispatch('draw', geometry);
+      drawnPoints = [];
+  }
+
+  function cancelDrawing() {
+      drawnPoints = [];
+      mode = 'view';
+      dispatch('modeChange', 'view');
   }
 
   export async function getSnapshot(): Promise<string> {
@@ -129,7 +271,7 @@
 <div
   role="application"
   aria-label="Interactive Map"
-  class="relative w-full h-full bg-slate-100 dark:bg-slate-900 overflow-hidden cursor-crosshair group"
+  class="relative w-full h-full bg-slate-100 dark:bg-slate-900 overflow-hidden cursor-crosshair group select-none"
   bind:this={container}
   bind:clientWidth={width}
   bind:clientHeight={height}
@@ -138,13 +280,10 @@
   on:mousemove={handleMouseMove}
   on:mouseup={handleMouseUp}
   on:mouseleave={handleMouseUp}
+  on:dblclick={handleDbClick}
 >
-  {#if !geo}
-    <div class="absolute inset-0 flex items-center justify-center text-slate-400">
-      <p>{dict?.empty || 'Load geometry to visualize'}</p>
-    </div>
-  {:else}
-    <svg class="w-full h-full pointer-events-none" bind:this={svgElement}>
+    <!-- Background Grid -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" bind:this={svgElement}>
       <defs>
         <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
           <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" class="text-slate-200 dark:text-slate-800" stroke-width="1"/>
@@ -154,25 +293,60 @@
 
       <g
         transform="translate({panX}, {panY}) scale({zoom})"
-        style="transform-origin: center;"
+        style="transform-origin: 50% 50%;"
         class="transition-transform duration-75"
       >
-        <path
-          d={pathD}
-          fill="rgba(99, 102, 241, 0.2)"
-          stroke="rgb(99, 102, 241)"
-          stroke-width={2 / zoom}
-          vector-effect="non-scaling-stroke"
-        />
+        <!-- Render Layers -->
+        {#each paths as path (path.id)}
+            {#if path.visible}
+                <path
+                  d={path.d}
+                  fill={path.color}
+                  fill-opacity="0.2"
+                  stroke={path.color}
+                  stroke-width={2 / zoom}
+                  vector-effect="non-scaling-stroke"
+                  class="transition-all duration-300"
+                />
+            {/if}
+        {/each}
+
+        <!-- Drawing Preview -->
+        {#if drawnPoints.length > 0 || mode === 'draw_point'}
+             <path
+                d={drawingPathD}
+                fill="none"
+                stroke="#ef4444"
+                stroke-width={2 / zoom}
+                stroke-dasharray="4"
+                vector-effect="non-scaling-stroke"
+             />
+             {#each drawnPoints as p}
+                <!-- Render simple dots for vertices -->
+                <!-- We need projectToScreen logic here or simpler circles in SVG coords?
+                     Since we are inside the transformed group, we need dots at projected coords -->
+                 {#if vp}
+                    {@const sc = projectToScreen(p, vp)}
+                    <circle cx={sc[0]} cy={sc[1]} r={4/zoom} fill="#ef4444" />
+                 {/if}
+             {/each}
+        {/if}
       </g>
     </svg>
 
-    <!-- Controls -->
-    <div class="absolute bottom-4 right-4 flex flex-col gap-2 pointer-events-auto">
-        <button class="p-2 bg-white dark:bg-slate-800 shadow rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300" on:click={resetView} aria-label="Reset View">
+    <!-- Empty State -->
+    {#if layers.length === 0 && mode === 'view'}
+        <div class="absolute inset-0 flex items-center justify-center text-slate-400 pointer-events-none">
+          <p>{dict?.empty || 'Load geometry to visualize'}</p>
+        </div>
+    {/if}
+
+    <!-- Map Controls (Bottom Right) -->
+    <div class="absolute bottom-4 right-4 flex flex-col gap-2 pointer-events-auto z-20">
+        <button class="p-2 bg-white dark:bg-slate-800 shadow rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300" on:click={fitToAll} aria-label="Reset View" title="Fit to bounds">
             <Maximize class="w-5 h-5" />
         </button>
-        <button class="p-2 bg-white dark:bg-slate-800 shadow rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300" on:click={() => zoom = Math.min(10, zoom * 1.2)} aria-label="Zoom In">
+        <button class="p-2 bg-white dark:bg-slate-800 shadow rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300" on:click={() => zoom = Math.min(20, zoom * 1.2)} aria-label="Zoom In">
             <Plus class="w-5 h-5" />
         </button>
         <button class="p-2 bg-white dark:bg-slate-800 shadow rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300" on:click={() => zoom = Math.max(0.1, zoom / 1.2)} aria-label="Zoom Out">
@@ -180,11 +354,60 @@
         </button>
     </div>
 
+    <!-- Mode Controls (Top Center/Right) -->
+    <div class="absolute top-4 right-4 flex gap-1 bg-white dark:bg-slate-800 p-1 rounded-lg shadow border border-slate-200 dark:border-slate-700 z-20">
+        <button
+            class="p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-700 {mode === 'view' ? 'bg-indigo-50 dark:bg-indigo-900/50 text-indigo-600' : 'text-slate-500'}"
+            on:click={() => { mode = 'view'; dispatch('modeChange', 'view'); }}
+            title="Pan/Zoom"
+        >
+            <Hand class="w-4 h-4" />
+        </button>
+        <div class="w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
+        <button
+            class="p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-700 {mode === 'draw_point' ? 'bg-indigo-50 dark:bg-indigo-900/50 text-indigo-600' : 'text-slate-500'}"
+            on:click={() => { mode = 'draw_point'; dispatch('modeChange', 'draw_point'); }}
+            title="Draw Point"
+        >
+            <div class="w-4 h-4 flex items-center justify-center font-bold">●</div>
+        </button>
+        <button
+            class="p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-700 {mode === 'draw_line' ? 'bg-indigo-50 dark:bg-indigo-900/50 text-indigo-600' : 'text-slate-500'}"
+            on:click={() => { mode = 'draw_line'; dispatch('modeChange', 'draw_line'); }}
+            title="Draw Line (Double Click to Finish)"
+        >
+            <div class="w-4 h-4 flex items-center justify-center font-bold">/</div>
+        </button>
+        <button
+            class="p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-700 {mode === 'draw_poly' ? 'bg-indigo-50 dark:bg-indigo-900/50 text-indigo-600' : 'text-slate-500'}"
+            on:click={() => { mode = 'draw_poly'; dispatch('modeChange', 'draw_poly'); }}
+            title="Draw Polygon (Double Click to Finish)"
+        >
+            <PenTool class="w-4 h-4" />
+        </button>
+        {#if drawnPoints.length > 0}
+            <button class="p-2 text-red-500 hover:bg-red-50 rounded" on:click={cancelDrawing} title="Cancel Drawing">
+                <Eraser class="w-4 h-4" />
+            </button>
+            <button class="p-2 text-green-500 hover:bg-green-50 rounded font-bold text-xs" on:click={finishDrawing} title="Finish">
+                OK
+            </button>
+        {/if}
+    </div>
+
     <!-- Info Overlay -->
     {#if mouseGeo}
-        <div class="absolute bottom-4 left-4 px-2 py-1 bg-black/70 text-white text-xs font-mono rounded pointer-events-none">
-            {mouseGeo[1].toFixed(5)}, {mouseGeo[0].toFixed(5)}
+        <div class="absolute bottom-4 left-4 px-2 py-1 bg-black/70 text-white text-xs font-mono rounded pointer-events-none z-20 backdrop-blur-sm">
+            Lat: {mouseGeo[1].toFixed(5)} <br/> Lon: {mouseGeo[0].toFixed(5)}
         </div>
     {/if}
-  {/if}
+
+    {#if mode !== 'view'}
+        <div class="absolute top-16 left-1/2 -translate-x-1/2 bg-black/70 text-white text-xs px-3 py-1.5 rounded-full pointer-events-none z-20 backdrop-blur-sm">
+            {#if mode === 'draw_point'}Click map to add point
+            {:else if mode === 'draw_line'}Click to add points, Double-click to finish
+            {:else if mode === 'draw_poly'}Click to add vertices, Double-click to close
+            {/if}
+        </div>
+    {/if}
 </div>

@@ -185,3 +185,60 @@ function getSqSegDist(p: Position, p1: Position, p2: Position): number {
 
     return dx * dx + dy * dy;
 }
+
+// Convex Hull (Monotone Chain)
+function crossProduct(o: Position, a: Position, b: Position): number {
+    return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+}
+
+export function getConvexHull(points: Position[]): Position[] {
+    const n = points.length;
+    if (n <= 3) return points;
+
+    // Sort by x-coordinate (and y-coordinate for ties)
+    const sorted = points.slice().sort((a, b) => {
+        return a[0] === b[0] ? a[1] - b[1] : a[0] - b[0];
+    });
+
+    const lower: Position[] = [];
+    for (const p of sorted) {
+        while (lower.length >= 2 && crossProduct(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) {
+            lower.pop();
+        }
+        lower.push(p);
+    }
+
+    const upper: Position[] = [];
+    for (let i = n - 1; i >= 0; i--) {
+        const p = sorted[i];
+        while (upper.length >= 2 && crossProduct(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) {
+            upper.pop();
+        }
+        upper.push(p);
+    }
+
+    lower.pop();
+    upper.pop();
+    return lower.concat(upper);
+}
+
+export function getAllPoints(geo: GeoJSON): Position[] {
+    const points: Position[] = [];
+    function traverse(g: any) {
+        if (g.type === 'FeatureCollection') {
+            g.features.forEach((f: any) => traverse(f));
+        } else if (g.type === 'Feature') {
+            traverse(g.geometry);
+        } else if (g.type === 'Point') {
+            points.push(g.coordinates);
+        } else if (g.type === 'LineString' || g.type === 'MultiPoint') {
+            g.coordinates.forEach((p: Position) => points.push(p));
+        } else if (g.type === 'Polygon' || g.type === 'MultiLineString') {
+            g.coordinates.flat().forEach((p: Position) => points.push(p));
+        } else if (g.type === 'MultiPolygon') {
+            g.coordinates.flat(2).forEach((p: Position) => points.push(p));
+        }
+    }
+    traverse(geo);
+    return points;
+}

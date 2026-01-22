@@ -47,3 +47,12 @@ export interface FeatureCollection {
 }
 
 export type GeoJSON = Feature | FeatureCollection | Geometry;
+
+export interface Layer {
+    id: string;
+    name: string;
+    data: GeoJSON | null;
+    visible: boolean;
+    color: string;
+    format: 'wkt' | 'geojson' | 'csv';
+}
