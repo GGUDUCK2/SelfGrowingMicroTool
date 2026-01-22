@@ -7,6 +7,7 @@
     import { TimeEngine } from '$lib/utils/chrono-shift/time-engine';
     import LocationCard from './LocationCard.svelte';
     import Timeline from './Timeline.svelte';
+    import FAQSection from '$lib/components/FAQSection.svelte';
     import { liveQuery } from 'dexie';
     import { format, addDays, addMinutes } from 'date-fns';
     import { nanoid } from 'nanoid';
@@ -100,6 +101,12 @@
 
     $: overlapColor = overlapScore >= 80 ? 'text-green-500' : overlapScore >= 50 ? 'text-yellow-500' : 'text-red-500';
     $: overlapLabel = overlapScore >= 80 ? t.excellent : overlapScore >= 50 ? t.good : t.poor;
+
+    $: faqItems = [
+        { q: t.q1, a: t.a1 },
+        { q: t.q2, a: t.a2 },
+        { q: t.q3, a: t.a3 }
+    ].filter(i => i.q && i.a);
 
     // Methods
     function addLocation(zone: string) {
@@ -262,13 +269,13 @@
         <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex flex-wrap gap-4 items-center justify-between bg-slate-50 dark:bg-slate-800/50">
             <div class="flex items-center gap-4">
                 <div class="flex items-center bg-white dark:bg-slate-900 rounded-lg border border-slate-300 dark:border-slate-600 p-1">
-                    <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md" on:click={() => shiftDay(-1)}>
+                    <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md" on:click={() => shiftDay(-1)} aria-label="Previous Day">
                         <ArrowLeft size={18} />
                     </button>
                     <div class="px-4 font-mono font-medium min-w-[140px] text-center">
                         {format(selectedDate, 'yyyy-MM-dd')}
                     </div>
-                    <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md" on:click={() => shiftDay(1)}>
+                    <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md" on:click={() => shiftDay(1)} aria-label="Next Day">
                         <ArrowRight size={18} />
                     </button>
                 </div>
@@ -471,29 +478,16 @@
             </div>
         </div>
 
-        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">{t.faqTitle}</h3>
-        <div class="space-y-6">
-            <div>
-                <h4 class="font-semibold text-slate-900 dark:text-white mb-2">{t.q1}</h4>
-                <p class="text-slate-600 dark:text-slate-400">{t.a1}</p>
-            </div>
-            <div>
-                <h4 class="font-semibold text-slate-900 dark:text-white mb-2">{t.q2}</h4>
-                <p class="text-slate-600 dark:text-slate-400">{t.a2}</p>
-            </div>
-            <div>
-                <h4 class="font-semibold text-slate-900 dark:text-white mb-2">{t.q3}</h4>
-                <p class="text-slate-600 dark:text-slate-400">{t.a3}</p>
-            </div>
-        </div>
     </section>
+
+    <FAQSection title={t.faqTitle} items={faqItems} />
 </div>
 
 <style>
     .btn-primary {
-        @apply inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+        @apply inline-flex items-center justify-center px-4 py-3 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
     }
     .btn-secondary {
-        @apply inline-flex items-center justify-center px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg shadow-sm text-sm font-medium text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-700 hover:bg-slate-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors;
+        @apply inline-flex items-center justify-center px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg shadow-sm text-sm font-medium text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-700 hover:bg-slate-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors;
     }
 </style>
