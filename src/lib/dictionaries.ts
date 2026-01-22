@@ -1161,6 +1161,18 @@ export const dictionaries = {
         length: "Length",
         center: "Center",
         type: "Type",
+        convexHull: "Convex Hull",
+        bounds: "Bounds",
+        draw: {
+           point: "Draw Point",
+           line: "Draw Line",
+           poly: "Draw Polygon"
+        },
+        layer: {
+           add: "Add Layer",
+           visible: "Toggle Visibility",
+           delete: "Delete Layer"
+        },
         guide: {
           title: "Why Geo Forge?",
           intro: "Geo Forge is a professional-grade environment for working with vector geometry. It bridges the gap between text-based formats like WKT and visual maps.",
@@ -1449,6 +1461,18 @@ export const dictionaries = {
         length: "길이",
         center: "중심",
         type: "타입",
+        convexHull: "Convex Hull",
+        bounds: "경계상자",
+        draw: {
+           point: "점 그리기",
+           line: "선 그리기",
+           poly: "다각형 그리기"
+        },
+        layer: {
+           add: "레이어 추가",
+           visible: "가시성 토글",
+           delete: "레이어 삭제"
+        },
         guide: {
           title: "왜 지오 포지인가요?",
           intro: "지오 포지는 벡터 지오메트리 작업을 위한 전문가급 환경입니다. WKT와 같은 텍스트 기반 형식과 시각적 지도 사이의 격차를 해소합니다.",
