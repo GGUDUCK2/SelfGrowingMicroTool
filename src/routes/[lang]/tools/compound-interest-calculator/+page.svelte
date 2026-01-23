@@ -329,6 +329,39 @@
   ];
 </script>
 
+<svelte:head>
+  <title>{dict.title} - MicroFactory</title>
+  <meta name="description" content={dict.description} />
+  <link
+    rel="canonical"
+    href="https://selfgrowingmicrotool.com/{lang}/tools/compound-interest-calculator"
+  />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{dict.title} - MicroFactory" />
+  <meta property="og:description" content={dict.description} />
+  <meta
+    property="og:url"
+    content="https://selfgrowingmicrotool.com/{lang}/tools/compound-interest-calculator"
+  />
+  <meta property="og:type" content="website" />
+
+  <!-- JSON-LD -->
+  {@html `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": dict.title,
+    "description": dict.description,
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+    },
+  })}</script>`}
+</svelte:head>
+
 <div class="max-w-6xl mx-auto py-12 space-y-12 px-4">
   <div class="text-center space-y-4">
     <h1 class="text-4xl font-bold text-gray-900">
@@ -403,7 +436,7 @@
               <input
                 type="number"
                 bind:value={principal}
-                class="w-full pl-8 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                class="w-full pl-8 pr-4 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
                 class:border-red-500={errors.principal}
               />
             </div>
@@ -424,7 +457,7 @@
               <input
                 type="number"
                 bind:value={contribution}
-                class="w-full pl-8 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                class="w-full pl-8 pr-4 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
                 class:border-red-500={errors.contribution}
               />
             </div>
@@ -442,7 +475,7 @@
                 type="number"
                 step="0.1"
                 bind:value={rate}
-                class="w-full pl-4 pr-8 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                class="w-full pl-4 pr-8 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
                 class:border-red-500={errors.rate}
               />
               <span
@@ -477,7 +510,7 @@
                   type="number"
                   step="0.1"
                   bind:value={taxRate}
-                  class="w-full pl-4 pr-8 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                  class="w-full pl-4 pr-8 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
                   class:border-red-500={errors.taxRate}
                 />
                 <span
@@ -501,7 +534,7 @@
                 type="number"
                 step="0.1"
                 bind:value={inflationRate}
-                class="w-full pl-4 pr-8 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                class="w-full pl-4 pr-8 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
                 class:border-red-500={errors.inflationRate}
               />
               <span
@@ -520,7 +553,7 @@
             {lang === "ko" ? "복리 주기" : "Compound Frequency"}
             <select
               bind:value={compoundFrequency}
-              class="w-full px-4 py-2 mt-1 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none bg-white"
+              class="w-full px-4 py-3 text-base mt-1 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none bg-white"
             >
               <option value={12}
                 >{lang === "ko" ? "매월 (12회/년)" : "Monthly (12/yr)"}</option
@@ -568,7 +601,7 @@
 
         <button
           on:click={downloadCSV}
-          class="w-full flex justify-center items-center gap-2 py-2 px-4 border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors font-medium text-sm"
+          class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors font-medium text-base touch-manipulation"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
