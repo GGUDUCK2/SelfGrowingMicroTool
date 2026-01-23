@@ -16,10 +16,12 @@
   import ExampleLoader from '$lib/components/geo-forge/ExampleLoader.svelte';
   import GeoEditor from '$lib/components/geo-forge/GeoEditor.svelte';
   import MapCanvas from '$lib/components/geo-forge/MapCanvas.svelte';
+  import Sidebar from '$lib/components/geo-forge/Sidebar.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
 
   import { db, saveProject, getRecentProjects, type GeoForgeProject } from '$lib/db/geo-forge';
-  import { History, Globe, Code, Save, Clock, Layers, Eye, EyeOff, Plus, Trash2, Box, CircleDot, Maximize } from 'lucide-svelte';
-  import { fade, slide } from 'svelte/transition';
+  import { History, Globe, Code, Save, Clock, Layers, Eye, EyeOff, Plus, Trash2, Box, CircleDot, Maximize, Menu, X, CircleHelp } from 'lucide-svelte';
+  import { fade, slide, fly } from 'svelte/transition';
   import { liveQuery } from 'dexie';
   import { v4 as uuidv4 } from 'uuid';
 
@@ -80,6 +82,8 @@
 
   let error = '';
   let showHistory = false;
+  let showMobileMenu = false;
+  let showHelp = false;
   let mapCanvas: MapCanvas;
   let mode: 'view' | 'draw_point' | 'draw_line' | 'draw_poly' = 'view';
 
@@ -87,8 +91,6 @@
   let historyItems = liveQuery(() => getRecentProjects(5));
 
   // Auto-save debounce
-  // Only save the active layer? Or the whole project?
-  // For now, let's keep the existing logic but save the active layer's data
   let saveTimer: NodeJS.Timeout;
   $: if (activeLayer && activeLayer.data) {
       clearTimeout(saveTimer);
@@ -97,16 +99,12 @@
           if (mapCanvas) {
               preview = await mapCanvas.getSnapshot();
           }
-          // We save the active layer content to history for quick restore
           saveProject(activeLayer!.name || 'AutoSave', toWKT(activeLayer!.data!), 'wkt', preview);
       }, 5000);
   }
 
   function handleLoadProject(p: GeoForgeProject) {
-      // Create a new layer with this data
       try {
-          const loadedGeo = parseWKT(p.data); // Assuming saved as WKT for uniformity or using p.format
-          // Actually parse based on format
           let g: GeoJSON;
           if (p.format === 'geojson') g = JSON.parse(p.data);
           else if (p.format === 'csv') g = parseCSV(p.data);
@@ -120,8 +118,6 @@
       }
   }
 
-  // Reactive Parsing (When typing in Editor)
-  // This needs to update the active layer
   function updateActiveLayerData(newData: string, newFormat: 'wkt' | 'geojson' | 'csv') {
       if (!activeLayerId) return;
 
@@ -148,24 +144,9 @@
         }
   }
 
-  // Watch for input changes from Editor (bidirectional binding is tricky with derived)
-  // We will handle changes via `GeoEditor` events or binding to a local var that updates layer
-  // But GeoEditor binds `value` and `format`.
   let editorValue = '';
   let editorFormat: 'wkt' | 'geojson' | 'csv' = 'wkt';
 
-  // Sync Layer -> Editor
-  $: if (activeLayer && activeLayerId) {
-      // Avoid circular update loops
-      // We only update editor if active layer changed completely (e.g. switched layer)
-      // or if it was modified externally (e.g. drawing)
-      // Determining "source" of change is hard.
-      // Let's use a key or timestamp?
-      // Or just re-generate string when layer ID changes.
-  }
-
-  // Let's simplify: activeLayer is the source of truth.
-  // When activeLayerId changes, we load editorValue.
   let lastActiveId: string | null = null;
   $: if (activeLayerId !== lastActiveId) {
       if (activeLayer) {
@@ -181,14 +162,9 @@
       lastActiveId = activeLayerId;
   }
 
-  // When drawing updates the layer, we also need to update editorValue
-  // The `layers` array is updated. We need to detect if data changed for active layer.
-  // This is handled by the reactivity block above? No, only on ID change.
-  // We need to watch `activeLayer.data`.
   let lastData: GeoJSON | null = null;
   $: if (activeLayer && activeLayer.data !== lastData) {
       lastData = activeLayer.data;
-      // Regenerate editor string
       try {
          if (editorFormat === 'wkt') editorValue = activeLayer.data ? toWKT(activeLayer.data) : '';
          else if (editorFormat === 'csv') editorValue = activeLayer.data ? toCSV(activeLayer.data) : '';
@@ -196,19 +172,8 @@
       } catch(e) {}
   }
 
-  // When Editor updates
-  function handleEditorChange(e: CustomEvent<{ value: string, format: string }>) {
-      // Debounce?
-      // GeoEditor binds variables. We can watch `editorValue` and `editorFormat`.
-  }
-
-  // Watch editorValue/Format
   $: {
       if (activeLayerId && (editorValue !== (lastData ? (editorFormat === 'wkt' ? toWKT(lastData) : JSON.stringify(lastData)) : ''))) {
-          // This check is flawed because of formatting differences.
-          // Let's just try to parse if valid and update layer.
-          // But parsing is heavy.
-          // Let's rely on `GeoEditor` binding.
           updateActiveLayerData(editorValue, editorFormat);
       }
   }
@@ -220,7 +185,6 @@
   function handleConvert(target: 'wkt' | 'geojson' | 'csv') {
       if (!activeLayer || !activeLayer.data) return;
       try {
-          // Just change the format preference and update text
           editorFormat = target;
           if (target === 'wkt') editorValue = toWKT(activeLayer.data);
           else if (target === 'csv') editorValue = toCSV(activeLayer.data);
@@ -278,7 +242,6 @@
       if (!activeLayer || !activeLayer.data) return;
       const points = getAllPoints(activeLayer.data);
       const hull = getConvexHull(points);
-      // Close it
       hull.push(hull[0]);
 
       addLayer(activeLayer.name + " (Hull)", {
@@ -289,7 +252,7 @@
 
   function handleBBox() {
        if (!activeLayer || !activeLayer.data) return;
-       const bbox = getBBox(activeLayer.data); // [minX, minY, maxX, maxY]
+       const bbox = getBBox(activeLayer.data);
        const poly: GeoJSON = {
            type: 'Polygon',
            coordinates: [[
@@ -307,7 +270,6 @@
       if (!activeLayer || !activeLayer.data) return;
       try {
           const reversed = reverseGeometry(activeLayer.data);
-          // Update directly
           layers = layers.map(l => l.id === activeLayerId ? { ...l, data: reversed } : l);
       } catch (e) {
           alert("Reverse failed: " + e);
@@ -394,7 +356,6 @@
           const repaired = repairWKT(editorValue);
           if (repaired !== editorValue) {
               editorValue = repaired;
-              // Trigger update
               updateActiveLayerData(editorValue, 'wkt');
           } else {
               alert("No repairs needed or could not repair.");
@@ -405,11 +366,30 @@
   }
 
   function handleDraw(e: CustomEvent<GeoJSON>) {
-      // Add new layer with drawn geometry
       const type = e.detail.type;
       addLayer(`Drawn ${type}`, e.detail);
       mode = 'view';
   }
+
+  // FAQ
+  $: faqItems = [
+      { q: dict?.q1 || "What is WKT?", a: dict?.a1 || "Well-Known Text (WKT) is a text markup language for representing vector geometry objects." },
+      { q: dict?.q2 || "How is area calculated?", a: dict?.a2 || "We use the Shoelace formula adapted for spherical coordinates (Geodesic area)." },
+      { q: dict?.q3 || "Can I use this offline?", a: dict?.a3 || "Yes! Geo Forge runs entirely on your device." }
+  ];
+
+  $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
 </script>
 
 <svelte:head>
@@ -444,12 +424,22 @@
       ]
     }
   </script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
 </svelte:head>
 
 <div class="h-[calc(100vh-64px)] flex flex-col bg-slate-50 dark:bg-slate-900 overflow-hidden">
   <!-- Header / Toolbar -->
   <div class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-4 flex flex-col md:flex-row gap-4 items-center justify-between shrink-0 z-20 shadow-sm">
      <div class="flex items-center gap-3 w-full md:w-auto">
+         <!-- Mobile Menu Toggle -->
+         <button
+            class="lg:hidden p-2 -ml-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            on:click={() => showMobileMenu = true}
+            aria-label="Open Menu"
+         >
+            <Menu class="w-6 h-6" />
+         </button>
+
          <div class="p-2 bg-indigo-600 rounded-lg text-white shadow-lg shadow-indigo-200 dark:shadow-none">
              <Globe class="w-6 h-6" />
          </div>
@@ -501,88 +491,75 @@
                 Data Editor
              </button>
          </div>
+
+         <!-- Help Button -->
+         <button
+            class="ml-2 p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors"
+            on:click={() => showHelp = true}
+            aria-label="Help & FAQ"
+         >
+            <CircleHelp class="w-5 h-5" />
+         </button>
      </div>
   </div>
 
   <!-- Main Workspace -->
   <div class="flex-1 flex overflow-hidden">
-      <!-- Sidebar (Layers & Stats) -->
-      <div class="w-80 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 hidden lg:flex flex-col overflow-y-auto z-10">
-
-          <!-- Layers Panel -->
-          <div class="p-4 border-b border-slate-200 dark:border-slate-700">
-              <div class="flex justify-between items-center mb-3">
-                  <h3 class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                      <Layers class="w-4 h-4" /> Layers
-                  </h3>
-                  <button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors" on:click={() => addLayer(`Layer ${layers.length + 1}`)} aria-label="Add new layer">
-                      <Plus class="w-4 h-4" />
-                  </button>
-              </div>
-
-              <div class="flex flex-col gap-1 max-h-48 overflow-y-auto">
-                  {#each layers as layer (layer.id)}
-                      <div
-                         class="flex items-center gap-2 p-2 rounded-lg text-sm group border {activeLayerId === layer.id ? 'bg-indigo-50 dark:bg-indigo-900/20 border-indigo-200 dark:border-indigo-800' : 'bg-transparent border-transparent hover:bg-slate-50 dark:hover:bg-slate-700'}"
-                         role="button"
-                         tabindex="0"
-                         on:click={() => activeLayerId = layer.id}
-                         on:keydown={(e) => e.key === 'Enter' && (activeLayerId = layer.id)}
-                      >
-                          <button class="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" on:click|stopPropagation={() => toggleLayer(layer.id)} aria-label="Toggle layer visibility">
-                              {#if layer.visible}
-                                  <Eye class="w-3 h-3" />
-                              {:else}
-                                  <EyeOff class="w-3 h-3" />
-                              {/if}
-                          </button>
-
-                          <div class="w-3 h-3 rounded-full shrink-0" style="background-color: {layer.color}"></div>
-
-                          <span class="truncate flex-1 font-medium text-slate-700 dark:text-slate-200">{layer.name}</span>
-
-                          <button class="p-1 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity" on:click|stopPropagation={() => removeLayer(layer.id)} aria-label="Delete layer">
-                              <Trash2 class="w-3 h-3" />
-                          </button>
-                      </div>
-                  {/each}
-              </div>
-          </div>
-
-          <!-- Tools Panel -->
-          <div class="p-4 border-b border-slate-200 dark:border-slate-700 grid grid-cols-2 gap-2">
-               <button class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 transition-all gap-1" on:click={handleConvexHull} title="Create Convex Hull from active layer" aria-label="Create Convex Hull">
-                   <Box class="w-5 h-5" />
-                   <span class="text-xs font-medium">Convex Hull</span>
-               </button>
-               <button class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 transition-all gap-1" on:click={handleBBox} title="Get Bounding Box" aria-label="Get Bounding Box">
-                   <Maximize class="w-5 h-5" />
-                   <span class="text-xs font-medium">Bounds</span>
-               </button>
-          </div>
-
-          <!-- Stats -->
-          <div class="p-4 border-b border-slate-200 dark:border-slate-700">
-              <h3 class="font-bold text-slate-800 dark:text-white mb-2">Active Stats</h3>
-              <StatsPanel geo={activeLayer?.data || null} {dict} columns={1} />
-          </div>
-
-          <!-- Converter -->
-          <div class="p-4 flex-1">
-              <h3 class="font-bold text-slate-800 dark:text-white mb-4">Converter</h3>
-              <div class="grid grid-cols-1 gap-2">
-                  <button class="w-full py-2 px-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded text-left text-sm font-medium transition-colors {editorFormat === 'wkt' ? 'ring-2 ring-indigo-500' : ''}" on:click={() => handleConvert('wkt')}>
-                      To WKT
-                  </button>
-                  <button class="w-full py-2 px-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded text-left text-sm font-medium transition-colors {editorFormat === 'geojson' ? 'ring-2 ring-indigo-500' : ''}" on:click={() => handleConvert('geojson')}>
-                      To GeoJSON
-                  </button>
-                  <button class="w-full py-2 px-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded text-left text-sm font-medium transition-colors {editorFormat === 'csv' ? 'ring-2 ring-indigo-500' : ''}" on:click={() => handleConvert('csv')}>
-                      To CSV
-                  </button>
-              </div>
-          </div>
+      <!-- Desktop Sidebar -->
+      <div class="hidden lg:block w-80 h-full">
+         <Sidebar
+            {layers}
+            {activeLayerId}
+            {activeLayer}
+            {editorFormat}
+            {dict}
+            on:addLayer={(e) => addLayer(e.detail || `Layer ${layers.length + 1}`)}
+            on:setActiveLayer={(e) => activeLayerId = e.detail}
+            on:toggleLayer={(e) => toggleLayer(e.detail)}
+            on:removeLayer={(e) => removeLayer(e.detail)}
+            on:convexHull={handleConvexHull}
+            on:bbox={handleBBox}
+            on:convert={(e) => handleConvert(e.detail)}
+         />
       </div>
+
+      <!-- Mobile Sidebar Drawer -->
+      {#if showMobileMenu}
+        <div class="fixed inset-0 z-50 flex lg:hidden" role="dialog" aria-modal="true">
+            <div
+              class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+              on:click={() => showMobileMenu = false}
+              transition:fade
+            ></div>
+            <div
+              class="relative w-80 max-w-[85%] h-full bg-white dark:bg-slate-800 shadow-2xl flex flex-col"
+              transition:fly={{x: -300, duration: 300}}
+            >
+                 <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+                     <h2 class="font-bold text-lg">Menu</h2>
+                     <button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full" on:click={() => showMobileMenu = false} aria-label="Close Menu">
+                         <X class="w-5 h-5" />
+                     </button>
+                 </div>
+                 <div class="flex-1 overflow-hidden">
+                     <Sidebar
+                        {layers}
+                        {activeLayerId}
+                        {activeLayer}
+                        {editorFormat}
+                        {dict}
+                        on:addLayer={(e) => { addLayer(e.detail || `Layer ${layers.length + 1}`); showMobileMenu = false; }}
+                        on:setActiveLayer={(e) => { activeLayerId = e.detail; showMobileMenu = false; }}
+                        on:toggleLayer={(e) => toggleLayer(e.detail)}
+                        on:removeLayer={(e) => removeLayer(e.detail)}
+                        on:convexHull={() => { handleConvexHull(); showMobileMenu = false; }}
+                        on:bbox={() => { handleBBox(); showMobileMenu = false; }}
+                        on:convert={(e) => { handleConvert(e.detail); showMobileMenu = false; }}
+                     />
+                 </div>
+            </div>
+        </div>
+      {/if}
 
       <!-- Center Content -->
       <div class="flex-1 flex flex-col min-w-0 bg-slate-50 dark:bg-slate-900 relative">
@@ -641,7 +618,7 @@
                       on:draw={handleDraw}
                   />
 
-                  <!-- Mobile Stats Overlay -->
+                  <!-- Mobile Stats Overlay (Bottom) -->
                   <div class="lg:hidden absolute bottom-0 left-0 right-0 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 p-4 max-h-[40%] overflow-y-auto z-20">
                       <StatsPanel geo={activeLayer?.data || null} {dict} columns={2} />
                   </div>
@@ -671,4 +648,19 @@
           </div>
       </div>
   </div>
+
+  <!-- Help / FAQ Modal -->
+  {#if showHelp}
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true">
+          <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" on:click={() => showHelp = false} transition:fade></div>
+          <div class="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto bg-white dark:bg-slate-900 rounded-2xl shadow-2xl" transition:fly={{y: 20}}>
+               <button class="absolute top-4 right-4 p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full z-10" on:click={() => showHelp = false} aria-label="Close Help">
+                   <X class="w-6 h-6" />
+               </button>
+               <div class="p-1">
+                  <FAQSection title={dict.faqTitle} items={faqItems} />
+               </div>
+          </div>
+      </div>
+  {/if}
 </div>
