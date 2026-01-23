@@ -1,8 +1,8 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Copy, Download, Trash2, Wand2, RefreshCw, Camera, Wrench } from 'lucide-svelte';
+  import { Copy, Download, Trash2, Wand2, Camera, Wrench, Circle, ArrowRightLeft } from 'lucide-svelte';
 
-  export let dict: any;
+  export let dict: Record<string, string> = {};
   const dispatch = createEventDispatcher();
 </script>
 
@@ -37,6 +37,26 @@
   >
     <Wand2 class="w-4 h-4" />
     <span class="hidden sm:inline">{dict?.simplify || 'Simplify'}</span>
+  </button>
+
+  <button
+    class="flex items-center gap-2 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors text-sm font-medium"
+    on:click={() => dispatch('buffer')}
+    title={dict?.buffer || 'Buffer'}
+    aria-label={dict?.buffer || 'Buffer'}
+  >
+    <Circle class="w-4 h-4" />
+    <span class="hidden sm:inline">{dict?.buffer || 'Buffer'}</span>
+  </button>
+
+  <button
+    class="flex items-center gap-2 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors text-sm font-medium"
+    on:click={() => dispatch('reverse')}
+    title={dict?.reverse || 'Reverse'}
+    aria-label={dict?.reverse || 'Reverse'}
+  >
+    <ArrowRightLeft class="w-4 h-4" />
+    <span class="hidden sm:inline">{dict?.reverse || 'Reverse'}</span>
   </button>
 
   <button

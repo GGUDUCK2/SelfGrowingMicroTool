@@ -3,7 +3,7 @@ import Papa from 'papaparse';
 
 // --- CSV Parser ---
 
-interface CSVRow extends Record<string, unknown> {}
+type CSVRow = Record<string, unknown>;
 
 export function parseCSV(csv: string): FeatureCollection {
   const result = Papa.parse(csv, { header: true, dynamicTyping: true, skipEmptyLines: true });
@@ -113,7 +113,7 @@ function parseMultiPolygonText(text: string): Position[][][] {
     // Hacky approach: Split by ")), (("
     const polyTexts = text.split(/\)\)\s*,\s*\(\(/);
     return polyTexts.map(p => {
-        let clean = p.replace(/^\(+/, '').replace(/\)+$/, '');
+        const clean = p.replace(/^\(+/, '').replace(/\)+$/, '');
         // Re-wrap in parens for Polygon parser if needed? No, Polygon expects ((...)) format usually.
         // Actually my parsePolygonText expects ((ring), (hole)) format matching.
         // Let's manually construct.
@@ -138,15 +138,17 @@ export function parseWKT(wkt: string): Geometry {
       return { type: 'LineString', coordinates: parseLineStringText(content) };
     case 'POLYGON':
       return { type: 'Polygon', coordinates: parsePolygonText(content) };
-    case 'MULTIPOINT':
+    case 'MULTIPOINT': {
         // (10 10, 20 20) or ((10 10), (20 20)) depending on flavor
         const points = content.replace(/[()]/g, '').split(',');
         return { type: 'MultiPoint', coordinates: points.map(p => parsePointText(p)) };
-    case 'MULTILINESTRING':
+    }
+    case 'MULTILINESTRING': {
         // ((10 10, 20 20), (15 15, 25 25))
         const lines = content.match(/\(([^()]+)\)/g);
         if (!lines) return { type: 'MultiLineString', coordinates: [] };
         return { type: 'MultiLineString', coordinates: lines.map(l => parseLineStringText(l.replace(/[()]/g, ''))) };
+    }
     case 'MULTIPOLYGON':
         return { type: 'MultiPolygon', coordinates: parseMultiPolygonText(content) };
     default:

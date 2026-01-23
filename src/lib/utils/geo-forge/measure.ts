@@ -1,4 +1,4 @@
-import type { Position, Geometry, Feature, FeatureCollection, GeoJSON } from './types';
+import type { Position, Geometry, GeoJSON, Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, Feature, FeatureCollection } from './types';
 
 const EARTH_RADIUS = 6371008.8; // meters
 
@@ -114,19 +114,19 @@ export function getBBox(geo: GeoJSON): [number, number, number, number] {
     if (pos[1] > maxY) maxY = pos[1];
   }
 
-  function traverse(g: any) {
+  function traverse(g: GeoJSON) {
     if (g.type === 'FeatureCollection') {
-      g.features.forEach((f: any) => traverse(f));
+      (g as FeatureCollection).features.forEach((f) => traverse(f));
     } else if (g.type === 'Feature') {
-      traverse(g.geometry);
+      traverse((g as Feature).geometry);
     } else if (g.type === 'Point') {
-      expand(g.coordinates);
+      expand((g as Point).coordinates);
     } else if (g.type === 'LineString' || g.type === 'MultiPoint') {
-      g.coordinates.forEach(expand);
+      (g as LineString | MultiPoint).coordinates.forEach(expand);
     } else if (g.type === 'Polygon' || g.type === 'MultiLineString') {
-      g.coordinates.flat().forEach(expand);
+      (g as Polygon | MultiLineString).coordinates.flat().forEach(expand);
     } else if (g.type === 'MultiPolygon') {
-      g.coordinates.flat(2).forEach(expand);
+      (g as MultiPolygon).coordinates.flat(2).forEach(expand);
     }
   }
 
@@ -224,19 +224,19 @@ export function getConvexHull(points: Position[]): Position[] {
 
 export function getAllPoints(geo: GeoJSON): Position[] {
     const points: Position[] = [];
-    function traverse(g: any) {
+    function traverse(g: GeoJSON) {
         if (g.type === 'FeatureCollection') {
-            g.features.forEach((f: any) => traverse(f));
+            (g as FeatureCollection).features.forEach((f) => traverse(f));
         } else if (g.type === 'Feature') {
-            traverse(g.geometry);
+            traverse((g as Feature).geometry);
         } else if (g.type === 'Point') {
-            points.push(g.coordinates);
+            points.push((g as Point).coordinates);
         } else if (g.type === 'LineString' || g.type === 'MultiPoint') {
-            g.coordinates.forEach((p: Position) => points.push(p));
+            (g as LineString | MultiPoint).coordinates.forEach((p: Position) => points.push(p));
         } else if (g.type === 'Polygon' || g.type === 'MultiLineString') {
-            g.coordinates.flat().forEach((p: Position) => points.push(p));
+            (g as Polygon | MultiLineString).coordinates.flat().forEach((p: Position) => points.push(p));
         } else if (g.type === 'MultiPolygon') {
-            g.coordinates.flat(2).forEach((p: Position) => points.push(p));
+            (g as MultiPolygon).coordinates.flat(2).forEach((p: Position) => points.push(p));
         }
     }
     traverse(geo);
