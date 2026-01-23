@@ -1,0 +1,171 @@
+<script lang="ts">
+  import { page } from '$app/stores';
+  import Head from '$lib/components/Head.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
+  import { getDictionary } from '$lib/dictionaries';
+  import { matrixStore } from '$lib/utils/decision-forge/store';
+  import { exportToCsv, exportToJson } from '$lib/utils/decision-forge/export';
+  import MatrixEditor from '$lib/components/decision-forge/MatrixEditor.svelte';
+  import ResultsChart from '$lib/components/decision-forge/ResultsChart.svelte';
+  import HistoryPanel from '$lib/components/decision-forge/HistoryPanel.svelte';
+  import { Download, FileJson, FileSpreadsheet, Sidebar, X, RotateCcw } from 'lucide-svelte';
+  import { fade, slide } from 'svelte/transition';
+
+  $: lang = $page.params.lang || 'en';
+  $: dict = getDictionary(lang);
+  // Fallback if dictionary not yet updated
+  $: t = (dict.tools as any).decisionForge || {
+      title: "Decision Forge",
+      description: "Weighted Decision Matrix",
+      export: "Export",
+      reset: "Reset",
+      downloadCsv: "Download CSV",
+      downloadJson: "Download JSON"
+  };
+
+  let showSidebar = false;
+
+  function toggleSidebar() {
+    showSidebar = !showSidebar;
+  }
+</script>
+
+<Head
+  title="{t.title} - MicroFactory"
+  description={t.description}
+  url="https://selfgrowingmicrotool.com/{lang}/tools/decision-forge"
+  imageUrl="https://selfgrowingmicrotool.com/og/decision-forge.png"
+/>
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
+  <!-- Header -->
+  <header class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <button
+          on:click={toggleSidebar}
+          class="lg:hidden p-2 text-gray-500 hover:text-indigo-600 transition-colors"
+        >
+          {#if showSidebar}
+            <X size={24} />
+          {:else}
+            <Sidebar size={24} />
+          {/if}
+        </button>
+        <div class="flex items-center gap-3">
+            <div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold text-gray-900 dark:text-white leading-tight">{t.title}</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400 hidden sm:block">{t.description}</p>
+            </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <div class="hidden sm:flex items-center gap-2 mr-2">
+            <input
+                type="text"
+                bind:value={$matrixStore.name}
+                class="bg-gray-100 dark:bg-gray-700 border-none rounded-lg px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500 w-48 lg:w-64"
+                placeholder="Project Name..."
+            />
+        </div>
+
+        <div class="relative group">
+            <button class="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm font-medium">
+                <Download size={18} />
+                <span class="hidden sm:inline">{t.export}</span>
+            </button>
+            <!-- Dropdown -->
+            <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right z-50">
+                <button
+                    on:click={() => exportToCsv($matrixStore)}
+                    class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
+                >
+                    <FileSpreadsheet size={16} class="text-green-600" />
+                    <span>{t.downloadCsv}</span>
+                </button>
+                <button
+                    on:click={() => exportToJson($matrixStore)}
+                    class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
+                >
+                    <FileJson size={16} class="text-yellow-600" />
+                    <span>{t.downloadJson}</span>
+                </button>
+            </div>
+        </div>
+
+        <button
+            on:click={() => matrixStore.reset()}
+            class="p-2 text-gray-400 hover:text-red-500 transition-colors"
+            title={t.reset}
+        >
+            <RotateCcw size={20} />
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex flex-col lg:flex-row gap-8">
+
+      <!-- Sidebar (Desktop: Sticky, Mobile: Slide-over) -->
+      <aside
+        class="
+            fixed inset-y-0 left-0 z-40 w-80 bg-white dark:bg-gray-800 shadow-xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-auto lg:shadow-none lg:bg-transparent dark:lg:bg-transparent lg:w-1/4 lg:block
+            {showSidebar ? 'translate-x-0' : '-translate-x-full'}
+        "
+      >
+        <div class="h-full lg:h-[calc(100vh-8rem)] lg:sticky lg:top-24">
+            <HistoryPanel />
+        </div>
+      </aside>
+
+      <!-- Overlay for mobile sidebar -->
+      {#if showSidebar}
+        <button
+            class="fixed inset-0 bg-black/50 z-30 lg:hidden w-full h-full border-0 cursor-default"
+            transition:fade
+            on:click={toggleSidebar}
+            on:keydown={(e) => e.key === 'Escape' && toggleSidebar()}
+            aria-label="Close Sidebar"
+        ></button>
+      {/if}
+
+      <!-- Main Content -->
+      <div class="flex-1 w-full lg:w-3/4 space-y-8">
+
+        <!-- Editor Section -->
+        <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+            <div class="p-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 flex justify-between items-center lg:hidden">
+                 <input
+                    type="text"
+                    bind:value={$matrixStore.name}
+                    class="bg-transparent border-none text-lg font-bold text-gray-900 dark:text-white focus:ring-0 w-full"
+                    placeholder="Project Name..."
+                />
+            </div>
+            <MatrixEditor />
+        </section>
+
+        <!-- Results Section -->
+        <section>
+            <ResultsChart />
+        </section>
+
+        <!-- Documentation -->
+        <GuideSection guide={t.guide} />
+
+        <!-- FAQ -->
+        <FAQSection title={t.faqTitle} items={[
+          { question: t.q1, answer: t.a1 },
+          { question: t.q2, answer: t.a2 },
+          { question: t.q3, answer: t.a3 }
+        ]} />
+      </div>
+    </div>
+  </main>
+</div>
