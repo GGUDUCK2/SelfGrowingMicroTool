@@ -161,6 +161,15 @@ export interface InputLabHistory {
   starred?: number;
 }
 
+export interface DecisionForgeMatrix {
+  id?: number;
+  name: string;
+  criteria: { id: string; name: string; weight: number }[];
+  options: { id: string; name: string; scores: Record<string, number> }[];
+  createdAt: Date;
+  starred?: number;
+}
+
 class MySubClassedDexie extends Dexie {
   compoundInterestConfig!: DexieTable<CompoundInterestConfig>;
   compoundInterestHistory!: DexieTable<CompoundInterestHistory>;
@@ -179,6 +188,7 @@ class MySubClassedDexie extends Dexie {
   iconForgeProjects!: DexieTable<IconForgeProject>;
   promptForgeHistory!: DexieTable<PromptForgeHistory>;
   inputLabHistory!: DexieTable<InputLabHistory>;
+  decisionForgeMatrices!: DexieTable<DecisionForgeMatrix>;
 
   constructor() {
     super('webFactoryDB');
@@ -455,6 +465,26 @@ class MySubClassedDexie extends Dexie {
       iconForgeProjects: '++id, createdAt, starred',
       promptForgeHistory: '++id, createdAt, starred',
       inputLabHistory: '++id, createdAt, starred'
+    });
+    this.version(23).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      idForgeHistory: '++id, createdAt, starred',
+      cipherHistory: '++id, createdAt, starred',
+      structuraHistory: '++id, createdAt, starred',
+      markFlowHistory: '++id, createdAt, starred',
+      seoHistory: '++id, createdAt, projectName, starred',
+      schemaForgeProjects: '++id, createdAt, starred',
+      iconForgeProjects: '++id, createdAt, starred',
+      promptForgeHistory: '++id, createdAt, starred',
+      inputLabHistory: '++id, createdAt, starred',
+      decisionForgeMatrices: '++id, createdAt, starred'
     });
   }
 }

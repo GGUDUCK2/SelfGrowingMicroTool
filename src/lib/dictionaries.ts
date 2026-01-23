@@ -1306,6 +1306,33 @@ export const dictionaries = {
         a2: "Yes! Use the 'Save Team' button to persist your current configuration of cities to your local browser storage.",
         q3: "What do the colored bars indicate?",
         a3: "Yellow for Morning (7-9), Green for Business Hours (9-17), Orange for Evening (17-22), and Dark Blue for Night."
+      },
+      decisionForge: {
+        title: "Decision Forge",
+        description: "The definitive weighted decision matrix tool. Evaluate options, visualize trade-offs, and make confident choices.",
+        export: "Export",
+        reset: "Reset",
+        downloadCsv: "Download CSV",
+        downloadJson: "Download JSON",
+        guide: {
+          title: "Why Decision Forge?",
+          intro: "Making complex decisions is hard. Decision Forge applies the Weighted Decision Matrix (Pugh Matrix) method to bring logic and clarity to your choices.",
+          featuresTitle: "Key Features",
+          f1: "**Weighted Scoring:** Not all criteria are equal. Assign weights to prioritize what matters most.",
+          f2: "**Visual Ranking:** See the winner instantly with dynamic score visualization.",
+          f3: "**Private Workspace:** Auto-saves to your browser. No sign-up, no data tracking.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use a scale of 1-10 for scores to allow for nuance.",
+          tip2: "Adjust weights dynamically to perform 'Sensitivity Analysis' - see how the winner changes if you value 'Price' more than 'Quality'.",
+          tip3: "Export to CSV to share your analysis with stakeholders."
+        },
+        faqTitle: "Decision Forge FAQ",
+        q1: "What is a Weighted Decision Matrix?",
+        a1: "It is a quantitative technique used to evaluate a set of options against a set of criteria. Each criterion is weighted by importance, and each option is scored against those criteria.",
+        q2: "Is my data saved?",
+        a2: "Yes, your matrices are saved locally in your browser using IndexedDB (Dexie.js).",
+        q3: "Can I export my data?",
+        a3: "Absolutely. You can download your matrix as a CSV file for Excel/Sheets or JSON for backup."
       }
     },
     pwa: {
@@ -1446,6 +1473,33 @@ export const dictionaries = {
         a2: "네! '팀 저장' 버튼을 사용하여 현재 도시 구성을 브라우저 로컬 저장소에 영구 저장할 수 있습니다.",
         q3: "색상 바는 무엇을 의미하나요?",
         a3: "노란색은 아침(7-9), 녹색은 업무 시간(9-17), 주황색은 저녁(17-22), 짙은 파란색은 밤을 의미합니다."
+      },
+      decisionForge: {
+        title: "디시전 포지: 결정 매트릭스",
+        description: "전문가를 위한 가중치 의사결정 도구입니다. 옵션을 평가하고, 트레이드오프를 시각화하여 확신 있는 결정을 내리세요.",
+        export: "내보내기",
+        reset: "초기화",
+        downloadCsv: "CSV 다운로드",
+        downloadJson: "JSON 다운로드",
+        guide: {
+          title: "왜 디시전 포지인가요?",
+          intro: "복잡한 결정은 어렵습니다. 디시전 포지는 가중치 의사결정 매트릭스(Pugh Matrix) 기법을 적용하여 선택에 논리와 명확성을 부여합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**가중치 점수:** 모든 기준이 동등하지 않습니다. 가장 중요한 것에 가중치를 부여하세요.",
+          f2: "**시각적 순위:** 동적인 점수 시각화를 통해 승자를 즉시 확인하세요.",
+          f3: "**개인 작업 공간:** 브라우저에 자동 저장됩니다. 가입이나 데이터 추적이 없습니다.",
+          tipsTitle: "프로 팁",
+          tip1: "뉘앙스를 표현하기 위해 1-10 점수 척도를 사용하세요.",
+          tip2: "가중치를 조절하여 '민감도 분석'을 수행해보세요. '가격'을 '품질'보다 중요하게 여길 때 결과가 어떻게 변하는지 확인할 수 있습니다.",
+          tip3: "이해관계자와 분석을 공유하려면 CSV로 내보내세요."
+        },
+        faqTitle: "디시전 포지 FAQ",
+        q1: "가중치 의사결정 매트릭스란 무엇인가요?",
+        a1: "일련의 기준에 따라 여러 옵션을 평가하는 정량적 기법입니다. 각 기준은 중요도에 따라 가중치가 부여되며, 각 옵션은 그 기준에 대해 점수가 매겨집니다.",
+        q2: "데이터는 저장되나요?",
+        a2: "네, 매트릭스는 IndexedDB(Dexie.js)를 사용하여 브라우저에 로컬로 저장됩니다.",
+        q3: "데이터를 내보낼 수 있나요?",
+        a3: "물론입니다. 엑셀/구글 시트용 CSV 파일이나 백업용 JSON으로 다운로드할 수 있습니다."
       },
       geoForge: {
         title: "지오 포지: 지리 공간 툴킷",
