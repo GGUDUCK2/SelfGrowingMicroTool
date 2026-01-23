@@ -4,8 +4,10 @@ import { db, type CipherHistory, type StructuraHistory } from '../db'; // Import
 export interface ToolHistoryItem<T = unknown, R = unknown> {
   id?: number;
   toolId: string;
-  input: T;
-  result: R;
+  input?: T;
+  result?: R;
+  action?: string;
+  details?: string;
   timestamp: number;
   starred: boolean;
   name?: string; // Optional name for starred items
@@ -23,6 +25,31 @@ export class ToolWorkspace extends Dexie {
 }
 
 export const workspace = new ToolWorkspace();
+export const workspaceDB = workspace;
+
+export async function addToHistory(toolId: string, action: string, details: any) {
+    const serializedDetails = typeof details === 'string' ? details : JSON.stringify(details);
+
+    await workspace.history.add({
+        toolId,
+        action,
+        details: serializedDetails,
+        timestamp: Date.now(),
+        starred: false
+    });
+
+    // Cleanup old (simple version)
+    const count = await workspace.history.where('toolId').equals(toolId).count();
+    if (count > 100) {
+        const collection = workspace.history.where('toolId').equals(toolId).sortBy('timestamp');
+        const items = await collection;
+        const limit = count - 100;
+        if (limit > 0) {
+             const toDelete = items.slice(0, limit).map(i => i.id!);
+             await workspace.history.bulkDelete(toDelete);
+        }
+    }
+}
 
 export async function saveToHistory<T, R>(
     toolId: string,

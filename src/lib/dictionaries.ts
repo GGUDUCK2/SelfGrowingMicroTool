@@ -1157,6 +1157,8 @@ export const dictionaries = {
         snapshot: "Snapshot",
         reverse: "Reverse",
         buffer: "Buffer",
+        history: "History",
+        historyEmpty: "No history yet.",
         prompt_tolerance: "Enter simplification tolerance (degrees, e.g. 0.001):",
         prompt_buffer: "Enter buffer radius in meters:",
         prompt_format: "Enter format to download",
@@ -1174,6 +1176,7 @@ export const dictionaries = {
         },
         layer: {
            add: "Add Layer",
+           list: "Layer List",
            visible: "Toggle Visibility",
            delete: "Delete Layer"
         },
@@ -1515,6 +1518,8 @@ export const dictionaries = {
         snapshot: "스냅샷",
         reverse: "뒤집기",
         buffer: "버퍼",
+        history: "작업 기록",
+        historyEmpty: "기록이 없습니다.",
         prompt_tolerance: "단순화 허용 오차를 입력하세요 (도 단위, 예: 0.001):",
         prompt_buffer: "버퍼 반경을 입력하세요 (미터):",
         prompt_format: "다운로드할 형식을 입력하세요",
@@ -1532,6 +1537,7 @@ export const dictionaries = {
         },
         layer: {
            add: "레이어 추가",
+           list: "레이어 목록",
            visible: "가시성 토글",
            delete: "레이어 삭제"
         },
