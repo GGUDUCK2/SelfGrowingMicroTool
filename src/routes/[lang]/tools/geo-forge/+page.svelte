@@ -17,9 +17,11 @@
   import GeoEditor from '$lib/components/geo-forge/GeoEditor.svelte';
   import MapCanvas from '$lib/components/geo-forge/MapCanvas.svelte';
   import Sidebar from '$lib/components/geo-forge/Sidebar.svelte';
+  import ExportModal from '$lib/components/geo-forge/ExportModal.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
 
   import { db, saveProject, getRecentProjects, type GeoForgeProject } from '$lib/db/geo-forge';
+  import { addToHistory } from '$lib/db/workspace';
   import { History, Globe, Code, Save, Clock, Layers, Eye, EyeOff, Plus, Trash2, Box, CircleDot, Maximize, Menu, X, CircleHelp } from 'lucide-svelte';
   import { fade, slide, fly } from 'svelte/transition';
   import { liveQuery } from 'dexie';
@@ -74,6 +76,14 @@
       return colors[Math.floor(Math.random() * colors.length)];
   }
 
+  async function logOp(action: string, layerName: string, data: GeoJSON) {
+      await addToHistory('geo-forge', action, {
+          name: layerName,
+          data,
+          format: 'wkt'
+      });
+  }
+
   // Derived state for Editor
   $: activeLayer = layers.find(l => l.id === activeLayerId);
   $: input = activeLayer && activeLayer.data ? toWKT(activeLayer.data) : ''; // Default to WKT for view
@@ -83,6 +93,7 @@
   let error = '';
   let showHistory = false;
   let showMobileMenu = false;
+  let showExportModal = false;
   let showHelp = false;
   let mapCanvas: MapCanvas;
   let mode: 'view' | 'draw_point' | 'draw_line' | 'draw_poly' = 'view';
@@ -205,7 +216,9 @@
 
       try {
           const simplified = simplifyGeometry(activeLayer.data, tolerance);
-          addLayer(activeLayer.name + " (Simplified)", simplified);
+          const newName = activeLayer.name + " (Simplified)";
+          addLayer(newName, simplified);
+          logOp("Simplify", newName, simplified);
       } catch (e) {
           alert("Simplify failed: " + e);
       }
@@ -232,7 +245,9 @@
 
       try {
           const buffered = createBuffer(activeLayer.data, dist);
-          addLayer(activeLayer.name + " (Buffer)", buffered);
+          const newName = activeLayer.name + " (Buffer)";
+          addLayer(newName, buffered);
+          logOp("Buffer", newName, buffered);
       } catch (e) {
           alert("Buffer failed: " + e);
       }
@@ -244,10 +259,13 @@
       const hull = getConvexHull(points);
       hull.push(hull[0]);
 
-      addLayer(activeLayer.name + " (Hull)", {
+      const poly: GeoJSON = {
           type: 'Polygon',
           coordinates: [hull]
-      });
+      };
+      const newName = activeLayer.name + " (Hull)";
+      addLayer(newName, poly);
+      logOp("Convex Hull", newName, poly);
   }
 
   function handleBBox() {
@@ -263,7 +281,9 @@
                [bbox[0], bbox[1]]
            ]]
        };
-       addLayer(activeLayer.name + " (Bounds)", poly);
+       const newName = activeLayer.name + " (Bounds)";
+       addLayer(newName, poly);
+       logOp("Bounding Box", newName, poly);
   }
 
   function handleReverse() {
@@ -271,6 +291,7 @@
       try {
           const reversed = reverseGeometry(activeLayer.data);
           layers = layers.map(l => l.id === activeLayerId ? { ...l, data: reversed } : l);
+          logOp("Reverse Geometry", activeLayer.name, reversed);
       } catch (e) {
           alert("Reverse failed: " + e);
       }
@@ -299,44 +320,7 @@
 
   function handleDownload() {
       if (!activeLayer || !activeLayer.data) return;
-
-      const formats = ['wkt', 'geojson', 'csv', 'kml', 'gpx'];
-      const choice = prompt((dict?.prompt_format || "Enter format to download") + ` (${formats.join(', ')}):`, editorFormat);
-      if (!choice || !formats.includes(choice.toLowerCase())) return;
-
-      const fmt = choice.toLowerCase();
-      let content = '';
-      let ext = '';
-
-      try {
-        if (fmt === 'wkt') {
-            content = toWKT(activeLayer.data);
-            ext = 'txt';
-        } else if (fmt === 'geojson') {
-            content = JSON.stringify(activeLayer.data, null, 2);
-            ext = 'json';
-        } else if (fmt === 'csv') {
-            content = toCSV(activeLayer.data);
-            ext = 'csv';
-        } else if (fmt === 'kml') {
-            content = toKML(activeLayer.data);
-            ext = 'kml';
-        } else if (fmt === 'gpx') {
-            content = toGPX(activeLayer.data);
-            ext = 'gpx';
-        }
-
-        const blob = new Blob([content], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${activeLayer.name || 'geoforge'}.${ext}`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      } catch (e) {
-          alert("Export failed: " + e);
-      }
+      showExportModal = true;
   }
 
   async function handleSnapshot() {
@@ -369,6 +353,7 @@
       const type = e.detail.type;
       addLayer(`Drawn ${type}`, e.detail);
       mode = 'view';
+      logOp(`Draw ${type}`, `Drawn ${type}`, e.detail);
   }
 
   // FAQ
@@ -400,6 +385,7 @@
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
   <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://selfgrowingmicrotool.com/tools/geo-forge" />
 
   {@html `<script type="application/ld+json">
     {
@@ -513,7 +499,13 @@
             {activeLayer}
             {editorFormat}
             {dict}
-            on:addLayer={(e) => addLayer(e.detail || `Layer ${layers.length + 1}`)}
+            on:addLayer={(e) => {
+                if (typeof e.detail === 'object' && e.detail !== null) {
+                    addLayer(e.detail.name || 'Restored', e.detail.data);
+                } else {
+                    addLayer(e.detail || `Layer ${layers.length + 1}`);
+                }
+            }}
             on:setActiveLayer={(e) => activeLayerId = e.detail}
             on:toggleLayer={(e) => toggleLayer(e.detail)}
             on:removeLayer={(e) => removeLayer(e.detail)}
@@ -526,13 +518,15 @@
       <!-- Mobile Sidebar Drawer -->
       {#if showMobileMenu}
         <div class="fixed inset-0 z-50 flex lg:hidden" role="dialog" aria-modal="true">
-            <div
-              class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            <button
+              class="absolute inset-0 bg-black/50 backdrop-blur-sm cursor-default"
               on:click={() => showMobileMenu = false}
+              on:keydown={(e) => e.key === 'Escape' && (showMobileMenu = false)}
               transition:fade
-            ></div>
+              aria-label="Close menu"
+            ></button>
             <div
-              class="relative w-80 max-w-[85%] h-full bg-white dark:bg-slate-800 shadow-2xl flex flex-col"
+              class="relative w-80 max-w-[85%] h-full bg-white dark:bg-slate-800 shadow-2xl flex flex-col pointer-events-auto"
               transition:fly={{x: -300, duration: 300}}
             >
                  <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
@@ -548,7 +542,14 @@
                         {activeLayer}
                         {editorFormat}
                         {dict}
-                        on:addLayer={(e) => { addLayer(e.detail || `Layer ${layers.length + 1}`); showMobileMenu = false; }}
+                        on:addLayer={(e) => {
+                             if (typeof e.detail === 'object' && e.detail !== null) {
+                                addLayer(e.detail.name || 'Restored', e.detail.data);
+                             } else {
+                                addLayer(e.detail || `Layer ${layers.length + 1}`);
+                             }
+                             showMobileMenu = false;
+                        }}
                         on:setActiveLayer={(e) => { activeLayerId = e.detail; showMobileMenu = false; }}
                         on:toggleLayer={(e) => toggleLayer(e.detail)}
                         on:removeLayer={(e) => removeLayer(e.detail)}
@@ -652,8 +653,8 @@
   <!-- Help / FAQ Modal -->
   {#if showHelp}
       <div class="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true">
-          <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" on:click={() => showHelp = false} transition:fade></div>
-          <div class="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto bg-white dark:bg-slate-900 rounded-2xl shadow-2xl" transition:fly={{y: 20}}>
+          <button class="absolute inset-0 bg-black/50 backdrop-blur-sm cursor-default" on:click={() => showHelp = false} on:keydown={(e) => e.key === 'Escape' && (showHelp = false)} transition:fade aria-label="Close help"></button>
+          <div class="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto bg-white dark:bg-slate-900 rounded-2xl shadow-2xl z-10 pointer-events-auto" transition:fly={{y: 20}}>
                <button class="absolute top-4 right-4 p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full z-10" on:click={() => showHelp = false} aria-label="Close Help">
                    <X class="w-6 h-6" />
                </button>
@@ -662,5 +663,15 @@
                </div>
           </div>
       </div>
+  {/if}
+
+  <!-- Export Modal -->
+  {#if showExportModal && activeLayer}
+      <ExportModal
+        data={activeLayer.data}
+        name={activeLayer.name}
+        initialFormat={editorFormat}
+        on:close={() => showExportModal = false}
+      />
   {/if}
 </div>

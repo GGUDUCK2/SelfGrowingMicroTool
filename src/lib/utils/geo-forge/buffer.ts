@@ -1,4 +1,5 @@
-import type { GeoJSON, Position, Feature } from './types';
+import type { GeoJSON, Position, Feature, Geometry } from './types';
+import { isFeature, isFeatureCollection, isPoint, isMultiPoint } from './guards';
 
 const EARTH_RADIUS = 6371008.8; // meters
 
@@ -35,44 +36,75 @@ export function createCircle(center: Position, radiusMeters: number, steps = 64)
 export function createBuffer(geo: GeoJSON, distanceMeters: number): GeoJSON {
     if (distanceMeters <= 0) return geo;
 
-    if (geo.type === 'Point') {
-        return {
-            type: 'Polygon',
-            coordinates: [createCircle(geo.coordinates, distanceMeters)]
-        };
-    } else if (geo.type === 'MultiPoint') {
-        return {
-            type: 'MultiPolygon',
-            coordinates: geo.coordinates.map(p => [createCircle(p, distanceMeters)])
-        };
-    } else if (geo.type === 'Feature' && geo.geometry.type === 'Point') {
-        return {
-             type: 'Feature',
-             properties: geo.properties,
-             geometry: {
-                 type: 'Polygon',
-                 coordinates: [createCircle((geo.geometry as any).coordinates, distanceMeters)]
-             }
-        };
-    } else if (geo.type === 'FeatureCollection') {
+    if (isFeatureCollection(geo)) {
         return {
             type: 'FeatureCollection',
             features: geo.features.map(f => {
-                if (f.geometry.type === 'Point') {
+                if (isPoint(f.geometry)) {
                     return {
                         type: 'Feature',
                         properties: f.properties,
                         geometry: {
                             type: 'Polygon',
-                            coordinates: [createCircle((f.geometry as any).coordinates, distanceMeters)]
+                            coordinates: [createCircle(f.geometry.coordinates, distanceMeters)]
+                        }
+                    } as Feature;
+                }
+                if (isMultiPoint(f.geometry)) {
+                     return {
+                        type: 'Feature',
+                        properties: f.properties,
+                        geometry: {
+                            type: 'MultiPolygon',
+                            coordinates: f.geometry.coordinates.map(p => [createCircle(p, distanceMeters)])
                         }
                     } as Feature;
                 }
                 return f;
             })
         };
+    } else if (isFeature(geo)) {
+        if (isPoint(geo.geometry)) {
+            return {
+                type: 'Feature',
+                properties: geo.properties,
+                geometry: {
+                    type: 'Polygon',
+                    coordinates: [createCircle(geo.geometry.coordinates, distanceMeters)]
+                }
+            };
+        }
+        if (isMultiPoint(geo.geometry)) {
+             return {
+                type: 'Feature',
+                properties: geo.properties,
+                geometry: {
+                    type: 'MultiPolygon',
+                    coordinates: geo.geometry.coordinates.map(p => [createCircle(p, distanceMeters)])
+                }
+            };
+        }
+        return geo;
+    } else {
+        // Geometry
+        // We need to cast to Geometry to use the guards effectively if TS is confused,
+        // but since we eliminated Feature and FeatureCollection, it must be Geometry.
+        // However, 'geo' is still typed as GeoJSON (narrowed).
+        const geometry = geo as Geometry;
+
+        if (isPoint(geometry)) {
+            return {
+                type: 'Polygon',
+                coordinates: [createCircle(geometry.coordinates, distanceMeters)]
+            };
+        } else if (isMultiPoint(geometry)) {
+            return {
+                type: 'MultiPolygon',
+                coordinates: geometry.coordinates.map(p => [createCircle(p, distanceMeters)])
+            };
+        }
     }
 
-    // Fallback for lines/polys: just return original for now as implementing offset curves is out of scope
+    // Fallback for lines/polys
     return geo;
 }
