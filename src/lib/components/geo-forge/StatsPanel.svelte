@@ -4,7 +4,7 @@
   import { Ruler, BoxSelect, MapPin, Hash } from 'lucide-svelte';
 
   export let geo: GeoJSON | null = null;
-  export let dict: any;
+  export let dict: Record<string, string> = {};
   export let columns = 2;
 
   $: area = geo ? calculateArea(geo) : 0;

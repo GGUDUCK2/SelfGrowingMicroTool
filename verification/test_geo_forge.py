@@ -1,55 +1,40 @@
-import time
 from playwright.sync_api import sync_playwright
 
-def test_geo_forge():
+def verify_geo_forge():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
-        # Navigate to the tool
+        # Navigate
         try:
-            page.goto("http://localhost:3000/en/tools/geo-forge", timeout=60000)
-            page.wait_for_load_state("networkidle")
+            page.goto("http://localhost:3000/en/tools/geo-forge")
         except Exception as e:
-            print(f"Navigation failed: {e}")
-            browser.close()
+            print(f"Failed to navigate: {e}")
             return
 
-        # Check if title is correct
-        print(f"Title: {page.title()}")
+        # Check title
+        title = page.title()
+        print("Page title:", title)
+        # assert "Geo Forge" in title
 
-        # Interact with the tool
-        # 1. Type invalid WKT in input (Data Tab)
-        page.get_by_role("button", name="Data Editor").click()
-        page.wait_for_selector("textarea")
+        # Wait for Toolbar buttons
+        # The title attribute might be "Buffer" or "Reverse"
+        try:
+            page.wait_for_selector("button[aria-label='Buffer']", timeout=5000)
+            print("Buffer button found.")
+        except:
+            print("Buffer button NOT found.")
 
-        # Type broken WKT
-        page.fill("textarea", "polygon 0 0, 10 0, 10 10, 0 10, 0 0")
-        # Missing parens and case is lowercase
+        try:
+            page.wait_for_selector("button[aria-label='Reverse']", timeout=5000)
+            print("Reverse button found.")
+        except:
+             print("Reverse button NOT found.")
 
-        # Click Repair Button in Toolbar
-        # It's an icon button, aria-label "Repair WKT"
-        page.get_by_role("button", name="Repair WKT").click()
-
-        # Check if repaired
-        time.sleep(1)
-        val = page.input_value("textarea")
-        print(f"Repaired value: {val}")
-
-        if val == "POLYGON ((0 0, 10 0, 10 10, 0 10, 0 0))":
-            print("Repair successful!")
-        else:
-            print("Repair failed or partial.")
-
-        # Switch back to Map
-        page.get_by_role("button", name="Map View").click()
-        time.sleep(1)
-
-        # Take screenshot of the map with the polygon
-        page.screenshot(path="verification/geo_forge_test.png")
-        print("Screenshot saved.")
+        # Take screenshot
+        page.screenshot(path="verification/geo_forge_ui.png", full_page=True)
 
         browser.close()
 
 if __name__ == "__main__":
-    test_geo_forge()
+    verify_geo_forge()

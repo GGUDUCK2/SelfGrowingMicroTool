@@ -5,7 +5,8 @@
   import { getDictionary } from '$lib/dictionaries';
   import {
     parseWKT, toWKT, parseCSV, toCSV,
-    getConvexHull, getAllPoints, getCentroid,
+    getConvexHull, getAllPoints, getCentroid, getBBox,
+    reverseGeometry, simplifyGeometry, createBuffer, toKML, toGPX
   } from '$lib/utils/geo-forge';
   import type { GeoJSON, Layer } from '$lib/utils/geo-forge/types';
   import { repairWKT } from '$lib/utils/geo-forge/repair';
@@ -216,25 +217,61 @@
       addLayer("Example " + (layers.length + 1), parseWKT(e.detail));
   }
 
-  function handleConvert(target: string) {
+  function handleConvert(target: 'wkt' | 'geojson' | 'csv') {
       if (!activeLayer || !activeLayer.data) return;
       try {
           // Just change the format preference and update text
-          editorFormat = target as any;
+          editorFormat = target;
           if (target === 'wkt') editorValue = toWKT(activeLayer.data);
           else if (target === 'csv') editorValue = toCSV(activeLayer.data);
           else editorValue = JSON.stringify(activeLayer.data, null, 2);
 
-          layers = layers.map(l => l.id === activeLayerId ? { ...l, format: target as any } : l);
+          layers = layers.map(l => l.id === activeLayerId ? { ...l, format: target } : l);
       } catch (e: unknown) {
           alert("Conversion failed: " + e);
       }
   }
 
   function handleSimplify() {
-      // Simplification is a bit complex to implement fully here without changing data structure
-      // But we can simplify the active layer geometry
-      alert("Use the 'Repair' tool for now to clean up WKT.");
+      if (!activeLayer || !activeLayer.data) return;
+      const toleranceStr = prompt(dict?.prompt_tolerance || "Enter simplification tolerance (degrees, e.g. 0.001):", "0.001");
+      if (!toleranceStr) return;
+      const tolerance = parseFloat(toleranceStr);
+      if (isNaN(tolerance)) return;
+
+      try {
+          const simplified = simplifyGeometry(activeLayer.data, tolerance);
+          addLayer(activeLayer.name + " (Simplified)", simplified);
+      } catch (e) {
+          alert("Simplify failed: " + e);
+      }
+  }
+
+  function handleBuffer() {
+      if (!activeLayer || !activeLayer.data) return;
+
+      const type = activeLayer.data.type;
+      const isSupported = type === 'Point' || type === 'MultiPoint' ||
+                          (type === 'Feature' && activeLayer.data.geometry.type === 'Point') ||
+                          type === 'FeatureCollection';
+
+      if (!isSupported) {
+          if (!confirm("Warning: Exact buffering for Lines/Polygons is not yet supported. Only Points will be buffered. Continue?")) {
+              return;
+          }
+      }
+
+      const distStr = prompt(dict?.prompt_buffer || "Enter buffer radius in meters:", "1000");
+      if (!distStr) return;
+      const dist = parseFloat(distStr);
+      if (isNaN(dist)) return;
+
+      try {
+          const buffered = createBuffer(activeLayer.data, dist);
+          addLayer(activeLayer.name + " (Buffer)", buffered);
+      } catch (e) {
+          alert("Buffer failed: " + e);
+      }
   }
 
   function handleConvexHull() {
@@ -267,7 +304,14 @@
   }
 
   function handleReverse() {
-      alert("Feature coming soon!");
+      if (!activeLayer || !activeLayer.data) return;
+      try {
+          const reversed = reverseGeometry(activeLayer.data);
+          // Update directly
+          layers = layers.map(l => l.id === activeLayerId ? { ...l, data: reversed } : l);
+      } catch (e) {
+          alert("Reverse failed: " + e);
+      }
   }
 
   function handleClear() {
@@ -292,14 +336,45 @@
   }
 
   function handleDownload() {
-      const blob = new Blob([editorValue], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `geoforge.${editorFormat === 'wkt' ? 'txt' : editorFormat}`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      if (!activeLayer || !activeLayer.data) return;
+
+      const formats = ['wkt', 'geojson', 'csv', 'kml', 'gpx'];
+      const choice = prompt((dict?.prompt_format || "Enter format to download") + ` (${formats.join(', ')}):`, editorFormat);
+      if (!choice || !formats.includes(choice.toLowerCase())) return;
+
+      const fmt = choice.toLowerCase();
+      let content = '';
+      let ext = '';
+
+      try {
+        if (fmt === 'wkt') {
+            content = toWKT(activeLayer.data);
+            ext = 'txt';
+        } else if (fmt === 'geojson') {
+            content = JSON.stringify(activeLayer.data, null, 2);
+            ext = 'json';
+        } else if (fmt === 'csv') {
+            content = toCSV(activeLayer.data);
+            ext = 'csv';
+        } else if (fmt === 'kml') {
+            content = toKML(activeLayer.data);
+            ext = 'kml';
+        } else if (fmt === 'gpx') {
+            content = toGPX(activeLayer.data);
+            ext = 'gpx';
+        }
+
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${activeLayer.name || 'geoforge'}.${ext}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } catch (e) {
+          alert("Export failed: " + e);
+      }
   }
 
   async function handleSnapshot() {
@@ -360,9 +435,10 @@
         "priceCurrency": "USD"
       },
       "featureList": [
-        "WKT to GeoJSON Converter",
+        "WKT/GeoJSON/CSV/KML/GPX Converter",
         "Multi-layer Visualization",
-        "Convex Hull Generator",
+        "Convex Hull & Buffer Generator",
+        "Geometry Simplification",
         "Client-side Privacy",
         "Interactive Drawing"
       ]
@@ -389,6 +465,7 @@
          <button
             class="flex items-center gap-2 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors text-sm font-medium"
             on:click={() => showHistory = !showHistory}
+            aria-label="Toggle history"
          >
             <Clock class="w-4 h-4" />
             <span class="hidden sm:inline">Recent</span>
@@ -396,6 +473,7 @@
          <button
             class="flex items-center gap-2 px-3 py-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 rounded-lg transition-colors text-sm font-medium"
             on:click={handleSaveManual}
+            aria-label="Save project"
          >
             <Save class="w-4 h-4" />
             <span class="hidden sm:inline">Save</span>
@@ -411,12 +489,14 @@
              <button
                 class="px-3 py-1.5 rounded-md text-sm font-medium transition-all {activeTab === 'map' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900'}"
                 on:click={() => activeTab = 'map'}
+                aria-label="Switch to map view"
              >
                 Map View
              </button>
              <button
                 class="px-3 py-1.5 rounded-md text-sm font-medium transition-all {activeTab === 'data' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900'}"
                 on:click={() => activeTab = 'data'}
+                aria-label="Switch to data editor"
              >
                 Data Editor
              </button>
@@ -435,7 +515,7 @@
                   <h3 class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
                       <Layers class="w-4 h-4" /> Layers
                   </h3>
-                  <button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors" on:click={() => addLayer(`Layer ${layers.length + 1}`)}>
+                  <button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors" on:click={() => addLayer(`Layer ${layers.length + 1}`)} aria-label="Add new layer">
                       <Plus class="w-4 h-4" />
                   </button>
               </div>
@@ -449,7 +529,7 @@
                          on:click={() => activeLayerId = layer.id}
                          on:keydown={(e) => e.key === 'Enter' && (activeLayerId = layer.id)}
                       >
-                          <button class="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" on:click|stopPropagation={() => toggleLayer(layer.id)}>
+                          <button class="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" on:click|stopPropagation={() => toggleLayer(layer.id)} aria-label="Toggle layer visibility">
                               {#if layer.visible}
                                   <Eye class="w-3 h-3" />
                               {:else}
@@ -461,7 +541,7 @@
 
                           <span class="truncate flex-1 font-medium text-slate-700 dark:text-slate-200">{layer.name}</span>
 
-                          <button class="p-1 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity" on:click|stopPropagation={() => removeLayer(layer.id)}>
+                          <button class="p-1 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity" on:click|stopPropagation={() => removeLayer(layer.id)} aria-label="Delete layer">
                               <Trash2 class="w-3 h-3" />
                           </button>
                       </div>
@@ -471,11 +551,11 @@
 
           <!-- Tools Panel -->
           <div class="p-4 border-b border-slate-200 dark:border-slate-700 grid grid-cols-2 gap-2">
-               <button class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 transition-all gap-1" on:click={handleConvexHull} title="Create Convex Hull from active layer">
+               <button class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 transition-all gap-1" on:click={handleConvexHull} title="Create Convex Hull from active layer" aria-label="Create Convex Hull">
                    <Box class="w-5 h-5" />
                    <span class="text-xs font-medium">Convex Hull</span>
                </button>
-               <button class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 transition-all gap-1" on:click={handleBBox} title="Get Bounding Box">
+               <button class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 transition-all gap-1" on:click={handleBBox} title="Get Bounding Box" aria-label="Get Bounding Box">
                    <Maximize class="w-5 h-5" />
                    <span class="text-xs font-medium">Bounds</span>
                </button>
@@ -515,6 +595,7 @@
                     on:download={handleDownload}
                     on:clear={handleClear}
                     on:simplify={handleSimplify}
+                    on:buffer={handleBuffer}
                     on:reverse={handleReverse}
                     on:snapshot={handleSnapshot}
                     on:repair={handleRepair}

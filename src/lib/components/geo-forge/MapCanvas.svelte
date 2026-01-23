@@ -1,13 +1,13 @@
 <script lang="ts">
   import { getViewport, generatePath, projectToScreen, screenToGeo, type Viewport } from '$lib/utils/geo-forge';
   import type { GeoJSON, Position, Layer } from '$lib/utils/geo-forge/types';
-  import { onMount, createEventDispatcher } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   import { Maximize, Minus, Plus, Hand, PenTool, Eraser } from 'lucide-svelte';
 
   export let layers: Layer[] = [];
   export let activeLayerId: string | null = null;
   export let mode: 'view' | 'draw_point' | 'draw_line' | 'draw_poly' = 'view';
-  export let dict: any;
+  export let dict: Record<string, string> = {};
 
   const dispatch = createEventDispatcher();
 
@@ -321,7 +321,7 @@
                 stroke-dasharray="4"
                 vector-effect="non-scaling-stroke"
              />
-             {#each drawnPoints as p}
+             {#each drawnPoints as p, i (i)}
                 <!-- Render simple dots for vertices -->
                 <!-- We need projectToScreen logic here or simpler circles in SVG coords?
                      Since we are inside the transformed group, we need dots at projected coords -->
