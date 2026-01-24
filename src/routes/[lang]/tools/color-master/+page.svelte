@@ -23,6 +23,9 @@
   // --- Props ---
   export let data;
 
+  const HARMONY_TYPES: HarmonyType[] = ['complementary', 'analogous', 'triadic', 'tetradic', 'split-complementary', 'monochromatic'];
+  const VISION_TYPES: VisionType[] = ['none', 'protanopia', 'deuteranopia', 'tritanopia', 'achromatopsia'];
+
   // --- State ---
   let baseColor = '#6366f1';
   let harmonyType: HarmonyType = 'complementary';
@@ -32,6 +35,47 @@
 
   $: dict = getDictionary(data.lang);
   $: t = dict.tools.colorMaster;
+
+  $: schema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": t.title,
+    "description": t.description,
+    "operatingSystem": "Web",
+    "applicationCategory": "DesignApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      t.guide.f1.replace(/\*\*(.*?)\*\*/g, '$1'),
+      t.guide.f2.replace(/\*\*(.*?)\*\*/g, '$1'),
+      t.guide.f3.replace(/\*\*(.*?)\*\*/g, '$1'),
+      t.guide.f4.replace(/\*\*(.*?)\*\*/g, '$1')
+    ],
+    "mainEntity": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": t.faqTitle,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `${t.q1} ${t.a1}`
+          }
+        },
+        {
+          "@type": "Question",
+          "name": t.q2,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": t.a2
+          }
+        }
+      ]
+    }
+  };
 
   // --- Derived State ---
   $: harmonies = getHarmonies(baseColor, harmonyType);
@@ -52,8 +96,12 @@
     const visionParam = urlParams.get('v');
 
     if (colorParam) baseColor = '#' + colorParam;
-    if (typeParam) harmonyType = typeParam as any;
-    if (visionParam) visionType = visionParam as any;
+    if (typeParam && HARMONY_TYPES.includes(typeParam as HarmonyType)) {
+      harmonyType = typeParam as HarmonyType;
+    }
+    if (visionParam && VISION_TYPES.includes(visionParam as VisionType)) {
+      visionType = visionParam as VisionType;
+    }
 
     window.addEventListener('keydown', handleKeydown);
   });
@@ -137,8 +185,7 @@
       l: Math.random() * 60 + 20 // Keep it somewhat visible
     }).toHex();
 
-    const types = ['complementary', 'analogous', 'triadic', 'tetradic', 'split-complementary', 'monochromatic'] as const;
-    harmonyType = types[Math.floor(Math.random() * types.length)];
+    harmonyType = HARMONY_TYPES[Math.floor(Math.random() * HARMONY_TYPES.length)];
 
     updateUrl();
     saveToHistory();
@@ -173,65 +220,35 @@
 <svelte:head>
   <title>{t.title} | {dict.home.title}</title>
   <meta name="description" content="{t.description}" />
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Lumina: Color & A11y Master",
-      "operatingSystem": "Web",
-      "applicationCategory": "DesignApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0"
-      },
-      "featureList": [
-        "Algorithmic Harmony Generation",
-        "Smart Tailwind-like Scale Generator (50-950)",
-        "Real-time WCAG Accessibility Checking",
-        "Color Blindness Vision Simulation",
-        "Code Export (CSS, Tailwind, SCSS, JSON)",
-        "Image Color Extraction",
-        "Contrast Matrix Grid"
-      ]
-    }
-  </script>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "{t.faqTitle}",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "{t.q1} {t.a1}"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "{t.q2}",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "{t.a2}"
-          }
-        }
-      ]
-    }
-  </script>
+  <link rel="canonical" href="https://selfgrowingmicrotool.com/{data.lang}/tools/color-master" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{t.title} | {dict.home.title}" />
+  <meta property="og:description" content="{t.description}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://selfgrowingmicrotool.com/{data.lang}/tools/color-master" />
+
+  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 relative">
 
   <!-- Header -->
   <div class="text-center space-y-4">
-    <div class="inline-block relative group">
+    <div class="inline-flex items-center gap-3 relative group">
         <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 pb-2">
         Lumina
         </h1>
-        <div class="absolute -top-6 -right-12 hidden lg:block opacity-0 group-hover:opacity-100 transition-opacity">
+        <button
+          on:click={() => showShortcuts = !showShortcuts}
+          class="lg:hidden p-2 text-slate-400 hover:text-indigo-500 transition-colors"
+          aria-label={t.shortcuts}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        </button>
+        <div class="absolute -top-6 -right-32 hidden lg:block opacity-0 group-hover:opacity-100 transition-opacity">
             <div class="bg-slate-800 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
-                Press '?' for shortcuts
+                {t.press} '?' {t.shortcutsHelp}
             </div>
         </div>
     </div>
@@ -298,10 +315,10 @@
       <!-- Harmony Selector -->
       <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
         <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t.harmony}</h3>
-        <div class="grid grid-cols-2 gap-2">
-          {#each ['complementary', 'analogous', 'triadic', 'tetradic', 'split-complementary', 'monochromatic'] as type}
+        <div class="grid grid-cols-2 sm:grid-cols-2 gap-3">
+          {#each HARMONY_TYPES as type}
             <button
-              class="px-3 py-2 text-sm rounded-lg border transition-all {harmonyType === type ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-500 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700'}"
+              class="px-4 py-3 text-base rounded-lg border transition-all {harmonyType === type ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-500 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700'}"
               on:click={() => handleTypeChange(type)}
             >
               {t.harmonies[type]}
