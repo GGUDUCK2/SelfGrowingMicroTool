@@ -46,7 +46,7 @@
       addLayer('Layer 1');
   });
 
-  function addLayer(name: string, data: GeoJSON | null = null) {
+  function addLayer(name: string, data: GeoJSON | null = null, fmt: 'wkt' | 'geojson' | 'csv' = 'wkt') {
       const id = uuidv4();
       const color = getRandomColor();
       layers = [...layers, {
@@ -55,7 +55,7 @@
           data,
           visible: true,
           color,
-          format: 'wkt'
+          format: fmt
       }];
       activeLayerId = id;
   }
@@ -96,7 +96,7 @@
   let showExportModal = false;
   let showHelp = false;
   let mapCanvas: MapCanvas;
-  let mode: 'view' | 'draw_point' | 'draw_line' | 'draw_poly' = 'view';
+  let mode: 'view' | 'draw_point' | 'draw_line' | 'draw_poly' | 'draw_ruler' = 'view';
 
   // Recent History
   let historyItems = liveQuery(() => getRecentProjects(5));
@@ -501,7 +501,7 @@
             {dict}
             on:addLayer={(e) => {
                 if (typeof e.detail === 'object' && e.detail !== null) {
-                    addLayer(e.detail.name || 'Restored', e.detail.data);
+                    addLayer(e.detail.name || 'Restored', e.detail.data, e.detail.format || 'wkt');
                 } else {
                     addLayer(e.detail || `Layer ${layers.length + 1}`);
                 }
@@ -544,7 +544,7 @@
                         {dict}
                         on:addLayer={(e) => {
                              if (typeof e.detail === 'object' && e.detail !== null) {
-                                addLayer(e.detail.name || 'Restored', e.detail.data);
+                                addLayer(e.detail.name || 'Restored', e.detail.data, e.detail.format || 'wkt');
                              } else {
                                 addLayer(e.detail || `Layer ${layers.length + 1}`);
                              }

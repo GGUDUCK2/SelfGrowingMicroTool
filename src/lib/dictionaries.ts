@@ -1172,8 +1172,11 @@ export const dictionaries = {
         draw: {
            point: "Draw Point",
            line: "Draw Line",
-           poly: "Draw Polygon"
+           poly: "Draw Polygon",
+           ruler: "Measure Distance"
         },
+        smartPaste: "Smart Paste",
+        pasteError: "Failed to paste: ",
         layer: {
            add: "Add Layer",
            list: "Layer List",
@@ -1533,8 +1536,11 @@ export const dictionaries = {
         draw: {
            point: "점 그리기",
            line: "선 그리기",
-           poly: "다각형 그리기"
+           poly: "다각형 그리기",
+           ruler: "거리 측정"
         },
+        smartPaste: "스마트 붙여넣기",
+        pasteError: "붙여넣기 실패: ",
         layer: {
            add: "레이어 추가",
            list: "레이어 목록",

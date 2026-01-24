@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { getViewport, generatePath, projectToScreen, screenToGeo, type Viewport } from '$lib/utils/geo-forge';
+  import { getViewport, generatePath, projectToScreen, screenToGeo, distance, type Viewport } from '$lib/utils/geo-forge';
   import type { GeoJSON, Position, Layer } from '$lib/utils/geo-forge/types';
   import { createEventDispatcher } from 'svelte';
-  import { Maximize, Minus, Plus, Hand, PenTool, Eraser } from 'lucide-svelte';
+  import { Maximize, Minus, Plus, Hand, PenTool, Eraser, Ruler } from 'lucide-svelte';
 
   export let layers: Layer[] = [];
   export let activeLayerId: string | null = null;
-  export let mode: 'view' | 'draw_point' | 'draw_line' | 'draw_poly' = 'view';
+  export let mode: 'view' | 'draw_point' | 'draw_line' | 'draw_poly' | 'draw_ruler' = 'view';
   export let dict: Record<string, string> = {};
 
   const dispatch = createEventDispatcher();
@@ -110,6 +110,26 @@
       }
   }
 
+  function handleKeyDown(e: KeyboardEvent) {
+      if (mode !== 'view') {
+          if (e.key === 'Escape') cancelDrawing();
+          return;
+      }
+      const step = 50;
+      switch(e.key) {
+          case 'ArrowLeft': panX += step; break;
+          case 'ArrowRight': panX -= step; break;
+          case 'ArrowUp': panY += step; break;
+          case 'ArrowDown': panY -= step; break;
+          case '+': case '=': zoom = Math.min(20, zoom * 1.2); break;
+          case '-': case '_': zoom = Math.max(0.1, zoom / 1.2); break;
+      }
+  }
+
+  function formatDist(d: number) {
+      if (d > 1000) return (d / 1000).toFixed(2) + 'km';
+      return d.toFixed(0) + 'm';
+  }
 
   function handleWheel(e: WheelEvent) {
       e.preventDefault();
@@ -199,7 +219,7 @@
   }
 
   function handleDbClick() {
-      if (mode === 'draw_line' || mode === 'draw_poly') {
+      if (mode === 'draw_line' || mode === 'draw_poly' || mode === 'draw_ruler') {
           finishDrawing();
       }
   }
@@ -210,25 +230,31 @@
           return;
       }
 
-      let geometry: GeoJSON;
-      if (mode === 'draw_line') {
-          geometry = { type: 'LineString', coordinates: drawnPoints };
+      if (mode === 'draw_ruler') {
+           // Create a persistent measurement layer?
+           // For now, let's just turn it into a LineString with name "Measurement"
+           const geometry: GeoJSON = { type: 'LineString', coordinates: drawnPoints };
+           dispatch('draw', { ...geometry, properties: { type: 'measurement' } });
       } else {
-           // Close polygon if needed
-           if (drawnPoints.length > 2) {
-               const first = drawnPoints[0];
-               const last = drawnPoints[drawnPoints.length-1];
-               if (first[0] !== last[0] || first[1] !== last[1]) {
-                   drawnPoints.push(first);
+          let geometry: GeoJSON;
+          if (mode === 'draw_line') {
+              geometry = { type: 'LineString', coordinates: drawnPoints };
+          } else {
+               // Close polygon if needed
+               if (drawnPoints.length > 2) {
+                   const first = drawnPoints[0];
+                   const last = drawnPoints[drawnPoints.length-1];
+                   if (first[0] !== last[0] || first[1] !== last[1]) {
+                       drawnPoints.push(first);
+                   }
+                   geometry = { type: 'Polygon', coordinates: [drawnPoints] };
+               } else {
+                   // Fallback to line
+                   geometry = { type: 'LineString', coordinates: drawnPoints };
                }
-               geometry = { type: 'Polygon', coordinates: [drawnPoints] };
-           } else {
-               // Fallback to line
-               geometry = { type: 'LineString', coordinates: drawnPoints };
-           }
+          }
+          dispatch('draw', geometry);
       }
-
-      dispatch('draw', geometry);
       drawnPoints = [];
   }
 
@@ -271,7 +297,8 @@
 <div
   role="application"
   aria-label="Interactive Map"
-  class="relative w-full h-full bg-slate-100 dark:bg-slate-900 overflow-hidden cursor-crosshair group select-none"
+  tabindex="0"
+  class="relative w-full h-full bg-slate-100 dark:bg-slate-900 overflow-hidden cursor-crosshair group select-none focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
   bind:this={container}
   bind:clientWidth={width}
   bind:clientHeight={height}
@@ -281,6 +308,7 @@
   on:mouseup={handleMouseUp}
   on:mouseleave={handleMouseUp}
   on:dblclick={handleDbClick}
+  on:keydown={handleKeyDown}
 >
     <!-- Background Grid -->
     <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" bind:this={svgElement}>
@@ -316,20 +344,48 @@
              <path
                 d={drawingPathD}
                 fill="none"
-                stroke="#ef4444"
+                stroke={mode === 'draw_ruler' ? '#f59e0b' : '#ef4444'}
                 stroke-width={2 / zoom}
-                stroke-dasharray="4"
+                stroke-dasharray={mode === 'draw_ruler' ? "2,2" : "4"}
                 vector-effect="non-scaling-stroke"
              />
              {#each drawnPoints as p, i (i)}
-                <!-- Render simple dots for vertices -->
-                <!-- We need projectToScreen logic here or simpler circles in SVG coords?
-                     Since we are inside the transformed group, we need dots at projected coords -->
                  {#if vp}
                     {@const sc = projectToScreen(p, vp)}
-                    <circle cx={sc[0]} cy={sc[1]} r={4/zoom} fill="#ef4444" />
+                    <circle cx={sc[0]} cy={sc[1]} r={4/zoom} fill={mode === 'draw_ruler' ? '#f59e0b' : '#ef4444'} />
+
+                    <!-- Measurement Labels -->
+                    {#if mode === 'draw_ruler' && i > 0}
+                        {@const prev = drawnPoints[i-1]}
+                        {@const dist = distance(prev, p)}
+                        {@const prevSc = projectToScreen(prev, vp)}
+                        {@const midX = (sc[0] + prevSc[0]) / 2}
+                        {@const midY = (sc[1] + prevSc[1]) / 2}
+                        <g pointer-events="none">
+                            <rect x={midX - 25} y={midY - 10} width="50" height="20" rx="4" fill="white" fill-opacity="0.8" />
+                            <text x={midX} y={midY} dy="5" text-anchor="middle" font-size="10px" fill="black" font-weight="bold">
+                                {formatDist(dist)}
+                            </text>
+                        </g>
+                    {/if}
                  {/if}
              {/each}
+
+             <!-- Dynamic label for current mouse segment in ruler mode -->
+             {#if mode === 'draw_ruler' && currentMousePos && drawnPoints.length > 0 && vp}
+                  {@const last = drawnPoints[drawnPoints.length-1]}
+                  {@const dist = distance(last, currentMousePos)}
+                  {@const sc = projectToScreen(currentMousePos, vp)}
+                  {@const prevSc = projectToScreen(last, vp)}
+                  {@const midX = (sc[0] + prevSc[0]) / 2}
+                  {@const midY = (sc[1] + prevSc[1]) / 2}
+                  <g pointer-events="none">
+                      <rect x={midX - 25} y={midY - 10} width="50" height="20" rx="4" fill="#f59e0b" fill-opacity="0.9" />
+                      <text x={midX} y={midY} dy="5" text-anchor="middle" font-size="10px" fill="white" font-weight="bold">
+                          {formatDist(dist)}
+                      </text>
+                  </g>
+             {/if}
         {/if}
       </g>
     </svg>
@@ -385,6 +441,13 @@
         >
             <PenTool class="w-4 h-4" />
         </button>
+        <button
+            class="p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-700 {mode === 'draw_ruler' ? 'bg-indigo-50 dark:bg-indigo-900/50 text-indigo-600' : 'text-slate-500'}"
+            on:click={() => { mode = 'draw_ruler'; dispatch('modeChange', 'draw_ruler'); }}
+            title="Measure Distance"
+        >
+            <Ruler class="w-4 h-4" />
+        </button>
         {#if drawnPoints.length > 0}
             <button class="p-2 text-red-500 hover:bg-red-50 rounded" on:click={cancelDrawing} title="Cancel Drawing">
                 <Eraser class="w-4 h-4" />
@@ -407,6 +470,7 @@
             {#if mode === 'draw_point'}Click map to add point
             {:else if mode === 'draw_line'}Click to add points, Double-click to finish
             {:else if mode === 'draw_poly'}Click to add vertices, Double-click to close
+            {:else if mode === 'draw_ruler'}Click to measure points, Double-click to finish
             {/if}
         </div>
     {/if}
