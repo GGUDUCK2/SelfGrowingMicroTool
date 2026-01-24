@@ -1,8 +1,9 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Layers, Plus, Eye, EyeOff, Trash2, Box, Maximize, History, Star, RotateCcw } from 'lucide-svelte';
+  import { Layers, Plus, Eye, EyeOff, Trash2, Box, Maximize, History, Star, RotateCcw, Clipboard } from 'lucide-svelte';
   import StatsPanel from './StatsPanel.svelte';
   import type { Layer } from '$lib/utils/geo-forge/types';
+  import { detectAndParse } from '$lib/utils/geo-forge/parser';
   import { liveQuery } from 'dexie';
   import { workspaceDB, toggleStar, type ToolHistoryItem as HistoryItem } from '$lib/db/workspace';
 
@@ -20,6 +21,24 @@
 
   function handleAddLayer() {
       dispatch('addLayer');
+  }
+
+  async function handleSmartPaste() {
+      try {
+          const text = await navigator.clipboard.readText();
+          if (!text) return;
+
+          const result = detectAndParse(text);
+          if (result && result.data) {
+               dispatch('addLayer', {
+                   name: 'Pasted Layer',
+                   data: result.data,
+                   format: result.format
+               });
+          }
+      } catch (e) {
+          alert(dict?.pasteError || 'Failed to paste: ' + e);
+      }
   }
 
   function handleRestore(item: HistoryItem) {
@@ -58,13 +77,23 @@
               <h3 class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
                   <Layers class="w-4 h-4" /> {dict?.layer?.list || 'Layer List'}
               </h3>
-              <button
-                class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
-                on:click={handleAddLayer}
-                aria-label="Add new layer"
-              >
-                  <Plus class="w-4 h-4" />
-              </button>
+              <div class="flex gap-1">
+                  <button
+                    class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
+                    on:click={handleSmartPaste}
+                    aria-label={dict?.smartPaste || "Smart Paste Layer"}
+                    title={dict?.smartPaste || "Smart Paste Layer"}
+                  >
+                      <Clipboard class="w-4 h-4" />
+                  </button>
+                  <button
+                    class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
+                    on:click={handleAddLayer}
+                    aria-label="Add new layer"
+                  >
+                      <Plus class="w-4 h-4" />
+                  </button>
+              </div>
           </div>
 
           <div class="flex flex-col gap-1 max-h-48 overflow-y-auto">

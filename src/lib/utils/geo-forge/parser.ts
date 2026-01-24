@@ -1,4 +1,5 @@
 import type { FeatureCollection, Geometry, Position, Feature, GeoJSON, Point } from './types';
+import { repairWKT } from './repair';
 import Papa from 'papaparse';
 
 // --- CSV Parser ---
@@ -177,4 +178,57 @@ export function toWKT(geo: Geometry): string {
         default:
             return '';
     }
+}
+
+export interface ParsedResult {
+    data: GeoJSON;
+    format: 'wkt' | 'geojson' | 'csv';
+}
+
+export function detectAndParse(input: string): ParsedResult {
+    const trimmed = input.trim();
+
+    // 1. Try JSON (GeoJSON)
+    if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
+        try {
+            const json = JSON.parse(trimmed);
+            // Basic validation: must have type
+            if (json.type) {
+                return { data: json as GeoJSON, format: 'geojson' };
+            }
+        } catch (e) {
+            // Not JSON
+        }
+    }
+
+    // 2. Try WKT
+    // Starts with a letter
+    if (/^[a-zA-Z]/.test(trimmed)) {
+        try {
+            const wkt = parseWKT(trimmed);
+            return { data: wkt, format: 'wkt' };
+        } catch (e) {
+            // Try Repair
+            try {
+                const repaired = repairWKT(trimmed);
+                const wkt = parseWKT(repaired);
+                return { data: wkt, format: 'wkt' };
+            } catch (e2) {
+                // Failed WKT
+            }
+        }
+    }
+
+    // 3. Try CSV (Last resort)
+    // Heuristic: check for commas and newlines
+    try {
+        const csv = parseCSV(trimmed);
+        if (csv.features.length > 0) {
+            return { data: csv, format: 'csv' };
+        }
+    } catch (e) {
+        // Failed CSV
+    }
+
+    throw new Error("Could not detect format (GeoJSON, WKT, or CSV).");
 }
