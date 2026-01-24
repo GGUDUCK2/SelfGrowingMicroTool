@@ -1339,6 +1339,35 @@ export const dictionaries = {
         a2: "Yes, your matrices are saved locally in your browser using IndexedDB (Dexie.js).",
         q3: "Can I export my data?",
         a3: "Absolutely. You can download your matrix as a CSV file for Excel/Sheets or JSON for backup."
+      },
+      deployForge: {
+        title: "Deploy Forge: Dockerfile Generator",
+        description: "The definitive container configuration architect. Generate production-ready Dockerfiles and Docker Compose files for Node.js, Python, Go, Rust, and more.",
+        selectStack: "Select Stack",
+        addServices: "Add Services",
+        download: "Download",
+        save: "Save to History",
+        saved: "Project saved to local history!",
+        guide: {
+          title: "The Definitive Container Architect",
+          introTitle: "Why Deploy Forge?",
+          intro: "Containerization is the backbone of modern infrastructure, but writing Dockerfiles from scratch is error-prone and tedious. Deploy Forge bridges the gap between development and operations by generating production-grade configurations instantly.",
+          featuresTitle: "Pro-Grade Engineering",
+          f1: "**Multi-Stage Builds:** Automatically minimizes image size by separating build and runtime environments.",
+          f2: "**Security First:** Generates non-root user configurations and proper secret handling patterns.",
+          f3: "**Full Stack Ready:** One-click integration for Databases (Postgres, Redis) and Web Servers (Nginx).",
+          tipsTitle: "Pro Tips",
+          tip1: "Use the **Download** button to get a full zip with all config files.",
+          tip2: "Check the **.dockerignore** tab to see what files are excluded from the context.",
+          tip3: "Save your configuration to **History** to reuse it later."
+        },
+        faqTitle: "Deploy Forge FAQ",
+        q1: "Is my configuration data sent to a server?",
+        a1: "No. Deploy Forge runs entirely in your browser using local logic. Your proprietary build commands and environment variables never leave your device.",
+        q2: "What is a Multi-Stage Build?",
+        a2: "A Docker feature that allows you to use intermediate images to compile code, then copy only the artifacts to a final, slimmer image. This drastically reduces the final container size and improves security.",
+        q3: "Can I use this for production?",
+        a3: "Yes. The generated files follow industry best practices. However, you should always review the configuration to ensure it meets your specific organizational compliance requirements."
       }
     },
     pwa: {
@@ -1567,6 +1596,35 @@ export const dictionaries = {
         a2: "우리는 구면 좌표계에 맞춰 조정된 신발끈 공식(Shoelace formula)을 사용하여 큰 다각형에 대해서도 정확성을 보장합니다.",
         q3: "오프라인에서 사용할 수 있나요?",
         a3: "네! 지오 포지는 기기에서 완전히 독립적으로 실행됩니다."
+      },
+      deployForge: {
+        title: "디플로이 포지: Dockerfile 생성기",
+        description: "컨테이너 설정을 위한 완벽한 도구입니다. Node.js, Python, Go, Rust 등을 위한 프로덕션급 Dockerfile과 Docker Compose 파일을 생성하세요.",
+        selectStack: "스택 선택",
+        addServices: "서비스 추가",
+        download: "다운로드",
+        save: "히스토리에 저장",
+        saved: "프로젝트가 로컬 히스토리에 저장되었습니다!",
+        guide: {
+          title: "완벽한 컨테이너 설계자",
+          introTitle: "왜 디플로이 포지인가요?",
+          intro: "컨테이너화는 현대 인프라의 핵심이지만, 처음부터 Dockerfile을 작성하는 것은 오류가 발생하기 쉽고 지루합니다. 디플로이 포지는 프로덕션급 설정을 즉시 생성하여 개발과 운영 사이의 격차를 해소합니다.",
+          featuresTitle: "프로급 엔지니어링",
+          f1: "**멀티 스테이지 빌드:** 빌드 환경과 런타임 환경을 분리하여 이미지 크기를 자동으로 최소화합니다.",
+          f2: "**보안 우선:** 루트가 아닌 사용자 구성과 적절한 비밀 처리 패턴을 생성합니다.",
+          f3: "**풀 스택 준비 완료:** 데이터베이스(Postgres, Redis) 및 웹 서버(Nginx)를 원클릭으로 통합하세요.",
+          tipsTitle: "프로 팁",
+          tip1: "**다운로드** 버튼을 사용하여 모든 설정 파일이 포함된 zip 파일을 받으세요.",
+          tip2: "**.dockerignore** 탭을 확인하여 어떤 파일이 컨텍스트에서 제외되는지 확인하세요.",
+          tip3: "나중에 다시 사용하려면 구성을 **히스토리**에 저장하세요."
+        },
+        faqTitle: "디플로이 포지 FAQ",
+        q1: "내 설정 데이터가 서버로 전송되나요?",
+        a1: "아니요. 디플로이 포지는 브라우저에서 로컬 로직으로만 실행됩니다. 고유한 빌드 명령과 환경 변수는 절대 기기를 떠나지 않습니다.",
+        q2: "멀티 스테이지 빌드란 무엇인가요?",
+        a2: "중간 이미지를 사용하여 코드를 컴파일한 다음, 최종 슬림 이미지에 아티팩트만 복사하는 Docker 기능입니다. 이를 통해 최종 컨테이너 크기를 크게 줄이고 보안을 향상시킵니다.",
+        q3: "프로덕션 환경에서 사용할 수 있나요?",
+        a3: "네. 생성된 파일은 업계 모범 사례를 따릅니다. 하지만 조직의 특정 규정 준수 요구 사항을 충족하는지 확인하기 위해 항상 구성을 검토해야 합니다."
       }
     },
     pwa: {
