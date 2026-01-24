@@ -8,12 +8,24 @@
   function toggle(level: string) {
       selectedLevels[level] = !selectedLevels[level];
   }
+
+  function setPreset(type: 'all' | 'errors' | 'warnings') {
+      if (type === 'all') {
+          selectedLevels = { error: true, warn: true, info: true, debug: true };
+          searchTerm = '';
+      } else if (type === 'errors') {
+          selectedLevels = { error: true, warn: false, info: false, debug: false };
+      } else if (type === 'warnings') {
+          selectedLevels = { error: false, warn: true, info: false, debug: false };
+      }
+  }
 </script>
 
 <div class="flex flex-col sm:flex-row gap-4 p-4 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 items-center">
     <div class="relative flex-1 w-full">
         <Search class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
         <input
+            id="log-search"
             type="text"
             bind:value={searchTerm}
             placeholder={dict.search + " (Regex supported)"}
@@ -27,6 +39,12 @@
     </div>
 
     <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
+        <!-- Quick Actions -->
+        <div class="flex gap-1 mr-2 border-r border-slate-200 dark:border-slate-700 pr-2">
+            <button class="text-xs font-medium text-slate-500 hover:text-indigo-600 px-2 py-1" on:click={() => setPreset('all')}>All</button>
+            <button class="text-xs font-medium text-slate-500 hover:text-red-600 px-2 py-1" on:click={() => setPreset('errors')}>Errors</button>
+        </div>
+
         <Filter size={16} class="text-slate-400 mr-2 shrink-0" />
 
         <button

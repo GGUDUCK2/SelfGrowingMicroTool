@@ -1372,6 +1372,14 @@ export const dictionaries = {
       logPrism: {
         title: "Log Prism: Insight Engine",
         description: "The definitive log analysis tool. Visualize, filter, and extract insights from server logs instantly.",
+        patterns: "Patterns",
+        clusterMode: "Cluster View",
+        listView: "List View",
+        shortcuts: "Shortcuts",
+        quickFilters: {
+            all: "All",
+            errors: "Errors Only"
+        },
         input: "Log Input",
         upload: "Upload Log File",
         paste: "Paste Log Data",
@@ -1675,6 +1683,14 @@ export const dictionaries = {
       logPrism: {
         title: "로그 프리즘: 인사이트 엔진",
         description: "완벽한 로그 분석 도구입니다. 서버 로그를 즉시 시각화, 필터링 및 분석하세요.",
+        patterns: "패턴",
+        clusterMode: "클러스터 뷰",
+        listView: "리스트 뷰",
+        shortcuts: "단축키",
+        quickFilters: {
+            all: "전체",
+            errors: "오류만"
+        },
         input: "로그 입력",
         upload: "로그 파일 업로드",
         paste: "로그 데이터 붙여넣기",
