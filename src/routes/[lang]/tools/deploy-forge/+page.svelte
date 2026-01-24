@@ -10,6 +10,7 @@
   import ConfigPanel from './components/ConfigPanel.svelte';
   import CodePreview from './components/CodePreview.svelte';
 
+  import FAQSection from '$lib/components/FAQSection.svelte';
   import { STACKS } from '$lib/utils/deploy-forge/defaults';
   import type { StackId, ProjectConfig, DatabaseId } from '$lib/utils/deploy-forge/types';
   import { generateDockerfile, generateDockerignore } from '$lib/utils/deploy-forge/generator';
@@ -50,6 +51,12 @@
                  : activeTab === 'compose' ? 'yaml'
                  : activeTab === 'env' ? 'bash' // close enough
                  : 'plaintext';
+
+  $: faqItems = [
+    { q: dict.tools.deployForge.q1, a: dict.tools.deployForge.a1 },
+    { q: dict.tools.deployForge.q2, a: dict.tools.deployForge.a2 },
+    { q: dict.tools.deployForge.q3, a: dict.tools.deployForge.a3 }
+  ];
 
   // --- Actions ---
 
@@ -104,13 +111,13 @@
           updatedAt: Date.now()
       });
       // Show toast or feedback?
-      alert('Project saved to local history!');
+      alert(dict.tools.deployForge.saved);
   }
 </script>
 
 <svelte:head>
-  <title>Deploy Forge: Dockerfile Generator | {dict.home.title}</title>
-  <meta name="description" content="The definitive container configuration architect. Generate production-ready Dockerfiles and Docker Compose files for Node.js, Python, Go, Rust, and more." />
+  <title>{dict.tools.deployForge.title} | {dict.home.title}</title>
+  <meta name="description" content={dict.tools.deployForge.description} />
   <meta name="keywords" content="dockerfile generator, docker compose builder, container architect, devops tool" />
 </svelte:head>
 
@@ -123,16 +130,16 @@
           <MoveLeft size={20} class="text-slate-400 group-hover:text-white" />
         </a>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
-          Deploy Forge
+          {dict.tools.deployForge.title}
         </h1>
       </div>
       <div class="flex items-center space-x-2">
-         <button on:click={saveToHistory} class="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-colors" aria-label="Save">
+         <button on:click={saveToHistory} class="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-colors" aria-label={dict.tools.deployForge.save}>
             <Save size={20} />
          </button>
-         <button on:click={downloadProject} class="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors text-sm">
+     <button on:click={downloadProject} class="flex items-center gap-2 px-3 sm:px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors text-sm">
             <Download size={18} />
-            <span>Download</span>
+        <span class="hidden sm:inline">{dict.tools.deployForge.download}</span>
          </button>
       </div>
     </div>
@@ -144,7 +151,7 @@
         <!-- Left Column: Config (5 cols) -->
         <div class="lg:col-span-5 space-y-8">
             <section>
-                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">Select Stack</h2>
+                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">{dict.tools.deployForge.selectStack}</h2>
                 <StackSelector
                     selectedStackId={currentStackId}
                     on:select={handleStackSelect}
@@ -159,7 +166,7 @@
             </section>
 
             <section>
-                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">Add Services</h2>
+                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">{dict.tools.deployForge.addServices}</h2>
                 <DatabaseSelector
                     selectedDatabases={config.databases}
                     on:change={handleDbChange}
@@ -225,7 +232,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": "The definitive container configuration architect. Generate production-ready Dockerfiles and Docker Compose files.",
+      "description": ${JSON.stringify(dict.tools.deployForge.description)},
       "featureList": "Dockerfile generation, Docker Compose builder, Multi-stage build optimization"
     }
     </script>`}
@@ -233,56 +240,40 @@
     <div class="mt-20 border-t border-slate-800 pt-16">
         <div class="prose prose-invert max-w-none">
             <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400 mb-6">
-                The Definitive Container Architect
+                {dict.tools.deployForge.guide.title}
             </h2>
             <div class="grid md:grid-cols-2 gap-12 text-slate-300 leading-relaxed">
                 <div>
-                    <h3 class="text-xl font-semibold text-white mb-4">Why Deploy Forge?</h3>
+                    <h3 class="text-xl font-semibold text-white mb-4">{dict.tools.deployForge.guide.introTitle}</h3>
                     <p class="mb-4">
-                        Containerization is the backbone of modern infrastructure, but writing
-                        <code class="text-indigo-300 bg-slate-800 px-1 py-0.5 rounded">Dockerfiles</code> from scratch is error-prone and tedious.
-                        Deploy Forge bridges the gap between development and operations by generating production-grade configurations instantly.
-                    </p>
-                    <p>
-                        Whether you are a startup scaling a Node.js microservice or an enterprise deploying a Rust backend,
-                        Deploy Forge ensures your containers are secure, optimized, and ready for the cloud.
+                        {dict.tools.deployForge.guide.intro}
                     </p>
                 </div>
                 <div>
-                    <h3 class="text-xl font-semibold text-white mb-4">Pro-Grade Engineering</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start gap-2">
+                    <h3 class="text-xl font-semibold text-white mb-4">{dict.tools.deployForge.guide.featuresTitle}</h3>
+                    <div class="space-y-3 markdown-content">
+                        <!-- We render these as markdown-like lists -->
+                        <div class="flex items-start gap-2">
                             <span class="text-indigo-400 mt-1">•</span>
-                            <span><strong>Multi-Stage Builds:</strong> Automatically minimizes image size by separating build and runtime environments.</span>
-                        </li>
-                        <li class="flex items-start gap-2">
+                            <span>{@html dict.tools.deployForge.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+                        </div>
+                        <div class="flex items-start gap-2">
                             <span class="text-indigo-400 mt-1">•</span>
-                            <span><strong>Security First:</strong> Generates non-root user configurations and proper secret handling patterns.</span>
-                        </li>
-                         <li class="flex items-start gap-2">
+                            <span>{@html dict.tools.deployForge.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+                        </div>
+                        <div class="flex items-start gap-2">
                             <span class="text-indigo-400 mt-1">•</span>
-                            <span><strong>Full Stack Ready:</strong> One-click integration for Databases (Postgres, Redis) and Web Servers (Nginx).</span>
-                        </li>
-                    </ul>
+                            <span>{@html dict.tools.deployForge.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="mt-12 bg-slate-900 rounded-2xl p-8 border border-slate-800">
-                <h3 class="text-2xl font-bold text-white mb-6">Frequently Asked Questions</h3>
-                <div class="space-y-6">
-                    <div>
-                        <h4 class="font-medium text-lg text-white mb-2">Is my configuration data sent to a server?</h4>
-                        <p class="text-slate-400">No. Deploy Forge runs entirely in your browser using local logic. Your proprietary build commands and environment variables never leave your device.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-medium text-lg text-white mb-2">What is a Multi-Stage Build?</h4>
-                        <p class="text-slate-400">A Docker feature that allows you to use intermediate images to compile code, then copy only the artifacts to a final, slimmer image. This drastically reduces the final container size and improves security.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-medium text-lg text-white mb-2">Can I use this for production?</h4>
-                        <p class="text-slate-400">Yes. The generated files follow industry best practices. However, you should always review the configuration to ensure it meets your specific organizational compliance requirements.</p>
-                    </div>
-                </div>
+            <div class="mt-12">
+                <FAQSection
+                    title={dict.tools.deployForge.faqTitle}
+                    items={faqItems}
+                />
             </div>
         </div>
     </div>
