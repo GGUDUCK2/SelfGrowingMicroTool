@@ -9,7 +9,7 @@
   let canvas: HTMLCanvasElement;
   let container: HTMLDivElement;
 
-  $: if (entries && canvas && container) {
+  $: if (entries && canvas && container && timeRange !== undefined) {
       draw();
   }
 
@@ -87,6 +87,21 @@
             ctx.fillRect(x, height - errorH, barWidth - 1, errorH);
         }
     });
+
+    // Draw Selection
+    if (timeRange) {
+        const startX = Math.max(0, ((timeRange.start - minTime) / duration) * width);
+        const endX = Math.min(width, ((timeRange.end - minTime) / duration) * width);
+
+        if (endX > startX) {
+            ctx.fillStyle = 'rgba(99, 102, 241, 0.2)'; // indigo-500 with opacity
+            ctx.fillRect(startX, 0, endX - startX, height);
+
+            ctx.strokeStyle = 'rgba(99, 102, 241, 0.8)';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(startX, 0, endX - startX, height);
+        }
+    }
   }
 
   function handleClick(e: MouseEvent) {

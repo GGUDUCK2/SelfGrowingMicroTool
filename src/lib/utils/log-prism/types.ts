@@ -23,4 +23,10 @@ export interface LogSession {
   name: string;
   data: string;
   createdAt: Date;
+  starred?: number; // 0 or 1 for indexing
+  stats?: {
+    errorCount: number;
+    warnCount: number;
+    entryCount: number;
+  };
 }

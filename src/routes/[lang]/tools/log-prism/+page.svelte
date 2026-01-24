@@ -4,9 +4,10 @@
   import { fade, slide } from 'svelte/transition';
   import { getDictionary } from '$lib/dictionaries';
   import { parseLogs } from '$lib/utils/log-prism/parser';
+  import { clusterLogs, type LogCluster } from '$lib/utils/log-prism/clustering';
   import type { LogEntry } from '$lib/utils/log-prism/types';
-  import { logPrismDB } from '$lib/db/log-prism';
-  import { Download, Upload, AlertTriangle, Activity, Trash2, FileJson } from 'lucide-svelte';
+  import { logPrismDB, pruneHistory } from '$lib/db/log-prism';
+  import { Download, Upload, AlertTriangle, Activity, Trash2, FileJson, List, LayoutGrid, X } from 'lucide-svelte';
 
   import LogUploader from '$lib/components/log-prism/LogUploader.svelte';
   import LogViewer from '$lib/components/log-prism/LogViewer.svelte';
@@ -29,6 +30,8 @@
   let showUploader = true;
   let isParsing = false;
   let showHistory = false;
+  let viewMode: 'list' | 'cluster' = 'list';
+  let showShortcuts = false;
 
   // Derived
   $: filteredEntries = entries.filter(e => {
@@ -56,6 +59,8 @@
       }
       return true;
   });
+
+  $: clusteredEntries = viewMode === 'cluster' ? clusterLogs(filteredEntries) : [];
 
   $: stats = {
       total: entries.length,
@@ -94,8 +99,15 @@
                   await logPrismDB.sessions.add({
                       name: name || `Session ${new Date().toLocaleString()}`,
                       data: data,
-                      createdAt: new Date()
+                      createdAt: new Date(),
+                      starred: 0,
+                      stats: {
+                        errorCount: parsed.filter(e => e.level === 'error').length,
+                        warnCount: parsed.filter(e => e.level === 'warn').length,
+                        entryCount: parsed.length
+                      }
                   });
+                  await pruneHistory();
               }
           } catch (e) {
               console.error("Failed to save session", e);
@@ -143,7 +155,65 @@
       URL.revokeObjectURL(url);
   }
 
+  function handleKeydown(e: KeyboardEvent) {
+      const isCmd = e.ctrlKey || e.metaKey;
+      const target = e.target as HTMLElement;
+      // Allow Escape on inputs, but not other shortcuts
+      if (['INPUT', 'TEXTAREA'].includes(target.tagName) && e.key !== 'Escape') return;
+
+      if (isCmd && e.key === 'k') {
+          e.preventDefault();
+          document.getElementById('log-search')?.focus();
+      }
+
+      if (isCmd && e.key === 'o') {
+          e.preventDefault();
+          if (filteredEntries.length > 0) {
+             if (confirm('Load new log? Current session will be saved to history.')) {
+                 entries = [];
+                 timeRange = null;
+                 showUploader = true;
+             }
+          } else {
+             showUploader = true;
+          }
+      }
+
+      if (e.key === 'Escape') {
+          if (showShortcuts) {
+              showShortcuts = false;
+              return;
+          }
+          if (selectedEntry) {
+              selectedEntry = null;
+              return;
+          }
+          if (showHistory) {
+              showHistory = false;
+              return;
+          }
+          if (timeRange) {
+              timeRange = null;
+              return;
+          }
+      }
+
+      if (e.key === '?') {
+           e.preventDefault();
+           showShortcuts = !showShortcuts;
+      }
+  }
+
+  const shortcuts = [
+      { keys: ['Ctrl', 'K'], desc: 'Search Logs' },
+      { keys: ['Ctrl', 'O'], desc: 'Open / New' },
+      { keys: ['Esc'], desc: 'Clear / Close' },
+      { keys: ['?'], desc: 'Shortcuts' }
+  ];
+
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
@@ -165,9 +235,11 @@
       "operatingSystem": "Any",
       "featureList": [
         "Nginx/Apache/Syslog Parsing",
+        "Log Pattern Clustering",
         "JSON Log Viewer",
         "Error Spike Detection",
         "Timeline Visualization",
+        "Smart History & Shortcuts",
         "Client-side Processing"
       ]
     }
@@ -224,8 +296,39 @@
     </header>
 
     <main class="flex-1 flex flex-col relative overflow-hidden">
+        {#if showShortcuts}
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <!-- svelte-ignore a11y-no-static-element-interactions -->
+            <div class="absolute inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" on:click={() => showShortcuts = false}>
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
+                <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-6 w-full max-w-sm border border-slate-200 dark:border-slate-800" on:click|stopPropagation role="document">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Keyboard Shortcuts</h3>
+                        <button on:click={() => showShortcuts = false} class="text-slate-400 hover:text-slate-600">
+                            <X size={20} />
+                        </button>
+                    </div>
+                    <div class="space-y-2">
+                        {#each shortcuts as s}
+                            <div class="flex justify-between items-center p-2 rounded bg-slate-50 dark:bg-slate-800/50">
+                                <span class="text-sm text-slate-600 dark:text-slate-400">{s.desc}</span>
+                                <div class="flex gap-1">
+                                    {#each s.keys as k}
+                                        <kbd class="px-2 py-0.5 rounded text-xs font-mono bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 shadow-sm text-slate-500 dark:text-slate-300">{k}</kbd>
+                                    {/each}
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
+                </div>
+            </div>
+        {/if}
+
         {#if showHistory}
-            <div class="absolute inset-0 z-40 bg-black/20 backdrop-blur-sm" on:click={() => showHistory = false} role="button" tabindex="0" on:keydown={() => showHistory = false}></div>
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <!-- svelte-ignore a11y-no-static-element-interactions -->
+            <div class="absolute inset-0 z-40 bg-black/20 backdrop-blur-sm" on:click={() => showHistory = false}></div>
             <HistorySidebar onClose={() => showHistory = false} onLoad={handleHistoryLoad} />
         {/if}
 
@@ -244,7 +347,25 @@
         {:else}
             <!-- Timeline & Filter -->
             <div class="shrink-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 z-20 shadow-sm flex flex-col">
-                <LogFilter bind:searchTerm bind:selectedLevels {dict} />
+                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pr-2">
+                    <LogFilter bind:searchTerm bind:selectedLevels {dict} />
+                    <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1 mr-2 gap-1">
+                         <button
+                            class="p-1.5 rounded-md transition-colors {viewMode === 'list' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-indigo-600'}"
+                            on:click={() => viewMode = 'list'}
+                            title="List View"
+                         >
+                            <List size={18} />
+                         </button>
+                         <button
+                            class="p-1.5 rounded-md transition-colors {viewMode === 'cluster' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-indigo-600'}"
+                            on:click={() => viewMode = 'cluster'}
+                            title="Cluster View"
+                         >
+                            <LayoutGrid size={18} />
+                         </button>
+                    </div>
+                </div>
 
                 {#if spikeWarning}
                     <div class="bg-red-50 dark:bg-red-900/20 px-4 py-2 text-xs font-bold text-red-600 dark:text-red-400 flex items-center gap-2 border-t border-red-100 dark:border-red-900/30" transition:slide>
@@ -272,6 +393,8 @@
             <div class="flex-1 overflow-hidden relative">
                 <LogViewer
                     entries={filteredEntries}
+                    clusteredEntries={clusteredEntries}
+                    viewMode={viewMode}
                     {dict}
                     selectedId={selectedEntry?.id || null}
                     on:select={(e) => selectedEntry = e.detail}

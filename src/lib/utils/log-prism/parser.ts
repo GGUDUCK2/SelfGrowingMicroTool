@@ -1,6 +1,5 @@
 import { nanoid } from 'nanoid';
 import type { LogEntry, LogLevel } from './types';
-import { parseISO, parse } from 'date-fns';
 
 // Patterns
 const PATTERNS = {
