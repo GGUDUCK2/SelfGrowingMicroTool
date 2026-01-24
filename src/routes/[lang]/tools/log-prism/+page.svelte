@@ -1,0 +1,331 @@
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import { page } from '$app/stores';
+  import { fade, slide } from 'svelte/transition';
+  import { getDictionary } from '$lib/dictionaries';
+  import { parseLogs } from '$lib/utils/log-prism/parser';
+  import type { LogEntry } from '$lib/utils/log-prism/types';
+  import { logPrismDB } from '$lib/db/log-prism';
+  import { Download, Upload, AlertTriangle, Activity, Trash2, FileJson } from 'lucide-svelte';
+
+  import LogUploader from '$lib/components/log-prism/LogUploader.svelte';
+  import LogViewer from '$lib/components/log-prism/LogViewer.svelte';
+  import LogTimeline from '$lib/components/log-prism/LogTimeline.svelte';
+  import LogFilter from '$lib/components/log-prism/LogFilter.svelte';
+  import LogDetail from '$lib/components/log-prism/LogDetail.svelte';
+  import HistorySidebar from '$lib/components/log-prism/HistorySidebar.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
+  import { History } from 'lucide-svelte';
+
+  $: lang = $page.params.lang || 'en';
+  $: dict = getDictionary(lang).tools.logPrism;
+
+  // State
+  let entries: LogEntry[] = [];
+  let selectedEntry: LogEntry | null = null;
+  let searchTerm = '';
+  let selectedLevels = { error: true, warn: true, info: true, debug: true };
+  let timeRange: { start: number, end: number } | null = null;
+  let showUploader = true;
+  let isParsing = false;
+  let showHistory = false;
+
+  // Derived
+  $: filteredEntries = entries.filter(e => {
+      // Level Filter
+      if (!selectedLevels[e.level as keyof typeof selectedLevels] && e.level !== 'unknown') return false;
+
+      // Time Filter
+      if (timeRange && e.timestamp) {
+          const t = e.timestamp.getTime();
+          if (t < timeRange.start || t > timeRange.end) return false;
+      }
+
+      // Text Filter
+      if (searchTerm) {
+          try {
+              // Simple Includes for speed, regex if starts with /
+              if (searchTerm.startsWith('/') && searchTerm.endsWith('/')) {
+                   const regex = new RegExp(searchTerm.slice(1, -1), 'i');
+                   return regex.test(e.raw);
+              }
+              return e.raw.toLowerCase().includes(searchTerm.toLowerCase());
+          } catch {
+              return e.raw.toLowerCase().includes(searchTerm.toLowerCase());
+          }
+      }
+      return true;
+  });
+
+  $: stats = {
+      total: entries.length,
+      filtered: filteredEntries.length,
+      errors: entries.filter(e => e.level === 'error').length,
+      warns: entries.filter(e => e.level === 'warn').length
+  };
+
+  $: spikeWarning = detectSpikes(filteredEntries);
+
+  function detectSpikes(logs: LogEntry[]) {
+      if (logs.length < 50) return null;
+      const errors = logs.filter(e => e.level === 'error').length;
+      if (errors / logs.length > 0.15) return `${dict.levels.error} Rate: ${(errors/logs.length*100).toFixed(1)}%`;
+      return null;
+  }
+
+  // Handlers
+  async function handleLoad(event: CustomEvent) {
+      isParsing = true;
+      showUploader = false;
+
+      const { data, name } = event.detail;
+
+      // Yield to UI
+      setTimeout(async () => {
+          const parsed = parseLogs(data);
+          entries = parsed;
+          isParsing = false;
+
+          // Save to DB
+          try {
+              // Limit size if too huge? Dexie handles large strings well usually (IndexedDB limits are high).
+              // But strictly, we should probably check size.
+              if (data.length < 50 * 1024 * 1024) { // 50MB limit
+                  await logPrismDB.sessions.add({
+                      name: name || `Session ${new Date().toLocaleString()}`,
+                      data: data,
+                      createdAt: new Date()
+                  });
+              }
+          } catch (e) {
+              console.error("Failed to save session", e);
+          }
+      }, 50);
+  }
+
+  function handleHistoryLoad(data: string, name: string) {
+      // Direct load from history (already saved)
+      isParsing = true;
+      showUploader = false;
+      showHistory = false;
+
+      setTimeout(() => {
+          const parsed = parseLogs(data);
+          entries = parsed;
+          isParsing = false;
+      }, 50);
+  }
+
+  function handleTimeSelect(start: number, end: number) {
+      timeRange = { start, end };
+  }
+
+  function clear() {
+      if (confirm('Clear all logs?')) {
+          entries = [];
+          timeRange = null;
+          showUploader = true;
+      }
+  }
+
+  function clearTimeFilter() {
+      timeRange = null;
+  }
+
+  function exportJson() {
+      const data = JSON.stringify(filteredEntries, null, 2);
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `log-prism-export-${new Date().toISOString()}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+  }
+
+</script>
+
+<svelte:head>
+  <title>{dict.title} - MicroFactory</title>
+  <meta name="description" content={dict.description} />
+  <meta name="keywords" content="log viewer, log analyzer, nginx log parser, syslog viewer, json log viewer, error log analysis" />
+
+  <meta property="og:title" content={dict.title} />
+  <meta property="og:description" content={dict.description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://microfactory.app/{lang}/tools/log-prism" />
+
+  {@html `<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "${dict.title}",
+      "description": "${dict.description}",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "featureList": [
+        "Nginx/Apache/Syslog Parsing",
+        "JSON Log Viewer",
+        "Error Spike Detection",
+        "Timeline Visualization",
+        "Client-side Processing"
+      ]
+    }
+  </script>`}
+</svelte:head>
+
+<div class="min-h-screen flex flex-col bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white">
+
+    <!-- Header -->
+    <header class="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 sm:px-6 shrink-0 z-30">
+        <div class="flex items-center gap-3">
+             <div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400">
+                <Activity size={20} />
+            </div>
+            <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 hidden sm:block">
+                {dict.title}
+            </h1>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button
+                class="p-2 text-slate-500 hover:text-indigo-600 transition-colors"
+                on:click={() => showHistory = !showHistory}
+                title="History"
+            >
+                <History size={20} />
+            </button>
+
+            {#if entries.length > 0}
+                <div class="hidden sm:flex items-center gap-4 mr-4 text-xs font-mono text-slate-500 border-l border-slate-200 dark:border-slate-700 pl-4">
+                    <span>{stats.filtered} / {stats.total} {dict.entries}</span>
+                    {#if stats.errors > 0}
+                        <span class="text-red-500 font-bold">{stats.errors} {dict.errors}</span>
+                    {/if}
+                </div>
+
+                <button
+                    class="p-2 text-slate-500 hover:text-indigo-600 transition-colors"
+                    on:click={exportJson}
+                    title={dict.export}
+                >
+                    <Download size={20} />
+                </button>
+
+                 <button
+                    class="p-2 text-slate-500 hover:text-red-600 transition-colors"
+                    on:click={clear}
+                    title={dict.clear}
+                >
+                    <Trash2 size={20} />
+                </button>
+            {/if}
+        </div>
+    </header>
+
+    <main class="flex-1 flex flex-col relative overflow-hidden">
+        {#if showHistory}
+            <div class="absolute inset-0 z-40 bg-black/20 backdrop-blur-sm" on:click={() => showHistory = false} role="button" tabindex="0" on:keydown={() => showHistory = false}></div>
+            <HistorySidebar onClose={() => showHistory = false} onLoad={handleHistoryLoad} />
+        {/if}
+
+        {#if showUploader}
+            <div class="flex-1 flex flex-col items-center justify-center p-4" transition:fade>
+                <div class="w-full max-w-2xl">
+                    <LogUploader {dict} on:load={handleLoad} />
+                    {#if isParsing}
+                        <div class="mt-8 text-center text-slate-500">
+                            <div class="w-8 h-8 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mx-auto mb-2"></div>
+                            <p>Parsing logs...</p>
+                        </div>
+                    {/if}
+                </div>
+            </div>
+        {:else}
+            <!-- Timeline & Filter -->
+            <div class="shrink-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 z-20 shadow-sm flex flex-col">
+                <LogFilter bind:searchTerm bind:selectedLevels {dict} />
+
+                {#if spikeWarning}
+                    <div class="bg-red-50 dark:bg-red-900/20 px-4 py-2 text-xs font-bold text-red-600 dark:text-red-400 flex items-center gap-2 border-t border-red-100 dark:border-red-900/30" transition:slide>
+                        <AlertTriangle size={14} />
+                        {spikeWarning}
+                    </div>
+                {/if}
+
+                {#if entries.length > 0}
+                    <div class="h-16 relative w-full border-t border-slate-200 dark:border-slate-800">
+                        <LogTimeline entries={filteredEntries} {timeRange} onSelectTime={handleTimeSelect} />
+                        {#if timeRange}
+                            <button
+                                class="absolute top-1 right-1 px-2 py-0.5 bg-slate-800 text-white text-[10px] rounded opacity-70 hover:opacity-100"
+                                on:click={clearTimeFilter}
+                            >
+                                Clear Zoom
+                            </button>
+                        {/if}
+                    </div>
+                {/if}
+            </div>
+
+            <!-- Viewer -->
+            <div class="flex-1 overflow-hidden relative">
+                <LogViewer
+                    entries={filteredEntries}
+                    {dict}
+                    selectedId={selectedEntry?.id || null}
+                    on:select={(e) => selectedEntry = e.detail}
+                />
+
+                {#if selectedEntry}
+                    <div transition:slide={{ axis: 'x', duration: 200 }}>
+                        <LogDetail
+                            entry={selectedEntry}
+                            {dict}
+                            onClose={() => selectedEntry = null}
+                        />
+                    </div>
+                {/if}
+            </div>
+        {/if}
+    </main>
+
+    <!-- Documentation -->
+    <section class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">{dict.guide.title}</h2>
+            <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                {dict.guide.intro}
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                    <h3 class="font-bold text-indigo-600 dark:text-indigo-400 mb-2">{dict.guide.featuresTitle}</h3>
+                    <ul class="text-sm space-y-2 text-slate-600 dark:text-slate-400">
+                        <li>{@html dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                    </ul>
+                </div>
+
+                 <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 md:col-span-2">
+                    <h3 class="font-bold text-amber-600 dark:text-amber-400 mb-2">{dict.guide.tipsTitle}</h3>
+                    <ul class="text-sm space-y-2 text-slate-600 dark:text-slate-400 grid md:grid-cols-2 gap-4">
+                        <li>{@html dict.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dict.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dict.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <FAQSection
+                title={dict.faqTitle}
+                items={[
+                    { question: dict.q1, answer: dict.a1 },
+                    { question: dict.q2, answer: dict.a2 },
+                    { question: dict.q3, answer: dict.a3 }
+                ]}
+            />
+        </div>
+    </section>
+</div>

@@ -208,5 +208,20 @@
     "category": "util",
     "tags": ["geojson", "wkt", "map", "gis"],
     "createdAt": "2024-05-25"
+  },
+  {
+    "id": "log-prism",
+    "slug": "log-prism",
+    "title": {
+      "en": "Log Prism",
+      "ko": "로그 프리즘"
+    },
+    "description": {
+      "en": "Analyze, filter, and visualize server logs locally.",
+      "ko": "서버 로그를 로컬에서 분석, 필터링 및 시각화하세요."
+    },
+    "category": "dev",
+    "tags": ["log", "analyzer", "viewer", "json"],
+    "createdAt": "2024-06-01"
   }
 ]
