@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { writable, derived } from 'svelte/store';
 import type { GridState, GridArea } from './types';
 
 const initialState: GridState = {
@@ -19,35 +19,100 @@ const initialState: GridState = {
 function createGridStore() {
   const { subscribe, set, update } = writable<GridState>(initialState);
 
+  // History state
+  const past = writable<GridState[]>([]);
+  const future = writable<GridState[]>([]);
+
+  const record = (currentState: GridState) => {
+      past.update(h => [...h, JSON.parse(JSON.stringify(currentState))].slice(-50));
+      future.set([]);
+  };
+
+  const withHistory = (fn: (s: GridState) => GridState) => {
+      update(s => {
+          record(s);
+          return fn(s);
+      });
+  };
+
   return {
     subscribe,
     set,
     update,
-    reset: () => set(initialState),
-    addRow: (val = '1fr') => update(s => ({ ...s, rows: [...s.rows, val] })),
-    removeRow: (idx: number) => update(s => ({ ...s, rows: s.rows.filter((_, i) => i !== idx) })),
-    updateRow: (idx: number, val: string) => update(s => {
+
+    // History Actions
+    undo: () => {
+        update(current => {
+            let previous: GridState | undefined;
+            past.update(h => {
+                if (h.length === 0) return h;
+                previous = h[h.length - 1];
+                return h.slice(0, -1);
+            });
+
+            if (previous) {
+                future.update(f => [current, ...f]);
+                return previous;
+            }
+            return current;
+        });
+    },
+
+    redo: () => {
+        update(current => {
+            let next: GridState | undefined;
+            future.update(f => {
+                if (f.length === 0) return f;
+                next = f[0];
+                return f.slice(1);
+            });
+
+            if (next) {
+                past.update(h => [...h, current]);
+                return next;
+            }
+            return current;
+        });
+    },
+
+    reset: () => {
+        withHistory(() => initialState);
+    },
+
+    load: (state: GridState) => {
+        set(state);
+        past.set([]);
+        future.set([]);
+    },
+
+    // Mutators
+    addRow: (val = '1fr') => withHistory(s => ({ ...s, rows: [...s.rows, val] })),
+    removeRow: (idx: number) => withHistory(s => ({ ...s, rows: s.rows.filter((_, i) => i !== idx) })),
+    updateRow: (idx: number, val: string) => withHistory(s => {
         const newRows = [...s.rows];
         newRows[idx] = val;
         return { ...s, rows: newRows };
     }),
-    addCol: (val = '1fr') => update(s => ({ ...s, cols: [...s.cols, val] })),
-    removeCol: (idx: number) => update(s => ({ ...s, cols: s.cols.filter((_, i) => i !== idx) })),
-    updateCol: (idx: number, val: string) => update(s => {
+    addCol: (val = '1fr') => withHistory(s => ({ ...s, cols: [...s.cols, val] })),
+    removeCol: (idx: number) => withHistory(s => ({ ...s, cols: s.cols.filter((_, i) => i !== idx) })),
+    updateCol: (idx: number, val: string) => withHistory(s => {
         const newCols = [...s.cols];
         newCols[idx] = val;
         return { ...s, cols: newCols };
     }),
-    setGap: (gap: string) => update(s => ({ ...s, gap, rowGap: gap, colGap: gap })),
-    setRowGap: (gap: string) => update(s => ({ ...s, rowGap: gap })),
-    setColGap: (gap: string) => update(s => ({ ...s, colGap: gap })),
-    addArea: (area: GridArea) => update(s => ({ ...s, areas: [...s.areas, area] })),
-    removeArea: (id: string) => update(s => ({ ...s, areas: s.areas.filter(a => a.id !== id) })),
-    updateArea: (id: string, patch: Partial<GridArea>) => update(s => ({
+    setGap: (gap: string) => withHistory(s => ({ ...s, gap, rowGap: gap, colGap: gap })),
+    setRowGap: (gap: string) => withHistory(s => ({ ...s, rowGap: gap })),
+    setColGap: (gap: string) => withHistory(s => ({ ...s, colGap: gap })),
+    addArea: (area: GridArea) => withHistory(s => ({ ...s, areas: [...s.areas, area] })),
+    removeArea: (id: string) => withHistory(s => ({ ...s, areas: s.areas.filter(a => a.id !== id) })),
+    updateArea: (id: string, patch: Partial<GridArea>) => withHistory(s => ({
         ...s,
         areas: s.areas.map(a => a.id === id ? { ...a, ...patch } : a)
     })),
-    load: (state: GridState) => set(state)
+
+    // Exports for UI
+    canUndo: derived(past, $past => $past.length > 0),
+    canRedo: derived(future, $future => $future.length > 0)
   };
 }
 

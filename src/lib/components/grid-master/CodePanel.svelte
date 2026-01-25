@@ -1,10 +1,10 @@
 <script lang="ts">
   import { gridStore } from '$lib/utils/grid-master/store';
-  import { generateCSS, generateTailwind } from '$lib/utils/grid-master/codegen';
-  import { Copy, Check, Code, FileCode } from 'lucide-svelte';
-  import { fade } from 'svelte/transition';
+  import { generateCSS, generateTailwind, generateHTML } from '$lib/utils/grid-master/codegen';
+  import { Copy, Check, Code, FileCode, Download } from 'lucide-svelte';
+  import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
-  export let dict: any;
+  export let dict: GridMasterDictionary;
 
   let activeTab: 'tailwind' | 'css' = 'tailwind';
   let copied = false;
@@ -17,6 +17,17 @@
       navigator.clipboard.writeText(code);
       copied = true;
       setTimeout(() => copied = false, 2000);
+  }
+
+  function downloadHTML() {
+      const html = generateHTML($gridStore);
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'grid-master-layout.html';
+      a.click();
+      URL.revokeObjectURL(url);
   }
 </script>
 
@@ -39,18 +50,28 @@
           </button>
       </div>
 
-      <button
-        class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors {copied ? 'bg-green-500/20 text-green-400' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}"
-        on:click={copyCode}
-      >
-         {#if copied}
-             <Check size={14} />
-             {dict.copied}
-         {:else}
-             <Copy size={14} />
-             {dict.copy}
-         {/if}
-      </button>
+      <div class="flex items-center gap-2">
+          <button
+            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-slate-400 hover:bg-slate-800 hover:text-white"
+            on:click={downloadHTML}
+            aria-label={dict.download || 'Download'}
+          >
+             <Download size={14} />
+             <span class="hidden sm:inline">{dict.download || 'Download'}</span>
+          </button>
+          <button
+            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors {copied ? 'bg-green-500/20 text-green-400' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}"
+            on:click={copyCode}
+          >
+             {#if copied}
+                 <Check size={14} />
+                 {dict.copied}
+             {:else}
+                 <Copy size={14} />
+                 {dict.copy}
+             {/if}
+          </button>
+      </div>
   </div>
 
   <div class="flex-1 overflow-auto p-4 relative group custom-scrollbar">

@@ -1,8 +1,17 @@
 <script lang="ts">
   import { gridStore } from '$lib/utils/grid-master/store';
-  import { Plus, Minus, Trash2 } from 'lucide-svelte';
+  import { Plus, Trash2, LayoutTemplate } from 'lucide-svelte';
+  import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
+  import { templates } from '$lib/utils/grid-master/templates';
 
-  export let dict: any;
+  export let dict: GridMasterDictionary;
+
+  function loadTemplate(key: string) {
+      if (confirm('Load template? This will replace your current grid.')) {
+          const t = JSON.parse(JSON.stringify(templates[key]));
+          gridStore.load(t);
+      }
+  }
 
   function updateRow(idx: number, val: string) {
       gridStore.updateRow(idx, val);
@@ -25,11 +34,29 @@
 </script>
 
 <div class="space-y-6">
+  <!-- Templates -->
+  <div class="space-y-4 pb-4 border-b border-slate-200 dark:border-slate-700">
+      <h3 class="font-bold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
+          <LayoutTemplate size={14} />
+          {dict.templates || 'Templates'}
+      </h3>
+      <div class="grid grid-cols-2 gap-2">
+          {#each Object.keys(templates) as key}
+              <button
+                  class="px-3 py-2 text-sm text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg transition-colors capitalize text-left"
+                  on:click={() => loadTemplate(key)}
+              >
+                  {key.replace(/-/g, ' ')}
+              </button>
+          {/each}
+      </div>
+  </div>
+
   <!-- Tracks Configuration -->
   <div class="space-y-4">
       <h3 class="font-bold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">{dict.rows}</h3>
       <div class="space-y-2">
-          {#each $gridStore.rows as row, i}
+          {#each $gridStore.rows as row, i (i)}
              <div class="flex gap-2 items-center">
                  <span class="text-xs text-slate-400 font-mono w-4">{i+1}</span>
                  <input
@@ -60,7 +87,7 @@
   <div class="space-y-4">
       <h3 class="font-bold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">{dict.cols}</h3>
       <div class="space-y-2">
-          {#each $gridStore.cols as col, i}
+          {#each $gridStore.cols as col, i (i)}
              <div class="flex gap-2 items-center">
                  <span class="text-xs text-slate-400 font-mono w-4">{i+1}</span>
                  <input
@@ -119,7 +146,7 @@
       <div class="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-700">
           <h3 class="font-bold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">{dict.areas}</h3>
           <div class="space-y-2 max-h-[300px] overflow-y-auto pr-1">
-              {#each $gridStore.areas as area}
+              {#each $gridStore.areas as area (area.id)}
                  <div class="flex items-center gap-2 p-2 bg-slate-50 dark:bg-slate-800/50 rounded border border-slate-100 dark:border-slate-800 group">
                      <div class="w-3 h-3 rounded-full shrink-0 shadow-sm" style="background-color: {area.color.startsWith('#') ? area.color : colorMap[area.color] || '#cbd5e1'}"></div>
                      <input

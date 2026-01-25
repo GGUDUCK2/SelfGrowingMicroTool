@@ -7,12 +7,6 @@
   let selectionStart = { row: -1, col: -1 };
   let selectionEnd = { row: -1, col: -1 };
 
-  // Tailwind 400 colors
-  const colors = [
-    '#f87171', '#fb923c', '#fbbf24', '#facc15', '#a3e635', '#4ade80', '#34d399', '#2dd4bf',
-    '#38bdf8', '#60a5fa', '#818cf8', '#a78bfa', '#c084fc', '#e879f9', '#f472b6', '#fb7185'
-  ];
-
   // Tailwind color names for generating code later
   const colorNames = [
     'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald', 'teal',
@@ -97,8 +91,8 @@
     "
   >
       <!-- Background Grid Lines/Cells (for interaction) -->
-      {#each $gridStore.rows as _, r}
-          {#each $gridStore.cols as __, c}
+      {#each $gridStore.rows as _, r (r)}
+          {#each $gridStore.cols as __, c (c)}
               <button
                   class="border border-dashed border-slate-200 dark:border-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 transition-colors z-10"
                   on:mousedown={() => handleMouseDown(r, c)}

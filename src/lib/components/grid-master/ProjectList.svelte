@@ -4,18 +4,21 @@
   import { Trash2, Star, FolderOpen } from 'lucide-svelte';
   import { liveQuery } from 'dexie';
   import { browser } from '$app/environment';
+  import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
+  import type { GridMasterProject } from '$lib/db';
 
-  export let dict: any;
+  export let dict: GridMasterDictionary;
 
-  let projects: any[] = [];
+  let projects: GridMasterProject[] = [];
 
   if (browser) {
       const projectsObservable = liveQuery(() => gridMasterWorkspace.loadAll());
       projectsObservable.subscribe(val => projects = val);
   }
 
-  async function loadProject(p: any) {
+  async function loadProject(p: GridMasterProject) {
       // Create a clean state object excluding DB fields
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { id, createdAt, updatedAt, starred, ...state } = p;
       gridStore.load(state);
   }
@@ -44,7 +47,7 @@
          </div>
      {/if}
 
-     {#each projects as p}
+     {#each projects as p (p.id)}
          <div class="relative p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all group shadow-sm hover:shadow-md">
              <!-- Main Load Action (Overlay Button) -->
              <button
