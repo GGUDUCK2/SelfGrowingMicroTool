@@ -1,19 +1,42 @@
 
 > web-factory-svelte@0.0.1 dev
-> vite dev --port 3001
+> vite dev
 
+▲ [WARNING] Cannot find base config file "./.svelte-kit/tsconfig.json" [tsconfig.json]
 
-  VITE v6.4.1  ready in 1129 ms
+    tsconfig.json:2:15:
+      2 │     "extends": "./.svelte-kit/tsconfig.json",
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  ➜  Local:   http://localhost:3001/
+4:36:36 PM [vite] (client) Forced re-optimization of dependencies
+
+  VITE v6.4.1  ready in 1892 ms
+
+  ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
+4:36:55 PM [vite-plugin-svelte] src/lib/components/grid-master/GridCanvas.svelte:102:14 'mouseover' event must be accompanied by 'focus' event
+https://svelte.dev/e/a11y_mouse_events_have_key_events
+4:36:55 PM [vite-plugin-svelte] src/lib/components/grid-master/Sidebar.svelte:95:14 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+4:36:55 PM [vite-plugin-svelte] src/lib/components/grid-master/Sidebar.svelte:104:14 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+4:37:07 PM [vite-plugin-svelte] src/lib/components/grid-master/ProjectList.svelte:68:13 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+4:37:07 PM [vite-plugin-svelte] src/lib/components/grid-master/ProjectList.svelte:68:13 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
+4:37:10 PM [vite-plugin-svelte] src/lib/components/grid-master/GridCanvas.svelte:102:14 'mouseover' event must be accompanied by 'focus' event
+https://svelte.dev/e/a11y_mouse_events_have_key_events
+4:37:10 PM [vite-plugin-svelte] src/lib/components/grid-master/Sidebar.svelte:95:14 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+4:37:10 PM [vite-plugin-svelte] src/lib/components/grid-master/Sidebar.svelte:104:14 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+4:37:10 PM [vite-plugin-svelte] src/lib/components/grid-master/ProjectList.svelte:68:13 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+4:37:10 PM [vite-plugin-svelte] src/lib/components/grid-master/ProjectList.svelte:68:13 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+4:38:36 PM [vite] (client) hmr update /src/lib/components/grid-master/Sidebar.svelte, /src/app.css
+4:38:36 PM [vite] (ssr) page reload src/lib/components/grid-master/Sidebar.svelte
+4:39:09 PM [vite] (client) hmr update /src/lib/components/grid-master/ProjectList.svelte, /src/app.css
+4:39:09 PM [vite] (ssr) page reload src/lib/components/grid-master/ProjectList.svelte
