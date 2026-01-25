@@ -6,6 +6,7 @@
   import MatchViewer from '$lib/components/regex-tester/MatchViewer.svelte';
   import RegexCheatsheet from '$lib/components/regex-tester/RegexCheatsheet.svelte';
   import RegexLibrary from '$lib/components/regex-tester/RegexLibrary.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
   import { getMatches } from '$lib/utils/regex';
   import { db } from '$lib/db';
   import { liveQuery } from 'dexie';
@@ -14,6 +15,12 @@
   $: lang = $page.params.lang || 'en';
   $: dictionary = getDictionary(lang);
   $: t = dictionary.tools.regexTester;
+
+  $: faqItems = [
+    { q: t.q1, a: t.a1 },
+    { q: t.q2, a: t.a2 },
+    { q: t.q3, a: t.a3 }
+  ];
 
   let pattern = '';
   let flags = 'g';
@@ -121,7 +128,8 @@
       "@type": "SoftwareApplication",
       "name": "Regex Pro",
       "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Any",
+      "applicationSubCategory": "DeveloperTool",
+      "operatingSystem": "Web, iOS, Android, Linux, Windows, macOS",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -157,7 +165,7 @@
     <div class="lg:col-span-8 space-y-6">
       <RegexEditor {pattern} {flags} dictionary={t} on:change={handleEditorChange} />
 
-      <div class="flex gap-4">
+      <div class="flex flex-wrap gap-4">
         <button
           class="flex-1 py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium shadow-lg shadow-indigo-200 dark:shadow-none transition-all flex items-center justify-center gap-2"
           on:click={saveToHistory}
@@ -236,28 +244,7 @@
   </div>
 
   <!-- Documentation & FAQ -->
-  <div class="prose dark:prose-invert max-w-4xl mx-auto">
-    <div class="bg-white/50 dark:bg-slate-800/50 backdrop-blur-md rounded-2xl p-8 border border-indigo-100 dark:border-indigo-900 shadow-sm">
-      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        {t.faqTitle}
-      </h2>
-      <div class="space-y-6">
-        <div>
-          <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2">{t.q1}</h3>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{t.a1}</p>
-        </div>
-        <div>
-          <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2">{t.q2}</h3>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{t.a2}</p>
-        </div>
-        <div>
-          <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2">{t.q3}</h3>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{t.a3}</p>
-        </div>
-      </div>
-    </div>
+  <div class="max-w-4xl mx-auto">
+    <FAQSection title={t.faqTitle} items={faqItems} />
   </div>
 </div>
