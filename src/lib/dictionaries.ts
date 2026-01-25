@@ -1415,6 +1415,12 @@ export const dictionaries = {
           tip2: "Click on any bar in the timeline to zoom into that specific time range.",
           tip3: "Use the **Export** function to share a cleaned JSON version of your logs."
         },
+        examples: {
+            label: "Try Example Log"
+        },
+        report: {
+            title: "Insight Report"
+        },
         faqTitle: "Log Prism FAQ",
         q1: "What formats are supported?",
         a1: "We currently support Nginx (Combined), Apache, standard Syslog, ISO8601 timestamps, and JSON-formatted logs (Bunyan/Pino).",
@@ -1725,6 +1731,12 @@ export const dictionaries = {
           tip1: "대용량 로그 파일도 직접 드래그 앤 드롭하세요. 효율적으로 처리합니다.",
           tip2: "타임라인의 막대를 클릭하여 해당 시간 범위를 확대하세요.",
           tip3: "**내보내기** 기능을 사용하여 로그의 정리된 JSON 버전을 공유하세요."
+        },
+        examples: {
+            label: "예제 로그 체험"
+        },
+        report: {
+            title: "인사이트 리포트"
         },
         faqTitle: "로그 프리즘 FAQ",
         q1: "어떤 형식을 지원하나요?",

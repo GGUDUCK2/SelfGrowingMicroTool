@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { Upload, FileText, Clipboard } from 'lucide-svelte';
+  import { Upload, FileText, Clipboard, Play } from 'lucide-svelte';
   import { createEventDispatcher } from 'svelte';
+  import { generateNginxLog, generateSyslog, generateJsonLog } from '$lib/utils/log-prism/generators';
 
-  export let dict: any;
+  export let dict: Record<string, any>;
 
   const dispatch = createEventDispatcher();
   let dragOver = false;
@@ -34,6 +35,15 @@
       const target = e.target as HTMLInputElement;
       if (target.files?.[0]) handleFile(target.files[0]);
   }
+
+  function loadExample(type: 'nginx' | 'syslog' | 'json') {
+      let data = '';
+      if (type === 'nginx') data = generateNginxLog();
+      if (type === 'syslog') data = generateSyslog();
+      if (type === 'json') data = generateJsonLog();
+
+      dispatch('load', { name: `Example ${type.toUpperCase()}`, data });
+  }
 </script>
 
 <div
@@ -52,7 +62,7 @@
     <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">{dict.upload}</h3>
     <p class="text-slate-500 dark:text-slate-400 mb-6 max-w-sm">{dict.guide.tip1}</p>
 
-    <div class="flex flex-wrap gap-4 justify-center">
+    <div class="flex flex-wrap gap-4 justify-center mb-8">
         <label class="btn-primary cursor-pointer flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-lg shadow-indigo-500/30">
             <FileText size={18} />
             <span>{dict.upload}</span>
@@ -65,5 +75,43 @@
         </button>
     </div>
 
-    <p class="mt-4 text-xs text-slate-400">Supported: .log, .txt, .json</p>
+    <div class="border-t border-slate-200 dark:border-slate-700 pt-6 w-full max-w-md">
+        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">{dict.examples?.label || 'Or try an example'}</p>
+        <div class="grid grid-cols-3 gap-3">
+             <button
+                class="flex flex-col items-center gap-2 p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all text-sm font-medium text-slate-600 dark:text-slate-300"
+                on:click={() => loadExample('nginx')}
+                aria-label="Load Nginx Example"
+             >
+                <div class="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400">
+                    <Play size={14} fill="currentColor" />
+                </div>
+                Nginx
+             </button>
+
+             <button
+                class="flex flex-col items-center gap-2 p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all text-sm font-medium text-slate-600 dark:text-slate-300"
+                on:click={() => loadExample('syslog')}
+                aria-label="Load Syslog Example"
+             >
+                <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                    <Play size={14} fill="currentColor" />
+                </div>
+                Syslog
+             </button>
+
+             <button
+                class="flex flex-col items-center gap-2 p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all text-sm font-medium text-slate-600 dark:text-slate-300"
+                on:click={() => loadExample('json')}
+                aria-label="Load JSON Example"
+             >
+                 <div class="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400">
+                    <Play size={14} fill="currentColor" />
+                </div>
+                JSON
+             </button>
+        </div>
+    </div>
+
+    <p class="mt-6 text-xs text-slate-400">Supported: .log, .txt, .json</p>
 </div>
