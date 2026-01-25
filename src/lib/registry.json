@@ -223,5 +223,20 @@
     "category": "dev",
     "tags": ["log", "analyzer", "viewer", "json"],
     "createdAt": "2024-06-01"
+  },
+  {
+    "id": "grid-master",
+    "slug": "grid-master",
+    "title": {
+      "en": "Grid Master",
+      "ko": "그리드 마스터"
+    },
+    "description": {
+      "en": "Visual CSS Grid layout builder and code generator.",
+      "ko": "시각적 CSS 그리드 레이아웃 빌더 및 코드 생성기입니다."
+    },
+    "category": "dev",
+    "tags": ["css", "grid", "layout", "generator"],
+    "createdAt": "2024-06-15"
   }
 ]
