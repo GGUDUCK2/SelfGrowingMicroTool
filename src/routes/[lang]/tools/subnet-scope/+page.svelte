@@ -140,7 +140,8 @@
       "@type": "SoftwareApplication",
       "name": "Subnet Scope",
       "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Web, iOS, Android",
+      "applicationSubCategory": "Network Utility",
+      "operatingSystem": "Web, iOS, Android, Linux, Windows, macOS",
       "offers": {
         "@type": "Offer",
         "price": "0",

@@ -64,7 +64,7 @@
         </button>
     </div>
 
-    <div class="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+    <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
       <table class="w-full text-left text-sm">
         <thead class="bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-medium">
           <tr>
