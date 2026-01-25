@@ -5,9 +5,10 @@
   import { getDictionary } from '$lib/dictionaries';
   import { parseLogs } from '$lib/utils/log-prism/parser';
   import { clusterLogs, type LogCluster } from '$lib/utils/log-prism/clustering';
+  import { generateInsightReport } from '$lib/utils/log-prism/report';
   import type { LogEntry } from '$lib/utils/log-prism/types';
   import { logPrismDB, pruneHistory } from '$lib/db/log-prism';
-  import { Download, Upload, AlertTriangle, Activity, Trash2, FileJson, List, LayoutGrid, X } from 'lucide-svelte';
+  import { Download, Upload, AlertTriangle, Activity, Trash2, FileJson, List, LayoutGrid, X, FileText } from 'lucide-svelte';
 
   import LogUploader from '$lib/components/log-prism/LogUploader.svelte';
   import LogViewer from '$lib/components/log-prism/LogViewer.svelte';
@@ -32,6 +33,7 @@
   let showHistory = false;
   let viewMode: 'list' | 'cluster' = 'list';
   let showShortcuts = false;
+  let reportCopied = false;
 
   // Derived
   $: filteredEntries = entries.filter(e => {
@@ -155,6 +157,14 @@
       URL.revokeObjectURL(url);
   }
 
+  function handleReport() {
+      const clusters = clusterLogs(filteredEntries);
+      const report = generateInsightReport(filteredEntries, clusters);
+      navigator.clipboard.writeText(report);
+      reportCopied = true;
+      setTimeout(() => reportCopied = false, 2000);
+  }
+
   function handleKeydown(e: KeyboardEvent) {
       const isCmd = e.ctrlKey || e.metaKey;
       const target = e.target as HTMLElement;
@@ -164,6 +174,11 @@
       if (isCmd && e.key === 'k') {
           e.preventDefault();
           document.getElementById('log-search')?.focus();
+      }
+
+      if (isCmd && e.key === 's') {
+          e.preventDefault();
+          handleReport();
       }
 
       if (isCmd && e.key === 'o') {
@@ -206,6 +221,7 @@
 
   const shortcuts = [
       { keys: ['Ctrl', 'K'], desc: 'Search Logs' },
+      { keys: ['Ctrl', 'S'], desc: 'Copy Report' },
       { keys: ['Ctrl', 'O'], desc: 'Open / New' },
       { keys: ['Esc'], desc: 'Clear / Close' },
       { keys: ['?'], desc: 'Shortcuts' }
@@ -218,7 +234,7 @@
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content="log viewer, log analyzer, nginx log parser, syslog viewer, json log viewer, error log analysis" />
+  <meta name="keywords" content="log viewer, log analyzer, nginx log parser, syslog viewer, json log viewer, error log analysis, automated insights, smart log generation" />
 
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
@@ -240,7 +256,9 @@
         "Error Spike Detection",
         "Timeline Visualization",
         "Smart History & Shortcuts",
-        "Client-side Processing"
+        "Client-side Processing",
+        "Smart Example Generation",
+        "Automated Insight Reports"
       ]
     }
   </script>`}
@@ -264,6 +282,7 @@
                 class="p-2 text-slate-500 hover:text-indigo-600 transition-colors"
                 on:click={() => showHistory = !showHistory}
                 title="History"
+                aria-label="Toggle History"
             >
                 <History size={20} />
             </button>
@@ -277,9 +296,24 @@
                 </div>
 
                 <button
+                    class="p-2 text-slate-500 hover:text-indigo-600 transition-colors relative"
+                    on:click={handleReport}
+                    title={dict.report?.title || "Insight Report"}
+                    aria-label="Generate Insight Report"
+                >
+                    <FileText size={20} />
+                    {#if reportCopied}
+                        <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap" transition:fade>
+                            Copied!
+                        </span>
+                    {/if}
+                </button>
+
+                <button
                     class="p-2 text-slate-500 hover:text-indigo-600 transition-colors"
                     on:click={exportJson}
                     title={dict.export}
+                    aria-label={dict.export}
                 >
                     <Download size={20} />
                 </button>
@@ -288,6 +322,7 @@
                     class="p-2 text-slate-500 hover:text-red-600 transition-colors"
                     on:click={clear}
                     title={dict.clear}
+                    aria-label={dict.clear}
                 >
                     <Trash2 size={20} />
                 </button>
@@ -351,16 +386,18 @@
                     <LogFilter bind:searchTerm bind:selectedLevels {dict} />
                     <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1 mr-2 gap-1">
                          <button
-                            class="p-1.5 rounded-md transition-colors {viewMode === 'list' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-indigo-600'}"
+                            class="p-2 rounded-md transition-colors {viewMode === 'list' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-indigo-600'}"
                             on:click={() => viewMode = 'list'}
                             title="List View"
+                            aria-label="Switch to List View"
                          >
                             <List size={18} />
                          </button>
                          <button
-                            class="p-1.5 rounded-md transition-colors {viewMode === 'cluster' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-indigo-600'}"
+                            class="p-2 rounded-md transition-colors {viewMode === 'cluster' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-indigo-600'}"
                             on:click={() => viewMode = 'cluster'}
                             title="Cluster View"
+                            aria-label="Switch to Cluster View"
                          >
                             <LayoutGrid size={18} />
                          </button>
@@ -379,8 +416,9 @@
                         <LogTimeline entries={filteredEntries} {timeRange} onSelectTime={handleTimeSelect} />
                         {#if timeRange}
                             <button
-                                class="absolute top-1 right-1 px-2 py-0.5 bg-slate-800 text-white text-[10px] rounded opacity-70 hover:opacity-100"
+                                class="absolute top-1 right-1 px-3 py-1.5 bg-slate-800 text-white text-xs rounded opacity-80 hover:opacity-100 shadow-md z-30"
                                 on:click={clearTimeFilter}
+                                aria-label="Clear Time Zoom"
                             >
                                 Clear Zoom
                             </button>
