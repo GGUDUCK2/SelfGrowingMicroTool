@@ -79,3 +79,51 @@ export function generateTailwind(state: GridState): string {
 
     return html;
 }
+
+export function generateHTML(state: GridState): string {
+    const css = generateCSS(state, 'grid-container');
+    const { areas } = state;
+
+    // Generate some basic styles for visualization
+    const visualStyles = areas.map(a =>
+        `.${a.name} { background-color: ${a.color.startsWith('#') ? a.color : 'var(--' + a.color + ')'}; padding: 1rem; border-radius: 0.25rem; }`
+    ).join('\n    ');
+
+    // Add CSS var mocks for tailwind colors if they are names
+    const colorVars = `
+    :root {
+        --red: #f87171; --orange: #fb923c; --amber: #fbbf24; --yellow: #facc15;
+        --lime: #a3e635; --green: #4ade80; --emerald: #34d399; --teal: #2dd4bf;
+        --sky: #38bdf8; --blue: #60a5fa; --indigo: #818cf8; --violet: #a78bfa;
+        --purple: #c084fc; --fuchsia: #e879f9; --pink: #f472b6; --rose: #fb7185;
+        --slate: #94a3b8; --zinc: #a1a1aa;
+    }`;
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid Master Layout</title>
+  <style>
+    body { margin: 0; font-family: system-ui, -apple-system, sans-serif; padding: 2rem; background: #f8fafc; }
+    ${colorVars}
+    .grid-container {
+      min-height: 80vh;
+      background: white;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+    ${css}
+    /* Visualization Styles */
+    ${visualStyles}
+  </style>
+</head>
+<body>
+  <div class="grid-container">
+    ${areas.map(a => `<div class="${a.name}">${a.name}</div>`).join('\n    ')}
+  </div>
+</body>
+</html>`;
+}

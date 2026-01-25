@@ -1,3 +1,5 @@
+import type { dictionaries } from '$lib/dictionaries';
+
 export interface GridArea {
   id: string;
   name: string;
@@ -24,3 +26,5 @@ export interface GridState {
   areas: GridArea[];
   items: GridItem[];
 }
+
+export type GridMasterDictionary = typeof dictionaries.en.tools.gridMaster;

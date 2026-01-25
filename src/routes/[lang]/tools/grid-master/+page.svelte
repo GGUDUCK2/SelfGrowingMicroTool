@@ -7,17 +7,38 @@
   import Sidebar from '$lib/components/grid-master/Sidebar.svelte';
   import CodePanel from '$lib/components/grid-master/CodePanel.svelte';
   import ProjectList from '$lib/components/grid-master/ProjectList.svelte';
-  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor } from 'lucide-svelte';
+  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2 } from 'lucide-svelte';
   import { fade } from 'svelte/transition';
 
   $: lang = $page.params.lang || 'en';
   $: dict = (getDictionary(lang) || getDictionary('en')).tools?.gridMaster || getDictionary('en').tools.gridMaster;
   $: common = getDictionary(lang).common;
 
+  const { canUndo, canRedo } = gridStore;
+
   let showToast = false;
   let toastMessage = '';
   let projectName = 'My Grid';
   let viewMode: 'desktop' | 'mobile' = 'desktop';
+
+  function handleKeydown(e: KeyboardEvent) {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+          e.preventDefault();
+          if (e.shiftKey) {
+              gridStore.redo();
+          } else {
+              gridStore.undo();
+          }
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
+          e.preventDefault();
+          gridStore.redo();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+          e.preventDefault();
+          handleSave();
+      }
+  }
 
   async function handleSave() {
       if (!projectName.trim()) return;
@@ -43,12 +64,18 @@
   }
 </script>
 
+<svelte:window on:keydown={handleKeydown} />
+
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
   <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://microfactory.app/{lang}/tools/grid-master" />
+  <link rel="alternate" hreflang="en" href="https://microfactory.app/en/tools/grid-master" />
+  <link rel="alternate" hreflang="ko" href="https://microfactory.app/ko/tools/grid-master" />
+  <link rel="alternate" hreflang="x-default" href="https://microfactory.app/en/tools/grid-master" />
 
   <script type="application/ld+json">
     {
@@ -72,6 +99,7 @@
   <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
+        <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
         <a href="/{lang}" aria-label={common.back} class="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
         </a>
@@ -90,14 +118,37 @@
                <button
                  class="p-1.5 rounded-md transition-all {viewMode === 'desktop' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}"
                  on:click={() => viewMode = 'desktop'}
+                 aria-label="Desktop View"
                >
                    <Monitor size={16} />
                </button>
                <button
                  class="p-1.5 rounded-md transition-all {viewMode === 'mobile' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}"
                  on:click={() => viewMode = 'mobile'}
+                 aria-label="Mobile View"
                >
                    <Smartphone size={16} />
+               </button>
+           </div>
+
+           <div class="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-2 hidden sm:block"></div>
+
+           <div class="bg-slate-100 dark:bg-slate-800 rounded-lg p-1 hidden sm:flex">
+               <button
+                 class="p-1.5 rounded-md transition-all {$canUndo ? 'text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 shadow-sm' : 'text-slate-300 dark:text-slate-600 cursor-not-allowed'}"
+                 on:click={() => gridStore.undo()}
+                 disabled={!$canUndo}
+                 aria-label={dict.undo || 'Undo'}
+               >
+                   <Undo2 size={16} />
+               </button>
+               <button
+                 class="p-1.5 rounded-md transition-all {$canRedo ? 'text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 shadow-sm' : 'text-slate-300 dark:text-slate-600 cursor-not-allowed'}"
+                 on:click={() => gridStore.redo()}
+                 disabled={!$canRedo}
+                 aria-label={dict.redo || 'Redo'}
+               >
+                   <Redo2 size={16} />
                </button>
            </div>
 
@@ -168,12 +219,15 @@
               <h3 class="text-xl font-semibold">{dict.guide.featuresTitle}</h3>
               <ul class="grid grid-cols-1 md:grid-cols-3 gap-4 not-prose">
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
                  </li>
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
                  </li>
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
                  </li>
               </ul>
