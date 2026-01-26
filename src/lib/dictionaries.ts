@@ -1472,6 +1472,9 @@ export const dictionaries = {
         shortcuts: "Keyboard Shortcuts",
         restoreSession: "Restore Session",
         sessionRestored: "Session restored",
+        build: "Build",
+        loadTemplateConfirm: "Load template? This will replace your current grid.",
+        restoreConfirm: "Restore this session version? Current work will be replaced.",
         guide: {
           title: "Why Grid Master?",
           intro: "CSS Grid is powerful but the syntax can be daunting. Grid Master provides a visual interface to design layouts naturally.",
@@ -1948,6 +1951,9 @@ export const dictionaries = {
         shortcuts: "키보드 단축키",
         restoreSession: "세션 복원",
         sessionRestored: "세션이 복원되었습니다",
+        build: "빌드",
+        loadTemplateConfirm: "템플릿을 불러오시겠습니까? 현재 그리드가 대체됩니다.",
+        restoreConfirm: "이 세션 버전을 복원하시겠습니까? 현재 작업이 대체됩니다.",
         guide: {
           title: "왜 그리드 마스터인가요?",
           intro: "CSS 그리드는 강력하지만 문법이 까다로울 수 있습니다. 그리드 마스터는 직관적인 시각적 인터페이스를 제공합니다.",

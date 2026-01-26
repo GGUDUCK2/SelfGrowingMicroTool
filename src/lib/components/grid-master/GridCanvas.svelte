@@ -76,6 +76,15 @@
       return `grid-area: ${rStart} / ${cStart} / ${rEnd} / ${cEnd};`;
   }
 
+  function escapeHtml(text: string) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+  }
+
   function getSemanticTag(name: string) {
       const n = name.toLowerCase();
       if (n.includes('head')) return 'header';
@@ -89,10 +98,63 @@
 
   function getPlaceholderContent(name: string) {
       const tag = getSemanticTag(name);
-      if (tag === 'header') return '<h2 class="text-lg font-bold">Header</h2>';
-      if (tag === 'footer') return '<p class="text-sm">© 2024 Footer Content</p>';
-      if (tag === 'aside') return '<nav class="flex flex-col gap-2 opacity-70"><div class="h-2 w-2/3 bg-current rounded"></div><div class="h-2 w-1/2 bg-current rounded"></div><div class="h-2 w-3/4 bg-current rounded"></div></nav>';
-      return `<h3 class="font-semibold capitalize mb-2">${name}</h3><p class="text-xs opacity-75 leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>`;
+      const n = name.toLowerCase();
+
+      if (tag === 'header') return `
+        <div class="flex items-center justify-between h-full px-4">
+            <h2 class="text-xl font-bold tracking-tight">Brand</h2>
+            <nav class="hidden sm:flex gap-4 text-sm font-medium opacity-80">
+                <span>Home</span>
+                <span>About</span>
+                <span>Contact</span>
+            </nav>
+        </div>`;
+
+      if (tag === 'footer') return `
+        <div class="flex flex-col items-center justify-center h-full text-center gap-2 p-2">
+             <p class="text-sm font-medium">© 2024 Company Name</p>
+             <div class="flex gap-2 text-xs opacity-60">
+                 <span>Privacy</span> &bull; <span>Terms</span>
+             </div>
+        </div>`;
+
+      if (tag === 'aside') return `
+        <nav class="flex flex-col gap-3 h-full p-2">
+            <div class="h-8 w-3/4 bg-black/10 dark:bg-white/10 rounded"></div>
+            <div class="h-px bg-black/5 dark:bg-white/5 my-2"></div>
+            <div class="flex flex-col gap-2 opacity-70">
+                <div class="h-2 w-2/3 bg-current rounded"></div>
+                <div class="h-2 w-1/2 bg-current rounded"></div>
+                <div class="h-2 w-3/4 bg-current rounded"></div>
+                <div class="h-2 w-4/5 bg-current rounded"></div>
+            </div>
+            <div class="mt-auto p-3 bg-black/5 dark:bg-white/5 rounded text-xs text-center opacity-75">
+                Ads / Promo
+            </div>
+        </nav>`;
+
+      if (n.includes('hero')) return `
+        <div class="flex flex-col items-center justify-center h-full text-center p-4">
+             <h1 class="text-2xl sm:text-3xl font-extrabold mb-2">Hero Title</h1>
+             <p class="text-sm sm:text-base opacity-80 max-w-[90%]">This is a hero section subtitle highlighting the main value proposition.</p>
+             <button class="mt-4 px-4 py-2 bg-black/10 dark:bg-white/20 rounded-lg text-xs sm:text-sm font-bold border border-current">Call to Action</button>
+        </div>`;
+
+      if (n.includes('img') || n.includes('pic') || n.includes('photo') || n.includes('gallery')) return `
+         <div class="w-full h-full flex items-center justify-center bg-black/5 dark:bg-white/5 relative overflow-hidden group">
+             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-30 group-hover:scale-110 transition-transform"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+         </div>
+      `;
+
+      return `
+        <article class="h-full flex flex-col p-2">
+            <h3 class="font-bold text-lg capitalize mb-2">${escapeHtml(name)}</h3>
+            <div class="flex-1 text-sm opacity-80 leading-relaxed overflow-hidden text-ellipsis">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <div class="h-2"></div>
+                <p class="hidden sm:block">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            </div>
+        </article>`;
   }
 </script>
 

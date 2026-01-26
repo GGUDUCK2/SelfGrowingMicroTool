@@ -50,6 +50,10 @@
           e.preventDefault();
           previewMode = !previewMode;
       }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          handleReset();
+      }
       if (e.key === '?' && e.shiftKey) {
           // e.preventDefault(); // Don't prevent default if input focused?
           if (document.activeElement?.tagName !== 'INPUT') {
@@ -128,7 +132,7 @@
       }
 
       // Auto-save loop
-      let timeout: any;
+      let timeout: ReturnType<typeof setTimeout>;
       const unsub = gridStore.subscribe(state => {
           clearTimeout(timeout);
           timeout = setTimeout(() => {
@@ -169,7 +173,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "featureList": "Visual CSS Grid Editor, Tailwind Code Generator, Layout Prototyping, Intelligent Preview, Shareable Links, Auto-Save"
+      "featureList": "Visual CSS Grid Editor, Tailwind Code Generator, Layout Prototyping, Intelligent Preview, Shareable Links, Auto-Save, Smart Templates, Session History"
     }
   </script>
 </svelte:head>
