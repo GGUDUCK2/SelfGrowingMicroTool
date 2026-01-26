@@ -1,0 +1,71 @@
+
+> web-factory-svelte@0.0.1 dev
+> vite dev
+
+
+  VITE v6.4.1  ready in 1096 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+4:36:34 PM [vite-plugin-svelte] src/lib/components/snippet-forge/CodeEditor.svelte:26:13 Component has unused export property 'lineNumbers'. If it is for external reference only, please consider using `export const lineNumbers`
+https://svelte.dev/e/export_let_unused
+4:36:34 PM [vite-plugin-svelte] src/lib/components/snippet-forge/CodeEditor.svelte:27:13 Component has unused export property 'theme'. If it is for external reference only, please consider using `export const theme`
+https://svelte.dev/e/export_let_unused
+4:36:34 PM [vite-plugin-svelte] src/lib/components/snippet-forge/Controls.svelte:31:4 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+4:36:34 PM [vite-plugin-svelte] src/lib/components/snippet-forge/Controls.svelte:48:4 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+4:36:34 PM [vite-plugin-svelte] src/lib/components/snippet-forge/Controls.svelte:72:8 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+4:36:46 PM [vite] (ssr) Error when evaluating SSR module /src/routes/[lang]/tools/snippet-forge/+page.svelte: src/lib/components/snippet-forge/HistoryDrawer.svelte:62:20 `<button>` cannot be a child of `<button>`. The browser will 'repair' the HTML (by moving, removing, or inserting elements) which breaks Svelte's assumptions about the structure of your components.
+https://svelte.dev/e/node_invalid_placement
+  Plugin: vite-plugin-svelte
+  File: src/lib/components/snippet-forge/HistoryDrawer.svelte:62:20
+   60 |                      </div>
+   61 |
+   62 |                      <button
+                                    ^
+   63 |                          class="absolute bottom-2 right-2 p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg opacity-0 group-hover:opacity-100 transition-all"
+   64 |                          on:click={(e) => handleDelete(item.id!, e)}
+
+[1;31m[500] GET /en/tools/snippet-forge[0m
+
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+4:38:27 PM [vite] (client) page reload src/lib/components/snippet-forge/HistoryDrawer.svelte
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+4:38:35 PM [vite-plugin-svelte] src/lib/components/snippet-forge/Controls.svelte:31:4 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+4:38:35 PM [vite-plugin-svelte] src/lib/components/snippet-forge/Controls.svelte:48:4 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+4:38:35 PM [vite-plugin-svelte] src/lib/components/snippet-forge/Controls.svelte:72:8 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
+4:38:35 PM [vite-plugin-svelte] src/lib/components/snippet-forge/CodeEditor.svelte:26:13 Component has unused export property 'lineNumbers'. If it is for external reference only, please consider using `export const lineNumbers`
+https://svelte.dev/e/export_let_unused
+4:38:35 PM [vite-plugin-svelte] src/lib/components/snippet-forge/CodeEditor.svelte:27:13 Component has unused export property 'theme'. If it is for external reference only, please consider using `export const theme`
+https://svelte.dev/e/export_let_unused
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+4:40:11 PM [vite] (client) hmr update /src/lib/components/snippet-forge/CodeEditor.svelte, /src/app.css
+4:40:11 PM [vite] (ssr) page reload src/lib/components/snippet-forge/CodeEditor.svelte
+4:40:17 PM [vite-plugin-svelte] src/lib/components/snippet-forge/CodeEditor.svelte:26:13 Component has unused export property 'lineNumbers'. If it is for external reference only, please consider using `export const lineNumbers`
+https://svelte.dev/e/export_let_unused
+4:40:17 PM [vite-plugin-svelte] src/lib/components/snippet-forge/CodeEditor.svelte:27:13 Component has unused export property 'theme'. If it is for external reference only, please consider using `export const theme`
+https://svelte.dev/e/export_let_unused
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+4:40:18 PM [vite-plugin-svelte] src/lib/components/snippet-forge/CodeEditor.svelte:26:13 Component has unused export property 'lineNumbers'. If it is for external reference only, please consider using `export const lineNumbers`
+https://svelte.dev/e/export_let_unused
+4:40:18 PM [vite-plugin-svelte] src/lib/components/snippet-forge/CodeEditor.svelte:27:13 Component has unused export property 'theme'. If it is for external reference only, please consider using `export const theme`
+https://svelte.dev/e/export_let_unused
+4:42:34 PM [vite] (client) hmr update /src/lib/components/snippet-forge/CodeEditor.svelte, /src/app.css
+4:42:34 PM [vite] (ssr) page reload src/lib/components/snippet-forge/CodeEditor.svelte
+4:42:42 PM [vite] (client) hmr update /src/lib/components/snippet-forge/SnippetCanvas.svelte, /src/app.css
+4:42:42 PM [vite] (ssr) page reload src/lib/components/snippet-forge/SnippetCanvas.svelte
+4:42:51 PM [vite] (client) hmr update /src/app.css, /src/routes/[lang]/tools/snippet-forge/+page.svelte, /src/lib/components/snippet-forge/SnippetCanvas.svelte, /src/lib/components/snippet-forge/Controls.svelte
+4:42:51 PM [vite] (ssr) page reload src/lib/utils/snippet-forge/store.ts
+4:43:01 PM [vite] (client) hmr update /src/lib/components/snippet-forge/Controls.svelte, /src/app.css
+4:43:01 PM [vite] (ssr) page reload src/lib/components/snippet-forge/Controls.svelte
