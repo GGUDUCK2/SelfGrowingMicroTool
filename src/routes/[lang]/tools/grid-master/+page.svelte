@@ -1,14 +1,18 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import { onMount } from 'svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { gridStore } from '$lib/utils/grid-master/store';
   import { gridMasterWorkspace } from '$lib/db/grid-master';
+  import { saveToHistory, getHistoryObservable } from '$lib/db/workspace';
   import GridCanvas from '$lib/components/grid-master/GridCanvas.svelte';
   import Sidebar from '$lib/components/grid-master/Sidebar.svelte';
   import CodePanel from '$lib/components/grid-master/CodePanel.svelte';
   import ProjectList from '$lib/components/grid-master/ProjectList.svelte';
-  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2 } from 'lucide-svelte';
-  import { fade } from 'svelte/transition';
+  import ShortcutsModal from '$lib/components/grid-master/ShortcutsModal.svelte';
+  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2, Eye, EyeOff, Share2, HelpCircle, History } from 'lucide-svelte';
+  import { fade, slide } from 'svelte/transition';
+  import type { GridState } from '$lib/utils/grid-master/types';
 
   $: lang = $page.params.lang || 'en';
   $: dict = (getDictionary(lang) || getDictionary('en')).tools?.gridMaster || getDictionary('en').tools.gridMaster;
@@ -20,6 +24,10 @@
   let toastMessage = '';
   let projectName = 'My Grid';
   let viewMode: 'desktop' | 'mobile' = 'desktop';
+  let previewMode = false;
+  let showShortcuts = false;
+  let canRestoreSession = false;
+  let lastSessionState: GridState | null = null;
 
   function handleKeydown(e: KeyboardEvent) {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
@@ -37,6 +45,32 @@
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
           e.preventDefault();
           handleSave();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') {
+          e.preventDefault();
+          previewMode = !previewMode;
+      }
+      if (e.key === '?' && e.shiftKey) {
+          // e.preventDefault(); // Don't prevent default if input focused?
+          if (document.activeElement?.tagName !== 'INPUT') {
+               showShortcuts = !showShortcuts;
+          }
+      }
+  }
+
+  async function handleShare() {
+      const data = JSON.stringify($gridStore);
+      const hash = btoa(data);
+      const url = `${window.location.origin}${window.location.pathname}#project=${hash}`;
+      await navigator.clipboard.writeText(url);
+      showToastMsg(dict.shareCopied || 'Share link copied!');
+  }
+
+  function restoreSession() {
+      if (lastSessionState) {
+          gridStore.load(lastSessionState);
+          canRestoreSession = false;
+          showToastMsg(dict.sessionRestored || 'Session restored');
       }
   }
 
@@ -62,6 +96,51 @@
       showToast = true;
       setTimeout(() => showToast = false, 2000);
   }
+
+  onMount(async () => {
+      // Check Hash for shared project
+      if (window.location.hash.includes('project=')) {
+          try {
+              const hash = window.location.hash.split('project=')[1];
+              const data = atob(hash);
+              const state = JSON.parse(data);
+              gridStore.load(state);
+              window.location.hash = '';
+              showToastMsg('Project loaded from link');
+          } catch (e) {
+              console.error('Failed to load shared project', e);
+          }
+      } else {
+          // Check for recoverable session
+          try {
+             const history = await getHistoryObservable('grid-master').toArray();
+             if (history.length > 0) {
+                 const last = history[0];
+                 // If less than 24h old
+                 if (Date.now() - last.timestamp < 24 * 60 * 60 * 1000) {
+                     lastSessionState = last.input as GridState;
+                     canRestoreSession = true;
+                 }
+             }
+          } catch (e) {
+              console.error(e);
+          }
+      }
+
+      // Auto-save loop
+      let timeout: any;
+      const unsub = gridStore.subscribe(state => {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {
+              saveToHistory('grid-master', state, null);
+          }, 2000);
+      });
+
+      return () => {
+          unsub();
+          clearTimeout(timeout);
+      };
+  });
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -84,12 +163,13 @@
       "name": "Grid Master",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
+      "applicationSubCategory": "Web Development Tool",
       "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
       },
-      "featureList": "Visual CSS Grid Editor, Tailwind Code Generator, Layout Prototyping"
+      "featureList": "Visual CSS Grid Editor, Tailwind Code Generator, Layout Prototyping, Intelligent Preview, Shareable Links, Auto-Save"
     }
   </script>
 </svelte:head>
@@ -133,6 +213,18 @@
 
            <div class="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-2 hidden sm:block"></div>
 
+           {#if canRestoreSession}
+               <button
+                 class="hidden sm:flex items-center gap-1 px-3 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg text-xs font-medium hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
+                 on:click={restoreSession}
+                 transition:slide={{ axis: 'x' }}
+               >
+                   <History size={14} />
+                   {dict.restoreSession || 'Restore Session'}
+               </button>
+               <div class="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-2 hidden sm:block" transition:fade></div>
+           {/if}
+
            <div class="bg-slate-100 dark:bg-slate-800 rounded-lg p-1 hidden sm:flex">
                <button
                  class="p-1.5 rounded-md transition-all {$canUndo ? 'text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 shadow-sm' : 'text-slate-300 dark:text-slate-600 cursor-not-allowed'}"
@@ -154,11 +246,35 @@
 
            <div class="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-2 hidden sm:block"></div>
 
+           <button
+             class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors"
+             on:click={togglePreview}
+             aria-label={dict.preview || 'Toggle Preview'}
+             title={previewMode ? 'Switch to Structure Mode' : 'Switch to Content Mode'}
+           >
+              {#if previewMode}
+                 <EyeOff size={18} />
+              {:else}
+                 <Eye size={18} />
+              {/if}
+           </button>
+
+           <button
+             class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors"
+             on:click={handleShare}
+             aria-label={dict.share || 'Share'}
+           >
+              <Share2 size={18} />
+           </button>
+
+           <div class="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-2 hidden sm:block"></div>
+
            <input
              type="text"
              bind:value={projectName}
              class="bg-transparent border-b border-transparent hover:border-slate-300 focus:border-indigo-500 focus:outline-none w-32 sm:w-48 text-sm font-medium transition-colors text-right sm:text-left text-slate-700 dark:text-slate-200"
              placeholder="Project Name"
+             aria-label="Project Name"
            />
 
            <button
@@ -174,6 +290,14 @@
              aria-label={dict.clear}
            >
               <RotateCcw size={18} />
+           </button>
+
+           <button
+             class="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg transition-colors ml-1"
+             on:click={() => showShortcuts = true}
+             aria-label={dict.shortcuts || 'Shortcuts'}
+           >
+              <HelpCircle size={18} />
            </button>
       </div>
     </div>
@@ -202,7 +326,7 @@
                  class="transition-all duration-500 ease-in-out bg-white dark:bg-slate-900 shadow-2xl rounded-xl overflow-hidden ring-1 ring-slate-900/5 dark:ring-white/10"
                  style="width: {viewMode === 'desktop' ? '100%' : '375px'}; height: {viewMode === 'desktop' ? '500px' : '667px'};"
                >
-                   <GridCanvas />
+                   <GridCanvas {previewMode} />
                </div>
           </div>
 
@@ -260,5 +384,9 @@
         <span>{toastMessage}</span>
       </div>
     </div>
+  {/if}
+
+  {#if showShortcuts}
+      <ShortcutsModal {dict} close={() => showShortcuts = false} />
   {/if}
 </div>

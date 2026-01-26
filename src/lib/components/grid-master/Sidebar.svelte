@@ -64,6 +64,7 @@
                    value={row}
                    on:change={(e) => updateRow(i, e.currentTarget.value)}
                    class="flex-1 min-w-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                   aria-label={`Row ${i + 1} size`}
                  />
                  <button
                    class="p-1.5 text-slate-400 hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
@@ -95,6 +96,7 @@
                    value={col}
                    on:change={(e) => updateCol(i, e.currentTarget.value)}
                    class="flex-1 min-w-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                   aria-label={`Column ${i + 1} size`}
                  />
                  <button
                    class="p-1.5 text-slate-400 hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
@@ -154,6 +156,7 @@
                        value={area.name}
                        on:change={(e) => updateAreaName(area.id, e.currentTarget.value)}
                        class="flex-1 min-w-0 bg-transparent text-sm border-none p-0 focus:ring-0 text-slate-700 dark:text-slate-200"
+                       aria-label="Area name"
                      />
                      <button
                        class="text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
