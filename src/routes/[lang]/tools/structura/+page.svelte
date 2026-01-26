@@ -6,6 +6,7 @@
   import Toolbar from '$lib/components/structura/Toolbar.svelte';
   import SettingsPanel from '$lib/components/structura/SettingsPanel.svelte';
   import TreeVisualizer from '$lib/components/structura/visualizer/TreeVisualizer.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
   import { convertData, detectFormat, type Format } from '$lib/utils/structura/converter';
   import { generateCode, type CodeGenLanguage } from '$lib/utils/structura/codegen';
   import { structuraExamples } from '$lib/utils/structura/examples';
@@ -17,6 +18,12 @@
   export let data;
 
   $: t = data.dict.tools.structura;
+
+  $: faqItems = [
+    { q: t.q1, a: t.a1 },
+    { q: t.q2, a: t.a2 },
+    { q: t.q3, a: t.a3 }
+  ];
 
   // Tabs
   type Tab = 'convert' | 'codegen' | 'visualizer' | 'history';
@@ -212,7 +219,8 @@
       "@type": "SoftwareApplication",
       "name": "Structura",
       "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Any",
+      "applicationSubCategory": "Developer Tool",
+      "operatingSystem": ["Web", "iOS", "Android", "Linux", "Windows", "macOS"],
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -595,21 +603,7 @@
       <li><span class="markdown-body">{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
     </ul>
 
-    <h3>{t.faqTitle}</h3>
-    <div class="space-y-4">
-      <div>
-        <h4 class="font-bold">{t.q1}</h4>
-        <p>{t.a1}</p>
-      </div>
-      <div>
-        <h4 class="font-bold">{t.q2}</h4>
-        <p>{t.a2}</p>
-      </div>
-      <div>
-        <h4 class="font-bold">{t.q3}</h4>
-        <p>{t.a3}</p>
-      </div>
-    </div>
+    <FAQSection title={t.faqTitle} items={faqItems} />
   </article>
 
   <div class="flex justify-center mt-8 text-sm text-gray-400">

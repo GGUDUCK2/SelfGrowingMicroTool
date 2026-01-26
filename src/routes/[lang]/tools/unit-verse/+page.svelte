@@ -5,11 +5,17 @@
   import Converter from '$lib/components/unit-verse/Converter.svelte';
   import ReferenceTable from '$lib/components/unit-verse/ReferenceTable.svelte';
   import History from '$lib/components/unit-verse/History.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
   import { MoveLeft } from 'lucide-svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
   $: t = dict.tools.unitVerse;
+
+  $: faqItems = [
+    { q: t.q1, a: t.a1 },
+    { q: t.q2, a: t.a2 }
+  ];
 
   let selectedCategory = 'length';
 
@@ -115,19 +121,7 @@
                </ul>
              </div>
 
-             <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700/50">
-                <h3 class="text-amber-400 font-semibold mb-2">{t.faqTitle}</h3>
-                <div class="space-y-3 text-sm">
-                    <div>
-                        <p class="font-medium text-slate-200 mb-1">{t.q1}</p>
-                        <p class="text-slate-400">{t.a1}</p>
-                    </div>
-                     <div>
-                        <p class="font-medium text-slate-200 mb-1">{t.q2}</p>
-                        <p class="text-slate-400">{t.a2}</p>
-                    </div>
-                </div>
-             </div>
+             <FAQSection title={t.faqTitle} items={faqItems} />
            </div>
         </div>
       </div>
@@ -159,7 +153,8 @@
       "name": "Unit Verse",
       "url": `https://selfgrowingmicrotool.com/${lang}/tools/unit-verse`,
       "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Any",
+      "applicationSubCategory": "Unit Converter",
+      "operatingSystem": ["Web", "iOS", "Android", "Linux", "Windows", "macOS"],
       "offers": {
         "@type": "Offer",
         "price": "0",
