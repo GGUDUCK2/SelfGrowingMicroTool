@@ -43,7 +43,7 @@
         size={24}
         class="mb-2 {selectedCategory === category.id ? 'text-white' : 'text-slate-400'}"
       />
-      <span class="text-xs font-medium text-center leading-tight">
+      <span class="text-sm font-medium text-center leading-tight">
         {t.categories[category.id] || category.name.en}
       </span>
     </button>

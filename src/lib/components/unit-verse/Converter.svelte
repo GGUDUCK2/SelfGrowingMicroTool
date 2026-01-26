@@ -166,7 +166,7 @@
     </div>
 
     <!-- Swap Button (Desktop: Center Absolute, Mobile: Row) -->
-    <div class="flex justify-center md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-10 my-2 md:my-0">
+    <div class="flex justify-center md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-10 my-4 md:my-0">
       <button
         on:click={swap}
         class="p-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95"
@@ -243,7 +243,7 @@
           <div class="flex bg-slate-900 rounded-lg p-1 border border-slate-700">
              {#each [2, 4, 6, 10] as p}
                  <button
-                    class="px-3 py-1 text-xs rounded-md transition-colors {precision === p ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}"
+                    class="px-3 py-2 text-sm rounded-md transition-colors {precision === p ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}"
                     on:click={() => precision = p}
                     aria-label="{t.precision} {p}"
                     aria-pressed={precision === p}
