@@ -26,6 +26,6 @@
   });
 </script>
 
-<div class="relative w-full h-full min-h-[400px] border border-slate-600 rounded-lg overflow-hidden bg-slate-900 shadow-sm">
-  <pre class="!m-0 !p-4 !bg-transparent h-full overflow-auto text-sm"><code bind:this={codeElement} class="language-{language}">{content}</code></pre>
+<div class="relative w-full h-full min-h-[300px] sm:min-h-[400px] border border-slate-600 rounded-lg overflow-hidden bg-slate-900 shadow-sm">
+  <pre class="!m-0 !p-4 !bg-transparent h-full overflow-auto text-base sm:text-sm"><code bind:this={codeElement} class="language-{language}">{content}</code></pre>
 </div>
