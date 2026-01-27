@@ -1,5 +1,10 @@
 import type { dictionaries } from '$lib/dictionaries';
 
+export type JustifyItems = 'start' | 'end' | 'center' | 'stretch';
+export type AlignItems = 'start' | 'end' | 'center' | 'stretch';
+export type JustifyContent = 'start' | 'end' | 'center' | 'stretch' | 'space-around' | 'space-between' | 'space-evenly';
+export type AlignContent = 'start' | 'end' | 'center' | 'stretch' | 'space-around' | 'space-between' | 'space-evenly';
+
 export interface GridArea {
   id: string;
   name: string;
@@ -8,6 +13,9 @@ export interface GridArea {
   colStart: number;
   colEnd: number;
   color: string;
+  // Individual area alignment (optional for future)
+  justifySelf?: JustifyItems;
+  alignSelf?: AlignItems;
 }
 
 export interface GridItem {
@@ -25,6 +33,12 @@ export interface GridState {
   colGap: string;
   areas: GridArea[];
   items: GridItem[];
+
+  // Container Alignment
+  justifyItems: JustifyItems;
+  alignItems: AlignItems;
+  justifyContent: JustifyContent;
+  alignContent: AlignContent;
 }
 
 export type GridMasterDictionary = typeof dictionaries.en.tools.gridMaster;

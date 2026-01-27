@@ -29,6 +29,10 @@ export function generateCSS(state: GridState, containerId = 'container'): string
   grid-template-columns: ${gridTemplateColumns};
   grid-template-rows: ${gridTemplateRows};
   ${!hasDistinctGap ? `gap: ${gap};` : `row-gap: ${rowGap};\n  column-gap: ${colGap};`}
+  justify-items: ${state.justifyItems};
+  align-items: ${state.alignItems};
+  justify-content: ${state.justifyContent};
+  align-content: ${state.alignContent};
   grid-template-areas:
 ${templateAreas};
 }
@@ -54,7 +58,30 @@ export function generateTailwind(state: GridState): string {
         gapClass = `gap-y-[${rowGap}] gap-x-[${colGap}]`;
     }
 
-    let html = `<div class="grid ${colClass} ${rowClass} ${gapClass} h-full w-full">\n`;
+    // Alignment classes
+    const justifyItemsMap = {
+        start: 'justify-items-start', end: 'justify-items-end', center: 'justify-items-center', stretch: 'justify-items-stretch'
+    };
+    const alignItemsMap = {
+        start: 'items-start', end: 'items-end', center: 'items-center', stretch: 'items-stretch'
+    };
+    const justifyContentMap = {
+        start: 'justify-start', end: 'justify-end', center: 'justify-center', stretch: 'justify-stretch',
+        'space-around': 'justify-around', 'space-between': 'justify-between', 'space-evenly': 'justify-evenly'
+    };
+    const alignContentMap = {
+        start: 'content-start', end: 'content-end', center: 'content-center', stretch: 'content-stretch',
+        'space-around': 'content-around', 'space-between': 'content-between', 'space-evenly': 'content-evenly'
+    };
+
+    const alignClasses = [
+        justifyItemsMap[state.justifyItems],
+        alignItemsMap[state.alignItems],
+        justifyContentMap[state.justifyContent],
+        alignContentMap[state.alignContent]
+    ].filter(Boolean).join(' ');
+
+    let html = `<div class="grid ${colClass} ${rowClass} ${gapClass} ${alignClasses} h-full w-full">\n`;
 
     areas.forEach(area => {
         const rowSpan = area.rowEnd - area.rowStart;

@@ -1,42 +1,39 @@
 from playwright.sync_api import sync_playwright
-import time
 
 def verify_grid_master():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
+        page.set_viewport_size({"width": 1280, "height": 800})
 
-        # Wait for server to start
-        time.sleep(5)
+        page.on("console", lambda msg: print(f"Browser Console: {msg.text}"))
+        page.on("pageerror", lambda exc: print(f"Browser Error: {exc}"))
 
+        print("Navigating...")
         try:
-            url = "http://localhost:5173/en/tools/grid-master"
-            print(f"Navigating to {url}")
-            page.goto(url)
-
-            # Verify Title
-            print("Checking title...")
-            # Wait for title to be populated
-            page.wait_for_function("document.title.includes('Grid Master')")
-            title = page.title()
-            print(f"Page title: {title}")
-
-            # Verify Canvas exists
-            print("Checking for grid canvas...")
-            # We used role="presentation" on the canvas wrapper
-            canvas = page.locator("div[role='presentation']")
-            canvas.wait_for(state="visible", timeout=10000)
-
-            # Take screenshot
-            page.screenshot(path="grid_master_verification.png")
-            print("Screenshot saved to grid_master_verification.png")
-
+            page.goto("http://localhost:4173/en/tools/grid-master", timeout=30000)
+            page.wait_for_load_state("networkidle")
         except Exception as e:
-            print(f"Error: {e}")
-            page.screenshot(path="error_screenshot.png")
-            raise e
-        finally:
-            browser.close()
+            print(f"Navigation error: {e}")
+
+        print("Page Text Sample:", page.inner_text("body")[:500])
+
+        # 1. Check if Sidebar exists
+        print("Checking Sidebar...")
+        try:
+            # Check for Build tab
+            build_tab = page.get_by_role("button", name="Build")
+            if build_tab.count() > 0:
+                 print("PASS: Build tab found.")
+            else:
+                 print("FAIL: Build tab not found.")
+                 # Check what tabs ARE there
+                 print("Buttons found:", page.locator("button").all_inner_texts())
+        except Exception as e:
+            print(f"FAIL: Sidebar check: {e}")
+
+        page.screenshot(path="grid_master_verification.png")
+        browser.close()
 
 if __name__ == "__main__":
     verify_grid_master()

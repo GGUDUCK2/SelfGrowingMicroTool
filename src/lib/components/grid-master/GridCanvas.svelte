@@ -67,6 +67,24 @@
       }
   }
 
+  function handleCellKeyDown(e: KeyboardEvent, r: number, c: number) {
+      if (previewMode) return;
+      let nextR = r;
+      let nextC = c;
+
+      if (e.key === 'ArrowUp') nextR = Math.max(0, r - 1);
+      else if (e.key === 'ArrowDown') nextR = Math.min($gridStore.rows.length - 1, r + 1);
+      else if (e.key === 'ArrowLeft') nextC = Math.max(0, c - 1);
+      else if (e.key === 'ArrowRight') nextC = Math.min($gridStore.cols.length - 1, c + 1);
+      else return;
+
+      e.preventDefault();
+      const el = document.getElementById(`grid-cell-${nextR}-${nextC}`);
+      el?.focus();
+      // Also update hover state for potential drag start
+      handleMouseOver(nextR, nextC);
+  }
+
   function getSelectionStyle(start: typeof selectionStart, end: typeof selectionEnd) {
       if (start.row === -1) return 'display: none;';
       const rStart = Math.min(start.row, end.row) + 1;
@@ -166,23 +184,34 @@
   <!-- The Grid Container -->
   <div
     class="absolute inset-4 grid"
+    role="grid"
+    tabindex="-1"
     style="
       grid-template-rows: {$gridStore.rows.join(' ')};
       grid-template-columns: {$gridStore.cols.join(' ')};
       gap: {$gridStore.gap};
       row-gap: {$gridStore.rowGap};
       column-gap: {$gridStore.colGap};
+      justify-items: {$gridStore.justifyItems};
+      align-items: {$gridStore.alignItems};
+      justify-content: {$gridStore.justifyContent};
+      align-content: {$gridStore.alignContent};
     "
   >
       <!-- Background Grid Lines/Cells (for interaction) -->
       {#if !previewMode}
-          {#each $gridStore.rows as _, r (r)}
-              {#each $gridStore.cols as __, c (c)}
+          <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+          {#each $gridStore.rows as _row, r (r)}
+              <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+              {#each $gridStore.cols as _col, c (c)}
                   <button
+                      id={`grid-cell-${r}-${c}`}
+                      role="gridcell"
                       class="border border-dashed border-slate-200 dark:border-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 transition-colors z-10"
                       on:mousedown={() => handleMouseDown(r, c)}
                       on:mouseover={() => handleMouseOver(r, c)}
                       on:focus={() => handleMouseOver(r, c)}
+                      on:keydown={(e) => handleCellKeyDown(e, r, c)}
                       aria-label={`Cell ${r+1}, ${c+1}`}
                   ></button>
               {/each}

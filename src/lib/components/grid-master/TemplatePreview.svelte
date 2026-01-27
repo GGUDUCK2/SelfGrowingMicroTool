@@ -34,8 +34,10 @@
 
   <!-- Render cells to show structure if no areas -->
   {#if state.areas.length === 0}
-      {#each state.rows as _, r}
-          {#each state.cols as __, c}
+      <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+      {#each state.rows as _row, r (r)}
+          <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+          {#each state.cols as _col, c (c)}
               <div class="border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50"></div>
           {/each}
       {/each}

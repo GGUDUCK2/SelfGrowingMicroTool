@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { workspace } from '$lib/db/workspace';
+  import { workspace, type ToolHistoryItem } from '$lib/db/workspace';
   import { gridStore } from '$lib/utils/grid-master/store';
   import { liveQuery } from 'dexie';
   import { browser } from '$app/environment';
@@ -9,7 +9,7 @@
 
   export let dict: GridMasterDictionary;
 
-  let history: any[] = [];
+  let history: ToolHistoryItem<GridState>[] = [];
 
   if (browser) {
       liveQuery(() => workspace.history
@@ -17,10 +17,11 @@
         .reverse()
         .limit(20)
         .toArray()
-      ).subscribe(val => history = val);
+      ).subscribe(val => history = val as ToolHistoryItem<GridState>[]);
   }
 
-  function restore(state: GridState) {
+  function restore(state: GridState | undefined) {
+      if (!state) return;
       if (confirm(dict.restoreConfirm || 'Restore this session version? Current work will be replaced.')) {
           gridStore.load(state);
       }

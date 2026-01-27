@@ -95,6 +95,10 @@
       }
   }
 
+  function togglePreview() {
+      previewMode = !previewMode;
+  }
+
   function showToastMsg(msg: string) {
       toastMessage = msg;
       showToast = true;
@@ -117,7 +121,7 @@
       } else {
           // Check for recoverable session
           try {
-             const history = await getHistoryObservable('grid-master').toArray();
+             const history = await getHistoryObservable('grid-master');
              if (history.length > 0) {
                  const last = history[0];
                  // If less than 24h old
@@ -173,7 +177,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "featureList": "Visual CSS Grid Editor, Tailwind Code Generator, Layout Prototyping, Intelligent Preview, Shareable Links, Auto-Save, Smart Templates, Session History"
+      "featureList": "Visual CSS Grid Editor, Tailwind Code Generator, Layout Prototyping, Intelligent Preview, Shareable Links, Auto-Save, Smart Templates, Session History, Magic Layout Generator, Advanced Grid Alignment, StackBlitz Export"
     }
   </script>
 </svelte:head>
