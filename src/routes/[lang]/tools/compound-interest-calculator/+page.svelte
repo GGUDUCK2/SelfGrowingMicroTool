@@ -6,6 +6,7 @@
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
   import { debounce, formatMoney } from "$lib/utils";
+  import { calculateCompoundInterest } from "$lib/utils/finance";
   import FAQSection from "$lib/components/FAQSection.svelte";
   import GrowthChart from "$lib/components/GrowthChart.svelte";
   import HistoryList from "$lib/components/HistoryList.svelte";
@@ -176,51 +177,6 @@
   $: realValue =
     results.length > 0 ? results[results.length - 1].realBalance : 0;
 
-  function calculateCompoundInterest(
-    p: number,
-    r: number,
-    y: number,
-    c: number,
-    inflation: number,
-    freq: number,
-    tax: number
-  ) {
-    // Limit years to avoid freezing
-    if (y > 100) y = 100;
-
-    if (p < 0 || r < 0 || y <= 0 || c < 0 || inflation < 0 || tax < 0) return [];
-
-    let nominalBalance = p;
-    const nominalRatePerPeriod = r / 100 / freq;
-    const data = [];
-    const totalMonths = y * 12;
-
-    for (let i = 1; i <= totalMonths; i++) {
-      // Add contribution at the end of the month
-      nominalBalance += c;
-
-      // Apply interest based on frequency
-      if (i % (12 / freq) === 0) {
-        const interest = nominalBalance * nominalRatePerPeriod;
-        // Apply Tax on Interest immediately (simulating tax drag/annual tax payment)
-        const taxAmount = interest * (tax / 100);
-        const netInterest = interest - taxAmount;
-        nominalBalance += netInterest;
-      }
-
-      if (i % 12 === 0) {
-        const currentYear = i / 12;
-        const discountFactor = Math.pow(1 + inflation / 100, currentYear);
-        data.push({
-          year: currentYear,
-          nominalBalance: Math.round(nominalBalance),
-          realBalance: Math.round(nominalBalance / discountFactor),
-        });
-      }
-    }
-    return data;
-  }
-
   function downloadCSV() {
     const headers = [
       lang === "ko" ? "연도" : "Year",
@@ -260,19 +216,34 @@
         .reverse()
         .toArray();
       // Map DB items to the format HistoryList expects
-      history = items.map(item => ({
-        id: item.id,
-        createdAt: item.createdAt,
-        data: {
-            principal: item.principal,
-            rate: item.rate,
-            years: item.years,
-            contribution: item.contribution,
-            inflationRate: item.inflationRate,
-            compoundFrequency: item.compoundFrequency,
-            taxRate: item.taxRate
-        }
-      }));
+      history = items.map(item => {
+        // Calculate final balance for display in history list
+        const res = calculateCompoundInterest(
+            item.principal,
+            item.rate,
+            item.years,
+            item.contribution,
+            item.inflationRate ?? 0,
+            item.compoundFrequency ?? 12,
+            item.taxRate ?? 0
+        );
+        const finalBalance = res.length > 0 ? res[res.length - 1].nominalBalance : 0;
+
+        return {
+            id: item.id,
+            createdAt: item.createdAt,
+            data: {
+                principal: item.principal,
+                rate: item.rate,
+                years: item.years,
+                contribution: item.contribution,
+                inflationRate: item.inflationRate,
+                compoundFrequency: item.compoundFrequency,
+                taxRate: item.taxRate,
+                finalBalance: finalBalance // Added for HistoryList display
+            }
+        };
+      });
     } catch (error) {
       console.error("Failed to load history:", error);
     }
@@ -304,8 +275,8 @@
     rate = d.rate;
     years = d.years;
     contribution = d.contribution;
-    inflationRate = d.inflationRate;
-    compoundFrequency = d.compoundFrequency;
+    inflationRate = d.inflationRate ?? 0;
+    compoundFrequency = d.compoundFrequency ?? 12;
     taxRate = d.taxRate ?? 0;
 
     // Scroll to top
@@ -353,12 +324,22 @@
     "name": dict.title,
     "description": dict.description,
     "applicationCategory": "FinanceApplication",
-    "operatingSystem": "Any",
+    "applicationSubCategory": "FinanceApplication",
+    "operatingSystem": "Android, iOS, macOS, Windows, Linux",
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD",
     },
+    "featureList": [
+        "Compound Interest Calculation",
+        "Inflation Adjustment",
+        "Tax Rate Calculation",
+        "Monthly/Yearly Contribution",
+        "Interactive Growth Chart",
+        "CSV Export",
+        "Offline History"
+    ]
   })}</script>`}
 </svelte:head>
 
