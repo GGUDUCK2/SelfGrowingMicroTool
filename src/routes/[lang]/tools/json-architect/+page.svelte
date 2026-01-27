@@ -181,7 +181,16 @@
     "name": t.title,
     "description": t.description,
     "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Web",
+    "applicationSubCategory": "JSON Utility",
+    "operatingSystem": ["Web", "iOS", "Android", "Linux", "Windows", "macOS"],
+    "featureList": [
+      "Format JSON",
+      "Minify JSON",
+      "Validate JSON",
+      "Convert JSON to TypeScript",
+      "Convert JSON to Go",
+      "Visual Tree View"
+    ],
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -200,9 +209,9 @@
       <Toolbar {t} on:action={handleAction} />
   </div>
 
-  <div class="flex flex-col lg:flex-row gap-6 min-h-[600px]">
+  <div class="flex flex-col lg:flex-row gap-6 min-h-[500px]">
       <!-- Input Column -->
-      <div class="flex-1 flex flex-col gap-2">
+      <section class="flex-1 flex flex-col gap-2" aria-label={t.input}>
           <div class="flex justify-between items-center">
              <label for="json-input" class="text-sm font-semibold text-slate-300">{t.input}</label>
              {#if error}
@@ -212,13 +221,13 @@
              {/if}
           </div>
           <JsonEditor id="json-input" bind:value={input} placeholder={t.input} />
-      </div>
+      </section>
 
       <!-- Divider -->
       <div class="hidden lg:block w-px bg-slate-600 self-stretch"></div>
 
       <!-- Output Column -->
-      <div class="flex-1 flex flex-col gap-2">
+      <section class="flex-1 flex flex-col gap-2" aria-label={t.output}>
           <div class="flex justify-between items-center">
              <label for="json-output" class="text-sm font-semibold text-slate-300">
                 {t.output}
@@ -245,13 +254,13 @@
           </div>
 
           {#if view === 'tree' && parsedData}
-             <div class="relative w-full h-full min-h-[400px] border border-slate-200 dark:border-slate-700 rounded-lg overflow-auto bg-white dark:bg-slate-800 shadow-sm p-4">
+             <div class="relative w-full h-full min-h-[300px] sm:min-h-[400px] border border-slate-200 dark:border-slate-700 rounded-lg overflow-auto bg-white dark:bg-slate-800 shadow-sm p-4">
                  <JsonTree data={parsedData} />
              </div>
           {:else}
              <JsonViewer content={output || input} language={mode} />
           {/if}
-      </div>
+      </section>
   </div>
 
   <History {t} on:restore={handleRestore} />
