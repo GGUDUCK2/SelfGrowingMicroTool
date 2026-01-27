@@ -1481,6 +1481,19 @@ export const dictionaries = {
         justifyContent: "Justify Content",
         alignContent: "Align Content",
         magicLayout: "Magic Layout",
+        semanticTag: "Semantic Tag",
+        tags: {
+          div: "div",
+          header: "header",
+          footer: "footer",
+          main: "main",
+          nav: "nav",
+          section: "section",
+          aside: "aside",
+          article: "article"
+        },
+        includeMobile: "Include Mobile Stack",
+        html: "HTML",
         guide: {
           title: "Why Grid Master?",
           intro: "CSS Grid is powerful but the syntax can be daunting. Grid Master provides a visual interface to design layouts naturally.",
@@ -2013,6 +2026,19 @@ export const dictionaries = {
         justifyContent: "콘텐츠 가로 정렬 (Justify Content)",
         alignContent: "콘텐츠 세로 정렬 (Align Content)",
         magicLayout: "매직 레이아웃",
+        semanticTag: "시맨틱 태그",
+        tags: {
+          div: "div",
+          header: "header",
+          footer: "footer",
+          main: "main",
+          nav: "nav",
+          section: "section",
+          aside: "aside",
+          article: "article"
+        },
+        includeMobile: "모바일 스택 포함",
+        html: "HTML",
         guide: {
           title: "왜 그리드 마스터인가요?",
           intro: "CSS 그리드는 강력하지만 문법이 까다로울 수 있습니다. 그리드 마스터는 직관적인 시각적 인터페이스를 제공합니다.",

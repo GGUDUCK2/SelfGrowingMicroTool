@@ -13,6 +13,7 @@ export interface GridArea {
   colStart: number;
   colEnd: number;
   color: string;
+  tag?: string; // header, footer, main, nav, section, aside, div
   // Individual area alignment (optional for future)
   justifySelf?: JustifyItems;
   alignSelf?: AlignItems;
