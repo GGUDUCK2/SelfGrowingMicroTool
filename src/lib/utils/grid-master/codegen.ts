@@ -45,13 +45,34 @@ ${templateAreas};
   return css;
 }
 
-export function generateTailwind(state: GridState): string {
+export function generateMobileQuery(state: GridState, containerClass = 'container'): string {
+    const { areas } = state;
+    const sorted = [...areas].sort((a, b) => {
+        if (a.rowStart !== b.rowStart) return a.rowStart - b.rowStart;
+        return a.colStart - b.colStart;
+    });
+
+    const areasString = sorted.map(a => `    "${a.name}"`).join('\n');
+
+    return `
+@media (max-width: 768px) {
+  .${containerClass} {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+${areasString};
+  }
+}`;
+}
+
+export function generateTailwind(state: GridState, includeMobile = false): string {
     const { rows, cols, gap, rowGap, colGap, areas } = state;
 
     const safeJoin = (arr: string[]) => arr.join('_');
+    const prefix = includeMobile ? 'md:' : '';
 
-    const colClass = `grid-cols-[${safeJoin(cols)}]`;
-    const rowClass = `grid-rows-[${safeJoin(rows)}]`;
+    const colClass = `${prefix}grid-cols-[${safeJoin(cols)}]`;
+    const rowClass = `${prefix}grid-rows-[${safeJoin(rows)}]`;
 
     let gapClass = `gap-[${gap}]`;
     if (rowGap !== gap || colGap !== gap) {
@@ -81,25 +102,27 @@ export function generateTailwind(state: GridState): string {
         alignContentMap[state.alignContent]
     ].filter(Boolean).join(' ');
 
-    let html = `<div class="grid ${colClass} ${rowClass} ${gapClass} ${alignClasses} h-full w-full">\n`;
+    const mobileBase = includeMobile ? 'grid-cols-1' : '';
+    let html = `<div class="grid ${mobileBase} ${colClass} ${rowClass} ${gapClass} ${alignClasses} h-full w-full">\n`;
 
     areas.forEach(area => {
         const rowSpan = area.rowEnd - area.rowStart;
         const colSpan = area.colEnd - area.colStart;
 
-        let classes = `row-start-${area.rowStart}`;
-        if (rowSpan > 1) classes += ` row-span-${rowSpan}`;
-        else classes += ` row-span-1`;
+        let classes = `${prefix}row-start-${area.rowStart}`;
+        if (rowSpan > 1) classes += ` ${prefix}row-span-${rowSpan}`;
+        else classes += ` ${prefix}row-span-1`;
 
-        classes += ` col-start-${area.colStart}`;
-        if (colSpan > 1) classes += ` col-span-${colSpan}`;
-        else classes += ` col-span-1`;
+        classes += ` ${prefix}col-start-${area.colStart}`;
+        if (colSpan > 1) classes += ` ${prefix}col-span-${colSpan}`;
+        else classes += ` ${prefix}col-span-1`;
 
         // Add a color class if it exists (assuming it's a tailwind color name)
         // If it's a hex, we use bg-[hex]
         const colorClass = area.color.startsWith('#') ? `bg-[${area.color}]` : `bg-${area.color}-500`;
+        const tag = area.tag || 'div';
 
-        html += `  <div class="${classes} ${colorClass} p-4 rounded">\n    ${area.name}\n  </div>\n`;
+        html += `  <${tag} class="${classes} ${colorClass} p-4 rounded">\n    ${area.name}\n  </${tag}>\n`;
     });
 
     html += `</div>`;
@@ -149,7 +172,7 @@ export function generateHTML(state: GridState): string {
 </head>
 <body>
   <div class="grid-container">
-    ${areas.map(a => `<div class="${a.name}">${a.name}</div>`).join('\n    ')}
+    ${areas.map(a => `<${a.tag || 'div'} class="${a.name}">${a.name}</${a.tag || 'div'}>`).join('\n    ')}
   </div>
 </body>
 </html>`;

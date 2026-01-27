@@ -177,7 +177,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "featureList": "Visual CSS Grid Editor, Tailwind Code Generator, Layout Prototyping, Intelligent Preview, Shareable Links, Auto-Save, Smart Templates, Session History, Magic Layout Generator, Advanced Grid Alignment, StackBlitz Export"
+      "featureList": "Visual CSS Grid Editor, Tailwind Code Generator, Layout Prototyping, Intelligent Preview, Shareable Links, Auto-Save, Smart Templates, Session History, Magic Layout Generator, Advanced Grid Alignment, StackBlitz Export, Semantic HTML Generator, Mobile Responsive Code"
     }
   </script>
 </svelte:head>

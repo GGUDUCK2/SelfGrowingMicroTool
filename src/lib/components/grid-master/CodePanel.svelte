@@ -1,18 +1,25 @@
 <script lang="ts">
   import { gridStore } from '$lib/utils/grid-master/store';
-  import { generateCSS, generateTailwind, generateHTML } from '$lib/utils/grid-master/codegen';
+  import { generateCSS, generateTailwind, generateHTML, generateMobileQuery } from '$lib/utils/grid-master/codegen';
   import { openInStackBlitz } from '$lib/utils/grid-master/export';
-  import { Copy, Check, Code, FileCode, Download, Zap } from 'lucide-svelte';
+  import { Copy, Check, Code, FileCode, Download, Zap, FileType } from 'lucide-svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
   export let dict: GridMasterDictionary;
 
-  let activeTab: 'tailwind' | 'css' = 'tailwind';
+  let activeTab: 'tailwind' | 'css' | 'html' = 'tailwind';
+  let includeMobile = false;
   let copied = false;
 
-  $: code = activeTab === 'tailwind'
-      ? generateTailwind($gridStore)
-      : generateCSS($gridStore);
+  $: code = (() => {
+      if (activeTab === 'tailwind') return generateTailwind($gridStore, includeMobile);
+      if (activeTab === 'css') {
+          let css = generateCSS($gridStore);
+          if (includeMobile) css += generateMobileQuery($gridStore);
+          return css;
+      }
+      return generateHTML($gridStore);
+  })();
 
   function copyCode() {
       navigator.clipboard.writeText(code);
@@ -49,9 +56,23 @@
              <FileCode size={14} />
              {dict.css}
           </button>
+          <button
+            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'html' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
+            on:click={() => activeTab = 'html'}
+          >
+             <FileType size={14} />
+             {dict.html || 'HTML'}
+          </button>
       </div>
 
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-4">
+          {#if activeTab !== 'html'}
+             <label class="flex items-center gap-2 text-xs text-slate-400 cursor-pointer hover:text-white transition-colors">
+                 <input type="checkbox" bind:checked={includeMobile} class="rounded bg-slate-800 border-slate-700 text-indigo-600 focus:ring-indigo-500 focus:ring-offset-slate-900" />
+                 {dict.includeMobile || 'Include Mobile Stack'}
+             </label>
+             <div class="h-4 w-px bg-slate-800"></div>
+          {/if}
           <button
             class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-amber-400 hover:bg-amber-900/20 hover:text-amber-300"
             on:click={() => openInStackBlitz(generateHTML($gridStore))}

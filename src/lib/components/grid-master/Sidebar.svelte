@@ -31,6 +31,10 @@
       gridStore.updateArea(id, { name });
   }
 
+  function updateAreaTag(id: string, tag: string) {
+      gridStore.updateArea(id, { tag });
+  }
+
   function addArea() {
       // Add a default area at 1,1
       gridStore.addArea({
@@ -253,22 +257,37 @@
           </div>
           <div class="space-y-2 max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
               {#each $gridStore.areas as area (area.id)}
-                 <div class="flex items-center gap-2 p-2 bg-slate-50 dark:bg-slate-800/50 rounded border border-slate-100 dark:border-slate-800 group">
-                     <div class="w-3 h-3 rounded-full shrink-0 shadow-sm" style="background-color: {area.color.startsWith('#') ? area.color : colorMap[area.color] || '#cbd5e1'}"></div>
-                     <input
-                       type="text"
-                       value={area.name}
-                       on:change={(e) => updateAreaName(area.id, e.currentTarget.value)}
-                       class="flex-1 min-w-0 bg-transparent text-sm border-none p-0 focus:ring-0 text-slate-700 dark:text-slate-200"
-                       aria-label="Area name"
-                     />
-                     <button
-                       class="text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100"
-                       on:click={() => gridStore.removeArea(area.id)}
-                       aria-label={dict.remove}
-                     >
-                        <Trash2 size={14} />
-                     </button>
+                 <div class="flex flex-col gap-2 p-2 bg-slate-50 dark:bg-slate-800/50 rounded border border-slate-100 dark:border-slate-800 group">
+                     <div class="flex items-center gap-2">
+                         <div class="w-3 h-3 rounded-full shrink-0 shadow-sm" style="background-color: {area.color.startsWith('#') ? area.color : colorMap[area.color] || '#cbd5e1'}"></div>
+                         <input
+                           type="text"
+                           value={area.name}
+                           on:change={(e) => updateAreaName(area.id, e.currentTarget.value)}
+                           class="flex-1 min-w-0 bg-transparent text-sm font-medium border-none p-0 focus:ring-0 text-slate-700 dark:text-slate-200"
+                           aria-label="Area name"
+                         />
+                         <button
+                           class="text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100"
+                           on:click={() => gridStore.removeArea(area.id)}
+                           aria-label={dict.remove}
+                         >
+                            <Trash2 size={14} />
+                         </button>
+                     </div>
+                     <div class="flex items-center gap-2">
+                         <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider w-8">TAG</span>
+                         <select
+                            value={area.tag || 'div'}
+                            on:change={(e) => updateAreaTag(area.id, e.currentTarget.value)}
+                            class="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-1.5 py-1 text-xs focus:ring-1 focus:ring-indigo-500 outline-none"
+                            aria-label={dict.semanticTag || 'Semantic Tag'}
+                         >
+                            {#each Object.entries(dict.tags || { div: 'div', header: 'header', footer: 'footer', main: 'main', nav: 'nav', section: 'section', aside: 'aside', article: 'article' }) as [val, label]}
+                                <option value={val}>{label}</option>
+                            {/each}
+                         </select>
+                     </div>
                  </div>
               {/each}
               {#if $gridStore.areas.length === 0}
