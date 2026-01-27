@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { X, Command, Save, RotateCcw, Eye, Undo2, Redo2 } from 'lucide-svelte';
+  import { X, Command, Save, Eye, Undo2, Redo2 } from 'lucide-svelte';
   import { fade, scale } from 'svelte/transition';
+  import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
   export let close: () => void;
-  export let dict: any;
+  export let dict: GridMasterDictionary;
 
   const shortcuts = [
       { key: 'Ctrl + Z', desc: dict.undo || 'Undo', icon: Undo2 },
@@ -26,7 +27,7 @@
       </h2>
 
       <div class="space-y-3">
-          {#each shortcuts as s}
+          {#each shortcuts as s (s.key)}
               <div class="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
                   <div class="flex items-center gap-3 text-slate-600 dark:text-slate-300">
                       <svelte:component this={s.icon} size={16} />

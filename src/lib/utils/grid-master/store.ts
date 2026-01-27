@@ -1,5 +1,5 @@
 import { writable, derived } from 'svelte/store';
-import type { GridState, GridArea } from './types';
+import type { GridState, GridArea, JustifyItems, AlignItems, JustifyContent, AlignContent } from './types';
 
 const initialState: GridState = {
   rows: ['1fr', '1fr', '1fr'],
@@ -13,7 +13,11 @@ const initialState: GridState = {
     { id: '3', name: 'main', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 4, color: '#10b981' },
     { id: '4', name: 'footer', rowStart: 3, rowEnd: 4, colStart: 1, colEnd: 4, color: '#f59e0b' }
   ],
-  items: []
+  items: [],
+  justifyItems: 'stretch',
+  alignItems: 'stretch',
+  justifyContent: 'stretch',
+  alignContent: 'stretch'
 };
 
 function createGridStore() {
@@ -24,7 +28,7 @@ function createGridStore() {
   const future = writable<GridState[]>([]);
 
   const record = (currentState: GridState) => {
-      past.update(h => [...h, JSON.parse(JSON.stringify(currentState))].slice(-50));
+      past.update((h: GridState[]) => [...h, JSON.parse(JSON.stringify(currentState)) as GridState].slice(-50));
       future.set([]);
   };
 
@@ -80,7 +84,15 @@ function createGridStore() {
     },
 
     load: (state: GridState) => {
-        set(state);
+        // Ensure legacy states have new properties if loaded
+        const safeState: GridState = {
+            ...initialState,
+            ...state,
+            areas: state.areas || [], // Handle potential nulls
+            rows: state.rows || initialState.rows,
+            cols: state.cols || initialState.cols
+        };
+        set(safeState);
         past.set([]);
         future.set([]);
     },
@@ -109,6 +121,12 @@ function createGridStore() {
         ...s,
         areas: s.areas.map(a => a.id === id ? { ...a, ...patch } : a)
     })),
+
+    // Alignment Mutators
+    setJustifyItems: (val: JustifyItems) => withHistory(s => ({ ...s, justifyItems: val })),
+    setAlignItems: (val: AlignItems) => withHistory(s => ({ ...s, alignItems: val })),
+    setJustifyContent: (val: JustifyContent) => withHistory(s => ({ ...s, justifyContent: val })),
+    setAlignContent: (val: AlignContent) => withHistory(s => ({ ...s, alignContent: val })),
 
     // Exports for UI
     canUndo: derived(past, $past => $past.length > 0),

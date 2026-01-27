@@ -1,8 +1,9 @@
 <script lang="ts">
   import { gridStore } from '$lib/utils/grid-master/store';
-  import { Plus, Trash2, LayoutTemplate, Clock, Settings2 } from 'lucide-svelte';
-  import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
+  import { Plus, Trash2, LayoutTemplate, Clock, Settings2, Wand2 } from 'lucide-svelte';
+  import type { GridMasterDictionary, JustifyItems, AlignItems, JustifyContent, AlignContent } from '$lib/utils/grid-master/types';
   import { templates } from '$lib/utils/grid-master/templates';
+  import { generateMagicLayout } from '$lib/utils/grid-master/generators';
   import { nanoid } from 'nanoid';
   import TemplatePreview from './TemplatePreview.svelte';
   import HistoryPanel from './HistoryPanel.svelte';
@@ -169,6 +170,74 @@
           </div>
       </div>
 
+      <div class="space-y-4">
+          <h3 class="font-bold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">{dict.alignment || 'Alignment'}</h3>
+          <div class="grid grid-cols-2 gap-3">
+              <div>
+                  <label for="justify-items" class="text-xs text-slate-500 block mb-1">{dict.justifyItems || 'Justify Items'}</label>
+                  <select
+                    id="justify-items"
+                    value={$gridStore.justifyItems}
+                    on:change={(e) => gridStore.setJustifyItems(e.currentTarget.value as JustifyItems)}
+                    class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                  >
+                      <option value="start">Start</option>
+                      <option value="end">End</option>
+                      <option value="center">Center</option>
+                      <option value="stretch">Stretch</option>
+                  </select>
+              </div>
+              <div>
+                  <label for="align-items" class="text-xs text-slate-500 block mb-1">{dict.alignItems || 'Align Items'}</label>
+                  <select
+                    id="align-items"
+                    value={$gridStore.alignItems}
+                    on:change={(e) => gridStore.setAlignItems(e.currentTarget.value as AlignItems)}
+                    class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                  >
+                      <option value="start">Start</option>
+                      <option value="end">End</option>
+                      <option value="center">Center</option>
+                      <option value="stretch">Stretch</option>
+                  </select>
+              </div>
+              <div>
+                  <label for="justify-content" class="text-xs text-slate-500 block mb-1">{dict.justifyContent || 'Justify Content'}</label>
+                  <select
+                    id="justify-content"
+                    value={$gridStore.justifyContent}
+                    on:change={(e) => gridStore.setJustifyContent(e.currentTarget.value as JustifyContent)}
+                    class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                  >
+                      <option value="start">Start</option>
+                      <option value="end">End</option>
+                      <option value="center">Center</option>
+                      <option value="stretch">Stretch</option>
+                      <option value="space-around">Space Around</option>
+                      <option value="space-between">Space Between</option>
+                      <option value="space-evenly">Space Evenly</option>
+                  </select>
+              </div>
+              <div>
+                  <label for="align-content" class="text-xs text-slate-500 block mb-1">{dict.alignContent || 'Align Content'}</label>
+                  <select
+                    id="align-content"
+                    value={$gridStore.alignContent}
+                    on:change={(e) => gridStore.setAlignContent(e.currentTarget.value as AlignContent)}
+                    class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                  >
+                      <option value="start">Start</option>
+                      <option value="end">End</option>
+                      <option value="center">Center</option>
+                      <option value="stretch">Stretch</option>
+                      <option value="space-around">Space Around</option>
+                      <option value="space-between">Space Between</option>
+                      <option value="space-evenly">Space Evenly</option>
+                  </select>
+              </div>
+          </div>
+      </div>
+
       <!-- Areas List -->
       <div class="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-700">
           <div class="flex items-center justify-between">
@@ -212,8 +281,19 @@
 
   {:else if activeTab === 'templates'}
       <div class="space-y-4">
+          <button
+              class="w-full p-3 flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg shadow-sm hover:from-purple-600 hover:to-indigo-700 transition-all font-medium"
+              on:click={() => {
+                  const layout = generateMagicLayout();
+                  gridStore.load(layout);
+              }}
+          >
+              <Wand2 size={18} />
+              {dict.magicLayout || 'Magic Layout'}
+          </button>
+
           <div class="grid grid-cols-2 gap-3">
-              {#each Object.entries(templates) as [key, state]}
+              {#each Object.entries(templates) as [key, state] (key)}
                   <button
                       class="p-2 text-left bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-indigo-500 dark:hover:border-indigo-500 transition-all group"
                       on:click={() => loadTemplate(key)}
