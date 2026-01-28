@@ -164,6 +164,36 @@
          </div>
       `;
 
+      if (n.includes('chart') || n.includes('graph')) return `
+        <div class="h-full flex flex-col p-3">
+             <h4 class="text-xs font-bold uppercase tracking-wider opacity-60 mb-2">Analytics</h4>
+             <div class="flex-1 flex items-end gap-1 pb-1">
+                 <div class="w-full bg-black/20 dark:bg-white/20 rounded-t" style="height: 30%"></div>
+                 <div class="w-full bg-black/30 dark:bg-white/30 rounded-t" style="height: 50%"></div>
+                 <div class="w-full bg-black/40 dark:bg-white/40 rounded-t" style="height: 75%"></div>
+                 <div class="w-full bg-black/25 dark:bg-white/25 rounded-t" style="height: 45%"></div>
+                 <div class="w-full bg-black/50 dark:bg-white/50 rounded-t" style="height: 90%"></div>
+             </div>
+        </div>
+      `;
+
+      if (n.includes('stat') || n.includes('metric')) return `
+        <div class="h-full flex flex-col justify-center p-3 text-center">
+             <span class="text-3xl font-black tracking-tighter">8,492</span>
+             <span class="text-xs font-bold uppercase tracking-wider opacity-60">Total Users</span>
+             <span class="text-[10px] text-green-700 dark:text-green-300 font-medium mt-1">↑ 12.5%</span>
+        </div>
+      `;
+
+      if (n.includes('form') || n.includes('contact') || n.includes('input')) return `
+        <div class="h-full flex flex-col gap-2 p-3 justify-center max-w-sm mx-auto w-full">
+            <h4 class="font-bold text-sm mb-1">${escapeHtml(name)}</h4>
+            <div class="h-8 w-full bg-white/50 dark:bg-black/20 border border-black/10 dark:border-white/10 rounded"></div>
+            <div class="h-8 w-full bg-white/50 dark:bg-black/20 border border-black/10 dark:border-white/10 rounded"></div>
+            <div class="h-8 w-1/3 bg-black/20 dark:bg-white/20 rounded self-start mt-1"></div>
+        </div>
+      `;
+
       return `
         <article class="h-full flex flex-col p-2">
             <h3 class="font-bold text-lg capitalize mb-2">${escapeHtml(name)}</h3>

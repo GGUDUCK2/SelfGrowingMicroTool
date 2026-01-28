@@ -3,7 +3,7 @@
   import { Plus, Trash2, LayoutTemplate, Clock, Settings2, Wand2 } from 'lucide-svelte';
   import type { GridMasterDictionary, JustifyItems, AlignItems, JustifyContent, AlignContent } from '$lib/utils/grid-master/types';
   import { templates } from '$lib/utils/grid-master/templates';
-  import { generateMagicLayout } from '$lib/utils/grid-master/generators';
+  import { generateMagicLayout, generateLayoutFromText } from '$lib/utils/grid-master/generators';
   import { nanoid } from 'nanoid';
   import TemplatePreview from './TemplatePreview.svelte';
   import HistoryPanel from './HistoryPanel.svelte';
@@ -56,6 +56,15 @@
     sky: '#38bdf8', blue: '#60a5fa', indigo: '#818cf8', violet: '#a78bfa',
     purple: '#c084fc', fuchsia: '#e879f9', pink: '#f472b6', rose: '#fb7185'
   };
+
+  let textLayoutInput = '';
+
+  function handleTextLayout() {
+      if (!textLayoutInput.trim()) return;
+      const layout = generateLayoutFromText(textLayoutInput);
+      gridStore.load(layout);
+      textLayoutInput = '';
+  }
 </script>
 
 <div class="space-y-6">
@@ -315,7 +324,7 @@
                             class="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-1.5 py-1 text-xs focus:ring-1 focus:ring-indigo-500 outline-none"
                             aria-label={dict.semanticTag || 'Semantic Tag'}
                          >
-                            {#each Object.entries(dict.tags || { div: 'div', header: 'header', footer: 'footer', main: 'main', nav: 'nav', section: 'section', aside: 'aside', article: 'article' }) as [val, label]}
+                            {#each Object.entries(dict.tags || { div: 'div', header: 'header', footer: 'footer', main: 'main', nav: 'nav', section: 'section', aside: 'aside', article: 'article' }) as [val, label] (val)}
                                 <option value={val}>{label}</option>
                             {/each}
                          </select>
@@ -344,6 +353,29 @@
               <Wand2 size={18} />
               {dict.magicLayout || 'Magic Layout'}
           </button>
+
+          <div class="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+             <label for="text-layout" class="text-xs font-bold text-slate-500 uppercase">{dict.textToGrid || 'Text to Grid'}</label>
+             <div class="flex gap-2">
+                 <input
+                   id="text-layout"
+                   type="text"
+                   bind:value={textLayoutInput}
+                   placeholder="header sidebar main footer"
+                   on:keydown={(e) => e.key === 'Enter' && handleTextLayout()}
+                   class="flex-1 min-w-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                   aria-label={dict.textToGrid || 'Text to Grid'}
+                 />
+                 <button
+                   class="px-3 py-1.5 bg-indigo-600 text-white rounded text-sm hover:bg-indigo-700 transition-colors shadow-sm"
+                   on:click={handleTextLayout}
+                   aria-label="Generate Grid"
+                 >
+                   Go
+                 </button>
+             </div>
+             <p class="text-[10px] text-slate-400">Try keywords like: header, footer, sidebar, main</p>
+          </div>
 
           <div class="grid grid-cols-2 gap-3">
               {#each Object.entries(templates) as [key, state] (key)}

@@ -5,12 +5,13 @@
   import { gridStore } from '$lib/utils/grid-master/store';
   import { gridMasterWorkspace } from '$lib/db/grid-master';
   import { saveToHistory, getHistoryObservable } from '$lib/db/workspace';
+  import { downloadProjectHtml } from '$lib/utils/grid-master/export';
   import GridCanvas from '$lib/components/grid-master/GridCanvas.svelte';
   import Sidebar from '$lib/components/grid-master/Sidebar.svelte';
   import CodePanel from '$lib/components/grid-master/CodePanel.svelte';
   import ProjectList from '$lib/components/grid-master/ProjectList.svelte';
   import ShortcutsModal from '$lib/components/grid-master/ShortcutsModal.svelte';
-  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2, Eye, EyeOff, Share2, HelpCircle, History } from 'lucide-svelte';
+  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2, Eye, EyeOff, Share2, HelpCircle, History, Download } from 'lucide-svelte';
   import { fade, slide } from 'svelte/transition';
   import type { GridState } from '$lib/utils/grid-master/types';
 
@@ -156,9 +157,12 @@
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
+  <meta name="keywords" content="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design" />
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://microfactory.app/{lang}/tools/grid-master" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://microfactory.app/{lang}/tools/grid-master" />
   <link rel="alternate" hreflang="en" href="https://microfactory.app/en/tools/grid-master" />
   <link rel="alternate" hreflang="ko" href="https://microfactory.app/ko/tools/grid-master" />
@@ -170,14 +174,31 @@
       "@type": "SoftwareApplication",
       "name": "Grid Master",
       "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Any",
+      "operatingSystem": "Web, iOS, Android, Linux, Windows, macOS",
       "applicationSubCategory": "Web Development Tool",
+      "isAccessibleForFree": true,
       "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
       },
-      "featureList": "Visual CSS Grid Editor, Tailwind Code Generator, React/Vue/Svelte Component Export, Mobile Layout Generator, Layout Prototyping, Intelligent Preview, Shareable Links, Auto-Save, Smart Templates, Session History, Magic Layout Generator, Advanced Grid Alignment, StackBlitz Export, Semantic HTML Generator"
+      "featureList": [
+        "Visual CSS Grid Editor",
+        "Text-to-Grid Generative Design",
+        "Interactive Widget Preview",
+        "Download HTML Project",
+        "Tailwind Code Generator",
+        "React/Vue/Svelte Component Export",
+        "Mobile Layout Generator",
+        "Intelligent Preview",
+        "Shareable Links",
+        "Auto-Save History",
+        "Smart Templates",
+        "Magic Layout Generator",
+        "Advanced Grid Alignment",
+        "StackBlitz Export",
+        "Semantic HTML Generator"
+      ]
     }
   </script>
 </svelte:head>
@@ -273,6 +294,14 @@
              aria-label={dict.share || 'Share'}
            >
               <Share2 size={18} />
+           </button>
+
+           <button
+             class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors"
+             on:click={() => downloadProjectHtml($gridStore)}
+             aria-label={dict.downloadHtml || 'Download HTML'}
+           >
+              <Download size={18} />
            </button>
 
            <div class="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-2 hidden sm:block"></div>

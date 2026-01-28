@@ -1,3 +1,6 @@
+import { generateHTML } from './codegen';
+import type { GridState } from './types';
+
 export function openInStackBlitz(html: string) {
     const form = document.createElement('form');
     form.method = 'POST';
@@ -31,4 +34,17 @@ export function openInStackBlitz(html: string) {
     document.body.appendChild(form);
     form.submit();
     document.body.removeChild(form);
+}
+
+export function downloadProjectHtml(state: GridState) {
+    const html = generateHTML(state);
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'grid-master-project.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
 }

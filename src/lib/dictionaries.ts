@@ -1496,6 +1496,9 @@ export const dictionaries = {
         },
         includeMobile: "Include Mobile Stack",
         html: "HTML",
+        textToGrid: "Text to Grid",
+        star: "Star",
+        delete: "Delete",
         guide: {
           title: "Why Grid Master?",
           intro: "CSS Grid is powerful but the syntax can be daunting. Grid Master provides a visual interface to design layouts naturally.",
@@ -2085,6 +2088,9 @@ export const dictionaries = {
         },
         includeMobile: "모바일 스택 포함",
         html: "HTML",
+        textToGrid: "텍스트 그리드 변환",
+        star: "즐겨찾기",
+        delete: "삭제",
         guide: {
           title: "왜 그리드 마스터인가요?",
           intro: "CSS 그리드는 강력하지만 문법이 까다로울 수 있습니다. 그리드 마스터는 직관적인 시각적 인터페이스를 제공합니다.",
