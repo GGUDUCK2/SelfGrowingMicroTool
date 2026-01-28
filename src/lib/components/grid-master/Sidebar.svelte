@@ -15,6 +15,8 @@
   function loadTemplate(key: string) {
       if (confirm(dict.loadTemplateConfirm || 'Load template? This will replace your current grid.')) {
           const t = JSON.parse(JSON.stringify(templates[key]));
+          // Ensure includeMobile is preserved or set default
+          t.includeMobile = t.includeMobile ?? false;
           gridStore.load(t);
       }
   }
@@ -58,8 +60,12 @@
 
 <div class="space-y-6">
   <!-- Tabs -->
-  <div class="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
+  <div class="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-lg" role="tablist" aria-label="Sidebar Tabs">
       <button
+        role="tab"
+        aria-selected={activeTab === 'build'}
+        aria-controls="tab-panel-build"
+        id="tab-build"
         class="flex-1 py-1.5 text-xs font-medium rounded-md transition-all flex items-center justify-center gap-1.5 {activeTab === 'build' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
         on:click={() => activeTab = 'build'}
       >
@@ -67,6 +73,10 @@
           {dict.build || 'Build'}
       </button>
       <button
+        role="tab"
+        aria-selected={activeTab === 'templates'}
+        aria-controls="tab-panel-templates"
+        id="tab-templates"
         class="flex-1 py-1.5 text-xs font-medium rounded-md transition-all flex items-center justify-center gap-1.5 {activeTab === 'templates' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
         on:click={() => activeTab = 'templates'}
       >
@@ -74,6 +84,10 @@
           {dict.templates || 'Templates'}
       </button>
       <button
+        role="tab"
+        aria-selected={activeTab === 'history'}
+        aria-controls="tab-panel-history"
+        id="tab-history"
         class="flex-1 py-1.5 text-xs font-medium rounded-md transition-all flex items-center justify-center gap-1.5 {activeTab === 'history' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
         on:click={() => activeTab = 'history'}
       >
@@ -83,6 +97,22 @@
   </div>
 
   {#if activeTab === 'build'}
+    <div role="tabpanel" id="tab-panel-build" aria-labelledby="tab-build" class="space-y-6">
+      <!-- Responsive Mode -->
+      <div class="flex items-center justify-between p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-100 dark:border-indigo-800">
+          <div class="flex items-center gap-2">
+              <span class="text-indigo-600 dark:text-indigo-400"><Settings2 size={16} /></span>
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300">{dict.includeMobile || 'Include Mobile Stack'}</span>
+          </div>
+          <input
+            type="checkbox"
+            checked={$gridStore.includeMobile}
+            on:change={() => gridStore.toggleMobile()}
+            class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+            aria-label={dict.includeMobile || 'Include Mobile Stack'}
+          />
+      </div>
+      <!-- Tracks Configuration -->
       <!-- Tracks Configuration -->
       <div class="space-y-4">
           <h3 class="font-bold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">{dict.rows}</h3>
@@ -100,7 +130,7 @@
                      <button
                        class="p-1.5 text-slate-400 hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
                        on:click={() => gridStore.removeRow(i)}
-                       aria-label={dict.remove}
+                       aria-label={`Remove row ${i + 1}`}
                      >
                         <Trash2 size={14} />
                      </button>
@@ -109,6 +139,7 @@
               <button
                 class="w-full py-2 flex items-center justify-center gap-2 border border-dashed border-slate-300 dark:border-slate-700 rounded text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                 on:click={() => gridStore.addRow()}
+                aria-label="Add Row"
               >
                  <Plus size={14} />
                  {dict.add}
@@ -132,7 +163,7 @@
                      <button
                        class="p-1.5 text-slate-400 hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
                        on:click={() => gridStore.removeCol(i)}
-                       aria-label={dict.remove}
+                       aria-label={`Remove column ${i + 1}`}
                      >
                         <Trash2 size={14} />
                      </button>
@@ -141,6 +172,7 @@
               <button
                 class="w-full py-2 flex items-center justify-center gap-2 border border-dashed border-slate-300 dark:border-slate-700 rounded text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                 on:click={() => gridStore.addCol()}
+                aria-label="Add Column"
               >
                  <Plus size={14} />
                  {dict.add}
@@ -297,15 +329,17 @@
               {/if}
           </div>
       </div>
+    </div> <!-- End of tabpanel -->
 
   {:else if activeTab === 'templates'}
-      <div class="space-y-4">
+      <div role="tabpanel" id="tab-panel-templates" aria-labelledby="tab-templates" class="space-y-4">
           <button
               class="w-full p-3 flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg shadow-sm hover:from-purple-600 hover:to-indigo-700 transition-all font-medium"
               on:click={() => {
                   const layout = generateMagicLayout();
                   gridStore.load(layout);
               }}
+              aria-label={dict.magicLayout || 'Magic Layout'}
           >
               <Wand2 size={18} />
               {dict.magicLayout || 'Magic Layout'}
@@ -316,6 +350,7 @@
                   <button
                       class="p-2 text-left bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-indigo-500 dark:hover:border-indigo-500 transition-all group"
                       on:click={() => loadTemplate(key)}
+                      aria-label={`Load template ${key.replace(/-/g, ' ')}`}
                   >
                       <div class="aspect-[4/3] bg-slate-50 dark:bg-slate-900 rounded mb-2 overflow-hidden border border-slate-100 dark:border-slate-800">
                           <TemplatePreview {state} />
@@ -328,7 +363,9 @@
           </div>
       </div>
   {:else if activeTab === 'history'}
-      <HistoryPanel {dict} />
+      <div role="tabpanel" id="tab-panel-history" aria-labelledby="tab-history">
+         <HistoryPanel {dict} />
+      </div>
   {/if}
 </div>
 

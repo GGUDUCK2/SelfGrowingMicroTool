@@ -17,7 +17,8 @@ const initialState: GridState = {
   justifyItems: 'stretch',
   alignItems: 'stretch',
   justifyContent: 'stretch',
-  alignContent: 'stretch'
+  alignContent: 'stretch',
+  includeMobile: false
 };
 
 function createGridStore() {
@@ -127,6 +128,9 @@ function createGridStore() {
     setAlignItems: (val: AlignItems) => withHistory(s => ({ ...s, alignItems: val })),
     setJustifyContent: (val: JustifyContent) => withHistory(s => ({ ...s, justifyContent: val })),
     setAlignContent: (val: AlignContent) => withHistory(s => ({ ...s, alignContent: val })),
+
+    // Responsive
+    toggleMobile: () => withHistory(s => ({ ...s, includeMobile: !s.includeMobile })),
 
     // Exports for UI
     canUndo: derived(past, $past => $past.length > 0),

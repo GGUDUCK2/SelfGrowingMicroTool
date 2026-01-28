@@ -139,6 +139,7 @@ export function generateMagicLayout(): GridState {
         justifyItems: 'stretch',
         alignItems: 'stretch',
         justifyContent: 'stretch',
-        alignContent: 'stretch'
+        alignContent: 'stretch',
+        includeMobile: false
     };
 }
