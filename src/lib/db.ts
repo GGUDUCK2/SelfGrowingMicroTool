@@ -209,6 +209,15 @@ export interface JwtForgeHistory {
   starred?: number;
 }
 
+export interface SqlForgeHistory {
+  id?: number;
+  query: string;
+  timestamp: Date;
+  starred?: number;
+  status: 'success' | 'error';
+  executionTime?: number;
+}
+
 class MySubClassedDexie extends Dexie {
   compoundInterestConfig!: DexieTable<CompoundInterestConfig>;
   compoundInterestHistory!: DexieTable<CompoundInterestHistory>;
@@ -231,6 +240,7 @@ class MySubClassedDexie extends Dexie {
   gridMasterProjects!: DexieTable<GridMasterProject>;
   snippetForgeHistory!: DexieTable<SnippetForgeHistory>;
   jwtForgeHistory!: DexieTable<JwtForgeHistory>;
+  sqlForgeHistory!: DexieTable<SqlForgeHistory>;
 
   constructor() {
     super('webFactoryDB');
@@ -593,6 +603,30 @@ class MySubClassedDexie extends Dexie {
       gridMasterProjects: '++id, createdAt, starred',
       snippetForgeHistory: '++id, createdAt, starred',
       jwtForgeHistory: '++id, createdAt, starred'
+    });
+    this.version(27).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      idForgeHistory: '++id, createdAt, starred',
+      cipherHistory: '++id, createdAt, starred',
+      structuraHistory: '++id, createdAt, starred',
+      markFlowHistory: '++id, createdAt, starred',
+      seoHistory: '++id, createdAt, projectName, starred',
+      schemaForgeProjects: '++id, createdAt, starred',
+      iconForgeProjects: '++id, createdAt, starred',
+      promptForgeHistory: '++id, createdAt, starred',
+      inputLabHistory: '++id, createdAt, starred',
+      decisionForgeMatrices: '++id, createdAt, starred',
+      gridMasterProjects: '++id, createdAt, starred',
+      snippetForgeHistory: '++id, createdAt, starred',
+      jwtForgeHistory: '++id, createdAt, starred',
+      sqlForgeHistory: '++id, timestamp, starred'
     });
   }
 }
