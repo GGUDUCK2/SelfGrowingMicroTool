@@ -45,6 +45,7 @@
         "@types/jszip": "^3.4.0",
         "@types/marked": "^5.0.2",
         "@types/prismjs": "^1.26.5",
+        "alasql": "^4.17.0",
         "colord": "^2.9.3",
         "cronstrue": "^3.9.0",
         "date-fns": "^4.1.0",
