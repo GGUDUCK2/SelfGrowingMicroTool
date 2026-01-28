@@ -1,24 +1,32 @@
 <script lang="ts">
   import { gridStore } from '$lib/utils/grid-master/store';
-  import { generateCSS, generateTailwind, generateHTML, generateMobileQuery } from '$lib/utils/grid-master/codegen';
+  import {
+    generateCSS,
+    generateTailwind,
+    generateHTML,
+    generateReact,
+    generateVue,
+    generateSvelte
+  } from '$lib/utils/grid-master/codegen';
   import { openInStackBlitz } from '$lib/utils/grid-master/export';
-  import { Copy, Check, Code, FileCode, Download, Zap, FileType } from 'lucide-svelte';
+  import { Copy, Check, Code, FileCode, Download, Zap, FileType, Boxes, Box } from 'lucide-svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
   export let dict: GridMasterDictionary;
 
-  let activeTab: 'tailwind' | 'css' | 'html' = 'tailwind';
-  let includeMobile = false;
+  let activeTab: 'tailwind' | 'css' | 'html' | 'react' | 'vue' | 'svelte' = 'tailwind';
   let copied = false;
 
   $: code = (() => {
-      if (activeTab === 'tailwind') return generateTailwind($gridStore, includeMobile);
-      if (activeTab === 'css') {
-          let css = generateCSS($gridStore);
-          if (includeMobile) css += generateMobileQuery($gridStore);
-          return css;
+      switch (activeTab) {
+          case 'tailwind': return generateTailwind($gridStore);
+          case 'css': return generateCSS($gridStore);
+          case 'html': return generateHTML($gridStore);
+          case 'react': return generateReact($gridStore);
+          case 'vue': return generateVue($gridStore);
+          case 'svelte': return generateSvelte($gridStore);
+          default: return '';
       }
-      return generateHTML($gridStore);
   })();
 
   function copyCode() {
@@ -40,9 +48,11 @@
 </script>
 
 <div class="bg-slate-900 rounded-xl overflow-hidden shadow-lg border border-slate-800 flex flex-col h-full">
-  <div class="flex items-center justify-between px-4 py-3 bg-slate-950 border-b border-slate-800">
-      <div class="flex gap-2">
+  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 py-3 bg-slate-950 border-b border-slate-800 gap-3">
+      <div class="flex flex-wrap gap-2" role="tablist" aria-label="Code Output Format">
           <button
+            role="tab"
+            aria-selected={activeTab === 'tailwind'}
             class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'tailwind' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
             on:click={() => activeTab = 'tailwind'}
           >
@@ -50,6 +60,8 @@
              {dict.tailwind}
           </button>
           <button
+            role="tab"
+            aria-selected={activeTab === 'css'}
             class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'css' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
             on:click={() => activeTab = 'css'}
           >
@@ -57,6 +69,35 @@
              {dict.css}
           </button>
           <button
+            role="tab"
+            aria-selected={activeTab === 'react'}
+            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'react' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
+            on:click={() => activeTab = 'react'}
+          >
+             <Boxes size={14} />
+             React
+          </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === 'vue'}
+            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'vue' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
+            on:click={() => activeTab = 'vue'}
+          >
+             <Box size={14} />
+             Vue
+          </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === 'svelte'}
+            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'svelte' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
+            on:click={() => activeTab = 'svelte'}
+          >
+             <Box size={14} />
+             Svelte
+          </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === 'html'}
             class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'html' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
             on:click={() => activeTab = 'html'}
           >
@@ -65,14 +106,7 @@
           </button>
       </div>
 
-      <div class="flex items-center gap-4">
-          {#if activeTab !== 'html'}
-             <label class="flex items-center gap-2 text-xs text-slate-400 cursor-pointer hover:text-white transition-colors">
-                 <input type="checkbox" bind:checked={includeMobile} class="rounded bg-slate-800 border-slate-700 text-indigo-600 focus:ring-indigo-500 focus:ring-offset-slate-900" />
-                 {dict.includeMobile || 'Include Mobile Stack'}
-             </label>
-             <div class="h-4 w-px bg-slate-800"></div>
-          {/if}
+      <div class="flex items-center gap-2 ml-auto">
           <button
             class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-amber-400 hover:bg-amber-900/20 hover:text-amber-300"
             on:click={() => openInStackBlitz(generateHTML($gridStore))}
@@ -93,6 +127,7 @@
           <button
             class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors {copied ? 'bg-green-500/20 text-green-400' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}"
             on:click={copyCode}
+            aria-label={dict.copy}
           >
              {#if copied}
                  <Check size={14} />

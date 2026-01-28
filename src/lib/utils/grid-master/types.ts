@@ -40,6 +40,9 @@ export interface GridState {
   alignItems: AlignItems;
   justifyContent: JustifyContent;
   alignContent: AlignContent;
+
+  // Responsive
+  includeMobile: boolean;
 }
 
 export type GridMasterDictionary = typeof dictionaries.en.tools.gridMaster;

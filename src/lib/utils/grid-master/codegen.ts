@@ -1,7 +1,57 @@
-import type { GridState } from './types';
+import type { GridState, GridArea } from './types';
+
+// Helper to generate Tailwind classes for the grid container
+function getContainerClasses(state: GridState): string {
+    const { rows, cols, gap, rowGap, colGap, justifyItems, alignItems, justifyContent, alignContent, includeMobile } = state;
+    const safeJoin = (arr: string[]) => arr.join('_');
+    const prefix = includeMobile ? 'md:' : '';
+
+    const colClass = `${prefix}grid-cols-[${safeJoin(cols)}]`;
+    const rowClass = `${prefix}grid-rows-[${safeJoin(rows)}]`;
+
+    let gapClass = `gap-[${gap}]`;
+    if (rowGap !== gap || colGap !== gap) {
+        gapClass = `gap-y-[${rowGap}] gap-x-[${colGap}]`;
+    }
+
+    const justifyItemsMap = { start: 'justify-items-start', end: 'justify-items-end', center: 'justify-items-center', stretch: 'justify-items-stretch' };
+    const alignItemsMap = { start: 'items-start', end: 'items-end', center: 'items-center', stretch: 'items-stretch' };
+    const justifyContentMap = { start: 'justify-start', end: 'justify-end', center: 'justify-center', stretch: 'justify-stretch', 'space-around': 'justify-around', 'space-between': 'justify-between', 'space-evenly': 'justify-evenly' };
+    const alignContentMap = { start: 'content-start', end: 'content-end', center: 'content-center', stretch: 'content-stretch', 'space-around': 'content-around', 'space-between': 'content-between', 'space-evenly': 'content-evenly' };
+
+    const alignClasses = [
+        justifyItemsMap[justifyItems],
+        alignItemsMap[alignItems],
+        justifyContentMap[justifyContent],
+        alignContentMap[alignContent]
+    ].filter(Boolean).join(' ');
+
+    const mobileBase = includeMobile ? 'grid-cols-1' : '';
+
+    return `grid ${mobileBase} ${colClass} ${rowClass} ${gapClass} ${alignClasses} h-full w-full`;
+}
+
+// Helper to generate Tailwind classes for an item
+function getItemClasses(area: GridArea, includeMobile: boolean): string {
+    const prefix = includeMobile ? 'md:' : '';
+    const rowSpan = area.rowEnd - area.rowStart;
+    const colSpan = area.colEnd - area.colStart;
+
+    let classes = `${prefix}row-start-${area.rowStart}`;
+    if (rowSpan > 1) classes += ` ${prefix}row-span-${rowSpan}`;
+    else classes += ` ${prefix}row-span-1`;
+
+    classes += ` ${prefix}col-start-${area.colStart}`;
+    if (colSpan > 1) classes += ` ${prefix}col-span-${colSpan}`;
+    else classes += ` ${prefix}col-span-1`;
+
+    const colorClass = area.color.startsWith('#') ? `bg-[${area.color}]` : `bg-${area.color}-500`;
+
+    return `${classes} ${colorClass} p-4 rounded`;
+}
 
 export function generateCSS(state: GridState, containerId = 'container'): string {
-  const { rows, cols, gap, rowGap, colGap, areas } = state;
+  const { rows, cols, gap, rowGap, colGap, areas, includeMobile } = state;
   const gridTemplateRows = rows.join(' ');
   const gridTemplateColumns = cols.join(' ');
 
@@ -42,11 +92,16 @@ ${templateAreas};
     css += `\n.${area.name} {\n  grid-area: ${area.name};\n}`;
   });
 
+  if (includeMobile) {
+      css += generateMobileQuery(state, containerId);
+  }
+
   return css;
 }
 
 export function generateMobileQuery(state: GridState, containerClass = 'container'): string {
     const { areas } = state;
+    // Simple stacking logic: sort by row then col
     const sorted = [...areas].sort((a, b) => {
         if (a.rowStart !== b.rowStart) return a.rowStart - b.rowStart;
         return a.colStart - b.colStart;
@@ -65,69 +120,61 @@ ${areasString};
 }`;
 }
 
-export function generateTailwind(state: GridState, includeMobile = false): string {
-    const { rows, cols, gap, rowGap, colGap, areas } = state;
+export function generateTailwind(state: GridState): string {
+    const containerClass = getContainerClasses(state);
+    let html = `<div class="${containerClass}">\n`;
 
-    const safeJoin = (arr: string[]) => arr.join('_');
-    const prefix = includeMobile ? 'md:' : '';
-
-    const colClass = `${prefix}grid-cols-[${safeJoin(cols)}]`;
-    const rowClass = `${prefix}grid-rows-[${safeJoin(rows)}]`;
-
-    let gapClass = `gap-[${gap}]`;
-    if (rowGap !== gap || colGap !== gap) {
-        gapClass = `gap-y-[${rowGap}] gap-x-[${colGap}]`;
-    }
-
-    // Alignment classes
-    const justifyItemsMap = {
-        start: 'justify-items-start', end: 'justify-items-end', center: 'justify-items-center', stretch: 'justify-items-stretch'
-    };
-    const alignItemsMap = {
-        start: 'items-start', end: 'items-end', center: 'items-center', stretch: 'items-stretch'
-    };
-    const justifyContentMap = {
-        start: 'justify-start', end: 'justify-end', center: 'justify-center', stretch: 'justify-stretch',
-        'space-around': 'justify-around', 'space-between': 'justify-between', 'space-evenly': 'justify-evenly'
-    };
-    const alignContentMap = {
-        start: 'content-start', end: 'content-end', center: 'content-center', stretch: 'content-stretch',
-        'space-around': 'content-around', 'space-between': 'content-between', 'space-evenly': 'content-evenly'
-    };
-
-    const alignClasses = [
-        justifyItemsMap[state.justifyItems],
-        alignItemsMap[state.alignItems],
-        justifyContentMap[state.justifyContent],
-        alignContentMap[state.alignContent]
-    ].filter(Boolean).join(' ');
-
-    const mobileBase = includeMobile ? 'grid-cols-1' : '';
-    let html = `<div class="grid ${mobileBase} ${colClass} ${rowClass} ${gapClass} ${alignClasses} h-full w-full">\n`;
-
-    areas.forEach(area => {
-        const rowSpan = area.rowEnd - area.rowStart;
-        const colSpan = area.colEnd - area.colStart;
-
-        let classes = `${prefix}row-start-${area.rowStart}`;
-        if (rowSpan > 1) classes += ` ${prefix}row-span-${rowSpan}`;
-        else classes += ` ${prefix}row-span-1`;
-
-        classes += ` ${prefix}col-start-${area.colStart}`;
-        if (colSpan > 1) classes += ` ${prefix}col-span-${colSpan}`;
-        else classes += ` ${prefix}col-span-1`;
-
-        // Add a color class if it exists (assuming it's a tailwind color name)
-        // If it's a hex, we use bg-[hex]
-        const colorClass = area.color.startsWith('#') ? `bg-[${area.color}]` : `bg-${area.color}-500`;
+    state.areas.forEach(area => {
+        const itemClass = getItemClasses(area, state.includeMobile);
         const tag = area.tag || 'div';
-
-        html += `  <${tag} class="${classes} ${colorClass} p-4 rounded">\n    ${area.name}\n  </${tag}>\n`;
+        html += `  <${tag} class="${itemClass}">\n    ${area.name}\n  </${tag}>\n`;
     });
 
     html += `</div>`;
-
     return html;
+}
+
+export function generateReact(state: GridState): string {
+    const containerClass = getContainerClasses(state);
+    let jsx = `export default function GridLayout() {\n  return (\n    <div className="${containerClass}">\n`;
+
+    state.areas.forEach(area => {
+        const itemClass = getItemClasses(area, state.includeMobile);
+        const tag = area.tag || 'div';
+        // Capitalize for React logic? No, standard HTML tags are lowercase in React.
+        jsx += `      <${tag} className="${itemClass}">\n        ${area.name}\n      </${tag}>\n`;
+    });
+
+    jsx += `    </div>\n  );\n}`;
+    return jsx;
+}
+
+export function generateVue(state: GridState): string {
+    const containerClass = getContainerClasses(state);
+    let template = `<template>\n  <div class="${containerClass}">\n`;
+
+    state.areas.forEach(area => {
+        const itemClass = getItemClasses(area, state.includeMobile);
+        const tag = area.tag || 'div';
+        template += `    <${tag} class="${itemClass}">\n      ${area.name}\n    </${tag}>\n`;
+    });
+
+    template += `  </div>\n</template>\n\n<script setup>\n// Vue 3 Composition API\n</script>`;
+    return template;
+}
+
+export function generateSvelte(state: GridState): string {
+    const containerClass = getContainerClasses(state);
+    let markup = `<div class="${containerClass}">\n`;
+
+    state.areas.forEach(area => {
+        const itemClass = getItemClasses(area, state.includeMobile);
+        const tag = area.tag || 'div';
+        markup += `  <${tag} class="${itemClass}">\n    ${area.name}\n  </${tag}>\n`;
+    });
+
+    markup += `</div>`;
+    return markup;
 }
 
 export function generateHTML(state: GridState): string {

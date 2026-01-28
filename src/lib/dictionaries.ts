@@ -1499,8 +1499,8 @@ export const dictionaries = {
           intro: "CSS Grid is powerful but the syntax can be daunting. Grid Master provides a visual interface to design layouts naturally.",
           featuresTitle: "Key Features",
           f1: "**Visual Editor:** Click and drag to define grid areas intuitively.",
-          f2: "**Smart Export:** Get production-ready Tailwind classes or pure CSS.",
-          f3: "**Responsive:** Toggle between desktop and mobile views."
+          f2: "**Smart Export:** Get production-ready Tailwind, CSS, React, Vue, or Svelte code.",
+          f3: "**Responsive:** Toggle between desktop and mobile views and auto-generate responsive stacks."
         },
         faqTitle: "Grid Master FAQ",
         q1: "What is the difference between 'fr' and 'px'?",
@@ -2044,8 +2044,8 @@ export const dictionaries = {
           intro: "CSS 그리드는 강력하지만 문법이 까다로울 수 있습니다. 그리드 마스터는 직관적인 시각적 인터페이스를 제공합니다.",
           featuresTitle: "주요 기능",
           f1: "**시각적 에디터:** 클릭하고 드래그하여 그리드 영역을 직관적으로 정의하세요.",
-          f2: "**스마트 내보내기:** 프로덕션에 바로 사용할 수 있는 Tailwind 클래스나 순수 CSS를 얻으세요.",
-          f3: "**반응형:** 데스크톱과 모바일 뷰를 전환하며 확인하세요."
+          f2: "**스마트 내보내기:** 프로덕션용 Tailwind, CSS, React, Vue, Svelte 코드를 즉시 생성하세요.",
+          f3: "**반응형:** 모바일 스택을 자동으로 생성하고 반응형 코드를 내보내세요."
         },
         faqTitle: "그리드 마스터 FAQ",
         q1: "'fr'과 'px'의 차이는 무엇인가요?",

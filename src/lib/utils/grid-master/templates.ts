@@ -13,7 +13,8 @@ const createBase = (rows: string[], cols: string[]): GridState => ({
     justifyItems: 'stretch',
     alignItems: 'stretch',
     justifyContent: 'start',
-    alignContent: 'start'
+    alignContent: 'start',
+    includeMobile: false
 });
 
 export const templates: Record<string, GridState> = {
