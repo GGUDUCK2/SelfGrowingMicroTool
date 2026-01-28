@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import type { PageData } from "./$types";
   import { formatTime } from "$lib/utils";
   import { dictionaries } from "$lib/dictionaries";
@@ -16,6 +16,11 @@
   let isRunning = false;
   let mode: "focus" | "short" | "long" = "focus";
   let timerInterval: NodeJS.Timeout | undefined;
+  let audio: HTMLAudioElement;
+
+  onMount(() => {
+    audio = new Audio("/notification.mp3");
+  });
 
   const MODES = {
     focus: {
@@ -49,7 +54,7 @@
           clearInterval(timerInterval);
           isRunning = false;
           // Play notification sound
-          new Audio("/notification.mp3").play().catch(() => {});
+          if (audio) audio.play().catch(() => {});
         }
       }, 1000);
     }
@@ -79,37 +84,47 @@
     { q: dict.q3, a: dict.a3 },
   ];
 
-  $: schema = {
+  $: appSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": dict.title,
     "description": dict.description,
     "applicationCategory": "ProductivityApplication",
-    "operatingSystem": "Web",
+    "applicationSubCategory": "Time Management",
+    "operatingSystem": ["Web", "iOS", "Android", "macOS", "Windows", "Linux"],
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
     },
-    "featureList": "Timer, Pomodoro Technique, Productivity, Focus Mode",
-    "mainEntity": {
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
-      }))
-    }
+    "featureList": [
+      "Customizable Timer Intervals",
+      "Focus, Short Break, and Long Break Modes",
+      "Audio Notifications",
+      "Responsive Design"
+    ]
   };
+
+  $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
+
+  $: schemaList = [appSchema, faqSchema];
 </script>
 
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(schemaList)}</script>`}
 </svelte:head>
 
 <div class="max-w-2xl mx-auto text-center space-y-12 py-12 px-4">
@@ -171,7 +186,7 @@
       <button
         on:click={toggleTimer}
         class="h-14 w-14 sm:h-16 sm:w-16 flex items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:scale-105 active:scale-95 transition-all"
-        aria-label={isRunning ? dict.paused : dict.running}
+        aria-label={isRunning ? dict.pauseAction : dict.startAction}
       >
         {#if isRunning}
           <svg
