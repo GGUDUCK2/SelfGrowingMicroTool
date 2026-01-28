@@ -63,7 +63,7 @@ export function generateMagicLayout(): GridState {
     const colCount = Math.floor(Math.random() * 3) + 3; // 3 to 5
 
     // 2. BSP Generation
-    let regions: Rect[] = [{ r1: 1, c1: 1, r2: rowCount + 1, c2: colCount + 1 }];
+    const regions: Rect[] = [{ r1: 1, c1: 1, r2: rowCount + 1, c2: colCount + 1 }];
     const targetRegions = Math.floor(Math.random() * 3) + 3; // 3 to 5 areas
 
     // Iterative split until we have enough regions or can't split
@@ -134,6 +134,126 @@ export function generateMagicLayout(): GridState {
         gap,
         rowGap: gap,
         colGap: gap,
+        areas,
+        items: [],
+        justifyItems: 'stretch',
+        alignItems: 'stretch',
+        justifyContent: 'stretch',
+        alignContent: 'stretch',
+        includeMobile: false
+    };
+}
+
+export function generateLayoutFromText(input: string): GridState {
+    const tokens = input.toLowerCase().split(/[\s,]+/).filter(Boolean);
+    const uniqueTokens = [...new Set(tokens)];
+
+    if (uniqueTokens.length === 0) return generateMagicLayout();
+
+    // Identify special roles
+    const header = uniqueTokens.find(t => ['header', 'top', 'nav'].some(k => t.includes(k)));
+    const footer = uniqueTokens.find(t => ['footer', 'bottom'].some(k => t.includes(k)));
+    const sidebar = uniqueTokens.find(t => ['sidebar', 'aside', 'left', 'menu'].some(k => t.includes(k)));
+    const rightbar = uniqueTokens.find(t => ['rightbar', 'ads', 'extra'].some(k => t.includes(k)));
+
+    // Find 'main' or whatever is left that isn't one of the above
+    const used = [header, footer, sidebar, rightbar].filter(Boolean);
+    const main = uniqueTokens.find(t => !used.includes(t)) || 'main';
+
+    // Construct Layout
+    // Rows: Header? / Main+Sidebars / Footer?
+    const rows: string[] = [];
+    if (header) rows.push('auto');
+    rows.push('1fr'); // Content area
+    if (footer) rows.push('auto');
+
+    // Cols: Sidebar? / Main / Rightbar?
+    const cols: string[] = [];
+    if (sidebar) cols.push('250px');
+    cols.push('1fr');
+    if (rightbar) cols.push('250px');
+
+    const areas: GridArea[] = [];
+    let currentRow = 1;
+
+    // Header Area
+    if (header) {
+        areas.push({
+            id: nanoid(),
+            name: header,
+            rowStart: currentRow,
+            rowEnd: currentRow + 1,
+            colStart: 1,
+            colEnd: cols.length + 1,
+            color: 'indigo'
+        });
+        currentRow++;
+    }
+
+    // Middle Section
+    const middleRowStart = currentRow;
+    const middleRowEnd = currentRow + 1;
+    let currentCol = 1;
+
+    if (sidebar) {
+        areas.push({
+            id: nanoid(),
+            name: sidebar,
+            rowStart: middleRowStart,
+            rowEnd: middleRowEnd,
+            colStart: currentCol,
+            colEnd: currentCol + 1,
+            color: 'emerald'
+        });
+        currentCol++;
+    }
+
+    // Main Area
+    areas.push({
+        id: nanoid(),
+        name: main,
+        rowStart: middleRowStart,
+        rowEnd: middleRowEnd,
+        colStart: currentCol,
+        colEnd: currentCol + 1,
+        color: 'slate'
+    });
+    currentCol++;
+
+    if (rightbar) {
+        areas.push({
+            id: nanoid(),
+            name: rightbar,
+            rowStart: middleRowStart,
+            rowEnd: middleRowEnd,
+            colStart: currentCol,
+            colEnd: currentCol + 1,
+            color: 'amber'
+        });
+        currentCol++;
+    }
+
+    currentRow++;
+
+    // Footer Area
+    if (footer) {
+        areas.push({
+            id: nanoid(),
+            name: footer,
+            rowStart: currentRow,
+            rowEnd: currentRow + 1,
+            colStart: 1,
+            colEnd: cols.length + 1,
+            color: 'rose'
+        });
+    }
+
+    return {
+        rows,
+        cols,
+        gap: '1rem',
+        rowGap: '1rem',
+        colGap: '1rem',
         areas,
         items: [],
         justifyItems: 'stretch',

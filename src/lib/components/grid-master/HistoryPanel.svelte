@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { workspace, type ToolHistoryItem } from '$lib/db/workspace';
+  import { workspace, type ToolHistoryItem, toggleStar, deleteHistoryItem } from '$lib/db/workspace';
   import { gridStore } from '$lib/utils/grid-master/store';
   import { liveQuery } from 'dexie';
   import { browser } from '$app/environment';
-  import { Clock, RotateCcw } from 'lucide-svelte';
+  import { Clock, RotateCcw, Star, Trash2 } from 'lucide-svelte';
   import TemplatePreview from './TemplatePreview.svelte';
   import type { GridState, GridMasterDictionary } from '$lib/utils/grid-master/types';
 
@@ -48,15 +48,40 @@
      {#each history as item (item.id)}
          <div class="group relative bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all p-3 shadow-sm">
              <div class="flex justify-between items-center mb-2">
-                 <span class="text-xs font-mono text-slate-500 dark:text-slate-400">{formatTime(item.timestamp)}</span>
-                 <button
-                   class="p-1.5 text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-md opacity-0 group-hover:opacity-100 transition-opacity"
-                   on:click={() => restore(item.input)}
-                   title={dict.restore || 'Restore'}
-                   aria-label={dict.restore || 'Restore'}
-                 >
-                     <RotateCcw size={14} />
-                 </button>
+                 <div class="flex items-center gap-2">
+                     <span class="text-xs font-mono text-slate-500 dark:text-slate-400">{formatTime(item.timestamp)}</span>
+                     {#if item.starred}
+                        <span class="text-yellow-400"><Star size={12} fill="currentColor" /></span>
+                     {/if}
+                 </div>
+
+                 <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                     <button
+                       class="p-1.5 {item.starred ? 'text-yellow-400 hover:text-yellow-500' : 'text-slate-400 hover:text-yellow-400'} hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md transition-colors"
+                       on:click={() => item.id && toggleStar(item.id)}
+                       title={dict.star || 'Star'}
+                       aria-label={dict.star || 'Star'}
+                     >
+                         <Star size={14} fill={item.starred ? "currentColor" : "none"} />
+                     </button>
+                     <button
+                       class="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors"
+                       on:click={() => item.id && deleteHistoryItem(item.id)}
+                       title={dict.delete || 'Delete'}
+                       aria-label={dict.delete || 'Delete'}
+                     >
+                         <Trash2 size={14} />
+                     </button>
+                     <div class="w-px h-3 bg-slate-200 dark:bg-slate-700 mx-1"></div>
+                     <button
+                       class="p-1.5 text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-md transition-colors"
+                       on:click={() => restore(item.input)}
+                       title={dict.restore || 'Restore'}
+                       aria-label={dict.restore || 'Restore'}
+                     >
+                         <RotateCcw size={14} />
+                     </button>
+                 </div>
              </div>
 
              <!-- Preview -->
