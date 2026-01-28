@@ -318,29 +318,51 @@
   <meta property="og:type" content="website" />
 
   <!-- JSON-LD -->
-  {@html `<script type="application/ld+json">${JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": dict.title,
-    "description": dict.description,
-    "applicationCategory": "FinanceApplication",
-    "applicationSubCategory": "FinanceApplication",
-    "operatingSystem": "Android, iOS, macOS, Windows, Linux",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD",
+  {@html `<script type="application/ld+json">${JSON.stringify([
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": dict.title,
+      "description": dict.description,
+      "applicationCategory": "FinanceApplication",
+      "applicationSubCategory": "FinanceApplication",
+      "operatingSystem": "Android, iOS, macOS, Windows, Linux",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+      },
+      "featureList": [
+          "Compound Interest Calculation",
+          "Inflation Adjustment",
+          "Tax Rate Calculation",
+          "Monthly/Yearly Contribution",
+          "Interactive Growth Chart",
+          "CSV Export",
+          "Offline History"
+      ]
     },
-    "featureList": [
-        "Compound Interest Calculation",
-        "Inflation Adjustment",
-        "Tax Rate Calculation",
-        "Monthly/Yearly Contribution",
-        "Interactive Growth Chart",
-        "CSV Export",
-        "Offline History"
-    ]
-  })}</script>`}
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://selfgrowingmicrotool.com/" + lang
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": "https://selfgrowingmicrotool.com/" + lang + "/tools"
+      },{
+        "@type": "ListItem",
+        "position": 3,
+        "name": dict.title,
+        "item": "https://selfgrowingmicrotool.com/" + lang + "/tools/compound-interest-calculator"
+      }]
+    }
+  ])}</script>`}
 </svelte:head>
 
 <div class="max-w-6xl mx-auto py-12 space-y-12 px-4">
@@ -607,7 +629,7 @@
     <!-- Results Display -->
     <div class="lg:col-span-2 space-y-8">
       <!-- Summary Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <section aria-label="Results Summary" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-indigo-50 rounded-2xl p-5 border border-indigo-100">
           <div
             class="text-indigo-600 text-xs font-semibold mb-1 uppercase tracking-wide"
@@ -615,7 +637,7 @@
             {lang === "ko" ? "총 평가액" : "Future Balance"}
           </div>
           <div
-            class="text-xl lg:text-2xl font-bold text-gray-900 truncate"
+            class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 truncate"
             title={formatMoney(
               results.length > 0
                 ? results[results.length - 1].nominalBalance
@@ -638,7 +660,7 @@
             {lang === "ko" ? "실질 가치 (물가반영)" : "Real Value"}
           </div>
           <div
-            class="text-lg lg:text-xl font-bold text-gray-900 truncate"
+            class="text-lg sm:text-xl font-bold text-gray-900 truncate"
             title={formatMoney(realValue, lang)}
           >
             {formatMoney(realValue, lang)}
@@ -650,7 +672,7 @@
           >
             {lang === "ko" ? "총 투자 원금" : "Total Invested"}
           </div>
-          <div class="text-lg font-bold text-gray-900 truncate">
+          <div class="text-lg sm:text-xl font-bold text-gray-900 truncate">
             {formatMoney(totalInvested, lang)}
           </div>
         </div>
@@ -660,11 +682,11 @@
           >
             {lang === "ko" ? "총 이자 수익" : "Total Interest"}
           </div>
-          <div class="text-lg font-bold text-emerald-600 truncate">
+          <div class="text-lg sm:text-xl font-bold text-emerald-600 truncate">
             +{formatMoney(totalInterest, lang)}
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- Chart -->
       <GrowthChart {results} {maxBalance} {years} {lang} />
