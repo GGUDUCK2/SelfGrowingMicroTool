@@ -14,11 +14,11 @@
   <table class="min-w-full border-collapse">
     <thead>
       <tr>
-        <th class="p-4 text-left min-w-[200px] w-1/4 sticky left-0 bg-gray-50 dark:bg-gray-900 z-10 border-b border-gray-200 dark:border-gray-700">
+        <th class="p-4 text-left min-w-[140px] sm:min-w-[200px] w-1/4 sticky left-0 bg-gray-50 dark:bg-gray-900 z-10 border-b border-gray-200 dark:border-gray-700">
           <span class="text-xs font-semibold uppercase text-gray-400 tracking-wider">Options / Criteria</span>
         </th>
         {#each $matrixStore.criteria as criterion (criterion.id)}
-          <th class="p-4 min-w-[180px] border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 relative group" transition:fade>
+          <th class="p-4 min-w-[120px] sm:min-w-[180px] border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 relative group" transition:fade>
             <div class="flex flex-col gap-2">
               <div class="flex items-center justify-between">
                 <input
