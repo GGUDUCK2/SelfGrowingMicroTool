@@ -24,6 +24,26 @@
       downloadJson: "Download JSON"
   };
 
+  $: jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": t.title,
+    "description": t.description,
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Weighted Decision Matrix",
+      "Real-time Ranking",
+      "CSV/JSON Export",
+      "Local History"
+    ]
+  };
+
   let showSidebar = false;
 
   function toggleSidebar() {
@@ -38,6 +58,10 @@
   imageUrl="https://selfgrowingmicrotool.com/og/decision-forge.png"
 />
 
+<svelte:head>
+  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
+</svelte:head>
+
 <div class="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
   <!-- Header -->
   <header class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-30">
@@ -46,6 +70,7 @@
         <button
           on:click={toggleSidebar}
           class="lg:hidden p-2 text-gray-500 hover:text-indigo-600 transition-colors"
+          aria-label={showSidebar ? 'Close Sidebar' : 'Open Sidebar'}
         >
           {#if showSidebar}
             <X size={24} />
