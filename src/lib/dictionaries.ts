@@ -1499,6 +1499,22 @@ export const dictionaries = {
         textToGrid: "Text to Grid",
         star: "Star",
         delete: "Delete",
+        openInStackBlitz: "Open in StackBlitz",
+        gapPresets: {
+            small: "Small",
+            medium: "Medium",
+            large: "Large"
+        },
+        tagHelp: {
+            div: "Generic container",
+            header: "Introductory content or navigation",
+            footer: "Copyright, links, or contact info",
+            main: "Dominant content of the body",
+            nav: "Navigation links",
+            section: "Thematic grouping of content",
+            aside: "Sidebar or indirect content",
+            article: "Self-contained composition"
+        },
         guide: {
           title: "Why Grid Master?",
           intro: "CSS Grid is powerful but the syntax can be daunting. Grid Master provides a visual interface to design layouts naturally.",
@@ -2091,6 +2107,22 @@ export const dictionaries = {
         textToGrid: "텍스트 그리드 변환",
         star: "즐겨찾기",
         delete: "삭제",
+        openInStackBlitz: "StackBlitz에서 열기",
+        gapPresets: {
+            small: "좁게",
+            medium: "중간",
+            large: "넓게"
+        },
+        tagHelp: {
+            div: "일반 컨테이너",
+            header: "소개 콘텐츠 또는 네비게이션",
+            footer: "저작권, 링크 또는 연락처 정보",
+            main: "본문의 핵심 콘텐츠",
+            nav: "네비게이션 링크",
+            section: "주제별 콘텐츠 그룹",
+            aside: "사이드바 또는 부가 정보",
+            article: "독립적인 콘텐츠 구성"
+        },
         guide: {
           title: "왜 그리드 마스터인가요?",
           intro: "CSS 그리드는 강력하지만 문법이 까다로울 수 있습니다. 그리드 마스터는 직관적인 시각적 인터페이스를 제공합니다.",
