@@ -1,6 +1,7 @@
 import Dexie, { type Table as DexieTable } from 'dexie';
 import type { Table as SchemaTable, Relation as SchemaRelation } from './types/schema-forge';
 import type { IconConfig } from './utils/icon-forge/processor';
+import type { GridArea } from '$lib/utils/grid-master/types';
 
 export interface CompoundInterestConfig {
   id?: number;
@@ -178,7 +179,7 @@ export interface GridMasterProject {
   gap: string;
   rowGap: string;
   colGap: string;
-  areas: any[];
+  areas: GridArea[];
   items: any[];
   createdAt: Date;
   updatedAt: Date;

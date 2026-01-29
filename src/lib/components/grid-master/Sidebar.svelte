@@ -213,6 +213,30 @@
                   />
               </div>
           </div>
+          <!-- Gap Presets -->
+          <div class="flex gap-2">
+              <button
+                class="flex-1 py-1 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded hover:border-indigo-500 dark:hover:border-indigo-500 transition-colors"
+                on:click={() => { gridStore.setRowGap('0.5rem'); gridStore.setColGap('0.5rem'); }}
+                aria-label="Small Gap"
+              >
+                  {dict.gapPresets?.small || 'Small'}
+              </button>
+              <button
+                class="flex-1 py-1 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded hover:border-indigo-500 dark:hover:border-indigo-500 transition-colors"
+                on:click={() => { gridStore.setRowGap('1rem'); gridStore.setColGap('1rem'); }}
+                aria-label="Medium Gap"
+              >
+                  {dict.gapPresets?.medium || 'Medium'}
+              </button>
+              <button
+                class="flex-1 py-1 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded hover:border-indigo-500 dark:hover:border-indigo-500 transition-colors"
+                on:click={() => { gridStore.setRowGap('2rem'); gridStore.setColGap('2rem'); }}
+                aria-label="Large Gap"
+              >
+                  {dict.gapPresets?.large || 'Large'}
+              </button>
+          </div>
       </div>
 
       <div class="space-y-4">
@@ -329,6 +353,11 @@
                             {/each}
                          </select>
                      </div>
+                     {#if dict.tagHelp?.[area.tag || 'div']}
+                        <p class="text-[10px] text-slate-400 pl-8 leading-tight">
+                            {dict.tagHelp[area.tag || 'div']}
+                        </p>
+                     {/if}
                  </div>
               {/each}
               {#if $gridStore.areas.length === 0}

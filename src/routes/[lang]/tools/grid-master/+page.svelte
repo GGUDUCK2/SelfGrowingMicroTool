@@ -157,7 +157,7 @@
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design" />
+  <meta name="keywords" content="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export" />
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
   <meta property="og:type" content="website" />
@@ -197,7 +197,9 @@
         "Magic Layout Generator",
         "Advanced Grid Alignment",
         "StackBlitz Export",
-        "Semantic HTML Generator"
+        "Semantic HTML Generator",
+        "Interactive Gap Presets",
+        "Semantic Tag Helper"
       ]
     }
   </script>
