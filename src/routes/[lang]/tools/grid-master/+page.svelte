@@ -31,6 +31,19 @@
   let lastSessionState: GridState | null = null;
 
   function handleKeydown(e: KeyboardEvent) {
+      const target = e.target as HTMLElement;
+      const isInput = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable;
+
+      // Global shortcuts (work even in inputs)
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+          e.preventDefault();
+          handleSave();
+          return;
+      }
+
+      // Context-aware shortcuts (skip if typing)
+      if (isInput) return;
+
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
           e.preventDefault();
           if (e.shiftKey) {
@@ -43,10 +56,6 @@
           e.preventDefault();
           gridStore.redo();
       }
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
-          e.preventDefault();
-          handleSave();
-      }
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') {
           e.preventDefault();
           previewMode = !previewMode;
@@ -56,10 +65,8 @@
           handleReset();
       }
       if (e.key === '?' && e.shiftKey) {
-          // e.preventDefault(); // Don't prevent default if input focused?
-          if (document.activeElement?.tagName !== 'INPUT') {
-               showShortcuts = !showShortcuts;
-          }
+          e.preventDefault();
+          showShortcuts = !showShortcuts;
       }
   }
 

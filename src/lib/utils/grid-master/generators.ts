@@ -144,6 +144,82 @@ export function generateMagicLayout(): GridState {
     };
 }
 
+export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 'gallery'): GridState {
+    const common = {
+        gap: '1rem',
+        rowGap: '1rem',
+        colGap: '1rem',
+        items: [],
+        justifyItems: 'stretch' as const,
+        alignItems: 'stretch' as const,
+        justifyContent: 'stretch' as const,
+        alignContent: 'stretch' as const,
+        includeMobile: true
+    };
+
+    if (type === 'dashboard') {
+        return {
+            ...common,
+            rows: ['60px', '1fr'],
+            cols: ['250px', '1fr'],
+            areas: [
+                { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 3, color: 'indigo' },
+                { id: nanoid(), name: 'sidebar', rowStart: 2, rowEnd: 3, colStart: 1, colEnd: 2, color: 'slate' },
+                { id: nanoid(), name: 'main', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'white' }
+            ]
+        };
+    }
+
+    if (type === 'blog') {
+        return {
+            ...common,
+            rows: ['auto', '1fr', 'auto'],
+            cols: ['1fr', '65ch', '300px', '1fr'],
+            areas: [
+                { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 5, color: 'indigo' },
+                { id: nanoid(), name: 'article', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'white' },
+                { id: nanoid(), name: 'aside', rowStart: 2, rowEnd: 3, colStart: 3, colEnd: 4, color: 'slate' },
+                { id: nanoid(), name: 'footer', rowStart: 3, rowEnd: 4, colStart: 1, colEnd: 5, color: 'slate' }
+            ]
+        };
+    }
+
+    if (type === 'holy-grail') {
+        return {
+            ...common,
+            rows: ['auto', '1fr', 'auto'],
+            cols: ['200px', '1fr', '200px'],
+            areas: [
+                { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 4, color: 'indigo' },
+                { id: nanoid(), name: 'nav', rowStart: 2, rowEnd: 3, colStart: 1, colEnd: 2, color: 'emerald' },
+                { id: nanoid(), name: 'main', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'white' },
+                { id: nanoid(), name: 'ads', rowStart: 2, rowEnd: 3, colStart: 3, colEnd: 4, color: 'amber' },
+                { id: nanoid(), name: 'footer', rowStart: 3, rowEnd: 4, colStart: 1, colEnd: 4, color: 'slate' }
+            ]
+        };
+    }
+
+    if (type === 'gallery') {
+        return {
+            ...common,
+            rows: ['auto', '1fr', '1fr', 'auto'],
+            cols: ['1fr', '1fr', '1fr'],
+            areas: [
+                { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 4, color: 'indigo' },
+                { id: nanoid(), name: 'img-1', rowStart: 2, rowEnd: 3, colStart: 1, colEnd: 2, color: 'sky' },
+                { id: nanoid(), name: 'img-2', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'sky' },
+                { id: nanoid(), name: 'img-3', rowStart: 2, rowEnd: 3, colStart: 3, colEnd: 4, color: 'sky' },
+                { id: nanoid(), name: 'img-4', rowStart: 3, rowEnd: 4, colStart: 1, colEnd: 2, color: 'sky' },
+                { id: nanoid(), name: 'img-5', rowStart: 3, rowEnd: 4, colStart: 2, colEnd: 3, color: 'sky' },
+                { id: nanoid(), name: 'img-6', rowStart: 3, rowEnd: 4, colStart: 3, colEnd: 4, color: 'sky' },
+                { id: nanoid(), name: 'footer', rowStart: 4, rowEnd: 5, colStart: 1, colEnd: 4, color: 'slate' }
+            ]
+        };
+    }
+
+    return generateMagicLayout();
+}
+
 export function generateLayoutFromText(input: string): GridState {
     const tokens = input.toLowerCase().split(/[\s,]+/).filter(Boolean);
     const uniqueTokens = [...new Set(tokens)];

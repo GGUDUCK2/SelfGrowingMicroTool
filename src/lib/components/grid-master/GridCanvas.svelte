@@ -158,11 +158,64 @@
              <button class="mt-4 px-4 py-2 bg-black/10 dark:bg-white/20 rounded-lg text-xs sm:text-sm font-bold border border-current">Call to Action</button>
         </div>`;
 
-      if (n.includes('img') || n.includes('pic') || n.includes('photo') || n.includes('gallery')) return `
-         <div class="w-full h-full flex items-center justify-center bg-black/5 dark:bg-white/5 relative overflow-hidden group">
-             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-30 group-hover:scale-110 transition-transform"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+      if (n.includes('login') || n.includes('signin') || n.includes('auth')) return `
+         <div class="h-full flex flex-col items-center justify-center p-4">
+             <div class="w-full max-w-[200px] flex flex-col gap-2 bg-white/50 dark:bg-black/20 p-3 rounded-lg border border-black/5 dark:border-white/5">
+                  <div class="text-xs font-bold text-center mb-1">Welcome Back</div>
+                  <div class="h-6 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 text-[10px] flex items-center text-slate-400">Email</div>
+                  <div class="h-6 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 text-[10px] flex items-center text-slate-400">Password</div>
+                  <div class="h-6 w-full bg-indigo-500 rounded text-white text-[10px] font-bold flex items-center justify-center mt-1">Sign In</div>
+             </div>
          </div>
       `;
+
+      if (n.includes('video') || n.includes('player') || n.includes('media')) return `
+         <div class="w-full h-full flex items-center justify-center bg-black/80 text-white relative group overflow-hidden">
+             <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center pl-1 group-hover:scale-110 transition-transform cursor-pointer">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </div>
+             </div>
+             <div class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/80 to-transparent flex items-end px-3 py-1 gap-2">
+                  <div class="h-1 flex-1 bg-white/30 rounded-full overflow-hidden"><div class="h-full w-1/3 bg-red-500"></div></div>
+             </div>
+         </div>
+      `;
+
+      if (n.includes('table') || n.includes('data') || n.includes('grid') && !n.includes('master')) return `
+        <div class="h-full flex flex-col gap-2 p-2 overflow-hidden">
+             <div class="flex justify-between items-center mb-1">
+                 <h4 class="text-xs font-bold uppercase tracking-wider opacity-60">Data Table</h4>
+                 <div class="flex gap-1">
+                     <div class="w-4 h-4 rounded bg-black/10 dark:bg-white/10"></div>
+                     <div class="w-4 h-4 rounded bg-black/10 dark:bg-white/10"></div>
+                 </div>
+             </div>
+             <div class="w-full h-full border border-black/5 dark:border-white/5 rounded overflow-hidden">
+                 <div class="grid grid-cols-4 gap-px bg-black/5 dark:bg-white/5 p-px">
+                     <div class="bg-white/50 dark:bg-black/20 p-1 text-[10px] font-bold">ID</div>
+                     <div class="bg-white/50 dark:bg-black/20 p-1 text-[10px] font-bold col-span-2">Name</div>
+                     <div class="bg-white/50 dark:bg-black/20 p-1 text-[10px] font-bold">Status</div>
+                     ${Array(5).fill(0).map(() => `
+                         <div class="bg-white/30 dark:bg-black/10 p-1 h-4"></div>
+                         <div class="bg-white/30 dark:bg-black/10 p-1 h-4 col-span-2"></div>
+                         <div class="bg-white/30 dark:bg-black/10 p-1 h-4"></div>
+                     `).join('')}
+                 </div>
+             </div>
+        </div>`;
+
+      if (n.includes('card') || n.includes('product') || n.includes('gallery') || n.includes('img') || n.includes('pic')) return `
+        <div class="h-full grid grid-cols-2 gap-2 p-2 overflow-hidden content-start">
+             ${Array(4).fill(0).map(() => `
+                 <div class="aspect-square bg-white/50 dark:bg-black/20 rounded flex flex-col p-1 gap-1 border border-black/5 dark:border-white/5">
+                      <div class="flex-1 bg-black/10 dark:bg-white/10 rounded-sm flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-20"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                      </div>
+                      <div class="h-1.5 w-3/4 bg-black/20 dark:bg-white/20 rounded-sm"></div>
+                 </div>
+             `).join('')}
+        </div>`;
 
       if (n.includes('chart') || n.includes('graph')) return `
         <div class="h-full flex flex-col p-3">

@@ -1505,6 +1505,13 @@ export const dictionaries = {
             medium: "Medium",
             large: "Large"
         },
+        smartLayouts: {
+            title: "Smart Generators",
+            dashboard: "Dashboard",
+            blog: "Blog Post",
+            holyGrail: "Holy Grail",
+            gallery: "Gallery"
+        },
         tagHelp: {
             div: "Generic container",
             header: "Introductory content or navigation",
@@ -2160,6 +2167,13 @@ export const dictionaries = {
             small: "좁게",
             medium: "중간",
             large: "넓게"
+        },
+        smartLayouts: {
+            title: "스마트 생성기",
+            dashboard: "대시보드",
+            blog: "블로그 포스트",
+            holyGrail: "성배 레이아웃 (Holy Grail)",
+            gallery: "갤러리"
         },
         tagHelp: {
             div: "일반 컨테이너",
