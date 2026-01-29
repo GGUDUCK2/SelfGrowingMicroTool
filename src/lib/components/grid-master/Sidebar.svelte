@@ -1,10 +1,15 @@
 <script lang="ts">
   import { gridStore } from '$lib/utils/grid-master/store';
-  import { Plus, Trash2, LayoutTemplate, Clock, Settings2, Wand2 } from 'lucide-svelte';
+  import {
+    Plus, Trash2, LayoutTemplate, Clock, Settings2, Wand2,
+    AlignLeft, AlignCenter, AlignRight, Maximize,
+    LayoutDashboard, FileText, Layout, Image as ImageIcon
+  } from 'lucide-svelte';
   import type { GridMasterDictionary, JustifyItems, AlignItems, JustifyContent, AlignContent } from '$lib/utils/grid-master/types';
   import { templates } from '$lib/utils/grid-master/templates';
-  import { generateMagicLayout, generateLayoutFromText } from '$lib/utils/grid-master/generators';
+  import { generateMagicLayout, generateLayoutFromText, generateSmartLayout } from '$lib/utils/grid-master/generators';
   import { nanoid } from 'nanoid';
+  import { tick } from 'svelte';
   import TemplatePreview from './TemplatePreview.svelte';
   import HistoryPanel from './HistoryPanel.svelte';
 
@@ -19,6 +24,11 @@
           t.includeMobile = t.includeMobile ?? false;
           gridStore.load(t);
       }
+  }
+
+  function loadSmart(type: 'dashboard' | 'blog' | 'holy-grail' | 'gallery') {
+      const layout = generateSmartLayout(type);
+      gridStore.load(layout);
   }
 
   function updateRow(idx: number, val: string) {
@@ -37,7 +47,7 @@
       gridStore.updateArea(id, { tag });
   }
 
-  function addArea() {
+  async function addArea() {
       // Add a default area at 1,1
       gridStore.addArea({
           id: nanoid(),
@@ -48,6 +58,11 @@
           colEnd: 2,
           color: 'indigo' // Default color
       });
+
+      // Scroll to bottom after update
+      await tick();
+      const list = document.getElementById('areas-list');
+      if (list) list.scrollTop = list.scrollHeight;
   }
 
   const colorMap: Record<string, string> = {
@@ -71,6 +86,7 @@
   <!-- Tabs -->
   <div class="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-lg" role="tablist" aria-label="Sidebar Tabs">
       <button
+        type="button"
         role="tab"
         aria-selected={activeTab === 'build'}
         aria-controls="tab-panel-build"
@@ -82,6 +98,7 @@
           {dict.build || 'Build'}
       </button>
       <button
+        type="button"
         role="tab"
         aria-selected={activeTab === 'templates'}
         aria-controls="tab-panel-templates"
@@ -93,6 +110,7 @@
           {dict.templates || 'Templates'}
       </button>
       <button
+        type="button"
         role="tab"
         aria-selected={activeTab === 'history'}
         aria-controls="tab-panel-history"
@@ -214,61 +232,66 @@
               </div>
           </div>
           <!-- Gap Presets -->
-          <div class="flex gap-2">
-              <button
-                class="flex-1 py-1 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded hover:border-indigo-500 dark:hover:border-indigo-500 transition-colors"
-                on:click={() => { gridStore.setRowGap('0.5rem'); gridStore.setColGap('0.5rem'); }}
-                aria-label="Small Gap"
-              >
-                  {dict.gapPresets?.small || 'Small'}
-              </button>
-              <button
-                class="flex-1 py-1 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded hover:border-indigo-500 dark:hover:border-indigo-500 transition-colors"
-                on:click={() => { gridStore.setRowGap('1rem'); gridStore.setColGap('1rem'); }}
-                aria-label="Medium Gap"
-              >
-                  {dict.gapPresets?.medium || 'Medium'}
-              </button>
-              <button
-                class="flex-1 py-1 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded hover:border-indigo-500 dark:hover:border-indigo-500 transition-colors"
-                on:click={() => { gridStore.setRowGap('2rem'); gridStore.setColGap('2rem'); }}
-                aria-label="Large Gap"
-              >
-                  {dict.gapPresets?.large || 'Large'}
-              </button>
+          <div class="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
+              {#each [
+                  { label: dict.gapPresets?.small || 'Small', val: '0.5rem' },
+                  { label: dict.gapPresets?.medium || 'Medium', val: '1rem' },
+                  { label: dict.gapPresets?.large || 'Large', val: '2rem' }
+              ] as preset}
+                  <button
+                    class="flex-1 py-1.5 text-xs font-medium rounded-md transition-all {$gridStore.rowGap === preset.val && $gridStore.colGap === preset.val ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+                    on:click={() => { gridStore.setRowGap(preset.val); gridStore.setColGap(preset.val); }}
+                    aria-label={`${preset.label} Gap`}
+                  >
+                      {preset.label}
+                  </button>
+              {/each}
           </div>
       </div>
 
       <div class="space-y-4">
           <h3 class="font-bold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">{dict.alignment || 'Alignment'}</h3>
-          <div class="grid grid-cols-2 gap-3">
+          <div class="grid grid-cols-2 gap-4">
               <div>
-                  <label for="justify-items" class="text-xs text-slate-500 block mb-1">{dict.justifyItems || 'Justify Items'}</label>
-                  <select
-                    id="justify-items"
-                    value={$gridStore.justifyItems}
-                    on:change={(e) => gridStore.setJustifyItems(e.currentTarget.value as JustifyItems)}
-                    class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
-                  >
-                      <option value="start">Start</option>
-                      <option value="end">End</option>
-                      <option value="center">Center</option>
-                      <option value="stretch">Stretch</option>
-                  </select>
+                  <label for="justify-items" class="text-xs text-slate-500 block mb-2">{dict.justifyItems || 'Justify Items'}</label>
+                  <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
+                      {#each [
+                          { val: 'start', icon: AlignLeft, label: 'Start' },
+                          { val: 'center', icon: AlignCenter, label: 'Center' },
+                          { val: 'end', icon: AlignRight, label: 'End' },
+                          { val: 'stretch', icon: Maximize, label: 'Stretch' }
+                      ] as opt}
+                          <button
+                            class="flex-1 p-1.5 rounded flex items-center justify-center transition-all {$gridStore.justifyItems === opt.val ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}"
+                            on:click={() => gridStore.setJustifyItems(opt.val as JustifyItems)}
+                            title={opt.label}
+                            aria-label={opt.label}
+                          >
+                              <svelte:component this={opt.icon} size={14} />
+                          </button>
+                      {/each}
+                  </div>
               </div>
               <div>
-                  <label for="align-items" class="text-xs text-slate-500 block mb-1">{dict.alignItems || 'Align Items'}</label>
-                  <select
-                    id="align-items"
-                    value={$gridStore.alignItems}
-                    on:change={(e) => gridStore.setAlignItems(e.currentTarget.value as AlignItems)}
-                    class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
-                  >
-                      <option value="start">Start</option>
-                      <option value="end">End</option>
-                      <option value="center">Center</option>
-                      <option value="stretch">Stretch</option>
-                  </select>
+                  <label for="align-items" class="text-xs text-slate-500 block mb-2">{dict.alignItems || 'Align Items'}</label>
+                  <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
+                      {#each [
+                          { val: 'start', icon: AlignLeft, label: 'Start' }, // Using Left/Right as proxies for Start/End vertical
+                          { val: 'center', icon: AlignCenter, label: 'Center' },
+                          { val: 'end', icon: AlignRight, label: 'End' },
+                          { val: 'stretch', icon: Maximize, label: 'Stretch' }
+                      ] as opt}
+                          <button
+                            class="flex-1 p-1.5 rounded flex items-center justify-center transition-all {$gridStore.alignItems === opt.val ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}"
+                            on:click={() => gridStore.setAlignItems(opt.val as AlignItems)}
+                            title={opt.label}
+                            aria-label={opt.label}
+                            style={opt.val !== 'stretch' ? 'transform: rotate(90deg)' : ''}
+                          >
+                              <svelte:component this={opt.icon} size={14} />
+                          </button>
+                      {/each}
+                  </div>
               </div>
               <div>
                   <label for="justify-content" class="text-xs text-slate-500 block mb-1">{dict.justifyContent || 'Justify Content'}</label>
@@ -320,7 +343,7 @@
                   <Plus size={14} />
               </button>
           </div>
-          <div class="space-y-2 max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
+          <div id="areas-list" class="space-y-2 max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
               {#each $gridStore.areas as area (area.id)}
                  <div class="flex flex-col gap-2 p-2 bg-slate-50 dark:bg-slate-800/50 rounded border border-slate-100 dark:border-slate-800 group">
                      <div class="flex items-center gap-2">
@@ -371,6 +394,36 @@
 
   {:else if activeTab === 'templates'}
       <div role="tabpanel" id="tab-panel-templates" aria-labelledby="tab-templates" class="space-y-4">
+          <div class="space-y-2">
+              <h3 class="text-xs font-bold text-slate-500 uppercase">{dict.smartLayouts?.title || 'Smart Generators'}</h3>
+              <div class="grid grid-cols-2 gap-2">
+                  <button
+                    class="p-2 flex items-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-indigo-500 transition-colors text-xs font-medium"
+                    on:click={() => loadSmart('dashboard')}
+                  >
+                      <LayoutDashboard size={14} class="text-indigo-500" /> {dict.smartLayouts?.dashboard || 'Dashboard'}
+                  </button>
+                  <button
+                    class="p-2 flex items-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-indigo-500 transition-colors text-xs font-medium"
+                    on:click={() => loadSmart('blog')}
+                  >
+                      <FileText size={14} class="text-emerald-500" /> {dict.smartLayouts?.blog || 'Blog Post'}
+                  </button>
+                  <button
+                    class="p-2 flex items-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-indigo-500 transition-colors text-xs font-medium"
+                    on:click={() => loadSmart('holy-grail')}
+                  >
+                      <Layout size={14} class="text-amber-500" /> {dict.smartLayouts?.holyGrail || 'Holy Grail'}
+                  </button>
+                  <button
+                    class="p-2 flex items-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-indigo-500 transition-colors text-xs font-medium"
+                    on:click={() => loadSmart('gallery')}
+                  >
+                      <ImageIcon size={14} class="text-pink-500" /> {dict.smartLayouts?.gallery || 'Gallery'}
+                  </button>
+              </div>
+          </div>
+
           <button
               class="w-full p-3 flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg shadow-sm hover:from-purple-600 hover:to-indigo-700 transition-all font-medium"
               on:click={() => {
@@ -380,7 +433,7 @@
               aria-label={dict.magicLayout || 'Magic Layout'}
           >
               <Wand2 size={18} />
-              {dict.magicLayout || 'Magic Layout'}
+              {dict.magicLayout || 'Surprise Me (Random)'}
           </button>
 
           <div class="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">
