@@ -7,7 +7,7 @@
   } from 'lucide-svelte';
   import type { GridMasterDictionary, JustifyItems, AlignItems, JustifyContent, AlignContent } from '$lib/utils/grid-master/types';
   import { templates } from '$lib/utils/grid-master/templates';
-  import { generateMagicLayout, generateLayoutFromText, generateSmartLayout } from '$lib/utils/grid-master/generators';
+  import { generateMagicLayout, generateLayoutFromText, generateSmartLayout, remixLayout } from '$lib/utils/grid-master/generators';
   import { nanoid } from 'nanoid';
   import { tick } from 'svelte';
   import TemplatePreview from './TemplatePreview.svelte';
@@ -424,17 +424,30 @@
               </div>
           </div>
 
-          <button
-              class="w-full p-3 flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg shadow-sm hover:from-purple-600 hover:to-indigo-700 transition-all font-medium"
-              on:click={() => {
-                  const layout = generateMagicLayout();
-                  gridStore.load(layout);
-              }}
-              aria-label={dict.magicLayout || 'Magic Layout'}
-          >
-              <Wand2 size={18} />
-              {dict.magicLayout || 'Surprise Me (Random)'}
-          </button>
+          <div class="flex gap-2">
+              <button
+                  class="flex-1 p-3 flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg shadow-sm hover:from-purple-600 hover:to-indigo-700 transition-all font-medium"
+                  on:click={() => {
+                      const layout = generateMagicLayout();
+                      gridStore.load(layout);
+                  }}
+                  aria-label={dict.magicLayout || 'Magic Layout'}
+              >
+                  <Wand2 size={18} />
+                  {dict.magicLayout || 'Random'}
+              </button>
+              <button
+                  class="flex-1 p-3 flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all font-medium"
+                  on:click={() => {
+                      const layout = remixLayout($gridStore);
+                      gridStore.load(layout);
+                  }}
+                  aria-label={dict.remixLayout || 'Remix Layout'}
+              >
+                  <Settings2 size={18} />
+                  {dict.remixLayout || 'Remix'}
+              </button>
+          </div>
 
           <div class="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">
              <label for="text-layout" class="text-xs font-bold text-slate-500 uppercase">{dict.textToGrid || 'Text to Grid'}</label>

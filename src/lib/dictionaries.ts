@@ -1483,6 +1483,7 @@ export const dictionaries = {
         justifyContent: "Justify Content",
         alignContent: "Align Content",
         magicLayout: "Magic Layout",
+        remixLayout: "Remix Layout",
         semanticTag: "Semantic Tag",
         tags: {
           div: "div",
@@ -2146,6 +2147,7 @@ export const dictionaries = {
         justifyContent: "콘텐츠 가로 정렬 (Justify Content)",
         alignContent: "콘텐츠 세로 정렬 (Align Content)",
         magicLayout: "매직 레이아웃",
+        remixLayout: "레이아웃 리믹스",
         semanticTag: "시맨틱 태그",
         tags: {
           div: "div",
