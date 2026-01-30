@@ -1,14 +1,6 @@
 import { nanoid } from 'nanoid';
 import type { GridState, GridArea } from './types';
-
-const COLORS = [
-    'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald', 'teal',
-    'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose'
-];
-
-function getRandomColor() {
-    return COLORS[Math.floor(Math.random() * COLORS.length)];
-}
+import { getRandomColor } from './constants';
 
 interface Rect {
     r1: number;

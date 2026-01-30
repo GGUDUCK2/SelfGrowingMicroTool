@@ -164,7 +164,7 @@
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export" />
+  <meta name="keywords" content="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots" />
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
   <meta property="og:type" content="website" />
@@ -206,7 +206,10 @@
         "StackBlitz Export",
         "Semantic HTML Generator",
         "Interactive Gap Presets",
-        "Semantic Tag Helper"
+        "Semantic Tag Helper",
+        "Session Snapshots",
+        "Intelligent Mobile Stack Generator",
+        "Visual Content Presets"
       ]
     }
   </script>
@@ -372,7 +375,7 @@
                  class="transition-all duration-500 ease-in-out bg-white dark:bg-slate-900 shadow-2xl rounded-xl overflow-hidden ring-1 ring-slate-900/5 dark:ring-white/10"
                  style="width: {viewMode === 'desktop' ? '100%' : '375px'}; height: {viewMode === 'desktop' ? '500px' : '667px'};"
                >
-                   <GridCanvas {previewMode} />
+                   <GridCanvas {previewMode} {viewMode} />
                </div>
           </div>
 

@@ -1485,6 +1485,10 @@ export const dictionaries = {
         magicLayout: "Magic Layout",
         remixLayout: "Remix Layout",
         semanticTag: "Semantic Tag",
+        contentPreset: "Apply Preset...",
+        snapshots: "Session Snapshots",
+        capture: "Capture Snapshot",
+        noSnapshots: "No snapshots captured yet.",
         tags: {
           div: "div",
           header: "header",
@@ -2258,6 +2262,10 @@ export const dictionaries = {
         magicLayout: "매직 레이아웃",
         remixLayout: "레이아웃 리믹스",
         semanticTag: "시맨틱 태그",
+        contentPreset: "프리셋 적용...",
+        snapshots: "세션 스냅샷",
+        capture: "스냅샷 찍기",
+        noSnapshots: "캡처된 스냅샷이 없습니다.",
         tags: {
           div: "div",
           header: "header",

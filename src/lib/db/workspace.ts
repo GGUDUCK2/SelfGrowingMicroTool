@@ -27,7 +27,7 @@ export class ToolWorkspace extends Dexie {
 export const workspace = new ToolWorkspace();
 export const workspaceDB = workspace;
 
-export async function addToHistory(toolId: string, action: string, details: any) {
+export async function addToHistory(toolId: string, action: string, details: unknown) {
     const serializedDetails = typeof details === 'string' ? details : JSON.stringify(details);
 
     await workspace.history.add({

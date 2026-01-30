@@ -2,34 +2,25 @@
   import { gridStore } from '$lib/utils/grid-master/store';
   import { nanoid } from 'nanoid';
   import { fade } from 'svelte/transition';
+  import { COLOR_MAP, getRandomColor } from '$lib/utils/grid-master/constants';
+  import type { GridArea } from '$lib/utils/grid-master/types';
 
   export let previewMode = false;
+  export let viewMode: 'desktop' | 'mobile' = 'desktop';
+
+  $: isMobileView = viewMode === 'mobile' && $gridStore.includeMobile;
+
+  function getMobileAreas(areas: GridArea[]) {
+     const sorted = [...areas].sort((a, b) => {
+        if (a.rowStart !== b.rowStart) return a.rowStart - b.rowStart;
+        return a.colStart - b.colStart;
+     });
+     return sorted.map(a => `"${a.name}"`).join(' ');
+  }
 
   let isSelecting = false;
   let selectionStart = { row: -1, col: -1 };
   let selectionEnd = { row: -1, col: -1 };
-
-  // Tailwind color names for generating code later
-  const colorNames = [
-    'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald', 'teal',
-    'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose'
-  ];
-
-  function getRandomColor() {
-      const idx = Math.floor(Math.random() * colorNames.length);
-      // Store the name for codegen, but we need to render hex here
-      // Wait, codegen needs the name? Or we just export hex.
-      // Codegen uses `bg-${area.color}-500`. So I should store the name in the store.
-      // But for rendering here, I need to map name to hex if I don't trust dynamic classes.
-      return colorNames[idx];
-  }
-
-  const colorMap: Record<string, string> = {
-    red: '#f87171', orange: '#fb923c', amber: '#fbbf24', yellow: '#facc15',
-    lime: '#a3e635', green: '#4ade80', emerald: '#34d399', teal: '#2dd4bf',
-    sky: '#38bdf8', blue: '#60a5fa', indigo: '#818cf8', violet: '#a78bfa',
-    purple: '#c084fc', fuchsia: '#e879f9', pink: '#f472b6', rose: '#fb7185'
-  };
 
   function handleMouseDown(r: number, c: number) {
       if (previewMode) return;
@@ -247,6 +238,62 @@
         </div>
       `;
 
+      if (n.includes('signup') || n.includes('register')) return `
+         <div class="h-full flex flex-col items-center justify-center p-4">
+             <div class="w-full max-w-[200px] flex flex-col gap-2 bg-white/50 dark:bg-black/20 p-3 rounded-lg border border-black/5 dark:border-white/5">
+                  <div class="text-xs font-bold text-center mb-1">Create Account</div>
+                  <div class="h-6 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 text-[10px] flex items-center text-slate-400">Name</div>
+                  <div class="h-6 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 text-[10px] flex items-center text-slate-400">Email</div>
+                  <div class="h-6 w-full bg-indigo-500 rounded text-white text-[10px] font-bold flex items-center justify-center mt-1">Sign Up</div>
+             </div>
+         </div>
+      `;
+
+      if (n.includes('pricing') || n.includes('plan')) return `
+        <div class="h-full flex flex-col items-center p-3 text-center border-2 border-indigo-50 dark:border-indigo-900/30 rounded-lg bg-white/40 dark:bg-slate-800/40">
+             <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-500 mb-1">Pro Plan</h4>
+             <div class="text-2xl font-black mb-2">$29<span class="text-xs font-normal opacity-60">/mo</span></div>
+             <div class="flex flex-col gap-1 w-full opacity-70 text-[10px] mb-3">
+                 <div class="bg-black/5 dark:bg-white/5 rounded px-2 py-0.5">Feature A</div>
+                 <div class="bg-black/5 dark:bg-white/5 rounded px-2 py-0.5">Feature B</div>
+             </div>
+             <button class="mt-auto w-full py-1 bg-indigo-600 text-white rounded text-[10px] font-bold">Select</button>
+        </div>
+      `;
+
+      if (n.includes('team') || n.includes('member') || n.includes('profile')) return `
+        <div class="h-full flex flex-col items-center justify-center p-2 text-center">
+             <div class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700 mb-2 overflow-hidden relative border-2 border-white dark:border-slate-600">
+                 <svg class="absolute inset-0 m-auto text-slate-400 w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+             </div>
+             <div class="font-bold text-xs">Jane Doe</div>
+             <div class="text-[10px] opacity-60">Product Designer</div>
+        </div>
+      `;
+
+      if (n.includes('testimonial') || n.includes('review')) return `
+        <div class="h-full flex flex-col p-3 relative italic text-xs bg-white/40 dark:bg-slate-800/40 rounded-lg">
+             <span class="text-3xl absolute top-0 left-1 opacity-20 serif">"</span>
+             <p class="z-10 relative opacity-80 line-clamp-3 pl-2">This product completely transformed our workflow. Highly recommended!</p>
+             <div class="mt-auto flex items-center gap-2 pt-2 pl-2">
+                 <div class="w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-900/50"></div>
+                 <div class="flex flex-col text-[10px] not-italic">
+                     <span class="font-bold">John Smith</span>
+                     <span class="opacity-50">CEO, TechCorp</span>
+                 </div>
+             </div>
+        </div>
+      `;
+
+      if (n.includes('map') || n.includes('location')) return `
+        <div class="w-full h-full bg-slate-100 dark:bg-slate-800 relative overflow-hidden group">
+             <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle, #94a3b8 1px, transparent 1px); background-size: 10px 10px;"></div>
+             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-red-500 drop-shadow-md">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+             </div>
+        </div>
+      `;
+
       return `
         <article class="h-full flex flex-col p-2">
             <h3 class="font-bold text-lg capitalize mb-2">${escapeHtml(name)}</h3>
@@ -269,20 +316,34 @@
     class="absolute inset-4 grid"
     role="grid"
     tabindex="-1"
-    style="
-      grid-template-rows: {$gridStore.rows.join(' ')};
-      grid-template-columns: {$gridStore.cols.join(' ')};
-      gap: {$gridStore.gap};
-      row-gap: {$gridStore.rowGap};
-      column-gap: {$gridStore.colGap};
-      justify-items: {$gridStore.justifyItems};
-      align-items: {$gridStore.alignItems};
-      justify-content: {$gridStore.justifyContent};
-      align-content: {$gridStore.alignContent};
-    "
+    style={isMobileView ? `
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      gap: ${$gridStore.gap};
+      row-gap: ${$gridStore.rowGap};
+      column-gap: ${$gridStore.colGap};
+      justify-items: stretch;
+      align-items: stretch;
+      justify-content: start;
+      align-content: start;
+      grid-template-areas: ${getMobileAreas($gridStore.areas)};
+      overflow-y: auto;
+      display: grid;
+      align-content: start;
+    ` : `
+      grid-template-rows: ${$gridStore.rows.join(' ')};
+      grid-template-columns: ${$gridStore.cols.join(' ')};
+      gap: ${$gridStore.gap};
+      row-gap: ${$gridStore.rowGap};
+      column-gap: ${$gridStore.colGap};
+      justify-items: ${$gridStore.justifyItems};
+      align-items: ${$gridStore.alignItems};
+      justify-content: ${$gridStore.justifyContent};
+      align-content: ${$gridStore.alignContent};
+    `}
   >
       <!-- Background Grid Lines/Cells (for interaction) -->
-      {#if !previewMode}
+      {#if !previewMode && !isMobileView}
           <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
           {#each $gridStore.rows as _row, r (r)}
               <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
@@ -309,7 +370,7 @@
                 class="z-20 p-4 text-slate-800 dark:text-white shadow-sm border border-black/5 dark:border-white/5 rounded relative overflow-hidden"
                 style="
                   grid-area: {area.rowStart} / {area.colStart} / {area.rowEnd} / {area.colEnd};
-                  background-color: {area.color.startsWith('#') ? area.color : colorMap[area.color] || '#cbd5e1'};
+                  background-color: {area.color.startsWith('#') ? area.color : COLOR_MAP[area.color] || '#cbd5e1'};
                 "
                 transition:fade
               >
@@ -321,7 +382,7 @@
                 class="z-20 flex items-center justify-center font-bold text-slate-800 dark:text-white shadow-sm border border-black/5 dark:border-white/5 rounded relative group overflow-hidden"
                 style="
                   grid-area: {area.rowStart} / {area.colStart} / {area.rowEnd} / {area.colEnd};
-                  background-color: {area.color.startsWith('#') ? area.color : colorMap[area.color] || '#cbd5e1'};
+                  background-color: {area.color.startsWith('#') ? area.color : COLOR_MAP[area.color] || '#cbd5e1'};
                 "
                 transition:fade
               >
