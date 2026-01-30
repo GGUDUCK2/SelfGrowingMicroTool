@@ -1714,6 +1714,65 @@ export const dictionaries = {
         q3: "Does it work with Tailwind?",
         a3: "Absolutely. The tool generates the specific `extend` configuration needed to use your custom animation with Tailwind utility classes."
       },
+      mockForge: {
+        title: "Mock Forge: Data Generator",
+        description: "The definitive tool to generate realistic mock data for testing. visual schema builder, smart relationships, and multi-format export.",
+        fields: "Fields",
+        addField: "Add Field",
+        preview: "Preview",
+        generate: "Generate",
+        export: "Export",
+        rows: "Rows",
+        locale: "Locale",
+        format: "Format",
+        schema: "Schema",
+        types: {
+            id: "ID (UUID/Seq)",
+            name: "Name (Full)",
+            firstName: "First Name",
+            lastName: "Last Name",
+            email: "Email",
+            phone: "Phone",
+            date: "Date",
+            number: "Number",
+            boolean: "Boolean",
+            select: "Select (Custom)",
+            city: "City",
+            country: "Country",
+            lorem: "Lorem Ipsum"
+        },
+        formats: {
+            json: "JSON",
+            csv: "CSV",
+            sql: "SQL (Insert)",
+            xml: "XML"
+        },
+        actions: {
+            save: "Save Schema",
+            load: "Load Schema",
+            clear: "Clear",
+            download: "Download"
+        },
+        guide: {
+            title: "Why Mock Forge?",
+            intro: "Testing with real data is dangerous; testing with 'test test' is useless. Mock Forge provides realistic, correlated data sets to ensure your application handles real-world scenarios gracefully.",
+            featuresTitle: "Key Features",
+            f1: "**Smart Correlation:** Generated emails match the generated names for realism.",
+            f2: "**Multi-Format:** Export to JSON, CSV, SQL, or XML to fit any workflow.",
+            f3: "**Visual Builder:** Design complex schemas without writing a single line of code.",
+            tipsTitle: "Pro Tips",
+            tip1: "Use the **Locale** selector to generate data specific to a region (e.g., Korean names/phones).",
+            tip2: "Save your frequent schemas to **History** for quick regression testing.",
+            tip3: "For **SQL** export, you can customize the table name in the export settings."
+        },
+        faqTitle: "Mock Forge FAQ",
+        q1: "Is the data real?",
+        a1: "No, all data is algorithmically generated. Any resemblance to real persons is purely coincidental.",
+        q2: "Can I generate massive datasets?",
+        a2: "The preview is limited to 100 rows for performance, but you can download up to 5,000 rows at once.",
+        q3: "Does it support custom lists?",
+        a3: "Yes, use the 'Select' type to provide your own comma-separated list of values to pick from."
+      },
       promptForge: {
         title: "Prompt Forge: AI Prompt Engineer",
         description: "The definitive tool to craft, test, and optimize AI prompts. Manage variables, estimate costs, and export to code.",
@@ -2427,6 +2486,65 @@ export const dictionaries = {
         a2: "네, 표준 cubic-bezier 곡선 중에서 선택하거나 직접 타이밍 함수를 정의할 수 있습니다.",
         q3: "Tailwind와 함께 작동하나요?",
         a3: "물론입니다. 이 도구는 사용자 정의 애니메이션을 Tailwind 유틸리티 클래스로 사용하는 데 필요한 `extend` 구성을 생성합니다."
+      },
+      mockForge: {
+        title: "목 포지: 데이터 생성기",
+        description: "테스트를 위한 현실적인 모의 데이터를 생성하는 완벽한 도구입니다. 시각적 스키마 빌더, 스마트 관계 및 다중 형식 내보내기를 지원합니다.",
+        fields: "필드",
+        addField: "필드 추가",
+        preview: "미리보기",
+        generate: "생성",
+        export: "내보내기",
+        rows: "행 수",
+        locale: "언어/지역",
+        format: "형식",
+        schema: "스키마",
+        types: {
+            id: "ID (UUID/순차)",
+            name: "이름 (전체)",
+            firstName: "이름",
+            lastName: "성",
+            email: "이메일",
+            phone: "전화번호",
+            date: "날짜",
+            number: "숫자",
+            boolean: "불리언 (참/거짓)",
+            select: "선택 (사용자 정의)",
+            city: "도시",
+            country: "국가",
+            lorem: "로렘 입숨 (Lorem)"
+        },
+        formats: {
+            json: "JSON",
+            csv: "CSV",
+            sql: "SQL (Insert)",
+            xml: "XML"
+        },
+        actions: {
+            save: "스키마 저장",
+            load: "스키마 불러오기",
+            clear: "초기화",
+            download: "다운로드"
+        },
+        guide: {
+            title: "왜 목 포지인가요?",
+            intro: "실제 데이터로 테스트하는 것은 위험하고, 'test test'로 테스트하는 것은 무의미합니다. 목 포지는 애플리케이션이 실제 시나리오를 우아하게 처리할 수 있도록 현실적인 연관 데이터 세트를 제공합니다.",
+            featuresTitle: "주요 기능",
+            f1: "**스마트 연관성:** 생성된 이메일은 현실감을 위해 생성된 이름과 일치합니다.",
+            f2: "**다중 형식:** 모든 워크플로에 맞게 JSON, CSV, SQL 또는 XML로 내보낼 수 있습니다.",
+            f3: "**시각적 빌더:** 코드 한 줄 없이 복잡한 스키마를 설계하세요.",
+            tipsTitle: "프로 팁",
+            tip1: "**지역** 선택기를 사용하여 특정 지역(예: 한국 이름/전화번호)에 맞는 데이터를 생성하세요.",
+            tip2: "자주 사용하는 스키마를 **히스토리**에 저장하여 빠른 회귀 테스트에 사용하세요.",
+            tip3: "**SQL** 내보내기의 경우 내보내기 설정에서 테이블 이름을 사용자 정의할 수 있습니다."
+        },
+        faqTitle: "목 포지 FAQ",
+        q1: "실제 데이터인가요?",
+        a1: "아니요, 모든 데이터는 알고리즘에 의해 생성됩니다. 실제 인물과 유사하더라도 우연의 일치입니다.",
+        q2: "대용량 데이터셋을 생성할 수 있나요?",
+        a2: "성능을 위해 미리보기는 100행으로 제한되지만, 한 번에 최대 5,000행까지 다운로드할 수 있습니다.",
+        q3: "사용자 정의 목록을 지원하나요?",
+        a3: "네, '선택' 타입을 사용하여 쉼표로 구분된 자신만의 목록을 제공할 수 있습니다."
       },
       promptForge: {
         title: "프롬프트 포지: AI 프롬프트 엔지니어",
