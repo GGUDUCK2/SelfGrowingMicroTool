@@ -1713,6 +1713,56 @@ export const dictionaries = {
         a2: "Yes, you can select from standard cubic-bezier curves or define your own custom timing functions.",
         q3: "Does it work with Tailwind?",
         a3: "Absolutely. The tool generates the specific `extend` configuration needed to use your custom animation with Tailwind utility classes."
+      },
+      promptForge: {
+        title: "Prompt Forge: AI Prompt Engineer",
+        description: "The definitive tool to craft, test, and optimize AI prompts. Manage variables, estimate costs, and export to code.",
+        scenarioName: "Scenario Name",
+        defaultScenario: "Default Case",
+        addScenario: "Add Scenario",
+        deleteScenario: "Delete Scenario",
+        magicFill: "Magic Fill",
+        scenarios: "Scenarios",
+        editor: {
+          system: "System Prompt",
+          user: "User Prompt",
+          variables: "Variables",
+          placeholder: "Enter your prompt here... Use {{variable}} to define dynamic parts."
+        },
+        toolbar: {
+          save: "Save",
+          export: "Export",
+          clear: "Clear",
+          saved: "Saved!",
+          cleared: "Cleared!",
+          copy: "Copy",
+          copied: "Copied!"
+        },
+        history: {
+          title: "History",
+          search: "Search prompts...",
+          empty: "No saved prompts yet.",
+          delete: "Delete"
+        },
+        guide: {
+          title: "Why Prompt Forge?",
+          intro: "Prompt engineering is the new coding. Prompt Forge provides a professional environment to iterate on your prompts with variables, scenarios, and version control.",
+          featuresTitle: "Key Features",
+          f1: "**Variable Injection:** Dynamic {{variable}} replacement lets you test multiple scenarios instantly.",
+          f2: "**Cost Estimation:** Real-time token counting and cost estimation for GPT-4.",
+          f3: "**Code Export:** Generate Python, Node.js, or cURL snippets to integrate your prompt into your app.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use **System Prompts** to define the persona and constraints of the AI.",
+          tip2: "Create multiple **Scenarios** to test edge cases (e.g., 'Empty Input', 'Malicious Input').",
+          tip3: "Use the **Magic Fill** to auto-generate sample data for your variables."
+        },
+        faqTitle: "Prompt Forge FAQ",
+        q1: "How do variables work?",
+        a1: "Simply wrap any word in double curly braces like {{name}}. We automatically detect it and create an input field for you.",
+        q2: "Is my data sent to OpenAI?",
+        a2: "No. Prompt Forge runs entirely locally. We do not send your prompts to any AI API unless you explicitly configure it (feature coming soon).",
+        q3: "What token count logic is used?",
+        a3: "We use a GPT-4 compatible tokenizer (cl100k_base approximation) to provide accurate cost estimates."
       }
     },
     pwa: {
@@ -2377,6 +2427,56 @@ export const dictionaries = {
         a2: "네, 표준 cubic-bezier 곡선 중에서 선택하거나 직접 타이밍 함수를 정의할 수 있습니다.",
         q3: "Tailwind와 함께 작동하나요?",
         a3: "물론입니다. 이 도구는 사용자 정의 애니메이션을 Tailwind 유틸리티 클래스로 사용하는 데 필요한 `extend` 구성을 생성합니다."
+      },
+      promptForge: {
+        title: "프롬프트 포지: AI 프롬프트 엔지니어",
+        description: "AI 프롬프트를 제작, 테스트 및 최적화하는 완벽한 도구입니다. 변수를 관리하고 비용을 예측하며 코드로 내보내세요.",
+        scenarioName: "시나리오 이름",
+        defaultScenario: "기본 케이스",
+        addScenario: "시나리오 추가",
+        deleteScenario: "시나리오 삭제",
+        magicFill: "자동 채우기 (Magic Fill)",
+        scenarios: "시나리오",
+        editor: {
+          system: "시스템 프롬프트",
+          user: "사용자 프롬프트",
+          variables: "변수",
+          placeholder: "프롬프트를 입력하세요... {{variable}}을 사용하여 동적 부분을 정의하세요."
+        },
+        toolbar: {
+          save: "저장",
+          export: "내보내기",
+          clear: "초기화",
+          saved: "저장됨!",
+          cleared: "초기화됨!",
+          copy: "복사",
+          copied: "복사됨!"
+        },
+        history: {
+          title: "히스토리",
+          search: "프롬프트 검색...",
+          empty: "저장된 프롬프트가 없습니다.",
+          delete: "삭제"
+        },
+        guide: {
+          title: "왜 프롬프트 포지인가요?",
+          intro: "프롬프트 엔지니어링은 새로운 코딩입니다. 프롬프트 포지는 변수, 시나리오 및 버전 제어를 통해 프롬프트를 반복적으로 개선할 수 있는 전문적인 환경을 제공합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**변수 주입:** 동적인 {{variable}} 치환을 통해 여러 시나리오를 즉시 테스트할 수 있습니다.",
+          f2: "**비용 예측:** GPT-4에 대한 실시간 토큰 계산 및 비용 예측을 제공합니다.",
+          f3: "**코드 내보내기:** 앱에 프롬프트를 통합하기 위한 Python, Node.js 또는 cURL 스니펫을 생성합니다.",
+          tipsTitle: "프로 팁",
+          tip1: "**시스템 프롬프트**를 사용하여 AI의 페르소나와 제약 조건을 정의하세요.",
+          tip2: "여러 **시나리오**를 생성하여 에지 케이스(예: '빈 입력', '악의적인 입력')를 테스트하세요.",
+          tip3: "**자동 채우기**를 사용하여 변수에 대한 샘플 데이터를 자동으로 생성하세요."
+        },
+        faqTitle: "프롬프트 포지 FAQ",
+        q1: "변수는 어떻게 작동하나요?",
+        a1: "{{name}}과 같이 이중 중괄호로 단어를 감싸면 됩니다. 자동으로 감지하여 입력 필드를 생성합니다.",
+        q2: "데이터가 OpenAI로 전송되나요?",
+        a2: "아니요. 프롬프트 포지는 전적으로 로컬에서 실행됩니다. 명시적으로 설정하지 않는 한(기능 예정) AI API로 프롬프트를 전송하지 않습니다.",
+        q3: "어떤 토큰 계산 로직을 사용하나요?",
+        a3: "정확한 비용 예측을 위해 GPT-4 호환 토크나이저(cl100k_base 근사치)를 사용합니다."
       }
     },
     pwa: {

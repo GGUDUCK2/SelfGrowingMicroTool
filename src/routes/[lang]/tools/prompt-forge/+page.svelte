@@ -13,6 +13,8 @@
   import HistorySidebar from '$lib/components/prompt-forge/HistorySidebar.svelte';
   import CodeExport from '$lib/components/prompt-forge/CodeExport.svelte';
   import TemplateModal from '$lib/components/prompt-forge/TemplateModal.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
   import { Menu, X, Save, Copy, Trash2, Download, Code, BookTemplate } from 'lucide-svelte';
 
   // Locale
@@ -204,7 +206,7 @@
   </script>`}
 </svelte:head>
 
-<div class="flex h-screen overflow-hidden bg-slate-50 dark:bg-slate-900">
+<div class="flex h-[100dvh] overflow-hidden bg-slate-50 dark:bg-slate-900">
 
   <!-- Sidebar -->
   <div class="fixed inset-y-0 left-0 z-50 w-80 bg-white dark:bg-slate-800 shadow-xl transform transition-transform duration-300 md:relative md:translate-x-0 md:shadow-none border-r border-slate-200 dark:border-slate-700 {showSidebar ? 'translate-x-0' : '-translate-x-full'}">
@@ -290,52 +292,32 @@
         </div>
 
         <!-- Documentation & SEO Content -->
-        <div class="mt-20 max-w-4xl mx-auto pb-20">
-            <article class="prose dark:prose-invert max-w-none">
-                <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 mb-6">
-                    {dict.guide.title}
-                </h2>
-                <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">
-                    {dict.guide.intro}
-                </p>
+        <div class="mt-20 w-full pb-20 px-4">
+            <div class="max-w-6xl mx-auto">
+                <GuideSection
+                    title={dict.guide.title}
+                    intro={dict.guide.intro}
+                    featuresTitle={dict.guide.featuresTitle}
+                    f1={dict.guide.f1}
+                    f2={dict.guide.f2}
+                    f3={dict.guide.f3}
+                    tipsTitle={dict.guide.tipsTitle}
+                    tip1={dict.guide.tip1}
+                    tip2={dict.guide.tip2}
+                    tip3={dict.guide.tip3}
+                />
+            </div>
 
-                <div class="grid md:grid-cols-2 gap-8 mb-12">
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                        <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{dict.guide.featuresTitle}</h3>
-                        <ul class="space-y-3 text-slate-600 dark:text-slate-400">
-                            <li class="flex items-start gap-2"><span class="text-indigo-500">✓</span> {@html dict.guide.f1}</li>
-                            <li class="flex items-start gap-2"><span class="text-indigo-500">✓</span> {@html dict.guide.f2}</li>
-                            <li class="flex items-start gap-2"><span class="text-indigo-500">✓</span> {@html dict.guide.f3}</li>
-                        </ul>
-                    </div>
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                        <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{dict.guide.tipsTitle}</h3>
-                        <ul class="space-y-3 text-slate-600 dark:text-slate-400">
-                            <li class="flex items-start gap-2"><span class="text-amber-500">💡</span> {@html dict.guide.tip1}</li>
-                            <li class="flex items-start gap-2"><span class="text-amber-500">💡</span> {@html dict.guide.tip2}</li>
-                            <li class="flex items-start gap-2"><span class="text-amber-500">💡</span> {@html dict.guide.tip3}</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="border-t border-slate-200 dark:border-slate-700 pt-12">
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">{dict.faqTitle}</h2>
-                    <div class="grid gap-8 md:grid-cols-2">
-                        <div>
-                            <h3 class="font-semibold text-lg text-slate-900 dark:text-white mb-2">{dict.q1}</h3>
-                            <p class="text-slate-600 dark:text-slate-400">{dict.a1}</p>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-lg text-slate-900 dark:text-white mb-2">{dict.q2}</h3>
-                            <p class="text-slate-600 dark:text-slate-400">{dict.a2}</p>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-lg text-slate-900 dark:text-white mb-2">{dict.q3}</h3>
-                            <p class="text-slate-600 dark:text-slate-400">{dict.a3}</p>
-                        </div>
-                    </div>
-                </div>
-            </article>
+            <div class="max-w-4xl mx-auto mt-12">
+                <FAQSection
+                    title={dict.faqTitle}
+                    items={[
+                        { q: dict.q1, a: dict.a1 },
+                        { q: dict.q2, a: dict.a2 },
+                        { q: dict.q3, a: dict.a3 }
+                    ]}
+                />
+            </div>
         </div>
      </main>
   </div>
