@@ -1,0 +1,303 @@
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import { fade } from 'svelte/transition';
+  import { page } from '$app/stores';
+  import { getDictionary } from '$lib/dictionaries';
+  import { db, type MockForgeSchema } from '$lib/db';
+  import { MockEngine } from '$lib/utils/mock-forge/engine';
+  import type { SchemaField, GeneratorOptions } from '$lib/utils/mock-forge/types';
+
+  import SchemaBuilder from '$lib/components/mock-forge/SchemaBuilder.svelte';
+  import PreviewTable from '$lib/components/mock-forge/PreviewTable.svelte';
+  import ExportPanel from '$lib/components/mock-forge/ExportPanel.svelte';
+  import HistoryPanel from '$lib/components/mock-forge/HistoryPanel.svelte';
+  import { Save, RefreshCw, Check } from 'lucide-svelte';
+
+  // Dictionary
+  $: lang = $page.params.lang || 'en';
+  $: dictionary = getDictionary(lang);
+  $: t = dictionary.tools.mockForge;
+  $: common = dictionary.common;
+
+  // State
+  let schema: SchemaField[] = [
+    { id: '1', name: 'id', type: 'id', options: { format: 'uuid' } },
+    { id: '2', name: 'fullName', type: 'name', options: {} },
+    { id: '3', name: 'email', type: 'email', options: {} }
+  ];
+
+  let options: GeneratorOptions = {
+    locale: lang === 'ko' ? 'ko' : 'en',
+    rows: 100, // For download
+    format: 'json',
+    tableName: 'users'
+  };
+
+  let previewData: any[] = [];
+  let previewLoading = false;
+  let showToast = false;
+  let toastMsg = '';
+  let saveName = '';
+
+  let engine: MockEngine;
+
+  // Debounced generation for preview
+  let timer: any;
+
+  function generatePreview() {
+    previewLoading = true;
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      // Re-instantiate engine if locale changed
+      engine = new MockEngine(options.locale);
+      // Generate 20 rows for preview
+      previewData = engine.generate(schema, 20);
+      previewLoading = false;
+    }, 500);
+  }
+
+  // Watch for changes
+  $: {
+    schema;
+    options.locale;
+    generatePreview();
+  }
+
+  onMount(() => {
+    engine = new MockEngine(options.locale);
+    generatePreview();
+  });
+
+  async function handleExport(format: GeneratorOptions['format']) {
+    options.format = format;
+    const data = engine.generate(schema, options.rows);
+    let content = '';
+    let mime = 'text/plain';
+    let ext = 'txt';
+
+    switch (format) {
+      case 'json':
+        content = JSON.stringify(data, null, 2);
+        mime = 'application/json';
+        ext = 'json';
+        break;
+      case 'csv':
+        content = engine.toCSV(data);
+        mime = 'text/csv';
+        ext = 'csv';
+        break;
+      case 'sql':
+        content = engine.toSQL(data, options.tableName || 'mock_data');
+        mime = 'application/sql';
+        ext = 'sql';
+        break;
+      case 'xml':
+        content = engine.toXML(data);
+        mime = 'application/xml';
+        ext = 'xml';
+        break;
+    }
+
+    const blob = new Blob([content], { type: mime });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `mock_data.${ext}`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    showToastMsg('Download started!');
+  }
+
+  async function saveSchema() {
+    const name = prompt('Schema Name:', saveName || 'My Schema');
+    if (!name) return;
+    saveName = name;
+
+    try {
+      await db.mockForgeSchemas.add({
+        name,
+        fields: JSON.parse(JSON.stringify(schema)),
+        createdAt: new Date(),
+        starred: 0
+      });
+      showToastMsg('Schema saved!');
+    } catch (e) {
+      console.error(e);
+      showToastMsg('Failed to save.');
+    }
+  }
+
+  function loadSchema(item: MockForgeSchema) {
+    if (confirm('Load this schema? Current work will be replaced.')) {
+      schema = item.fields;
+      saveName = item.name;
+      showToastMsg('Schema loaded.');
+    }
+  }
+
+  function showToastMsg(msg: string) {
+    toastMsg = msg;
+    showToast = true;
+    setTimeout(() => showToast = false, 3000);
+  }
+</script>
+
+<svelte:head>
+  <title>{t.title} - MicroTools</title>
+  <meta name="description" content={t.description} />
+  <meta name="keywords" content="mock data generator, fake data, json generator, csv generator, sql insert generator, test data, developer tools" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={t.title} />
+  <meta property="og:description" content={t.description} />
+  <meta property="og:type" content="website" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Mock Forge",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Visual Schema Builder",
+      "JSON/CSV/SQL/XML Export",
+      "Realistic Data Generation",
+      "Correlated Fields"
+    ]
+  }
+  </script>
+</svelte:head>
+
+<div class="min-h-screen bg-slate-50 dark:bg-black pb-20">
+
+  <!-- Header -->
+  <div class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="/{lang}" aria-label={common.back} class="p-2 -ml-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400">
+           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </a>
+        <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
+          {t.title}
+        </h1>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button
+          class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+          on:click={generatePreview}
+        >
+          <RefreshCw size={16} class={previewLoading ? 'animate-spin' : ''} />
+          <span class="hidden sm:inline">{t.generate}</span>
+        </button>
+        <button
+          class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-lg transition-colors"
+          on:click={saveSchema}
+        >
+          <Save size={16} />
+          <span class="hidden sm:inline">{t.actions.save}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+      <!-- Left Column: Schema Builder -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
+          <h2 class="text-lg font-bold text-slate-800 dark:text-white mb-4">{t.schema}</h2>
+          <SchemaBuilder bind:fields={schema} dictionary={t} />
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
+          <ExportPanel bind:options={options} dictionary={t} onExport={handleExport} />
+        </div>
+
+        <div class="bg-slate-100 dark:bg-slate-900/50 rounded-2xl p-6 border border-slate-200 dark:border-slate-800">
+          <HistoryPanel dictionary={t} onLoad={loadSchema} />
+        </div>
+      </div>
+
+      <!-- Right Column: Preview -->
+      <div class="lg:col-span-7 h-full min-h-[500px]">
+        <div class="sticky top-24 h-[calc(100vh-8rem)]">
+          <h2 class="text-lg font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
+            {t.preview}
+            <span class="text-xs font-normal bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 px-2 py-0.5 rounded-full">Live</span>
+          </h2>
+          <PreviewTable data={previewData} loading={previewLoading} />
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Guide & FAQ -->
+    <div class="mt-24 max-w-4xl mx-auto">
+      <div class="prose dark:prose-invert max-w-none">
+        <h2 class="text-3xl font-bold mb-6">{t.guide.title}</h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">{t.guide.intro}</p>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-12 not-prose">
+          <div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            {@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong class="text-indigo-600 dark:text-indigo-400 block mb-2 text-lg">$1</strong>')}
+          </div>
+          <div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            {@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong class="text-indigo-600 dark:text-indigo-400 block mb-2 text-lg">$1</strong>')}
+          </div>
+          <div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            {@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong class="text-indigo-600 dark:text-indigo-400 block mb-2 text-lg">$1</strong>')}
+          </div>
+        </div>
+
+        <h3>{t.faqTitle}</h3>
+        <div class="space-y-4 not-prose">
+          <details class="group bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 open:ring-2 open:ring-indigo-500/20">
+            <summary class="font-medium p-4 cursor-pointer list-none flex justify-between items-center">
+              {t.q1}
+              <span class="transition group-open:rotate-180">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+              </span>
+            </summary>
+            <div class="px-4 pb-4 text-slate-600 dark:text-slate-400">{t.a1}</div>
+          </details>
+          <details class="group bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 open:ring-2 open:ring-indigo-500/20">
+            <summary class="font-medium p-4 cursor-pointer list-none flex justify-between items-center">
+              {t.q2}
+              <span class="transition group-open:rotate-180">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+              </span>
+            </summary>
+            <div class="px-4 pb-4 text-slate-600 dark:text-slate-400">{t.a2}</div>
+          </details>
+          <details class="group bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 open:ring-2 open:ring-indigo-500/20">
+            <summary class="font-medium p-4 cursor-pointer list-none flex justify-between items-center">
+              {t.q3}
+              <span class="transition group-open:rotate-180">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+              </span>
+            </summary>
+            <div class="px-4 pb-4 text-slate-600 dark:text-slate-400">{t.a3}</div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  {#if showToast}
+    <div transition:fade class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-3 rounded-full shadow-lg flex items-center gap-2 font-medium text-sm">
+      <Check size={18} />
+      {toastMsg}
+    </div>
+  {/if}
+</div>
