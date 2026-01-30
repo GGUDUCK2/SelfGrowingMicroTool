@@ -3,6 +3,7 @@
   import { marked } from 'marked';
   import { fade, slide } from 'svelte/transition';
   import { page } from '$app/stores';
+  import { Trash2 } from 'lucide-svelte';
   import Head from '$lib/components/Head.svelte';
   import { getDictionary } from '$lib/dictionaries';
   import MarkdownEditor from '$lib/components/markdown-studio/MarkdownEditor.svelte';
@@ -31,6 +32,26 @@
   $: wordCount = content ? content.trim().split(/\s+/).length : 0;
   $: charCount = content ? content.length : 0;
   $: readingTime = Math.ceil(wordCount / 200);
+
+  $: schema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "MarkFlow",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": dict.description,
+    "featureList": [
+      "Real-time Markdown Preview",
+      "Export to HTML",
+      "Markdown Templates",
+      "Local History"
+    ]
+  };
 
   // History observable
   $: history = liveQuery(() => db.markFlowHistory?.orderBy('createdAt').reverse().toArray() || []);
@@ -126,12 +147,7 @@
      // but we can trust the preview logic or use marked directly again.
      // For simplicity, we can grab the HTML from the preview component if accessible,
      // or just re-parse. Re-parsing is safer.
-     // Importing marked dynamically or using the same instance would be best.
-     // Since MarkdownPreview does it, let's just use a hidden helper or just re-import marked here.
-     // Actually, let's just use the rendered HTML from the DOM if possible,
-     // but cleaner is to use marked.
-     const { marked: markedParser } = await import('marked');
-     const html = await markedParser.parse(content);
+     const html = await marked.parse(content);
      copyToClipboard(html as string);
   }
 
@@ -169,6 +185,10 @@
   description={dict.description}
   image="https://web-factory.vercel.app/og-image.jpg"
 />
+
+<svelte:head>
+  {@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</script>'}
+</svelte:head>
 
 <div class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900 font-sans">
 
@@ -208,7 +228,7 @@
   </header>
 
   <!-- Main Workspace -->
-  <main class="flex-1 flex flex-col max-w-7xl mx-auto w-full px-0 sm:px-4 py-4 gap-4 h-[calc(100vh-4rem)]">
+  <main class="flex-1 flex flex-col max-w-7xl mx-auto w-full px-0 sm:px-4 py-4 gap-4 h-[calc(100dvh-4rem)]">
 
     <!-- Toolbar -->
     <div class="sticky top-16 z-20 shadow-sm print:hidden">
@@ -249,7 +269,7 @@
           />
         </div>
         <!-- Stats Bar -->
-        <div class="h-8 bg-slate-100 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 flex items-center px-4 text-xs text-slate-500 gap-4 select-none print:hidden">
+        <div class="min-h-[2rem] py-1 flex-wrap bg-slate-100 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 flex items-center px-4 text-xs text-slate-500 gap-4 select-none print:hidden">
            <span>{wordCount} {dict.words}</span>
            <span>{charCount} {dict.chars}</span>
            <span>{readingTime} min read</span>
