@@ -327,6 +327,10 @@
               >
                    <span class="relative z-10 pointer-events-none mix-blend-multiply dark:mix-blend-normal">{area.name}</span>
 
+                   {#if area.tag && area.tag !== 'div'}
+                       <span class="absolute bottom-1 left-2 text-[10px] opacity-50 pointer-events-none font-mono mix-blend-multiply dark:mix-blend-normal">&lt;{area.tag}&gt;</span>
+                   {/if}
+
                    <button
                      class="absolute top-1 right-1 p-1 bg-white/80 hover:bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-sm z-30"
                      on:click|stopPropagation={() => gridStore.removeArea(area.id)}

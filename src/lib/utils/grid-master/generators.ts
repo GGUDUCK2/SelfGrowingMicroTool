@@ -144,6 +144,24 @@ export function generateMagicLayout(): GridState {
     };
 }
 
+export function remixLayout(state: GridState): GridState {
+    const gaps = ['0px', '0.5rem', '1rem', '2rem'];
+    const newGap = gaps[Math.floor(Math.random() * gaps.length)];
+
+    const newAreas = state.areas.map(area => ({
+        ...area,
+        color: getRandomColor()
+    }));
+
+    return {
+        ...state,
+        gap: newGap,
+        rowGap: newGap,
+        colGap: newGap,
+        areas: newAreas
+    };
+}
+
 export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 'gallery'): GridState {
     const common = {
         gap: '1rem',
