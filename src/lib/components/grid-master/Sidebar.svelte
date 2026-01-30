@@ -12,6 +12,8 @@
   import { tick } from 'svelte';
   import TemplatePreview from './TemplatePreview.svelte';
   import HistoryPanel from './HistoryPanel.svelte';
+  import SnapshotPanel from './SnapshotPanel.svelte';
+  import { COLOR_MAP } from '$lib/utils/grid-master/constants';
 
   export let dict: GridMasterDictionary;
 
@@ -64,13 +66,6 @@
       const list = document.getElementById('areas-list');
       if (list) list.scrollTop = list.scrollHeight;
   }
-
-  const colorMap: Record<string, string> = {
-    red: '#f87171', orange: '#fb923c', amber: '#fbbf24', yellow: '#facc15',
-    lime: '#a3e635', green: '#4ade80', emerald: '#34d399', teal: '#2dd4bf',
-    sky: '#38bdf8', blue: '#60a5fa', indigo: '#818cf8', violet: '#a78bfa',
-    purple: '#c084fc', fuchsia: '#e879f9', pink: '#f472b6', rose: '#fb7185'
-  };
 
   let textLayoutInput = '';
 
@@ -347,7 +342,7 @@
               {#each $gridStore.areas as area (area.id)}
                  <div class="flex flex-col gap-2 p-2 bg-slate-50 dark:bg-slate-800/50 rounded border border-slate-100 dark:border-slate-800 group">
                      <div class="flex items-center gap-2">
-                         <div class="w-3 h-3 rounded-full shrink-0 shadow-sm" style="background-color: {area.color.startsWith('#') ? area.color : colorMap[area.color] || '#cbd5e1'}"></div>
+                         <div class="w-3 h-3 rounded-full shrink-0 shadow-sm" style="background-color: {area.color.startsWith('#') ? area.color : COLOR_MAP[area.color] || '#cbd5e1'}"></div>
                          <input
                            type="text"
                            value={area.name}
@@ -374,6 +369,36 @@
                             {#each Object.entries(dict.tags || { div: 'div', header: 'header', footer: 'footer', main: 'main', nav: 'nav', section: 'section', aside: 'aside', article: 'article' }) as [val, label] (val)}
                                 <option value={val}>{label}</option>
                             {/each}
+                         </select>
+                     </div>
+                     <div class="flex items-center gap-2">
+                         <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider w-8">PRE</span>
+                         <select
+                            on:change={(e) => {
+                                const val = e.currentTarget.value;
+                                if (val) {
+                                    updateAreaName(area.id, val);
+                                    if (['pricing', 'testimonial', 'team', 'hero'].some(k => val.includes(k))) updateAreaTag(area.id, 'section');
+                                    else if (val.includes('map') || val.includes('chart')) updateAreaTag(area.id, 'div');
+                                    else if (val.includes('header')) updateAreaTag(area.id, 'header');
+                                    else if (val.includes('footer')) updateAreaTag(area.id, 'footer');
+                                    e.currentTarget.value = '';
+                                }
+                            }}
+                            class="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-1.5 py-1 text-xs focus:ring-1 focus:ring-indigo-500 outline-none text-slate-500"
+                            aria-label="Apply Content Preset"
+                         >
+                            <option value="">{dict.contentPreset || 'Apply Preset...'}</option>
+                            <option value="header">Header</option>
+                            <option value="hero-section">Hero Section</option>
+                            <option value="pricing-table">Pricing Table</option>
+                            <option value="team-member">Team Member</option>
+                            <option value="testimonial-card">Testimonial</option>
+                            <option value="map-embed">Map / Location</option>
+                            <option value="login-form">Login Form</option>
+                            <option value="signup-form">Sign Up Form</option>
+                            <option value="chart-widget">Chart / Analytics</option>
+                            <option value="footer">Footer</option>
                          </select>
                      </div>
                      {#if dict.tagHelp?.[area.tag || 'div']}
@@ -490,7 +515,9 @@
           </div>
       </div>
   {:else if activeTab === 'history'}
-      <div role="tabpanel" id="tab-panel-history" aria-labelledby="tab-history">
+      <div role="tabpanel" id="tab-panel-history" aria-labelledby="tab-history" class="space-y-6">
+         <SnapshotPanel {dict} />
+         <div class="h-px bg-slate-200 dark:bg-slate-700"></div>
          <HistoryPanel {dict} />
       </div>
   {/if}

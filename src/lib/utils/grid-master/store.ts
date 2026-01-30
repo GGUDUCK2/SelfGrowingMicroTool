@@ -1,6 +1,15 @@
 import { writable, derived } from 'svelte/store';
 import type { GridState, GridArea, JustifyItems, AlignItems, JustifyContent, AlignContent } from './types';
 
+export interface Snapshot {
+    id: string;
+    timestamp: number;
+    name: string;
+    state: GridState;
+}
+
+export const snapshotStore = writable<Snapshot[]>([]);
+
 const initialState: GridState = {
   rows: ['1fr', '1fr', '1fr'],
   cols: ['1fr', '1fr', '1fr'],
