@@ -138,10 +138,10 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <div class="bg-slate-800 rounded-2xl p-6 shadow-xl border border-slate-700">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start relative">
+  <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-6 items-center">
 
     <!-- Input Section -->
-    <div class="space-y-4">
+    <div class="space-y-4 w-full">
       <label for="input-value" class="block text-sm font-medium text-slate-400">{t.from}</label>
 
       <div class="flex space-x-2">
@@ -165,19 +165,19 @@
       </select>
     </div>
 
-    <!-- Swap Button (Desktop: Center Absolute, Mobile: Row) -->
-    <div class="flex justify-center md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-10 my-4 md:my-0">
+    <!-- Swap Button -->
+    <div class="flex justify-center z-10">
       <button
         on:click={swap}
         class="p-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95"
         aria-label={t.swap}
       >
-        <ArrowRightLeft size={20} />
+        <ArrowRightLeft size={20} class="transform md:rotate-0 rotate-90" />
       </button>
     </div>
 
     <!-- Output Section -->
-    <div class="space-y-4">
+    <div class="space-y-4 w-full">
       <label for="output-result" class="block text-sm font-medium text-slate-400">{t.to}</label>
 
       <div class="flex space-x-2 relative group">
