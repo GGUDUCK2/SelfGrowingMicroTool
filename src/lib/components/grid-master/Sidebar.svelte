@@ -13,9 +13,11 @@
   import TemplatePreview from './TemplatePreview.svelte';
   import HistoryPanel from './HistoryPanel.svelte';
   import SnapshotPanel from './SnapshotPanel.svelte';
+  import TrackEditor from './TrackEditor.svelte';
   import { COLOR_MAP } from '$lib/utils/grid-master/constants';
 
   export let dict: GridMasterDictionary;
+  export let theme = 'standard';
 
   let activeTab: 'build' | 'templates' | 'history' = 'build';
 
@@ -120,43 +122,49 @@
 
   {#if activeTab === 'build'}
     <div role="tabpanel" id="tab-panel-build" aria-labelledby="tab-build" class="space-y-6">
-      <!-- Responsive Mode -->
-      <div class="flex items-center justify-between p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-100 dark:border-indigo-800">
-          <div class="flex items-center gap-2">
-              <span class="text-indigo-600 dark:text-indigo-400"><Settings2 size={16} /></span>
-              <span class="text-sm font-medium text-slate-700 dark:text-slate-300">{dict.includeMobile || 'Include Mobile Stack'}</span>
+      <div class="grid grid-cols-2 gap-3">
+          <!-- Responsive Mode -->
+          <div class="flex items-center justify-between p-2 px-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-100 dark:border-indigo-800">
+              <div class="flex items-center gap-2">
+                  <span class="text-indigo-600 dark:text-indigo-400"><Settings2 size={14} /></span>
+                  <span class="text-xs font-medium text-slate-700 dark:text-slate-300">{dict.includeMobile || 'Mobile Stack'}</span>
+              </div>
+              <input
+                type="checkbox"
+                checked={$gridStore.includeMobile}
+                on:change={() => gridStore.toggleMobile()}
+                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                aria-label={dict.includeMobile || 'Include Mobile Stack'}
+              />
           </div>
-          <input
-            type="checkbox"
-            checked={$gridStore.includeMobile}
-            on:change={() => gridStore.toggleMobile()}
-            class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-            aria-label={dict.includeMobile || 'Include Mobile Stack'}
-          />
+          <!-- Theme Selector -->
+          <div class="flex items-center justify-between p-2 px-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+              <span class="text-[10px] font-bold text-slate-500 uppercase">{dict.previewTheme || 'Theme'}</span>
+              <select
+                 bind:value={theme}
+                 class="bg-transparent text-xs font-medium text-slate-700 dark:text-slate-300 focus:outline-none cursor-pointer text-right w-24"
+                 aria-label={dict.previewTheme || 'Theme'}
+              >
+                  {#each Object.entries(dict.themes || { standard: 'Standard', blueprint: 'Blueprint', wireframe: 'Wireframe', cyber: 'Cyber' }) as [key, label]}
+                      <option value={key}>{label}</option>
+                  {/each}
+              </select>
+          </div>
       </div>
-      <!-- Tracks Configuration -->
+
       <!-- Tracks Configuration -->
       <div class="space-y-4">
           <h3 class="font-bold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">{dict.rows}</h3>
           <div class="space-y-2">
               {#each $gridStore.rows as row, i (i)}
-                 <div class="flex gap-2 items-center">
-                     <span class="text-xs text-slate-400 font-mono w-4">{i+1}</span>
-                     <input
-                       type="text"
-                       value={row}
-                       on:change={(e) => updateRow(i, e.currentTarget.value)}
-                       class="flex-1 min-w-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
-                       aria-label={`Row ${i + 1} size`}
-                     />
-                     <button
-                       class="p-1.5 text-slate-400 hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
-                       on:click={() => gridStore.removeRow(i)}
-                       aria-label={`Remove row ${i + 1}`}
-                     >
-                        <Trash2 size={14} />
-                     </button>
-                 </div>
+                 <TrackEditor
+                    index={i}
+                    value={row}
+                    label={dict.rows}
+                    {dict}
+                    on:change={(e) => updateRow(i, e.detail)}
+                    on:remove={() => gridStore.removeRow(i)}
+                 />
               {/each}
               <button
                 class="w-full py-2 flex items-center justify-center gap-2 border border-dashed border-slate-300 dark:border-slate-700 rounded text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
@@ -173,23 +181,14 @@
           <h3 class="font-bold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">{dict.cols}</h3>
           <div class="space-y-2">
               {#each $gridStore.cols as col, i (i)}
-                 <div class="flex gap-2 items-center">
-                     <span class="text-xs text-slate-400 font-mono w-4">{i+1}</span>
-                     <input
-                       type="text"
-                       value={col}
-                       on:change={(e) => updateCol(i, e.currentTarget.value)}
-                       class="flex-1 min-w-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
-                       aria-label={`Column ${i + 1} size`}
-                     />
-                     <button
-                       class="p-1.5 text-slate-400 hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
-                       on:click={() => gridStore.removeCol(i)}
-                       aria-label={`Remove column ${i + 1}`}
-                     >
-                        <Trash2 size={14} />
-                     </button>
-                 </div>
+                 <TrackEditor
+                    index={i}
+                    value={col}
+                    label={dict.cols}
+                    {dict}
+                    on:change={(e) => updateCol(i, e.detail)}
+                    on:remove={() => gridStore.removeCol(i)}
+                 />
               {/each}
               <button
                 class="w-full py-2 flex items-center justify-center gap-2 border border-dashed border-slate-300 dark:border-slate-700 rounded text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"

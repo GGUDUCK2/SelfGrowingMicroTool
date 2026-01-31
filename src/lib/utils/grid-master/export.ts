@@ -1,5 +1,6 @@
 import { generateHTML } from './codegen';
 import type { GridState } from './types';
+import { COLOR_MAP } from './constants';
 
 export function openInStackBlitz(html: string) {
     const form = document.createElement('form');
@@ -43,6 +44,124 @@ export function downloadProjectHtml(state: GridState) {
     const a = document.createElement('a');
     a.href = url;
     a.download = 'grid-master-project.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+export function generateSVG(state: GridState, theme = 'standard'): string {
+    const width = 800;
+    const height = 600;
+
+    const parseTrack = (track: string, available: number) => {
+        if (track.endsWith('px')) return parseFloat(track);
+        if (track.endsWith('%')) return (parseFloat(track) / 100) * available;
+        if (track === 'auto' || track.includes('minmax') || track.includes('fit-content')) return 100; // arbitrary fallback
+        if (track.endsWith('fr')) return parseFloat(track);
+        return 100;
+    };
+
+    const rowDefs = state.rows.map(r => ({ raw: r, val: parseTrack(r, height), type: r.endsWith('fr') ? 'fr' : 'fixed' }));
+    const colDefs = state.cols.map(c => ({ raw: c, val: parseTrack(c, width), type: c.endsWith('fr') ? 'fr' : 'fixed' }));
+
+    const totalFixedH = rowDefs.filter(r => r.type === 'fixed').reduce((a, b) => a + b.val, 0);
+    const totalFrH = rowDefs.filter(r => r.type === 'fr').reduce((a, b) => a + b.val, 0);
+    const availableH = Math.max(0, height - totalFixedH);
+
+    const totalFixedW = colDefs.filter(c => c.type === 'fixed').reduce((a, b) => a + b.val, 0);
+    const totalFrW = colDefs.filter(c => c.type === 'fr').reduce((a, b) => a + b.val, 0);
+    const availableW = Math.max(0, width - totalFixedW);
+
+    // Calculate start positions
+    const rowPos = [0];
+    rowDefs.forEach(r => {
+        let size = r.val;
+        if (r.type === 'fr') {
+            size = (r.val / (totalFrH || 1)) * availableH;
+        }
+        rowPos.push(rowPos[rowPos.length - 1] + size);
+    });
+
+    const colPos = [0];
+    colDefs.forEach(c => {
+        let size = c.val;
+        if (c.type === 'fr') {
+            size = (c.val / (totalFrW || 1)) * availableW;
+        }
+        colPos.push(colPos[colPos.length - 1] + size);
+    });
+
+    // Generate Areas
+    let rects = '';
+    const fontSize = 14;
+
+    state.areas.forEach(area => {
+        const r1 = area.rowStart - 1;
+        const r2 = area.rowEnd - 1;
+        const c1 = area.colStart - 1;
+        const c2 = area.colEnd - 1;
+
+        if (r1 >= rowPos.length || c1 >= colPos.length) return;
+
+        const y = rowPos[r1];
+        const h = Math.max(0, (rowPos[r2] || height) - y);
+        const x = colPos[c1];
+        const w = Math.max(0, (colPos[c2] || width) - x);
+
+        // Apply theme colors
+        let fill = area.color.startsWith('#') ? area.color : COLOR_MAP[area.color] || '#cbd5e1';
+        let stroke = 'none';
+        let textFill = '#1e293b'; // slate-800
+        let strokeWidth = 0;
+
+        if (theme === 'blueprint') {
+            fill = '#1e3a8a'; // blue-900
+            stroke = '#60a5fa'; // blue-400
+            strokeWidth = 2;
+            textFill = '#ffffff';
+        } else if (theme === 'wireframe') {
+            fill = '#ffffff';
+            stroke = '#94a3b8'; // slate-400
+            strokeWidth = 2;
+            textFill = '#000000';
+        } else if (theme === 'cyber') {
+            fill = '#000000';
+            stroke = '#00ff00';
+            strokeWidth = 2;
+            textFill = '#00ff00';
+        }
+
+        // Adjust opacity for fill in blueprint/wireframe
+        const fillOpacity = theme === 'standard' ? 1 : (theme === 'blueprint' ? 0.5 : 0.1);
+
+        rects += `
+            <g>
+                <rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fill}" fill-opacity="${fillOpacity}" stroke="${stroke}" stroke-width="${strokeWidth}" />
+                <text x="${x + w/2}" y="${y + h/2}" font-family="sans-serif" font-size="${fontSize}" fill="${textFill}" text-anchor="middle" dominant-baseline="middle" font-weight="bold">
+                    ${area.name}
+                </text>
+            </g>
+        `;
+    });
+
+    const bg = theme === 'cyber' ? '#111' : (theme === 'blueprint' ? '#eff6ff' : '#f8fafc');
+
+    return `
+<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100%" height="100%" fill="${bg}" />
+    ${rects}
+</svg>
+    `.trim();
+}
+
+export function downloadSVG(state: GridState, theme = 'standard') {
+    const svg = generateSVG(state, theme);
+    const blob = new Blob([svg], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `grid-master-${theme}.svg`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

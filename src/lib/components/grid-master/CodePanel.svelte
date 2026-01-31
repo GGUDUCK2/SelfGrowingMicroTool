@@ -8,11 +8,12 @@
     generateVue,
     generateSvelte
   } from '$lib/utils/grid-master/codegen';
-  import { openInStackBlitz } from '$lib/utils/grid-master/export';
-  import { Copy, Check, Code, FileCode, Download, Zap, FileType, Boxes, Box } from 'lucide-svelte';
+  import { openInStackBlitz, downloadSVG } from '$lib/utils/grid-master/export';
+  import { Copy, Check, Code, FileCode, Download, Zap, FileType, Boxes, Box, Image } from 'lucide-svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
   export let dict: GridMasterDictionary;
+  export let theme = 'standard';
 
   let activeTab: 'tailwind' | 'css' | 'html' | 'react' | 'vue' | 'svelte' = 'tailwind';
   let copied = false;
@@ -115,6 +116,15 @@
           >
              <Zap size={14} />
              <span class="hidden sm:inline">StackBlitz</span>
+          </button>
+          <button
+            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-slate-400 hover:bg-slate-800 hover:text-white"
+            on:click={() => downloadSVG($gridStore, theme)}
+            aria-label={dict.downloadSvg || 'Download SVG'}
+            title="Export Grid as SVG"
+          >
+             <Image size={14} />
+             <span class="hidden sm:inline">SVG</span>
           </button>
           <button
             class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-slate-400 hover:bg-slate-800 hover:text-white"
