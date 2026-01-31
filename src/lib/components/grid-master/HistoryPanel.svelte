@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { workspace, type ToolHistoryItem, toggleStar, deleteHistoryItem } from '$lib/db/workspace';
+  import { workspace, type ToolHistoryItem, toggleStar, deleteHistoryItem, saveToHistory as saveToDb } from '$lib/db/workspace';
   import { gridStore } from '$lib/utils/grid-master/store';
   import { liveQuery } from 'dexie';
   import { browser } from '$app/environment';
-  import { Clock, RotateCcw, Star, Trash2 } from 'lucide-svelte';
+  import { Clock, RotateCcw, Star, Trash2, Save } from 'lucide-svelte';
   import TemplatePreview from './TemplatePreview.svelte';
   import type { GridState, GridMasterDictionary } from '$lib/utils/grid-master/types';
 
@@ -20,6 +20,10 @@
       ).subscribe(val => history = val as ToolHistoryItem<GridState>[]);
   }
 
+  function save() {
+      saveToDb('grid-master', $gridStore, null);
+  }
+
   function restore(state: GridState | undefined) {
       if (!state) return;
       if (confirm(dict.restoreConfirm || 'Restore this session version? Current work will be replaced.')) {
@@ -33,10 +37,20 @@
 </script>
 
 <div class="space-y-4">
-  <h3 class="font-bold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
-      <Clock size={14} />
-      {dict.history || 'Session History'}
-  </h3>
+  <div class="flex items-center justify-between">
+      <h3 class="font-bold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
+          <Clock size={14} />
+          {dict.history || 'Session History'}
+      </h3>
+      <button
+          class="flex items-center gap-2 px-3 py-1.5 bg-indigo-600 text-white rounded text-xs font-medium hover:bg-indigo-700 transition-colors shadow-sm"
+          on:click={save}
+          aria-label={dict.save || 'Save Project'}
+      >
+          <Save size={14} />
+          {dict.save || 'Save'}
+      </button>
+  </div>
 
   <div class="space-y-3 max-h-[400px] overflow-y-auto pr-1 custom-scrollbar">
      {#if history.length === 0}
