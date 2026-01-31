@@ -7,8 +7,40 @@
 
   export let previewMode = false;
   export let viewMode: 'desktop' | 'mobile' = 'desktop';
+  export let theme = 'standard';
 
   $: isMobileView = viewMode === 'mobile' && $gridStore.includeMobile;
+
+  function getThemeStyles(area: GridArea, theme: string) {
+      if (theme === 'blueprint') {
+          return `
+            background-color: #1e3a8a10;
+            border: 2px dashed #60a5fa;
+            color: #1e3a8a;
+          `;
+      }
+      if (theme === 'wireframe') {
+          return `
+            background-color: #ffffff;
+            border: 2px solid #94a3b8;
+            color: #000000;
+          `;
+      }
+      if (theme === 'cyber') {
+          return `
+            background-color: #000000;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            box-shadow: 0 0 5px #00ff00;
+            text-shadow: 0 0 5px #00ff00;
+          `;
+      }
+      // Standard
+      return `
+        background-color: ${area.color.startsWith('#') ? area.color : COLOR_MAP[area.color] || '#cbd5e1'};
+        border: 1px solid rgba(0,0,0,0.05);
+      `;
+  }
 
   function getMobileAreas(areas: GridArea[]) {
      const sorted = [...areas].sort((a, b) => {
@@ -307,7 +339,8 @@
 </script>
 
 <div
-  class="relative w-full h-full min-h-[400px] bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-inner border border-slate-200 dark:border-slate-800 touch-none select-none"
+  class="relative w-full h-full min-h-[400px] rounded-xl overflow-hidden shadow-inner border touch-none select-none transition-colors duration-300
+  {theme === 'cyber' ? 'bg-black border-green-900' : (theme === 'blueprint' ? 'bg-blue-50 border-blue-200' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800')}"
   on:mouseup={handleMouseUp}
   role="presentation"
 >
@@ -351,7 +384,10 @@
                   <button
                       id={`grid-cell-${r}-${c}`}
                       role="gridcell"
-                      class="border border-dashed border-slate-200 dark:border-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 transition-colors z-10"
+                      class="border border-dashed transition-colors z-10
+                      {theme === 'cyber' ? 'border-green-900/30 hover:bg-green-900/20' :
+                       (theme === 'blueprint' ? 'border-blue-200 hover:bg-blue-100' :
+                       'border-slate-200 dark:border-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/10')}"
                       on:mousedown={() => handleMouseDown(r, c)}
                       on:mouseover={() => handleMouseOver(r, c)}
                       on:focus={() => handleMouseOver(r, c)}
@@ -367,10 +403,10 @@
           {#if previewMode}
               <svelte:element
                 this={getSemanticTag(area.name)}
-                class="z-20 p-4 text-slate-800 dark:text-white shadow-sm border border-black/5 dark:border-white/5 rounded relative overflow-hidden"
+                class="z-20 p-4 shadow-sm rounded relative overflow-hidden transition-all {theme === 'cyber' ? 'font-mono text-green-400' : 'text-slate-800 dark:text-white'}"
                 style="
                   grid-area: {area.rowStart} / {area.colStart} / {area.rowEnd} / {area.colEnd};
-                  background-color: {area.color.startsWith('#') ? area.color : COLOR_MAP[area.color] || '#cbd5e1'};
+                  {getThemeStyles(area, theme)}
                 "
                 transition:fade
               >
@@ -379,17 +415,17 @@
               </svelte:element>
           {:else}
               <div
-                class="z-20 flex items-center justify-center font-bold text-slate-800 dark:text-white shadow-sm border border-black/5 dark:border-white/5 rounded relative group overflow-hidden"
+                class="z-20 flex items-center justify-center font-bold shadow-sm rounded relative group overflow-hidden transition-all {theme === 'cyber' ? 'font-mono' : ''}"
                 style="
                   grid-area: {area.rowStart} / {area.colStart} / {area.rowEnd} / {area.colEnd};
-                  background-color: {area.color.startsWith('#') ? area.color : COLOR_MAP[area.color] || '#cbd5e1'};
+                  {getThemeStyles(area, theme)}
                 "
                 transition:fade
               >
-                   <span class="relative z-10 pointer-events-none mix-blend-multiply dark:mix-blend-normal">{area.name}</span>
+                   <span class="relative z-10 pointer-events-none {theme === 'standard' ? 'mix-blend-multiply dark:mix-blend-normal' : ''}">{area.name}</span>
 
                    {#if area.tag && area.tag !== 'div'}
-                       <span class="absolute bottom-1 left-2 text-[10px] opacity-50 pointer-events-none font-mono mix-blend-multiply dark:mix-blend-normal">&lt;{area.tag}&gt;</span>
+                       <span class="absolute bottom-1 left-2 text-[10px] opacity-50 pointer-events-none font-mono {theme === 'standard' ? 'mix-blend-multiply dark:mix-blend-normal' : ''}">&lt;{area.tag}&gt;</span>
                    {/if}
 
                    <button

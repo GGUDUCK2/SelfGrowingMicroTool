@@ -29,6 +29,7 @@
   let showShortcuts = false;
   let canRestoreSession = false;
   let lastSessionState: GridState | null = null;
+  let theme = 'standard';
 
   function handleKeydown(e: KeyboardEvent) {
       const target = e.target as HTMLElement;
@@ -358,7 +359,7 @@
       <!-- Left Sidebar (Controls) -->
       <div class="lg:col-span-3 space-y-8 order-2 lg:order-1">
           <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-5">
-              <Sidebar {dict} />
+              <Sidebar {dict} bind:theme />
           </div>
 
           <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-5">
@@ -375,13 +376,13 @@
                  class="transition-all duration-500 ease-in-out bg-white dark:bg-slate-900 shadow-2xl rounded-xl overflow-hidden ring-1 ring-slate-900/5 dark:ring-white/10"
                  style="width: {viewMode === 'desktop' ? '100%' : '375px'}; height: {viewMode === 'desktop' ? '500px' : '667px'};"
                >
-                   <GridCanvas {previewMode} {viewMode} />
+                   <GridCanvas {previewMode} {viewMode} {theme} />
                </div>
           </div>
 
           <!-- Output Code -->
           <div class="h-64">
-              <CodePanel {dict} />
+              <CodePanel {dict} {theme} />
           </div>
 
           <!-- Documentation -->
