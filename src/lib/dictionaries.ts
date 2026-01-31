@@ -1837,6 +1837,76 @@ export const dictionaries = {
         a2: "No. Prompt Forge runs entirely locally. We do not send your prompts to any AI API unless you explicitly configure it (feature coming soon).",
         q3: "What token count logic is used?",
         a3: "We use a GPT-4 compatible tokenizer (cl100k_base approximation) to provide accurate cost estimates."
+      },
+      invoiceForge: {
+        title: "Invoice Forge: Pro Invoice Generator",
+        description: "The definitive tool to create, manage, and export professional invoices. PDF export, client management, and currency support.",
+        editor: {
+          title: "Invoice Editor",
+          from: "From (Sender)",
+          to: "Bill To (Client)",
+          meta: "Invoice Details",
+          number: "Invoice #",
+          date: "Date",
+          dueDate: "Due Date",
+          currency: "Currency",
+          taxRate: "Tax Rate (%)",
+          discount: "Discount",
+          logo: "Logo (Optional)",
+          uploadLogo: "Upload Logo",
+          notes: "Notes / Terms",
+          items: "Line Items",
+          addItem: "Add Item",
+          subtotal: "Subtotal",
+          tax: "Tax",
+          total: "Total",
+          itemDesc: "Description",
+          quantity: "Qty",
+          price: "Price",
+          amount: "Amount"
+        },
+        actions: {
+          downloadPdf: "Download PDF",
+          downloadImage: "Download Image",
+          print: "Print",
+          save: "Save Invoice",
+          load: "Load Invoice",
+          new: "New Invoice",
+          saved: "Invoice Saved!",
+          reset: "Reset"
+        },
+        clients: {
+          title: "Client Manager",
+          add: "Add Client",
+          name: "Client Name",
+          email: "Email",
+          address: "Address",
+          save: "Save Client",
+          saved: "Client Saved!"
+        },
+        history: {
+          title: "Invoice History",
+          empty: "No saved invoices."
+        },
+        guide: {
+          title: "Why Invoice Forge?",
+          intro: "Professional invoices get you paid faster. Invoice Forge provides a clean, standard, and distraction-free environment to generate invoices that look great on any device or printer.",
+          featuresTitle: "Key Features",
+          f1: "**Local Privacy:** Your client data and financial details never leave your browser.",
+          f2: "**Smart Defaults:** Auto-calculates totals, taxes, and sets due dates intelligently.",
+          f3: "**Print Perfect:** Designed with CSS Print Media queries to ensure perfect A4/Letter output.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use **Download PDF** (or Ctrl+P) to generate a professional PDF document.",
+          tip2: "Save your frequent clients in the **Client Manager** for one-click auto-fill.",
+          tip3: "Upload a **Logo** to brand your invoices professionally."
+        },
+        faqTitle: "Invoice Forge FAQ",
+        q1: "Are my invoices private?",
+        a1: "Yes, absolutely. All data is stored in your browser's IndexedDB. We do not see your clients or amounts.",
+        q2: "Can I change the currency?",
+        a2: "Yes, you can type any currency symbol or code in the settings panel.",
+        q3: "How do I save as PDF?",
+        a3: "Click the 'Download PDF' button. This triggers the browser's native print-to-PDF functionality, which generates the highest quality vector PDF."
       }
     },
     pwa: {
@@ -2671,6 +2741,76 @@ export const dictionaries = {
         a2: "아니요. 프롬프트 포지는 전적으로 로컬에서 실행됩니다. 명시적으로 설정하지 않는 한(기능 예정) AI API로 프롬프트를 전송하지 않습니다.",
         q3: "어떤 토큰 계산 로직을 사용하나요?",
         a3: "정확한 비용 예측을 위해 GPT-4 호환 토크나이저(cl100k_base 근사치)를 사용합니다."
+      },
+      invoiceForge: {
+        title: "인보이스 포지: 전문 청구서 생성기",
+        description: "전문적인 청구서를 생성, 관리 및 내보내는 완벽한 도구입니다. PDF 내보내기, 고객 관리 및 통화 지원.",
+        editor: {
+          title: "청구서 에디터",
+          from: "보내는 사람",
+          to: "받는 사람 (고객)",
+          meta: "청구서 상세",
+          number: "청구서 번호",
+          date: "날짜",
+          dueDate: "지불 기한",
+          currency: "통화",
+          taxRate: "세율 (%)",
+          discount: "할인",
+          logo: "로고 (선택)",
+          uploadLogo: "로고 업로드",
+          notes: "비고 / 약관",
+          items: "품목",
+          addItem: "항목 추가",
+          subtotal: "소계",
+          tax: "세금",
+          total: "합계",
+          itemDesc: "설명",
+          quantity: "수량",
+          price: "단가",
+          amount: "금액"
+        },
+        actions: {
+          downloadPdf: "PDF 다운로드",
+          downloadImage: "이미지 다운로드",
+          print: "인쇄",
+          save: "청구서 저장",
+          load: "불러오기",
+          new: "새 청구서",
+          saved: "청구서 저장됨!",
+          reset: "초기화"
+        },
+        clients: {
+          title: "고객 관리",
+          add: "고객 추가",
+          name: "고객명",
+          email: "이메일",
+          address: "주소",
+          save: "고객 저장",
+          saved: "고객 저장됨!"
+        },
+        history: {
+          title: "청구서 히스토리",
+          empty: "저장된 청구서가 없습니다."
+        },
+        guide: {
+          title: "왜 인보이스 포지인가요?",
+          intro: "전문적인 청구서는 더 빠른 입금을 돕습니다. 인보이스 포지는 어떤 기기나 프린터에서도 훌륭하게 보이는 청구서를 생성할 수 있는 깔끔하고 표준화된 환경을 제공합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**로컬 프라이버시:** 고객 데이터와 재무 세부 정보는 브라우저를 떠나지 않습니다.",
+          f2: "**스마트 기본값:** 합계, 세금을 자동으로 계산하고 지불 기한을 지능적으로 설정합니다.",
+          f3: "**완벽한 인쇄:** CSS 인쇄 미디어 쿼리로 설계되어 완벽한 A4/Letter 출력을 보장합니다.",
+          tipsTitle: "프로 팁",
+          tip1: "**PDF 다운로드** (또는 Ctrl+P)를 사용하여 전문적인 PDF 문서를 생성하세요.",
+          tip2: "자주 거래하는 고객을 **고객 관리**에 저장하여 원클릭으로 자동 입력하세요.",
+          tip3: "**로고**를 업로드하여 청구서를 전문적으로 브랜딩하세요."
+        },
+        faqTitle: "인보이스 포지 FAQ",
+        q1: "내 청구서는 비공개인가요?",
+        a1: "네, 물론입니다. 모든 데이터는 브라우저의 IndexedDB에 저장됩니다. 우리는 귀하의 고객이나 금액을 볼 수 없습니다.",
+        q2: "통화를 변경할 수 있나요?",
+        a2: "네, 설정 패널에서 통화 기호나 코드를 입력할 수 있습니다.",
+        q3: "PDF로 저장하려면 어떻게 하나요?",
+        a3: "'PDF 다운로드' 버튼을 클릭하세요. 브라우저의 기본 PDF 인쇄 기능을 사용하여 최고 품질의 벡터 PDF를 생성합니다."
       }
     },
     pwa: {
