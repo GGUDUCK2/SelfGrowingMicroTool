@@ -236,6 +236,25 @@ export interface MotionMasterHistory {
   starred?: number;
 }
 
+export interface InvoiceHistory {
+  id?: number;
+  data: any;
+  invoiceNumber: string;
+  clientName: string;
+  total: number;
+  currency: string;
+  createdAt: Date;
+  starred?: number;
+}
+
+export interface InvoiceClient {
+  id?: number;
+  name: string;
+  email: string;
+  address: string;
+  createdAt: Date;
+}
+
 class MySubClassedDexie extends Dexie {
   compoundInterestConfig!: DexieTable<CompoundInterestConfig>;
   compoundInterestHistory!: DexieTable<CompoundInterestHistory>;
@@ -261,6 +280,8 @@ class MySubClassedDexie extends Dexie {
   sqlForgeHistory!: DexieTable<SqlForgeHistory>;
   motionMasterHistory!: DexieTable<MotionMasterHistory>;
   mockForgeSchemas!: DexieTable<MockForgeSchema>;
+  invoiceForgeHistory!: DexieTable<InvoiceHistory>;
+  invoiceForgeClients!: DexieTable<InvoiceClient>;
 
   constructor() {
     super('webFactoryDB');
@@ -698,6 +719,34 @@ class MySubClassedDexie extends Dexie {
       sqlForgeHistory: '++id, timestamp, starred',
       motionMasterHistory: '++id, createdAt, starred',
       mockForgeSchemas: '++id, createdAt, starred'
+    });
+    this.version(30).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      idForgeHistory: '++id, createdAt, starred',
+      cipherHistory: '++id, createdAt, starred',
+      structuraHistory: '++id, createdAt, starred',
+      markFlowHistory: '++id, createdAt, starred',
+      seoHistory: '++id, createdAt, projectName, starred',
+      schemaForgeProjects: '++id, createdAt, starred',
+      iconForgeProjects: '++id, createdAt, starred',
+      promptForgeHistory: '++id, createdAt, starred',
+      inputLabHistory: '++id, createdAt, starred',
+      decisionForgeMatrices: '++id, createdAt, starred',
+      gridMasterProjects: '++id, createdAt, starred',
+      snippetForgeHistory: '++id, createdAt, starred',
+      jwtForgeHistory: '++id, createdAt, starred',
+      sqlForgeHistory: '++id, timestamp, starred',
+      motionMasterHistory: '++id, createdAt, starred',
+      mockForgeSchemas: '++id, createdAt, starred',
+      invoiceForgeHistory: '++id, createdAt, invoiceNumber, clientName, starred',
+      invoiceForgeClients: '++id, name, createdAt'
     });
   }
 }
