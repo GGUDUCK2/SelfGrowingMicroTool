@@ -1,6 +1,27 @@
-import { generateHTML } from './codegen';
+import { generateHTML, generateCSS } from './codegen';
 import type { GridState } from './types';
 import { COLOR_MAP } from './constants';
+import JSZip from 'jszip';
+
+export async function downloadProjectZip(state: GridState) {
+    const zip = new JSZip();
+    const html = generateHTML(state);
+    const css = generateCSS(state);
+
+    zip.file("index.html", html);
+    zip.file("style.css", css);
+    zip.file("README.md", `# Grid Master Project\n\nGenerated with Grid Master.\n\n## Files\n- index.html: Self-contained preview\n- style.css: Raw CSS styles`);
+
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "grid-master-project.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
 
 export function openInStackBlitz(html: string) {
     const form = document.createElement('form');

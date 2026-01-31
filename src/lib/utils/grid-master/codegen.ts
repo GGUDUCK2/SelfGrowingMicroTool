@@ -101,8 +101,11 @@ ${templateAreas};
 
 export function generateMobileQuery(state: GridState, containerClass = 'container'): string {
     const { areas } = state;
-    // Simple stacking logic: sort by row then col
+    // Sort by mobileOrder if available, otherwise fallback to row/col
     const sorted = [...areas].sort((a, b) => {
+        if (a.mobileOrder !== undefined && b.mobileOrder !== undefined) {
+             return a.mobileOrder - b.mobileOrder;
+        }
         if (a.rowStart !== b.rowStart) return a.rowStart - b.rowStart;
         return a.colStart - b.colStart;
     });
@@ -118,6 +121,29 @@ export function generateMobileQuery(state: GridState, containerClass = 'containe
 ${areasString};
   }
 }`;
+}
+
+function getMockContent(area: GridArea): string {
+    const type = area.contentType;
+    if (!type || type === 'none') return area.name;
+
+    const style = 'width:100%;height:100%;';
+
+    if (type === 'chart') return `<div style="${style}display:flex;align-items:end;gap:4px;opacity:0.6"><div style="height:30%;flex:1;background:currentColor"></div><div style="height:60%;flex:1;background:currentColor"></div><div style="height:45%;flex:1;background:currentColor"></div><div style="height:80%;flex:1;background:currentColor"></div></div>`;
+
+    if (type === 'form') return `<div style="${style}display:flex;flex-direction:column;gap:8px"><div style="height:32px;border:1px solid currentColor;opacity:0.3;border-radius:4px"></div><div style="height:32px;border:1px solid currentColor;opacity:0.3;border-radius:4px"></div><div style="height:32px;background:currentColor;opacity:0.5;border-radius:4px;width:50%"></div></div>`;
+
+    if (type === 'video') return `<div style="${style}display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.1);border-radius:4px">▶</div>`;
+
+    if (type === 'image') return `<div style="${style}display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.05);border-radius:4px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
+
+    if (type === 'hero') return `<div style="${style}display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center"><h1 style="margin:0;font-size:2em">Hero</h1><p style="opacity:0.7">Subtitle</p><button style="margin-top:10px;padding:5px 15px;background:currentColor;color:white;border:none;border-radius:4px">Action</button></div>`;
+
+    if (type === 'table') return `<div style="${style}display:flex;flex-direction:column;gap:4px"><div style="height:20px;background:currentColor;opacity:0.2"></div><div style="height:20px;background:currentColor;opacity:0.1"></div><div style="height:20px;background:currentColor;opacity:0.1"></div></div>`;
+
+    if (type === 'login') return `<div style="${style}display:flex;flex-direction:column;gap:8px;max-width:200px;margin:auto;justify-content:center"><div style="text-align:center;font-weight:bold">Login</div><div style="height:30px;border:1px solid currentColor;opacity:0.3;border-radius:4px"></div><div style="height:30px;border:1px solid currentColor;opacity:0.3;border-radius:4px"></div><div style="height:30px;background:currentColor;opacity:0.8;border-radius:4px;color:white;display:flex;align-items:center;justify-content:center">Sign In</div></div>`;
+
+    return area.name;
 }
 
 export function generateTailwind(state: GridState): string {
@@ -219,7 +245,7 @@ export function generateHTML(state: GridState): string {
 </head>
 <body>
   <div class="grid-container">
-    ${areas.map(a => `<${a.tag || 'div'} class="${a.name}">${a.name}</${a.tag || 'div'}>`).join('\n    ')}
+    ${areas.map(a => `<${a.tag || 'div'} class="${a.name}">${getMockContent(a)}</${a.tag || 'div'}>`).join('\n    ')}
   </div>
 </body>
 </html>`;

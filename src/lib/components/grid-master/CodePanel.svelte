@@ -8,8 +8,8 @@
     generateVue,
     generateSvelte
   } from '$lib/utils/grid-master/codegen';
-  import { openInStackBlitz, downloadSVG } from '$lib/utils/grid-master/export';
-  import { Copy, Check, Code, FileCode, Download, Zap, FileType, Boxes, Box, Image } from 'lucide-svelte';
+  import { openInStackBlitz, downloadSVG, downloadProjectZip } from '$lib/utils/grid-master/export';
+  import { Copy, Check, Code, FileCode, Download, Zap, FileType, Boxes, Box, Image, Package } from 'lucide-svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
   export let dict: GridMasterDictionary;
@@ -129,10 +129,20 @@
           <button
             class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-slate-400 hover:bg-slate-800 hover:text-white"
             on:click={downloadHTML}
-            aria-label={dict.download || 'Download'}
+            aria-label={dict.downloadHtml || 'Download HTML'}
+            title="Download Single HTML File"
           >
              <Download size={14} />
-             <span class="hidden sm:inline">{dict.download || 'Download'}</span>
+             <span class="hidden sm:inline">HTML</span>
+          </button>
+          <button
+            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors bg-indigo-600/10 text-indigo-400 hover:bg-indigo-600 hover:text-white"
+            on:click={() => downloadProjectZip($gridStore)}
+            aria-label={dict.exportProject || 'Export Project'}
+            title="Download Project ZIP"
+          >
+             <Package size={14} />
+             <span class="hidden sm:inline">ZIP</span>
           </button>
           <button
             class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors {copied ? 'bg-green-500/20 text-green-400' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}"

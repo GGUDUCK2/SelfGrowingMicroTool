@@ -5,7 +5,7 @@
   import { gridStore } from '$lib/utils/grid-master/store';
   import { gridMasterWorkspace } from '$lib/db/grid-master';
   import { saveToHistory, getHistoryObservable } from '$lib/db/workspace';
-  import { downloadProjectHtml } from '$lib/utils/grid-master/export';
+  import { downloadProjectHtml, downloadProjectZip } from '$lib/utils/grid-master/export';
   import GridCanvas from '$lib/components/grid-master/GridCanvas.svelte';
   import Sidebar from '$lib/components/grid-master/Sidebar.svelte';
   import CodePanel from '$lib/components/grid-master/CodePanel.svelte';
@@ -311,8 +311,9 @@
 
            <button
              class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors"
-             on:click={() => downloadProjectHtml($gridStore)}
-             aria-label={dict.downloadHtml || 'Download HTML'}
+             on:click={() => downloadProjectZip($gridStore)}
+             aria-label={dict.exportProject || 'Export Project'}
+             title={dict.exportProject || 'Download Project ZIP'}
            >
               <Download size={18} />
            </button>
@@ -376,7 +377,7 @@
                  class="transition-all duration-500 ease-in-out bg-white dark:bg-slate-900 shadow-2xl rounded-xl overflow-hidden ring-1 ring-slate-900/5 dark:ring-white/10"
                  style="width: {viewMode === 'desktop' ? '100%' : '375px'}; height: {viewMode === 'desktop' ? '500px' : '667px'};"
                >
-                   <GridCanvas {previewMode} {viewMode} {theme} />
+                   <GridCanvas {previewMode} {viewMode} {theme} {dict} />
                </div>
           </div>
 

@@ -14,6 +14,8 @@ export interface GridArea {
   colEnd: number;
   color: string;
   tag?: string; // header, footer, main, nav, section, aside, div
+  contentType?: string; // chart, table, video, form, hero, etc.
+  mobileOrder?: number; // Order in mobile stack view
   // Individual area alignment (optional for future)
   justifySelf?: JustifyItems;
   alignSelf?: AlignItems;

@@ -141,6 +141,32 @@ function createGridStore() {
     // Responsive
     toggleMobile: () => withHistory(s => ({ ...s, includeMobile: !s.includeMobile })),
 
+    reorderMobile: (id: string, direction: 'up' | 'down') => withHistory(s => {
+        // Ensure all areas have a mobileOrder initialized if missing
+        // Sort first to ensure stability
+        let areas = s.areas.map((a, i) => ({ ...a, mobileOrder: a.mobileOrder ?? i }));
+        areas.sort((a, b) => (a.mobileOrder || 0) - (b.mobileOrder || 0));
+
+        const currentIndex = areas.findIndex(a => a.id === id);
+        if (currentIndex === -1) return s;
+
+        if (direction === 'up' && currentIndex > 0) {
+             const prev = areas[currentIndex - 1];
+             const curr = areas[currentIndex];
+             const temp = curr.mobileOrder;
+             curr.mobileOrder = prev.mobileOrder;
+             prev.mobileOrder = temp;
+        } else if (direction === 'down' && currentIndex < areas.length - 1) {
+             const next = areas[currentIndex + 1];
+             const curr = areas[currentIndex];
+             const temp = curr.mobileOrder;
+             curr.mobileOrder = next.mobileOrder;
+             next.mobileOrder = temp;
+        }
+
+        return { ...s, areas };
+    }),
+
     // Exports for UI
     canUndo: derived(past, $past => $past.length > 0),
     canRedo: derived(future, $future => $future.length > 0)
