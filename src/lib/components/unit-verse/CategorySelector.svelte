@@ -28,9 +28,11 @@
   };
 </script>
 
-<div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-6">
+<div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-6" role="tablist">
   {#each categories as category}
     <button
+      role="tab"
+      aria-selected={selectedCategory === category.id}
       class="flex flex-col items-center justify-center p-3 rounded-xl transition-all duration-200 border
         {selectedCategory === category.id
           ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg scale-105'

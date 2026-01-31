@@ -54,6 +54,25 @@
   <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}/tools/unit-verse" />
   <meta property="og:image" content="https://selfgrowingmicrotool.com/og/unit-verse.png" />
   <meta name="twitter:card" content="summary_large_image" />
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Unit Verse",
+      "url": `https://selfgrowingmicrotool.com/${lang}/tools/unit-verse`,
+      "applicationCategory": "UtilityApplication",
+      "applicationSubCategory": "Unit Converter",
+      "operatingSystem": ["Web", "iOS", "Android", "Linux", "Windows", "macOS"],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": t.description,
+      "featureList": t.featureList,
+      "screenshot": "https://selfgrowingmicrotool.com/og/unit-verse.png"
+    })}
+  </script>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-900 text-slate-100 pb-20">
@@ -102,7 +121,7 @@
            <h2 class="text-2xl font-bold text-white mb-4">{t.guide.title}</h2>
            <p class="text-slate-300 mb-6">{t.guide.intro}</p>
 
-           <div class="grid md:grid-cols-3 gap-6 mb-8">
+           <div class="grid md:grid-cols-2 gap-6 mb-8">
              <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700/50">
                <h3 class="text-indigo-400 font-semibold mb-2">{t.guide.featuresTitle}</h3>
                <ul class="text-sm text-slate-400 space-y-2 list-disc pl-4">
@@ -120,7 +139,9 @@
                   <li>{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-200">$1</strong>')}</li>
                </ul>
              </div>
+           </div>
 
+           <div class="mt-8">
              <FAQSection title={t.faqTitle} items={faqItems} />
            </div>
         </div>
@@ -145,24 +166,4 @@
     </div>
   </main>
 
-  <!-- JSON-LD for SEO -->
-  {@html `<script type="application/ld+json">
-    ${JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Unit Verse",
-      "url": `https://selfgrowingmicrotool.com/${lang}/tools/unit-verse`,
-      "applicationCategory": "UtilityApplication",
-      "applicationSubCategory": "Unit Converter",
-      "operatingSystem": ["Web", "iOS", "Android", "Linux", "Windows", "macOS"],
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "description": t.description,
-      "featureList": t.featureList,
-      "screenshot": "https://selfgrowingmicrotool.com/og/unit-verse.png"
-    })}
-  </script>`}
 </div>
