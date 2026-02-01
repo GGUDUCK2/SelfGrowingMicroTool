@@ -493,7 +493,16 @@
                    Go
                  </button>
              </div>
-             <p class="text-[10px] text-slate-400">Try keywords like: header, footer, sidebar, main</p>
+             <div class="flex flex-wrap gap-1 mt-1">
+                 {#each dict.smartExamples || ['header sidebar main footer', 'header 80px sidebar 250px main', 'nav main aside footer'] as ex}
+                     <button
+                       class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded text-[10px] text-slate-500 hover:text-indigo-600 hover:border-indigo-300 transition-colors"
+                       on:click={() => { textLayoutInput = ex; handleTextLayout(); }}
+                     >
+                         {ex}
+                     </button>
+                 {/each}
+             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-3">

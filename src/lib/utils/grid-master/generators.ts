@@ -230,48 +230,72 @@ export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 
     return generateMagicLayout();
 }
 
+function parseSize(token: string): string | null {
+    if (/^\d+(px|fr|%|rem|em)$/.test(token)) return token;
+    if (token === 'auto') return token;
+    return null;
+}
+
 export function generateLayoutFromText(input: string): GridState {
-    const tokens = input.toLowerCase().split(/[\s,]+/).filter(Boolean);
-    const uniqueTokens = [...new Set(tokens)];
+    const rawTokens = input.toLowerCase().split(/[\s,]+/).filter(Boolean);
 
-    if (uniqueTokens.length === 0) return generateMagicLayout();
+    // 1. Extract definitions: "name size" or "name"
+    // We look for patterns like:
+    // "header 100px", "sidebar 250px", "main", "footer auto"
+    const definitions: { name: string; size?: string }[] = [];
 
-    // Identify special roles
-    const header = uniqueTokens.find(t => ['header', 'top', 'nav'].some(k => t.includes(k)));
-    const footer = uniqueTokens.find(t => ['footer', 'bottom'].some(k => t.includes(k)));
-    const sidebar = uniqueTokens.find(t => ['sidebar', 'aside', 'left', 'menu'].some(k => t.includes(k)));
-    const rightbar = uniqueTokens.find(t => ['rightbar', 'ads', 'extra'].some(k => t.includes(k)));
+    for (let i = 0; i < rawTokens.length; i++) {
+        const t = rawTokens[i];
+        const next = rawTokens[i+1];
 
-    // Find 'main' or whatever is left that isn't one of the above
-    const used = [header, footer, sidebar, rightbar].filter(Boolean);
-    const main = uniqueTokens.find(t => !used.includes(t)) || 'main';
+        // Skip size tokens if they were already consumed
+        if (parseSize(t)) continue;
 
-    // Construct Layout
+        const size = next ? parseSize(next) : undefined;
+        definitions.push({ name: t, size: size || undefined });
+        if (size) i++; // Consume size
+    }
+
+    if (definitions.length === 0) return generateMagicLayout();
+
+    // 2. Identify roles
+    const header = definitions.find(d => ['header', 'top', 'nav'].some(k => d.name.includes(k)));
+    const footer = definitions.find(d => ['footer', 'bottom'].some(k => d.name.includes(k)));
+    const sidebar = definitions.find(d => ['sidebar', 'aside', 'left', 'menu'].some(k => d.name.includes(k)));
+    const rightbar = definitions.find(d => ['rightbar', 'ads', 'extra', 'right'].some(k => d.name.includes(k)));
+
+    // Main is whatever is left, or explicitly named 'main'
+    const usedNames = [header, footer, sidebar, rightbar].filter(Boolean).map(d => d!.name);
+    const main = definitions.find(d => !usedNames.includes(d.name)) || { name: 'main' };
+
+    // 3. Build Grid
     // Rows: Header? / Main+Sidebars / Footer?
     const rows: string[] = [];
-    if (header) rows.push('auto');
-    rows.push('1fr'); // Content area
-    if (footer) rows.push('auto');
+    if (header) rows.push(header.size || 'auto');
+    rows.push('1fr'); // Middle content row
+    if (footer) rows.push(footer.size || 'auto');
 
     // Cols: Sidebar? / Main / Rightbar?
     const cols: string[] = [];
-    if (sidebar) cols.push('250px');
-    cols.push('1fr');
-    if (rightbar) cols.push('250px');
+    if (sidebar) cols.push(sidebar.size || '250px');
+    cols.push(main.size || '1fr'); // Main content col
+    if (rightbar) cols.push(rightbar.size || '250px');
 
     const areas: GridArea[] = [];
     let currentRow = 1;
+    const totalCols = cols.length;
 
     // Header Area
     if (header) {
         areas.push({
             id: nanoid(),
-            name: header,
+            name: header.name,
             rowStart: currentRow,
             rowEnd: currentRow + 1,
             colStart: 1,
-            colEnd: cols.length + 1,
-            color: 'indigo'
+            colEnd: totalCols + 1,
+            color: 'indigo',
+            tag: 'header'
         });
         currentRow++;
     }
@@ -284,12 +308,13 @@ export function generateLayoutFromText(input: string): GridState {
     if (sidebar) {
         areas.push({
             id: nanoid(),
-            name: sidebar,
+            name: sidebar.name,
             rowStart: middleRowStart,
             rowEnd: middleRowEnd,
             colStart: currentCol,
             colEnd: currentCol + 1,
-            color: 'emerald'
+            color: 'emerald',
+            tag: 'aside'
         });
         currentCol++;
     }
@@ -297,24 +322,26 @@ export function generateLayoutFromText(input: string): GridState {
     // Main Area
     areas.push({
         id: nanoid(),
-        name: main,
+        name: main.name,
         rowStart: middleRowStart,
         rowEnd: middleRowEnd,
         colStart: currentCol,
         colEnd: currentCol + 1,
-        color: 'slate'
+        color: 'slate',
+        tag: 'main'
     });
     currentCol++;
 
     if (rightbar) {
         areas.push({
             id: nanoid(),
-            name: rightbar,
+            name: rightbar.name,
             rowStart: middleRowStart,
             rowEnd: middleRowEnd,
             colStart: currentCol,
             colEnd: currentCol + 1,
-            color: 'amber'
+            color: 'amber',
+            tag: 'aside'
         });
         currentCol++;
     }
@@ -325,12 +352,13 @@ export function generateLayoutFromText(input: string): GridState {
     if (footer) {
         areas.push({
             id: nanoid(),
-            name: footer,
+            name: footer.name,
             rowStart: currentRow,
             rowEnd: currentRow + 1,
             colStart: 1,
-            colEnd: cols.length + 1,
-            color: 'rose'
+            colEnd: totalCols + 1,
+            color: 'rose',
+            tag: 'footer'
         });
     }
 

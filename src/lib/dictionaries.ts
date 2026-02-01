@@ -1435,7 +1435,7 @@ export const dictionaries = {
       },
       gridMaster: {
         title: "Grid Master: CSS Layout Architect",
-        description: "The definitive visual CSS Grid builder. Design complex layouts, name areas, and export Tailwind or CSS instantly.",
+        description: "The definitive visual CSS Grid builder. Design complex layouts, name areas, and export Tailwind or CSS instantly. Create responsive grids 10x faster with our text-to-grid generator.",
         rows: "Rows",
         cols: "Columns",
         templates: "Templates",
@@ -1561,6 +1561,11 @@ export const dictionaries = {
             aside: "Sidebar or indirect content",
             article: "Self-contained composition"
         },
+        smartExamples: [
+            "header sidebar main footer",
+            "header 80px sidebar 250px main",
+            "nav main aside footer"
+        ],
         guide: {
           title: "Why Grid Master?",
           intro: "CSS Grid is powerful but the syntax can be daunting. Grid Master provides a visual interface to design layouts naturally.",
@@ -2362,7 +2367,7 @@ export const dictionaries = {
       },
       gridMaster: {
         title: "그리드 마스터: CSS 레이아웃 아키텍트",
-        description: "완벽한 시각적 CSS 그리드 빌더입니다. 복잡한 레이아웃을 설계하고, 영역 이름을 지정하고, Tailwind 또는 CSS로 즉시 내보내세요.",
+        description: "완벽한 시각적 CSS 그리드 빌더입니다. 복잡한 레이아웃을 설계하고, 영역 이름을 지정하고, Tailwind 또는 CSS로 즉시 내보내세요. 텍스트 그리드 생성기로 10배 더 빠르게 반응형 그리드를 만드세요.",
         rows: "행 (Rows)",
         cols: "열 (Columns)",
         templates: "템플릿",
@@ -2488,6 +2493,11 @@ export const dictionaries = {
             aside: "사이드바 또는 부가 정보",
             article: "독립적인 콘텐츠 구성"
         },
+        smartExamples: [
+            "header sidebar main footer",
+            "header 80px sidebar 250px main",
+            "nav main aside footer"
+        ],
         guide: {
           title: "왜 그리드 마스터인가요?",
           intro: "CSS 그리드는 강력하지만 문법이 까다로울 수 있습니다. 그리드 마스터는 직관적인 시각적 인터페이스를 제공합니다.",
