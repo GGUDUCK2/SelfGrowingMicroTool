@@ -23,9 +23,13 @@
 
 <div class="font-mono text-sm leading-6" style="padding-left: {level > 0 ? 1.5 : 0}rem">
   {#if isObject && !isEmpty}
-    <!-- svelte-ignore a11y_click_events_have_key_events -->
-    <!-- svelte-ignore a11y_no_static_element_interactions -->
-    <div on:click|stopPropagation={toggle} class="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700/50 inline-flex items-center select-none rounded px-1 -ml-1">
+    <div
+      role="button"
+      tabindex="0"
+      on:click|stopPropagation={toggle}
+      on:keydown|stopPropagation={(e) => { if(e.key === 'Enter' || e.key === ' ') { if(e.key === ' ') e.preventDefault(); toggle(); } }}
+      class="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700/50 inline-flex items-center select-none rounded px-1 -ml-1 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+    >
       <span class="mr-1 text-gray-400 transform transition-transform duration-200 {expanded ? 'rotate-90' : ''}">▶</span>
       {#if Array.isArray(data)}
         <span class="text-yellow-600 dark:text-yellow-400 font-bold">Array</span>
