@@ -17,6 +17,8 @@
   $: t = (getDictionary(lang) || getDictionary('en')).tools?.jsonArchitect || getDictionary('en').tools.jsonArchitect;
 
   let input = '';
+  $: isTooLarge = input.length > 50000;
+  $: if (isTooLarge && view === 'tree') view = 'text';
   let output = '';
   let mode: 'json' | 'typescript' | 'go' = 'json';
   let view: 'text' | 'tree' = 'text';
@@ -197,6 +199,26 @@
       "priceCurrency": "USD"
     }
   })}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://selfgrowingmicrotool.com/"
+    }, {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tools",
+      "item": "https://selfgrowingmicrotool.com/tools"
+    }, {
+      "@type": "ListItem",
+      "position": 3,
+      "name": t.title,
+      "item": `https://selfgrowingmicrotool.com/${lang}/tools/json-architect`
+    }]
+  })}</script>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -209,7 +231,7 @@
       <Toolbar {t} on:action={handleAction} />
   </div>
 
-  <div class="flex flex-col lg:flex-row gap-6 min-h-[500px]">
+  <div class="flex flex-col lg:flex-row gap-6 min-h-[500px] lg:min-h-[calc(100vh-14rem)]">
       <!-- Input Column -->
       <section class="flex-1 flex flex-col gap-2" aria-label={t.input}>
           <div class="flex justify-between items-center">
@@ -245,7 +267,9 @@
                  {#if mode === 'json' && parsedData}
                  <button
                    on:click={() => view = 'tree'}
-                   class="text-sm px-4 py-2 sm:px-3 sm:py-1.5 rounded touch-manipulation {view === 'tree' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-500'}"
+                   disabled={isTooLarge}
+                   title={isTooLarge ? 'JSON too large for tree view' : ''}
+                   class="text-sm px-4 py-2 sm:px-3 sm:py-1.5 rounded touch-manipulation {view === 'tree' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-500'} {isTooLarge ? 'opacity-50 cursor-not-allowed' : ''}"
                  >
                     {t.treeView}
                  </button>
