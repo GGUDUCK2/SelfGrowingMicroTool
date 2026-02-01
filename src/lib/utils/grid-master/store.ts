@@ -1,4 +1,5 @@
-import { writable, derived } from 'svelte/store';
+import { writable, derived, get } from 'svelte/store';
+import { nanoid } from 'nanoid';
 import type { GridState, GridArea, JustifyItems, AlignItems, JustifyContent, AlignContent } from './types';
 
 export interface Snapshot {
@@ -8,7 +9,38 @@ export interface Snapshot {
     state: GridState;
 }
 
-export const snapshotStore = writable<Snapshot[]>([]);
+function createSnapshotStore() {
+    const { subscribe, update, set } = writable<Snapshot[]>([]);
+
+    return {
+        subscribe,
+        set,
+        add: (name: string, state: GridState) => {
+            update(snaps => [
+                {
+                    id: nanoid(),
+                    timestamp: Date.now(),
+                    name,
+                    state: JSON.parse(JSON.stringify(state))
+                },
+                ...snaps
+            ].slice(0, 20)); // Limit to 20 snapshots
+        },
+        restore: (id: string) => {
+            const snaps = get({ subscribe });
+            const snap = snaps.find(s => s.id === id);
+            if (snap) {
+                gridStore.load(snap.state);
+            }
+        },
+        delete: (id: string) => {
+            update(snaps => snaps.filter(s => s.id !== id));
+        },
+        clear: () => set([])
+    };
+}
+
+export const snapshotStore = createSnapshotStore();
 
 const initialState: GridState = {
   rows: ['1fr', '1fr', '1fr'],

@@ -7,13 +7,10 @@
   export let dict: GridMasterDictionary;
 
   function capture() {
-      const snap: Snapshot = {
-          id: nanoid(),
-          timestamp: Date.now(),
-          name: `Snapshot ${$snapshotStore.length + 1}`,
-          state: JSON.parse(JSON.stringify($gridStore))
-      };
-      snapshotStore.update(s => [snap, ...s]);
+      snapshotStore.add(
+          `Snapshot ${$snapshotStore.length + 1}`,
+          $gridStore
+      );
   }
 
   function restore(snap: Snapshot) {
@@ -23,7 +20,7 @@
   }
 
   function remove(id: string) {
-      snapshotStore.update(s => s.filter(x => x.id !== id));
+      snapshotStore.delete(id);
   }
 
   function formatTime(ts: number) {

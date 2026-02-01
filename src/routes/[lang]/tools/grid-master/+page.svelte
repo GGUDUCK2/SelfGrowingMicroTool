@@ -210,7 +210,8 @@
         "Semantic Tag Helper",
         "Session Snapshots",
         "Intelligent Mobile Stack Generator",
-        "Visual Content Presets"
+        "Visual Content Presets",
+        "Interactive Grid Wizard"
       ]
     }
   </script>
