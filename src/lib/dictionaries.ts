@@ -1935,6 +1935,53 @@ export const dictionaries = {
         a2: "Yes, you can type any currency symbol or code in the settings panel.",
         q3: "How do I save as PDF?",
         a3: "Click the 'Download PDF' button. This triggers the browser's native print-to-PDF functionality, which generates the highest quality vector PDF."
+      },
+      diagramForge: {
+        title: "Diagram Forge: Mermaid Studio",
+        description: "The definitive diagramming tool. Create complex flowcharts, sequence diagrams, and Gantt charts using simple text.",
+        editor: "Editor",
+        preview: "Preview",
+        templates: "Templates",
+        themes: "Themes",
+        theme: {
+          default: "Default",
+          forest: "Forest",
+          dark: "Dark",
+          neutral: "Neutral"
+        },
+        actions: {
+          exportSvg: "Export SVG",
+          exportPng: "Export PNG",
+          copyLink: "Copy Link",
+          save: "Save",
+          fullscreen: "Fullscreen",
+          fit: "Fit to Screen",
+          zoomIn: "Zoom In",
+          zoomOut: "Zoom Out",
+          autoSync: "Auto Sync"
+        },
+        history: "History",
+        noHistory: "No diagrams saved yet.",
+        saved: "Diagram saved!",
+        guide: {
+          title: "Why Diagram Forge?",
+          intro: "Visual communication is key, but drag-and-drop tools are slow. Diagram Forge uses the power of Mermaid.js to turn text into professional diagrams instantly.",
+          featuresTitle: "Key Features",
+          f1: "**Text-to-Diagram:** Write simple code like `A -> B` to generate complex flowcharts.",
+          f2: "**Live Preview:** See your changes instantly as you type.",
+          f3: "**Export Ready:** Download high-quality SVG or PNG images for your presentations.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use the **Templates** menu to quickly insert syntax for complex diagrams like Sequence or Class charts.",
+          tip2: "Hold **Ctrl+Space** to trigger auto-complete (coming soon) or **Ctrl+Enter** to force a refresh.",
+          tip3: "Share your diagram by copying the URL - the entire state is encoded in the link."
+        },
+        faqTitle: "Diagram Forge FAQ",
+        q1: "What is Mermaid?",
+        a1: "Mermaid is a JavaScript-based diagramming and charting tool that renders Markdown-inspired text definitions to create and modify diagrams dynamically.",
+        q2: "Can I use this for commercial projects?",
+        a2: "Yes, the diagrams you generate are yours. Mermaid itself is MIT licensed.",
+        q3: "Does it work offline?",
+        a3: "Yes. Once loaded, Diagram Forge runs entirely in your browser."
       }
     },
     pwa: {
@@ -2867,6 +2914,53 @@ export const dictionaries = {
         a2: "네, 설정 패널에서 통화 기호나 코드를 입력할 수 있습니다.",
         q3: "PDF로 저장하려면 어떻게 하나요?",
         a3: "'PDF 다운로드' 버튼을 클릭하세요. 브라우저의 기본 PDF 인쇄 기능을 사용하여 최고 품질의 벡터 PDF를 생성합니다."
+      },
+      diagramForge: {
+        title: "다이어그램 포지: 머메이드 스튜디오",
+        description: "완벽한 다이어그램 도구입니다. 간단한 텍스트로 복잡한 플로우차트, 시퀀스 다이어그램, 간트 차트를 만드세요.",
+        editor: "에디터",
+        preview: "미리보기",
+        templates: "템플릿",
+        themes: "테마",
+        theme: {
+          default: "기본 (Default)",
+          forest: "숲 (Forest)",
+          dark: "다크 (Dark)",
+          neutral: "중립 (Neutral)"
+        },
+        actions: {
+          exportSvg: "SVG 내보내기",
+          exportPng: "PNG 내보내기",
+          copyLink: "링크 복사",
+          save: "저장",
+          fullscreen: "전체화면",
+          fit: "화면 맞춤",
+          zoomIn: "확대",
+          zoomOut: "축소",
+          autoSync: "자동 동기화"
+        },
+        history: "히스토리",
+        noHistory: "저장된 다이어그램이 없습니다.",
+        saved: "다이어그램이 저장되었습니다!",
+        guide: {
+          title: "왜 다이어그램 포지인가요?",
+          intro: "시각적 커뮤니케이션은 중요하지만, 드래그 앤 드롭 도구는 느립니다. 다이어그램 포지는 Mermaid.js의 힘을 빌려 텍스트를 즉시 전문적인 다이어그램으로 변환합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**텍스트-투-다이어그램:** `A -> B`와 같은 간단한 코드로 복잡한 플로우차트를 생성하세요.",
+          f2: "**실시간 미리보기:** 입력하는 즉시 변경 사항을 확인하세요.",
+          f3: "**내보내기:** 프레젠테이션을 위해 고품질 SVG 또는 PNG 이미지를 다운로드하세요.",
+          tipsTitle: "프로 팁",
+          tip1: "**템플릿** 메뉴를 사용하여 시퀀스나 클래스 차트 같은 복잡한 다이어그램 구문을 빠르게 삽입하세요.",
+          tip2: "**Ctrl+Enter**를 눌러 강제로 새로고침할 수 있습니다.",
+          tip3: "URL을 복사하여 다이어그램을 공유하세요 - 전체 상태가 링크에 인코딩되어 있습니다."
+        },
+        faqTitle: "다이어그램 포지 FAQ",
+        q1: "머메이드(Mermaid)가 무엇인가요?",
+        a1: "Mermaid는 마크다운에서 영감을 받은 텍스트 정의를 사용하여 다이어그램과 차트를 동적으로 생성하고 수정하는 자바스크립트 기반 도구입니다.",
+        q2: "상업적 프로젝트에 사용할 수 있나요?",
+        a2: "네, 생성된 다이어그램은 귀하의 소유입니다. Mermaid 자체는 MIT 라이선스를 따릅니다.",
+        q3: "오프라인에서 작동하나요?",
+        a3: "네. 로딩된 후 다이어그램 포지는 전적으로 브라우저 내에서 실행됩니다."
       }
     },
     pwa: {
