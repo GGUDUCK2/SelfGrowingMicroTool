@@ -4,6 +4,8 @@
   import { fade, slide } from 'svelte/transition';
   import { db } from '$lib/db';
   import { cipherWorkspace } from '$lib/db/workspace';
+  import FAQSection from '$lib/components/FAQSection.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
   import HashGenerator from '$lib/components/cipher-lab/HashGenerator.svelte';
   import EncoderDecoder from '$lib/components/cipher-lab/EncoderDecoder.svelte';
   import JwtDebugger from '$lib/components/cipher-lab/JwtDebugger.svelte';
@@ -17,6 +19,12 @@
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang).tools.cipherLab;
   $: common = getDictionary(lang).common;
+
+  $: faqItems = [
+    { q: dict.q1, a: dict.a1 },
+    { q: dict.q2, a: dict.a2 },
+    { q: dict.q3, a: dict.a3 }
+  ];
 
   let activeTab: 'hash' | 'encoders' | 'jwt' | 'password' | 'keygen' | 'vault' = 'hash';
   let showToast = false;
@@ -114,6 +122,29 @@
   <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/cipher-lab" />
   <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/cipher-lab" />
   <link rel="alternate" hreflang="x-default" href="https://web-factory.vercel.app/en/tools/cipher-lab" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://web-factory.vercel.app/{lang}"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": "https://web-factory.vercel.app/{lang}#tools"
+      },{
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Cipher Lab",
+        "item": "https://web-factory.vercel.app/{lang}/tools/cipher-lab"
+      }]
+    }
+  </script>
 
   <script type="application/ld+json">
     {
@@ -234,41 +265,20 @@
 
         <!-- Guide & FAQ -->
         <div class="mt-12 space-y-8">
-           <section class="prose dark:prose-invert max-w-none">
-              <h2 class="text-2xl font-bold">{dict.guide.title}</h2>
-              <p>{dict.guide.intro}</p>
+           <GuideSection
+             title={dict.guide.title}
+             intro={dict.guide.intro}
+             featuresTitle={dict.guide.featuresTitle}
+             f1={dict.guide.f1}
+             f2={dict.guide.f2}
+             f3={dict.guide.f3}
+             tipsTitle={dict.guide.tipsTitle}
+             tip1={dict.guide.tip1}
+             tip2={dict.guide.tip2}
+             tip3={dict.guide.tip3}
+           />
 
-              <h3 class="text-xl font-semibold">{dict.guide.featuresTitle}</h3>
-              <ul class="grid grid-cols-1 md:grid-cols-3 gap-4 not-prose">
-                 <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                    {@html dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
-                 </li>
-                 <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                    {@html dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
-                 </li>
-                 <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                    {@html dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
-                 </li>
-              </ul>
-           </section>
-
-           <section>
-             <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">{dict.faqTitle}</h2>
-             <div class="grid gap-4">
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                   <h3 class="font-semibold text-lg mb-2">{dict.q1}</h3>
-                   <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a1}</p>
-                </div>
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                   <h3 class="font-semibold text-lg mb-2">{dict.q2}</h3>
-                   <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a2}</p>
-                </div>
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                   <h3 class="font-semibold text-lg mb-2">{dict.q3}</h3>
-                   <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a3}</p>
-                </div>
-             </div>
-           </section>
+           <FAQSection title={dict.faqTitle} items={faqItems} />
         </div>
       </div>
 
@@ -279,18 +289,6 @@
             <HistoryPanel {dict} on:copy={handleCopy} on:restore={handleRestore} />
          </div>
 
-         <!-- Tips -->
-         <div class="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
-            <h3 class="text-lg font-bold mb-4 flex items-center space-x-2">
-               <Star class="text-yellow-300" fill="currentColor" size={20} />
-               <span>{dict.guide.tipsTitle}</span>
-            </h3>
-            <ul class="space-y-4 text-sm text-indigo-100">
-               <li>{@html dict.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')}</li>
-               <li>{@html dict.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')}</li>
-               <li>{@html dict.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')}</li>
-            </ul>
-         </div>
       </div>
     </div>
   </main>
