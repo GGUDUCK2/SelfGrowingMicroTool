@@ -14,12 +14,14 @@
   import HistoryPanel from './HistoryPanel.svelte';
   import SnapshotPanel from './SnapshotPanel.svelte';
   import TrackEditor from './TrackEditor.svelte';
+  import WizardModal from './WizardModal.svelte';
   import { COLOR_MAP } from '$lib/utils/grid-master/constants';
 
   export let dict: GridMasterDictionary;
   export let theme = 'standard';
 
   let activeTab: 'build' | 'templates' | 'history' = 'build';
+  let showWizard = false;
 
   function loadTemplate(key: string) {
       if (confirm(dict.loadTemplateConfirm || 'Load template? This will replace your current grid.')) {
@@ -418,6 +420,26 @@
 
   {:else if activeTab === 'templates'}
       <div role="tabpanel" id="tab-panel-templates" aria-labelledby="tab-templates" class="space-y-4">
+          <!-- Wizard Launcher -->
+          <button
+              class="w-full p-3 flex items-center justify-between bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-xl shadow-md transition-all group mb-4"
+              on:click={() => showWizard = true}
+              aria-label="Open Grid Wizard"
+          >
+              <div class="flex items-center gap-3">
+                   <div class="bg-white/20 p-2 rounded-lg">
+                       <Wand2 size={20} />
+                   </div>
+                   <div class="text-left">
+                       <div class="font-bold text-sm">{dict.wizard?.title || 'Grid Wizard'}</div>
+                       <div class="text-[10px] opacity-80">Step-by-step Builder</div>
+                   </div>
+              </div>
+              <div class="bg-white/20 rounded-full p-1 group-hover:bg-white/30 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+          </button>
+
           <div class="space-y-2">
               <h3 class="text-xs font-bold text-slate-500 uppercase">{dict.smartLayouts?.title || 'Smart Generators'}</h3>
               <div class="grid grid-cols-2 gap-2">
@@ -528,6 +550,10 @@
          <div class="h-px bg-slate-200 dark:bg-slate-700"></div>
          <HistoryPanel {dict} />
       </div>
+  {/if}
+
+  {#if showWizard}
+      <WizardModal {dict} on:close={() => showWizard = false} />
   {/if}
 </div>
 

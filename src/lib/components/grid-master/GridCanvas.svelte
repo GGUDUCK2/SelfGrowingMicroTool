@@ -161,11 +161,11 @@
         <div class="h-full flex flex-col p-3">
              <h4 class="text-xs font-bold uppercase tracking-wider opacity-60 mb-2">Analytics</h4>
              <div class="flex-1 flex items-end gap-1 pb-1">
-                 <div class="w-full bg-black/20 dark:bg-white/20 rounded-t" style="height: 30%"></div>
-                 <div class="w-full bg-black/30 dark:bg-white/30 rounded-t" style="height: 50%"></div>
-                 <div class="w-full bg-black/40 dark:bg-white/40 rounded-t" style="height: 75%"></div>
-                 <div class="w-full bg-black/25 dark:bg-white/25 rounded-t" style="height: 45%"></div>
-                 <div class="w-full bg-black/50 dark:bg-white/50 rounded-t" style="height: 90%"></div>
+                 <div class="w-full bg-current opacity-20 rounded-t" style="height: 30%"></div>
+                 <div class="w-full bg-current opacity-30 rounded-t" style="height: 50%"></div>
+                 <div class="w-full bg-current opacity-40 rounded-t" style="height: 75%"></div>
+                 <div class="w-full bg-current opacity-25 rounded-t" style="height: 45%"></div>
+                 <div class="w-full bg-current opacity-50 rounded-t" style="height: 90%"></div>
              </div>
         </div>
       `;
@@ -173,9 +173,9 @@
       if (type === 'form' || n.includes('form') || n.includes('contact') || n.includes('input')) return `
         <div class="h-full flex flex-col gap-2 p-3 justify-center max-w-sm mx-auto w-full">
             <h4 class="font-bold text-sm mb-1">${escapeHtml(name)}</h4>
-            <div class="h-8 w-full bg-white/50 dark:bg-black/20 border border-black/10 dark:border-white/10 rounded"></div>
-            <div class="h-8 w-full bg-white/50 dark:bg-black/20 border border-black/10 dark:border-white/10 rounded"></div>
-            <div class="h-8 w-1/3 bg-black/20 dark:bg-white/20 rounded self-start mt-1"></div>
+            <div class="h-8 w-full bg-current opacity-10 border border-current rounded"></div>
+            <div class="h-8 w-full bg-current opacity-10 border border-current rounded"></div>
+            <div class="h-8 w-1/3 bg-current opacity-20 rounded self-start mt-1"></div>
         </div>
       `;
 
@@ -195,42 +195,42 @@
       if (type === 'image' || type === 'gallery' || n.includes('card') || n.includes('product') || n.includes('gallery') || n.includes('img') || n.includes('pic')) return `
         <div class="h-full grid grid-cols-2 gap-2 p-2 overflow-hidden content-start">
              ${Array(4).fill(0).map(() => `
-                 <div class="aspect-square bg-white/50 dark:bg-black/20 rounded flex flex-col p-1 gap-1 border border-black/5 dark:border-white/5">
-                      <div class="flex-1 bg-black/10 dark:bg-white/10 rounded-sm flex items-center justify-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-20"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                 <div class="aspect-square bg-current opacity-10 rounded flex flex-col p-1 gap-1 border border-current">
+                      <div class="flex-1 bg-current opacity-20 rounded-sm flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                       </div>
-                      <div class="h-1.5 w-3/4 bg-black/20 dark:bg-white/20 rounded-sm"></div>
+                      <div class="h-1.5 w-3/4 bg-current opacity-20 rounded-sm"></div>
                  </div>
              `).join('')}
         </div>`;
 
       if (type === 'login' || n.includes('login') || n.includes('signin') || n.includes('auth')) return `
          <div class="h-full flex flex-col items-center justify-center p-4">
-             <div class="w-full max-w-[200px] flex flex-col gap-2 bg-white/50 dark:bg-black/20 p-3 rounded-lg border border-black/5 dark:border-white/5">
+             <div class="w-full max-w-[200px] flex flex-col gap-2 bg-current opacity-10 p-3 rounded-lg border border-current">
                   <div class="text-xs font-bold text-center mb-1">Welcome Back</div>
-                  <div class="h-6 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 text-[10px] flex items-center text-slate-400">Email</div>
-                  <div class="h-6 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 text-[10px] flex items-center text-slate-400">Password</div>
-                  <div class="h-6 w-full bg-indigo-500 rounded text-white text-[10px] font-bold flex items-center justify-center mt-1">Sign In</div>
+                  <div class="h-6 w-full bg-current opacity-20 border border-current rounded px-2 text-[10px] flex items-center opacity-60">Email</div>
+                  <div class="h-6 w-full bg-current opacity-20 border border-current rounded px-2 text-[10px] flex items-center opacity-60">Password</div>
+                  <div class="h-6 w-full bg-current opacity-80 rounded text-white text-[10px] font-bold flex items-center justify-center mt-1">Sign In</div>
              </div>
          </div>
       `;
 
       if (type === 'pricing' || n.includes('pricing') || n.includes('plan')) return `
-        <div class="h-full flex flex-col items-center p-3 text-center border-2 border-indigo-50 dark:border-indigo-900/30 rounded-lg bg-white/40 dark:bg-slate-800/40">
-             <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-500 mb-1">Pro Plan</h4>
+        <div class="h-full flex flex-col items-center p-3 text-center border-2 border-current rounded-lg bg-current opacity-20">
+             <h4 class="text-xs font-bold uppercase tracking-wider mb-1 opacity-80">Pro Plan</h4>
              <div class="text-2xl font-black mb-2">$29<span class="text-xs font-normal opacity-60">/mo</span></div>
              <div class="flex flex-col gap-1 w-full opacity-70 text-[10px] mb-3">
-                 <div class="bg-black/5 dark:bg-white/5 rounded px-2 py-0.5">Feature A</div>
-                 <div class="bg-black/5 dark:bg-white/5 rounded px-2 py-0.5">Feature B</div>
+                 <div class="bg-current opacity-30 rounded px-2 py-0.5">Feature A</div>
+                 <div class="bg-current opacity-30 rounded px-2 py-0.5">Feature B</div>
              </div>
-             <button class="mt-auto w-full py-1 bg-indigo-600 text-white rounded text-[10px] font-bold">Select</button>
+             <button class="mt-auto w-full py-1 bg-current rounded text-[10px] font-bold text-white opacity-80">Select</button>
         </div>
       `;
 
       if (type === 'team' || n.includes('team') || n.includes('member') || n.includes('profile')) return `
         <div class="h-full flex flex-col items-center justify-center p-2 text-center">
-             <div class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700 mb-2 overflow-hidden relative border-2 border-white dark:border-slate-600">
-                 <svg class="absolute inset-0 m-auto text-slate-400 w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+             <div class="w-12 h-12 rounded-full bg-current opacity-20 mb-2 overflow-hidden relative border-2 border-current">
+                 <svg class="absolute inset-0 m-auto opacity-50 w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
              </div>
              <div class="font-bold text-xs">Jane Doe</div>
              <div class="text-[10px] opacity-60">Product Designer</div>
@@ -238,11 +238,11 @@
       `;
 
       if (type === 'testimonial' || n.includes('testimonial') || n.includes('review')) return `
-        <div class="h-full flex flex-col p-3 relative italic text-xs bg-white/40 dark:bg-slate-800/40 rounded-lg">
+        <div class="h-full flex flex-col p-3 relative italic text-xs bg-current opacity-10 rounded-lg">
              <span class="text-3xl absolute top-0 left-1 opacity-20 serif">"</span>
              <p class="z-10 relative opacity-80 line-clamp-3 pl-2">This product completely transformed our workflow. Highly recommended!</p>
              <div class="mt-auto flex items-center gap-2 pt-2 pl-2">
-                 <div class="w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-900/50"></div>
+                 <div class="w-6 h-6 rounded-full bg-current opacity-30"></div>
                  <div class="flex flex-col text-[10px] not-italic">
                      <span class="font-bold">John Smith</span>
                      <span class="opacity-50">CEO, TechCorp</span>
@@ -252,8 +252,8 @@
       `;
 
       if (type === 'map' || n.includes('map') || n.includes('location')) return `
-        <div class="w-full h-full bg-slate-100 dark:bg-slate-800 relative overflow-hidden group">
-             <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle, #94a3b8 1px, transparent 1px); background-size: 10px 10px;"></div>
+        <div class="w-full h-full bg-current opacity-10 relative overflow-hidden group">
+             <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle, currentColor 1px, transparent 1px); background-size: 10px 10px;"></div>
              <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-red-500 drop-shadow-md">
                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
              </div>

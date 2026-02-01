@@ -1544,6 +1544,13 @@ export const dictionaries = {
             medium: "Medium",
             large: "Large"
         },
+        wizard: {
+            title: "Grid Wizard",
+            step1: "Layout Type",
+            step2: "Structure",
+            step3: "Density",
+            step4: "Review",
+        },
         smartLayouts: {
             title: "Smart Generators",
             dashboard: "Dashboard",
@@ -2522,6 +2529,13 @@ export const dictionaries = {
             small: "좁게",
             medium: "중간",
             large: "넓게"
+        },
+        wizard: {
+            title: "그리드 마법사",
+            step1: "레이아웃 타입",
+            step2: "구조",
+            step3: "밀도",
+            step4: "검토",
         },
         smartLayouts: {
             title: "스마트 생성기",
