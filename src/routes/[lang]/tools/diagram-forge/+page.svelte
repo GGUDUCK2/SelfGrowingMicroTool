@@ -136,31 +136,57 @@
 
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Diagram Forge",
-    "description": t.description,
-    "applicationCategory": "ProductivityApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "featureList": [
-       "Text to Diagram",
-       "Mermaid.js Editor",
-       "Flowchart Maker",
-       "Sequence Diagram Tool",
-       "Offline Capable",
-       "SVG Export"
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Diagram Forge",
+        "description": t.description,
+        "applicationCategory": "ProductivityApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Text to Diagram",
+          "Mermaid.js Editor",
+          "Flowchart Maker",
+          "Sequence Diagram Tool",
+          "Offline Capable",
+          "SVG Export"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": t.q1,
+            "acceptedAnswer": { "@type": "Answer", "text": t.a1 }
+          },
+          {
+            "@type": "Question",
+            "name": t.q2,
+            "acceptedAnswer": { "@type": "Answer", "text": t.a2 }
+          },
+          {
+            "@type": "Question",
+            "name": t.q3,
+            "acceptedAnswer": { "@type": "Answer", "text": t.a3 }
+          }
+        ]
+      }
     ]
   });
+
+  $: jsonLdScript = `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}<\/script>`;
 </script>
 
 <svelte:head>
   <title>{t.title} | MicroFactory</title>
   <meta name="description" content={t.description} />
-  {@html `<script type="application/ld+json">${jsonLd}</script>`}
+  {@html jsonLdScript}
 </svelte:head>
 
 <div class="flex h-[calc(100vh-64px)] overflow-hidden bg-slate-50 dark:bg-slate-900">
@@ -188,7 +214,7 @@
         </div>
 
         <Toolbar
-            {dict}
+            dict={t}
             bind:theme
             on:loadTemplate={(e) => handleLoadTemplate(e.detail)}
             on:save={handleSave}
@@ -202,8 +228,8 @@
             <div class="flex-1 border-r border-slate-200 dark:border-slate-700 min-h-[300px]">
                 <Editor bind:value={code} placeholder="Enter Mermaid syntax..." />
             </div>
-            <div class="flex-[1.5] relative bg-slate-50 dark:bg-slate-800 overflow-hidden">
-                <div class="w-full h-full flex items-center justify-center transition-transform duration-200" style="transform: scale({scale}); transform-origin: center;">
+            <div class="flex-[1.5] relative bg-slate-50 dark:bg-slate-800 overflow-auto">
+                <div class="min-w-full min-h-full flex items-center justify-center transition-transform duration-200 p-4" style="transform: scale({scale}); transform-origin: center;">
                     <Preview {code} {theme} />
                 </div>
                 <!-- Zoom Indicator -->
