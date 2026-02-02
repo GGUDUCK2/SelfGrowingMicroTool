@@ -274,6 +274,52 @@
           copyToClipboard(activeTab === 'jsonld' ? generatedJsonLd : generatedHtml);
       }
   }
+
+  $: jsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "SEO Forge",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "description": dict.description,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Real-time Social Previews",
+          "JSON-LD Schema Generator",
+          "Meta Tag Analysis",
+          "Smart Templates"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": dict.q1,
+            "acceptedAnswer": { "@type": "Answer", "text": dict.a1 }
+          },
+          {
+            "@type": "Question",
+            "name": dict.q2,
+            "acceptedAnswer": { "@type": "Answer", "text": dict.a2 }
+          },
+          {
+            "@type": "Question",
+            "name": dict.q3,
+            "acceptedAnswer": { "@type": "Answer", "text": dict.a3 }
+          }
+        ]
+      }
+    ]
+  });
+
+  $: jsonLdScript = `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}<\/script>`;
 </script>
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white pb-20">
@@ -627,25 +673,5 @@
   <!-- Canonical -->
   <link rel="canonical" href="https://microfactory.app/tools/seo-forge" />
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "SEO Forge",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Web",
-    "description": "{dict.description}",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "featureList": [
-      "Real-time Social Previews",
-      "JSON-LD Schema Generator",
-      "Meta Tag Analysis",
-      "Smart Templates"
-    ]
-  }
-  </script>
+  {@html jsonLdScript}
 </svelte:head>
