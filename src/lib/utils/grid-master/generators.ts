@@ -31,15 +31,12 @@ function splitRect(rect: Rect): [Rect, Rect] | null {
     }
 
     if (splitH) {
-        // Split Horizontally (cut a row line)
-        // Range: rect.r1 + 1 to rect.r2 - 1
         const cut = Math.floor(Math.random() * (height - 1)) + rect.r1 + 1;
         return [
             { ...rect, r2: cut },
             { ...rect, r1: cut }
         ];
     } else {
-        // Split Vertically (cut a col line)
         const cut = Math.floor(Math.random() * (width - 1)) + rect.c1 + 1;
         return [
             { ...rect, c2: cut },
@@ -49,20 +46,15 @@ function splitRect(rect: Rect): [Rect, Rect] | null {
 }
 
 export function generateMagicLayout(): GridState {
-    // 1. Define base grid size (e.g. 6x6 or 4x4)
-    // Randomize grid size slightly
-    const rowCount = Math.floor(Math.random() * 3) + 3; // 3 to 5
-    const colCount = Math.floor(Math.random() * 3) + 3; // 3 to 5
+    const rowCount = Math.floor(Math.random() * 3) + 3;
+    const colCount = Math.floor(Math.random() * 3) + 3;
 
-    // 2. BSP Generation
     const regions: Rect[] = [{ r1: 1, c1: 1, r2: rowCount + 1, c2: colCount + 1 }];
-    const targetRegions = Math.floor(Math.random() * 3) + 3; // 3 to 5 areas
+    const targetRegions = Math.floor(Math.random() * 3) + 3;
 
-    // Iterative split until we have enough regions or can't split
     let safety = 0;
     while (regions.length < targetRegions && safety < 20) {
         safety++;
-        // Pick largest region to split
         regions.sort((a, b) => (b.r2 - b.r1) * (b.c2 - b.c1) - (a.r2 - a.r1) * (a.c2 - a.c1));
         const candidate = regions.shift();
         if (!candidate) break;
@@ -72,28 +64,16 @@ export function generateMagicLayout(): GridState {
             regions.push(...split);
         } else {
             regions.push(candidate);
-            // Try next largest?
-            // For simplicity, just continue, sort will handle it next iter if there's another candidate
-            // But if largest can't split, others might not either.
-            // Let's just shuffle to be safe
-             // actually if split is null, we pushed it back.
-             // If we keep picking the same one, we loop.
-             // So if split fails, we should try a different one or stop.
-             // Simplification: just stop if we can't split the biggest.
-             break;
+            break;
         }
     }
 
-    // 3. Convert Regions to Areas
     const areas: GridArea[] = regions.map((r, i) => {
-        // Name assignment logic
         let name = `area-${i + 1}`;
-        // Simple heuristic for semantic names
         if (r.r1 === 1 && r.r2 === 2 && r.c1 === 1 && r.c2 === colCount + 1) name = 'header';
         else if (r.r1 === rowCount && r.r2 === rowCount + 1) name = 'footer';
         else if (r.c1 === 1 && r.c2 === 2 && r.r1 > 1 && r.r2 < rowCount + 1) name = 'sidebar';
 
-        // Check duplicates
         if (regions.findIndex((_r, _i) => _i !== i && name === 'header') !== -1 && name === 'header') name = `header-${i}`;
 
         return {
@@ -107,16 +87,12 @@ export function generateMagicLayout(): GridState {
         };
     });
 
-    // 4. Generate Rows/Cols definitions
-    // Randomize units slightly
     const rows = Array(rowCount).fill('1fr').map(() => Math.random() > 0.7 ? 'auto' : '1fr');
     const cols = Array(colCount).fill('1fr').map(() => Math.random() > 0.7 ? '200px' : '1fr');
 
-    // Ensure at least one fr
     if (!rows.includes('1fr')) rows[0] = '1fr';
-    if (!cols.includes('1fr')) cols[1] = '1fr'; // usually main content
+    if (!cols.includes('1fr')) cols[1] = '1fr';
 
-    // 5. Random Gaps
     const gaps = ['0px', '0.5rem', '1rem', '1.5rem', '2rem'];
     const gap = gaps[Math.floor(Math.random() * gaps.length)];
 
@@ -173,9 +149,9 @@ export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 
             rows: ['60px', '1fr'],
             cols: ['250px', '1fr'],
             areas: [
-                { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 3, color: 'indigo' },
-                { id: nanoid(), name: 'sidebar', rowStart: 2, rowEnd: 3, colStart: 1, colEnd: 2, color: 'slate' },
-                { id: nanoid(), name: 'main', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'white' }
+                { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 3, color: 'indigo', tag: 'header', contentType: 'header' },
+                { id: nanoid(), name: 'sidebar', rowStart: 2, rowEnd: 3, colStart: 1, colEnd: 2, color: 'slate', tag: 'aside', contentType: 'form' },
+                { id: nanoid(), name: 'main', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'white', tag: 'main', contentType: 'chart' }
             ]
         };
     }
@@ -186,10 +162,10 @@ export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 
             rows: ['auto', '1fr', 'auto'],
             cols: ['1fr', '65ch', '300px', '1fr'],
             areas: [
-                { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 5, color: 'indigo' },
-                { id: nanoid(), name: 'article', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'white' },
-                { id: nanoid(), name: 'aside', rowStart: 2, rowEnd: 3, colStart: 3, colEnd: 4, color: 'slate' },
-                { id: nanoid(), name: 'footer', rowStart: 3, rowEnd: 4, colStart: 1, colEnd: 5, color: 'slate' }
+                { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 5, color: 'indigo', tag: 'header', contentType: 'header' },
+                { id: nanoid(), name: 'article', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'white', tag: 'article', contentType: 'none' },
+                { id: nanoid(), name: 'aside', rowStart: 2, rowEnd: 3, colStart: 3, colEnd: 4, color: 'slate', tag: 'aside', contentType: 'form' },
+                { id: nanoid(), name: 'footer', rowStart: 3, rowEnd: 4, colStart: 1, colEnd: 5, color: 'slate', tag: 'footer', contentType: 'footer' }
             ]
         };
     }
@@ -200,11 +176,11 @@ export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 
             rows: ['auto', '1fr', 'auto'],
             cols: ['200px', '1fr', '200px'],
             areas: [
-                { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 4, color: 'indigo' },
-                { id: nanoid(), name: 'nav', rowStart: 2, rowEnd: 3, colStart: 1, colEnd: 2, color: 'emerald' },
-                { id: nanoid(), name: 'main', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'white' },
-                { id: nanoid(), name: 'ads', rowStart: 2, rowEnd: 3, colStart: 3, colEnd: 4, color: 'amber' },
-                { id: nanoid(), name: 'footer', rowStart: 3, rowEnd: 4, colStart: 1, colEnd: 4, color: 'slate' }
+                { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 4, color: 'indigo', tag: 'header' },
+                { id: nanoid(), name: 'nav', rowStart: 2, rowEnd: 3, colStart: 1, colEnd: 2, color: 'emerald', tag: 'nav' },
+                { id: nanoid(), name: 'main', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'white', tag: 'main' },
+                { id: nanoid(), name: 'ads', rowStart: 2, rowEnd: 3, colStart: 3, colEnd: 4, color: 'amber', tag: 'aside' },
+                { id: nanoid(), name: 'footer', rowStart: 3, rowEnd: 4, colStart: 1, colEnd: 4, color: 'slate', tag: 'footer' }
             ]
         };
     }
@@ -215,14 +191,14 @@ export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 
             rows: ['auto', '1fr', '1fr', 'auto'],
             cols: ['1fr', '1fr', '1fr'],
             areas: [
-                { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 4, color: 'indigo' },
-                { id: nanoid(), name: 'img-1', rowStart: 2, rowEnd: 3, colStart: 1, colEnd: 2, color: 'sky' },
-                { id: nanoid(), name: 'img-2', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'sky' },
-                { id: nanoid(), name: 'img-3', rowStart: 2, rowEnd: 3, colStart: 3, colEnd: 4, color: 'sky' },
-                { id: nanoid(), name: 'img-4', rowStart: 3, rowEnd: 4, colStart: 1, colEnd: 2, color: 'sky' },
-                { id: nanoid(), name: 'img-5', rowStart: 3, rowEnd: 4, colStart: 2, colEnd: 3, color: 'sky' },
-                { id: nanoid(), name: 'img-6', rowStart: 3, rowEnd: 4, colStart: 3, colEnd: 4, color: 'sky' },
-                { id: nanoid(), name: 'footer', rowStart: 4, rowEnd: 5, colStart: 1, colEnd: 4, color: 'slate' }
+                { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 4, color: 'indigo', tag: 'header' },
+                { id: nanoid(), name: 'img-1', rowStart: 2, rowEnd: 3, colStart: 1, colEnd: 2, color: 'sky', contentType: 'image' },
+                { id: nanoid(), name: 'img-2', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'sky', contentType: 'image' },
+                { id: nanoid(), name: 'img-3', rowStart: 2, rowEnd: 3, colStart: 3, colEnd: 4, color: 'sky', contentType: 'image' },
+                { id: nanoid(), name: 'img-4', rowStart: 3, rowEnd: 4, colStart: 1, colEnd: 2, color: 'sky', contentType: 'image' },
+                { id: nanoid(), name: 'img-5', rowStart: 3, rowEnd: 4, colStart: 2, colEnd: 3, color: 'sky', contentType: 'image' },
+                { id: nanoid(), name: 'img-6', rowStart: 3, rowEnd: 4, colStart: 3, colEnd: 4, color: 'sky', contentType: 'image' },
+                { id: nanoid(), name: 'footer', rowStart: 4, rowEnd: 5, colStart: 1, colEnd: 4, color: 'slate', tag: 'footer' }
             ]
         };
     }
@@ -237,55 +213,174 @@ function parseSize(token: string): string | null {
 }
 
 export function generateLayoutFromText(input: string): GridState {
-    const rawTokens = input.toLowerCase().split(/[\s,]+/).filter(Boolean);
+    const rawInput = input.toLowerCase().trim();
 
-    // 1. Extract definitions: "name size" or "name"
-    // We look for patterns like:
-    // "header 100px", "sidebar 250px", "main", "footer auto"
+    // 1. Check for "grid RxC" pattern (e.g. "grid 4x4" or "grid 3")
+    const gridMatch = rawInput.match(/^grid\s+(\d+)(?:x(\d+))?$/);
+    if (gridMatch) {
+        const rowsCount = parseInt(gridMatch[1]);
+        const colsCount = parseInt(gridMatch[2] || gridMatch[1]); // Default to square if xN is missing
+
+        const areas: GridArea[] = [];
+        for (let r = 0; r < rowsCount; r++) {
+            for (let c = 0; c < colsCount; c++) {
+                areas.push({
+                    id: nanoid(),
+                    name: `cell-${r * colsCount + c + 1}`,
+                    rowStart: r + 1,
+                    rowEnd: r + 2,
+                    colStart: c + 1,
+                    colEnd: c + 2,
+                    color: getRandomColor(),
+                    tag: 'div'
+                });
+            }
+        }
+
+        return {
+            rows: Array(rowsCount).fill('1fr'),
+            cols: Array(colsCount).fill('1fr'),
+            gap: '1rem',
+            rowGap: '1rem',
+            colGap: '1rem',
+            areas,
+            items: [],
+            justifyItems: 'stretch',
+            alignItems: 'stretch',
+            justifyContent: 'stretch',
+            alignContent: 'stretch',
+            includeMobile: true
+        };
+    }
+
+    // 2. Check for "gallery N" pattern (e.g. "gallery 6")
+    const galleryMatch = rawInput.match(/^gallery\s+(\d+)$/);
+    if (galleryMatch) {
+        const count = parseInt(galleryMatch[1]);
+        // Auto-calculate columns based on count (approx square root)
+        const colsCount = Math.ceil(Math.sqrt(count));
+        const rowsCount = Math.ceil(count / colsCount);
+
+        const areas: GridArea[] = [];
+        for (let i = 0; i < count; i++) {
+            const r = Math.floor(i / colsCount);
+            const c = i % colsCount;
+            areas.push({
+                id: nanoid(),
+                name: `img-${i + 1}`,
+                rowStart: r + 1,
+                rowEnd: r + 2,
+                colStart: c + 1,
+                colEnd: c + 2,
+                color: 'sky',
+                contentType: 'image',
+                tag: 'div'
+            });
+        }
+
+        return {
+            rows: Array(rowsCount).fill('1fr'),
+            cols: Array(colsCount).fill('1fr'),
+            gap: '1rem',
+            rowGap: '1rem',
+            colGap: '1rem',
+            areas,
+            items: [],
+            justifyItems: 'stretch',
+            alignItems: 'stretch',
+            justifyContent: 'stretch',
+            alignContent: 'stretch',
+            includeMobile: true
+        };
+    }
+
+    // 3. Check for "timeline" pattern
+    if (rawInput === 'timeline') {
+        // Vertical timeline: [Left, Line, Right]
+        // Alternating entries
+        const rowsCount = 6;
+        const areas: GridArea[] = [];
+        for (let i = 0; i < rowsCount; i++) {
+            const isLeft = i % 2 === 0;
+            // Content
+            areas.push({
+                id: nanoid(),
+                name: `event-${i + 1}`,
+                rowStart: i + 1,
+                rowEnd: i + 2,
+                colStart: isLeft ? 1 : 3,
+                colEnd: isLeft ? 2 : 4,
+                color: isLeft ? 'indigo' : 'emerald',
+                tag: 'article'
+            });
+            // Marker
+            areas.push({
+                id: nanoid(),
+                name: `dot-${i + 1}`,
+                rowStart: i + 1,
+                rowEnd: i + 2,
+                colStart: 2,
+                colEnd: 3,
+                color: 'slate',
+                tag: 'div'
+            });
+        }
+
+        return {
+            rows: Array(rowsCount).fill('1fr'),
+            cols: ['1fr', '4px', '1fr'], // Center line
+            gap: '1rem',
+            rowGap: '1rem',
+            colGap: '2rem',
+            areas,
+            items: [],
+            justifyItems: 'center',
+            alignItems: 'center',
+            justifyContent: 'stretch',
+            alignContent: 'stretch',
+            includeMobile: true
+        };
+    }
+
+    // 4. Default Smart Parsing
+    const rawTokens = rawInput.split(/[\s,]+/).filter(Boolean);
     const definitions: { name: string; size?: string }[] = [];
 
     for (let i = 0; i < rawTokens.length; i++) {
         const t = rawTokens[i];
         const next = rawTokens[i+1];
 
-        // Skip size tokens if they were already consumed
         if (parseSize(t)) continue;
 
         const size = next ? parseSize(next) : undefined;
         definitions.push({ name: t, size: size || undefined });
-        if (size) i++; // Consume size
+        if (size) i++;
     }
 
     if (definitions.length === 0) return generateMagicLayout();
 
-    // 2. Identify roles
     const header = definitions.find(d => ['header', 'top', 'nav'].some(k => d.name.includes(k)));
     const footer = definitions.find(d => ['footer', 'bottom'].some(k => d.name.includes(k)));
     const sidebar = definitions.find(d => ['sidebar', 'aside', 'left', 'menu'].some(k => d.name.includes(k)));
     const rightbar = definitions.find(d => ['rightbar', 'ads', 'extra', 'right'].some(k => d.name.includes(k)));
 
-    // Main is whatever is left, or explicitly named 'main'
     const usedNames = [header, footer, sidebar, rightbar].filter(Boolean).map(d => d!.name);
     const main = definitions.find(d => !usedNames.includes(d.name)) || { name: 'main' };
 
-    // 3. Build Grid
-    // Rows: Header? / Main+Sidebars / Footer?
     const rows: string[] = [];
     if (header) rows.push(header.size || 'auto');
-    rows.push('1fr'); // Middle content row
+    rows.push('1fr');
     if (footer) rows.push(footer.size || 'auto');
 
-    // Cols: Sidebar? / Main / Rightbar?
     const cols: string[] = [];
     if (sidebar) cols.push(sidebar.size || '250px');
-    cols.push(main.size || '1fr'); // Main content col
+    cols.push(main.size || '1fr');
     if (rightbar) cols.push(rightbar.size || '250px');
 
     const areas: GridArea[] = [];
     let currentRow = 1;
     const totalCols = cols.length;
 
-    // Header Area
     if (header) {
         areas.push({
             id: nanoid(),
@@ -300,7 +395,6 @@ export function generateLayoutFromText(input: string): GridState {
         currentRow++;
     }
 
-    // Middle Section
     const middleRowStart = currentRow;
     const middleRowEnd = currentRow + 1;
     let currentCol = 1;
@@ -319,7 +413,6 @@ export function generateLayoutFromText(input: string): GridState {
         currentCol++;
     }
 
-    // Main Area
     areas.push({
         id: nanoid(),
         name: main.name,
@@ -348,7 +441,6 @@ export function generateLayoutFromText(input: string): GridState {
 
     currentRow++;
 
-    // Footer Area
     if (footer) {
         areas.push({
             id: nanoid(),

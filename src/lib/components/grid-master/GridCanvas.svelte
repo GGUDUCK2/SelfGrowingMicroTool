@@ -157,6 +157,30 @@
       const n = name.toLowerCase();
       const type = area.contentType;
 
+      if (/^cell-\d+$/.test(n)) return `
+         <div class="w-full h-full flex items-center justify-center opacity-30 text-xl font-bold border-2 border-dashed border-current rounded-lg">
+             ${n.split('-')[1]}
+         </div>
+      `;
+
+      if (/^img-\d+$/.test(n) || /^image-\d+$/.test(n)) return `
+         <div class="w-full h-full bg-current opacity-10 flex items-center justify-center rounded-lg overflow-hidden relative">
+             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="opacity-30"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+         </div>
+      `;
+
+      if (n.includes('event')) return `
+         <div class="p-3 h-full flex flex-col justify-center bg-current opacity-10 rounded-lg border-l-4 border-current">
+             <div class="text-[10px] font-bold opacity-60 uppercase mb-1">Timestamp</div>
+             <h4 class="font-bold text-xs mb-1">Event Title</h4>
+             <p class="text-[10px] opacity-70 line-clamp-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+         </div>
+      `;
+
+      if (n.includes('dot')) return `
+         <div class="w-4 h-4 rounded-full bg-current mx-auto shadow-sm ring-4 ring-white dark:ring-slate-900"></div>
+      `;
+
       if (type === 'chart' || n.includes('chart') || n.includes('graph')) return `
         <div class="h-full flex flex-col p-3">
              <h4 class="text-xs font-bold uppercase tracking-wider opacity-60 mb-2">Analytics</h4>

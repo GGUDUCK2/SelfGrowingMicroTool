@@ -525,6 +525,9 @@
                      </button>
                  {/each}
              </div>
+             <p class="text-[10px] text-slate-400 mt-2 italic">
+                 {dict.smartHints || "Try: 'grid 4x4', 'gallery 6', 'timeline'"}
+             </p>
           </div>
 
           <div class="grid grid-cols-2 gap-3">

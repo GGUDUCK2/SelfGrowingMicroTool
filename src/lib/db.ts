@@ -1,7 +1,7 @@
 import Dexie, { type Table as DexieTable } from 'dexie';
 import type { Table as SchemaTable, Relation as SchemaRelation } from './types/schema-forge';
 import type { IconConfig } from './utils/icon-forge/processor';
-import type { GridArea } from '$lib/utils/grid-master/types';
+import type { GridArea, GridItem } from '$lib/utils/grid-master/types';
 import type { SchemaField } from '$lib/utils/mock-forge/types';
 
 export interface MockForgeSchema {
@@ -189,7 +189,7 @@ export interface GridMasterProject {
   rowGap: string;
   colGap: string;
   areas: GridArea[];
-  items: any[];
+  items: GridItem[];
   createdAt: Date;
   updatedAt: Date;
   starred?: number;

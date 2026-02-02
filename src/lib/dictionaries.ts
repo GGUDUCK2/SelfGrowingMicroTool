@@ -1444,6 +1444,9 @@ export const dictionaries = {
         download: "Download",
         downloadHtml: "Download HTML",
         downloadSvg: "Download SVG",
+        downloadPng: "Download PNG",
+        copyConfig: "Copy Config",
+        smartHints: "Try: 'grid 4x4', 'gallery 6', 'timeline'",
         previewTheme: "Preview Theme",
         themes: {
             standard: "Standard",
@@ -2430,6 +2433,9 @@ export const dictionaries = {
         download: "다운로드",
         downloadHtml: "HTML 다운로드",
         downloadSvg: "SVG 다운로드",
+        downloadPng: "PNG 다운로드",
+        copyConfig: "설정 복사",
+        smartHints: "예: 'grid 4x4', 'gallery 6', 'timeline'",
         previewTheme: "미리보기 테마",
         themes: {
             standard: "표준 (Standard)",
