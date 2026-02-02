@@ -419,6 +419,81 @@ export const dictionaries = {
           pastePlaceholder: "Paste UUID, ULID, or any ID here..."
         }
       },
+      inputLab: {
+        title: "Input Lab: Device Input Tester",
+        description: "Test and analyze your keyboard, gamepad, mouse, and touch inputs. Check for ghosting, polling rates, and event data.",
+        tabs: {
+          keyboard: "Keyboard",
+          gamepad: "Gamepad",
+          pointer: "Pointer",
+          screen: "Screen",
+          history: "History"
+        },
+        guide: {
+          title: "Why Input Lab?",
+          intro: "Input Lab provides a comprehensive suite to verify and debug your input devices directly in the browser.",
+          featuresTitle: "Key Features",
+          f1: "**Ghosting Test:** Verify N-Key Rollover and check for ghosting on your mechanical keyboard.",
+          f2: "**Gamepad Visualizer:** Test analog sticks, triggers, and buttons on your game controller.",
+          f3: "**Pointer Analysis:** Monitor mouse polling rate, touch points, and pressure sensitivity.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use the **History** tab to review recorded input sequences.",
+          tip2: "Connect multiple gamepads to test local multiplayer setups.",
+          tip3: "Check **Screen** info to verify your display's reported refresh rate and pixel ratio."
+        },
+        keyboard: {
+          lastPress: "Last Press",
+          activeKeys: "Active Keys",
+          pressAnyKey: "Press any key...",
+          ghosting: "Ghosting",
+          latency: "Latency (Est.)",
+          reset: "Reset"
+        },
+        gamepad: {
+          connect: "Connect a controller and press any button",
+          axes: "Axes",
+          buttons: "Buttons",
+          vibration: "Test Vibration"
+        },
+        pointer: {
+          pressure: "Pressure",
+          tiltX: "Tilt X",
+          tiltY: "Tilt Y",
+          type: "Type",
+          width: "Width",
+          buttons: "Buttons",
+          draw: "Draw Here"
+        },
+        screen: {
+          resolution: "Screen Resolution",
+          viewport: "Viewport Size",
+          pixelRatio: "Pixel Ratio",
+          colorDepth: "Color Depth",
+          cores: "CPU Cores",
+          memory: "Device Memory",
+          online: "Online Status",
+          language: "Language",
+          userAgent: "User Agent"
+        },
+        history: {
+          export: "Export JSON",
+          clear: "Clear Log",
+          noEvents: "No events recorded yet.",
+          time: "Time",
+          type: "Type",
+          detail: "Detail"
+        },
+        faq: {
+          q2: "How do I test my gamepad?"
+        },
+        faqTitle: "Input Lab FAQ",
+        q1: "What is Keyboard Ghosting?",
+        a1: "Ghosting occurs when a keyboard cannot register more than a certain number of keys pressed simultaneously. Anti-ghosting (NKRO) allows all keys to be registered.",
+        q2: "How do I test my gamepad?",
+        a2: "Connect your controller via USB or Bluetooth and press any button. The Gamepad Tester will automatically detect and visualize the inputs.",
+        q3: "Is my input data saved?",
+        a3: "No, input data is processed locally in real-time and discarded unless you explicitly save a session snapshot to your local history."
+      },
       cipherLab: {
         title: "Cipher Lab: Crypto & Token Suite",
         description: "The definitive tool for hashing, encoding, JWT debugging, and password generation. Zero data transfer.",
@@ -987,7 +1062,14 @@ export const dictionaries = {
           tip1: "Use **Ctrl/Cmd + Enter** to quickly send a request.",
           tip2: "Click on any response status code to see a detailed breakdown.",
           tip3: "Toggle parameters on/off to test different query combinations without deleting them."
-        }
+        },
+        faqTitle: "Restro FAQ",
+        q1: "Is Restro a full Postman alternative?",
+        a1: "Restro provides the core functionality needed for daily API development and debugging directly in your browser, without the bloat.",
+        q2: "Can I use it with localhost?",
+        a2: "Yes, since it runs in your browser, it can access your localhost servers directly (unlike cloud-based tools).",
+        q3: "Where is history stored?",
+        a3: "All request history is stored in your browser's IndexedDB for privacy and offline access."
       },
       unitVerse: {
         title: "Unit Verse: Universal Unit Converter",
@@ -1145,6 +1227,25 @@ export const dictionaries = {
         scaleGenerator: {
           title: "Smart Scale Generator (50-950)",
           copy: "Copy JSON Scale"
+        },
+        faqTitle: "Pixel Forge FAQ",
+        q1: "Is the compression lossless?",
+        a1: "It depends on your settings. PNG is lossless, while JPEG and WebP can be lossy to save more space.",
+        q2: "Are images sent to a server?",
+        a2: "No. Pixel Forge runs completely offline in your browser. Your photos never leave your device.",
+        q3: "Why choose WebP?",
+        a3: "WebP typically provides 30% smaller files than JPEG for the same quality, with support for transparency.",
+        guide: {
+          title: "Mastering Image Optimization",
+          intro: "Images account for the majority of web traffic. Pixel Forge helps you serve the best format with the smallest size.",
+          featuresTitle: "Key Features",
+          f1: "**WebAssembly Power:** Uses high-performance WASM codecs for desktop-class compression directly in the browser.",
+          f2: "**Metadata Privacy:** Automatically strips EXIF/GPS data to protect your location and privacy.",
+          f3: "**Adaptive Scaling:** Smart resizing algorithms preserve sharpness even when downscaling.",
+          tipsTitle: "Pro Tips",
+          tip1: "Convert to **WebP** for the best balance of quality and size.",
+          tip2: "Use the **Watermark** feature to protect your intellectual property before sharing.",
+          tip3: "Drag and drop multiple files to process them in batch."
         }
       },
       geoForge: {
@@ -2981,6 +3082,234 @@ export const dictionaries = {
         a2: "네, 생성된 다이어그램은 귀하의 소유입니다. Mermaid 자체는 MIT 라이선스를 따릅니다.",
         q3: "오프라인에서 작동하나요?",
         a3: "네. 로딩된 후 다이어그램 포지는 전적으로 브라우저 내에서 실행됩니다."
+      },
+      restro: {
+        title: "Restro: API Client",
+        description: "A professional-grade API client and testing tool right in your browser. Debug REST APIs, inspect responses, and generate code snippets.",
+        method: "Method",
+        url: "URL",
+        send: "Send",
+        save: "Save",
+        history: "History",
+        collections: "Saved Requests",
+        params: "Params",
+        headers: "Headers",
+        body: "Body",
+        response: "Response",
+        status: "Status",
+        time: "Time",
+        size: "Size",
+        generateCode: "Generate Code",
+        guide: {
+          title: "Why use Restro?",
+          intro: "Restro is a professional-grade API testing tool built directly into your browser. Engineered for performance and privacy, it allows developers to craft complex HTTP requests, debug APIs, and analyze responses without leaving their workflow.",
+          featuresTitle: "Key Features",
+          f1: "**Zero Latency:** Runs locally in your browser. No server round-trips for UI.",
+          f2: "**Privacy First:** Your requests and history are stored in IndexedDB, never on our servers.",
+          f3: "**Developer Friendly:** Syntax highlighting, cURL import/export, and instant code generation.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use **Ctrl/Cmd + Enter** to quickly send a request.",
+          tip2: "Click on any response status code to see a detailed breakdown.",
+          tip3: "Toggle parameters on/off to test different query combinations without deleting them."
+        },
+        faqTitle: "Restro FAQ",
+        q1: "Is Restro a full Postman alternative?",
+        a1: "Restro provides the core functionality needed for daily API development and debugging directly in your browser, without the bloat.",
+        q2: "Can I use it with localhost?",
+        a2: "Yes, since it runs in your browser, it can access your localhost servers directly (unlike cloud-based tools).",
+        q3: "Where is history stored?",
+        a3: "All request history is stored in your browser's IndexedDB for privacy and offline access."
+      },
+      inputLab: {
+        title: "Input Lab: Device Input Tester",
+        description: "Test and analyze your keyboard, gamepad, mouse, and touch inputs. Check for ghosting, polling rates, and event data.",
+        tabs: {
+          keyboard: "Keyboard",
+          gamepad: "Gamepad",
+          pointer: "Pointer",
+          screen: "Screen",
+          history: "History"
+        },
+        guide: {
+          title: "Why Input Lab?",
+          intro: "Input Lab provides a comprehensive suite to verify and debug your input devices directly in the browser.",
+          featuresTitle: "Key Features",
+          f1: "**Ghosting Test:** Verify N-Key Rollover and check for ghosting on your mechanical keyboard.",
+          f2: "**Gamepad Visualizer:** Test analog sticks, triggers, and buttons on your game controller.",
+          f3: "**Pointer Analysis:** Monitor mouse polling rate, touch points, and pressure sensitivity.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use the **History** tab to review recorded input sequences.",
+          tip2: "Connect multiple gamepads to test local multiplayer setups.",
+          tip3: "Check **Screen** info to verify your display's reported refresh rate and pixel ratio."
+        },
+        faqTitle: "Input Lab FAQ",
+        q1: "What is Keyboard Ghosting?",
+        a1: "Ghosting occurs when a keyboard cannot register more than a certain number of keys pressed simultaneously. Anti-ghosting (NKRO) allows all keys to be registered.",
+        q2: "How do I test my gamepad?",
+        a2: "Connect your controller via USB or Bluetooth and press any button. The Gamepad Tester will automatically detect and visualize the inputs.",
+        q3: "Is my input data saved?",
+        a3: "No, input data is processed locally in real-time and discarded unless you explicitly save a session snapshot to your local history."
+      },
+      pixelForge: {
+        title: "Pixel Forge: Image Optimizer",
+        description: "Optimize, resize, and convert images locally.",
+        uiPreview: {
+          title: "UI Component Preview",
+          buttons: "Buttons",
+          inputs: "Inputs",
+          primaryButton: "Primary Action",
+          secondaryButton: "Secondary Action"
+        },
+        imageExtraction: {
+          title: "Extract from Image",
+          dragDrop: "Drag & drop or click to upload"
+        },
+        contrastGrid: {
+          title: "Contrast Matrix"
+        },
+        gradientGenerator: {
+          title: "Gradient Generator",
+          type: "Gradient Type",
+          direction: "Direction",
+          copy: "Copy Gradient CSS"
+        },
+        scaleGenerator: {
+          title: "Smart Scale Generator (50-950)",
+          copy: "Copy JSON Scale"
+        },
+        faqTitle: "Pixel Forge FAQ",
+        q1: "Is the compression lossless?",
+        a1: "It depends on your settings. PNG is lossless, while JPEG and WebP can be lossy to save more space.",
+        q2: "Are images sent to a server?",
+        a2: "No. Pixel Forge runs completely offline in your browser. Your photos never leave your device.",
+        q3: "Why choose WebP?",
+        a3: "WebP typically provides 30% smaller files than JPEG for the same quality, with support for transparency.",
+        guide: {
+          title: "Mastering Image Optimization",
+          intro: "Images account for the majority of web traffic. Pixel Forge helps you serve the best format with the smallest size.",
+          featuresTitle: "Key Features",
+          f1: "**WebAssembly Power:** Uses high-performance WASM codecs for desktop-class compression directly in the browser.",
+          f2: "**Metadata Privacy:** Automatically strips EXIF/GPS data to protect your location and privacy.",
+          f3: "**Adaptive Scaling:** Smart resizing algorithms preserve sharpness even when downscaling.",
+          tipsTitle: "Pro Tips",
+          tip1: "Convert to **WebP** for the best balance of quality and size.",
+          tip2: "Use the **Watermark** feature to protect your intellectual property before sharing.",
+          tip3: "Drag and drop multiple files to process them in batch."
+        }
+      },
+      stringTheory: {
+        title: "String Theory: Text Engine",
+        description: "The definitive text processing engine. Analyze, transform, clean, and encode text with professional precision.",
+        input: "Input Text",
+        output: "Result",
+        analyze: "Analyze",
+        transform: "Transform",
+        clean: "Clean",
+        security: "Security",
+        encode: "Encode/Decode",
+        history: "History",
+        stats: {
+          chars: "Characters",
+          words: "Words",
+          lines: "Lines",
+          paragraphs: "Paragraphs",
+          bytes: "Bytes",
+          readingTime: "Reading Time",
+          speakingTime: "Speaking Time",
+          sentences: "Sentences"
+        },
+        actions: {
+          uppercase: "Uppercase",
+          lowercase: "Lowercase",
+          capitalize: "Capitalize",
+          camelCase: "Camel Case",
+          pascalCase: "Pascal Case",
+          snakeCase: "Snake Case",
+          kebabCase: "Kebab Case",
+          constantCase: "Constant Case",
+          titleCase: "Title Case",
+          sentenceCase: "Sentence Case",
+          slugify: "Slugify",
+          reverse: "Reverse Text",
+          reverseWords: "Reverse Words",
+          shuffleLines: "Shuffle Lines",
+          sortAlpha: "Sort Lines (A-Z)",
+          sortLength: "Sort Lines (Length)",
+          unique: "Unique Lines",
+          shuffleWords: "Shuffle Words",
+          removeNonAlphaNumeric: "AlphaNumeric Only",
+          trim: "Trim Whitespace",
+          trimLines: "Trim Each Line",
+          removeEmpty: "Remove Empty Lines",
+          removeDupes: "Remove Duplicate Lines",
+          normalize: "Normalize Spaces",
+          stripHtml: "Strip HTML",
+          redactEmail: "Redact Emails",
+          redactPhone: "Redact Phones",
+          redactIp: "Redact IPs",
+          redactCc: "Redact Credit Cards",
+          base64Enc: "Base64 Encode",
+          base64Dec: "Base64 Decode",
+          urlEnc: "URL Encode",
+          urlDec: "URL Decode",
+          htmlEnc: "HTML Entity Encode",
+          htmlDec: "HTML Entity Decode",
+          hexEnc: "Hex Encode",
+          hexDec: "Hex Decode",
+          binaryEnc: "Binary Encode",
+          binaryDec: "Binary Decode"
+        },
+        generators: {
+          title: "Generators",
+          lorem: "Lorem Ipsum",
+          uuid: "UUID v4",
+          ulid: "ULID",
+          nanoid: "NanoID",
+          random: "Random String",
+          generated: "Generated"
+        },
+        extractors: {
+          title: "Magic Extractors",
+          itemsFound: "Items Found",
+          copyAll: "Copy All",
+          email: "Emails",
+          url: "URLs",
+          phone: "Phone Numbers",
+          hashtag: "Hashtags",
+          mention: "Mentions",
+          ipv4: "IPv4 Addresses",
+          ipv6: "IPv6 Addresses",
+          hexColor: "Hex Colors",
+          creditCard: "Credit Cards",
+          jwt: "JWT Tokens",
+          uuid: "UUIDs"
+        },
+        smartMagic: {
+          formatJson: "Format JSON",
+          decodeBase64: "Decode Base64",
+          decodeUrl: "URL Decode",
+          cleanWhitespace: "Clean Whitespace",
+          decodeHtml: "Decode HTML Entities"
+        },
+        guide: {
+          title: "Why String Theory?",
+          intro: "String Theory is the ultimate text manipulation suite for developers and writers. It treats text as data, allowing for complex transformations and deep analysis in milliseconds.",
+          featuresTitle: "Key Features",
+          f1: "**Deep Analysis:** Get instant insights into word count, character distribution, and readability.",
+          f2: "**Smart Transformers:** Convert between all standard programming cases (camel, snake, kebab) instantly.",
+          f3: "**Security Tools:** Automatically redact sensitive information like emails and phone numbers before sharing text.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use **Slugify** to generate URL-friendly strings from titles.",
+          tip2: "Combine **Remove Empty Lines** and **Unique Lines** to clean up dirty data lists.",
+          tip3: "Check the **History** tab to retrieve previously transformed text."
+        },
+        faqTitle: "String Theory FAQ",
+        q1: "Is my text uploaded?",
+        a1: "No. All text processing happens locally in your browser. Your sensitive data never leaves your device.",
+        q2: "What is the max text size?",
+        a2: "It depends on your browser's memory, but generally, String Theory can handle several megabytes of text without issues.",
+        q3: "Does it support Unicode?",
+        a3: "Yes, String Theory is fully Unicode-aware and handles multi-byte characters (like emojis and Korean Hangul) correctly."
       }
     },
     pwa: {

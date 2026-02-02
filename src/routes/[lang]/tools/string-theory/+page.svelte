@@ -167,29 +167,53 @@
   // Wait for dict to be ready
   $: jsonLd = dict ? {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "String Theory",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "description": dict.description,
-    "featureList": [
-        "Text Analysis",
-        "Case Conversion",
-        "String Cleaning",
-        "Security Redaction",
-        "Base64 Encoding",
-        "ULID/NanoID Generation"
-    ],
-    "isAccessibleForFree": true,
-    "author": {
-        "@type": "Organization",
-        "name": "MicroFactory"
-    }
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "String Theory",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": dict.description,
+        "featureList": [
+            "Text Analysis",
+            "Case Conversion",
+            "String Cleaning",
+            "Security Redaction",
+            "Base64 Encoding",
+            "ULID/NanoID Generation"
+        ],
+        "isAccessibleForFree": true,
+        "author": {
+            "@type": "Organization",
+            "name": "MicroFactory"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": dict.q1,
+            "acceptedAnswer": { "@type": "Answer", "text": dict.a1 }
+          },
+          {
+            "@type": "Question",
+            "name": dict.q2,
+            "acceptedAnswer": { "@type": "Answer", "text": dict.a2 }
+          },
+          {
+            "@type": "Question",
+            "name": dict.q3,
+            "acceptedAnswer": { "@type": "Answer", "text": dict.a3 }
+          }
+        ]
+      }
+    ]
   } : null;
 
   const canonicalUrl = `https://web-factory.vercel.app/${$page.params.lang}/tools/string-theory`;
