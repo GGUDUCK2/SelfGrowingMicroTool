@@ -228,28 +228,52 @@
   <meta name="twitter:description" content={dict?.description ?? 'Professional API Client in your browser.'} />
 
   {@html `<script type="application/ld+json">
-  {
+  ${JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "${dict?.title ?? 'Restro'}",
-    "description": "${dict?.description ?? 'API Client'}",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "featureList": [
-      "Client-side API Testing",
-      "Request Chaining",
-      "Code Generation",
-      "Offline History",
-      "Smart Variable Substitution",
-      "Batch Runner",
-      "Environment Variables"
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": dict?.title ?? 'Restro',
+        "description": dict?.description ?? 'API Client',
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Client-side API Testing",
+          "Request Chaining",
+          "Code Generation",
+          "Offline History",
+          "Smart Variable Substitution",
+          "Batch Runner",
+          "Environment Variables"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": dict?.q1,
+            "acceptedAnswer": { "@type": "Answer", "text": dict?.a1 }
+          },
+          {
+            "@type": "Question",
+            "name": dict?.q2,
+            "acceptedAnswer": { "@type": "Answer", "text": dict?.a2 }
+          },
+          {
+            "@type": "Question",
+            "name": dict?.q3,
+            "acceptedAnswer": { "@type": "Answer", "text": dict?.a3 }
+          }
+        ]
+      }
     ]
-  }
+  })}
   </script>`}
 </svelte:head>
 
@@ -446,6 +470,25 @@
            </ul>
         </div>
       </div>
+
+      <!-- FAQ Section -->
+      <section class="mt-12">
+        <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">{dict.faqTitle}</h2>
+        <div class="space-y-6">
+          <div class="bg-slate-50 dark:bg-slate-800/30 p-6 rounded-xl border border-slate-100 dark:border-slate-800">
+            <h3 class="text-lg font-bold mb-2 text-slate-800 dark:text-slate-200">{dict.q1}</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a1}</p>
+          </div>
+          <div class="bg-slate-50 dark:bg-slate-800/30 p-6 rounded-xl border border-slate-100 dark:border-slate-800">
+            <h3 class="text-lg font-bold mb-2 text-slate-800 dark:text-slate-200">{dict.q2}</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a2}</p>
+          </div>
+          <div class="bg-slate-50 dark:bg-slate-800/30 p-6 rounded-xl border border-slate-100 dark:border-slate-800">
+            <h3 class="text-lg font-bold mb-2 text-slate-800 dark:text-slate-200">{dict.q3}</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a3}</p>
+          </div>
+        </div>
+      </section>
 
     </article>
   </div>

@@ -16,6 +16,49 @@
   $: dict = getDictionary(lang).tools.inputLab;
   $: common = getDictionary(lang).common;
 
+  $: jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": dict.title,
+        "description": dict.description,
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+            dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '$1'),
+            dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '$1'),
+            dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '$1')
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": dict.q1,
+            "acceptedAnswer": { "@type": "Answer", "text": dict.a1 }
+          },
+          {
+            "@type": "Question",
+            "name": dict.q2,
+            "acceptedAnswer": { "@type": "Answer", "text": dict.a2 }
+          },
+          {
+            "@type": "Question",
+            "name": dict.q3,
+            "acceptedAnswer": { "@type": "Answer", "text": dict.a3 }
+          }
+        ]
+      }
+    ]
+  };
+
   let activeTab: 'keyboard' | 'gamepad' | 'pointer' | 'screen' | 'history' = 'keyboard';
   let events: any[] = [];
   let showToast = false;
@@ -82,21 +125,7 @@
   <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/input-lab" />
   <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/input-lab" />
 
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Input Lab",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Any",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "featureList": "Keyboard Ghosting Test, Gamepad Visualizer, Pointer Event Analysis, Device Info"
-    }
-  </script>
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">

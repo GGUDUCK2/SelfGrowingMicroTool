@@ -15,24 +15,48 @@
 
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Pixel Forge",
-    "description": description,
-    "applicationCategory": "DesignApplication",
-    "operatingSystem": "Web, Android, iOS",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "featureList": [
-       "Client-side processing",
-       "WebP/JPEG/PNG conversion",
-       "Smart compression",
-       "Privacy focused metadata stripping",
-       "Text Watermarking",
-       "Magic Palette Extraction",
-       "Offline capability"
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Pixel Forge",
+        "description": description,
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web, Android, iOS",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+           "Client-side processing",
+           "WebP/JPEG/PNG conversion",
+           "Smart compression",
+           "Privacy focused metadata stripping",
+           "Text Watermarking",
+           "Magic Palette Extraction",
+           "Offline capability"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": toolDict.q1,
+            "acceptedAnswer": { "@type": "Answer", "text": toolDict.a1 }
+          },
+          {
+            "@type": "Question",
+            "name": toolDict.q2,
+            "acceptedAnswer": { "@type": "Answer", "text": toolDict.a2 }
+          },
+          {
+            "@type": "Question",
+            "name": toolDict.q3,
+            "acceptedAnswer": { "@type": "Answer", "text": toolDict.a3 }
+          }
+        ]
+      }
     ]
   });
 
