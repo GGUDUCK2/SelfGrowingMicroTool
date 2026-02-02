@@ -1675,7 +1675,10 @@ export const dictionaries = {
         smartExamples: [
             "header sidebar main footer",
             "header 80px sidebar 250px main",
-            "nav main aside footer"
+            "nav main aside footer",
+            "dashboard",
+            "blog",
+            "gallery 6"
         ],
         guide: {
           title: "Why Grid Master?",
@@ -2711,7 +2714,10 @@ export const dictionaries = {
         smartExamples: [
             "header sidebar main footer",
             "header 80px sidebar 250px main",
-            "nav main aside footer"
+            "nav main aside footer",
+            "dashboard",
+            "blog",
+            "gallery 6"
         ],
         guide: {
           title: "왜 그리드 마스터인가요?",

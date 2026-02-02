@@ -5,7 +5,7 @@
 
   export let isOpen = false;
   export let areaId: string | null = null;
-  export let dict: any = dictionaries.en.tools.gridMaster;
+  export let dict: typeof dictionaries.en.tools.gridMaster = dictionaries.en.tools.gridMaster;
 
   let name = '';
   let tag = 'div';
@@ -66,7 +66,7 @@
               <div>
                   <label class="block text-sm font-medium mb-1 opacity-70" for="area-tag">{dict.semanticTag}</label>
                   <select id="area-tag" bind:value={tag} class="w-full p-2 rounded border dark:border-slate-700 bg-transparent focus:ring-2 focus:ring-indigo-500 outline-none">
-                      {#each tags as t}
+                      {#each tags as t (t)}
                           <option value={t}>{t}</option>
                       {/each}
                   </select>
@@ -77,7 +77,7 @@
               <div>
                   <label class="block text-sm font-medium mb-1 opacity-70" for="area-type">{dict.contentType}</label>
                   <select id="area-type" bind:value={contentType} class="w-full p-2 rounded border dark:border-slate-700 bg-transparent focus:ring-2 focus:ring-indigo-500 outline-none">
-                      {#each contentTypes as t}
+                      {#each contentTypes as t (t)}
                           <option value={t}>{dict.contentTypes?.[t] || t}</option>
                       {/each}
                   </select>
@@ -87,7 +87,7 @@
               <div role="group" aria-labelledby="color-label">
                   <span id="color-label" class="block text-sm font-medium mb-1 opacity-70">{dict.color}</span>
                   <div class="flex flex-wrap gap-2 max-h-32 overflow-y-auto p-1">
-                      {#each colors as c}
+                      {#each colors as c (c)}
                           <button
                               class="w-6 h-6 rounded-full border-2 transition-transform hover:scale-110 {color === c ? 'border-black dark:border-white ring-2 ring-offset-2 ring-indigo-500' : 'border-transparent'}"
                               class:bg-slate-500={c==='slate'}

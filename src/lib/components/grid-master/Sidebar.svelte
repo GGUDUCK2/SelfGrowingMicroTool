@@ -147,7 +147,7 @@
                  class="bg-transparent text-xs font-medium text-slate-700 dark:text-slate-300 focus:outline-none cursor-pointer text-right w-24"
                  aria-label={dict.previewTheme || 'Theme'}
               >
-                  {#each Object.entries(dict.themes || { standard: 'Standard', blueprint: 'Blueprint', wireframe: 'Wireframe', cyber: 'Cyber' }) as [key, label]}
+                  {#each Object.entries(dict.themes || { standard: 'Standard', blueprint: 'Blueprint', wireframe: 'Wireframe', cyber: 'Cyber' }) as [key, label] (key)}
                       <option value={key}>{label}</option>
                   {/each}
               </select>
@@ -233,7 +233,7 @@
                   { label: dict.gapPresets?.small || 'Small', val: '0.5rem' },
                   { label: dict.gapPresets?.medium || 'Medium', val: '1rem' },
                   { label: dict.gapPresets?.large || 'Large', val: '2rem' }
-              ] as preset}
+              ] as preset (preset.val)}
                   <button
                     class="flex-1 py-1.5 text-xs font-medium rounded-md transition-all {$gridStore.rowGap === preset.val && $gridStore.colGap === preset.val ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
                     on:click={() => { gridStore.setRowGap(preset.val); gridStore.setColGap(preset.val); }}
@@ -256,7 +256,7 @@
                           { val: 'center', icon: AlignCenter, label: 'Center' },
                           { val: 'end', icon: AlignRight, label: 'End' },
                           { val: 'stretch', icon: Maximize, label: 'Stretch' }
-                      ] as opt}
+                      ] as opt (opt.val)}
                           <button
                             class="flex-1 p-1.5 rounded flex items-center justify-center transition-all {$gridStore.justifyItems === opt.val ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}"
                             on:click={() => gridStore.setJustifyItems(opt.val as JustifyItems)}
@@ -276,7 +276,7 @@
                           { val: 'center', icon: AlignCenter, label: 'Center' },
                           { val: 'end', icon: AlignRight, label: 'End' },
                           { val: 'stretch', icon: Maximize, label: 'Stretch' }
-                      ] as opt}
+                      ] as opt (opt.val)}
                           <button
                             class="flex-1 p-1.5 rounded flex items-center justify-center transition-all {$gridStore.alignItems === opt.val ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}"
                             on:click={() => gridStore.setAlignItems(opt.val as AlignItems)}
@@ -516,7 +516,7 @@
                  </button>
              </div>
              <div class="flex flex-wrap gap-1 mt-1">
-                 {#each dict.smartExamples || ['header sidebar main footer', 'header 80px sidebar 250px main', 'nav main aside footer'] as ex}
+                 {#each dict.smartExamples || ['header sidebar main footer', 'header 80px sidebar 250px main', 'nav main aside footer'] as ex (ex)}
                      <button
                        class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded text-[10px] text-slate-500 hover:text-indigo-600 hover:border-indigo-300 transition-colors"
                        on:click={() => { textLayoutInput = ex; handleTextLayout(); }}

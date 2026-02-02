@@ -5,11 +5,12 @@
   import { COLOR_MAP, getRandomColor } from '$lib/utils/grid-master/constants';
   import type { GridArea } from '$lib/utils/grid-master/types';
   import AreaSettingsModal from './AreaSettingsModal.svelte';
+  import { dictionaries } from '$lib/dictionaries';
 
   export let previewMode = false;
   export let viewMode: 'desktop' | 'mobile' = 'desktop';
   export let theme = 'standard';
-  export let dict: any = {}; // Passed from parent
+  export let dict: typeof dictionaries.en.tools.gridMaster = dictionaries.en.tools.gridMaster;
 
   let editingAreaId: string | null = null;
   let isSettingsOpen = false;
