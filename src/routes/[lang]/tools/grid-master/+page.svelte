@@ -128,29 +128,55 @@
               console.error('Failed to load shared project', e);
           }
       } else {
-          // Check for recoverable session
-          try {
-             const history = await getHistoryObservable('grid-master');
-             if (history.length > 0) {
-                 const last = history[0];
-                 // If less than 24h old
-                 if (Date.now() - last.timestamp < 24 * 60 * 60 * 1000) {
-                     lastSessionState = last.input as GridState;
-                     canRestoreSession = true;
+          // Check for recoverable session from LocalStorage first (faster/fresher)
+          const localSession = localStorage.getItem('grid-master-session');
+          if (localSession) {
+              try {
+                  const session = JSON.parse(localSession);
+                  // Valid for 24 hours
+                  if (Date.now() - session.timestamp < 24 * 60 * 60 * 1000) {
+                       lastSessionState = session.state;
+                       canRestoreSession = true;
+                  }
+              } catch (e) { console.error(e); }
+          }
+
+          // Fallback to DB history if needed
+          if (!canRestoreSession) {
+              try {
+                 const history = await getHistoryObservable('grid-master');
+                 if (history.length > 0) {
+                     const last = history[0];
+                     if (Date.now() - last.timestamp < 24 * 60 * 60 * 1000) {
+                         lastSessionState = last.input as GridState;
+                         canRestoreSession = true;
+                     }
                  }
-             }
-          } catch (e) {
-              console.error(e);
+              } catch (e) {
+                  console.error(e);
+              }
           }
       }
 
-      // Auto-save loop
+      // Auto-save loop (Debounced)
       let timeout: ReturnType<typeof setTimeout>;
       const unsub = gridStore.subscribe(state => {
           clearTimeout(timeout);
           timeout = setTimeout(() => {
-              saveToHistory('grid-master', state, null);
-          }, 2000);
+              // 1. Save to LocalStorage (Instant recovery)
+              localStorage.setItem('grid-master-session', JSON.stringify({
+                  timestamp: Date.now(),
+                  state
+              }));
+
+              // 2. Save to DB History (Less frequent, maybe only if changes are significant?
+              // For now, we'll rely on explicit save for "Projects" and keep History cleaner
+              // or just save strictly to history every 30s?
+              // The requirement is to fix the flooding.
+              // We will NOT call saveToHistory here automatically to avoid spamming the DB.
+              // Users should use "Save Project" for permanent storage,
+              // or we can implement a separate "Snapshot" button or logic.
+          }, 1000); // 1s debounce
       });
 
       return () => {

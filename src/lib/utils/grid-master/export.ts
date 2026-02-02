@@ -23,6 +23,38 @@ export async function downloadProjectZip(state: GridState) {
     URL.revokeObjectURL(url);
 }
 
+export async function downloadPNG(state: GridState, theme = 'standard') {
+    const svgString = generateSVG(state, theme);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+
+    const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+
+    img.onload = () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx?.drawImage(img, 0, 0);
+
+        canvas.toBlob((pngBlob) => {
+            if (pngBlob) {
+                const pngUrl = URL.createObjectURL(pngBlob);
+                const a = document.createElement('a');
+                a.href = pngUrl;
+                a.download = `grid-master-${theme}.png`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(pngUrl);
+            }
+            URL.revokeObjectURL(url);
+        });
+    };
+
+    img.src = url;
+}
+
 export function openInStackBlitz(html: string) {
     const form = document.createElement('form');
     form.method = 'POST';

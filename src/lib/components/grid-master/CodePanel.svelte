@@ -8,8 +8,8 @@
     generateVue,
     generateSvelte
   } from '$lib/utils/grid-master/codegen';
-  import { openInStackBlitz, downloadSVG, downloadProjectZip } from '$lib/utils/grid-master/export';
-  import { Copy, Check, Code, FileCode, Download, Zap, FileType, Boxes, Box, Image, Package } from 'lucide-svelte';
+  import { openInStackBlitz, downloadSVG, downloadProjectZip, downloadPNG } from '$lib/utils/grid-master/export';
+  import { Copy, Check, Code, FileCode, Download, Zap, FileType, Boxes, Box, Image, Package, Camera } from 'lucide-svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
   export let dict: GridMasterDictionary;
@@ -116,6 +116,15 @@
           >
              <Zap size={14} />
              <span class="hidden sm:inline">StackBlitz</span>
+          </button>
+          <button
+            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-slate-400 hover:bg-slate-800 hover:text-white"
+            on:click={() => downloadPNG($gridStore, theme)}
+            aria-label={dict.downloadPng || 'Download PNG'}
+            title="Export Grid as PNG"
+          >
+             <Camera size={14} />
+             <span class="hidden sm:inline">PNG</span>
           </button>
           <button
             class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-slate-400 hover:bg-slate-800 hover:text-white"
