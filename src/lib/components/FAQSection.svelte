@@ -20,7 +20,7 @@
   {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
 </svelte:head>
 
-<div class="bg-indigo-900 text-white p-6 md:p-8 rounded-2xl shadow-lg">
+<div class="bg-indigo-900 dark:bg-slate-800 text-white p-6 md:p-8 rounded-2xl shadow-lg transition-colors duration-300">
   <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -43,8 +43,8 @@
   <div class="space-y-6">
     {#each items as item}
       <div>
-        <h4 class="font-semibold text-indigo-200 mb-2">{item.q}</h4>
-        <p class="text-indigo-100 text-sm leading-relaxed">{item.a}</p>
+        <h4 class="font-semibold text-indigo-200 dark:text-indigo-300 mb-2">{item.q}</h4>
+        <p class="text-indigo-100 dark:text-slate-300 text-sm leading-relaxed">{item.a}</p>
       </div>
     {/each}
   </div>
