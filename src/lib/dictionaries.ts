@@ -1643,6 +1643,8 @@ export const dictionaries = {
         star: "Star",
         delete: "Delete",
         openInStackBlitz: "Open in StackBlitz",
+        browseGallery: "Browse Gallery",
+        professionalLayouts: "Professional Layouts",
         gapPresets: {
             small: "Small",
             medium: "Medium",
@@ -2768,6 +2770,8 @@ export const dictionaries = {
         star: "즐겨찾기",
         delete: "삭제",
         openInStackBlitz: "StackBlitz에서 열기",
+        browseGallery: "레이아웃 갤러리",
+        professionalLayouts: "전문가용 레이아웃",
         gapPresets: {
             small: "좁게",
             medium: "중간",

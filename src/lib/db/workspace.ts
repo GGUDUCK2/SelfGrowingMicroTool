@@ -108,6 +108,34 @@ export function getHistoryObservable(toolId: string) {
         .sortBy('timestamp');
 }
 
+export async function smartSaveToHistory<T, R>(
+    toolId: string,
+    input: T,
+    result: R
+) {
+    // 1. Get the most recent item
+    const lastItems = await workspace.history
+        .where('toolId')
+        .equals(toolId)
+        .reverse()
+        .sortBy('timestamp');
+
+    if (lastItems.length > 0) {
+        const last = lastItems[0];
+        // 2. Deep compare (using JSON stringify for simplicity)
+        const lastInput = JSON.stringify(last.input);
+        const currentInput = JSON.stringify(input);
+
+        if (lastInput === currentInput) {
+            // No significant change, skip save
+            return;
+        }
+    }
+
+    // 3. Save if different or no history
+    await saveToHistory(toolId, input, result);
+}
+
 // Restore CipherWorkspace functionality using the EXISTING db (webFactoryDB)
 export class CipherWorkspaceAdapter {
   async save(item: Omit<CipherHistory, 'id' | 'createdAt' | 'starred'>) {
