@@ -2,10 +2,11 @@
   import { gridStore } from '$lib/utils/grid-master/store';
   import { dictionaries } from '$lib/dictionaries';
   import { fade, scale } from 'svelte/transition';
+  import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
   export let isOpen = false;
   export let areaId: string | null = null;
-  export let dict: any = dictionaries.en.tools.gridMaster;
+  export let dict: GridMasterDictionary = dictionaries.en.tools.gridMaster;
 
   let name = '';
   let tag = 'div';
@@ -41,7 +42,11 @@
   ];
 
   const tags = ['div', 'header', 'footer', 'main', 'nav', 'section', 'aside', 'article'];
-  const contentTypes = ['none', 'hero', 'chart', 'table', 'form', 'login', 'video', 'image', 'pricing', 'team', 'testimonial', 'map'];
+  const contentTypes = [
+      'none', 'hero', 'chart', 'table', 'form', 'login', 'video', 'image',
+      'pricing', 'team', 'testimonial', 'map',
+      'calendar', 'kanban', 'feed', 'profile', 'settings'
+  ];
 
 </script>
 

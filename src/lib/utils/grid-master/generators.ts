@@ -121,8 +121,31 @@ export function remixLayout(state: GridState): GridState {
         color: getRandomColor()
     }));
 
+    // Smart track sizing mutation
+    const mutateTrack = (track: string) => {
+        if (track.endsWith('fr')) {
+            // Toggle between 1fr, 1.5fr, 2fr
+            return Math.random() > 0.7 ? `${[1, 1.5, 2][Math.floor(Math.random() * 3)]}fr` : '1fr';
+        }
+        if (track.endsWith('px')) {
+            const val = parseFloat(track);
+            // Slight variation +/- 20%
+            if (Math.random() > 0.5) {
+                const variation = Math.floor(val * 0.2);
+                const sign = Math.random() > 0.5 ? 1 : -1;
+                return `${Math.round(val + (variation * sign))}px`;
+            }
+        }
+        return track;
+    };
+
+    const newRows = state.rows.map(mutateTrack);
+    const newCols = state.cols.map(mutateTrack);
+
     return {
         ...state,
+        rows: newRows,
+        cols: newCols,
         gap: newGap,
         rowGap: newGap,
         colGap: newGap,
