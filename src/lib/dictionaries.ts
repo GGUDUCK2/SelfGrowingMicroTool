@@ -1636,7 +1636,12 @@ export const dictionaries = {
             pricing: "Pricing Table",
             team: "Team Member",
             testimonial: "Testimonial",
-            map: "Map"
+            map: "Map",
+            calendar: "Calendar",
+            kanban: "Kanban Board",
+            feed: "Activity Feed",
+            profile: "User Profile",
+            settings: "Settings Panel"
         },
         html: "HTML",
         textToGrid: "Text to Grid",
@@ -2763,7 +2768,12 @@ export const dictionaries = {
             pricing: "가격표",
             team: "팀 멤버",
             testimonial: "추천사",
-            map: "지도"
+            map: "지도",
+            calendar: "캘린더",
+            kanban: "칸반 보드",
+            feed: "피드",
+            profile: "프로필",
+            settings: "설정 패널"
         },
         html: "HTML",
         textToGrid: "텍스트 그리드 변환",

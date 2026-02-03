@@ -1,4 +1,6 @@
 import type { GridState, GridArea } from './types';
+import { getPlaceholderContent } from './placeholders';
+import { COLOR_MAP } from './constants';
 
 // Helper to generate Tailwind classes for the grid container
 function getContainerClasses(state: GridState): string {
@@ -45,7 +47,8 @@ function getItemClasses(area: GridArea, includeMobile: boolean): string {
     if (colSpan > 1) classes += ` ${prefix}col-span-${colSpan}`;
     else classes += ` ${prefix}col-span-1`;
 
-    const colorClass = area.color.startsWith('#') ? `bg-[${area.color}]` : `bg-${area.color}-500`;
+    // Map color to tailwind class if possible, or arbitrary
+    const colorClass = area.color.startsWith('#') ? `bg-[${area.color}]` : `bg-${area.color}-100 text-${area.color}-900`;
 
     return `${classes} ${colorClass} p-4 rounded`;
 }
@@ -123,29 +126,6 @@ ${areasString};
 }`;
 }
 
-function getMockContent(area: GridArea): string {
-    const type = area.contentType;
-    if (!type || type === 'none') return area.name;
-
-    const style = 'width:100%;height:100%;';
-
-    if (type === 'chart') return `<div style="${style}display:flex;align-items:end;gap:4px;opacity:0.6"><div style="height:30%;flex:1;background:currentColor"></div><div style="height:60%;flex:1;background:currentColor"></div><div style="height:45%;flex:1;background:currentColor"></div><div style="height:80%;flex:1;background:currentColor"></div></div>`;
-
-    if (type === 'form') return `<div style="${style}display:flex;flex-direction:column;gap:8px"><div style="height:32px;border:1px solid currentColor;opacity:0.3;border-radius:4px"></div><div style="height:32px;border:1px solid currentColor;opacity:0.3;border-radius:4px"></div><div style="height:32px;background:currentColor;opacity:0.5;border-radius:4px;width:50%"></div></div>`;
-
-    if (type === 'video') return `<div style="${style}display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.1);border-radius:4px">▶</div>`;
-
-    if (type === 'image') return `<div style="${style}display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.05);border-radius:4px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
-
-    if (type === 'hero') return `<div style="${style}display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center"><h1 style="margin:0;font-size:2em">Hero</h1><p style="opacity:0.7">Subtitle</p><button style="margin-top:10px;padding:5px 15px;background:currentColor;color:white;border:none;border-radius:4px">Action</button></div>`;
-
-    if (type === 'table') return `<div style="${style}display:flex;flex-direction:column;gap:4px"><div style="height:20px;background:currentColor;opacity:0.2"></div><div style="height:20px;background:currentColor;opacity:0.1"></div><div style="height:20px;background:currentColor;opacity:0.1"></div></div>`;
-
-    if (type === 'login') return `<div style="${style}display:flex;flex-direction:column;gap:8px;max-width:200px;margin:auto;justify-content:center"><div style="text-align:center;font-weight:bold">Login</div><div style="height:30px;border:1px solid currentColor;opacity:0.3;border-radius:4px"></div><div style="height:30px;border:1px solid currentColor;opacity:0.3;border-radius:4px"></div><div style="height:30px;background:currentColor;opacity:0.8;border-radius:4px;color:white;display:flex;align-items:center;justify-content:center">Sign In</div></div>`;
-
-    return area.name;
-}
-
 export function generateTailwind(state: GridState): string {
     const containerClass = getContainerClasses(state);
     let html = `<div class="${containerClass}">\n`;
@@ -153,7 +133,7 @@ export function generateTailwind(state: GridState): string {
     state.areas.forEach(area => {
         const itemClass = getItemClasses(area, state.includeMobile);
         const tag = area.tag || 'div';
-        html += `  <${tag} class="${itemClass}">\n    ${area.name}\n  </${tag}>\n`;
+        html += `  <${tag} class="${itemClass}">\n    ${getPlaceholderContent(area)}\n  </${tag}>\n`;
     });
 
     html += `</div>`;
@@ -167,8 +147,9 @@ export function generateReact(state: GridState): string {
     state.areas.forEach(area => {
         const itemClass = getItemClasses(area, state.includeMobile);
         const tag = area.tag || 'div';
-        // Capitalize for React logic? No, standard HTML tags are lowercase in React.
-        jsx += `      <${tag} className="${itemClass}">\n        ${area.name}\n      </${tag}>\n`;
+        // Replace class=" with className=" in placeholder content for React
+        const content = getPlaceholderContent(area).replace(/class="/g, 'className="');
+        jsx += `      <${tag} className="${itemClass}">\n        ${content}\n      </${tag}>\n`;
     });
 
     jsx += `    </div>\n  );\n}`;
@@ -182,7 +163,7 @@ export function generateVue(state: GridState): string {
     state.areas.forEach(area => {
         const itemClass = getItemClasses(area, state.includeMobile);
         const tag = area.tag || 'div';
-        template += `    <${tag} class="${itemClass}">\n      ${area.name}\n    </${tag}>\n`;
+        template += `    <${tag} class="${itemClass}">\n      ${getPlaceholderContent(area)}\n    </${tag}>\n`;
     });
 
     template += `  </div>\n</template>\n\n<script setup>\n// Vue 3 Composition API\n</script>`;
@@ -196,31 +177,101 @@ export function generateSvelte(state: GridState): string {
     state.areas.forEach(area => {
         const itemClass = getItemClasses(area, state.includeMobile);
         const tag = area.tag || 'div';
-        markup += `  <${tag} class="${itemClass}">\n    ${area.name}\n  </${tag}>\n`;
+        markup += `  <${tag} class="${itemClass}">\n    ${getPlaceholderContent(area)}\n  </${tag}>\n`;
     });
 
     markup += `</div>`;
     return markup;
 }
 
-export function generateHTML(state: GridState): string {
+export function generateHTML(state: GridState, theme = 'standard'): string {
     const css = generateCSS(state, 'grid-container');
     const { areas } = state;
 
-    // Generate some basic styles for visualization
-    const visualStyles = areas.map(a =>
-        `.${a.name} { background-color: ${a.color.startsWith('#') ? a.color : 'var(--' + a.color + ')'}; padding: 1rem; border-radius: 0.25rem; }`
-    ).join('\n    ');
+    let bodyBg = '#f8fafc'; // standard
+    let textColor = '#1e293b'; // slate-800
 
-    // Add CSS var mocks for tailwind colors if they are names
-    const colorVars = `
-    :root {
-        --red: #f87171; --orange: #fb923c; --amber: #fbbf24; --yellow: #facc15;
-        --lime: #a3e635; --green: #4ade80; --emerald: #34d399; --teal: #2dd4bf;
-        --sky: #38bdf8; --blue: #60a5fa; --indigo: #818cf8; --violet: #a78bfa;
-        --purple: #c084fc; --fuchsia: #e879f9; --pink: #f472b6; --rose: #fb7185;
-        --slate: #94a3b8; --zinc: #a1a1aa;
-    }`;
+    if (theme === 'cyber') {
+        bodyBg = '#000000';
+        textColor = '#00ff00';
+    } else if (theme === 'blueprint') {
+        bodyBg = '#eff6ff'; // blue-50
+        textColor = '#1e3a8a'; // blue-900
+    } else if (theme === 'wireframe') {
+        bodyBg = '#ffffff';
+        textColor = '#000000';
+    }
+
+    // Generate visualization styles based on theme
+    const visualStyles = areas.map(a => {
+        let bg = a.color.startsWith('#') ? a.color : COLOR_MAP[a.color] || '#cbd5e1';
+        let color = '#1e293b';
+        let border = 'none';
+        let shadow = 'none';
+
+        if (theme === 'cyber') {
+            bg = '#000000';
+            color = '#00ff00';
+            border = '1px solid #00ff00';
+            shadow = '0 0 5px #00ff00';
+        } else if (theme === 'blueprint') {
+            bg = '#1e3a8a10';
+            color = '#1e3a8a';
+            border = '2px dashed #60a5fa';
+        } else if (theme === 'wireframe') {
+            bg = '#ffffff';
+            color = '#000000';
+            border = '2px solid #94a3b8';
+        }
+
+        return `.${a.name} {
+            background-color: ${bg};
+            color: ${color};
+            border: ${border};
+            box-shadow: ${shadow};
+            padding: 1rem;
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }`;
+    }).join('\n    ');
+
+    // Utility classes for placeholders (mimic Tailwind)
+    const utilities = `
+    .w-full { width: 100%; }
+    .h-full { height: 100%; }
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .items-center { align-items: center; }
+    .justify-center { justify-content: center; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-4 { gap: 1rem; }
+    .p-2 { padding: 0.5rem; }
+    .p-3 { padding: 0.75rem; }
+    .p-4 { padding: 1rem; }
+    .rounded { border-radius: 0.25rem; }
+    .rounded-lg { border-radius: 0.5rem; }
+    .bg-current { background-color: currentColor; }
+    .opacity-10 { opacity: 0.1; }
+    .opacity-20 { opacity: 0.2; }
+    .opacity-30 { opacity: 0.3; }
+    .opacity-50 { opacity: 0.5; }
+    .opacity-60 { opacity: 0.6; }
+    .opacity-80 { opacity: 0.8; }
+    .text-xs { font-size: 0.75rem; }
+    .text-sm { font-size: 0.875rem; }
+    .text-lg { font-size: 1.125rem; }
+    .text-2xl { font-size: 1.5rem; }
+    .font-bold { font-weight: 700; }
+    .font-black { font-weight: 900; }
+    .border { border-width: 1px; border-style: solid; border-color: currentColor; }
+    .border-2 { border-width: 2px; }
+    .mb-1 { margin-bottom: 0.25rem; }
+    .mb-2 { margin-bottom: 0.5rem; }
+    .relative { position: relative; }
+    .absolute { position: absolute; }
+    .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+    .overflow-hidden { overflow: hidden; }
+    `;
 
     return `<!DOCTYPE html>
 <html lang="en">
@@ -229,23 +280,31 @@ export function generateHTML(state: GridState): string {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grid Master Layout</title>
   <style>
-    body { margin: 0; font-family: system-ui, -apple-system, sans-serif; padding: 2rem; background: #f8fafc; }
-    ${colorVars}
+    body {
+        margin: 0;
+        font-family: system-ui, -apple-system, sans-serif;
+        padding: 2rem;
+        background: ${bodyBg};
+        color: ${textColor};
+    }
     .grid-container {
       min-height: 80vh;
-      background: white;
+      background: ${theme === 'cyber' ? '#111' : (theme === 'wireframe' ? '#fff' : '#fff')};
       box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
       border-radius: 0.5rem;
       padding: 1rem;
+      ${theme === 'wireframe' ? 'border: 2px solid #000;' : ''}
     }
     ${css}
     /* Visualization Styles */
     ${visualStyles}
+    /* Mock Content Utilities */
+    ${utilities}
   </style>
 </head>
 <body>
   <div class="grid-container">
-    ${areas.map(a => `<${a.tag || 'div'} class="${a.name}">${getMockContent(a)}</${a.tag || 'div'}>`).join('\n    ')}
+    ${areas.map(a => `<${a.tag || 'div'} class="${a.name}">${getPlaceholderContent(a)}</${a.tag || 'div'}>`).join('\n    ')}
   </div>
 </body>
 </html>`;

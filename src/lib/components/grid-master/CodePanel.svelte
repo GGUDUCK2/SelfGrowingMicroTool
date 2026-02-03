@@ -37,7 +37,7 @@
   }
 
   function downloadHTML() {
-      const html = generateHTML($gridStore);
+      const html = generateHTML($gridStore, theme);
       const blob = new Blob([html], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -121,7 +121,7 @@
             class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-slate-400 hover:bg-slate-800 hover:text-white"
             on:click={() => downloadPNG($gridStore, theme)}
             aria-label={dict.downloadPng || 'Download PNG'}
-            title="Export Grid as PNG"
+            title="Export Grid Image (PNG)"
           >
              <Camera size={14} />
              <span class="hidden sm:inline">PNG</span>

@@ -1,9 +1,10 @@
 <script lang="ts">
   import { workspace, type ToolHistoryItem, toggleStar, deleteHistoryItem, saveToHistory as saveToDb } from '$lib/db/workspace';
   import { gridStore } from '$lib/utils/grid-master/store';
+  import { downloadPNG } from '$lib/utils/grid-master/export';
   import { liveQuery } from 'dexie';
   import { browser } from '$app/environment';
-  import { Clock, RotateCcw, Star, Trash2, Save } from 'lucide-svelte';
+  import { Clock, RotateCcw, Star, Trash2, Save, Camera } from 'lucide-svelte';
   import TemplatePreview from './TemplatePreview.svelte';
   import type { GridState, GridMasterDictionary } from '$lib/utils/grid-master/types';
 
@@ -92,6 +93,14 @@
                        aria-label={dict.delete || 'Delete'}
                      >
                          <Trash2 size={14} />
+                     </button>
+                     <button
+                       class="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md transition-colors"
+                       on:click={() => item.input && downloadPNG(item.input, 'standard')}
+                       title={dict.downloadPng || 'Download PNG'}
+                       aria-label={dict.downloadPng || 'Download PNG'}
+                     >
+                         <Camera size={14} />
                      </button>
                      <div class="w-px h-3 bg-slate-200 dark:bg-slate-700 mx-1"></div>
                      <button
