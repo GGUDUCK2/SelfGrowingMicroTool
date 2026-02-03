@@ -176,7 +176,7 @@ function createGridStore() {
     reorderMobile: (id: string, direction: 'up' | 'down') => withHistory(s => {
         // Ensure all areas have a mobileOrder initialized if missing
         // Sort first to ensure stability
-        let areas = s.areas.map((a, i) => ({ ...a, mobileOrder: a.mobileOrder ?? i }));
+        const areas = s.areas.map((a, i) => ({ ...a, mobileOrder: a.mobileOrder ?? i }));
         areas.sort((a, b) => (a.mobileOrder || 0) - (b.mobileOrder || 0));
 
         const currentIndex = areas.findIndex(a => a.id === id);

@@ -238,6 +238,12 @@ function parseSize(token: string): string | null {
 export function generateLayoutFromText(input: string): GridState {
     const rawInput = input.toLowerCase().trim();
 
+    // 0. Check for keywords
+    if (['dashboard', 'admin'].includes(rawInput)) return generateSmartLayout('dashboard');
+    if (['blog', 'article'].includes(rawInput)) return generateSmartLayout('blog');
+    if (['holy grail', 'holygrail'].includes(rawInput)) return generateSmartLayout('holy-grail');
+    if (['gallery', 'portfolio'].includes(rawInput)) return generateSmartLayout('gallery');
+
     // 1. Check for "grid RxC" pattern (e.g. "grid 4x4" or "grid 3")
     const gridMatch = rawInput.match(/^grid\s+(\d+)(?:x(\d+))?$/);
     if (gridMatch) {

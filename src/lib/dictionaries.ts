@@ -1648,6 +1648,8 @@ export const dictionaries = {
         star: "Star",
         delete: "Delete",
         openInStackBlitz: "Open in StackBlitz",
+        browseGallery: "Browse Gallery",
+        professionalLayouts: "Professional Layouts",
         gapPresets: {
             small: "Small",
             medium: "Medium",
@@ -1680,7 +1682,10 @@ export const dictionaries = {
         smartExamples: [
             "header sidebar main footer",
             "header 80px sidebar 250px main",
-            "nav main aside footer"
+            "nav main aside footer",
+            "dashboard",
+            "blog",
+            "gallery 6"
         ],
         guide: {
           title: "Why Grid Master?",
@@ -2145,6 +2150,92 @@ export const dictionaries = {
         a2: "Absolutely. All processing happens in your browser. No data is sent to our servers.",
         q3: "Does it support large files?",
         a3: "Table Forge is optimized for web performance. It handles thousands of rows smoothly, but extremely large datasets may be limited by your browser memory."
+      },
+      resumeForge: {
+        title: "Resume Forge: Pro CV Builder",
+        description: "The definitive tool to build professional, ATS-friendly resumes. Real-time preview, JSON Resume support, and PDF export.",
+        editor: {
+          title: "Editor",
+          basics: "Basics",
+          work: "Experience",
+          education: "Education",
+          skills: "Skills",
+          projects: "Projects",
+          awards: "Awards",
+          profiles: "Profiles",
+          basicsFields: {
+            name: "Full Name",
+            label: "Professional Label",
+            email: "Email",
+            phone: "Phone",
+            url: "Website",
+            summary: "Summary",
+            location: "Location (City, Country)"
+          },
+          workFields: {
+            company: "Company",
+            position: "Position",
+            website: "Website",
+            startDate: "Start Date",
+            endDate: "End Date",
+            summary: "Summary",
+            highlights: "Highlights (One per line)"
+          },
+          eduFields: {
+            institution: "Institution",
+            area: "Area of Study",
+            studyType: "Degree Type",
+            startDate: "Start Date",
+            endDate: "End Date",
+            gpa: "GPA"
+          },
+          add: "Add Item",
+          remove: "Remove"
+        },
+        preview: {
+          title: "Preview",
+          template: "Template",
+          layout: "Layout",
+          color: "Accent Color",
+          font: "Font"
+        },
+        templates: {
+          seoul: "Seoul (Modern)",
+          tokyo: "Tokyo (Classic)",
+          newYork: "New York (Minimal)"
+        },
+        actions: {
+          downloadPdf: "Download PDF",
+          exportJson: "Export JSON",
+          importJson: "Import JSON",
+          save: "Save Resume",
+          load: "Load Resume",
+          reset: "Reset",
+          saved: "Resume Saved!"
+        },
+        history: {
+          title: "Resume History",
+          empty: "No saved resumes."
+        },
+        guide: {
+          title: "Why Resume Forge?",
+          intro: "Your resume is your most important career document. Resume Forge helps you build a structure-perfect, design-focused resume that passes Applicant Tracking Systems (ATS) and impresses humans.",
+          featuresTitle: "Key Features",
+          f1: "**JSON Resume Standard:** We use the open-source JSON Resume schema, ensuring your data is portable and machine-readable.",
+          f2: "**Privacy First:** Your career history is personal. Resume Forge stores everything in your browser—no servers involved.",
+          f3: "**ATS Friendly:** Our templates are designed with clean DOM structures that robots love.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use the **Highlights** section in Experience to list quantifiable achievements (e.g., 'Increased sales by 20%').",
+          tip2: "Tailor your **Summary** to the specific job you are applying for.",
+          tip3: "Use the **Seoul** template for creative roles and **Tokyo** for corporate/finance roles."
+        },
+        faqTitle: "Resume Forge FAQ",
+        q1: "Is this free?",
+        a1: "Yes, Resume Forge is 100% free and open-source. No watermarks, no paywalls.",
+        q2: "How do I save as PDF?",
+        a2: "Click 'Download PDF'. This triggers the browser's print engine. Make sure to check 'Background Graphics' in your print settings for best results.",
+        q3: "Can I import my LinkedIn data?",
+        a3: "If you can export your LinkedIn data to JSON Resume format (using third-party tools), you can import it here using the 'Import JSON' button."
       }
     },
     pwa: {
@@ -2689,6 +2780,8 @@ export const dictionaries = {
         star: "즐겨찾기",
         delete: "삭제",
         openInStackBlitz: "StackBlitz에서 열기",
+        browseGallery: "레이아웃 갤러리",
+        professionalLayouts: "전문가용 레이아웃",
         gapPresets: {
             small: "좁게",
             medium: "중간",
@@ -2721,7 +2814,10 @@ export const dictionaries = {
         smartExamples: [
             "header sidebar main footer",
             "header 80px sidebar 250px main",
-            "nav main aside footer"
+            "nav main aside footer",
+            "dashboard",
+            "blog",
+            "gallery 6"
         ],
         guide: {
           title: "왜 그리드 마스터인가요?",
@@ -3414,6 +3510,92 @@ export const dictionaries = {
         a2: "It depends on your browser's memory, but generally, String Theory can handle several megabytes of text without issues.",
         q3: "Does it support Unicode?",
         a3: "Yes, String Theory is fully Unicode-aware and handles multi-byte characters (like emojis and Korean Hangul) correctly."
+      },
+      resumeForge: {
+        title: "레주메 포지: 전문 이력서 빌더",
+        description: "전문적이고 ATS 친화적인 이력서를 작성하는 완벽한 도구입니다. 실시간 미리보기, JSON Resume 지원 및 PDF 내보내기.",
+        editor: {
+          title: "에디터",
+          basics: "기본 정보",
+          work: "경력",
+          education: "학력",
+          skills: "기술",
+          projects: "프로젝트",
+          awards: "수상",
+          profiles: "프로필",
+          basicsFields: {
+            name: "이름",
+            label: "직무/직함",
+            email: "이메일",
+            phone: "전화번호",
+            url: "웹사이트",
+            summary: "자기소개",
+            location: "위치 (도시, 국가)"
+          },
+          workFields: {
+            company: "회사명",
+            position: "직책",
+            website: "웹사이트",
+            startDate: "시작일",
+            endDate: "종료일",
+            summary: "요약",
+            highlights: "주요 성과 (한 줄에 하나씩)"
+          },
+          eduFields: {
+            institution: "교육 기관",
+            area: "전공",
+            studyType: "학위",
+            startDate: "시작일",
+            endDate: "종료일",
+            gpa: "학점"
+          },
+          add: "항목 추가",
+          remove: "삭제"
+        },
+        preview: {
+          title: "미리보기",
+          template: "템플릿",
+          layout: "레이아웃",
+          color: "강조 색상",
+          font: "글꼴"
+        },
+        templates: {
+          seoul: "서울 (모던)",
+          tokyo: "도쿄 (클래식)",
+          newYork: "뉴욕 (미니멀)"
+        },
+        actions: {
+          downloadPdf: "PDF 다운로드",
+          exportJson: "JSON 내보내기",
+          importJson: "JSON 가져오기",
+          save: "이력서 저장",
+          load: "불러오기",
+          reset: "초기화",
+          saved: "이력서가 저장되었습니다!"
+        },
+        history: {
+          title: "이력서 히스토리",
+          empty: "저장된 이력서가 없습니다."
+        },
+        guide: {
+          title: "왜 레주메 포지인가요?",
+          intro: "이력서는 가장 중요한 커리어 문서입니다. 레주메 포지는 채용 시스템(ATS)을 통과하고 인사 담당자에게 깊은 인상을 줄 수 있는 완벽한 구조의 이력서를 작성하도록 돕습니다.",
+          featuresTitle: "주요 기능",
+          f1: "**JSON Resume 표준:** 오픈 소스 JSON Resume 스키마를 사용하여 데이터의 호환성을 보장합니다.",
+          f2: "**프라이버시 우선:** 귀하의 경력 정보는 소중합니다. 레주메 포지는 모든 것을 브라우저에만 저장합니다.",
+          f3: "**ATS 친화적:** 로봇이 읽기 쉬운 깨끗한 DOM 구조로 템플릿이 설계되었습니다.",
+          tipsTitle: "프로 팁",
+          tip1: "**주요 성과** 섹션을 사용하여 정량적인 성과(예: '매출 20% 증대')를 나열하세요.",
+          tip2: "지원하는 직무에 맞춰 **자기소개**를 수정하세요.",
+          tip3: "크리에이티브 직군에는 **서울** 템플릿을, 기업/금융 직군에는 **도쿄** 템플릿을 추천합니다."
+        },
+        faqTitle: "레주메 포지 FAQ",
+        q1: "무료인가요?",
+        a1: "네, 레주메 포지는 100% 무료이며 오픈 소스입니다. 워터마크나 유료 결제가 없습니다.",
+        q2: "PDF로 어떻게 저장하나요?",
+        a2: "'PDF 다운로드'를 클릭하세요. 브라우저의 인쇄 엔진이 실행됩니다. 최상의 결과를 위해 인쇄 설정에서 '배경 그래픽'을 체크해주세요.",
+        q3: "LinkedIn 데이터를 가져올 수 있나요?",
+        a3: "타사 도구를 사용하여 LinkedIn 데이터를 JSON Resume 형식으로 내보낼 수 있다면, 'JSON 가져오기' 버튼을 통해 여기서 불러올 수 있습니다."
       }
     },
     pwa: {

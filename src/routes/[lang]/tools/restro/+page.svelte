@@ -14,14 +14,48 @@
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
   import { liveQuery } from 'dexie';
+  import FAQSection from '$lib/components/FAQSection.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
 
   // Ensure dict is always available
   $: lang = $page.params.lang || 'en';
   // Fallback to English if dict is missing or loading
   $: dictionary = getDictionary(lang) || getDictionary('en');
-  $: dict = dictionary?.tools?.restro;
+  // Fallback per tool to ensure missing translations don't break the page
+  $: dict = dictionary?.tools?.restro || getDictionary('en').tools.restro;
 
   $: if (!dict) console.error("Restro dictionary missing for lang:", lang);
+
+  $: faqItems = [
+    { q: dict?.q1, a: dict?.a1 },
+    { q: dict?.q2, a: dict?.a2 },
+    { q: dict?.q3, a: dict?.a3 }
+  ];
+
+  $: breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://microfactory.app/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": "https://microfactory.app/tools/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Restro",
+        "item": $page.url.href
+      }
+    ]
+  };
 
   let method = 'GET';
   let url = '';
@@ -252,26 +286,7 @@
           "Environment Variables"
         ]
       },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": dict?.q1,
-            "acceptedAnswer": { "@type": "Answer", "text": dict?.a1 }
-          },
-          {
-            "@type": "Question",
-            "name": dict?.q2,
-            "acceptedAnswer": { "@type": "Answer", "text": dict?.a2 }
-          },
-          {
-            "@type": "Question",
-            "name": dict?.q3,
-            "acceptedAnswer": { "@type": "Answer", "text": dict?.a3 }
-          }
-        ]
-      }
+      breadcrumbSchema
     ]
   })}
   </script>`}
@@ -301,9 +316,9 @@
   {/if}
 
   <!-- Main Content -->
-  <div class="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
+  <div class="flex-1 flex flex-col min-w-0 h-full overflow-y-auto md:overflow-hidden">
     <!-- Toolbar -->
-    <div class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-2 flex items-center gap-2 justify-between">
+    <div class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-2 flex items-center gap-2 justify-between shrink-0">
        <div class="flex items-center gap-2">
            <button
              class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"
@@ -342,9 +357,9 @@
     </div>
 
     <!-- Workspace -->
-    <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
+    <div class="flex-1 flex flex-col md:flex-row overflow-visible md:overflow-hidden">
       <!-- Request Pane -->
-      <div class="flex-1 flex flex-col p-4 overflow-hidden min-w-[300px] border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-700">
+      <div class="flex-none md:flex-1 flex flex-col p-4 overflow-visible md:overflow-hidden min-w-[300px] min-h-[600px] md:min-h-0 border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-700">
          <RequestPanel
             bind:method
             bind:url
@@ -359,7 +374,7 @@
       </div>
 
       <!-- Response Pane -->
-      <div class="flex-1 flex flex-col p-4 overflow-hidden min-w-[300px] bg-slate-50/50 dark:bg-slate-900/50">
+      <div class="flex-none md:flex-1 flex flex-col p-4 overflow-visible md:overflow-hidden min-w-[300px] min-h-[400px] md:min-h-0 bg-slate-50/50 dark:bg-slate-900/50">
          <div class="flex-1 overflow-hidden h-full">
             <ResponsePanel {response} {dict} />
          </div>
@@ -441,56 +456,9 @@
 
 <!-- Documentation Section -->
 <div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-  <div class="max-w-4xl mx-auto px-4 py-12">
-    <article class="prose dark:prose-invert max-w-none">
-      <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 mb-6">
-        {dict.guide.title}
-      </h2>
-
-      <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">
-        {@html dict.guide.intro}
-      </p>
-
-      <div class="grid md:grid-cols-2 gap-8 mb-12">
-        <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl">
-          <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{dict.guide.featuresTitle}</h3>
-          <ul class="space-y-2 text-slate-600 dark:text-slate-400">
-            <li>{@html dict.guide.f1}</li>
-            <li>{@html dict.guide.f2}</li>
-            <li>{@html dict.guide.f3}</li>
-          </ul>
-        </div>
-
-        <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl">
-           <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{dict.guide.tipsTitle}</h3>
-           <ul class="space-y-2 text-slate-600 dark:text-slate-400">
-             <li>{@html dict.guide.tip1}</li>
-             <li>{@html dict.guide.tip2}</li>
-             <li>{@html dict.guide.tip3}</li>
-           </ul>
-        </div>
-      </div>
-
-      <!-- FAQ Section -->
-      <section class="mt-12">
-        <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">{dict.faqTitle}</h2>
-        <div class="space-y-6">
-          <div class="bg-slate-50 dark:bg-slate-800/30 p-6 rounded-xl border border-slate-100 dark:border-slate-800">
-            <h3 class="text-lg font-bold mb-2 text-slate-800 dark:text-slate-200">{dict.q1}</h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a1}</p>
-          </div>
-          <div class="bg-slate-50 dark:bg-slate-800/30 p-6 rounded-xl border border-slate-100 dark:border-slate-800">
-            <h3 class="text-lg font-bold mb-2 text-slate-800 dark:text-slate-200">{dict.q2}</h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a2}</p>
-          </div>
-          <div class="bg-slate-50 dark:bg-slate-800/30 p-6 rounded-xl border border-slate-100 dark:border-slate-800">
-            <h3 class="text-lg font-bold mb-2 text-slate-800 dark:text-slate-200">{dict.q3}</h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a3}</p>
-          </div>
-        </div>
-      </section>
-
-    </article>
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    <GuideSection {...dict.guide} />
+    <FAQSection title={dict.faqTitle} items={faqItems} />
   </div>
 </div>
 {/if}

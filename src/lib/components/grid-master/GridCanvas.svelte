@@ -6,11 +6,12 @@
   import type { GridArea, GridMasterDictionary } from '$lib/utils/grid-master/types';
   import { getPlaceholderContent, getSemanticTag } from '$lib/utils/grid-master/placeholders';
   import AreaSettingsModal from './AreaSettingsModal.svelte';
+  import { dictionaries } from '$lib/dictionaries';
 
   export let previewMode = false;
   export let viewMode: 'desktop' | 'mobile' = 'desktop';
   export let theme = 'standard';
-  export let dict: GridMasterDictionary;
+  export let dict: typeof dictionaries.en.tools.gridMaster = dictionaries.en.tools.gridMaster;
 
   let editingAreaId: string | null = null;
   let isSettingsOpen = false;
