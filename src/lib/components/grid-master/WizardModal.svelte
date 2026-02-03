@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import { fade, fly } from 'svelte/transition';
   import { gridStore } from '$lib/utils/grid-master/store';
-  import { X, Layout, FileText, LayoutDashboard, Frame, ArrowRight, ArrowLeft, Check, Smartphone, Monitor } from 'lucide-svelte';
+  import { X, Layout, FileText, LayoutDashboard, ArrowRight, ArrowLeft, Check, Smartphone, Monitor } from 'lucide-svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
   import { nanoid } from 'nanoid';
   import { getRandomColor } from '$lib/utils/grid-master/constants';
@@ -206,7 +206,7 @@
           {:else if step === 2}
               <h3 class="text-lg font-semibold mb-4">{dict.wizard?.step2 || 'Select Structure'}</h3>
               <div class="grid grid-cols-2 gap-4">
-                  {#each ['header-footer', 'sidebar-left', 'sidebar-right', 'holy-grail'] as s}
+                  {#each ['header-footer', 'sidebar-left', 'sidebar-right', 'holy-grail'] as s (s)}
                       <button
                         class="p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-3 {structure === s ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300'}"
                         on:click={() => structure = s}
@@ -247,7 +247,7 @@
               <h3 class="text-lg font-semibold mb-4">{dict.wizard?.step3 || 'Spacing & Density'}</h3>
               <div class="space-y-4">
                   <div class="flex gap-4">
-                      {#each ['compact', 'comfortable', 'spacious'] as d}
+                      {#each ['compact', 'comfortable', 'spacious'] as d (d)}
                           <button
                             class="flex-1 p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 {density === d ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300'}"
                             on:click={() => density = d}
@@ -315,7 +315,7 @@
           {/if}
 
           <div class="flex gap-2">
-              {#each steps as s}
+              {#each steps as s (s.id)}
                   <div class="w-2 h-2 rounded-full {s.id === step ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-700'}"></div>
               {/each}
           </div>

@@ -5,7 +5,7 @@
   import { gridStore } from '$lib/utils/grid-master/store';
   import { gridMasterWorkspace } from '$lib/db/grid-master';
   import { saveToHistory, getHistoryObservable } from '$lib/db/workspace';
-  import { downloadProjectHtml, downloadProjectZip } from '$lib/utils/grid-master/export';
+  import { downloadProjectZip } from '$lib/utils/grid-master/export';
   import GridCanvas from '$lib/components/grid-master/GridCanvas.svelte';
   import Sidebar from '$lib/components/grid-master/Sidebar.svelte';
   import CodePanel from '$lib/components/grid-master/CodePanel.svelte';
@@ -94,6 +94,9 @@
           name: projectName,
           ...$gridStore
       });
+
+      // Also save to session history
+      saveToHistory('grid-master', $gridStore, { name: projectName });
 
       showToastMsg(dict.save + ' ' + (dict.copied || 'Saved').replace('!', ''));
   }
@@ -191,7 +194,7 @@
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots" />
+  <meta name="keywords" content="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots, Text to Grid, Visual Grid Editor, Mock Content, Wireframing" />
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
   <meta property="og:type" content="website" />

@@ -1,6 +1,5 @@
 <script lang="ts">
   import { gridStore, snapshotStore, type Snapshot } from '$lib/utils/grid-master/store';
-  import { nanoid } from 'nanoid';
   import { Camera, Trash2, RotateCcw } from 'lucide-svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
