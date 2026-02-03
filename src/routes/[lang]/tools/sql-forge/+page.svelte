@@ -1,10 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
+  import { fade } from 'svelte/transition';
   import { getDictionary } from '$lib/dictionaries';
   import { SqlEngine, type QueryResult, type TableInfo } from '$lib/utils/sql-forge/engine';
   import { db } from '$lib/db';
-  import { Play, Upload, Database, Code, Terminal, Clock, FolderOpen } from 'lucide-svelte';
+  import { Play, Upload, Database, Code, Terminal, Clock, FolderOpen, Menu, X } from 'lucide-svelte';
 
   import SqlEditor from '$lib/components/sql-forge/SqlEditor.svelte';
   import ResultTable from '$lib/components/sql-forge/ResultTable.svelte';
@@ -22,6 +23,7 @@
   let tables: TableInfo[] = [];
   let showImport = false;
   let isRunning = false;
+  let isSidebarOpen = false;
 
   onMount(async () => {
       engine = new SqlEngine();
@@ -83,25 +85,36 @@
   <title>{t.title} - MicroFactory</title>
   <meta name="description" content={t.description} />
   {@html `<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "SQL Forge",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Any",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "SQL Forge",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Client-side SQL Engine",
+          "CSV to SQL Import",
+          "JSON to SQL Import",
+          "Query History",
+          "Export Results to CSV"
+        ]
       },
-      "featureList": [
-        "Client-side SQL Engine",
-        "CSV to SQL Import",
-        "JSON to SQL Import",
-        "Query History",
-        "Export Results to CSV"
-      ]
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "${t.q1}", "acceptedAnswer": { "@type": "Answer", "text": "${t.a1}" } },
+          { "@type": "Question", "name": "${t.q2}", "acceptedAnswer": { "@type": "Answer", "text": "${t.a2}" } },
+          { "@type": "Question", "name": "${t.q3}", "acceptedAnswer": { "@type": "Answer", "text": "${t.a3}" } }
+        ]
+      }
+    ]
   </script>`}
 </svelte:head>
 
@@ -109,7 +122,14 @@
     <!-- Toolbar -->
     <header class="h-14 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-4 shrink-0 z-20">
         <div class="flex items-center gap-3">
-            <div class="p-1.5 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400">
+            <button class="md:hidden p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-600 dark:text-gray-400" on:click={() => isSidebarOpen = !isSidebarOpen} aria-label="Toggle Menu">
+                {#if isSidebarOpen}
+                    <X size={20} />
+                {:else}
+                    <Menu size={20} />
+                {/if}
+            </button>
+            <div class="p-1.5 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400 hidden md:block">
                 <Database size={20} />
             </div>
             <h1 class="font-bold text-gray-900 dark:text-white truncate hidden sm:block">{t.title}</h1>
@@ -139,9 +159,29 @@
     </header>
 
     <!-- Main Layout -->
-    <div class="flex-1 flex overflow-hidden">
+    <div class="flex-1 flex overflow-hidden relative">
+        <!-- Mobile Sidebar Backdrop -->
+        {#if isSidebarOpen}
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <!-- svelte-ignore a11y-no-static-element-interactions -->
+            <div
+                class="absolute inset-0 bg-black/50 z-20 md:hidden"
+                on:click={() => isSidebarOpen = false}
+                transition:fade={{ duration: 200 }}
+            ></div>
+        {/if}
+
         <!-- Sidebar -->
-        <Sidebar {tables} {t} on:run={handleRun} />
+        <div class={`absolute md:static inset-y-0 left-0 z-30 w-64 transform transition-transform duration-300 md:transform-none bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+            <Sidebar
+                {tables}
+                {t}
+                on:run={(e) => {
+                    handleRun(e);
+                    isSidebarOpen = false;
+                }}
+            />
+        </div>
 
         <!-- Workspace -->
         <main class="flex-1 flex flex-col min-w-0 bg-gray-100 dark:bg-gray-900/50 p-2 sm:p-4 gap-4 overflow-y-auto">
