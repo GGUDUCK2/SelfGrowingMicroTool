@@ -63,7 +63,14 @@
          <div class="group relative bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all p-3 shadow-sm">
              <div class="flex justify-between items-center mb-2">
                  <div class="flex items-center gap-2">
-                     <span class="text-xs font-mono text-slate-500 dark:text-slate-400">{formatTime(item.timestamp)}</span>
+                     <span class="text-xs font-mono text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-1.5 py-0.5 rounded">
+                        {formatTime(item.timestamp)}
+                     </span>
+                     {#if item.name}
+                        <span class="text-xs font-bold text-indigo-500">{item.name}</span>
+                     {:else}
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider">Snapshot</span>
+                     {/if}
                      {#if item.starred}
                         <span class="text-yellow-400"><Star size={12} fill="currentColor" /></span>
                      {/if}

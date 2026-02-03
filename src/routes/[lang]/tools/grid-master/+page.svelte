@@ -4,7 +4,7 @@
   import { getDictionary } from '$lib/dictionaries';
   import { gridStore } from '$lib/utils/grid-master/store';
   import { gridMasterWorkspace } from '$lib/db/grid-master';
-  import { saveToHistory, getHistoryObservable } from '$lib/db/workspace';
+  import { saveToHistory, getHistoryObservable, smartSaveToHistory } from '$lib/db/workspace';
   import { downloadProjectZip } from '$lib/utils/grid-master/export';
   import GridCanvas from '$lib/components/grid-master/GridCanvas.svelte';
   import Sidebar from '$lib/components/grid-master/Sidebar.svelte';
@@ -162,29 +162,31 @@
       }
 
       // Auto-save loop (Debounced)
-      let timeout: ReturnType<typeof setTimeout>;
+      let sessionTimeout: ReturnType<typeof setTimeout>;
+      let historyTimeout: ReturnType<typeof setTimeout>;
+
       const unsub = gridStore.subscribe(state => {
-          clearTimeout(timeout);
-          timeout = setTimeout(() => {
-              // 1. Save to LocalStorage (Instant recovery)
+          // 1. Fast Session Save (LocalStorage) - 1s debounce
+          clearTimeout(sessionTimeout);
+          sessionTimeout = setTimeout(() => {
               localStorage.setItem('grid-master-session', JSON.stringify({
                   timestamp: Date.now(),
                   state
               }));
+          }, 1000);
 
-              // 2. Save to DB History (Less frequent, maybe only if changes are significant?
-              // For now, we'll rely on explicit save for "Projects" and keep History cleaner
-              // or just save strictly to history every 30s?
-              // The requirement is to fix the flooding.
-              // We will NOT call saveToHistory here automatically to avoid spamming the DB.
-              // Users should use "Save Project" for permanent storage,
-              // or we can implement a separate "Snapshot" button or logic.
-          }, 1000); // 1s debounce
+          // 2. Smart History Save (DB) - 5s debounce
+          // Only saves if content is significantly different from last save
+          clearTimeout(historyTimeout);
+          historyTimeout = setTimeout(() => {
+              smartSaveToHistory('grid-master', state, null).catch(e => console.error('Auto-save failed', e));
+          }, 5000);
       });
 
       return () => {
           unsub();
-          clearTimeout(timeout);
+          clearTimeout(sessionTimeout);
+          clearTimeout(historyTimeout);
       };
   });
 </script>
@@ -194,7 +196,7 @@
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots, Text to Grid, Visual Grid Editor, Mock Content, Wireframing" />
+  <meta name="keywords" content="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots, Text to Grid, Visual Grid Editor, Mock Content, Wireframing, Content Presets, Layout Gallery, Smart History, Wireframe Builder" />
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
   <meta property="og:type" content="website" />
