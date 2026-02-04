@@ -6,11 +6,14 @@
   import { browser } from '$app/environment';
   import { Clock, RotateCcw, Star, Trash2, Save, Camera } from 'lucide-svelte';
   import TemplatePreview from './TemplatePreview.svelte';
+  import ConfirmDialog from './ConfirmDialog.svelte';
   import type { GridState, GridMasterDictionary } from '$lib/utils/grid-master/types';
 
   export let dict: GridMasterDictionary;
 
   let history: ToolHistoryItem<GridState>[] = [];
+  let showConfirmRestore = false;
+  let restoreCandidate: GridState | null = null;
 
   if (browser) {
       liveQuery(() => workspace.history
@@ -27,9 +30,16 @@
 
   function restore(state: GridState | undefined) {
       if (!state) return;
-      if (confirm(dict.restoreConfirm || 'Restore this session version? Current work will be replaced.')) {
-          gridStore.load(state);
+      restoreCandidate = state;
+      showConfirmRestore = true;
+  }
+
+  function confirmRestore() {
+      if (restoreCandidate) {
+          gridStore.load(restoreCandidate);
       }
+      showConfirmRestore = false;
+      restoreCandidate = null;
   }
 
   function formatTime(ms: number) {
@@ -121,6 +131,17 @@
          </div>
      {/each}
   </div>
+
+  {#if showConfirmRestore}
+      <ConfirmDialog
+        title={dict.confirm?.restore || 'Restore Session?'}
+        message={dict.confirm?.restoreMessage || 'Are you sure you want to restore this version? Current work will be replaced.'}
+        confirmText={dict.confirm?.yes || 'Yes'}
+        cancelText={dict.confirm?.no || 'No'}
+        on:confirm={confirmRestore}
+        on:cancel={() => showConfirmRestore = false}
+      />
+  {/if}
 </div>
 
 <style>

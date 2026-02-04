@@ -2,7 +2,8 @@
   import { createEventDispatcher } from 'svelte';
   import { fade, fly } from 'svelte/transition';
   import { gridStore } from '$lib/utils/grid-master/store';
-  import { X, Layout, FileText, LayoutDashboard, ArrowRight, ArrowLeft, Check, Smartphone, Monitor } from 'lucide-svelte';
+  import { generateLayoutFromText } from '$lib/utils/grid-master/generators';
+  import { X, Layout, FileText, LayoutDashboard, ArrowRight, ArrowLeft, Check, Smartphone, Monitor, Wand2 } from 'lucide-svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
   import { nanoid } from 'nanoid';
   import { getRandomColor } from '$lib/utils/grid-master/constants';
@@ -10,7 +11,9 @@
   export let dict: GridMasterDictionary;
 
   const dispatch = createEventDispatcher();
-  let step = 1;
+  let step = 0;
+  let mode: 'wizard' | 'magic' = 'wizard';
+  let magicInput = '';
 
   // Configuration State
   let layoutType: 'dashboard' | 'blog' | 'landing' | 'app' = 'dashboard';
@@ -27,11 +30,26 @@
   }
 
   function next() {
-      if (step < 4) step++;
+      if (step === 0) {
+          step = 1;
+      } else if (step < 4) {
+          step++;
+      }
   }
 
   function prev() {
-      if (step > 1) step--;
+      if (step === 1) {
+          step = 0;
+      } else if (step > 1) {
+          step--;
+      }
+  }
+
+  function handleMagicGenerate() {
+      if (!magicInput.trim()) return;
+      const state = generateLayoutFromText(magicInput);
+      gridStore.load(state);
+      close();
   }
 
   function generate() {
@@ -140,7 +158,9 @@
               <h2 id="wizard-title" class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
                   {dict.wizard?.title || 'Grid Wizard'}
               </h2>
-              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Step {step} of 4</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                  {#if step > 0}Step {step} of 4{:else}Start{/if}
+              </p>
           </div>
           <button on:click={close} class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
               <X size={20} />
@@ -149,7 +169,62 @@
 
       <!-- Content -->
       <div class="flex-1 overflow-y-auto p-6">
-          {#if step === 1}
+          {#if step === 0}
+              <h3 class="text-lg font-semibold mb-6 text-center">{dict.wizard?.title || 'How do you want to start?'}</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <button
+                    class="p-6 rounded-2xl border-2 transition-all text-center flex flex-col items-center gap-4 group {mode === 'wizard' ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300'}"
+                    on:click={() => { mode = 'wizard'; step = 1; }}
+                  >
+                      <div class="w-16 h-16 rounded-full bg-indigo-100 dark:bg-indigo-800 text-indigo-600 dark:text-indigo-200 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <LayoutDashboard size={32} />
+                      </div>
+                      <div>
+                          <div class="font-bold text-lg mb-1">{dict.wizard?.manual || 'Manual Wizard'}</div>
+                          <div class="text-sm text-slate-500">Step-by-step configuration</div>
+                      </div>
+                  </button>
+
+                  <button
+                    class="p-6 rounded-2xl border-2 transition-all text-center flex flex-col items-center gap-4 group {mode === 'magic' ? 'border-purple-600 bg-purple-50 dark:bg-purple-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-purple-300'}"
+                    on:click={() => { mode = 'magic'; }}
+                  >
+                      <div class="w-16 h-16 rounded-full bg-purple-100 dark:bg-purple-800 text-purple-600 dark:text-purple-200 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <Wand2 size={32} />
+                      </div>
+                      <div>
+                          <div class="font-bold text-lg mb-1">{dict.wizard?.magic || 'Magic Generator'}</div>
+                          <div class="text-sm text-slate-500">Describe it in plain text</div>
+                      </div>
+                  </button>
+              </div>
+
+              {#if mode === 'magic'}
+                  <div class="mt-8" transition:fade>
+                      <label for="magic-input" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                          {dict.wizard?.magicLabel || 'Describe your layout:'}
+                      </label>
+                      <textarea
+                          id="magic-input"
+                          bind:value={magicInput}
+                          rows="4"
+                          class="w-full rounded-xl border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-shadow p-3"
+                          placeholder={dict.wizard?.magicPlaceholder || "e.g. Dashboard with sidebar 250px, header, and 3 charts in main area"}
+                      ></textarea>
+                      <div class="mt-4 flex justify-end">
+                          <button
+                              class="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-bold flex items-center gap-2 shadow-lg shadow-purple-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                              on:click={handleMagicGenerate}
+                              disabled={!magicInput.trim()}
+                          >
+                              <Wand2 size={18} />
+                              Generate Layout
+                          </button>
+                      </div>
+                  </div>
+              {/if}
+
+          {:else if step === 1}
               <h3 class="text-lg font-semibold mb-4">{dict.wizard?.step1 || 'Choose a Layout Type'}</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <button
@@ -306,30 +381,28 @@
       </div>
 
       <!-- Footer -->
-      <div class="p-6 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 rounded-b-2xl">
-          {#if step > 1}
+      {#if step > 0}
+          <div class="p-6 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 rounded-b-2xl">
               <button on:click={prev} class="px-4 py-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white font-medium flex items-center gap-2">
                   <ArrowLeft size={18} /> Back
               </button>
-          {:else}
-              <div></div>
-          {/if}
 
-          <div class="flex gap-2">
-              {#each steps as s (s.id)}
-                  <div class="w-2 h-2 rounded-full {s.id === step ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-700'}"></div>
-              {/each}
+              <div class="flex gap-2">
+                  {#each steps as s (s.id)}
+                      <div class="w-2 h-2 rounded-full {s.id === step ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-700'}"></div>
+                  {/each}
+              </div>
+
+              {#if step < 4}
+                  <button on:click={next} class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium flex items-center gap-2 shadow-lg shadow-indigo-500/20 transition-all">
+                      Next <ArrowRight size={18} />
+                  </button>
+              {:else}
+                  <button on:click={generate} class="px-8 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-lg font-bold flex items-center gap-2 shadow-lg shadow-indigo-500/30 transition-all transform hover:scale-105">
+                      <Layout size={18} /> Generate
+                  </button>
+              {/if}
           </div>
-
-          {#if step < 4}
-              <button on:click={next} class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium flex items-center gap-2 shadow-lg shadow-indigo-500/20 transition-all">
-                  Next <ArrowRight size={18} />
-              </button>
-          {:else}
-              <button on:click={generate} class="px-8 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-lg font-bold flex items-center gap-2 shadow-lg shadow-indigo-500/30 transition-all transform hover:scale-105">
-                  <Layout size={18} /> Generate
-              </button>
-          {/if}
-      </div>
+      {/if}
   </div>
 </div>

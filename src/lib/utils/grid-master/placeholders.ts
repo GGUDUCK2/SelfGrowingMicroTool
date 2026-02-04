@@ -53,15 +53,51 @@ export function getPlaceholderContent(area: GridArea): string {
     `;
 
     // Content Types
-    if (type === 'calendar' || n.includes('calendar')) return `
-        <div class="h-full flex flex-col p-2 gap-1 overflow-hidden">
-            <div class="flex justify-between items-center mb-1">
-                <span class="text-[10px] font-bold uppercase opacity-60">August</span>
-                <div class="flex gap-1"><div class="w-2 h-2 rounded-full bg-current opacity-30"></div><div class="w-2 h-2 rounded-full bg-current opacity-30"></div></div>
+    if (type === 'stats' || n.includes('stat') || n.includes('kpi') || n.includes('metric')) return `
+       <div class="h-full flex flex-col p-4 justify-between bg-current opacity-10 rounded-lg">
+           <div class="text-xs font-bold uppercase opacity-60 tracking-wider">Total Users</div>
+           <div class="flex items-end gap-2">
+               <span class="text-3xl font-black leading-none">8,420</span>
+               <span class="text-xs font-bold bg-green-500/20 text-green-600 dark:text-green-400 px-1 rounded flex items-center mb-1">
+                   ▲ 12%
+               </span>
+           </div>
+       </div>
+    `;
+
+    if (type === 'ecommerce' || n.includes('product') || n.includes('shop') || n.includes('item')) return `
+       <div class="h-full flex flex-col gap-2 p-2 rounded-lg border border-current border-opacity-20">
+           <div class="aspect-video w-full bg-current opacity-20 rounded-md flex items-center justify-center relative overflow-hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="opacity-40"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                <div class="absolute top-1 right-1 bg-white dark:bg-black text-[8px] font-bold px-1 rounded shadow">NEW</div>
+           </div>
+           <div class="flex flex-col flex-1">
+               <h4 class="font-bold text-xs leading-tight">Premium Widget</h4>
+               <p class="text-[10px] opacity-60 line-clamp-1">High quality component</p>
+               <div class="mt-auto flex justify-between items-center pt-1">
+                   <span class="font-bold text-sm">$49</span>
+                   <button class="bg-current opacity-80 text-white dark:text-black w-6 h-6 flex items-center justify-center rounded-full">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                   </button>
+               </div>
+           </div>
+       </div>
+    `;
+
+    if (type === 'calendar' || type === 'calendar-widget' || n.includes('calendar')) return `
+        <div class="h-full flex flex-col p-3 gap-1 overflow-hidden bg-current opacity-10 rounded-lg">
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-xs font-bold uppercase opacity-80">October 2024</span>
+                <div class="flex gap-1"><div class="w-1.5 h-1.5 rounded-full bg-current opacity-30"></div><div class="w-1.5 h-1.5 rounded-full bg-current opacity-30"></div></div>
             </div>
-            <div class="grid grid-cols-7 gap-1 h-full content-start">
-                ${Array(7).fill(0).map(() => `<div class="text-[8px] text-center opacity-40">D</div>`).join('')}
-                ${Array(14).fill(0).map((_, i) => `<div class="aspect-square rounded-sm ${i === 8 ? 'bg-current opacity-60 text-white font-bold' : 'bg-current opacity-10'} flex items-center justify-center text-[8px]">${i + 1}</div>`).join('')}
+            <div class="grid grid-cols-7 gap-1 h-full content-start text-center">
+                ${['S','M','T','W','T','F','S'].map(d => `<div class="text-[8px] font-bold opacity-40">${d}</div>`).join('')}
+                ${Array(31).fill(0).map((_, i) => {
+                    const day = i + 1;
+                    const isToday = day === 15;
+                    const isSelected = day === 22;
+                    return `<div class="aspect-square rounded-sm flex items-center justify-center text-[9px] ${isToday ? 'bg-current text-white dark:text-black font-bold' : (isSelected ? 'border border-current' : 'opacity-60')}">${day}</div>`;
+                }).join('')}
             </div>
         </div>
     `;
