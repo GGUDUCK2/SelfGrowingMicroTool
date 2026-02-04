@@ -2,12 +2,13 @@
     import { onMount } from 'svelte';
     import { getDictionary } from '$lib/dictionaries';
     import { fade, slide } from 'svelte/transition';
-    import { Plus, Download, Copy, Trash2, Save, Share2, Users, Star, Clock, Calendar as CalendarIcon, ArrowLeft, ArrowRight, RotateCcw } from 'lucide-svelte';
+    import { Plus, Download, Copy, Trash2, Save, Share2, Users, Star, Calendar as CalendarIcon, ArrowLeft, ArrowRight, RotateCcw } from 'lucide-svelte';
     import { db, type TimeZoneLocation, type TeamGroup } from '$lib/db/chrono-shift';
     import { TimeEngine } from '$lib/utils/chrono-shift/time-engine';
     import LocationCard from './LocationCard.svelte';
     import Timeline from './Timeline.svelte';
     import FAQSection from '$lib/components/FAQSection.svelte';
+    import GuideSection from '$lib/components/GuideSection.svelte';
     import { liveQuery } from 'dexie';
     import { format, addDays, addMinutes } from 'date-fns';
     import { nanoid } from 'nanoid';
@@ -196,13 +197,13 @@
     }
 
     // JSON-LD Schema
-    $: jsonLd = {
+    $: softwareSchema = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": t.title,
         "description": t.description,
-        "applicationCategory": "Productivity",
-        "operatingSystem": "Web",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
         "offers": {
             "@type": "Offer",
             "price": "0",
@@ -215,6 +216,27 @@
             "Team Presets",
             "ICS Export"
         ]
+    };
+
+    $: breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `https://web-factory.vercel.app/${data.lang}`
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": `https://web-factory.vercel.app/${data.lang}#tools`
+      },{
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Chrono Shift",
+        "item": `https://web-factory.vercel.app/${data.lang}/tools/chrono-shift`
+      }]
     };
 
     // ics generation (simplified)
@@ -249,7 +271,21 @@
 <svelte:head>
     <title>{t.title} - MicroFactory</title>
     <meta name="description" content={t.description} />
-    {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
+    <meta name="keywords" content="time zone converter, world clock, meeting planner, overlap scheduler, time zone map, global meeting, team scheduler, golden hour, dst calculator, international meeting" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={t.title} />
+    <meta property="og:description" content={t.description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://web-factory.vercel.app/{data.lang}/tools/chrono-shift" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={t.title} />
+    <meta name="twitter:description" content={t.description} />
+
+    {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
+    {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
 </svelte:head>
 
 <div class="max-w-6xl mx-auto space-y-8 pb-20 px-4 sm:px-6">
@@ -430,55 +466,18 @@
     {/if}
 
     <!-- Guide Section -->
-    <section class="prose dark:prose-invert max-w-none bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
-        <h2 class="flex items-center gap-3 text-2xl font-bold text-slate-900 dark:text-white mb-6">
-            <Clock class="text-indigo-500" />
-            {t.guide.title}
-        </h2>
-
-        <p class="lead text-lg text-slate-600 dark:text-slate-300 mb-8">
-            {t.guide.intro}
-        </p>
-
-        <div class="grid md:grid-cols-3 gap-8 mb-12">
-            <div class="bg-slate-50 dark:bg-slate-700/30 p-6 rounded-xl">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">{t.guide.featuresTitle}</h3>
-                <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-300">
-                    <li class="flex gap-2">
-                        <span class="text-indigo-500">•</span>
-                        {@html t.guide.f1}
-                    </li>
-                    <li class="flex gap-2">
-                        <span class="text-indigo-500">•</span>
-                        {@html t.guide.f2}
-                    </li>
-                    <li class="flex gap-2">
-                        <span class="text-indigo-500">•</span>
-                        {@html t.guide.f3}
-                    </li>
-                </ul>
-            </div>
-
-            <div class="bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-xl">
-                <h3 class="text-lg font-semibold text-indigo-900 dark:text-indigo-300 mb-3">{t.guide.tipsTitle}</h3>
-                <ul class="space-y-3 text-sm text-indigo-800 dark:text-indigo-200">
-                    <li class="flex gap-2">
-                         <span class="text-indigo-500">💡</span>
-                         {@html t.guide.tip1}
-                    </li>
-                    <li class="flex gap-2">
-                        <span class="text-indigo-500">💡</span>
-                        {@html t.guide.tip2}
-                    </li>
-                    <li class="flex gap-2">
-                        <span class="text-indigo-500">💡</span>
-                        {@html t.guide.tip3}
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </section>
+    <GuideSection
+        title={t.guide.title}
+        intro={t.guide.intro}
+        featuresTitle={t.guide.featuresTitle}
+        f1={t.guide.f1}
+        f2={t.guide.f2}
+        f3={t.guide.f3}
+        tipsTitle={t.guide.tipsTitle}
+        tip1={t.guide.tip1}
+        tip2={t.guide.tip2}
+        tip3={t.guide.tip3}
+    />
 
     <FAQSection title={t.faqTitle} items={faqItems} />
 </div>
