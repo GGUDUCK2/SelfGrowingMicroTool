@@ -100,7 +100,7 @@
 
 <div
     bind:this={container}
-    class="relative h-16 w-full bg-slate-200 dark:bg-slate-700 rounded-lg cursor-col-resize select-none overflow-hidden touch-none focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+    class="relative h-14 mt-4 w-full cursor-col-resize select-none touch-none focus:outline-none group z-0"
     on:mousedown={handleMouseDown}
     on:touchstart|passive={handleTouchStart}
     on:keydown={handleKeyDown}
@@ -111,32 +111,42 @@
     tabindex="0"
     aria-label="Time Slider"
 >
-    <!-- Ticks -->
-    <div class="absolute inset-0 flex justify-between px-2">
-        {#each ticks as tick}
-            {#if tick % 2 === 0}
-                <div class="h-full flex flex-col justify-end pb-1 items-center w-0">
-                    <div class="h-2 w-px bg-slate-400"></div>
-                    <span class="text-[10px] text-slate-500 font-mono select-none">{tick}</span>
-                </div>
-            {:else}
-                 <div class="h-full flex flex-col justify-end pb-2 items-center w-0">
-                    <div class="h-1 w-px bg-slate-300"></div>
-                </div>
-            {/if}
-        {/each}
-    </div>
+    <!-- Background Track (Clipped) -->
+    <div class="absolute inset-0 rounded-lg overflow-hidden bg-slate-200 dark:bg-slate-700 ring-1 ring-slate-900/5 dark:ring-white/10 pointer-events-none">
+        <!-- Ticks -->
+        <div class="absolute inset-0 flex justify-between px-2">
+            {#each ticks as tick}
+                {#if tick % 2 === 0}
+                    <div class="h-full flex flex-col justify-end pb-1 items-center w-0">
+                        <div class="h-2 w-px bg-slate-400 dark:bg-slate-500"></div>
+                        <span class="text-[10px] text-slate-500 dark:text-slate-400 font-mono select-none">{tick}</span>
+                    </div>
+                {:else}
+                    <div class="h-full flex flex-col justify-end pb-2 items-center w-0">
+                        <div class="h-1 w-px bg-slate-300 dark:bg-slate-600"></div>
+                    </div>
+                {/if}
+            {/each}
+        </div>
 
-    <!-- Day/Night Gradient Overlay (Simulated for generic day) -->
-    <div class="absolute inset-0 opacity-10 pointer-events-none bg-gradient-to-r from-indigo-900 via-yellow-200 to-indigo-900"></div>
+        <!-- Day/Night Gradient Overlay -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none bg-gradient-to-r from-indigo-900 via-yellow-200 to-indigo-900"></div>
+    </div>
 
     <!-- Handle -->
     <div
-        class="absolute top-0 bottom-0 w-1 bg-red-500 z-10 shadow-[0_0_10px_rgba(239,68,68,0.5)] transition-transform duration-75 ease-out"
+        class="absolute top-0 bottom-0 w-0.5 sm:w-1 bg-red-500 z-10 shadow-[0_0_10px_rgba(239,68,68,0.5)] transition-transform duration-75 ease-out"
         style="left: {getHandlePosition()}%; transform: translateX(-50%);"
     >
-        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded font-mono">
-            {format(value, 'HH:mm')}
+        <!-- Time Label (Floating above) -->
+        <div class="absolute -top-9 left-1/2 -translate-x-1/2 flex flex-col items-center">
+            <div class="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded shadow-lg font-mono whitespace-nowrap">
+                {format(value, 'HH:mm')}
+            </div>
+            <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-red-600"></div>
         </div>
+
+        <!-- Bottom Knob -->
+        <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-2 border-red-500 rounded-full shadow-sm"></div>
     </div>
 </div>
