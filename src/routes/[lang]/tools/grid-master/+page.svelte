@@ -11,6 +11,7 @@
   import CodePanel from '$lib/components/grid-master/CodePanel.svelte';
   import ProjectList from '$lib/components/grid-master/ProjectList.svelte';
   import ShortcutsModal from '$lib/components/grid-master/ShortcutsModal.svelte';
+  import ConfirmDialog from '$lib/components/grid-master/ConfirmDialog.svelte';
   import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2, Eye, EyeOff, Share2, HelpCircle, History, Download } from 'lucide-svelte';
   import { fade, slide } from 'svelte/transition';
   import type { GridState } from '$lib/utils/grid-master/types';
@@ -27,6 +28,7 @@
   let viewMode: 'desktop' | 'mobile' = 'desktop';
   let previewMode = false;
   let showShortcuts = false;
+  let showConfirmReset = false;
   let canRestoreSession = false;
   let lastSessionState: GridState | null = null;
   let theme = 'standard';
@@ -102,9 +104,12 @@
   }
 
   function handleReset() {
-      if (confirm('Reset grid?')) {
-          gridStore.reset();
-      }
+      showConfirmReset = true;
+  }
+
+  function confirmReset() {
+      gridStore.reset();
+      showConfirmReset = false;
   }
 
   function togglePreview() {
@@ -242,7 +247,9 @@
         "Session Snapshots",
         "Intelligent Mobile Stack Generator",
         "Visual Content Presets",
-        "Interactive Grid Wizard"
+        "Interactive Grid Wizard",
+        "Natural Language Layout",
+        "Interactive Wireframing"
       ]
     }
   </script>
@@ -471,5 +478,16 @@
 
   {#if showShortcuts}
       <ShortcutsModal {dict} close={() => showShortcuts = false} />
+  {/if}
+
+  {#if showConfirmReset}
+      <ConfirmDialog
+        title={dict.confirm?.reset || 'Reset Grid?'}
+        message={dict.confirm?.resetMessage || 'Are you sure you want to reset the grid? This action cannot be undone.'}
+        confirmText={dict.confirm?.yes || 'Yes'}
+        cancelText={dict.confirm?.no || 'No'}
+        on:confirm={confirmReset}
+        on:cancel={() => showConfirmReset = false}
+      />
   {/if}
 </div>

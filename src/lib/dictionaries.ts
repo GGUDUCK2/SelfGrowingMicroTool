@@ -1730,16 +1730,6 @@ export const dictionaries = {
             medium: "Medium",
             large: "Large"
         },
-        wizard: {
-            title: "Grid Wizard",
-            step1: "Layout Type",
-            step2: "Structure",
-            step3: "Density",
-            step4: "Review",
-            mobileStrategy: "Mobile Strategy",
-            stackAll: "Stack All (Column)",
-            hideSidebar: "Hide Sidebar"
-        },
         smartLayouts: {
             title: "Smart Generators",
             dashboard: "Dashboard",
@@ -1765,6 +1755,28 @@ export const dictionaries = {
             "blog",
             "gallery 6"
         ],
+        wizard: {
+            title: "Grid Wizard",
+            step1: "Layout Type",
+            step2: "Structure",
+            step3: "Density",
+            step4: "Review",
+            mobileStrategy: "Mobile Strategy",
+            stackAll: "Stack All (Column)",
+            hideSidebar: "Hide Sidebar",
+            magic: "Magic Generator",
+            manual: "Manual Wizard",
+            magicLabel: "Describe your layout:",
+            magicPlaceholder: "e.g. Dashboard with sidebar 250px, header, and 3 charts in main area"
+        },
+        confirm: {
+            reset: "Reset Grid?",
+            resetMessage: "Are you sure you want to reset the grid? This action cannot be undone.",
+            restore: "Restore Session?",
+            restoreMessage: "Are you sure you want to restore this version? Current work will be replaced.",
+            yes: "Yes",
+            no: "No"
+        },
         guide: {
           title: "Why Grid Master?",
           intro: "CSS Grid is powerful but the syntax can be daunting. Grid Master provides a visual interface to design layouts naturally.",
@@ -2925,13 +2937,6 @@ export const dictionaries = {
             medium: "중간",
             large: "넓게"
         },
-        wizard: {
-            title: "그리드 마법사",
-            step1: "레이아웃 타입",
-            step2: "구조",
-            step3: "밀도",
-            step4: "검토",
-        },
         smartLayouts: {
             title: "스마트 생성기",
             dashboard: "대시보드",
@@ -2957,6 +2962,25 @@ export const dictionaries = {
             "blog",
             "gallery 6"
         ],
+        wizard: {
+            title: "그리드 마법사",
+            step1: "레이아웃 타입",
+            step2: "구조",
+            step3: "밀도",
+            step4: "검토",
+            magic: "매직 생성기",
+            manual: "수동 마법사",
+            magicLabel: "레이아웃을 설명해주세요:",
+            magicPlaceholder: "예: 250px 사이드바, 헤더, 그리고 메인 영역에 3개의 차트가 있는 대시보드"
+        },
+        confirm: {
+            reset: "그리드 초기화?",
+            resetMessage: "그리드를 초기화하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+            restore: "세션 복원?",
+            restoreMessage: "이 버전을 복원하시겠습니까? 현재 작업이 대체됩니다.",
+            yes: "예",
+            no: "아니요"
+        },
         guide: {
           title: "왜 그리드 마스터인가요?",
           intro: "CSS 그리드는 강력하지만 문법이 까다로울 수 있습니다. 그리드 마스터는 직관적인 시각적 인터페이스를 제공합니다.",
