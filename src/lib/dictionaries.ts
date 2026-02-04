@@ -1661,6 +1661,9 @@ export const dictionaries = {
             step2: "Structure",
             step3: "Density",
             step4: "Review",
+            mobileStrategy: "Mobile Strategy",
+            stackAll: "Stack All (Column)",
+            hideSidebar: "Hide Sidebar"
         },
         smartLayouts: {
             title: "Smart Generators",

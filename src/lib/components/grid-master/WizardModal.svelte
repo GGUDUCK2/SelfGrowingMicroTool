@@ -114,7 +114,8 @@
           alignItems: 'stretch',
           justifyContent: 'stretch',
           alignContent: 'stretch',
-          includeMobile: true // Always include mobile base
+          includeMobile: true, // Always include mobile base
+          mobileStrategy
       });
 
       close();
@@ -267,15 +268,15 @@
                   </div>
 
                   <div class="mt-8 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-800">
-                      <h4 class="font-medium mb-3">Mobile Strategy</h4>
+                      <h4 class="font-medium mb-3">{dict.wizard?.mobileStrategy || 'Mobile Strategy'}</h4>
                       <div class="flex gap-4">
                           <label class="flex items-center gap-2 cursor-pointer">
                               <input type="radio" value="stack" bind:group={mobileStrategy} class="text-indigo-600 focus:ring-indigo-500">
-                              <span>Stack All (Column)</span>
+                              <span>{dict.wizard?.stackAll || 'Stack All (Column)'}</span>
                           </label>
-                          <label class="flex items-center gap-2 cursor-pointer opacity-60" title="Coming soon">
-                              <input type="radio" value="hide-sidebar" disabled class="text-indigo-600 focus:ring-indigo-500">
-                              <span>Hide Sidebar</span>
+                          <label class="flex items-center gap-2 cursor-pointer">
+                              <input type="radio" value="hide-sidebar" bind:group={mobileStrategy} class="text-indigo-600 focus:ring-indigo-500">
+                              <span>{dict.wizard?.hideSidebar || 'Hide Sidebar'}</span>
                           </label>
                       </div>
                   </div>

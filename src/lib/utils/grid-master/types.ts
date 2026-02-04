@@ -45,6 +45,7 @@ export interface GridState {
 
   // Responsive
   includeMobile: boolean;
+  mobileStrategy?: 'stack' | 'hide-sidebar';
 }
 
 export type GridMasterDictionary = typeof dictionaries.en.tools.gridMaster;

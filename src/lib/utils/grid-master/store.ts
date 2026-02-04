@@ -59,7 +59,8 @@ const initialState: GridState = {
   alignItems: 'stretch',
   justifyContent: 'stretch',
   alignContent: 'stretch',
-  includeMobile: false
+  includeMobile: false,
+  mobileStrategy: 'stack'
 };
 
 function createGridStore() {
@@ -172,6 +173,7 @@ function createGridStore() {
 
     // Responsive
     toggleMobile: () => withHistory(s => ({ ...s, includeMobile: !s.includeMobile })),
+    setMobileStrategy: (val: 'stack' | 'hide-sidebar') => withHistory(s => ({ ...s, mobileStrategy: val })),
 
     reorderMobile: (id: string, direction: 'up' | 'down') => withHistory(s => {
         // Ensure all areas have a mobileOrder initialized if missing

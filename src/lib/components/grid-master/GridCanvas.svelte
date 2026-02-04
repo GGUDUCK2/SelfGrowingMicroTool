@@ -54,8 +54,16 @@
       `;
   }
 
-  function getMobileAreas(areas: GridArea[]) {
-     const sorted = [...areas].sort((a, b) => {
+  function getMobileAreas(areas: GridArea[], strategy: 'stack' | 'hide-sidebar' = 'stack') {
+     let filtered = areas;
+     if (strategy === 'hide-sidebar') {
+         filtered = areas.filter(a => {
+             const tag = a.tag || getSemanticTag(a);
+             return tag !== 'aside' && !a.name.includes('sidebar');
+         });
+     }
+
+     const sorted = [...filtered].sort((a, b) => {
         if (a.mobileOrder !== undefined && b.mobileOrder !== undefined) {
              return a.mobileOrder - b.mobileOrder;
         }
@@ -68,6 +76,7 @@
   let isSelecting = false;
   let selectionStart = { row: -1, col: -1 };
   let selectionEnd = { row: -1, col: -1 };
+  let hoveredCell = { row: -1, col: -1 };
 
   function handleMouseDown(r: number, c: number) {
       if (previewMode) return;
@@ -77,9 +86,14 @@
   }
 
   function handleMouseOver(r: number, c: number) {
+      hoveredCell = { row: r, col: c };
       if (isSelecting) {
           selectionEnd = { row: r, col: c };
       }
+  }
+
+  function handleMouseLeave() {
+      hoveredCell = { row: -1, col: -1 };
   }
 
   function handleMouseUp() {
@@ -137,6 +151,7 @@
   class="relative w-full h-full min-h-[400px] rounded-xl overflow-hidden shadow-inner border touch-none select-none transition-colors duration-300
   {theme === 'cyber' ? 'bg-black border-green-900' : (theme === 'blueprint' ? 'bg-blue-50 border-blue-200' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800')}"
   on:mouseup={handleMouseUp}
+  on:mouseleave={handleMouseLeave}
   role="presentation"
 >
   <!-- View Toggle (Overlay) -->
@@ -170,7 +185,7 @@
       align-items: stretch;
       justify-content: start;
       align-content: start;
-      grid-template-areas: ${getMobileAreas($gridStore.areas)};
+      grid-template-areas: ${getMobileAreas($gridStore.areas, $gridStore.mobileStrategy)};
       overflow-y: auto;
       display: grid;
       align-content: start;
@@ -211,7 +226,10 @@
 
       <!-- Rendered Areas -->
       {#each $gridStore.areas as area (area.id)}
-          {#if previewMode}
+          <!-- Hide sidebars in mobile mode if strategy is hide-sidebar -->
+          {#if isMobileView && $gridStore.mobileStrategy === 'hide-sidebar' && (area.tag === 'aside' || getSemanticTag(area) === 'aside' || area.name.includes('sidebar'))}
+              <!-- Hidden Area -->
+          {:else if previewMode}
               <svelte:element
                 this={getSemanticTag(area)}
                 class="z-20 p-4 shadow-sm rounded relative overflow-hidden transition-all {theme === 'cyber' ? 'font-mono text-green-400' : 'text-slate-800 dark:text-white'}"
@@ -281,6 +299,24 @@
              class="z-30 bg-indigo-500/30 border-2 border-indigo-500 rounded pointer-events-none"
              style={getSelectionStyle(selectionStart, selectionEnd)}
           ></div>
+      {/if}
+
+      <!-- Interactive Tooltip -->
+      {#if !isMobileView && !previewMode && hoveredCell.row !== -1}
+          <div
+              class="absolute z-50 pointer-events-none px-2 py-1 bg-slate-800 text-white text-[10px] rounded shadow-lg whitespace-nowrap border border-slate-700"
+              style="
+                  grid-area: {hoveredCell.row + 1} / {hoveredCell.col + 1} / {hoveredCell.row + 2} / {hoveredCell.col + 2};
+                  justify-self: center;
+                  align-self: end;
+                  margin-bottom: 4px;
+              "
+              transition:fade={{ duration: 100 }}
+          >
+              <span class="opacity-60">R{hoveredCell.row + 1}:</span> <span class="font-bold">{$gridStore.rows[hoveredCell.row]}</span>
+              <span class="opacity-30 mx-1">|</span>
+              <span class="opacity-60">C{hoveredCell.col + 1}:</span> <span class="font-bold">{$gridStore.cols[hoveredCell.col]}</span>
+          </div>
       {/if}
   </div>
 
