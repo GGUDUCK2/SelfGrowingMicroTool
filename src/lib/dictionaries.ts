@@ -2314,6 +2314,66 @@ export const dictionaries = {
         a2: "Click 'Download PDF'. This triggers the browser's print engine. Make sure to check 'Background Graphics' in your print settings for best results.",
         q3: "Can I import my LinkedIn data?",
         a3: "If you can export your LinkedIn data to JSON Resume format (using third-party tools), you can import it here using the 'Import JSON' button."
+      },
+      typeForge: {
+        title: "Type Forge: Font Inspector",
+        description: "The definitive tool to inspect, test, and analyze fonts. Support for variable fonts, glyph visualization, and CSS generation.",
+        upload: {
+          title: "Upload Font",
+          dragDrop: "Drag & drop or click to upload",
+          formats: "TTF, OTF, WOFF, WOFF2 supported",
+          loadExample: "Load Inter (Variable)"
+        },
+        preview: {
+          text: "Preview Text",
+          placeholder: "Type something...",
+          pangrams: "Pangrams",
+          quickBrownFox: "The quick brown fox jumps over the lazy dog",
+          size: "Size",
+          lineHeight: "Line Height",
+          letterSpacing: "Letter Spacing",
+          align: "Alignment"
+        },
+        variable: {
+          title: "Variable Axes",
+          noAxes: "This is not a variable font."
+        },
+        glyphs: {
+          title: "Glyphs",
+          search: "Search glyphs...",
+          total: "Total Glyphs"
+        },
+        css: {
+          title: "CSS Export",
+          copy: "Copy CSS",
+          copied: "Copied!"
+        },
+        history: {
+          title: "History",
+          save: "Save Config",
+          restore: "Restore",
+          delete: "Delete",
+          empty: "No saved configs."
+        },
+        guide: {
+          title: "Why Type Forge?",
+          intro: "Typography is the web's voice. Type Forge allows you to inspect every curve and ligature of your font files before deploying them.",
+          featuresTitle: "Key Features",
+          f1: "**Variable Font Support:** Play with custom axes like Weight, Width, and Slant in real-time.",
+          f2: "**Glyph Inspector:** Verify character support for different languages and symbols.",
+          f3: "**Privacy First:** Fonts are processed locally. Your proprietary typefaces never leave your device.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use the **Pangram** dropdown to test the font with different language scripts.",
+          tip2: "Click on any **Glyph** to see its unicode value and name.",
+          tip3: "Use the **CSS Export** tab to get the exact `@font-face` declaration."
+        },
+        faqTitle: "Type Forge FAQ",
+        q1: "What formats are supported?",
+        a1: "We support standard web font formats including TTF, OTF, WOFF, and WOFF2.",
+        q2: "Is my font uploaded?",
+        a2: "No. The file is read directly into your browser's memory using the FileReader API. It is never sent to a server.",
+        q3: "Can I test Google Fonts?",
+        a3: "Yes, you can download the font file from Google Fonts and drag it here to inspect it deeply."
       }
     },
     pwa: {
@@ -3690,6 +3750,66 @@ export const dictionaries = {
       benefit2: "오프라인에서도 작동",
       benefit3: "더 빠른 로딩 속도",
       benefit4: "앱과 같은 사용 경험"
+    },
+    typeForge: {
+      title: "타입 포지: 폰트 인스펙터",
+      description: "폰트를 검사, 테스트 및 분석하는 완벽한 도구입니다. 가변 폰트, 글리프 시각화 및 CSS 생성을 지원합니다.",
+      upload: {
+        title: "폰트 업로드",
+        dragDrop: "드래그 앤 드롭 또는 클릭하여 업로드",
+        formats: "TTF, OTF, WOFF, WOFF2 지원",
+        loadExample: "Inter (가변) 불러오기"
+      },
+      preview: {
+        text: "텍스트 미리보기",
+        placeholder: "입력하세요...",
+        pangrams: "팬그램",
+        quickBrownFox: "다람쥐 헌 쳇바퀴에 타고파",
+        size: "크기",
+        lineHeight: "줄 높이",
+        letterSpacing: "자간",
+        align: "정렬"
+      },
+      variable: {
+        title: "가변 축 (Variable Axes)",
+        noAxes: "이 폰트는 가변 폰트가 아닙니다."
+      },
+      glyphs: {
+        title: "글리프",
+        search: "글리프 검색...",
+        total: "총 글리프"
+      },
+      css: {
+        title: "CSS 내보내기",
+        copy: "CSS 복사",
+        copied: "복사됨!"
+      },
+      history: {
+        title: "히스토리",
+        save: "설정 저장",
+        restore: "복원",
+        delete: "삭제",
+        empty: "저장된 설정이 없습니다."
+      },
+      guide: {
+        title: "왜 타입 포지인가요?",
+        intro: "타이포그래피는 웹의 목소리입니다. 타입 포지를 사용하면 배포하기 전에 폰트 파일의 모든 곡선과 합자를 검사할 수 있습니다.",
+        featuresTitle: "주요 기능",
+        f1: "**가변 폰트 지원:** 굵기, 너비, 기울기 같은 사용자 정의 축을 실시간으로 조정하세요.",
+        f2: "**글리프 인스펙터:** 다양한 언어와 기호에 대한 문자 지원을 확인하세요.",
+        f3: "**프라이버시 우선:** 폰트는 로컬에서 처리됩니다. 귀하의 소중한 서체는 기기를 떠나지 않습니다.",
+        tipsTitle: "프로 팁",
+        tip1: "**팬그램** 드롭다운을 사용하여 다양한 언어 스크립트로 폰트를 테스트하세요.",
+        tip2: "**글리프**를 클릭하여 유니코드 값과 이름을 확인하세요.",
+        tip3: "**CSS 내보내기** 탭을 사용하여 정확한 `@font-face` 선언을 얻으세요."
+      },
+      faqTitle: "타입 포지 FAQ",
+      q1: "어떤 형식을 지원하나요?",
+      a1: "TTF, OTF, WOFF, WOFF2를 포함한 표준 웹 폰트 형식을 지원합니다.",
+      q2: "내 폰트가 업로드되나요?",
+      a2: "아니요. 파일은 FileReader API를 사용하여 브라우저 메모리로 직접 읽힙니다. 서버로 전송되지 않습니다.",
+      q3: "Google Fonts를 테스트할 수 있나요?",
+      a3: "네, Google Fonts에서 폰트 파일을 다운로드하여 여기에 드래그하면 깊이 있게 검사할 수 있습니다."
     }
   }
 } as const;
