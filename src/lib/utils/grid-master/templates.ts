@@ -61,5 +61,27 @@ export const templates: Record<string, GridState> = {
     '12-col': {
         ...createBase(['1fr'], Array(12).fill('1fr')),
         areas: []
+    },
+    'bento-grid': {
+        ...createBase(['1fr', '1fr', '1fr', '1fr'], ['1fr', '1fr', '1fr', '1fr']),
+        areas: [
+            { id: nanoid(), name: 'hero', rowStart: 1, rowEnd: 3, colStart: 1, colEnd: 3, color: 'indigo', contentType: 'hero' },
+            { id: nanoid(), name: 'stats', rowStart: 1, rowEnd: 2, colStart: 3, colEnd: 5, color: 'emerald', contentType: 'chart' },
+            { id: nanoid(), name: 'list', rowStart: 2, rowEnd: 4, colStart: 3, colEnd: 4, color: 'amber', contentType: 'feed' },
+            { id: nanoid(), name: 'img', rowStart: 2, rowEnd: 3, colStart: 4, colEnd: 5, color: 'rose', contentType: 'image' },
+            { id: nanoid(), name: 'video', rowStart: 3, rowEnd: 4, colStart: 4, colEnd: 5, color: 'sky', contentType: 'video' },
+            { id: nanoid(), name: 'footer', rowStart: 3, rowEnd: 5, colStart: 1, colEnd: 3, color: 'slate', contentType: 'pricing' },
+            { id: nanoid(), name: 'map', rowStart: 4, rowEnd: 5, colStart: 3, colEnd: 5, color: 'teal', contentType: 'map' }
+        ]
+    },
+    'saas-dashboard': {
+        ...createBase(['60px', '50px', '1fr'], ['240px', '1fr', '300px']),
+        areas: [
+            { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 4, color: 'indigo', tag: 'header', contentType: 'header' },
+            { id: nanoid(), name: 'sidebar', rowStart: 2, rowEnd: 4, colStart: 1, colEnd: 2, color: 'slate', tag: 'aside', contentType: 'form' },
+            { id: nanoid(), name: 'subnav', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 4, color: 'white', tag: 'nav', contentType: 'settings' },
+            { id: nanoid(), name: 'main', rowStart: 3, rowEnd: 4, colStart: 2, colEnd: 3, color: 'white', tag: 'main', contentType: 'chart' },
+            { id: nanoid(), name: 'details', rowStart: 3, rowEnd: 4, colStart: 3, colEnd: 4, color: 'white', tag: 'aside', contentType: 'profile' }
+        ]
     }
 };
