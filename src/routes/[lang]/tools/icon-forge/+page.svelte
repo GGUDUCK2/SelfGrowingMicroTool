@@ -12,10 +12,17 @@
   import type { IconConfig } from '$lib/utils/icon-forge/processor';
   import { db, type IconForgeProject } from '$lib/db';
   import { Save, Check } from 'lucide-svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
 
   // Dynamic dictionary loading
   $: dict = getDictionary($page.params.lang);
   $: t = dict.tools.iconForge;
+
+  $: faqItems = [
+    { q: t?.q1, a: t?.a1 },
+    { q: t?.q2, a: t?.a2 },
+    { q: t?.q3, a: t?.a3 }
+  ];
 
   let file: File | null = null;
   let config: IconConfig = {
@@ -189,21 +196,7 @@
                <li>{@html t.guide.tip3}</li>
             </ul>
 
-            <h2 class="text-2xl font-bold text-slate-50 mb-6">{t.faqTitle}</h2>
-            <div class="space-y-6">
-                <div>
-                    <h4 class="font-medium text-slate-200 mb-2">{t.q1}</h4>
-                    <p class="text-slate-400">{t.a1}</p>
-                </div>
-                <div>
-                    <h4 class="font-medium text-slate-200 mb-2">{t.q2}</h4>
-                    <p class="text-slate-400">{t.a2}</p>
-                </div>
-                <div>
-                    <h4 class="font-medium text-slate-200 mb-2">{t.q3}</h4>
-                    <p class="text-slate-400">{t.a3}</p>
-                </div>
-            </div>
+            <FAQSection title={t.faqTitle} items={faqItems} />
         </div>
     </div>
 

@@ -1034,6 +1034,81 @@ export const dictionaries = {
             saved: "Saved to history!"
         }
       },
+      iconForge: {
+        title: "Icon Forge: Universal Icon Generator",
+        category: "Design",
+        description: "The definitive tool to generate favicons, PWA icons, and app icons. Preview on all platforms and export production-ready assets.",
+        upload: {
+          title: "Upload Source",
+          dragDrop: "Drag & drop or click to upload",
+          formats: "Best results with 1024x1024 PNG or SVG",
+          example: "Load Example",
+          reupload: "New Image"
+        },
+        export: {
+            title: "Export Assets",
+            favicon: "Favicon (ICO)",
+            pwa: "PWA Bundle (ZIP)",
+            manifest: "Manifest.json",
+            generating: "Processing...",
+            downloaded: "Downloaded!",
+            download: "Download"
+        },
+        platforms: {
+            android: "Android",
+            iphone: "iOS",
+            browser: "Browser",
+            search: "Google Search",
+            windows: "Windows 11"
+        },
+        safeZone: "Safe Zone",
+        snippets: {
+            title: "Integration Code",
+            html: "HTML Tags",
+            manifest: "Web Manifest",
+            base64: "Base64 URI",
+            copy: "Copy"
+        },
+        config: {
+            title: "Configuration",
+            name: "App Name",
+            shortName: "Short Name",
+            background: "Background",
+            transparent: "Transparent",
+            padding: "Padding",
+            radius: "Mask Radius"
+        },
+        magicPalette: "Extract Colors",
+        manifestSettings: {
+            title: "Manifest Properties"
+        },
+        history: {
+            title: "History",
+            save: "Save",
+            restore: "Restore",
+            delete: "Delete",
+            empty: "No icons generated yet."
+        },
+        guide: {
+          title: "Why Icon Forge?",
+          intro: "Creating consistent icons for the web, Android, iOS, and Windows is complex. Icon Forge automates resizing, masking, and file format conversion in one click.",
+          featuresTitle: "Key Features",
+          f1: "**Universal Export:** Generate ICO for legacy browsers, PNGs for modern web, and specific sizes for PWA manifests.",
+          f2: "**Smart Masking:** Visualize how your icon looks when cropped by Android (Circle) or iOS (Squircle).",
+          f3: "**Privacy First:** All image processing happens locally in your browser. Your assets never leave your device.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use a **SVG** source file for the crispest results at any size.",
+          tip2: "Keep important details within the **Safe Zone** (center 66%) to avoid cropping on some Android launchers.",
+          tip3: "Use the **Magic Palette** to automatically pick the best background color from your image."
+        },
+        faqTitle: "Icon Forge FAQ",
+        q1: "What is a PWA?",
+        a1: "A Progressive Web App (PWA) is a website that can be installed on a device like a native app. It requires a specific set of icons defined in a manifest file.",
+        q2: "Why do I need an ICO file?",
+        a2: "The .ico format is still required for the favicon in the browser tab on desktop browsers, specifically for legacy support.",
+        q3: "Is my image uploaded?",
+        a3: "No. Icon Forge processes your images entirely in your browser using the Canvas API. Nothing is sent to a server."
+      },
       restro: {
         title: "Restro: API Client",
         description: "A professional-grade API client and testing tool right in your browser. Debug REST APIs, inspect responses, and generate code snippets.",
