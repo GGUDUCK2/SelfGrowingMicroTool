@@ -1751,9 +1751,11 @@ export const dictionaries = {
             "header sidebar main footer",
             "header 80px sidebar 250px main",
             "nav main aside footer",
-            "dashboard",
-            "blog",
-            "gallery 6"
+            "dashboard gap 2rem",
+            "blog mobile",
+            "gallery 6",
+            "kanban",
+            "video"
         ],
         wizard: {
             title: "Grid Wizard",
@@ -2958,9 +2960,11 @@ export const dictionaries = {
             "header sidebar main footer",
             "header 80px sidebar 250px main",
             "nav main aside footer",
-            "dashboard",
-            "blog",
-            "gallery 6"
+            "dashboard gap 2rem",
+            "blog mobile",
+            "gallery 6",
+            "kanban",
+            "video"
         ],
         wizard: {
             title: "그리드 마법사",

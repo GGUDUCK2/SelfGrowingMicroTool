@@ -153,7 +153,7 @@ export function remixLayout(state: GridState): GridState {
     };
 }
 
-export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 'gallery'): GridState {
+export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 'gallery' | 'kanban' | 'video' | 'feed'): GridState {
     const common = {
         gap: '1rem',
         rowGap: '1rem',
@@ -226,6 +226,49 @@ export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 
         };
     }
 
+    if (type === 'kanban') {
+        return {
+            ...common,
+            rows: ['60px', '1fr'],
+            cols: ['1fr', '1fr', '1fr', '1fr'],
+            areas: [
+                { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 5, color: 'indigo', tag: 'header' },
+                { id: nanoid(), name: 'todo', rowStart: 2, rowEnd: 3, colStart: 1, colEnd: 2, color: 'slate', contentType: 'kanban' },
+                { id: nanoid(), name: 'in-progress', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'sky', contentType: 'kanban' },
+                { id: nanoid(), name: 'review', rowStart: 2, rowEnd: 3, colStart: 3, colEnd: 4, color: 'amber', contentType: 'kanban' },
+                { id: nanoid(), name: 'done', rowStart: 2, rowEnd: 3, colStart: 4, colEnd: 5, color: 'emerald', contentType: 'kanban' }
+            ]
+        };
+    }
+
+    if (type === 'video') {
+        return {
+            ...common,
+            rows: ['60px', '1fr', '150px'],
+            cols: ['1fr', '350px'],
+            areas: [
+                { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 3, color: 'indigo', tag: 'header' },
+                { id: nanoid(), name: 'player', rowStart: 2, rowEnd: 3, colStart: 1, colEnd: 2, color: 'black', contentType: 'video' },
+                { id: nanoid(), name: 'chat', rowStart: 2, rowEnd: 4, colStart: 2, colEnd: 3, color: 'white', contentType: 'feed' },
+                { id: nanoid(), name: 'desc', rowStart: 3, rowEnd: 4, colStart: 1, colEnd: 2, color: 'slate', contentType: 'none' }
+            ]
+        };
+    }
+
+    if (type === 'feed') {
+        return {
+            ...common,
+            rows: ['60px', '1fr'],
+            cols: ['250px', '600px', '1fr'],
+            areas: [
+                { id: nanoid(), name: 'nav', rowStart: 1, rowEnd: 3, colStart: 1, colEnd: 2, color: 'white', tag: 'nav' },
+                { id: nanoid(), name: 'feed', rowStart: 1, rowEnd: 3, colStart: 2, colEnd: 3, color: 'slate', contentType: 'feed' },
+                { id: nanoid(), name: 'trending', rowStart: 1, rowEnd: 3, colStart: 3, colEnd: 4, color: 'white', contentType: 'list' }
+            ],
+            justifyContent: 'center'
+        };
+    }
+
     return generateMagicLayout();
 }
 
@@ -236,13 +279,42 @@ function parseSize(token: string): string | null {
 }
 
 export function generateLayoutFromText(input: string): GridState {
-    const rawInput = input.toLowerCase().trim();
+    let rawInput = input.toLowerCase().trim();
+
+    // Extract options: Gap
+    let gap = '1rem';
+    const gapMatch = rawInput.match(/gap\s+(\S+)/);
+    if (gapMatch) {
+        gap = gapMatch[1];
+        if (!gap.endsWith('px') && !gap.endsWith('rem') && !gap.endsWith('%')) {
+            if (gap === 'small') gap = '0.5rem';
+            else if (gap === 'medium') gap = '1rem';
+            else if (gap === 'large') gap = '2rem';
+            else gap = '1rem';
+        }
+        rawInput = rawInput.replace(gapMatch[0], '').trim();
+    }
+
+    // Extract options: Mobile
+    let includeMobile = false;
+    if (rawInput.includes('mobile') || rawInput.includes('responsive')) {
+        includeMobile = true;
+        rawInput = rawInput.replace('mobile', '').replace('responsive', '').trim();
+    }
+
+    // Cleanup extra spaces
+    rawInput = rawInput.replace(/\s+/g, ' ').trim();
+
+    const override = { gap, rowGap: gap, colGap: gap, includeMobile };
 
     // 0. Check for keywords
-    if (['dashboard', 'admin'].includes(rawInput)) return generateSmartLayout('dashboard');
-    if (['blog', 'article'].includes(rawInput)) return generateSmartLayout('blog');
-    if (['holy grail', 'holygrail'].includes(rawInput)) return generateSmartLayout('holy-grail');
-    if (['gallery', 'portfolio'].includes(rawInput)) return generateSmartLayout('gallery');
+    if (['dashboard', 'admin'].includes(rawInput)) return { ...generateSmartLayout('dashboard'), ...override };
+    if (['blog', 'article'].includes(rawInput)) return { ...generateSmartLayout('blog'), ...override };
+    if (['holy grail', 'holygrail'].includes(rawInput)) return { ...generateSmartLayout('holy-grail'), ...override };
+    if (['gallery', 'portfolio'].includes(rawInput)) return { ...generateSmartLayout('gallery'), ...override };
+    if (['kanban', 'board'].includes(rawInput)) return { ...generateSmartLayout('kanban'), ...override };
+    if (['video', 'player', 'youtube'].includes(rawInput)) return { ...generateSmartLayout('video'), ...override };
+    if (['feed', 'social', 'timeline'].includes(rawInput)) return { ...generateSmartLayout('feed'), ...override };
 
     // 1. Check for "grid RxC" pattern (e.g. "grid 4x4" or "grid 3")
     const gridMatch = rawInput.match(/^grid\s+(\d+)(?:x(\d+))?$/);
@@ -269,16 +341,13 @@ export function generateLayoutFromText(input: string): GridState {
         return {
             rows: Array(rowsCount).fill('1fr'),
             cols: Array(colsCount).fill('1fr'),
-            gap: '1rem',
-            rowGap: '1rem',
-            colGap: '1rem',
+            ...override,
             areas,
             items: [],
             justifyItems: 'stretch',
             alignItems: 'stretch',
             justifyContent: 'stretch',
-            alignContent: 'stretch',
-            includeMobile: true
+            alignContent: 'stretch'
         };
     }
 
@@ -310,64 +379,13 @@ export function generateLayoutFromText(input: string): GridState {
         return {
             rows: Array(rowsCount).fill('1fr'),
             cols: Array(colsCount).fill('1fr'),
-            gap: '1rem',
-            rowGap: '1rem',
-            colGap: '1rem',
+            ...override,
             areas,
             items: [],
             justifyItems: 'stretch',
             alignItems: 'stretch',
             justifyContent: 'stretch',
-            alignContent: 'stretch',
-            includeMobile: true
-        };
-    }
-
-    // 3. Check for "timeline" pattern
-    if (rawInput === 'timeline') {
-        // Vertical timeline: [Left, Line, Right]
-        // Alternating entries
-        const rowsCount = 6;
-        const areas: GridArea[] = [];
-        for (let i = 0; i < rowsCount; i++) {
-            const isLeft = i % 2 === 0;
-            // Content
-            areas.push({
-                id: nanoid(),
-                name: `event-${i + 1}`,
-                rowStart: i + 1,
-                rowEnd: i + 2,
-                colStart: isLeft ? 1 : 3,
-                colEnd: isLeft ? 2 : 4,
-                color: isLeft ? 'indigo' : 'emerald',
-                tag: 'article'
-            });
-            // Marker
-            areas.push({
-                id: nanoid(),
-                name: `dot-${i + 1}`,
-                rowStart: i + 1,
-                rowEnd: i + 2,
-                colStart: 2,
-                colEnd: 3,
-                color: 'slate',
-                tag: 'div'
-            });
-        }
-
-        return {
-            rows: Array(rowsCount).fill('1fr'),
-            cols: ['1fr', '4px', '1fr'], // Center line
-            gap: '1rem',
-            rowGap: '1rem',
-            colGap: '2rem',
-            areas,
-            items: [],
-            justifyItems: 'center',
-            alignItems: 'center',
-            justifyContent: 'stretch',
-            alignContent: 'stretch',
-            includeMobile: true
+            alignContent: 'stretch'
         };
     }
 
@@ -377,8 +395,10 @@ export function generateLayoutFromText(input: string): GridState {
 
     for (let i = 0; i < rawTokens.length; i++) {
         const t = rawTokens[i];
-        const next = rawTokens[i+1];
 
+        // No need to skip keywords here as they are already removed from rawInput
+
+        const next = rawTokens[i+1];
         if (parseSize(t)) continue;
 
         const size = next ? parseSize(next) : undefined;
@@ -394,7 +414,13 @@ export function generateLayoutFromText(input: string): GridState {
     const rightbar = definitions.find(d => ['rightbar', 'ads', 'extra', 'right'].some(k => d.name.includes(k)));
 
     const usedNames = [header, footer, sidebar, rightbar].filter(Boolean).map(d => d!.name);
-    const main = definitions.find(d => !usedNames.includes(d.name)) || { name: 'main' };
+    // Find all "mains" or unspecified areas
+    const contentAreas = definitions.filter(d => !usedNames.includes(d.name));
+
+    // Default to at least one main if nothing left
+    if (contentAreas.length === 0 && !header && !footer && !sidebar && !rightbar) {
+        contentAreas.push({ name: 'main' });
+    }
 
     const rows: string[] = [];
     if (header) rows.push(header.size || 'auto');
@@ -403,7 +429,14 @@ export function generateLayoutFromText(input: string): GridState {
 
     const cols: string[] = [];
     if (sidebar) cols.push(sidebar.size || '250px');
-    cols.push(main.size || '1fr');
+
+    // Distribute content areas
+    if (contentAreas.length > 0) {
+        contentAreas.forEach(c => cols.push(c.size || '1fr'));
+    } else {
+        cols.push('1fr'); // Default main
+    }
+
     if (rightbar) cols.push(rightbar.size || '250px');
 
     const areas: GridArea[] = [];
@@ -442,17 +475,35 @@ export function generateLayoutFromText(input: string): GridState {
         currentCol++;
     }
 
-    areas.push({
-        id: nanoid(),
-        name: main.name,
-        rowStart: middleRowStart,
-        rowEnd: middleRowEnd,
-        colStart: currentCol,
-        colEnd: currentCol + 1,
-        color: 'slate',
-        tag: 'main'
-    });
-    currentCol++;
+    // Add content areas
+    if (contentAreas.length > 0) {
+        contentAreas.forEach((c, idx) => {
+             areas.push({
+                id: nanoid(),
+                name: c.name,
+                rowStart: middleRowStart,
+                rowEnd: middleRowEnd,
+                colStart: currentCol,
+                colEnd: currentCol + 1,
+                color: idx % 2 === 0 ? 'slate' : 'white',
+                tag: 'main'
+            });
+            currentCol++;
+        });
+    } else {
+         areas.push({
+            id: nanoid(),
+            name: 'main',
+            rowStart: middleRowStart,
+            rowEnd: middleRowEnd,
+            colStart: currentCol,
+            colEnd: currentCol + 1,
+            color: 'slate',
+            tag: 'main'
+        });
+        currentCol++;
+    }
+
 
     if (rightbar) {
         areas.push({
@@ -486,15 +537,15 @@ export function generateLayoutFromText(input: string): GridState {
     return {
         rows,
         cols,
-        gap: '1rem',
-        rowGap: '1rem',
-        colGap: '1rem',
+        gap,
+        rowGap: gap,
+        colGap: gap,
         areas,
         items: [],
         justifyItems: 'stretch',
         alignItems: 'stretch',
         justifyContent: 'stretch',
         alignContent: 'stretch',
-        includeMobile: false
+        includeMobile
     };
 }
