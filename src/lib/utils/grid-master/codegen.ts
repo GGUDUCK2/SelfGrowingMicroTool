@@ -4,7 +4,7 @@ import { COLOR_MAP } from './constants';
 
 // Helper to generate Tailwind classes for the grid container
 function getContainerClasses(state: GridState): string {
-    const { rows, cols, gap, rowGap, colGap, justifyItems, alignItems, justifyContent, alignContent, includeMobile } = state;
+    const { rows, cols, gap, rowGap, colGap, justifyItems, alignItems, justifyContent, alignContent, includeMobile, mobileStrategy } = state;
     const safeJoin = (arr: string[]) => arr.join('_');
     const prefix = includeMobile ? 'md:' : '';
 
@@ -34,7 +34,7 @@ function getContainerClasses(state: GridState): string {
 }
 
 // Helper to generate Tailwind classes for an item
-function getItemClasses(area: GridArea, includeMobile: boolean): string {
+function getItemClasses(area: GridArea, includeMobile: boolean, mobileStrategy?: 'stack' | 'hide-sidebar'): string {
     const prefix = includeMobile ? 'md:' : '';
     const rowSpan = area.rowEnd - area.rowStart;
     const colSpan = area.colEnd - area.colStart;
@@ -49,6 +49,13 @@ function getItemClasses(area: GridArea, includeMobile: boolean): string {
 
     // Map color to tailwind class if possible, or arbitrary
     const colorClass = area.color.startsWith('#') ? `bg-[${area.color}]` : `bg-${area.color}-100 text-${area.color}-900`;
+
+    if (includeMobile && mobileStrategy === 'hide-sidebar') {
+        const isSidebar = area.tag === 'aside' || area.name.includes('sidebar');
+        if (isSidebar) {
+            return `hidden md:block ${classes} ${colorClass} p-4 rounded`;
+        }
+    }
 
     return `${classes} ${colorClass} p-4 rounded`;
 }
@@ -103,8 +110,33 @@ ${templateAreas};
 }
 
 export function generateMobileQuery(state: GridState, containerClass = 'container'): string {
-    const { areas } = state;
-    // Sort by mobileOrder if available, otherwise fallback to row/col
+    const { areas, mobileStrategy } = state;
+
+    if (mobileStrategy === 'hide-sidebar') {
+        const sidebars = areas.filter(a => a.tag === 'aside' || a.name.includes('sidebar'));
+        const others = areas.filter(a => !sidebars.includes(a));
+
+        const sorted = [...others].sort((a, b) => {
+             if (a.mobileOrder !== undefined && b.mobileOrder !== undefined) {
+                 return a.mobileOrder - b.mobileOrder;
+             }
+             if (a.rowStart !== b.rowStart) return a.rowStart - b.rowStart;
+             return a.colStart - b.colStart;
+        });
+        const areasString = sorted.map(a => `    "${a.name}"`).join('\n');
+        const hideCSS = sidebars.map(s => `\n  .${s.name} { display: none; }`).join('');
+
+        return `
+@media (max-width: 768px) {
+  .${containerClass} {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+${areasString};
+  }${hideCSS}
+}`;
+    }
+
     const sorted = [...areas].sort((a, b) => {
         if (a.mobileOrder !== undefined && b.mobileOrder !== undefined) {
              return a.mobileOrder - b.mobileOrder;
@@ -131,7 +163,7 @@ export function generateTailwind(state: GridState): string {
     let html = `<div class="${containerClass}">\n`;
 
     state.areas.forEach(area => {
-        const itemClass = getItemClasses(area, state.includeMobile);
+        const itemClass = getItemClasses(area, state.includeMobile, state.mobileStrategy);
         const tag = area.tag || 'div';
         html += `  <${tag} class="${itemClass}">\n    ${getPlaceholderContent(area)}\n  </${tag}>\n`;
     });
@@ -145,7 +177,7 @@ export function generateReact(state: GridState): string {
     let jsx = `export default function GridLayout() {\n  return (\n    <div className="${containerClass}">\n`;
 
     state.areas.forEach(area => {
-        const itemClass = getItemClasses(area, state.includeMobile);
+        const itemClass = getItemClasses(area, state.includeMobile, state.mobileStrategy);
         const tag = area.tag || 'div';
         // Replace class=" with className=" in placeholder content for React
         const content = getPlaceholderContent(area).replace(/class="/g, 'className="');
@@ -161,7 +193,7 @@ export function generateVue(state: GridState): string {
     let template = `<template>\n  <div class="${containerClass}">\n`;
 
     state.areas.forEach(area => {
-        const itemClass = getItemClasses(area, state.includeMobile);
+        const itemClass = getItemClasses(area, state.includeMobile, state.mobileStrategy);
         const tag = area.tag || 'div';
         template += `    <${tag} class="${itemClass}">\n      ${getPlaceholderContent(area)}\n    </${tag}>\n`;
     });
@@ -175,7 +207,7 @@ export function generateSvelte(state: GridState): string {
     let markup = `<div class="${containerClass}">\n`;
 
     state.areas.forEach(area => {
-        const itemClass = getItemClasses(area, state.includeMobile);
+        const itemClass = getItemClasses(area, state.includeMobile, state.mobileStrategy);
         const tag = area.tag || 'div';
         markup += `  <${tag} class="${itemClass}">\n    ${getPlaceholderContent(area)}\n  </${tag}>\n`;
     });

@@ -81,7 +81,21 @@
       gridStore.load(layout);
       textLayoutInput = '';
   }
+
+  function handleGlobalKeydown(e: KeyboardEvent) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          if (textLayoutInput.trim()) {
+              handleTextLayout();
+          } else {
+              const input = document.getElementById('text-layout');
+              input?.focus();
+          }
+      }
+  }
 </script>
+
+<svelte:window on:keydown={handleGlobalKeydown} />
 
 <div class="space-y-6">
   <!-- Tabs -->

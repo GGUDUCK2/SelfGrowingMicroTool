@@ -1,0 +1,20 @@
+
+> web-factory-svelte@0.0.1 dev
+> vite dev --port 5173
+
+12:22:14 AM [vite] (client) Forced re-optimization of dependencies
+
+  VITE v6.4.1  ready in 2712 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+12:26:05 AM [vite] (client) hmr update /src/app.css, /src/lib/components/grid-master/Sidebar.svelte, /src/lib/components/grid-master/WizardModal.svelte, /src/lib/components/grid-master/GalleryModal.svelte
+12:26:05 AM [vite] (ssr) page reload src/lib/utils/grid-master/generators.ts
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
