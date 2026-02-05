@@ -11,6 +11,8 @@
   import PreviewTable from '$lib/components/mock-forge/PreviewTable.svelte';
   import ExportPanel from '$lib/components/mock-forge/ExportPanel.svelte';
   import HistoryPanel from '$lib/components/mock-forge/HistoryPanel.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
   import { Save, RefreshCw, Check } from 'lucide-svelte';
 
   // Dictionary
@@ -18,6 +20,12 @@
   $: dictionary = getDictionary(lang);
   $: t = dictionary.tools.mockForge;
   $: common = dictionary.common;
+
+  $: faqItems = [
+    { q: t.q1, a: t.a1 },
+    { q: t.q2, a: t.a2 },
+    { q: t.q3, a: t.a3 }
+  ];
 
   // State
   let schema: SchemaField[] = [
@@ -175,6 +183,26 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://micro-tools.vercel.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Mock Forge",
+          "item": "https://micro-tools.vercel.app/tools/mock-forge"
+        }
+      ]
+    }
+  </script>
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black pb-20">
@@ -193,14 +221,14 @@
 
       <div class="flex items-center gap-2">
         <button
-          class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+          class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
           on:click={generatePreview}
         >
           <RefreshCw size={16} class={previewLoading ? 'animate-spin' : ''} />
           <span class="hidden sm:inline">{t.generate}</span>
         </button>
         <button
-          class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-lg transition-colors"
+          class="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-lg transition-colors"
           on:click={saveSchema}
         >
           <Save size={16} />
@@ -231,7 +259,7 @@
 
       <!-- Right Column: Preview -->
       <div class="lg:col-span-7 h-full min-h-[500px]">
-        <div class="sticky top-24 h-[calc(100vh-8rem)]">
+        <div class="h-auto lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)]">
           <h2 class="text-lg font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
             {t.preview}
             <span class="text-xs font-normal bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 px-2 py-0.5 rounded-full">Live</span>
@@ -243,54 +271,9 @@
     </div>
 
     <!-- Guide & FAQ -->
-    <div class="mt-24 max-w-4xl mx-auto">
-      <div class="prose dark:prose-invert max-w-none">
-        <h2 class="text-3xl font-bold mb-6">{t.guide.title}</h2>
-        <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">{t.guide.intro}</p>
-
-        <div class="grid md:grid-cols-3 gap-6 mb-12 not-prose">
-          <div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-            {@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong class="text-indigo-600 dark:text-indigo-400 block mb-2 text-lg">$1</strong>')}
-          </div>
-          <div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-            {@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong class="text-indigo-600 dark:text-indigo-400 block mb-2 text-lg">$1</strong>')}
-          </div>
-          <div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-            {@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong class="text-indigo-600 dark:text-indigo-400 block mb-2 text-lg">$1</strong>')}
-          </div>
-        </div>
-
-        <h3>{t.faqTitle}</h3>
-        <div class="space-y-4 not-prose">
-          <details class="group bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 open:ring-2 open:ring-indigo-500/20">
-            <summary class="font-medium p-4 cursor-pointer list-none flex justify-between items-center">
-              {t.q1}
-              <span class="transition group-open:rotate-180">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
-              </span>
-            </summary>
-            <div class="px-4 pb-4 text-slate-600 dark:text-slate-400">{t.a1}</div>
-          </details>
-          <details class="group bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 open:ring-2 open:ring-indigo-500/20">
-            <summary class="font-medium p-4 cursor-pointer list-none flex justify-between items-center">
-              {t.q2}
-              <span class="transition group-open:rotate-180">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
-              </span>
-            </summary>
-            <div class="px-4 pb-4 text-slate-600 dark:text-slate-400">{t.a2}</div>
-          </details>
-          <details class="group bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 open:ring-2 open:ring-indigo-500/20">
-            <summary class="font-medium p-4 cursor-pointer list-none flex justify-between items-center">
-              {t.q3}
-              <span class="transition group-open:rotate-180">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
-              </span>
-            </summary>
-            <div class="px-4 pb-4 text-slate-600 dark:text-slate-400">{t.a3}</div>
-          </details>
-        </div>
-      </div>
+    <div class="mt-24 max-w-4xl mx-auto space-y-20">
+      <GuideSection {...t.guide} />
+      <FAQSection title={t.faqTitle} items={faqItems} />
     </div>
   </main>
 
