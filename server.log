@@ -2,17 +2,14 @@
 > web-factory-svelte@0.0.1 dev
 > vite dev
 
-▲ [WARNING] Cannot find base config file "./.svelte-kit/tsconfig.json" [tsconfig.json]
 
-    tsconfig.json:2:15:
-      2 │     "extends": "./.svelte-kit/tsconfig.json",
-        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-8:11:30 AM [vite] (client) Forced re-optimization of dependencies
-
-  VITE v6.4.1  ready in 1881 ms
+  VITE v6.4.1  ready in 1380 ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+4:30:27 AM [vite] (client) hmr update /src/routes/[lang]/tools/mock-forge/+page.svelte, /src/app.css
+4:30:27 AM [vite] (ssr) page reload src/routes/[lang]/tools/mock-forge/+page.svelte
 
 [1;31m[404] GET /_vercel/insights/script.js[0m

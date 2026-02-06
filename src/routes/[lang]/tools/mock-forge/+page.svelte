@@ -151,6 +151,48 @@
     showToast = true;
     setTimeout(() => showToast = false, 3000);
   }
+
+  $: jsonLd = `<script type="application/ld+json">
+${JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": t.title,
+        "description": t.description,
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          t.guide.f1.replace(/\*\*/g, ''),
+          t.guide.f2.replace(/\*\*/g, ''),
+          t.guide.f3.replace(/\*\*/g, '')
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": `https://micro-tools.vercel.app/${lang}`
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": t.title,
+            "item": `https://micro-tools.vercel.app/${lang}/tools/mock-forge`
+          }
+        ]
+      }
+    ]
+  })}
+<` + `/script>`;
 </script>
 
 <svelte:head>
@@ -163,46 +205,7 @@
   <meta property="og:description" content={t.description} />
   <meta property="og:type" content="website" />
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Mock Forge",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "featureList": [
-      "Visual Schema Builder",
-      "JSON/CSV/SQL/XML Export",
-      "Realistic Data Generation",
-      "Correlated Fields"
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://micro-tools.vercel.app/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Mock Forge",
-          "item": "https://micro-tools.vercel.app/tools/mock-forge"
-        }
-      ]
-    }
-  </script>
+  {@html jsonLd}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black pb-20">
@@ -223,6 +226,7 @@
         <button
           class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
           on:click={generatePreview}
+          aria-label={t.generate}
         >
           <RefreshCw size={16} class={previewLoading ? 'animate-spin' : ''} />
           <span class="hidden sm:inline">{t.generate}</span>
@@ -230,6 +234,7 @@
         <button
           class="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-lg transition-colors"
           on:click={saveSchema}
+          aria-label={t.actions.save}
         >
           <Save size={16} />
           <span class="hidden sm:inline">{t.actions.save}</span>
