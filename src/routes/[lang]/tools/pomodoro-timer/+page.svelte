@@ -16,11 +16,40 @@
   let isRunning = false;
   let mode: "focus" | "short" | "long" = "focus";
   let timerInterval: NodeJS.Timeout | undefined;
-  let audio: HTMLAudioElement;
 
   onMount(() => {
-    audio = new Audio("/notification.mp3");
+    // No-op for now, audio is handled via Web Audio API on demand
   });
+
+  function playBeep() {
+    try {
+      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioContext) return;
+
+      const ctx = new AudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.5);
+
+      gain.gain.setValueAtTime(0.5, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+
+      osc.start();
+      osc.stop(ctx.currentTime + 0.5);
+
+      setTimeout(() => {
+        ctx.close();
+      }, 600);
+    } catch (e) {
+      console.error('Audio play failed', e);
+    }
+  }
 
   const MODES = {
     focus: {
@@ -54,7 +83,7 @@
           clearInterval(timerInterval);
           isRunning = false;
           // Play notification sound
-          if (audio) audio.play().catch(() => {});
+          playBeep();
         }
       }, 1000);
     }
@@ -118,12 +147,38 @@
     }))
   };
 
-  $: schemaList = [appSchema, faqSchema];
+  $: breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://selfgrowingmicrotool.com/"
+    }, {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tools",
+      "item": "https://selfgrowingmicrotool.com/tools"
+    }, {
+      "@type": "ListItem",
+      "position": 3,
+      "name": dict.title,
+      "item": `https://selfgrowingmicrotool.com/${lang}/tools/pomodoro-timer`
+    }]
+  };
+
+  $: schemaList = [appSchema, faqSchema, breadcrumbSchema];
 </script>
 
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
+  <link rel="canonical" href={`https://selfgrowingmicrotool.com/${lang}/tools/pomodoro-timer`} />
+  <meta property="og:title" content={dict.title} />
+  <meta property="og:description" content={dict.description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={`https://selfgrowingmicrotool.com/${lang}/tools/pomodoro-timer`} />
   {@html `<script type="application/ld+json">${JSON.stringify(schemaList)}</script>`}
 </svelte:head>
 
