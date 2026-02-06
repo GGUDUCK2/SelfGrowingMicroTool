@@ -2,8 +2,8 @@
   import { createEventDispatcher } from 'svelte';
   import { fade, fly } from 'svelte/transition';
   import { gridStore } from '$lib/utils/grid-master/store';
-  import { X, Layout, FileText, LayoutDashboard, Image as ImageIcon, Briefcase, Grid, Columns } from 'lucide-svelte';
-  import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
+  import { X, Layout, FileText, LayoutDashboard, Image as ImageIcon, Briefcase, Columns } from 'lucide-svelte';
+  import type { GridMasterDictionary, GridState } from '$lib/utils/grid-master/types';
   import { generateSmartLayout } from '$lib/utils/grid-master/generators';
   import { templates } from '$lib/utils/grid-master/templates';
 
@@ -19,7 +19,7 @@
       if (e.key === 'Escape') close();
   }
 
-  function load(layout: any) {
+  function load(layout: GridState) {
       gridStore.load(layout);
       close();
   }

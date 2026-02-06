@@ -4,7 +4,7 @@ import { COLOR_MAP } from './constants';
 
 // Helper to generate Tailwind classes for the grid container
 function getContainerClasses(state: GridState): string {
-    const { rows, cols, gap, rowGap, colGap, justifyItems, alignItems, justifyContent, alignContent, includeMobile, mobileStrategy } = state;
+    const { rows, cols, gap, rowGap, colGap, justifyItems, alignItems, justifyContent, alignContent, includeMobile } = state;
     const safeJoin = (arr: string[]) => arr.join('_');
     const prefix = includeMobile ? 'md:' : '';
 

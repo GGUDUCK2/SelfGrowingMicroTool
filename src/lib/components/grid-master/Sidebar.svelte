@@ -2,12 +2,11 @@
   import { gridStore } from '$lib/utils/grid-master/store';
   import {
     Plus, Trash2, LayoutTemplate, Clock, Settings2, Wand2,
-    AlignLeft, AlignCenter, AlignRight, Maximize,
-    LayoutDashboard, FileText, Layout, Image as ImageIcon
+    AlignLeft, AlignCenter, AlignRight, Maximize
   } from 'lucide-svelte';
   import type { GridMasterDictionary, JustifyItems, AlignItems, JustifyContent, AlignContent } from '$lib/utils/grid-master/types';
   import { templates } from '$lib/utils/grid-master/templates';
-  import { generateMagicLayout, generateLayoutFromText, generateSmartLayout, remixLayout } from '$lib/utils/grid-master/generators';
+  import { generateMagicLayout, generateLayoutFromText, remixLayout } from '$lib/utils/grid-master/generators';
   import { nanoid } from 'nanoid';
   import { tick } from 'svelte';
   import TemplatePreview from './TemplatePreview.svelte';
@@ -32,11 +31,6 @@
           t.includeMobile = t.includeMobile ?? false;
           gridStore.load(t);
       }
-  }
-
-  function loadSmart(type: 'dashboard' | 'blog' | 'holy-grail' | 'gallery') {
-      const layout = generateSmartLayout(type);
-      gridStore.load(layout);
   }
 
   function updateRow(idx: number, val: string) {

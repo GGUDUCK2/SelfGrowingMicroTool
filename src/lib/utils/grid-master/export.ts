@@ -1,4 +1,4 @@
-import { generateHTML, generateCSS } from './codegen';
+import { generateHTML, generateCSS, generateReact } from './codegen';
 import type { GridState } from './types';
 import { COLOR_MAP } from './constants';
 import JSZip from 'jszip';
@@ -24,7 +24,12 @@ export async function downloadProjectZip(state: GridState) {
 }
 
 export async function downloadPNG(state: GridState, theme = 'standard') {
-    const svgString = generateSVG(state, theme);
+    // Determine dimensions based on track definitions if possible, or default to HD
+    // We'll use a larger default for PNG export for crispness
+    const width = 1200;
+    const height = 800;
+
+    const svgString = generateSVG(state, theme, width, height);
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     const img = new Image();
@@ -33,9 +38,13 @@ export async function downloadPNG(state: GridState, theme = 'standard') {
     const url = URL.createObjectURL(blob);
 
     img.onload = () => {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx?.drawImage(img, 0, 0);
+        canvas.width = width;
+        canvas.height = height;
+        if (ctx) {
+            ctx.fillStyle = theme === 'cyber' ? '#111' : '#fff';
+            ctx.fillRect(0, 0, width, height);
+            ctx.drawImage(img, 0, 0);
+        }
 
         canvas.toBlob((pngBlob) => {
             if (pngBlob) {
@@ -53,6 +62,17 @@ export async function downloadPNG(state: GridState, theme = 'standard') {
     };
 
     img.src = url;
+}
+
+export async function copyReactComponent(state: GridState) {
+    const code = generateReact(state);
+    try {
+        await navigator.clipboard.writeText(code);
+        return true;
+    } catch (e) {
+        console.error('Failed to copy', e);
+        return false;
+    }
 }
 
 export function openInStackBlitz(html: string) {
@@ -103,10 +123,7 @@ export function downloadProjectHtml(state: GridState) {
     URL.revokeObjectURL(url);
 }
 
-export function generateSVG(state: GridState, theme = 'standard'): string {
-    const width = 800;
-    const height = 600;
-
+export function generateSVG(state: GridState, theme = 'standard', width = 800, height = 600): string {
     const parseTrack = (track: string, available: number) => {
         if (track.endsWith('px')) return parseFloat(track);
         if (track.endsWith('%')) return (parseFloat(track) / 100) * available;

@@ -163,7 +163,7 @@
                  {dict.copied}
              {:else}
                  <Copy size={14} />
-                 {dict.copy}
+                 {['react', 'vue', 'svelte'].includes(activeTab) ? 'Copy Component' : dict.copy}
              {/if}
           </button>
       </div>
