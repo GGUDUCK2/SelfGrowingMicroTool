@@ -1757,6 +1757,11 @@ export const dictionaries = {
             "kanban",
             "video"
         ],
+        commandPalette: {
+            title: "Command Palette",
+            placeholder: "Type a command...",
+            noCommands: "No commands found."
+        },
         wizard: {
             title: "Grid Wizard",
             step1: "Layout Type",
@@ -2966,6 +2971,11 @@ export const dictionaries = {
             "kanban",
             "video"
         ],
+        commandPalette: {
+            title: "명령 팔레트",
+            placeholder: "명령어 입력...",
+            noCommands: "명령을 찾을 수 없습니다."
+        },
         wizard: {
             title: "그리드 마법사",
             step1: "레이아웃 타입",

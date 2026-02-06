@@ -12,7 +12,8 @@
   import ProjectList from '$lib/components/grid-master/ProjectList.svelte';
   import ShortcutsModal from '$lib/components/grid-master/ShortcutsModal.svelte';
   import ConfirmDialog from '$lib/components/grid-master/ConfirmDialog.svelte';
-  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2, Eye, EyeOff, Share2, HelpCircle, History, Download } from 'lucide-svelte';
+  import CommandPalette from '$lib/components/grid-master/CommandPalette.svelte';
+  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2, Eye, EyeOff, Share2, HelpCircle, History, Download, Command } from 'lucide-svelte';
   import { fade, slide } from 'svelte/transition';
   import type { GridState } from '$lib/utils/grid-master/types';
 
@@ -28,6 +29,7 @@
   let viewMode: 'desktop' | 'mobile' = 'desktop';
   let previewMode = false;
   let showShortcuts = false;
+  let showCommandPalette = false;
   let showConfirmReset = false;
   let canRestoreSession = false;
   let lastSessionState: GridState | null = null;
@@ -65,7 +67,7 @@
       }
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
           e.preventDefault();
-          handleReset();
+          showCommandPalette = !showCommandPalette;
       }
       if (e.key === '?' && e.shiftKey) {
           e.preventDefault();
@@ -201,7 +203,7 @@
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots, Text to Grid, Visual Grid Editor, Mock Content, Wireframing, Content Presets, Layout Gallery, Smart History, Wireframe Builder, Grid Wizard, Bento Grid, SaaS Dashboard, React Grid Layout, Vue Grid, Svelte Grid, Kanban Layout, Video Player Layout" />
+  <meta name="keywords" content="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots, Text to Grid, Visual Grid Editor, Mock Content, Wireframing, Content Presets, Layout Gallery, Smart History, Wireframe Builder, Grid Wizard, Bento Grid, SaaS Dashboard, React Grid Layout, Vue Grid, Svelte Grid, Kanban Layout, Video Player Layout, Command Palette, React Export, Vue Export, Svelte Export" />
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
   <meta property="og:type" content="website" />
@@ -249,7 +251,9 @@
         "Visual Content Presets",
         "Interactive Grid Wizard",
         "Natural Language Layout",
-        "Interactive Wireframing"
+        "Interactive Wireframing",
+        "Command Palette",
+        "React Export"
       ]
     }
   </script>
@@ -384,6 +388,13 @@
 
            <button
              class="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg transition-colors ml-1"
+             on:click={() => showCommandPalette = true}
+             aria-label={dict.commandPalette?.title || 'Command Palette'}
+           >
+              <Command size={18} />
+           </button>
+           <button
+             class="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg transition-colors ml-1"
              on:click={() => showShortcuts = true}
              aria-label={dict.shortcuts || 'Shortcuts'}
            >
@@ -474,6 +485,18 @@
         <span>{toastMessage}</span>
       </div>
     </div>
+  {/if}
+
+  {#if showCommandPalette}
+      <CommandPalette
+        {dict}
+        {theme}
+        on:close={() => showCommandPalette = false}
+        on:reset={handleReset}
+        on:setView={(e) => viewMode = e.detail}
+        on:setTheme={(e) => theme = e.detail}
+        on:toast={(e) => showToastMsg(e.detail)}
+      />
   {/if}
 
   {#if showShortcuts}

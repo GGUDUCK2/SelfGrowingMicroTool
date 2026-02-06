@@ -3,7 +3,7 @@
   import { nanoid } from 'nanoid';
   import { fade } from 'svelte/transition';
   import { COLOR_MAP, getRandomColor } from '$lib/utils/grid-master/constants';
-  import type { GridArea, GridMasterDictionary } from '$lib/utils/grid-master/types';
+  import type { GridArea } from '$lib/utils/grid-master/types';
   import { getPlaceholderContent, getSemanticTag } from '$lib/utils/grid-master/placeholders';
   import AreaSettingsModal from './AreaSettingsModal.svelte';
   import { dictionaries } from '$lib/dictionaries';

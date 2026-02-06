@@ -5,7 +5,7 @@
   import {
     Type, LayoutDashboard, BarChart3, Table, FormInput,
     LogIn, Video, Image as ImageIcon, DollarSign, Users,
-    Quote, MapPin, Grid
+    Quote, MapPin
   } from 'lucide-svelte';
 
   export let isOpen = false;
