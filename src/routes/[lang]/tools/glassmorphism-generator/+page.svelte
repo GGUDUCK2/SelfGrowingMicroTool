@@ -151,11 +151,11 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <link rel="canonical" href="https://selfgrowingmicrotool.com/tools/glassmorphism-generator" />
+  <link rel="canonical" href={`https://selfgrowingmicrotool.com/${lang}/tools/glassmorphism-generator`} />
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://selfgrowingmicrotool.com/tools/glassmorphism-generator" />
+  <meta property="og:url" content={`https://selfgrowingmicrotool.com/${lang}/tools/glassmorphism-generator`} />
   <meta property="og:image" content="https://selfgrowingmicrotool.com/og-glassmorphism.jpg" />
   {@html `<script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
@@ -180,6 +180,26 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
         }
       }))
     }
+  })}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://selfgrowingmicrotool.com/"
+    }, {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tools",
+      "item": "https://selfgrowingmicrotool.com/tools"
+    }, {
+      "@type": "ListItem",
+      "position": 3,
+      "name": dict.title,
+      "item": `https://selfgrowingmicrotool.com/${lang}/tools/glassmorphism-generator`
+    }]
   })}</script>`}
 </svelte:head>
 
