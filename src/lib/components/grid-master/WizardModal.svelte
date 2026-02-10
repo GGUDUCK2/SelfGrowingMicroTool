@@ -3,7 +3,7 @@
   import { fade, fly } from 'svelte/transition';
   import { gridStore } from '$lib/utils/grid-master/store';
   import { generateLayoutFromText } from '$lib/utils/grid-master/generators';
-  import { X, Layout, FileText, LayoutDashboard, ArrowRight, ArrowLeft, Check, Smartphone, Monitor, Wand2 } from 'lucide-svelte';
+  import { X, Layout, FileText, LayoutDashboard, ArrowRight, ArrowLeft, Check, Smartphone, Monitor, Wand2, Image, Database, Type } from 'lucide-svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
   import { nanoid } from 'nanoid';
   import { getRandomColor } from '$lib/utils/grid-master/constants';
@@ -17,8 +17,9 @@
 
   // Configuration State
   let layoutType: 'dashboard' | 'blog' | 'landing' | 'app' = 'dashboard';
-  let structure: 'header-footer' | 'sidebar-left' | 'sidebar-right' | 'holy-grail' = 'sidebar-left';
-  let density: 'compact' | 'comfortable' | 'spacious' = 'comfortable';
+  type StructureType = 'header-footer' | 'sidebar-left' | 'sidebar-right' | 'holy-grail';
+  let structure: StructureType = 'sidebar-left';
+  let strategy: 'visual' | 'text' | 'data' = 'data';
   let mobileStrategy: 'stack' | 'hide-sidebar' = 'stack';
 
   function close() {
@@ -53,17 +54,14 @@
   }
 
   function generate() {
-      // 1. Density Settings
-      let gap = '1rem';
-      if (density === 'compact') gap = '0.5rem';
-      if (density === 'spacious') gap = '2rem';
+      const gap = strategy === 'visual' ? '0px' : (strategy === 'text' ? '2rem' : '1rem');
 
-      // 2. Base Grid
-      let rows = ['auto', '1fr', 'auto']; // Default: Header, Main, Footer
-      let cols = ['250px', '1fr']; // Default: Sidebar, Main
+      // We'll construct manually to respect the "Structure" selection exactly
+      let rows = ['auto', '1fr', 'auto'];
+      let cols = ['250px', '1fr'];
       let areas = [];
 
-      // 3. Structure Logic
+      // Structure Logic
       if (structure === 'header-footer') {
           rows = ['80px', '1fr', '60px'];
           cols = ['1fr'];
@@ -100,25 +98,31 @@
           ];
       }
 
-      // Add IDs and Colors
-      const finalAreas = areas.map(a => ({
-          ...a,
-          id: nanoid(),
-          color: getRandomColor(),
-          contentType: 'none' // Default
-      }));
+      // Assign Content Types based on Strategy & Layout Type
+      const finalAreas = areas.map(a => {
+          let contentType = 'none';
+          const n = a.name;
 
-      // Apply Layout Type Specifics (inject content types)
-      if (layoutType === 'dashboard') {
-          const main = finalAreas.find(a => a.name === 'main');
-          if (main) main.contentType = 'chart';
-      } else if (layoutType === 'landing') {
-          const main = finalAreas.find(a => a.name === 'main');
-          if (main) main.contentType = 'hero';
-      } else if (layoutType === 'blog') {
-          const main = finalAreas.find(a => a.name === 'main');
-          if (main) main.contentType = 'article';
-      }
+          if (n === 'header') contentType = 'header';
+          else if (n === 'footer') contentType = 'footer';
+          else if (n === 'sidebar' || n === 'nav') contentType = 'form'; // Default
+          else if (n === 'main') {
+              if (strategy === 'visual') contentType = 'gallery';
+              else if (strategy === 'data') contentType = 'chart';
+              else contentType = 'article'; // Text
+          }
+
+          // Refine based on layoutType
+          if (layoutType === 'landing' && n === 'main') contentType = 'hero';
+          if (layoutType === 'app' && n === 'main') contentType = 'feed';
+
+          return {
+              ...a,
+              id: nanoid(),
+              color: getRandomColor(),
+              contentType
+          };
+      });
 
       gridStore.load({
           rows,
@@ -132,7 +136,7 @@
           alignItems: 'stretch',
           justifyContent: 'stretch',
           alignContent: 'stretch',
-          includeMobile: true, // Always include mobile base
+          includeMobile: true,
           mobileStrategy
       });
 
@@ -142,14 +146,14 @@
   const steps = [
       { id: 1, title: 'Type' },
       { id: 2, title: 'Structure' },
-      { id: 3, title: 'Density' },
+      { id: 3, title: 'Strategy' },
       { id: 4, title: 'Review' }
   ];
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
 
-<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" transition:fade role="dialog" aria-modal="true" aria-labelledby="wizard-title">
+<div class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" transition:fade role="dialog" aria-modal="true" aria-labelledby="wizard-title">
   <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-2xl border border-slate-200 dark:border-slate-800 flex flex-col max-h-[90vh]" transition:fly={{ y: 20 }}>
 
       <!-- Header -->
@@ -285,7 +289,7 @@
                   {#each ['header-footer', 'sidebar-left', 'sidebar-right', 'holy-grail'] as s (s)}
                       <button
                         class="p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-3 {structure === s ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300'}"
-                        on:click={() => structure = s}
+                        on:click={() => structure = s as StructureType}
                       >
                           <div class="w-full h-24 bg-slate-100 dark:bg-slate-800 rounded border border-slate-300 dark:border-slate-600 relative p-1">
                               <!-- Mini Visuals -->
@@ -320,26 +324,41 @@
                   {/each}
               </div>
           {:else if step === 3}
-              <h3 class="text-lg font-semibold mb-4">{dict.wizard?.step3 || 'Spacing & Density'}</h3>
+              <h3 class="text-lg font-semibold mb-4">Content Strategy</h3>
               <div class="space-y-4">
-                  <div class="flex gap-4">
-                      {#each ['compact', 'comfortable', 'spacious'] as d (d)}
-                          <button
-                            class="flex-1 p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 {density === d ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300'}"
-                            on:click={() => density = d}
-                          >
-                              <div class="flex gap-1">
-                                  {#if d === 'compact'}
-                                      <div class="w-2 h-2 bg-slate-400"></div><div class="w-2 h-2 bg-slate-400"></div>
-                                  {:else if d === 'comfortable'}
-                                      <div class="w-2 h-2 bg-slate-400 mr-1"></div><div class="w-2 h-2 bg-slate-400"></div>
-                                  {:else}
-                                      <div class="w-2 h-2 bg-slate-400 mr-2"></div><div class="w-2 h-2 bg-slate-400"></div>
-                                  {/if}
-                              </div>
-                              <span class="font-medium capitalize">{d}</span>
-                          </button>
-                      {/each}
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <button
+                        class="p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 text-center {strategy === 'visual' ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300'}"
+                        on:click={() => strategy = 'visual'}
+                      >
+                          <div class="p-2 bg-indigo-100 dark:bg-indigo-800 text-indigo-600 dark:text-indigo-200 rounded-full">
+                              <Image size={20} />
+                          </div>
+                          <span class="font-bold">Visual</span>
+                          <span class="text-[10px] opacity-60">Zero gap, full width, image placeholders</span>
+                      </button>
+
+                      <button
+                        class="p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 text-center {strategy === 'data' ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300'}"
+                        on:click={() => strategy = 'data'}
+                      >
+                          <div class="p-2 bg-indigo-100 dark:bg-indigo-800 text-indigo-600 dark:text-indigo-200 rounded-full">
+                              <Database size={20} />
+                          </div>
+                          <span class="font-bold">Data</span>
+                          <span class="text-[10px] opacity-60">Standard gap, charts & table placeholders</span>
+                      </button>
+
+                      <button
+                        class="p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 text-center {strategy === 'text' ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300'}"
+                        on:click={() => strategy = 'text'}
+                      >
+                          <div class="p-2 bg-indigo-100 dark:bg-indigo-800 text-indigo-600 dark:text-indigo-200 rounded-full">
+                              <Type size={20} />
+                          </div>
+                          <span class="font-bold">Text</span>
+                          <span class="text-[10px] opacity-60">Wide gap, readable measure, article placeholders</span>
+                      </button>
                   </div>
 
                   <div class="mt-8 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-800">
@@ -363,7 +382,7 @@
                   </div>
                   <h3 class="text-2xl font-bold mb-2">Ready to Build!</h3>
                   <p class="text-slate-500 max-w-xs mx-auto mb-8">
-                      We'll generate a <strong>{density}</strong> <strong>{layoutType}</strong> layout using the <strong>{structure}</strong> structure.
+                      We'll generate a <strong>{strategy}</strong> <strong>{layoutType}</strong> layout using the <strong>{structure}</strong> structure.
                   </p>
 
                   <div class="bg-slate-50 dark:bg-slate-800 rounded-lg p-4 text-left text-sm font-mono opacity-80 max-w-sm mx-auto">

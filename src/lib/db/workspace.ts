@@ -108,6 +108,25 @@ export function getHistoryObservable(toolId: string) {
         .sortBy('timestamp');
 }
 
+export async function loadHistory(toolId: string, limit = 100) {
+    return workspace.history
+        .where('toolId')
+        .equals(toolId)
+        .reverse()
+        .limit(limit)
+        .sortBy('timestamp');
+}
+
+export async function loadLastSession(toolId: string) {
+    const items = await workspace.history
+        .where('toolId')
+        .equals(toolId)
+        .reverse()
+        .limit(1)
+        .sortBy('timestamp');
+    return items.length > 0 ? items[0] : null;
+}
+
 export async function smartSaveToHistory<T, R>(
     toolId: string,
     input: T,
