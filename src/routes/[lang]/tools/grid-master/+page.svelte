@@ -13,7 +13,9 @@
   import ShortcutsModal from '$lib/components/grid-master/ShortcutsModal.svelte';
   import ConfirmDialog from '$lib/components/grid-master/ConfirmDialog.svelte';
   import CommandPalette from '$lib/components/grid-master/CommandPalette.svelte';
-  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2, Eye, EyeOff, Share2, HelpCircle, History, Download, Command } from 'lucide-svelte';
+  import ResponsiveModal from '$lib/components/grid-master/ResponsiveModal.svelte';
+  import GridDoctor from '$lib/components/grid-master/GridDoctor.svelte';
+  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2, Eye, EyeOff, Share2, HelpCircle, History, Download, Command, ScanEye, Activity } from 'lucide-svelte';
   import { fade, slide } from 'svelte/transition';
   import type { GridState } from '$lib/utils/grid-master/types';
 
@@ -30,6 +32,8 @@
   let previewMode = false;
   let showShortcuts = false;
   let showCommandPalette = false;
+  let showResponsiveCheck = false;
+  let showDoctor = false;
   let showConfirmReset = false;
   let canRestoreSession = false;
   let lastSessionState: GridState | null = null;
@@ -207,7 +211,7 @@
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots, Text to Grid, Visual Grid Editor, Mock Content, Wireframing, Content Presets, Layout Gallery, Smart History, Wireframe Builder, Grid Wizard, Bento Grid, SaaS Dashboard, React Grid Layout, Vue Grid, Svelte Grid, Kanban Layout, Video Player Layout, Command Palette, React Export, Vue Export, Svelte Export" />
+  <meta name="keywords" content="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots, Text to Grid, Visual Grid Editor, Mock Content, Wireframing, Content Presets, Layout Gallery, Smart History, Wireframe Builder, Grid Wizard, Bento Grid, SaaS Dashboard, React Grid Layout, Vue Grid, Svelte Grid, Kanban Layout, Video Player Layout, Command Palette, React Export, Vue Export, Svelte Export, Tailwind Config, Grid Doctor, Layout Audit" />
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
   <meta property="og:type" content="website" />
@@ -257,7 +261,10 @@
         "Natural Language Layout",
         "Interactive Wireframing",
         "Command Palette",
-        "React Export"
+        "React Export",
+        "Grid Doctor Audit",
+        "Responsive Layout Checker",
+        "Tailwind Config Export"
       ]
     }
   </script>
@@ -329,6 +336,15 @@
                    <Smartphone size={16} />
                </button>
            </div>
+
+           <button
+             class="p-2 ml-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors hidden sm:flex"
+             on:click={() => showResponsiveCheck = true}
+             title={dict.responsiveCheck || "Responsive Check"}
+             aria-label={dict.responsiveCheck || "Responsive Check"}
+           >
+               <ScanEye size={18} />
+           </button>
 
            <div class="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-2 hidden sm:block"></div>
 
@@ -420,6 +436,14 @@
               <RotateCcw size={18} />
            </button>
 
+           <button
+             class="p-2 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg transition-colors ml-1"
+             on:click={() => showDoctor = !showDoctor}
+             aria-label={dict.doctor?.title || 'Grid Doctor'}
+             title={dict.doctor?.title || 'Grid Doctor'}
+           >
+              <Activity size={18} />
+           </button>
            <button
              class="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg transition-colors ml-1"
              on:click={() => showCommandPalette = true}
@@ -535,6 +559,14 @@
 
   {#if showShortcuts}
       <ShortcutsModal {dict} close={() => showShortcuts = false} />
+  {/if}
+
+  {#if showResponsiveCheck}
+      <ResponsiveModal {dict} {theme} on:close={() => showResponsiveCheck = false} />
+  {/if}
+
+  {#if showDoctor}
+      <GridDoctor {dict} on:close={() => showDoctor = false} />
   {/if}
 
   {#if showConfirmReset}

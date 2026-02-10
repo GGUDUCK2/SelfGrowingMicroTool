@@ -172,6 +172,70 @@ export function generateTailwind(state: GridState): string {
     return html;
 }
 
+export function generateTailwindConfig(state: GridState): string {
+    const { rows, cols, areas, includeMobile, mobileStrategy } = state;
+
+    // Helper to format array for JS object
+    const formatArr = (arr: string[]) => `'${arr.join(' ')}'`;
+
+    // Generate Areas for Desktop
+    const rowCount = rows.length;
+    const colCount = cols.length;
+    const gridMap: string[][] = Array(rowCount).fill(null).map(() => Array(colCount).fill('.'));
+
+    areas.forEach(area => {
+        for (let r = area.rowStart - 1; r < area.rowEnd - 1; r++) {
+            for (let c = area.colStart - 1; c < area.colEnd - 1; c++) {
+                if (r >= 0 && r < rowCount && c >= 0 && c < colCount) {
+                    gridMap[r][c] = area.name;
+                }
+            }
+        }
+    });
+
+    const desktopAreas = gridMap.map(row => `          "${row.join(' ')}"`).join(',\n');
+
+    let mobileAreas = '';
+    if (includeMobile) {
+        if (mobileStrategy === 'hide-sidebar') {
+             const sidebars = areas.filter(a => a.tag === 'aside' || a.name.includes('sidebar'));
+             const others = areas.filter(a => !sidebars.includes(a));
+             const sorted = [...others].sort((a, b) => (a.mobileOrder ?? 0) - (b.mobileOrder ?? 0) || a.rowStart - b.rowStart);
+             mobileAreas = sorted.map(a => `          "${a.name}"`).join(',\n');
+        } else {
+             const sorted = [...areas].sort((a, b) => (a.mobileOrder ?? 0) - (b.mobileOrder ?? 0) || a.rowStart - b.rowStart);
+             mobileAreas = sorted.map(a => `          "${a.name}"`).join(',\n');
+        }
+    }
+
+    return `/** @type {import('tailwindcss').Config} */
+module.exports = {
+  theme: {
+    extend: {
+      gridTemplateColumns: {
+        'layout': ${formatArr(cols)},
+        ${includeMobile ? `'layout-mobile': '1fr',` : ''}
+      },
+      gridTemplateRows: {
+        'layout': ${formatArr(rows)},
+        ${includeMobile ? `'layout-mobile': 'auto',` : ''}
+      },
+      gridTemplateAreas: {
+        'layout': [
+${desktopAreas}
+        ],
+        ${includeMobile ? `'layout-mobile': [
+${mobileAreas}
+        ],` : ''}
+      }
+    }
+  },
+  plugins: [
+    require('@savvywombat/tailwindcss-grid-areas')
+  ]
+};`;
+}
+
 export function generateReact(state: GridState): string {
     const containerClass = getContainerClasses(state);
     let jsx = `export default function GridLayout() {\n  return (\n    <div className="${containerClass}">\n`;

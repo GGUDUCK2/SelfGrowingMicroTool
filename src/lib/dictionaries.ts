@@ -1623,6 +1623,12 @@ export const dictionaries = {
         downloadPng: "Download PNG",
         copyConfig: "Copy Config",
         smartHints: "Try: 'grid 4x4', 'gallery 6', 'timeline'",
+        responsiveCheck: "Responsive Check",
+        doctor: {
+            title: "Grid Doctor",
+            healthScore: "Health Score",
+            allGood: "All systems operational."
+        },
         previewTheme: "Preview Theme",
         themes: {
             standard: "Standard",
@@ -2895,6 +2901,12 @@ export const dictionaries = {
         downloadPng: "PNG 다운로드",
         copyConfig: "설정 복사",
         smartHints: "예: 'grid 4x4', 'gallery 6', 'timeline'",
+        responsiveCheck: "반응형 체크",
+        doctor: {
+            title: "그리드 닥터",
+            healthScore: "건강 점수",
+            allGood: "모든 시스템이 정상입니다."
+        },
         previewTheme: "미리보기 테마",
         themes: {
             standard: "표준 (Standard)",
