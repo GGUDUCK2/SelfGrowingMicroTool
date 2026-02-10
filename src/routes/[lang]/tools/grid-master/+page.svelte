@@ -69,6 +69,10 @@
           e.preventDefault();
           showCommandPalette = !showCommandPalette;
       }
+      if (e.key === 'Escape') {
+          e.preventDefault();
+          handleReset();
+      }
       if (e.key === '?' && e.shiftKey) {
           e.preventDefault();
           showShortcuts = !showShortcuts;
@@ -254,6 +258,36 @@
         "Interactive Wireframing",
         "Command Palette",
         "React Export"
+      ]
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to create a CSS Grid Layout",
+      "description": "Learn how to visually build, customize, and export a responsive CSS Grid layout using Grid Master.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Set up the grid structure",
+          "text": "Define your rows and columns using the visual editor or use the Wizard to generate a starting point."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Create grid areas",
+          "text": "Click and drag across cells to define named areas like 'header', 'sidebar', and 'main'."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Customize properties",
+          "text": "Adjust gaps, alignment, and responsiveness settings to fit your design needs."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Export code",
+          "text": "Copy the generated CSS or Tailwind code instantly for your project."
+        }
       ]
     }
   </script>

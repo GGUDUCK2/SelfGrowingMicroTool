@@ -153,11 +153,13 @@ export function remixLayout(state: GridState): GridState {
     };
 }
 
-export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 'gallery' | 'kanban' | 'video' | 'feed'): GridState {
+export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 'gallery' | 'kanban' | 'video' | 'feed', strategy: 'visual' | 'text' | 'data' = 'data'): GridState {
+    const gap = strategy === 'visual' ? '0px' : (strategy === 'text' ? '2rem' : '1rem');
+
     const common = {
-        gap: '1rem',
-        rowGap: '1rem',
-        colGap: '1rem',
+        gap,
+        rowGap: gap,
+        colGap: gap,
         items: [],
         justifyItems: 'stretch' as const,
         alignItems: 'stretch' as const,
@@ -174,7 +176,7 @@ export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 
             areas: [
                 { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 3, color: 'indigo', tag: 'header', contentType: 'header' },
                 { id: nanoid(), name: 'sidebar', rowStart: 2, rowEnd: 3, colStart: 1, colEnd: 2, color: 'slate', tag: 'aside', contentType: 'form' },
-                { id: nanoid(), name: 'main', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'white', tag: 'main', contentType: 'chart' }
+                { id: nanoid(), name: 'main', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'white', tag: 'main', contentType: strategy === 'visual' ? 'gallery' : (strategy === 'text' ? 'feed' : 'chart') }
             ]
         };
     }
@@ -183,11 +185,15 @@ export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 
         return {
             ...common,
             rows: ['auto', '1fr', 'auto'],
-            cols: ['1fr', '65ch', '300px', '1fr'],
-            areas: [
+            cols: strategy === 'text' ? ['1fr', '65ch', '1fr'] : ['1fr', '65ch', '300px', '1fr'],
+            areas: strategy === 'text' ? [
+                { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 4, color: 'indigo', tag: 'header', contentType: 'header' },
+                { id: nanoid(), name: 'article', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'white', tag: 'article', contentType: 'none' },
+                { id: nanoid(), name: 'footer', rowStart: 3, rowEnd: 4, colStart: 1, colEnd: 4, color: 'slate', tag: 'footer', contentType: 'footer' }
+            ] : [
                 { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 5, color: 'indigo', tag: 'header', contentType: 'header' },
                 { id: nanoid(), name: 'article', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'white', tag: 'article', contentType: 'none' },
-                { id: nanoid(), name: 'aside', rowStart: 2, rowEnd: 3, colStart: 3, colEnd: 4, color: 'slate', tag: 'aside', contentType: 'form' },
+                { id: nanoid(), name: 'aside', rowStart: 2, rowEnd: 3, colStart: 3, colEnd: 4, color: 'slate', tag: 'aside', contentType: strategy === 'data' ? 'stats' : 'form' },
                 { id: nanoid(), name: 'footer', rowStart: 3, rowEnd: 4, colStart: 1, colEnd: 5, color: 'slate', tag: 'footer', contentType: 'footer' }
             ]
         };
@@ -200,9 +206,9 @@ export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 
             cols: ['200px', '1fr', '200px'],
             areas: [
                 { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 4, color: 'indigo', tag: 'header' },
-                { id: nanoid(), name: 'nav', rowStart: 2, rowEnd: 3, colStart: 1, colEnd: 2, color: 'emerald', tag: 'nav' },
-                { id: nanoid(), name: 'main', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'white', tag: 'main' },
-                { id: nanoid(), name: 'ads', rowStart: 2, rowEnd: 3, colStart: 3, colEnd: 4, color: 'amber', tag: 'aside' },
+                { id: nanoid(), name: 'nav', rowStart: 2, rowEnd: 3, colStart: 1, colEnd: 2, color: 'emerald', tag: 'nav', contentType: 'form' },
+                { id: nanoid(), name: 'main', rowStart: 2, rowEnd: 3, colStart: 2, colEnd: 3, color: 'white', tag: 'main', contentType: strategy === 'visual' ? 'hero' : 'none' },
+                { id: nanoid(), name: 'ads', rowStart: 2, rowEnd: 3, colStart: 3, colEnd: 4, color: 'amber', tag: 'aside', contentType: 'pricing' },
                 { id: nanoid(), name: 'footer', rowStart: 3, rowEnd: 4, colStart: 1, colEnd: 4, color: 'slate', tag: 'footer' }
             ]
         };
@@ -249,7 +255,7 @@ export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 
             areas: [
                 { id: nanoid(), name: 'header', rowStart: 1, rowEnd: 2, colStart: 1, colEnd: 3, color: 'indigo', tag: 'header' },
                 { id: nanoid(), name: 'player', rowStart: 2, rowEnd: 3, colStart: 1, colEnd: 2, color: 'black', contentType: 'video' },
-                { id: nanoid(), name: 'chat', rowStart: 2, rowEnd: 4, colStart: 2, colEnd: 3, color: 'white', contentType: 'feed' },
+                { id: nanoid(), name: 'chat', rowStart: 2, rowEnd: 4, colStart: 2, colEnd: 3, color: 'white', contentType: strategy === 'data' ? 'table' : 'feed' },
                 { id: nanoid(), name: 'desc', rowStart: 3, rowEnd: 4, colStart: 1, colEnd: 2, color: 'slate', contentType: 'none' }
             ]
         };
@@ -261,9 +267,9 @@ export function generateSmartLayout(type: 'dashboard' | 'blog' | 'holy-grail' | 
             rows: ['60px', '1fr'],
             cols: ['250px', '600px', '1fr'],
             areas: [
-                { id: nanoid(), name: 'nav', rowStart: 1, rowEnd: 3, colStart: 1, colEnd: 2, color: 'white', tag: 'nav' },
+                { id: nanoid(), name: 'nav', rowStart: 1, rowEnd: 3, colStart: 1, colEnd: 2, color: 'white', tag: 'nav', contentType: 'profile' },
                 { id: nanoid(), name: 'feed', rowStart: 1, rowEnd: 3, colStart: 2, colEnd: 3, color: 'slate', contentType: 'feed' },
-                { id: nanoid(), name: 'trending', rowStart: 1, rowEnd: 3, colStart: 3, colEnd: 4, color: 'white', contentType: 'list' }
+                { id: nanoid(), name: 'trending', rowStart: 1, rowEnd: 3, colStart: 3, colEnd: 4, color: 'white', contentType: strategy === 'visual' ? 'gallery' : 'list' }
             ],
             justifyContent: 'center'
         };
@@ -280,6 +286,14 @@ function parseSize(token: string): string | null {
 
 export function generateLayoutFromText(input: string): GridState {
     let rawInput = input.toLowerCase().trim();
+
+    // Extract Strategy
+    let strategy: 'visual' | 'text' | 'data' = 'data';
+    if (rawInput.includes('visual') || rawInput.includes('image') || rawInput.includes('gallery')) strategy = 'visual';
+    if (rawInput.includes('text') || rawInput.includes('blog') || rawInput.includes('article')) strategy = 'text';
+    if (rawInput.includes('data') || rawInput.includes('chart') || rawInput.includes('table')) strategy = 'data';
+
+    rawInput = rawInput.replace(/visual|text|data/, '').trim();
 
     // Extract options: Gap
     let gap = '1rem';
@@ -308,13 +322,13 @@ export function generateLayoutFromText(input: string): GridState {
     const override = { gap, rowGap: gap, colGap: gap, includeMobile };
 
     // 0. Check for keywords
-    if (['dashboard', 'admin'].includes(rawInput)) return { ...generateSmartLayout('dashboard'), ...override };
-    if (['blog', 'article'].includes(rawInput)) return { ...generateSmartLayout('blog'), ...override };
-    if (['holy grail', 'holygrail'].includes(rawInput)) return { ...generateSmartLayout('holy-grail'), ...override };
-    if (['gallery', 'portfolio'].includes(rawInput)) return { ...generateSmartLayout('gallery'), ...override };
-    if (['kanban', 'board'].includes(rawInput)) return { ...generateSmartLayout('kanban'), ...override };
-    if (['video', 'player', 'youtube'].includes(rawInput)) return { ...generateSmartLayout('video'), ...override };
-    if (['feed', 'social', 'timeline'].includes(rawInput)) return { ...generateSmartLayout('feed'), ...override };
+    if (['dashboard', 'admin'].includes(rawInput)) return { ...generateSmartLayout('dashboard', strategy), ...override };
+    if (['blog', 'article'].includes(rawInput)) return { ...generateSmartLayout('blog', strategy), ...override };
+    if (['holy grail', 'holygrail'].includes(rawInput)) return { ...generateSmartLayout('holy-grail', strategy), ...override };
+    if (['gallery', 'portfolio'].includes(rawInput)) return { ...generateSmartLayout('gallery', strategy), ...override };
+    if (['kanban', 'board'].includes(rawInput)) return { ...generateSmartLayout('kanban', strategy), ...override };
+    if (['video', 'player', 'youtube'].includes(rawInput)) return { ...generateSmartLayout('video', strategy), ...override };
+    if (['feed', 'social', 'timeline'].includes(rawInput)) return { ...generateSmartLayout('feed', strategy), ...override };
 
     // 1. Check for "grid RxC" pattern (e.g. "grid 4x4" or "grid 3")
     const gridMatch = rawInput.match(/^grid\s+(\d+)(?:x(\d+))?$/);

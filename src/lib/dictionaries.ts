@@ -1716,7 +1716,9 @@ export const dictionaries = {
             kanban: "Kanban Board",
             feed: "Activity Feed",
             profile: "User Profile",
-            settings: "Settings Panel"
+            settings: "Settings Panel",
+            code: "Code Block",
+            timeline: "Timeline"
         },
         html: "HTML",
         textToGrid: "Text to Grid",
@@ -1766,7 +1768,7 @@ export const dictionaries = {
             title: "Grid Wizard",
             step1: "Layout Type",
             step2: "Structure",
-            step3: "Density",
+            step3: "Strategy",
             step4: "Review",
             mobileStrategy: "Mobile Strategy",
             stackAll: "Stack All (Column)",
@@ -2930,7 +2932,9 @@ export const dictionaries = {
             kanban: "칸반 보드",
             feed: "피드",
             profile: "프로필",
-            settings: "설정 패널"
+            settings: "설정 패널",
+            code: "코드 블록",
+            timeline: "타임라인"
         },
         html: "HTML",
         textToGrid: "텍스트 그리드 변환",
@@ -2980,7 +2984,7 @@ export const dictionaries = {
             title: "그리드 마법사",
             step1: "레이아웃 타입",
             step2: "구조",
-            step3: "밀도",
+            step3: "전략 (Strategy)",
             step4: "검토",
             magic: "매직 생성기",
             manual: "수동 마법사",
