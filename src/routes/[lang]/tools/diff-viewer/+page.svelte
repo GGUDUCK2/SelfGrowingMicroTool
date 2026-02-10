@@ -12,6 +12,8 @@
   import DiffHistory from '$lib/components/diff-viewer/DiffHistory.svelte';
   import DiffStats from '$lib/components/diff-viewer/DiffStats.svelte';
   import MergeConflictResolver from '$lib/components/diff-viewer/MergeConflictResolver.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
   import { Split, Columns, History, RotateCcw, Save, Trash2, ArrowLeftRight, Check, X, Code, FileJson, AlignLeft, Type, Copy, Share2, Info, Keyboard, FileText, Download, GitMerge, FileUp } from 'lucide-svelte';
   import Head from '$lib/components/Head.svelte';
 
@@ -19,6 +21,12 @@
   $: dict = getDictionary(lang);
   $: t = dict.tools.diffViewer;
   $: translations = t; // For passing to components
+
+  $: faqItems = [
+    { q: t.q1, a: t.a1 },
+    { q: t.q2, a: t.a2 },
+    { q: t.q3, a: t.a3 }
+  ];
 
   let original = '';
   let modified = '';
@@ -269,7 +277,58 @@
           isHistoryOpen = !isHistoryOpen;
       }
   }
+
+  $: softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": t.title,
+    "operatingSystem": "Any",
+    "applicationCategory": "DeveloperApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": t.description,
+    "url": `https://selfgrowingmicrotool.com/${lang}/tools/diff-viewer`,
+    "image": "https://web-factory.vercel.app/og/diff-viewer.png",
+    "featureList": [t.guide.f1, t.guide.f2, t.guide.f3].map(s => s.replace(/\*\*/g, '')),
+    "author": {
+        "@type": "Organization",
+        "name": "MicroFactory"
+    }
+  };
+
+  $: breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `https://selfgrowingmicrotool.com/${lang}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": `https://selfgrowingmicrotool.com/${lang}#tools`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": t.title,
+        "item": `https://selfgrowingmicrotool.com/${lang}/tools/diff-viewer`
+      }
+    ]
+  };
 </script>
+
+<svelte:head>
+  {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
+</svelte:head>
 
 <svelte:window on:keydown={handleKeydown} />
 
@@ -294,10 +353,10 @@
 
       <div class="flex items-center gap-2">
          <!-- Example Dropdown (Simple) -->
-         <div class="hidden sm:flex items-center gap-1 mr-2">
-            <button class="text-xs px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded text-gray-500" on:click={() => loadExample('code')}>Code</button>
-            <button class="text-xs px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded text-gray-500" on:click={() => loadExample('json')}>JSON</button>
-            <button class="text-xs px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded text-gray-500" on:click={() => loadExample('text')}>Text</button>
+         <div class="flex items-center gap-1 mr-2">
+            <button class="text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors" aria-label="Load Code Example" on:click={() => loadExample('code')}>Code</button>
+            <button class="text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors" aria-label="Load JSON Example" on:click={() => loadExample('json')}>JSON</button>
+            <button class="text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors" aria-label="Load Text Example" on:click={() => loadExample('text')}>Text</button>
          </div>
 
         <button
@@ -396,7 +455,7 @@
     {/if}
 
     <!-- Toolbar -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 mb-6 flex flex-wrap gap-4 items-center justify-between sticky top-20 z-20">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 mb-6 flex flex-wrap gap-4 items-center justify-between static md:sticky md:top-20 z-20">
 
         <div class="flex flex-wrap gap-4 items-center">
             <!-- Mode Selection -->
@@ -475,21 +534,25 @@
     <DiffStats stats={diffResult.stats} />
 
     <!-- Editors Area -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6 h-[400px]">
-        <DiffEditor
-            bind:this={originalEditor}
-            bind:value={original}
-            label={t.original}
-            placeholder="Paste original text here..."
-            on:scroll={(e) => handleEditorScroll(e, 'original')}
-        />
-        <DiffEditor
-            bind:this={modifiedEditor}
-            bind:value={modified}
-            label={t.modified}
-            placeholder="Paste modified text here..."
-            on:scroll={(e) => handleEditorScroll(e, 'modified')}
-        />
+    <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4 mb-6 h-auto lg:h-[600px]">
+        <div class="h-[300px] lg:h-full">
+            <DiffEditor
+                bind:this={originalEditor}
+                bind:value={original}
+                label={t.original}
+                placeholder="Paste original text here..."
+                on:scroll={(e) => handleEditorScroll(e, 'original')}
+            />
+        </div>
+        <div class="h-[300px] lg:h-full">
+            <DiffEditor
+                bind:this={modifiedEditor}
+                bind:value={modified}
+                label={t.modified}
+                placeholder="Paste modified text here..."
+                on:scroll={(e) => handleEditorScroll(e, 'modified')}
+            />
+        </div>
     </div>
 
     <!-- Visualizer Area -->
@@ -498,125 +561,21 @@
     </div>
 
     <!-- Guide & SEO Content -->
-    <div class="mt-16 prose dark:prose-invert max-w-none">
-      <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm border border-gray-200 dark:border-gray-700">
-        <h2 class="flex items-center gap-2 text-2xl font-bold mb-6">
-          <Info class="w-6 h-6 text-indigo-500" />
-          {t.guide.title}
-        </h2>
+    <div class="mt-12 space-y-12">
+      <GuideSection
+        title={t.guide.title}
+        intro={t.guide.intro}
+        featuresTitle={t.guide.featuresTitle}
+        f1={t.guide.f1}
+        f2={t.guide.f2}
+        f3={t.guide.f3}
+        tipsTitle={t.guide.tipsTitle}
+        tip1={t.guide.tip1}
+        tip2={t.guide.tip2}
+        tip3={t.guide.tip3}
+      />
 
-        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
-          {t.guide.intro}
-        </p>
-
-        <div class="grid md:grid-cols-3 gap-8 mb-12">
-          <div class="bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-xl">
-            <h3 class="font-semibold text-indigo-900 dark:text-indigo-200 mb-2">{t.guide.featuresTitle}</h3>
-            <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-              <li class="flex gap-2">
-                <FileJson class="w-4 h-4 mt-1 flex-shrink-0 text-indigo-500" />
-                <span>{@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
-              </li>
-              <li class="flex gap-2">
-                <Type class="w-4 h-4 mt-1 flex-shrink-0 text-indigo-500" />
-                <span>{@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
-              </li>
-              <li class="flex gap-2">
-                <Check class="w-4 h-4 mt-1 flex-shrink-0 text-indigo-500" />
-                <span>{@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="bg-violet-50 dark:bg-violet-900/20 p-6 rounded-xl">
-            <h3 class="font-semibold text-violet-900 dark:text-violet-200 mb-2">{t.guide.tipsTitle}</h3>
-             <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-              <li class="flex gap-2">
-                <ArrowLeftRight class="w-4 h-4 mt-1 flex-shrink-0 text-violet-500" />
-                <span>{@html t.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
-              </li>
-              <li class="flex gap-2">
-                <Code class="w-4 h-4 mt-1 flex-shrink-0 text-violet-500" />
-                <span>{@html t.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
-              </li>
-              <li class="flex gap-2">
-                <History class="w-4 h-4 mt-1 flex-shrink-0 text-violet-500" />
-                <span>{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- FAQ -->
-        <h3 class="text-xl font-bold mb-6">{t.faqTitle}</h3>
-        <div class="space-y-6">
-          <div>
-            <h4 class="font-medium text-gray-900 dark:text-white mb-2">{t.q1}</h4>
-            <p class="text-gray-600 dark:text-gray-400 text-sm">{t.a1}</p>
-          </div>
-          <div>
-            <h4 class="font-medium text-gray-900 dark:text-white mb-2">{t.q2}</h4>
-            <p class="text-gray-600 dark:text-gray-400 text-sm">{t.a2}</p>
-          </div>
-          <div>
-            <h4 class="font-medium text-gray-900 dark:text-white mb-2">{t.q3}</h4>
-            <p class="text-gray-600 dark:text-gray-400 text-sm">{t.a3}</p>
-          </div>
-        </div>
-
-        <!-- JSON-LD Schema -->
-        <Head>
-            {@html `<script type="application/ld+json">
-            {
-              "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              "name": "${t.title}",
-              "operatingSystem": "Web",
-              "applicationCategory": "DeveloperApplication",
-              "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
-              },
-              "description": "${t.description}",
-              "featureList": "Diff comparison, JSON sorting, Syntax highlighting, Local history, Scroll sync, Dark mode"
-            }
-            </script>`}
-            {@html `<script type="application/ld+json">
-            {
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              "mainEntity": [
-                {
-                  "@type": "Question",
-                  "name": "${t.q1}",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "${t.a1}"
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "${t.q2}",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "${t.a2}"
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "${t.q3}",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "${t.a3}"
-                  }
-                }
-              ]
-            }
-            </script>`}
-        </Head>
-
-      </div>
+      <FAQSection title={t.faqTitle} items={faqItems} />
     </div>
   </div>
 </div>
