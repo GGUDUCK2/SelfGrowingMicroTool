@@ -2395,6 +2395,62 @@ export const dictionaries = {
         a2: "No. The file is read directly into your browser's memory using the FileReader API. It is never sent to a server.",
         q3: "Can I test Google Fonts?",
         a3: "Yes, you can download the font file from Google Fonts and drag it here to inspect it deeply."
+      },
+      audioForge: {
+        title: "Audio Forge: Sound Lab",
+        description: "The definitive audio editor and recorder. Record, trim, generate tones, and export WAV files directly in your browser.",
+        guide: {
+          title: "Why Audio Forge?",
+          intro: "Audio Forge is a professional-grade audio workbench that runs entirely in your browser. Whether you need to record a quick voice note, trim a podcast intro, or generate test tones for audio equipment, Audio Forge provides the tools you need without the bloat.",
+          featuresTitle: "Key Features",
+          f1: "**Lossless Recording:** Capture high-fidelity audio directly from your microphone.",
+          f2: "**Precision Editing:** Visual waveform editor allows for sample-accurate trimming and cutting.",
+          f3: "**Tone Generator:** Generate Sine, Square, Sawtooth, Triangle waves, and White/Pink noise for testing.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use **Pink Noise** to calibrate your audio system or for relaxation.",
+          tip2: "Click and drag on the waveform to select a region, then click **Trim** to isolate it.",
+          tip3: "Export to **WAV** for maximum compatibility and quality."
+        },
+        faqTitle: "Audio Forge FAQ",
+        q1: "Is my audio uploaded?",
+        a1: "No. All audio processing happens locally in your browser using the Web Audio API. Your recordings never leave your device.",
+        q2: "What is the max duration?",
+        a2: "It depends on your device's memory (RAM). Generally, you can edit files up to several hundred megabytes (about 1-2 hours of CD-quality audio) without issues.",
+        q3: "Why WAV format?",
+        a3: "WAV is a lossless, uncompressed format that ensures the highest possible quality and compatibility across all audio software.",
+        actions: {
+            new: "New",
+            open: "Open",
+            save: "Save",
+            trim: "Trim",
+            generate: "Generate",
+            exportWav: "WAV",
+            exportWebM: "WebM",
+            record: "Record",
+            stop: "Stop",
+            play: "Play",
+            pause: "Pause"
+        },
+        modal: {
+            title: "Tone Generator",
+            type: "Type",
+            frequency: "Frequency (Hz)",
+            duration: "Duration (s)",
+            cancel: "Cancel",
+            generate: "Generate"
+        },
+        history: {
+            title: "Project History",
+            empty: "No projects saved yet.",
+            deleteConfirm: "Delete this project?",
+            load: "Load"
+        },
+        alerts: {
+            saved: "Project saved!",
+            errorLoad: "Error loading file",
+            errorMic: "Microphone access denied or not supported.",
+            confirmNew: "Create new project? Unsaved changes will be lost."
+        }
       }
     },
     pwa: {
@@ -3852,6 +3908,62 @@ export const dictionaries = {
       a2: "아니요. 파일은 FileReader API를 사용하여 브라우저 메모리로 직접 읽힙니다. 서버로 전송되지 않습니다.",
       q3: "Google Fonts를 테스트할 수 있나요?",
       a3: "네, Google Fonts에서 폰트 파일을 다운로드하여 여기에 드래그하면 깊이 있게 검사할 수 있습니다."
+      },
+      audioForge: {
+        title: "오디오 포지: 사운드 랩",
+        description: "완벽한 오디오 에디터 및 레코더입니다. 브라우저에서 직접 녹음, 트리밍, 톤 생성 및 WAV 파일 내보내기를 수행하세요.",
+        guide: {
+          title: "왜 오디오 포지인가요?",
+          intro: "오디오 포지는 브라우저에서 완전히 실행되는 전문가급 오디오 워크벤치입니다. 빠른 음성 메모 녹음, 팟캐스트 인트로 트리밍, 오디오 장비용 테스트 톤 생성 등 필요한 도구를 가볍게 제공합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**무손실 녹음:** 마이크에서 고음질 오디오를 직접 캡처하세요.",
+          f2: "**정밀 편집:** 시각적 파형 에디터를 통해 샘플 단위의 정밀한 트리밍과 커팅이 가능합니다.",
+          f3: "**톤 생성기:** 테스트를 위해 사인파, 사각파, 톱니파, 삼각파 및 화이트/핑크 노이즈를 생성하세요.",
+          tipsTitle: "프로 팁",
+          tip1: "**핑크 노이즈**를 사용하여 오디오 시스템을 보정하거나 휴식을 취하세요.",
+          tip2: "파형을 클릭하고 드래그하여 영역을 선택한 다음 **트림**을 클릭하여 잘라내세요.",
+          tip3: "최고의 호환성과 품질을 위해 **WAV**로 내보내세요."
+        },
+        faqTitle: "오디오 포지 FAQ",
+        q1: "내 오디오가 업로드되나요?",
+        a1: "아니요. 모든 오디오 처리는 Web Audio API를 사용하여 브라우저에서 로컬로 수행됩니다. 녹음 내용은 기기를 떠나지 않습니다.",
+        q2: "최대 길이는 얼마인가요?",
+        a2: "기기의 메모리(RAM)에 따라 다릅니다. 일반적으로 수백 메가바이트(CD 음질로 약 1~2시간)의 파일을 문제없이 편집할 수 있습니다.",
+        q3: "왜 WAV 형식인가요?",
+        a3: "WAV는 무손실 비압축 형식으로, 모든 오디오 소프트웨어에서 최고의 품질과 호환성을 보장합니다.",
+        actions: {
+            new: "새 프로젝트",
+            open: "열기",
+            save: "저장",
+            trim: "자르기 (Trim)",
+            generate: "생성",
+            exportWav: "WAV",
+            exportWebM: "WebM",
+            record: "녹음",
+            stop: "정지",
+            play: "재생",
+            pause: "일시정지"
+        },
+        modal: {
+            title: "톤 생성기",
+            type: "유형",
+            frequency: "주파수 (Hz)",
+            duration: "지속 시간 (초)",
+            cancel: "취소",
+            generate: "생성"
+        },
+        history: {
+            title: "프로젝트 히스토리",
+            empty: "저장된 프로젝트가 없습니다.",
+            deleteConfirm: "이 프로젝트를 삭제하시겠습니까?",
+            load: "불러오기"
+        },
+        alerts: {
+            saved: "프로젝트가 저장되었습니다!",
+            errorLoad: "파일 로드 오류",
+            errorMic: "마이크 접근이 거부되었거나 지원되지 않습니다.",
+            confirmNew: "새 프로젝트를 만드시겠습니까? 저장되지 않은 변경 사항은 손실됩니다."
+        }
     }
   }
 } as const;
