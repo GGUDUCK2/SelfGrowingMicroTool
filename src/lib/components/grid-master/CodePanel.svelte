@@ -3,24 +3,26 @@
   import {
     generateCSS,
     generateTailwind,
+    generateTailwindConfig,
     generateHTML,
     generateReact,
     generateVue,
     generateSvelte
   } from '$lib/utils/grid-master/codegen';
   import { openInStackBlitz, downloadSVG, downloadProjectZip, downloadPNG } from '$lib/utils/grid-master/export';
-  import { Copy, Check, Code, FileCode, Download, Zap, FileType, Boxes, Box, Image, Package, Camera } from 'lucide-svelte';
+  import { Copy, Check, Code, FileCode, Download, Zap, FileType, Boxes, Box, Image, Package, Camera, FileJson } from 'lucide-svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
   export let dict: GridMasterDictionary;
   export let theme = 'standard';
 
-  let activeTab: 'tailwind' | 'css' | 'html' | 'react' | 'vue' | 'svelte' = 'tailwind';
+  let activeTab: 'tailwind' | 'config' | 'css' | 'html' | 'react' | 'vue' | 'svelte' = 'tailwind';
   let copied = false;
 
   $: code = (() => {
       switch (activeTab) {
           case 'tailwind': return generateTailwind($gridStore);
+          case 'config': return generateTailwindConfig($gridStore);
           case 'css': return generateCSS($gridStore);
           case 'html': return generateHTML($gridStore);
           case 'react': return generateReact($gridStore);
@@ -59,6 +61,15 @@
           >
              <Code size={14} />
              {dict.tailwind}
+          </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === 'config'}
+            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'config' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
+            on:click={() => activeTab = 'config'}
+          >
+             <FileJson size={14} />
+             Config
           </button>
           <button
             role="tab"
