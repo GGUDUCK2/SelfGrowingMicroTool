@@ -20,6 +20,42 @@
   $: dict = getDictionary(lang).tools.cipherLab;
   $: common = getDictionary(lang).common;
 
+  $: breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": `https://selfgrowingmicrotool.com/${lang}`
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tools",
+      "item": `https://selfgrowingmicrotool.com/${lang}#tools`
+    },{
+      "@type": "ListItem",
+      "position": 3,
+      "name": dict.title,
+      "item": `https://selfgrowingmicrotool.com/${lang}/tools/cipher-lab`
+    }]
+  };
+
+  $: softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": dict.title,
+    "description": dict.description,
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [dict.guide.f1, dict.guide.f2, dict.guide.f3].map(f => f.replace(/\*\*/g, '')).join(", ")
+  };
+
   $: faqItems = [
     { q: dict.q1, a: dict.a1 },
     { q: dict.q2, a: dict.a2 },
@@ -111,56 +147,20 @@
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://web-factory.vercel.app/{lang}/tools/cipher-lab" />
+  <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}/tools/cipher-lab" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={dict.title} />
   <meta name="twitter:description" content={dict.description} />
 
-  <link rel="canonical" href="https://web-factory.vercel.app/{lang}/tools/cipher-lab" />
-  <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/cipher-lab" />
-  <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/cipher-lab" />
-  <link rel="alternate" hreflang="x-default" href="https://web-factory.vercel.app/en/tools/cipher-lab" />
+  <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}/tools/cipher-lab" />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/cipher-lab" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/cipher-lab" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/cipher-lab" />
 
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://web-factory.vercel.app/{lang}"
-      },{
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Tools",
-        "item": "https://web-factory.vercel.app/{lang}#tools"
-      },{
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Cipher Lab",
-        "item": "https://web-factory.vercel.app/{lang}/tools/cipher-lab"
-      }]
-    }
-  </script>
-
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Cipher Lab",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Any",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "featureList": "SHA Hashing, HMAC Calculation, Base64 Encoding, JWT Debugging, Password Generation, Entropy Visualizer"
-    }
-  </script>
+  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">
@@ -189,11 +189,11 @@
       <div class="lg:col-span-8 space-y-6">
 
         <!-- Navigation Tabs -->
-        <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-1.5 flex flex-wrap gap-1" role="tablist">
+        <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-1.5 flex overflow-x-auto gap-1" role="tablist">
            <button
              role="tab"
              aria-selected={activeTab === 'hash'}
-             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'hash' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'hash' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'hash'}
            >
              <Hash size={16} />
@@ -202,7 +202,7 @@
            <button
              role="tab"
              aria-selected={activeTab === 'encoders'}
-             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'encoders' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'encoders' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'encoders'}
            >
              <Code size={16} />
@@ -211,7 +211,7 @@
            <button
              role="tab"
              aria-selected={activeTab === 'jwt'}
-             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'jwt' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'jwt' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'jwt'}
            >
              <Key size={16} />
@@ -220,7 +220,7 @@
            <button
              role="tab"
              aria-selected={activeTab === 'password'}
-             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'password' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'password' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'password'}
            >
              <Lock size={16} />
@@ -229,7 +229,7 @@
            <button
              role="tab"
              aria-selected={activeTab === 'keygen'}
-             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'keygen' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'keygen' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'keygen'}
            >
              <KeyRound size={16} />
@@ -238,7 +238,7 @@
            <button
              role="tab"
              aria-selected={activeTab === 'vault'}
-             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'vault' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'vault' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'vault'}
            >
              <Vault size={16} />

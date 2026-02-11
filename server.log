@@ -1,0 +1,60 @@
+
+> web-factory-svelte@0.0.1 dev
+> vite dev
+
+▲ [WARNING] Cannot find base config file "./.svelte-kit/tsconfig.json" [tsconfig.json]
+
+    tsconfig.json:2:15:
+      2 │     "extends": "./.svelte-kit/tsconfig.json",
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+8:22:34 AM [vite] (client) Forced re-optimization of dependencies
+
+  VITE v6.4.1  ready in 4179 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+8:23:19 AM [vite] (ssr) warning: Duplicate key "downloadPng" in object literal
+1685|          snapshots: "Session Snapshots",
+1686|          capture: "Capture Snapshot",
+1687|          downloadPng: "Download PNG",
+   |          ^
+1688|          noSnapshots: "No snapshots captured yet.",
+1689|          tags: {
+
+  Plugin: vite:esbuild
+  File: /app/src/lib/dictionaries.ts
+8:23:19 AM [vite] (ssr) warning: Duplicate key "downloadPng" in object literal
+2964|          snapshots: "세션 스냅샷",
+2965|          capture: "스냅샷 찍기",
+2966|          downloadPng: "PNG 다운로드",
+   |          ^
+2967|          noSnapshots: "캡처된 스냅샷이 없습니다.",
+2968|          tags: {
+
+  Plugin: vite:esbuild
+  File: /app/src/lib/dictionaries.ts
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+8:23:36 AM [vite] (client) warning: Duplicate key "downloadPng" in object literal
+1685|          snapshots: "Session Snapshots",
+1686|          capture: "Capture Snapshot",
+1687|          downloadPng: "Download PNG",
+   |          ^
+1688|          noSnapshots: "No snapshots captured yet.",
+1689|          tags: {
+
+  Plugin: vite:esbuild
+  File: /app/src/lib/dictionaries.ts
+8:23:36 AM [vite] (client) warning: Duplicate key "downloadPng" in object literal
+2964|          snapshots: "세션 스냅샷",
+2965|          capture: "스냅샷 찍기",
+2966|          downloadPng: "PNG 다운로드",
+   |          ^
+2967|          noSnapshots: "캡처된 스냅샷이 없습니다.",
+2968|          tags: {
+
+  Plugin: vite:esbuild
+  File: /app/src/lib/dictionaries.ts
+8:26:26 AM [vite] (client) hmr update /src/routes/[lang]/tools/cipher-lab/+page.svelte, /src/app.css
+8:26:26 AM [vite] (ssr) page reload src/lib/dictionaries.ts
