@@ -2457,6 +2457,48 @@ export const dictionaries = {
             errorMic: "Microphone access denied or not supported.",
             confirmNew: "Create new project? Unsaved changes will be lost."
         }
+      },
+      screenForge: {
+        title: "Screen Forge: Screen Recorder",
+        description: "The definitive screen recording tool. Capture your screen, window, or tab with system audio and microphone mixing. No watermarks, no limits.",
+        start: "Start Recording",
+        stop: "Stop Recording",
+        pause: "Pause",
+        resume: "Resume",
+        mic: "Microphone",
+        micOn: "Mic On",
+        micOff: "Mic Off",
+        preview: "Preview",
+        download: "Download WebM",
+        save: "Save to History",
+        discard: "Discard",
+        new: "New Recording",
+        history: "Recording History",
+        noHistory: "No recordings saved yet.",
+        duration: "Duration",
+        size: "Size",
+        date: "Date",
+        delete: "Delete",
+        play: "Play",
+        guide: {
+          title: "Why Screen Forge?",
+          intro: "Screen Forge is a professional-grade screen recorder that runs entirely in your browser. Whether you're recording a tutorial, a bug report, or a presentation, Screen Forge captures high-quality video with crystal clear audio.",
+          featuresTitle: "Key Features",
+          f1: "**No Limits:** Record for as long as you want. No time limits, no watermarks.",
+          f2: "**Audio Mixing:** Capture system audio and microphone simultaneously for perfect narration.",
+          f3: "**Privacy First:** All recording happens locally. Your video never leaves your device.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use **System Audio** to capture sound from the application you are recording.",
+          tip2: "Enable **Microphone** to narrate over your recording.",
+          tip3: "Save your recordings to **History** to access them later, even offline."
+        },
+        faqTitle: "Screen Forge FAQ",
+        q1: "Is my video uploaded?",
+        a1: "No. All video processing happens locally in your browser using the MediaStream Recording API. Your recordings are private.",
+        q2: "What is the format?",
+        a2: "Screen Forge records in WebM format, which is optimized for the web. It provides high quality with small file sizes.",
+        q3: "Can I record my webcam?",
+        a3: "Currently, Screen Forge focuses on screen recording. Webcam overlay support is planned for a future update."
       }
     },
     pwa: {
@@ -3976,6 +4018,48 @@ export const dictionaries = {
             errorMic: "마이크 접근이 거부되었거나 지원되지 않습니다.",
             confirmNew: "새 프로젝트를 만드시겠습니까? 저장되지 않은 변경 사항은 손실됩니다."
         }
+    },
+    screenForge: {
+      title: "스크린 포지: 화면 녹화기",
+      description: "완벽한 화면 녹화 도구입니다. 시스템 오디오와 마이크를 혼합하여 화면, 창 또는 탭을 캡처하세요. 워터마크 없음, 시간 제한 없음.",
+      start: "녹화 시작",
+      stop: "녹화 중지",
+      pause: "일시정지",
+      resume: "재개",
+      mic: "마이크",
+      micOn: "마이크 켜기",
+      micOff: "마이크 끄기",
+      preview: "미리보기",
+      download: "WebM 다운로드",
+      save: "히스토리에 저장",
+      discard: "삭제",
+      new: "새 녹화",
+      history: "녹화 히스토리",
+      noHistory: "저장된 녹화가 없습니다.",
+      duration: "길이",
+      size: "크기",
+      date: "날짜",
+      delete: "삭제",
+      play: "재생",
+      guide: {
+        title: "왜 스크린 포지인가요?",
+        intro: "스크린 포지는 브라우저에서 완전히 실행되는 전문가급 화면 녹화기입니다. 튜토리얼, 버그 리포트, 프레젠테이션 등 어떤 목적이든 깨끗한 오디오와 함께 고화질 비디오를 캡처합니다.",
+        featuresTitle: "주요 기능",
+        f1: "**제한 없음:** 원하는 만큼 녹화하세요. 시간 제한도, 워터마크도 없습니다.",
+        f2: "**오디오 믹싱:** 시스템 오디오와 마이크를 동시에 캡처하여 완벽한 내레이션을 추가하세요.",
+        f3: "**프라이버시 우선:** 모든 녹화는 로컬에서 이루어집니다. 비디오는 기기를 떠나지 않습니다.",
+        tipsTitle: "프로 팁",
+        tip1: "**시스템 오디오**를 사용하여 녹화 중인 애플리케이션의 소리를 캡처하세요.",
+        tip2: "**마이크**를 켜서 녹화 위에 내레이션을 추가하세요.",
+        tip3: "**히스토리**에 녹화를 저장하여 나중에 오프라인에서도 액세스하세요."
+      },
+      faqTitle: "스크린 포지 FAQ",
+      q1: "내 비디오가 업로드되나요?",
+      a1: "아니요. 모든 비디오 처리는 MediaStream Recording API를 사용하여 브라우저에서 로컬로 수행됩니다. 녹화 내용은 비공개입니다.",
+      q2: "어떤 형식인가요?",
+      a2: "스크린 포지는 웹에 최적화된 WebM 형식으로 녹화합니다. 작은 파일 크기로 고화질을 제공합니다.",
+      q3: "웹캠을 녹화할 수 있나요?",
+      a3: "현재 스크린 포지는 화면 녹화에 중점을 두고 있습니다. 웹캠 오버레이 지원은 향후 업데이트될 예정입니다."
     }
   }
 } as const;
