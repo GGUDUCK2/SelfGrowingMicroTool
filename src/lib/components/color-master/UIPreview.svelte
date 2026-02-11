@@ -15,9 +15,6 @@
 
   // Contrast checks
   $: btnContrast = getReadability(onPrimary, primaryColor);
-
-  // Simulation states
-  let activeTab = 'components';
 </script>
 
 <div class="bg-slate-100 dark:bg-slate-900 rounded-2xl p-8 shadow-inner border border-slate-200 dark:border-slate-700">
