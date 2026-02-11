@@ -5,7 +5,7 @@
   import { gridStore } from '$lib/utils/grid-master/store';
   import { gridMasterWorkspace } from '$lib/db/grid-master';
   import { saveToHistory, getHistoryObservable, smartSaveToHistory } from '$lib/db/workspace';
-  import { downloadProjectZip } from '$lib/utils/grid-master/export';
+  import { downloadProjectZip, openInCodePen } from '$lib/utils/grid-master/export';
   import { captureSnapshot } from '$lib/utils/grid-master/snapshot';
   import GridCanvas from '$lib/components/grid-master/GridCanvas.svelte';
   import Sidebar from '$lib/components/grid-master/Sidebar.svelte';
@@ -16,7 +16,8 @@
   import CommandPalette from '$lib/components/grid-master/CommandPalette.svelte';
   import ResponsiveModal from '$lib/components/grid-master/ResponsiveModal.svelte';
   import GridDoctor from '$lib/components/grid-master/GridDoctor.svelte';
-  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2, Eye, EyeOff, Share2, HelpCircle, History, Download, Command, ScanEye, Activity, Camera } from 'lucide-svelte';
+  import TimelineHistory from '$lib/components/grid-master/TimelineHistory.svelte';
+  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2, Eye, EyeOff, Share2, HelpCircle, History, Download, Command, ScanEye, Activity, Camera, Code, Clock } from 'lucide-svelte';
   import { fade, slide } from 'svelte/transition';
   import type { GridState } from '$lib/utils/grid-master/types';
 
@@ -35,6 +36,7 @@
   let showCommandPalette = false;
   let showResponsiveCheck = false;
   let showDoctor = false;
+  let showTimeline = false;
   let showConfirmReset = false;
   let canRestoreSession = false;
   let lastSessionState: GridState | null = null;
@@ -393,6 +395,15 @@
                </button>
            </div>
 
+           <button
+             class="p-2 ml-1 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors hidden sm:flex {showTimeline ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : ''}"
+             on:click={() => showTimeline = !showTimeline}
+             aria-label={dict.timeMachine || 'Time Machine'}
+             title={dict.timeMachine || 'Time Machine'}
+           >
+               <Clock size={18} />
+           </button>
+
            <div class="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-2 hidden sm:block"></div>
 
            <button
@@ -414,6 +425,15 @@
              aria-label={dict.share || 'Share'}
            >
               <Share2 size={18} />
+           </button>
+
+           <button
+             class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors"
+             on:click={() => openInCodePen($gridStore)}
+             aria-label={dict.openInCodePen || 'Open in CodePen'}
+             title={dict.openInCodePen || 'Open in CodePen'}
+           >
+              <Code size={18} />
            </button>
 
            <button
@@ -591,6 +611,10 @@
 
   {#if showDoctor}
       <GridDoctor {dict} on:close={() => showDoctor = false} />
+  {/if}
+
+  {#if showTimeline}
+      <TimelineHistory {dict} close={() => showTimeline = false} />
   {/if}
 
   {#if showConfirmReset}
