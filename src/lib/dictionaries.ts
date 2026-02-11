@@ -1731,8 +1731,10 @@ export const dictionaries = {
         star: "Star",
         delete: "Delete",
         openInStackBlitz: "Open in StackBlitz",
+        openInCodePen: "Open in CodePen",
         browseGallery: "Browse Gallery",
         professionalLayouts: "Professional Layouts",
+        timeMachine: "Time Machine",
         gapPresets: {
             small: "Small",
             medium: "Medium",
@@ -3051,8 +3053,10 @@ export const dictionaries = {
         star: "즐겨찾기",
         delete: "삭제",
         openInStackBlitz: "StackBlitz에서 열기",
+        openInCodePen: "CodePen에서 열기",
         browseGallery: "레이아웃 갤러리",
         professionalLayouts: "전문가용 레이아웃",
+        timeMachine: "타임 머신",
         gapPresets: {
             small: "좁게",
             medium: "중간",

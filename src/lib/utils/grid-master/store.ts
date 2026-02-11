@@ -64,7 +64,8 @@ const initialState: GridState = {
 };
 
 function createGridStore() {
-  const { subscribe, set, update } = writable<GridState>(initialState);
+  const store = writable<GridState>(initialState);
+  const { subscribe, set, update } = store;
 
   // History state
   const past = writable<GridState[]>([]);
@@ -203,7 +204,28 @@ function createGridStore() {
 
     // Exports for UI
     canUndo: derived(past, $past => $past.length > 0),
-    canRedo: derived(future, $future => $future.length > 0)
+    canRedo: derived(future, $future => $future.length > 0),
+    history: derived([past, store, future], ([$past, $current, $future]) => {
+        return [...$past, $current, ...$future];
+    }),
+    currentIndex: derived(past, $past => $past.length),
+
+    jumpTo: (index: number) => {
+        const p = get(past);
+        const f = get(future);
+        const current = get(store);
+        const all = [...p, current, ...f];
+
+        if (index < 0 || index >= all.length) return;
+
+        const target = all[index];
+        const newPast = all.slice(0, index);
+        const newFuture = all.slice(index + 1);
+
+        past.set(newPast);
+        future.set(newFuture);
+        set(target);
+    }
   };
 }
 
