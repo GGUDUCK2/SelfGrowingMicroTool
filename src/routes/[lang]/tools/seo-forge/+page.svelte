@@ -7,6 +7,8 @@
   import JsonLdEditor from '$lib/components/seo-forge/JsonLdEditor.svelte';
   import PreviewCard from '$lib/components/seo-forge/PreviewCard.svelte';
   import AuditPanel from '$lib/components/seo-forge/AuditPanel.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
   import { db, type SeoHistory } from '$lib/db';
   import { defaultMetaTags, generateHtml, generateJsonLd, parseHtml, seoTemplates, type MetaTags, type JsonLdData } from '$lib/utils/seo';
   import { page } from '$app/stores';
@@ -297,22 +299,25 @@
         ]
       },
       {
-        "@type": "FAQPage",
-        "mainEntity": [
+        "@type": "BreadcrumbList",
+        "itemListElement": [
           {
-            "@type": "Question",
-            "name": dict.q1,
-            "acceptedAnswer": { "@type": "Answer", "text": dict.a1 }
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": `https://selfgrowingmicrotool.com/${$page.params.lang}`
           },
           {
-            "@type": "Question",
-            "name": dict.q2,
-            "acceptedAnswer": { "@type": "Answer", "text": dict.a2 }
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": `https://selfgrowingmicrotool.com/${$page.params.lang}/tools`
           },
           {
-            "@type": "Question",
-            "name": dict.q3,
-            "acceptedAnswer": { "@type": "Answer", "text": dict.a3 }
+            "@type": "ListItem",
+            "position": 3,
+            "name": dict.title,
+            "item": `https://selfgrowingmicrotool.com/${$page.params.lang}/tools/seo-forge`
           }
         ]
       }
@@ -389,7 +394,7 @@
              <div class="flex flex-wrap justify-between items-center mb-4 gap-2">
                  <!-- Templates Dropdown -->
                  <div class="relative group">
-                     <button type="button" class="px-3 py-1.5 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-1">
+                     <button type="button" class="px-4 py-2 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-1">
                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-template"><rect width="18" height="7" x="3" y="3" rx="1"/><rect width="9" height="7" x="3" y="14" rx="1"/><rect width="5" height="7" x="16" y="14" rx="1"/></svg>
                          {dict.templates.title}
                      </button>
@@ -406,7 +411,7 @@
                         on:click={() => showMagicPaste = !showMagicPaste}
                         aria-label={dict.actions.magicPaste}
                         type="button"
-                        class="px-3 py-1.5 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-1"
+                        class="px-4 py-2 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-1"
                      >
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wand"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8 19 13"/><path d="M15 9h0"/><path d="M17.8 6.2 19 5"/><path d="M3 21l9-9"/><path d="M12.2 6.2 11 5"/></svg>
                         {dict.actions.magicPaste}
@@ -422,7 +427,7 @@
                             on:click={saveToHistory}
                             aria-label={dict.actions.save}
                             type="button"
-                            class="px-3 py-1.5 text-xs font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-900 transition-colors flex items-center gap-1 my-1"
+                            class="px-4 py-2 text-xs font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-900 transition-colors flex items-center gap-1 my-1"
                             title="Ctrl+S"
                          >
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
@@ -530,7 +535,7 @@
                         on:click={shareLink}
                         aria-label="Share Link"
                         type="button"
-                        class="text-indigo-600 hover:text-indigo-700 text-xs font-medium flex items-center gap-1"
+                        class="px-4 py-2 text-indigo-600 hover:text-indigo-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share-2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
                         {dict.actions.share}
@@ -539,7 +544,7 @@
                         on:click={downloadHtml}
                         aria-label="Download HTML"
                         type="button"
-                        class="text-indigo-600 hover:text-indigo-700 text-xs font-medium flex items-center gap-1"
+                        class="px-4 py-2 text-indigo-600 hover:text-indigo-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                         {dict.actions.export}
@@ -548,7 +553,7 @@
                       on:click={() => copyToClipboard(activeTab === 'jsonld' ? generatedJsonLd : generatedHtml)}
                       aria-label="Copy Code"
                       type="button"
-                      class="text-indigo-600 hover:text-indigo-700 text-xs font-medium flex items-center gap-1"
+                      class="px-4 py-2 text-indigo-600 hover:text-indigo-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors"
                     >
                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
                        {dict.actions.copyHtml}
@@ -581,75 +586,29 @@
   </div>
 
   <!-- FAQ / Guide Section -->
-   <div class="max-w-4xl mx-auto px-4 mt-24">
-      <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm">
-         <h2 class="text-2xl font-bold mb-6">{dict.guide.title}</h2>
-         <div class="prose dark:prose-invert max-w-none">
-             <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">{dict.guide.intro}</p>
+   <div class="max-w-6xl mx-auto px-4 mt-24">
+      <GuideSection
+        title={dict.guide.title}
+        intro={dict.guide.intro}
+        featuresTitle={dict.guide.featuresTitle}
+        f1={dict.guide.f1}
+        f2={dict.guide.f2}
+        f3={dict.guide.f3}
+        tipsTitle={dict.guide.tipsTitle}
+        tip1={dict.guide.tip1}
+        tip2={dict.guide.tip2}
+        tip3={dict.guide.tip3}
+      />
 
-             <h3 class="text-xl font-bold mt-8 mb-4">{dict.guide.featuresTitle}</h3>
-             <ul class="space-y-2">
-                 <li>{@html dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong class="text-indigo-600 dark:text-indigo-400">$1</strong>')}</li>
-                 <li>{@html dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong class="text-indigo-600 dark:text-indigo-400">$1</strong>')}</li>
-                 <li>{@html dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong class="text-indigo-600 dark:text-indigo-400">$1</strong>')}</li>
-             </ul>
-
-             <h3 class="text-xl font-bold mt-8 mb-4">{dict.guide.tipsTitle}</h3>
-             <div class="bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-xl border border-indigo-100 dark:border-indigo-800">
-                <ul class="space-y-3">
-                    <li class="flex gap-3">
-                        <span class="text-indigo-500">💡</span>
-                        <span>{@html dict.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
-                    </li>
-                    <li class="flex gap-3">
-                        <span class="text-indigo-500">💡</span>
-                        <span>{@html dict.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
-                    </li>
-                    <li class="flex gap-3">
-                        <span class="text-indigo-500">💡</span>
-                        <span>{@html dict.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
-                    </li>
-                </ul>
-             </div>
-         </div>
-
-         <!-- FAQ -->
-         <h2 class="text-2xl font-bold mt-12 mb-6">{dict.faqTitle}</h2>
-         <div class="space-y-4">
-             <details class="group bg-slate-50 dark:bg-slate-700/30 rounded-lg open:bg-white dark:open:bg-slate-700/50 open:shadow-sm transition-all duration-200">
-                 <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4">
-                     <span>{dict.q1}</span>
-                     <span class="transition group-open:rotate-180">
-                         <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                     </span>
-                 </summary>
-                 <div class="text-slate-600 dark:text-slate-400 mt-0 px-4 pb-4">
-                     {dict.a1}
-                 </div>
-             </details>
-             <details class="group bg-slate-50 dark:bg-slate-700/30 rounded-lg open:bg-white dark:open:bg-slate-700/50 open:shadow-sm transition-all duration-200">
-                 <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4">
-                     <span>{dict.q2}</span>
-                     <span class="transition group-open:rotate-180">
-                         <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                     </span>
-                 </summary>
-                 <div class="text-slate-600 dark:text-slate-400 mt-0 px-4 pb-4">
-                     {dict.a2}
-                 </div>
-             </details>
-             <details class="group bg-slate-50 dark:bg-slate-700/30 rounded-lg open:bg-white dark:open:bg-slate-700/50 open:shadow-sm transition-all duration-200">
-                 <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4">
-                     <span>{dict.q3}</span>
-                     <span class="transition group-open:rotate-180">
-                         <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                     </span>
-                 </summary>
-                 <div class="text-slate-600 dark:text-slate-400 mt-0 px-4 pb-4">
-                     {dict.a3}
-                 </div>
-             </details>
-         </div>
+      <div class="max-w-4xl mx-auto mt-12">
+        <FAQSection
+            title={dict.faqTitle}
+            items={[
+                { q: dict.q1, a: dict.a1 },
+                { q: dict.q2, a: dict.a2 },
+                { q: dict.q3, a: dict.a3 }
+            ]}
+        />
       </div>
    </div>
 </div>
@@ -662,7 +621,7 @@
   <!-- Open Graph -->
   <meta property="og:title" content="{dict.title}" />
   <meta property="og:description" content="{dict.description}" />
-  <meta property="og:url" content="https://microfactory.app/tools/seo-forge" />
+  <meta property="og:url" content={`https://selfgrowingmicrotool.com/${$page.params.lang}/tools/seo-forge`} />
   <meta property="og:type" content="website" />
 
   <!-- Twitter -->
@@ -671,7 +630,7 @@
   <meta name="twitter:description" content="{dict.description}" />
 
   <!-- Canonical -->
-  <link rel="canonical" href="https://microfactory.app/tools/seo-forge" />
+  <link rel="canonical" href={`https://selfgrowingmicrotool.com/${$page.params.lang}/tools/seo-forge`} />
 
   {@html jsonLdScript}
 </svelte:head>
