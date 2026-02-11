@@ -6,6 +6,7 @@
   import { gridMasterWorkspace } from '$lib/db/grid-master';
   import { saveToHistory, getHistoryObservable, smartSaveToHistory } from '$lib/db/workspace';
   import { downloadProjectZip } from '$lib/utils/grid-master/export';
+  import { captureSnapshot } from '$lib/utils/grid-master/snapshot';
   import GridCanvas from '$lib/components/grid-master/GridCanvas.svelte';
   import Sidebar from '$lib/components/grid-master/Sidebar.svelte';
   import CodePanel from '$lib/components/grid-master/CodePanel.svelte';
@@ -15,7 +16,7 @@
   import CommandPalette from '$lib/components/grid-master/CommandPalette.svelte';
   import ResponsiveModal from '$lib/components/grid-master/ResponsiveModal.svelte';
   import GridDoctor from '$lib/components/grid-master/GridDoctor.svelte';
-  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2, Eye, EyeOff, Share2, HelpCircle, History, Download, Command, ScanEye, Activity } from 'lucide-svelte';
+  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2, Eye, EyeOff, Share2, HelpCircle, History, Download, Command, ScanEye, Activity, Camera } from 'lucide-svelte';
   import { fade, slide } from 'svelte/transition';
   import type { GridState } from '$lib/utils/grid-master/types';
 
@@ -38,6 +39,19 @@
   let canRestoreSession = false;
   let lastSessionState: GridState | null = null;
   let theme = 'standard';
+  let gridContainer: HTMLDivElement;
+
+  async function handleSnapshot() {
+      if (!gridContainer) return;
+      try {
+          showToastMsg('Capturing snapshot...');
+          await captureSnapshot(gridContainer, { name: projectName, theme });
+          showToastMsg('Snapshot saved!');
+      } catch (e) {
+          console.error(e);
+          showToastMsg('Snapshot failed');
+      }
+  }
 
   function handleKeydown(e: KeyboardEvent) {
       const target = e.target as HTMLElement;
@@ -215,12 +229,12 @@
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://microfactory.app/{lang}/tools/grid-master" />
+  <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}/tools/grid-master" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="canonical" href="https://microfactory.app/{lang}/tools/grid-master" />
-  <link rel="alternate" hreflang="en" href="https://microfactory.app/en/tools/grid-master" />
-  <link rel="alternate" hreflang="ko" href="https://microfactory.app/ko/tools/grid-master" />
-  <link rel="alternate" hreflang="x-default" href="https://microfactory.app/en/tools/grid-master" />
+  <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}/tools/grid-master" />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/grid-master" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
 
   <script type="application/ld+json">
     {
@@ -411,6 +425,15 @@
               <Download size={18} />
            </button>
 
+           <button
+             class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors"
+             on:click={handleSnapshot}
+             aria-label={dict.capture || 'Capture Snapshot'}
+             title={dict.capture || 'Capture PNG Snapshot'}
+           >
+              <Camera size={18} />
+           </button>
+
            <div class="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-2 hidden sm:block"></div>
 
            <input
@@ -482,6 +505,7 @@
           <div class="flex justify-center bg-slate-100 dark:bg-black/20 rounded-2xl border border-dashed border-slate-300 dark:border-slate-800 p-8 min-h-[500px] items-center relative overflow-hidden">
                <!-- Viewport Simulation -->
                <div
+                 bind:this={gridContainer}
                  class="transition-all duration-500 ease-in-out bg-white dark:bg-slate-900 shadow-2xl rounded-xl overflow-hidden ring-1 ring-slate-900/5 dark:ring-white/10"
                  style="width: {viewMode === 'desktop' ? '100%' : '375px'}; height: {viewMode === 'desktop' ? '500px' : '667px'};"
                >

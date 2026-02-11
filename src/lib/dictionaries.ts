@@ -1684,6 +1684,7 @@ export const dictionaries = {
         contentPreset: "Apply Preset...",
         snapshots: "Session Snapshots",
         capture: "Capture Snapshot",
+        downloadPng: "Download PNG",
         noSnapshots: "No snapshots captured yet.",
         tags: {
           div: "div",
@@ -2962,6 +2963,7 @@ export const dictionaries = {
         contentPreset: "프리셋 적용...",
         snapshots: "세션 스냅샷",
         capture: "스냅샷 찍기",
+        downloadPng: "PNG 다운로드",
         noSnapshots: "캡처된 스냅샷이 없습니다.",
         tags: {
           div: "div",

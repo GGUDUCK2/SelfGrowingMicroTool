@@ -1,12 +1,13 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from 'svelte';
+  import { createEventDispatcher, onMount, type ComponentType } from 'svelte';
   import { fade, scale } from 'svelte/transition';
   import { gridStore, snapshotStore } from '$lib/utils/grid-master/store';
   import { downloadProjectZip, downloadPNG, copyReactComponent } from '$lib/utils/grid-master/export';
+  import { generateLayoutFromText } from '$lib/utils/grid-master/generators';
   import {
     Search, Plus, Trash2, RotateCcw,
     Smartphone, Monitor, Download, Moon,
-    History, FileCode
+    History, FileCode, Wand2
   } from 'lucide-svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
@@ -22,7 +23,7 @@
       id: string;
       label: string;
       group: string;
-      icon: any;
+      icon: ComponentType;
       action: () => void;
       shortcut?: string;
   };
@@ -64,10 +65,23 @@
       })))
   ] as CommandItem[];
 
-  $: filteredCommands = commands.filter(c =>
-      c.label.toLowerCase().includes(query.toLowerCase()) ||
-      c.group.toLowerCase().includes(query.toLowerCase())
-  );
+  $: filteredCommands = [
+      ...(query.trim() ? [{
+          id: 'magic-run',
+          label: `Magic Build: "${query}"`,
+          group: 'Magic',
+          icon: Wand2,
+          action: () => {
+              const layout = generateLayoutFromText(query);
+              gridStore.load(layout);
+              dispatch('toast', 'Magic Layout Generated!');
+          }
+      }] : []),
+      ...commands.filter(c =>
+          c.label.toLowerCase().includes(query.toLowerCase()) ||
+          c.group.toLowerCase().includes(query.toLowerCase())
+      )
+  ];
 
   function close() {
       dispatch('close');
@@ -101,7 +115,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
     class="fixed inset-0 z-[100] flex items-start justify-center pt-[20vh] px-4 bg-black/50 backdrop-blur-sm"
     transition:fade={{ duration: 100 }}
