@@ -8,6 +8,15 @@
   import AreaSettingsModal from './AreaSettingsModal.svelte';
   import { dictionaries } from '$lib/dictionaries';
 
+  import MockChart from './mocks/MockChart.svelte';
+  import MockVideo from './mocks/MockVideo.svelte';
+  import MockKanban from './mocks/MockKanban.svelte';
+  import MockFeed from './mocks/MockFeed.svelte';
+  import MockTable from './mocks/MockTable.svelte';
+  import MockProfile from './mocks/MockProfile.svelte';
+  import MockCalendar from './mocks/MockCalendar.svelte';
+  import MockGallery from './mocks/MockGallery.svelte';
+
   export let previewMode = false;
   export let viewMode: 'desktop' | 'mobile' = 'desktop';
   export let theme = 'standard';
@@ -133,7 +142,6 @@
       e.preventDefault();
       const el = document.getElementById(`grid-cell-${nextR}-${nextC}`);
       el?.focus();
-      // Also update hover state for potential drag start
       handleMouseOver(nextR, nextC);
   }
 
@@ -144,6 +152,19 @@
       const cStart = Math.min(start.col, end.col) + 1;
       const cEnd = Math.max(start.col, end.col) + 2;
       return `grid-area: ${rStart} / ${cStart} / ${rEnd} / ${cEnd};`;
+  }
+
+  function getMockComponent(type: string | undefined) {
+      if (!type) return null;
+      if (type === 'chart' || type.includes('chart') || type === 'stats') return MockChart;
+      if (type === 'video' || type.includes('video') || type === 'player') return MockVideo;
+      if (type === 'kanban' || type.includes('kanban')) return MockKanban;
+      if (type === 'feed' || type.includes('feed') || type.includes('post')) return MockFeed;
+      if (type === 'table' || type.includes('table') || type.includes('data')) return MockTable;
+      if (type === 'profile' || type.includes('profile') || type.includes('user') || type === 'team') return MockProfile;
+      if (type === 'calendar' || type.includes('calendar')) return MockCalendar;
+      if (type === 'gallery' || type.includes('gallery') || type === 'image') return MockGallery;
+      return null;
   }
 </script>
 
@@ -232,15 +253,19 @@
           {:else if previewMode}
               <svelte:element
                 this={getSemanticTag(area)}
-                class="z-20 p-4 shadow-sm rounded relative overflow-hidden transition-all {theme === 'cyber' ? 'font-mono text-green-400' : 'text-slate-800 dark:text-white'}"
+                class="z-20 p-0 shadow-sm rounded relative overflow-hidden transition-all {theme === 'cyber' ? 'font-mono text-green-400' : 'text-slate-800 dark:text-white'}"
                 style="
                   grid-area: {area.name};
                   {getThemeStyles(area, theme)}
                 "
                 transition:fade
               >
-                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                 {@html getPlaceholderContent(area)}
+                  {#if getMockComponent(area.contentType)}
+                      <svelte:component this={getMockComponent(area.contentType)} name={area.name} />
+                  {:else}
+                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                     {@html getPlaceholderContent(area)}
+                  {/if}
               </svelte:element>
           {:else}
               <div
