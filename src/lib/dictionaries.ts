@@ -2305,7 +2305,8 @@ export const dictionaries = {
           template: "Template",
           layout: "Layout",
           color: "Accent Color",
-          font: "Font"
+          font: "Font",
+          fitWidth: "Fit Width"
         },
         templates: {
           seoul: "Seoul (Modern)",
@@ -3853,7 +3854,8 @@ export const dictionaries = {
           template: "템플릿",
           layout: "레이아웃",
           color: "강조 색상",
-          font: "글꼴"
+          font: "글꼴",
+          fitWidth: "너비 맞춤"
         },
         templates: {
           seoul: "서울 (모던)",
