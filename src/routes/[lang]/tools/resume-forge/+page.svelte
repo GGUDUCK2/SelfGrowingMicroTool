@@ -131,6 +131,23 @@
           "name": item.q,
           "acceptedAnswer": { "@type": "Answer", "text": item.a }
         }))
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": dict.home.title,
+            "item": `https://selfgrowingmicrotool.com/${lang}`
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": toolDict.title,
+            "item": $page.url.href
+          }
+        ]
       }
     ]
   });

@@ -3,12 +3,17 @@
   import Seoul from './templates/Seoul.svelte';
   import Tokyo from './templates/Tokyo.svelte';
   import NewYork from './templates/NewYork.svelte';
-  import { Printer, Download, Save, RotateCcw, FileJson, Layout, Type, Palette } from 'lucide-svelte';
+  import { Printer, Download, Save, RotateCcw, FileJson, Layout, Type, Palette, Maximize, Minimize } from 'lucide-svelte';
 
   export let dict: any;
   export let onSave: () => void;
   export let onReset: () => void;
   export let onExportJson: () => void;
+
+  let fitToScreen = false;
+  let containerWidth = 0;
+  // 210mm is approx 794px. We add padding (32px * 2 = 64px) to calculation.
+  $: scale = fitToScreen && containerWidth ? Math.min((containerWidth - 64) / 794, 1) : 1;
 
   const templates = {
     seoul: Seoul,
@@ -77,6 +82,13 @@
       </div>
 
       <div class="flex items-center gap-2">
+         <button class="p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 md:hidden" on:click={() => fitToScreen = !fitToScreen} title={dict.preview.fitWidth}>
+             {#if fitToScreen}
+                <Maximize size={20} />
+             {:else}
+                <Minimize size={20} />
+             {/if}
+         </button>
          <button on:click={onExportJson} class="p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-white" title={dict.actions.exportJson}>
              <FileJson size={20} />
          </button>
@@ -96,8 +108,13 @@
   </div>
 
   <!-- Preview Area -->
-  <div class="flex-1 overflow-auto p-8 flex justify-center bg-slate-100 dark:bg-black/20 print:p-0 print:bg-white print:overflow-visible">
-     <div class="a4-page bg-white text-slate-900 shadow-xl print:shadow-none print:w-full print:h-auto print:m-0" data-theme={$resumeStore.meta.theme} data-font={$resumeStore.meta.font}>
+  <div class="flex-1 overflow-auto p-8 flex justify-center bg-slate-100 dark:bg-black/20 print:p-0 print:bg-white print:overflow-visible {fitToScreen ? 'overflow-x-hidden' : ''}" bind:clientWidth={containerWidth}>
+     <div
+        class="a4-page bg-white text-slate-900 shadow-xl print:shadow-none print:w-full print:h-auto print:m-0 transition-transform duration-200 origin-top"
+        style="transform: scale({scale})"
+        data-theme={$resumeStore.meta.theme}
+        data-font={$resumeStore.meta.font}
+     >
         <svelte:component this={templates[$resumeStore.meta.template]} resume={$resumeStore} />
      </div>
   </div>
