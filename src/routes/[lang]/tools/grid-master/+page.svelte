@@ -33,6 +33,7 @@
   let viewMode: 'desktop' | 'mobile' = 'desktop';
   let previewMode = false;
   let showShortcuts = false;
+  let showWizard = false;
   let showCommandPalette = false;
   let showResponsiveCheck = false;
   let showDoctor = false;
@@ -332,6 +333,12 @@
           <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 hidden sm:block">
             {dict.title}
           </h1>
+          <button
+             class="ml-4 px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-full shadow-sm flex items-center gap-1 transition-all"
+             on:click={() => showWizard = true}
+          >
+             <span>+ New</span>
+          </button>
         </div>
       </div>
 
@@ -611,6 +618,10 @@
 
   {#if showDoctor}
       <GridDoctor {dict} on:close={() => showDoctor = false} />
+  {/if}
+
+  {#if showWizard}
+      <WizardModal {dict} on:close={() => showWizard = false} />
   {/if}
 
   {#if showTimeline}

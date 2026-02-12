@@ -369,7 +369,6 @@ export function generateLayoutFromText(input: string): GridState {
     const galleryMatch = rawInput.match(/^gallery\s+(\d+)$/);
     if (galleryMatch) {
         const count = parseInt(galleryMatch[1]);
-        // Auto-calculate columns based on count (approx square root)
         const colsCount = Math.ceil(Math.sqrt(count));
         const rowsCount = Math.ceil(count / colsCount);
 
@@ -403,20 +402,41 @@ export function generateLayoutFromText(input: string): GridState {
         };
     }
 
-    // 4. Default Smart Parsing
+    // 4. Improved Parser
     const rawTokens = rawInput.split(/[\s,]+/).filter(Boolean);
-    const definitions: { name: string; size?: string }[] = [];
+    const definitions: { name: string; size?: string; position?: 'left' | 'right' }[] = [];
 
     for (let i = 0; i < rawTokens.length; i++) {
         const t = rawTokens[i];
 
-        // No need to skip keywords here as they are already removed from rawInput
+        // Skip keywords that might have been processed
+        // But we want to capture modifiers like "left sidebar"
+
+        let position: 'left' | 'right' | undefined;
+        if (t === 'left' || t === 'right') {
+             position = t;
+             // Check next word
+             const next = rawTokens[i+1];
+             if (next && !parseSize(next) && next !== 'left' && next !== 'right') {
+                 // Consume next word as name
+                 definitions.push({ name: next, position });
+                 i++;
+                 continue;
+             }
+        }
 
         const next = rawTokens[i+1];
         if (parseSize(t)) continue;
 
         const size = next ? parseSize(next) : undefined;
-        definitions.push({ name: t, size: size || undefined });
+
+        // Determine implicit position from name if not already set
+        if (!position) {
+            if (t.includes('left')) position = 'left';
+            else if (t.includes('right') || t.includes('ads')) position = 'right';
+        }
+
+        definitions.push({ name: t, size: size || undefined, position });
         if (size) i++;
     }
 
@@ -424,15 +444,23 @@ export function generateLayoutFromText(input: string): GridState {
 
     const header = definitions.find(d => ['header', 'top', 'nav'].some(k => d.name.includes(k)));
     const footer = definitions.find(d => ['footer', 'bottom'].some(k => d.name.includes(k)));
-    const sidebar = definitions.find(d => ['sidebar', 'aside', 'left', 'menu'].some(k => d.name.includes(k)));
-    const rightbar = definitions.find(d => ['rightbar', 'ads', 'extra', 'right'].some(k => d.name.includes(k)));
 
-    const usedNames = [header, footer, sidebar, rightbar].filter(Boolean).map(d => d!.name);
+    // Explicitly check for position modifiers first
+    let sidebarLeft = definitions.find(d => d.position === 'left' || (['sidebar', 'aside', 'menu'].some(k => d.name.includes(k)) && !d.position && !definitions.some(o => o.position === 'left')));
+    let sidebarRight = definitions.find(d => d.position === 'right' || (['rightbar', 'ads', 'extra'].some(k => d.name.includes(k)) && !d.position));
+
+    // Fallback: If "sidebar" is found but no position, assume left unless right is occupied
+    if (!sidebarLeft && !sidebarRight) {
+         const sb = definitions.find(d => ['sidebar', 'aside'].some(k => d.name.includes(k)));
+         if (sb) sidebarLeft = sb;
+    }
+
+    const usedNames = [header, footer, sidebarLeft, sidebarRight].filter(Boolean).map(d => d!.name);
     // Find all "mains" or unspecified areas
     const contentAreas = definitions.filter(d => !usedNames.includes(d.name));
 
     // Default to at least one main if nothing left
-    if (contentAreas.length === 0 && !header && !footer && !sidebar && !rightbar) {
+    if (contentAreas.length === 0 && !header && !footer && !sidebarLeft && !sidebarRight) {
         contentAreas.push({ name: 'main' });
     }
 
@@ -442,7 +470,7 @@ export function generateLayoutFromText(input: string): GridState {
     if (footer) rows.push(footer.size || 'auto');
 
     const cols: string[] = [];
-    if (sidebar) cols.push(sidebar.size || '250px');
+    if (sidebarLeft) cols.push(sidebarLeft.size || '250px');
 
     // Distribute content areas
     if (contentAreas.length > 0) {
@@ -451,7 +479,7 @@ export function generateLayoutFromText(input: string): GridState {
         cols.push('1fr'); // Default main
     }
 
-    if (rightbar) cols.push(rightbar.size || '250px');
+    if (sidebarRight) cols.push(sidebarRight.size || '250px');
 
     const areas: GridArea[] = [];
     let currentRow = 1;
@@ -466,7 +494,8 @@ export function generateLayoutFromText(input: string): GridState {
             colStart: 1,
             colEnd: totalCols + 1,
             color: 'indigo',
-            tag: 'header'
+            tag: 'header',
+            contentType: 'header'
         });
         currentRow++;
     }
@@ -475,16 +504,17 @@ export function generateLayoutFromText(input: string): GridState {
     const middleRowEnd = currentRow + 1;
     let currentCol = 1;
 
-    if (sidebar) {
+    if (sidebarLeft) {
         areas.push({
             id: nanoid(),
-            name: sidebar.name,
+            name: sidebarLeft.name,
             rowStart: middleRowStart,
             rowEnd: middleRowEnd,
             colStart: currentCol,
             colEnd: currentCol + 1,
             color: 'emerald',
-            tag: 'aside'
+            tag: 'aside',
+            contentType: 'form'
         });
         currentCol++;
     }
@@ -492,6 +522,14 @@ export function generateLayoutFromText(input: string): GridState {
     // Add content areas
     if (contentAreas.length > 0) {
         contentAreas.forEach((c, idx) => {
+             // Try to guess content type
+             let cType = 'none';
+             if (c.name.includes('chart')) cType = 'chart';
+             else if (c.name.includes('video')) cType = 'video';
+             else if (c.name.includes('feed')) cType = 'feed';
+             else if (c.name.includes('table')) cType = 'table';
+             else if (c.name.includes('img') || c.name.includes('gallery')) cType = 'gallery';
+
              areas.push({
                 id: nanoid(),
                 name: c.name,
@@ -500,7 +538,8 @@ export function generateLayoutFromText(input: string): GridState {
                 colStart: currentCol,
                 colEnd: currentCol + 1,
                 color: idx % 2 === 0 ? 'slate' : 'white',
-                tag: 'main'
+                tag: 'main',
+                contentType: cType
             });
             currentCol++;
         });
@@ -513,22 +552,24 @@ export function generateLayoutFromText(input: string): GridState {
             colStart: currentCol,
             colEnd: currentCol + 1,
             color: 'slate',
-            tag: 'main'
+            tag: 'main',
+            contentType: 'none'
         });
         currentCol++;
     }
 
 
-    if (rightbar) {
+    if (sidebarRight) {
         areas.push({
             id: nanoid(),
-            name: rightbar.name,
+            name: sidebarRight.name,
             rowStart: middleRowStart,
             rowEnd: middleRowEnd,
             colStart: currentCol,
             colEnd: currentCol + 1,
             color: 'amber',
-            tag: 'aside'
+            tag: 'aside',
+            contentType: 'form'
         });
         currentCol++;
     }
@@ -544,7 +585,8 @@ export function generateLayoutFromText(input: string): GridState {
             colStart: 1,
             colEnd: totalCols + 1,
             color: 'rose',
-            tag: 'footer'
+            tag: 'footer',
+            contentType: 'footer'
         });
     }
 
