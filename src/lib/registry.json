@@ -238,5 +238,20 @@
     "category": "dev",
     "tags": ["css", "grid", "layout", "generator"],
     "createdAt": "2024-06-15"
+  },
+  {
+    "id": "pdf-forge",
+    "slug": "pdf-forge",
+    "title": {
+      "en": "PDF Forge",
+      "ko": "PDF 포지"
+    },
+    "description": {
+      "en": "Merge, split, rotate, and organize PDF pages securely in your browser.",
+      "ko": "브라우저에서 안전하게 PDF 페이지를 병합, 분할, 회전 및 정리하세요."
+    },
+    "category": "productivity",
+    "tags": ["pdf", "merge", "split", "editor"],
+    "createdAt": "2024-07-01"
   }
 ]

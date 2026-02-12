@@ -2503,6 +2503,42 @@ export const dictionaries = {
         a2: "Screen Forge records in WebM format, which is optimized for the web. It provides high quality with small file sizes.",
         q3: "Can I record my webcam?",
         a3: "Currently, Screen Forge focuses on screen recording. Webcam overlay support is planned for a future update."
+      },
+      pdfForge: {
+        title: "PDF Forge: Pro PDF Editor",
+        description: "The definitive tool to merge, split, rotate, and organize PDF pages. 100% client-side privacy.",
+        dropZone: "Drop PDF files here",
+        browse: "Browse",
+        actions: {
+          merge: "Merge All",
+          split: "Split",
+          rotate: "Rotate",
+          delete: "Delete",
+          save: "Save PDF",
+          reset: "Reset",
+          add: "Add Files"
+        },
+        page: "Page",
+        of: "of",
+        guide: {
+          title: "Why PDF Forge?",
+          intro: "PDF Forge is a secure, client-side PDF manipulation tool. Unlike other online converters, your files never leave your device.",
+          featuresTitle: "Key Features",
+          f1: "**Merge & Split:** Combine multiple documents or extract specific pages with drag-and-drop ease.",
+          f2: "**Visual Organizer:** See thumbnails of every page and rearrange them visually.",
+          f3: "**Privacy First:** All processing happens in your browser. No server uploads.",
+          tipsTitle: "Pro Tips",
+          tip1: "Drag pages to reorder them before merging.",
+          tip2: "Use the **Rotate** button to fix scanned documents.",
+          tip3: "Select multiple pages to delete them in bulk."
+        },
+        faqTitle: "PDF Forge FAQ",
+        q1: "Are my files uploaded?",
+        a1: "No. PDF Forge uses WebAssembly and JavaScript to process files entirely on your device.",
+        q2: "Is there a file size limit?",
+        a2: "It depends on your device's RAM. Usually, files up to 100MB work smoothly.",
+        q3: "Can I edit text?",
+        a3: "Currently, PDF Forge focuses on page-level manipulation (merge, split, rotate). Text editing is not supported yet."
       }
     },
     pwa: {
@@ -4068,6 +4104,42 @@ export const dictionaries = {
       a2: "스크린 포지는 웹에 최적화된 WebM 형식으로 녹화합니다. 작은 파일 크기로 고화질을 제공합니다.",
       q3: "웹캠을 녹화할 수 있나요?",
       a3: "현재 스크린 포지는 화면 녹화에 중점을 두고 있습니다. 웹캠 오버레이 지원은 향후 업데이트될 예정입니다."
+    },
+    pdfForge: {
+      title: "PDF 포지: 프로 PDF 에디터",
+      description: "PDF 파일을 병합, 분할, 회전 및 정리하는 완벽한 도구입니다. 100% 클라이언트 측 프라이버시를 보장합니다.",
+      dropZone: "PDF 파일을 여기에 드롭하세요",
+      browse: "찾아보기",
+      actions: {
+        merge: "모두 병합",
+        split: "분할",
+        rotate: "회전",
+        delete: "삭제",
+        save: "PDF 저장",
+        reset: "초기화",
+        add: "파일 추가"
+      },
+      page: "페이지",
+      of: "/",
+      guide: {
+        title: "왜 PDF 포지인가요?",
+        intro: "PDF 포지는 안전한 클라이언트 측 PDF 조작 도구입니다. 다른 온라인 변환기와 달리 파일이 기기를 떠나지 않습니다.",
+        featuresTitle: "주요 기능",
+        f1: "**병합 및 분할:** 드래그 앤 드롭으로 여러 문서를 결합하거나 특정 페이지를 추출하세요.",
+        f2: "**시각적 정리:** 모든 페이지의 축소판을 보고 시각적으로 재배치하세요.",
+        f3: "**프라이버시 우선:** 모든 처리는 브라우저에서 이루어집니다. 서버 업로드는 없습니다.",
+        tipsTitle: "프로 팁",
+        tip1: "페이지를 드래그하여 병합하기 전에 순서를 변경하세요.",
+        tip2: "**회전** 버튼을 사용하여 스캔된 문서를 수정하세요.",
+        tip3: "여러 페이지를 선택하여 일괄 삭제하세요."
+      },
+      faqTitle: "PDF 포지 FAQ",
+      q1: "내 파일이 업로드되나요?",
+      a1: "아니요. PDF 포지는 WebAssembly와 JavaScript를 사용하여 기기에서 전적으로 파일을 처리합니다.",
+      q2: "파일 크기 제한이 있나요?",
+      a2: "기기의 RAM에 따라 다릅니다. 일반적으로 100MB까지의 파일은 원활하게 작동합니다.",
+      q3: "텍스트를 편집할 수 있나요?",
+      a3: "현재 PDF 포지는 페이지 수준의 조작(병합, 분할, 회전)에 중점을 둡니다. 텍스트 편집은 아직 지원하지 않습니다."
     }
   }
 } as const;
