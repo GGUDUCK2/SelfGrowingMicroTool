@@ -6,6 +6,7 @@
   import QRHistory from '$lib/components/qr-forge/QRHistory.svelte';
   import type { QRState } from '$lib/utils/qr-forge/types';
   import { db } from '$lib/db/qr-forge';
+  import FAQSection from '$lib/components/FAQSection.svelte';
   import { Save, History } from 'lucide-svelte';
   import { fade } from 'svelte/transition';
   import { onMount, onDestroy } from 'svelte';
@@ -15,6 +16,53 @@
   $: t = dictionary.tools.qrForge || {
       title: "QR Forge: Pro Code Generator",
       description: "The definitive tool to generate, analyze, and customize QR codes."
+  };
+
+  $: faqItems = [
+    { q: t.q1 || 'Do these QR codes expire?', a: t.a1 || 'No. The QR codes generated here contain the data directly (Static QR Code). They do not rely on any redirect service, so they will work forever.' },
+    { q: t.q2 || 'Is it safe for WiFi passwords?', a: t.a2 || 'Yes. The generation happens locally on your device. Your WiFi password is never transmitted over the internet.' },
+    { q: t.q3 || 'What is Error Correction?', a: t.a3 || 'Error correction allows the QR code to be readable even if part of it is damaged or covered. Level H allows up to 30% damage recovery, but makes the code denser.' }
+  ];
+
+  $: jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "QR Forge",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "url": $page.url.href,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": "Generate QR Codes for URL, WiFi, VCard, Crypto, Email, SMS. Add logos and custom frames.",
+    "description": "Professional client-side QR code generator with customization and privacy focus."
+  };
+
+  $: breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `https://selfgrowingmicrotool.com/${lang}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": `https://selfgrowingmicrotool.com/${lang}/tools`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "QR Forge",
+        "item": $page.url.href
+      }
+    ]
   };
 
   let state: QRState = {
@@ -95,22 +143,10 @@
   <meta property="og:title" content={t.title} />
   <meta property="og:description" content={t.description} />
   <meta property="og:type" content="website" />
-  <script type="application/ld+json">
-    {JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "QR Forge",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "Any",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "featureList": "Generate QR Codes for URL, WiFi, VCard, Crypto, Email, SMS. Add logos and custom frames.",
-      "description": "Professional client-side QR code generator with customization and privacy focus."
-    })}
-  </script>
+  <meta property="og:url" content={$page.url.href} />
+  <link rel="canonical" href={$page.url.href} />
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumb)}</script>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-900 text-slate-50 pb-20">
@@ -127,7 +163,7 @@
   </div>
 
   <div class="max-w-6xl mx-auto px-4 -mt-8">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
 
       <!-- Left: Config -->
       <div class="lg:col-span-2 space-y-6">
@@ -185,27 +221,14 @@
 
             <hr class="border-slate-700 my-8"/>
 
-            <h3>{t.faqTitle || 'Frequently Asked Questions'}</h3>
-
-            <div class="space-y-4">
-                <div>
-                    <h4 class="font-bold text-slate-200">{t.q1 || 'Do these QR codes expire?'}</h4>
-                    <p class="text-slate-400">{t.a1 || 'No. The QR codes generated here contain the data directly (Static QR Code). They do not rely on any redirect service, so they will work forever.'}</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-slate-200">{t.q2 || 'Is it safe for WiFi passwords?'}</h4>
-                    <p class="text-slate-400">{t.a2 || 'Yes. The generation happens locally on your device. Your WiFi password is never transmitted over the internet.'}</p>
-                </div>
-                 <div>
-                    <h4 class="font-bold text-slate-200">{t.q3 || 'What is Error Correction?'}</h4>
-                    <p class="text-slate-400">{t.a3 || 'Error correction allows the QR code to be readable even if part of it is damaged or covered. Level H allows up to 30% damage recovery, but makes the code denser.'}</p>
-                </div>
+            <div class="not-prose mt-8">
+              <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
             </div>
         </div>
       </div>
 
       <!-- Right: Preview -->
-      <div class="lg:col-span-1">
+      <div class="lg:col-span-1 lg:sticky lg:top-8">
          <QRPreview {state} {dictionary} />
 
          <div class="mt-6 bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 text-sm text-slate-400">
