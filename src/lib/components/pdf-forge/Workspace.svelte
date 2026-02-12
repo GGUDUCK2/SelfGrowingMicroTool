@@ -5,8 +5,9 @@
   import PageGrid from './PageGrid.svelte';
   import Toolbar from './Toolbar.svelte';
   import { fade } from 'svelte/transition';
+  import type { PdfForgeDictionary } from '$lib/types/pdf-forge';
 
-  export let dict: any;
+  export let dict: PdfForgeDictionary;
 
   function handleUpload(e: CustomEvent<FileList>) {
     loadPDFs(e.detail);

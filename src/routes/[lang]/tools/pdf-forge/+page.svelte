@@ -25,7 +25,7 @@
         "operatingSystem": "Web",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
         "featureList": [
-           "Merge PDF", "Split PDF", "Rotate PDF Pages", "Client-side Privacy", "Reorder Pages"
+           "Merge PDF", "Split PDF", "Rotate PDF Pages", "Client-side Privacy", "Reorder Pages", "Image to PDF", "JPG to PDF"
         ]
       }
     ]
@@ -37,7 +37,7 @@
 <svelte:head>
   <title>{title}</title>
   <meta name="description" content={description} />
-  <meta name="keywords" content="merge pdf, split pdf, rotate pdf, combine pdf, free pdf tool, privacy focus pdf, client side pdf editor" />
+  <meta name="keywords" content="merge pdf, split pdf, rotate pdf, combine pdf, free pdf tool, privacy focus pdf, client side pdf editor, image to pdf, jpg to pdf, png to pdf" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
