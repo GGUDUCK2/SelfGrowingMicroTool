@@ -2516,7 +2516,19 @@ export const dictionaries = {
           delete: "Delete",
           save: "Save PDF",
           reset: "Reset",
-          add: "Add Files"
+          add: "Add Files",
+          extract: "Extract Selected",
+          history: "History",
+          saveSession: "Save Session"
+        },
+        history: {
+          title: "Session History",
+          empty: "No saved sessions.",
+          restore: "Restore",
+          delete: "Delete",
+          restoreConfirm: "Restore this session? Current work will be replaced.",
+          savePrompt: "Enter session name:",
+          saved: "Session saved!"
         },
         page: "Page",
         of: "of",

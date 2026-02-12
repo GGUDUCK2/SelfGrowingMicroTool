@@ -90,6 +90,12 @@
         {index}
         selected={$selectedPages.has(page.id)}
         on:click={(e) => toggleSelection(page.id, e.shiftKey)}
+        on:keydown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleSelection(page.id, false);
+            }
+        }}
       />
     </div>
   {/each}

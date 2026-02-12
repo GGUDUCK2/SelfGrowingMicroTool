@@ -1,8 +1,9 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { Upload, FileText } from 'lucide-svelte';
+  import type { PdfForgeDictionary } from '$lib/types/pdf-forge';
 
-  export let dict: any;
+  export let dict: PdfForgeDictionary;
 
   const dispatch = createEventDispatcher();
   let isDragging = false;
@@ -46,7 +47,7 @@
     id="pdf-upload"
     class="hidden"
     multiple
-    accept="application/pdf"
+    accept="application/pdf, image/jpeg, image/png, image/webp"
     on:change={handleChange}
   />
 
@@ -62,6 +63,9 @@
       <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-200">
         {dict.dropZone}
       </h3>
+      <p class="text-sm text-slate-500 dark:text-slate-400">
+        PDF, JPG, PNG supported
+      </p>
       <p class="text-sm text-slate-500 dark:text-slate-400">
         or <span class="text-indigo-500 font-medium hover:underline">{dict.browse}</span>
       </p>

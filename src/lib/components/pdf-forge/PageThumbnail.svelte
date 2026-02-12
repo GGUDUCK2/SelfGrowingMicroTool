@@ -10,12 +10,14 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-  class="relative group cursor-pointer transition-all duration-200 select-none
+  role="button"
+  tabindex="0"
+  aria-pressed={selected}
+  class="relative group cursor-pointer transition-all duration-200 select-none outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-xl
   {selected ? 'ring-2 ring-indigo-500 scale-[0.98]' : 'hover:scale-[1.02] hover:shadow-lg'}"
   on:click
+  on:keydown
 >
   <!-- Selection Checkbox -->
   <div class="absolute top-2 left-2 z-10">
