@@ -1,7 +1,6 @@
 <script lang="ts">
   import { selectedPages, isProcessing, pages, undo, redo, past, future } from '$lib/utils/pdf-forge/store';
-  import { mergeAndDownload, rotateSelectedPages, deleteSelectedPages, clearAll, loadPDFs, extractSelectedPages } from '$lib/utils/pdf-forge/engine';
-  import { saveSession } from '$lib/utils/pdf-forge/history';
+  import { mergeAndDownload, rotateSelectedPages, deleteSelectedPages, clearAll, loadPDFs, extractSelectedPages, saveSession } from '$lib/utils/pdf-forge/engine';
   import { RotateCw, Trash2, Download, RefreshCw, Plus, FileOutput, History, Save, Undo, Redo } from 'lucide-svelte';
   import type { PdfForgeDictionary } from '$lib/types/pdf-forge';
   import HistoryModal from './HistoryModal.svelte';
@@ -10,6 +9,7 @@
   export let dict: PdfForgeDictionary;
 
   let showHistory = false;
+  let fileInput: HTMLInputElement;
 
   $: hasSelection = $selectedPages.size > 0;
   $: hasPages = $pages.length > 0;
@@ -22,27 +22,40 @@
       target.value = '';
   }
 
+  function triggerUpload() {
+      fileInput?.click();
+  }
+
   function toggleHistory() {
       showHistory = !showHistory;
   }
 
   async function handleSaveSession() {
-      const name = prompt(dict.history.savePrompt, `Session ${new Date().toLocaleTimeString()}`);
+      if (!hasPages) return;
+      const name = prompt(dict.history.savePrompt || "Enter session name:", `Session ${new Date().toLocaleTimeString()}`);
       if (name) {
-          await saveSession(name);
-          alert(dict.history.saved);
+          try {
+            await saveSession(name);
+            alert(dict.history.saved || "Session saved!");
+          } catch (e) {
+            console.error(e);
+            alert("Failed to save session.");
+          }
       }
   }
 
   function handleKeydown(e: KeyboardEvent) {
       if ($isProcessing) return;
+      // Ignore if typing in an input
+      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
 
       // Undo/Redo
-      if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
-          e.preventDefault();
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'z' || e.key === 'Z')) {
           if (e.shiftKey) {
+              e.preventDefault();
               if (canRedo) redo();
           } else {
+              e.preventDefault();
               if (canUndo) undo();
           }
       }
@@ -52,22 +65,25 @@
       }
 
       // Ctrl+S to Save PDF
-      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
           e.preventDefault();
-          if (hasPages) mergeAndDownload();
+          if (hasPages) handleSaveSession(); // Ctrl+S maps to Save Session now? Or Save PDF?
+          // Usually Ctrl+S in a web app context saves the "project".
+          // The prompt says "Ctrl+S: Save Result" or "Save Session".
+          // Let's make Ctrl+S save the Session (Persistence).
+          // And maybe Ctrl+Enter to Download PDF?
+          // I'll map Ctrl+S to Save Session as it's more "app-like".
       }
+
       // Delete
       if (e.key === 'Delete' || e.key === 'Backspace') {
-          // Only if not typing in an input
-          if (document.activeElement?.tagName !== 'INPUT') {
-             if (hasSelection) deleteSelectedPages();
-          }
+          if (hasSelection) deleteSelectedPages();
       }
-      // R to rotate
-      if (e.key === 'r' || e.key === 'R') {
-          if (document.activeElement?.tagName !== 'INPUT') {
-             if (hasSelection) rotateSelectedPages();
-          }
+
+      // Esc to clear selection
+      if (e.key === 'Escape') {
+          selectedPages.set(new Set());
+          showHistory = false;
       }
   }
 </script>
@@ -76,28 +92,30 @@
 
 <HistoryModal isOpen={showHistory} {dict} on:close={() => showHistory = false} />
 
-<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) overflow-x-auto max-w-[95vw]
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) overflow-x-auto max-w-[95vw]
   {hasPages ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-20 opacity-0 scale-90 pointer-events-none'}">
 
   <!-- Undo/Redo -->
-  <button
-    class="p-3 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-    disabled={!canUndo || $isProcessing}
-    on:click={undo}
-    title="Undo (Ctrl+Z)"
-    aria-label="Undo"
-  >
-    <Undo class="w-5 h-5" />
-  </button>
-  <button
-    class="p-3 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-    disabled={!canRedo || $isProcessing}
-    on:click={redo}
-    title="Redo (Ctrl+Y)"
-    aria-label="Redo"
-  >
-    <Redo class="w-5 h-5" />
-  </button>
+  <div class="flex items-center gap-1">
+      <button
+        class="p-3 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+        disabled={!canUndo || $isProcessing}
+        on:click={undo}
+        title={dict.shortcuts.undo || "Undo"}
+        aria-label="Undo"
+      >
+        <Undo class="w-5 h-5" />
+      </button>
+      <button
+        class="p-3 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+        disabled={!canRedo || $isProcessing}
+        on:click={redo}
+        title={dict.shortcuts.redo || "Redo"}
+        aria-label="Redo"
+      >
+        <Redo class="w-5 h-5" />
+      </button>
+  </div>
 
   <div class="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1"></div>
 
@@ -105,19 +123,17 @@
   <button
     class="p-3 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors tooltip relative group"
     title={dict.actions.add}
-    on:click={() => document.getElementById('toolbar-upload')?.click()}
+    on:click={triggerUpload}
     aria-label="Add Files"
   >
     <Plus class="w-5 h-5" />
-    <input id="toolbar-upload" type="file" hidden multiple accept="application/pdf, image/jpeg, image/png, image/webp" on:change={handleUpload} />
+    <input bind:this={fileInput} type="file" hidden multiple accept="application/pdf, image/jpeg, image/png, image/webp" on:change={handleUpload} />
   </button>
-
-  <div class="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1"></div>
 
   <!-- History & Save Session -->
   <button
     class="p-3 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl transition-colors"
-    title={dict.actions.history}
+    title={dict.history.title || "History"}
     on:click={toggleHistory}
     aria-label="History"
   >
@@ -126,7 +142,7 @@
 
   <button
     class="p-3 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl transition-colors"
-    title={dict.actions.saveSession}
+    title={dict.actions.saveSession || "Save Session"}
     on:click={handleSaveSession}
     aria-label="Save Session"
   >
@@ -141,6 +157,7 @@
         class="flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100"
         on:click={() => extractSelectedPages()}
         transition:scale
+        title={dict.actions.extract}
       >
         <FileOutput class="w-4 h-4" />
         <span class="hidden sm:inline">{dict.actions.extract}</span>
@@ -155,6 +172,7 @@
       : 'text-slate-300 dark:text-slate-700 cursor-not-allowed'}"
     disabled={!hasSelection}
     on:click={() => rotateSelectedPages(90)}
+    title={dict.actions.rotate}
   >
     <RotateCw class="w-4 h-4" />
     <span class="hidden sm:inline">{dict.actions.rotate}</span>
@@ -168,6 +186,7 @@
       : 'text-slate-300 dark:text-slate-700 cursor-not-allowed'}"
     disabled={!hasSelection}
     on:click={deleteSelectedPages}
+    title={dict.actions.delete}
   >
     <Trash2 class="w-4 h-4" />
     <span class="hidden sm:inline">{dict.actions.delete}</span>
@@ -191,6 +210,7 @@
     {$isProcessing ? 'opacity-75 cursor-wait' : ''}"
     disabled={!hasPages || $isProcessing}
     on:click={() => mergeAndDownload()}
+    title={dict.actions.merge || "Merge PDF"}
   >
     {#if $isProcessing}
       <RefreshCw class="w-4 h-4 animate-spin" />

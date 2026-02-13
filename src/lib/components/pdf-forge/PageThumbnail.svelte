@@ -1,13 +1,10 @@
 <script lang="ts">
   import { Check } from 'lucide-svelte';
   import type { PDFPage } from '$lib/utils/pdf-forge/store';
-  import { createEventDispatcher } from 'svelte';
 
   export let page: PDFPage;
   export let selected: boolean = false;
   export let index: number;
-
-  const dispatch = createEventDispatcher();
 </script>
 
 <div
