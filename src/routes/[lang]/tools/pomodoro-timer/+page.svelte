@@ -16,17 +16,33 @@
   let isRunning = false;
   let mode: "focus" | "short" | "long" = "focus";
   let timerInterval: NodeJS.Timeout | undefined;
+  let audioCtx: AudioContext | null = null;
 
   onMount(() => {
-    // No-op for now, audio is handled via Web Audio API on demand
+    return () => {
+      if (audioCtx) {
+        audioCtx.close();
+      }
+      if (timerInterval) clearInterval(timerInterval);
+    };
   });
 
-  function playBeep() {
-    try {
+  function initAudio() {
+    if (!audioCtx) {
       const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-      if (!AudioContext) return;
+      if (AudioContext) {
+        audioCtx = new AudioContext();
+      }
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+  }
 
-      const ctx = new AudioContext();
+  function playBeep() {
+    if (!audioCtx) return;
+    try {
+      const ctx = audioCtx;
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
 
@@ -42,10 +58,6 @@
 
       osc.start();
       osc.stop(ctx.currentTime + 0.5);
-
-      setTimeout(() => {
-        ctx.close();
-      }, 600);
     } catch (e) {
       console.error('Audio play failed', e);
     }
@@ -73,39 +85,42 @@
   };
 
   function toggleTimer() {
+    initAudio();
     if (isRunning) {
       clearInterval(timerInterval);
+      isRunning = false;
     } else {
+      const targetTime = Date.now() + timeLeft * 1000;
+
       timerInterval = setInterval(() => {
-        if (timeLeft > 0) {
-          timeLeft--;
-        } else {
+        const now = Date.now();
+        const diff = Math.ceil((targetTime - now) / 1000);
+
+        if (diff <= 0) {
+          timeLeft = 0;
           clearInterval(timerInterval);
           isRunning = false;
-          // Play notification sound
           playBeep();
+        } else {
+          timeLeft = diff;
         }
       }, 1000);
+      isRunning = true;
     }
-    isRunning = !isRunning;
   }
 
   function setMode(newMode: "focus" | "short" | "long") {
     mode = newMode;
     timeLeft = MODES[newMode].time;
     isRunning = false;
-    clearInterval(timerInterval);
+    if (timerInterval) clearInterval(timerInterval);
   }
 
   function reset() {
     timeLeft = MODES[mode].time;
     isRunning = false;
-    clearInterval(timerInterval);
-  }
-
-  onDestroy(() => {
     if (timerInterval) clearInterval(timerInterval);
-  });
+  }
 
   $: faqItems = [
     { q: dict.q1, a: dict.a1 },
@@ -126,25 +141,8 @@
       "price": "0",
       "priceCurrency": "USD"
     },
-    "featureList": [
-      "Customizable Timer Intervals",
-      "Focus, Short Break, and Long Break Modes",
-      "Audio Notifications",
-      "Responsive Design"
-    ]
-  };
-
-  $: faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqItems.map(item => ({
-      "@type": "Question",
-      "name": item.q,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": item.a
-      }
-    }))
+    "keywords": "Pomodoro Timer, Focus Timer, Productivity Tool, Time Management",
+    "featureList": "Customizable Timer Intervals, Focus Mode, Audio Notifications, Responsive Design"
   };
 
   $: breadcrumbSchema = {
@@ -168,7 +166,7 @@
     }]
   };
 
-  $: schemaList = [appSchema, faqSchema, breadcrumbSchema];
+  $: schemaList = [appSchema, breadcrumbSchema];
 </script>
 
 <svelte:head>
@@ -210,7 +208,7 @@
           on:click={() => setMode(modeKey)}
           class="px-4 py-2 sm:px-6 sm:py-2 rounded-lg text-sm font-medium transition-all {mode ===
           modeKey
-            ? 'bg-white text-gray-900 shadow-sm'
+            ? 'bg-white text-gray-900 shadow-sm ring-2 ring-indigo-500 ring-offset-1'
             : 'text-gray-500 hover:text-gray-900'}"
         >
           {dict[MODES[modeKey].key]}
@@ -219,7 +217,7 @@
     </div>
 
     <!-- Timer Display -->
-    <div class="relative">
+    <div class="relative" aria-label="Time remaining">
       <div
         class="text-6xl sm:text-8xl md:text-9xl font-mono font-bold tracking-tighter tabular-nums {MODES[
           mode
