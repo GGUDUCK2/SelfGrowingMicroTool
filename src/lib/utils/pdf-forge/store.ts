@@ -1,20 +1,5 @@
 import { writable, get } from 'svelte/store';
-import type { PDFDocument } from 'pdf-lib';
-
-export interface PDFFile {
-  id: string;
-  name: string;
-  pdf: PDFDocument;
-  pageCount: number;
-}
-
-export interface PDFPage {
-  id: string; // unique id for UI
-  fileId: string; // link back to PDFFile
-  pageIndex: number; // 0-based index in original file
-  rotation: number; // 0, 90, 180, 270 (additive to original)
-  imageSrc: string; // Data URL of thumbnail
-}
+import type { PDFFile, PDFPage } from '$lib/types/pdf-forge';
 
 interface State {
     files: PDFFile[];
@@ -34,7 +19,11 @@ export function commitState() {
     const currentFiles = get(files);
     const currentPages = get(pages);
     past.update(h => {
-        const newHistory = [...h, { files: [...currentFiles], pages: [...currentPages] }];
+        // Deep copy pages to prevent mutation bugs, but keep files as references (PDFDocument is complex)
+        const newHistory = [...h, {
+            files: [...currentFiles],
+            pages: currentPages.map(p => ({ ...p }))
+        }];
         if (newHistory.length > 20) newHistory.shift();
         return newHistory;
     });
@@ -51,7 +40,12 @@ export function undo() {
     const currentFiles = get(files);
     const currentPages = get(pages);
 
-    future.update(f => [{ files: [...currentFiles], pages: [...currentPages] }, ...f]);
+    // Save current state to future
+    future.update(f => [{
+        files: [...currentFiles],
+        pages: currentPages.map(p => ({ ...p }))
+    }, ...f]);
+
     past.set(newPast);
 
     files.set(previous.files);
@@ -68,7 +62,12 @@ export function redo() {
     const currentFiles = get(files);
     const currentPages = get(pages);
 
-    past.update(h => [...h, { files: [...currentFiles], pages: [...currentPages] }]);
+    // Save current state to past
+    past.update(h => [...h, {
+        files: [...currentFiles],
+        pages: currentPages.map(p => ({ ...p }))
+    }]);
+
     future.set(remainingFuture);
 
     files.set(next.files);

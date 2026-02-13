@@ -1,0 +1,37 @@
+
+> web-factory-svelte@0.0.1 dev
+> vite dev
+
+8:33:55 PM [vite] (client) Forced re-optimization of dependencies
+
+  VITE v6.4.1  ready in 1200 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+Warning: Please use the `legacy` build in Node.js environments.
+8:35:08 PM [vite] (ssr) Error when evaluating SSR module /src/routes/[lang]/tools/pdf-forge/+page.svelte: DOMMatrix is not defined
+      at file:///app/node_modules/pdfjs-dist/build/pdf.mjs:10371:22
+      at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:665:26)
+      at async SSRCompatModuleRunner.directRequest (file:///app/node_modules/vite/dist/node/module-runner.js:1233:24)
+      at async SSRCompatModuleRunner.cachedRequest (file:///app/node_modules/vite/dist/node/module-runner.js:1180:76)
+      at async eval (/app/src/lib/utils/pdf-forge/engine.ts:2:1)
+      at async ESModulesEvaluator.runInlinedModule (file:///app/node_modules/vite/dist/node/module-runner.js:1062:5)
+      at async SSRCompatModuleRunner.directRequest (file:///app/node_modules/vite/dist/node/module-runner.js:1284:61)
+      at async SSRCompatModuleRunner.directRequest (file:///app/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:25274:23)
+      at async SSRCompatModuleRunner.cachedRequest (file:///app/node_modules/vite/dist/node/module-runner.js:1180:76)
+
+[1;31m[500] GET /en/tools/pdf-forge[0m
+ReferenceError: DOMMatrix is not defined
+    at file:///app/node_modules/pdfjs-dist/build/pdf.mjs:10371:22
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:665:26)
+    at async SSRCompatModuleRunner.directRequest (file:/app/node_modules/vite/dist/node/module-runner.js:1233:24)
+    at async SSRCompatModuleRunner.cachedRequest (file:/app/node_modules/vite/dist/node/module-runner.js:1180:76)
+    at async eval (src/lib/utils/pdf-forge/engine.ts:2:1)
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
+8:35:55 PM [vite] (client) page reload src/lib/utils/pdf-forge/engine.ts
+8:35:55 PM [vite] (ssr) page reload src/lib/utils/pdf-forge/engine.ts
+
+[1;31m[404] GET /_vercel/insights/script.js[0m

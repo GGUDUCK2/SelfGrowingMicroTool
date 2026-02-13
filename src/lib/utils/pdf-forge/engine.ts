@@ -1,25 +1,20 @@
 import { PDFDocument, degrees } from 'pdf-lib';
-import * as pdfjsLib from 'pdfjs-dist';
 import { get } from 'svelte/store';
-import { files, pages, selectedPages, isProcessing, type PDFFile, type PDFPage, commitState } from './store';
-
-// Initialize worker
-if (typeof window !== 'undefined') {
-    // Use the version from the installed package to ensure compatibility
-    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
-}
+import { files, pages, selectedPages, isProcessing, commitState } from './store';
+import type { PDFFile, PDFPage } from '$lib/types/pdf-forge';
+import { db } from '$lib/db';
 
 async function imageToPDF(file: File): Promise<PDFDocument> {
     const pdfDoc = await PDFDocument.create();
     const imageBytes = await file.arrayBuffer();
     let image;
 
-    if (file.type === 'image/jpeg' || file.type === 'image/jpg') {
+    if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/jpeg') { // jpeg twice just in case
         image = await pdfDoc.embedJpg(imageBytes);
     } else if (file.type === 'image/png') {
         image = await pdfDoc.embedPng(imageBytes);
     } else {
-        throw new Error('Unsupported image format');
+        throw new Error(`Unsupported image format: ${file.type}`);
     }
 
     const page = pdfDoc.addPage([image.width, image.height]);
@@ -81,6 +76,11 @@ export async function loadPDFs(fileList: FileList | File[]) {
             });
 
             // Load for rendering (pdfjs-dist)
+            const pdfjsLib = await import('pdfjs-dist');
+            if (typeof window !== 'undefined' && !pdfjsLib.GlobalWorkerOptions.workerSrc) {
+                pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
+            }
+
             const loadingTask = pdfjsLib.getDocument({
                 data: new Uint8Array(arrayBuffer.slice(0)),
                 cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/cmaps/`,
@@ -129,7 +129,7 @@ export async function loadPDFs(fileList: FileList | File[]) {
     } catch (e) {
         console.error("Failed to load files", e);
         // Toast notification should be handled by UI observing store or event
-        alert("Failed to process some files.");
+        // alert("Failed to process some files.");
     } finally {
         isProcessing.set(false);
     }
@@ -171,7 +171,7 @@ async function internalMergeAndDownload(pagesToMerge: PDFPage[], fileName: strin
 
     } catch (e) {
         console.error("Failed to merge", e);
-        alert("Failed to merge PDF files.");
+        // alert("Failed to merge PDF files.");
     } finally {
         isProcessing.set(false);
     }
@@ -211,22 +211,8 @@ export function deleteSelectedPages() {
 
     commitState();
 
-    // Revoke URLs for deleted pages (optional, but good for memory)
-    // Note: If we undo, we might need these URLs.
-    // BUT since we committed state, the 'past' state has the URLs.
-    // However, URL.revokeObjectURL kills the URL globally.
-    // If we undo, the page will have a broken image.
-    // CRITICAL FIX: Do NOT revoke object URLs if we plan to undo!
+    // Do NOT revoke object URLs if we plan to undo!
     // We rely on browser GC when document is unloaded or we explicitly clear history.
-
-    /*
-    const allPages = get(pages);
-    allPages.forEach(p => {
-        if (selected.has(p.id)) {
-            URL.revokeObjectURL(p.imageSrc);
-        }
-    });
-    */
 
     pages.update(allPages => allPages.filter(p => !selected.has(p.id)));
     selectedPages.set(new Set());
@@ -236,12 +222,6 @@ export function clearAll() {
     if (get(files).length === 0) return;
 
     commitState();
-
-    // Same here, do not revoke if we want undo.
-    /*
-    const allPages = get(pages);
-    allPages.forEach(p => URL.revokeObjectURL(p.imageSrc));
-    */
 
     files.set([]);
     pages.set([]);
@@ -259,4 +239,91 @@ export function reorderPages(fromIndex: number, toIndex: number) {
       newPages.splice(toIndex, 0, removed);
       return newPages;
     });
+}
+
+export async function saveSession(name: string) {
+    isProcessing.set(true);
+    try {
+        const currentFiles = get(files);
+        const currentPages = get(pages);
+
+        // 1. Serialize files
+        const fileBlobs = await Promise.all(currentFiles.map(async f => {
+            const bytes = await f.pdf.save();
+            return {
+                id: f.id,
+                name: f.name,
+                blob: new Blob([bytes as unknown as BlobPart], { type: 'application/pdf' })
+            };
+        }));
+
+        // 2. Serialize pages (fetch thumbnails)
+        const serializedPages = await Promise.all(currentPages.map(async p => {
+            const blob = await fetch(p.imageSrc).then(r => r.blob());
+            return {
+                ...p,
+                imageSrc: undefined, // Don't save URL
+                thumbnailBlob: blob
+            };
+        }));
+
+        await db.pdfForgeHistory.add({
+            name,
+            files: fileBlobs,
+            pages: serializedPages,
+            createdAt: new Date(),
+            starred: 0
+        });
+
+    } catch (e) {
+        console.error("Failed to save session", e);
+        throw e;
+    } finally {
+        isProcessing.set(false);
+    }
+}
+
+export async function loadSession(id: number) {
+    isProcessing.set(true);
+    try {
+        const session = await db.pdfForgeHistory.get(id);
+        if (!session) throw new Error("Session not found");
+
+        // 1. Restore files
+        const newFiles: PDFFile[] = [];
+        for (const f of session.files) {
+            const arrayBuffer = await f.blob.arrayBuffer();
+            const pdfDoc = await PDFDocument.load(arrayBuffer);
+            newFiles.push({
+                id: f.id,
+                name: f.name,
+                pdf: pdfDoc,
+                pageCount: pdfDoc.getPageCount()
+            });
+        }
+
+        // 2. Restore pages
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const newPages: PDFPage[] = session.pages.map((p: any) => ({
+            id: p.id,
+            fileId: p.fileId,
+            pageIndex: p.pageIndex,
+            rotation: p.rotation,
+            imageSrc: URL.createObjectURL(p.thumbnailBlob)
+        }));
+
+        commitState(); // Clear future, push current to past (or start fresh?)
+        // Actually, if we load a session, we should probably clear history or treat it as a new state.
+        // Let's just set the state.
+
+        files.set(newFiles);
+        pages.set(newPages);
+        selectedPages.set(new Set());
+
+    } catch (e) {
+        console.error("Failed to load session", e);
+        throw e;
+    } finally {
+        isProcessing.set(false);
+    }
 }

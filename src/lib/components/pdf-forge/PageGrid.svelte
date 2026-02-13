@@ -8,8 +8,9 @@
   let draggingIndex: number | null = null;
   let dragOverIndex: number | null = null;
 
-  function toggleSelection(id: string, multi: boolean) {
+  function toggleSelection(id: string) {
     selectedPages.update(s => {
+      // eslint-disable-next-line svelte/prefer-svelte-reactivity
       const newSet = new Set(s);
       if (newSet.has(id)) {
           newSet.delete(id);
@@ -83,11 +84,11 @@
         {page}
         {index}
         selected={$selectedPages.has(page.id)}
-        on:click={(e) => toggleSelection(page.id, e.shiftKey)}
+        on:click={() => toggleSelection(page.id)}
         on:keydown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                toggleSelection(page.id, false);
+                toggleSelection(page.id);
             }
         }}
       />

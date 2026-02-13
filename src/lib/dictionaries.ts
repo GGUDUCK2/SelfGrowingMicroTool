@@ -4266,7 +4266,9 @@ export const dictionaries = {
           add: "파일 추가",
           extract: "선택 추출",
           undo: "실행 취소",
-          redo: "다시 실행"
+          redo: "다시 실행",
+          history: "히스토리",
+          saveSession: "세션 저장"
         },
         shortcuts: {
             title: "키보드 단축키",
@@ -4275,6 +4277,15 @@ export const dictionaries = {
             save: "PDF 저장",
             delete: "선택 삭제",
             rotate: "선택 회전"
+      },
+      history: {
+          title: "세션 히스토리",
+          empty: "저장된 세션이 없습니다.",
+          restore: "복원",
+          delete: "삭제",
+          restoreConfirm: "이 세션을 복원하시겠습니까? 현재 작업이 대체됩니다.",
+          savePrompt: "세션 이름을 입력하세요:",
+          saved: "세션이 저장되었습니다!"
       },
       page: "페이지",
       of: "/",
