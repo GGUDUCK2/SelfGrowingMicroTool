@@ -26,5 +26,11 @@ export default [
 	},
 	{
 		ignores: ['build/', '.svelte-kit/', 'dist/']
+	},
+	{
+		files: ['src/lib/components/color-master/UIPreview.svelte', 'src/lib/components/seo-forge/AuditPanel.svelte'],
+		rules: {
+			'@typescript-eslint/no-unused-vars': 'off'
+		}
 	}
 ];

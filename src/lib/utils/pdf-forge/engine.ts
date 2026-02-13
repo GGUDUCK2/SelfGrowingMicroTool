@@ -1,7 +1,7 @@
 import { PDFDocument, degrees } from 'pdf-lib';
 import * as pdfjsLib from 'pdfjs-dist';
 import { get } from 'svelte/store';
-import { files, pages, selectedPages, isProcessing, type PDFFile, type PDFPage } from './store';
+import { files, pages, selectedPages, isProcessing, type PDFFile, type PDFPage, commitState } from './store';
 
 // Initialize worker
 if (typeof window !== 'undefined') {
@@ -34,6 +34,12 @@ async function imageToPDF(file: File): Promise<PDFDocument> {
 }
 
 export async function loadPDFs(fileList: FileList | File[]) {
+    // Commit state before adding new files
+    // Check if we actually have files to process
+    if (fileList.length > 0) {
+        commitState();
+    }
+
     isProcessing.set(true);
     try {
         const newFiles: PDFFile[] = [];
@@ -122,6 +128,7 @@ export async function loadPDFs(fileList: FileList | File[]) {
 
     } catch (e) {
         console.error("Failed to load files", e);
+        // Toast notification should be handled by UI observing store or event
         alert("Failed to process some files.");
     } finally {
         isProcessing.set(false);
@@ -183,6 +190,9 @@ export async function extractSelectedPages(fileName: string = 'extracted.pdf') {
 
 export function rotateSelectedPages(angle: number = 90) {
     const selected = get(selectedPages);
+    if (selected.size === 0) return;
+
+    commitState();
     pages.update(allPages => {
         return allPages.map(p => {
             if (selected.has(p.id)) {
@@ -197,24 +207,56 @@ export function rotateSelectedPages(angle: number = 90) {
 
 export function deleteSelectedPages() {
     const selected = get(selectedPages);
+    if (selected.size === 0) return;
 
-    // Revoke URLs for deleted pages
+    commitState();
+
+    // Revoke URLs for deleted pages (optional, but good for memory)
+    // Note: If we undo, we might need these URLs.
+    // BUT since we committed state, the 'past' state has the URLs.
+    // However, URL.revokeObjectURL kills the URL globally.
+    // If we undo, the page will have a broken image.
+    // CRITICAL FIX: Do NOT revoke object URLs if we plan to undo!
+    // We rely on browser GC when document is unloaded or we explicitly clear history.
+
+    /*
     const allPages = get(pages);
     allPages.forEach(p => {
         if (selected.has(p.id)) {
             URL.revokeObjectURL(p.imageSrc);
         }
     });
+    */
 
     pages.update(allPages => allPages.filter(p => !selected.has(p.id)));
     selectedPages.set(new Set());
 }
 
 export function clearAll() {
+    if (get(files).length === 0) return;
+
+    commitState();
+
+    // Same here, do not revoke if we want undo.
+    /*
     const allPages = get(pages);
     allPages.forEach(p => URL.revokeObjectURL(p.imageSrc));
+    */
 
     files.set([]);
     pages.set([]);
     selectedPages.set(new Set());
+}
+
+export function reorderPages(fromIndex: number, toIndex: number) {
+    if (fromIndex === toIndex) return;
+
+    commitState();
+
+    pages.update(all => {
+      const newPages = [...all];
+      const [removed] = newPages.splice(fromIndex, 1);
+      newPages.splice(toIndex, 0, removed);
+      return newPages;
+    });
 }

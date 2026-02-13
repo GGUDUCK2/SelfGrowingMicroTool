@@ -1,19 +1,20 @@
 <script lang="ts">
-  import { selectedPages, isProcessing, pages } from '$lib/utils/pdf-forge/store';
+  import { selectedPages, isProcessing, pages, undo, redo, past, future } from '$lib/utils/pdf-forge/store';
   import { mergeAndDownload, rotateSelectedPages, deleteSelectedPages, clearAll, loadPDFs, extractSelectedPages } from '$lib/utils/pdf-forge/engine';
-  import { saveSession, restoreSession, getHistory, deleteSession } from '$lib/utils/pdf-forge/history';
-  import { RotateCw, Trash2, Download, RefreshCw, Plus, FileOutput, History, Save, X } from 'lucide-svelte';
+  import { saveSession } from '$lib/utils/pdf-forge/history';
+  import { RotateCw, Trash2, Download, RefreshCw, Plus, FileOutput, History, Save, Undo, Redo } from 'lucide-svelte';
   import type { PdfForgeDictionary } from '$lib/types/pdf-forge';
-  import { onMount } from 'svelte';
-  import { fade, scale } from 'svelte/transition';
+  import HistoryModal from './HistoryModal.svelte';
+  import { scale } from 'svelte/transition';
 
   export let dict: PdfForgeDictionary;
 
   let showHistory = false;
-  let historyItems: any[] = [];
 
   $: hasSelection = $selectedPages.size > 0;
   $: hasPages = $pages.length > 0;
+  $: canUndo = $past.length > 0;
+  $: canRedo = $future.length > 0;
 
   function handleUpload(e: Event) {
       const target = e.target as HTMLInputElement;
@@ -21,23 +22,8 @@
       target.value = '';
   }
 
-  async function toggleHistory() {
-      if (!showHistory) {
-          historyItems = await getHistory();
-      }
+  function toggleHistory() {
       showHistory = !showHistory;
-  }
-
-  async function handleRestore(id: number) {
-      if (confirm(dict.history.restoreConfirm)) {
-          await restoreSession(id);
-          showHistory = false;
-      }
-  }
-
-  async function handleDeleteSession(id: number) {
-      await deleteSession(id);
-      historyItems = await getHistory();
   }
 
   async function handleSaveSession() {
@@ -50,6 +36,20 @@
 
   function handleKeydown(e: KeyboardEvent) {
       if ($isProcessing) return;
+
+      // Undo/Redo
+      if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+          e.preventDefault();
+          if (e.shiftKey) {
+              if (canRedo) redo();
+          } else {
+              if (canUndo) undo();
+          }
+      }
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'y' || e.key === 'Y')) {
+          e.preventDefault();
+          if (canRedo) redo();
+      }
 
       // Ctrl+S to Save PDF
       if ((e.ctrlKey || e.metaKey) && e.key === 's') {
@@ -74,44 +74,39 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<!-- History Modal/Panel -->
-{#if showHistory}
-    <div class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm" transition:fade on:click|self={() => showHistory = false}>
-        <div class="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col max-h-[80vh]" transition:scale>
-            <div class="p-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                <h3 class="font-bold text-lg">{dict.history.title}</h3>
-                <button on:click={() => showHistory = false} class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
-                    <X class="w-5 h-5" />
-                </button>
-            </div>
-            <div class="overflow-y-auto p-2 space-y-2 flex-1">
-                {#if historyItems.length === 0}
-                    <div class="text-center py-8 text-slate-500">{dict.history.empty}</div>
-                {/if}
-                {#each historyItems as item}
-                    <div class="flex items-center justify-between p-3 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl group border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all">
-                        <button class="flex-1 text-left" on:click={() => handleRestore(item.id)}>
-                            <div class="font-medium">{item.name}</div>
-                            <div class="text-xs text-slate-500">{item.createdAt.toLocaleString()} • {item.pages.length} {dict.page}s</div>
-                        </button>
-                        <button class="p-2 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity" on:click={() => handleDeleteSession(item.id)}>
-                            <Trash2 class="w-4 h-4" />
-                        </button>
-                    </div>
-                {/each}
-            </div>
-        </div>
-    </div>
-{/if}
+<HistoryModal isOpen={showHistory} {dict} on:close={() => showHistory = false} />
 
-<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1)
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) overflow-x-auto max-w-[95vw]
   {hasPages ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-20 opacity-0 scale-90 pointer-events-none'}">
+
+  <!-- Undo/Redo -->
+  <button
+    class="p-3 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+    disabled={!canUndo || $isProcessing}
+    on:click={undo}
+    title="Undo (Ctrl+Z)"
+    aria-label="Undo"
+  >
+    <Undo class="w-5 h-5" />
+  </button>
+  <button
+    class="p-3 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+    disabled={!canRedo || $isProcessing}
+    on:click={redo}
+    title="Redo (Ctrl+Y)"
+    aria-label="Redo"
+  >
+    <Redo class="w-5 h-5" />
+  </button>
+
+  <div class="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1"></div>
 
   <!-- Add More -->
   <button
     class="p-3 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors tooltip relative group"
     title={dict.actions.add}
     on:click={() => document.getElementById('toolbar-upload')?.click()}
+    aria-label="Add Files"
   >
     <Plus class="w-5 h-5" />
     <input id="toolbar-upload" type="file" hidden multiple accept="application/pdf, image/jpeg, image/png, image/webp" on:change={handleUpload} />
@@ -124,6 +119,7 @@
     class="p-3 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl transition-colors"
     title={dict.actions.history}
     on:click={toggleHistory}
+    aria-label="History"
   >
     <History class="w-5 h-5" />
   </button>
@@ -132,6 +128,7 @@
     class="p-3 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl transition-colors"
     title={dict.actions.saveSession}
     on:click={handleSaveSession}
+    aria-label="Save Session"
   >
     <Save class="w-5 h-5" />
   </button>
@@ -183,6 +180,7 @@
     class="p-3 text-slate-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-colors"
     title={dict.actions.reset}
     on:click={() => { if(confirm('Clear all pages?')) clearAll(); }}
+    aria-label="Reset"
   >
     <RefreshCw class="w-5 h-5" />
   </button>
