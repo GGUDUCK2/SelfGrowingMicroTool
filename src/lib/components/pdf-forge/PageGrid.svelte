@@ -1,5 +1,6 @@
 <script lang="ts">
   import { pages, selectedPages } from '$lib/utils/pdf-forge/store';
+  import { reorderPages } from '$lib/utils/pdf-forge/engine';
   import PageThumbnail from './PageThumbnail.svelte';
   import { flip } from 'svelte/animate';
   import { fade } from 'svelte/transition';
@@ -45,14 +46,7 @@
     e.preventDefault();
     if (draggingIndex === null) return;
 
-    const fromIndex = draggingIndex;
-
-    pages.update(all => {
-      const newPages = [...all];
-      const [removed] = newPages.splice(fromIndex, 1);
-      newPages.splice(targetIndex, 0, removed);
-      return newPages;
-    });
+    reorderPages(draggingIndex, targetIndex);
 
     draggingIndex = null;
     dragOverIndex = null;

@@ -1,4 +1,4 @@
-import { db } from '$lib/db';
+import { db, type PdfForgeHistory } from '$lib/db';
 import { files, pages, selectedPages, isProcessing, type PDFFile, type PDFPage } from './store';
 import { get } from 'svelte/store';
 import { PDFDocument } from 'pdf-lib';
@@ -10,7 +10,7 @@ export async function saveSession(name: string = 'Untitled Session') {
         const currentPages = get(pages);
 
         // Serialize files
-        const serializedFiles = await Promise.all(currentFiles.map(async f => {
+        const serializedFiles = await Promise.all(currentFiles.map(async (f) => {
             const bytes = await f.pdf.save();
             const blob = new Blob([bytes as unknown as BlobPart], { type: 'application/pdf' });
             return {
@@ -21,7 +21,7 @@ export async function saveSession(name: string = 'Untitled Session') {
         }));
 
         // Serialize pages (fetch thumbnails)
-        const serializedPages = await Promise.all(currentPages.map(async p => {
+        const serializedPages = await Promise.all(currentPages.map(async (p) => {
             const response = await fetch(p.imageSrc);
             const blob = await response.blob();
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -32,17 +32,21 @@ export async function saveSession(name: string = 'Untitled Session') {
             };
         }));
 
-        await db.pdfForgeHistory.add({
+        const historyItem: PdfForgeHistory = {
             name,
             files: serializedFiles,
             pages: serializedPages,
             createdAt: new Date(),
             starred: 0
-        });
+        };
+
+        await db.pdfForgeHistory.add(historyItem);
 
     } catch (e) {
         console.error('Failed to save session', e);
-        alert('Failed to save session.');
+        // Ideally use a toast here, but for now we keep the structure.
+        // We will add proper feedback later.
+        throw e;
     } finally {
         isProcessing.set(false);
     }
@@ -68,6 +72,7 @@ export async function restoreSession(id: number) {
         }
 
         // Restore pages
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const newPages: PDFPage[] = session.pages.map((p: any) => ({
             id: p.id,
             fileId: p.fileId,
@@ -82,7 +87,7 @@ export async function restoreSession(id: number) {
 
     } catch (e) {
         console.error('Failed to restore session', e);
-        alert('Failed to restore session.');
+        throw e;
     } finally {
         isProcessing.set(false);
     }

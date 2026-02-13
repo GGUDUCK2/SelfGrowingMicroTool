@@ -2519,7 +2519,17 @@ export const dictionaries = {
           add: "Add Files",
           extract: "Extract Selected",
           history: "History",
-          saveSession: "Save Session"
+          saveSession: "Save Session",
+          undo: "Undo",
+          redo: "Redo"
+        },
+        shortcuts: {
+            title: "Keyboard Shortcuts",
+            undo: "Undo",
+            redo: "Redo",
+            save: "Save PDF",
+            delete: "Delete Selected",
+            rotate: "Rotate Selected"
         },
         history: {
           title: "Session History",
@@ -4129,7 +4139,18 @@ export const dictionaries = {
         delete: "삭제",
         save: "PDF 저장",
         reset: "초기화",
-        add: "파일 추가"
+          add: "파일 추가",
+          extract: "선택 추출",
+          undo: "실행 취소",
+          redo: "다시 실행"
+        },
+        shortcuts: {
+            title: "키보드 단축키",
+            undo: "실행 취소",
+            redo: "다시 실행",
+            save: "PDF 저장",
+            delete: "선택 삭제",
+            rotate: "선택 회전"
       },
       page: "페이지",
       of: "/",
