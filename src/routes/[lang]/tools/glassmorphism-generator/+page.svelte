@@ -146,6 +146,10 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     { q: dict.q2, a: dict.a2 },
     { q: dict.q3, a: dict.a3 },
   ];
+
+  // Breadcrumb Names
+  $: homeName = lang === "ko" ? "홈" : "Home";
+  $: toolsName = lang === "ko" ? "도구" : "Tools";
 </script>
 
 <svelte:head>
@@ -163,7 +167,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     "name": dict.title,
     "description": dict.description,
     "applicationCategory": "DesignApplication",
-    "operatingSystem": "Web",
+    "operatingSystem": "Any",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -187,12 +191,12 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     "itemListElement": [{
       "@type": "ListItem",
       "position": 1,
-      "name": "Home",
+      "name": homeName,
       "item": "https://selfgrowingmicrotool.com/"
     }, {
       "@type": "ListItem",
       "position": 2,
-      "name": "Tools",
+      "name": toolsName,
       "item": "https://selfgrowingmicrotool.com/tools"
     }, {
       "@type": "ListItem",
@@ -214,7 +218,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     <div class="flex justify-center">
         <button
           on:click={copyLink}
-          class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors touch-manipulation"
+          class="inline-flex items-center justify-center w-full sm:w-auto gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors touch-manipulation"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -276,7 +280,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
         </h2>
         <button
             on:click={saveToHistory}
-            class="text-sm text-indigo-600 hover:text-indigo-800 font-medium touch-manipulation"
+            class="text-sm bg-indigo-50 px-3 py-1.5 rounded-lg text-indigo-600 hover:text-indigo-800 font-medium touch-manipulation transition-colors"
         >
             {dict.save}
         </button>
@@ -292,6 +296,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               max="40"
               step="1"
               bind:value={blur}
+              aria-label={dict.blur}
               class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation"
             />
           </label>
@@ -306,6 +311,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               max="1"
               step="0.01"
               bind:value={transparency}
+              aria-label={dict.transparency}
               class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation"
             />
           </label>
@@ -340,6 +346,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               max="10"
               step="1"
               bind:value={outline}
+              aria-label={dict.outline}
               class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation"
             />
           </label>
@@ -354,6 +361,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               max="100"
               step="1"
               bind:value={radius}
+              aria-label={dict.radius}
               class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation"
             />
           </label>
@@ -451,7 +459,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                         </button>
                          <button
                             on:click|stopPropagation={() => item.id && deleteHistory(item.id)}
-                            class="absolute top-2 right-2 p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg opacity-0 group-hover:opacity-100 transition-all touch-manipulation"
+                            class="absolute top-2 right-2 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg opacity-0 group-hover:opacity-100 transition-all touch-manipulation"
                             aria-label={dict.delete}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
