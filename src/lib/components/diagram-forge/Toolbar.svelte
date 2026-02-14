@@ -29,7 +29,7 @@
 
 <svelte:window on:click={closeAll} on:keydown={(e) => e.key === 'Escape' && closeAll()} />
 
-<div class="h-14 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center px-4 justify-between gap-4 z-20 relative">
+<div class="h-14 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center px-4 justify-between gap-4 z-20 relative overflow-x-auto whitespace-nowrap scrollbar-hide">
     <!-- Left: Templates & Theme -->
     <div class="flex items-center gap-2">
         <div class="relative">

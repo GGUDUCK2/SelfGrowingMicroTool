@@ -12,7 +12,7 @@
 
   let timer: ReturnType<typeof setTimeout>;
 
-  $: if (code || theme) {
+  $: if ((code || theme) && typeof window !== 'undefined') {
       requestUpdate();
   }
 
@@ -27,7 +27,7 @@
 
   async function updateDiagram() {
       // Re-init config for theme
-      initMermaid(theme);
+      await initMermaid(theme);
 
       if (!code.trim()) {
           svgContent = '';
@@ -47,8 +47,8 @@
       }
   }
 
-  onMount(() => {
-      initMermaid(theme);
+  onMount(async () => {
+      await initMermaid(theme);
       if (code) requestUpdate();
   });
 </script>
