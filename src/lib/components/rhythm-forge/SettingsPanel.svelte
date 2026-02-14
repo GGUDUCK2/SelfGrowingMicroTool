@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Music, Activity, Clock, Split } from 'lucide-svelte';
+  import { Music, Activity, Clock, Split, Zap, Ghost } from 'lucide-svelte';
   import type { RhythmSettings, SoundPack } from '$lib/utils/rhythm-forge/types';
 
   export let settings: RhythmSettings;
@@ -103,4 +103,86 @@
             </div>
         </div>
     </div>
+
+    <div class="h-px bg-slate-100 dark:bg-slate-800"></div>
+
+    <!-- Speed Trainer -->
+    <div class="space-y-4">
+        <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                <Zap size={16} />
+                {dict.trainer?.title || 'Speed Trainer'}
+            </h3>
+            <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" bind:checked={settings.trainer.enabled} class="sr-only peer">
+                <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+            </label>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 {settings.trainer.enabled ? 'opacity-100' : 'opacity-40 pointer-events-none'} transition-opacity">
+            <div class="space-y-1">
+                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{dict.trainer?.inc || 'Increment'}</span>
+                <input
+                    type="number"
+                    bind:value={settings.trainer.increment}
+                    class="w-full bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-2 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                />
+            </div>
+            <div class="space-y-1">
+                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{dict.trainer?.bars || 'Bars'}</span>
+                <input
+                    type="number"
+                    min="1"
+                    bind:value={settings.trainer.interval}
+                    class="w-full bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-2 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                />
+            </div>
+            <div class="space-y-1">
+                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{dict.trainer?.end || 'Target BPM'}</span>
+                <input
+                    type="number"
+                    min="30"
+                    max="300"
+                    bind:value={settings.trainer.endBpm}
+                    class="w-full bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-2 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                />
+            </div>
+        </div>
+    </div>
+
+    <!-- Ghost Mode -->
+    <div class="space-y-4">
+        <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                <Ghost size={16} />
+                {dict.ghost?.title || 'Ghost Mode'}
+            </h3>
+            <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" bind:checked={settings.ghost.enabled} class="sr-only peer">
+                <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-500"></div>
+            </label>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 {settings.ghost.enabled ? 'opacity-100' : 'opacity-40 pointer-events-none'} transition-opacity">
+            <div class="space-y-1">
+                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{dict.ghost?.play || 'Play Bars'}</span>
+                <input
+                    type="number"
+                    min="1"
+                    bind:value={settings.ghost.playBars}
+                    class="w-full bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-2 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-purple-500"
+                />
+            </div>
+            <div class="space-y-1">
+                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{dict.ghost?.mute || 'Mute Bars'}</span>
+                <input
+                    type="number"
+                    min="1"
+                    bind:value={settings.ghost.muteBars}
+                    class="w-full bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-2 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-purple-500"
+                />
+            </div>
+        </div>
+    </div>
+
 </div>
