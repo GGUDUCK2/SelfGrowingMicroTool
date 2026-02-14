@@ -3,8 +3,8 @@
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import { MetronomeEngine } from '$lib/utils/rhythm-forge/audio';
-  import type { RhythmSettings, BeatEvent } from '$lib/utils/rhythm-forge/types';
-  import type { RhythmForgePreset } from '$lib/db';
+  import type { RhythmSettings, BeatEvent, SoundPack } from '$lib/utils/rhythm-forge/types';
+  import { db, type RhythmForgePreset } from '$lib/db';
   import { Activity } from 'lucide-svelte';
 
   import Visualizer from '$lib/components/rhythm-forge/Visualizer.svelte';
@@ -27,7 +27,19 @@
       polyrhythm: [3, 2],
       polyrhythmEnabled: false,
       soundPack: 'click',
-      visualizer: 'circle'
+      visualizer: 'circle',
+      trainer: {
+          enabled: false,
+          startBpm: 120,
+          endBpm: 160,
+          increment: 5,
+          interval: 4
+      },
+      ghost: {
+          enabled: false,
+          playBars: 3,
+          muteBars: 1
+      }
   };
 
   let engine: MetronomeEngine;
@@ -35,6 +47,12 @@
 
   function onBeat(event: BeatEvent) {
       lastBeat = event;
+  }
+
+  function onBpmChange(newBpm: number) {
+      settings.bpm = newBpm;
+      // Force reactivity
+      settings = { ...settings };
   }
 
   function handlePlay() {
@@ -47,7 +65,6 @@
 
   function handleLoadPreset(event: CustomEvent<RhythmForgePreset>) {
       const preset = event.detail;
-      // Use spread to trigger reactivity
       const newSettings = { ...settings };
       newSettings.bpm = preset.bpm;
       newSettings.signature = [...preset.signature];
@@ -57,8 +74,33 @@
       } else {
           newSettings.polyrhythmEnabled = false;
       }
-      newSettings.soundPack = preset.soundPack as any;
+      newSettings.soundPack = preset.soundPack as SoundPack;
       settings = newSettings;
+  }
+
+  async function saveHistory() {
+      try {
+          // @ts-ignore - Table added in next step
+          await db.rhythmForgeHistory.add({
+              bpm: settings.bpm,
+              signature: [...settings.signature],
+              polyrhythm: settings.polyrhythmEnabled && settings.polyrhythm ? [...settings.polyrhythm] : undefined,
+              soundPack: settings.soundPack,
+              createdAt: new Date()
+          });
+
+          // Limit history
+          // @ts-ignore
+          const count = await db.rhythmForgeHistory.count();
+          if (count > 20) {
+              // @ts-ignore
+              const keys = await db.rhythmForgeHistory.orderBy('createdAt').limit(count - 20).keys();
+              // @ts-ignore
+              await db.rhythmForgeHistory.bulkDelete(keys);
+          }
+      } catch (err) {
+          console.error('Failed to save history', err);
+      }
   }
 
   // Reactivity for Engine
@@ -72,17 +114,19 @@
   }
 
   onMount(() => {
-      engine = new MetronomeEngine(settings, onBeat);
+      engine = new MetronomeEngine(settings, onBeat, onBpmChange);
       window.addEventListener('keydown', handleKeydown);
   });
 
   onDestroy(() => {
-      if (engine) engine.stop();
-      if (typeof window !== 'undefined') window.removeEventListener('keydown', handleKeydown);
+      if (engine) engine.dispose();
+      if (typeof window !== 'undefined') {
+          window.removeEventListener('keydown', handleKeydown);
+          saveHistory();
+      }
   });
 
   function handleKeydown(e: KeyboardEvent) {
-      // Ignore if user is typing in an input
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
 
       if (e.code === 'Space') {
@@ -108,7 +152,8 @@
         "Polyrhythm Metronome",
         "Visual Beat Indicator",
         "Tap Tempo",
-        "Custom Time Signatures",
+        "Speed Trainer",
+        "Ghost Mode (Gap Click)",
         "Web Audio Precision"
     ]
   };
@@ -117,7 +162,7 @@
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content="metronome, polyrhythm generator, online metronome, rhythm trainer, music tools, tap tempo, bpm calculator" />
+  <meta name="keywords" content="metronome, polyrhythm generator, online metronome, rhythm trainer, music tools, tap tempo, bpm calculator, gap click, speed trainer" />
 
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />

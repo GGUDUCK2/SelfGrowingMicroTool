@@ -69,6 +69,7 @@
             <button
                 class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
                 on:click={() => adjustBpm(-1)}
+                aria-label="Decrease BPM"
             >
                 <Minus size={24} />
             </button>
@@ -85,6 +86,7 @@
             <button
                 class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
                 on:click={() => adjustBpm(1)}
+                aria-label="Increase BPM"
             >
                 <Plus size={24} />
             </button>
@@ -96,6 +98,7 @@
             max="300"
             bind:value={settings.bpm}
             class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+            aria-label="BPM Slider"
         />
     </div>
 
@@ -105,6 +108,7 @@
         <button
             class="flex-1 py-3 px-6 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold hover:border-indigo-500 hover:text-indigo-500 transition-colors active:bg-indigo-50 dark:active:bg-indigo-900/20"
             on:click={handleTap}
+            aria-label="Tap Tempo"
         >
             {dict.tap}
         </button>
@@ -119,6 +123,7 @@
                 step="0.01"
                 bind:value={settings.volume}
                 class="w-20 accent-indigo-500 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-lg appearance-none"
+                aria-label="Volume"
             />
         </div>
     </div>
