@@ -17,3 +17,7 @@ export interface PDFPage {
   rotation: number; // 0, 90, 180, 270 (additive to original)
   imageSrc: string; // Data URL of thumbnail
 }
+
+export interface SerializedPDFPage extends Omit<PDFPage, 'imageSrc'> {
+  thumbnailBlob: Blob;
+}

@@ -2583,7 +2583,15 @@ export const dictionaries = {
           history: "History",
           saveSession: "Save Session",
           undo: "Undo",
-          redo: "Redo"
+          redo: "Redo",
+          zipper: "Zipper Merge",
+          images: "Export Images",
+          sort: "Sort Pages",
+          watermark: "Watermark",
+          clear: "Clear"
+        },
+        watermark: {
+            prompt: "Enter watermark text:"
         },
         shortcuts: {
             title: "Keyboard Shortcuts",
@@ -4253,7 +4261,7 @@ export const dictionaries = {
       },
     pdfForge: {
       title: "PDF 포지: 프로 PDF 에디터",
-      description: "PDF 파일을 병합, 분할, 회전 및 정리하는 완벽한 도구입니다. 100% 클라이언트 측 프라이버시를 보장합니다.",
+        description: "PDF 파일을 병합, 분할, 회전, 정렬 및 이미지로 추출하는 완벽한 도구입니다. 100% 클라이언트 측 프라이버시를 보장합니다.",
       dropZone: "PDF 파일을 여기에 드롭하세요",
       browse: "찾아보기",
       actions: {
@@ -4268,7 +4276,15 @@ export const dictionaries = {
           undo: "실행 취소",
           redo: "다시 실행",
           history: "히스토리",
-          saveSession: "세션 저장"
+          saveSession: "세션 저장",
+          zipper: "지퍼 병합",
+          images: "이미지 추출",
+          sort: "페이지 정렬",
+          watermark: "워터마크",
+          clear: "지우기"
+        },
+        watermark: {
+            prompt: "워터마크 텍스트 입력:"
         },
         shortcuts: {
             title: "키보드 단축키",

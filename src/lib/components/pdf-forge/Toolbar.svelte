@@ -1,20 +1,23 @@
 <script lang="ts">
-  import { selectedPages, isProcessing, pages, undo, redo, past, future } from '$lib/utils/pdf-forge/store';
-  import { mergeAndDownload, rotateSelectedPages, deleteSelectedPages, clearAll, loadPDFs, extractSelectedPages, saveSession } from '$lib/utils/pdf-forge/engine';
-  import { RotateCw, Trash2, Download, RefreshCw, Plus, FileOutput, History, Save, Undo, Redo } from 'lucide-svelte';
+  import { selectedPages, isProcessing, pages, undo, redo, past, future, files } from '$lib/utils/pdf-forge/store';
+  import { mergeAndDownload, rotateSelectedPages, deleteSelectedPages, clearAll, loadPDFs, extractSelectedPages, saveSession, zipperMerge, exportImages, sortPages } from '$lib/utils/pdf-forge/engine';
+  import { RotateCw, Trash2, Download, RefreshCw, Plus, FileOutput, History, Save, Undo, Redo, Shuffle, Image as ImageIcon, ArrowDownAZ, Stamp } from 'lucide-svelte';
   import type { PdfForgeDictionary } from '$lib/types/pdf-forge';
   import HistoryModal from './HistoryModal.svelte';
+  import WatermarkModal from './WatermarkModal.svelte';
   import { scale } from 'svelte/transition';
 
   export let dict: PdfForgeDictionary;
 
   let showHistory = false;
+  let showWatermark = false;
   let fileInput: HTMLInputElement;
 
   $: hasSelection = $selectedPages.size > 0;
   $: hasPages = $pages.length > 0;
   $: canUndo = $past.length > 0;
   $: canRedo = $future.length > 0;
+  $: canZipper = $files.length >= 2;
 
   function handleUpload(e: Event) {
       const target = e.target as HTMLInputElement;
@@ -67,12 +70,7 @@
       // Ctrl+S to Save PDF
       if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
           e.preventDefault();
-          if (hasPages) handleSaveSession(); // Ctrl+S maps to Save Session now? Or Save PDF?
-          // Usually Ctrl+S in a web app context saves the "project".
-          // The prompt says "Ctrl+S: Save Result" or "Save Session".
-          // Let's make Ctrl+S save the Session (Persistence).
-          // And maybe Ctrl+Enter to Download PDF?
-          // I'll map Ctrl+S to Save Session as it's more "app-like".
+          if (hasPages) handleSaveSession();
       }
 
       // Delete
@@ -84,6 +82,7 @@
       if (e.key === 'Escape') {
           selectedPages.set(new Set());
           showHistory = false;
+          showWatermark = false;
       }
   }
 </script>
@@ -91,8 +90,9 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <HistoryModal isOpen={showHistory} {dict} on:close={() => showHistory = false} />
+<WatermarkModal isOpen={showWatermark} {dict} on:close={() => showWatermark = false} />
 
-<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) overflow-x-auto max-w-[95vw]
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) overflow-x-auto max-w-[95vw] no-scrollbar
   {hasPages ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-20 opacity-0 scale-90 pointer-events-none'}">
 
   <!-- Undo/Redo -->
@@ -147,6 +147,46 @@
     aria-label="Save Session"
   >
     <Save class="w-5 h-5" />
+  </button>
+
+  <div class="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1"></div>
+
+  <!-- Creative Tools -->
+  <button
+    class="p-3 text-slate-500 hover:text-pink-600 hover:bg-pink-50 dark:hover:bg-pink-900/20 rounded-xl transition-colors disabled:opacity-30"
+    title={dict.actions?.zipper || "Zipper Merge (Interleave)"}
+    disabled={!canZipper}
+    on:click={zipperMerge}
+    aria-label="Zipper Merge"
+  >
+    <Shuffle class="w-5 h-5" />
+  </button>
+
+  <button
+    class="p-3 text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-colors"
+    title={dict.actions?.sort || "Sort by Name"}
+    on:click={() => sortPages('name')}
+    aria-label="Sort"
+  >
+    <ArrowDownAZ class="w-5 h-5" />
+  </button>
+
+  <button
+    class="p-3 text-slate-500 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-xl transition-colors"
+    title={dict.actions?.watermark || "Watermark"}
+    on:click={() => showWatermark = true}
+    aria-label="Watermark"
+  >
+    <Stamp class="w-5 h-5" />
+  </button>
+
+  <button
+    class="p-3 text-slate-500 hover:text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-xl transition-colors"
+    title={dict.actions?.images || "Export Images"}
+    on:click={exportImages}
+    aria-label="Export Images"
+  >
+    <ImageIcon class="w-5 h-5" />
   </button>
 
   <div class="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1"></div>

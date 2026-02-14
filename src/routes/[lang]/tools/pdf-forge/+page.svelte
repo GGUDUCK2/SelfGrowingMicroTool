@@ -25,7 +25,7 @@
         "operatingSystem": "Web",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
         "featureList": [
-           "Merge PDF", "Split PDF", "Rotate PDF Pages", "Client-side Privacy", "Reorder Pages", "Image to PDF", "JPG to PDF", "Offline Session History", "Keyboard Shortcuts"
+           "Merge PDF", "Split PDF", "Rotate PDF Pages", "Client-side Privacy", "Reorder Pages", "Image to PDF", "JPG to PDF", "Offline Session History", "Keyboard Shortcuts", "Zipper Merge", "Export PDF to Images", "PDF Watermark"
         ]
       }
     ]
@@ -37,7 +37,7 @@
 <svelte:head>
   <title>{title}</title>
   <meta name="description" content={description} />
-  <meta name="keywords" content="merge pdf, split pdf, rotate pdf, combine pdf, free pdf tool, privacy focus pdf, client side pdf editor, image to pdf, jpg to pdf, png to pdf, offline pdf editor, pdf session history, secure pdf merger, reorganize pdf pages, extract pdf pages, local pdf tools" />
+  <meta name="keywords" content="merge pdf, split pdf, rotate pdf, combine pdf, free pdf tool, privacy focus pdf, client side pdf editor, image to pdf, jpg to pdf, png to pdf, offline pdf editor, pdf session history, secure pdf merger, reorganize pdf pages, extract pdf pages, local pdf tools, zipper merge pdf, pdf watermark, pdf to image, export pdf pages" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
