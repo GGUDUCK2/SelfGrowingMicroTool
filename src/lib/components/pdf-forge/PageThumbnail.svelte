@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Check } from 'lucide-svelte';
-  import type { PDFPage } from '$lib/utils/pdf-forge/store';
+  import type { PDFPage } from '$lib/types/pdf-forge';
 
   export let page: PDFPage;
   export let selected: boolean = false;
