@@ -44,11 +44,15 @@
             </button>
             <!-- Dropdown -->
             {#if isTemplateOpen}
-                <div class="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 py-1 z-50">
+                <div
+                    class="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 py-1 z-50"
+                    role="menu"
+                >
                     {#each templates as t}
                         <button
                             class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors text-slate-700 dark:text-slate-300"
                             on:click={() => { dispatch('loadTemplate', t); closeAll(); }}
+                            role="menuitem"
                         >
                             {t.label}
                         </button>
@@ -124,16 +128,21 @@
                 <span class="hidden sm:inline">Export</span>
             </button>
             {#if isExportOpen}
-                <div class="absolute top-full right-0 mt-2 w-40 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 py-1 z-50">
+                <div
+                    class="absolute top-full right-0 mt-2 w-40 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 py-1 z-50"
+                    role="menu"
+                >
                     <button
                         class="w-full text-left px-4 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors text-slate-700 dark:text-slate-300"
                         on:click={() => { dispatch('export', 'svg'); closeAll(); }}
+                        role="menuitem"
                     >
                         {dict.actions.exportSvg}
                     </button>
                     <button
                         class="w-full text-left px-4 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors text-slate-700 dark:text-slate-300"
                         on:click={() => { dispatch('export', 'png'); closeAll(); }}
+                        role="menuitem"
                     >
                         {dict.actions.exportPng}
                     </button>
