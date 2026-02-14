@@ -7,6 +7,8 @@
   import Preview from '$lib/components/diagram-forge/Preview.svelte';
   import Toolbar from '$lib/components/diagram-forge/Toolbar.svelte';
   import HistorySidebar from '$lib/components/diagram-forge/HistorySidebar.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
   import { Menu, X } from 'lucide-svelte';
   import type { DiagramTemplate } from '$lib/utils/diagram-forge/types';
   import { templates } from '$lib/utils/diagram-forge/templates';
@@ -134,6 +136,12 @@
       alert(t.actions.copyLink + ' Copied!');
   }
 
+  $: faqItems = [
+    { q: t.q1, a: t.a1 },
+    { q: t.q2, a: t.a2 },
+    { q: t.q3, a: t.a3 }
+  ];
+
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@graph": [
@@ -143,6 +151,7 @@
         "description": t.description,
         "applicationCategory": "ProductivityApplication",
         "operatingSystem": "Any",
+        "url": `https://selfgrowingmicrotool.com/${lang}/tools/diagram-forge`,
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -158,22 +167,19 @@
         ]
       },
       {
-        "@type": "FAQPage",
-        "mainEntity": [
+        "@type": "BreadcrumbList",
+        "itemListElement": [
           {
-            "@type": "Question",
-            "name": t.q1,
-            "acceptedAnswer": { "@type": "Answer", "text": t.a1 }
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": `https://selfgrowingmicrotool.com/${lang}`
           },
           {
-            "@type": "Question",
-            "name": t.q2,
-            "acceptedAnswer": { "@type": "Answer", "text": t.a2 }
-          },
-          {
-            "@type": "Question",
-            "name": t.q3,
-            "acceptedAnswer": { "@type": "Answer", "text": t.a3 }
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Diagram Forge",
+            "item": `https://selfgrowingmicrotool.com/${lang}/tools/diagram-forge`
           }
         ]
       }
@@ -246,49 +252,22 @@
 <!-- Docs -->
 <div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
     <div class="max-w-4xl mx-auto px-4 py-12">
-        <article class="prose dark:prose-invert max-w-none">
-            <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 mb-6">
-                {t.guide.title}
-            </h2>
-            <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">
-                {t.guide.intro}
-            </p>
+        <GuideSection
+            title={t.guide.title}
+            intro={t.guide.intro}
+            featuresTitle={t.guide.featuresTitle}
+            f1={t.guide.f1}
+            f2={t.guide.f2}
+            f3={t.guide.f3}
+            tipsTitle={t.guide.tipsTitle}
+            tip1={t.guide.tip1}
+            tip2={t.guide.tip2}
+            tip3={t.guide.tip3}
+        />
 
-            <div class="grid md:grid-cols-2 gap-8 mb-12">
-                <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl">
-                    <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{t.guide.featuresTitle}</h3>
-                    <ul class="space-y-2 text-slate-600 dark:text-slate-400 list-disc pl-5">
-                        <li>{@html t.guide.f1}</li>
-                        <li>{@html t.guide.f2}</li>
-                        <li>{@html t.guide.f3}</li>
-                    </ul>
-                </div>
-
-                <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl">
-                    <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{t.guide.tipsTitle}</h3>
-                    <ul class="space-y-2 text-slate-600 dark:text-slate-400 list-disc pl-5">
-                        <li>{@html t.guide.tip1}</li>
-                        <li>{@html t.guide.tip2}</li>
-                        <li>{@html t.guide.tip3}</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3>{t.faqTitle}</h3>
-            <dl class="space-y-6">
-                <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                    <dt class="font-bold text-slate-900 dark:text-white mb-2">{t.q1}</dt>
-                    <dd class="text-slate-600 dark:text-slate-400">{t.a1}</dd>
-                </div>
-                <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                    <dt class="font-bold text-slate-900 dark:text-white mb-2">{t.q2}</dt>
-                    <dd class="text-slate-600 dark:text-slate-400">{t.a2}</dd>
-                </div>
-                <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                    <dt class="font-bold text-slate-900 dark:text-white mb-2">{t.q3}</dt>
-                    <dd class="text-slate-600 dark:text-slate-400">{t.a3}</dd>
-                </div>
-            </dl>
-        </article>
+        <FAQSection
+            title={t.faqTitle}
+            items={faqItems}
+        />
     </div>
 </div>
