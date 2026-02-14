@@ -142,14 +142,14 @@
     { q: t.q3, a: t.a3 }
   ];
 
-  $: jsonLd = JSON.stringify({
+  $: schema = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "SoftwareApplication",
         "name": "Diagram Forge",
         "description": t.description,
-        "applicationCategory": "ProductivityApplication",
+        "applicationCategory": "DesignApplication",
         "operatingSystem": "Any",
         "url": `https://selfgrowingmicrotool.com/${lang}/tools/diagram-forge`,
         "offers": {
@@ -184,9 +184,9 @@
         ]
       }
     ]
-  });
+  };
 
-  $: jsonLdScript = `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}<\/script>`;
+  $: jsonLdScript = `<script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}<\/script>`;
 </script>
 
 <svelte:head>

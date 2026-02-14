@@ -17,9 +17,9 @@
   }
 
   function requestUpdate() {
-      loading = true;
       clearTimeout(timer);
       timer = setTimeout(async () => {
+          loading = true;
           await updateDiagram();
           loading = false;
       }, 800); // 800ms debounce
