@@ -253,5 +253,20 @@
     "category": "productivity",
     "tags": ["pdf", "merge", "split", "editor"],
     "createdAt": "2024-07-01"
+  },
+  {
+    "id": "rhythm-forge",
+    "slug": "rhythm-forge",
+    "title": {
+      "en": "Rhythm Forge",
+      "ko": "리듬 포지"
+    },
+    "description": {
+      "en": "The definitive polyrhythm metronome. Master complex timing.",
+      "ko": "완벽한 폴리리듬 메트로놈입니다. 복잡한 타이밍을 마스터하세요."
+    },
+    "category": "music",
+    "tags": ["metronome", "music", "rhythm", "polyrhythm", "audio"],
+    "createdAt": "2024-07-20"
   }
 ]

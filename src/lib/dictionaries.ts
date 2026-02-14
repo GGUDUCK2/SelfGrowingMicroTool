@@ -2631,6 +2631,55 @@ export const dictionaries = {
         a2: "It depends on your device's RAM. Usually, files up to 100MB work smoothly.",
         q3: "Can I edit text?",
         a3: "Currently, PDF Forge focuses on page-level manipulation (merge, split, rotate). Text editing is not supported yet."
+      },
+      rhythmForge: {
+        title: "Rhythm Forge: Pro Metronome",
+        description: "The definitive polyrhythm metronome. Master complex timing with visual feedback, tap tempo, and custom sound packs.",
+        bpm: "BPM",
+        tap: "TAP",
+        play: "Play",
+        stop: "Stop",
+        volume: "Volume",
+        signature: "Time Signature",
+        polyrhythm: "Polyrhythm",
+        ratio: "Ratio",
+        sound: "Sound Pack",
+        visualizer: "Visualizer",
+        presets: "Presets",
+        save: "Save Preset",
+        load: "Load",
+        delete: "Delete",
+        history: "History",
+        sounds: {
+            click: "Digital Click",
+            wood: "Woodblock",
+            drum: "Drum Kit",
+            beep: "Beep"
+        },
+        visuals: {
+            circle: "Circle Pulse",
+            linear: "Linear",
+            none: "None"
+        },
+        guide: {
+          title: "Why Rhythm Forge?",
+          intro: "Rhythm is the foundation of music. Rhythm Forge is designed for musicians who need more than a simple click. It helps you internalize complex polyrhythms and improve your timing precision.",
+          featuresTitle: "Key Features",
+          f1: "**Polyrhythm Engine:** Practice 3 against 4, 5 against 7, or any combination to master independence.",
+          f2: "**Visual Feedback:** See the beat with high-contrast animations that sync perfectly with the audio.",
+          f3: "**Precision Timing:** Powered by the Web Audio API for sample-accurate timing that never drifts.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use the **Tap Tempo** button (or 'T' key) to quickly find the BPM of a song you're listening to.",
+          tip2: "Start slow with **Polyrhythms**. Set a 2:3 ratio and focus on how the beats interlock.",
+          tip3: "Save your practice routines as **Presets** for quick access during rehearsals."
+        },
+        faqTitle: "Rhythm Forge FAQ",
+        q1: "Is the timing accurate?",
+        a1: "Yes. Unlike simple JavaScript timers, Rhythm Forge uses the Web Audio API's clock, which runs on a separate high-priority thread for sample-accurate precision.",
+        q2: "What is a polyrhythm?",
+        a2: "A polyrhythm is the simultaneous use of two or more conflicting rhythms. For example, playing 3 evenly spaced notes in the same time as 4 evenly spaced notes (3:4).",
+        q3: "Does it work on mobile?",
+        a3: "Yes, Rhythm Forge is fully optimized for touch devices, allowing you to practice anywhere."
       }
     },
     pwa: {
@@ -4324,6 +4373,55 @@ export const dictionaries = {
       a2: "기기의 RAM에 따라 다릅니다. 일반적으로 100MB까지의 파일은 원활하게 작동합니다.",
       q3: "텍스트를 편집할 수 있나요?",
       a3: "현재 PDF 포지는 페이지 수준의 조작(병합, 분할, 회전)에 중점을 둡니다. 텍스트 편집은 아직 지원하지 않습니다."
+    },
+    rhythmForge: {
+      title: "리듬 포지: 프로 메트로놈",
+      description: "완벽한 폴리리듬 메트로놈입니다. 시각적 피드백, 탭 템포, 사용자 정의 사운드 팩으로 복잡한 타이밍을 마스터하세요.",
+      bpm: "BPM",
+      tap: "탭 (TAP)",
+      play: "재생",
+      stop: "정지",
+      volume: "볼륨",
+      signature: "박자표",
+      polyrhythm: "폴리리듬",
+      ratio: "비율",
+      sound: "사운드 팩",
+      visualizer: "시각화",
+      presets: "프리셋",
+      save: "프리셋 저장",
+      load: "불러오기",
+      delete: "삭제",
+      history: "히스토리",
+      sounds: {
+          click: "디지털 클릭",
+          wood: "우드블럭",
+          drum: "드럼 키트",
+          beep: "비프음"
+      },
+      visuals: {
+          circle: "원형 펄스",
+          linear: "선형",
+          none: "없음"
+      },
+      guide: {
+        title: "왜 리듬 포지인가요?",
+        intro: "리듬은 음악의 기초입니다. 리듬 포지는 단순한 클릭 이상의 것이 필요한 뮤지션을 위해 설계되었습니다. 복잡한 폴리리듬을 내면화하고 타이밍 정밀도를 향상시키는 데 도움이 됩니다.",
+        featuresTitle: "주요 기능",
+        f1: "**폴리리듬 엔진:** 3 대 4, 5 대 7 또는 모든 조합을 연습하여 독립성을 마스터하세요.",
+        f2: "**시각적 피드백:** 오디오와 완벽하게 동기화되는 고대비 애니메이션으로 비트를 눈으로 확인하세요.",
+        f3: "**정밀 타이밍:** 절대 밀리지 않는 샘플 단위의 정밀도를 위해 Web Audio API로 구동됩니다.",
+        tipsTitle: "프로 팁",
+        tip1: "**탭 템포** 버튼(또는 'T' 키)을 사용하여 듣고 있는 노래의 BPM을 빠르게 찾으세요.",
+        tip2: "**폴리리듬**으로 천천히 시작하세요. 2:3 비율을 설정하고 비트가 어떻게 맞물리는지 집중하세요.",
+        tip3: "리허설 중에 빠르게 액세스할 수 있도록 연습 루틴을 **프리셋**으로 저장하세요."
+      },
+      faqTitle: "리듬 포지 FAQ",
+      q1: "타이밍이 정확한가요?",
+        a1: "네. 단순한 JavaScript 타이머와 달리, 리듬 포지는 샘플 단위의 정밀도를 위해 별도의 높은 우선순위 스레드에서 실행되는 Web Audio API의 클럭을 사용합니다.",
+      q2: "폴리리듬이란 무엇인가요?",
+        a2: "폴리리듬은 두 개 이상의 충돌하는 리듬을 동시에 사용하는 것입니다. 예를 들어, 4개의 고른 음표와 같은 시간 안에 3개의 고른 음표를 연주하는 것(3:4)입니다.",
+      q3: "모바일에서 작동하나요?",
+        a3: "네, 리듬 포지는 터치 장치에 완벽하게 최적화되어 있어 어디서나 연습할 수 있습니다."
     }
   }
 } as const;
