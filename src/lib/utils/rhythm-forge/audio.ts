@@ -21,6 +21,9 @@ export class MetronomeEngine {
   private onBeat: (event: BeatEvent) => void;
   private onBpmChange?: (bpm: number) => void;
 
+  // Trainer Mode Buffer
+  private scheduledBeats: { time: number; type: 'primary' | 'secondary' }[] = [];
+
   constructor(
       settings: RhythmSettings,
       onBeat: (event: BeatEvent) => void,
@@ -32,11 +35,45 @@ export class MetronomeEngine {
   }
 
   public updateSettings(newSettings: RhythmSettings) {
-    // Keep internal counters if we are just updating settings while playing?
-    // If we stop and start, they reset.
-    // If we change settings while playing, we probably want to keep the "flow" but maybe reset bars counter if logic implies?
-    // For now, simple update.
     this.settings = newSettings;
+  }
+
+  public getCurrentTime(): number {
+    return this.audioContext ? this.audioContext.currentTime : 0;
+  }
+
+  /**
+   * Calculates the difference between the current time and the nearest beat.
+   * Returns delta in milliseconds (negative = early, positive = late).
+   */
+  public getNearestBeatDelta(): { delta: number; type: 'primary' | 'secondary' } | null {
+      if (!this.audioContext || this.scheduledBeats.length === 0) return null;
+
+      const now = this.audioContext.currentTime;
+
+      // Find closest beat
+      let closestBeat = this.scheduledBeats[0];
+      let minDiff = Math.abs(now - closestBeat.time);
+
+      for (let i = 1; i < this.scheduledBeats.length; i++) {
+          const diff = Math.abs(now - this.scheduledBeats[i].time);
+          if (diff < minDiff) {
+              minDiff = diff;
+              closestBeat = this.scheduledBeats[i];
+          }
+      }
+
+      // If the closest beat is too far away (e.g. > 300ms), ignore it
+      // This prevents matching with a beat that happened long ago or is too far in future
+      if (minDiff > 0.3) return null;
+
+      // Delta: tap time - beat time
+      // If tap is at 1.9s and beat is at 2.0s, delta is -0.1s (-100ms) -> Early
+      // If tap is at 2.1s and beat is at 2.0s, delta is +0.1s (+100ms) -> Late
+      return {
+          delta: (now - closestBeat.time) * 1000,
+          type: closestBeat.type
+      };
   }
 
   public async start() {
@@ -55,6 +92,7 @@ export class MetronomeEngine {
     this.secondaryBeatCount = 0;
     this.totalBars = 0;
     this.barsSinceIncrement = 0;
+    this.scheduledBeats = [];
 
     // Start slightly in future
     const startTime = this.audioContext.currentTime + 0.1;
@@ -70,6 +108,7 @@ export class MetronomeEngine {
       window.clearTimeout(this.timerID);
       this.timerID = undefined;
     }
+    this.scheduledBeats = [];
   }
 
   public dispose() {
@@ -83,6 +122,10 @@ export class MetronomeEngine {
   private scheduler() {
     if (!this.audioContext) return;
 
+    // Prune old beats from buffer (older than 1 sec)
+    const now = this.audioContext.currentTime;
+    this.scheduledBeats = this.scheduledBeats.filter(b => b.time > now - 1.0);
+
     while (this.nextPrimaryTime < this.audioContext.currentTime + this.scheduleAheadTime) {
       this.scheduleNote(this.nextPrimaryTime, 'primary', this.primaryBeatCount, this.settings.signature[0]);
       this.nextPrimary();
@@ -92,8 +135,6 @@ export class MetronomeEngine {
         while (this.nextSecondaryTime < this.audioContext.currentTime + this.scheduleAheadTime) {
             const [polyNotes, referenceNotes] = this.settings.polyrhythm;
             if (polyNotes > 0) {
-               // Ghost mode only applies to primary rhythm usually, but let's apply to everything for now
-               // or maybe just primary? "Gap Click" usually mutes everything.
                this.scheduleNote(this.nextSecondaryTime, 'secondary', this.secondaryBeatCount, polyNotes);
                this.nextSecondary();
             } else {
@@ -147,6 +188,9 @@ export class MetronomeEngine {
 
   private scheduleNote(time: number, type: 'primary' | 'secondary', index: number, total: number) {
     if (!this.audioContext) return;
+
+    // Track for trainer
+    this.scheduledBeats.push({ time, type });
 
     // Check Ghost Mode
     let isMuted = false;

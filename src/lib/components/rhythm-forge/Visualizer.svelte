@@ -4,6 +4,7 @@
 
   export let lastBeat: BeatEvent | null = null;
   export let settings: RhythmSettings;
+  export let mode: 'metronome' | 'trainer' = 'metronome';
 
   let canvas: HTMLCanvasElement;
   let ctx: CanvasRenderingContext2D;
@@ -76,6 +77,27 @@
           ctx.strokeStyle = '#1e293b';
           ctx.lineWidth = 4;
           ctx.stroke();
+      }
+
+      // Trainer Target Crosshair
+      if (mode === 'trainer') {
+          ctx.beginPath();
+          ctx.moveTo(centerX - 10, centerY);
+          ctx.lineTo(centerX + 10, centerY);
+          ctx.moveTo(centerX, centerY - 10);
+          ctx.lineTo(centerX, centerY + 10);
+          ctx.strokeStyle = '#4ade80'; // Green 400
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          // Target Circle
+          ctx.beginPath();
+          ctx.arc(centerX, centerY, 40, 0, Math.PI * 2);
+          ctx.strokeStyle = '#4ade80';
+          ctx.lineWidth = 2;
+          ctx.setLineDash([5, 5]);
+          ctx.stroke();
+          ctx.setLineDash([]);
       }
 
       // Draw Pulses
