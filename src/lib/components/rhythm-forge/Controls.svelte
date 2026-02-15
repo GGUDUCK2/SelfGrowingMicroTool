@@ -1,39 +1,16 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Play, Square, Minus, Plus, Volume2 } from 'lucide-svelte';
+  import { Play, Square, Minus, Plus, Volume2, Share2 } from 'lucide-svelte';
   import type { RhythmSettings } from '$lib/utils/rhythm-forge/types';
+  import type { getDictionary } from '$lib/dictionaries';
+  import { compressState } from '$lib/utils/url-state';
 
   export let settings: RhythmSettings;
-  export let dict: any;
+  export let dict: ReturnType<typeof getDictionary>['tools']['rhythmForge'];
 
   const dispatch = createEventDispatcher();
 
-  let tapTimes: number[] = [];
-
-  function handleTap() {
-      const now = Date.now();
-
-      // Reset if too long since last tap (2 seconds)
-      if (tapTimes.length > 0 && now - tapTimes[tapTimes.length - 1] > 2000) {
-          tapTimes = [];
-      }
-
-      tapTimes.push(now);
-      if (tapTimes.length > 4) tapTimes.shift(); // Keep last 4
-
-      if (tapTimes.length > 1) {
-          // Calculate average interval
-          let intervals = [];
-          for (let i = 1; i < tapTimes.length; i++) {
-              intervals.push(tapTimes[i] - tapTimes[i - 1]);
-          }
-          const avgInterval = intervals.reduce((a, b) => a + b, 0) / intervals.length;
-          const newBpm = Math.round(60000 / avgInterval);
-          if (newBpm >= 30 && newBpm <= 300) {
-              settings.bpm = newBpm;
-          }
-      }
-  }
+  let showCopiedToast = false;
 
   function adjustBpm(amount: number) {
       settings.bpm = Math.max(30, Math.min(300, settings.bpm + amount));
@@ -46,15 +23,55 @@
           dispatch('play');
       }
   }
+
+  function handleTap() {
+      dispatch('tap');
+  }
+
+  async function share() {
+      const state = JSON.stringify({
+          bpm: settings.bpm,
+          signature: settings.signature,
+          polyrhythm: settings.polyrhythm,
+          polyrhythmEnabled: settings.polyrhythmEnabled,
+          soundPack: settings.soundPack
+      });
+      const compressed = await compressState(state);
+      const url = new URL(window.location.href);
+      url.searchParams.set('s', compressed);
+
+      try {
+          await navigator.clipboard.writeText(url.toString());
+          showCopiedToast = true;
+          setTimeout(() => showCopiedToast = false, 2000);
+      } catch (e) {
+          console.error('Failed to copy', e);
+      }
+  }
 </script>
 
-<div class="flex flex-col items-center gap-8 w-full max-w-2xl mx-auto p-6">
+<div class="flex flex-col items-center gap-8 w-full max-w-2xl mx-auto p-6 relative">
+
+    <button
+        class="absolute top-4 right-4 p-2 text-slate-400 hover:text-indigo-500 transition-colors"
+        on:click={share}
+        aria-label={(dict as any)?.share || 'Share Rhythm'}
+        title={(dict as any)?.share || 'Share Rhythm'}
+    >
+        <Share2 size={20} />
+    </button>
+
+    {#if showCopiedToast}
+        <div class="absolute top-12 right-0 bg-slate-800 text-white text-xs px-3 py-1.5 rounded-lg shadow-lg animate-in fade-in zoom-in duration-200 z-50">
+            {(dict as any)?.shareCopied || 'Copied!'}
+        </div>
+    {/if}
 
     <!-- Main Play/Stop -->
     <button
         on:click={togglePlay}
         class="w-24 h-24 rounded-full flex items-center justify-center shadow-xl transition-all transform hover:scale-105 active:scale-95 {settings.isPlaying ? 'bg-rose-500 hover:bg-rose-600 text-white shadow-rose-500/30' : 'bg-indigo-500 hover:bg-indigo-600 text-white shadow-indigo-500/30'}"
-        aria-label={settings.isPlaying ? dict.stop : dict.play}
+        aria-label={settings.isPlaying ? (dict.stop || 'Stop') : (dict.play || 'Play')}
     >
         {#if settings.isPlaying}
             <Square size={32} fill="currentColor" />
@@ -79,7 +96,7 @@
                     {settings.bpm}
                 </div>
                 <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">
-                    {dict.bpm}
+                    {dict.bpm || 'BPM'}
                 </div>
             </div>
 
@@ -110,7 +127,7 @@
             on:click={handleTap}
             aria-label="Tap Tempo"
         >
-            {dict.tap}
+            {dict.tap || 'TAP'}
         </button>
 
         <!-- Volume -->

@@ -1,15 +1,16 @@
 <script lang="ts">
   import { Music, Activity, Clock, Split, Zap, Ghost } from 'lucide-svelte';
   import type { RhythmSettings, SoundPack } from '$lib/utils/rhythm-forge/types';
+  import type { getDictionary } from '$lib/dictionaries';
 
   export let settings: RhythmSettings;
-  export let dict: any;
+  export let dict: ReturnType<typeof getDictionary>['tools']['rhythmForge'];
 
   const sounds: { id: SoundPack; label: string }[] = [
-      { id: 'click', label: dict.sounds.click },
-      { id: 'wood', label: dict.sounds.wood },
-      { id: 'drum', label: dict.sounds.drum },
-      { id: 'beep', label: dict.sounds.beep }
+      { id: 'click', label: dict.sounds?.click || 'Click' },
+      { id: 'wood', label: dict.sounds?.wood || 'Wood' },
+      { id: 'drum', label: dict.sounds?.drum || 'Drum' },
+      { id: 'beep', label: dict.sounds?.beep || 'Beep' }
   ];
 </script>
 
@@ -19,7 +20,7 @@
     <div class="space-y-4">
         <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
             <Music size={16} />
-            {dict.sound}
+            {dict.sound || 'Sound'}
         </h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
             {#each sounds as sound}
@@ -40,7 +41,7 @@
         <div class="space-y-4">
             <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
                 <Clock size={16} />
-                {dict.signature}
+                {dict.signature || 'Signature'}
             </h3>
             <div class="flex items-center gap-3">
                 <div class="flex-1">
@@ -70,7 +71,7 @@
             <div class="flex items-center justify-between">
                 <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
                     <Split size={16} />
-                    {dict.polyrhythm}
+                    {dict.polyrhythm || 'Polyrhythm'}
                 </h3>
                 <label class="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" bind:checked={settings.polyrhythmEnabled} class="sr-only peer">
@@ -89,7 +90,7 @@
                             class="w-full text-center text-xl font-bold bg-slate-100 dark:bg-slate-800 rounded-xl py-3 border-2 border-transparent focus:border-amber-500 focus:outline-none text-amber-600 dark:text-amber-500"
                         />
                     </div>
-                    <span class="text-sm font-medium text-slate-400 uppercase">{dict.ratio}</span>
+                    <span class="text-sm font-medium text-slate-400 uppercase">{dict.ratio || 'Ratio'}</span>
                     <div class="flex-1">
                         <input
                             type="number"
@@ -111,7 +112,7 @@
         <div class="flex items-center justify-between">
             <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
                 <Zap size={16} />
-                {dict.trainer?.title || 'Speed Trainer'}
+                {(dict.trainer as any)?.title || 'Speed Trainer'}
             </h3>
             <label class="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" bind:checked={settings.trainer.enabled} class="sr-only peer">
@@ -121,7 +122,7 @@
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 {settings.trainer.enabled ? 'opacity-100' : 'opacity-40 pointer-events-none'} transition-opacity">
             <div class="space-y-1">
-                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{dict.trainer?.inc || 'Increment'}</span>
+                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{(dict.trainer as any)?.inc || 'Increment'}</span>
                 <input
                     type="number"
                     bind:value={settings.trainer.increment}
@@ -129,7 +130,7 @@
                 />
             </div>
             <div class="space-y-1">
-                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{dict.trainer?.bars || 'Bars'}</span>
+                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{(dict.trainer as any)?.bars || 'Bars'}</span>
                 <input
                     type="number"
                     min="1"
@@ -138,7 +139,7 @@
                 />
             </div>
             <div class="space-y-1">
-                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{dict.trainer?.end || 'Target BPM'}</span>
+                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{(dict.trainer as any)?.end || 'Target BPM'}</span>
                 <input
                     type="number"
                     min="30"
@@ -155,7 +156,7 @@
         <div class="flex items-center justify-between">
             <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
                 <Ghost size={16} />
-                {dict.ghost?.title || 'Ghost Mode'}
+                {(dict.ghost as any)?.title || 'Ghost Mode'}
             </h3>
             <label class="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" bind:checked={settings.ghost.enabled} class="sr-only peer">
@@ -165,7 +166,7 @@
 
         <div class="grid grid-cols-2 gap-4 {settings.ghost.enabled ? 'opacity-100' : 'opacity-40 pointer-events-none'} transition-opacity">
             <div class="space-y-1">
-                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{dict.ghost?.play || 'Play Bars'}</span>
+                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{(dict.ghost as any)?.play || 'Play Bars'}</span>
                 <input
                     type="number"
                     min="1"
@@ -174,7 +175,7 @@
                 />
             </div>
             <div class="space-y-1">
-                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{dict.ghost?.mute || 'Mute Bars'}</span>
+                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{(dict.ghost as any)?.mute || 'Mute Bars'}</span>
                 <input
                     type="number"
                     min="1"

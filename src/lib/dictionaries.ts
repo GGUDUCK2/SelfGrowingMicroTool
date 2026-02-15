@@ -2645,7 +2645,15 @@ export const dictionaries = {
         ratio: "Ratio",
         sound: "Sound Pack",
         visualizer: "Visualizer",
-        presets: "Presets",
+        presets: "My Presets",
+        library: "Library",
+        stats: {
+            today: "Today",
+            total: "Total",
+            streak: "Streak"
+        },
+        share: "Share Rhythm",
+        shareCopied: "Link copied to clipboard!",
         save: "Save Preset",
         load: "Load",
         delete: "Delete",
@@ -4412,7 +4420,15 @@ export const dictionaries = {
       ratio: "비율",
       sound: "사운드 팩",
       visualizer: "시각화",
-      presets: "프리셋",
+        presets: "내 프리셋",
+        library: "라이브러리",
+        stats: {
+            today: "오늘",
+            total: "총계",
+            streak: "연속"
+        },
+        share: "리듬 공유",
+        shareCopied: "링크가 복사되었습니다!",
       save: "프리셋 저장",
       load: "불러오기",
       delete: "삭제",

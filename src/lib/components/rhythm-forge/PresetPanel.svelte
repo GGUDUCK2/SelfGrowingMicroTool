@@ -1,16 +1,20 @@
 <script lang="ts">
   import { liveQuery } from 'dexie';
   import { db, type RhythmForgePreset, type RhythmForgeHistory } from '$lib/db';
-  import { Save, Trash2, Play, Star, Bookmark, History, Clock } from 'lucide-svelte';
+  import { Save, Trash2, Play, Star, Bookmark, History, Clock, Library } from 'lucide-svelte';
   import { createEventDispatcher } from 'svelte';
   import type { RhythmSettings } from '$lib/utils/rhythm-forge/types';
+  import type { getDictionary } from '$lib/dictionaries';
+  import { BUILT_IN_PRESETS, type RhythmPreset } from '$lib/utils/rhythm-forge/presets';
 
   export let settings: RhythmSettings;
-  export let dict: any;
+  export let dict: ReturnType<typeof getDictionary>['tools']['rhythmForge'];
 
-  const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher<{
+      load: RhythmForgePreset | RhythmForgeHistory | RhythmPreset
+  }>();
 
-  let activeTab: 'presets' | 'history' = 'presets';
+  let activeTab: 'library' | 'presets' | 'history' = 'library';
 
   let presets = liveQuery(() => db.rhythmForgePresets.orderBy('createdAt').reverse().toArray());
   let history = liveQuery(() => db.rhythmForgeHistory.orderBy('createdAt').reverse().limit(50).toArray());
@@ -28,14 +32,29 @@
           createdAt: new Date(),
           starred: 0
       });
+      activeTab = 'presets';
   }
 
-  function loadPreset(preset: RhythmForgePreset | RhythmForgeHistory) {
+  async function saveBuiltInPreset(preset: RhythmPreset) {
+      await db.rhythmForgePresets.add({
+          name: preset.name,
+          bpm: preset.bpm,
+          signature: [...preset.signature],
+          polyrhythm: preset.polyrhythmEnabled && preset.polyrhythm ? [...preset.polyrhythm] : undefined,
+          soundPack: preset.soundPack,
+          createdAt: new Date(),
+          starred: 1
+      });
+      activeTab = 'presets';
+  }
+
+  function loadPreset(preset: RhythmForgePreset | RhythmForgeHistory | RhythmPreset) {
       dispatch('load', preset);
   }
 
   async function deletePreset(id: number) {
-      if (confirm(dict.history?.deleteConfirm || "Delete?")) {
+      const confirmMsg = (dict as any)?.history?.deleteConfirm || "Delete?";
+      if (confirm(confirmMsg)) {
           await db.rhythmForgePresets.delete(id);
       }
   }
@@ -54,39 +73,79 @@
 <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-xl border border-slate-100 dark:border-slate-800 h-full flex flex-col">
     <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
-            Library
+            {(dict as any)?.library || 'Library'}
         </h3>
-        {#if activeTab === 'presets'}
-            <button
-                class="p-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
-                on:click={savePreset}
-                title={dict.save}
-                aria-label="Save Preset"
-            >
-                <Save size={20} />
-            </button>
-        {/if}
+
+        <button
+            class="p-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
+            on:click={savePreset}
+            title={dict.save || 'Save'}
+            aria-label="Save Current Settings"
+        >
+            <Save size={20} />
+        </button>
     </div>
 
-    <div class="flex gap-2 mb-4 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
+    <div class="flex gap-2 mb-4 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl overflow-x-auto">
         <button
-            class="flex-1 py-2 rounded-lg text-sm font-bold transition-colors flex items-center justify-center gap-2 {activeTab === 'presets' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+            class="flex-1 py-2 px-2 rounded-lg text-sm font-bold transition-colors flex items-center justify-center gap-2 whitespace-nowrap {activeTab === 'library' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+            on:click={() => activeTab = 'library'}
+        >
+            <Library size={16} />
+            {(dict as any)?.library || 'Library'}
+        </button>
+        <button
+            class="flex-1 py-2 px-2 rounded-lg text-sm font-bold transition-colors flex items-center justify-center gap-2 whitespace-nowrap {activeTab === 'presets' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
             on:click={() => activeTab = 'presets'}
         >
             <Bookmark size={16} />
-            {dict.presets}
+            {dict.presets || 'My Presets'}
         </button>
         <button
-            class="flex-1 py-2 rounded-lg text-sm font-bold transition-colors flex items-center justify-center gap-2 {activeTab === 'history' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+            class="flex-1 py-2 px-2 rounded-lg text-sm font-bold transition-colors flex items-center justify-center gap-2 whitespace-nowrap {activeTab === 'history' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
             on:click={() => activeTab = 'history'}
         >
             <History size={16} />
-            {dict.history || 'History'}
+            {(dict as any)?.history?.title || 'History'}
         </button>
     </div>
 
     <div class="flex-1 overflow-y-auto pr-2 space-y-3 min-h-[300px]">
-        {#if activeTab === 'presets'}
+        {#if activeTab === 'library'}
+            {#each BUILT_IN_PRESETS as preset}
+                <div class="group flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800 transition-all">
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <button
+                            class="p-2 rounded-full bg-white dark:bg-slate-700 text-indigo-500 shadow-sm hover:scale-110 transition-transform"
+                            on:click={() => loadPreset(preset)}
+                            aria-label="Load Preset"
+                        >
+                            <Play size={14} fill="currentColor" />
+                        </button>
+                        <div class="min-w-0">
+                            <div class="font-bold text-slate-700 dark:text-slate-200 truncate">{preset.name}</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400 truncate">{preset.description}</div>
+                            <div class="text-xs text-slate-400 flex gap-2 mt-1">
+                                <span>{preset.bpm} BPM</span>
+                                <span>•</span>
+                                <span>{preset.signature[0]}/{preset.signature[1]}</span>
+                                {#if preset.polyrhythm}
+                                    <span class="text-amber-500 font-medium">({preset.polyrhythm[0]}:{preset.polyrhythm[1]})</span>
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                        class="p-1.5 text-slate-300 hover:text-yellow-500 transition-colors opacity-0 group-hover:opacity-100"
+                        on:click={() => saveBuiltInPreset(preset)}
+                        aria-label="Star Preset"
+                    >
+                        <Star size={16} />
+                    </button>
+                </div>
+            {/each}
+        {:else if activeTab === 'presets'}
             {#if $presets}
                 {#each $presets as preset}
                     <div class="group flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800 transition-all">
@@ -132,7 +191,7 @@
 
                 {#if $presets.length === 0}
                     <div class="text-center py-10 text-slate-400 text-sm">
-                        {dict.history?.empty || 'No saved presets.'}
+                        {(dict as any)?.history?.empty || 'No saved presets.'}
                     </div>
                 {/if}
             {/if}

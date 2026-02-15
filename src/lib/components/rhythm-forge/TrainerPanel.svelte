@@ -3,13 +3,15 @@
   import { MetronomeEngine } from '$lib/utils/rhythm-forge/audio';
   import { Play, Square, Target, Activity, Trophy } from 'lucide-svelte';
   import { db } from '$lib/db';
+  import type { RhythmSettings } from '$lib/utils/rhythm-forge/types';
+  import type { getDictionary } from '$lib/dictionaries';
 
   export let engine: MetronomeEngine;
-  export let settings: any;
-  export let dict: any;
+  export let settings: RhythmSettings;
+  export let dict: ReturnType<typeof getDictionary>['tools']['rhythmForge'];
 
   let isTraining = false;
-  let feedback = { text: '', color: 'text-slate-400', delta: 0 };
+  let feedback: { text: string; color: string; delta: number } = { text: '', color: 'text-slate-400', delta: 0 };
   let stats = {
       hits: 0,
       misses: 0,
@@ -48,7 +50,7 @@
 
       const duration = (Date.now() - sessionStart) / 1000;
       const accuracy = stats.hits + stats.misses > 0
-        ? Math.round((stats.perfect + (stats.hits - stats.perfect)*0.5) / (stats.hits + stats.misses) * 100)
+        ? Math.round((stats.perfect + (stats.hits - stats.perfect) * 0.5) / (stats.hits + stats.misses) * 100)
         : 0;
       const avgOffset = stats.hits > 0 ? Math.round(stats.totalOffset / stats.hits) : 0;
 
@@ -65,7 +67,7 @@
       }
   }
 
-  export function handleTap() {
+  function handleTap() {
       if (!isTraining || !engine) return;
 
       const result = engine.getNearestBeatDelta();
@@ -74,24 +76,27 @@
       const absDelta = Math.abs(result.delta);
       const isEarly = result.delta < 0;
 
+      // Type assertion for optional chaining if needed
+      const trainerDict = (dict as any).rhythmTrainer;
+
       if (absDelta < 25) {
-          feedback = { text: dict.rhythmTrainer?.perfect || 'Perfect!', color: 'text-emerald-500', delta: result.delta };
+          feedback = { text: trainerDict?.perfect || 'Perfect!', color: 'text-emerald-500', delta: result.delta };
           stats.perfect++;
           stats.hits++;
           stats.streak++;
           stats.totalOffset += absDelta;
       } else if (absDelta < 60) {
-          feedback = { text: dict.rhythmTrainer?.great || 'Great', color: 'text-blue-500', delta: result.delta };
+          feedback = { text: trainerDict?.great || 'Great', color: 'text-blue-500', delta: result.delta };
           stats.hits++;
           stats.streak++;
           stats.totalOffset += absDelta;
       } else if (absDelta < 120) {
-          feedback = { text: isEarly ? (dict.rhythmTrainer?.early || 'Early') : (dict.rhythmTrainer?.late || 'Late'), color: 'text-amber-500', delta: result.delta };
+          feedback = { text: isEarly ? (trainerDict?.early || 'Early') : (trainerDict?.late || 'Late'), color: 'text-amber-500', delta: result.delta };
           stats.hits++;
           stats.streak = 0;
           stats.totalOffset += absDelta;
       } else {
-          feedback = { text: dict.rhythmTrainer?.miss || 'Miss', color: 'text-rose-500', delta: result.delta };
+          feedback = { text: trainerDict?.miss || 'Miss', color: 'text-rose-500', delta: result.delta };
           stats.misses++;
           stats.streak = 0;
       }
@@ -113,7 +118,7 @@
     <div class="flex items-center justify-between mb-6">
         <h3 class="text-xl font-bold flex items-center gap-2 text-slate-800 dark:text-white">
             <Target class="text-indigo-500" />
-            {dict.rhythmTrainer?.title || 'Rhythm Trainer'}
+            {(dict as any).rhythmTrainer?.title || 'Rhythm Trainer'}
         </h3>
 
         <button
@@ -122,10 +127,10 @@
         >
             {#if isTraining}
                 <Square size={18} fill="currentColor" />
-                {dict.rhythmTrainer?.stop || 'Stop'}
+                {(dict as any).rhythmTrainer?.stop || 'Stop'}
             {:else}
                 <Play size={18} fill="currentColor" />
-                {dict.rhythmTrainer?.start || 'Start Training'}
+                {(dict as any).rhythmTrainer?.start || 'Start Training'}
             {/if}
         </button>
     </div>
