@@ -350,6 +350,15 @@ export interface RhythmForgeHistory {
   starred?: number;
 }
 
+export interface RhythmForgeSession {
+  id?: number;
+  bpm: number;
+  duration: number; // in seconds
+  accuracy: number; // percentage 0-100
+  avgOffset: number; // in ms
+  createdAt: Date;
+}
+
 class MySubClassedDexie extends Dexie {
   compoundInterestConfig!: DexieTable<CompoundInterestConfig>;
   compoundInterestHistory!: DexieTable<CompoundInterestHistory>;
@@ -387,6 +396,7 @@ class MySubClassedDexie extends Dexie {
   bannerForgeHistory!: DexieTable<BannerForgeHistory>;
   rhythmForgePresets!: DexieTable<RhythmForgePreset>;
   rhythmForgeHistory!: DexieTable<RhythmForgeHistory>;
+  rhythmForgeSessions!: DexieTable<RhythmForgeSession>;
 
   constructor() {
     super('webFactoryDB');
@@ -1187,6 +1197,45 @@ class MySubClassedDexie extends Dexie {
       bannerForgeHistory: '++id, createdAt, starred',
       rhythmForgePresets: '++id, createdAt, starred',
       rhythmForgeHistory: '++id, createdAt, starred'
+    });
+    this.version(41).stores({
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      idForgeHistory: '++id, createdAt, starred',
+      cipherHistory: '++id, createdAt, starred',
+      structuraHistory: '++id, createdAt, starred',
+      markFlowHistory: '++id, createdAt, starred',
+      seoHistory: '++id, createdAt, projectName, starred',
+      schemaForgeProjects: '++id, createdAt, starred',
+      iconForgeProjects: '++id, createdAt, starred',
+      promptForgeHistory: '++id, createdAt, starred',
+      inputLabHistory: '++id, createdAt, starred',
+      decisionForgeMatrices: '++id, createdAt, starred',
+      gridMasterProjects: '++id, createdAt, starred',
+      snippetForgeHistory: '++id, createdAt, starred',
+      jwtForgeHistory: '++id, createdAt, starred',
+      sqlForgeHistory: '++id, timestamp, starred',
+      motionMasterHistory: '++id, createdAt, starred',
+      mockForgeSchemas: '++id, createdAt, starred',
+      invoiceForgeHistory: '++id, createdAt, invoiceNumber, clientName, starred',
+      invoiceForgeClients: '++id, name, createdAt',
+      diagramForgeHistory: '++id, createdAt, starred',
+      tableForgeHistory: '++id, createdAt, starred',
+      resumeForgeHistory: '++id, updatedAt, starred',
+      typeForgeHistory: '++id, createdAt, starred',
+      audioForgeHistory: '++id, createdAt, starred',
+      screenForgeHistory: '++id, createdAt, starred',
+      pdfForgeHistory: '++id, createdAt, starred',
+      bannerForgeHistory: '++id, createdAt, starred',
+      rhythmForgePresets: '++id, createdAt, starred',
+      rhythmForgeHistory: '++id, createdAt, starred',
+      rhythmForgeSessions: '++id, createdAt'
     });
   }
 }

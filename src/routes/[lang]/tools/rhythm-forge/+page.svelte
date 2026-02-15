@@ -9,6 +9,7 @@
 
   import Visualizer from '$lib/components/rhythm-forge/Visualizer.svelte';
   import Controls from '$lib/components/rhythm-forge/Controls.svelte';
+  import TrainerPanel from '$lib/components/rhythm-forge/TrainerPanel.svelte';
   import SettingsPanel from '$lib/components/rhythm-forge/SettingsPanel.svelte';
   import PresetPanel from '$lib/components/rhythm-forge/PresetPanel.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
@@ -17,6 +18,9 @@
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang).tools.rhythmForge;
   $: common = getDictionary(lang).common;
+
+  // App State
+  let mode: 'metronome' | 'trainer' = 'metronome';
 
   // Initial State
   let settings: RhythmSettings = {
@@ -80,7 +84,6 @@
 
   async function saveHistory() {
       try {
-          // @ts-ignore - Table added in next step
           await db.rhythmForgeHistory.add({
               bpm: settings.bpm,
               signature: [...settings.signature],
@@ -90,12 +93,9 @@
           });
 
           // Limit history
-          // @ts-ignore
           const count = await db.rhythmForgeHistory.count();
           if (count > 20) {
-              // @ts-ignore
               const keys = await db.rhythmForgeHistory.orderBy('createdAt').limit(count - 20).keys();
-              // @ts-ignore
               await db.rhythmForgeHistory.bulkDelete(keys);
           }
       } catch (err) {
@@ -129,10 +129,11 @@
   function handleKeydown(e: KeyboardEvent) {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
 
-      if (e.code === 'Space') {
+      if (mode === 'metronome' && e.code === 'Space') {
           e.preventDefault();
           settings.isPlaying = !settings.isPlaying;
       }
+      // Trainer mode handles its own spacebar in TrainerPanel
   }
 
   // SEO Schema
@@ -142,6 +143,7 @@
     "name": dict.title,
     "description": dict.description,
     "applicationCategory": "MultimediaApplication",
+    "applicationSubCategory": "Music Learning",
     "operatingSystem": "Any",
     "offers": {
       "@type": "Offer",
@@ -150,6 +152,7 @@
     },
     "featureList": [
         "Polyrhythm Metronome",
+        "Rhythm Trainer Mode",
         "Visual Beat Indicator",
         "Tap Tempo",
         "Speed Trainer",
@@ -162,7 +165,7 @@
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content="metronome, polyrhythm generator, online metronome, rhythm trainer, music tools, tap tempo, bpm calculator, gap click, speed trainer" />
+  <meta name="keywords" content="metronome, polyrhythm generator, online metronome, rhythm trainer, music tools, tap tempo, bpm calculator, gap click, speed trainer, timing accuracy, drum practice" />
 
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
@@ -195,18 +198,38 @@
 
           <!-- Left Column: Visualizer & Controls -->
           <div class="lg:col-span-7 space-y-8">
-              <!-- Visualizer -->
-              <Visualizer {lastBeat} {settings} />
-
-              <!-- Controls -->
-              <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800">
-                  <Controls
-                      bind:settings
-                      {dict}
-                      on:play={handlePlay}
-                      on:stop={handleStop}
-                  />
+              <!-- Mode Switcher -->
+              <div class="flex p-1 bg-slate-200 dark:bg-slate-800 rounded-2xl">
+                  <button
+                      class="flex-1 py-3 rounded-xl font-bold text-sm transition-all {mode === 'metronome' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}"
+                      on:click={() => mode = 'metronome'}
+                  >
+                      Metronome
+                  </button>
+                  <button
+                      class="flex-1 py-3 rounded-xl font-bold text-sm transition-all {mode === 'trainer' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}"
+                      on:click={() => mode = 'trainer'}
+                  >
+                      {dict.rhythmTrainer?.title || 'Rhythm Trainer'}
+                  </button>
               </div>
+
+              <!-- Visualizer -->
+              <Visualizer {lastBeat} {settings} mode={mode} />
+
+              <!-- Controls or Trainer -->
+              {#if mode === 'metronome'}
+                  <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800">
+                      <Controls
+                          bind:settings
+                          {dict}
+                          on:play={handlePlay}
+                          on:stop={handleStop}
+                      />
+                  </div>
+              {:else}
+                  <TrainerPanel {engine} bind:settings {dict} />
+              {/if}
           </div>
 
           <!-- Right Column: Settings & Presets -->

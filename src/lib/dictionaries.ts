@@ -2673,6 +2673,19 @@ export const dictionaries = {
             play: "Play",
             mute: "Mute"
         },
+        rhythmTrainer: {
+            title: "Rhythm Trainer",
+            start: "Start Training",
+            stop: "Stop",
+            accuracy: "Accuracy",
+            streak: "Streak",
+            offset: "Offset",
+            perfect: "Perfect!",
+            great: "Great",
+            early: "Early",
+            late: "Late",
+            miss: "Miss"
+        },
         guide: {
           title: "Why Rhythm Forge?",
           intro: "Rhythm is the foundation of music. Rhythm Forge is designed for musicians who need more than a simple click. It helps you internalize complex polyrhythms and improve your timing precision.",
@@ -4426,6 +4439,19 @@ export const dictionaries = {
           title: "고스트 모드",
           play: "재생",
           mute: "음소거"
+      },
+      rhythmTrainer: {
+          title: "리듬 트레이너",
+          start: "훈련 시작",
+          stop: "중지",
+          accuracy: "정확도",
+          streak: "연속",
+          offset: "오차",
+          perfect: "완벽해요!",
+          great: "훌륭해요",
+          early: "빠름",
+          late: "느림",
+          miss: "놓침"
       },
       guide: {
         title: "왜 리듬 포지인가요?",
