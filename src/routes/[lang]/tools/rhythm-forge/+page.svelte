@@ -6,12 +6,15 @@
   import type { RhythmSettings, BeatEvent, SoundPack } from '$lib/utils/rhythm-forge/types';
   import { db, type RhythmForgePreset } from '$lib/db';
   import { Activity } from 'lucide-svelte';
+  import { SessionTracker } from '$lib/utils/rhythm-forge/session';
+  import { decompressState } from '$lib/utils/url-state';
 
   import Visualizer from '$lib/components/rhythm-forge/Visualizer.svelte';
   import Controls from '$lib/components/rhythm-forge/Controls.svelte';
   import TrainerPanel from '$lib/components/rhythm-forge/TrainerPanel.svelte';
   import SettingsPanel from '$lib/components/rhythm-forge/SettingsPanel.svelte';
   import PresetPanel from '$lib/components/rhythm-forge/PresetPanel.svelte';
+  import SessionStats from '$lib/components/rhythm-forge/SessionStats.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
 
@@ -48,6 +51,9 @@
 
   let engine: MetronomeEngine;
   let lastBeat: BeatEvent | null = null;
+  const sessionTracker = new SessionTracker();
+  let wasPlaying = false;
+  let tapTimes: number[] = [];
 
   function onBeat(event: BeatEvent) {
       lastBeat = event;
@@ -65,6 +71,31 @@
 
   function handleStop() {
       settings.isPlaying = false;
+  }
+
+  function handleTap() {
+      const now = Date.now();
+
+      // Reset if too long since last tap (2 seconds)
+      if (tapTimes.length > 0 && now - tapTimes[tapTimes.length - 1] > 2000) {
+          tapTimes = [];
+      }
+
+      tapTimes.push(now);
+      if (tapTimes.length > 4) tapTimes.shift(); // Keep last 4
+
+      if (tapTimes.length > 1) {
+          // Calculate average interval
+          let intervals = [];
+          for (let i = 1; i < tapTimes.length; i++) {
+              intervals.push(tapTimes[i] - tapTimes[i - 1]);
+          }
+          const avgInterval = intervals.reduce((a, b) => a + b, 0) / intervals.length;
+          const newBpm = Math.round(60000 / avgInterval);
+          if (newBpm >= 30 && newBpm <= 300) {
+              settings.bpm = newBpm;
+          }
+      }
   }
 
   function handleLoadPreset(event: CustomEvent<RhythmForgePreset>) {
@@ -106,22 +137,58 @@
   // Reactivity for Engine
   $: if (engine) {
       engine.updateSettings(settings);
+
       if (settings.isPlaying) {
-          engine.start();
+          if (!wasPlaying) {
+              engine.start();
+              sessionTracker.start();
+              wasPlaying = true;
+          }
       } else {
-          engine.stop();
+          if (wasPlaying) {
+              engine.stop();
+              const duration = sessionTracker.stop();
+              // Only save session if in metronome mode to avoid duplicates with TrainerPanel
+              if (duration && mode === 'metronome') {
+                  sessionTracker.save(settings, duration);
+              }
+              wasPlaying = false;
+          } else {
+              engine.stop();
+          }
       }
   }
 
-  onMount(() => {
+  onMount(async () => {
       engine = new MetronomeEngine(settings, onBeat, onBpmChange);
       window.addEventListener('keydown', handleKeydown);
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const state = urlParams.get('s');
+      if (state) {
+          try {
+              const json = await decompressState(state);
+              if (json) {
+                  const restored = JSON.parse(json);
+                  // Validate and merge
+                  settings = { ...settings, ...restored, isPlaying: false }; // Ensure starts paused
+              }
+          } catch (e) {
+              console.error('Failed to restore state', e);
+          }
+      }
   });
 
   onDestroy(() => {
       if (engine) engine.dispose();
       if (typeof window !== 'undefined') {
           window.removeEventListener('keydown', handleKeydown);
+          if (wasPlaying) {
+              const duration = sessionTracker.stop();
+              if (duration && mode === 'metronome') {
+                  sessionTracker.save(settings, duration);
+              }
+          }
           saveHistory();
       }
   });
@@ -129,11 +196,30 @@
   function handleKeydown(e: KeyboardEvent) {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
 
-      if (mode === 'metronome' && e.code === 'Space') {
+      if (e.code === 'Space') {
           e.preventDefault();
-          settings.isPlaying = !settings.isPlaying;
+          if (mode === 'metronome') {
+              settings.isPlaying = !settings.isPlaying;
+          }
+          // Trainer mode handles its own spacebar separately via window binding in TrainerPanel
+          return;
       }
-      // Trainer mode handles its own spacebar in TrainerPanel
+
+      if (mode === 'metronome') {
+          if (e.code === 'ArrowUp') {
+              e.preventDefault();
+              settings.bpm = Math.min(300, settings.bpm + (e.shiftKey ? 5 : 1));
+          } else if (e.code === 'ArrowDown') {
+              e.preventDefault();
+              settings.bpm = Math.max(30, settings.bpm - (e.shiftKey ? 5 : 1));
+          } else if (e.code === 'KeyT') {
+              e.preventDefault();
+              handleTap();
+          } else if (e.code === 'KeyM') {
+              e.preventDefault();
+              settings.volume = settings.volume > 0 ? 0 : 0.75;
+          }
+      }
   }
 
   // SEO Schema
@@ -152,6 +238,8 @@
     },
     "featureList": [
         "Polyrhythm Metronome",
+        "Rhythm Library",
+        "Practice Analytics",
         "Rhythm Trainer Mode",
         "Visual Beat Indicator",
         "Tap Tempo",
@@ -163,7 +251,7 @@
 </script>
 
 <svelte:head>
-  <title>{dict.title} - MicroFactory</title>
+  <title>{settings.isPlaying ? `▶ ${settings.bpm} BPM` : dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
   <meta name="keywords" content="metronome, polyrhythm generator, online metronome, rhythm trainer, music tools, tap tempo, bpm calculator, gap click, speed trainer, timing accuracy, drum practice" />
 
@@ -225,6 +313,7 @@
                           {dict}
                           on:play={handlePlay}
                           on:stop={handleStop}
+                          on:tap={handleTap}
                       />
                   </div>
               {:else}
@@ -234,6 +323,7 @@
 
           <!-- Right Column: Settings & Presets -->
           <div class="lg:col-span-5 space-y-8">
+              <SessionStats {dict} />
               <SettingsPanel bind:settings {dict} />
               <PresetPanel {settings} {dict} on:load={handleLoadPreset} />
           </div>
