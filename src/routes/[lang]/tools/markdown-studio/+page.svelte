@@ -10,7 +10,8 @@
   import MarkdownPreview from '$lib/components/markdown-studio/MarkdownPreview.svelte';
   import MarkdownToolbar from '$lib/components/markdown-studio/MarkdownToolbar.svelte';
   import HistoryList from '$lib/components/HistoryList.svelte';
-  import { db } from '$lib/db';
+  import { db, type MarkFlowHistory } from '$lib/db';
+  import { copyToClipboard as copyToClipboardUtil } from '$lib/utils';
   import { liveQuery } from 'dexie';
   import FAQSection from '$lib/components/FAQSection.svelte';
 
@@ -37,8 +38,10 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "MarkFlow",
-    "applicationCategory": "ProductivityApplication",
-    "operatingSystem": "Any",
+    "headline": dict.title,
+    "alternativeHeadline": "Online Markdown Editor",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -49,8 +52,11 @@
       "Real-time Markdown Preview",
       "Export to HTML",
       "Markdown Templates",
-      "Local History"
-    ]
+      "Local History",
+      "GitHub Flavored Markdown"
+    ],
+    "screenshot": "https://web-factory.vercel.app/og-image.jpg",
+    "url": $page.url.href
   };
 
   $: breadcrumbSchema = {
@@ -141,13 +147,13 @@
     }
   }
 
-  function loadHistoryItem(item: any) {
+  function loadHistoryItem(item: MarkFlowHistory) {
     content = item.content;
     showHistory = false;
   }
 
-  function deleteHistoryItem(id: number) {
-    db.markFlowHistory.delete(id);
+  function deleteHistoryItem(id?: number) {
+    if (id) db.markFlowHistory.delete(id);
   }
 
   function clearHistory() {
@@ -156,7 +162,7 @@
 
   async function copyToClipboard(text: string) {
     try {
-      await navigator.clipboard.writeText(text);
+      await copyToClipboardUtil(text);
       showNotification(dict.feedback.copied);
     } catch (err) {
       console.error('Failed to copy', err);
