@@ -3,11 +3,15 @@
   export let description: string;
   export let image: string = 'https://web-factory.vercel.app/og/default.png';
   export let url: string = 'https://web-factory.vercel.app';
+  export let keywords: string | undefined = undefined;
 </script>
 
 <svelte:head>
   <title>{title} | MicroFactory</title>
   <meta name="description" content={description} />
+  {#if keywords}
+    <meta name="keywords" content={keywords} />
+  {/if}
 
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />

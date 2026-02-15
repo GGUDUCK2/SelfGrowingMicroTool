@@ -59,7 +59,7 @@
     <!-- Line Numbers -->
     <div
       bind:this={lineNumbers}
-      class="bg-slate-100 dark:bg-slate-900 text-slate-400 dark:text-slate-500 text-right pr-2 pl-2 pt-2 select-none font-mono text-sm leading-6 overflow-hidden w-12 border-r border-slate-200 dark:border-slate-600"
+      class="bg-slate-100 dark:bg-slate-900 text-slate-400 dark:text-slate-500 text-right pr-2 pl-2 pt-2 select-none font-mono text-base sm:text-sm leading-6 overflow-hidden w-12 border-r border-slate-200 dark:border-slate-600"
     ></div>
 
     <!-- Text Area -->
@@ -70,7 +70,7 @@
       {readonly}
       on:scroll={handleScroll}
       on:input={updateLineNumbers}
-      class="flex-1 p-2 font-mono text-sm leading-6 bg-transparent resize-none outline-none text-slate-900 dark:text-slate-50 w-full"
+      class="flex-1 p-2 font-mono text-base sm:text-sm leading-6 bg-transparent resize-none outline-none text-slate-900 dark:text-slate-50 w-full"
       spellcheck="false"
       aria-label={label}
     ></textarea>

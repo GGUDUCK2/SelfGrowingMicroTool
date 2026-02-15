@@ -323,11 +323,46 @@
       }
     ]
   };
+
+  $: howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": `How to compare text files with ${t.title}`,
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Paste Original Text",
+        "text": "Paste your original text or code into the left editor.",
+        "position": 1
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Paste Modified Text",
+        "text": "Paste the new version of the text or code into the right editor.",
+        "position": 2
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Select Comparison Mode",
+        "text": "Choose between Lines, Words, Characters, or JSON mode for accurate results.",
+        "position": 3
+      },
+      {
+        "@type": "HowToStep",
+        "name": "View Differences",
+        "text": "Analyze the highlighted differences in the visualizer below.",
+        "position": 4
+      }
+    ]
+  };
+
+  const keywords = "diff checker, text compare, json compare, merge conflict solver, online diff tool, file comparison, text difference";
 </script>
 
 <svelte:head>
   {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(howToSchema)}</script>`}
 </svelte:head>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -336,6 +371,7 @@
   title={t.title}
   description={t.description}
   image="https://web-factory.vercel.app/og/diff-viewer.png"
+  keywords={keywords}
 />
 
 <div class="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20">
@@ -455,9 +491,9 @@
     {/if}
 
     <!-- Toolbar -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 mb-6 flex flex-wrap gap-4 items-center justify-between static md:sticky md:top-20 z-20">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 mb-6 flex flex-wrap gap-2 sm:gap-4 items-center justify-between static md:sticky md:top-20 z-20">
 
-        <div class="flex flex-wrap gap-4 items-center">
+        <div class="flex flex-wrap gap-2 sm:gap-4 items-center">
             <!-- Mode Selection -->
             <div class="flex items-center gap-2">
                 <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{t.mode}:</span>
@@ -535,7 +571,7 @@
 
     <!-- Editors Area -->
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4 mb-6 h-auto lg:h-[600px]">
-        <div class="h-[300px] lg:h-full">
+        <div class="h-64 sm:h-80 lg:h-full">
             <DiffEditor
                 bind:this={originalEditor}
                 bind:value={original}
@@ -544,7 +580,7 @@
                 on:scroll={(e) => handleEditorScroll(e, 'original')}
             />
         </div>
-        <div class="h-[300px] lg:h-full">
+        <div class="h-64 sm:h-80 lg:h-full">
             <DiffEditor
                 bind:this={modifiedEditor}
                 bind:value={modified}
@@ -556,7 +592,7 @@
     </div>
 
     <!-- Visualizer Area -->
-    <div class="h-[500px]">
+    <div class="h-[400px] sm:h-[500px] max-h-[70vh]">
         <DiffVisualizer {diffResult} mode={viewMode} />
     </div>
 
@@ -582,9 +618,9 @@
 
 <style>
   .btn-primary {
-    @apply h-11 px-6 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-sm;
+    @apply h-11 px-4 sm:px-6 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-sm;
   }
   .btn-secondary {
-    @apply h-11 px-6 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg font-medium transition-all duration-200 hover:bg-slate-50 dark:hover:bg-slate-600 text-sm;
+    @apply h-11 px-4 sm:px-6 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg font-medium transition-all duration-200 hover:bg-slate-50 dark:hover:bg-slate-600 text-sm;
   }
 </style>
