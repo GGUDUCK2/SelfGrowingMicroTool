@@ -94,9 +94,12 @@
         <div class="space-y-3 flex-1 overflow-y-auto">
             {#if $playlists}
                 {#each $playlists as playlist}
-                    <button
-                        class="w-full text-left group flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-800 transition-all shadow-sm hover:shadow-md"
+                    <div
+                        class="w-full text-left group flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-800 transition-all shadow-sm hover:shadow-md cursor-pointer"
                         on:click={() => activePlaylist = playlist}
+                        on:keydown={(e) => e.key === 'Enter' && (activePlaylist = playlist)}
+                        role="button"
+                        tabindex="0"
                     >
                         <div>
                             <div class="font-bold text-slate-700 dark:text-slate-200">{playlist.name}</div>
@@ -109,11 +112,12 @@
                             <button
                                 class="p-2 text-slate-300 hover:text-red-500 transition-colors z-10"
                                 on:click|stopPropagation={() => playlist.id && deletePlaylist(playlist.id)}
+                                aria-label="Delete Playlist"
                             >
                                 <Trash2 size={16} />
                             </button>
                         </div>
-                    </button>
+                    </div>
                 {/each}
                 {#if $playlists.length === 0}
                     <div class="text-center py-10 text-slate-400 text-sm">
