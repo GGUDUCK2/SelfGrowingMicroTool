@@ -3,8 +3,9 @@
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import { MetronomeEngine } from '$lib/utils/rhythm-forge/audio';
-  import type { RhythmSettings, BeatEvent, SoundPack } from '$lib/utils/rhythm-forge/types';
-  import { db, type RhythmForgePreset } from '$lib/db';
+  import type { RhythmSettings, BeatEvent, SoundPack, RhythmForgeDictionary } from '$lib/utils/rhythm-forge/types';
+  import { db, type RhythmForgePreset, type RhythmForgeHistory } from '$lib/db';
+  import type { RhythmPreset } from '$lib/utils/rhythm-forge/presets';
   import { Activity } from 'lucide-svelte';
   import { SessionTracker } from '$lib/utils/rhythm-forge/session';
   import { decompressState } from '$lib/utils/url-state';
@@ -12,18 +13,21 @@
   import Visualizer from '$lib/components/rhythm-forge/Visualizer.svelte';
   import Controls from '$lib/components/rhythm-forge/Controls.svelte';
   import TrainerPanel from '$lib/components/rhythm-forge/TrainerPanel.svelte';
+  import RhythmGame from '$lib/components/rhythm-forge/RhythmGame.svelte';
   import SettingsPanel from '$lib/components/rhythm-forge/SettingsPanel.svelte';
   import PresetPanel from '$lib/components/rhythm-forge/PresetPanel.svelte';
+  import PlaylistPanel from '$lib/components/rhythm-forge/PlaylistPanel.svelte';
   import SessionStats from '$lib/components/rhythm-forge/SessionStats.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.rhythmForge;
+  $: dict = (getDictionary(lang).tools as any).rhythmForge as RhythmForgeDictionary;
   $: common = getDictionary(lang).common;
 
   // App State
-  let mode: 'metronome' | 'trainer' = 'metronome';
+  let mode: 'metronome' | 'trainer' | 'game' = 'metronome';
+  let libraryMode: 'presets' | 'playlists' = 'presets';
 
   // Initial State
   let settings: RhythmSettings = {
@@ -98,7 +102,7 @@
       }
   }
 
-  function handleLoadPreset(event: CustomEvent<RhythmForgePreset>) {
+  function handleLoadPreset(event: CustomEvent<RhythmForgePreset | RhythmForgeHistory | RhythmPreset | RhythmSettings>) {
       const preset = event.detail;
       const newSettings = { ...settings };
       newSettings.bpm = preset.bpm;
@@ -251,7 +255,7 @@
 </script>
 
 <svelte:head>
-  <title>{settings.isPlaying ? `▶ ${settings.bpm} BPM` : dict.title} - MicroFactory</title>
+  <title>{mode === 'game' ? (dict.game?.title || 'Rhythm Game') : (settings.isPlaying ? `▶ ${settings.bpm} BPM` : dict.title)} - MicroFactory</title>
   <meta name="description" content={dict.description} />
   <meta name="keywords" content="metronome, polyrhythm generator, online metronome, rhythm trainer, music tools, tap tempo, bpm calculator, gap click, speed trainer, timing accuracy, drum practice" />
 
@@ -300,10 +304,16 @@
                   >
                       {dict.rhythmTrainer?.title || 'Rhythm Trainer'}
                   </button>
+                  <button
+                      class="flex-1 py-3 rounded-xl font-bold text-sm transition-all {mode === 'game' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}"
+                      on:click={() => mode = 'game'}
+                  >
+                      {dict.game?.title || 'Rhythm Game'}
+                  </button>
               </div>
 
               <!-- Visualizer -->
-              <Visualizer {lastBeat} {settings} mode={mode} />
+              <Visualizer {engine} {lastBeat} {settings} mode={mode === 'game' ? 'trainer' : mode} />
 
               <!-- Controls or Trainer -->
               {#if mode === 'metronome'}
@@ -316,8 +326,10 @@
                           on:tap={handleTap}
                       />
                   </div>
-              {:else}
+              {:else if mode === 'trainer'}
                   <TrainerPanel {engine} bind:settings {dict} />
+              {:else if mode === 'game'}
+                  <RhythmGame {engine} bind:settings {dict} />
               {/if}
           </div>
 
@@ -325,7 +337,27 @@
           <div class="lg:col-span-5 space-y-8">
               <SessionStats {dict} />
               <SettingsPanel bind:settings {dict} />
-              <PresetPanel {settings} {dict} on:load={handleLoadPreset} />
+
+              <div class="bg-slate-200 dark:bg-slate-800 p-1 rounded-2xl flex">
+                  <button
+                      class="flex-1 py-2 rounded-xl font-bold text-sm transition-all {libraryMode === 'presets' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400'}"
+                      on:click={() => libraryMode = 'presets'}
+                  >
+                      {dict.libraryMode?.presets || 'Presets & Library'}
+                  </button>
+                  <button
+                      class="flex-1 py-2 rounded-xl font-bold text-sm transition-all {libraryMode === 'playlists' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400'}"
+                      on:click={() => libraryMode = 'playlists'}
+                  >
+                      {dict.libraryMode?.playlists || 'Setlists / Playlists'}
+                  </button>
+              </div>
+
+              {#if libraryMode === 'presets'}
+                  <PresetPanel {settings} {dict} on:load={handleLoadPreset} />
+              {:else}
+                  <PlaylistPanel {settings} {dict} on:load={handleLoadPreset} />
+              {/if}
           </div>
       </div>
 

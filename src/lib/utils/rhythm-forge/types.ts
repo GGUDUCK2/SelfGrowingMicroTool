@@ -1,3 +1,5 @@
+import type { dictionaries } from '$lib/dictionaries';
+
 export interface SpeedTrainerConfig {
   enabled: boolean;
   startBpm: number;
@@ -34,3 +36,5 @@ export interface BeatEvent {
   index: number; // which beat in the measure
   total: number; // total beats in this cycle
 }
+
+export type RhythmForgeDictionary = typeof dictionaries['en']['tools']['rhythmForge'];

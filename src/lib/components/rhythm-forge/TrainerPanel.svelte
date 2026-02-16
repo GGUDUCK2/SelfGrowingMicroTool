@@ -3,12 +3,11 @@
   import { MetronomeEngine } from '$lib/utils/rhythm-forge/audio';
   import { Play, Square, Target, Activity, Trophy } from 'lucide-svelte';
   import { db } from '$lib/db';
-  import type { RhythmSettings } from '$lib/utils/rhythm-forge/types';
-  import type { getDictionary } from '$lib/dictionaries';
+  import type { RhythmSettings, RhythmForgeDictionary } from '$lib/utils/rhythm-forge/types';
 
   export let engine: MetronomeEngine;
   export let settings: RhythmSettings;
-  export let dict: ReturnType<typeof getDictionary>['tools']['rhythmForge'];
+  export let dict: RhythmForgeDictionary;
 
   let isTraining = false;
   let feedback: { text: string; color: string; delta: number } = { text: '', color: 'text-slate-400', delta: 0 };

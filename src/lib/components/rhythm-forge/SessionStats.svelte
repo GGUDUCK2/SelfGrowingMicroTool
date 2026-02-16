@@ -2,9 +2,9 @@
   import { liveQuery } from 'dexie';
   import { db } from '$lib/db';
   import { Clock, TrendingUp, Calendar, Zap } from 'lucide-svelte';
-  import type { getDictionary } from '$lib/dictionaries';
+  import type { RhythmForgeDictionary } from '$lib/utils/rhythm-forge/types';
 
-  export let dict: ReturnType<typeof getDictionary>['tools']['rhythmForge'];
+  export let dict: RhythmForgeDictionary;
 
   let sessions = liveQuery(() => db.rhythmForgeSessions.toArray());
 

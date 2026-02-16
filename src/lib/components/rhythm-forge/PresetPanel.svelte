@@ -3,12 +3,11 @@
   import { db, type RhythmForgePreset, type RhythmForgeHistory } from '$lib/db';
   import { Save, Trash2, Play, Star, Bookmark, History, Clock, Library } from 'lucide-svelte';
   import { createEventDispatcher } from 'svelte';
-  import type { RhythmSettings } from '$lib/utils/rhythm-forge/types';
-  import type { getDictionary } from '$lib/dictionaries';
+  import type { RhythmSettings, RhythmForgeDictionary } from '$lib/utils/rhythm-forge/types';
   import { BUILT_IN_PRESETS, type RhythmPreset } from '$lib/utils/rhythm-forge/presets';
 
   export let settings: RhythmSettings;
-  export let dict: ReturnType<typeof getDictionary>['tools']['rhythmForge'];
+  export let dict: RhythmForgeDictionary;
 
   const dispatch = createEventDispatcher<{
       load: RhythmForgePreset | RhythmForgeHistory | RhythmPreset
