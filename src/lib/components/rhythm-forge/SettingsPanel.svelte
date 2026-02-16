@@ -1,10 +1,9 @@
 <script lang="ts">
   import { Music, Activity, Clock, Split, Zap, Ghost } from 'lucide-svelte';
-  import type { RhythmSettings, SoundPack } from '$lib/utils/rhythm-forge/types';
-  import type { getDictionary } from '$lib/dictionaries';
+  import type { RhythmSettings, SoundPack, RhythmForgeDictionary } from '$lib/utils/rhythm-forge/types';
 
   export let settings: RhythmSettings;
-  export let dict: ReturnType<typeof getDictionary>['tools']['rhythmForge'];
+  export let dict: RhythmForgeDictionary;
 
   const sounds: { id: SoundPack; label: string }[] = [
       { id: 'click', label: dict.sounds?.click || 'Click' },

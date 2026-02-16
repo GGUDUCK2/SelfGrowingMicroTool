@@ -2712,7 +2712,38 @@ export const dictionaries = {
         q2: "What is a polyrhythm?",
         a2: "A polyrhythm is the simultaneous use of two or more conflicting rhythms. For example, playing 3 evenly spaced notes in the same time as 4 evenly spaced notes (3:4).",
         q3: "Does it work on mobile?",
-        a3: "Yes, Rhythm Forge is fully optimized for touch devices, allowing you to practice anywhere."
+        a3: "Yes, Rhythm Forge is fully optimized for touch devices, allowing you to practice anywhere.",
+        game: {
+            title: "Rhythm Game",
+            start: "Start Game",
+            stop: "Stop",
+            score: "Score",
+            combo: "Combo",
+            health: "Health",
+            perfect: "PERFECT!",
+            great: "GREAT",
+            good: "GOOD",
+            miss: "MISS",
+            gameOver: "Game Over",
+            newHigh: "New High Score!",
+            menu: "Menu",
+            retry: "Retry",
+            tapGuide: "TAP / SPACE"
+        },
+        playlists: {
+            title: "Playlists",
+            new: "New Playlist",
+            addCurrent: "Add Current",
+            empty: "Playlist is empty.",
+            emptyList: "Create a playlist to organize your setlist.",
+            deleteConfirm: "Delete this playlist?",
+            namePrompt: "Playlist Name:",
+            delete: "Delete"
+        },
+        libraryMode: {
+            presets: "Presets & Library",
+            playlists: "Setlists / Playlists"
+        }
       }
     },
     pwa: {
@@ -4487,7 +4518,38 @@ export const dictionaries = {
       q2: "폴리리듬이란 무엇인가요?",
         a2: "폴리리듬은 두 개 이상의 충돌하는 리듬을 동시에 사용하는 것입니다. 예를 들어, 4개의 고른 음표와 같은 시간 안에 3개의 고른 음표를 연주하는 것(3:4)입니다.",
       q3: "모바일에서 작동하나요?",
-        a3: "네, 리듬 포지는 터치 장치에 완벽하게 최적화되어 있어 어디서나 연습할 수 있습니다."
+        a3: "네, 리듬 포지는 터치 장치에 완벽하게 최적화되어 있어 어디서나 연습할 수 있습니다.",
+        game: {
+            title: "리듬 게임",
+            start: "게임 시작",
+            stop: "중지",
+            score: "점수",
+            combo: "콤보",
+            health: "체력",
+            perfect: "완벽해요!",
+            great: "훌륭해요",
+            good: "좋아요",
+            miss: "놓침",
+            gameOver: "게임 오버",
+            newHigh: "신기록!",
+            menu: "메뉴",
+            retry: "재시도",
+            tapGuide: "탭 / 스페이스바"
+        },
+        playlists: {
+            title: "플레이리스트",
+            new: "새 리스트",
+            addCurrent: "현재 설정 추가",
+            empty: "리스트가 비었습니다.",
+            emptyList: "세트리스트를 정리하려면 플레이리스트를 만드세요.",
+            deleteConfirm: "이 플레이리스트를 삭제하시겠습니까?",
+            namePrompt: "플레이리스트 이름:",
+            delete: "삭제"
+        },
+        libraryMode: {
+            presets: "프리셋 & 라이브러리",
+            playlists: "세트리스트 / 플레이리스트"
+        }
     }
   }
 } as const;
