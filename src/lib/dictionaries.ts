@@ -2744,6 +2744,52 @@ export const dictionaries = {
             presets: "Presets & Library",
             playlists: "Setlists / Playlists"
         }
+      },
+      logicForge: {
+        title: "Logic Forge: Boolean Algebra Studio",
+        description: "The definitive tool to analyze logic expressions. Generate truth tables, visualize circuits, and evaluate boolean logic instantly.",
+        input: "Boolean Expression",
+        analyze: "Analyze",
+        truthTable: "Truth Table",
+        circuit: "Circuit View",
+        simplify: "Simplify",
+        variables: "Variables",
+        result: "Result",
+        history: "History",
+        save: "Save",
+        restore: "Restore",
+        delete: "Delete",
+        clear: "Clear",
+        copy: "Copy",
+        copied: "Copied!",
+        error: "Invalid Expression",
+        operators: {
+            and: "AND (&)",
+            or: "OR (|)",
+            not: "NOT (!)",
+            xor: "XOR (^)",
+            nand: "NAND",
+            nor: "NOR"
+        },
+        guide: {
+          title: "Why Logic Forge?",
+          intro: "Boolean logic is the foundation of computing. Logic Forge provides a professional environment to design, test, and visualize complex logic circuits without breadboards.",
+          featuresTitle: "Key Features",
+          f1: "**Instant Truth Tables:** Automatically generate truth tables for any number of variables.",
+          f2: "**Circuit Visualization:** See the logic gates wiring diagram generated from your expression.",
+          f3: "**Smart Parser:** Supports standard operators (AND, OR, NOT) and engineering symbols (&, |, !).",
+          tipsTitle: "Pro Tips",
+          tip1: "Use **!** for NOT, **&** for AND, and **|** for OR.",
+          tip2: "Click on a row in the Truth Table to highlight the corresponding path in the Circuit view (coming soon).",
+          tip3: "Save complex expressions to **History** to build a library of logic gates."
+        },
+        faqTitle: "Logic Forge FAQ",
+        q1: "What operators are supported?",
+        a1: "We support AND (&), OR (|), NOT (!), XOR (^), NAND, NOR, and XNOR. You can use symbols or words.",
+        q2: "How many variables can I use?",
+        a2: "You can use as many as you like, but the truth table grows exponentially (2^n). We recommend keeping it under 10 variables for browser performance.",
+        q3: "Can I export the circuit?",
+        a3: "Currently, you can take a screenshot. SVG export is planned for a future update."
       }
     },
     pwa: {
@@ -4550,7 +4596,53 @@ export const dictionaries = {
             presets: "프리셋 & 라이브러리",
             playlists: "세트리스트 / 플레이리스트"
         }
-    }
+    },
+      logicForge: {
+        title: "로직 포지: 불 대수 스튜디오",
+        description: "논리식을 분석하는 완벽한 도구입니다. 진리표 생성, 회로 시각화 및 불 논리 평가를 즉시 수행하세요.",
+        input: "논리식",
+        analyze: "분석",
+        truthTable: "진리표",
+        circuit: "회로 뷰",
+        simplify: "단순화",
+        variables: "변수",
+        result: "결과",
+        history: "히스토리",
+        save: "저장",
+        restore: "복원",
+        delete: "삭제",
+        clear: "초기화",
+        copy: "복사",
+        copied: "복사됨!",
+        error: "유효하지 않은 식",
+        operators: {
+            and: "AND (&)",
+            or: "OR (|)",
+            not: "NOT (!)",
+            xor: "XOR (^)",
+            nand: "NAND",
+            nor: "NOR"
+        },
+        guide: {
+          title: "왜 로직 포지인가요?",
+          intro: "불 논리는 컴퓨팅의 기초입니다. 로직 포지는 브레드보드 없이 복잡한 논리 회로를 설계, 테스트 및 시각화할 수 있는 전문적인 환경을 제공합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**즉각적인 진리표:** 변수 수에 관계없이 진리표를 자동으로 생성합니다.",
+          f2: "**회로 시각화:** 수식에서 생성된 논리 게이트 배선도를 확인하세요.",
+          f3: "**스마트 파서:** 표준 연산자(AND, OR, NOT)와 공학 기호(&, |, !)를 모두 지원합니다.",
+          tipsTitle: "프로 팁",
+          tip1: "NOT에는 **!**, AND에는 **&**, OR에는 **|**를 사용하세요.",
+          tip2: "복잡한 식을 **히스토리**에 저장하여 논리 게이트 라이브러리를 구축하세요.",
+          tip3: "회로 뷰에서 게이트 배치를 확인하여 최적화할 수 있습니다."
+        },
+        faqTitle: "로직 포지 FAQ",
+        q1: "어떤 연산자를 지원하나요?",
+        a1: "AND(&), OR(|), NOT(!), XOR(^), NAND, NOR, XNOR를 지원합니다. 기호나 단어를 사용할 수 있습니다.",
+        q2: "몇 개의 변수까지 사용할 수 있나요?",
+        a2: "제한은 없지만 진리표는 지수적으로 증가합니다(2^n). 브라우저 성능을 위해 10개 미만의 변수를 권장합니다.",
+        q3: "회로를 내보낼 수 있나요?",
+        a3: "현재는 스크린샷을 찍을 수 있습니다. SVG 내보내기는 향후 업데이트될 예정입니다."
+      }
   }
 } as const;
 

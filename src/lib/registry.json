@@ -268,5 +268,20 @@
     "category": "music",
     "tags": ["metronome", "music", "rhythm", "polyrhythm", "audio"],
     "createdAt": "2024-07-20"
+  },
+  {
+    "id": "logic-forge",
+    "slug": "logic-forge",
+    "title": {
+      "en": "Logic Forge",
+      "ko": "로직 포지"
+    },
+    "description": {
+      "en": "The definitive boolean algebra tool. Truth tables, circuit visualization, and simplification.",
+      "ko": "완벽한 불 대수 도구입니다. 진리표, 회로 시각화 및 단순화 기능을 제공합니다."
+    },
+    "category": "dev",
+    "tags": ["logic", "boolean", "circuit", "truth-table", "math"],
+    "createdAt": "2024-08-01"
   }
 ]
