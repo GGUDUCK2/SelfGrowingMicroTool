@@ -164,7 +164,9 @@
           "Sequence Diagram Tool",
           "Offline Capable",
           "SVG Export"
-        ]
+        ],
+        "screenshot": "https://selfgrowingmicrotool.com/assets/og/diagram-forge.png",
+        "softwareRequirements": "Modern Web Browser"
       },
       {
         "@type": "BreadcrumbList",
@@ -192,6 +194,15 @@
 <svelte:head>
   <title>{t.title} | MicroFactory</title>
   <meta name="description" content={t.description} />
+  <meta property="og:title" content="{t.title} | MicroFactory" />
+  <meta property="og:description" content={t.description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={`https://selfgrowingmicrotool.com/${lang}/tools/diagram-forge`} />
+  <meta property="og:image" content="https://selfgrowingmicrotool.com/assets/og/diagram-forge.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{t.title} | MicroFactory" />
+  <meta name="twitter:description" content={t.description} />
+  <meta name="twitter:image" content="https://selfgrowingmicrotool.com/assets/og/diagram-forge.png" />
   {@html jsonLdScript}
 </svelte:head>
 

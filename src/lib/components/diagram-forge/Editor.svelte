@@ -22,8 +22,9 @@
 <div class="relative w-full h-full bg-slate-50 dark:bg-slate-900 overflow-hidden">
   <textarea
     bind:this={textarea}
-    class="w-full h-full p-4 bg-transparent text-slate-800 dark:text-slate-200 resize-none outline-none font-mono text-sm leading-relaxed border-none focus:ring-0"
+    class="w-full h-full p-4 bg-transparent text-slate-800 dark:text-slate-200 resize-none outline-none font-mono text-base md:text-sm leading-relaxed border-none focus:ring-0"
     spellcheck="false"
+    aria-label="Mermaid Diagram Editor"
     {placeholder}
     bind:value
     on:keydown={handleKeydown}
