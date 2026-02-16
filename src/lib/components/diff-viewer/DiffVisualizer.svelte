@@ -11,6 +11,8 @@
 
   export let diffResult: DiffResult;
   export let mode: 'split' | 'unified' = 'split';
+  export let originalLabel: string = 'Original';
+  export let modifiedLabel: string = 'Modified';
 
   // We need to re-run highlight when diffResult changes
   $: htmlParts = generateDiffHtml(diffResult, mode);
@@ -119,20 +121,22 @@
                 {@html htmlParts.unified}
             </div>
         {:else}
-            <div class="sticky top-0 z-10 flex w-full min-w-[800px] border-b border-slate-600 bg-slate-800">
-                <div class="w-1/2 px-4 py-2 text-lg font-semibold text-slate-200 border-r border-slate-600">
-                    원본 텍스트
+            <div class="min-w-[800px]">
+                <div class="sticky top-0 z-10 flex w-full border-b border-slate-600 bg-slate-800">
+                    <div class="w-1/2 px-4 py-2 text-lg font-semibold text-slate-200 border-r border-slate-600">
+                        {originalLabel}
+                    </div>
+                    <div class="w-1/2 px-4 py-2 text-lg font-semibold text-slate-200">
+                        {modifiedLabel}
+                    </div>
                 </div>
-                <div class="w-1/2 px-4 py-2 text-lg font-semibold text-slate-200">
-                    수정된 텍스트
-                </div>
-            </div>
-            <div class="flex w-full min-w-[800px]"> <!-- Force min width for split view -->
-                <div class="w-1/2 border-r border-slate-600">
-                    {@html htmlParts.left}
-                </div>
-                <div class="w-1/2">
-                    {@html htmlParts.right}
+                <div class="flex w-full"> <!-- Force min width for split view -->
+                    <div class="w-1/2 border-r border-slate-600">
+                        {@html htmlParts.left}
+                    </div>
+                    <div class="w-1/2">
+                        {@html htmlParts.right}
+                    </div>
                 </div>
             </div>
         {/if}

@@ -49,6 +49,10 @@
 
   // Initialize from URL
   onMount(async () => {
+      if (window.innerWidth < 768) {
+          viewMode = 'unified';
+      }
+
       const hash = window.location.hash.slice(1);
       if (hash) {
           try {
@@ -284,6 +288,8 @@
     "name": t.title,
     "operatingSystem": "Any",
     "applicationCategory": "DeveloperApplication",
+    "applicationSubCategory": "DeveloperApplication",
+    "screenshot": "https://web-factory.vercel.app/og/diff-viewer.png",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -419,7 +425,7 @@
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
 
     <!-- Conflict Modal -->
     {#if showConflictModal}
@@ -593,7 +599,12 @@
 
     <!-- Visualizer Area -->
     <div class="h-[400px] sm:h-[500px] max-h-[70vh]">
-        <DiffVisualizer {diffResult} mode={viewMode} />
+        <DiffVisualizer
+            {diffResult}
+            mode={viewMode}
+            originalLabel={t.original}
+            modifiedLabel={t.modified}
+        />
     </div>
 
     <!-- Guide & SEO Content -->
@@ -613,7 +624,7 @@
 
       <FAQSection title={t.faqTitle} items={faqItems} />
     </div>
-  </div>
+  </main>
 </div>
 
 <style>
