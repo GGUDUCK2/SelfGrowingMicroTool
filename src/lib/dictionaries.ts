@@ -2790,6 +2790,60 @@ export const dictionaries = {
         a2: "You can use as many as you like, but the truth table grows exponentially (2^n). We recommend keeping it under 10 variables for browser performance.",
         q3: "Can I export the circuit?",
         a3: "Currently, you can take a screenshot. SVG export is planned for a future update."
+      },
+      keyForge: {
+        title: "Key Forge: Pro Typing Studio",
+        description: "The definitive typing practice tool for developers. Master touch typing with code snippets, real-time analytics, and mechanical keyboard sounds.",
+        wpm: "WPM",
+        acc: "Accuracy",
+        raw: "Raw WPM",
+        consistency: "Consistency",
+        mode: "Mode",
+        language: "Language",
+        time: "Time",
+        words: "Words",
+        quote: "Quote",
+        zen: "Zen Mode",
+        sound: "Sound",
+        restart: "Restart (Tab)",
+        history: "History",
+        save: "Save Result",
+        empty: "No typing history yet.",
+        settings: "Settings",
+        theme: "Theme",
+        keyboard: "Visual Keyboard",
+        sounds: {
+          mechanical: "Mechanical",
+          typewriter: "Typewriter",
+          laptop: "Laptop",
+          mute: "Mute"
+        },
+        stats: {
+          title: "Session Report",
+          characters: "Characters",
+          errors: "Errors",
+          time: "Time",
+          chart: "WPM History"
+        },
+        guide: {
+          title: "Why Key Forge?",
+          intro: "Speed is nothing without accuracy. Key Forge is designed to help you type at the speed of thought, with specific modes for coding syntax.",
+          featuresTitle: "Key Features",
+          f1: "**Code Mode:** Practice typing actual code snippets from popular languages like Rust, Python, and JavaScript.",
+          f2: "**Mechanical Audio:** Satisfying clicky sounds provide immediate auditory feedback for every keystroke.",
+          f3: "**Deep Analytics:** Track your consistency and error rates to identify weak spots.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use **Ctrl + Backspace** to delete entire words. It's much faster than mashing backspace.",
+          tip2: "Focus on **Accuracy** first. Speed comes naturally when you stop making mistakes.",
+          tip3: "Try **Zen Mode** to remove all UI distractions and focus purely on the text."
+        },
+        faqTitle: "Key Forge FAQ",
+        q1: "How is WPM calculated?",
+        a1: "WPM (Words Per Minute) is calculated as (Total Characters / 5) / Time in Minutes. One 'word' is standardized to 5 characters.",
+        q2: "What is Consistency?",
+        a2: "Consistency measures the variance in your typing speed. A higher percentage means you are typing at a steady rhythm, which is key to long-term speed.",
+        q3: "Can I import my own text?",
+        a3: "Currently, you can choose from our curated code and quote libraries. Custom text import is planned for a future update."
       }
     },
     pwa: {
@@ -4642,6 +4696,60 @@ export const dictionaries = {
         a2: "제한은 없지만 진리표는 지수적으로 증가합니다(2^n). 브라우저 성능을 위해 10개 미만의 변수를 권장합니다.",
         q3: "회로를 내보낼 수 있나요?",
         a3: "현재는 스크린샷을 찍을 수 있습니다. SVG 내보내기는 향후 업데이트될 예정입니다."
+      },
+      keyForge: {
+        title: "키 포지: 프로 타이핑 스튜디오",
+        description: "개발자를 위한 완벽한 타이핑 연습 도구입니다. 코드 스니펫, 실시간 분석, 기계식 키보드 사운드로 터치 타이핑을 마스터하세요.",
+        wpm: "타수 (WPM)",
+        acc: "정확도",
+        raw: "원시 타수",
+        consistency: "일관성",
+        mode: "모드",
+        language: "언어",
+        time: "시간",
+        words: "단어",
+        quote: "명언",
+        zen: "젠 모드",
+        sound: "사운드",
+        restart: "재시작 (Tab)",
+        history: "히스토리",
+        save: "결과 저장",
+        empty: "타이핑 기록이 없습니다.",
+        settings: "설정",
+        theme: "테마",
+        keyboard: "가상 키보드",
+        sounds: {
+          mechanical: "기계식",
+          typewriter: "타자기",
+          laptop: "노트북",
+          mute: "음소거"
+        },
+        stats: {
+          title: "세션 리포트",
+          characters: "문자수",
+          errors: "오류",
+          time: "시간",
+          chart: "속도 그래프"
+        },
+        guide: {
+          title: "왜 키 포지인가요?",
+          intro: "정확성 없는 속도는 무의미합니다. 키 포지는 코딩 구문에 특화된 모드를 통해 생각의 속도로 타이핑할 수 있도록 돕습니다.",
+          featuresTitle: "주요 기능",
+          f1: "**코드 모드:** Rust, Python, JavaScript 등 인기 언어의 실제 코드 스니펫으로 연습하세요.",
+          f2: "**기계식 오디오:** 만족스러운 클릭 사운드가 모든 키 입력에 대해 즉각적인 청각 피드백을 제공합니다.",
+          f3: "**심층 분석:** 일관성과 오류율을 추적하여 약점을 파악하세요.",
+          tipsTitle: "프로 팁",
+          tip1: "**Ctrl + Backspace**를 사용하여 단어 전체를 삭제하세요. 백스페이스를 연타하는 것보다 훨씬 빠릅니다.",
+          tip2: "**정확도**에 먼저 집중하세요. 실수를 줄이면 속도는 자연스럽게 따라옵니다.",
+          tip3: "**젠 모드**를 사용하여 모든 UI 방해 요소를 제거하고 텍스트에만 집중하세요."
+        },
+        faqTitle: "키 포지 FAQ",
+        q1: "WPM은 어떻게 계산되나요?",
+        a1: "WPM(분당 단어 수)은 (총 문자 수 / 5) / 분 단위 시간으로 계산됩니다. 하나의 '단어'는 5문자로 표준화됩니다.",
+        q2: "일관성이란 무엇인가요?",
+        a2: "일관성은 타이핑 속도의 분산을 측정합니다. 비율이 높을수록 꾸준한 리듬으로 타이핑하고 있다는 의미이며, 이는 장기적인 속도 향상의 핵심입니다.",
+        q3: "내 텍스트를 가져올 수 있나요?",
+        a3: "현재는 엄선된 코드 및 명언 라이브러리에서 선택할 수 있습니다. 사용자 정의 텍스트 가져오기는 향후 업데이트될 예정입니다."
       }
   }
 } as const;
