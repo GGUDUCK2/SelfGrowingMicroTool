@@ -43,6 +43,7 @@
     "description": t.description,
     "operatingSystem": "Web",
     "applicationCategory": "DesignApplication",
+    "applicationSubCategory": "Graphic Design",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -59,10 +60,10 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": t.faqTitle,
+          "name": t.q1,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": `${t.q1} ${t.a1}`
+            "text": t.a1
           }
         },
         {
@@ -297,10 +298,10 @@
     </div>
   {/if}
 
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
 
     <!-- Left Column: Controls -->
-    <div class="lg:col-span-4 space-y-8">
+    <div class="md:col-span-5 lg:col-span-4 space-y-8">
       <div class="relative">
           <ColorWheel color={baseColor} {t} on:change={handleColorChange} />
           <button
@@ -358,7 +359,7 @@
     </div>
 
     <!-- Right Column: Results -->
-    <div class="lg:col-span-8 space-y-8">
+    <div class="md:col-span-7 lg:col-span-8 space-y-8">
 
       <!-- Palette Display -->
       <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
@@ -382,45 +383,80 @@
   </div>
 
   <!-- Documentation -->
-  <article class="prose dark:prose-invert max-w-none bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
-    <h2>{t.guide.title}</h2>
-    <p>
-      {@html t.guide.intro.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}
-    </p>
+  <article class="prose prose-indigo dark:prose-invert max-w-none bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-6">{t.guide.title}</h2>
+      <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+        {@html t.guide.intro.replace(/\*\*(.*?)\*\*/g, '<strong class="text-indigo-600 dark:text-indigo-400">$1</strong>')}
+      </p>
+    </section>
 
-    <h3>{t.guide.featuresTitle}</h3>
-    <ul>
-      <li>{@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-      <li>{@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-      <li>{@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-      <li>{@html t.guide.f4.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-    </ul>
+    <div class="grid md:grid-cols-2 gap-12 mb-12">
+      <section>
+        <h3 class="flex items-center gap-2 text-xl font-bold text-slate-900 dark:text-white mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          {t.guide.featuresTitle}
+        </h3>
+        <ul class="space-y-3 list-none pl-0">
+          {#each [t.guide.f1, t.guide.f2, t.guide.f3, t.guide.f4] as feature}
+            <li class="flex gap-3 text-slate-600 dark:text-slate-300">
+              <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0"></span>
+              <span>{@html feature.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-900 dark:text-white">$1</strong>')}</span>
+            </li>
+          {/each}
+        </ul>
+      </section>
 
-    <h3>{t.guide.tipsTitle}</h3>
-    <blockquote>
-      <p>{t.guide.tip1}</p>
-    </blockquote>
-    <ul>
-      <li>{@html t.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-      <li>{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-      <li>{@html t.guide.tip4.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-    </ul>
+      <section>
+        <h3 class="flex items-center gap-2 text-xl font-bold text-slate-900 dark:text-white mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          {t.guide.technicalTitle}
+        </h3>
+        <ul class="space-y-3 list-none pl-0">
+          {#each [t.guide.tech1, t.guide.tech2, t.guide.tech3] as tech}
+            <li class="flex gap-3 text-slate-600 dark:text-slate-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-emerald-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>{@html tech}</span>
+            </li>
+          {/each}
+        </ul>
+      </section>
+    </div>
 
-    <h3>{t.guide.technicalTitle}</h3>
-    <ul>
-      <li>{@html t.guide.tech1}</li>
-      <li>{@html t.guide.tech2}</li>
-      <li>{@html t.guide.tech3}</li>
-    </ul>
+    <section class="mb-12 bg-indigo-50 dark:bg-slate-700/30 rounded-2xl p-6 border border-indigo-100 dark:border-slate-600">
+      <h3 class="flex items-center gap-2 text-xl font-bold text-indigo-900 dark:text-indigo-100 mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        {t.guide.tipsTitle}
+      </h3>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-indigo-100 dark:border-slate-600">
+          <p class="text-indigo-800 dark:text-indigo-200 font-medium mb-2">Pro Tip</p>
+          <p class="text-slate-600 dark:text-slate-300 text-sm">{t.guide.tip1}</p>
+        </div>
+        <ul class="space-y-3 list-none pl-0">
+          {#each [t.guide.tip2, t.guide.tip3, t.guide.tip4] as tip}
+            <li class="flex gap-3 text-slate-600 dark:text-slate-300 text-sm">
+              <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>
+              <span>{@html tip.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-900 dark:text-white">$1</strong>')}</span>
+            </li>
+          {/each}
+        </ul>
+      </div>
+    </section>
 
-    <h3>{t.faqTitle}</h3>
-    <dl>
-      <dt><strong>{t.q1}</strong></dt>
-      <dd>{t.a1}</dd>
-
-      <dt><strong>{t.q2}</strong></dt>
-      <dd>{t.a2}</dd>
-    </dl>
+    <section>
+      <h3 class="text-2xl font-bold mb-6">{t.faqTitle}</h3>
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-lg text-slate-900 dark:text-white mb-2">{t.q1}</h4>
+          <p class="text-slate-600 dark:text-slate-300">{t.a1}</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-lg text-slate-900 dark:text-white mb-2">{t.q2}</h4>
+          <p class="text-slate-600 dark:text-slate-300">{t.a2}</p>
+        </div>
+      </div>
+    </section>
   </article>
 
 </div>

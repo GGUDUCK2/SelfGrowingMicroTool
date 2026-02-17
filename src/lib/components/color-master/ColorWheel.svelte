@@ -61,11 +61,11 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-2 gap-4 text-xs font-mono text-slate-500 dark:text-slate-400">
-    <div class="bg-slate-50 dark:bg-slate-900 p-2 rounded border border-slate-100 dark:border-slate-700">
+  <div class="flex flex-wrap gap-4 text-xs font-mono text-slate-500 dark:text-slate-400">
+    <div class="flex-1 min-w-[140px] bg-slate-50 dark:bg-slate-900 p-2 rounded border border-slate-100 dark:border-slate-700">
       RGB: {colord(color).toRgbString()}
     </div>
-    <div class="bg-slate-50 dark:bg-slate-900 p-2 rounded border border-slate-100 dark:border-slate-700">
+    <div class="flex-1 min-w-[140px] bg-slate-50 dark:bg-slate-900 p-2 rounded border border-slate-100 dark:border-slate-700">
       HSL: {colord(color).toHslString()}
     </div>
   </div>

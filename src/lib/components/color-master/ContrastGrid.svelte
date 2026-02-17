@@ -23,13 +23,21 @@
 </script>
 
 <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
-  <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t.contrastGrid.title || 'Contrast Grid'}</h3>
+  <div class="flex flex-wrap items-center justify-between mb-4 gap-4">
+    <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{t.contrastGrid.title || 'Contrast Grid'}</h3>
+    <div class="flex flex-wrap gap-2 text-[10px] font-bold">
+      <span class="px-2 py-1 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300">AAA</span>
+      <span class="px-2 py-1 rounded bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">AA</span>
+      <span class="px-2 py-1 rounded bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">AA+</span>
+      <span class="px-2 py-1 rounded bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">Fail</span>
+    </div>
+  </div>
 
   <div class="overflow-x-auto">
     <table class="w-full text-center border-collapse">
       <thead>
         <tr>
-          <th class="p-2 border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900"></th>
+          <th class="sticky left-0 z-20 p-2 border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900"></th>
           {#each colors as color}
             <th class="p-2 border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 min-w-[60px]">
               <div class="w-6 h-6 rounded-full mx-auto border border-slate-200 dark:border-slate-600" style="background-color: {color.hex}"></div>
@@ -40,7 +48,7 @@
       <tbody>
         {#each colors as rowColor}
           <tr>
-            <th class="p-2 border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+            <th class="sticky left-0 z-10 p-2 border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
               <div class="w-6 h-6 rounded-full mx-auto border border-slate-200 dark:border-slate-600" style="background-color: {rowColor.hex}"></div>
             </th>
             {#each colors as colColor}
