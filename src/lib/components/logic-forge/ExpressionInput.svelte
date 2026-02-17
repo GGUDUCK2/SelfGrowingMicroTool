@@ -5,6 +5,7 @@
   export let lang: string = 'en';
   export let value: string = '';
   export let error: string | null = null;
+  export let label: string = 'Boolean Expression';
 
   $: dict = getDictionary(lang).tools.logicForge;
   const dispatch = createEventDispatcher();
@@ -33,6 +34,7 @@
       bind:value
       on:input={handleInput}
       on:keydown={handleKeydown}
+      aria-label={label}
       placeholder="e.g. A & (B | !C)"
       class="w-full bg-transparent border-none focus:ring-0 text-lg font-mono text-gray-800 placeholder-gray-400 h-12 outline-none"
       spellcheck="false"
