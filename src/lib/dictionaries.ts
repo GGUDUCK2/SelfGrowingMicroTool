@@ -2771,6 +2771,13 @@ export const dictionaries = {
             nand: "NAND",
             nor: "NOR"
         },
+        karnaughMap: "Karnaugh Map",
+        simplification: "Simplification",
+        steps: "Steps",
+        canonicalForms: "Canonical Forms",
+        sop: "Sum of Products (SOP)",
+        pos: "Product of Sums (POS)",
+        minterms: "Minterms",
         guide: {
           title: "Why Logic Forge?",
           intro: "Boolean logic is the foundation of computing. Logic Forge provides a professional environment to design, test, and visualize complex logic circuits without breadboards.",
@@ -4677,6 +4684,13 @@ export const dictionaries = {
             nand: "NAND",
             nor: "NOR"
         },
+        karnaughMap: "카르노 맵",
+        simplification: "단순화",
+        steps: "단계",
+        canonicalForms: "표준형",
+        sop: "최소항의 합 (SOP)",
+        pos: "최대항의 곱 (POS)",
+        minterms: "최소항",
         guide: {
           title: "왜 로직 포지인가요?",
           intro: "불 논리는 컴퓨팅의 기초입니다. 로직 포지는 브레드보드 없이 복잡한 논리 회로를 설계, 테스트 및 시각화할 수 있는 전문적인 환경을 제공합니다.",
