@@ -5,10 +5,12 @@
   export let lang: string = 'en';
   export let ast: LogicAST | null = null;
 
-  $: dict = getDictionary(lang).logicForge;
+  $: dict = getDictionary(lang).tools.logicForge;
 
   let containerWidth = 0;
   let containerHeight = 0;
+
+  $: layoutWidth = Math.max(containerWidth, 600);
 
   // Simple layout logic
   interface Node {
@@ -74,14 +76,14 @@
       // Actually AST depth is inverted relative to visual flow (Input -> Output).
       // AST Root is Output.
 
-      const layerWidth = containerWidth / (maxDepth + 2);
+      const layerWidth = layoutWidth / (maxDepth + 2);
 
       Object.keys(nodesByDepth).forEach(dKey => {
           const d = Number(dKey);
           const layerNodes = nodesByDepth[d];
           // x position: Output (depth 0) is at Width - padding
           // Inputs (depth max) are at padding
-          const x = containerWidth - 50 - (d * layerWidth);
+          const x = layoutWidth - 50 - (d * layerWidth);
 
           // y position: Distribute evenly
           const layerHeight = containerHeight / (layerNodes.length + 1);
@@ -113,14 +115,14 @@
       edges = edgeList;
   }
 
-  $: if (ast && containerWidth > 0) {
+  $: if (ast && layoutWidth > 0 && containerHeight > 0) {
       const root = processAST(ast, 0, 'root');
       layout(root);
   }
 </script>
 
 <div
-  class="w-full h-[400px] bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden relative"
+  class="w-full min-h-[300px] md:h-[500px] bg-white rounded-xl shadow-sm border border-gray-200 overflow-auto relative scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
   bind:clientWidth={containerWidth}
   bind:clientHeight={containerHeight}
 >
@@ -132,7 +134,7 @@
   </div>
 
   {#if ast}
-    <svg width="100%" height="100%">
+    <svg width={layoutWidth} height="100%">
         <defs>
             <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
                 <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8" />

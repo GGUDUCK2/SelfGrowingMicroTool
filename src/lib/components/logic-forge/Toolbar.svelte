@@ -4,7 +4,7 @@
 
   export let lang: string = 'en';
 
-  $: dict = getDictionary(lang).logicForge;
+  $: dict = getDictionary(lang).tools.logicForge;
   const dispatch = createEventDispatcher();
 
   let copied = false;

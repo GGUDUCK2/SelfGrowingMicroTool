@@ -3,13 +3,25 @@
   import { db, type LogicForgeHistory } from '$lib/db';
   import { liveQuery } from 'dexie';
   import { getDictionary } from '$lib/dictionaries';
+  import { browser } from '$app/environment';
 
   export let lang: string = 'en';
 
-  $: dict = getDictionary(lang).logicForge;
+  $: dict = getDictionary(lang).tools.logicForge;
   const dispatch = createEventDispatcher();
 
-  let history = liveQuery(() => db.logicForgeHistory.orderBy('createdAt').reverse().limit(20).toArray());
+  let history;
+
+  if (browser) {
+      history = liveQuery(async () => {
+        if (db.logicForgeHistory) {
+          return await db.logicForgeHistory.orderBy('createdAt').reverse().limit(20).toArray();
+        }
+        return [];
+      });
+  } else {
+      history = { subscribe: (cb: any) => { cb([]); return () => {}; } };
+  }
 
   function formatDate(d: Date) {
     return new Intl.DateTimeFormat(lang, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(d);
