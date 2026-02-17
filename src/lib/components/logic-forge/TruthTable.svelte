@@ -5,7 +5,7 @@
   export let lang: string = 'en';
   export let data: TruthTableData | null = null;
 
-  $: dict = getDictionary(lang).logicForge;
+  $: dict = getDictionary(lang).tools.logicForge;
 </script>
 
 <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-full">
@@ -21,7 +21,7 @@
     {/if}
   </div>
 
-  <div class="flex-1 overflow-auto min-h-[300px]">
+  <div class="flex-1 overflow-auto min-h-[300px] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
   {#if data}
     <div class="inline-block min-w-full align-middle">
       <table class="min-w-full divide-y divide-gray-200">

@@ -6,7 +6,7 @@
   export let value: string = '';
   export let error: string | null = null;
 
-  $: dict = getDictionary(lang).logicForge;
+  $: dict = getDictionary(lang).tools.logicForge;
   const dispatch = createEventDispatcher();
 
   function handleInput(e: Event) {

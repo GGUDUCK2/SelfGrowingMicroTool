@@ -78,15 +78,22 @@
 </script>
 
 <svelte:head>
-  <title>{dict.title}</title>
+  <title>{dict.title} - Online Logic Gate Simulator</title>
   <meta name="description" content={dict.description} />
+  <meta name="keywords" content="logic gates, truth table generator, boolean algebra, logic circuit simulator, online tool, digital logic design" />
   <script type="application/ld+json">
     {JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": dict.title,
+      "url": "https://microfactory.app/tools/logic-forge",
+      "author": {
+        "@type": "Organization",
+        "name": "MicroFactory"
+      },
       "operatingSystem": "Any",
       "applicationCategory": "DeveloperApplication",
+      "datePublished": "2023-10-01",
       "offers": {
         "@type": "Offer",
         "price": "0",
