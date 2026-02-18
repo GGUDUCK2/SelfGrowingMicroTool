@@ -1441,6 +1441,21 @@ export const dictionaries = {
       timeForge: {
         title: "Time Forge",
         description: "Professional world clock and meeting scheduler for distributed teams.",
+        features: {
+          title: "Master Your Global Schedule",
+          visualPlanning: {
+            title: "Visual Planning",
+            desc: "Instantly see day/night cycles and business hour overlaps across unlimited locations."
+          },
+          teamWorkspaces: {
+            title: "Team Workspaces",
+            desc: "Save different city groups for different project teams and switch between them instantly."
+          },
+          smartSharing: {
+            title: "Smart Sharing",
+            desc: "Generate unique links to share your exact time configuration with colleagues."
+          }
+        },
         shortcuts: {
             title: "Keyboard Shortcuts",
             meetingMode: "Toggle Meeting Mode",
@@ -2988,6 +3003,21 @@ export const dictionaries = {
       timeForge: {
         title: "타임 포지",
         description: "분산된 팀을 위한 전문 세계 시계 및 회의 일정 스케줄러입니다.",
+        features: {
+          title: "글로벌 스케줄 마스터하기",
+          visualPlanning: {
+            title: "시각적 계획",
+            desc: "무제한 위치에 걸쳐 주야간 주기와 업무 시간 겹침을 즉시 확인하세요."
+          },
+          teamWorkspaces: {
+            title: "팀 워크스페이스",
+            desc: "프로젝트 팀별로 다른 도시 그룹을 저장하고 즉시 전환하세요."
+          },
+          smartSharing: {
+            title: "스마트 공유",
+            desc: "동료들과 정확한 시간 구성을 공유하기 위해 고유 링크를 생성하세요."
+          }
+        },
         shortcuts: {
             title: "키보드 단축키",
             meetingMode: "미팅 모드 전환",
