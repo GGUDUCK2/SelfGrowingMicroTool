@@ -36,16 +36,16 @@
 
   $: faqs = [
     {
-      question: t.q1,
-      answer: t.a1
+      q: t.q1,
+      a: t.a1
     },
     {
-      question: t.q2,
-      answer: t.a2
+      q: t.q2,
+      a: t.a2
     },
     {
-      question: t.q3,
-      answer: t.a3
+      q: t.q3,
+      a: t.a3
     }
   ];
 
@@ -54,13 +54,19 @@
     "@type": "SoftwareApplication",
     "name": t.title,
     "applicationCategory": "ProductivityApplication",
-    "operatingSystem": "Web",
+    "operatingSystem": "Any",
     "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
     },
-    "description": t.description
+    "description": t.description,
+    "featureList": [t.features.visualPlanning.title, t.features.teamWorkspaces.title, t.features.smartSharing.title],
+    "screenshot": "https://microfactory.dev/og/time-forge.png",
+    "author": {
+        "@type": "Organization",
+        "name": "MicroFactory"
+    }
   };
 
 </script>
@@ -89,23 +95,23 @@
   </div>
 
   <div class="prose prose-invert max-w-none">
-    <h2 class="text-2xl font-bold text-white mb-6">Master Your Global Schedule</h2>
+    <h2 class="text-2xl font-bold text-white mb-6">{t.features.title}</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
       <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-700/50">
-        <h3 class="text-lg font-semibold text-indigo-400 mb-2">Visual Planning</h3>
-        <p class="text-slate-400 text-sm">Instantly see day/night cycles and business hour overlaps across unlimited locations.</p>
+        <h3 class="text-lg font-semibold text-indigo-400 mb-2">{t.features.visualPlanning.title}</h3>
+        <p class="text-slate-400 text-sm">{t.features.visualPlanning.desc}</p>
       </div>
       <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-700/50">
-        <h3 class="text-lg font-semibold text-indigo-400 mb-2">Team Workspaces</h3>
-        <p class="text-slate-400 text-sm">Save different city groups for different project teams and switch between them instantly.</p>
+        <h3 class="text-lg font-semibold text-indigo-400 mb-2">{t.features.teamWorkspaces.title}</h3>
+        <p class="text-slate-400 text-sm">{t.features.teamWorkspaces.desc}</p>
       </div>
       <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-700/50">
-        <h3 class="text-lg font-semibold text-indigo-400 mb-2">Smart Sharing</h3>
-        <p class="text-slate-400 text-sm">Generate unique links to share your exact time configuration with colleagues.</p>
+        <h3 class="text-lg font-semibold text-indigo-400 mb-2">{t.features.smartSharing.title}</h3>
+        <p class="text-slate-400 text-sm">{t.features.smartSharing.desc}</p>
       </div>
     </div>
 
-    <FAQSection {faqs} />
+    <FAQSection title={t.faqTitle} items={faqs} />
   </div>
 
 </div>
