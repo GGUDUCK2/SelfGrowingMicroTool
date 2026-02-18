@@ -2796,7 +2796,7 @@ export const dictionaries = {
         q2: "How many variables can I use?",
         a2: "You can use as many as you like, but the truth table grows exponentially (2^n). We recommend keeping it under 10 variables for browser performance.",
         q3: "Can I export the circuit?",
-        a3: "Currently, you can take a screenshot. SVG export is planned for a future update."
+        a3: "Yes! Use the export buttons in the Circuit View to download as PNG or SVG."
       },
       keyForge: {
         title: "Key Forge: Pro Typing Studio",
@@ -4684,6 +4684,10 @@ export const dictionaries = {
             nand: "NAND",
             nor: "NOR"
         },
+        analyzer: "Analyzer",
+        designer: "Designer",
+        editingTruthTable: "Editing Truth Table (Reverse Engineering)",
+        clickToToggle: "Click to toggle",
         karnaughMap: "카르노 맵",
         simplification: "단순화",
         steps: "단계",
@@ -4709,7 +4713,7 @@ export const dictionaries = {
         q2: "몇 개의 변수까지 사용할 수 있나요?",
         a2: "제한은 없지만 진리표는 지수적으로 증가합니다(2^n). 브라우저 성능을 위해 10개 미만의 변수를 권장합니다.",
         q3: "회로를 내보낼 수 있나요?",
-        a3: "현재는 스크린샷을 찍을 수 있습니다. SVG 내보내기는 향후 업데이트될 예정입니다."
+        a3: "네! 회로 뷰의 내보내기 버튼을 사용하여 PNG 또는 SVG로 다운로드할 수 있습니다."
       },
       keyForge: {
         title: "키 포지: 프로 타이핑 스튜디오",

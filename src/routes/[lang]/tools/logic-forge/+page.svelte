@@ -2,7 +2,7 @@
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
   import { getDictionary } from '$lib/dictionaries';
-  import { parseExpression, generateTruthTable, simplify, getKarnaughMap, getCanonicalForms } from '$lib/utils/logic-forge/engine';
+  import { parseExpression, generateTruthTable, simplify, getKarnaughMap, getCanonicalForms, astToString, generateExpressionFromTruthTable } from '$lib/utils/logic-forge/engine';
   import type { LogicAST, TruthTableData, KarnaughMapData } from '$lib/types/logic-forge';
   import { db } from '$lib/db';
   import { onMount } from 'svelte';
@@ -35,7 +35,7 @@
   let canonical: { sop: string, pos: string } | null = null;
 
   let error: string | null = null;
-  let viewMode: 'table' | 'circuit' = 'table';
+  let mode: 'analyzer' | 'designer' = 'analyzer';
 
   // Tabs
   let activeTab: 'table' | 'circuit' | 'kmap' | 'simplify' = 'table';
@@ -48,14 +48,15 @@
       }
   });
 
-  function updateUrl() {
+  async function updateUrl() {
       const url = new URL($page.url);
       if (expression.trim()) {
           url.searchParams.set('q', expression);
       } else {
           url.searchParams.delete('q');
       }
-      goto(url.toString(), { keepFocus: true, replaceState: true, noScroll: true });
+      // eslint-disable-next-line svelte/no-navigation-without-resolve
+      await goto(url.toString(), { keepFocus: true, replaceState: true, noScroll: true });
   }
 
   function analyze(save = true) {
@@ -70,7 +71,9 @@
     try {
       updateUrl();
       ast = parseExpression(expression);
-      truthTable = generateTruthTable(ast);
+
+      const forceVars = mode === 'designer' && truthTable ? truthTable.variables : undefined;
+      truthTable = generateTruthTable(ast, forceVars);
 
       // Advanced features
       if (truthTable.variables.length <= 4) {
@@ -80,12 +83,6 @@
       }
 
       const simpleAst = simplify(ast);
-      // Re-serialize simplified AST - quick hack or need a serializer?
-      // engine.ts doesn't have astToString.
-      // But we can just use the debug string or implement a simple one.
-      // Actually simplify returns an AST. Let's just create a quick serializer here or in engine.
-      // For now, I'll rely on the fact that I need to show it stringified.
-      // I'll add a simple serializer here.
       simplifiedExpr = astToString(simpleAst);
       canonical = getCanonicalForms(truthTable);
 
@@ -110,36 +107,9 @@
     }
   }
 
-  function astToString(node: LogicAST, precedence = 0): string {
-      if (node.type === 'VAR') return node.name;
-      if (node.type === 'CONST') return node.value ? '1' : '0';
-      if (node.type === 'NOT') {
-          const s = astToString(node.operand, 5);
-          return '!' + s; // High precedence
-      }
-      // Binary
-      let op = '';
-      let p = 0;
-      if (node.type === 'AND') { op = '&'; p = 4; }
-      else if (node.type === 'OR') { op = '|'; p = 2; }
-      else if (node.type === 'XOR') { op = '^'; p = 3; }
-      else if (node.type === 'IMPLIES') { op = '->'; p = 1; }
-      else if (node.type === 'EQUIV') { op = '<->'; p = 1; }
-      else if (node.type === 'NAND') { op = ' NAND '; p = 4; }
-      else if (node.type === 'NOR') { op = ' NOR '; p = 2; }
-      else if (node.type === 'XNOR') { op = ' XNOR '; p = 3; }
-
-      if ('left' in node) {
-          const l = astToString(node.left, p);
-          const r = astToString(node.right, p);
-          const s = `${l} ${op} ${r}`;
-          return p < precedence ? `(${s})` : s;
-      }
-      return '';
-  }
-
   function handleRestore(e: CustomEvent<string>) {
       expression = e.detail;
+      mode = 'analyzer';
       analyze(true);
   }
 
@@ -156,7 +126,49 @@
   function handleCopy() {
       if (expression) copyToClipboard(expression);
   }
+
+  function handleTruthTableToggle(e: CustomEvent<{ index: number; value: boolean }>) {
+      if (!truthTable) return;
+      const { index, value } = e.detail;
+
+      // Update local state immediately for responsiveness
+      truthTable.rows[index].result = value;
+      truthTable = { ...truthTable }; // Trigger reactivity for table
+
+      // Generate new expression
+      const newExpr = generateExpressionFromTruthTable(
+          truthTable.rows.map(r => r.result),
+          truthTable.variables
+      );
+
+      expression = newExpr;
+      analyze(false);
+  }
+
+  function toggleMode() {
+      mode = mode === 'analyzer' ? 'designer' : 'analyzer';
+      if (mode === 'designer' && !truthTable) {
+          // Initialize with default if empty
+          expression = 'A & B';
+          analyze(false);
+      }
+  }
+
+  function handleGlobalKeydown(e: KeyboardEvent) {
+      // Ctrl+Enter or Cmd+Enter to analyze
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          analyze(true);
+      }
+      // Ctrl+Space to toggle mode
+      if ((e.ctrlKey || e.metaKey) && e.key === ' ') {
+          e.preventDefault();
+          toggleMode();
+      }
+  }
 </script>
+
+<svelte:window on:keydown={handleGlobalKeydown} />
 
 <svelte:head>
   <title>{expression ? expression + ' - ' : ''}{dict.title}</title>
@@ -180,7 +192,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "featureList": "Truth Table Generator, Logic Circuit Visualizer, Boolean Algebra Simplifier, Karnaugh Map Solver, Interactive Logic Simulation",
+      "featureList": "Truth Table Generator, Logic Circuit Visualizer, Boolean Algebra Simplifier, Karnaugh Map Solver, Interactive Logic Simulation, Reverse Boolean Engineering, Logic Circuit Designer",
       "screenshot": "https://microfactory.app/screenshots/logic-forge.png"
     })}
   </script>
@@ -208,10 +220,34 @@
     <div class="lg:col-span-3 space-y-6">
        <!-- Input Area -->
        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4 relative overflow-visible z-20">
+          <div class="flex items-center justify-between mb-4">
+             <div class="flex items-center bg-gray-100 p-1 rounded-lg">
+                <button
+                   class="px-3 py-1.5 text-sm font-medium rounded-md transition-colors {mode === 'analyzer' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}"
+                   on:click={() => mode = 'analyzer'}
+                >
+                   {dict.analyzer}
+                </button>
+                <button
+                   class="px-3 py-1.5 text-sm font-medium rounded-md transition-colors {mode === 'designer' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}"
+                   on:click={toggleMode}
+                >
+                   {dict.designer}
+                </button>
+             </div>
+             {#if mode === 'designer'}
+                <span class="text-xs text-indigo-600 bg-indigo-50 px-2 py-1 rounded-full animate-pulse">
+                   {dict.editingTruthTable}
+                </span>
+             {/if}
+          </div>
+
           <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
              <div class="flex-1 w-full">
                 <label class="block text-sm font-medium text-gray-700 mb-1 ml-1">{dict.input}</label>
-                <ExpressionInput {lang} label={dict.input} bind:value={expression} {error} on:submit={() => analyze(true)} on:input={() => { if(error) error = null; }} />
+                <div class={mode === 'designer' ? 'pointer-events-none opacity-60' : ''}>
+                    <ExpressionInput {lang} label={dict.input} bind:value={expression} {error} on:submit={() => analyze(true)} on:input={() => { if(error) error = null; }} />
+                </div>
              </div>
              <div class="flex items-end h-full sm:pt-6">
                  <Toolbar {lang} on:save={handleSave} on:copy={handleCopy} />
@@ -219,8 +255,9 @@
           </div>
 
           <!-- Quick Operators Helper -->
+          {#if mode === 'analyzer'}
           <div class="flex flex-wrap gap-2 text-xs text-gray-500 font-mono">
-             {#each Object.entries(dict.operators) as [key, label]}
+             {#each Object.values(dict.operators) as label (label)}
                  <button
                     class="px-2 py-1 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors"
                     aria-label="Insert {label}"
@@ -235,6 +272,7 @@
              <button class="px-2 py-1 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors" on:click={() => expression += ' -> '}>→</button>
              <button class="px-2 py-1 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors" on:click={() => expression += ' <-> '}>↔</button>
           </div>
+          {/if}
        </div>
 
        <!-- Tabs -->
@@ -272,7 +310,7 @@
        <!-- Output Area -->
        <div class="min-h-[500px]">
           {#if activeTab === 'table'}
-             <TruthTable {lang} data={truthTable} />
+             <TruthTable {lang} data={truthTable} editable={mode === 'designer'} on:toggle={handleTruthTableToggle} />
           {:else if activeTab === 'circuit'}
              <CircuitVisualizer {lang} {ast} />
           {:else if activeTab === 'kmap'}

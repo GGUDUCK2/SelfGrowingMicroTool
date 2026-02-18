@@ -1,11 +1,30 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
   import type { TruthTableData } from '$lib/types/logic-forge';
   import { getDictionary } from '$lib/dictionaries';
 
   export let lang: string = 'en';
   export let data: TruthTableData | null = null;
+  export let editable: boolean = false;
+
+  const dispatch = createEventDispatcher<{
+    toggle: { index: number; value: boolean };
+  }>();
 
   $: dict = getDictionary(lang).tools.logicForge;
+
+  function handleRowClick(index: number, currentValue: boolean) {
+    if (!editable) return;
+    dispatch('toggle', { index, value: !currentValue });
+  }
+
+  function handleKeydown(e: KeyboardEvent, index: number, currentValue: boolean) {
+    if (!editable) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleRowClick(index, currentValue);
+    }
+  }
 </script>
 
 <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-full">
@@ -27,24 +46,34 @@
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50 sticky top-0 z-10">
           <tr>
-            {#each data.variables as v}
+            {#each data.variables as v (v)}
               <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider font-mono">{v}</th>
             {/each}
             <th scope="col" class="px-6 py-3 text-right text-xs font-bold text-indigo-600 uppercase tracking-wider">{dict.result}</th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
-          {#each data.rows as row}
+          {#each data.rows as row, i (i)}
             <tr class="hover:bg-indigo-50/30 transition-colors">
-              {#each row.values as val}
+              {#each row.values as val, j (j)}
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-mono {val ? 'text-gray-900 font-semibold' : 'text-gray-400'}">
                   {val ? '1' : '0'}
                 </td>
               {/each}
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+              <td
+                class="px-6 py-4 whitespace-nowrap text-right text-sm {editable ? 'cursor-pointer hover:bg-gray-100 ring-inset focus:ring-2 focus:ring-indigo-500 rounded-md outline-none' : ''}"
+                on:click={() => handleRowClick(i, row.result)}
+                on:keydown={(e) => handleKeydown(e, i, row.result)}
+                role={editable ? 'button' : undefined}
+                tabindex={editable ? 0 : undefined}
+                aria-label={editable ? `Toggle result for row ${i}` : undefined}
+              >
                 <span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-medium {row.result ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
                   {row.result ? 'TRUE' : 'FALSE'}
                 </span>
+                {#if editable}
+                  <span class="ml-2 text-xs text-gray-400 opacity-0 group-hover:opacity-100">{dict.clickToToggle}</span>
+                {/if}
               </td>
             </tr>
           {/each}

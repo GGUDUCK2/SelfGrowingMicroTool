@@ -155,9 +155,9 @@ export function parseExpression(expr: string): LogicAST {
   function parseImplies(): LogicAST {
     let left = parseOr();
     while (peek().type === 'IMPLIES' || peek().type === 'EQUIV') {
-        const op = consume().type;
+        const op = consume().type as 'IMPLIES' | 'EQUIV';
         const right = parseOr();
-        left = { type: op as any, left, right };
+        left = { type: op, left, right };
     }
     return left;
   }
@@ -165,9 +165,9 @@ export function parseExpression(expr: string): LogicAST {
   function parseOr(): LogicAST {
     let left = parseXor();
     while (peek().type === 'OR' || peek().type === 'NOR') {
-      const op = consume().type;
+      const op = consume().type as 'OR' | 'NOR';
       const right = parseXor();
-      left = { type: op as any, left, right };
+      left = { type: op, left, right };
     }
     return left;
   }
@@ -175,9 +175,9 @@ export function parseExpression(expr: string): LogicAST {
   function parseXor(): LogicAST {
     let left = parseAnd();
     while (peek().type === 'XOR' || peek().type === 'XNOR') {
-        const op = consume().type;
+        const op = consume().type as 'XOR' | 'XNOR';
         const right = parseAnd();
-        left = { type: op as any, left, right };
+        left = { type: op, left, right };
     }
     return left;
   }
@@ -185,9 +185,9 @@ export function parseExpression(expr: string): LogicAST {
   function parseAnd(): LogicAST {
     let left = parseNot();
     while (peek().type === 'AND' || peek().type === 'NAND') {
-        const op = consume().type;
+        const op = consume().type as 'AND' | 'NAND';
         const right = parseNot();
-        left = { type: op as any, left, right };
+        left = { type: op, left, right };
     }
     return left;
   }
@@ -224,6 +224,34 @@ export function parseExpression(expr: string): LogicAST {
   return ast;
 }
 
+export function astToString(node: LogicAST, precedence = 0): string {
+    if (node.type === 'VAR') return node.name;
+    if (node.type === 'CONST') return node.value ? '1' : '0';
+    if (node.type === 'NOT') {
+        const s = astToString(node.operand, 5);
+        return '!' + s; // High precedence
+    }
+    // Binary
+    let op = '';
+    let p = 0;
+    if (node.type === 'AND') { op = '&'; p = 4; }
+    else if (node.type === 'OR') { op = '|'; p = 2; }
+    else if (node.type === 'XOR') { op = '^'; p = 3; }
+    else if (node.type === 'IMPLIES') { op = '->'; p = 1; }
+    else if (node.type === 'EQUIV') { op = '<->'; p = 1; }
+    else if (node.type === 'NAND') { op = ' NAND '; p = 4; }
+    else if (node.type === 'NOR') { op = ' NOR '; p = 2; }
+    else if (node.type === 'XNOR') { op = ' XNOR '; p = 3; }
+
+    if ('left' in node) {
+        const l = astToString(node.left, p);
+        const r = astToString(node.right, p);
+        const s = `${l} ${op} ${r}`;
+        return p < precedence ? `(${s})` : s;
+    }
+    return '';
+}
+
 export function evaluate(ast: LogicAST, values: Record<string, boolean>): boolean {
   switch (ast.type) {
     case 'CONST': return ast.value;
@@ -256,9 +284,14 @@ export function getVariables(ast: LogicAST): Set<string> {
   return vars;
 }
 
-export function generateTruthTable(ast: LogicAST): TruthTableData {
-  const variableSet = getVariables(ast);
-  const variables = Array.from(variableSet).sort();
+export function generateTruthTable(ast: LogicAST, forcedVariables?: string[]): TruthTableData {
+  let variables: string[];
+  if (forcedVariables) {
+      variables = forcedVariables;
+  } else {
+      const variableSet = getVariables(ast);
+      variables = Array.from(variableSet).sort();
+  }
 
   if (variables.length > 6) {
     throw new Error('Too many variables (max 6). Truth table would be too large.');
@@ -295,15 +328,6 @@ function getMinterms(truthTable: TruthTableData): number[] {
     .filter(index => index !== -1);
 }
 
-function countSetBits(n: number): number {
-  let count = 0;
-  while (n > 0) {
-    n &= (n - 1);
-    count++;
-  }
-  return count;
-}
-
 interface Implicant {
   term: string; // binary string with '-' for dont-care
   minterms: number[];
@@ -333,7 +357,7 @@ function combineImplicants(a: Implicant, b: Implicant): Implicant | null {
   return null;
 }
 
-function simplifyQuineMcCluskey(truthTable: TruthTableData): string {
+export function simplifyQuineMcCluskey(truthTable: TruthTableData): string {
     const minterms = getMinterms(truthTable);
     const numVars = truthTable.variables.length;
 
@@ -443,7 +467,7 @@ export function getCanonicalForms(truthTable: TruthTableData): { sop: string, po
     const minterms: string[] = [];
     const maxterms: string[] = [];
 
-    truthTable.rows.forEach((row, idx) => {
+    truthTable.rows.forEach((row) => {
         if (row.result) {
             // SOP: Minterm (AND)
             const parts = row.values.map((val, vIdx) => val ? vars[vIdx] : `!${vars[vIdx]}`);
@@ -461,13 +485,27 @@ export function getCanonicalForms(truthTable: TruthTableData): { sop: string, po
     return { sop, pos };
 }
 
+export function generateExpressionFromTruthTable(rows: boolean[], variables: string[]): string {
+  const truthTableData: TruthTableData = {
+      variables,
+      rows: rows.map((result, i) => {
+           const values: boolean[] = [];
+           for (let j = 0; j < variables.length; j++) {
+              values.push(((i >> (variables.length - 1 - j)) & 1) === 1);
+           }
+           return { values, result };
+      })
+  };
+
+  return simplifyQuineMcCluskey(truthTableData);
+}
+
 export function getKarnaughMap(truthTable: TruthTableData): KarnaughMapData {
     const vars = truthTable.variables;
     const n = vars.length;
 
     // Gray codes
     const gray2 = ['00', '01', '11', '10'];
-    const gray1 = ['0', '1'];
 
     let rowLabels: string[] = [];
     let colLabels: string[] = [];
@@ -497,6 +535,7 @@ export function getKarnaughMap(truthTable: TruthTableData): KarnaughMapData {
         truthTable.rows.forEach((row, idx) => {
             // A = bit 2, B = bit 1, C = bit 0
             const a = (idx >> 2) & 1;
+            // a unused in 3-var kmap indexing? No, a is row index (0 or 1).
             const b = (idx >> 1) & 1;
             const c = idx & 1;
 
