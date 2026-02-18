@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { LogicAST } from '$lib/types/logic-forge';
   import { getDictionary } from '$lib/dictionaries';
-  import { evaluate } from '$lib/utils/logic-forge/engine';
+  import { toPng, toSvg } from 'html-to-image';
+  import { SvelteSet, SvelteMap } from 'svelte/reactivity';
 
   export let lang: string = 'en';
   export let ast: LogicAST | null = null;
@@ -13,8 +14,6 @@
 
   // State for interactivity
   let inputStates: Record<string, boolean> = {};
-  // To track active wires (node IDs that evaluate to true)
-  let activeNodes: Set<string> = new Set();
 
   interface VisualNode {
     id: string;
@@ -36,8 +35,6 @@
   let edges: VisualEdge[] = [];
 
   // Layout Constants
-  const NODE_WIDTH = 60;
-  const NODE_HEIGHT = 40;
   const LAYER_SPACING = 120;
   const NODE_SPACING = 60;
 
@@ -46,11 +43,10 @@
 
       const newNodes: VisualNode[] = [];
       const newEdges: VisualEdge[] = [];
-      const visited = new Map<LogicAST, string>();
       let idCounter = 0;
 
       // Identify unique variables first to stabilize input order
-      const vars = new Set<string>();
+      const vars = new SvelteSet<string>();
       function collectVars(n: LogicAST) {
           if (n.type === 'VAR') vars.add(n.name);
           else if (n.type === 'NOT') collectVars(n.operand);
@@ -68,7 +64,7 @@
       // Actually for circuit, we want Inputs -> Gates -> Output
 
       // We assign layers. Inputs are Layer 0.
-      const nodeLayers = new Map<string, number>();
+      const nodeLayers = new SvelteMap<string, number>();
 
       function traverse(node: LogicAST): string {
           // If we want to reuse shared sub-expressions, we'd need a more complex equality check.
@@ -106,7 +102,7 @@
           return id;
       }
 
-      const rootId = traverse(root);
+      traverse(root);
 
       // Evaluate logic for current state
       // We can just use the engine's evaluate function on the AST?
@@ -115,7 +111,7 @@
       // Topological sort is implicit in our post-order traversal (nodes built children first)
       // So iterate newNodes in order.
 
-      const nodeValues = new Map<string, boolean>();
+      const nodeValues = new SvelteMap<string, boolean>();
 
       newNodes.forEach(n => {
           let val = false;
@@ -163,13 +159,10 @@
       const totalWidth = (maxLayer + 1) * LAYER_SPACING;
 
       // Find max nodes in a layer for height
-      let maxNodesInLayer = 0;
-      Object.values(layers).forEach(arr => maxNodesInLayer = Math.max(maxNodesInLayer, arr.length));
-      const totalHeight = maxNodesInLayer * NODE_SPACING;
+      // removed totalHeight
 
       // Center in container
       const startX = Math.max(20, (containerWidth - totalWidth) / 2);
-      const startY = Math.max(40, (containerHeight - totalHeight) / 2);
 
       Object.keys(layers).forEach(k => {
           const l = Number(k);
@@ -199,8 +192,35 @@
       }
   }
 
+  function handleKeydown(e: KeyboardEvent, node: VisualNode) {
+      if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleInput(node);
+      }
+  }
+
   $: if (ast && containerWidth > 0) {
       buildGraph(ast);
+  }
+
+  let exportContainer: HTMLElement;
+
+  async function exportImage(type: 'png' | 'svg') {
+      if (!exportContainer) return;
+      try {
+          let dataUrl = '';
+          if (type === 'png') {
+              dataUrl = await toPng(exportContainer, { backgroundColor: '#ffffff' });
+          } else {
+              dataUrl = await toSvg(exportContainer, { backgroundColor: '#ffffff' });
+          }
+          const link = document.createElement('a');
+          link.download = `logic-circuit.${type}`;
+          link.href = dataUrl;
+          link.click();
+      } catch (err) {
+          console.error('Export failed', err);
+      }
   }
 </script>
 
@@ -217,6 +237,24 @@
       <p class="text-xs text-slate-500 ml-1">Click inputs (blue) to toggle</p>
   </div>
 
+  <div class="absolute top-4 right-4 z-10 flex gap-2">
+      <button
+        class="p-1.5 bg-white hover:bg-gray-100 rounded-lg border border-gray-200 shadow-sm transition-colors text-gray-600"
+        title="Export PNG"
+        on:click={() => exportImage('png')}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+      </button>
+      <button
+        class="p-1.5 bg-white hover:bg-gray-100 rounded-lg border border-gray-200 shadow-sm transition-colors text-gray-600"
+        title="Export SVG"
+        on:click={() => exportImage('svg')}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+      </button>
+  </div>
+
+  <div class="w-full h-full" bind:this={exportContainer}>
   {#if ast}
     <svg width="100%" height="100%">
         <defs>
@@ -229,7 +267,7 @@
         </defs>
 
         <!-- Edges -->
-        {#each edges as edge}
+        {#each edges as edge (edge.from + edge.to + edge.active)}
             <path
                 d="M {nodes.find(n => n.id === edge.from)?.x + 30} {nodes.find(n => n.id === edge.from)?.y + 20}
                    C {(nodes.find(n => n.id === edge.from)?.x + nodes.find(n => n.id === edge.to)?.x) / 2 + 30} {nodes.find(n => n.id === edge.from)?.y + 20},
@@ -244,12 +282,12 @@
         {/each}
 
         <!-- Nodes -->
-        {#each nodes as node}
-            <!-- svelte-ignore a11y-click-events-have-key-events -->
+        {#each nodes as node (node.id)}
             <g
                 transform="translate({node.x}, {node.y})"
-                class="cursor-pointer transition-transform hover:scale-105"
+                class="cursor-pointer transition-transform hover:scale-105 outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg"
                 on:click={() => toggleInput(node)}
+                on:keydown={(e) => handleKeydown(e, node)}
                 role="button"
                 tabindex="0"
                 aria-label="{node.label} {node.value ? 'On' : 'Off'}"
@@ -294,4 +332,5 @@
         <p>Circuit visualization will appear here</p>
     </div>
   {/if}
+  </div>
 </div>
