@@ -11,6 +11,8 @@
   import ScreenInfo from '$lib/components/input-lab/ScreenInfo.svelte';
   import EventLog from '$lib/components/input-lab/EventLog.svelte';
   import HistoryPanel from '$lib/components/input-lab/HistoryPanel.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang).tools.inputLab;
@@ -36,26 +38,6 @@
             dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '$1')
         ]
       },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": dict.q1,
-            "acceptedAnswer": { "@type": "Answer", "text": dict.a1 }
-          },
-          {
-            "@type": "Question",
-            "name": dict.q2,
-            "acceptedAnswer": { "@type": "Answer", "text": dict.a2 }
-          },
-          {
-            "@type": "Question",
-            "name": dict.q3,
-            "acceptedAnswer": { "@type": "Answer", "text": dict.a3 }
-          }
-        ]
-      }
     ]
   };
 
@@ -164,11 +146,11 @@
       <!-- Main Content -->
       <div class="lg:col-span-8 space-y-6">
          <!-- Tabs -->
-         <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-1.5 flex flex-wrap gap-1" role="tablist">
+         <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-1.5 flex flex-nowrap overflow-x-auto gap-1 hide-scrollbar" role="tablist">
              <button
                  role="tab"
                  aria-selected={activeTab === 'keyboard'}
-                 class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'keyboard' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+                 class="flex-none whitespace-nowrap flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'keyboard' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
                  on:click={() => activeTab = 'keyboard'}
              >
                  <Keyboard size={16} />
@@ -177,7 +159,7 @@
              <button
                  role="tab"
                  aria-selected={activeTab === 'gamepad'}
-                 class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'gamepad' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+                 class="flex-none whitespace-nowrap flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'gamepad' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
                  on:click={() => activeTab = 'gamepad'}
              >
                  <Gamepad2 size={16} />
@@ -186,7 +168,7 @@
              <button
                  role="tab"
                  aria-selected={activeTab === 'pointer'}
-                 class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'pointer' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+                 class="flex-none whitespace-nowrap flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'pointer' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
                  on:click={() => activeTab = 'pointer'}
              >
                  <MousePointer2 size={16} />
@@ -195,7 +177,7 @@
              <button
                  role="tab"
                  aria-selected={activeTab === 'screen'}
-                 class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'screen' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+                 class="flex-none whitespace-nowrap flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'screen' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
                  on:click={() => activeTab = 'screen'}
              >
                  <Monitor size={16} />
@@ -204,7 +186,7 @@
              <button
                  role="tab"
                  aria-selected={activeTab === 'history'}
-                 class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'history' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+                 class="flex-none whitespace-nowrap flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'history' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
                  on:click={() => activeTab = 'history'}
              >
                  <History size={16} />
@@ -227,44 +209,6 @@
              {/if}
          </div>
 
-         <!-- Guide & FAQ -->
-         <div class="mt-12 space-y-8">
-            <section class="prose dark:prose-invert max-w-none">
-               <h2 class="text-2xl font-bold">{dict.guide.title}</h2>
-               <p>{dict.guide.intro}</p>
-
-               <h3 class="text-xl font-semibold">{dict.guide.featuresTitle}</h3>
-               <ul class="grid grid-cols-1 md:grid-cols-3 gap-4 not-prose">
-                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                     {@html dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
-                  </li>
-                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                     {@html dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
-                  </li>
-                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                     {@html dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
-                  </li>
-               </ul>
-            </section>
-
-            <section>
-              <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">{dict.faqTitle}</h2>
-              <div class="grid gap-4">
-                 <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <h3 class="font-semibold text-lg mb-2">{dict.q1}</h3>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a1}</p>
-                 </div>
-                 <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <h3 class="font-semibold text-lg mb-2">{dict.q2}</h3>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a2}</p>
-                 </div>
-                 <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <h3 class="font-semibold text-lg mb-2">{dict.q3}</h3>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a3}</p>
-                 </div>
-              </div>
-            </section>
-         </div>
       </div>
 
       <!-- Sidebar -->
@@ -272,21 +216,28 @@
           <div class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 sticky top-24">
              <HistoryPanel {dict} onLoad={handleLoad} />
           </div>
-
-          <div class="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
-             <h3 class="text-lg font-bold mb-4 flex items-center space-x-2">
-                <span class="text-yellow-300">★</span>
-                <span>{dict.guide.tipsTitle}</span>
-             </h3>
-             <ul class="space-y-4 text-sm text-indigo-100">
-                <li>{@html dict.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')}</li>
-                <li>{@html dict.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')}</li>
-                <li>{@html dict.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')}</li>
-             </ul>
-          </div>
       </div>
 
     </div>
+
+    <GuideSection
+      title={dict.guide.title}
+      intro={dict.guide.intro}
+      featuresTitle={dict.guide.featuresTitle}
+      f1={dict.guide.f1}
+      f2={dict.guide.f2}
+      f3={dict.guide.f3}
+      tipsTitle={dict.guide.tipsTitle}
+      tip1={dict.guide.tip1}
+      tip2={dict.guide.tip2}
+      tip3={dict.guide.tip3}
+    />
+
+    <FAQSection title={dict.faqTitle} items={[
+      { q: dict.q1, a: dict.a1 },
+      { q: dict.q2, a: dict.a2 },
+      { q: dict.q3, a: dict.a3 }
+    ]} />
   </main>
 
   <!-- Toast -->
