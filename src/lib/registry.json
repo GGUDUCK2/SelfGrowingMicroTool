@@ -283,5 +283,20 @@
     "category": "dev",
     "tags": ["logic", "boolean", "circuit", "truth-table", "math"],
     "createdAt": "2024-08-01"
+  },
+  {
+    "id": "zen-forge",
+    "slug": "zen-forge",
+    "title": {
+      "en": "Zen Forge",
+      "ko": "젠 포지"
+    },
+    "description": {
+      "en": "Ambient soundscape mixer for focus and relaxation.",
+      "ko": "집중과 휴식을 위한 앰비언트 사운드스케이프 믹서입니다."
+    },
+    "category": "productivity",
+    "tags": ["focus", "ambient", "noise", "binaural", "relax"],
+    "createdAt": "2024-09-01"
   }
 ]

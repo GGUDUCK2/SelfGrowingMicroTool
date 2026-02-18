@@ -2866,6 +2866,65 @@ export const dictionaries = {
         a2: "Consistency measures the variance in your typing speed. A higher percentage means you are typing at a steady rhythm, which is key to long-term speed.",
         q3: "Can I import my own text?",
         a3: "Currently, you can choose from our curated code and quote libraries. Custom text import is planned for a future update."
+      },
+      zenForge: {
+        title: "Zen Forge: Ambient Studio",
+        description: "The definitive focus & relaxation soundscape generator. Mix white noise, binaural beats, and nature sounds.",
+        sounds: {
+            white: "White Noise",
+            pink: "Pink Noise",
+            brown: "Brown Noise",
+            rain: "Rain",
+            wind: "Wind",
+            drone: "Deep Drone",
+            binaural_alpha: "Alpha (Relax)",
+            binaural_theta: "Theta (Meditation)",
+            binaural_delta: "Delta (Sleep)"
+        },
+        controls: {
+            master: "Master Volume",
+            timer: "Timer",
+            play: "Play All",
+            pause: "Pause All",
+            reset: "Reset",
+            presets: "Presets",
+            visualizer: "Visualizer",
+            save: "Save Mix",
+            saved: "Mix Saved!",
+            mixName: "Mix Name"
+        },
+        timerDict: {
+            start: "Start Timer",
+            stop: "Stop",
+            min: "min",
+            remaining: "Remaining"
+        },
+        presets: {
+            focus: "Deep Focus",
+            sleep: "Deep Sleep",
+            meditate: "Meditation",
+            storm: "Stormy Night",
+            coding: "Coding Cave"
+        },
+        guide: {
+          title: "Why Zen Forge?",
+          intro: "In a world of constant distraction, Zen Forge helps you reclaim your focus. It uses scientifically tuned audio frequencies to mask noise and promote concentration.",
+          featuresTitle: "Key Features",
+          f1: "**Algorithmic Audio:** All sounds are synthesized in real-time by your browser. No looping mp3s, no artifacts.",
+          f2: "**Binaural Beats:** Use stereo headphones to leverage brainwave entrainment for focus (Alpha) or sleep (Delta).",
+          f3: "**Private & Offline:** Works entirely offline. No data usage, no tracking.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use **Pink Noise** for blocking out sudden noises like conversations or traffic.",
+          tip2: "Combine **Rain** and **Wind** for a natural, immersive atmosphere.",
+          tip3: "Set the **Timer** to 25 minutes for a Pomodoro-style focus session."
+        },
+        faqTitle: "Zen Forge FAQ",
+        q1: "What are Binaural Beats?",
+        a1: "Binaural beats occur when two slightly different frequencies are played in each ear. The brain processes the difference as a rhythmic beat, which can encourage specific brainwave states.",
+        q2: "Why synthesize sounds?",
+        a2: "Synthesis allows for infinite variety. Rain never loops, wind never repeats. It's a living soundscape.",
+        q3: "Can I save my mix?",
+        a3: "Yes, use the Save button to persist your volume levels and active sounds to your local history."
       }
     },
     pwa: {
@@ -4798,6 +4857,65 @@ export const dictionaries = {
         a2: "일관성은 타이핑 속도의 분산을 측정합니다. 비율이 높을수록 꾸준한 리듬으로 타이핑하고 있다는 의미이며, 이는 장기적인 속도 향상의 핵심입니다.",
         q3: "내 텍스트를 가져올 수 있나요?",
         a3: "현재는 엄선된 코드 및 명언 라이브러리에서 선택할 수 있습니다. 사용자 정의 텍스트 가져오기는 향후 업데이트될 예정입니다."
+      },
+      zenForge: {
+        title: "젠 포지: 앰비언트 스튜디오",
+        description: "완벽한 집중 및 휴식 사운드스케이프 생성기입니다. 화이트 노이즈, 바이노럴 비트, 자연의 소리를 믹싱하세요.",
+        sounds: {
+            white: "화이트 노이즈",
+            pink: "핑크 노이즈",
+            brown: "브라운 노이즈",
+            rain: "빗소리",
+            wind: "바람소리",
+            drone: "딥 드론",
+            binaural_alpha: "알파파 (휴식)",
+            binaural_theta: "세타파 (명상)",
+            binaural_delta: "델타파 (수면)"
+        },
+        controls: {
+            master: "마스터 볼륨",
+            timer: "타이머",
+            play: "전체 재생",
+            pause: "전체 일시정지",
+            reset: "초기화",
+            presets: "프리셋",
+            visualizer: "시각화",
+            save: "믹스 저장",
+            saved: "믹스가 저장되었습니다!",
+            mixName: "믹스 이름"
+        },
+        timerDict: {
+            start: "타이머 시작",
+            stop: "정지",
+            min: "분",
+            remaining: "남은 시간"
+        },
+        presets: {
+            focus: "깊은 집중",
+            sleep: "숙면",
+            meditate: "명상",
+            storm: "폭풍우 치는 밤",
+            coding: "코딩 동굴"
+        },
+        guide: {
+          title: "왜 젠 포지인가요?",
+          intro: "끊임없이 산만한 세상에서 젠 포지는 집중력을 되찾도록 도와줍니다. 과학적으로 조정된 오디오 주파수를 사용하여 소음을 차단하고 집중을 유도합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**알고리즘 오디오:** 모든 소리는 브라우저에서 실시간으로 합성됩니다. 반복되는 mp3도, 아티팩트도 없습니다.",
+          f2: "**바이노럴 비트:** 스테레오 헤드폰을 사용하여 집중(알파) 또는 수면(델타)을 위한 뇌파 동조 효과를 활용하세요.",
+          f3: "**프라이버시 & 오프라인:** 완전히 오프라인에서 작동합니다. 데이터 사용이나 추적이 없습니다.",
+          tipsTitle: "프로 팁",
+          tip1: "**핑크 노이즈**를 사용하여 대화나 교통 소음 같은 갑작스러운 소리를 차단하세요.",
+          tip2: "**빗소리**와 **바람소리**를 결합하여 자연스러운 분위기를 만드세요.",
+          tip3: "**타이머**를 25분으로 설정하여 뽀모도로 스타일의 집중 세션을 가지세요."
+        },
+        faqTitle: "젠 포지 FAQ",
+        q1: "바이노럴 비트란 무엇인가요?",
+        a1: "바이노럴 비트는 양쪽 귀에 약간 다른 주파수가 재생될 때 발생합니다. 뇌는 그 차이를 리듬으로 인식하여 특정 뇌파 상태를 유도할 수 있습니다.",
+        q2: "왜 소리를 합성하나요?",
+        a2: "합성을 통해 무한한 다양성을 제공할 수 있습니다. 빗소리는 절대 반복되지 않고, 바람은 멈추지 않습니다. 살아있는 사운드스케이프입니다.",
+        q3: "믹스를 저장할 수 있나요?",
+        a3: "네, 저장 버튼을 사용하여 볼륨 레벨과 활성 사운드를 로컬 기록에 영구 보존할 수 있습니다."
       }
   }
 } as const;
