@@ -8,6 +8,8 @@
     import MasterControl from '$lib/components/zen-forge/MasterControl.svelte';
     import Visualizer from '$lib/components/zen-forge/Visualizer.svelte';
     import PresetManager from '$lib/components/zen-forge/PresetManager.svelte';
+    import ZenTimer from '$lib/components/zen-forge/ZenTimer.svelte';
+    import BreathingCircle from '$lib/components/zen-forge/BreathingCircle.svelte';
     import { engine } from '$lib/utils/zen-forge/engine';
 
     export let data;
@@ -38,6 +40,28 @@
     image="https://micro-factory.vercel.app/og/zen-forge.png"
 />
 
+<svelte:head>
+    {@html `<script type="application/ld+json">${JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": dict.tools.zenForge.title,
+        "description": dict.tools.zenForge.description,
+        "applicationCategory": "Productivity",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0"
+        },
+        "featureList": [
+            "Ambient Sound Mixer",
+            "Binaural Beats Generator",
+            "Focus Timer (Pomodoro)",
+            "4-7-8 Breathing Guide",
+            "Pink/White/Brown Noise"
+        ]
+    })}</script>`}
+</svelte:head>
+
 <div class="min-h-screen bg-slate-900 text-slate-100 font-sans relative overflow-hidden flex flex-col">
     <!-- Visualizer Background -->
     <Visualizer />
@@ -54,7 +78,15 @@
         <!-- Main Workspace -->
         <div class="grid lg:grid-cols-4 gap-6 flex-1">
             <!-- Sidebar -->
-            <div class="lg:col-span-1 space-y-6">
+            <div class="lg:col-span-1 space-y-6 flex flex-col">
+                <!-- Timer -->
+                <ZenTimer {dict} />
+
+                <!-- Breathing Exercise -->
+                <div class="bg-slate-800/50 p-6 rounded-3xl border border-slate-700 flex flex-col items-center justify-center min-h-[250px]">
+                    <BreathingCircle {dict} />
+                </div>
+
                 <!-- Master Controls -->
                 <MasterControl
                     {dict}
@@ -67,16 +99,6 @@
                     getMix={getCurrentMix}
                     on:load={handleLoadMix}
                 />
-
-                <!-- Quick Tips or Info -->
-                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700 text-xs text-slate-400">
-                    <p class="mb-2 font-bold text-slate-300">Did you know?</p>
-                    <p>{dict.tools.zenForge.guide.tipsTitle}</p>
-                    <ul class="list-disc pl-4 space-y-1 mt-2">
-                        <li>{dict.tools.zenForge.guide.tip1}</li>
-                        <li>{dict.tools.zenForge.guide.tip2}</li>
-                    </ul>
-                </div>
             </div>
 
             <!-- Mixer Board -->

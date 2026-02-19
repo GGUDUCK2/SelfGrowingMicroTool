@@ -1,13 +1,24 @@
 export type SoundId = 'white' | 'pink' | 'brown' | 'rain' | 'wind' | 'binaural_alpha' | 'binaural_theta' | 'binaural_delta' | 'drone';
 
+interface StoppableAudioNode extends AudioNode {
+    stop?: (when?: number) => void;
+}
+
+interface Channel {
+    gain: GainNode;
+    source: StoppableAudioNode;
+    isPlaying: boolean;
+}
+
 export class ZenEngine {
     context: AudioContext | null = null;
     masterGain: GainNode | null = null;
-    channels: Map<string, { gain: GainNode; source: AudioNode; isPlaying: boolean }> = new Map();
+    channels: Map<string, Channel> = new Map();
 
     init() {
         if (!this.context) {
-            this.context = new (window.AudioContext || (window as any).webkitAudioContext)();
+            const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+            this.context = new AudioContextClass();
             this.masterGain = this.context.createGain();
             this.masterGain.connect(this.context.destination);
         }
@@ -56,7 +67,7 @@ export class ZenEngine {
         return noise;
     }
 
-    createRain(): AudioNode {
+    createRain(): StoppableAudioNode {
         const noise = this.createNoise('pink');
         const lp = this.context!.createBiquadFilter();
         lp.type = 'lowpass';
@@ -70,14 +81,14 @@ export class ZenEngine {
         noise.start();
 
         // Wrap in gain for consistent API
-        const output = this.context!.createGain();
+        const output = this.context!.createGain() as StoppableAudioNode;
         hp.connect(output);
 
-        (output as any).stop = () => { noise.stop(); };
+        output.stop = () => { noise.stop(); };
         return output;
     }
 
-    createWind(): AudioNode {
+    createWind(): StoppableAudioNode {
         const noise = this.createNoise('pink');
         const bp = this.context!.createBiquadFilter();
         bp.type = 'bandpass';
@@ -97,14 +108,14 @@ export class ZenEngine {
         noise.start();
         noise.connect(bp);
 
-        const output = this.context!.createGain();
+        const output = this.context!.createGain() as StoppableAudioNode;
         bp.connect(output);
 
-        (output as any).stop = () => { noise.stop(); lfo.stop(); };
+        output.stop = () => { noise.stop(); lfo.stop(); };
         return output;
     }
 
-    createBinaural(baseFreq: number, beatFreq: number): AudioNode {
+    createBinaural(baseFreq: number, beatFreq: number): StoppableAudioNode {
         const merger = this.context!.createChannelMerger(2);
 
         // Left
@@ -128,13 +139,13 @@ export class ZenEngine {
         oscL.start();
         oscR.start();
 
-        const output = this.context!.createGain();
+        const output = this.context!.createGain() as StoppableAudioNode;
         merger.connect(output);
-        (output as any).stop = () => { oscL.stop(); oscR.stop(); };
+        output.stop = () => { oscL.stop(); oscR.stop(); };
         return output;
     }
 
-    createDrone(): AudioNode {
+    createDrone(): StoppableAudioNode {
          const osc = this.context!.createOscillator();
          osc.type = 'triangle';
          osc.frequency.value = 55; // Low A
@@ -156,14 +167,16 @@ export class ZenEngine {
          osc.start();
          osc2.start();
 
-         const output = this.context!.createGain();
+         const output = this.context!.createGain() as StoppableAudioNode;
          gain.connect(output);
 
-         (output as any).stop = () => { osc.stop(); osc2.stop(); };
+         output.stop = () => { osc.stop(); osc2.stop(); };
          return output;
     }
 
     toggle(id: SoundId, volume: number = 0.5): boolean {
+        this.init(); // Ensure context is ready
+
         if (this.channels.has(id)) {
             // Stop
             const ch = this.channels.get(id)!;
@@ -172,22 +185,21 @@ export class ZenEngine {
             ch.gain.gain.cancelScheduledValues(now);
             ch.gain.gain.setValueAtTime(ch.gain.gain.value, now);
             ch.gain.gain.linearRampToValueAtTime(0, now + 0.1);
+
             setTimeout(() => {
+                if (ch.source.stop) ch.source.stop();
                 ch.source.disconnect();
                 ch.gain.disconnect();
-                 // Stop if possible
-                if ((ch.source as any).stop) (ch.source as any).stop();
             }, 150);
+
             this.channels.delete(id);
             return false; // stopped
         } else {
-            // Start
-            this.init();
             const gain = this.context!.createGain();
             gain.gain.value = 0;
             gain.connect(this.masterGain!);
 
-            let source: AudioNode;
+            let source: StoppableAudioNode;
 
             switch (id) {
                 case 'white':
@@ -252,11 +264,30 @@ export class ZenEngine {
 
     stopAll() {
         this.channels.forEach((ch) => {
-            if ((ch.source as any).stop) (ch.source as any).stop();
+            if (ch.source.stop) ch.source.stop();
             ch.source.disconnect();
             ch.gain.disconnect();
         });
         this.channels.clear();
+    }
+
+    playChime() {
+        this.init();
+        const osc = this.context!.createOscillator();
+        const gain = this.context!.createGain();
+
+        osc.connect(gain);
+        gain.connect(this.masterGain!);
+
+        osc.frequency.setValueAtTime(880, this.context!.currentTime); // High A
+        osc.frequency.exponentialRampToValueAtTime(440, this.context!.currentTime + 1.5);
+
+        gain.gain.setValueAtTime(0, this.context!.currentTime);
+        gain.gain.linearRampToValueAtTime(0.5, this.context!.currentTime + 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.context!.currentTime + 2);
+
+        osc.start();
+        osc.stop(this.context!.currentTime + 2);
     }
 }
 

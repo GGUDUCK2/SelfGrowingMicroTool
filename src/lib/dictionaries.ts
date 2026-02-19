@@ -2899,6 +2899,12 @@ export const dictionaries = {
             min: "min",
             remaining: "Remaining"
         },
+        breathing: {
+            start: "Breathe",
+            inhale: "Inhale",
+            hold: "Hold",
+            exhale: "Exhale"
+        },
         presets: {
             focus: "Deep Focus",
             sleep: "Deep Sleep",
@@ -4889,6 +4895,12 @@ export const dictionaries = {
             stop: "정지",
             min: "분",
             remaining: "남은 시간"
+        },
+        breathing: {
+            start: "호흡 시작",
+            inhale: "숨 들이마시기",
+            hold: "멈춤",
+            exhale: "숨 내쉬기"
         },
         presets: {
             focus: "깊은 집중",
