@@ -2931,6 +2931,29 @@ export const dictionaries = {
         a2: "Synthesis allows for infinite variety. Rain never loops, wind never repeats. It's a living soundscape.",
         q3: "Can I save my mix?",
         a3: "Yes, use the Save button to persist your volume levels and active sounds to your local history."
+      },
+      localeForge: {
+        title: "Locale Forge: i18n Manager",
+        description: "The definitive tool to manage localization files. Flatten nested JSON, identify missing keys, and auto-fill translations.",
+        guide: {
+          title: "Why Locale Forge?",
+          intro: "Managing i18n JSON files manually is error-prone and tedious. Locale Forge provides a visual grid editor to ensure all your languages are in sync.",
+          featuresTitle: "Key Features",
+          f1: "**Visual Grid:** See all languages side-by-side to easily spot missing translations.",
+          f2: "**Smart Flattener:** Automatically converts nested JSON objects into dot notation for easy editing.",
+          f3: "**Auto-Fill:** Quickly fill missing target values with the source language to prevent empty strings.",
+          tipsTitle: "Pro Tips",
+          tip1: "Drag and drop multiple JSON files (e.g., `en.json`, `ko.json`) at once to merge them.",
+          tip2: "Use the **Auto-Fill** button to populate missing keys with `[TODO]` markers.",
+          tip3: "Export your work as a ZIP file containing the reconstructed nested JSONs."
+        },
+        faqTitle: "Locale Forge FAQ",
+        q1: "How does it handle nested JSON?",
+        a1: "It flattens nested objects into dot notation (e.g., `home.title`) for editing, and un-flattens them back to nested JSON upon export.",
+        q2: "Is my data sent to a server?",
+        a2: "No. All processing happens locally in your browser. Your translation files never leave your device.",
+        q3: "Can I use it for other formats?",
+        a3: "Currently, we support JSON files. Support for YAML and PO files is planned for a future update."
       }
     },
     pwa: {
@@ -4928,6 +4951,29 @@ export const dictionaries = {
         a2: "합성을 통해 무한한 다양성을 제공할 수 있습니다. 빗소리는 절대 반복되지 않고, 바람은 멈추지 않습니다. 살아있는 사운드스케이프입니다.",
         q3: "믹스를 저장할 수 있나요?",
         a3: "네, 저장 버튼을 사용하여 볼륨 레벨과 활성 사운드를 로컬 기록에 영구 보존할 수 있습니다."
+      },
+      localeForge: {
+        title: "로케일 포지: i18n 매니저",
+        description: "로컬라이제이션 파일을 관리하는 완벽한 도구입니다. 중첩된 JSON을 평탄화하고, 누락된 키를 식별하고, 번역을 자동 채움하세요.",
+        guide: {
+          title: "왜 로케일 포지인가요?",
+          intro: "i18n JSON 파일을 수동으로 관리하는 것은 오류가 발생하기 쉽습니다. 로케일 포지는 모든 언어를 동기화 상태로 유지하기 위한 시각적 그리드 에디터를 제공합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**시각적 그리드:** 모든 언어를 나란히 보며 누락된 번역을 쉽게 찾으세요.",
+          f2: "**스마트 평탄화:** 중첩된 JSON 객체를 점 표기법으로 자동 변환하여 쉽게 편집할 수 있습니다.",
+          f3: "**자동 채우기:** 누락된 대상 값을 소스 언어로 빠르게 채워 빈 문자열을 방지하세요.",
+          tipsTitle: "프로 팁",
+          tip1: "여러 JSON 파일(예: `en.json`, `ko.json`)을 한 번에 드래그 앤 드롭하여 병합하세요.",
+          tip2: "**자동 채우기** 버튼을 사용하여 누락된 키를 `[TODO]` 마커로 채우세요.",
+          tip3: "재구성된 중첩 JSON이 포함된 ZIP 파일로 작업을 내보내세요."
+        },
+        faqTitle: "로케일 포지 FAQ",
+        q1: "중첩된 JSON은 어떻게 처리하나요?",
+        a1: "편집을 위해 중첩된 객체를 점 표기법(예: `home.title`)으로 평탄화하고, 내보낼 때 다시 중첩된 JSON으로 복원합니다.",
+        q2: "데이터가 서버로 전송되나요?",
+        a2: "아니요. 모든 처리는 브라우저에서 로컬로 수행됩니다. 번역 파일은 기기를 떠나지 않습니다.",
+        q3: "다른 형식도 사용할 수 있나요?",
+        a3: "현재는 JSON 파일을 지원합니다. YAML 및 PO 파일 지원은 향후 업데이트될 예정입니다."
       }
   }
 } as const;
