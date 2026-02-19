@@ -3,13 +3,12 @@
   import { marked } from 'marked';
   import { fade, slide } from 'svelte/transition';
   import { page } from '$app/stores';
-  import { Trash2 } from 'lucide-svelte';
+  import { ArrowLeft, History, X, Trash2, Check } from 'lucide-svelte';
   import Head from '$lib/components/Head.svelte';
   import { getDictionary } from '$lib/dictionaries';
   import MarkdownEditor from '$lib/components/markdown-studio/MarkdownEditor.svelte';
   import MarkdownPreview from '$lib/components/markdown-studio/MarkdownPreview.svelte';
   import MarkdownToolbar from '$lib/components/markdown-studio/MarkdownToolbar.svelte';
-  import HistoryList from '$lib/components/HistoryList.svelte';
   import { db, type MarkFlowHistory } from '$lib/db';
   import { copyToClipboard as copyToClipboardUtil } from '$lib/utils';
   import { liveQuery } from 'dexie';
@@ -21,8 +20,6 @@
   let editorComponent: MarkdownEditor;
   let showHistory = false;
   let notification: string | null = null;
-  let windowWidth = 1024;
-  let mounted = false;
 
   // Reactivity
   $: lang = $page.params.lang || 'en';
@@ -41,7 +38,8 @@
     "headline": dict.title,
     "alternativeHeadline": "Online Markdown Editor",
     "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Web",
+    "operatingSystem": "Any",
+    "dateModified": new Date().toISOString(),
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -84,20 +82,12 @@
   $: history = liveQuery(() => db.markFlowHistory?.orderBy('createdAt').reverse().toArray() || []);
 
   onMount(() => {
-    mounted = true;
-    windowWidth = window.innerWidth;
-    window.addEventListener('resize', () => windowWidth = window.innerWidth);
-
     // Auto-load last draft if empty
     db.markFlowHistory?.orderBy('createdAt').last().then((item) => {
        if (item && !content) {
           content = item.content;
        }
     });
-
-    return () => {
-      window.removeEventListener('resize', () => windowWidth = window.innerWidth);
-    };
   });
 
   // Actions
@@ -212,6 +202,7 @@
   description={dict.description}
   image="https://web-factory.vercel.app/og-image.jpg"
   url={$page.url.href}
+  keywords="markdown editor, online markdown editor, github flavored markdown, markdown preview, markdown to html"
 />
 
 <svelte:head>
@@ -226,7 +217,7 @@
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <a href="/{lang}" class="text-slate-500 hover:text-indigo-600 transition-colors" aria-label={commonDict.back}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+          <ArrowLeft size={20} />
         </a>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">
           MarkFlow
@@ -234,9 +225,9 @@
       </div>
 
       <div class="flex items-center gap-3">
-         <!-- Template Dropdown (simplified as select for mobile friendly) -->
+         <!-- Template Dropdown -->
          <select
-           class="bg-slate-100 dark:bg-slate-800 border-none text-sm rounded-md px-2 py-1 focus:ring-1 focus:ring-indigo-500"
+           class="bg-slate-100 dark:bg-slate-800 border-none text-sm rounded-lg px-3 py-2 cursor-pointer outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-slate-700 dark:text-slate-300"
            on:change={(e) => applyTemplate(templates[e.currentTarget.selectedIndex - 1])}
          >
            <option disabled selected>{dict.templates}</option>
@@ -246,11 +237,11 @@
          </select>
 
          <button
-           class="p-2 text-slate-500 hover:text-indigo-600 relative"
+           class="p-2 text-slate-500 hover:text-indigo-600 relative hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
            on:click={() => showHistory = !showHistory}
            title={dict.history}
          >
-           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+           <History size={20} />
          </button>
       </div>
     </div>
@@ -391,7 +382,7 @@
         <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
           <h3 class="font-semibold text-slate-900 dark:text-white">{dict.history}</h3>
           <button class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300" on:click={() => showHistory = false} aria-label="Close history">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            <X size={20} />
           </button>
         </div>
         <div class="p-4">
@@ -437,7 +428,7 @@
   <!-- Notification Toast -->
   {#if notification}
     <div class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-2 rounded-full shadow-lg text-sm z-50 flex items-center gap-2" transition:fade>
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      <Check size={16} class="text-green-400" />
       {notification}
     </div>
   {/if}
