@@ -18,6 +18,7 @@
   import MapCanvas from '$lib/components/geo-forge/MapCanvas.svelte';
   import Sidebar from '$lib/components/geo-forge/Sidebar.svelte';
   import ExportModal from '$lib/components/geo-forge/ExportModal.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
 
   import { db, saveProject, getRecentProjects, type GeoForgeProject } from '$lib/db/geo-forge';
@@ -659,7 +660,23 @@
                    <X class="w-6 h-6" />
                </button>
                <div class="p-1">
-                  <FAQSection title={dict.faqTitle} items={faqItems} />
+                  {#if dict.guide && dict.guide.title}
+                    <div class="px-6 pt-6">
+                        <GuideSection
+                            title={dict.guide.title}
+                            intro={dict.guide.intro}
+                            featuresTitle={dict.guide.featuresTitle}
+                            f1={dict.guide.f1}
+                            f2={dict.guide.f2}
+                            f3={dict.guide.f3}
+                            tipsTitle={dict.guide.tipsTitle}
+                            tip1={dict.guide.tip1}
+                            tip2={dict.guide.tip2}
+                            tip3={dict.guide.tip3}
+                        />
+                    </div>
+                  {/if}
+                  <FAQSection title={dict.faqTitle} items={faqItems} injectSchema={false} />
                </div>
           </div>
       </div>

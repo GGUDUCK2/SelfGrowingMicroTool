@@ -1,6 +1,7 @@
 <script lang="ts">
   export let title: string;
   export let items: { q: string; a: string }[];
+  export let injectSchema = true;
 
   $: schema = {
     "@context": "https://schema.org",
@@ -17,7 +18,9 @@
 </script>
 
 <svelte:head>
-  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
+  {#if injectSchema}
+    {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
+  {/if}
 </svelte:head>
 
 <div class="bg-indigo-900 dark:bg-slate-800 text-white p-6 md:p-8 rounded-2xl shadow-lg transition-colors duration-300">
