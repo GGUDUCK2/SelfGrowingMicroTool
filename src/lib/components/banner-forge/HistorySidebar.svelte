@@ -19,7 +19,7 @@
   }
 </script>
 
-<div class="h-full flex flex-col bg-white dark:bg-slate-900 shadow-xl w-80 border-l border-slate-200 dark:border-slate-800">
+<div class="h-full flex flex-col bg-white dark:bg-slate-900 shadow-xl w-full sm:w-80 border-l border-slate-200 dark:border-slate-800">
     <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
         <h2 class="font-bold text-slate-800 dark:text-white">{dict.history.title}</h2>
         <button on:click={() => dispatch('close')} class="text-slate-500 hover:text-slate-700">

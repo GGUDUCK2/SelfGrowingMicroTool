@@ -89,11 +89,11 @@
   }
 </script>
 
-<div class="flex h-[calc(100vh-4rem)] bg-slate-50 dark:bg-slate-950 overflow-hidden relative font-sans">
+<div class="flex flex-col lg:flex-row h-[calc(100vh-4rem)] bg-slate-50 dark:bg-slate-950 overflow-hidden relative font-sans">
 
     <!-- Sidebar -->
-    <aside class="w-80 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col z-20 shadow-xl shrink-0">
-        <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900">
+    <aside class="w-full lg:w-80 h-[40vh] lg:h-full order-2 lg:order-1 bg-white dark:bg-slate-900 border-t lg:border-t-0 lg:border-r border-slate-200 dark:border-slate-800 flex flex-col z-20 shadow-xl shrink-0">
+        <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900 sticky top-0 z-10">
             <h2 class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
                 <span class="text-indigo-600">❖</span> Editor
             </h2>
@@ -123,9 +123,9 @@
     </aside>
 
     <!-- Main Canvas Area -->
-    <main class="flex-1 relative bg-slate-100 dark:bg-slate-950 overflow-hidden flex flex-col">
+    <main class="flex-1 order-1 lg:order-2 h-[60vh] lg:h-full relative bg-slate-100 dark:bg-slate-950 overflow-hidden flex flex-col">
         <!-- Zoom Controls -->
-        <div class="absolute top-4 left-4 z-10 flex gap-2 bg-white dark:bg-slate-800 p-1.5 rounded-lg shadow-md border border-slate-200 dark:border-slate-700">
+        <div class="absolute bottom-4 left-4 lg:top-4 lg:bottom-auto z-10 flex gap-2 bg-white dark:bg-slate-800 p-1.5 rounded-lg shadow-md border border-slate-200 dark:border-slate-700">
             <button on:click={() => zoom = Math.max(0.1, zoom - 0.1)} class="p-1.5 hover:bg-slate-100 rounded text-slate-600">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
             </button>
@@ -138,7 +138,7 @@
             </button>
         </div>
 
-        <div class="absolute top-4 right-4 z-10 flex gap-2">
+        <div class="absolute bottom-4 right-4 lg:top-4 lg:bottom-auto z-10 flex gap-2">
              <button on:click={() => handleExport('copy')} class="p-2.5 bg-white dark:bg-slate-800 shadow-md border border-slate-200 dark:border-slate-700 rounded-lg text-slate-600 hover:text-indigo-600 transition-colors" title={dict.export.copy}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
              </button>
