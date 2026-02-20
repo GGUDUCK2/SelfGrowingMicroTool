@@ -20,7 +20,14 @@
         "name": "Banner Forge",
         "description": description,
         "applicationCategory": "DesignApplication",
-        "operatingSystem": "Web",
+        "operatingSystem": "Web Browser",
+        "applicationSubCategory": "Graphic Design",
+        "author": {
+            "@type": "Organization",
+            "name": "MicroTools Factory"
+        },
+        "softwareRequirements": "Modern Web Browser (Chrome, Firefox, Safari, Edge)",
+        "screenshot": "https://selfgrowingmicrotool.com/assets/screenshots/banner-forge.png",
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -30,7 +37,10 @@
            "Open Graph Image Generator",
            "Social Media Banner Creator",
            "Client-side Processing",
-           "Drag and Drop Interface"
+           "Drag and Drop Interface",
+           "Social media presets",
+           "Custom text layers",
+           "Background patterns and gradients"
         ]
       },
       {
