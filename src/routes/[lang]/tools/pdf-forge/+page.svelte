@@ -6,30 +6,62 @@
   import FAQSection from '$lib/components/FAQSection.svelte';
   import { marked } from 'marked';
 
-  $: dict = getDictionary($page.params.lang);
+  $: lang = $page.params.lang || 'en';
+  $: dict = getDictionary(lang);
   $: toolDict = dict.tools.pdfForge;
 
   // SEO
   $: title = `${toolDict.title} - ${dict.home.title}`;
   $: description = toolDict.description;
-  $: canonical = `https://selfgrowingmicrotool.com/${$page.params.lang}/tools/pdf-forge`;
+  $: canonical = `https://selfgrowingmicrotool.com/${lang}/tools/pdf-forge`;
 
-  $: jsonLd = JSON.stringify({
+  $: schema = {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "SoftwareApplication",
-        "name": "PDF Forge",
-        "description": description,
-        "applicationCategory": "ProductivityApplication",
-        "operatingSystem": "Web",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-        "featureList": [
-           "Merge PDF", "Split PDF", "Rotate PDF Pages", "Client-side Privacy", "Reorder Pages", "Image to PDF", "JPG to PDF", "Offline Session History", "Keyboard Shortcuts", "Zipper Merge", "Export PDF to Images", "PDF Watermark"
-        ]
-      }
-    ]
-  });
+    "@type": "WebApplication",
+    "name": "PDF Forge",
+    "headline": toolDict.title,
+    "description": description,
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+    },
+    "featureList": [
+        "Merge PDF", "Split PDF", "Rotate PDF Pages", "Client-side Privacy",
+        "Reorder Pages", "Image to PDF", "JPG to PDF", "Offline Session History",
+        "Keyboard Shortcuts", "Zipper Merge", "Export PDF to Images", "PDF Watermark"
+    ],
+    "url": canonical,
+    "author": {
+        "@type": "Organization",
+        "name": "MicroFactory"
+    },
+    "screenshot": "https://selfgrowingmicrotool.com/og/pdf-forge.png",
+    "dateModified": new Date().toISOString()
+  };
+
+  $: breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://selfgrowingmicrotool.com/"
+    }, {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tools",
+      "item": "https://selfgrowingmicrotool.com/tools"
+    }, {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "PDF Forge",
+      "item": canonical
+    }]
+  };
 
   const renderMarkdown = (text: string) => marked.parse(text);
 </script>
@@ -42,8 +74,10 @@
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://selfgrowingmicrotool.com/og/pdf-forge.png" />
   <link rel="canonical" href={canonical} />
-  {@html `<script type="application/ld+json">${jsonLd}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 py-12 space-y-16 font-sans">
@@ -67,7 +101,7 @@
 
   <!-- Features -->
   <section class="grid md:grid-cols-3 gap-8">
-     <div class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+     <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
         <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center mb-4 text-indigo-600 dark:text-indigo-400">
             <Layers class="w-6 h-6" />
         </div>
@@ -75,8 +109,8 @@
         <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed prose prose-sm dark:prose-invert">
             {@html renderMarkdown(toolDict.guide.f1)}
         </div>
-     </div>
-     <div class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+     </article>
+     <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
         <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center mb-4 text-indigo-600 dark:text-indigo-400">
             <Zap class="w-6 h-6" />
         </div>
@@ -84,8 +118,8 @@
         <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed prose prose-sm dark:prose-invert">
             {@html renderMarkdown(toolDict.guide.f2)}
         </div>
-     </div>
-     <div class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+     </article>
+     <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
         <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center mb-4 text-indigo-600 dark:text-indigo-400">
             <Shield class="w-6 h-6" />
         </div>
@@ -93,7 +127,7 @@
         <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed prose prose-sm dark:prose-invert">
             {@html renderMarkdown(toolDict.guide.f3)}
         </div>
-     </div>
+     </article>
   </section>
 
   <!-- Guide & FAQ -->
