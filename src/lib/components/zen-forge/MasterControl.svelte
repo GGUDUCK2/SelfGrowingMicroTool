@@ -2,8 +2,9 @@
     import { Play, Pause, Timer, RefreshCw } from 'lucide-svelte';
     import { engine } from '$lib/utils/zen-forge/engine';
     import { createEventDispatcher } from 'svelte';
+    import type { ZenForgeDictionary } from '$lib/types/zen-forge';
 
-    export let dict: any;
+    export let dict: ZenForgeDictionary;
 
     let isPlaying = false;
     let volume = 1;
@@ -60,7 +61,11 @@
 
 <div class="bg-slate-800/80 backdrop-blur border border-slate-700 rounded-2xl p-4 flex flex-wrap items-center gap-6 shadow-xl">
     <!-- Play/Pause -->
-    <button on:click={togglePlay} class="p-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full transition-all shadow-lg shadow-indigo-500/30">
+    <button
+        on:click={togglePlay}
+        class="p-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full transition-all shadow-lg shadow-indigo-500/30"
+        aria-label={isPlaying ? dict.controls.pause : dict.controls.play}
+    >
         {#if isPlaying}
             <Pause class="w-6 h-6 fill-current" />
         {:else}
@@ -79,6 +84,7 @@
             bind:value={volume}
             on:input={setVolume}
             class="w-full accent-indigo-500 h-1.5 bg-slate-600 rounded-lg appearance-none cursor-pointer"
+            aria-label={dict.controls.master}
         />
     </div>
 
@@ -102,7 +108,7 @@
         {/if}
     </div>
 
-    <button on:click={handleReset} class="p-2 text-slate-400 hover:text-white" title={dict.controls.reset}>
+    <button on:click={handleReset} class="p-2 text-slate-400 hover:text-white" title={dict.controls.reset} aria-label={dict.controls.reset}>
         <RefreshCw size={20} />
     </button>
 </div>

@@ -11,9 +11,10 @@
     import ZenTimer from '$lib/components/zen-forge/ZenTimer.svelte';
     import BreathingCircle from '$lib/components/zen-forge/BreathingCircle.svelte';
     import { engine } from '$lib/utils/zen-forge/engine';
+    import type { ZenForgeDictionary } from '$lib/types/zen-forge';
 
     export let data;
-    $: dict = getDictionary($page.params.lang);
+    $: dict = getDictionary($page.params.lang).tools.zenForge as ZenForgeDictionary;
 
     let mixer: Mixer;
 
@@ -29,14 +30,42 @@
         return mixer ? mixer.getMix() : [];
     }
 
+    function handleBreath(e: CustomEvent) {
+        if(mixer) mixer.handleBreath(e);
+    }
+
+    function handleKeydown(e: KeyboardEvent) {
+        if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+        switch(e.code) {
+            case 'Space':
+                e.preventDefault();
+                if (engine.context?.state === 'running') {
+                    engine.context.suspend();
+                } else {
+                    engine.init();
+                    engine.context?.resume();
+                }
+                break;
+            case 'KeyM':
+                engine.setMasterVolume(engine.masterGain?.gain.value === 0 ? 1 : 0);
+                break;
+            case 'KeyR':
+                if(mixer) mixer.applySmartMix('focus');
+                break;
+        }
+    }
+
     onDestroy(() => {
-        engine.stopAll();
+        engine.dispose();
     });
 </script>
 
+<svelte:window on:keydown={handleKeydown} />
+
 <Head
-    title={dict.tools.zenForge.title}
-    description={dict.tools.zenForge.description}
+    title={dict.title}
+    description={dict.description}
     image="https://micro-factory.vercel.app/og/zen-forge.png"
 />
 
@@ -44,8 +73,8 @@
     {@html `<script type="application/ld+json">${JSON.stringify({
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": dict.tools.zenForge.title,
-        "description": dict.tools.zenForge.description,
+        "name": dict.title,
+        "description": dict.description,
         "applicationCategory": "Productivity",
         "operatingSystem": "Any",
         "offers": {
@@ -57,6 +86,7 @@
             "Binaural Beats Generator",
             "Focus Timer (Pomodoro)",
             "4-7-8 Breathing Guide",
+            "Smart Mix Generator",
             "Pink/White/Brown Noise"
         ]
     })}</script>`}
@@ -70,9 +100,9 @@
         <!-- Header -->
         <div class="mb-8 text-center">
             <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 mb-2 drop-shadow-lg">
-                {dict.tools.zenForge.title}
+                {dict.title}
             </h1>
-            <p class="text-slate-300 max-w-2xl mx-auto">{dict.tools.zenForge.description}</p>
+            <p class="text-slate-300 max-w-2xl mx-auto">{dict.description}</p>
         </div>
 
         <!-- Main Workspace -->
@@ -84,7 +114,7 @@
 
                 <!-- Breathing Exercise -->
                 <div class="bg-slate-800/50 p-6 rounded-3xl border border-slate-700 flex flex-col items-center justify-center min-h-[250px]">
-                    <BreathingCircle {dict} />
+                    <BreathingCircle {dict} on:breath={handleBreath} />
                 </div>
 
                 <!-- Master Controls -->
@@ -113,12 +143,12 @@
         <!-- Guide Section -->
         <div class="mt-16 bg-slate-900/90 backdrop-blur rounded-2xl border border-slate-800 p-8 shadow-xl">
              <GuideSection
-                guide={dict.tools.zenForge.guide}
-                faqTitle={dict.tools.zenForge.faqTitle}
+                guide={dict.guide}
+                faqTitle={dict.faqTitle}
                 faqItems={[
-                    { q: dict.tools.zenForge.q1, a: dict.tools.zenForge.a1 },
-                    { q: dict.tools.zenForge.q2, a: dict.tools.zenForge.a2 },
-                    { q: dict.tools.zenForge.q3, a: dict.tools.zenForge.a3 }
+                    { q: dict.q1, a: dict.a1 },
+                    { q: dict.q2, a: dict.a2 },
+                    { q: dict.q3, a: dict.a3 }
                 ]}
             />
         </div>

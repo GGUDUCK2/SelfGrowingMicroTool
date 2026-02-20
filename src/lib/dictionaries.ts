@@ -2893,6 +2893,18 @@ export const dictionaries = {
             saved: "Mix Saved!",
             mixName: "Mix Name"
         },
+        smartMix: {
+            title: "Smart Generator",
+            focus: "Focus",
+            relax: "Relax",
+            sleep: "Sleep",
+            meditate: "Meditate"
+        },
+        history: {
+            system: "System",
+            user: "My Mixes",
+            empty: "No saved mixes yet."
+        },
         timerDict: {
             start: "Start Timer",
             stop: "Stop",
@@ -4912,6 +4924,18 @@ export const dictionaries = {
             save: "믹스 저장",
             saved: "믹스가 저장되었습니다!",
             mixName: "믹스 이름"
+        },
+        smartMix: {
+            title: "스마트 생성기",
+            focus: "집중",
+            relax: "휴식",
+            sleep: "수면",
+            meditate: "명상"
+        },
+        history: {
+            system: "시스템",
+            user: "나의 믹스",
+            empty: "저장된 믹스가 없습니다."
         },
         timerDict: {
             start: "타이머 시작",

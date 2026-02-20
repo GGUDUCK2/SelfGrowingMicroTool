@@ -1,12 +1,15 @@
 <script lang="ts">
-    import { onDestroy } from 'svelte';
+    import { onDestroy, createEventDispatcher } from 'svelte';
+    import type { ZenForgeDictionary } from '$lib/types/zen-forge';
 
-    export let dict: any;
+    export let dict: ZenForgeDictionary;
 
     let step: 'idle' | 'inhale' | 'hold' | 'exhale' = 'idle';
     let text = dict.breathing?.start || 'Breathe';
     let isRunning = false;
     let timeout: any;
+
+    const dispatch = createEventDispatcher();
 
     function runCycle() {
         if (!isRunning) return;
@@ -14,6 +17,7 @@
         // Inhale (4s)
         step = 'inhale';
         text = dict.breathing?.inhale || 'Inhale';
+        dispatch('breath', { phase: 'inhale', duration: 4000 });
 
         timeout = setTimeout(() => {
             if (!isRunning) return;
@@ -21,6 +25,7 @@
             // Hold (7s)
             step = 'hold';
             text = dict.breathing?.hold || 'Hold';
+            dispatch('breath', { phase: 'hold', duration: 7000 });
 
             timeout = setTimeout(() => {
                 if (!isRunning) return;
@@ -28,6 +33,7 @@
                 // Exhale (8s)
                 step = 'exhale';
                 text = dict.breathing?.exhale || 'Exhale';
+                dispatch('breath', { phase: 'exhale', duration: 8000 });
 
                 timeout = setTimeout(() => {
                     if (!isRunning) return;
@@ -45,6 +51,7 @@
             clearTimeout(timeout);
             step = 'idle';
             text = dict.breathing?.start || 'Breathe';
+            dispatch('breath', { phase: 'idle' });
         }
     }
 

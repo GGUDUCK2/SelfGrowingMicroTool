@@ -2,8 +2,9 @@
     import { onDestroy } from 'svelte';
     import { Play, Pause, RotateCcw } from 'lucide-svelte';
     import { engine } from '$lib/utils/zen-forge/engine';
+    import type { ZenForgeDictionary } from '$lib/types/zen-forge';
 
-    export let dict: any;
+    export let dict: ZenForgeDictionary;
 
     let timeLeft = 25 * 60;
     let initialTime = 25 * 60;
