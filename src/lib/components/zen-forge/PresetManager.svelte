@@ -1,112 +1,114 @@
 <script lang="ts">
-    import { db, type ZenForgeMix } from '$lib/db';
-    import { liveQuery } from 'dexie';
-    import { Save, Trash2, Folder } from 'lucide-svelte';
     import { createEventDispatcher } from 'svelte';
+    import { Save, Folder, Trash2, Star, Sparkles } from 'lucide-svelte';
+    import type { ZenForgeDictionary } from '$lib/types/zen-forge';
+    import { getMixes, saveMix, deleteMix, toggleStar } from '$lib/db/zen-forge';
     import { browser } from '$app/environment';
 
-    export let dict: any;
-    export let getMix: () => any[];
+    export let dict: ZenForgeDictionary;
+    export let getMix: () => {id: string, volume: number, muted: boolean}[];
 
     const dispatch = createEventDispatcher();
-    let showSave = false;
-    let mixName = '';
-    let toastMessage = '';
 
-    // Fix SSR issue by checking browser
-    let mixes = liveQuery(() => browser ? db.zenForgeMixes.toArray() : []);
+    // Live Query for User Mixes
+    let userMixes = getMixes();
 
-    async function save() {
-        if (!mixName || !browser) return;
-        const tracks = getMix();
-        await db.zenForgeMixes.add({
-            name: mixName,
-            tracks: tracks,
-            createdAt: new Date(),
-            starred: 0
-        });
-        showSave = false;
-        mixName = '';
-        showToast(dict.controls.saved);
+    const systemPresets = [
+        { name: 'focus', tracks: [ {id: 'white', volume: 0.1, muted: false}, {id: 'binaural_alpha', volume: 0.5, muted: false} ] },
+        { name: 'sleep', tracks: [ {id: 'brown', volume: 0.3, muted: false}, {id: 'rain', volume: 0.4, muted: false}, {id: 'binaural_delta', volume: 0.6, muted: false} ] },
+        { name: 'meditate', tracks: [ {id: 'drone', volume: 0.4, muted: false}, {id: 'binaural_theta', volume: 0.6, muted: false}, {id: 'wind', volume: 0.2, muted: false} ] },
+        { name: 'storm', tracks: [ {id: 'rain', volume: 0.7, muted: false}, {id: 'brown', volume: 0.4, muted: false}, {id: 'wind', volume: 0.5, muted: false} ] },
+        { name: 'coding', tracks: [ {id: 'pink', volume: 0.2, muted: false}, {id: 'drone', volume: 0.3, muted: false} ] },
+    ];
+
+    async function handleSave() {
+        const mix = getMix();
+        if (mix.length === 0) return;
+
+        const name = prompt(dict.controls.mixName || "Mix Name", `Mix ${new Date().toLocaleTimeString()}`);
+        if (name) {
+            await saveMix(name, mix);
+        }
     }
 
-    function showToast(msg: string) {
-        toastMessage = msg;
-        setTimeout(() => toastMessage = '', 3000);
+    function load(tracks: any[]) {
+        dispatch('load', tracks);
     }
 
-    function load(mix: ZenForgeMix) {
-        dispatch('load', mix.tracks);
+    async function remove(id: number) {
+        if(confirm("Delete this mix?")) {
+            await deleteMix(id);
+        }
     }
 
-    function remove(id: number) {
-        if (!browser) return;
-        if(confirm('Delete mix?')) db.zenForgeMixes.delete(id);
+    async function star(id: number, current: number) {
+        await toggleStar(id, current);
     }
 </script>
 
-<div class="flex flex-col gap-4 bg-slate-800/50 p-4 rounded-xl border border-slate-700 relative">
-    {#if toastMessage}
-        <div class="absolute top-0 left-0 right-0 z-50 flex justify-center -mt-8 pointer-events-none">
-            <div class="bg-indigo-600 text-white px-3 py-1 rounded-full text-xs shadow-lg animate-in fade-in zoom-in duration-300">
-                {toastMessage}
-            </div>
-        </div>
-    {/if}
-
+<div class="bg-slate-800/50 p-4 rounded-3xl border border-slate-700 flex flex-col gap-4 max-h-[400px] flex-1 min-h-[200px]">
     <div class="flex items-center justify-between">
-        <h3 class="text-sm font-bold uppercase text-slate-500">{dict.controls.presets}</h3>
+        <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">{dict.controls.presets}</h3>
         <button
-            on:click={() => showSave = !showSave}
-            class="flex items-center gap-2 px-3 py-1 bg-slate-700 hover:bg-indigo-600 rounded text-xs font-medium transition-colors text-white"
+            on:click={handleSave}
+            class="p-2 text-indigo-400 hover:text-indigo-300 hover:bg-indigo-900/30 rounded-lg transition-colors flex items-center gap-2 text-xs font-medium"
             aria-label={dict.controls.save}
         >
-            <Save size={14} />
+            <Save size={16} />
             {dict.controls.save}
         </button>
     </div>
 
-    {#if showSave}
-        <div class="flex gap-2 animate-in slide-in-from-top-2">
-            <input
-                type="text"
-                bind:value={mixName}
-                placeholder={dict.controls.mixName}
-                class="bg-slate-900 border border-slate-600 rounded px-3 py-2 text-sm flex-1 text-white focus:border-indigo-500 outline-none"
-                aria-label={dict.controls.mixName}
-            />
-            <button
-                on:click={save}
-                class="bg-indigo-600 px-4 rounded text-sm font-medium text-white hover:bg-indigo-500"
-                aria-label="Confirm Save"
-            >
-                Save
-            </button>
-        </div>
-    {/if}
-
-    <div class="grid gap-2 max-h-40 overflow-y-auto pr-2 custom-scrollbar">
-        {#if $mixes && $mixes.length > 0}
-            {#each $mixes as mix (mix.id)}
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <!-- svelte-ignore a11y-no-static-element-interactions -->
-                <div class="flex items-center justify-between p-2 bg-slate-700/30 rounded hover:bg-slate-700/80 hover:border-l-4 hover:border-l-indigo-500 transition-all group cursor-pointer border border-transparent"
-                     on:click={() => load(mix)}>
-                    <div class="flex items-center gap-2">
-                        <Folder size={14} class="text-indigo-400" />
-                        <span class="text-sm font-medium text-slate-200">{mix.name}</span>
-                    </div>
-                    <button
-                        on:click|stopPropagation={() => remove(mix.id!)}
-                        class="text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity p-1"
-                        aria-label="Delete Mix"
-                    >
-                        <Trash2 size={14} />
-                    </button>
-                </div>
+    <div class="overflow-y-auto flex-1 space-y-4 pr-2 custom-scrollbar">
+        <!-- System Presets -->
+        <div class="space-y-1">
+            <div class="text-xs text-slate-500 font-bold px-2 uppercase tracking-wide opacity-50">{dict.history.system}</div>
+            {#each systemPresets as preset}
+                <button
+                    on:click={() => load(preset.tracks)}
+                    class="w-full text-left px-3 py-2 rounded-xl bg-slate-700/30 hover:bg-slate-700 text-slate-300 text-sm transition-colors flex items-center gap-2 group"
+                >
+                    <div class="w-2 h-2 rounded-full bg-indigo-500/50 group-hover:bg-indigo-400"></div>
+                    {dict.presets[preset.name as keyof typeof dict.presets] || preset.name}
+                </button>
             {/each}
-        {:else}
-            <div class="text-center py-4 text-slate-500 text-xs italic">
+        </div>
+
+        <!-- User Presets -->
+        {#if $userMixes && $userMixes.length > 0}
+            <div class="space-y-1 pt-2 border-t border-slate-700/50">
+                <div class="text-xs text-slate-500 font-bold px-2 py-1 uppercase tracking-wide opacity-50">{dict.history.user}</div>
+                {#each $userMixes as mix}
+                    <div class="flex items-center group w-full bg-slate-700/30 hover:bg-slate-700 rounded-xl pr-2 transition-colors border border-transparent hover:border-slate-600">
+                        <button
+                            on:click={() => load(mix.tracks)}
+                            class="flex-1 text-left px-3 py-2 text-slate-300 text-sm flex items-center gap-2 overflow-hidden"
+                        >
+                            <Folder size={14} class="text-indigo-400 shrink-0" />
+                            <span class="truncate">{mix.name}</span>
+                        </button>
+
+                        <div class="flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button
+                                on:click|stopPropagation={() => star(mix.id!, mix.starred || 0)}
+                                class="p-1.5 hover:text-yellow-400 transition-colors {mix.starred ? 'text-yellow-400 opacity-100' : 'text-slate-500'}"
+                                aria-label="Star Mix"
+                            >
+                                <Star size={14} fill={mix.starred ? "currentColor" : "none"} />
+                            </button>
+                            <button
+                                on:click|stopPropagation={() => remove(mix.id!)}
+                                class="p-1.5 text-slate-500 hover:text-red-400 transition-colors"
+                                aria-label="Delete Mix"
+                            >
+                                <Trash2 size={14} />
+                            </button>
+                        </div>
+                    </div>
+                {/each}
+            </div>
+        {:else if browser}
+            <div class="text-center py-4 text-slate-500 text-xs italic border-t border-slate-700/50 pt-4">
                 {dict.history.empty}
             </div>
         {/if}

@@ -1,11 +1,14 @@
-export type SoundId = 'white' | 'pink' | 'brown' | 'rain' | 'wind' | 'binaural_alpha' | 'binaural_theta' | 'binaural_delta' | 'drone';
+import type { SoundId } from '$lib/types/zen-forge';
+
+export type { SoundId };
 
 interface StoppableAudioNode extends AudioNode {
     stop?: (when?: number) => void;
 }
 
 interface Channel {
-    gain: GainNode;
+    gain: GainNode; // User volume
+    modGain: GainNode; // Modulation (breathing, etc)
     source: StoppableAudioNode;
     isPlaying: boolean;
 }
@@ -190,6 +193,7 @@ export class ZenEngine {
                 if (ch.source.stop) ch.source.stop();
                 ch.source.disconnect();
                 ch.gain.disconnect();
+                ch.modGain.disconnect();
             }, 150);
 
             this.channels.delete(id);
@@ -199,6 +203,10 @@ export class ZenEngine {
             gain.gain.value = 0;
             gain.connect(this.masterGain!);
 
+            const modGain = this.context!.createGain();
+            modGain.gain.value = 1;
+            modGain.connect(gain);
+
             let source: StoppableAudioNode;
 
             switch (id) {
@@ -206,32 +214,32 @@ export class ZenEngine {
                 case 'pink':
                 case 'brown':
                     source = this.createNoise(id);
-                    source.connect(gain);
+                    source.connect(modGain);
                     (source as AudioBufferSourceNode).start();
                     break;
                 case 'rain':
                     source = this.createRain();
-                    source.connect(gain);
+                    source.connect(modGain);
                     break;
                 case 'wind':
                     source = this.createWind();
-                    source.connect(gain);
+                    source.connect(modGain);
                     break;
                 case 'binaural_alpha':
                      source = this.createBinaural(200, 10); // Alpha 10Hz
-                     source.connect(gain);
+                     source.connect(modGain);
                      break;
                 case 'binaural_theta':
                      source = this.createBinaural(200, 6); // Theta 6Hz
-                     source.connect(gain);
+                     source.connect(modGain);
                      break;
                 case 'binaural_delta':
                      source = this.createBinaural(200, 2); // Delta 2Hz
-                     source.connect(gain);
+                     source.connect(modGain);
                      break;
                  case 'drone':
                      source = this.createDrone();
-                     source.connect(gain);
+                     source.connect(modGain);
                      break;
                  default:
                     throw new Error("Unknown sound id");
@@ -241,7 +249,7 @@ export class ZenEngine {
             const now = this.context!.currentTime;
             gain.gain.linearRampToValueAtTime(volume, now + 0.5);
 
-            this.channels.set(id, { gain, source, isPlaying: true });
+            this.channels.set(id, { gain, modGain, source, isPlaying: true });
             return true; // playing
         }
     }
@@ -262,13 +270,39 @@ export class ZenEngine {
         this.masterGain.gain.linearRampToValueAtTime(value, now + 0.1);
     }
 
+    setModulation(id: SoundId, value: number, rampTime: number = 0.1) {
+        const ch = this.channels.get(id);
+        if (ch) {
+            const now = this.context!.currentTime;
+            ch.modGain.gain.cancelScheduledValues(now);
+            ch.modGain.gain.linearRampToValueAtTime(value, now + rampTime);
+        }
+    }
+
     stopAll() {
         this.channels.forEach((ch) => {
             if (ch.source.stop) ch.source.stop();
             ch.source.disconnect();
             ch.gain.disconnect();
+            ch.modGain.disconnect();
         });
         this.channels.clear();
+    }
+
+    fadeOut(duration: number) {
+        if (!this.masterGain || !this.context) return;
+        const now = this.context.currentTime;
+        this.masterGain.gain.cancelScheduledValues(now);
+        this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, now);
+        this.masterGain.gain.linearRampToValueAtTime(0, now + duration);
+    }
+
+    dispose() {
+        this.stopAll();
+        if (this.context) {
+            this.context.close();
+            this.context = null;
+        }
     }
 
     playChime() {
