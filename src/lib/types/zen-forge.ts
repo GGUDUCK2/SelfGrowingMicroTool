@@ -1,4 +1,4 @@
-export type SoundId = 'white' | 'pink' | 'brown' | 'rain' | 'wind' | 'binaural_alpha' | 'binaural_theta' | 'binaural_delta' | 'drone';
+export type SoundId = 'white' | 'pink' | 'brown' | 'rain' | 'wind' | 'binaural_alpha' | 'binaural_theta' | 'binaural_delta' | 'drone' | 'thunder' | 'birds' | 'chimes' | 'crickets' | 'fire';
 
 export interface ZenForgeDictionary {
     title: string;
@@ -17,6 +17,13 @@ export interface ZenForgeDictionary {
         save: string;
         saved: string;
         mixName: string;
+        record: string;
+        recording: string;
+        stopRecord: string;
+    };
+    events: {
+        title: string;
+        density: string;
     };
     smartMix: {
         title: string;

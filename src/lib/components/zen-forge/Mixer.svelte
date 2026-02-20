@@ -3,7 +3,7 @@
     import type { ZenForgeDictionary } from '$lib/types/zen-forge';
     import { generateSmartMix, type SmartMixTag } from '$lib/utils/zen-forge/smart-mix';
     import SoundCard from './SoundCard.svelte';
-    import { CloudRain, Wind, Waves, Brain, Activity, Zap, Fan, Disc, Sparkles } from 'lucide-svelte';
+    import { CloudRain, Wind, Waves, Brain, Activity, Zap, Fan, Disc, Sparkles, CloudLightning, Bird, Bell, Bug, Flame } from 'lucide-svelte';
 
     export let dict: ZenForgeDictionary;
 
@@ -17,6 +17,14 @@
         { id: 'binaural_alpha', icon: Brain },
         { id: 'binaural_theta', icon: Brain },
         { id: 'binaural_delta', icon: Brain },
+    ] as const;
+
+    let events = [
+        { id: 'thunder', icon: CloudLightning },
+        { id: 'birds', icon: Bird },
+        { id: 'chimes', icon: Bell },
+        { id: 'crickets', icon: Bug },
+        { id: 'fire', icon: Flame },
     ] as const;
 
     // Local state to track engine
@@ -74,7 +82,7 @@
         for (const [id, ch] of engine.channels) {
             mix.push({
                 id,
-                volume: ch.gain.gain.value,
+                volume: ch.type === 'impulse' ? (engine.impulseManager?.activeImpulses.get(id)?.density || 0.5) : ch.gain.gain.value,
                 muted: false
             });
         }
@@ -124,6 +132,7 @@
         </div>
     </div>
 
+    <!-- Static Sounds -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {#each sounds as sound (sound.id)}
             <SoundCard
@@ -136,5 +145,23 @@
                 on:volume={handleVolume}
             />
         {/each}
+    </div>
+
+    <!-- Living Atmosphere -->
+    <div class="space-y-4 pt-4 border-t border-slate-800">
+        <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider px-2">{dict.events.title}</h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {#each events as event (event.id)}
+                <SoundCard
+                    id={event.id}
+                    label={dict.sounds[event.id]}
+                    Icon={event.icon}
+                    isPlaying={activeChannels.has(event.id)}
+                    volume={volumes.get(event.id) || 0.5}
+                    on:toggle={handleToggle}
+                    on:volume={handleVolume}
+                />
+            {/each}
+        </div>
     </div>
 </div>

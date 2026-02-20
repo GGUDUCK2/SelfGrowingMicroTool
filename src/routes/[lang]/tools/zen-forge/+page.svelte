@@ -67,9 +67,15 @@
     title={dict.title}
     description={dict.description}
     image="https://micro-factory.vercel.app/og/zen-forge.png"
+    keywords="ambient, noise, focus, relax, generator, binaural, soundscape, recording, thunder, rain, meditation"
 />
 
 <svelte:head>
+    <link rel="canonical" href={`https://micro-factory.vercel.app/${$page.params.lang}/tools/zen-forge`} />
+    <link rel="alternate" hreflang="en" href="https://micro-factory.vercel.app/en/tools/zen-forge" />
+    <link rel="alternate" hreflang="ko" href="https://micro-factory.vercel.app/ko/tools/zen-forge" />
+    <link rel="alternate" hreflang="x-default" href="https://micro-factory.vercel.app/en/tools/zen-forge" />
+
     {@html `<script type="application/ld+json">${JSON.stringify({
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
@@ -87,7 +93,9 @@
             "Focus Timer (Pomodoro)",
             "4-7-8 Breathing Guide",
             "Smart Mix Generator",
-            "Pink/White/Brown Noise"
+            "Pink/White/Brown Noise",
+            "Generative Living Atmosphere",
+            "Audio Recording (WebM)"
         ]
     })}</script>`}
 </svelte:head>

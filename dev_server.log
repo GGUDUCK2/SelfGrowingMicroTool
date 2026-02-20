@@ -1,55 +1,19 @@
 
 > web-factory-svelte@0.0.1 dev
-> vite dev --port 5173
+> vite dev
 
-▲ [WARNING] Cannot find base config file "./.svelte-kit/tsconfig.json" [tsconfig.json]
 
-    tsconfig.json:2:15:
-      2 │     "extends": "./.svelte-kit/tsconfig.json",
-        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-4:20:46 AM [vite] (client) Forced re-optimization of dependencies
-
-  VITE v6.4.1  ready in 1784 ms
+  VITE v6.4.1  ready in 3756 ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
-4:21:23 AM [vite-plugin-svelte] src/lib/components/geo-forge/MapCanvas.svelte:297:0 noninteractive element cannot have nonnegative tabIndex value
-https://svelte.dev/e/a11y_no_noninteractive_tabindex
-4:21:24 AM [vite-plugin-svelte] src/lib/components/geo-forge/ExportModal.svelte:68:16 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
-4:21:24 AM [vite] (ssr) Error when evaluating SSR module /src/routes/[lang]/tools/geo-forge/+page.svelte: /app/src/lib/components/FAQSection.svelte:21:2 `<svelte:head>` tags cannot be inside elements or blocks
-https://svelte.dev/e/svelte_meta_invalid_placement
-  Plugin: vite-plugin-svelte
-  File: /app/src/lib/components/FAQSection.svelte:21:2
-   19 |
-   20 |  {#if injectSchema}
-   21 |    <svelte:head>
-           ^
-   22 |      {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
-   23 |    </svelte:head>
-
-[1;31m[500] GET /en/tools/geo-forge[0m
-
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[500] GET /en/tools/geo-forge[0m
-
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-4:22:39 AM [vite] (client) page reload src/lib/components/FAQSection.svelte
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-4:22:48 AM [vite-plugin-svelte] src/lib/components/geo-forge/MapCanvas.svelte:297:0 noninteractive element cannot have nonnegative tabIndex value
-https://svelte.dev/e/a11y_no_noninteractive_tabindex
-4:22:49 AM [vite-plugin-svelte] src/lib/components/geo-forge/ExportModal.svelte:68:16 A form label must be associated with a control
+8:28:34 PM [vite-plugin-svelte] src/routes/[lang]/tools/zen-forge/+page.svelte:16:15 Component has unused export property 'data'. If it is for external reference only, please consider using `export const data`
+https://svelte.dev/e/export_let_unused
+8:28:59 PM [vite-plugin-svelte] src/lib/components/zen-forge/MasterControl.svelte:97:8 A form label must be associated with a control
 https://svelte.dev/e/a11y_label_has_associated_control
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
-
-[1;31m[404] GET /_vercel/insights/script.js[0m
+8:29:18 PM [vite-plugin-svelte] src/routes/[lang]/tools/zen-forge/+page.svelte:16:15 Component has unused export property 'data'. If it is for external reference only, please consider using `export const data`
+https://svelte.dev/e/export_let_unused
+8:29:19 PM [vite-plugin-svelte] src/lib/components/zen-forge/MasterControl.svelte:97:8 A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control
