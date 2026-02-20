@@ -2879,7 +2879,12 @@ export const dictionaries = {
             drone: "Deep Drone",
             binaural_alpha: "Alpha (Relax)",
             binaural_theta: "Theta (Meditation)",
-            binaural_delta: "Delta (Sleep)"
+            binaural_delta: "Delta (Sleep)",
+            thunder: "Thunder",
+            birds: "Birds",
+            chimes: "Wind Chimes",
+            crickets: "Crickets",
+            fire: "Fire"
         },
         controls: {
             master: "Master Volume",
@@ -2891,7 +2896,14 @@ export const dictionaries = {
             visualizer: "Visualizer",
             save: "Save Mix",
             saved: "Mix Saved!",
-            mixName: "Mix Name"
+            mixName: "Mix Name",
+            record: "Record Mix",
+            recording: "Recording...",
+            stopRecord: "Stop & Save"
+        },
+        events: {
+            title: "Living Atmosphere",
+            density: "Density"
         },
         smartMix: {
             title: "Smart Generator",
@@ -4911,7 +4923,12 @@ export const dictionaries = {
             drone: "딥 드론",
             binaural_alpha: "알파파 (휴식)",
             binaural_theta: "세타파 (명상)",
-            binaural_delta: "델타파 (수면)"
+            binaural_delta: "델타파 (수면)",
+            thunder: "천둥",
+            birds: "새소리",
+            chimes: "풍경 소리",
+            crickets: "귀뚜라미",
+            fire: "모닥불"
         },
         controls: {
             master: "마스터 볼륨",
@@ -4923,7 +4940,14 @@ export const dictionaries = {
             visualizer: "시각화",
             save: "믹스 저장",
             saved: "믹스가 저장되었습니다!",
-            mixName: "믹스 이름"
+            mixName: "믹스 이름",
+            record: "믹스 녹음",
+            recording: "녹음 중...",
+            stopRecord: "중지 및 저장"
+        },
+        events: {
+            title: "생동감 있는 분위기",
+            density: "빈도"
         },
         smartMix: {
             title: "스마트 생성기",

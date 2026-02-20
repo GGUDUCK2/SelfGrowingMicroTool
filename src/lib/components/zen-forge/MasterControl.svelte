@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Play, Pause, Timer, RefreshCw } from 'lucide-svelte';
+    import { Play, Pause, RefreshCw, Mic, Square } from 'lucide-svelte';
     import { engine } from '$lib/utils/zen-forge/engine';
     import { createEventDispatcher } from 'svelte';
     import type { ZenForgeDictionary } from '$lib/types/zen-forge';
@@ -7,6 +7,7 @@
     export let dict: ZenForgeDictionary;
 
     let isPlaying = false;
+    let isRecording = false;
     let volume = 1;
     let timerValue = 0;
     let timerInterval: any;
@@ -21,6 +22,24 @@
             engine.context?.resume();
         }
         isPlaying = !isPlaying;
+    }
+
+    async function toggleRecord() {
+        if (isRecording) {
+            const blob = await engine.stopRecording();
+            isRecording = false;
+            if (blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `zen-forge-mix-${new Date().toISOString().slice(0,10)}.webm`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        } else {
+            engine.startRecording();
+            isRecording = true;
+        }
     }
 
     function handleReset() {
@@ -88,7 +107,23 @@
         />
     </div>
 
-    <!-- Timer -->
+    <!-- Record Button -->
+    <button
+        on:click={toggleRecord}
+        class="p-2 rounded-xl border flex items-center gap-2 transition-all {isRecording ? 'bg-red-500/20 border-red-500 text-red-400' : 'bg-slate-700 border-slate-600 text-slate-300 hover:text-white'}"
+        title={isRecording ? dict.controls.stopRecord : dict.controls.record}
+        aria-label={isRecording ? dict.controls.stopRecord : dict.controls.record}
+    >
+        {#if isRecording}
+            <Square size={18} class="fill-current" />
+            <span class="text-xs font-bold hidden sm:inline">{dict.controls.recording}</span>
+        {:else}
+            <Mic size={18} />
+        {/if}
+    </button>
+
+    <!-- Timer (Embedded) -->
+    <!-- Note: Keeping this as it was present, though +page.svelte also has ZenTimer -->
     <div class="flex items-center gap-2 border-l border-slate-700 pl-4">
         {#if timerValue > 0}
              <div class="flex flex-col items-center">

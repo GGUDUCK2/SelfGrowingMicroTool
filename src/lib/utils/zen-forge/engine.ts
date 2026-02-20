@@ -9,14 +9,151 @@ interface StoppableAudioNode extends AudioNode {
 interface Channel {
     gain: GainNode; // User volume
     modGain: GainNode; // Modulation (breathing, etc)
-    source: StoppableAudioNode;
+    source: StoppableAudioNode | null; // Null if it's an impulse channel
     isPlaying: boolean;
+    type: 'static' | 'impulse';
+    impulseId?: string; // For impulse manager
+}
+
+class ImpulseManager {
+    context: AudioContext;
+    output: GainNode;
+    activeImpulses: Map<string, { density: number, interval: number, nextTime: number }> = new Map();
+    engine: ZenEngine;
+    private isRunning = false;
+
+    constructor(context: AudioContext, output: GainNode, engine: ZenEngine) {
+        this.context = context;
+        this.output = output;
+        this.engine = engine;
+    }
+
+    start() {
+        if (this.isRunning) return;
+        this.isRunning = true;
+        this.loop();
+    }
+
+    stop() {
+        this.isRunning = false;
+        this.activeImpulses.clear();
+    }
+
+    add(id: string, density: number) {
+        // density 0-1.
+        // Map density to average interval.
+        // 0.1 -> 30s, 1.0 -> 2s
+        const interval = 30000 - (density * 28000);
+        this.activeImpulses.set(id, {
+            density,
+            interval,
+            nextTime: performance.now() + Math.random() * 2000 // Start soon
+        });
+        if (!this.isRunning) this.start();
+    }
+
+    updateDensity(id: string, density: number) {
+        if (this.activeImpulses.has(id)) {
+            const imp = this.activeImpulses.get(id)!;
+            imp.density = density;
+            imp.interval = 30000 - (density * 28000);
+        }
+    }
+
+    remove(id: string) {
+        this.activeImpulses.delete(id);
+        if (this.activeImpulses.size === 0) {
+            this.stop();
+        }
+    }
+
+    private loop = () => {
+        if (!this.isRunning) return;
+
+        const now = performance.now();
+        this.activeImpulses.forEach((imp, id) => {
+            if (now >= imp.nextTime) {
+                this.trigger(id);
+                // Randomize next interval based on average interval
+                const variance = imp.interval * 0.5;
+                const next = imp.interval + (Math.random() * variance - variance/2);
+                imp.nextTime = now + Math.max(1000, next);
+            }
+        });
+
+        requestAnimationFrame(this.loop);
+    }
+
+    private trigger(id: string) {
+        // Trigger sound based on ID
+        switch (id) {
+            case 'thunder':
+                this.engine.playThunder();
+                break;
+            case 'birds':
+                this.engine.playBird();
+                break;
+            case 'chimes':
+                this.engine.playChimeSound();
+                break;
+            case 'crickets':
+                this.engine.playCricket();
+                break;
+            case 'fire':
+                this.engine.playFireCrack();
+                break;
+        }
+    }
+}
+
+class Recorder {
+    mediaRecorder: MediaRecorder | null = null;
+    chunks: Blob[] = [];
+    destination: MediaStreamAudioDestinationNode | null = null;
+
+    constructor(context: AudioContext, sourceNode: AudioNode) {
+        this.destination = context.createMediaStreamDestination();
+        sourceNode.connect(this.destination);
+    }
+
+    start() {
+        if (!this.destination) return;
+        this.chunks = [];
+        try {
+            this.mediaRecorder = new MediaRecorder(this.destination.stream);
+        } catch (e) {
+            console.error('MediaRecorder not supported or failed', e);
+            return;
+        }
+
+        this.mediaRecorder.ondataavailable = (e) => {
+            if (e.data.size > 0) this.chunks.push(e.data);
+        };
+
+        this.mediaRecorder.start();
+    }
+
+    stop(): Promise<Blob> {
+        return new Promise((resolve, reject) => {
+            if (!this.mediaRecorder || this.mediaRecorder.state === 'inactive') return reject('No active recorder');
+
+            this.mediaRecorder.onstop = () => {
+                const blob = new Blob(this.chunks, { type: 'audio/webm' });
+                this.chunks = [];
+                resolve(blob);
+            };
+
+            this.mediaRecorder.stop();
+        });
+    }
 }
 
 export class ZenEngine {
     context: AudioContext | null = null;
     masterGain: GainNode | null = null;
     channels: Map<string, Channel> = new Map();
+    impulseManager: ImpulseManager | null = null;
+    recorder: Recorder | null = null;
 
     init() {
         if (!this.context) {
@@ -24,6 +161,9 @@ export class ZenEngine {
             this.context = new AudioContextClass();
             this.masterGain = this.context.createGain();
             this.masterGain.connect(this.context.destination);
+
+            this.impulseManager = new ImpulseManager(this.context, this.masterGain, this);
+            this.recorder = new Recorder(this.context, this.masterGain);
         }
         if (this.context.state === 'suspended') {
             this.context.resume();
@@ -70,6 +210,8 @@ export class ZenEngine {
         return noise;
     }
 
+    // --- Static Sound Generators ---
+
     createRain(): StoppableAudioNode {
         const noise = this.createNoise('pink');
         const lp = this.context!.createBiquadFilter();
@@ -83,7 +225,6 @@ export class ZenEngine {
         lp.connect(hp);
         noise.start();
 
-        // Wrap in gain for consistent API
         const output = this.context!.createGain() as StoppableAudioNode;
         hp.connect(output);
 
@@ -98,7 +239,6 @@ export class ZenEngine {
         bp.frequency.value = 400;
         bp.Q.value = 1; // Wide
 
-        // LFO for wind modulation
         const lfo = this.context!.createOscillator();
         lfo.type = 'sine';
         lfo.frequency.value = 0.1; // Slow
@@ -121,7 +261,6 @@ export class ZenEngine {
     createBinaural(baseFreq: number, beatFreq: number): StoppableAudioNode {
         const merger = this.context!.createChannelMerger(2);
 
-        // Left
         const oscL = this.context!.createOscillator();
         oscL.type = 'sine';
         oscL.frequency.value = baseFreq;
@@ -130,7 +269,6 @@ export class ZenEngine {
         oscL.connect(panL);
         panL.connect(merger, 0, 0);
 
-        // Right
         const oscR = this.context!.createOscillator();
         oscR.type = 'sine';
         oscR.frequency.value = baseFreq + beatFreq;
@@ -161,7 +299,7 @@ export class ZenEngine {
          osc2.frequency.value = 55.5;
 
          const gain = this.context!.createGain();
-         gain.gain.value = 0.3; // Drone should be quieter by default
+         gain.gain.value = 0.3;
 
          osc.connect(lp);
          osc2.connect(lp);
@@ -177,79 +315,265 @@ export class ZenEngine {
          return output;
     }
 
+    // --- Impulse Sound Generators ---
+
+    playThunder() {
+        if (!this.context || !this.masterGain) return;
+        const t = this.context.currentTime;
+
+        const noise = this.createNoise('pink');
+        const filter = this.context.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(800, t);
+        filter.frequency.exponentialRampToValueAtTime(100, t + 0.5);
+
+        const gain = this.context.createGain();
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(1, t + 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.01, t + 3.0);
+
+        noise.connect(filter);
+        filter.connect(gain);
+
+        const ch = this.channels.get('thunder');
+        if (ch) {
+            gain.connect(ch.gain);
+        } else {
+            gain.connect(this.masterGain);
+        }
+
+        noise.start();
+        noise.stop(t + 4);
+    }
+
+    playBird() {
+        if (!this.context) return;
+        const t = this.context.currentTime;
+
+        const osc = this.context.createOscillator();
+        const mod = this.context.createOscillator();
+        const modGain = this.context.createGain();
+        const gain = this.context.createGain();
+
+        // Randomize bird
+        const baseFreq = 2000 + Math.random() * 2000;
+
+        mod.frequency.value = 10 + Math.random() * 20; // 10-30Hz FM
+        modGain.gain.value = 500;
+
+        osc.frequency.setValueAtTime(baseFreq, t);
+        osc.frequency.linearRampToValueAtTime(baseFreq * 0.8, t + 0.3);
+
+        mod.connect(modGain);
+        modGain.connect(osc.frequency);
+
+        osc.connect(gain);
+
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(0.1, t + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+
+        const ch = this.channels.get('birds');
+        if (ch) gain.connect(ch.gain);
+        else gain.connect(this.masterGain!);
+
+        osc.start();
+        mod.start();
+        osc.stop(t + 0.5);
+        mod.stop(t + 0.5);
+    }
+
+    playChimeSound() {
+        if (!this.context) return;
+        const t = this.context.currentTime;
+
+        const baseFreq = 1500 + Math.random() * 500;
+        const ratios = [1, 1.42, 2.7, 4.1];
+
+        const ch = this.channels.get('chimes');
+        const dest = ch ? ch.gain : this.masterGain!;
+
+        ratios.forEach((r, i) => {
+            const osc = this.context!.createOscillator();
+            const gain = this.context!.createGain();
+
+            osc.frequency.value = baseFreq * r;
+            osc.type = 'sine';
+
+            gain.gain.setValueAtTime(0, t);
+            gain.gain.linearRampToValueAtTime(0.1 / (i + 1), t + 0.01);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 3 + Math.random() * 2);
+
+            osc.connect(gain);
+            gain.connect(dest);
+
+            osc.start();
+            osc.stop(t + 6);
+        });
+    }
+
+    playCricket() {
+        if (!this.context) return;
+        const t = this.context.currentTime;
+
+        const osc = this.context.createOscillator();
+        osc.type = 'triangle';
+        osc.frequency.value = 4000 + Math.random() * 500;
+
+        const gain = this.context.createGain();
+        const ch = this.channels.get('crickets');
+        const dest = ch ? ch.gain : this.masterGain!;
+
+        // Pulse modulation
+        const lfo = this.context.createOscillator();
+        lfo.type = 'square';
+        lfo.frequency.value = 30 + Math.random() * 10;
+
+        const lfoGain = this.context.createGain();
+        lfoGain.gain.value = 1;
+
+        lfo.connect(lfoGain);
+        lfoGain.connect(gain.gain); // AM modulation
+
+        osc.connect(gain);
+        gain.connect(dest);
+
+        // Envelope
+        const masterEnv = this.context.createGain();
+        masterEnv.gain.setValueAtTime(0, t);
+        masterEnv.gain.linearRampToValueAtTime(0.1, t + 0.1);
+        masterEnv.gain.linearRampToValueAtTime(0, t + 0.5);
+
+        gain.disconnect();
+        gain.connect(masterEnv);
+        masterEnv.connect(dest);
+
+        osc.start();
+        lfo.start();
+        osc.stop(t + 0.6);
+        lfo.stop(t + 0.6);
+    }
+
+    playFireCrack() {
+        if (!this.context) return;
+        const t = this.context.currentTime;
+
+        const noise = this.createNoise('brown');
+        const gain = this.context.createGain();
+
+        // Very short burst
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(0.8, t + 0.005);
+        gain.gain.exponentialRampToValueAtTime(0.01, t + 0.05);
+
+        const ch = this.channels.get('fire');
+        const dest = ch ? ch.gain : this.masterGain!;
+
+        noise.connect(gain);
+        gain.connect(dest);
+
+        noise.start();
+        noise.stop(t + 0.1);
+    }
+
+    // --- Control Methods ---
+
     toggle(id: SoundId, volume: number = 0.5): boolean {
-        this.init(); // Ensure context is ready
+        this.init();
+
+        const isImpulse = ['thunder', 'birds', 'chimes', 'crickets', 'fire'].includes(id);
 
         if (this.channels.has(id)) {
             // Stop
             const ch = this.channels.get(id)!;
-            // Fade out
-            const now = this.context!.currentTime;
-            ch.gain.gain.cancelScheduledValues(now);
-            ch.gain.gain.setValueAtTime(ch.gain.gain.value, now);
-            ch.gain.gain.linearRampToValueAtTime(0, now + 0.1);
 
-            setTimeout(() => {
-                if (ch.source.stop) ch.source.stop();
-                ch.source.disconnect();
+            if (ch.type === 'static' && ch.source) {
+                const now = this.context!.currentTime;
+                ch.gain.gain.cancelScheduledValues(now);
+                ch.gain.gain.setValueAtTime(ch.gain.gain.value, now);
+                ch.gain.gain.linearRampToValueAtTime(0, now + 0.1);
+
+                setTimeout(() => {
+                    if (ch.source?.stop) ch.source.stop();
+                    ch.source?.disconnect();
+                    ch.gain.disconnect();
+                    ch.modGain.disconnect();
+                }, 150);
+            } else if (ch.type === 'impulse') {
+                this.impulseManager?.remove(id);
                 ch.gain.disconnect();
                 ch.modGain.disconnect();
-            }, 150);
+            }
 
             this.channels.delete(id);
             return false; // stopped
         } else {
+            // Setup Gain Chain
             const gain = this.context!.createGain();
-            gain.gain.value = 0;
+            gain.gain.value = isImpulse ? 1 : 0; // Impulse uses gain for master volume of that channel
             gain.connect(this.masterGain!);
 
             const modGain = this.context!.createGain();
             modGain.gain.value = 1;
             modGain.connect(gain);
 
-            let source: StoppableAudioNode;
+            if (isImpulse) {
+                // Register with Impulse Manager
+                this.impulseManager?.add(id, volume); // volume here acts as density
+                this.channels.set(id, {
+                    gain,
+                    modGain,
+                    source: null,
+                    isPlaying: true,
+                    type: 'impulse',
+                    impulseId: id
+                });
+            } else {
+                // Static sound
+                let source: StoppableAudioNode;
+                switch (id) {
+                    case 'white':
+                    case 'pink':
+                    case 'brown':
+                        source = this.createNoise(id);
+                        break;
+                    case 'rain':
+                        source = this.createRain();
+                        break;
+                    case 'wind':
+                        source = this.createWind();
+                        break;
+                    case 'binaural_alpha':
+                         source = this.createBinaural(200, 10);
+                         break;
+                    case 'binaural_theta':
+                         source = this.createBinaural(200, 6);
+                         break;
+                    case 'binaural_delta':
+                         source = this.createBinaural(200, 2);
+                         break;
+                     case 'drone':
+                         source = this.createDrone();
+                         break;
+                     default:
+                        throw new Error("Unknown sound id: " + id);
+                }
 
-            switch (id) {
-                case 'white':
-                case 'pink':
-                case 'brown':
-                    source = this.createNoise(id);
-                    source.connect(modGain);
-                    (source as AudioBufferSourceNode).start();
-                    break;
-                case 'rain':
-                    source = this.createRain();
-                    source.connect(modGain);
-                    break;
-                case 'wind':
-                    source = this.createWind();
-                    source.connect(modGain);
-                    break;
-                case 'binaural_alpha':
-                     source = this.createBinaural(200, 10); // Alpha 10Hz
-                     source.connect(modGain);
-                     break;
-                case 'binaural_theta':
-                     source = this.createBinaural(200, 6); // Theta 6Hz
-                     source.connect(modGain);
-                     break;
-                case 'binaural_delta':
-                     source = this.createBinaural(200, 2); // Delta 2Hz
-                     source.connect(modGain);
-                     break;
-                 case 'drone':
-                     source = this.createDrone();
-                     source.connect(modGain);
-                     break;
-                 default:
-                    throw new Error("Unknown sound id");
+                source.connect(modGain);
+                if ((source as any).start && id.includes('noise')) (source as AudioBufferSourceNode).start();
+
+                // Fade in
+                const now = this.context!.currentTime;
+                gain.gain.linearRampToValueAtTime(volume, now + 0.5);
+
+                this.channels.set(id, {
+                    gain,
+                    modGain,
+                    source,
+                    isPlaying: true,
+                    type: 'static'
+                });
             }
-
-            // Fade in
-            const now = this.context!.currentTime;
-            gain.gain.linearRampToValueAtTime(volume, now + 0.5);
-
-            this.channels.set(id, { gain, modGain, source, isPlaying: true });
             return true; // playing
         }
     }
@@ -257,9 +581,14 @@ export class ZenEngine {
     setVolume(id: SoundId, value: number) {
         const ch = this.channels.get(id);
         if (ch) {
-            const now = this.context!.currentTime;
-            ch.gain.gain.cancelScheduledValues(now);
-            ch.gain.gain.linearRampToValueAtTime(value, now + 0.1);
+            if (ch.type === 'static') {
+                const now = this.context!.currentTime;
+                ch.gain.gain.cancelScheduledValues(now);
+                ch.gain.gain.linearRampToValueAtTime(value, now + 0.1);
+            } else {
+                // For impulse, value is density
+                this.impulseManager?.updateDensity(id, value);
+            }
         }
     }
 
@@ -279,10 +608,24 @@ export class ZenEngine {
         }
     }
 
+    startRecording() {
+        this.init();
+        this.recorder?.start();
+    }
+
+    async stopRecording(): Promise<Blob | null> {
+        if (!this.recorder) return null;
+        return await this.recorder.stop();
+    }
+
     stopAll() {
-        this.channels.forEach((ch) => {
-            if (ch.source.stop) ch.source.stop();
-            ch.source.disconnect();
+        this.channels.forEach((ch, id) => {
+            if (ch.type === 'static' && ch.source) {
+                if (ch.source.stop) ch.source.stop();
+                ch.source.disconnect();
+            } else if (ch.type === 'impulse') {
+                this.impulseManager?.remove(id);
+            }
             ch.gain.disconnect();
             ch.modGain.disconnect();
         });
@@ -299,6 +642,7 @@ export class ZenEngine {
 
     dispose() {
         this.stopAll();
+        this.impulseManager?.stop();
         if (this.context) {
             this.context.close();
             this.context = null;
