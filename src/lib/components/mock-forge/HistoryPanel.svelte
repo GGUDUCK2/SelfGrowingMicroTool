@@ -3,11 +3,18 @@
   import { db, type MockForgeSchema } from '$lib/db';
   import { Trash2, FolderOpen, Star, Clock } from 'lucide-svelte';
   import { slide } from 'svelte/transition';
+  import { browser } from '$app/environment';
 
   export let onLoad: (schema: MockForgeSchema) => void;
   export let dictionary: any;
 
-  let history = liveQuery(() => db.mockForgeSchemas.orderBy('createdAt').reverse().limit(20).toArray());
+  let history;
+
+  if (browser) {
+    history = liveQuery(() => db.mockForgeSchemas.orderBy('createdAt').reverse().limit(20).toArray());
+  } else {
+    history = { subscribe: (cb: any) => { cb([]); return () => {}; } };
+  }
 
   async function deleteItem(id?: number) {
     if (id) await db.mockForgeSchemas.delete(id);

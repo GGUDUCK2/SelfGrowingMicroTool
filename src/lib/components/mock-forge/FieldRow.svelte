@@ -20,14 +20,14 @@
 </script>
 
 <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-3 shadow-sm hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors group">
-  <div class="flex items-center gap-3">
+  <div class="flex flex-wrap sm:flex-nowrap items-center gap-3">
     <!-- Drag Handle (Visual only for now, parent handles logic if needed) -->
     <div class="cursor-grab text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
       <GripVertical size={18} />
     </div>
 
     <!-- Field Name -->
-    <div class="flex-1 min-w-[120px]">
+    <div class="flex-1 min-w-[120px] basis-full sm:basis-auto">
       <input
         type="text"
         bind:value={field.name}
@@ -37,7 +37,7 @@
     </div>
 
     <!-- Field Type -->
-    <div class="flex-1 min-w-[140px]">
+    <div class="flex-1 min-w-[140px] basis-[calc(50%-1rem)] sm:basis-auto">
       <select
         bind:value={field.type}
         class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-sm outline-none focus:ring-1 focus:ring-indigo-500"
@@ -49,7 +49,7 @@
     </div>
 
     <!-- Actions -->
-    <div class="flex items-center gap-1">
+    <div class="flex items-center gap-1 ml-auto sm:ml-0">
       <button
         on:click={toggleOptions}
         class="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
