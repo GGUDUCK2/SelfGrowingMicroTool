@@ -93,7 +93,7 @@
 
     } catch (e) {
       console.error(e);
-      formattedResult = 'Error';
+      formattedResult = t.error || 'Error';
     }
   }
 
@@ -148,6 +148,7 @@
         <input
           id="input-value"
           type="number"
+          inputmode="decimal"
           bind:value={inputValue}
           class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-2xl font-mono text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
           placeholder="0"
