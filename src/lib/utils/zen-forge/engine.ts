@@ -633,6 +633,21 @@ export class ZenEngine {
         });
     }
 
+    rampBinaural(startFreq: number, endFreq: number, duration: number) {
+        if (!this.context) return;
+        ['binaural_alpha', 'binaural_theta', 'binaural_delta'].forEach(id => {
+            const ch = this.channels.get(id as SoundId);
+            if (ch && ch.oscillators && ch.oscillators.length === 2) {
+                const now = this.context!.currentTime;
+                const baseFreq = 200;
+                const osc = ch.oscillators[1];
+                osc.frequency.cancelScheduledValues(now);
+                osc.frequency.setValueAtTime(baseFreq + startFreq, now);
+                osc.frequency.linearRampToValueAtTime(baseFreq + endFreq, now + duration);
+            }
+        });
+    }
+
     setModulation(id: SoundId, value: number, rampTime: number = 0.1) {
         const ch = this.channels.get(id);
         if (ch) {
@@ -685,21 +700,24 @@ export class ZenEngine {
 
     playChime() {
         this.init();
-        const osc = this.context!.createOscillator();
-        const gain = this.context!.createGain();
+        if (!this.context || !this.masterGain) return;
+
+        const osc = this.context.createOscillator();
+        const gain = this.context.createGain();
+        const t = this.context.currentTime;
 
         osc.connect(gain);
-        gain.connect(this.masterGain!);
+        gain.connect(this.masterGain);
 
-        osc.frequency.setValueAtTime(880, this.context!.currentTime); // High A
-        osc.frequency.exponentialRampToValueAtTime(440, this.context!.currentTime + 1.5);
+        osc.frequency.setValueAtTime(880, t); // High A
+        osc.frequency.exponentialRampToValueAtTime(440, t + 1.5);
 
-        gain.gain.setValueAtTime(0, this.context!.currentTime);
-        gain.gain.linearRampToValueAtTime(0.5, this.context!.currentTime + 0.1);
-        gain.gain.exponentialRampToValueAtTime(0.01, this.context!.currentTime + 2);
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(0.5, t + 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.01, t + 2);
 
         osc.start();
-        osc.stop(this.context!.currentTime + 2);
+        osc.stop(t + 2);
     }
 }
 

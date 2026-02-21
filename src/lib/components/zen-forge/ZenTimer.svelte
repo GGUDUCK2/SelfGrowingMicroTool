@@ -14,6 +14,14 @@
     let chime = true;
     let timerInterval: any;
 
+    // New Features
+    let journeyMode = false;
+    let startHz = 14;
+    let endHz = 4;
+
+    let intervalChime = false;
+    let chimeInterval = 15;
+
     const presets = [15, 25, 45, 60];
 
     function formatTime(seconds: number) {
@@ -41,12 +49,22 @@
         isRunning = true;
         engine.init();
 
+        if (journeyMode) {
+            zenStore.applyJourney(startHz, endHz, timeLeft);
+        }
+
         timerInterval = setInterval(() => {
             timeLeft--;
+
+            // Interval Chime
+            if (intervalChime && timeLeft > 0 && (initialTime - timeLeft) > 0 && (initialTime - timeLeft) % (chimeInterval * 60) === 0) {
+                engine.playChime();
+            }
 
             // Smart Fade: Last 30 seconds if duration > 1 min
             if (timeLeft === 30 && fadeOut && initialTime > 60 && engine.masterGain && engine.context) {
                  const now = engine.context.currentTime;
+                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                  const currentVol = $zenStore.masterVolume;
                  engine.masterGain.gain.cancelScheduledValues(now);
                  engine.masterGain.gain.setValueAtTime(engine.masterGain.gain.value, now);
@@ -145,15 +163,58 @@
     </div>
 
     <!-- Options -->
-    <div class="flex gap-4 z-10 text-xs text-slate-400 mt-2">
-        <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200">
-            <input type="checkbox" bind:checked={fadeOut} class="rounded border-slate-600 bg-slate-700 text-indigo-500 focus:ring-indigo-500/50" />
-            <span>{dict.timerDict?.fadeOut || 'Fade Out'}</span>
-        </label>
-        <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200">
-            <input type="checkbox" bind:checked={chime} class="rounded border-slate-600 bg-slate-700 text-indigo-500 focus:ring-indigo-500/50" />
-            <span>Chime</span>
-        </label>
+    <div class="flex flex-col gap-3 z-10 w-full max-w-[240px] mt-2">
+        <div class="flex gap-4 text-xs text-slate-400 justify-center">
+            <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200">
+                <input type="checkbox" bind:checked={fadeOut} class="rounded border-slate-600 bg-slate-700 text-indigo-500 focus:ring-indigo-500/50" />
+                <span>{dict.timerDict?.fadeOut || 'Fade Out'}</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200">
+                <input type="checkbox" bind:checked={chime} class="rounded border-slate-600 bg-slate-700 text-indigo-500 focus:ring-indigo-500/50" />
+                <span>Finish Chime</span>
+            </label>
+        </div>
+
+        <!-- Journey Mode -->
+        <div class="border-t border-slate-700 pt-3 w-full">
+            <label class="flex items-center justify-between cursor-pointer mb-2 hover:text-slate-200">
+                <span class="text-xs font-medium text-slate-300">{dict.timerDict?.journey || 'Binaural Journey'}</span>
+                <input type="checkbox" bind:checked={journeyMode} class="rounded border-slate-600 bg-slate-700 text-indigo-500 focus:ring-indigo-500/50" />
+            </label>
+
+            {#if journeyMode}
+                <div class="grid grid-cols-2 gap-2 text-[10px]">
+                    <div>
+                        <span class="text-slate-500 block mb-1">{dict.timerDict?.startFreq || 'Start Hz'}</span>
+                        <input type="number" bind:value={startHz} min="1" max="40" class="w-full bg-slate-800 border border-slate-600 rounded px-1 py-0.5 text-center text-slate-200 focus:border-indigo-500 focus:outline-none" />
+                    </div>
+                    <div>
+                        <span class="text-slate-500 block mb-1">{dict.timerDict?.endFreq || 'End Hz'}</span>
+                        <input type="number" bind:value={endHz} min="1" max="40" class="w-full bg-slate-800 border border-slate-600 rounded px-1 py-0.5 text-center text-slate-200 focus:border-indigo-500 focus:outline-none" />
+                    </div>
+                </div>
+            {/if}
+        </div>
+
+        <!-- Interval Chime -->
+        <div class="border-t border-slate-700 pt-3 w-full">
+             <label class="flex items-center justify-between cursor-pointer mb-2 hover:text-slate-200">
+                <span class="text-xs font-medium text-slate-300">{dict.timerDict?.chime || 'Interval Chime'}</span>
+                <input type="checkbox" bind:checked={intervalChime} class="rounded border-slate-600 bg-slate-700 text-indigo-500 focus:ring-indigo-500/50" />
+            </label>
+
+            {#if intervalChime}
+                <div class="flex items-center gap-2">
+                    <span class="text-[10px] text-slate-500 whitespace-nowrap">{dict.timerDict?.interval || 'Every (min)'}</span>
+                    <select bind:value={chimeInterval} class="w-full bg-slate-800 border border-slate-600 rounded px-1 py-0.5 text-xs text-slate-300 focus:border-indigo-500 focus:outline-none">
+                        <option value={5}>5</option>
+                        <option value={10}>10</option>
+                        <option value={15}>15</option>
+                        <option value={30}>30</option>
+                    </select>
+                </div>
+            {/if}
+        </div>
     </div>
 
     <!-- Background Progress -->

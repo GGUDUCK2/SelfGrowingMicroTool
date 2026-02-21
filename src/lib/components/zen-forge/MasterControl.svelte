@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Play, Pause, RefreshCw, Mic, Square } from 'lucide-svelte';
+    import { Play, Pause, RefreshCw, Mic, Square, Share2 } from 'lucide-svelte';
     import { engine } from '$lib/utils/zen-forge/engine';
     import { zenStore } from '$lib/stores/zen-forge';
     import { createEventDispatcher } from 'svelte';
@@ -40,6 +40,14 @@
     function handleReset() {
         zenStore.reset();
         dispatch('reset');
+    }
+
+    let showToast = false;
+    function handleShare() {
+        const url = zenStore.getShareUrl();
+        navigator.clipboard.writeText(url);
+        showToast = true;
+        setTimeout(() => showToast = false, 2000);
     }
 </script>
 
@@ -86,6 +94,22 @@
             <Mic size={18} />
         {/if}
     </button>
+
+    <div class="relative">
+        <button
+            on:click={handleShare}
+            class="p-2 text-slate-400 hover:text-indigo-400 transition-colors"
+            title={dict.controls.share || 'Share Mix'}
+            aria-label={dict.controls.share || 'Share Mix'}
+        >
+            <Share2 size={20} />
+        </button>
+        {#if showToast}
+            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-indigo-600 text-white text-[10px] rounded shadow-lg whitespace-nowrap z-50">
+                {dict.controls.shared || 'Link Copied!'}
+            </div>
+        {/if}
+    </div>
 
     <button on:click={handleReset} class="p-2 text-slate-400 hover:text-white" title={dict.controls.reset} aria-label={dict.controls.reset}>
         <RefreshCw size={20} />
