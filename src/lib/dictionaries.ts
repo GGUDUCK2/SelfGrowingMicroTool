@@ -2982,6 +2982,79 @@ export const dictionaries = {
         a2: "No. All processing happens locally in your browser. Your translation files never leave your device.",
         q3: "Can I use it for other formats?",
         a3: "Currently, we support JSON files. Support for YAML and PO files is planned for a future update."
+      },
+      mathForge: {
+        title: "Math Forge: Scientific Workbench",
+        description: "The definitive mathematical suite. Graphing calculator, matrix operations, statistics, and scientific calculations in one place.",
+        tabs: {
+          calculator: "Calculator",
+          grapher: "Grapher",
+          matrix: "Matrix",
+          statistics: "Statistics"
+        },
+        calculator: {
+          input: "Expression",
+          result: "Result",
+          history: "History",
+          clear: "Clear",
+          error: "Error"
+        },
+        grapher: {
+          function: "f(x) =",
+          addFunction: "Add Function",
+          grid: "Grid",
+          reset: "Reset View",
+          trace: "Trace"
+        },
+        matrix: {
+          matrixA: "Matrix A",
+          matrixB: "Matrix B",
+          rows: "Rows",
+          cols: "Cols",
+          result: "Result",
+          det: "Determinant",
+          inv: "Inverse",
+          transpose: "Transpose",
+          add: "A + B",
+          sub: "A - B",
+          mul: "A × B"
+        },
+        statistics: {
+          data: "Data Set (comma separated)",
+          calculate: "Calculate",
+          mean: "Mean",
+          median: "Median",
+          mode: "Mode",
+          stdDev: "Standard Deviation",
+          variance: "Variance",
+          range: "Range",
+          count: "Count",
+          sum: "Sum"
+        },
+        history: {
+          title: "Calculation History",
+          empty: "No history yet.",
+          clear: "Clear"
+        },
+        guide: {
+          title: "Why Math Forge?",
+          intro: "Math Forge unifies disjointed mathematical tools into a single, cohesive workbench. Whether you are a student visualizing functions or an engineer crunching matrices, Math Forge provides precision and speed.",
+          featuresTitle: "Key Features",
+          f1: "**Graphing Engine:** Visualize multiple functions simultaneously with interactive panning and zooming.",
+          f2: "**Matrix Operations:** Perform complex linear algebra operations like inversion and multiplication instantly.",
+          f3: "**Scientific Calculator:** Supports advanced functions (sin, cos, log, exp) and history tracking.",
+          tipsTitle: "Pro Tips",
+          tip1: "In the Grapher, use `x` as the variable (e.g., `sin(x) * x`).",
+          tip2: "For Matrices, ensure dimensions match for operations like addition and multiplication.",
+          tip3: "Statistics input accepts comma, space, or newline separated values."
+        },
+        faqTitle: "Math Forge FAQ",
+        q1: "Is the math processed locally?",
+        a1: "Yes, all calculations are performed in your browser using optimized JavaScript algorithms.",
+        q2: "Can I graph 3D functions?",
+        a2: "Currently, the Grapher supports 2D Cartesian coordinates. 3D support is planned for a future update.",
+        q3: "How do I enter constants like Pi?",
+        a3: "You can use `pi` or `PI` in expressions. `e` is also supported."
       }
     },
     pwa: {
@@ -5094,6 +5167,79 @@ export const dictionaries = {
         a2: "아니요. 모든 처리는 브라우저에서 로컬로 수행됩니다. 번역 파일은 기기를 떠나지 않습니다.",
         q3: "다른 형식도 사용할 수 있나요?",
         a3: "현재는 JSON 파일을 지원합니다. YAML 및 PO 파일 지원은 향후 업데이트될 예정입니다."
+      },
+      mathForge: {
+        title: "매스 포지: 과학 워크벤치",
+        description: "완벽한 수학 스위트입니다. 공학용 계산기, 그래프, 행렬 연산 및 통계 분석을 한곳에서 수행하세요.",
+        tabs: {
+          calculator: "계산기",
+          grapher: "그래프",
+          matrix: "행렬",
+          statistics: "통계"
+        },
+        calculator: {
+          input: "수식",
+          result: "결과",
+          history: "히스토리",
+          clear: "초기화",
+          error: "오류"
+        },
+        grapher: {
+          function: "f(x) =",
+          addFunction: "함수 추가",
+          grid: "그리드",
+          reset: "뷰 초기화",
+          trace: "트레이스"
+        },
+        matrix: {
+          matrixA: "행렬 A",
+          matrixB: "행렬 B",
+          rows: "행",
+          cols: "열",
+          result: "결과",
+          det: "행렬식 (Det)",
+          inv: "역행렬 (Inv)",
+          transpose: "전치 (Trans)",
+          add: "A + B",
+          sub: "A - B",
+          mul: "A × B"
+        },
+        statistics: {
+          data: "데이터 세트 (콤마로 구분)",
+          calculate: "계산",
+          mean: "평균",
+          median: "중앙값",
+          mode: "최빈값",
+          stdDev: "표준 편차",
+          variance: "분산",
+          range: "범위",
+          count: "개수",
+          sum: "합계"
+        },
+        history: {
+          title: "계산 기록",
+          empty: "기록이 없습니다.",
+          clear: "지우기"
+        },
+        guide: {
+          title: "왜 매스 포지인가요?",
+          intro: "매스 포지는 흩어진 수학 도구들을 하나의 응집력 있는 워크벤치로 통합합니다. 함수를 시각화하는 학생이든 행렬을 계산하는 엔지니어든, 매스 포지는 정밀함과 속도를 제공합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**그래프 엔진:** 대화형 팬 및 줌 기능을 통해 여러 함수를 동시에 시각화하세요.",
+          f2: "**행렬 연산:** 역행렬 및 곱셈과 같은 복잡한 선형 대수 연산을 즉시 수행하세요.",
+          f3: "**공학용 계산기:** 고급 함수(sin, cos, log, exp) 및 히스토리 추적을 지원합니다.",
+          tipsTitle: "프로 팁",
+          tip1: "그래퍼에서 `x`를 변수로 사용하세요 (예: `sin(x) * x`).",
+          tip2: "행렬의 경우 덧셈 및 곱셈과 같은 연산을 위해 차원이 일치하는지 확인하세요.",
+          tip3: "통계 입력은 쉼표, 공백 또는 줄바꿈으로 구분된 값을 허용합니다."
+        },
+        faqTitle: "매스 포지 FAQ",
+        q1: "수학 연산은 로컬에서 처리되나요?",
+        a1: "네, 모든 계산은 최적화된 JavaScript 알고리즘을 사용하여 브라우저에서 수행됩니다.",
+        q2: "3D 함수를 그릴 수 있나요?",
+        a2: "현재 그래퍼는 2D 데카르트 좌표를 지원합니다. 3D 지원은 향후 업데이트될 예정입니다.",
+        q3: "파이(Pi)와 같은 상수는 어떻게 입력하나요?",
+        a3: "수식에서 `pi` 또는 `PI`를 사용할 수 있습니다. `e`도 지원됩니다."
       }
   }
 } as const;
