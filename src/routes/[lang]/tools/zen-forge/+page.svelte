@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onDestroy } from 'svelte';
+    import { onMount, onDestroy } from 'svelte';
     import { page } from '$app/stores';
     import { getDictionary } from '$lib/dictionaries';
     import Head from '$lib/components/Head.svelte';
@@ -16,6 +16,14 @@
 
     export let data;
     $: dict = getDictionary($page.params.lang).tools.zenForge as ZenForgeDictionary;
+
+    onMount(() => {
+        const params = new URLSearchParams(window.location.search);
+        const mixHash = params.get('mix');
+        if (mixHash) {
+            zenStore.loadMixFromUrl(mixHash);
+        }
+    });
 
     function handleBreath(e: CustomEvent) {
         const { phase, duration } = e.detail;
@@ -88,6 +96,9 @@
             "Ambient Sound Mixer",
             "Binaural Beats Generator",
             "Focus Timer (Pomodoro)",
+            "Brainwave Entrainment Journey",
+            "Shareable Soundscapes",
+            "Interval Chimes",
             "4-7-8 Breathing Guide",
             "Smart Mix Generator",
             "Pink/White/Brown Noise",

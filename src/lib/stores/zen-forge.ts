@@ -214,6 +214,65 @@ function createZenStore() {
                     engine.setModulation(id, targetMod, rampTime);
                 }
             });
+        },
+
+        // --- New Features ---
+
+        getShareUrl: () => {
+            const state = get(store);
+            const mix = Array.from(state.activeChannels).map(id => ({
+                 id, v: state.volumes[id] || 0.5
+            }));
+            const data = mix.map(m => `${m.id}:${m.v.toFixed(2)}`).join('|');
+            return `${window.location.origin}${window.location.pathname}?mix=${btoa(data)}`;
+        },
+
+        loadMixFromUrl: (hash: string) => {
+            try {
+                const data = atob(hash);
+                const items = data.split('|');
+                engine.stopAll();
+                 const newActive = new Set<SoundId>();
+                 const newVolumes: Partial<Record<SoundId, number>> = {};
+                 items.forEach(item => {
+                     const [id, v] = item.split(':');
+                     if (id && v) {
+                         const vol = parseFloat(v);
+                         const sId = id as SoundId;
+                         try {
+                             if (engine.toggle(sId, vol)) {
+                                 newActive.add(sId);
+                                 newVolumes[sId] = vol;
+                             }
+                         } catch (e) {
+                             console.warn("Invalid sound id in URL mix:", sId);
+                         }
+                     }
+                 });
+                 update(s => ({ ...s, activeChannels: newActive, volumes: newVolumes }));
+            } catch (e) {
+                console.error("Failed to load mix from URL", e);
+            }
+        },
+
+        applyJourney: (start: number, end: number, duration: number) => {
+             const state = get(store);
+             let hasBinaural = false;
+             state.activeChannels.forEach(id => {
+                 if (id.startsWith('binaural')) hasBinaural = true;
+             });
+
+             if (!hasBinaural) {
+                 // default to alpha if none
+                 engine.toggle('binaural_alpha', 0.5);
+                 update(s => {
+                     const newActive = new Set(s.activeChannels).add('binaural_alpha');
+                     const newVolumes = { ...s.volumes, binaural_alpha: 0.5 };
+                     return { ...s, activeChannels: newActive, volumes: newVolumes };
+                 });
+             }
+
+             engine.rampBinaural(start, end, duration);
         }
     };
 }
