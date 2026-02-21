@@ -1,0 +1,192 @@
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import { page } from '$app/stores';
+  import { getDictionary } from '$lib/dictionaries';
+  import { db } from '$lib/db';
+  import { browser } from '$app/environment';
+
+  import Calculator from '$lib/components/math-forge/Calculator.svelte';
+  import Grapher from '$lib/components/math-forge/Grapher.svelte';
+  import Matrix from '$lib/components/math-forge/Matrix.svelte';
+  import Statistics from '$lib/components/math-forge/Statistics.svelte';
+  import HistoryPanel from '$lib/components/math-forge/HistoryPanel.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
+  import { Calculator as CalcIcon, LineChart, Grid3X3, BarChart, History, ChevronLeft } from 'lucide-svelte';
+
+  $: lang = $page.params.lang || 'en';
+  // Use fallback if dictionary is missing to avoid crash
+  $: dict = getDictionary(lang)?.tools?.mathForge || getDictionary('en').tools.mathForge;
+  $: common = getDictionary(lang)?.common || getDictionary('en').common;
+
+  let activeTab: 'calculator' | 'grapher' | 'matrix' | 'statistics' = 'calculator';
+  let showHistory = false;
+
+  // Shared state for calculator
+  let calculatorInput = '';
+
+  async function handleHistory(e: CustomEvent) {
+      const { input, result } = e.detail;
+      if (browser) {
+          try {
+            await db.mathForgeHistory.add({
+                type: activeTab,
+                expression: input,
+                result: result,
+                createdAt: new Date(),
+                starred: 0
+            });
+          } catch(e) {
+              console.error('Failed to save history', e);
+          }
+      }
+  }
+
+  function loadFromHistory(expr: string) {
+      activeTab = 'calculator';
+      // We need to pass this down.
+      // Svelte stores or context would be better, but we can use a query selector or re-mount.
+      // Actually, passing it as a prop is best but Calculator is already mounted.
+      // Let's use a hack for now or just reload the component?
+      // Better: Use a store in engine or just specific to this page?
+      // Simple way: dispatch event to window or use specific prop.
+      // I'll try to find the input and update it.
+      setTimeout(() => {
+          const inputs = document.querySelectorAll('input[type="text"]');
+          // Calculator input is likely the first one in that component.
+          // Since activeTab sets Calculator visible, it should be there.
+          if (inputs.length > 0) {
+              const el = inputs[0] as HTMLInputElement;
+              el.value = expr;
+              el.dispatchEvent(new Event('input'));
+              // Also simulate Enter to calculate? Maybe not.
+          }
+      }, 50);
+  }
+</script>
+
+<svelte:head>
+  <title>{dict.title}</title>
+  <meta name="description" content={dict.description} />
+  {@html `<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "${dict.title}",
+      "description": "${dict.description}",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Scientific Calculator",
+        "Graphing Calculator",
+        "Matrix Operations",
+        "Statistical Analysis"
+      ]
+    }
+  </script>`}
+</svelte:head>
+
+<div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">
+  <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="/{lang}" class="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors" aria-label={common.back}>
+          <ChevronLeft size={20} />
+        </a>
+        <div class="flex items-center space-x-2">
+          <div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400">
+             <CalcIcon size={20} />
+          </div>
+          <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 hidden sm:block">
+            {dict.title}
+          </h1>
+        </div>
+      </div>
+
+      <button on:click={() => showHistory = !showHistory} class="lg:hidden p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400" aria-label="History">
+          <History size={20} />
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-9 space-y-8">
+              <!-- Tabs -->
+              <div class="flex p-1 space-x-1 bg-slate-100 dark:bg-slate-900 rounded-xl overflow-x-auto">
+                  <button class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'calculator' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}" on:click={() => activeTab = 'calculator'}>
+                      <CalcIcon size={16} /> {dict.tabs.calculator}
+                  </button>
+                  <button class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'grapher' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}" on:click={() => activeTab = 'grapher'}>
+                      <LineChart size={16} /> {dict.tabs.grapher}
+                  </button>
+                  <button class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'matrix' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}" on:click={() => activeTab = 'matrix'}>
+                      <Grid3X3 size={16} /> {dict.tabs.matrix}
+                  </button>
+                  <button class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'statistics' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}" on:click={() => activeTab = 'statistics'}>
+                      <BarChart size={16} /> {dict.tabs.statistics}
+                  </button>
+              </div>
+
+              <!-- Content -->
+              <div class="min-h-[500px]">
+                  {#if activeTab === 'calculator'}
+                      <Calculator {dict} on:history={handleHistory} />
+                  {:else if activeTab === 'grapher'}
+                      <Grapher {dict} />
+                  {:else if activeTab === 'matrix'}
+                      <Matrix {dict} />
+                  {:else if activeTab === 'statistics'}
+                      <Statistics {dict} />
+                  {/if}
+              </div>
+
+              <!-- Guide & FAQ -->
+              <div class="mt-12 space-y-8">
+                  <GuideSection
+                      title={dict.guide.title}
+                      intro={dict.guide.intro}
+                      featuresTitle={dict.guide.featuresTitle}
+                      f1={dict.guide.f1}
+                      f2={dict.guide.f2}
+                      f3={dict.guide.f3}
+                      tipsTitle={dict.guide.tipsTitle}
+                      tip1={dict.guide.tip1}
+                      tip2={dict.guide.tip2}
+                      tip3={dict.guide.tip3}
+                  />
+                  <FAQSection
+                      title={dict.faqTitle}
+                      items={[
+                          { q: dict.q1, a: dict.a1 },
+                          { q: dict.q2, a: dict.a2 },
+                          { q: dict.q3, a: dict.a3 }
+                      ]}
+                  />
+              </div>
+          </div>
+
+          <!-- Sidebar (Mobile Overlay) -->
+          {#if showHistory}
+              <!-- svelte-ignore a11y-click-events-have-key-events -->
+              <!-- svelte-ignore a11y-no-static-element-interactions -->
+              <div class="fixed inset-0 z-40 bg-black/50 lg:hidden" on:click={() => showHistory = false}></div>
+              <div class="fixed inset-y-0 right-0 z-50 w-80 bg-white dark:bg-slate-900 shadow-2xl transform transition-transform duration-300 lg:hidden" class:translate-x-0={showHistory} class:translate-x-full={!showHistory}>
+                  <HistoryPanel {dict} onSelect={(expr) => { loadFromHistory(expr); showHistory = false; }} />
+              </div>
+          {/if}
+
+          <!-- Sidebar (Desktop) -->
+          <div class="hidden lg:block lg:col-span-3">
+              <div class="sticky top-24 bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 h-[calc(100vh-8rem)] overflow-hidden">
+                  <HistoryPanel {dict} onSelect={loadFromHistory} />
+              </div>
+          </div>
+      </div>
+  </main>
+</div>
