@@ -1,7 +1,7 @@
 <script lang="ts">
+    import { zenStore } from '$lib/stores/zen-forge';
     import { engine, type SoundId } from '$lib/utils/zen-forge/engine';
     import type { ZenForgeDictionary } from '$lib/types/zen-forge';
-    import { generateSmartMix, type SmartMixTag } from '$lib/utils/zen-forge/smart-mix';
     import SoundCard from './SoundCard.svelte';
     import { CloudRain, Wind, Waves, Brain, Activity, Zap, Fan, Disc, Sparkles, CloudLightning, Bird, Bell, Bug, Flame } from 'lucide-svelte';
 
@@ -27,76 +27,25 @@
         { id: 'fire', icon: Flame },
     ] as const;
 
-    // Local state to track engine
-    let activeChannels = new Map<string, boolean>();
-    let volumes = new Map<string, number>();
-
-    function updateState() {
-        // Create a new map to trigger reactivity
-        const newActive = new Map();
-        for (const [key] of engine.channels) {
-            newActive.set(key, true);
-        }
-        activeChannels = newActive;
-    }
+    // Reactive check for binaural tracks
+    $: hasBinaural = Array.from($zenStore.activeChannels).some(id => id.startsWith('binaural'));
 
     function handleToggle(e: CustomEvent) {
-        const id = e.detail.id as SoundId;
-        const vol = volumes.get(id) || 0.5;
-        const isPlaying = engine.toggle(id, vol);
-        if (isPlaying) {
-            volumes.set(id, vol);
-        }
-        updateState();
+        zenStore.toggle(e.detail.id);
     }
 
     function handleVolume(e: CustomEvent) {
-        const { id, volume } = e.detail;
-        volumes.set(id, volume);
-        if (engine.channels.has(id)) {
-            engine.setVolume(id as SoundId, volume);
-        }
+        zenStore.setVolume(e.detail.id, e.detail.volume);
     }
 
-    export function loadMix(tracks: {id: string, volume: number, muted: boolean}[]) {
-        engine.stopAll();
-        activeChannels.clear();
-        volumes.clear();
-
-        tracks.forEach(t => {
-            if (!t.muted) {
-                volumes.set(t.id, t.volume);
-                engine.toggle(t.id as SoundId, t.volume);
-            }
-        });
-        updateState();
-    }
-
-    export function reset() {
-        engine.stopAll();
-        updateState();
-    }
-
-    export function getMix() {
-        const mix = [];
-        for (const [id, ch] of engine.channels) {
-            mix.push({
-                id,
-                volume: ch.type === 'impulse' ? (engine.impulseManager?.activeImpulses.get(id)?.density || 0.5) : ch.gain.gain.value,
-                muted: false
-            });
-        }
-        return mix;
-    }
-
+    // Breathing modulation logic (kept here for now, could be in store)
     export function handleBreath(e: CustomEvent) {
         const { phase, duration } = e.detail;
-        // Natural sounds to modulate
         const targets: SoundId[] = ['wind', 'pink', 'brown', 'rain'];
         const rampTime = duration ? duration / 1000 : 1;
 
         targets.forEach(id => {
-            if (activeChannels.has(id)) {
+            if ($zenStore.activeChannels.has(id)) {
                 let targetMod = 1.0;
                 if (phase === 'inhale') targetMod = 1.3;
                 else if (phase === 'hold') targetMod = 1.3;
@@ -105,11 +54,6 @@
                 engine.setModulation(id, targetMod, rampTime);
             }
         });
-    }
-
-    export function applySmartMix(tag: SmartMixTag = 'focus') {
-        const mix = generateSmartMix(tag);
-        loadMix(mix);
     }
 </script>
 
@@ -123,7 +67,7 @@
         <div class="flex flex-wrap gap-2">
             {#each ['focus', 'relax', 'sleep', 'meditate'] as tag}
                 <button
-                    on:click={() => applySmartMix(tag)}
+                    on:click={() => zenStore.applySmartMix(tag)}
                     class="px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-500/20 hover:bg-indigo-500/40 text-indigo-200 transition-colors border border-indigo-500/30"
                 >
                     {dict.smartMix[tag] || tag.charAt(0).toUpperCase() + tag.slice(1)}
@@ -132,6 +76,34 @@
         </div>
     </div>
 
+    <!-- Binaural Controls (Conditional) -->
+    {#if hasBinaural}
+        <div class="p-4 bg-indigo-900/30 rounded-xl border border-indigo-500/30 transition-all">
+            <div class="flex justify-between mb-2 items-center">
+                <div class="flex items-center gap-2">
+                    <Activity size={16} class="text-indigo-400" />
+                    <span class="text-xs font-bold text-indigo-300 uppercase tracking-wider">{dict.controls.binauralFreq}</span>
+                </div>
+                <span class="text-xs font-mono text-indigo-200 bg-indigo-950 px-2 py-1 rounded">{$zenStore.binauralFreq.toFixed(1)} Hz</span>
+            </div>
+            <input
+                type="range"
+                min="1"
+                max="40"
+                step="0.5"
+                value={$zenStore.binauralFreq}
+                on:input={(e) => zenStore.setBinauralFreq(parseFloat(e.currentTarget.value))}
+                class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+            />
+            <div class="flex justify-between text-[10px] text-slate-500 mt-1 font-mono uppercase">
+                <span>Delta (1-4)</span>
+                <span>Theta (4-8)</span>
+                <span>Alpha (8-13)</span>
+                <span>Beta (13-30)</span>
+            </div>
+        </div>
+    {/if}
+
     <!-- Static Sounds -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {#each sounds as sound (sound.id)}
@@ -139,8 +111,8 @@
                 id={sound.id}
                 label={dict.sounds[sound.id]}
                 Icon={sound.icon}
-                isPlaying={activeChannels.has(sound.id)}
-                volume={volumes.get(sound.id) || 0.5}
+                isPlaying={$zenStore.activeChannels.has(sound.id)}
+                volume={$zenStore.volumes[sound.id] || 0.5}
                 on:toggle={handleToggle}
                 on:volume={handleVolume}
             />
@@ -156,8 +128,8 @@
                     id={event.id}
                     label={dict.sounds[event.id]}
                     Icon={event.icon}
-                    isPlaying={activeChannels.has(event.id)}
-                    volume={volumes.get(event.id) || 0.5}
+                    isPlaying={$zenStore.activeChannels.has(event.id)}
+                    volume={$zenStore.volumes[event.id] || 0.5}
                     on:toggle={handleToggle}
                     on:volume={handleVolume}
                 />

@@ -1,14 +1,11 @@
 <script lang="ts">
-    import { createEventDispatcher } from 'svelte';
     import { Save, Folder, Trash2, Star, Sparkles } from 'lucide-svelte';
     import type { ZenForgeDictionary } from '$lib/types/zen-forge';
-    import { getMixes, saveMix, deleteMix, toggleStar } from '$lib/db/zen-forge';
+    import { getMixes, deleteMix, toggleStar } from '$lib/db/zen-forge';
+    import { zenStore } from '$lib/stores/zen-forge';
     import { browser } from '$app/environment';
 
     export let dict: ZenForgeDictionary;
-    export let getMix: () => {id: string, volume: number, muted: boolean}[];
-
-    const dispatch = createEventDispatcher();
 
     // Live Query for User Mixes
     let userMixes = getMixes();
@@ -22,17 +19,14 @@
     ];
 
     async function handleSave() {
-        const mix = getMix();
-        if (mix.length === 0) return;
-
         const name = prompt(dict.controls.mixName || "Mix Name", `Mix ${new Date().toLocaleTimeString()}`);
         if (name) {
-            await saveMix(name, mix);
+            await zenStore.saveMix(name);
         }
     }
 
     function load(tracks: any[]) {
-        dispatch('load', tracks);
+        zenStore.loadMix(tracks);
     }
 
     async function remove(id: number) {

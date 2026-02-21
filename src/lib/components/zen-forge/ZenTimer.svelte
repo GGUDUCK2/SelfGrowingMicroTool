@@ -2,6 +2,7 @@
     import { onDestroy } from 'svelte';
     import { Play, Pause, RotateCcw } from 'lucide-svelte';
     import { engine } from '$lib/utils/zen-forge/engine';
+    import { zenStore } from '$lib/stores/zen-forge';
     import type { ZenForgeDictionary } from '$lib/types/zen-forge';
 
     export let dict: ZenForgeDictionary;
@@ -13,7 +14,7 @@
     let chime = true;
     let timerInterval: any;
 
-    const presets = [25, 5, 15, 45, 60];
+    const presets = [15, 25, 45, 60];
 
     function formatTime(seconds: number) {
         const m = Math.floor(seconds / 60);
@@ -39,15 +40,17 @@
         if (timeLeft <= 0) return;
         isRunning = true;
         engine.init();
+
         timerInterval = setInterval(() => {
             timeLeft--;
 
-            // Fade out trigger at 5 seconds
-            if (timeLeft === 5 && fadeOut && engine.masterGain && engine.context) {
+            // Smart Fade: Last 30 seconds if duration > 1 min
+            if (timeLeft === 30 && fadeOut && initialTime > 60 && engine.masterGain && engine.context) {
                  const now = engine.context.currentTime;
+                 const currentVol = $zenStore.masterVolume;
                  engine.masterGain.gain.cancelScheduledValues(now);
                  engine.masterGain.gain.setValueAtTime(engine.masterGain.gain.value, now);
-                 engine.masterGain.gain.linearRampToValueAtTime(0, now + 5);
+                 engine.masterGain.gain.linearRampToValueAtTime(0, now + 30);
             }
 
             if (timeLeft <= 0) {
@@ -64,7 +67,8 @@
         if (engine.masterGain && engine.context) {
             const now = engine.context.currentTime;
             engine.masterGain.gain.cancelScheduledValues(now);
-            engine.masterGain.gain.linearRampToValueAtTime(1, now + 0.5);
+            // Restore to store volume
+            engine.masterGain.gain.linearRampToValueAtTime($zenStore.masterVolume, now + 0.5);
         }
     }
 
@@ -74,17 +78,18 @@
     }
 
     function complete() {
-        stop();
-        if (chime) engine.playChime();
+        stop(); // This resets volume, which we might not want if we want silence...
+        // But stop() is called to clear interval.
+
+        // If fadeOut was true, we want to actually STOP everything.
         if (fadeOut) {
-             // Ensure it's fully stopped after fade
-             setTimeout(() => {
-                 engine.stopAll();
-                 // Reset master volume for next time
-                 if (engine.masterGain && engine.context) {
-                     engine.masterGain.gain.setValueAtTime(1, engine.context.currentTime);
-                 }
-             }, 100);
+             zenStore.reset(); // Stop all sounds
+             // Reset volume for next time (but logic in store might need update?)
+             // zenStore.reset() sets activeChannels to empty.
+             // We should restore volume for next interaction.
+             zenStore.setMasterVolume($zenStore.masterVolume);
+        } else if (chime) {
+            engine.playChime();
         }
     }
 
@@ -143,7 +148,7 @@
     <div class="flex gap-4 z-10 text-xs text-slate-400 mt-2">
         <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200">
             <input type="checkbox" bind:checked={fadeOut} class="rounded border-slate-600 bg-slate-700 text-indigo-500 focus:ring-indigo-500/50" />
-            <span>Fade Out</span>
+            <span>{dict.timerDict?.fadeOut || 'Fade Out'}</span>
         </label>
         <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200">
             <input type="checkbox" bind:checked={chime} class="rounded border-slate-600 bg-slate-700 text-indigo-500 focus:ring-indigo-500/50" />
