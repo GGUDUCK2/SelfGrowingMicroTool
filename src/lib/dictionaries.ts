@@ -2899,7 +2899,9 @@ export const dictionaries = {
             mixName: "Mix Name",
             record: "Record Mix",
             recording: "Recording...",
-            stopRecord: "Stop & Save"
+            stopRecord: "Stop & Save",
+            binauralFreq: "Binaural Frequency (Hz)",
+            fadeTimer: "Fade Out Timer"
         },
         events: {
             title: "Living Atmosphere",
@@ -2921,7 +2923,8 @@ export const dictionaries = {
             start: "Start Timer",
             stop: "Stop",
             min: "min",
-            remaining: "Remaining"
+            remaining: "Remaining",
+            fadeOut: "Fade Out"
         },
         breathing: {
             start: "Breathe",
@@ -4943,7 +4946,9 @@ export const dictionaries = {
             mixName: "믹스 이름",
             record: "믹스 녹음",
             recording: "녹음 중...",
-            stopRecord: "중지 및 저장"
+            stopRecord: "중지 및 저장",
+            binauralFreq: "바이노럴 주파수 (Hz)",
+            fadeTimer: "페이드 아웃 타이머"
         },
         events: {
             title: "생동감 있는 분위기",
@@ -4965,7 +4970,8 @@ export const dictionaries = {
             start: "타이머 시작",
             stop: "정지",
             min: "분",
-            remaining: "남은 시간"
+            remaining: "남은 시간",
+            fadeOut: "페이드 아웃"
         },
         breathing: {
             start: "호흡 시작",

@@ -11,27 +11,15 @@
     import ZenTimer from '$lib/components/zen-forge/ZenTimer.svelte';
     import BreathingCircle from '$lib/components/zen-forge/BreathingCircle.svelte';
     import { engine } from '$lib/utils/zen-forge/engine';
+    import { zenStore } from '$lib/stores/zen-forge';
     import type { ZenForgeDictionary } from '$lib/types/zen-forge';
 
     export let data;
     $: dict = getDictionary($page.params.lang).tools.zenForge as ZenForgeDictionary;
 
-    let mixer: Mixer;
-
-    function handleLoadMix(e: CustomEvent) {
-        mixer.loadMix(e.detail);
-    }
-
-    function handleReset() {
-        mixer.reset();
-    }
-
-    function getCurrentMix() {
-        return mixer ? mixer.getMix() : [];
-    }
-
     function handleBreath(e: CustomEvent) {
-        if(mixer) mixer.handleBreath(e);
+        const { phase, duration } = e.detail;
+        zenStore.handleBreath(phase, duration);
     }
 
     function handleKeydown(e: KeyboardEvent) {
@@ -48,10 +36,19 @@
                 }
                 break;
             case 'KeyM':
-                engine.setMasterVolume(engine.masterGain?.gain.value === 0 ? 1 : 0);
+                zenStore.setMasterVolume($zenStore.masterVolume === 0 ? 1 : 0);
                 break;
             case 'KeyR':
-                if(mixer) mixer.applySmartMix('focus');
+                zenStore.applySmartMix('focus');
+                break;
+            case 'KeyS':
+                // Trigger save in PresetManager? Or just save directly?
+                // PresetManager handles the prompt. We can leave it or add a global save.
+                if (e.ctrlKey || e.metaKey) {
+                    e.preventDefault();
+                    const name = prompt(dict.controls.mixName || "Mix Name", `Mix ${new Date().toLocaleTimeString()}`);
+                    if (name) zenStore.saveMix(name);
+                }
                 break;
         }
     }
@@ -95,7 +92,8 @@
             "Smart Mix Generator",
             "Pink/White/Brown Noise",
             "Generative Living Atmosphere",
-            "Audio Recording (WebM)"
+            "Audio Recording (WebM)",
+            "Offline Capable (PWA)"
         ]
     })}</script>`}
 </svelte:head>
@@ -126,25 +124,15 @@
                 </div>
 
                 <!-- Master Controls -->
-                <MasterControl
-                    {dict}
-                    on:reset={handleReset}
-                />
+                <MasterControl {dict} />
 
                 <!-- Presets -->
-                <PresetManager
-                    {dict}
-                    getMix={getCurrentMix}
-                    on:load={handleLoadMix}
-                />
+                <PresetManager {dict} />
             </div>
 
             <!-- Mixer Board -->
             <div class="lg:col-span-3 bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-white/10 p-6 shadow-2xl overflow-y-auto">
-                <Mixer
-                    bind:this={mixer}
-                    {dict}
-                />
+                <Mixer {dict} />
             </div>
         </div>
 

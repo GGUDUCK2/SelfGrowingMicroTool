@@ -13,6 +13,7 @@ interface Channel {
     isPlaying: boolean;
     type: 'static' | 'impulse';
     impulseId?: string; // For impulse manager
+    oscillators?: OscillatorNode[]; // For dynamic control (e.g. binaural)
 }
 
 class ImpulseManager {
@@ -157,7 +158,12 @@ export class ZenEngine {
 
     init() {
         if (!this.context) {
-            const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+            // Check for AudioContext support
+            const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+            if (!AudioContextClass) {
+                console.error("AudioContext is not supported in this browser.");
+                return;
+            }
             this.context = new AudioContextClass();
             this.masterGain = this.context.createGain();
             this.masterGain.connect(this.context.destination);
@@ -258,7 +264,7 @@ export class ZenEngine {
         return output;
     }
 
-    createBinaural(baseFreq: number, beatFreq: number): StoppableAudioNode {
+    createBinaural(baseFreq: number, beatFreq: number): { node: StoppableAudioNode, oscs: OscillatorNode[] } {
         const merger = this.context!.createChannelMerger(2);
 
         const oscL = this.context!.createOscillator();
@@ -283,7 +289,8 @@ export class ZenEngine {
         const output = this.context!.createGain() as StoppableAudioNode;
         merger.connect(output);
         output.stop = () => { oscL.stop(); oscR.stop(); };
-        return output;
+
+        return { node: output, oscs: [oscL, oscR] };
     }
 
     createDrone(): StoppableAudioNode {
@@ -517,6 +524,8 @@ export class ZenEngine {
             modGain.gain.value = 1;
             modGain.connect(gain);
 
+            let oscillators: OscillatorNode[] = [];
+
             if (isImpulse) {
                 // Register with Impulse Manager
                 this.impulseManager?.add(id, volume); // volume here acts as density
@@ -543,15 +552,24 @@ export class ZenEngine {
                     case 'wind':
                         source = this.createWind();
                         break;
-                    case 'binaural_alpha':
-                         source = this.createBinaural(200, 10);
+                    case 'binaural_alpha': {
+                         const bin = this.createBinaural(200, 10);
+                         source = bin.node;
+                         oscillators = bin.oscs;
                          break;
-                    case 'binaural_theta':
-                         source = this.createBinaural(200, 6);
+                    }
+                    case 'binaural_theta': {
+                         const bin = this.createBinaural(200, 6);
+                         source = bin.node;
+                         oscillators = bin.oscs;
                          break;
-                    case 'binaural_delta':
-                         source = this.createBinaural(200, 2);
+                    }
+                    case 'binaural_delta': {
+                         const bin = this.createBinaural(200, 2);
+                         source = bin.node;
+                         oscillators = bin.oscs;
                          break;
+                    }
                      case 'drone':
                          source = this.createDrone();
                          break;
@@ -560,7 +578,7 @@ export class ZenEngine {
                 }
 
                 source.connect(modGain);
-                if ((source as any).start && id.includes('noise')) (source as AudioBufferSourceNode).start();
+                if ((source as unknown as { start?: () => void }).start && id.includes('noise')) (source as AudioBufferSourceNode).start();
 
                 // Fade in
                 const now = this.context!.currentTime;
@@ -571,7 +589,8 @@ export class ZenEngine {
                     modGain,
                     source,
                     isPlaying: true,
-                    type: 'static'
+                    type: 'static',
+                    oscillators
                 });
             }
             return true; // playing
@@ -597,6 +616,21 @@ export class ZenEngine {
         const now = this.context!.currentTime;
         this.masterGain.gain.cancelScheduledValues(now);
         this.masterGain.gain.linearRampToValueAtTime(value, now + 0.1);
+    }
+
+    setBinauralBeat(freq: number) {
+        if (!this.context) return;
+        // Check active binaural channels and update them
+        ['binaural_alpha', 'binaural_theta', 'binaural_delta'].forEach(id => {
+            const ch = this.channels.get(id as SoundId);
+            if (ch && ch.oscillators && ch.oscillators.length === 2) {
+                const baseFreq = 200; // Fixed base for now
+                const now = this.context!.currentTime;
+
+                ch.oscillators[0].frequency.linearRampToValueAtTime(baseFreq, now + 0.5);
+                ch.oscillators[1].frequency.linearRampToValueAtTime(baseFreq + freq, now + 0.5);
+            }
+        });
     }
 
     setModulation(id: SoundId, value: number, rampTime: number = 0.1) {

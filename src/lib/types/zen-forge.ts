@@ -1,5 +1,14 @@
 export type SoundId = 'white' | 'pink' | 'brown' | 'rain' | 'wind' | 'binaural_alpha' | 'binaural_theta' | 'binaural_delta' | 'drone' | 'thunder' | 'birds' | 'chimes' | 'crickets' | 'fire';
 
+export interface ZenForgeMix {
+    id?: number;
+    name: string;
+    tracks: { id: string; volume: number; muted: boolean }[];
+    binauralFreq?: number;
+    createdAt: Date;
+    starred?: number;
+}
+
 export interface ZenForgeDictionary {
     title: string;
     description: string;
@@ -20,6 +29,8 @@ export interface ZenForgeDictionary {
         record: string;
         recording: string;
         stopRecord: string;
+        binauralFreq: string;
+        fadeTimer: string;
     };
     events: {
         title: string;
@@ -42,6 +53,7 @@ export interface ZenForgeDictionary {
         stop: string;
         min: string;
         remaining: string;
+        fadeOut: string;
     };
     breathing: {
         start: string;
