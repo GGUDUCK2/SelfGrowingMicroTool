@@ -46,6 +46,7 @@
   let showToast = false;
   let toastMsg = '';
   let saveName = '';
+  let toastTimer: any;
 
   let engine: MockEngine;
 
@@ -147,13 +148,16 @@
   }
 
   function showToastMsg(msg: string) {
+    clearTimeout(toastTimer);
     toastMsg = msg;
     showToast = true;
-    setTimeout(() => showToast = false, 3000);
+    toastTimer = setTimeout(() => showToast = false, 3000);
   }
 
-  $: jsonLd = `<script type="application/ld+json">
-${JSON.stringify({
+  const baseUrl = 'https://micro-tools.vercel.app';
+  $: canonical = `${baseUrl}/${lang}/tools/mock-forge`;
+
+  $: schemaOrg = {
     "@context": "https://schema.org",
     "@graph": [
       {
@@ -180,32 +184,36 @@ ${JSON.stringify({
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": `https://micro-tools.vercel.app/${lang}`
+            "item": `${baseUrl}/${lang}`
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": t.title,
-            "item": `https://micro-tools.vercel.app/${lang}/tools/mock-forge`
+            "item": canonical
           }
         ]
       }
     ]
-  })}
-<` + `/script>`;
+  };
 </script>
 
 <svelte:head>
   <title>{t.title} - MicroTools</title>
   <meta name="description" content={t.description} />
   <meta name="keywords" content="mock data generator, fake data, json generator, csv generator, sql insert generator, test data, developer tools" />
+  <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang="en" href="{baseUrl}/en/tools/mock-forge" />
+  <link rel="alternate" hreflang="ko" href="{baseUrl}/ko/tools/mock-forge" />
+  <link rel="alternate" hreflang="x-default" href="{baseUrl}/en/tools/mock-forge" />
 
   <!-- Open Graph -->
   <meta property="og:title" content={t.title} />
   <meta property="og:description" content={t.description} />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
 
-  {@html jsonLd}
+  {@html '<script type="application/ld+json">' + JSON.stringify(schemaOrg) + '</script>'}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black pb-20">
