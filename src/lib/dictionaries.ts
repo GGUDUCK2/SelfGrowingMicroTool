@@ -3087,7 +3087,18 @@ export const dictionaries = {
           hash: "Hashes",
           preview: "Preview",
           convert: "Convert",
-          base64: "Base64"
+          base64: "Base64",
+          inspector: "Inspector"
+        },
+        inspector: {
+          analyzing: "Analyzing...",
+          detectedType: "Detected Type (Magic)",
+          matchExtension: "Matches Extension",
+          entropy: "Shannon Entropy",
+          compressed: "Likely Compressed/Encrypted",
+          text: "Low Entropy (Text/Simple)",
+          moderate: "Moderate Entropy",
+          hexView: "Hex Viewer (First 512 Bytes)"
         },
         info: {
           name: "Name",
@@ -3113,6 +3124,7 @@ export const dictionaries = {
           quality: "Quality",
           width: "Width",
           height: "Height",
+          aspectRatio: "Maintain Aspect Ratio",
           download: "Download"
         },
         history: {
@@ -5356,7 +5368,18 @@ export const dictionaries = {
           hash: "해시",
           preview: "미리보기",
           convert: "변환",
-          base64: "Base64"
+          base64: "Base64",
+          inspector: "검사기"
+        },
+        inspector: {
+          analyzing: "분석 중...",
+          detectedType: "감지된 타입 (매직 넘버)",
+          matchExtension: "확장자 일치",
+          entropy: "섀넌 엔트로피",
+          compressed: "압축/암호화됨",
+          text: "낮은 엔트로피 (텍스트/단순)",
+          moderate: "중간 엔트로피",
+          hexView: "Hex 뷰어 (첫 512 바이트)"
         },
         info: {
           name: "이름",
@@ -5382,6 +5405,7 @@ export const dictionaries = {
           quality: "품질",
           width: "너비",
           height: "높이",
+          aspectRatio: "비율 유지",
           download: "다운로드"
         },
         history: {

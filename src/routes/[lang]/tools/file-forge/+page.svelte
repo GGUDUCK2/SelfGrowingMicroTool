@@ -56,7 +56,7 @@
       "price": "0",
       "priceCurrency": "USD"
     },
-    "featureList": "File Hashing, Base64 Encoding, Image Conversion, Metadata Inspection"
+    "featureList": "File Hashing, Hex Viewer, Entropy Analysis, Magic Number Detection, Base64 Encoding, Image Conversion & Resizing, Metadata Inspection"
   };
 
   $: faqItems = [
@@ -64,12 +64,26 @@
     { q: dict.q2, a: dict.a2 },
     { q: dict.q3, a: dict.a3 }
   ];
+
+  import { onMount } from 'svelte';
+
+  function handleKeydown(e: KeyboardEvent) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      handleReset();
+    }
+    if (e.key === 'Escape') {
+      handleReset();
+    }
+  }
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content="file hash, md5, sha256, base64 converter, image converter, metadata viewer, file analysis, privacy first" />
+  <meta name="keywords" content="file hash, hex viewer, entropy analysis, magic number, md5, sha256, base64 converter, image converter, resize image, metadata viewer, file analysis, privacy first" />
 
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />

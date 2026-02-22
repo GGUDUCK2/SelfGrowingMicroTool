@@ -1,12 +1,18 @@
 <script lang="ts">
   import { liveQuery } from 'dexie';
   import { db } from '$lib/db';
+  import { browser } from '$app/environment';
   import { slide } from 'svelte/transition';
   import { Trash2, Clock, File } from 'lucide-svelte';
 
   export let dict: any;
 
-  let history = liveQuery(() => db.fileForgeHistory.orderBy('createdAt').reverse().limit(20).toArray());
+  let history = liveQuery(async () => {
+    if (browser) {
+      return await db.fileForgeHistory.orderBy('createdAt').reverse().limit(20).toArray();
+    }
+    return [];
+  });
 
   async function clearHistory() {
     await db.fileForgeHistory.clear();
