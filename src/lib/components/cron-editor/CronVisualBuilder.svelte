@@ -108,17 +108,17 @@
 
 </script>
 
-<div class="rounded-xl border border-slate-600 bg-black/20 backdrop-blur-sm">
+<div class="rounded-xl border border-gray-200 dark:border-slate-600 bg-white dark:bg-black/20 backdrop-blur-sm shadow-sm dark:shadow-none">
   <!-- Tab Headers -->
-  <div class="flex overflow-x-auto border-b border-white/10">
+  <div class="flex overflow-x-auto border-b border-gray-200 dark:border-white/10">
     {#each TABS as tab, i}
       <button
-        class="flex-1 px-4 py-3 text-sm font-medium transition-colors hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-inset whitespace-nowrap
-        {activeTab === i ? 'bg-white/10 text-indigo-400 border-b-2 border-indigo-400' : 'text-slate-400'}"
+        class="flex-1 px-4 py-3 text-sm font-medium transition-colors hover:bg-gray-50 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-inset whitespace-nowrap
+        {activeTab === i ? 'bg-indigo-50 dark:bg-white/10 text-indigo-700 dark:text-indigo-400 border-b-2 border-indigo-500 dark:border-indigo-400' : 'text-gray-500 dark:text-slate-400'}"
         on:click={() => activeTab = i}
       >
         {lang === 'ko' ? tab.label.ko : tab.label.en}
-        <span class="ml-2 rounded bg-black/40 px-1.5 py-0.5 text-xs text-slate-500 font-mono">
+        <span class="ml-2 rounded bg-gray-200 dark:bg-black/40 px-1.5 py-0.5 text-xs text-gray-600 dark:text-slate-500 font-mono">
            {parts[i]}
         </span>
       </button>
@@ -127,18 +127,18 @@
 
   <!-- Tab Content -->
   <div class="p-6 min-h-[300px]">
-    <div class="mb-4 flex space-x-4 border-b border-white/5 pb-4">
+    <div class="mb-4 flex space-x-4 border-b border-gray-200 dark:border-white/5 pb-4">
         <label class="flex items-center space-x-2 cursor-pointer">
-            <input type="radio" name="mode-{activeTab}" value="every" checked={parts[activeTab] === '*'} on:change={() => updatePart(activeTab, '*')} class="text-indigo-500 focus:ring-indigo-500 bg-slate-700 border-slate-600">
-            <span class="text-sm text-slate-300">{lang === 'ko' ? '매 ' + (activeTab === 0 ? '분' : activeTab === 1 ? '시' : activeTab === 2 ? '일' : activeTab === 3 ? '월' : '요일') : 'Every ' + TABS[activeTab].label.en} (*)</span>
+            <input type="radio" name="mode-{activeTab}" value="every" checked={parts[activeTab] === '*'} on:change={() => updatePart(activeTab, '*')} class="text-indigo-600 dark:text-indigo-500 focus:ring-indigo-500 bg-white dark:bg-slate-700 border-gray-300 dark:border-slate-600">
+            <span class="text-sm text-gray-700 dark:text-slate-300">{lang === 'ko' ? '매 ' + (activeTab === 0 ? '분' : activeTab === 1 ? '시' : activeTab === 2 ? '일' : activeTab === 3 ? '월' : '요일') : 'Every ' + TABS[activeTab].label.en} (*)</span>
         </label>
         <label class="flex items-center space-x-2 cursor-pointer">
-            <input type="radio" name="mode-{activeTab}" value="specific" checked={parts[activeTab] !== '*' && !parts[activeTab].includes('/')} on:change={() => { /* Handled by clicks below */ }} class="text-indigo-500 focus:ring-indigo-500 bg-slate-700 border-slate-600">
-            <span class="text-sm text-slate-300">{lang === 'ko' ? '특정 선택' : 'Specific'}</span>
+            <input type="radio" name="mode-{activeTab}" value="specific" checked={parts[activeTab] !== '*' && !parts[activeTab].includes('/')} on:change={() => { /* Handled by clicks below */ }} class="text-indigo-600 dark:text-indigo-500 focus:ring-indigo-500 bg-white dark:bg-slate-700 border-gray-300 dark:border-slate-600">
+            <span class="text-sm text-gray-700 dark:text-slate-300">{lang === 'ko' ? '특정 선택' : 'Specific'}</span>
         </label>
          <label class="flex items-center space-x-2 cursor-pointer">
-            <input type="radio" name="mode-{activeTab}" value="step" checked={parts[activeTab].includes('/')} on:change={() => updateStep(activeTab)} class="text-indigo-500 focus:ring-indigo-500 bg-slate-700 border-slate-600">
-            <span class="text-sm text-slate-300">{lang === 'ko' ? '주기/간격' : 'Step/Interval'}</span>
+            <input type="radio" name="mode-{activeTab}" value="step" checked={parts[activeTab].includes('/')} on:change={() => updateStep(activeTab)} class="text-indigo-600 dark:text-indigo-500 focus:ring-indigo-500 bg-white dark:bg-slate-700 border-gray-300 dark:border-slate-600">
+            <span class="text-sm text-gray-700 dark:text-slate-300">{lang === 'ko' ? '주기/간격' : 'Step/Interval'}</span>
         </label>
     </div>
 
@@ -148,7 +148,7 @@
          {#each OPTIONS.minutes as m}
            <button
              class="rounded p-1 text-xs font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900
-             {isSelected(0, m) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-white/5 text-slate-400 hover:bg-white/10'}"
+             {isSelected(0, m) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
              on:click={() => toggleSpecific(0, m)}
            >
              {m}
@@ -160,7 +160,7 @@
          {#each OPTIONS.hours as h}
            <button
              class="rounded p-2 text-sm font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900
-             {isSelected(1, h) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-white/5 text-slate-400 hover:bg-white/10'}"
+             {isSelected(1, h) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
              on:click={() => toggleSpecific(1, h)}
            >
              {String(h).padStart(2, '0')}:00
@@ -172,7 +172,7 @@
          {#each OPTIONS.days as d}
            <button
              class="rounded p-2 text-sm font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900
-             {isSelected(2, d) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-white/5 text-slate-400 hover:bg-white/10'}"
+             {isSelected(2, d) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
              on:click={() => toggleSpecific(2, d)}
            >
              {d}
@@ -184,7 +184,7 @@
          {#each OPTIONS.months as m}
            <button
              class="rounded p-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900
-             {isSelected(3, m.val) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-white/5 text-slate-400 hover:bg-white/10'}"
+             {isSelected(3, m.val) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
              on:click={() => toggleSpecific(3, m.val)}
            >
              {lang === 'ko' ? m.label.ko : m.label.en}
@@ -196,7 +196,7 @@
          {#each OPTIONS.weekdays as d}
            <button
              class="rounded p-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900
-             {isSelected(4, d.val) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-white/5 text-slate-400 hover:bg-white/10'}"
+             {isSelected(4, d.val) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
              on:click={() => toggleSpecific(4, d.val)}
            >
              {lang === 'ko' ? d.label.ko : d.label.en}
@@ -207,15 +207,15 @@
 
     <!-- Step Options -->
     {#if parts[activeTab].includes('/')}
-       <div class="mt-4 p-4 bg-white/5 rounded-lg">
+       <div class="mt-4 p-4 bg-gray-50 dark:bg-white/5 rounded-lg">
            <div class="flex items-center space-x-4">
-               <span class="text-slate-300">{lang === 'ko' ? '시작' : 'Start'}:</span>
-               <input type="number" min="0" max="60" class="bg-slate-700 text-slate-50 border border-slate-600 rounded px-2 py-1 w-20 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none" aria-label="{lang === 'ko' ? '시작 값' : 'Start value'}" bind:value={stepState.start} on:change={() => updateStep(activeTab)} />
-               <span class="text-slate-300">/</span>
-               <span class="text-slate-300">{lang === 'ko' ? '간격' : 'Step'}:</span>
-               <input type="number" min="1" max="60" class="bg-slate-700 text-slate-50 border border-slate-600 rounded px-2 py-1 w-20 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none" aria-label="{lang === 'ko' ? '간격 값' : 'Step value'}" bind:value={stepState.step} on:change={() => updateStep(activeTab)} />
+               <span class="text-gray-700 dark:text-slate-300">{lang === 'ko' ? '시작' : 'Start'}:</span>
+               <input type="number" min="0" max="60" class="bg-white dark:bg-slate-700 text-gray-900 dark:text-slate-50 border border-gray-300 dark:border-slate-600 rounded px-2 py-1 w-20 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none" aria-label="{lang === 'ko' ? '시작 값' : 'Start value'}" bind:value={stepState.start} on:change={() => updateStep(activeTab)} />
+               <span class="text-gray-400 dark:text-slate-300">/</span>
+               <span class="text-gray-700 dark:text-slate-300">{lang === 'ko' ? '간격' : 'Step'}:</span>
+               <input type="number" min="1" max="60" class="bg-white dark:bg-slate-700 text-gray-900 dark:text-slate-50 border border-gray-300 dark:border-slate-600 rounded px-2 py-1 w-20 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none" aria-label="{lang === 'ko' ? '간격 값' : 'Step value'}" bind:value={stepState.step} on:change={() => updateStep(activeTab)} />
            </div>
-           <p class="mt-2 text-xs text-slate-500">
+           <p class="mt-2 text-xs text-gray-500 dark:text-slate-500">
                {lang === 'ko' ? '예: */5는 5마다, 2/10은 2에서 시작하여 10마다' : 'Example: */5 means every 5. 2/10 means starting at 2, every 10.'}
            </p>
        </div>
