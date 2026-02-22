@@ -16,12 +16,50 @@ interface Channel {
     oscillators?: OscillatorNode[]; // For dynamic control (e.g. binaural)
 }
 
+class SpatialManager {
+    context: AudioContext;
+    enabled: boolean = false;
+
+    constructor(context: AudioContext) {
+        this.context = context;
+    }
+
+    createPanner(): PannerNode {
+        const panner = this.context.createPanner();
+        panner.panningModel = 'HRTF';
+        panner.distanceModel = 'linear';
+        return panner;
+    }
+
+    randomizePosition(panner: PannerNode) {
+        if (!this.enabled) {
+            const now = this.context.currentTime;
+            panner.positionX.setValueAtTime(0, now);
+            panner.positionY.setValueAtTime(0, now);
+            panner.positionZ.setValueAtTime(0, now);
+            return;
+        }
+        // Random position in front of the listener
+        const angle = (Math.random() * Math.PI) - (Math.PI / 2); // -90 to 90 deg
+        const distance = 2 + Math.random() * 8; // 2m to 10m away
+        const x = Math.sin(angle) * distance;
+        const z = -Math.cos(angle) * distance; // Negative Z is forward
+        const y = (Math.random() - 0.5) * 4; // Elevation +/- 2m
+
+        const now = this.context.currentTime;
+        panner.positionX.setValueAtTime(x, now);
+        panner.positionY.setValueAtTime(y, now);
+        panner.positionZ.setValueAtTime(z, now);
+    }
+}
+
 class ImpulseManager {
     context: AudioContext;
     output: GainNode;
     activeImpulses: Map<string, { density: number, interval: number, nextTime: number }> = new Map();
     engine: ZenEngine;
     private isRunning = false;
+    private loopId: number | null = null;
 
     constructor(context: AudioContext, output: GainNode, engine: ZenEngine) {
         this.context = context;
@@ -37,6 +75,10 @@ class ImpulseManager {
 
     stop() {
         this.isRunning = false;
+        if (this.loopId !== null) {
+            cancelAnimationFrame(this.loopId);
+            this.loopId = null;
+        }
         this.activeImpulses.clear();
     }
 
@@ -82,7 +124,7 @@ class ImpulseManager {
             }
         });
 
-        requestAnimationFrame(this.loop);
+        this.loopId = requestAnimationFrame(this.loop);
     }
 
     private trigger(id: string) {
@@ -154,9 +196,12 @@ export class ZenEngine {
     masterGain: GainNode | null = null;
     channels: Map<string, Channel> = new Map();
     impulseManager: ImpulseManager | null = null;
+    spatialManager: SpatialManager | null = null;
     recorder: Recorder | null = null;
 
     init() {
+        if (typeof window === 'undefined') return;
+
         if (!this.context) {
             // Check for AudioContext support
             const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
@@ -169,11 +214,43 @@ export class ZenEngine {
             this.masterGain.connect(this.context.destination);
 
             this.impulseManager = new ImpulseManager(this.context, this.masterGain, this);
+            this.spatialManager = new SpatialManager(this.context);
             this.recorder = new Recorder(this.context, this.masterGain);
         }
         if (this.context.state === 'suspended') {
-            this.context.resume();
+            this.context.resume().catch(console.error);
         }
+    }
+
+    setSpatialMode(enabled: boolean) {
+        if (this.spatialManager) {
+            this.spatialManager.enabled = enabled;
+        }
+    }
+
+    // Helper to connect source -> [panner] -> dest
+    // Returns a cleanup function to disconnect nodes
+    connectWithSpatial(source: AudioNode, dest: AudioNode, randomize: boolean = true): () => void {
+        if (!this.spatialManager || !this.context) {
+            source.connect(dest);
+            return () => {
+                try { source.disconnect(dest); } catch (e) { /* ignore */ }
+            };
+        }
+        const panner = this.spatialManager.createPanner();
+        if (randomize) this.spatialManager.randomizePosition(panner);
+
+        source.connect(panner);
+        panner.connect(dest);
+
+        return () => {
+            try {
+                source.disconnect(panner);
+                panner.disconnect(dest);
+            } catch (e) {
+                // Ignore disconnect errors if already disconnected
+            }
+        };
     }
 
     createNoise(type: 'white' | 'pink' | 'brown'): AudioBufferSourceNode {
@@ -343,18 +420,18 @@ export class ZenEngine {
         filter.connect(gain);
 
         const ch = this.channels.get('thunder');
-        if (ch) {
-            gain.connect(ch.gain);
-        } else {
-            gain.connect(this.masterGain);
-        }
+        const dest = ch ? ch.gain : this.masterGain;
+
+        const cleanup = this.connectWithSpatial(gain, dest);
 
         noise.start();
         noise.stop(t + 4);
+
+        setTimeout(cleanup, 4500);
     }
 
     playBird() {
-        if (!this.context) return;
+        if (!this.context || !this.masterGain) return;
         const t = this.context.currentTime;
 
         const osc = this.context.createOscillator();
@@ -381,24 +458,31 @@ export class ZenEngine {
         gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
 
         const ch = this.channels.get('birds');
-        if (ch) gain.connect(ch.gain);
-        else gain.connect(this.masterGain!);
+        const dest = ch ? ch.gain : this.masterGain;
+
+        const cleanup = this.connectWithSpatial(gain, dest);
 
         osc.start();
         mod.start();
         osc.stop(t + 0.5);
         mod.stop(t + 0.5);
+
+        setTimeout(cleanup, 1000);
     }
 
     playChimeSound() {
-        if (!this.context) return;
+        if (!this.context || !this.masterGain) return;
         const t = this.context.currentTime;
 
         const baseFreq = 1500 + Math.random() * 500;
         const ratios = [1, 1.42, 2.7, 4.1];
 
         const ch = this.channels.get('chimes');
-        const dest = ch ? ch.gain : this.masterGain!;
+        const dest = ch ? ch.gain : this.masterGain;
+
+        const groupGain = this.context.createGain();
+        groupGain.gain.value = 1;
+        const cleanup = this.connectWithSpatial(groupGain, dest);
 
         ratios.forEach((r, i) => {
             const osc = this.context!.createOscillator();
@@ -412,15 +496,17 @@ export class ZenEngine {
             gain.gain.exponentialRampToValueAtTime(0.001, t + 3 + Math.random() * 2);
 
             osc.connect(gain);
-            gain.connect(dest);
+            gain.connect(groupGain);
 
             osc.start();
             osc.stop(t + 6);
         });
+
+        setTimeout(cleanup, 7000);
     }
 
     playCricket() {
-        if (!this.context) return;
+        if (!this.context || !this.masterGain) return;
         const t = this.context.currentTime;
 
         const osc = this.context.createOscillator();
@@ -429,7 +515,7 @@ export class ZenEngine {
 
         const gain = this.context.createGain();
         const ch = this.channels.get('crickets');
-        const dest = ch ? ch.gain : this.masterGain!;
+        const dest = ch ? ch.gain : this.masterGain;
 
         // Pulse modulation
         const lfo = this.context.createOscillator();
@@ -453,16 +539,19 @@ export class ZenEngine {
 
         gain.disconnect();
         gain.connect(masterEnv);
-        masterEnv.connect(dest);
+
+        const cleanup = this.connectWithSpatial(masterEnv, dest);
 
         osc.start();
         lfo.start();
         osc.stop(t + 0.6);
         lfo.stop(t + 0.6);
+
+        setTimeout(cleanup, 1000);
     }
 
     playFireCrack() {
-        if (!this.context) return;
+        if (!this.context || !this.masterGain) return;
         const t = this.context.currentTime;
 
         const noise = this.createNoise('brown');
@@ -474,19 +563,23 @@ export class ZenEngine {
         gain.gain.exponentialRampToValueAtTime(0.01, t + 0.05);
 
         const ch = this.channels.get('fire');
-        const dest = ch ? ch.gain : this.masterGain!;
+        const dest = ch ? ch.gain : this.masterGain;
 
         noise.connect(gain);
-        gain.connect(dest);
+
+        const cleanup = this.connectWithSpatial(gain, dest);
 
         noise.start();
         noise.stop(t + 0.1);
+
+        setTimeout(cleanup, 500);
     }
 
     // --- Control Methods ---
 
     toggle(id: SoundId, volume: number = 0.5): boolean {
         this.init();
+        if (!this.context || !this.masterGain) return false;
 
         const isImpulse = ['thunder', 'birds', 'chimes', 'crickets', 'fire'].includes(id);
 
@@ -495,7 +588,7 @@ export class ZenEngine {
             const ch = this.channels.get(id)!;
 
             if (ch.type === 'static' && ch.source) {
-                const now = this.context!.currentTime;
+                const now = this.context.currentTime;
                 ch.gain.gain.cancelScheduledValues(now);
                 ch.gain.gain.setValueAtTime(ch.gain.gain.value, now);
                 ch.gain.gain.linearRampToValueAtTime(0, now + 0.1);
@@ -516,11 +609,11 @@ export class ZenEngine {
             return false; // stopped
         } else {
             // Setup Gain Chain
-            const gain = this.context!.createGain();
+            const gain = this.context.createGain();
             gain.gain.value = isImpulse ? 1 : 0; // Impulse uses gain for master volume of that channel
-            gain.connect(this.masterGain!);
+            gain.connect(this.masterGain);
 
-            const modGain = this.context!.createGain();
+            const modGain = this.context.createGain();
             modGain.gain.value = 1;
             modGain.connect(gain);
 
@@ -581,7 +674,7 @@ export class ZenEngine {
                 if ((source as unknown as { start?: () => void }).start && id.includes('noise')) (source as AudioBufferSourceNode).start();
 
                 // Fade in
-                const now = this.context!.currentTime;
+                const now = this.context.currentTime;
                 gain.gain.linearRampToValueAtTime(volume, now + 0.5);
 
                 this.channels.set(id, {
@@ -599,9 +692,9 @@ export class ZenEngine {
 
     setVolume(id: SoundId, value: number) {
         const ch = this.channels.get(id);
-        if (ch) {
+        if (ch && this.context) {
             if (ch.type === 'static') {
-                const now = this.context!.currentTime;
+                const now = this.context.currentTime;
                 ch.gain.gain.cancelScheduledValues(now);
                 ch.gain.gain.linearRampToValueAtTime(value, now + 0.1);
             } else {
@@ -612,8 +705,8 @@ export class ZenEngine {
     }
 
     setMasterVolume(value: number) {
-        if (!this.masterGain) return;
-        const now = this.context!.currentTime;
+        if (!this.masterGain || !this.context) return;
+        const now = this.context.currentTime;
         this.masterGain.gain.cancelScheduledValues(now);
         this.masterGain.gain.linearRampToValueAtTime(value, now + 0.1);
     }
@@ -650,8 +743,8 @@ export class ZenEngine {
 
     setModulation(id: SoundId, value: number, rampTime: number = 0.1) {
         const ch = this.channels.get(id);
-        if (ch) {
-            const now = this.context!.currentTime;
+        if (ch && this.context) {
+            const now = this.context.currentTime;
             ch.modGain.gain.cancelScheduledValues(now);
             ch.modGain.gain.linearRampToValueAtTime(value, now + rampTime);
         }
@@ -693,7 +786,7 @@ export class ZenEngine {
         this.stopAll();
         this.impulseManager?.stop();
         if (this.context) {
-            this.context.close();
+            this.context.close().catch(console.error);
             this.context = null;
         }
     }

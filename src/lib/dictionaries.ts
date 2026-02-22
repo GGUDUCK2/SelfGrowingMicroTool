@@ -2904,7 +2904,9 @@ export const dictionaries = {
             binauralFreq: "Binaural Frequency (Hz)",
             fadeTimer: "Fade Out Timer",
             share: "Share Mix",
-            shared: "Link Copied!"
+            shared: "Link Copied!",
+            focusMode: "Focus Mode",
+            spatialAudio: "3D Spatial Audio"
         },
         events: {
             title: "Living Atmosphere",
@@ -5096,7 +5098,9 @@ export const dictionaries = {
             binauralFreq: "바이노럴 주파수 (Hz)",
             fadeTimer: "페이드 아웃 타이머",
             share: "믹스 공유",
-            shared: "링크 복사됨!"
+            shared: "링크 복사됨!",
+            focusMode: "집중 모드",
+            spatialAudio: "3D 공간 음향"
         },
         events: {
             title: "생동감 있는 분위기",

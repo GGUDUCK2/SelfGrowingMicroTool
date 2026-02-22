@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Play, Pause, RefreshCw, Mic, Square, Share2 } from 'lucide-svelte';
+    import { Play, Pause, RefreshCw, Mic, Square, Share2, Maximize2, Headphones } from 'lucide-svelte';
     import { engine } from '$lib/utils/zen-forge/engine';
     import { zenStore } from '$lib/stores/zen-forge';
     import { createEventDispatcher } from 'svelte';
@@ -49,9 +49,17 @@
         showToast = true;
         setTimeout(() => showToast = false, 2000);
     }
+
+    function toggleFocus() {
+        zenStore.setFocusMode(!$zenStore.isFocusMode);
+    }
+
+    function toggleSpatial() {
+        zenStore.setSpatialMode(!$zenStore.spatialMode);
+    }
 </script>
 
-<div class="bg-slate-800/80 backdrop-blur border border-slate-700 rounded-2xl p-4 flex flex-wrap items-center gap-6 shadow-xl">
+<div class="bg-slate-800/80 backdrop-blur border border-slate-700 rounded-2xl p-4 flex flex-wrap items-center gap-4 shadow-xl">
     <!-- Play/Pause (Global Context) -->
     <button
         on:click={togglePlay}
@@ -66,8 +74,8 @@
     </button>
 
     <!-- Master Volume -->
-    <div class="flex-1 min-w-[120px]">
-        <label class="text-xs uppercase text-slate-500 font-bold mb-1 block">{dict.controls.master}</label>
+    <div class="flex-1 min-w-[100px]">
+        <label class="text-[10px] uppercase text-slate-500 font-bold mb-1 block">{dict.controls.master}</label>
         <input
             type="range"
             min="0"
@@ -80,20 +88,44 @@
         />
     </div>
 
-    <!-- Record Button -->
-    <button
-        on:click={toggleRecord}
-        class="p-2 rounded-xl border flex items-center gap-2 transition-all {$zenStore.isRecording ? 'bg-red-500/20 border-red-500 text-red-400 animate-pulse' : 'bg-slate-700 border-slate-600 text-slate-300 hover:text-white'}"
-        title={$zenStore.isRecording ? dict.controls.stopRecord : dict.controls.record}
-        aria-label={$zenStore.isRecording ? dict.controls.stopRecord : dict.controls.record}
-    >
-        {#if $zenStore.isRecording}
-            <Square size={18} class="fill-current" />
-            <span class="text-xs font-bold hidden sm:inline">{dict.controls.recording}</span>
-        {:else}
-            <Mic size={18} />
-        {/if}
-    </button>
+    <!-- Toggles Group -->
+    <div class="flex items-center gap-2">
+        <!-- Spatial Audio -->
+        <button
+            on:click={toggleSpatial}
+            class="p-2 rounded-xl border transition-all {$zenStore.spatialMode ? 'bg-indigo-500/20 border-indigo-500 text-indigo-300 shadow-[0_0_10px_rgba(99,102,241,0.3)]' : 'bg-slate-700 border-slate-600 text-slate-400 hover:text-slate-200'}"
+            title={dict.controls?.spatialAudio || "3D Spatial Audio"}
+            aria-label={dict.controls?.spatialAudio || "3D Spatial Audio"}
+        >
+            <Headphones size={18} />
+        </button>
+
+        <!-- Record Button -->
+        <button
+            on:click={toggleRecord}
+            class="p-2 rounded-xl border flex items-center gap-2 transition-all {$zenStore.isRecording ? 'bg-red-500/20 border-red-500 text-red-400 animate-pulse' : 'bg-slate-700 border-slate-600 text-slate-300 hover:text-white'}"
+            title={$zenStore.isRecording ? dict.controls.stopRecord : dict.controls.record}
+            aria-label={$zenStore.isRecording ? dict.controls.stopRecord : dict.controls.record}
+        >
+            {#if $zenStore.isRecording}
+                <Square size={18} class="fill-current" />
+            {:else}
+                <Mic size={18} />
+            {/if}
+        </button>
+
+        <!-- Focus Mode -->
+        <button
+            on:click={toggleFocus}
+            class="p-2 rounded-xl border transition-all {$zenStore.isFocusMode ? 'bg-emerald-500/20 border-emerald-500 text-emerald-300' : 'bg-slate-700 border-slate-600 text-slate-400 hover:text-slate-200'}"
+            title={dict.controls?.focusMode || "Focus Mode"}
+            aria-label={dict.controls?.focusMode || "Focus Mode"}
+        >
+            <Maximize2 size={18} />
+        </button>
+    </div>
+
+    <div class="h-6 w-px bg-slate-700 mx-1"></div>
 
     <div class="relative">
         <button

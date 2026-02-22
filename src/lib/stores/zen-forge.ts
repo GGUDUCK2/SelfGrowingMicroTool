@@ -8,6 +8,8 @@ interface ZenState {
     masterVolume: number;
     binauralFreq: number;
     isRecording: boolean;
+    isFocusMode: boolean;
+    spatialMode: boolean;
 }
 
 function createZenStore() {
@@ -16,7 +18,9 @@ function createZenStore() {
         volumes: {},
         masterVolume: 1,
         binauralFreq: 10, // Default to Alpha range
-        isRecording: false
+        isRecording: false,
+        isFocusMode: false,
+        spatialMode: false
     });
 
     const { subscribe, set, update } = store;
@@ -273,6 +277,15 @@ function createZenStore() {
              }
 
              engine.rampBinaural(start, end, duration);
+        },
+
+        setFocusMode: (active: boolean) => {
+            update(s => ({ ...s, isFocusMode: active }));
+        },
+
+        setSpatialMode: (active: boolean) => {
+            engine.setSpatialMode(active);
+            update(s => ({ ...s, spatialMode: active }));
         }
     };
 }

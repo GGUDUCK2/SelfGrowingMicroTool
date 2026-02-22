@@ -2,12 +2,14 @@
     import { onMount, onDestroy } from 'svelte';
     import { page } from '$app/stores';
     import { getDictionary } from '$lib/dictionaries';
+    import { fade, slide } from 'svelte/transition';
     import Head from '$lib/components/Head.svelte';
     import GuideSection from '$lib/components/GuideSection.svelte';
     import Mixer from '$lib/components/zen-forge/Mixer.svelte';
     import MasterControl from '$lib/components/zen-forge/MasterControl.svelte';
     import Visualizer from '$lib/components/zen-forge/Visualizer.svelte';
     import PresetManager from '$lib/components/zen-forge/PresetManager.svelte';
+    import HistoryPanel from '$lib/components/zen-forge/HistoryPanel.svelte';
     import ZenTimer from '$lib/components/zen-forge/ZenTimer.svelte';
     import BreathingCircle from '$lib/components/zen-forge/BreathingCircle.svelte';
     import { engine } from '$lib/utils/zen-forge/engine';
@@ -50,12 +52,15 @@
                 zenStore.applySmartMix('focus');
                 break;
             case 'KeyS':
-                // Trigger save in PresetManager? Or just save directly?
-                // PresetManager handles the prompt. We can leave it or add a global save.
                 if (e.ctrlKey || e.metaKey) {
                     e.preventDefault();
                     const name = prompt(dict.controls.mixName || "Mix Name", `Mix ${new Date().toLocaleTimeString()}`);
                     if (name) zenStore.saveMix(name);
+                }
+                break;
+            case 'KeyF': // Focus Mode Toggle
+                if (e.shiftKey) {
+                    zenStore.setFocusMode(!$zenStore.isFocusMode);
                 }
                 break;
         }
@@ -104,18 +109,21 @@
             "Pink/White/Brown Noise",
             "Generative Living Atmosphere",
             "Audio Recording (WebM)",
-            "Offline Capable (PWA)"
+            "Offline Capable (PWA)",
+            "3D Spatial Audio Engine",
+            "Distraction-Free Focus Mode",
+            "Mix History Snapshots"
         ]
     })}</script>`}
 </svelte:head>
 
-<div class="min-h-screen bg-slate-900 text-slate-100 font-sans relative overflow-hidden flex flex-col">
+<div class="min-h-screen bg-slate-900 text-slate-100 font-sans relative overflow-hidden flex flex-col transition-all">
     <!-- Visualizer Background -->
     <Visualizer />
 
     <div class="container mx-auto px-4 py-8 relative z-10 flex-1 flex flex-col">
         <!-- Header -->
-        <div class="mb-8 text-center">
+        <div class="mb-8 text-center transition-all duration-500 {$zenStore.isFocusMode ? 'opacity-0 h-0 overflow-hidden mb-0' : 'opacity-100'}">
             <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 mb-2 drop-shadow-lg">
                 {dict.title}
             </h1>
@@ -123,41 +131,58 @@
         </div>
 
         <!-- Main Workspace -->
-        <div class="grid lg:grid-cols-4 gap-6 flex-1">
-            <!-- Sidebar -->
-            <div class="lg:col-span-1 space-y-6 flex flex-col">
-                <!-- Timer -->
-                <ZenTimer {dict} />
+        <div class="grid lg:grid-cols-4 gap-6 flex-1 transition-all duration-500">
+            <!-- Sidebar Area -->
+            <div class="lg:col-span-1 space-y-6 flex flex-col transition-all duration-500 {$zenStore.isFocusMode ? 'lg:col-span-4 lg:max-w-4xl lg:mx-auto justify-center' : ''}">
 
-                <!-- Breathing Exercise -->
-                <div class="bg-slate-800/50 p-6 rounded-3xl border border-slate-700 flex flex-col items-center justify-center min-h-[250px]">
-                    <BreathingCircle {dict} on:breath={handleBreath} />
+                <!-- Top Modules (Timer & Breathing) -->
+                <div class="grid gap-6 transition-all duration-500 {$zenStore.isFocusMode ? 'md:grid-cols-2 items-stretch h-full' : ''}">
+                    <!-- Timer -->
+                    <div class="h-full">
+                        <ZenTimer {dict} />
+                    </div>
+
+                    <!-- Breathing Exercise -->
+                    <div class="bg-slate-800/50 p-6 rounded-3xl border border-slate-700 flex flex-col items-center justify-center min-h-[250px] h-full">
+                        <BreathingCircle {dict} on:breath={handleBreath} />
+                    </div>
                 </div>
 
                 <!-- Master Controls -->
                 <MasterControl {dict} />
 
-                <!-- Presets -->
-                <PresetManager {dict} />
+                <!-- Presets & History -->
+                {#if !$zenStore.isFocusMode}
+                    <div transition:slide|local>
+                        <PresetManager {dict} />
+                    </div>
+                    <div transition:slide|local>
+                        <HistoryPanel {dict} />
+                    </div>
+                {/if}
             </div>
 
             <!-- Mixer Board -->
-            <div class="lg:col-span-3 bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-white/10 p-6 shadow-2xl overflow-y-auto">
-                <Mixer {dict} />
-            </div>
+            {#if !$zenStore.isFocusMode}
+                <div class="lg:col-span-3 bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-white/10 p-6 shadow-2xl overflow-y-auto" transition:fade|local>
+                    <Mixer {dict} />
+                </div>
+            {/if}
         </div>
 
         <!-- Guide Section -->
-        <div class="mt-16 bg-slate-900/90 backdrop-blur rounded-2xl border border-slate-800 p-8 shadow-xl">
-             <GuideSection
-                guide={dict.guide}
-                faqTitle={dict.faqTitle}
-                faqItems={[
-                    { q: dict.q1, a: dict.a1 },
-                    { q: dict.q2, a: dict.a2 },
-                    { q: dict.q3, a: dict.a3 }
-                ]}
-            />
-        </div>
+        {#if !$zenStore.isFocusMode}
+            <div class="mt-16 bg-slate-900/90 backdrop-blur rounded-2xl border border-slate-800 p-8 shadow-xl" transition:slide>
+                 <GuideSection
+                    guide={dict.guide}
+                    faqTitle={dict.faqTitle}
+                    faqItems={[
+                        { q: dict.q1, a: dict.a1 },
+                        { q: dict.q2, a: dict.a2 },
+                        { q: dict.q3, a: dict.a3 }
+                    ]}
+                />
+            </div>
+        {/if}
     </div>
 </div>

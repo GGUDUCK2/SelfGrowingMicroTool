@@ -31,6 +31,10 @@ export interface ZenForgeDictionary {
         stopRecord: string;
         binauralFreq: string;
         fadeTimer: string;
+        focusMode?: string;
+        spatialAudio?: string;
+        share?: string;
+        shared?: string;
     };
     events: {
         title: string;
@@ -54,6 +58,11 @@ export interface ZenForgeDictionary {
         min: string;
         remaining: string;
         fadeOut: string;
+        journey?: string;
+        chime?: string;
+        startFreq?: string;
+        endFreq?: string;
+        interval?: string;
     };
     breathing: {
         start: string;
