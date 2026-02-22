@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import { onMount, onDestroy } from "svelte";
+  import { slide } from "svelte/transition";
   import { browser } from "$app/environment";
   import CronVisualBuilder from "$lib/components/cron-editor/CronVisualBuilder.svelte";
   import CronPreview from "$lib/components/cron-editor/CronPreview.svelte";
@@ -132,6 +133,11 @@
       },
     },
   ];
+
+  $: faqItems = faqs.map(f => ({
+    q: lang === 'ko' ? f.question.ko : f.question.en,
+    a: lang === 'ko' ? f.answer.ko : f.answer.en
+  }));
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -155,6 +161,7 @@
       "@type": "SoftwareApplication",
       "name": "Cronos: Professional Cron Editor",
       "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "DevOps",
       "operatingSystem": "Any",
       "offers": {
         "@type": "Offer",
@@ -166,6 +173,37 @@
         "Human-readable translation",
         "Next run time preview",
         "History & Favorites"
+      ],
+      "screenshot": "https://selfgrowingmicrotool.com/og/cron-editor.png",
+      "author": {
+        "@type": "Organization",
+        "name": "MicroFactory"
+      }
+    }
+  </script>`}
+  {@html `<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://selfgrowingmicrotool.com/${lang}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://selfgrowingmicrotool.com/${lang}#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Cronos",
+          "item": "https://selfgrowingmicrotool.com/${lang}/tools/cron-editor"
+        }
       ]
     }
   </script>`}
@@ -177,11 +215,11 @@
   >
     <div>
       <h1
-        class="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400"
+        class="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400"
       >
         {dict.title}
       </h1>
-      <p class="text-gray-400">
+      <p class="text-gray-600 dark:text-gray-400">
         {dict.description}
       </p>
     </div>
@@ -200,11 +238,11 @@
     <div class="lg:col-span-2 space-y-6">
       <!-- Input Area -->
       <div
-        class="bg-white/5 border border-white/10 rounded-xl p-6 backdrop-blur-sm shadow-xl"
+        class="bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-6 backdrop-blur-sm shadow-xl"
       >
         <label
           for="cron-input"
-          class="block text-sm font-medium text-gray-300 mb-2 flex justify-between"
+          class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex justify-between"
         >
           <span>{dict.expression}</span>
           <span class="text-xs text-gray-500 font-normal">
@@ -218,7 +256,7 @@
             id="cron-input"
             type="text"
             bind:value={cronExpression}
-            class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-4 text-xl font-mono text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-gray-400"
+            class="w-full bg-gray-50 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-lg px-4 py-4 text-xl font-mono text-gray-900 dark:text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-gray-400"
             placeholder={lang === 'ko' ? "0 0 * * * (매일 자정)" : "0 0 * * * (Daily Midnight)"}
             aria-label="Cron 표현식 입력"
           />
@@ -226,7 +264,7 @@
             class="absolute right-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
           >
             <button
-              class="p-1 text-gray-400 hover:text-white"
+              class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-white"
               on:click={() => (cronExpression = "* * * * *")}
               title={dict.clear}
             >
@@ -250,14 +288,14 @@
       <CronVisualBuilder {lang} bind:value={cronExpression} />
 
       <!-- Presets -->
-      <div class="bg-white/5 border border-white/10 rounded-xl p-6">
-        <h3 class="text-lg font-semibold text-white mb-4">
+      <div class="bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
           {dict.presets}
         </h3>
         <div class="flex flex-wrap gap-2">
           {#each lang === "ko" ? COMMON_PRESETS_KO : COMMON_PRESETS as preset}
             <button
-              class="px-3 py-1.5 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 rounded-full text-sm transition-colors border border-indigo-500/20"
+              class="px-3 py-1.5 bg-indigo-50 dark:bg-indigo-500/10 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 rounded-full text-sm transition-colors border border-indigo-200 dark:border-indigo-500/20"
               on:click={() => handlePreset(preset.value)}
             >
               {preset.name}
@@ -269,27 +307,27 @@
 
     <!-- Right Column: Preview & History -->
     <div class="space-y-6">
-      <CronPreview {parseResult} {lang} />
+      <CronPreview value={cronExpression} description={parseResult.description} />
 
       <CronHistory {lang} onSelect={(expr) => (cronExpression = expr)} {dict} />
 
       <!-- Keyboard Shortcuts Helper -->
-      <div class="bg-white/5 border border-white/10 rounded-xl p-4 md:p-6">
+      <div class="bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4 md:p-6">
         <h3
-          class="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider"
+          class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wider"
         >
           {dict.shortcuts.title}
         </h3>
-        <ul class="space-y-2 text-sm text-gray-400">
+        <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
           <li class="flex justify-between">
             <span>{dict.shortcuts.copy}</span>
-            <kbd class="bg-black/40 px-2 py-0.5 rounded text-gray-300 font-mono"
+            <kbd class="bg-gray-100 dark:bg-black/40 px-2 py-0.5 rounded text-gray-500 dark:text-gray-300 font-mono"
               >Ctrl + S</kbd
             >
           </li>
           <li class="flex justify-between">
             <span>{dict.shortcuts.clear}</span>
-            <kbd class="bg-black/40 px-2 py-0.5 rounded text-gray-300 font-mono"
+            <kbd class="bg-gray-100 dark:bg-black/40 px-2 py-0.5 rounded text-gray-500 dark:text-gray-300 font-mono"
               >Ctrl + K</kbd
             >
           </li>
@@ -299,6 +337,6 @@
   </div>
 
   <div class="mt-12">
-    <FAQSection {faqs} {lang} />
+    <FAQSection title={lang === 'ko' ? '자주 묻는 질문' : 'Frequently Asked Questions'} items={faqItems} />
   </div>
 </div>

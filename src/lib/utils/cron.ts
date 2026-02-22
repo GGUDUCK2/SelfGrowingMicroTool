@@ -1,4 +1,4 @@
-// import cronstrue from 'cronstrue/i18n';
+import cronstrue from 'cronstrue/i18n';
 
 export interface CronParseResult {
   isValid: boolean;
@@ -112,8 +112,12 @@ export function parseCronExpression(expression: string, locale: string = 'en'): 
     const cron = new SimpleCron(expression);
     const nextRuns = cron.nextRuns(5);
 
-    // Hardcoded fallback to prevent 500 error
-    let description = locale === 'ko' ? '유효한 Cron 표현식' : 'Valid Cron expression';
+    let description = '';
+    try {
+      description = cronstrue.toString(expression, { locale: locale });
+    } catch (e) {
+      description = locale === 'ko' ? '유효한 Cron 표현식' : 'Valid Cron expression';
+    }
 
     return {
       isValid: true,
