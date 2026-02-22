@@ -16,6 +16,12 @@
   let convertQuality = 0.9;
   let converting = false;
 
+  // Resize state
+  let targetWidth = 0;
+  let targetHeight = 0;
+  let maintainAspectRatio = true;
+  let originalAspectRatio = 1;
+
   async function load() {
     loading = true;
     // Revoke previous URL if exists
@@ -28,6 +34,11 @@
       metadata = await extractMetadata(file);
       if (file.type.startsWith('image/')) {
         previewUrl = URL.createObjectURL(file);
+        if (metadata.dimensions) {
+          targetWidth = metadata.dimensions.width;
+          targetHeight = metadata.dimensions.height;
+          originalAspectRatio = targetWidth / targetHeight;
+        }
       }
     } catch (e) {
       console.error(e);
@@ -36,10 +47,25 @@
     }
   }
 
+  function handleWidthChange() {
+    if (maintainAspectRatio && originalAspectRatio) {
+      targetHeight = Math.round(targetWidth / originalAspectRatio);
+    }
+  }
+
+  function handleHeightChange() {
+    if (maintainAspectRatio && originalAspectRatio) {
+      targetWidth = Math.round(targetHeight * originalAspectRatio);
+    }
+  }
+
+  let error: string | null = null;
+
   async function handleConvert() {
     converting = true;
+    error = null;
     try {
-      const blob = await convertImage(file, convertFormat, convertQuality);
+      const blob = await convertImage(file, convertFormat, convertQuality, targetWidth, targetHeight);
       const url = URL.createObjectURL(blob);
       const ext = convertFormat.split('/')[1];
       const a = document.createElement('a');
@@ -48,10 +74,13 @@
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+
+      // Revoke after a delay to ensure download starts
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
     } catch (e) {
       console.error(e);
-      alert('Conversion failed');
+      error = 'Conversion failed. Please try again.';
+      setTimeout(() => error = null, 3000);
     } finally {
       converting = false;
     }
@@ -146,10 +175,43 @@
                       <label class="block text-xs font-medium mb-1">{dict.convert.quality} ({convertQuality})</label>
                       <input type="range" min="0.1" max="1" step="0.1" bind:value={convertQuality} class="w-full" />
                   </div>
+
+                  <!-- Resize Controls -->
+                  <div class="sm:col-span-2 grid grid-cols-2 gap-4 bg-slate-50 dark:bg-slate-800 p-3 rounded-lg border border-slate-100 dark:border-slate-700">
+                    <div>
+                      <label class="block text-xs font-medium mb-1 text-slate-500">{dict.convert.width || 'Width'}</label>
+                      <input
+                        type="number"
+                        bind:value={targetWidth}
+                        on:input={handleWidthChange}
+                        class="w-full text-sm bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-600 rounded p-1.5"
+                      />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium mb-1 text-slate-500">{dict.convert.height || 'Height'}</label>
+                      <input
+                        type="number"
+                        bind:value={targetHeight}
+                        on:input={handleHeightChange}
+                        class="w-full text-sm bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-600 rounded p-1.5"
+                      />
+                    </div>
+                    <div class="col-span-2 flex items-center gap-2">
+                      <input type="checkbox" id="aspect" bind:checked={maintainAspectRatio} class="rounded border-slate-300" />
+                      <label for="aspect" class="text-xs text-slate-600 dark:text-slate-400 select-none cursor-pointer">
+                        {dict.convert.aspectRatio || 'Maintain Aspect Ratio'}
+                      </label>
+                    </div>
+                    <div class="col-span-2 text-[10px] text-slate-400 flex gap-2">
+                        <span class="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-1.5 py-0.5 rounded">Privacy</span>
+                        Metadata (EXIF/GPS) is automatically stripped.
+                    </div>
+                  </div>
+
                   <button
                       on:click={handleConvert}
                       disabled={converting}
-                      class="sm:col-span-2 w-full py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 flex justify-center items-center gap-2"
+                      class="sm:col-span-2 w-full py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 flex justify-center items-center gap-2 transition-all"
                   >
                       {#if converting}
                           Processing...
@@ -158,6 +220,9 @@
                           {dict.convert.download}
                       {/if}
                   </button>
+                  {#if error}
+                    <p class="text-xs text-red-500 text-center sm:col-span-2 mt-2">{error}</p>
+                  {/if}
               </div>
           </div>
       </div>
