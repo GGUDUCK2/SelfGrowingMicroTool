@@ -298,5 +298,20 @@
     "category": "productivity",
     "tags": ["focus", "ambient", "noise", "binaural", "relax"],
     "createdAt": "2024-09-01"
+  },
+  {
+    "id": "file-forge",
+    "slug": "file-forge",
+    "title": {
+      "en": "File Forge",
+      "ko": "파일 포지"
+    },
+    "description": {
+      "en": "The definitive file analysis and conversion tool. Inspect metadata, calculate hashes, and convert images locally.",
+      "ko": "완벽한 파일 분석 및 변환 도구입니다. 메타데이터 검사, 해시 계산, 이미지 변환을 로컬에서 수행하세요."
+    },
+    "category": "util",
+    "tags": ["file", "hash", "converter", "metadata", "base64"],
+    "createdAt": "2024-10-01"
   }
 ]

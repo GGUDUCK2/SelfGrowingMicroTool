@@ -3076,6 +3076,69 @@ export const dictionaries = {
         a2: "Currently, the Grapher supports 2D Cartesian coordinates. 3D support is planned for a future update.",
         q3: "How do I enter constants like Pi?",
         a3: "You can use `pi` or `PI` in expressions. `e` is also supported."
+      },
+      fileForge: {
+        title: "File Forge: Universal File Tool",
+        description: "The definitive file analysis and conversion tool. Inspect metadata, calculate hashes, and convert images locally.",
+        dropZone: "Drag & Drop files here",
+        browse: "Browse Files",
+        tabs: {
+          info: "Info",
+          hash: "Hashes",
+          preview: "Preview",
+          convert: "Convert",
+          base64: "Base64"
+        },
+        info: {
+          name: "Name",
+          size: "Size",
+          type: "Type",
+          lastModified: "Last Modified",
+          dimensions: "Dimensions",
+          pageCount: "Page Count",
+          fileCount: "File Count"
+        },
+        hash: {
+          calculating: "Calculating...",
+          copy: "Copy",
+          copied: "Copied!"
+        },
+        base64: {
+          header: "Include Data URI Header",
+          copy: "Copy Base64",
+          download: "Download as File"
+        },
+        convert: {
+          format: "Format",
+          quality: "Quality",
+          width: "Width",
+          height: "Height",
+          download: "Download"
+        },
+        history: {
+          title: "Recent Files",
+          empty: "No files analyzed yet.",
+          clear: "Clear History"
+        },
+        guide: {
+          title: "Why File Forge?",
+          intro: "File Forge is a swiss-army knife for file manipulation. It handles hashing, conversion, and inspection entirely in your browser.",
+          featuresTitle: "Key Features",
+          f1: "**Local Processing:** Your files never leave your device. Infinite privacy.",
+          f2: "**Crypto Hashing:** Generate SHA-256, SHA-512, and more for file integrity verification.",
+          f3: "**Universal Preview:** Inspect Zip contents, PDF metadata, and Images without opening heavy desktop apps.",
+          tipsTitle: "Pro Tips",
+          tip1: "Drag multiple files to process them one by one.",
+          tip2: "Use the Base64 tool to quickly embed small images into CSS or HTML.",
+          tip3: "Verify software downloads by comparing the SHA-256 hash."
+        },
+        faqTitle: "File Forge FAQ",
+        q1: "Is there a file size limit?",
+        a1: "Technically no, but very large files (GBs) might take longer to hash depending on your CPU.",
+        q2: "Can I convert videos?",
+        a2: "Currently, we support Image conversion (PNG, JPG, WebP). Video conversion is planned for the future.",
+        q3: "Is it secure?",
+        a3: "Yes. All logic runs in client-side JavaScript. No data is uploaded to any server."
       }
     },
     pwa: {
@@ -5282,6 +5345,69 @@ export const dictionaries = {
         a2: "현재 그래퍼는 2D 데카르트 좌표를 지원합니다. 3D 지원은 향후 업데이트될 예정입니다.",
         q3: "파이(Pi)와 같은 상수는 어떻게 입력하나요?",
         a3: "수식에서 `pi` 또는 `PI`를 사용할 수 있습니다. `e`도 지원됩니다."
+      },
+      fileForge: {
+        title: "파일 포지: 만능 파일 도구",
+        description: "완벽한 파일 분석 및 변환 도구입니다. 메타데이터 검사, 해시 계산, 이미지 변환을 로컬에서 수행하세요.",
+        dropZone: "파일을 여기에 드래그 앤 드롭하세요",
+        browse: "파일 찾기",
+        tabs: {
+          info: "정보",
+          hash: "해시",
+          preview: "미리보기",
+          convert: "변환",
+          base64: "Base64"
+        },
+        info: {
+          name: "이름",
+          size: "크기",
+          type: "유형",
+          lastModified: "수정 날짜",
+          dimensions: "해상도",
+          pageCount: "페이지 수",
+          fileCount: "파일 수"
+        },
+        hash: {
+          calculating: "계산 중...",
+          copy: "복사",
+          copied: "복사됨!"
+        },
+        base64: {
+          header: "Data URI 헤더 포함",
+          copy: "Base64 복사",
+          download: "파일로 다운로드"
+        },
+        convert: {
+          format: "형식",
+          quality: "품질",
+          width: "너비",
+          height: "높이",
+          download: "다운로드"
+        },
+        history: {
+          title: "최근 파일",
+          empty: "아직 분석된 파일이 없습니다.",
+          clear: "기록 지우기"
+        },
+        guide: {
+          title: "왜 파일 포지인가요?",
+          intro: "파일 포지는 파일 조작을 위한 스위스 아미 나이프입니다. 해싱, 변환, 검사를 브라우저에서 모두 처리합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**로컬 처리:** 파일은 기기를 떠나지 않습니다. 완벽한 프라이버시를 보장합니다.",
+          f2: "**암호화 해싱:** 파일 무결성 검증을 위해 SHA-256, SHA-512 등을 생성합니다.",
+          f3: "**만능 미리보기:** 무거운 데스크톱 앱 없이도 Zip 내용, PDF 메타데이터, 이미지를 검사하세요.",
+          tipsTitle: "프로 팁",
+          tip1: "여러 파일을 드래그하여 하나씩 처리할 수 있습니다.",
+          tip2: "Base64 도구를 사용하여 작은 이미지를 CSS나 HTML에 빠르게 삽입하세요.",
+          tip3: "SHA-256 해시를 비교하여 소프트웨어 다운로드를 검증하세요."
+        },
+        faqTitle: "파일 포지 FAQ",
+        q1: "파일 크기 제한이 있나요?",
+        a1: "기술적으로는 없지만, 매우 큰 파일(GB 단위)은 CPU 성능에 따라 해시 계산에 시간이 걸릴 수 있습니다.",
+        q2: "동영상을 변환할 수 있나요?",
+        a2: "현재는 이미지 변환(PNG, JPG, WebP)을 지원합니다. 동영상 변환은 추후 지원 예정입니다.",
+        q3: "안전한가요?",
+        a3: "네. 모든 로직은 클라이언트 측 JavaScript에서 실행됩니다. 어떤 데이터도 서버로 업로드되지 않습니다."
       }
   }
 } as const;
