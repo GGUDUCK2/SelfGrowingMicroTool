@@ -27,7 +27,19 @@ export const dictionaries = {
         q2: "Why 25 minutes?",
         a2: "25 minutes is short enough to maintain high focus without fatigue, but long enough to get significant work done.",
         q3: "How do I use this?",
-        a3: "Select a task, start the 'Focus' timer (25m), work until it rings, then take a 'Short Break' (5m). After 4 cycles, take a 'Long Break' (15m)."
+        a3: "Select a task, start the 'Focus' timer (25m), work until it rings, then take a 'Short Break' (5m). After 4 cycles, take a 'Long Break' (15m).",
+        guide: {
+          title: "Master Your Flow",
+          intro: "The Pomodoro Technique is a time management method developed by Francesco Cirillo in the late 1980s. It uses a timer to break work into intervals, traditionally 25 minutes in length, separated by short breaks.",
+          featuresTitle: "Key Features",
+          f1: "**Customizable Intervals:** Switch between Focus, Short Break, and Long Break modes instantly.",
+          f2: "**Audio Notifications:** Gentle beeps notify you when a session starts or ends.",
+          f3: "**Distraction Free:** A clean, minimal interface designed to keep you in the zone.",
+          tipsTitle: "Pro Tips",
+          tip1: "After **4 pomodoros**, take a longer break (15-30 minutes) to recharge.",
+          tip2: "If a distraction pops up, write it down and get back to work immediately.",
+          tip3: "Use the **Short Break** to stretch, drink water, or rest your eyes."
+        }
       },
       compoundInterest: {
         title: "Compound Interest Calculator",
@@ -3221,7 +3233,19 @@ export const dictionaries = {
         q2: "왜 25분인가요?",
         a2: "25분은 피로감 없이 높은 집중력을 유지하기에 적당하며, 유의미한 업무 성과를 내기에 충분한 시간입니다.",
         q3: "어떻게 사용하나요?",
-        a3: "할 일을 정하고 '집중' 타이머(25분)를 시작하세요. 알람이 울리면 '짧은 휴식'(5분)을 취합니다. 4번 반복 후에는 '긴 휴식'(15분)을 취하세요."
+        a3: "할 일을 정하고 '집중' 타이머(25분)를 시작하세요. 알람이 울리면 '짧은 휴식'(5분)을 취합니다. 4번 반복 후에는 '긴 휴식'(15분)을 취하세요.",
+        guide: {
+          title: "몰입의 마스터",
+          intro: "뽀모도로 기법은 1980년대 후반 프란체스코 시릴로가 개발한 시간 관리 방법입니다. 타이머를 사용하여 업무를 25분간의 집중 시간과 짧은 휴식 시간으로 나누어 수행합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**유연한 간격:** 집중, 짧은 휴식, 긴 휴식 모드를 즉시 전환하세요.",
+          f2: "**오디오 알림:** 세션이 시작되거나 끝날 때 부드러운 비프음으로 알려줍니다.",
+          f3: "**방해 요소 제거:** 몰입을 유지하도록 설계된 깔끔하고 미니멀한 인터페이스입니다.",
+          tipsTitle: "프로 팁",
+          tip1: "**4번의 뽀모도로** 후에는 긴 휴식(15-30분)을 취하여 에너지를 충전하세요.",
+          tip2: "방해 요소가 떠오르면 메모해두고 즉시 업무로 돌아가세요.",
+          tip3: "**짧은 휴식** 시간에는 스트레칭을 하거나 물을 마시며 눈을 쉬게 해주세요."
+        }
       },
       glassmorphism: {
         title: "CSS 글래스모피즘 생성기",

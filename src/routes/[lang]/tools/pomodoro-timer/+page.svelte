@@ -4,6 +4,7 @@
   import { formatTime } from "$lib/utils";
   import { dictionaries } from "$lib/dictionaries";
   import FAQSection from "$lib/components/FAQSection.svelte";
+  import GuideSection from "$lib/components/GuideSection.svelte";
 
   export let data: PageData;
 
@@ -135,7 +136,7 @@
     "description": dict.description,
     "applicationCategory": "ProductivityApplication",
     "applicationSubCategory": "Time Management",
-    "operatingSystem": ["Web", "iOS", "Android", "macOS", "Windows", "Linux"],
+    "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -300,6 +301,8 @@
       </button>
     </div>
   </div>
+
+  <GuideSection {...dict.guide} />
 
   <FAQSection title={dict.faqTitle} items={faqItems} />
 </div>

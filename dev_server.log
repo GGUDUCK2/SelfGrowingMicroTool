@@ -2,18 +2,21 @@
 > web-factory-svelte@0.0.1 dev
 > vite dev
 
+▲ [WARNING] Cannot find base config file "./.svelte-kit/tsconfig.json" [tsconfig.json]
 
-  VITE v6.4.1  ready in 3756 ms
+    tsconfig.json:2:15:
+      2 │     "extends": "./.svelte-kit/tsconfig.json",
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+8:33:59 AM [vite] (client) Forced re-optimization of dependencies
+
+  VITE v6.4.1  ready in 2237 ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
-8:28:34 PM [vite-plugin-svelte] src/routes/[lang]/tools/zen-forge/+page.svelte:16:15 Component has unused export property 'data'. If it is for external reference only, please consider using `export const data`
-https://svelte.dev/e/export_let_unused
-8:28:59 PM [vite-plugin-svelte] src/lib/components/zen-forge/MasterControl.svelte:97:8 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
 
 [1;31m[404] GET /_vercel/insights/script.js[0m
-8:29:18 PM [vite-plugin-svelte] src/routes/[lang]/tools/zen-forge/+page.svelte:16:15 Component has unused export property 'data'. If it is for external reference only, please consider using `export const data`
-https://svelte.dev/e/export_let_unused
-8:29:19 PM [vite-plugin-svelte] src/lib/components/zen-forge/MasterControl.svelte:97:8 A form label must be associated with a control
-https://svelte.dev/e/a11y_label_has_associated_control
+8:35:06 AM [vite] (client) hmr update /src/routes/[lang]/tools/pomodoro-timer/+page.svelte, /src/app.css
+8:35:06 AM [vite] (ssr) page reload src/routes/[lang]/tools/pomodoro-timer/+page.svelte
+
+[1;31m[404] GET /_vercel/insights/script.js[0m
