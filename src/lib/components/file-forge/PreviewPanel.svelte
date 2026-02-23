@@ -164,23 +164,24 @@
               </h4>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
                   <div>
-                      <label class="block text-xs font-medium mb-1">{dict.convert.format}</label>
-                      <select bind:value={convertFormat} class="w-full text-sm bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg p-2">
+                      <label for="format_select" class="block text-xs font-medium mb-1">{dict.convert.format}</label>
+                      <select id="format_select" bind:value={convertFormat} class="w-full text-sm bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg p-2">
                           <option value="image/png">PNG</option>
                           <option value="image/jpeg">JPEG</option>
                           <option value="image/webp">WebP</option>
                       </select>
                   </div>
                   <div>
-                      <label class="block text-xs font-medium mb-1">{dict.convert.quality} ({convertQuality})</label>
-                      <input type="range" min="0.1" max="1" step="0.1" bind:value={convertQuality} class="w-full" />
+                      <label for="quality_range" class="block text-xs font-medium mb-1">{dict.convert.quality} ({convertQuality})</label>
+                      <input id="quality_range" type="range" min="0.1" max="1" step="0.1" bind:value={convertQuality} class="w-full" />
                   </div>
 
                   <!-- Resize Controls -->
                   <div class="sm:col-span-2 grid grid-cols-2 gap-4 bg-slate-50 dark:bg-slate-800 p-3 rounded-lg border border-slate-100 dark:border-slate-700">
                     <div>
-                      <label class="block text-xs font-medium mb-1 text-slate-500">{dict.convert.width || 'Width'}</label>
+                      <label for="width_input" class="block text-xs font-medium mb-1 text-slate-500">{dict.convert.width || 'Width'}</label>
                       <input
+                        id="width_input"
                         type="number"
                         bind:value={targetWidth}
                         on:input={handleWidthChange}
@@ -188,8 +189,9 @@
                       />
                     </div>
                     <div>
-                      <label class="block text-xs font-medium mb-1 text-slate-500">{dict.convert.height || 'Height'}</label>
+                      <label for="height_input" class="block text-xs font-medium mb-1 text-slate-500">{dict.convert.height || 'Height'}</label>
                       <input
+                        id="height_input"
                         type="number"
                         bind:value={targetHeight}
                         on:input={handleHeightChange}
@@ -197,8 +199,8 @@
                       />
                     </div>
                     <div class="col-span-2 flex items-center gap-2">
-                      <input type="checkbox" id="aspect" bind:checked={maintainAspectRatio} class="rounded border-slate-300" />
-                      <label for="aspect" class="text-xs text-slate-600 dark:text-slate-400 select-none cursor-pointer">
+                      <input type="checkbox" id="aspect_preview" bind:checked={maintainAspectRatio} class="rounded border-slate-300" />
+                      <label for="aspect_preview" class="text-xs text-slate-600 dark:text-slate-400 select-none cursor-pointer">
                         {dict.convert.aspectRatio || 'Maintain Aspect Ratio'}
                       </label>
                     </div>
