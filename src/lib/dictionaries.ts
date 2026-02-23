@@ -3088,7 +3088,8 @@ export const dictionaries = {
           preview: "Preview",
           convert: "Convert",
           base64: "Base64",
-          inspector: "Inspector"
+          inspector: "Inspector",
+          compare: "Compare"
         },
         inspector: {
           analyzing: "Analyzing...",
@@ -3118,6 +3119,18 @@ export const dictionaries = {
           header: "Include Data URI Header",
           copy: "Copy Base64",
           download: "Download as File"
+        },
+        compare: {
+          tabFile: "Compare with File",
+          tabHash: "Compare with Hash",
+          primary: "Primary File",
+          secondary: "Secondary Source",
+          drop: "Drop file to compare",
+          pastePlaceholder: "Paste SHA-256 Hash here...",
+          matchTitle: "Match Confirmed",
+          matchDesc: "The files are identical (SHA-256).",
+          mismatchTitle: "Mismatch Detected",
+          mismatchDesc: "The hashes do not match."
         },
         convert: {
           format: "Format",
@@ -5369,7 +5382,8 @@ export const dictionaries = {
           preview: "미리보기",
           convert: "변환",
           base64: "Base64",
-          inspector: "검사기"
+          inspector: "검사기",
+          compare: "비교"
         },
         inspector: {
           analyzing: "분석 중...",
@@ -5399,6 +5413,18 @@ export const dictionaries = {
           header: "Data URI 헤더 포함",
           copy: "Base64 복사",
           download: "파일로 다운로드"
+        },
+        compare: {
+          tabFile: "파일과 비교",
+          tabHash: "해시와 비교",
+          primary: "원본 파일",
+          secondary: "비교 대상",
+          drop: "비교할 파일을 드롭하세요",
+          pastePlaceholder: "SHA-256 해시를 붙여넣으세요...",
+          matchTitle: "일치함",
+          matchDesc: "파일이 동일합니다 (SHA-256).",
+          mismatchTitle: "일치하지 않음",
+          mismatchDesc: "해시값이 다릅니다."
         },
         convert: {
           format: "형식",
