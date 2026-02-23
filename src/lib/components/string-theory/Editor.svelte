@@ -43,7 +43,7 @@
     bind:this={textarea}
     bind:value={text}
     on:input={handleInput}
-    class="w-full min-h-[300px] p-6 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-mono text-sm leading-relaxed text-slate-800 dark:text-slate-200 resize-none shadow-inner"
+    class="w-full min-h-[300px] p-6 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-mono text-base sm:text-sm leading-relaxed text-slate-800 dark:text-slate-200 resize-none shadow-inner"
     placeholder={dict.input}
     aria-label="Input Text"
   ></textarea>

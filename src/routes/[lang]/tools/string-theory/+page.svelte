@@ -7,6 +7,7 @@
   import HistorySidebar from '$lib/components/string-theory/HistorySidebar.svelte';
   import ExtractorPanel from '$lib/components/string-theory/ExtractorPanel.svelte';
   import SmartAssistant from '$lib/components/string-theory/SmartAssistant.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
   import { TextAnalyzer } from '$lib/utils/string-theory/analyzer';
   import { TextTransformer } from '$lib/utils/string-theory/transformer';
   import { TextCleaner } from '$lib/utils/string-theory/cleaner';
@@ -164,6 +165,12 @@
       extractions = TextExtractor.analyzeAll(text);
   }
 
+  $: faqItems = dict ? [
+    { q: dict.q1, a: dict.a1 },
+    { q: dict.q2, a: dict.a2 },
+    { q: dict.q3, a: dict.a3 }
+  ] : [];
+
   // Wait for dict to be ready
   $: jsonLd = dict ? {
     "@context": "https://schema.org",
@@ -172,7 +179,8 @@
         "@type": "SoftwareApplication",
         "name": "String Theory",
         "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "Any",
+        "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
+        "applicationSubCategory": "Developer Application",
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -192,26 +200,6 @@
             "@type": "Organization",
             "name": "MicroFactory"
         }
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": dict.q1,
-            "acceptedAnswer": { "@type": "Answer", "text": dict.a1 }
-          },
-          {
-            "@type": "Question",
-            "name": dict.q2,
-            "acceptedAnswer": { "@type": "Answer", "text": dict.a2 }
-          },
-          {
-            "@type": "Question",
-            "name": dict.q3,
-            "acceptedAnswer": { "@type": "Answer", "text": dict.a3 }
-          }
-        ]
       }
     ]
   } : null;
@@ -254,7 +242,7 @@
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <!-- Main Editor -->
-    <div class="lg:col-span-2 space-y-4">
+    <section class="lg:col-span-2 space-y-4" aria-label="Editor Workspace">
       <div class="flex justify-between items-center mb-2">
         <h2 class="text-xl font-bold text-slate-800 dark:text-white">{dict.input} / {dict.output}</h2>
         <div class="flex items-center gap-4">
@@ -304,14 +292,14 @@
         <Editor bind:text bind:stats />
         <SmartAssistant {text} on:action={handleAction} />
       </div>
-    </div>
+    </section>
 
     <!-- Toolbar -->
-    <div class="lg:col-span-1">
+    <aside class="lg:col-span-1" aria-label="Tools">
       <div class="sticky top-8 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 max-h-[calc(100vh-4rem)] overflow-y-auto custom-scrollbar">
         <Toolbar on:action={handleAction} on:generate={handleGenerate} />
       </div>
-    </div>
+    </aside>
   </div>
 
   <!-- Documentation Section -->
@@ -338,23 +326,7 @@
         </ul>
       </div>
 
-      <div class="bg-amber-50 dark:bg-amber-900/20 p-6 rounded-2xl border border-amber-100 dark:border-amber-900/50">
-        <h3 class="text-amber-900 dark:text-amber-300 font-bold mb-3">{dict.faqTitle}</h3>
-        <ul class="space-y-4 text-amber-800 dark:text-amber-200 text-sm">
-          <li>
-            <strong class="block mb-1">{dict.q1}</strong>
-            {dict.a1}
-          </li>
-          <li>
-            <strong class="block mb-1">{dict.q2}</strong>
-            {dict.a2}
-          </li>
-          <li>
-            <strong class="block mb-1">{dict.q3}</strong>
-            {dict.a3}
-          </li>
-        </ul>
-      </div>
+      <FAQSection title={dict.faqTitle} items={faqItems} />
     </div>
   </section>
 
