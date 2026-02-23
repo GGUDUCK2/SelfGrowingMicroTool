@@ -3165,6 +3165,83 @@ export const dictionaries = {
         a2: "Currently, we support Image conversion (PNG, JPG, WebP). Video conversion is planned for the future.",
         q3: "Is it secure?",
         a3: "Yes. All logic runs in client-side JavaScript. No data is uploaded to any server."
+      },
+      policyForge: {
+        title: "Policy Forge: Legal Doc Generator",
+        description: "The definitive tool to generate professional Privacy Policies, Terms of Service, and Cookie Policies. Localized, compliant, and free.",
+        wizard: {
+          step1: "Identity",
+          step2: "Features",
+          step3: "Collection",
+          step4: "Review"
+        },
+        fields: {
+          companyName: "Company / App Name",
+          websiteUrl: "Website URL",
+          email: "Contact Email",
+          address: "Address",
+          country: "Country",
+          foundedYear: "Founded Year",
+          minAge: "Minimum Age",
+          governingLaw: "Governing Law (State/Country)",
+          refundPeriod: "Refund Period (Days)",
+          lastUpdated: "Effective Date"
+        },
+        toggles: {
+          canRegister: "User Registration / Accounts",
+          hasNewsletter: "Email Newsletter",
+          hasAds: "Display Ads (AdSense, etc.)",
+          collectPayment: "Process Payments",
+          collectDevice: "Collect Device Info (Analytics)",
+          collectAddress: "Collect Physical Address",
+          collectName: "Collect Name",
+          collectEmail: "Collect Email",
+          collectPhone: "Collect Phone",
+          collectSocial: "Social Login",
+          termination: "Right to Terminate",
+          collectCookies: "Use Cookies"
+        },
+        analytics: {
+            label: "Analytics Provider",
+            google: "Google Analytics",
+            plausible: "Plausible / Simple Analytics",
+            none: "None"
+        },
+        tabs: {
+            privacy: "Privacy Policy",
+            terms: "Terms of Service"
+        },
+        actions: {
+            copy: "Copy Markdown",
+            download: "Download HTML",
+            save: "Save Profile",
+            load: "Load Profile",
+            reset: "Reset Form"
+        },
+        history: {
+            title: "Saved Profiles",
+            empty: "No profiles saved.",
+            delete: "Delete"
+        },
+        guide: {
+          title: "Why Policy Forge?",
+          intro: "Legal documents are essential for protecting your business and building trust with users. Policy Forge generates compliant, easy-to-read policies tailored to your specific needs without expensive legal fees.",
+          featuresTitle: "Key Features",
+          f1: "**Multi-Document Sync:** Enter your details once and generate matching Privacy Policy and Terms of Service.",
+          f2: "**Localized:** Generate documents in English or Korean instantly.",
+          f3: "**Smart Clauses:** The generator intelligently includes or excludes clauses based on your feature set (e.g., payments, ads).",
+          tipsTitle: "Pro Tips",
+          tip1: "Use the **Preview** tab to check how your policy looks before downloading.",
+          tip2: "Save your **Profile** to quickly update your policies when your business changes.",
+          tip3: "Always review the generated text to ensure it matches your specific legal requirements."
+        },
+        faqTitle: "Policy Forge FAQ",
+        q1: "Is this legal advice?",
+        a1: "No. Policy Forge provides templates based on common standards, but we are not a law firm. You should consult with a lawyer for your specific needs.",
+        q2: "Can I use this for my app?",
+        a2: "Yes, the generated policies are suitable for websites, mobile apps, and SaaS platforms.",
+        q3: "Is my data private?",
+        a3: "Absolutely. All generation happens in your browser. We do not store or see your company details."
       }
     },
     pwa: {
@@ -5459,6 +5536,83 @@ export const dictionaries = {
         a2: "현재는 이미지 변환(PNG, JPG, WebP)을 지원합니다. 동영상 변환은 추후 지원 예정입니다.",
         q3: "안전한가요?",
         a3: "네. 모든 로직은 클라이언트 측 JavaScript에서 실행됩니다. 어떤 데이터도 서버로 업로드되지 않습니다."
+      },
+      policyForge: {
+        title: "정책 포지: 법률 문서 생성기",
+        description: "전문적인 개인정보 처리방침, 이용약관, 쿠키 정책을 생성하는 완벽한 도구입니다. 현지화 및 규정 준수를 지원합니다.",
+        wizard: {
+          step1: "신원 정보",
+          step2: "기능",
+          step3: "수집 항목",
+          step4: "검토"
+        },
+        fields: {
+          companyName: "회사 / 앱 이름",
+          websiteUrl: "웹사이트 URL",
+          email: "연락처 이메일",
+          address: "주소",
+          country: "국가",
+          foundedYear: "설립 연도",
+          minAge: "최소 연령",
+          governingLaw: "준거법 (주/국가)",
+          refundPeriod: "환불 기간 (일)",
+          lastUpdated: "시행일"
+        },
+        toggles: {
+          canRegister: "사용자 가입 / 계정",
+          hasNewsletter: "이메일 뉴스레터",
+          hasAds: "디스플레이 광고 (AdSense 등)",
+          collectPayment: "결제 처리",
+          collectDevice: "기기 정보 수집 (분석)",
+          collectAddress: "물리적 주소 수집",
+          collectName: "이름 수집",
+          collectEmail: "이메일 수집",
+          collectPhone: "전화번호 수집",
+          collectSocial: "소셜 로그인",
+          termination: "해지 권한",
+          collectCookies: "쿠키 사용"
+        },
+        analytics: {
+            label: "분석 제공업체",
+            google: "Google Analytics",
+            plausible: "Plausible / Simple Analytics",
+            none: "없음"
+        },
+        tabs: {
+            privacy: "개인정보 처리방침",
+            terms: "서비스 이용약관"
+        },
+        actions: {
+            copy: "마크다운 복사",
+            download: "HTML 다운로드",
+            save: "프로필 저장",
+            load: "프로필 불러오기",
+            reset: "초기화"
+        },
+        history: {
+            title: "저장된 프로필",
+            empty: "저장된 프로필이 없습니다.",
+            delete: "삭제"
+        },
+        guide: {
+          title: "왜 정책 포지인가요?",
+          intro: "법률 문서는 비즈니스를 보호하고 사용자와의 신뢰를 구축하는 데 필수적입니다. 정책 포지는 값비싼 법률 비용 없이 귀하의 특정 요구에 맞는 규정 준수 정책을 생성합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**다중 문서 동기화:** 세부 정보를 한 번만 입력하면 일치하는 개인정보 처리방침과 이용약관을 생성합니다.",
+          f2: "**현지화:** 영어 또는 한국어로 문서를 즉시 생성합니다.",
+          f3: "**스마트 조항:** 기능 세트(예: 결제, 광고)에 따라 조항을 지능적으로 포함하거나 제외합니다.",
+          tipsTitle: "프로 팁",
+          tip1: "**미리보기** 탭을 사용하여 다운로드하기 전에 정책이 어떻게 보이는지 확인하세요.",
+          tip2: "**프로필**을 저장하여 비즈니스가 변경될 때 정책을 빠르게 업데이트하세요.",
+          tip3: "생성된 텍스트가 특정 법적 요구 사항과 일치하는지 항상 검토하세요."
+        },
+        faqTitle: "정책 포지 FAQ",
+        q1: "이것은 법률 자문인가요?",
+        a1: "아니요. 정책 포지는 일반적인 표준에 기반한 템플릿을 제공하지만, 당사는 법률 사무소가 아닙니다. 특정 요구 사항에 대해서는 변호사와 상담해야 합니다.",
+        q2: "내 앱에 사용할 수 있나요?",
+        a2: "네, 생성된 정책은 웹사이트, 모바일 앱 및 SaaS 플랫폼에 적합합니다.",
+        q3: "내 데이터는 비공개인가요?",
+        a3: "물론입니다. 모든 생성은 브라우저에서 이루어집니다. 당사는 귀하의 회사 세부 정보를 저장하거나 보지 않습니다."
       }
   }
 } as const;
