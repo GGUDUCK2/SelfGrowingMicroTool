@@ -3,7 +3,7 @@
   import { db } from '$lib/db';
   import { browser } from '$app/environment';
   import { slide } from 'svelte/transition';
-  import { Trash2, Clock, File } from 'lucide-svelte';
+  import { Trash2, Clock, File, Copy, Check } from 'lucide-svelte';
 
   export let dict: any;
 
@@ -14,12 +14,21 @@
     return [];
   });
 
+  let copiedId: number | null = null;
+
   async function clearHistory() {
     await db.fileForgeHistory.clear();
   }
 
   async function deleteItem(id: number) {
     await db.fileForgeHistory.delete(id);
+  }
+
+  function copyHash(id: number, hash: string) {
+    if (!hash) return;
+    navigator.clipboard.writeText(hash);
+    copiedId = id;
+    setTimeout(() => copiedId = null, 2000);
   }
 </script>
 
@@ -45,22 +54,35 @@
       <div class="space-y-2">
         {#each $history as item (item.id)}
           <div transition:slide class="group bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-100 dark:border-slate-700 flex justify-between items-center hover:border-indigo-200 dark:hover:border-indigo-800 transition-colors">
-            <div class="flex items-center gap-3 overflow-hidden">
-              <div class="p-2 bg-slate-100 dark:bg-slate-700 rounded text-slate-500">
+            <div class="flex items-center gap-3 overflow-hidden flex-1">
+              <div class="p-2 bg-slate-100 dark:bg-slate-700 rounded text-slate-500 shrink-0">
                 <File size={16} />
               </div>
-              <div class="min-w-0">
-                <div class="text-sm font-medium truncate text-slate-800 dark:text-slate-200">{item.name}</div>
-                <div class="text-xs text-slate-400 flex gap-2">
+              <div class="min-w-0 flex-1">
+                <div class="text-sm font-medium truncate text-slate-800 dark:text-slate-200" title={item.name}>{item.name}</div>
+                <div class="text-xs text-slate-400 flex gap-2 items-center">
                   <span>{(item.size / 1024).toFixed(1)} KB</span>
                   <span>•</span>
                   <span>{new Date(item.createdAt).toLocaleDateString()}</span>
+                  {#if item.hash}
+                    <button
+                      on:click={() => item.id && copyHash(item.id, item.hash)}
+                      class="ml-auto text-indigo-500 hover:text-indigo-600 flex items-center gap-1 bg-indigo-50 dark:bg-indigo-900/30 px-1.5 py-0.5 rounded text-[10px] uppercase tracking-wide"
+                      title="Copy SHA-256 Hash"
+                    >
+                      {#if copiedId === item.id}
+                        <Check size={10} /> Copied
+                      {:else}
+                        <Copy size={10} /> Hash
+                      {/if}
+                    </button>
+                  {/if}
                 </div>
               </div>
             </div>
             <button
                 on:click={() => item.id && deleteItem(item.id)}
-                class="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded opacity-0 group-hover:opacity-100 transition-all"
+                class="ml-2 p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded opacity-0 group-hover:opacity-100 transition-all shrink-0"
                 aria-label="Delete"
             >
               <Trash2 size={14} />

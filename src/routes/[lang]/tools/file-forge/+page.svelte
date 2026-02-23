@@ -47,7 +47,7 @@
   $: softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "File Forge",
+    "name": dict.title,
     "description": dict.description,
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
@@ -64,8 +64,6 @@
     { q: dict.q2, a: dict.a2 },
     { q: dict.q3, a: dict.a3 }
   ];
-
-  import { onMount } from 'svelte';
 
   function handleKeydown(e: KeyboardEvent) {
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
@@ -91,6 +89,13 @@
   <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}/tools/file-forge" />
 
   <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}/tools/file-forge" />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/file-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/file-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/file-forge" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={dict.title} />
+  <meta name="twitter:description" content={dict.description} />
 
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
