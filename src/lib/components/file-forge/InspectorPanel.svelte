@@ -1,27 +1,21 @@
 <script lang="ts">
-  import { FileSearch, Calculator, Activity } from 'lucide-svelte';
+  import { FileSearch, Calculator, Activity, AlertTriangle } from 'lucide-svelte';
+  import { detectFileType } from '$lib/utils/file-forge/signatures';
 
   export let file: File;
   export let dict: any;
 
-  let buffer: ArrayBuffer | null = null;
-  let hexLines: { offset: string; hex: string; ascii: string }[] = [];
-  let entropy = 0;
-  let magicType = '';
-  let loading = true;
+  interface HexLine {
+    offset: string;
+    hex: string;
+    ascii: string;
+  }
 
-  const signatures: Record<string, string> = {
-    '89504E47': 'image/png',
-    'FFD8FF': 'image/jpeg',
-    '25504446': 'application/pdf',
-    '504B0304': 'application/zip',
-    '47494638': 'image/gif',
-    '52494646': 'audio/wav',
-    '1F8B': 'application/gzip',
-    '424D': 'image/bmp',
-    '66747970': 'video/mp4',
-    '57454250': 'image/webp'
-  };
+  let buffer: ArrayBuffer | null = null;
+  let hexLines: HexLine[] = [];
+  let entropy = 0;
+  let magicInfo = { type: 'Unknown', category: 'unknown', description: 'Unknown File Type', matches: false };
+  let loading = true;
 
   async function analyze() {
     loading = true;
@@ -32,7 +26,7 @@
       const view = new Uint8Array(buffer);
 
       // Hex View Generation
-      hexLines = [];
+      const newHexLines: HexLine[] = [];
       for (let i = 0; i < view.length; i += 16) {
         const slice = view.slice(i, i + 16);
         const hex = Array.from(slice)
@@ -41,25 +35,16 @@
         const ascii = Array.from(slice)
           .map(b => (b >= 32 && b <= 126 ? String.fromCharCode(b) : '.'))
           .join('');
-        hexLines.push({
+        newHexLines.push({
           offset: i.toString(16).padStart(4, '0').toUpperCase(),
           hex,
           ascii
         });
       }
+      hexLines = newHexLines;
 
       // Magic Number Detection
-      const header = Array.from(view.slice(0, 8))
-        .map(b => b.toString(16).padStart(2, '0').toUpperCase())
-        .join('');
-
-      magicType = 'Unknown';
-      for (const [sig, type] of Object.entries(signatures)) {
-        if (header.startsWith(sig)) {
-          magicType = type;
-          break;
-        }
-      }
+      magicInfo = detectFileType(buffer);
 
       // Entropy Calculation (on the chunk)
       entropy = calculateEntropy(view);
@@ -103,11 +88,23 @@
         <h4 class="text-xs font-bold text-indigo-800 dark:text-indigo-300 uppercase tracking-wide mb-1 flex items-center gap-2">
           <FileSearch size={14} /> {dict?.inspector?.detectedType || 'Detected Type'}
         </h4>
-        <div class="text-lg font-mono font-bold text-indigo-900 dark:text-indigo-100">
-          {magicType}
+        <div class="text-lg font-mono font-bold text-indigo-900 dark:text-indigo-100 break-words">
+          {magicInfo.description}
         </div>
-        <div class="text-xs text-indigo-600 dark:text-indigo-400 mt-1">
-          {dict?.inspector?.matchExtension || 'Matches extension'}: {magicType === 'Unknown' ? 'N/A' : (file.type === magicType ? 'Yes' : 'Mismatch')}
+        <div class="text-xs mt-2 flex items-center gap-2">
+          {#if magicInfo.matches}
+             {#if file.type === magicInfo.type}
+                <span class="text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
+                   Match confirmed
+                </span>
+             {:else}
+                <span class="text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1">
+                   <AlertTriangle size={12} /> Extension mismatch ({file.type || 'No Type'})
+                </span>
+             {/if}
+          {:else}
+             <span class="text-slate-500">No signature match found</span>
+          {/if}
         </div>
       </div>
 
@@ -137,9 +134,9 @@
       <div class="p-4 overflow-x-auto text-slate-300">
         {#each hexLines as line}
           <div class="flex hover:bg-slate-800/50 rounded px-1">
-            <span class="text-slate-500 w-16 select-none">{line.offset}</span>
-            <span class="text-cyan-400 w-96 mr-4 min-w-[300px]">{line.hex}</span>
-            <span class="text-amber-400 opacity-80 border-l border-slate-700 pl-4 min-w-[150px]">{line.ascii}</span>
+            <span class="text-slate-500 w-16 select-none shrink-0">{line.offset}</span>
+            <span class="text-cyan-400 w-96 mr-4 min-w-[300px] shrink-0">{line.hex}</span>
+            <span class="text-amber-400 opacity-80 border-l border-slate-700 pl-4 min-w-[150px] shrink-0">{line.ascii}</span>
           </div>
         {/each}
       </div>

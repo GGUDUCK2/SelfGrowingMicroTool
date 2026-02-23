@@ -6,7 +6,8 @@
   export let file: File;
   export let dict: any;
 
-  let format: 'image/png' | 'image/jpeg' | 'image/webp' = 'image/png';
+  type ImageFormat = 'image/png' | 'image/jpeg' | 'image/webp';
+  let format: ImageFormat = 'image/png';
   let quality = 0.9;
   let width = 0;
   let height = 0;
@@ -16,6 +17,8 @@
   let convertedUrl: string | null = null;
   let error: string | null = null;
   let originalDimensions = { width: 0, height: 0 };
+
+  const formats: ImageFormat[] = ['image/png', 'image/jpeg', 'image/webp'];
 
   // Load image dimensions on mount
   $: if (file) {
@@ -95,7 +98,7 @@
             {dict?.convert?.format || 'Format'}
           </span>
           <div class="flex gap-2" role="group" aria-label="Image Format Selection">
-            {#each ['image/png', 'image/jpeg', 'image/webp'] as f}
+            {#each formats as f}
               <button
                 class="px-4 py-2 rounded-lg text-sm font-medium transition-colors border
                 {format === f

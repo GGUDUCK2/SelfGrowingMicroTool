@@ -3,7 +3,7 @@
   import { db } from '$lib/db';
   import { browser } from '$app/environment';
   import { slide } from 'svelte/transition';
-  import { Trash2, Clock, File, Copy, Check } from 'lucide-svelte';
+  import { Trash2, Clock, File, Copy, Check, Star } from 'lucide-svelte';
 
   export let dict: any;
 
@@ -17,11 +17,17 @@
   let copiedId: number | null = null;
 
   async function clearHistory() {
-    await db.fileForgeHistory.clear();
+    if (confirm(dict?.history?.confirmClear || 'Clear all history?')) {
+        await db.fileForgeHistory.clear();
+    }
   }
 
   async function deleteItem(id: number) {
     await db.fileForgeHistory.delete(id);
+  }
+
+  async function toggleStar(id: number, currentStarred: number | undefined) {
+    await db.fileForgeHistory.update(id, { starred: currentStarred ? 0 : 1 });
   }
 
   function copyHash(id: number, hash: string) {
@@ -55,6 +61,15 @@
         {#each $history as item (item.id)}
           <div transition:slide class="group bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-100 dark:border-slate-700 flex justify-between items-center hover:border-indigo-200 dark:hover:border-indigo-800 transition-colors">
             <div class="flex items-center gap-3 overflow-hidden flex-1">
+              <!-- Star Button -->
+              <button
+                on:click={() => item.id && toggleStar(item.id, item.starred)}
+                class="shrink-0 focus:outline-none"
+                aria-label={item.starred ? 'Unstar' : 'Star'}
+              >
+                <Star size={16} class={item.starred ? 'fill-amber-400 text-amber-400' : 'text-slate-300 hover:text-amber-400'} />
+              </button>
+
               <div class="p-2 bg-slate-100 dark:bg-slate-700 rounded text-slate-500 shrink-0">
                 <File size={16} />
               </div>

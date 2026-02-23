@@ -10,7 +10,8 @@
   import FAQSection from '$lib/components/FAQSection.svelte';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.fileForge;
+  // Cast to any to avoid TS errors until type definitions are fully updated
+  $: dict = (getDictionary(lang).tools as any).fileForge;
   $: common = getDictionary(lang).common;
 
   let currentFile: File | null = null;
@@ -56,7 +57,7 @@
       "price": "0",
       "priceCurrency": "USD"
     },
-    "featureList": "File Hashing, Hex Viewer, Entropy Analysis, Magic Number Detection, Base64 Encoding, Image Conversion & Resizing, Metadata Inspection"
+    "featureList": "File Hashing, Hex Viewer, Entropy Analysis, Magic Number Detection, Base64 Encoding, Image Conversion & Resizing, Metadata Inspection, Steganography"
   };
 
   $: faqItems = [
@@ -81,7 +82,7 @@
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content="file hash, hex viewer, entropy analysis, magic number, md5, sha256, base64 converter, image converter, resize image, metadata viewer, file analysis, privacy first" />
+  <meta name="keywords" content="file hash, hex viewer, entropy analysis, magic number, md5, sha256, base64 converter, image converter, resize image, metadata viewer, file analysis, privacy first, steganography" />
 
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />

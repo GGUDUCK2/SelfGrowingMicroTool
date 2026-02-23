@@ -1,10 +1,12 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, createEventDispatcher } from 'svelte';
   import { Copy, Check, RefreshCw } from 'lucide-svelte';
   import { calculateHash } from '$lib/utils/file-forge/hash';
 
   export let file: File;
   export let dict: any;
+
+  const dispatch = createEventDispatcher();
 
   let hashes: Record<string, string> = {
     'SHA-1': '',
@@ -20,7 +22,11 @@
     try {
       const algorithms = ['SHA-1', 'SHA-256', 'SHA-384', 'SHA-512'] as const;
       for (const algo of algorithms) {
-        hashes[algo] = await calculateHash(file, algo);
+        const hash = await calculateHash(file, algo);
+        hashes[algo] = hash;
+        if (algo === 'SHA-256') {
+          dispatch('hashCalculated', hash);
+        }
       }
     } catch (e) {
       console.error(e);
@@ -52,6 +58,7 @@
           <button
             class="text-xs flex items-center gap-1 transition-colors {copied === algo ? 'text-green-600 dark:text-green-400' : 'text-indigo-600 dark:text-indigo-400 hover:text-indigo-700'}"
             on:click={() => copyToClipboard(hash, algo)}
+            aria-label={dict.hash.copy}
           >
             {#if copied === algo}
               <Check size={14} />
