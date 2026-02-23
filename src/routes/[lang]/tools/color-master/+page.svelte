@@ -19,6 +19,7 @@
   import ScaleGenerator from '$lib/components/color-master/ScaleGenerator.svelte';
   import { getDictionary } from '$lib/dictionaries';
   import type { ScaleStep } from '$lib/types/color-master';
+  import FAQSection from '$lib/components/FAQSection.svelte';
 
   // --- Props ---
   export let data;
@@ -41,9 +42,9 @@
     "@type": "SoftwareApplication",
     "name": t.title,
     "description": t.description,
-    "operatingSystem": "Web",
+    "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
     "applicationCategory": "DesignApplication",
-    "applicationSubCategory": "Graphic Design",
+    "applicationSubCategory": "Graphic Design Application",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -54,28 +55,7 @@
       t.guide.f2.replace(/\*\*(.*?)\*\*/g, '$1'),
       t.guide.f3.replace(/\*\*(.*?)\*\*/g, '$1'),
       t.guide.f4.replace(/\*\*(.*?)\*\*/g, '$1')
-    ],
-    "mainEntity": {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": t.q1,
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": t.a1
-          }
-        },
-        {
-          "@type": "Question",
-          "name": t.q2,
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": t.a2
-          }
-        }
-      ]
-    }
+    ]
   };
 
   // --- Derived State ---
@@ -221,6 +201,7 @@
 <svelte:head>
   <title>{t.title} | {dict.home.title}</title>
   <meta name="description" content="{t.description}" />
+  <meta name="keywords" content="{t.keywords}" />
   <link rel="canonical" href="https://selfgrowingmicrotool.com/{data.lang}/tools/color-master" />
 
   <!-- Open Graph -->
@@ -242,7 +223,7 @@
         </h1>
         <button
           on:click={() => showShortcuts = !showShortcuts}
-          class="lg:hidden p-2 text-slate-400 hover:text-indigo-500 transition-colors"
+          class="lg:hidden p-3 flex-shrink-0 text-slate-400 hover:text-indigo-500 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-full"
           aria-label={t.shortcuts}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
@@ -444,19 +425,13 @@
       </div>
     </section>
 
-    <section>
-      <h3 class="text-2xl font-bold mb-6">{t.faqTitle}</h3>
-      <div class="space-y-6">
-        <div>
-          <h4 class="font-bold text-lg text-slate-900 dark:text-white mb-2">{t.q1}</h4>
-          <p class="text-slate-600 dark:text-slate-300">{t.a1}</p>
-        </div>
-        <div>
-          <h4 class="font-bold text-lg text-slate-900 dark:text-white mb-2">{t.q2}</h4>
-          <p class="text-slate-600 dark:text-slate-300">{t.a2}</p>
-        </div>
-      </div>
-    </section>
+    <FAQSection
+      title={t.faqTitle}
+      items={[
+        { q: t.q1, a: t.a1 },
+        { q: t.q2, a: t.a2 }
+      ]}
+    />
   </article>
 
 </div>

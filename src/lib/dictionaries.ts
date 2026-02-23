@@ -224,6 +224,7 @@ export const dictionaries = {
       colorMaster: {
         title: "Lumina: Color & A11y Master",
         description: "The definitive color tool for designers and developers. Generate harmonies, check accessibility, simulate vision, and export code.",
+        keywords: "color picker, accessibility checker, contrast checker, color harmony, vision simulator, color blind simulator, hex to rgb, color palette generator",
         baseColor: "Base Color",
         hex: "Hex Code",
         harmony: "Harmony",
