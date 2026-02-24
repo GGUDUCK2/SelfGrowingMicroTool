@@ -1,10 +1,11 @@
 <script lang="ts">
   import { convertImage } from '$lib/utils/file-forge/image';
   import { Download, RefreshCw, AlertCircle } from 'lucide-svelte';
-  import { fade } from 'svelte/transition';
+
 
   export let file: File;
-  export let dict: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export let dict: Record<string, any>;
 
   type ImageFormat = 'image/png' | 'image/jpeg' | 'image/webp';
   let format: ImageFormat = 'image/png';
@@ -98,7 +99,7 @@
             {dict?.convert?.format || 'Format'}
           </span>
           <div class="flex gap-2" role="group" aria-label="Image Format Selection">
-            {#each formats as f}
+            {#each formats as f (f)}
               <button
                 class="px-4 py-2 rounded-lg text-sm font-medium transition-colors border
                 {format === f

@@ -1,15 +1,16 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { extractMetadata, type FileMetadata } from '$lib/utils/file-forge/metadata';
-  import { convertImage } from '$lib/utils/file-forge/converter';
-  import { Download, File as FileIcon, Image as ImageIcon } from 'lucide-svelte';
+  import { convertImage } from '$lib/utils/file-forge/image';
+  import { Download, File as FileIcon, Image as ImageIcon, ShieldCheck, Check } from 'lucide-svelte';
+  import { onDestroy } from 'svelte';
 
   export let file: File;
-  export let dict: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export let dict: Record<string, any>;
 
   let metadata: FileMetadata | null = null;
   let previewUrl: string | null = null;
-  let loading = true;
+  let copiedSafe = false;
 
   // Conversion state
   let convertFormat: 'image/png' | 'image/jpeg' | 'image/webp' = 'image/png';
@@ -23,7 +24,6 @@
   let originalAspectRatio = 1;
 
   async function load() {
-    loading = true;
     // Revoke previous URL if exists
     if (previewUrl) {
       URL.revokeObjectURL(previewUrl);
@@ -42,8 +42,6 @@
       }
     } catch (e) {
       console.error(e);
-    } finally {
-      loading = false;
     }
   }
 
@@ -57,6 +55,17 @@
     if (maintainAspectRatio && originalAspectRatio) {
       targetWidth = Math.round(targetHeight * originalAspectRatio);
     }
+  }
+
+  function sanitizeAndCopy() {
+    const ext = file.name.split('.').pop() || '';
+    const name = file.name.replace(/\.[^/.]+$/, "");
+    const safeName = name.replace(/[^a-z0-9]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '').toLowerCase();
+    const finalName = ext ? `${safeName}.${ext}` : safeName;
+
+    navigator.clipboard.writeText(finalName);
+    copiedSafe = true;
+    setTimeout(() => copiedSafe = false, 2000);
   }
 
   let error: string | null = null;
@@ -88,7 +97,6 @@
 
   $: if (file) load();
 
-  import { onDestroy } from 'svelte';
   onDestroy(() => {
     if (previewUrl) URL.revokeObjectURL(previewUrl);
   });
@@ -99,7 +107,20 @@
   <div class="grid grid-cols-2 gap-4">
       <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
           <span class="text-xs text-slate-500 block mb-1">{dict.info.name}</span>
-          <span class="text-sm font-medium text-slate-800 dark:text-slate-200 break-all">{file.name}</span>
+          <div class="flex items-center gap-2">
+             <span class="text-sm font-medium text-slate-800 dark:text-slate-200 break-all">{file.name}</span>
+             <button
+                on:click={sanitizeAndCopy}
+                class="p-1 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                title="Copy Sanitized Name (URL Safe)"
+             >
+                {#if copiedSafe}
+                    <Check size={12} />
+                {:else}
+                    <ShieldCheck size={12} />
+                {/if}
+             </button>
+          </div>
       </div>
       <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
           <span class="text-xs text-slate-500 block mb-1">{dict.info.size}</span>
@@ -141,7 +162,7 @@
           <div class="bg-slate-100 dark:bg-slate-800 rounded-xl p-4 max-h-64 overflow-y-auto">
               <h4 class="text-sm font-bold mb-2 sticky top-0 bg-slate-100 dark:bg-slate-800 pb-2 border-b dark:border-slate-700">{dict.info.fileCount}: {metadata.fileCount}</h4>
               <ul class="text-xs font-mono space-y-1">
-                  {#each (metadata.files || []) as f}
+                  {#each (metadata.files || []) as f, i (i)}
                       <li class="truncate text-slate-600 dark:text-slate-400">{f}</li>
                   {/each}
                   {#if (metadata.files?.length || 0) < (metadata.fileCount || 0)}

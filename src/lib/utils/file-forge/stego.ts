@@ -1,8 +1,10 @@
 /**
- * Simple LSB Steganography implementation for hiding text in images.
- * Uses the Least Significant Bit of R, G, and B channels.
- * Alpha channel is preserved to avoid visual artifacts or transparency issues.
+ * Robust LSB Steganography implementation.
+ * Hides data in the Least Significant Bit of R, G, B channels.
+ * Format: [MAGIC: 'STEGO' (5 bytes)] [LENGTH: UInt32 (4 bytes)] [DATA: N bytes]
  */
+
+const MAGIC = new TextEncoder().encode('STEGO'); // 5 bytes
 
 export async function encodeStego(imageFile: File, message: string): Promise<Blob> {
   const bitmap = await createImageBitmap(imageFile);
@@ -17,62 +19,50 @@ export async function encodeStego(imageFile: File, message: string): Promise<Blo
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const data = imageData.data;
 
-  // Convert message to binary array
-  // 1. Length header (32 bits)
-  // 2. Message body (UTF-8 bytes)
-
+  // Prepare Payload
   const encoder = new TextEncoder();
   const messageBytes = encoder.encode(message);
-  const length = messageBytes.length;
+  const lengthBytes = new Uint8Array(4);
+  new DataView(lengthBytes.buffer).setUint32(0, messageBytes.length); // Big Endian
 
-  // Max capacity check (3 bits per pixel)
-  const capacityBytes = Math.floor((canvas.width * canvas.height * 3) / 8);
-  if (length + 4 > capacityBytes) {
-    throw new Error(`Message is too long. Max capacity: ${capacityBytes} bytes.`);
+  // Concatenate: MAGIC + LENGTH + MESSAGE
+  const payload = new Uint8Array(MAGIC.length + lengthBytes.length + messageBytes.length);
+  payload.set(MAGIC, 0);
+  payload.set(lengthBytes, MAGIC.length);
+  payload.set(messageBytes, MAGIC.length + lengthBytes.length);
+
+  // Capacity Check
+  // Each pixel has 3 available bits (R, G, B). Alpha is ignored.
+  const capacityBits = (canvas.width * canvas.height * 3);
+  const requiredBits = payload.length * 8;
+
+  if (requiredBits > capacityBits) {
+    throw new Error(`Message too long. Image capacity: ${Math.floor(capacityBits / 8)} bytes. Message needs: ${payload.length} bytes.`);
   }
 
-  // Helper to get bit at position
-  const getBit = (val: number, pos: number) => (val >> pos) & 1;
+  // Embed Bits
+  let payloadByteIndex = 0;
+  let payloadBitIndex = 0; // 0-7
 
-  let byteIndex = 0; // Which byte we are writing (0-3 is length, 4+ is message)
-  let bitIndex = 0;  // Which bit of current byte (0-7)
-
-  // Current value we are serializing
-  let currentByte = (length >> 24) & 0xFF; // Start with MSB of length
-
-  // Iterate over pixels
   for (let i = 0; i < data.length; i += 4) {
-    // Process R, G, B (skip A at i+3)
+    if (payloadByteIndex >= payload.length) break;
+
+    // Channels R(0), G(1), B(2)
     for (let c = 0; c < 3; c++) {
-      if (byteIndex >= length + 4) break; // Done
+      if (payloadByteIndex >= payload.length) break;
 
-      const pixelIndex = i + c;
-      const bit = getBit(currentByte, 7 - bitIndex); // MSB first
+      const byte = payload[payloadByteIndex];
+      const bit = (byte >> (7 - payloadBitIndex)) & 1; // MSB first
 
-      // Modify LSB
-      if (bit === 1) {
-        data[pixelIndex] |= 1;
-      } else {
-        data[pixelIndex] &= ~1;
-      }
+      // Clear LSB then OR with bit
+      data[i + c] = (data[i + c] & 0xFE) | bit;
 
-      bitIndex++;
-      if (bitIndex === 8) {
-        bitIndex = 0;
-        byteIndex++;
-
-        // Load next byte
-        if (byteIndex < 4) {
-          // Still in length header
-          const shift = (3 - byteIndex) * 8;
-          currentByte = (length >> shift) & 0xFF;
-        } else if (byteIndex < length + 4) {
-          // Message body
-          currentByte = messageBytes[byteIndex - 4];
-        }
+      payloadBitIndex++;
+      if (payloadBitIndex === 8) {
+        payloadBitIndex = 0;
+        payloadByteIndex++;
       }
     }
-    if (byteIndex >= length + 4) break;
   }
 
   ctx.putImageData(imageData, 0, 0);
@@ -80,8 +70,8 @@ export async function encodeStego(imageFile: File, message: string): Promise<Blo
   return new Promise((resolve, reject) => {
     canvas.toBlob((blob) => {
       if (blob) resolve(blob);
-      else reject(new Error('Failed to encode image'));
-    }, 'image/png'); // Must be PNG to be lossless
+      else reject(new Error('Failed to create image blob'));
+    }, 'image/png');
   });
 }
 
@@ -98,52 +88,64 @@ export async function decodeStego(imageFile: File): Promise<string> {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const data = imageData.data;
 
-  // Read Length (32 bits = 4 bytes)
-  let length = 0;
-  let currentByte = 0;
-  let bitIndex = 0;
-  let byteIndex = 0;
-  let messageBytes: Uint8Array | null = null;
+  // Helper to read bits
+  let bitBuffer = 0;
+  let bitCount = 0;
+  const bytes: number[] = [];
+
+  // We need to read at least header (5 + 4 = 9 bytes) to know if it's valid
+  let state: 'magic' | 'length' | 'body' = 'magic';
+  let magicBuffer: number[] = [];
+  let lengthBuffer: number[] = [];
+  let messageLength = 0;
+  let messageBuffer: number[] = [];
 
   for (let i = 0; i < data.length; i += 4) {
     for (let c = 0; c < 3; c++) {
-      const pixelIndex = i + c;
-      const bit = data[pixelIndex] & 1;
+      const bit = data[i + c] & 1;
+      bitBuffer = (bitBuffer << 1) | bit;
+      bitCount++;
 
-      // Add bit to current byte
-      currentByte = (currentByte << 1) | bit;
-      bitIndex++;
+      if (bitCount === 8) {
+        const byte = bitBuffer;
+        bitBuffer = 0;
+        bitCount = 0;
 
-      if (bitIndex === 8) {
-        if (byteIndex < 4) {
-          // Constructing length
-          length = (length << 8) | currentByte;
-        } else {
-          // Reading message body
-          if (!messageBytes) {
-             if (length <= 0 || length > 10000000) { // Sanity check (10MB limit)
-                 // Likely random noise or not a stego image
-                 throw new Error('No hidden message found or message is corrupted.');
-             }
-             messageBytes = new Uint8Array(length);
+        // State Machine
+        if (state === 'magic') {
+          magicBuffer.push(byte);
+          if (magicBuffer.length === MAGIC.length) {
+            // Check Magic
+            const magicStr = new TextDecoder().decode(new Uint8Array(magicBuffer));
+            if (magicStr !== 'STEGO') {
+              throw new Error('No hidden message found (Invalid Magic Header).');
+            }
+            state = 'length';
           }
-          messageBytes[byteIndex - 4] = currentByte;
-        }
-
-        currentByte = 0;
-        bitIndex = 0;
-        byteIndex++;
-
-        // Check completion
-        if (messageBytes && byteIndex >= length + 4) {
-           const decoder = new TextDecoder();
-           // Remove null bytes if any, though our length logic should be precise
-           return decoder.decode(messageBytes);
+        } else if (state === 'length') {
+          lengthBuffer.push(byte);
+          if (lengthBuffer.length === 4) {
+            messageLength = new DataView(new Uint8Array(lengthBuffer).buffer).getUint32(0);
+            if (messageLength <= 0 || messageLength > 50000000) { // Sanity limit 50MB
+                throw new Error('Invalid message length.');
+            }
+            state = 'body';
+          }
+        } else if (state === 'body') {
+          messageBuffer.push(byte);
+          if (messageBuffer.length === messageLength) {
+            // Done!
+            return new TextDecoder().decode(new Uint8Array(messageBuffer));
+          }
         }
       }
     }
-    if (messageBytes && byteIndex >= length + 4) break;
+    if (state === 'body' && messageBuffer.length === messageLength) break;
   }
 
-  throw new Error('No hidden message found (EOF).');
+  if (state !== 'body' || messageBuffer.length < messageLength) {
+      throw new Error('Incomplete message.');
+  }
+
+  return new TextDecoder().decode(new Uint8Array(messageBuffer));
 }

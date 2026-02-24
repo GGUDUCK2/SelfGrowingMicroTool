@@ -1,6 +1,3 @@
-import type { PDFDocument } from 'pdf-lib';
-import type JSZip from 'jszip';
-
 export interface FileMetadata {
   name: string;
   type: string;
@@ -37,7 +34,7 @@ export async function extractMetadata(file: File): Promise<FileMetadata> {
       const zip = new JSZip();
       const content = await zip.loadAsync(file);
       const files: string[] = [];
-      content.forEach((relativePath, zipEntry) => {
+      content.forEach((relativePath) => {
         files.push(relativePath);
       });
       metadata.fileCount = files.length;

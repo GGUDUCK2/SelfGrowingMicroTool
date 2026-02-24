@@ -65,7 +65,7 @@
       "price": "0",
       "priceCurrency": "USD"
     },
-    "featureList": "File Hashing, Hex Viewer, Entropy Analysis, Magic Number Detection, Base64 Encoding, Image Conversion & Resizing, Metadata Inspection, Steganography"
+    "featureList": "File Hashing, Hex Viewer, Entropy Analysis, Magic Number Detection, Base64 Encoding, Image Conversion & Resizing, Metadata Inspection, Steganography, Risk Scoring, Entropy Visualization, Zip Analysis"
   };
 
   $: faqItems = [

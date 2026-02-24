@@ -1,10 +1,12 @@
 <script lang="ts">
-  import { onMount, createEventDispatcher } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   import { Copy, Check, RefreshCw } from 'lucide-svelte';
   import { calculateHash } from '$lib/utils/file-forge/hash';
 
   export let file: File | null;
-  export let dict: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export let dict: Record<string, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export let restoredData: any = null;
 
   const dispatch = createEventDispatcher();
@@ -60,7 +62,7 @@
         {dict.hash.calculating}
     </div>
   {:else}
-    {#each Object.entries(hashes) as [algo, hash]}
+    {#each Object.entries(hashes) as [algo, hash] (algo)}
       <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
         <div class="flex justify-between items-center mb-2">
           <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{algo}</span>

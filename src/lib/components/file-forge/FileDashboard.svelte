@@ -3,7 +3,7 @@
   import { db } from '$lib/db';
   import { browser } from '$app/environment';
   import { dictionaries } from '$lib/dictionaries';
-  import { Hash, FileCode, Search, FileSearch, ArrowRightLeft, Image, Lock, Download, AlertCircle } from 'lucide-svelte';
+  import { Hash, FileCode, Search, FileSearch, ArrowRightLeft, Image, Lock, Download, AlertCircle, Star } from 'lucide-svelte';
   import { generateReport, type AnalysisData } from '$lib/utils/file-forge/report';
   import HashPanel from './HashPanel.svelte';
   import Base64Panel from './Base64Panel.svelte';
@@ -14,23 +14,30 @@
   import StegoPanel from './StegoPanel.svelte';
 
   export let file: File | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export let dict: typeof dictionaries.en.tools.fileForge;
   export let restoredData: AnalysisData | null = null;
 
   let activeTab: 'info' | 'inspector' | 'hash' | 'base64' | 'convert' | 'compare' | 'stego' = 'info';
   let currentHistoryId: number | undefined;
   let analysisData: AnalysisData = {};
+  let starred = false;
 
   $: isImage = file?.type.startsWith('image/');
   $: isRestored = !file && !!restoredData;
 
   $: if (restoredData) {
       analysisData = restoredData;
+      // In restored mode, we can't easily check if it was starred without passing the full object
+      // But usually restoredData is just the data blob.
+      // If we want star status here, we'd need to pass it in props.
+      // For now, assume false or rely on the sidebar to show star status.
   }
 
   // Watch file changes to reset state and save history
   $: if (file) {
     analysisData = {};
+    starred = false;
     saveToHistory();
     if (!isImage && (activeTab === 'convert' || activeTab === 'stego')) {
       activeTab = 'info';
@@ -52,6 +59,17 @@
       currentHistoryId = id as number;
     } catch (e) {
       console.error('Failed to save history', e);
+    }
+  }
+
+  async function toggleStar() {
+    if (!currentHistoryId || !browser) return;
+    try {
+      starred = !starred;
+      await db.fileForgeHistory.update(currentHistoryId, { starred: starred ? 1 : 0 });
+    } catch (e) {
+      console.error(e);
+      starred = !starred; // Revert on error
     }
   }
 
@@ -176,6 +194,15 @@
     </button>
 
     <div class="absolute right-0 top-0 h-full flex items-center pr-4 bg-gradient-to-l from-white via-white to-transparent dark:from-slate-900 dark:via-slate-900 pl-8 pointer-events-none">
+        {#if currentHistoryId}
+            <button
+                on:click={toggleStar}
+                class="pointer-events-auto p-1.5 mr-2 text-slate-400 hover:text-yellow-400 transition-colors {starred ? 'text-yellow-400' : ''}"
+                title={dict?.star || 'Star this analysis'}
+            >
+                <Star size={18} fill={starred ? "currentColor" : "none"} />
+            </button>
+        {/if}
         <button
             on:click={downloadReport}
             class="pointer-events-auto flex items-center gap-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shadow-sm"
