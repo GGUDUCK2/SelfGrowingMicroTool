@@ -184,8 +184,9 @@
         "@type": "Organization",
         "name": "MicroFactory"
       },
-      "operatingSystem": "Any",
-      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
+      "applicationCategory": "DeveloperApplication, EducationalApplication",
+      "browserRequirements": "Requires JavaScript. HTML5.",
       "datePublished": "2023-10-01",
       "offers": {
         "@type": "Offer",
@@ -210,7 +211,7 @@
   </div>
 
   <!-- Main Workspace -->
-  <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+  <main class="grid grid-cols-1 lg:grid-cols-4 gap-6 flex-grow">
     <!-- Left: History -->
     <div class="lg:col-span-1 hidden lg:block">
        <HistoryPanel {lang} on:restore={handleRestore} />
@@ -259,7 +260,7 @@
           <div class="flex flex-wrap gap-2 text-xs text-gray-500 font-mono">
              {#each Object.values(dict.operators) as label (label)}
                  <button
-                    class="px-2 py-1 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors"
+                    class="px-3 py-2 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors"
                     aria-label="Insert {label}"
                     on:click={() => {
                         expression += (expression && !expression.endsWith(' ') ? ' ' : '') + label.split(' ')[0] + ' ';
@@ -269,8 +270,8 @@
                  </button>
              {/each}
              <!-- Extra Operators -->
-             <button class="px-2 py-1 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors" on:click={() => expression += ' -> '}>→</button>
-             <button class="px-2 py-1 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors" on:click={() => expression += ' <-> '}>↔</button>
+             <button class="px-3 py-2 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors" aria-label="Insert Implies" on:click={() => expression += ' -> '}>→</button>
+             <button class="px-3 py-2 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors" aria-label="Insert Equivalent" on:click={() => expression += ' <-> '}>↔</button>
           </div>
           {/if}
        </div>
@@ -325,7 +326,7 @@
     <div class="lg:hidden">
        <HistoryPanel {lang} on:restore={handleRestore} />
     </div>
-  </div>
+  </main>
 
   <GuideSection {...dict.guide} />
   <FAQSection title={dict.faqTitle} items={faqItems} />
