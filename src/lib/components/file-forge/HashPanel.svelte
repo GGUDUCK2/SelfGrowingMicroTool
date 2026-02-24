@@ -3,8 +3,9 @@
   import { Copy, Check, RefreshCw } from 'lucide-svelte';
   import { calculateHash } from '$lib/utils/file-forge/hash';
 
-  export let file: File;
+  export let file: File | null;
   export let dict: any;
+  export let restoredData: any = null;
 
   const dispatch = createEventDispatcher();
 
@@ -18,6 +19,13 @@
   let copied: string | null = null;
 
   async function computeHashes() {
+    if (restoredData && restoredData.hashes) {
+      hashes = restoredData.hashes;
+      loading = false;
+      return;
+    }
+    if (!file) return;
+
     loading = true;
     try {
       const algorithms = ['SHA-1', 'SHA-256', 'SHA-384', 'SHA-512'] as const;
@@ -28,6 +36,7 @@
           dispatch('hashCalculated', hash);
         }
       }
+      dispatch('allHashesCalculated', hashes);
     } catch (e) {
       console.error(e);
     } finally {

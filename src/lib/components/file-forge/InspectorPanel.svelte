@@ -1,9 +1,14 @@
 <script lang="ts">
-  import { FileSearch, Calculator, Activity, AlertTriangle } from 'lucide-svelte';
+  import { createEventDispatcher } from 'svelte';
+  import { FileSearch, Calculator, Activity, AlertTriangle, HelpCircle } from 'lucide-svelte';
   import { detectFileType } from '$lib/utils/file-forge/signatures';
+  import { dictionaries } from '$lib/dictionaries';
 
-  export let file: File;
-  export let dict: any;
+  export let file: File | null;
+  export let dict: typeof dictionaries.en.tools.fileForge;
+  export let restoredData: any = null; // View-only mode
+
+  const dispatch = createEventDispatcher();
 
   interface HexLine {
     offset: string;
@@ -18,6 +23,23 @@
   let loading = true;
 
   async function analyze() {
+    if (restoredData) {
+      // Restore mode
+      if (restoredData.magic) magicInfo = restoredData.magic;
+      if (restoredData.entropy) entropy = restoredData.entropy;
+      if (restoredData.hexPreview) {
+         // Reconstruct simple hex lines from preview string if needed, or just display raw?
+         // For now, let's assume we can't fully reconstruct the interactive hex view without file bytes,
+         // but we stored the preview string.
+         // Let's parse the preview string back to hexLines for display consistency
+         hexLines = parseHexPreview(restoredData.hexPreview);
+      }
+      loading = false;
+      return;
+    }
+
+    if (!file) return;
+
     loading = true;
     try {
       // Read first 512 bytes
@@ -49,10 +71,32 @@
       // Entropy Calculation (on the chunk)
       entropy = calculateEntropy(view);
 
+      // Emit data for report
+      dispatch('analysisComplete', {
+          magic: magicInfo,
+          entropy,
+          hexPreview: hexLines.map(l => `${l.offset}  ${l.hex}  ${l.ascii}`).join('\n')
+      });
+
     } catch (e) {
       console.error(e);
     } finally {
       loading = false;
+    }
+  }
+
+  function parseHexPreview(preview: string): HexLine[] {
+    try {
+      return preview.split('\n').filter(l => l.trim()).map(line => {
+        const parts = line.split('  '); // Assuming double space separator
+        return {
+          offset: parts[0] || '',
+          hex: parts[1] || '',
+          ascii: parts[2] || ''
+        };
+      });
+    } catch {
+      return [];
     }
   }
 
@@ -118,9 +162,21 @@
         <div class="text-xs text-emerald-600 dark:text-emerald-400 mt-1">
           {entropy > 7.5 ? (dict?.inspector?.compressed || 'Likely Compressed/Encrypted') : (entropy < 5 ? (dict?.inspector?.text || 'Low Entropy (Text/Simple)') : (dict?.inspector?.moderate || 'Moderate Entropy'))}
         </div>
-        <!-- Simple Bar -->
-        <div class="w-full h-1.5 bg-emerald-200 dark:bg-emerald-900 rounded-full mt-2 overflow-hidden">
-          <div class="h-full bg-emerald-500" style="width: {(entropy / 8) * 100}%"></div>
+        <!-- Gradient Entropy Bar -->
+        <div class="relative mt-3 group">
+             <div class="w-full h-3 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden relative">
+                <div class="absolute inset-0 bg-gradient-to-r from-emerald-400 via-yellow-400 to-red-500 opacity-80"></div>
+             </div>
+             <!-- Marker -->
+             <div
+                class="absolute top-0 w-1 h-3 bg-slate-900 dark:bg-white border-x border-white/50 dark:border-black/50 transition-all duration-500"
+                style="left: calc({(entropy / 8) * 100}% - 2px)"
+             ></div>
+
+             <!-- Tooltip -->
+             <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
+                {dict?.inspector?.entropyTooltip || '0 = Uniform, 8 = Random (Encrypted/Compressed)'}
+             </div>
         </div>
       </div>
     </div>

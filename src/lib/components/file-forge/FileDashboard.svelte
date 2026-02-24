@@ -2,7 +2,9 @@
   import { fade } from 'svelte/transition';
   import { db } from '$lib/db';
   import { browser } from '$app/environment';
-  import { Hash, FileCode, Search, FileSearch, ArrowRightLeft, Image, Lock } from 'lucide-svelte';
+  import { dictionaries } from '$lib/dictionaries';
+  import { Hash, FileCode, Search, FileSearch, ArrowRightLeft, Image, Lock, Download, AlertCircle } from 'lucide-svelte';
+  import { generateReport, type AnalysisData } from '$lib/utils/file-forge/report';
   import HashPanel from './HashPanel.svelte';
   import Base64Panel from './Base64Panel.svelte';
   import PreviewPanel from './PreviewPanel.svelte';
@@ -11,27 +13,32 @@
   import ComparePanel from './ComparePanel.svelte';
   import StegoPanel from './StegoPanel.svelte';
 
-  export let file: File;
-  export let dict: any;
+  export let file: File | null;
+  export let dict: typeof dictionaries.en.tools.fileForge;
+  export let restoredData: AnalysisData | null = null;
 
   let activeTab: 'info' | 'inspector' | 'hash' | 'base64' | 'convert' | 'compare' | 'stego' = 'info';
   let currentHistoryId: number | undefined;
+  let analysisData: AnalysisData = {};
 
   $: isImage = file?.type.startsWith('image/');
+  $: isRestored = !file && !!restoredData;
+
+  $: if (restoredData) {
+      analysisData = restoredData;
+  }
 
   // Watch file changes to reset state and save history
   $: if (file) {
+    analysisData = {};
     saveToHistory();
-    // Default to info tab on file switch, or keep user preference if they are browsing multiple files?
-    // Usually standard behavior is reset, but let's keep it sticky if suitable.
-    // However, if switching from image to non-image, 'convert' tab might break.
     if (!isImage && (activeTab === 'convert' || activeTab === 'stego')) {
       activeTab = 'info';
     }
   }
 
   async function saveToHistory() {
-    if (!browser) return;
+    if (!browser || !file) return;
     try {
       const id = await db.fileForgeHistory.add({
         name: file.name,
@@ -39,12 +46,23 @@
         type: file.type,
         hash: '',
         createdAt: new Date(),
-        starred: 0
+        starred: 0,
+        data: ''
       });
       currentHistoryId = id as number;
     } catch (e) {
       console.error('Failed to save history', e);
     }
+  }
+
+  async function updateHistoryData() {
+      if (currentHistoryId && browser) {
+          try {
+            await db.fileForgeHistory.update(currentHistoryId, {
+                data: JSON.stringify(analysisData)
+            });
+          } catch(e) { console.error(e); }
+      }
   }
 
   async function handleHashCalculated(event: CustomEvent<string>) {
@@ -56,11 +74,41 @@
       }
     }
   }
+
+  function handleAllHashes(event: CustomEvent<Record<string, string>>) {
+      analysisData.hashes = event.detail;
+      updateHistoryData();
+  }
+
+  function handleInspectorAnalysis(event: CustomEvent) {
+      analysisData = { ...analysisData, ...event.detail };
+      updateHistoryData();
+  }
+
+  function downloadReport() {
+      const text = generateReport(file, analysisData);
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `file-forge-report-${file?.name || 'analysis'}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+  }
+
+  function handleKeydown(e: KeyboardEvent) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      e.preventDefault();
+      downloadReport();
+    }
+  }
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden min-h-[600px] flex flex-col">
   <!-- Tabs -->
-  <div class="flex border-b border-slate-200 dark:border-slate-800 overflow-x-auto scrollbar-hide">
+  <div class="flex border-b border-slate-200 dark:border-slate-800 overflow-x-auto scrollbar-hide pr-20 relative">
     <button
       class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800
       {activeTab === 'info' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
@@ -126,7 +174,25 @@
       <FileCode size={16} />
       {dict.tabs.base64}
     </button>
+
+    <div class="absolute right-0 top-0 h-full flex items-center pr-4 bg-gradient-to-l from-white via-white to-transparent dark:from-slate-900 dark:via-slate-900 pl-8 pointer-events-none">
+        <button
+            on:click={downloadReport}
+            class="pointer-events-auto flex items-center gap-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shadow-sm"
+            title={dict?.downloadReport || 'Download Report'}
+        >
+            <Download size={14} />
+            <span class="hidden sm:inline">{dict?.downloadReport || 'Report'}</span>
+        </button>
+    </div>
   </div>
+
+  {#if isRestored}
+      <div class="bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-200 px-6 py-2 text-xs font-medium flex items-center gap-2 border-b border-amber-100 dark:border-amber-800/50">
+          <AlertCircle size={14} />
+          {dict?.restoredMode || 'Viewing history record. Original file access is restricted.'}
+      </div>
+  {/if}
 
   <!-- Content -->
   <div class="p-6 flex-1 bg-slate-50/50 dark:bg-black/20 overflow-y-auto min-h-[500px]">
@@ -136,11 +202,11 @@
       </div>
     {:else if activeTab === 'inspector'}
       <div in:fade={{ duration: 200 }}>
-        <InspectorPanel {file} {dict} />
+        <InspectorPanel {file} {dict} on:analysisComplete={handleInspectorAnalysis} {restoredData} />
       </div>
     {:else if activeTab === 'hash'}
       <div in:fade={{ duration: 200 }}>
-        <HashPanel {file} {dict} on:hashCalculated={handleHashCalculated} />
+        <HashPanel {file} {dict} on:hashCalculated={handleHashCalculated} on:allHashesCalculated={handleAllHashes} {restoredData} />
       </div>
     {:else if activeTab === 'convert' && isImage}
       <div in:fade={{ duration: 200 }}>
