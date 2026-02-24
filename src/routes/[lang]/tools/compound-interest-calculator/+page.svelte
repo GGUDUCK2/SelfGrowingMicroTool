@@ -344,6 +344,36 @@
     },
     {
       "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": dict.q1,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": dict.a1
+          }
+        },
+        {
+          "@type": "Question",
+          "name": dict.q2,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": dict.a2
+          }
+        },
+        {
+          "@type": "Question",
+          "name": dict.q3,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": dict.a3
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [{
         "@type": "ListItem",
@@ -438,6 +468,7 @@
               >
               <input
                 type="number"
+                inputmode="decimal"
                 bind:value={principal}
                 class="w-full pl-8 pr-4 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
                 class:border-red-500={errors.principal}
@@ -459,6 +490,7 @@
               >
               <input
                 type="number"
+                inputmode="decimal"
                 bind:value={contribution}
                 class="w-full pl-8 pr-4 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
                 class:border-red-500={errors.contribution}
@@ -476,6 +508,7 @@
             <div class="relative mt-1">
               <input
                 type="number"
+                inputmode="decimal"
                 step="0.1"
                 bind:value={rate}
                 class="w-full pl-4 pr-8 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
@@ -511,6 +544,7 @@
               <div class="relative mt-1">
                 <input
                   type="number"
+                  inputmode="decimal"
                   step="0.1"
                   bind:value={taxRate}
                   class="w-full pl-4 pr-8 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
@@ -535,6 +569,7 @@
             <div class="relative mt-1">
               <input
                 type="number"
+                inputmode="decimal"
                 step="0.1"
                 bind:value={inflationRate}
                 class="w-full pl-4 pr-8 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
