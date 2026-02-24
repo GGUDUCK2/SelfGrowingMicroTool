@@ -339,6 +339,7 @@ export const dictionaries = {
         compare: "Compare Now",
         mergeConflict: "Merge Conflict Parser",
         downloadReport: "Download Report",
+        star: "Star Analysis",
         pasteConflict: "Paste text with conflict markers (<<<<<<<, =======, >>>>>>>)",
         conflictParsed: "Conflict markers parsed successfully!",
         noConflictFound: "No conflict markers found.",
@@ -3117,6 +3118,9 @@ export const dictionaries = {
           compressed: "Likely Compressed/Encrypted",
           text: "Low Entropy (Text/Simple)",
           moderate: "Moderate Entropy",
+          riskScore: "Risk Score",
+          entropyMap: "Entropy Map",
+          metadata: "Deep Metadata",
           hexView: "Hex Viewer (First 512 Bytes)"
         },
         info: {
@@ -5581,6 +5585,7 @@ export const dictionaries = {
           stego: "비밀 (Secret)"
         },
         downloadReport: "리포트 다운로드",
+        star: "분석 즐겨찾기",
         restoredMode: "히스토리 기록을 보고 있습니다. 원본 파일에는 접근할 수 없습니다.",
         stego: {
           hide: "비밀 숨기기",
@@ -5604,6 +5609,9 @@ export const dictionaries = {
           compressed: "압축/암호화됨",
           text: "낮은 엔트로피 (텍스트/단순)",
           moderate: "중간 엔트로피",
+          riskScore: "위험도 점수",
+          entropyMap: "엔트로피 맵",
+          metadata: "상세 메타데이터",
           hexView: "Hex 뷰어 (첫 512 바이트)"
         },
         info: {

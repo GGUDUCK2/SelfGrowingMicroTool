@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+
   import { Copy, Check, Download } from 'lucide-svelte';
 
   export let file: File;
-  export let dict: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export let dict: Record<string, any>;
 
   let base64 = '';
   let includeHeader = true;

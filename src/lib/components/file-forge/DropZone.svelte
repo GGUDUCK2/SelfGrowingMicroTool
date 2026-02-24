@@ -2,7 +2,8 @@
   import { UploadCloud } from 'lucide-svelte';
   import { createEventDispatcher } from 'svelte';
 
-  export let dict: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export let dict: Record<string, any>;
 
   const dispatch = createEventDispatcher();
   let isDragging = false;

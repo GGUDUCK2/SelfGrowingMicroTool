@@ -4,7 +4,8 @@
   import { slide } from 'svelte/transition';
 
   export let file: File;
-  export let dict: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export let dict: Record<string, any>;
 
   let mode: 'encode' | 'decode' = 'encode';
   let message = '';
@@ -25,7 +26,7 @@
     try {
       resultBlob = await encodeStego(file, message);
       resultUrl = URL.createObjectURL(resultBlob);
-    } catch (e: any) {
+    } catch (e) {
       error = e.message || 'Encoding failed';
     } finally {
       processing = false;
@@ -39,7 +40,7 @@
 
     try {
       decodedMessage = await decodeStego(file);
-    } catch (e: any) {
+    } catch (e) {
       error = e.message || 'Decoding failed';
     } finally {
       processing = false;

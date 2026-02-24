@@ -4,7 +4,8 @@
   import { fade } from 'svelte/transition';
 
   export let file: File; // The primary file
-  export let dict: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export let dict: Record<string, any>;
 
   let comparisonType: 'file' | 'hash' = 'file';
   let secondFile: File | null = null;
