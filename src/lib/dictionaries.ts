@@ -3093,6 +3093,8 @@ export const dictionaries = {
           compare: "Compare",
           stego: "Secret"
         },
+        downloadReport: "Download Report",
+        restoredMode: "Viewing history record. Original file access is restricted.",
         stego: {
           hide: "Hide Secret",
           reveal: "Reveal Secret",
@@ -3111,6 +3113,7 @@ export const dictionaries = {
           detectedType: "Detected Type (Magic)",
           matchExtension: "Matches Extension",
           entropy: "Shannon Entropy",
+          entropyTooltip: "0 = Uniform, 8 = Random (Encrypted/Compressed)",
           compressed: "Likely Compressed/Encrypted",
           text: "Low Entropy (Text/Simple)",
           moderate: "Moderate Entropy",
@@ -5479,6 +5482,8 @@ export const dictionaries = {
           compare: "비교",
           stego: "비밀 (Secret)"
         },
+        downloadReport: "리포트 다운로드",
+        restoredMode: "히스토리 기록을 보고 있습니다. 원본 파일에는 접근할 수 없습니다.",
         stego: {
           hide: "비밀 숨기기",
           reveal: "비밀 찾기",
@@ -5497,6 +5502,7 @@ export const dictionaries = {
           detectedType: "감지된 타입 (매직 넘버)",
           matchExtension: "확장자 일치",
           entropy: "섀넌 엔트로피",
+          entropyTooltip: "0 = 균일함, 8 = 무작위 (암호화/압축됨)",
           compressed: "압축/암호화됨",
           text: "낮은 엔트로피 (텍스트/단순)",
           moderate: "중간 엔트로피",

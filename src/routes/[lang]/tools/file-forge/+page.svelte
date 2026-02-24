@@ -8,20 +8,28 @@
   import HistoryPanel from '$lib/components/file-forge/HistoryPanel.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
+  import type { AnalysisData } from '$lib/utils/file-forge/report';
 
   $: lang = $page.params.lang || 'en';
-  // Cast to any to avoid TS errors until type definitions are fully updated
-  $: dict = (getDictionary(lang).tools as any).fileForge;
+  $: dict = getDictionary(lang).tools.fileForge;
   $: common = getDictionary(lang).common;
 
   let currentFile: File | null = null;
+  let restoredData: AnalysisData | null = null;
 
   function handleFile(event: CustomEvent<File>) {
     currentFile = event.detail;
+    restoredData = null;
+  }
+
+  function handleRestore(event: CustomEvent<AnalysisData>) {
+    restoredData = event.detail;
+    currentFile = null;
   }
 
   function handleReset() {
     currentFile = null;
+    restoredData = null;
   }
 
   $: breadcrumbSchema = {
@@ -126,13 +134,19 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
       <!-- Main Area -->
       <div class="lg:col-span-8 space-y-8">
-        {#if !currentFile}
+        {#if !currentFile && !restoredData}
           <div in:fade={{ duration: 200 }}>
             <DropZone {dict} on:file={handleFile} />
           </div>
         {:else}
           <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-bold text-slate-700 dark:text-slate-200">Active File</h2>
+            <h2 class="text-lg font-bold text-slate-700 dark:text-slate-200">
+              {#if restoredData}
+                {dict.restoredMode || 'History View'}
+              {:else}
+                Active File
+              {/if}
+            </h2>
             <button
               on:click={handleReset}
               class="text-sm text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 hover:underline"
@@ -141,7 +155,7 @@
             </button>
           </div>
           <div in:fade={{ duration: 200 }}>
-            <FileDashboard file={currentFile} {dict} />
+            <FileDashboard file={currentFile} {dict} {restoredData} />
           </div>
         {/if}
 
@@ -168,7 +182,7 @@
       <!-- Sidebar -->
       <div class="lg:col-span-4 space-y-6">
         <div class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800">
-           <HistoryPanel {dict} />
+           <HistoryPanel {dict} on:restore={handleRestore} />
         </div>
       </div>
     </div>
