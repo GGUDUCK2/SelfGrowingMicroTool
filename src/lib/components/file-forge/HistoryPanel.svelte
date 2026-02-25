@@ -3,7 +3,7 @@
   import { db } from '$lib/db';
   import { browser } from '$app/environment';
   import { liveQuery } from 'dexie';
-  import { Clock, ArchiveRestore, Star, Trash2, Check, Copy } from 'lucide-svelte';
+  import { Clock, ArchiveRestore, Star, Trash2, Check, Copy, FileText } from 'lucide-svelte';
   import { slide } from 'svelte/transition';
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -49,7 +49,11 @@
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function restore(item: any) {
-    if (item.data) {
+    if (item.blob && item.blob instanceof Blob) {
+        // Reconstruct File object
+        const file = new File([item.blob], item.name, { type: item.type, lastModified: item.createdAt.getTime() });
+        dispatch('restoreFile', file);
+    } else if (item.data) {
         try {
             const data = JSON.parse(item.data);
             dispatch('restore', data);
@@ -132,8 +136,13 @@
               on:click={() => restore(item)}
               class="w-full py-1.5 text-xs font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 rounded flex items-center justify-center gap-2 transition-colors"
             >
-              <ArchiveRestore size={12} />
-              {dict.history.restore || 'Restore Analysis'}
+              {#if item.blob}
+                  <FileText size={12} />
+                  {dict.history.restoreFull || 'Full Restore'}
+              {:else}
+                  <ArchiveRestore size={12} />
+                  {dict.history.restore || 'Restore Analysis'}
+              {/if}
             </button>
           </div>
         {/each}

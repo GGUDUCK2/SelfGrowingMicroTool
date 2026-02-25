@@ -27,6 +27,11 @@
     currentFile = null;
   }
 
+  function handleRestoreFile(event: CustomEvent<File>) {
+    currentFile = event.detail;
+    restoredData = null;
+  }
+
   function handleReset() {
     currentFile = null;
     restoredData = null;
@@ -90,7 +95,7 @@
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content="file hash, hex viewer, entropy analysis, magic number, md5, sha256, base64 converter, image converter, resize image, metadata viewer, file analysis, privacy first, steganography" />
+  <meta name="keywords" content="file hash, hex viewer, entropy analysis, magic number, md5, sha256, base64 converter, image converter, resize image, metadata viewer, file analysis, privacy first, steganography, zip analysis, risk assessment, pdf metadata, entropy map" />
 
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
@@ -182,7 +187,7 @@
       <!-- Sidebar -->
       <div class="lg:col-span-4 space-y-6">
         <div class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800">
-           <HistoryPanel {dict} on:restore={handleRestore} />
+           <HistoryPanel {dict} on:restore={handleRestore} on:restoreFile={handleRestoreFile} />
         </div>
       </div>
     </div>

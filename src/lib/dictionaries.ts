@@ -3096,6 +3096,25 @@ export const dictionaries = {
         },
         downloadReport: "Download Report",
         restoredMode: "Viewing history record. Original file access is restricted.",
+        risk: {
+          title: "Safety Score",
+          factors: "Risk Factors",
+          safe: "Safe",
+          low: "Low Risk",
+          medium: "Medium Risk",
+          high: "High Risk",
+          critical: "Critical Risk"
+        },
+        archive: {
+          analysis: "Archive Analysis",
+          ratio: "Compression Ratio",
+          encrypted: "Encrypted",
+          files: "File Count"
+        },
+        entropy: {
+          title: "Entropy DNA",
+          desc: "Visualizes data randomness. Uniform blocks usually indicate encryption or compression."
+        },
         stego: {
           hide: "Hide Secret",
           reveal: "Reveal Secret",
@@ -3166,7 +3185,9 @@ export const dictionaries = {
           title: "Recent Files",
           empty: "No files analyzed yet.",
           clear: "Clear History",
-          confirmClear: "Clear all file history?"
+          confirmClear: "Clear all file history?",
+          restoreFull: "Full Restore",
+          restore: "Restore Analysis"
         },
         guide: {
           title: "Why File Forge?",
@@ -5587,6 +5608,25 @@ export const dictionaries = {
         downloadReport: "리포트 다운로드",
         star: "분석 즐겨찾기",
         restoredMode: "히스토리 기록을 보고 있습니다. 원본 파일에는 접근할 수 없습니다.",
+        risk: {
+          title: "안전 점수",
+          factors: "위험 요인",
+          safe: "안전",
+          low: "낮은 위험",
+          medium: "중간 위험",
+          high: "높은 위험",
+          critical: "치명적 위험"
+        },
+        archive: {
+          analysis: "아카이브 분석",
+          ratio: "압축률",
+          encrypted: "암호화됨",
+          files: "파일 수"
+        },
+        entropy: {
+          title: "엔트로피 DNA",
+          desc: "데이터의 무작위성을 시각화합니다. 균일한 블록은 보통 암호화나 압축을 의미합니다."
+        },
         stego: {
           hide: "비밀 숨기기",
           reveal: "비밀 찾기",
@@ -5657,7 +5697,9 @@ export const dictionaries = {
           title: "최근 파일",
           empty: "아직 분석된 파일이 없습니다.",
           clear: "기록 지우기",
-          confirmClear: "모든 파일 기록을 지우시겠습니까?"
+          confirmClear: "모든 파일 기록을 지우시겠습니까?",
+          restoreFull: "전체 복원",
+          restore: "분석 복원"
         },
         guide: {
           title: "왜 파일 포지인가요?",
