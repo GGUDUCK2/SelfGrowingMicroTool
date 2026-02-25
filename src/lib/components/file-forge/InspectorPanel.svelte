@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { FileSearch, Activity, AlertTriangle, ScanEye, FileArchive, FileText, Binary } from 'lucide-svelte';
+  import { FileSearch, Activity, AlertTriangle, ScanEye, FileArchive, FileText, Binary, Edit2, Save, RotateCcw, Download } from 'lucide-svelte';
   import { detectFileType } from '$lib/utils/file-forge/signatures';
   import { calculateEntropy, calculateEntropyMap } from '$lib/utils/file-forge/analysis';
   import { calculateRiskScore, type RiskAnalysis } from '$lib/utils/file-forge/risk';
@@ -20,8 +20,8 @@
   const dispatch = createEventDispatcher();
 
   interface HexLine {
-    offset: string;
-    hex: string;
+    offsetDisplay: string;
+    bytes: { val: number; offset: number; modified: boolean }[];
     ascii: string;
   }
 
@@ -38,6 +38,9 @@
   let pdfInfo: PdfMetadata | null = null;
 
   let loading = true;
+  let editMode = false;
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity
+  let modifiedBytes = new Map<number, number>();
 
   async function analyze() {
     if (restoredData) {
@@ -58,29 +61,14 @@
     if (!file) return;
 
     loading = true;
+    modifiedBytes.clear();
     try {
       // 1. Read first 512 bytes for Hex View
       const chunk = file.slice(0, 512);
       buffer = await chunk.arrayBuffer();
       const view = new Uint8Array(buffer);
 
-      // 2. Hex View Generation
-      const newHexLines: HexLine[] = [];
-      for (let i = 0; i < view.length; i += 16) {
-        const slice = view.slice(i, i + 16);
-        const hex = Array.from(slice)
-          .map(b => b.toString(16).padStart(2, '0').toUpperCase())
-          .join(' ');
-        const ascii = Array.from(slice)
-          .map(b => (b >= 32 && b <= 126 ? String.fromCharCode(b) : '.'))
-          .join('');
-        newHexLines.push({
-          offset: i.toString(16).padStart(4, '0').toUpperCase(),
-          hex,
-          ascii
-        });
-      }
-      hexLines = newHexLines;
+      updateHexView();
 
       // 3. Magic Number Detection
       magicInfo = detectFileType(buffer);
@@ -110,7 +98,7 @@
 
       // Pass archive data to risk calculator if available
       const riskArchiveData = archiveInfo ? { compressionRatio: archiveInfo.compressionRatio, fileCount: archiveInfo.fileCount } : undefined;
-      risk = calculateRiskScore(file, magicInfo, entropy, riskArchiveData);
+      risk = await calculateRiskScore(file, magicInfo, entropy, riskArchiveData);
 
       // 6. Basic Metadata
       metadata = await extractMetadata(file);
@@ -124,7 +112,7 @@
           metadata,
           archive: archiveInfo,
           pdf: pdfInfo,
-          hexPreview: hexLines.map(l => `${l.offset}  ${l.hex}  ${l.ascii}`).join('\n')
+          hexPreview: hexLines.map(l => `${l.offsetDisplay}  ${l.bytes.map(b => b.val.toString(16).padStart(2,'0').toUpperCase()).join(' ')}  ${l.ascii}`).join('\n')
       });
 
     } catch (e) {
@@ -134,19 +122,97 @@
     }
   }
 
+  function updateHexView() {
+      if (!buffer) return;
+      const view = new Uint8Array(buffer);
+      const newHexLines: HexLine[] = [];
+
+      for (let i = 0; i < view.length; i += 16) {
+        const slice = view.slice(i, i + 16);
+        const originalBytes = Array.from(slice);
+
+        const displayBytes = originalBytes.map((b, idx) => {
+            const offset = i + idx;
+            const modified = modifiedBytes.has(offset);
+            const val = modified ? modifiedBytes.get(offset)! : b;
+            return { val, offset, modified };
+        });
+
+        const ascii = displayBytes
+          .map(b => (b.val >= 32 && b.val <= 126 ? String.fromCharCode(b.val) : '.'))
+          .join('');
+
+        newHexLines.push({
+          offsetDisplay: i.toString(16).padStart(4, '0').toUpperCase(),
+          bytes: displayBytes,
+          ascii
+        });
+      }
+      hexLines = newHexLines;
+  }
+
   function parseHexPreview(preview: string): HexLine[] {
     try {
       return preview.split('\n').filter(l => l.trim()).map(line => {
-        const parts = line.split('  '); // Assuming double space separator
+        // Simplified parser for restored view - not editable
+        const parts = line.split('  ');
+        // We reconstruct a simple view
         return {
-          offset: parts[0] || '',
-          hex: parts[1] || '',
-          ascii: parts[2] || ''
-        };
+          offsetDisplay: parts[0] || '',
+          bytes: [], // Empty as we don't support editing history logs
+          ascii: parts[2] || '',
+          rawHex: parts[1] || '' // Store raw for display
+        } as unknown as HexLine;
       });
     } catch {
       return [];
     }
+  }
+
+  function handleByteClick(byte: { val: number, offset: number }) {
+      if (!editMode) return;
+      const input = prompt('Enter Hex (00-FF):', byte.val.toString(16).padStart(2, '0').toUpperCase());
+      if (input !== null) {
+          const parsed = parseInt(input, 16);
+          if (!isNaN(parsed) && parsed >= 0 && parsed <= 255) {
+              modifiedBytes.set(byte.offset, parsed);
+              modifiedBytes = modifiedBytes;
+              updateHexView();
+          }
+      }
+  }
+
+  async function downloadPatched() {
+    if (!file) return;
+    try {
+        const arrayBuffer = await file.arrayBuffer();
+        const uint8Array = new Uint8Array(arrayBuffer);
+
+        // Apply patches
+        modifiedBytes.forEach((byte, offset) => {
+            if (offset < uint8Array.length) {
+                uint8Array[offset] = byte;
+            }
+        });
+
+        const blob = new Blob([uint8Array], { type: file.type });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `patched-${file.name}`;
+        a.click();
+        URL.revokeObjectURL(url);
+    } catch (e) {
+        alert('Failed to patch file: ' + (e instanceof Error ? e.message : e));
+    }
+  }
+
+  function resetChanges() {
+      if (confirm('Discard all changes?')) {
+          modifiedBytes.clear();
+          modifiedBytes = modifiedBytes;
+          updateHexView();
+      }
   }
 
   $: if (file || restoredData) {
@@ -235,7 +301,7 @@
                     <div class="mt-2">
                         <span class="text-xs text-slate-400 block mb-1">Contents (Top 5):</span>
                         <div class="bg-white dark:bg-slate-800 rounded p-2 text-xs font-mono max-h-24 overflow-y-auto">
-                            {#each archiveInfo.files.slice(0, 5) as f}
+                            {#each archiveInfo.files.slice(0, 5) as f (f.name)}
                                 <div class="truncate text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-slate-700/50 last:border-0 py-0.5">
                                     {f.name} <span class="opacity-50">({(f.size/1024).toFixed(1)} KB)</span>
                                 </div>
@@ -285,16 +351,56 @@
     </div>
 
     <!-- 4. Hex View -->
-    <div class="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 font-mono text-xs shadow-lg">
-      <div class="bg-slate-950/50 px-4 py-3 border-b border-slate-800 text-slate-400 flex justify-between items-center">
-        <span class="font-bold flex items-center gap-2"><Binary size={14}/> {dict?.inspector?.hexView || 'Hex Viewer'}</span>
-        <span class="bg-slate-800 px-2 py-0.5 rounded text-[10px]">First 512 Bytes</span>
+    <div class="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 font-mono text-xs shadow-lg transition-all {editMode ? 'ring-2 ring-indigo-500' : ''}">
+      <div class="bg-slate-950/50 px-4 py-3 border-b border-slate-800 text-slate-400 flex justify-between items-center flex-wrap gap-2">
+        <div class="flex items-center gap-4">
+            <span class="font-bold flex items-center gap-2"><Binary size={14}/> {dict?.inspector?.hexView || 'Hex Viewer'}</span>
+            <span class="bg-slate-800 px-2 py-0.5 rounded text-[10px]">First 512 Bytes</span>
+        </div>
+        {#if !restoredData}
+            <div class="flex items-center gap-2">
+                {#if editMode}
+                    <button class="flex items-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded text-[10px] font-bold transition-colors" on:click={downloadPatched}>
+                        <Download size={12} /> {dict?.inspector?.downloadPatched || 'Download Patched'}
+                    </button>
+                    <button class="flex items-center gap-1 bg-slate-700 hover:bg-slate-600 text-white px-3 py-1 rounded text-[10px] font-bold transition-colors" on:click={resetChanges}>
+                        <RotateCcw size={12} />
+                    </button>
+                    <button class="flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-[10px] font-bold transition-colors" on:click={() => editMode = false}>
+                        <Save size={12} /> {dict?.inspector?.done || 'Done'}
+                    </button>
+                {:else}
+                    <button class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1 rounded text-[10px] font-bold transition-colors" on:click={() => editMode = true}>
+                        <Edit2 size={12} /> {dict?.inspector?.editMode || 'Edit Mode'}
+                    </button>
+                {/if}
+            </div>
+        {/if}
       </div>
       <div class="p-4 overflow-x-auto text-slate-300 max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
-        {#each hexLines as line (line.offset)}
-          <div class="flex hover:bg-white/5 rounded px-1 transition-colors">
-            <span class="text-slate-500 w-12 select-none shrink-0 border-r border-slate-800 mr-3">{line.offset}</span>
-            <span class="text-cyan-400 w-96 mr-4 min-w-[300px] shrink-0 tracking-wider">{line.hex}</span>
+        {#each hexLines as line (line.offsetDisplay)}
+          <div class="flex hover:bg-white/5 rounded px-1 transition-colors group">
+            <span class="text-slate-500 w-12 select-none shrink-0 border-r border-slate-800 mr-3">{line.offsetDisplay}</span>
+
+            <!-- Bytes Area -->
+            <div class="w-96 mr-4 min-w-[300px] shrink-0 tracking-wider flex flex-wrap">
+                {#if line.bytes.length > 0}
+                    {#each line.bytes as byte (byte.offset)}
+                        <button
+                            class="w-6 text-center hover:bg-white/20 rounded {byte.modified ? 'text-yellow-400 font-bold' : 'text-cyan-400'} {editMode ? 'cursor-pointer hover:scale-110' : 'cursor-default'}"
+                            on:click={() => handleByteClick(byte)}
+                            disabled={!editMode}
+                            title={editMode ? 'Click to edit' : ''}
+                        >
+                            {byte.val.toString(16).padStart(2, '0').toUpperCase()}
+                        </button>
+                        <span class="w-2"></span>
+                    {/each}
+                {:else}
+                    <span class="text-cyan-400">{line.rawHex}</span>
+                {/if}
+            </div>
+
             <span class="text-amber-400 opacity-80 border-l border-slate-800 pl-4 min-w-[150px] shrink-0 tracking-widest">{line.ascii}</span>
           </div>
         {/each}

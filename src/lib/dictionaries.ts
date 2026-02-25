@@ -3092,7 +3092,8 @@ export const dictionaries = {
           base64: "Base64",
           inspector: "Inspector",
           compare: "Compare",
-          stego: "Secret"
+          stego: "Secret (Secret)",
+          privacy: "Privacy"
         },
         downloadReport: "Download Report",
         restoredMode: "Viewing history record. Original file access is restricted.",
@@ -3140,7 +3141,20 @@ export const dictionaries = {
           riskScore: "Risk Score",
           entropyMap: "Entropy Map",
           metadata: "Deep Metadata",
-          hexView: "Hex Viewer (First 512 Bytes)"
+          hexView: "Hex Viewer (First 512 Bytes)",
+          editMode: "Edit Mode",
+          downloadPatched: "Download Patched",
+          done: "Done"
+        },
+        privacy: {
+          title: "Metadata Wiper",
+          desc: "Remove hidden metadata (EXIF, GPS, Author) from your files before sharing them. This process creates a clean copy of your file.",
+          processing: "Scrubbing metadata...",
+          ready: "Ready to sanitize. This will strip all metadata tags and recreate the file structure.",
+          unsupported: "Sanitization is currently only supported for Images and PDF files.",
+          sanitize: "Sanitize File",
+          success: "Sanitization Complete",
+          download: "Download Clean File"
         },
         info: {
           name: "Name",
@@ -5704,7 +5718,8 @@ export const dictionaries = {
           base64: "Base64",
           inspector: "검사기",
           compare: "비교",
-          stego: "비밀 (Secret)"
+          stego: "비밀 (Secret)",
+          privacy: "프라이버시"
         },
         downloadReport: "리포트 다운로드",
         star: "분석 즐겨찾기",
@@ -5753,7 +5768,20 @@ export const dictionaries = {
           riskScore: "위험도 점수",
           entropyMap: "엔트로피 맵",
           metadata: "상세 메타데이터",
-          hexView: "Hex 뷰어 (첫 512 바이트)"
+          hexView: "Hex 뷰어 (첫 512 바이트)",
+          editMode: "편집 모드",
+          downloadPatched: "패치된 파일 다운로드",
+          done: "완료"
+        },
+        privacy: {
+            title: "메타데이터 와이퍼",
+            desc: "파일을 공유하기 전에 숨겨진 메타데이터(EXIF, GPS, 작성자)를 제거하세요. 이 과정은 파일의 깨끗한 사본을 생성합니다.",
+            processing: "메타데이터 삭제 중...",
+            ready: "준비 완료. 이 작업은 모든 메타데이터 태그를 제거하고 파일 구조를 재생성합니다.",
+            unsupported: "현재 이미지와 PDF 파일만 지원됩니다.",
+            sanitize: "파일 정화 (Sanitize)",
+            success: "정화 완료",
+            download: "깨끗한 파일 다운로드"
         },
         info: {
           name: "이름",

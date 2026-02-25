@@ -4,12 +4,12 @@ export interface RiskAnalysis {
   level: 'Safe' | 'Low' | 'Medium' | 'High' | 'Critical';
 }
 
-export function calculateRiskScore(
+export async function calculateRiskScore(
   file: File,
   magic: { type: string; matches: boolean },
   entropy: number,
   archiveData?: { compressionRatio: number; fileCount: number }
-): RiskAnalysis {
+): Promise<RiskAnalysis> {
   let score = 0;
   const factors: string[] = [];
 
@@ -91,6 +91,43 @@ export function calculateRiskScore(
           score += 40;
           factors.push('Archive contains an unusually large number of files');
       }
+  }
+
+  // 6. Deep Content Inspection
+  try {
+      // Check for MZ header (Windows Executable) in non-executables
+      const headerChunk = file.slice(0, 2);
+      const headerBuffer = await headerChunk.arrayBuffer();
+      const headerView = new Uint8Array(headerBuffer);
+      if (headerView.length >= 2 && headerView[0] === 0x4D && headerView[1] === 0x5A) {
+           const safeExe = ['.exe', '.dll', '.sys', '.scr', '.cpl', '.ocx', '.ax', '.efi'];
+           const ext = '.' + file.name.split('.').pop()?.toLowerCase();
+           if (!safeExe.includes(ext)) {
+               score += 90;
+               factors.push('Windows Executable (MZ) header detected in non-executable file');
+           }
+      }
+
+      // Check for Script Tags in non-web files
+      // Read first 4KB as text
+      const textChunk = file.slice(0, 4096);
+      const text = await textChunk.text();
+
+      if (/<script/i.test(text)) {
+          if (!file.type.includes('html') && !file.type.includes('xml') && !file.name.endsWith('.svg')) {
+              score += 60;
+              factors.push('Embedded <script> tag detected in potentially unsafe context');
+          }
+      }
+
+      // PowerShell / Bash signatures
+      if ((/powershell/i.test(text) || /wscript/i.test(text) || /cscript/i.test(text)) && !file.name.endsWith('.ps1')) {
+           score += 40;
+           factors.push('PowerShell/Script execution keywords detected');
+      }
+
+  } catch (e) {
+      console.warn('Deep inspection failed', e);
   }
 
   // Cap score

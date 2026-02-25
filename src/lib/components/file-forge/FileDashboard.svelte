@@ -3,7 +3,7 @@
   import { db } from '$lib/db';
   import { browser } from '$app/environment';
   import { dictionaries } from '$lib/dictionaries';
-  import { Hash, FileCode, Search, FileSearch, ArrowRightLeft, Image, Lock, Download, AlertCircle, Star } from 'lucide-svelte';
+  import { Hash, FileCode, Search, FileSearch, ArrowRightLeft, Image, Lock, Download, AlertCircle, Star, Shield } from 'lucide-svelte';
   import { generateReport, type AnalysisData } from '$lib/utils/file-forge/report';
   import HashPanel from './HashPanel.svelte';
   import Base64Panel from './Base64Panel.svelte';
@@ -12,13 +12,14 @@
   import ConvertPanel from './ConvertPanel.svelte';
   import ComparePanel from './ComparePanel.svelte';
   import StegoPanel from './StegoPanel.svelte';
+  import PrivacyPanel from './PrivacyPanel.svelte';
 
   export let file: File | null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   export let dict: typeof dictionaries.en.tools.fileForge;
   export let restoredData: AnalysisData | null = null;
 
-  let activeTab: 'info' | 'inspector' | 'hash' | 'base64' | 'convert' | 'compare' | 'stego' = 'info';
+  let activeTab: 'info' | 'inspector' | 'hash' | 'base64' | 'convert' | 'compare' | 'stego' | 'privacy' = 'info';
   let currentHistoryId: number | undefined;
   let analysisData: AnalysisData = {};
   let starred = false;
@@ -158,6 +159,17 @@
       <Hash size={16} />
       {dict.tabs.hash}
     </button>
+    {#if file && (isImage || file.type === 'application/pdf')}
+      <button
+        class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800
+        {activeTab === 'privacy' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
+        on:click={() => activeTab = 'privacy'}
+        aria-label={dict.tabs.privacy || 'Privacy'}
+      >
+        <Shield size={16} />
+        {dict.tabs.privacy || 'Privacy'}
+      </button>
+    {/if}
     {#if isImage}
       <button
         class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800
@@ -254,6 +266,10 @@
     {:else if activeTab === 'base64'}
       <div in:fade={{ duration: 200 }}>
         <Base64Panel {file} {dict} />
+      </div>
+    {:else if activeTab === 'privacy' && file}
+      <div in:fade={{ duration: 200 }}>
+        <PrivacyPanel {file} {dict} />
       </div>
     {/if}
   </div>

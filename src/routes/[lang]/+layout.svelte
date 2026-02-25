@@ -3,9 +3,6 @@
 
   // 현재 언어 가져오기
   $: lang = $page.params.lang || "en";
-
-  // 파생된 상태 (Derived state) 예시
-  $: isKorean = lang === "ko";
 </script>
 
 <div
