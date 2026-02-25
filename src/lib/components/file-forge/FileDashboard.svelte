@@ -47,6 +47,9 @@
   async function saveToHistory() {
     if (!browser || !file) return;
     try {
+      // Store blob if < 5MB to avoid quota issues
+      const blob = file.size < 5 * 1024 * 1024 ? file : undefined;
+
       const id = await db.fileForgeHistory.add({
         name: file.name,
         size: file.size,
@@ -54,7 +57,8 @@
         hash: '',
         createdAt: new Date(),
         starred: 0,
-        data: ''
+        data: '',
+        blob: blob
       });
       currentHistoryId = id as number;
     } catch (e) {

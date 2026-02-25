@@ -404,6 +404,7 @@ export interface FileForgeHistory {
   type: string;
   hash: string;
   data?: string; // JSON string of the analysis report
+  blob?: Blob; // Stored file content
   createdAt: Date;
   starred?: number;
 }
