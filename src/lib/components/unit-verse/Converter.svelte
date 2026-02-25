@@ -117,10 +117,14 @@
     toUnitId = temp;
   }
 
-  function copyResult() {
-    navigator.clipboard.writeText(formattedResult);
-    copied = true;
-    setTimeout(() => copied = false, 2000);
+  async function copyResult() {
+    try {
+      await navigator.clipboard.writeText(formattedResult);
+      copied = true;
+      setTimeout(() => copied = false, 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
   }
 
     // Load from URL
