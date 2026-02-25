@@ -95,7 +95,7 @@
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
-  <meta name="keywords" content="file hash, hex viewer, entropy analysis, magic number, md5, sha256, base64 converter, image converter, resize image, metadata viewer, file analysis, privacy first, steganography, zip analysis, risk assessment, pdf metadata, entropy map" />
+  <meta name="keywords" content="file hash, hex viewer, entropy analysis, magic number, md5, sha256, base64 converter, image converter, resize image, metadata viewer, file analysis, privacy first, steganography, zip analysis, risk assessment, pdf metadata, entropy map, metadata stripper, hex editor, exif remover" />
 
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />

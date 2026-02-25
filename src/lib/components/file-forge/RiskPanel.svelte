@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Shield, AlertTriangle, CheckCircle, XCircle, Info } from 'lucide-svelte';
+  import { Shield, AlertTriangle, CheckCircle, Info } from 'lucide-svelte';
   import type { RiskAnalysis } from '$lib/utils/file-forge/risk';
 
   export let risk: RiskAnalysis;
@@ -66,7 +66,7 @@
               Risk Factors
           </h4>
           <ul class="space-y-3">
-              {#each risk.factors as factor}
+              {#each risk.factors as factor (factor)}
                   <li class="text-sm text-slate-600 dark:text-slate-400 flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                       <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 shrink-0 shadow-sm shadow-red-500/50"></span>
                       <span class="leading-relaxed">{factor}</span>
