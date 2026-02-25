@@ -63,7 +63,7 @@
       "url": `https://selfgrowingmicrotool.com/${lang}/tools/unit-verse`,
       "applicationCategory": "UtilityApplication",
       "applicationSubCategory": "Unit Converter",
-      "operatingSystem": ["Web", "iOS", "Android", "Linux", "Windows", "macOS"],
+      "operatingSystem": "Web, iOS, Android, Linux, Windows, macOS",
       "browserRequirements": "Requires JavaScript. Works best in modern browsers.",
       "offers": {
         "@type": "Offer",
@@ -73,6 +73,32 @@
       "description": t.description,
       "featureList": t.featureList,
       "screenshot": "https://selfgrowingmicrotool.com/og/unit-verse.png"
+    })}
+  </script>`}
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": `https://selfgrowingmicrotool.com/${lang}`
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": `https://selfgrowingmicrotool.com/${lang}/tools`
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Unit Verse",
+          "item": `https://selfgrowingmicrotool.com/${lang}/tools/unit-verse`
+        }
+      ]
     })}
   </script>`}
 </svelte:head>

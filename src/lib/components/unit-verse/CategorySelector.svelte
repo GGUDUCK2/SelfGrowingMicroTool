@@ -33,10 +33,10 @@
     <button
       role="tab"
       aria-selected={selectedCategory === category.id}
-      class="flex flex-col items-center justify-center p-3 rounded-xl transition-all duration-200 border
+      class="flex flex-col items-center justify-center p-4 min-h-[88px] rounded-xl transition-all duration-200 border
         {selectedCategory === category.id
-          ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg scale-105'
-          : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-750 hover:border-slate-600 hover:text-slate-200'}"
+          ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg scale-105 z-10'
+          : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700 hover:border-slate-600 hover:text-slate-200'}"
       on:click={() => selectCategory(category.id)}
       aria-label={t.categories[category.id] || category.name.en}
     >
