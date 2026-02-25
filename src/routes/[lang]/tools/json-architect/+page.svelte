@@ -184,19 +184,19 @@
     "description": t.description,
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "JSON Utility",
-    "operatingSystem": ["Web", "iOS", "Android", "Linux", "Windows", "macOS"],
-    "featureList": [
-      "Format JSON",
-      "Minify JSON",
-      "Validate JSON",
-      "Convert JSON to TypeScript",
-      "Convert JSON to Go",
-      "Visual Tree View"
-    ],
+    "operatingSystem": "Web, iOS, Android, Linux, Windows, macOS",
+    "browserRequirements": "Requires JavaScript. HTML5.",
+    "featureList": "Format JSON, Minify JSON, Validate JSON, Convert JSON to TypeScript, Convert JSON to Go, Visual Tree View",
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
+    },
+    "datePublished": "2023-10-15",
+    "screenshot": "https://selfgrowingmicrotool.com/og/json-architect.png",
+    "author": {
+        "@type": "Organization",
+        "name": "MicroFactory"
     }
   })}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify({
@@ -227,7 +227,7 @@
     <p class="mt-2 text-lg text-slate-600 dark:text-slate-400">{t.description}</p>
   </div>
 
-  <div class="sticky top-0 z-10 bg-slate-900/95 backdrop-blur py-2">
+  <div class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur py-2 shadow-sm">
       <Toolbar {t} on:action={handleAction} />
   </div>
 

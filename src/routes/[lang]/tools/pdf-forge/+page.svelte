@@ -17,28 +17,27 @@
 
   $: schema = {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "SoftwareApplication",
     "name": "PDF Forge",
     "headline": toolDict.title,
     "description": description,
     "applicationCategory": "ProductivityApplication",
-    "operatingSystem": "Any",
+    "applicationSubCategory": "PDF Utility",
+    "operatingSystem": "Web, iOS, Android, Linux, Windows, macOS",
+    "browserRequirements": "Requires JavaScript. HTML5.",
     "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
     },
-    "featureList": [
-        "Merge PDF", "Split PDF", "Rotate PDF Pages", "Client-side Privacy",
-        "Reorder Pages", "Image to PDF", "JPG to PDF", "Offline Session History",
-        "Keyboard Shortcuts", "Zipper Merge", "Export PDF to Images", "PDF Watermark"
-    ],
+    "featureList": "Merge PDF, Split PDF, Rotate PDF Pages, Client-side Privacy, Reorder Pages, Image to PDF, JPG to PDF, Offline Session History, Keyboard Shortcuts, Zipper Merge, Export PDF to Images, PDF Watermark",
     "url": canonical,
     "author": {
         "@type": "Organization",
         "name": "MicroFactory"
     },
     "screenshot": "https://selfgrowingmicrotool.com/og/pdf-forge.png",
+    "datePublished": "2023-10-20",
     "dateModified": new Date().toISOString()
   };
 
