@@ -3355,6 +3355,107 @@ export const dictionaries = {
         a2: "Many barcodes (like EAN and UPC) include a final digit calculated from the others to verify accuracy. Barcode Forge handles this calculation for you.",
         q3: "Is data sent to a server?",
         a3: "No. All barcode generation happens locally in your browser using JavaScript. Your product codes remain private."
+      },
+      gitForge: {
+        title: "Git Forge: Command & Config Architect",
+        description: "The definitive Git companion. Build complex commands, generate .gitignore files, and craft conventional commits visually.",
+        tabs: {
+          command: "Command Builder",
+          ignore: "Gitignore Gen",
+          commit: "Commit Builder",
+          history: "History"
+        },
+        command: {
+          title: "Command Builder",
+          category: "Category",
+          operation: "Operation",
+          options: "Options",
+          preview: "Command Preview",
+          copy: "Copy Command",
+          copied: "Copied!",
+          explain: "Explain",
+          categories: {
+            basic: "Basic",
+            branching: "Branching",
+            history: "History",
+            remote: "Remote",
+            advanced: "Advanced"
+          },
+          operations: {
+            init: "Initialize",
+            clone: "Clone",
+            add: "Add",
+            commit: "Commit",
+            push: "Push",
+            pull: "Pull",
+            branch: "Branch",
+            checkout: "Checkout",
+            merge: "Merge",
+            rebase: "Rebase",
+            log: "Log",
+            reset: "Reset",
+            cherryPick: "Cherry Pick",
+            stash: "Stash"
+          }
+        },
+        ignore: {
+          title: "Gitignore Generator",
+          search: "Search templates (e.g. Node, Python, Mac...)",
+          selected: "Selected Templates",
+          generate: "Generate .gitignore",
+          download: "Download",
+          copy: "Copy Content",
+          preview: "Preview"
+        },
+        commit: {
+          title: "Conventional Commit Builder",
+          type: "Type",
+          scope: "Scope (Optional)",
+          description: "Short Description",
+          body: "Long Description (Optional)",
+          footer: "Footer / Breaking Change (Optional)",
+          breaking: "Breaking Change?",
+          preview: "Preview",
+          copy: "Copy Message",
+          types: {
+            feat: "Feature",
+            fix: "Fix",
+            docs: "Documentation",
+            style: "Style",
+            refactor: "Refactor",
+            perf: "Performance",
+            test: "Test",
+            build: "Build",
+            ci: "CI",
+            chore: "Chore",
+            revert: "Revert"
+          }
+        },
+        history: {
+          title: "History",
+          empty: "No history yet.",
+          clear: "Clear",
+          delete: "Delete"
+        },
+        guide: {
+          title: "Why Git Forge?",
+          intro: "Git is powerful but its syntax can be daunting. Git Forge provides a visual interface for complex operations, ensuring you never run the wrong command again.",
+          featuresTitle: "Key Features",
+          f1: "**Command Builder:** Visually construct complex commands like `rebase -i` or `log --graph` with ease.",
+          f2: "**Gitignore Generator:** Combine templates for your OS, IDE, and Language into a single, optimized file.",
+          f3: "**Semantic Commits:** Enforce the Conventional Commits standard to keep your history clean and readable.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use the **Command Builder** to explore obscure flags you might not know existed.",
+          tip2: "Combine **macOS**, **Windows**, and **Node** templates for a cross-platform project.",
+          tip3: "Use the **Breaking Change** toggle in Commit Builder to automatically add the `!` marker."
+        },
+        faqTitle: "Git Forge FAQ",
+        q1: "Does this run git commands?",
+        a1: "No. Git Forge generates the command strings for you to copy and paste into your terminal. It cannot execute commands on your machine.",
+        q2: "What is Conventional Commits?",
+        a2: "It is a specification for adding human and machine readable meaning to commit messages. It helps in automated changelog generation.",
+        q3: "Are the templates up to date?",
+        a3: "Yes, we use the standard collection of gitignore templates used by GitHub and other major platforms."
       }
     },
     pwa: {
@@ -5867,6 +5968,107 @@ export const dictionaries = {
         a2: "많은 바코드(EAN 및 UPC 등)에는 정확성을 확인하기 위해 다른 숫자에서 계산된 마지막 숫자가 포함됩니다. 바코드 포지는 이 계산을 자동으로 처리합니다.",
         q3: "데이터가 서버로 전송되나요?",
         a3: "아니요. 모든 바코드 생성은 JavaScript를 사용하여 브라우저에서 로컬로 수행됩니다. 귀하의 상품 코드는 비공개로 유지됩니다."
+      },
+      gitForge: {
+        title: "깃 포지: 커맨드 & 설정 아키텍트",
+        description: "완벽한 Git 동반자입니다. 복잡한 명령어를 빌드하고, .gitignore 파일을 생성하고, 컨벤셔널 커밋을 시각적으로 작성하세요.",
+        tabs: {
+          command: "커맨드 빌더",
+          ignore: "이그노어 생성기",
+          commit: "커밋 빌더",
+          history: "히스토리"
+        },
+        command: {
+          title: "커맨드 빌더",
+          category: "카테고리",
+          operation: "작업",
+          options: "옵션",
+          preview: "명령어 미리보기",
+          copy: "명령어 복사",
+          copied: "복사됨!",
+          explain: "설명",
+          categories: {
+            basic: "기본",
+            branching: "브랜치",
+            history: "히스토리",
+            remote: "원격",
+            advanced: "고급"
+          },
+          operations: {
+            init: "초기화 (Init)",
+            clone: "복제 (Clone)",
+            add: "추가 (Add)",
+            commit: "커밋 (Commit)",
+            push: "푸시 (Push)",
+            pull: "풀 (Pull)",
+            branch: "브랜치 (Branch)",
+            checkout: "체크아웃 (Checkout)",
+            merge: "병합 (Merge)",
+            rebase: "리베이스 (Rebase)",
+            log: "로그 (Log)",
+            reset: "리셋 (Reset)",
+            cherryPick: "체리픽 (Cherry Pick)",
+            stash: "스태시 (Stash)"
+          }
+        },
+        ignore: {
+          title: "Gitignore 생성기",
+          search: "템플릿 검색 (예: Node, Python, Mac...)",
+          selected: "선택된 템플릿",
+          generate: ".gitignore 생성",
+          download: "다운로드",
+          copy: "내용 복사",
+          preview: "미리보기"
+        },
+        commit: {
+          title: "컨벤셔널 커밋 빌더",
+          type: "타입",
+          scope: "범위 (선택)",
+          description: "짧은 설명",
+          body: "긴 설명 (선택)",
+          footer: "바닥글 / 파괴적 변경 (선택)",
+          breaking: "파괴적 변경?",
+          preview: "미리보기",
+          copy: "메시지 복사",
+          types: {
+            feat: "기능 (Feat)",
+            fix: "버그 수정 (Fix)",
+            docs: "문서 (Docs)",
+            style: "스타일 (Style)",
+            refactor: "리팩토링 (Refactor)",
+            perf: "성능 (Perf)",
+            test: "테스트 (Test)",
+            build: "빌드 (Build)",
+            ci: "CI",
+            chore: "기타 (Chore)",
+            revert: "되돌리기 (Revert)"
+          }
+        },
+        history: {
+          title: "히스토리",
+          empty: "히스토리가 없습니다.",
+          clear: "초기화",
+          delete: "삭제"
+        },
+        guide: {
+          title: "왜 깃 포지인가요?",
+          intro: "Git은 강력하지만 문법이 까다로울 수 있습니다. 깃 포지는 복잡한 작업을 위한 시각적 인터페이스를 제공하여 실수를 방지합니다.",
+          featuresTitle: "주요 기능",
+          f1: "**커맨드 빌더:** `rebase -i`나 `log --graph` 같은 복잡한 명령어를 시각적으로 쉽게 구성하세요.",
+          f2: "**Gitignore 생성기:** OS, IDE, 언어에 맞는 템플릿을 하나의 최적화된 파일로 결합하세요.",
+          f3: "**시맨틱 커밋:** 컨벤셔널 커밋 표준을 준수하여 히스토리를 깔끔하고 읽기 쉽게 유지하세요.",
+          tipsTitle: "프로 팁",
+          tip1: "**커맨드 빌더**를 사용하여 몰랐던 유용한 플래그들을 탐색해보세요.",
+          tip2: "크로스 플랫폼 프로젝트를 위해 **macOS**, **Windows**, **Node** 템플릿을 결합하세요.",
+          tip3: "커밋 빌더의 **파괴적 변경** 토글을 사용하여 `!` 마커를 자동으로 추가하세요."
+        },
+        faqTitle: "깃 포지 FAQ",
+        q1: "이 도구가 Git 명령을 실행하나요?",
+        a1: "아니요. 깃 포지는 터미널에 붙여넣을 명령어 문자열을 생성해줄 뿐입니다. 기기에서 직접 명령을 실행하지는 않습니다.",
+        q2: "컨벤셔널 커밋이 무엇인가요?",
+        a2: "커밋 메시지에 사람과 기계가 모두 읽을 수 있는 의미를 부여하는 명세입니다. 자동화된 변경 로그 생성에 도움이 됩니다.",
+        q3: "템플릿은 최신인가요?",
+        a3: "네, GitHub 및 주요 플랫폼에서 사용하는 표준 gitignore 템플릿 컬렉션을 사용합니다."
       }
   }
 } as const;
