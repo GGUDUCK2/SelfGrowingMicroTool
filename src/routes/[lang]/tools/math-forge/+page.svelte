@@ -19,6 +19,14 @@
   $: dict = getDictionary(lang)?.tools?.mathForge || getDictionary('en').tools.mathForge;
   $: common = getDictionary(lang)?.common || getDictionary('en').common;
 
+  $: clean = (text: string) => text.replace(/\*\*/g, '');
+  $: featureList = [
+    clean(dict.guide.f1),
+    clean(dict.guide.f2),
+    clean(dict.guide.f3)
+  ];
+  $: canonicalUrl = `https://microfactory.app/${lang}/tools/math-forge`;
+
   let activeTab: 'calculator' | 'grapher' | 'matrix' | 'statistics' = 'calculator';
   let showHistory = false;
 
@@ -68,6 +76,15 @@
 <svelte:head>
   <title>{dict.title}</title>
   <meta name="description" content={dict.description} />
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={dict.title} />
+  <meta property="og:description" content={dict.description} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="MicroFactory" />
+
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -75,18 +92,14 @@
       "name": "${dict.title}",
       "description": "${dict.description}",
       "applicationCategory": "EducationalApplication",
+      "applicationSubCategory": "Calculator Application",
       "operatingSystem": "Any",
       "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
       },
-      "featureList": [
-        "Scientific Calculator",
-        "Graphing Calculator",
-        "Matrix Operations",
-        "Statistical Analysis"
-      ]
+      "featureList": ${JSON.stringify(featureList)}
     }
   </script>`}
 </svelte:head>
@@ -108,7 +121,7 @@
         </div>
       </div>
 
-      <button on:click={() => showHistory = !showHistory} class="lg:hidden p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400" aria-label="History">
+      <button on:click={() => showHistory = !showHistory} class="lg:hidden p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400" aria-label="History">
           <History size={20} />
       </button>
     </div>
@@ -118,17 +131,37 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div class="lg:col-span-9 space-y-8">
               <!-- Tabs -->
-              <div class="flex p-1 space-x-1 bg-slate-100 dark:bg-slate-900 rounded-xl overflow-x-auto">
-                  <button class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'calculator' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}" on:click={() => activeTab = 'calculator'}>
+              <div class="flex p-1 space-x-1 bg-slate-100 dark:bg-slate-900 rounded-xl overflow-x-auto" role="tablist">
+                  <button
+                    role="tab"
+                    aria-selected={activeTab === 'calculator'}
+                    aria-controls="calculator-panel"
+                    class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'calculator' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+                    on:click={() => activeTab = 'calculator'}>
                       <CalcIcon size={16} /> {dict.tabs.calculator}
                   </button>
-                  <button class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'grapher' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}" on:click={() => activeTab = 'grapher'}>
+                  <button
+                    role="tab"
+                    aria-selected={activeTab === 'grapher'}
+                    aria-controls="grapher-panel"
+                    class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'grapher' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+                    on:click={() => activeTab = 'grapher'}>
                       <LineChart size={16} /> {dict.tabs.grapher}
                   </button>
-                  <button class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'matrix' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}" on:click={() => activeTab = 'matrix'}>
+                  <button
+                    role="tab"
+                    aria-selected={activeTab === 'matrix'}
+                    aria-controls="matrix-panel"
+                    class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'matrix' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+                    on:click={() => activeTab = 'matrix'}>
                       <Grid3X3 size={16} /> {dict.tabs.matrix}
                   </button>
-                  <button class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'statistics' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}" on:click={() => activeTab = 'statistics'}>
+                  <button
+                    role="tab"
+                    aria-selected={activeTab === 'statistics'}
+                    aria-controls="statistics-panel"
+                    class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'statistics' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+                    on:click={() => activeTab = 'statistics'}>
                       <BarChart size={16} /> {dict.tabs.statistics}
                   </button>
               </div>
@@ -176,17 +209,17 @@
               <!-- svelte-ignore a11y-click-events-have-key-events -->
               <!-- svelte-ignore a11y-no-static-element-interactions -->
               <div class="fixed inset-0 z-40 bg-black/50 lg:hidden" on:click={() => showHistory = false}></div>
-              <div class="fixed inset-y-0 right-0 z-50 w-80 bg-white dark:bg-slate-900 shadow-2xl transform transition-transform duration-300 lg:hidden" class:translate-x-0={showHistory} class:translate-x-full={!showHistory}>
+              <aside class="fixed inset-y-0 right-0 z-50 w-80 bg-white dark:bg-slate-900 shadow-2xl transform transition-transform duration-300 lg:hidden" class:translate-x-0={showHistory} class:translate-x-full={!showHistory} aria-modal="true" role="dialog" aria-label="History">
                   <HistoryPanel {dict} onSelect={(expr) => { loadFromHistory(expr); showHistory = false; }} />
-              </div>
+              </aside>
           {/if}
 
           <!-- Sidebar (Desktop) -->
-          <div class="hidden lg:block lg:col-span-3">
+          <aside class="hidden lg:block lg:col-span-3">
               <div class="sticky top-24 bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 h-[calc(100vh-8rem)] overflow-hidden">
                   <HistoryPanel {dict} onSelect={loadFromHistory} />
               </div>
-          </div>
+          </aside>
       </div>
   </main>
 </div>
