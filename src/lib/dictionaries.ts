@@ -3129,6 +3129,17 @@ export const dictionaries = {
           found: "Hidden Message Found",
           copy: "Copy to Clipboard"
         },
+        share: "Share Analysis",
+        shareCopied: "Link copied!",
+        magicLens: {
+            title: "Magic Lens"
+        },
+        smartExamples: {
+            title: "Try a Sample:",
+            text: "Text",
+            image: "Image",
+            pdf: "PDF"
+        },
         inspector: {
           analyzing: "Analyzing...",
           detectedType: "Detected Type (Magic)",
@@ -5755,6 +5766,17 @@ export const dictionaries = {
           helpDecode: "이 이미지가 File Forge로 생성된 숨겨진 메시지를 포함하고 있다면, 아래 버튼을 클릭하여 확인하세요.",
           found: "숨겨진 메시지 발견",
           copy: "클립보드에 복사"
+        },
+        share: "분석 공유",
+        shareCopied: "링크가 복사되었습니다!",
+        magicLens: {
+            title: "매직 렌즈"
+        },
+        smartExamples: {
+            title: "예제 파일:",
+            text: "텍스트",
+            image: "이미지",
+            pdf: "PDF"
         },
         inspector: {
           analyzing: "분석 중...",

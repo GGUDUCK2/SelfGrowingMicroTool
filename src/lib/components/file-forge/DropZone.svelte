@@ -1,6 +1,7 @@
 <script lang="ts">
   import { UploadCloud } from 'lucide-svelte';
   import { createEventDispatcher } from 'svelte';
+  import SmartExamples from './SmartExamples.svelte';
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export let dict: Record<string, any>;
@@ -69,3 +70,5 @@
     </div>
   </div>
 </div>
+
+<SmartExamples {dict} on:file />

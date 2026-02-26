@@ -3,7 +3,7 @@
   import { db } from '$lib/db';
   import { browser } from '$app/environment';
   import { dictionaries } from '$lib/dictionaries';
-  import { Hash, FileCode, Search, FileSearch, ArrowRightLeft, Image, Lock, Download, AlertCircle, Star, Shield } from 'lucide-svelte';
+  import { Hash, FileCode, Search, FileSearch, ArrowRightLeft, Image, Lock, Download, AlertCircle, Star, Shield, Share2 } from 'lucide-svelte';
   import { generateReport, type AnalysisData } from '$lib/utils/file-forge/report';
   import HashPanel from './HashPanel.svelte';
   import Base64Panel from './Base64Panel.svelte';
@@ -62,8 +62,33 @@
         blob: blob
       });
       currentHistoryId = id as number;
+
+      // Limit history to 100 items
+      const count = await db.fileForgeHistory.count();
+      if (count > 100) {
+        const oldest = await db.fileForgeHistory.orderBy('createdAt').first();
+        if (oldest && oldest.id) {
+           await db.fileForgeHistory.delete(oldest.id);
+        }
+      }
     } catch (e) {
       console.error('Failed to save history', e);
+    }
+  }
+
+  async function handleShare() {
+    const text = generateReport(file, analysisData);
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `File Forge Analysis: ${file?.name}`,
+          text: text.substring(0, 500) + '...', // Share preview or link
+          url: window.location.href
+        });
+      } catch (e) { console.error(e); }
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert(dict?.shareCopied || 'Link copied!');
     }
   }
 
@@ -210,6 +235,13 @@
     </button>
 
     <div class="absolute right-0 top-0 h-full flex items-center pr-4 bg-gradient-to-l from-white via-white to-transparent dark:from-slate-900 dark:via-slate-900 pl-8 pointer-events-none">
+        <button
+            on:click={handleShare}
+            class="pointer-events-auto p-1.5 mr-2 text-slate-400 hover:text-indigo-500 transition-colors"
+            title={dict?.share || 'Share'}
+        >
+            <Share2 size={18} />
+        </button>
         {#if currentHistoryId}
             <button
                 on:click={toggleStar}
