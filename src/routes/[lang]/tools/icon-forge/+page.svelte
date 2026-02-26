@@ -24,6 +24,31 @@
     { q: t?.q3, a: t?.a3 }
   ];
 
+  $: breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `https://selfgrowingmicrotool.com/${$page.params.lang || 'en'}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": `https://selfgrowingmicrotool.com/${$page.params.lang || 'en'}/tools`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Icon Forge",
+        "item": $page.url.href
+      }
+    ]
+  };
+
   let file: File | null = null;
   let config: IconConfig = {
     background: '#ffffff',
@@ -39,35 +64,35 @@
   }
 
   function handleConfigChange(event: CustomEvent<IconConfig>) {
-      config = event.detail;
+    config = event.detail;
   }
 
   async function saveProject() {
     if (!file) return;
     isSaving = true;
     try {
-        await db.iconForgeProjects.add({
-            name: file.name,
-            config: { ...config },
-            blob: file,
-            createdAt: new Date(),
-            starred: 0
-        });
-        justSaved = true;
-        setTimeout(() => justSaved = false, 2000);
+      await db.iconForgeProjects.add({
+        name: file.name,
+        config: { ...config },
+        blob: file,
+        createdAt: new Date(),
+        starred: 0
+      });
+      justSaved = true;
+      setTimeout(() => justSaved = false, 2000);
     } catch (e) {
-        console.error('Failed to save', e);
+      console.error('Failed to save', e);
     } finally {
-        isSaving = false;
+      isSaving = false;
     }
   }
 
   function handleRestore(event: CustomEvent<IconForgeProject>) {
-      const project = event.detail;
-      if (project.blob && project.config) {
-          file = project.blob as File; // Cast blob to File (Dexie stores it as Blob/File)
-          config = project.config;
-      }
+    const project = event.detail;
+    if (project.blob && project.config) {
+      file = project.blob as File; // Cast blob to File (Dexie stores it as Blob/File)
+      config = project.config;
+    }
   }
 
   function handleKeydown(e: KeyboardEvent) {
@@ -77,6 +102,18 @@
         saveProject();
       }
     }
+  }
+
+  function parseFeature(text: string) {
+    if (!text) return { title: '', desc: '' };
+    if (text.includes(':')) {
+      const parts = text.split(':');
+      return {
+        title: parts[0].replace(/\*\*/g, '').trim(),
+        desc: parts.slice(1).join(':').replace(/\*\*/g, '').trim()
+      };
+    }
+    return { title: text.replace(/\*\*/g, ''), desc: '' };
   }
 </script>
 
@@ -121,11 +158,12 @@
       ]
     }
   </script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumb)}</script>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" in:fade={{ duration: 300 }}>
   <div class="text-center mb-12">
-    <div class="inline-flex items-center justify-center p-3 bg-indigo-500/10 rounded-xl mb-4">
+    <div class="inline-flex items-center justify-center p-3 bg-indigo-500/10 rounded-xl mb-4 shrink-0">
       <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
       </svg>
@@ -163,30 +201,17 @@
             <p class="text-slate-400 leading-relaxed mb-8">{t.guide.intro}</p>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-700/50">
-                <p class="text-sm text-slate-400">
-                    <span class="block text-lg font-semibold text-slate-200 mb-2">
-                        {t.guide.f1.split(':')[0].replace(/\*\*/g, '')}
-                    </span>
-                    {t.guide.f1.split(':')[1].replace(/\*\*/g, '')}
-                </p>
-              </div>
-              <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-700/50">
-                <p class="text-sm text-slate-400">
-                    <span class="block text-lg font-semibold text-slate-200 mb-2">
-                        {t.guide.f2.split(':')[0].replace(/\*\*/g, '')}
-                    </span>
-                    {t.guide.f2.split(':')[1].replace(/\*\*/g, '')}
-                </p>
-              </div>
-              <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-700/50">
-                <p class="text-sm text-slate-400">
-                    <span class="block text-lg font-semibold text-slate-200 mb-2">
-                        {t.guide.f3.split(':')[0].replace(/\*\*/g, '')}
-                    </span>
-                    {t.guide.f3.split(':')[1].replace(/\*\*/g, '')}
-                </p>
-              </div>
+              {#each [t.guide.f1, t.guide.f2, t.guide.f3] as f}
+                {@const feature = parseFeature(f)}
+                <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-700/50">
+                  <p class="text-sm text-slate-400">
+                      <span class="block text-lg font-semibold text-slate-200 mb-2">
+                          {feature.title}
+                      </span>
+                      {feature.desc}
+                  </p>
+                </div>
+              {/each}
             </div>
 
             <h3 class="text-xl font-bold text-slate-50 mb-4">{t.guide.tipsTitle}</h3>
@@ -201,7 +226,7 @@
     </div>
 
     <!-- Sidebar -->
-    <div class="lg:col-span-4 space-y-6">
+    <div class="lg:col-span-4 space-y-6 sticky top-8 self-start">
         {#if file}
             <div class="space-y-6">
                 <!-- Config -->
