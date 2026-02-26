@@ -39,8 +39,17 @@
 
   let loading = true;
   let editMode = false;
+  let hoveredByte: { val: number; offset: number } | null = null;
   // eslint-disable-next-line svelte/prefer-svelte-reactivity
   let modifiedBytes = new Map<number, number>();
+
+  function handleByteHover(byte: { val: number; offset: number }) {
+      hoveredByte = byte;
+  }
+
+  function handleMouseLeave() {
+      hoveredByte = null;
+  }
 
   async function analyze() {
     if (restoredData) {
@@ -387,10 +396,14 @@
                 {#if line.bytes.length > 0}
                     {#each line.bytes as byte (byte.offset)}
                         <button
-                            class="w-6 text-center hover:bg-white/20 rounded {byte.modified ? 'text-yellow-400 font-bold' : 'text-cyan-400'} {editMode ? 'cursor-pointer hover:scale-110' : 'cursor-default'}"
+                            class="w-6 text-center hover:bg-white/20 rounded {byte.modified ? 'text-yellow-400 font-bold' : 'text-cyan-400'} {editMode ? 'cursor-pointer hover:scale-110' : 'cursor-default'} focus:outline-none focus:bg-white/20 focus:ring-2 focus:ring-indigo-500"
                             on:click={() => handleByteClick(byte)}
-                            disabled={!editMode}
-                            title={editMode ? 'Click to edit' : ''}
+                            on:mouseenter={() => handleByteHover(byte)}
+                            on:mouseleave={handleMouseLeave}
+                            on:focus={() => handleByteHover(byte)}
+                            on:blur={handleMouseLeave}
+                            tabindex="0"
+                            title={editMode ? 'Click to edit' : 'Focus for Magic Lens'}
                         >
                             {byte.val.toString(16).padStart(2, '0').toUpperCase()}
                         </button>
@@ -405,6 +418,46 @@
           </div>
         {/each}
       </div>
+    </div>
+  {/if}
+
+  {#if hoveredByte}
+    <div class="fixed bottom-8 right-8 z-50 bg-slate-900/90 border border-indigo-500/50 backdrop-blur-md p-4 rounded-xl shadow-2xl text-xs font-mono text-indigo-300 w-64 animate-in fade-in slide-in-from-bottom-2 pointer-events-none">
+        <h5 class="font-bold text-white mb-2 flex items-center gap-2 border-b border-white/10 pb-1">
+            <ScanEye size={14} /> {dict?.magicLens?.title || 'Magic Lens'}
+        </h5>
+        <div class="space-y-1.5">
+            <div class="flex justify-between">
+                <span class="text-slate-400">Offset</span>
+                <span class="text-white">0x{hoveredByte.offset.toString(16).toUpperCase()}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-slate-400">Hex</span>
+                <span class="text-yellow-400 font-bold">0x{hoveredByte.val.toString(16).padStart(2,'0').toUpperCase()}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-slate-400">Binary</span>
+                <span class="text-cyan-400">{hoveredByte.val.toString(2).padStart(8,'0')}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-slate-400">Decimal (U8)</span>
+                <span class="text-white">{hoveredByte.val}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-slate-400">Signed (I8)</span>
+                <span class="text-white">{hoveredByte.val > 127 ? hoveredByte.val - 256 : hoveredByte.val}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-slate-400">Octal</span>
+                <span class="text-white">{hoveredByte.val.toString(8).padStart(3,'0')}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-slate-400">ASCII</span>
+                <span class="text-amber-400 font-bold">
+                    {hoveredByte.val >= 32 && hoveredByte.val <= 126 ? String.fromCharCode(hoveredByte.val) : '.'}
+                </span>
+            </div>
+        </div>
     </div>
   {/if}
 </div>
