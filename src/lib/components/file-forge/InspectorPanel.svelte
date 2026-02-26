@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
-  import { FileSearch, Activity, AlertTriangle, ScanEye, FileArchive, FileText, Binary, Edit2, Save, RotateCcw, Download } from 'lucide-svelte';
+  import { createEventDispatcher, tick } from 'svelte';
+  import { FileSearch, Activity, AlertTriangle, ScanEye, FileArchive, FileText, Binary, Edit2, Save, RotateCcw, Download, Layers } from 'lucide-svelte';
   import { detectFileType } from '$lib/utils/file-forge/signatures';
   import { calculateEntropy, calculateEntropyMap } from '$lib/utils/file-forge/analysis';
   import { calculateRiskScore, type RiskAnalysis } from '$lib/utils/file-forge/risk';
@@ -42,6 +42,9 @@
   let hoveredByte: { val: number; offset: number } | null = null;
   // eslint-disable-next-line svelte/prefer-svelte-reactivity
   let modifiedBytes = new Map<number, number>();
+
+  let entropyMode: 'entropy' | 'byteClass' = 'entropy';
+  let hexContainer: HTMLElement | null = null;
 
   function handleByteHover(byte: { val: number; offset: number }) {
       hoveredByte = byte;
@@ -212,7 +215,7 @@
         a.click();
         URL.revokeObjectURL(url);
     } catch (e) {
-        alert('Failed to patch file: ' + (e instanceof Error ? e.message : e));
+        alert((dict?.inspector?.patchError || 'Failed to patch file') + ': ' + (e instanceof Error ? e.message : e));
     }
   }
 
@@ -221,6 +224,37 @@
           modifiedBytes.clear();
           modifiedBytes = modifiedBytes;
           updateHexView();
+      }
+  }
+
+  function handleMapHover(event: CustomEvent) {
+      // Map index to byte offset
+      // Map has 100 chunks. Total size = file.size
+      if (!file || !buffer) return;
+
+      // Calculate approximate offset
+      const { ratio } = event.detail;
+      const offset = Math.floor(ratio * file.size);
+
+      // If offset is within our loaded buffer (512 bytes), highlight it
+      if (offset < 512) {
+          // Find the byte at this offset
+          const byteVal = new Uint8Array(buffer)[offset];
+          if (byteVal !== undefined) {
+              hoveredByte = { val: byteVal, offset };
+
+              // Scroll to the line
+              const lineIndex = Math.floor(offset / 16);
+              if (hexContainer) {
+                  // simple scroll calculation
+                  const rowHeight = 24; // approx
+                  hexContainer.scrollTop = lineIndex * rowHeight;
+              }
+          }
+      } else {
+          // Just show info without scrolling as we only load 512 bytes
+          // We can't show value unless we load it, but we can show offset
+          hoveredByte = { val: 0, offset }; // Dummy val
       }
   }
 
@@ -244,17 +278,33 @@
         <div class="flex justify-between items-center mb-4">
             <div>
                 <h4 class="text-sm font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wide flex items-center gap-2">
-                    <Activity size={16} class="text-indigo-500" /> Entropy DNA
+                    <Activity size={16} class="text-indigo-500" /> {entropyMode === 'entropy' ? (dict?.inspector?.entropyMap || 'Entropy DNA') : (dict?.inspector?.byteClass || 'Byte Class Map')}
                 </h4>
                 <p class="text-xs text-slate-500 mt-1">Visualizes data randomness. Uniform blocks usually indicate encryption or compression.</p>
             </div>
-            <div class="text-right">
-                <span class="text-2xl font-mono font-bold text-slate-800 dark:text-slate-100">{entropy.toFixed(3)}</span>
-                <span class="text-xs text-slate-400 block">/ 8.000</span>
+            <div class="flex items-center gap-4">
+                <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1 text-xs">
+                    <button
+                        class="px-3 py-1 rounded-md transition-colors {entropyMode === 'entropy' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400 font-medium' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+                        on:click={() => entropyMode = 'entropy'}
+                    >
+                        Entropy
+                    </button>
+                    <button
+                        class="px-3 py-1 rounded-md transition-colors {entropyMode === 'byteClass' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400 font-medium' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+                        on:click={() => entropyMode = 'byteClass'}
+                    >
+                        Byte Class
+                    </button>
+                </div>
+                <div class="text-right">
+                    <span class="text-2xl font-mono font-bold text-slate-800 dark:text-slate-100">{entropy.toFixed(3)}</span>
+                    <span class="text-xs text-slate-400 block">/ 8.000</span>
+                </div>
             </div>
         </div>
 
-        <EntropyMap map={entropyMapData} height={96} />
+        <EntropyMap map={entropyMapData} mode={entropyMode} height={96} on:hover={handleMapHover} on:leave={handleMouseLeave} />
     </div>
 
     <!-- 3. Specialized Inspectors -->
@@ -273,7 +323,7 @@
                     <span class="font-mono text-indigo-900 dark:text-indigo-200">{magicInfo.type}</span>
                 </div>
                 <div class="flex justify-between text-sm pt-1">
-                    <span class="text-indigo-600 dark:text-indigo-400">Extension Match</span>
+                    <span class="text-indigo-600 dark:text-indigo-400">{dict?.inspector?.matchExtension || 'Extension Match'}</span>
                     {#if magicInfo.matches}
                         <span class="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
                             Verified
@@ -290,7 +340,7 @@
         <!-- Archive / PDF / Metadata -->
         <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
             <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3 flex items-center gap-2">
-                <ScanEye size={14} /> Deep Inspection
+                <ScanEye size={14} /> {dict?.inspector?.metadata || 'Deep Inspection'}
             </h4>
 
             <div class="space-y-3 text-sm">
@@ -386,7 +436,10 @@
             </div>
         {/if}
       </div>
-      <div class="p-4 overflow-x-auto text-slate-300 max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+      <div
+        class="p-4 overflow-x-auto text-slate-300 max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent"
+        bind:this={hexContainer}
+      >
         {#each hexLines as line (line.offsetDisplay)}
           <div class="flex hover:bg-white/5 rounded px-1 transition-colors group">
             <span class="text-slate-500 w-12 select-none shrink-0 border-r border-slate-800 mr-3">{line.offsetDisplay}</span>
@@ -396,7 +449,7 @@
                 {#if line.bytes.length > 0}
                     {#each line.bytes as byte (byte.offset)}
                         <button
-                            class="w-6 text-center hover:bg-white/20 rounded {byte.modified ? 'text-yellow-400 font-bold' : 'text-cyan-400'} {editMode ? 'cursor-pointer hover:scale-110' : 'cursor-default'} focus:outline-none focus:bg-white/20 focus:ring-2 focus:ring-indigo-500"
+                            class="w-6 text-center hover:bg-white/20 rounded {byte.modified ? 'text-yellow-400 font-bold' : 'text-cyan-400'} {editMode ? 'cursor-pointer hover:scale-110' : 'cursor-default'} focus:outline-none focus:bg-white/20 focus:ring-2 focus:ring-indigo-500 {hoveredByte && hoveredByte.offset === byte.offset ? 'ring-2 ring-indigo-500 bg-white/20' : ''}"
                             on:click={() => handleByteClick(byte)}
                             on:mouseenter={() => handleByteHover(byte)}
                             on:mouseleave={handleMouseLeave}
@@ -428,35 +481,33 @@
         </h5>
         <div class="space-y-1.5">
             <div class="flex justify-between">
-                <span class="text-slate-400">Offset</span>
+                <span class="text-slate-400">{dict?.inspector?.offset || 'Offset'}</span>
                 <span class="text-white">0x{hoveredByte.offset.toString(16).toUpperCase()}</span>
             </div>
-            <div class="flex justify-between">
-                <span class="text-slate-400">Hex</span>
-                <span class="text-yellow-400 font-bold">0x{hoveredByte.val.toString(16).padStart(2,'0').toUpperCase()}</span>
-            </div>
-            <div class="flex justify-between">
-                <span class="text-slate-400">Binary</span>
-                <span class="text-cyan-400">{hoveredByte.val.toString(2).padStart(8,'0')}</span>
-            </div>
-            <div class="flex justify-between">
-                <span class="text-slate-400">Decimal (U8)</span>
-                <span class="text-white">{hoveredByte.val}</span>
-            </div>
-            <div class="flex justify-between">
-                <span class="text-slate-400">Signed (I8)</span>
-                <span class="text-white">{hoveredByte.val > 127 ? hoveredByte.val - 256 : hoveredByte.val}</span>
-            </div>
-            <div class="flex justify-between">
-                <span class="text-slate-400">Octal</span>
-                <span class="text-white">{hoveredByte.val.toString(8).padStart(3,'0')}</span>
-            </div>
-            <div class="flex justify-between">
-                <span class="text-slate-400">ASCII</span>
-                <span class="text-amber-400 font-bold">
-                    {hoveredByte.val >= 32 && hoveredByte.val <= 126 ? String.fromCharCode(hoveredByte.val) : '.'}
-                </span>
-            </div>
+            {#if hoveredByte.val !== undefined}
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Hex</span>
+                    <span class="text-yellow-400 font-bold">0x{hoveredByte.val.toString(16).padStart(2,'0').toUpperCase()}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Binary</span>
+                    <span class="text-cyan-400">{hoveredByte.val.toString(2).padStart(8,'0')}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Decimal (U8)</span>
+                    <span class="text-white">{hoveredByte.val}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">ASCII</span>
+                    <span class="text-amber-400 font-bold">
+                        {hoveredByte.val >= 32 && hoveredByte.val <= 126 ? String.fromCharCode(hoveredByte.val) : '.'}
+                    </span>
+                </div>
+            {:else}
+                <div class="text-center text-slate-500 italic mt-2">
+                    Value not loaded (Outside first 512B)
+                </div>
+            {/if}
         </div>
     </div>
   {/if}

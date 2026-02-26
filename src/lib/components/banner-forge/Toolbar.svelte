@@ -205,8 +205,8 @@
                         </div>
                      </div>
                      <div>
-                        <label class="text-xs font-medium text-slate-600">{dict.layers.weight}</label>
-                        <select value={selectedLayer.style.fontWeight} on:change={(e) => updateLayer('fontWeight', e.currentTarget.value)} class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg">
+                        <label class="text-xs font-medium text-slate-600" for="layer-weight">{dict.layers.weight}</label>
+                        <select id="layer-weight" value={selectedLayer.style.fontWeight} on:change={(e) => updateLayer('fontWeight', e.currentTarget.value)} class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg">
                             <option value="300">Light</option>
                             <option value="400">Regular</option>
                             <option value="500">Medium</option>
@@ -217,33 +217,33 @@
                 </div>
 
                 <div>
-                    <label class="text-xs font-medium text-slate-600">{dict.layers.color}</label>
+                    <label class="text-xs font-medium text-slate-600" for="layer-color">{dict.layers.color}</label>
                     <div class="flex gap-2 mt-1">
-                        <input type="color" value={selectedLayer.style.color} on:input={(e) => updateLayer('color', e.currentTarget.value)} class="w-10 h-10 border-0 p-0 rounded cursor-pointer" />
-                        <input type="text" value={selectedLayer.style.color} on:change={(e) => updateLayer('color', e.currentTarget.value)} class="flex-1 px-3 py-2 text-sm border border-slate-300 rounded-lg uppercase" />
+                        <input id="layer-color" type="color" value={selectedLayer.style.color} on:input={(e) => updateLayer('color', e.currentTarget.value)} class="w-10 h-10 border-0 p-0 rounded cursor-pointer" />
+                        <input aria-label="Hex color code" type="text" value={selectedLayer.style.color} on:change={(e) => updateLayer('color', e.currentTarget.value)} class="flex-1 px-3 py-2 text-sm border border-slate-300 rounded-lg uppercase" />
                     </div>
                 </div>
 
                 <div>
-                    <label class="text-xs font-medium text-slate-600 mb-1 block">{dict.layers.align}</label>
-                    <div class="flex border border-slate-300 rounded-lg overflow-hidden">
-                        <button class="flex-1 py-2 hover:bg-slate-50 flex justify-center {selectedLayer.style.textAlign === 'left' ? 'bg-slate-100 text-indigo-600' : 'text-slate-600'}" on:click={() => updateLayer('textAlign', 'left')}>
+                    <span class="text-xs font-medium text-slate-600 mb-1 block">{dict.layers.align}</span>
+                    <div class="flex border border-slate-300 rounded-lg overflow-hidden" role="group" aria-label="Text Alignment">
+                        <button aria-label="Align Left" class="flex-1 py-2 hover:bg-slate-50 flex justify-center {selectedLayer.style.textAlign === 'left' ? 'bg-slate-100 text-indigo-600' : 'text-slate-600'}" on:click={() => updateLayer('textAlign', 'left')}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="17" x2="3" y1="6" y2="6"/><line x1="21" x2="3" y1="12" y2="12"/><line x1="17" x2="3" y1="18" y2="18"/></svg>
                         </button>
                         <div class="w-px bg-slate-300"></div>
-                        <button class="flex-1 py-2 hover:bg-slate-50 flex justify-center {selectedLayer.style.textAlign === 'center' ? 'bg-slate-100 text-indigo-600' : 'text-slate-600'}" on:click={() => updateLayer('textAlign', 'center')}>
+                        <button aria-label="Align Center" class="flex-1 py-2 hover:bg-slate-50 flex justify-center {selectedLayer.style.textAlign === 'center' ? 'bg-slate-100 text-indigo-600' : 'text-slate-600'}" on:click={() => updateLayer('textAlign', 'center')}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="17" x2="7" y1="12" y2="12"/><line x1="21" x2="3" y1="18" y2="18"/></svg>
                         </button>
                         <div class="w-px bg-slate-300"></div>
-                        <button class="flex-1 py-2 hover:bg-slate-50 flex justify-center {selectedLayer.style.textAlign === 'right' ? 'bg-slate-100 text-indigo-600' : 'text-slate-600'}" on:click={() => updateLayer('textAlign', 'right')}>
+                        <button aria-label="Align Right" class="flex-1 py-2 hover:bg-slate-50 flex justify-center {selectedLayer.style.textAlign === 'right' ? 'bg-slate-100 text-indigo-600' : 'text-slate-600'}" on:click={() => updateLayer('textAlign', 'right')}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="7" y1="6" y2="6"/><line x1="21" x2="3" y1="12" y2="12"/><line x1="21" x2="7" y1="18" y2="18"/></svg>
                         </button>
                     </div>
                 </div>
             {:else if selectedLayer.type === 'image'}
                  <div class="space-y-2">
-                    <label class="text-xs font-medium text-slate-600">{dict.layers.borderRadius}</label>
-                    <input type="text" value={selectedLayer.style.borderRadius} on:change={(e) => updateLayer('borderRadius', e.currentTarget.value)} class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" placeholder="0px" />
+                    <label class="text-xs font-medium text-slate-600" for="layer-radius">{dict.layers.borderRadius}</label>
+                    <input id="layer-radius" type="text" value={selectedLayer.style.borderRadius} on:change={(e) => updateLayer('borderRadius', e.currentTarget.value)} class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" placeholder="0px" />
                  </div>
             {/if}
         </div>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { calculateHash } from '$lib/utils/file-forge/hash';
-  import { FileDiff, CheckCircle, XCircle, UploadCloud } from 'lucide-svelte';
+  import { FileDiff, CheckCircle, XCircle, UploadCloud, Binary, GitCompare } from 'lucide-svelte';
   import { fade } from 'svelte/transition';
 
   export let file: File; // The primary file
@@ -8,6 +8,7 @@
   export let dict: Record<string, any>;
 
   let comparisonType: 'file' | 'hash' = 'file';
+  let diffMode = false; // Toggle between Hash Compare and Binary Diff
   let secondFile: File | null = null;
   let hashInput = '';
   let primaryHash = '';
@@ -16,38 +17,107 @@
   let match: boolean | null = null;
   let error: string | null = null;
 
+  // Binary Diff State
+  interface DiffByte {
+      offset: number;
+      val1: number;
+      val2: number;
+      isDiff: boolean;
+  }
+  let diffLines: { offset: string; bytes: DiffByte[]; ascii1: string; ascii2: string }[] = [];
+  let firstDiffOffset = -1;
+
   async function handleCompare() {
     loading = true;
     match = null;
     error = null;
+    diffLines = [];
+    firstDiffOffset = -1;
+
     try {
-      if (!primaryHash) {
-        primaryHash = await calculateHash(file, 'SHA-256');
+      if (!diffMode) {
+          // Hash Comparison Logic
+          if (!primaryHash) {
+            primaryHash = await calculateHash(file, 'SHA-256');
+          }
+
+          if (comparisonType === 'file') {
+            if (secondFile) {
+              secondaryHash = await calculateHash(secondFile, 'SHA-256');
+            } else {
+              loading = false;
+              return;
+            }
+          } else if (comparisonType === 'hash') {
+            if (hashInput.trim()) {
+              secondaryHash = hashInput.trim().toLowerCase();
+            } else {
+              loading = false;
+              return;
+            }
+          }
+          match = primaryHash === secondaryHash;
+      } else {
+          // Binary Diff Logic
+          if (!secondFile) {
+              loading = false;
+              return;
+          }
+          await performBinaryDiff();
       }
 
-      if (comparisonType === 'file') {
-        if (secondFile) {
-          secondaryHash = await calculateHash(secondFile, 'SHA-256');
-        } else {
-          loading = false;
-          return;
-        }
-      } else if (comparisonType === 'hash') {
-        if (hashInput.trim()) {
-          secondaryHash = hashInput.trim().toLowerCase();
-        } else {
-          loading = false;
-          return;
-        }
-      }
-
-      match = primaryHash === secondaryHash;
     } catch (e) {
       console.error(e);
       error = 'Comparison failed. File might be too large or unreadable.';
     } finally {
       loading = false;
     }
+  }
+
+  async function performBinaryDiff() {
+      // Read first 1KB of both files
+      const chunkSize = 1024;
+      const buf1 = await file.slice(0, chunkSize).arrayBuffer();
+      const buf2 = await secondFile!.slice(0, chunkSize).arrayBuffer();
+
+      const view1 = new Uint8Array(buf1);
+      const view2 = new Uint8Array(buf2);
+
+      const maxLen = Math.max(view1.length, view2.length);
+
+      let localDiffLines = [];
+
+      for (let i = 0; i < maxLen; i += 8) { // 8 bytes per line for side-by-side
+          const rowBytes: DiffByte[] = [];
+
+          for (let j = 0; j < 8; j++) {
+              const offset = i + j;
+              if (offset >= maxLen) break;
+
+              const v1 = view1[offset] ?? -1; // -1 indicates EOF/Missing
+              const v2 = view2[offset] ?? -1;
+              const isDiff = v1 !== v2;
+
+              if (isDiff && firstDiffOffset === -1) {
+                  firstDiffOffset = offset;
+              }
+
+              rowBytes.push({ offset, val1: v1, val2: v2, isDiff });
+          }
+
+          const ascii1 = rowBytes.map(b => (b.val1 >= 32 && b.val1 <= 126) ? String.fromCharCode(b.val1) : '.').join('');
+          const ascii2 = rowBytes.map(b => (b.val2 >= 32 && b.val2 <= 126) ? String.fromCharCode(b.val2) : '.').join('');
+
+          localDiffLines.push({
+              offset: i.toString(16).padStart(4, '0').toUpperCase(),
+              bytes: rowBytes,
+              ascii1,
+              ascii2
+          });
+      }
+
+      diffLines = localDiffLines;
+      match = firstDiffOffset === -1 && file.size === secondFile!.size; // Simple equality check for diff
   }
 
   function handleFileDrop(e: DragEvent) {
@@ -74,18 +144,28 @@
 </script>
 
 <div class="space-y-6">
-  <div class="flex gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
+  <div class="flex flex-wrap gap-4 border-b border-slate-200 dark:border-slate-700 pb-4 justify-between items-center">
+    <div class="flex gap-2">
+        <button
+        class="px-4 py-2 rounded-lg text-sm font-medium transition-colors {comparisonType === 'file' && !diffMode ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+        on:click={() => { comparisonType = 'file'; diffMode = false; match = null; }}
+        >
+        {dict?.compare?.tabFile || 'Compare with File'}
+        </button>
+        <button
+        class="px-4 py-2 rounded-lg text-sm font-medium transition-colors {comparisonType === 'hash' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+        on:click={() => { comparisonType = 'hash'; diffMode = false; match = null; }}
+        >
+        {dict?.compare?.tabHash || 'Compare with Hash'}
+        </button>
+    </div>
+
     <button
-      class="px-4 py-2 rounded-lg text-sm font-medium transition-colors {comparisonType === 'file' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
-      on:click={() => { comparisonType = 'file'; match = null; }}
+        class="px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 {diffMode ? 'bg-indigo-600 text-white shadow-md' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'}"
+        on:click={() => { diffMode = !diffMode; comparisonType = 'file'; match = null; }}
     >
-      {dict?.compare?.tabFile || 'Compare with File'}
-    </button>
-    <button
-      class="px-4 py-2 rounded-lg text-sm font-medium transition-colors {comparisonType === 'hash' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
-      on:click={() => { comparisonType = 'hash'; match = null; }}
-    >
-      {dict?.compare?.tabHash || 'Compare with Hash'}
+        <Binary size={16} />
+        {dict?.compare?.binaryDiff || 'Binary Diff Mode'}
     </button>
   </div>
 
@@ -95,17 +175,13 @@
       <h3 class="text-xs font-bold text-slate-500 uppercase mb-2">{dict?.compare?.primary || 'Primary File'}</h3>
       <div class="font-medium text-slate-900 dark:text-white truncate" title={file.name}>{file.name}</div>
       <div class="text-xs text-slate-400 mt-1">{(file.size / 1024).toFixed(2)} KB</div>
-      {#if primaryHash}
+      {#if primaryHash && !diffMode}
         <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
           <div class="text-xs text-slate-500 mb-1">SHA-256 Hash</div>
           <div class="font-mono text-[10px] break-all text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 p-2 rounded border border-slate-200 dark:border-slate-700 select-all leading-tight">
             {primaryHash}
           </div>
         </div>
-      {:else if loading}
-        <div class="mt-4 text-xs text-slate-400 animate-pulse">Calculating hash...</div>
-      {:else}
-         <div class="mt-4 text-xs text-slate-400 italic">Hash calculated on compare</div>
       {/if}
     </div>
 
@@ -113,7 +189,7 @@
     <div class="space-y-4">
       <h3 class="text-xs font-bold text-slate-500 uppercase mb-2">{dict?.compare?.secondary || 'Secondary Source'}</h3>
 
-      {#if comparisonType === 'file'}
+      {#if comparisonType === 'file' || diffMode}
         <div
           class="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-xl p-8 flex flex-col items-center justify-center text-center hover:border-indigo-500 dark:hover:border-indigo-400 transition-colors cursor-pointer bg-slate-50 dark:bg-slate-800/50 min-h-[160px]"
           on:dragover|preventDefault
@@ -154,7 +230,65 @@
   </div>
 
   <!-- Result -->
-  {#if match !== null && !loading}
+  {#if diffMode && diffLines.length > 0}
+      <!-- Binary Diff View -->
+      <div class="space-y-4">
+          <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                  <GitCompare size={16} /> Binary Diff (First 1KB)
+              </h3>
+              {#if firstDiffOffset !== -1}
+                  <span class="text-xs font-mono text-red-500 bg-red-50 dark:bg-red-900/30 px-2 py-1 rounded">
+                      First diff at 0x{firstDiffOffset.toString(16).toUpperCase()}
+                  </span>
+              {:else}
+                  <span class="text-xs font-mono text-emerald-500 bg-emerald-50 dark:bg-emerald-900/30 px-2 py-1 rounded">
+                      Identical (First 1KB)
+                  </span>
+              {/if}
+          </div>
+
+          <div class="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 font-mono text-xs shadow-lg">
+              <div class="grid grid-cols-[60px_1fr_1fr] bg-slate-950 border-b border-slate-800 text-slate-500 px-4 py-2 font-bold">
+                  <div>OFFSET</div>
+                  <div>FILE 1 (ORIGINAL)</div>
+                  <div>FILE 2 (COMPARED)</div>
+              </div>
+              <div class="max-h-[400px] overflow-y-auto p-4 space-y-1">
+                  {#each diffLines as line}
+                      <div class="grid grid-cols-[60px_1fr_1fr] hover:bg-white/5 rounded transition-colors group">
+                          <div class="text-slate-600">{line.offset}</div>
+
+                          <!-- File 1 Bytes -->
+                          <div class="flex gap-2">
+                              <span class="text-slate-300 w-48 font-medium">
+                                  {#each line.bytes as b}
+                                      <span class={b.isDiff ? 'text-red-400 bg-red-900/30' : (b.val1 === -1 ? 'text-slate-700' : 'text-slate-400')}>
+                                          {b.val1 !== -1 ? b.val1.toString(16).padStart(2,'0').toUpperCase() : '..'}
+                                      </span>{' '}
+                                  {/each}
+                              </span>
+                              <span class="text-amber-500/50 border-l border-slate-800 pl-2">{line.ascii1}</span>
+                          </div>
+
+                          <!-- File 2 Bytes -->
+                          <div class="flex gap-2">
+                              <span class="text-slate-300 w-48 font-medium">
+                                  {#each line.bytes as b}
+                                      <span class={b.isDiff ? 'text-emerald-400 bg-emerald-900/30 font-bold' : (b.val2 === -1 ? 'text-slate-700' : 'text-slate-400')}>
+                                          {b.val2 !== -1 ? b.val2.toString(16).padStart(2,'0').toUpperCase() : '..'}
+                                      </span>{' '}
+                                  {/each}
+                              </span>
+                              <span class="text-amber-500/50 border-l border-slate-800 pl-2">{line.ascii2}</span>
+                          </div>
+                      </div>
+                  {/each}
+              </div>
+          </div>
+      </div>
+
+  {:else if match !== null && !loading && !diffMode}
     <div in:fade={{ duration: 200 }} class="p-6 rounded-xl flex items-center gap-4 border {match ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800' : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'}">
       {#if match}
         <div class="p-3 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-400">

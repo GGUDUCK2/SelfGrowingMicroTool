@@ -3155,7 +3155,12 @@ export const dictionaries = {
           hexView: "Hex Viewer (First 512 Bytes)",
           editMode: "Edit Mode",
           downloadPatched: "Download Patched",
-          done: "Done"
+          done: "Done",
+          byteClass: "Byte Class Map",
+          patchError: "Failed to patch file",
+          offset: "Offset",
+          original: "Original",
+          modified: "Modified"
         },
         privacy: {
           title: "Metadata Wiper",
@@ -3196,7 +3201,9 @@ export const dictionaries = {
           matchTitle: "Match Confirmed",
           matchDesc: "The files are identical (SHA-256).",
           mismatchTitle: "Mismatch Detected",
-          mismatchDesc: "The hashes do not match."
+          mismatchDesc: "The hashes do not match.",
+          binaryDiff: "Binary Diff Mode",
+          diffMode: "Diff Mode"
         },
         convert: {
           format: "Format",
@@ -5839,7 +5846,12 @@ export const dictionaries = {
           hexView: "Hex 뷰어 (첫 512 바이트)",
           editMode: "편집 모드",
           downloadPatched: "패치된 파일 다운로드",
-          done: "완료"
+          done: "완료",
+          byteClass: "바이트 클래스 맵",
+          patchError: "파일 패치 실패",
+          offset: "오프셋",
+          original: "원본",
+          modified: "수정됨"
         },
         privacy: {
             title: "메타데이터 와이퍼",
@@ -5880,7 +5892,9 @@ export const dictionaries = {
           matchTitle: "일치함",
           matchDesc: "파일이 동일합니다 (SHA-256).",
           mismatchTitle: "일치하지 않음",
-          mismatchDesc: "해시값이 다릅니다."
+          mismatchDesc: "해시값이 다릅니다.",
+          binaryDiff: "이진 비교 모드",
+          diffMode: "비교 모드"
         },
         convert: {
           format: "형식",
