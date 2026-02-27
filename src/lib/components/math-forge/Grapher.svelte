@@ -124,6 +124,8 @@
 <div class="flex flex-col gap-4">
   <div class="relative bg-white dark:bg-slate-900 rounded-xl shadow border border-slate-200 dark:border-slate-700 overflow-hidden cursor-move touch-none"
        style="height: 400px;"
+       role="application"
+       aria-label="Graphing Canvas"
        on:mousedown={(e) => { isDragging = true; lastX = e.clientX; lastY = e.clientY; }}
        on:mousemove={(e) => {
            if (isDragging) {
@@ -151,8 +153,8 @@
           <div class="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/50 p-2 rounded-lg border border-slate-200 dark:border-slate-700">
               <div class="w-3 h-3 rounded-full shrink-0" style="background-color: {fn.color}"></div>
               <span class="text-xs font-mono text-slate-500 hidden sm:inline">{dict.function}</span>
-              <input type="text" bind:value={fn.expression} on:input={draw} class="flex-1 bg-transparent border-none outline-none font-mono text-sm text-slate-700 dark:text-slate-200 placeholder-slate-400" placeholder="e.g. sin(x)" />
-              <button on:click={() => removeFunction(i)} class="p-1 text-slate-400 hover:text-red-500 rounded"><X size={14} /></button>
+              <input type="text" aria-label="Function Expression {i+1}" bind:value={fn.expression} on:input={draw} class="flex-1 bg-transparent border-none outline-none font-mono text-sm text-slate-700 dark:text-slate-200 placeholder-slate-400" placeholder="e.g. sin(x)" />
+              <button on:click={() => removeFunction(i)} aria-label="Remove Function {i+1}" class="p-1 text-slate-400 hover:text-red-500 rounded"><X size={14} /></button>
           </div>
       {/each}
       <button on:click={addFunction} class="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 font-medium px-2 py-1 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded w-full justify-center border-2 border-dashed border-indigo-200 dark:border-indigo-900">

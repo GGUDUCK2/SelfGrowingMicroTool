@@ -26,6 +26,38 @@
       { q: dict.q2, a: dict.a2 },
       { q: dict.q3, a: dict.a3 }
   ];
+
+  $: breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": `https://selfgrowingmicrotool.com/${lang}` },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": `https://selfgrowingmicrotool.com/${lang}#tools` },
+      { "@type": "ListItem", "position": 3, "name": dict.title, "item": `https://selfgrowingmicrotool.com/${lang}/tools/locale-forge` }
+    ]
+  };
+
+  $: clean = (text: string) => text ? text.replace(/\*\*/g, '') : '';
+  $: featureList = dict.guide?.f1 ? [
+    clean(dict.guide.f1),
+    clean(dict.guide.f2),
+    clean(dict.guide.f3)
+  ] : undefined;
+
+  $: softwareSchema = {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": dict.title,
+      "description": dict.description,
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      ...(featureList ? { "featureList": featureList } : {})
+  };
 </script>
 
 <svelte:head>
@@ -34,21 +66,8 @@
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
 
-  {@html `<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "${dict.title}",
-      "description": "${dict.description}",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Any",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    }
-  </script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">
