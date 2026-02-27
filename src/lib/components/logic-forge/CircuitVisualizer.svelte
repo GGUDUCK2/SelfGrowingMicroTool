@@ -12,6 +12,10 @@
   let containerWidth = 0;
   let containerHeight = 0;
 
+  // Actual content dimensions
+  let graphWidth = 0;
+  let graphHeight = 0;
+
   // State for interactivity
   let inputStates: Record<string, boolean> = {};
 
@@ -36,7 +40,9 @@
 
   // Layout Constants
   const LAYER_SPACING = 120;
-  const NODE_SPACING = 60;
+  const NODE_SPACING = 80; // Increased for better touch targets
+  const PADDING_X = 60;
+  const PADDING_Y = 60;
 
   function buildGraph(root: LogicAST) {
       if (!root) return;
@@ -156,13 +162,17 @@
       // So Inputs -> Left, Root -> Right.
       // X = layer * SPACING + padding.
 
-      const totalWidth = (maxLayer + 1) * LAYER_SPACING;
+      // Determine content dimensions
+      const totalLayers = maxLayer + 1;
+      let maxNodesInLayer = 0;
+      Object.values(layers).forEach(l => maxNodesInLayer = Math.max(maxNodesInLayer, l.length));
 
-      // Find max nodes in a layer for height
-      // removed totalHeight
+      graphWidth = Math.max(containerWidth, totalLayers * LAYER_SPACING + PADDING_X * 2);
+      graphHeight = Math.max(containerHeight, maxNodesInLayer * NODE_SPACING + PADDING_Y * 2);
 
-      // Center in container
-      const startX = Math.max(20, (containerWidth - totalWidth) / 2);
+      // Center in graph area
+      const contentW = totalLayers * LAYER_SPACING;
+      const startX = Math.max(PADDING_X, (graphWidth - contentW) / 2);
 
       Object.keys(layers).forEach(k => {
           const l = Number(k);
@@ -171,7 +181,7 @@
 
           // Distribute vertically
           const layerH = nodesInLayer.length * NODE_SPACING;
-          const layerStartY = (containerHeight - layerH) / 2;
+          const layerStartY = (graphHeight - layerH) / 2;
 
           nodesInLayer.forEach((n, i) => {
               n.x = x;
@@ -225,7 +235,7 @@
 </script>
 
 <div
-  class="w-full min-h-[400px] bg-slate-50 rounded-xl shadow-inner border border-gray-200 overflow-hidden relative select-none"
+  class="w-full min-h-[400px] bg-slate-50 rounded-xl shadow-inner border border-gray-200 overflow-auto relative select-none touch-pan-x touch-pan-y"
   bind:clientWidth={containerWidth}
   bind:clientHeight={containerHeight}
 >
@@ -254,9 +264,9 @@
       </button>
   </div>
 
-  <div class="w-full h-full" bind:this={exportContainer}>
+  <div class="min-w-full min-h-full" style="width: {graphWidth}px; height: {graphHeight}px;" bind:this={exportContainer}>
   {#if ast}
-    <svg width="100%" height="100%">
+    <svg width={graphWidth} height={graphHeight}>
         <defs>
             <marker id="arrowhead-on" markerWidth="10" markerHeight="7" refX="28" refY="3.5" orient="auto">
                 <polygon points="0 0, 10 3.5, 0 7" fill="#4f46e5" />

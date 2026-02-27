@@ -25,8 +25,8 @@
 
 <div class="relative group">
   <div class="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl opacity-20 group-focus-within:opacity-100 transition duration-500 blur"></div>
-  <div class="relative bg-white rounded-xl shadow-xl flex items-center p-2 gap-2">
-    <div class="pl-3 text-gray-400">
+  <div class="relative bg-white rounded-xl shadow-xl flex items-center p-2 gap-2 overflow-x-auto">
+    <div class="pl-3 text-gray-400 shrink-0">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-function-square"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M9 17c2 0 2.8-1 2.8-2.8V10c0-2 1-3.3 3.2-3"/><path d="M9 11.2h5.7"/></svg>
     </div>
     <input
