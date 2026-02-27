@@ -175,27 +175,53 @@
   <meta name="description" content={dict.description} />
   <meta name="keywords" content="logic gates, truth table generator, boolean algebra, logic circuit simulator, online tool, digital logic design, karnaugh map, boolean simplifier" />
   <script type="application/ld+json">
-    {JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": dict.title,
-      "url": "https://microfactory.app/tools/logic-forge",
-      "author": {
-        "@type": "Organization",
-        "name": "MicroFactory"
+    {JSON.stringify([
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": dict.title,
+        "url": "https://microfactory.app/tools/logic-forge",
+        "author": {
+          "@type": "Organization",
+          "name": "MicroFactory"
+        },
+        "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
+        "applicationCategory": "DeveloperApplication, EducationalApplication",
+        "browserRequirements": "Requires JavaScript. HTML5.",
+        "datePublished": "2023-10-01",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": "Truth Table Generator, Logic Circuit Visualizer, Boolean Algebra Simplifier, Karnaugh Map Solver, Interactive Logic Simulation, Reverse Boolean Engineering, Logic Circuit Designer",
+        "screenshot": "https://microfactory.app/screenshots/logic-forge.png"
       },
-      "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
-      "applicationCategory": "DeveloperApplication, EducationalApplication",
-      "browserRequirements": "Requires JavaScript. HTML5.",
-      "datePublished": "2023-10-01",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "featureList": "Truth Table Generator, Logic Circuit Visualizer, Boolean Algebra Simplifier, Karnaugh Map Solver, Interactive Logic Simulation, Reverse Boolean Engineering, Logic Circuit Designer",
-      "screenshot": "https://microfactory.app/screenshots/logic-forge.png"
-    })}
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://microfactory.app"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://microfactory.app/tools"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": dict.title,
+            "item": "https://microfactory.app/tools/logic-forge"
+          }
+        ]
+      }
+    ])}
   </script>
 </svelte:head>
 
