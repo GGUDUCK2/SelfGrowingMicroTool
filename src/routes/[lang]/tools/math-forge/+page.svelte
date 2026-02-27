@@ -25,7 +25,17 @@
     clean(dict.guide.f2),
     clean(dict.guide.f3)
   ];
-  $: canonicalUrl = `https://microfactory.app/${lang}/tools/math-forge`;
+  $: canonicalUrl = `https://selfgrowingmicrotool.com/${lang}/tools/math-forge`;
+
+  $: breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": `https://selfgrowingmicrotool.com/${lang}` },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": `https://selfgrowingmicrotool.com/${lang}#tools` },
+      { "@type": "ListItem", "position": 3, "name": dict.title, "item": `https://selfgrowingmicrotool.com/${lang}/tools/math-forge` }
+    ]
+  };
 
   let activeTab: 'calculator' | 'grapher' | 'matrix' | 'statistics' = 'calculator';
   let showHistory = false;
@@ -85,6 +95,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="MicroFactory" />
 
+  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -206,9 +217,11 @@
 
           <!-- Sidebar (Mobile Overlay) -->
           {#if showHistory}
-              <!-- svelte-ignore a11y-click-events-have-key-events -->
-              <!-- svelte-ignore a11y-no-static-element-interactions -->
-              <div class="fixed inset-0 z-40 bg-black/50 lg:hidden" on:click={() => showHistory = false}></div>
+              <button
+                class="fixed inset-0 z-40 bg-black/50 lg:hidden w-full h-full cursor-default"
+                on:click={() => showHistory = false}
+                aria-label="Close History"
+              ></button>
               <aside class="fixed inset-y-0 right-0 z-50 w-80 bg-white dark:bg-slate-900 shadow-2xl transform transition-transform duration-300 lg:hidden" class:translate-x-0={showHistory} class:translate-x-full={!showHistory} aria-modal="true" role="dialog" aria-label="History">
                   <HistoryPanel {dict} onSelect={(expr) => { loadFromHistory(expr); showHistory = false; }} />
               </aside>
