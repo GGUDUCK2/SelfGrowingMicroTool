@@ -362,6 +362,19 @@
     ]
   };
 
+  $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
+
   const keywords = "diff checker, text compare, json compare, merge conflict solver, online diff tool, file comparison, text difference";
 </script>
 
@@ -369,6 +382,7 @@
   {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(howToSchema)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
 </svelte:head>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -538,7 +552,7 @@
             </label>
         </div>
 
-        <div class="flex gap-2 flex-wrap sm:flex-nowrap">
+        <div class="flex flex-wrap gap-2 sm:gap-4 items-center">
             <button class="btn-secondary flex items-center gap-2" on:click={() => showConflictModal = true} title={t.mergeConflict}>
                 <GitMerge class="w-4 h-4 text-orange-500" />
                 <span class="hidden md:inline">{t.mergeConflict}</span>

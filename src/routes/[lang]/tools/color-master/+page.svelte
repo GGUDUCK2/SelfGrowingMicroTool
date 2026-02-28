@@ -58,6 +58,32 @@
     ]
   };
 
+  $: howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": `How to use ${t.title}`,
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Choose Base Color",
+        "text": "Select your base color using the color wheel or paste a hex code.",
+        "position": 1
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Select Harmony",
+        "text": "Choose a color harmony rule to generate a matching palette.",
+        "position": 2
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Export",
+        "text": "Copy the color codes or export your entire palette for your design.",
+        "position": 3
+      }
+    ]
+  };
+
   // --- Derived State ---
   $: harmonies = getHarmonies(baseColor, harmonyType);
   $: displayedHarmonies = visionType === 'none'
@@ -211,6 +237,7 @@
   <meta property="og:url" content="https://selfgrowingmicrotool.com/{data.lang}/tools/color-master" />
 
   {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(howToSchema)}</script>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 relative">
@@ -300,7 +327,7 @@
         <div class="grid grid-cols-2 sm:grid-cols-2 gap-3">
           {#each HARMONY_TYPES as type}
             <button
-              class="px-4 py-3 text-base rounded-lg border transition-all {harmonyType === type ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-500 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700'}"
+              class="p-3 min-h-[44px] text-base rounded-lg border transition-all {harmonyType === type ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-500 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700'}"
               on:click={() => handleTypeChange(type)}
             >
               {t.harmonies[type]}

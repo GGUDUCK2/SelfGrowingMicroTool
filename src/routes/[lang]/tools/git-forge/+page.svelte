@@ -62,8 +62,35 @@
     "name": dict.title,
     "description": dict.description,
     "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
+    "applicationSubCategory": "DeveloperApplication",
+    "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  };
+
+  $: howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": `How to use ${dict.title}`,
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Select Tool",
+        "text": "Choose between Command Builder, .gitignore Generator, or Commit Message Builder.",
+        "position": 1
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Configure",
+        "text": "Fill in the required fields or select the necessary options for your task.",
+        "position": 2
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Copy or Save",
+        "text": "Copy the generated output to your clipboard or save it to your history for later use.",
+        "position": 3
+      }
+    ]
   };
 </script>
 
@@ -76,6 +103,7 @@
 
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(howToSchema)}</script>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20 transition-colors duration-300">
@@ -104,7 +132,7 @@
           <div class="lg:col-span-8 space-y-6">
 
               <!-- Tabs -->
-              <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-1.5 flex overflow-x-auto gap-1">
+              <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-1.5 flex overflow-x-auto overflow-y-hidden gap-1">
                   <button
                       on:click={() => activeTab = 'command'}
                       class="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-all {activeTab === 'command' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
