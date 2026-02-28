@@ -4,6 +4,7 @@
   import { fade } from 'svelte/transition';
   import { FileBox } from 'lucide-svelte';
   import DropZone from '$lib/components/file-forge/DropZone.svelte';
+  import SmartExamples from '$lib/components/file-forge/SmartExamples.svelte';
   import FileDashboard from '$lib/components/file-forge/FileDashboard.svelte';
   import HistoryPanel from '$lib/components/file-forge/HistoryPanel.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
