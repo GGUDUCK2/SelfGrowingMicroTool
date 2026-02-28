@@ -10,7 +10,7 @@
   let isDeleting = false;
   let editingId: number | null = null;
   let editName: string = "";
-  import { workspaceDB } from \'$lib/db/workspace\';
+  import { workspaceDB } from '$lib/db/workspace';
 
   async function handleRename(id: number, currentName: string | undefined) {
       editingId = id;
@@ -26,8 +26,8 @@
   }
 
   function handleKeydown(e: KeyboardEvent, id: number) {
-      if (e.key === \'Enter\') saveRename(id);
-      if (e.key === \'Escape\') editingId = null;
+      if (e.key === 'Enter') saveRename(id);
+      if (e.key === 'Escape') editingId = null;
   }
 
   onMount(async () => {

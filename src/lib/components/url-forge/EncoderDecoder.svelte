@@ -30,10 +30,6 @@
           url = decodeURI(url);
       }
   }
- catch(e) {
-          // ignore
-      }
-  }
 </script>
 
 <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
