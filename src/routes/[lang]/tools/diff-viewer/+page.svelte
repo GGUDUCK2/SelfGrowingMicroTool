@@ -397,22 +397,22 @@
 <div class="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20">
   <!-- Header -->
   <div class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-30 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-4">
-        <a href="/{lang}" class="p-2 -ml-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-500 dark:text-gray-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-16 py-2 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-4 w-full md:w-auto">
+        <a href="/{lang}" class="p-2 -ml-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-500 dark:text-gray-400 shrink-0">
            <ArrowLeftRight class="w-5 h-5" />
         </a>
-        <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">
+        <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 truncate">
           {t.title}
         </h1>
       </div>
 
-      <div class="flex items-center gap-2">
+      <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
          <!-- Example Dropdown (Simple) -->
-         <div class="flex items-center gap-1 mr-2">
-            <button class="text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors" aria-label="Load Code Example" on:click={() => loadExample('code')}>Code</button>
-            <button class="text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors" aria-label="Load JSON Example" on:click={() => loadExample('json')}>JSON</button>
-            <button class="text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors" aria-label="Load Text Example" on:click={() => loadExample('text')}>Text</button>
+         <div class="flex items-center gap-1 mr-2 overflow-x-auto pb-1 md:pb-0">
+            <button class="text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0" aria-label="Load Code Example" on:click={() => loadExample('code')}>Code</button>
+            <button class="text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0" aria-label="Load JSON Example" on:click={() => loadExample('json')}>JSON</button>
+            <button class="text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0" aria-label="Load Text Example" on:click={() => loadExample('text')}>Text</button>
          </div>
 
         <button

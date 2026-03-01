@@ -25,15 +25,13 @@
   <meta property="og:site_name" content="MicroFactory" />
 
   <!-- JSON-LD -->
-  <script type="application/ld+json">
-    {
+  {@html `<script type="application/ld+json">${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "{dict.home.title}",
-      "url": "https://selfgrowingmicrotool.com/{lang}",
-      "description": "{dict.home.description}"
-    }
-  </script>
+      "name": dict.home.title,
+      "url": "https://selfgrowingmicrotool.com/" + lang,
+      "description": dict.home.description
+    })}</script>`}
 </svelte:head>
 
 <div class="space-y-12">
