@@ -50,7 +50,9 @@
       "name": dict.title,
       "description": dict.description,
       "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Localization Tool",
       "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript. HTML5.",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -58,16 +60,42 @@
       },
       ...(featureList ? { "featureList": featureList } : {})
   };
+
+  $: howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": `How to use ${dict.title}`,
+    "description": "Step-by-step guide to managing translations",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Import Files",
+        "text": "Drag and drop or upload your JSON localization files."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Edit Translations",
+        "text": "Modify keys or values directly in the translation table."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Export",
+        "text": "Export your updated translation files as a ZIP archive."
+      }
+    ]
+  };
 </script>
 
 <svelte:head>
   <title>{dict.title} - MicroFactory</title>
   <meta name="description" content={dict.description} />
+  <meta name="keywords" content="translation manager, i18n tool, locale editor, json translation, localization forge" />
   <meta property="og:title" content={dict.title} />
   <meta property="og:description" content={dict.description} />
 
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(howToSchema)}</script>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">
