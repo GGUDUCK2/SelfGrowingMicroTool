@@ -41,7 +41,7 @@
             type="text"
             bind:value={filter}
             placeholder="Search keys or values..."
-            class="w-full px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500"
+            class="w-full px-4 py-2 min-h-[44px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500"
         />
     </div>
 
@@ -75,11 +75,11 @@
                         {/each}
                         <td class="p-2 align-top text-center">
                             <button
-                                class="text-slate-400 hover:text-red-500 p-1"
+                                class="text-slate-400 hover:text-red-500 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation"
                                 on:click={() => deleteKey(item.key)}
                                 title="Delete Key"
                             >
-                                <Trash2 size={14} />
+                                <Trash2 size={16} />
                             </button>
                         </td>
                     </tr>
