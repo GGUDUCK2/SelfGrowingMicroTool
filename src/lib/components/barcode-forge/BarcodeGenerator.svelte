@@ -148,19 +148,19 @@
       <!-- Tabs -->
       <div class="flex border-b border-slate-200 dark:border-slate-700">
         <button
-          class="flex-1 py-3 text-sm font-medium transition-colors {activeTab === 'generator' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+          class="flex-1 py-3 min-h-[44px] text-sm font-medium focus:ring-2 focus:ring-indigo-500 transition-colors {activeTab === 'generator' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
           on:click={() => activeTab = 'generator'}
         >
           {d.generate}
         </button>
         <button
-          class="flex-1 py-3 text-sm font-medium transition-colors {activeTab === 'bulk' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+          class="flex-1 py-3 min-h-[44px] text-sm font-medium focus:ring-2 focus:ring-indigo-500 transition-colors {activeTab === 'bulk' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
           on:click={() => activeTab = 'bulk'}
         >
           {d.bulk}
         </button>
         <button
-          class="flex-1 py-3 text-sm font-medium transition-colors {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+          class="flex-1 py-3 min-h-[44px] text-sm font-medium focus:ring-2 focus:ring-indigo-500 transition-colors {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
           on:click={() => activeTab = 'history'}
         >
           {d.history}
@@ -173,7 +173,7 @@
             <!-- Format -->
             <div>
               <label for="barcode-format" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">{d.format}</label>
-              <select id="barcode-format" bind:value={format} class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500">
+              <select id="barcode-format" bind:value={format} class="w-full min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500">
                 {#each formats as f}
                   <option value={f.value}>{d.formats[f.value as keyof typeof d.formats] || f.label}</option>
                 {/each}
@@ -187,7 +187,7 @@
                 id="barcode-value"
                 bind:value={value}
                 rows="3"
-                class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 font-mono"
+                class="w-full min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 font-mono"
                 placeholder="123456789012"
               ></textarea>
             </div>
@@ -217,7 +217,7 @@
 
                  <div>
                     <label for="barcode-fontsize" class="block text-xs text-slate-500 mb-1">{d.fontSize}</label>
-                    <input id="barcode-fontsize" type="number" bind:value={fontSize} class="w-full p-1 text-xs border rounded bg-transparent" />
+                    <input id="barcode-fontsize" type="number" bind:value={fontSize} class="w-full min-h-[44px] p-1 text-xs border rounded bg-transparent focus:ring-2 focus:ring-indigo-500" />
                  </div>
                </div>
 
@@ -225,14 +225,14 @@
                     <div>
                         <label for="barcode-bg" class="block text-xs text-slate-500 mb-1">{d.background}</label>
                         <div class="flex items-center space-x-1">
-                            <input id="barcode-bg" type="color" bind:value={background} class="h-6 w-6 rounded cursor-pointer border-none p-0" />
+                            <input id="barcode-bg" type="color" bind:value={background} class="h-11 w-11 rounded cursor-pointer border-none p-0 focus:ring-2 focus:ring-indigo-500" />
                             <span class="text-xs font-mono text-slate-400">{background}</span>
                         </div>
                     </div>
                     <div>
                         <label for="barcode-line" class="block text-xs text-slate-500 mb-1">{d.lineColor}</label>
                         <div class="flex items-center space-x-1">
-                            <input id="barcode-line" type="color" bind:value={lineColor} class="h-6 w-6 rounded cursor-pointer border-none p-0" />
+                            <input id="barcode-line" type="color" bind:value={lineColor} class="h-11 w-11 rounded cursor-pointer border-none p-0 focus:ring-2 focus:ring-indigo-500" />
                             <span class="text-xs font-mono text-slate-400">{lineColor}</span>
                         </div>
                     </div>
@@ -263,7 +263,7 @@
                 <button
                     disabled={!valid}
                     on:click={saveToHistory}
-                    class="p-2 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 transition-colors disabled:opacity-50"
+                    class="p-2 min-h-[44px] min-w-[44px] rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 focus:ring-2 focus:ring-indigo-500 transition-colors disabled:opacity-50 flex items-center justify-center"
                     title={d.save}
                 >
                     <Save size={20} />
@@ -275,7 +275,7 @@
             <button
                 disabled={!valid}
                 on:click={() => download('svg')}
-                class="flex items-center justify-center space-x-2 px-6 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow-md font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                class="flex items-center justify-center space-x-2 px-6 py-4 min-h-[44px] bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl focus:ring-2 focus:ring-indigo-500 shadow-md font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
                 <Download size={20} />
                 <span>{d.downloadSvg}</span>
@@ -283,7 +283,7 @@
             <button
                 disabled={!valid}
                 on:click={() => download('png')}
-                class="flex items-center justify-center space-x-2 px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl shadow-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                class="flex items-center justify-center space-x-2 px-6 py-4 min-h-[44px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 focus:ring-2 focus:ring-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl shadow-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
                 <Download size={20} />
                 <span>{d.downloadPng}</span>

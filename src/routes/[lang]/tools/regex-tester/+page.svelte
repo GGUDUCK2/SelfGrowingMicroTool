@@ -122,8 +122,8 @@
   <meta name="description" content={t.description} />
   <meta name="keywords" content="regex, regex tester, regular expression, debug regex, regex visualizer" />
 
-  <script type="application/ld+json">
-    {JSON.stringify({
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Regex Pro",
@@ -137,7 +137,7 @@
       },
       "description": t.description
     })}
-  </script>
+  </script>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

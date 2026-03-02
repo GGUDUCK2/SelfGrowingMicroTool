@@ -239,8 +239,8 @@
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/grid-master" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
 
-  <script type="application/ld+json">
-    {
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Grid Master",
@@ -283,10 +283,10 @@
         "Responsive Layout Checker",
         "Tailwind Config Export"
       ]
-    }
-  </script>
-  <script type="application/ld+json">
-    {
+    })}
+  </script>`}
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "HowTo",
       "name": "How to create a CSS Grid Layout",
@@ -313,8 +313,8 @@
           "text": "Copy the generated CSS or Tailwind code instantly for your project."
         }
       ]
-    }
-  </script>
+    })}
+  </script>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">

@@ -79,8 +79,8 @@
   <title>{invoiceDict.title}</title>
   <meta name="description" content={invoiceDict.description} />
   <meta name="keywords" content="invoice generator, free invoice maker, pdf invoice, bill generator, receipt maker" />
-  <script type="application/ld+json">
-    {
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Invoice Forge",
@@ -92,9 +92,9 @@
         "priceCurrency": "USD"
       },
       "featureList": "Invoice Generation, Client Management, PDF Export, Currency Support",
-      "description": "{invoiceDict.description}"
-    }
-  </script>
+      "description": invoiceDict.description
+    })}
+  </script>`}
 </svelte:head>
 
 <div class="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20 print:bg-white print:pb-0">
