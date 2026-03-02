@@ -174,8 +174,8 @@
   <title>{expression ? expression + ' - ' : ''}{dict.title}</title>
   <meta name="description" content={dict.description} />
   <meta name="keywords" content="logic gates, truth table generator, boolean algebra, logic circuit simulator, online tool, digital logic design, karnaugh map, boolean simplifier" />
-  <script type="application/ld+json">
-    {JSON.stringify([
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify([
       {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
@@ -222,7 +222,7 @@
         ]
       }
     ])}
-  </script>
+  </script>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto space-y-8">

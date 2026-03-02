@@ -213,8 +213,8 @@
 <svelte:head>
   <title>{t.title} | Web Factory</title>
   <meta name="description" content={t.description} />
-  <script type="application/ld+json">
-    {JSON.stringify({
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Structura",
@@ -229,7 +229,7 @@
       "description": t.description,
       "featureList": ["JSON Converter", "YAML Converter", "XML Converter", "CSV Converter", "Code Generator", "Tree Visualizer"]
     })}
-  </script>
+  </script>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">

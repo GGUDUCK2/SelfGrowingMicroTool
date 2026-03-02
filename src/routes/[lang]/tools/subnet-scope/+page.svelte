@@ -134,8 +134,8 @@
   <meta name="twitter:title" content={dict.tools.subnetScope.title} />
   <meta name="twitter:description" content={dict.tools.subnetScope.description} />
 
-  <script type="application/ld+json">
-    {
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Subnet Scope",
@@ -155,8 +155,8 @@
         "Private/Public IP Detection",
         "Export Subnet Plan (CSV/JSON)"
       ]
-    }
-  </script>
+    })}
+  </script>`}
 </svelte:head>
 
 <!-- Toast -->
