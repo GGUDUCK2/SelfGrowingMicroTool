@@ -305,13 +305,13 @@
         <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex flex-wrap gap-4 items-center justify-between bg-slate-50 dark:bg-slate-800/50">
             <div class="flex items-center gap-4">
                 <div class="flex items-center bg-white dark:bg-slate-900 rounded-lg border border-slate-300 dark:border-slate-600 p-1">
-                    <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md" on:click={() => shiftDay(-1)} aria-label="Previous Day">
+                    <button class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md" on:click={() => shiftDay(-1)} aria-label="Previous Day">
                         <ArrowLeft size={18} />
                     </button>
                     <div class="px-4 font-mono font-medium min-w-[140px] text-center">
                         {format(selectedDate, 'yyyy-MM-dd')}
                     </div>
-                    <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md" on:click={() => shiftDay(1)} aria-label="Next Day">
+                    <button class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md" on:click={() => shiftDay(1)} aria-label="Next Day">
                         <ArrowRight size={18} />
                     </button>
                 </div>
@@ -484,9 +484,9 @@
 
 <style>
     .btn-primary {
-        @apply inline-flex items-center justify-center px-4 py-3 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+        @apply min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-4 py-3 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
     }
     .btn-secondary {
-        @apply inline-flex items-center justify-center px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg shadow-sm text-sm font-medium text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-700 hover:bg-slate-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors;
+        @apply min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg shadow-sm text-sm font-medium text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-700 hover:bg-slate-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors;
     }
 </style>
