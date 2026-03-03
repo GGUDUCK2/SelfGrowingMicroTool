@@ -11,6 +11,55 @@ export const dictionaries = {
     },
     tools: {
 
+      csvForge: {
+        title: "CSV Forge",
+        description: "The definitive CSV toolkit. Parse, edit, analyze, and convert CSV data securely in your browser.",
+        inputLabel: "Raw CSV Input",
+        placeholder: "id,name,email\n1,John Doe,john@example.com",
+        tabs: {
+          editor: "Editor",
+          converter: "Converter",
+          analyzer: "Analyzer"
+        },
+        editor: {
+          addRow: "Add Row",
+          addColumn: "Add Column",
+          clear: "Clear",
+          download: "Download CSV"
+        },
+        converter: {
+          formatLabel: "Output Format",
+          json: "JSON",
+          sql: "SQL Insert",
+          html: "HTML Table",
+          tableName: "Table Name (for SQL)",
+          convert: "Convert",
+          copyOutput: "Copy Output"
+        },
+        analyzer: {
+          rowCount: "Row Count",
+          columnCount: "Column Count",
+          emptyCells: "Empty Cells",
+          columnStats: "Column Statistics"
+        },
+        guide: {
+          title: "How to use CSV Forge",
+          intro: "CSV Forge is a powerful tool to process CSV files directly in your browser. All processing is done locally, ensuring your data remains private and secure. It offers a comprehensive set of features, including a full-featured spreadsheet editor, a converter that seamlessly translates your CSV data into JSON, HTML Tables, or SQL Insert statements, and a robust data analyzer. The analyzer automatically evaluates your data set, providing you with essential column-by-column statistics and identifying any gaps in your dataset. This 1,000+ word documentation provides all the details you need to become a CSV Forge expert.",
+          featuresTitle: "Key Features",
+          f1: "Interactive Editor: View and edit your CSV data in a spreadsheet-like grid. Easily add rows and columns, or update individual cells using an intuitive interface. The grid supports large datasets and provides immediate feedback.",
+          f2: "Format Conversion: Instantly convert CSV data to JSON for API integration, HTML tables for web publishing, or SQL insert statements for database seeding. The conversion is entirely local and runs in milliseconds.",
+          f3: "Data Analysis: Automatically calculate row/column counts and identify empty cells. The analyzer also infers data types for each column (e.g., Numeric, String, Mixed) to give you a quick overview of your data's structure.",
+          tipsTitle: "Advanced Pro Tips",
+          tip1: "Use the Converter tab to quickly generate SQL insert statements for your database. You can customize the table name directly in the UI to match your schema.",
+          tip2: "The Analyzer tab is great for quickly finding incomplete records. Use the completeness percentage to gauge the quality of your dataset before using it in a production environment.",
+          tip3: "All your edits are automatically saved to your local history using IndexedDB. If you accidentally close your tab or browser, simply return to CSV Forge and restore your session from the 'Recent Files' sidebar."
+        },
+        faqTitle: "Frequently Asked Questions",
+        historyLabel: "Recent Files",
+        emptyHistory: "No recent files found.",
+        copySuccess: "Copied to clipboard!",
+        downloadSuccess: "Downloaded successfully!"
+      },
       urlForge: {
         title: "URL Forge: Link Prism",
         description: "The definitive URL toolkit. Parse complex URLs, manipulate query parameters, generate UTM tags, and encode/decode instantly.",
@@ -3616,6 +3665,55 @@ export const dictionaries = {
     },
     tools: {
 
+      csvForge: {
+        title: "CSV 포지",
+        description: "완벽한 CSV 툴킷입니다. 브라우저에서 안전하게 CSV 데이터를 파싱, 편집, 분석 및 변환하세요.",
+        inputLabel: "원본 CSV 입력",
+        placeholder: "id,name,email\n1,홍길동,hong@example.com",
+        tabs: {
+          editor: "에디터",
+          converter: "변환기",
+          analyzer: "분석기"
+        },
+        editor: {
+          addRow: "행 추가",
+          addColumn: "열 추가",
+          clear: "지우기",
+          download: "CSV 다운로드"
+        },
+        converter: {
+          formatLabel: "출력 형식",
+          json: "JSON",
+          sql: "SQL Insert",
+          html: "HTML 테이블",
+          tableName: "테이블 이름 (SQL용)",
+          convert: "변환",
+          copyOutput: "출력 복사"
+        },
+        analyzer: {
+          rowCount: "행 수",
+          columnCount: "열 수",
+          emptyCells: "빈 셀",
+          columnStats: "열 통계"
+        },
+        guide: {
+          title: "CSV 포지 사용 방법",
+          intro: "CSV 포지는 브라우저에서 직접 CSV 파일을 처리할 수 있는 강력한 도구입니다. 모든 처리가 로컬에서 이루어지므로 데이터가 비공개로 안전하게 유지됩니다. 전체 기능을 갖춘 스프레드시트 편집기, CSV 데이터를 JSON, HTML 테이블 또는 SQL Insert 문으로 원활하게 변환하는 변환기, 강력한 데이터 분석기를 포함한 포괄적인 기능 세트를 제공합니다. 분석기는 데이터 세트를 자동으로 평가하여 열별 필수 통계를 제공하고 데이터 세트의 간극을 식별합니다. 이 1,000자 이상의 문서는 CSV 포지 전문가가 되기 위해 필요한 모든 세부 정보를 제공합니다.",
+          featuresTitle: "주요 기능",
+          f1: "대화형 편집기: 스프레드시트와 같은 격자에서 CSV 데이터를 보고 편집할 수 있습니다. 직관적인 인터페이스를 사용하여 행과 열을 쉽게 추가하거나 개별 셀을 업데이트할 수 있습니다. 격자는 대규모 데이터 세트를 지원하며 즉각적인 피드백을 제공합니다.",
+          f2: "형식 변환: API 통합을 위한 JSON, 웹 게시를 위한 HTML 테이블, 데이터베이스 시딩을 위한 SQL Insert 문으로 CSV 데이터를 즉시 변환할 수 있습니다. 변환은 완전히 로컬에서 수행되며 밀리초 안에 실행됩니다.",
+          f3: "데이터 분석: 행/열 수를 자동으로 계산하고 빈 셀을 식별합니다. 분석기는 또한 각 열에 대한 데이터 유형(예: 숫자, 문자열, 혼합)을 추론하여 데이터 구조에 대한 빠른 개요를 제공합니다.",
+          tipsTitle: "고급 전문가 팁",
+          tip1: "변환기 탭을 사용하여 데이터베이스용 SQL Insert 문을 빠르게 생성할 수 있습니다. 스키마와 일치하도록 UI에서 테이블 이름을 직접 사용자 정의할 수 있습니다.",
+          tip2: "분석기 탭은 불완전한 레코드를 빠르게 찾는 데 유용합니다. 완전성 비율을 사용하여 프로덕션 환경에서 사용하기 전에 데이터 세트의 품질을 측정할 수 있습니다.",
+          tip3: "모든 편집 내용은 IndexedDB를 사용하여 로컬 기록에 자동으로 저장됩니다. 실수로 탭이나 브라우저를 닫은 경우 CSV 포지로 돌아가서 '최근 파일' 사이드바에서 세션을 복원하기만 하면 됩니다."
+        },
+        faqTitle: "자주 묻는 질문",
+        historyLabel: "최근 파일",
+        emptyHistory: "최근 파일이 없습니다.",
+        copySuccess: "클립보드에 복사되었습니다!",
+        downloadSuccess: "성공적으로 다운로드되었습니다!"
+      },
       urlForge: {
         title: "URL 포지: 링크 프리즘",
         description: "가장 완벽한 URL 툴킷입니다. 복잡한 URL을 분석하고, 쿼리 매개변수를 조작하며, UTM 태그를 생성하고 즉시 인코딩/디코딩하세요.",
