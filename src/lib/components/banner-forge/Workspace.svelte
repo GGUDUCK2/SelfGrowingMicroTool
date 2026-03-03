@@ -126,11 +126,11 @@
     <main class="flex-1 order-1 lg:order-2 h-[60vh] lg:h-full relative bg-slate-100 dark:bg-slate-950 overflow-hidden flex flex-col">
         <!-- Zoom Controls -->
         <div class="absolute bottom-4 left-4 lg:top-4 lg:bottom-auto z-10 flex gap-2 bg-white dark:bg-slate-800 p-1.5 rounded-lg shadow-md border border-slate-200 dark:border-slate-700">
-            <button on:click={() => zoom = Math.max(0.1, zoom - 0.1)} class="p-1.5 hover:bg-slate-100 rounded text-slate-600">
+            <button on:click={() => zoom = Math.max(0.1, zoom - 0.1)} class="p-1.5 hover:bg-slate-100 rounded text-slate-600" aria-label="Zoom Out">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
             </button>
             <span class="text-xs font-mono w-12 flex items-center justify-center text-slate-500">{Math.round(zoom * 100)}%</span>
-            <button on:click={() => zoom = Math.min(2, zoom + 0.1)} class="p-1.5 hover:bg-slate-100 rounded text-slate-600">
+            <button on:click={() => zoom = Math.min(2, zoom + 0.1)} class="p-1.5 hover:bg-slate-100 rounded text-slate-600" aria-label="Zoom In">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
             </button>
             <button on:click={() => zoom = 0.6} class="p-1.5 hover:bg-slate-100 rounded text-slate-600 text-xs font-bold px-2">

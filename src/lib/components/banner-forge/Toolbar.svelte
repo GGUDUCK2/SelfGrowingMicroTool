@@ -162,34 +162,35 @@
             <!-- Position & Size -->
             <div class="grid grid-cols-2 gap-3">
                 <div>
-                    <label class="text-xs font-medium text-slate-600">{dict.layers.position} (X, Y)</label>
+                    <label class="text-xs font-medium text-slate-600" for="layer-x">{dict.layers.position} (X, Y)</label>
                     <div class="flex gap-2">
-                        <input type="number" value={Math.round(selectedLayer.x)} on:input={(e) => updateLayer('x', e.currentTarget.value)} class="w-full px-2 py-2 text-sm border border-slate-300 rounded-lg" />
-                        <input type="number" value={Math.round(selectedLayer.y)} on:input={(e) => updateLayer('y', e.currentTarget.value)} class="w-full px-2 py-2 text-sm border border-slate-300 rounded-lg" />
+                        <input id="layer-x" aria-label="X Position" type="number" value={Math.round(selectedLayer.x)} on:input={(e) => updateLayer('x', e.currentTarget.value)} class="w-full px-2 py-2 text-sm border border-slate-300 rounded-lg" />
+                        <input aria-label="Y Position" type="number" value={Math.round(selectedLayer.y)} on:input={(e) => updateLayer('y', e.currentTarget.value)} class="w-full px-2 py-2 text-sm border border-slate-300 rounded-lg" />
                     </div>
                 </div>
                 <div>
-                    <label class="text-xs font-medium text-slate-600">{dict.width} / {dict.height}</label>
+                    <label class="text-xs font-medium text-slate-600" for="layer-width">{dict.width} / {dict.height}</label>
                     <div class="flex gap-2">
-                        <input type="number" value={Math.round(selectedLayer.width)} on:input={(e) => updateLayer('width', e.currentTarget.value)} class="w-full px-2 py-2 text-sm border border-slate-300 rounded-lg" />
-                        <input type="number" value={Math.round(selectedLayer.height)} on:input={(e) => updateLayer('height', e.currentTarget.value)} class="w-full px-2 py-2 text-sm border border-slate-300 rounded-lg" />
+                        <input id="layer-width" aria-label="Width" type="number" value={Math.round(selectedLayer.width)} on:input={(e) => updateLayer('width', e.currentTarget.value)} class="w-full px-2 py-2 text-sm border border-slate-300 rounded-lg" />
+                        <input aria-label="Height" type="number" value={Math.round(selectedLayer.height)} on:input={(e) => updateLayer('height', e.currentTarget.value)} class="w-full px-2 py-2 text-sm border border-slate-300 rounded-lg" />
                     </div>
                 </div>
             </div>
 
             <!-- Rotation -->
              <div>
-                <label class="text-xs font-medium text-slate-600">{dict.layers.rotation}</label>
+                <label class="text-xs font-medium text-slate-600" for="layer-rotation">{dict.layers.rotation}</label>
                 <div class="flex gap-2 items-center">
-                    <input type="range" min="-180" max="180" value={selectedLayer.rotation} on:input={(e) => updateLayer('rotation', e.currentTarget.value)} class="flex-1" />
-                    <input type="number" value={selectedLayer.rotation} on:input={(e) => updateLayer('rotation', e.currentTarget.value)} class="w-16 px-2 py-2 text-sm border border-slate-300 rounded-lg text-center" />
+                    <input id="layer-rotation" type="range" min="-180" max="180" value={selectedLayer.rotation} on:input={(e) => updateLayer('rotation', e.currentTarget.value)} class="flex-1" />
+                    <input aria-label="Rotation degrees" type="number" value={selectedLayer.rotation} on:input={(e) => updateLayer('rotation', e.currentTarget.value)} class="w-16 px-2 py-2 text-sm border border-slate-300 rounded-lg text-center" />
                 </div>
              </div>
 
             {#if selectedLayer.type === 'text'}
                 <div class="space-y-2">
-                    <label class="text-xs font-medium text-slate-600">{dict.layers.title}</label>
+                    <label class="text-xs font-medium text-slate-600" for="layer-content">{dict.layers.title}</label>
                     <textarea
+                        id="layer-content"
                         value={selectedLayer.content}
                         on:input={(e) => updateLayer('content', e.currentTarget.value)}
                         class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
@@ -199,9 +200,9 @@
 
                 <div class="grid grid-cols-2 gap-3">
                      <div>
-                        <label class="text-xs font-medium text-slate-600">{dict.layers.size}</label>
+                        <label class="text-xs font-medium text-slate-600" for="layer-font-size">{dict.layers.size}</label>
                         <div class="relative">
-                            <input type="text" value={selectedLayer.style.fontSize} on:change={(e) => updateLayer('fontSize', e.currentTarget.value)} class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
+                            <input id="layer-font-size" type="text" value={selectedLayer.style.fontSize} on:change={(e) => updateLayer('fontSize', e.currentTarget.value)} class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
                         </div>
                      </div>
                      <div>
