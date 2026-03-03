@@ -141,7 +141,7 @@
        on:wheel={handleWheel}
   >
       <canvas bind:this={canvas} {width} {height} class="block"></canvas>
-      <button class="absolute top-2 right-2 p-2 bg-white/80 dark:bg-slate-800/80 rounded shadow backdrop-blur-sm transition-colors hover:bg-white dark:hover:bg-slate-700"
+      <button class="absolute top-2 right-2 p-2 min-h-[44px] min-w-[44px] bg-white/80 dark:bg-slate-800/80 rounded shadow backdrop-blur-sm transition-colors hover:bg-white dark:hover:bg-slate-700 flex justify-center items-center"
               on:click={() => { offsetX=0; offsetY=0; scale=40; draw(); }}
               title={dict.reset}>
           <RefreshCw size={16} class="text-slate-600 dark:text-slate-300" />
@@ -150,14 +150,14 @@
 
   <div class="space-y-2">
       {#each functions as fn, i}
-          <div class="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/50 p-2 rounded-lg border border-slate-200 dark:border-slate-700">
+          <div class="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/50 p-2 rounded-lg border border-slate-200 dark:border-slate-700 min-h-[44px]">
               <div class="w-3 h-3 rounded-full shrink-0" style="background-color: {fn.color}"></div>
               <span class="text-xs font-mono text-slate-500 hidden sm:inline">{dict.function}</span>
-              <input type="text" aria-label="Function Expression {i+1}" bind:value={fn.expression} on:input={draw} class="flex-1 bg-transparent border-none outline-none font-mono text-sm text-slate-700 dark:text-slate-200 placeholder-slate-400" placeholder="e.g. sin(x)" />
-              <button on:click={() => removeFunction(i)} aria-label="Remove Function {i+1}" class="p-1 text-slate-400 hover:text-red-500 rounded"><X size={14} /></button>
+              <input type="text" aria-label="Function Expression {i+1}" bind:value={fn.expression} on:input={draw} class="flex-1 min-h-[44px] bg-transparent border-none outline-none font-mono text-sm text-slate-700 dark:text-slate-200 placeholder-slate-400" placeholder="e.g. sin(x)" />
+              <button on:click={() => removeFunction(i)} aria-label="Remove Function {i+1}" class="p-1 min-h-[44px] min-w-[44px] text-slate-400 hover:text-red-500 rounded flex justify-center items-center"><X size={14} /></button>
           </div>
       {/each}
-      <button on:click={addFunction} class="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 font-medium px-2 py-1 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded w-full justify-center border-2 border-dashed border-indigo-200 dark:border-indigo-900">
+      <button on:click={addFunction} class="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 font-medium px-2 py-1 min-h-[44px] hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded w-full justify-center border-2 border-dashed border-indigo-200 dark:border-indigo-900">
           <Plus size={16} /> {dict.addFunction}
       </button>
   </div>
