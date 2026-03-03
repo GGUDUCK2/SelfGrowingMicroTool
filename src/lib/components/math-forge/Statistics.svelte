@@ -36,12 +36,12 @@
       <textarea
           id="stats-input"
           bind:value={input}
-          class="w-full h-64 p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none font-mono text-sm resize-none"
+          class="w-full min-h-[44px] h-64 p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none font-mono text-sm resize-none"
           placeholder="1, 2, 3..."
       ></textarea>
       <button
           on:click={calculate}
-          class="w-full py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all shadow-lg flex items-center justify-center gap-2"
+          class="w-full min-h-[44px] py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all shadow-lg flex items-center justify-center gap-2"
       >
           <Calculator size={20} />
           {dict.calculate}

@@ -37,6 +37,28 @@
     ]
   };
 
+  $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": dict.q1,
+        "acceptedAnswer": { "@type": "Answer", "text": dict.a1 }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q2,
+        "acceptedAnswer": { "@type": "Answer", "text": dict.a2 }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q3,
+        "acceptedAnswer": { "@type": "Answer", "text": dict.a3 }
+      }
+    ]
+  };
+
   let activeTab: 'calculator' | 'grapher' | 'matrix' | 'statistics' = 'calculator';
   let showHistory = false;
 
@@ -96,6 +118,7 @@
   <meta property="og:site_name" content="MicroFactory" />
 
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -119,7 +142,7 @@
   <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <a href="/{lang}" class="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors" aria-label={common.back}>
+        <a href="/{lang}" class="min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors" aria-label={common.back}>
           <ChevronLeft size={20} />
         </a>
         <div class="flex items-center space-x-2">
@@ -147,7 +170,7 @@
                     role="tab"
                     aria-selected={activeTab === 'calculator'}
                     aria-controls="calculator-panel"
-                    class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'calculator' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+                    class="flex-1 min-w-[100px] min-h-[44px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'calculator' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
                     on:click={() => activeTab = 'calculator'}>
                       <CalcIcon size={16} /> {dict.tabs.calculator}
                   </button>
@@ -155,7 +178,7 @@
                     role="tab"
                     aria-selected={activeTab === 'grapher'}
                     aria-controls="grapher-panel"
-                    class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'grapher' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+                    class="flex-1 min-w-[100px] min-h-[44px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'grapher' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
                     on:click={() => activeTab = 'grapher'}>
                       <LineChart size={16} /> {dict.tabs.grapher}
                   </button>
@@ -163,7 +186,7 @@
                     role="tab"
                     aria-selected={activeTab === 'matrix'}
                     aria-controls="matrix-panel"
-                    class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'matrix' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+                    class="flex-1 min-w-[100px] min-h-[44px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'matrix' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
                     on:click={() => activeTab = 'matrix'}>
                       <Grid3X3 size={16} /> {dict.tabs.matrix}
                   </button>
@@ -171,7 +194,7 @@
                     role="tab"
                     aria-selected={activeTab === 'statistics'}
                     aria-controls="statistics-panel"
-                    class="flex-1 min-w-[100px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'statistics' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+                    class="flex-1 min-w-[100px] min-h-[44px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'statistics' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
                     on:click={() => activeTab = 'statistics'}>
                       <BarChart size={16} /> {dict.tabs.statistics}
                   </button>
