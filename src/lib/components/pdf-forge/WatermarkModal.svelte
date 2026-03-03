@@ -51,7 +51,6 @@
                 placeholder="e.g. CONFIDENTIAL"
                 class="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                 on:keydown={(e) => e.key === 'Enter' && save()}
-                autoFocus
             />
         </div>
 

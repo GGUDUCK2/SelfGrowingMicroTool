@@ -125,25 +125,7 @@
   <meta name="twitter:description" content={dict.description} />
 
   {#if jsonLd}
-    {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}
-  // Keyboard shortcuts
-  function handleGlobalKeydown(e: KeyboardEvent) {
-      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-          e.preventDefault();
-          if (currentUrl.trim() !== '') {
-              saveToHistory('url-forge', { rawUrl: currentUrl }, { url: currentUrl });
-              // Simple toast feedback logic can be omitted for brevity or added here
-          }
-      }
-      if ((e.ctrlKey || e.metaKey) && e.key === 'h') {
-          e.preventDefault();
-          showHistory = !showHistory;
-      }
-  }
-</script>
-
-<svelte:window on:keydown={handleGlobalKeydown} />
-`}
+    {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
   {/if}
 </svelte:head>
 

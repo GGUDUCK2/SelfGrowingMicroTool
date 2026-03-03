@@ -120,7 +120,7 @@
 
                 {#if editingId === item.id}
                     <div class="mb-3 flex gap-2">
-                        <input type="text" bind:value={editName} on:keydown={(e) => handleKeydown(e, item.id)} class="flex-1 px-2 py-1 text-sm border border-indigo-300 rounded outline-none" placeholder="Project Name..." autofocus />
+                        <input type="text" bind:value={editName} on:keydown={(e) => handleKeydown(e, item.id)} class="flex-1 px-2 py-1 text-sm border border-indigo-300 rounded outline-none" placeholder="Project Name..." />
                         <button on:click={() => saveRename(item.id)} class="text-xs bg-indigo-500 text-white px-2 rounded">Save</button>
                     </div>
                 {:else if item.name}
