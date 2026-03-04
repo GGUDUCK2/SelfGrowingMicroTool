@@ -209,7 +209,7 @@
   </script>`}
 </svelte:head>
 
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <div
     class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4"
   >
@@ -264,7 +264,7 @@
             class="absolute right-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
           >
             <button
-              class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-white"
+              class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center"
               on:click={() => (cronExpression = "* * * * *")}
               title={dict.clear}
             >
@@ -295,7 +295,7 @@
         <div class="flex flex-wrap gap-2">
           {#each lang === "ko" ? COMMON_PRESETS_KO : COMMON_PRESETS as preset}
             <button
-              class="px-3 py-1.5 bg-indigo-50 dark:bg-indigo-500/10 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 rounded-full text-sm transition-colors border border-indigo-200 dark:border-indigo-500/20"
+              class="px-3 py-1.5 bg-indigo-50 dark:bg-indigo-500/10 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 rounded-full text-sm transition-colors border border-indigo-200 dark:border-indigo-500/20 min-h-[44px]"
               on:click={() => handlePreset(preset.value)}
             >
               {preset.name}

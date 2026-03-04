@@ -173,7 +173,7 @@
                 <div class="flex space-x-2">
                     <button
                         on:click={saveToHistory}
-                        class="flex items-center space-x-1 px-3 py-1.5 bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600/30 rounded-lg text-sm transition-colors border border-indigo-500/30"
+                        class="flex items-center space-x-1 px-3 py-1.5 bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600/30 rounded-lg text-sm transition-colors border border-indigo-500/30 min-h-[44px]"
                         title="Save to History (Ctrl+S)"
                     >
                         <Save size={16} />
@@ -181,7 +181,7 @@
                     </button>
                     <button
                         on:click={() => showHistory = !showHistory}
-                        class="flex items-center space-x-1 px-3 py-1.5 bg-slate-700 text-slate-300 hover:bg-slate-600 rounded-lg text-sm transition-colors border border-slate-600"
+                        class="flex items-center space-x-1 px-3 py-1.5 bg-slate-700 text-slate-300 hover:bg-slate-600 rounded-lg text-sm transition-colors border border-slate-600 min-h-[44px]"
                     >
                         <History size={16} />
                         <span>{t.history || 'History'}</span>
