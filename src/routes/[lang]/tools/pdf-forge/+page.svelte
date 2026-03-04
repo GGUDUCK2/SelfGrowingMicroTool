@@ -79,7 +79,7 @@
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
 </svelte:head>
 
-<div class="max-w-7xl mx-auto px-4 py-12 space-y-16 font-sans">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16 font-sans">
   <!-- Hero -->
   <header class="text-center space-y-6">
     <div class="inline-flex items-center justify-center p-4 bg-indigo-500/10 dark:bg-indigo-500/20 rounded-3xl mb-4">
@@ -99,7 +99,7 @@
   </main>
 
   <!-- Features -->
-  <section class="grid md:grid-cols-3 gap-8">
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-8">
      <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
         <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center mb-4 text-indigo-600 dark:text-indigo-400">
             <Layers class="w-6 h-6" />
@@ -130,7 +130,7 @@
   </section>
 
   <!-- Guide & FAQ -->
-  <div class="grid lg:grid-cols-12 gap-12 pt-12 border-t border-slate-200 dark:border-slate-800">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-12 border-t border-slate-200 dark:border-slate-800">
       <article class="lg:col-span-7 prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-400">
           <h2 class="text-slate-900 dark:text-white">{toolDict.guide.title}</h2>
           <p class="lead">{toolDict.guide.intro}</p>
