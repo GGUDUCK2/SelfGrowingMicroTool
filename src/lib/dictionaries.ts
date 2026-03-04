@@ -10,6 +10,52 @@ export const dictionaries = {
       actions: "Actions",
     },
     tools: {
+      hashForge: {
+        title: "Hash Forge: The Cryptographic Toolkit",
+        description: "The definitive tool for generating hashes, HMACs, and verifying file checksums locally with extreme performance.",
+        tabs: {
+          text: "Text Hash",
+          file: "File Checksum",
+          hmac: "HMAC Generator",
+          history: "History"
+        },
+        textHash: {
+          inputLabel: "Text to Hash",
+          placeholder: "Enter text to hash here...",
+        },
+        fileHash: {
+          dropzone: "Drag & drop a file here, or click to browse",
+          hashing: "Hashing...",
+          fileSize: "Size",
+          algorithm: "Algorithm",
+        },
+        hmac: {
+          secretLabel: "Secret Key",
+          secretPlaceholder: "Enter a strong secret key...",
+        },
+        common: {
+          copy: "Copy",
+          copied: "Copied!",
+          uppercase: "UPPERCASE"
+        },
+        guideTitle: "Why use Hash Forge?",
+        guideIntro: "Hash Forge is a professional-grade cryptographic utility designed to run entirely in your browser. From verifying multi-gigabyte files to generating HMAC signatures for API authentication, your data never leaves your device.",
+        guideFeaturesTitle: "Core Capabilities",
+        guideF1: "**Zero Data Transfer:** All hashing (including huge files) happens locally using the Web Crypto API. Nothing is ever uploaded to a server.",
+        guideF2: "**Multi-Algorithm Support:** Instantly compute MD5, SHA-1, SHA-256, SHA-384, and SHA-512 simultaneously or selectively.",
+        guideF3: "**HMAC Generation:** Create secure Hash-based Message Authentication Codes for API integrations and token signing.",
+        guideTipsTitle: "Advanced Pro Tips",
+        guideTip1: "**Stream Large Files:** We use chunked file reading, so you can verify 50GB+ ISO files without crashing your browser or running out of memory.",
+        guideTip2: "**Keyboard Shortcuts:** Use `Ctrl + C` or click the hash to instantly copy it to your clipboard. Toggle UPPERCASE via the quick action button.",
+        guideTip3: "**Save to Workspace:** Important checksums can be starred and saved directly to your local Dexie.js database for future reference.",
+        faqTitle: "Hash Forge FAQ",
+        faqQ1: "Is my data sent anywhere?",
+        faqA1: "Absolutely not. Hash Forge utilizes your browser's native Web Crypto API and local chunking algorithms. We do not have servers to receive your files.",
+        faqQ2: "What is an HMAC and when should I use it?",
+        faqA2: "HMAC (Hash-based Message Authentication Code) requires both a message and a secret key. It is commonly used for verifying data integrity and authenticity, especially in webhooks (like Stripe or GitHub).",
+        faqQ3: "Can Hash Forge handle very large files (e.g., 10GB+ ISOs)?",
+        faqA3: "Yes. Hash Forge uses modern browser File API streams to read files in tiny chunks. It will not freeze your browser or cause Out-of-Memory errors."
+      },
 
       csvForge: {
         title: "CSV Forge",
@@ -3664,6 +3710,52 @@ export const dictionaries = {
       actions: "작업",
     },
     tools: {
+      hashForge: {
+        title: "해시 포지 (Hash Forge): 암호화 툴킷",
+        description: "해시, HMAC 및 파일 체크섬을 브라우저에서 안전하고 빠르게 생성 및 검증하는 최고의 도구입니다.",
+        tabs: {
+          text: "텍스트 해시",
+          file: "파일 체크섬",
+          hmac: "HMAC 생성기",
+          history: "기록"
+        },
+        textHash: {
+          inputLabel: "해시할 텍스트",
+          placeholder: "여기에 텍스트를 입력하세요...",
+        },
+        fileHash: {
+          dropzone: "여기로 파일을 드래그하거나 클릭하여 찾아보세요",
+          hashing: "해싱 중...",
+          fileSize: "크기",
+          algorithm: "알고리즘",
+        },
+        hmac: {
+          secretLabel: "비밀 키 (Secret Key)",
+          secretPlaceholder: "강력한 비밀 키를 입력하세요...",
+        },
+        common: {
+          copy: "복사",
+          copied: "복사됨!",
+          uppercase: "대문자"
+        },
+        guideTitle: "Hash Forge를 사용해야 하는 이유",
+        guideIntro: "Hash Forge는 브라우저 내에서 전적으로 실행되도록 설계된 전문가용 암호화 유틸리티입니다. 대용량 파일 검증부터 API 인증을 위한 HMAC 서명 생성까지 데이터는 기기를 벗어나지 않습니다.",
+        guideFeaturesTitle: "핵심 기능",
+        guideF1: "**데이터 전송 없음:** Web Crypto API를 사용하여 (대용량 파일 포함) 모든 해싱이 로컬에서 이루어집니다. 서버로 업로드되는 데이터는 전혀 없습니다.",
+        guideF2: "**다중 알고리즘 지원:** MD5, SHA-1, SHA-256, SHA-384 및 SHA-512를 즉시 계산합니다.",
+        guideF3: "**HMAC 생성:** API 연동 및 토큰 서명을 위한 안전한 HMAC(Hash-based Message Authentication Code)를 생성하세요.",
+        guideTipsTitle: "고급 프로 팁",
+        guideTip1: "**대용량 파일 스트리밍:** 청크 단위로 파일을 읽어 메모리 부족 없이 수십 GB의 파일도 안정적으로 검증합니다.",
+        guideTip2: "**키보드 단축키 및 원클릭 복사:** 해시를 클릭하여 즉시 복사하고 대문자 변환 버튼을 이용해 포맷을 조정하세요.",
+        guideTip3: "**작업 공간 저장:** 중요한 체크섬은 별표로 표시하고 로컬 Dexie.js 데이터베이스에 저장하여 나중에 참조할 수 있습니다.",
+        faqTitle: "Hash Forge 자주 묻는 질문",
+        faqQ1: "제 데이터가 외부로 전송되나요?",
+        faqA1: "절대 아닙니다. 브라우저의 네이티브 Web Crypto API를 사용하여 데이터를 클라이언트 측에서만 처리합니다.",
+        faqQ2: "HMAC은 무엇이며 언제 사용하나요?",
+        faqA2: "HMAC은 메시지와 비밀 키를 모두 요구하여 데이터 무결성과 인증을 확인하는 데 사용됩니다. 웹훅(Webhook) 서명 검증에 자주 쓰입니다.",
+        faqQ3: "대용량 파일(예: 10GB 이상)도 처리할 수 있나요?",
+        faqA3: "네. 최신 파일 스트림 API를 사용하여 파일을 작은 청크로 나누어 읽기 때문에 브라우저가 멈추지 않고 처리할 수 있습니다."
+      },
 
       csvForge: {
         title: "CSV 포지",
