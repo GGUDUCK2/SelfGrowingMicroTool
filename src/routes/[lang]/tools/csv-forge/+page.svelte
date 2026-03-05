@@ -14,6 +14,7 @@
   import HistoryPanel from '$lib/components/csv-forge/HistoryPanel.svelte';
 
   import { Check, FileSpreadsheet, Edit3, ArrowRightLeft, BarChart2 } from 'lucide-svelte';
+  import Head from '$lib/components/Head.svelte';
 
   $: lang = $page.params.lang as 'en' | 'ko';
   $: dict = dictionaries[lang].tools.csvForge;
@@ -160,29 +161,15 @@
 </script>
 
 <svelte:head>
-  <title>{dict?.title || ''} - MicroTools</title>
-  <meta name="description" content={dict?.description || ''} />
-  <meta name="keywords" content="csv editor, csv to json, csv to sql, csv analyzer, local csv tool" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content={dict?.title || ''} />
-  <meta property="og:description" content={dict?.description || ''} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}/tools/csv-forge" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={dict?.title || ''} />
-  <meta name="twitter:description" content={dict?.description || ''} />
-
-  <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}/tools/csv-forge" />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/csv-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/csv-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/csv-forge" />
-
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
 </svelte:head>
+
+<Head
+  title={dict?.title || ''}
+  description={dict?.description || ''}
+  keywords="csv editor, csv to json, csv to sql, csv analyzer, local csv tool"
+/>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">
   <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30">
