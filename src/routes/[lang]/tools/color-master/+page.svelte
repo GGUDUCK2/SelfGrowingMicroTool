@@ -20,6 +20,7 @@
   import { getDictionary } from '$lib/dictionaries';
   import type { ScaleStep } from '$lib/types/color-master';
   import FAQSection from '$lib/components/FAQSection.svelte';
+  import Head from '$lib/components/Head.svelte';
 
   // --- Props ---
   export let data;
@@ -225,20 +226,15 @@
 </script>
 
 <svelte:head>
-  <title>{t.title} | {dict.home.title}</title>
-  <meta name="description" content="{t.description}" />
-  <meta name="keywords" content="{t.keywords}" />
-  <link rel="canonical" href="https://selfgrowingmicrotool.com/{data.lang}/tools/color-master" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="{t.title} | {dict.home.title}" />
-  <meta property="og:description" content="{t.description}" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://selfgrowingmicrotool.com/{data.lang}/tools/color-master" />
-
   {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(howToSchema)}</script>`}
 </svelte:head>
+
+<Head
+  title={`${t.title} | ${dict.home.title}`}
+  description={t.description}
+  keywords={t.keywords}
+/>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 relative">
 
