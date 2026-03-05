@@ -211,7 +211,7 @@
            <button
              role="tab"
              aria-selected={activeTab === 'editor'}
-             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'editor' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+             class="flex-1 min-w-[100px] min-h-[44px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'editor' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'editor'}
            >
              <Edit3 size={16} />
@@ -220,7 +220,7 @@
            <button
              role="tab"
              aria-selected={activeTab === 'converter'}
-             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'converter' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+             class="flex-1 min-w-[100px] min-h-[44px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'converter' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'converter'}
            >
              <ArrowRightLeft size={16} />
@@ -229,7 +229,7 @@
            <button
              role="tab"
              aria-selected={activeTab === 'analyzer'}
-             class="flex-1 min-w-[100px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'analyzer' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
+             class="flex-1 min-w-[100px] min-h-[44px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'analyzer' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'analyzer'}
            >
              <BarChart2 size={16} />
