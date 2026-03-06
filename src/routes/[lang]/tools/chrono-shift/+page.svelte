@@ -204,6 +204,7 @@
         "name": t.title,
         "description": t.description,
         "applicationCategory": "BusinessApplication",
+        "applicationSubCategory": "Time Management",
         "operatingSystem": "Any",
         "offers": {
             "@type": "Offer",
@@ -238,6 +239,19 @@
         "name": "Chrono Shift",
         "item": `https://web-factory.vercel.app/${data.lang}/tools/chrono-shift`
       }]
+    };
+
+    $: faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqItems.map(item => ({
+            "@type": "Question",
+            "name": item.q,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": item.a
+            }
+        }))
     };
 
     // ics generation (simplified)
@@ -281,6 +295,7 @@
 
     {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
     {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
+    {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
 </svelte:head>
 
 <div class="max-w-6xl mx-auto space-y-8 pb-20 px-4 sm:px-6">
@@ -368,7 +383,7 @@
                             <div class="absolute bottom-full left-0 right-0 mb-1 bg-white dark:bg-slate-800 rounded-md shadow-xl border border-slate-200 dark:border-slate-700 max-h-48 overflow-y-auto z-50">
                                 {#each filteredZones as zone}
                                     <button
-                                        class="w-full text-left px-3 py-2 text-xs hover:bg-indigo-50 dark:hover:bg-indigo-900/30 truncate"
+                                        class="w-full text-left px-3 py-2 text-xs hover:bg-indigo-50 dark:hover:bg-indigo-900/30 truncate min-h-[44px]"
                                         on:click={() => addLocation(zone)}
                                     >
                                         {zone}
