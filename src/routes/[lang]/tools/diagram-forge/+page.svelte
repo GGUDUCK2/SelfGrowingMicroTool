@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
@@ -190,20 +191,14 @@
 
   $: jsonLdScript = `<script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}<\/script>`;
 </script>
+<Head
+  title={t.title}
+  description={t.description}
+/>
+
 
 <svelte:head>
-  <title>{t.title} | MicroFactory</title>
-  <meta name="description" content={t.description} />
-  <meta property="og:title" content="{t.title} | MicroFactory" />
-  <meta property="og:description" content={t.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={`https://selfgrowingmicrotool.com/${lang}/tools/diagram-forge`} />
-  <meta property="og:image" content="https://selfgrowingmicrotool.com/assets/og/diagram-forge.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="{t.title} | MicroFactory" />
-  <meta name="twitter:description" content={t.description} />
-  <meta name="twitter:image" content="https://selfgrowingmicrotool.com/assets/og/diagram-forge.png" />
-  {@html jsonLdScript}
+                        {@html jsonLdScript}
 </svelte:head>
 
 <div class="flex h-[calc(100vh-64px)] overflow-hidden bg-slate-50 dark:bg-slate-900">

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import { resumeStore } from '$lib/utils/resume-forge/store';
@@ -152,16 +153,15 @@
     ]
   });
 </script>
+<Head
+  title={toolDict.title}
+  description={toolDict.description}
+  keywords="resume builder, cv maker, json resume, free resume template, ats friendly resume, pdf resume"
+/>
+
 
 <svelte:head>
-  <title>{toolDict.title} - MicroFactory</title>
-  <meta name="description" content={toolDict.description} />
-  <meta name="keywords" content="resume builder, cv maker, json resume, free resume template, ats friendly resume, pdf resume" />
 
-  <meta property="og:title" content={toolDict.title} />
-  <meta property="og:description" content={toolDict.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={$page.url.href} />
 
   {@html `<script type="application/ld+json">${jsonLd}</script>`}
 </svelte:head>

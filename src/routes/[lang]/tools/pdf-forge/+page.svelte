@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { FileText, Shield, Layers, Zap } from 'lucide-svelte';
   import Workspace from '$lib/components/pdf-forge/Workspace.svelte';
   import { page } from '$app/stores';
@@ -64,18 +65,15 @@
 
   const renderMarkdown = (text: string) => marked.parse(text);
 </script>
+<Head
+  title={title}
+  description={description}
+  keywords="merge pdf, split pdf, rotate pdf, combine pdf, free pdf tool, privacy focus pdf, client side pdf editor, image to pdf, jpg to pdf, png to pdf, offline pdf editor, pdf session history, secure pdf merger, reorganize pdf pages, extract pdf pages, local pdf tools, zipper merge pdf, pdf watermark, pdf to image, export pdf pages"
+/>
+
 
 <svelte:head>
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <meta name="keywords" content="merge pdf, split pdf, rotate pdf, combine pdf, free pdf tool, privacy focus pdf, client side pdf editor, image to pdf, jpg to pdf, png to pdf, offline pdf editor, pdf session history, secure pdf merger, reorganize pdf pages, extract pdf pages, local pdf tools, zipper merge pdf, pdf watermark, pdf to image, export pdf pages" />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:url" content={canonical} />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://selfgrowingmicrotool.com/og/pdf-forge.png" />
-  <link rel="canonical" href={canonical} />
-  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
+                    {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
 </svelte:head>
 

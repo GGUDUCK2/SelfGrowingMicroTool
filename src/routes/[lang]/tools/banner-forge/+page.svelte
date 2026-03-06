@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import Workspace from '$lib/components/banner-forge/Workspace.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
@@ -65,23 +66,17 @@
     ]
   };
 </script>
+<Head
+  title={title}
+  description={description}
+  keywords="og image generator, social media banner, youtube thumbnail maker, twitch banner, linkedin header, design tool, open graph maker"
+/>
+
 
 <svelte:head>
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <meta name="keywords" content="og image generator, social media banner, youtube thumbnail maker, twitch banner, linkedin header, design tool, open graph maker" />
 
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={canonical} />
-  <meta property="og:image" content="https://selfgrowingmicrotool.com/og/banner-forge.jpg" />
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
 
-  <link rel="canonical" href={canonical} />
 
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
 </svelte:head>

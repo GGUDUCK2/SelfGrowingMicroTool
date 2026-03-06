@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
   import { page } from '$app/stores';
@@ -116,24 +117,19 @@
     return { title: text.replace(/\*\*/g, ''), desc: '' };
   }
 </script>
+<Head
+  title={`${t.title} - ${t.category || 'Design'}`}
+  description={t.description}
+  keywords="favicon generator, pwa icon, maskable icon, app icon generator, ios icon generator, android icon generator, svg to ico"
+/>
+
 
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-  <title>{t.title} - {t.category || 'Design'}</title>
-  <meta name="description" content={t.description} />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content={t.title} />
-  <meta property="og:description" content={t.description} />
-  <meta property="og:type" content="website" />
 
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={t.title} />
-  <meta name="twitter:description" content={t.description} />
 
-  <meta name="keywords" content="favicon generator, pwa icon, maskable icon, app icon generator, ios icon generator, android icon generator, svg to ico" />
 
   {@html `<script type="application/ld+json">
     {

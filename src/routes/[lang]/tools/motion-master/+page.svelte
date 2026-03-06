@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import { animationStore, isPlaying, previewStore } from '$lib/utils/motion-master/store';
@@ -74,18 +75,17 @@
   }
 
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+  keywords="css animation, keyframes generator, animation tool, web motion design, tailwind animation"
+/>
+
 
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-  <title>{dict.title} | MicroFactory</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="css animation, keyframes generator, animation tool, web motion design, tailwind animation" />
 
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={$page.url.href} />
 
   {@html `<script type="application/ld+json">
   {

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from "$app/stores";
   import { onMount, onDestroy } from "svelte";
   import { slide } from "svelte/transition";
@@ -139,20 +140,18 @@
     a: lang === 'ko' ? f.answer.ko : f.answer.en
   }));
 </script>
+<Head
+  title={`${lang === "ko"
+      ? `Cronos: 전문가용 Cron 에디터 - ${parseResult.isValid ? parseResult.description : "스케줄러"}`
+      : `Cronos: Professional Cron Editor - ${parseResult.isValid ? parseResult.description : "Scheduler"}`}`}
+  description={dict.description}
+  keywords="cron, crontab, schedule, editor, generator, linux, devops"
+/>
+
 
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-  <title>
-    {lang === "ko"
-      ? `Cronos: 전문가용 Cron 에디터 - ${parseResult.isValid ? parseResult.description : "스케줄러"}`
-      : `Cronos: Professional Cron Editor - ${parseResult.isValid ? parseResult.description : "Scheduler"}`}
-  </title>
-  <meta name="description" content={dict.description} />
-  <meta
-    name="keywords"
-    content="cron, crontab, schedule, editor, generator, linux, devops"
-  />
 
   <!-- JSON-LD -->
   {@html `<script type="application/ld+json">

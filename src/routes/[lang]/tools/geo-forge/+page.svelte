@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
   import { page } from '$app/stores';
@@ -377,16 +378,15 @@
     }))
   };
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+  keywords="geojson, wkt, csv, map, converter, geospatial, gis tools, visualization, coordinates"
+/>
+
 
 <svelte:head>
-  <title>{dict.title} | MicroFactory</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="geojson, wkt, csv, map, converter, geospatial, gis tools, visualization, coordinates" />
 
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
-  <meta property="og:type" content="website" />
-  <link rel="canonical" href="https://selfgrowingmicrotool.com/tools/geo-forge" />
 
   {@html `<script type="application/ld+json">
     {

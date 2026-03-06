@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
@@ -114,12 +115,13 @@
       alert(dict.tools.deployForge.saved);
   }
 </script>
+<Head
+  title={`${dict.tools.deployForge.title} | ${dict.home.title}`}
+  description={dict.tools.deployForge.description}
+  keywords="dockerfile generator, docker compose builder, container architect, devops tool"
+/>
 
-<svelte:head>
-  <title>{dict.tools.deployForge.title} | {dict.home.title}</title>
-  <meta name="description" content={dict.tools.deployForge.description} />
-  <meta name="keywords" content="dockerfile generator, docker compose builder, container architect, devops tool" />
-</svelte:head>
+
 
 <div class="min-h-screen bg-slate-900 text-slate-100 pb-20">
   <!-- Header -->

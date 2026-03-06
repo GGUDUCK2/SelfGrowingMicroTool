@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
   import { getDictionary } from '$lib/dictionaries';
@@ -166,16 +167,14 @@
   }
 
 </script>
+<Head
+  title={t.title}
+  description={t.description}
+/>
+
 
 <svelte:head>
-  <title>{t.title} - MicroFactory</title>
-  <meta name="description" content={t.description} />
-  <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}/tools/json-architect" />
 
-  <meta property="og:title" content="{t.title} - MicroFactory" />
-  <meta property="og:description" content={t.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}/tools/json-architect" />
 
   {@html `<script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",

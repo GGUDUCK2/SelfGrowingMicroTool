@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
     import { page } from '$app/stores';
     import { getDictionary } from '$lib/dictionaries';
     import { Permission } from '$lib/utils/perms-forge/permissions';
@@ -70,14 +71,15 @@
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
     };
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+  keywords="chmod calculator, linux permissions, rwxr-xr-x, 755, 777, chmod generator, symbolic to octal"
+/>
+
 
 <svelte:head>
-    <title>{dict.title} | MicroFactory</title>
-    <meta name="description" content={dict.description} />
-    <meta name="keywords" content="chmod calculator, linux permissions, rwxr-xr-x, 755, 777, chmod generator, symbolic to octal" />
-    <meta property="og:title" content={dict.title} />
-    <meta property="og:description" content={dict.description} />
-    {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
+                        {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20 transition-colors duration-300">

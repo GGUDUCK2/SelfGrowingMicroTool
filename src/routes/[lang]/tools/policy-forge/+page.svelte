@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import { policyStore } from '$lib/stores/policy-forge';
@@ -120,16 +121,15 @@
     ]
   });
 </script>
+<Head
+  title={toolDict.title}
+  description={toolDict.description}
+  keywords="privacy policy generator, terms of service generator, gdpr, ccpa, legal documents, free policy maker"
+/>
+
 
 <svelte:head>
-  <title>{toolDict.title} - MicroFactory</title>
-  <meta name="description" content={toolDict.description} />
-  <meta name="keywords" content="privacy policy generator, terms of service generator, gdpr, ccpa, legal documents, free policy maker" />
 
-  <meta property="og:title" content={toolDict.title} />
-  <meta property="og:description" content={toolDict.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={$page.url.href} />
 
   {@html `<script type="application/ld+json">${jsonLd}</script>`}
 </svelte:head>

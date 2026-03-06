@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
   import { fade, slide } from 'svelte/transition';
@@ -135,27 +136,20 @@
     }
   }
 </script>
+<Head
+  title={`${dict.title} - MicroTools`}
+  description={dict.description}
+  keywords="hash generator, hmac calculator, jwt debugger, password generator, aes encryption, web crypto api, sha-256, sha-512, md5, base64 encoder"
+/>
+
 
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-  <title>{dict.title} - MicroTools</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="hash generator, hmac calculator, jwt debugger, password generator, aes encryption, web crypto api, sha-256, sha-512, md5, base64 encoder" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}/tools/cipher-lab" />
 
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={dict.title} />
-  <meta name="twitter:description" content={dict.description} />
 
-  <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}/tools/cipher-lab" />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/cipher-lab" />
+    <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/cipher-lab" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/cipher-lab" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/cipher-lab" />
 

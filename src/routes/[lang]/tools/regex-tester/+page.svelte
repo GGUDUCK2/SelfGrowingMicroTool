@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
   import { getDictionary } from '$lib/dictionaries';
@@ -116,11 +117,14 @@
     if (params.has('text')) testString = params.get('text') || '';
   });
 </script>
+<Head
+  title={t.title}
+  description={t.description}
+  keywords="regex, regex tester, regular expression, debug regex, regex visualizer"
+/>
+
 
 <svelte:head>
-  <title>{t.title} - MicroFactory</title>
-  <meta name="description" content={t.description} />
-  <meta name="keywords" content="regex, regex tester, regular expression, debug regex, regex visualizer" />
 
   {@html `<script type="application/ld+json">
     ${JSON.stringify({

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
   import { fade, slide } from 'svelte/transition';
@@ -50,11 +51,14 @@
     { q: dict.faqQ3, a: dict.faqA3 }
   ];
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+/>
+
 
 <svelte:head>
-  <title>{dict.title} | MicroFactory</title>
-  <meta name="description" content={dict.description} />
-  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
+      {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">

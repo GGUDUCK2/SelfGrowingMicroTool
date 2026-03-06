@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import { db } from '$lib/db';
@@ -82,16 +83,15 @@
       }
   }
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+  keywords="typing test, wpm test, code typing practice, mechanical keyboard sound, typing speed test, developer typing"
+/>
+
 
 <svelte:head>
-  <title>{dict.title} | MicroFactory</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="typing test, wpm test, code typing practice, mechanical keyboard sound, typing speed test, developer typing" />
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={$page.url.href} />
-  {@html `<script type="application/ld+json">
+                {@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

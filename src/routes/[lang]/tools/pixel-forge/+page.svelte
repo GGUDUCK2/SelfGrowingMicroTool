@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { FileImage, History, Zap, Lock, Smartphone } from 'lucide-svelte';
   import Workspace from '$lib/components/pixel-forge/Workspace.svelte';
   import { page } from '$app/stores';
@@ -63,23 +64,18 @@
   // Helper to render markdown safely
   const renderMarkdown = (text: string) => marked.parse(text);
 </script>
+<Head
+  title={title}
+  description={description}
+  keywords="image optimizer, webp converter, watermark images, extract color palette, strip exif metadata, image compressor, resize image, privacy focused, client side, pixel forge"
+/>
+
 
 <svelte:head>
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <meta name="keywords" content="image optimizer, webp converter, watermark images, extract color palette, strip exif metadata, image compressor, resize image, privacy focused, client side, pixel forge" />
 
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={canonical} />
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
 
-  <link rel="canonical" href={canonical} />
-  <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/pixel-forge" />
+    <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/pixel-forge" />
   <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/pixel-forge" />
   <link rel="alternate" hreflang="x-default" href="https://web-factory.vercel.app/en/tools/pixel-forge" />
 

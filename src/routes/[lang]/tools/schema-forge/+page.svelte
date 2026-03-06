@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount, onDestroy } from 'svelte';
   import { page } from '$app/stores';
   import { fade, slide, fly } from 'svelte/transition';
@@ -281,25 +282,16 @@
   $: tsCode = generateCode(activeProject, 'typescript');
 
 </script>
+<Head
+  title={t.title}
+  description={t.description}
+  keywords="database schema, sql generator, prisma schema, db diagram, entity relationship diagram, mysql, postgres, sqlite"
+/>
+
 
 <svelte:head>
-  <title>{t.title} - MicroFactory</title>
-  <meta name="description" content={t.description} />
-  <meta name="keywords" content="database schema, sql generator, prisma schema, db diagram, entity relationship diagram, mysql, postgres, sqlite" />
-  <link rel="canonical" href="https://microfactory.app/en/tools/schema-forge" />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://microfactory.app/{lang}/tools/schema-forge" />
-  <meta property="og:title" content={t.title} />
-  <meta property="og:description" content={t.description} />
-  <meta property="og:image" content="https://microfactory.app/og/schema-forge.png" />
 
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={t.title} />
-  <meta name="twitter:description" content={t.description} />
-  <meta name="twitter:image" content="https://microfactory.app/og/schema-forge.png" />
 
   <!-- JSON-LD -->
   {@html `<script type="application/ld+json">

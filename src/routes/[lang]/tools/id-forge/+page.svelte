@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
   import { page } from '$app/stores';
@@ -155,22 +156,18 @@
        }
   }
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+  keywords="uuid generator, ulid generator, nanoid generator, guid, uuid v7, collision calculator, id generator"
+/>
+
 
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-  <title>{dict.title}</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="uuid generator, ulid generator, nanoid generator, guid, uuid v7, collision calculator, id generator" />
 
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
-  <meta property="og:url" content="https://web-factory.vercel.app/tools/id-forge" />
-  <meta property="og:type" content="website" />
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={dict.title} />
-  <meta name="twitter:description" content={dict.description} />
 
   <!-- JSON-LD for SoftwareApplication -->
   {@html `<script type="application/ld+json">

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
   import QRConfig from '$lib/components/qr-forge/QRConfig.svelte';
@@ -135,17 +136,15 @@
       }
   });
 </script>
+<Head
+  title={t.title}
+  description={t.description}
+  keywords="qr code generator, wifi qr code, vcard qr code, crypto qr code, free qr generator, no expiry qr code"
+/>
+
 
 <svelte:head>
-  <title>{t.title} | MicroFactory</title>
-  <meta name="description" content={t.description} />
-  <meta name="keywords" content="qr code generator, wifi qr code, vcard qr code, crypto qr code, free qr generator, no expiry qr code" />
-  <meta property="og:title" content={t.title} />
-  <meta property="og:description" content={t.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={$page.url.href} />
-  <link rel="canonical" href={$page.url.href} />
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
+                  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumb)}</script>`}
 </svelte:head>
 

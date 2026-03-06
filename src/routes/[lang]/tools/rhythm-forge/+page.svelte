@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount, onDestroy } from 'svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
@@ -253,16 +254,15 @@
     ]
   };
 </script>
+<Head
+  title={`${mode === 'game' ? (dict.game?.title || 'Rhythm Game') : (settings.isPlaying ? `▶ ${settings.bpm} BPM` : dict.title)}`}
+  description={dict.description}
+  keywords="metronome, polyrhythm generator, online metronome, rhythm trainer, music tools, tap tempo, bpm calculator, gap click, speed trainer, timing accuracy, drum practice"
+/>
+
 
 <svelte:head>
-  <title>{mode === 'game' ? (dict.game?.title || 'Rhythm Game') : (settings.isPlaying ? `▶ ${settings.bpm} BPM` : dict.title)} - MicroFactory</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="metronome, polyrhythm generator, online metronome, rhythm trainer, music tools, tap tempo, bpm calculator, gap click, speed trainer, timing accuracy, drum practice" />
 
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={`https://web-factory.vercel.app/${lang}/tools/rhythm-forge`} />
 
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
 </svelte:head>

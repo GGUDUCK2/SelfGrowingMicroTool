@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
@@ -74,12 +75,15 @@
     }
   }
 </script>
+<Head
+  title={invoiceDict.title}
+  description={invoiceDict.description}
+  keywords="invoice generator, free invoice maker, pdf invoice, bill generator, receipt maker"
+/>
+
 
 <svelte:head>
-  <title>{invoiceDict.title}</title>
-  <meta name="description" content={invoiceDict.description} />
-  <meta name="keywords" content="invoice generator, free invoice maker, pdf invoice, bill generator, receipt maker" />
-  {@html `<script type="application/ld+json">
+        {@html `<script type="application/ld+json">
     ${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",

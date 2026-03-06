@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount } from "svelte";
   import { fade, fly, slide } from "svelte/transition";
   import { dictionaries } from "$lib/dictionaries";
@@ -151,17 +152,14 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
   $: homeName = lang === "ko" ? "홈" : "Home";
   $: toolsName = lang === "ko" ? "도구" : "Tools";
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+/>
+
 
 <svelte:head>
-  <title>{dict.title} - MicroFactory</title>
-  <meta name="description" content={dict.description} />
-  <link rel="canonical" href={`https://selfgrowingmicrotool.com/${lang}/tools/glassmorphism-generator`} />
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={`https://selfgrowingmicrotool.com/${lang}/tools/glassmorphism-generator`} />
-  <meta property="og:image" content="https://selfgrowingmicrotool.com/og-glassmorphism.jpg" />
-  {@html `<script type="application/ld+json">${JSON.stringify({
+                  {@html `<script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": dict.title,

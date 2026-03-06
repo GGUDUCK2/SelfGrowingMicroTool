@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import Recorder from '$lib/components/screen-forge/Recorder.svelte';
@@ -74,20 +75,16 @@
     ]
   };
 </script>
+<Head
+  title={t.title}
+  description={t.description}
+  keywords="screen recorder, screen capture, video recorder, webm recorder, browser screen recording, no watermark"
+/>
+
 
 <svelte:head>
-  <title>{t.title} - MicroFactory</title>
-  <meta name="description" content={t.description} />
-  <meta name="keywords" content="screen recorder, screen capture, video recorder, webm recorder, browser screen recording, no watermark" />
 
-  <meta property="og:title" content={t.title} />
-  <meta property="og:description" content={t.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://web-factory.vercel.app/{lang}/tools/screen-forge" />
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={t.title} />
-  <meta name="twitter:description" content={t.description} />
 
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
 </svelte:head>
