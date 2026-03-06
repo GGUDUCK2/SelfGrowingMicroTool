@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import Workspace from '$lib/components/audio-forge/Workspace.svelte';
@@ -60,16 +61,15 @@
     ]
   });
 </script>
+<Head
+  title={toolDict.title}
+  description={toolDict.description}
+  keywords="audio editor, waveform editor, sound recorder, tone generator, wav editor, online audio tool"
+/>
+
 
 <svelte:head>
-  <title>{toolDict.title} | MicroFactory</title>
-  <meta name="description" content={toolDict.description} />
-  <meta name="keywords" content="audio editor, waveform editor, sound recorder, tone generator, wav editor, online audio tool" />
 
-  <meta property="og:title" content={toolDict.title} />
-  <meta property="og:description" content={toolDict.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={$page.url.href} />
 
   {@html `<script type="application/ld+json">${jsonLd}</script>`}
 </svelte:head>

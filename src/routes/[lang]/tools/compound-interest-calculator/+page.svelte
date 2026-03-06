@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
   import { db } from "$lib/db";
@@ -299,23 +300,13 @@
     { q: dict.q3, a: dict.a3 },
   ];
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+/>
+
 
 <svelte:head>
-  <title>{dict.title} - MicroFactory</title>
-  <meta name="description" content={dict.description} />
-  <link
-    rel="canonical"
-    href="https://selfgrowingmicrotool.com/{lang}/tools/compound-interest-calculator"
-  />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="{dict.title} - MicroFactory" />
-  <meta property="og:description" content={dict.description} />
-  <meta
-    property="og:url"
-    content="https://selfgrowingmicrotool.com/{lang}/tools/compound-interest-calculator"
-  />
-  <meta property="og:type" content="website" />
 
   <!-- JSON-LD -->
   {@html `<script type="application/ld+json">${JSON.stringify([

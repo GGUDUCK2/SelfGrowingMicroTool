@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
   import RequestPanel from '$lib/components/restro/RequestPanel.svelte';
@@ -244,22 +245,18 @@
       }
   }
 </script>
+<Head
+  title={dict?.title ?? 'Restro'}
+  description={dict?.description ?? 'API Client'}
+  keywords="api client, rest, http, testing, debug, fetch, curl, developer tools"
+/>
+
 
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-  <title>{dict?.title ?? 'Restro'} | MicroFactory</title>
-  <meta name="description" content={dict?.description ?? 'API Client'} />
-  <meta name="keywords" content="api client, rest, http, testing, debug, fetch, curl, developer tools" />
 
-  <meta property="og:title" content={dict?.title ?? 'Restro'} />
-  <meta property="og:description" content={dict?.description ?? 'Professional API Client in your browser.'} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={$page.url.href} />
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={dict?.title ?? 'Restro'} />
-  <meta name="twitter:description" content={dict?.description ?? 'Professional API Client in your browser.'} />
 
   {@html `<script type="application/ld+json">
   ${JSON.stringify({

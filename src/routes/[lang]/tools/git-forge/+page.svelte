@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import { fade } from 'svelte/transition';
@@ -93,13 +94,14 @@
     ]
   };
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+  keywords="git command generator, gitignore builder, conventional commits, git tools, developer tools"
+/>
+
 
 <svelte:head>
-  <title>{dict.title} | MicroFactory</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="git command generator, gitignore builder, conventional commits, git tools, developer tools" />
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
 
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}

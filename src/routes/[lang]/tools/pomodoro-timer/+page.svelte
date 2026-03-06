@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onDestroy, onMount } from "svelte";
   import type { PageData } from "./$types";
   import { formatTime } from "$lib/utils";
@@ -169,16 +170,14 @@
 
   $: schemaList = [appSchema, breadcrumbSchema];
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+/>
+
 
 <svelte:head>
-  <title>{dict.title} - MicroFactory</title>
-  <meta name="description" content={dict.description} />
-  <link rel="canonical" href={`https://selfgrowingmicrotool.com/${lang}/tools/pomodoro-timer`} />
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={`https://selfgrowingmicrotool.com/${lang}/tools/pomodoro-timer`} />
-  {@html `<script type="application/ld+json">${JSON.stringify(schemaList)}</script>`}
+                {@html `<script type="application/ld+json">${JSON.stringify(schemaList)}</script>`}
 </svelte:head>
 
 <div class="max-w-2xl mx-auto text-center space-y-12 py-12 px-4">

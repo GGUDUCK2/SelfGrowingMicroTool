@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import { fade } from 'svelte/transition';
@@ -80,11 +81,14 @@
       }
   }
 </script>
+<Head
+  title={t.title}
+  description={t.description}
+/>
+
 
 <svelte:head>
-  <title>{t.title} - MicroFactory</title>
-  <meta name="description" content={t.description} />
-  {@html `<script type="application/ld+json">
+      {@html `<script type="application/ld+json">
     [
       {
         "@context": "https://schema.org",

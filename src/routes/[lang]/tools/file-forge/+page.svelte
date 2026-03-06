@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import { fade } from 'svelte/transition';
@@ -90,27 +91,22 @@
     }
   }
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+  keywords="file hash, hex viewer, entropy analysis, magic number, md5, sha256, base64 converter, image converter, resize image, metadata viewer, file analysis, privacy first, steganography, zip analysis, risk assessment, pdf metadata, entropy map, metadata stripper, hex editor, exif remover, magic lens, file compare, smart history"
+/>
+
 
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-  <title>{dict.title} - MicroFactory</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="file hash, hex viewer, entropy analysis, magic number, md5, sha256, base64 converter, image converter, resize image, metadata viewer, file analysis, privacy first, steganography, zip analysis, risk assessment, pdf metadata, entropy map, metadata stripper, hex editor, exif remover, magic lens, file compare, smart history" />
 
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}/tools/file-forge" />
 
-  <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}/tools/file-forge" />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/file-forge" />
+    <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/file-forge" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/file-forge" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/file-forge" />
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={dict.title} />
-  <meta name="twitter:description" content={dict.description} />
 
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}

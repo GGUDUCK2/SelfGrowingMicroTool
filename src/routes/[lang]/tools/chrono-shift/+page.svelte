@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
     import { onMount } from 'svelte';
     import { getDictionary } from '$lib/dictionaries';
     import { fade, slide } from 'svelte/transition';
@@ -267,22 +268,16 @@
         document.body.removeChild(link);
     }
 </script>
+<Head
+  title={t.title}
+  description={t.description}
+  keywords="time zone converter, world clock, meeting planner, overlap scheduler, time zone map, global meeting, team scheduler, golden hour, dst calculator, international meeting"
+/>
+
 
 <svelte:head>
-    <title>{t.title} - MicroFactory</title>
-    <meta name="description" content={t.description} />
-    <meta name="keywords" content="time zone converter, world clock, meeting planner, overlap scheduler, time zone map, global meeting, team scheduler, golden hour, dst calculator, international meeting" />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content={t.title} />
-    <meta property="og:description" content={t.description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://web-factory.vercel.app/{data.lang}/tools/chrono-shift" />
 
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={t.title} />
-    <meta name="twitter:description" content={t.description} />
 
     {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
     {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}

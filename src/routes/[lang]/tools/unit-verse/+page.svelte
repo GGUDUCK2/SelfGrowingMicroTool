@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
   import CategorySelector from '$lib/components/unit-verse/CategorySelector.svelte';
@@ -43,19 +44,15 @@
       window.history.replaceState({}, '', `?${params.toString()}`);
   }
 </script>
+<Head
+  title={`${t.title} | ${dict.home.title}`}
+  description={t.description}
+  keywords={t.keywords}
+/>
+
 
 <svelte:head>
-  <title>{t.title} | {dict.home.title}</title>
-  <meta name="description" content={t.description} />
-  <meta name="keywords" content={t.keywords} />
-  <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}/tools/unit-verse" />
-  <meta property="og:title" content={t.title} />
-  <meta property="og:description" content={t.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}/tools/unit-verse" />
-  <meta property="og:image" content="https://selfgrowingmicrotool.com/og/unit-verse.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  {@html `<script type="application/ld+json">
+                      {@html `<script type="application/ld+json">
     ${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",

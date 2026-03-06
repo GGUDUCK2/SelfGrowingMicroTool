@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
   import { fade, slide } from 'svelte/transition';
   import { getDictionary } from '$lib/dictionaries';
@@ -326,6 +327,12 @@
 
   $: jsonLdScript = `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}<\/script>`;
 </script>
+<Head
+  title={`${tags.title ? `${tags.title} | ` : ''}${dict.title} - MicroTools Factory`}
+  description={dict.description}
+  keywords="seo, meta tags, open graph, json-ld, preview, social media, metadata, generator"
+/>
+
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white pb-20">
 
@@ -614,23 +621,10 @@
 </div>
 
 <svelte:head>
-  <title>{tags.title ? `${tags.title} | ` : ''}{dict.title} - MicroTools Factory</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="seo, meta tags, open graph, json-ld, preview, social media, metadata, generator" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="{dict.title}" />
-  <meta property="og:description" content="{dict.description}" />
-  <meta property="og:url" content={`https://selfgrowingmicrotool.com/${$page.params.lang}/tools/seo-forge`} />
-  <meta property="og:type" content="website" />
 
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="{dict.title}" />
-  <meta name="twitter:description" content="{dict.description}" />
 
   <!-- Canonical -->
-  <link rel="canonical" href={`https://selfgrowingmicrotool.com/${$page.params.lang}/tools/seo-forge`} />
 
   {@html jsonLdScript}
 </svelte:head>

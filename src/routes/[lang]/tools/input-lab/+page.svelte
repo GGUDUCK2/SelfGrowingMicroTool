@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
   import { fade, slide } from 'svelte/transition';
@@ -86,25 +87,18 @@
     setTimeout(() => (showToast = false), 2000);
   }
 </script>
+<Head
+  title={`${dict.title} - MicroTools`}
+  description={dict.description}
+  keywords="keyboard tester, gamepad tester, input lag test, ghosting check, pointer events, touch test, device info, keycode checker"
+/>
+
 
 <svelte:head>
-  <title>{dict.title} - MicroTools</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="keyboard tester, gamepad tester, input lag test, ghosting check, pointer events, touch test, device info, keycode checker" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://web-factory.vercel.app/{lang}/tools/input-lab" />
 
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={dict.title} />
-  <meta name="twitter:description" content={dict.description} />
 
-  <link rel="canonical" href="https://web-factory.vercel.app/{lang}/tools/input-lab" />
-  <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/input-lab" />
+    <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/input-lab" />
   <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/input-lab" />
 
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}

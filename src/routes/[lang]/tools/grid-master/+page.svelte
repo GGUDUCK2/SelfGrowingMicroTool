@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
   import { getDictionary } from '$lib/dictionaries';
@@ -222,20 +223,17 @@
       };
   });
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+  keywords="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots, Text to Grid, Visual Grid Editor, Mock Content, Wireframing, Content Presets, Layout Gallery, Smart History, Wireframe Builder, Grid Wizard, Bento Grid, SaaS Dashboard, React Grid Layout, Vue Grid, Svelte Grid, Kanban Layout, Video Player Layout, Command Palette, React Export, Vue Export, Svelte Export, Tailwind Config, Grid Doctor, Layout Audit"
+/>
+
 
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-  <title>{dict.title} - MicroFactory</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots, Text to Grid, Visual Grid Editor, Mock Content, Wireframing, Content Presets, Layout Gallery, Smart History, Wireframe Builder, Grid Wizard, Bento Grid, SaaS Dashboard, React Grid Layout, Vue Grid, Svelte Grid, Kanban Layout, Video Player Layout, Command Palette, React Export, Vue Export, Svelte Export, Tailwind Config, Grid Doctor, Layout Audit" />
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}/tools/grid-master" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}/tools/grid-master" />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
+                    <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/grid-master" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
 

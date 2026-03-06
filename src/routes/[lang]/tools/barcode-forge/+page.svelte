@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { dictionaries } from '$lib/dictionaries';
   import BarcodeGenerator from '$lib/components/barcode-forge/BarcodeGenerator.svelte';
@@ -29,11 +30,14 @@
     "featureList": "EAN-13, UPC-A, Code 128, ITF-14, Bulk Generator, Vector Export"
   });
 </script>
+<Head
+  title={title}
+  description={description}
+/>
+
 
 <svelte:head>
-  <title>{title} | MicroFactory</title>
-  <meta name="description" content={description} />
-  {@html `<script type="application/ld+json">${jsonLd}</script>`}
+      {@html `<script type="application/ld+json">${jsonLd}</script>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

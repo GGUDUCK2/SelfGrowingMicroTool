@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import { onMount } from 'svelte';
@@ -162,24 +163,17 @@
       showNotification('Template loaded!');
   }
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+  keywords="prompt engineering, ai prompt generator, llm prompt testing, prompt variables, openai prompt optimization, prompt management"
+/>
+
 
 <svelte:head>
-  <title>{dict.title}</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="prompt engineering, ai prompt generator, llm prompt testing, prompt variables, openai prompt optimization, prompt management" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={$page.url.href} />
 
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={dict.title} />
-  <meta name="twitter:description" content={dict.description} />
 
-  <link rel="canonical" href={$page.url.href} />
 
   <!-- JSON-LD -->
   {@html `<script type="application/ld+json">

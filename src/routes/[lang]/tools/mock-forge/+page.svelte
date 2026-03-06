@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
   import { page } from '$app/stores';
@@ -197,21 +198,17 @@
     ]
   };
 </script>
+<Head
+  title={`${t.title} - MicroTools`}
+  description={t.description}
+  keywords="mock data generator, fake data, json generator, csv generator, sql insert generator, test data, developer tools"
+/>
+
 
 <svelte:head>
-  <title>{t.title} - MicroTools</title>
-  <meta name="description" content={t.description} />
-  <meta name="keywords" content="mock data generator, fake data, json generator, csv generator, sql insert generator, test data, developer tools" />
-  <link rel="canonical" href={canonical} />
-  <link rel="alternate" hreflang="en" href="{baseUrl}/en/tools/mock-forge" />
+          <link rel="alternate" hreflang="en" href="{baseUrl}/en/tools/mock-forge" />
   <link rel="alternate" hreflang="ko" href="{baseUrl}/ko/tools/mock-forge" />
   <link rel="alternate" hreflang="x-default" href="{baseUrl}/en/tools/mock-forge" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content={t.title} />
-  <meta property="og:description" content={t.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={canonical} />
 
   {@html '<script type="application/ld+json">' + JSON.stringify(schemaOrg) + '</script>'}
 </svelte:head>

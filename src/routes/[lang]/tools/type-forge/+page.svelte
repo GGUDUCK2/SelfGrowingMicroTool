@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import { db } from '$lib/db';
@@ -43,16 +44,15 @@
       alert("Note: History currently only tracks metadata. To restore a session, please re-upload the font file.");
   }
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+  keywords="font inspector, variable fonts, glyph viewer, web font tester, woff2 viewer, opentype.js, css font generator"
+/>
+
 
 <svelte:head>
-  <title>{dict.title} | MicroFactory</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="font inspector, variable fonts, glyph viewer, web font tester, woff2 viewer, opentype.js, css font generator" />
 
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={$page.url.href} />
 
   {@html `<script type="application/ld+json">
   {

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import ProjectManager from '$lib/components/locale-forge/ProjectManager.svelte';
@@ -85,13 +86,14 @@
     ]
   };
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+  keywords="translation manager, i18n tool, locale editor, json translation, localization forge"
+/>
+
 
 <svelte:head>
-  <title>{dict.title} - MicroFactory</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="translation manager, i18n tool, locale editor, json translation, localization forge" />
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
 
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}

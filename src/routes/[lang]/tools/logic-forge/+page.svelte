@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
   import { getDictionary } from '$lib/dictionaries';
@@ -167,14 +168,17 @@
       }
   }
 </script>
+<Head
+  title={`${expression ? expression + ' - ' : ''}${dict.title}`}
+  description={dict.description}
+  keywords="logic gates, truth table generator, boolean algebra, logic circuit simulator, online tool, digital logic design, karnaugh map, boolean simplifier"
+/>
+
 
 <svelte:window on:keydown={handleGlobalKeydown} />
 
 <svelte:head>
-  <title>{expression ? expression + ' - ' : ''}{dict.title}</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="logic gates, truth table generator, boolean algebra, logic circuit simulator, online tool, digital logic design, karnaugh map, boolean simplifier" />
-  {@html `<script type="application/ld+json">
+        {@html `<script type="application/ld+json">
     ${JSON.stringify([
       {
         "@context": "https://schema.org",

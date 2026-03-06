@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { fade, slide } from 'svelte/transition';
   import { getDictionary } from '$lib/dictionaries';
   import { SubnetCalculator, type NetworkInfo, type SubnetResult } from '$lib/utils/subnet-scope/calculator';
@@ -118,21 +119,17 @@
   // Tabs
   let activeTab: 'analyze' | 'subnetting' | 'planner' | 'history' = 'analyze';
 </script>
+<Head
+  title={dict.tools.subnetScope.title}
+  description={dict.tools.subnetScope.description}
+/>
+
 
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-  <title>{dict.tools.subnetScope.title}</title>
-  <meta name="description" content={dict.tools.subnetScope.description} />
 
-  <meta property="og:title" content={dict.tools.subnetScope.title} />
-  <meta property="og:description" content={dict.tools.subnetScope.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://micro-tools-factory.vercel.app/{data.lang}/tools/subnet-scope" />
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={dict.tools.subnetScope.title} />
-  <meta name="twitter:description" content={dict.tools.subnetScope.description} />
 
   {@html `<script type="application/ld+json">
     ${JSON.stringify({

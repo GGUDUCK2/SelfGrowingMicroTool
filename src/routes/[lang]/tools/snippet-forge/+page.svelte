@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import { snippetStore } from '$lib/utils/snippet-forge/store';
@@ -57,17 +58,16 @@
       setTimeout(() => showToast = false, 3000);
   }
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+  keywords="code screenshots, snippet image, carbon alternative, code to image, syntax highlighting image, developer tools"
+/>
+
 
 <!-- Heads & Meta -->
 <svelte:head>
-  <title>{dict.title} - MicroFactory</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="code screenshots, snippet image, carbon alternative, code to image, syntax highlighting image, developer tools" />
 
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={$page.url.href} />
 
   {@html `<script type="application/ld+json">
     {

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount, onDestroy } from 'svelte';
   import { fade, fly, slide } from 'svelte/transition';
   import { browser } from '$app/environment';
@@ -209,11 +210,14 @@
     { value: 'csv', label: 'CSV' },
   ];
 </script>
+<Head
+  title={`${t.title} | Web Factory`}
+  description={t.description}
+/>
+
 
 <svelte:head>
-  <title>{t.title} | Web Factory</title>
-  <meta name="description" content={t.description} />
-  {@html `<script type="application/ld+json">
+      {@html `<script type="application/ld+json">
     ${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",

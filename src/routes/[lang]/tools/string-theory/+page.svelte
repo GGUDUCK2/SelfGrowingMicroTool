@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
   import { fade, fly } from 'svelte/transition';
   import Editor from '$lib/components/string-theory/Editor.svelte';
@@ -206,25 +207,16 @@
 
   const canonicalUrl = `https://web-factory.vercel.app/${$page.params.lang}/tools/string-theory`;
 </script>
+<Head
+  title={dict.title}
+  description={dict.description}
+  keywords="string manipulation, text converter, case converter, slugify, base64, url encode, text analysis, ulid generator, nanoid generator"
+/>
+
 
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-  <title>{dict.title} - MicroFactory</title>
-  <meta name="description" content={dict.description} />
-  <meta name="keywords" content="string manipulation, text converter, case converter, slugify, base64, url encode, text analysis, ulid generator, nanoid generator" />
-  <link rel="canonical" href={canonicalUrl} />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content={dict.title} />
-  <meta property="og:description" content={dict.description} />
-  <meta property="og:url" content={canonicalUrl} />
-  <meta property="og:type" content="website" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={dict.title} />
-  <meta name="twitter:description" content={dict.description} />
 
   {#if jsonLd}
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
