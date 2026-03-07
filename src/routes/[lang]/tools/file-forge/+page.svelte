@@ -137,8 +137,9 @@
       <!-- Main Area -->
       <div class="lg:col-span-8 space-y-8">
         {#if !currentFile && !restoredData}
-          <div in:fade={{ duration: 200 }}>
+          <div in:fade={{ duration: 200 }} class="space-y-6">
             <DropZone {dict} on:file={handleFile} />
+            <SmartExamples on:file={handleFile} {dict} />
           </div>
         {:else}
           <div class="flex items-center justify-between mb-4">

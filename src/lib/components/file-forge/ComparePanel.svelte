@@ -1,7 +1,8 @@
 <script lang="ts">
   import { calculateHash } from '$lib/utils/file-forge/hash';
-  import { FileDiff, CheckCircle, XCircle, UploadCloud, Binary, GitCompare } from 'lucide-svelte';
+  import { FileDiff, CheckCircle, XCircle, UploadCloud, Binary, GitCompare, Image as ImageIcon } from 'lucide-svelte';
   import { fade } from 'svelte/transition';
+  import { onDestroy } from 'svelte';
 
   export let file: File; // The primary file
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,6 +27,23 @@
   }
   let diffLines: { offset: string; bytes: DiffByte[]; ascii1: string; ascii2: string }[] = [];
   let firstDiffOffset = -1;
+
+  // Visual Image Diff State
+  let isImageDiff = false;
+  let primaryImageUrl: string | null = null;
+  let secondaryImageUrl: string | null = null;
+  let sliderValue = 50;
+
+  function cleanupImageUrls() {
+      if (primaryImageUrl) URL.revokeObjectURL(primaryImageUrl);
+      if (secondaryImageUrl) URL.revokeObjectURL(secondaryImageUrl);
+      primaryImageUrl = null;
+      secondaryImageUrl = null;
+  }
+
+  onDestroy(() => {
+      cleanupImageUrls();
+  });
 
   async function handleCompare() {
     loading = true;
@@ -63,7 +81,16 @@
               loading = false;
               return;
           }
-          await performBinaryDiff();
+
+          isImageDiff = file.type.startsWith('image/') && secondFile.type.startsWith('image/');
+
+          if (isImageDiff) {
+              cleanupImageUrls();
+              primaryImageUrl = URL.createObjectURL(file);
+              secondaryImageUrl = URL.createObjectURL(secondFile);
+          } else {
+              await performBinaryDiff();
+          }
       }
 
     } catch (e) {
@@ -230,7 +257,52 @@
   </div>
 
   <!-- Result -->
-  {#if diffMode && diffLines.length > 0}
+  {#if diffMode && isImageDiff && primaryImageUrl && secondaryImageUrl}
+      <div class="space-y-4 animate-in fade-in">
+          <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                  <ImageIcon size={16} class="text-indigo-500" /> Visual Image Diff
+              </h3>
+              <span class="text-xs text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">Interactive Overlay</span>
+          </div>
+
+          <div class="relative w-full aspect-video bg-[url('/checker.png')] bg-white rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-inner group">
+              <!-- Primary Image (Background) -->
+              <img src={primaryImageUrl} alt="Primary File" class="absolute inset-0 w-full h-full object-contain pointer-events-none select-none" />
+
+              <!-- Secondary Image (Clipped) -->
+              <div
+                  class="absolute inset-0 overflow-hidden"
+                  style="clip-path: polygon(0 0, {sliderValue}% 0, {sliderValue}% 100%, 0 100%);"
+              >
+                  <img src={secondaryImageUrl} alt="Secondary File" class="absolute inset-0 w-full h-full object-contain pointer-events-none select-none max-w-none" />
+              </div>
+
+              <!-- Slider Input -->
+              <input
+                  type="range"
+                  min="0" max="100"
+                  bind:value={sliderValue}
+                  class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-10"
+                  aria-label="Image difference slider"
+              />
+
+              <!-- Slider Line -->
+              <div
+                  class="absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_5px_rgba(0,0,0,0.5)] z-0 pointer-events-none flex flex-col items-center justify-center transition-transform"
+                  style="left: calc({sliderValue}% - 2px);"
+              >
+                  <div class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center">
+                      <GitCompare size={14} class="text-indigo-600" />
+                  </div>
+              </div>
+          </div>
+          <div class="flex justify-between text-xs font-bold uppercase tracking-wider text-slate-500">
+              <span>{dict?.compare?.secondary || 'Secondary Source'}</span>
+              <span>{dict?.compare?.primary || 'Primary File'}</span>
+          </div>
+      </div>
+  {:else if diffMode && diffLines.length > 0}
       <!-- Binary Diff View -->
       <div class="space-y-4">
           <div class="flex items-center justify-between">
@@ -255,17 +327,17 @@
                   <div>FILE 2 (COMPARED)</div>
               </div>
               <div class="max-h-[400px] overflow-y-auto p-4 space-y-1">
-                  {#each diffLines as line}
+                  {#each diffLines as line (line.offset)}
                       <div class="grid grid-cols-[60px_1fr_1fr] hover:bg-white/5 rounded transition-colors group">
                           <div class="text-slate-600">{line.offset}</div>
 
                           <!-- File 1 Bytes -->
                           <div class="flex gap-2">
                               <span class="text-slate-300 w-48 font-medium">
-                                  {#each line.bytes as b}
+                                  {#each line.bytes as b (b.offset)}
                                       <span class={b.isDiff ? 'text-red-400 bg-red-900/30' : (b.val1 === -1 ? 'text-slate-700' : 'text-slate-400')}>
                                           {b.val1 !== -1 ? b.val1.toString(16).padStart(2,'0').toUpperCase() : '..'}
-                                      </span>{' '}
+                                      </span>
                                   {/each}
                               </span>
                               <span class="text-amber-500/50 border-l border-slate-800 pl-2">{line.ascii1}</span>
@@ -274,10 +346,10 @@
                           <!-- File 2 Bytes -->
                           <div class="flex gap-2">
                               <span class="text-slate-300 w-48 font-medium">
-                                  {#each line.bytes as b}
+                                  {#each line.bytes as b (b.offset)}
                                       <span class={b.isDiff ? 'text-emerald-400 bg-emerald-900/30 font-bold' : (b.val2 === -1 ? 'text-slate-700' : 'text-slate-400')}>
                                           {b.val2 !== -1 ? b.val2.toString(16).padStart(2,'0').toUpperCase() : '..'}
-                                      </span>{' '}
+                                      </span>
                                   {/each}
                               </span>
                               <span class="text-amber-500/50 border-l border-slate-800 pl-2">{line.ascii2}</span>

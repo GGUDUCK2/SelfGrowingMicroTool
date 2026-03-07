@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { createEventDispatcher, tick } from 'svelte';
-  import { FileSearch, Activity, AlertTriangle, ScanEye, FileArchive, FileText, Binary, Edit2, Save, RotateCcw, Download, Layers } from 'lucide-svelte';
+  import { createEventDispatcher } from 'svelte';
+  import { FileSearch, Activity, AlertTriangle, ScanEye, FileArchive, FileText, Binary, Edit2, Save, RotateCcw, Download, TextSelect } from 'lucide-svelte';
   import { detectFileType } from '$lib/utils/file-forge/signatures';
   import { calculateEntropy, calculateEntropyMap } from '$lib/utils/file-forge/analysis';
   import { calculateRiskScore, type RiskAnalysis } from '$lib/utils/file-forge/risk';
@@ -45,6 +45,12 @@
 
   let entropyMode: 'entropy' | 'byteClass' = 'entropy';
   let hexContainer: HTMLElement | null = null;
+
+  // Strings Extraction State
+  let extractedStrings: string[] = [];
+  let showStrings = false;
+  let stringsLoading = false;
+  let stringsLimit = 1000;
 
   function handleByteHover(byte: { val: number; offset: number }) {
       hoveredByte = byte;
@@ -258,7 +264,48 @@
       }
   }
 
+  async function extractStrings() {
+    if (!file) return;
+    stringsLoading = true;
+    showStrings = true;
+    try {
+      // Read up to 1MB to prevent blocking the UI
+      const chunk = file.slice(0, 1024 * 1024);
+
+      // Read as array buffer and do basic ascii matching
+      const buffer = await chunk.arrayBuffer();
+      const view = new Uint8Array(buffer);
+
+      let currentString = '';
+      const strings = [];
+
+      for (let i = 0; i < view.length; i++) {
+        const charCode = view[i];
+        if (charCode >= 32 && charCode <= 126) {
+           currentString += String.fromCharCode(charCode);
+        } else {
+           if (currentString.length >= 5) { // Minimum length 5
+             strings.push(currentString);
+             if (strings.length >= stringsLimit) break;
+           }
+           currentString = '';
+        }
+      }
+      if (currentString.length >= 5 && strings.length < stringsLimit) {
+        strings.push(currentString);
+      }
+
+      extractedStrings = strings;
+    } catch (e) {
+      console.error('String extraction failed', e);
+    } finally {
+      stringsLoading = false;
+    }
+  }
+
   $: if (file || restoredData) {
+      showStrings = false;
+      extractedStrings = [];
       analyze();
   }
 </script>
@@ -409,7 +456,48 @@
         </div>
     </div>
 
-    <!-- 4. Hex View -->
+    <!-- 4. Strings Extractor -->
+    {#if !restoredData && file}
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+       <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+          <h4 class="text-sm font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+              <TextSelect size={16} class="text-indigo-500" /> Strings Extractor
+          </h4>
+          <button
+              on:click={extractStrings}
+              class="px-3 py-1.5 text-xs font-medium bg-indigo-50 hover:bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:hover:bg-indigo-900/50 dark:text-indigo-300 rounded-lg transition-colors"
+          >
+              {showStrings ? 'Refresh Strings' : 'Extract Strings'}
+          </button>
+       </div>
+
+       {#if showStrings}
+           <div class="p-4 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800">
+               {#if stringsLoading}
+                   <div class="flex items-center justify-center py-8 text-slate-500 gap-2 text-sm">
+                       <Activity class="animate-pulse text-indigo-500" size={16} /> Extracting...
+                   </div>
+               {:else if extractedStrings.length > 0}
+                   <div class="mb-2 flex justify-between items-center text-xs text-slate-500">
+                       <span>Found {extractedStrings.length} {extractedStrings.length >= stringsLimit ? '+' : ''} strings (min length 5).</span>
+                       <span>First 1MB only</span>
+                   </div>
+                   <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-2 max-h-64 overflow-y-auto font-mono text-xs text-slate-600 dark:text-slate-400">
+                       {#each extractedStrings as str, i (i)}
+                           <div class="border-b border-slate-100 dark:border-slate-800/50 last:border-0 py-1 px-2 hover:bg-slate-50 dark:hover:bg-slate-900 break-all select-all">
+                               {str}
+                           </div>
+                       {/each}
+                   </div>
+               {:else}
+                   <div class="text-center py-8 text-slate-400 text-sm italic">No printable ASCII strings found in the first 1MB.</div>
+               {/if}
+           </div>
+       {/if}
+    </div>
+    {/if}
+
+    <!-- 5. Hex View -->
     <div class="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 font-mono text-xs shadow-lg transition-all {editMode ? 'ring-2 ring-indigo-500' : ''}">
       <div class="bg-slate-950/50 px-4 py-3 border-b border-slate-800 text-slate-400 flex justify-between items-center flex-wrap gap-2">
         <div class="flex items-center gap-4">
