@@ -1,7 +1,8 @@
 <script lang="ts">
   import { extractMetadata, type FileMetadata } from '$lib/utils/file-forge/metadata';
   import { convertImage } from '$lib/utils/file-forge/image';
-  import { Download, File as FileIcon, Image as ImageIcon, ShieldCheck, Check } from 'lucide-svelte';
+  import { detectFileType } from '$lib/utils/file-forge/signatures';
+  import { Download, File as FileIcon, Image as ImageIcon, ShieldCheck, Check, AlertTriangle, Wand2 } from 'lucide-svelte';
   import { onDestroy } from 'svelte';
 
   export let file: File;
@@ -23,6 +24,12 @@
   let maintainAspectRatio = true;
   let originalAspectRatio = 1;
 
+  // Smart Fix state
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let magicInfo: any = null;
+  let extensionMismatch = false;
+  let suggestedExtension = '';
+
   async function load() {
     // Revoke previous URL if exists
     if (previewUrl) {
@@ -31,8 +38,28 @@
     }
 
     try {
+      // Detect file type for smart fix
+      const chunk = file.slice(0, 512);
+      const buffer = await chunk.arrayBuffer();
+      magicInfo = detectFileType(buffer);
+
+      if (magicInfo && magicInfo.type !== 'Unknown' && !magicInfo.matches) {
+          extensionMismatch = true;
+          // Extract expected extension from mime type or description if possible
+          // Simple heuristic based on common types
+          if (magicInfo.type === 'image/jpeg') suggestedExtension = 'jpg';
+          else if (magicInfo.type === 'image/png') suggestedExtension = 'png';
+          else if (magicInfo.type === 'image/webp') suggestedExtension = 'webp';
+          else if (magicInfo.type === 'image/gif') suggestedExtension = 'gif';
+          else if (magicInfo.type === 'application/pdf') suggestedExtension = 'pdf';
+          else if (magicInfo.type.includes('zip')) suggestedExtension = 'zip';
+          else suggestedExtension = magicInfo.type.split('/').pop() || '';
+      } else {
+          extensionMismatch = false;
+      }
+
       metadata = await extractMetadata(file);
-      if (file.type.startsWith('image/')) {
+      if (file.type.startsWith('image/') || magicInfo.type.startsWith('image/')) {
         previewUrl = URL.createObjectURL(file);
         if (metadata.dimensions) {
           targetWidth = metadata.dimensions.width;
@@ -55,6 +82,22 @@
     if (maintainAspectRatio && originalAspectRatio) {
       targetWidth = Math.round(targetHeight * originalAspectRatio);
     }
+  }
+
+  function handleSmartFix() {
+      if (!suggestedExtension) return;
+      const name = file.name.replace(/\.[^/.]+$/, "");
+      const newName = `${name}.${suggestedExtension}`;
+
+      const blob = new Blob([file], { type: magicInfo.type || file.type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = newName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
   function sanitizeAndCopy() {
@@ -135,6 +178,27 @@
           <span class="text-sm font-medium text-slate-800 dark:text-slate-200">{new Date(file.lastModified).toLocaleDateString()}</span>
       </div>
   </div>
+
+  <!-- Smart Fix Alert -->
+  {#if extensionMismatch && suggestedExtension}
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl animate-in fade-in slide-in-from-top-2">
+          <div class="flex items-start gap-3">
+              <AlertTriangle class="text-amber-500 shrink-0 mt-0.5" size={20} />
+              <div>
+                  <h4 class="text-sm font-bold text-amber-900 dark:text-amber-200">Extension Mismatch Detected!</h4>
+                  <p class="text-xs text-amber-700 dark:text-amber-300 mt-1">
+                      File is named <span class="font-mono bg-amber-100 dark:bg-amber-900/50 px-1 rounded">{file.name.split('.').pop()}</span> but actual format is <span class="font-bold">{magicInfo.type}</span>.
+                  </p>
+              </div>
+          </div>
+          <button
+              on:click={handleSmartFix}
+              class="shrink-0 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-lg shadow-sm transition-colors flex items-center gap-2"
+          >
+              <Wand2 size={14} /> Fix Extension
+          </button>
+      </div>
+  {/if}
 
   <!-- Deep Metadata -->
   {#if metadata}

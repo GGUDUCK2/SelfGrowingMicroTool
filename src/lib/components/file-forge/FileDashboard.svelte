@@ -23,6 +23,8 @@
   let currentHistoryId: number | undefined;
   let analysisData: AnalysisData = {};
   let starred = false;
+  let showToast = false;
+  let toastMessage = '';
 
   $: isImage = file?.type.startsWith('image/');
   $: isRestored = !file && !!restoredData;
@@ -91,8 +93,14 @@
       } catch (e) { console.error(e); }
     } else {
       navigator.clipboard.writeText(window.location.href);
-      alert(dict?.shareCopied || 'Link copied!');
+      triggerToast(dict?.shareCopied || 'Link copied!');
     }
+  }
+
+  function triggerToast(msg: string) {
+      toastMessage = msg;
+      showToast = true;
+      setTimeout(() => showToast = false, 2000);
   }
 
   async function toggleStar() {
@@ -145,6 +153,7 @@
       a.download = `file-forge-report-${file?.name || 'analysis'}.txt`;
       a.click();
       URL.revokeObjectURL(url);
+      triggerToast('Report downloaded');
   }
 
   function handleKeydown(e: KeyboardEvent) {
@@ -156,6 +165,13 @@
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
+
+{#if showToast}
+    <div transition:fade class="fixed bottom-6 right-6 z-50 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-4 py-2 rounded-lg shadow-xl font-medium text-sm flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        {toastMessage}
+    </div>
+{/if}
 
 <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden min-h-[600px] flex flex-col">
   <!-- Tabs -->
