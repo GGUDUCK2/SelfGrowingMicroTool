@@ -29,8 +29,8 @@
 
       <div class="p-6 space-y-4">
         <div>
-          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dict.modal.type}</label>
-          <select bind:value={type} class="w-full p-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg">
+          <label for="generator-type" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dict.modal.type}</label>
+          <select id="generator-type" bind:value={type} class="w-full p-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg">
             <optgroup label="Oscillator">
               <option value="sine">Sine</option>
               <option value="square">Square</option>
@@ -46,14 +46,14 @@
 
         {#if !type.includes('noise')}
         <div>
-          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dict.modal.frequency}</label>
-          <input type="number" bind:value={frequency} min="20" max="20000" class="w-full p-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg" />
+          <label for="generator-frequency" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dict.modal.frequency}</label>
+          <input id="generator-frequency" type="number" bind:value={frequency} min="20" max="20000" class="w-full p-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg" />
         </div>
         {/if}
 
         <div>
-          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dict.modal.duration}</label>
-          <input type="number" bind:value={duration} min="0.1" max="60" step="0.1" class="w-full p-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg" />
+          <label for="generator-duration" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dict.modal.duration}</label>
+          <input id="generator-duration" type="number" bind:value={duration} min="0.1" max="60" step="0.1" class="w-full p-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg" />
         </div>
 
         <div class="pt-4 flex justify-end gap-2">

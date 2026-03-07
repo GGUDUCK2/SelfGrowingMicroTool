@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  export let name = 'Video Player';
+  export const name = 'Video Player';
 
   let isPlaying = false;
   let progress = 30;

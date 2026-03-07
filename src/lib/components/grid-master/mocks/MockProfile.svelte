@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let name = 'Profile Card';
+  export const name = 'Profile Card';
 
   let following = false;
   let stats = [
