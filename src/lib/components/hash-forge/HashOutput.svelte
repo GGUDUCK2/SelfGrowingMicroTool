@@ -23,7 +23,7 @@
 
 <div class="space-y-2">
   <div class="flex items-center justify-between">
-    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">{label}</label>
+    <span class="block text-sm font-medium text-slate-700 dark:text-slate-300">{label}</span>
     <div class="flex items-center gap-2">
       <label class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 cursor-pointer">
         <input type="checkbox" bind:checked={uppercase} class="rounded border-slate-300 dark:border-slate-600 text-indigo-600 focus:ring-indigo-500 dark:bg-slate-800" />

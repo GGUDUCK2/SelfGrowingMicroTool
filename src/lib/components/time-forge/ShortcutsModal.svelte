@@ -40,7 +40,8 @@
   >
       <div
           class="bg-slate-900 border border-slate-700 p-6 rounded-2xl shadow-2xl max-w-sm w-full relative cursor-auto text-left"
-          role="document"
+          role="dialog"
+          tabindex="-1"
           on:click|stopPropagation
           on:keydown|stopPropagation
       >
