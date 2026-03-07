@@ -85,7 +85,7 @@
               <th class="px-4 py-3 font-medium border-l border-slate-200 dark:border-slate-700 relative group">
                 {colIndex + 1}
                 <button
-                  class="absolute top-1/2 right-2 -translate-y-1/2 opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 transition-opacity"
+                  class="absolute top-1/2 right-1 -translate-y-1/2 opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center"
                   on:click={() => removeColumn(colIndex)}
                   title="Remove Column"
                   aria-label="Remove Column"
@@ -102,7 +102,7 @@
               <td class="px-4 py-3 bg-slate-50 dark:bg-slate-800 text-center relative font-medium w-10">
                 <span class="group-hover/row:opacity-0 transition-opacity">{rowIndex + 1}</span>
                 <button
-                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover/row:opacity-100 text-red-500 hover:text-red-700 transition-opacity"
+                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover/row:opacity-100 text-red-500 hover:text-red-700 transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center"
                   on:click={() => removeRow(rowIndex)}
                   title="Remove Row"
                   aria-label="Remove Row"
