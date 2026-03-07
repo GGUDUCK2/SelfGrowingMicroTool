@@ -124,6 +124,20 @@
     }
   ];
 
+
+  $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
+
   $: breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -163,6 +177,7 @@
 <svelte:head>
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
 </svelte:head>
 
 <Head
