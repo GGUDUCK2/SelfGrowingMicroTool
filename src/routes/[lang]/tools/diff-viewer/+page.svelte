@@ -409,14 +409,14 @@
 
       <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
          <!-- Example Dropdown (Simple) -->
-         <div class="flex items-center gap-1 mr-2 overflow-x-auto pb-1 md:pb-0">
-            <button class="text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0" aria-label="Load Code Example" on:click={() => loadExample('code')}>Code</button>
-            <button class="text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0" aria-label="Load JSON Example" on:click={() => loadExample('json')}>JSON</button>
-            <button class="text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0" aria-label="Load Text Example" on:click={() => loadExample('text')}>Text</button>
+         <div class="flex items-center gap-1 mr-2 overflow-x-auto pb-1 md:pb-0 scrollbar-hide">
+            <button class="text-sm px-3 py-2 min-h-[44px] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0" aria-label="Load Code Example" on:click={() => loadExample('code')}>Code</button>
+            <button class="text-sm px-3 py-2 min-h-[44px] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0" aria-label="Load JSON Example" on:click={() => loadExample('json')}>JSON</button>
+            <button class="text-sm px-3 py-2 min-h-[44px] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0" aria-label="Load Text Example" on:click={() => loadExample('text')}>Text</button>
          </div>
 
         <button
-          class="p-2 text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors relative"
+          class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors relative"
           on:click={() => isHistoryOpen = !isHistoryOpen}
           title={t.history + ' (Cmd+/)'}
           aria-label={t.history}
@@ -424,7 +424,7 @@
           <History class="w-5 h-5" />
         </button>
         <button
-          class="p-2 text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors"
+          class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors"
           on:click={copyShareLink}
           title={t.share}
           aria-label={t.share}
@@ -517,7 +517,7 @@
             <!-- Mode Selection -->
             <div class="flex items-center gap-2">
                 <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{t.mode}:</span>
-                <select bind:value={mode} class="bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white">
+                <select bind:value={mode} class="min-h-[44px] bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white">
                     <option value="lines">{t.lines}</option>
                     <option value="words">{t.words}</option>
                     <option value="chars">{t.chars}</option>
@@ -528,13 +528,13 @@
             <!-- View Mode -->
             <div class="flex bg-gray-100 dark:bg-gray-900 rounded-lg p-1">
                 <button
-                    class="px-3 py-1.5 rounded-md text-sm font-medium transition-all {viewMode === 'split' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
+                    class="px-3 py-1.5 min-h-[36px] sm:min-h-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'split' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
                     on:click={() => viewMode = 'split'}
                 >
                     <Columns class="w-4 h-4 inline mr-1" /> {t.split}
                 </button>
                 <button
-                    class="px-3 py-1.5 rounded-md text-sm font-medium transition-all {viewMode === 'unified' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
+                    class="px-3 py-1.5 min-h-[36px] sm:min-h-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'unified' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
                     on:click={() => viewMode = 'unified'}
                 >
                     <AlignLeft class="w-4 h-4 inline mr-1" /> {t.unified}
@@ -542,12 +542,12 @@
             </div>
 
             <!-- Options -->
-            <label class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
-                <input type="checkbox" bind:checked={ignoreWhitespace} class="rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800">
+            <label class="flex items-center gap-2 min-h-[44px] text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
+                <input type="checkbox" bind:checked={ignoreWhitespace} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800">
                 {t.ignoreWhitespace}
             </label>
-            <label class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
-                <input type="checkbox" bind:checked={ignoreCase} class="rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800">
+            <label class="flex items-center gap-2 min-h-[44px] text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
+                <input type="checkbox" bind:checked={ignoreCase} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800">
                 {t.ignoreCase}
             </label>
         </div>

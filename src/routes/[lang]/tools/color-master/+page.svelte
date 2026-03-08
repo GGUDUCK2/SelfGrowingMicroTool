@@ -320,10 +320,10 @@
       <!-- Harmony Selector -->
       <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
         <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t.harmony}</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 gap-3">
           {#each HARMONY_TYPES as type}
             <button
-              class="p-3 min-h-[44px] text-base rounded-lg border transition-all {harmonyType === type ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-500 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700'}"
+              class="p-3 min-h-[44px] text-sm sm:text-base rounded-lg border transition-all {harmonyType === type ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-500 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700 text-slate-700 dark:text-slate-300'}"
               on:click={() => handleTypeChange(type)}
             >
               {t.harmonies[type]}
@@ -337,7 +337,7 @@
         <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t.visionSimulator}</h3>
         <select
           bind:value={visionType}
-          class="w-full p-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none dark:text-white"
+          class="w-full p-3 min-h-[44px] text-base bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none dark:text-white"
         >
           <option value="none">{t.normal}</option>
           <option value="protanopia">{t.protanopia}</option>
