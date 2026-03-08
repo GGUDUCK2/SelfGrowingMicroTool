@@ -246,7 +246,7 @@
         </h1>
         <button
           on:click={() => showShortcuts = !showShortcuts}
-          class="lg:hidden p-3 flex-shrink-0 text-slate-400 hover:text-indigo-500 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-full"
+          class="lg:hidden p-3 flex-shrink-0 min-h-[44px] min-w-[44px] text-slate-400 hover:text-indigo-500 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-full"
           aria-label={t.shortcuts}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
@@ -309,7 +309,7 @@
       <div class="relative">
           <ColorWheel color={baseColor} {t} on:change={handleColorChange} />
           <button
-            class="absolute top-0 right-0 p-2 bg-white dark:bg-slate-800 rounded-full shadow-md hover:scale-110 transition-transform text-indigo-500 border border-indigo-100 dark:border-indigo-900"
+            class="absolute top-0 right-0 p-2 min-h-[44px] min-w-[44px] bg-white dark:bg-slate-800 rounded-full shadow-md hover:scale-110 transition-transform text-indigo-500 border border-indigo-100 dark:border-indigo-900"
             on:click={randomize}
             title={t.inspire}
           >

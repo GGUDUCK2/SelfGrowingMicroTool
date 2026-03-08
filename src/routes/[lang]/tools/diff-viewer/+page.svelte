@@ -528,13 +528,13 @@
             <!-- View Mode -->
             <div class="flex bg-gray-100 dark:bg-gray-900 rounded-lg p-1">
                 <button
-                    class="px-3 py-1.5 min-h-[36px] sm:min-h-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'split' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
+                    class="px-3 py-1.5 min-h-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'split' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
                     on:click={() => viewMode = 'split'}
                 >
                     <Columns class="w-4 h-4 inline mr-1" /> {t.split}
                 </button>
                 <button
-                    class="px-3 py-1.5 min-h-[36px] sm:min-h-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'unified' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
+                    class="px-3 py-1.5 min-h-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'unified' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
                     on:click={() => viewMode = 'unified'}
                 >
                     <AlignLeft class="w-4 h-4 inline mr-1" /> {t.unified}

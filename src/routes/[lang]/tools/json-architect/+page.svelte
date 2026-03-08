@@ -259,7 +259,7 @@
              <div class="flex gap-2">
                  <button
                    on:click={() => view = 'text'}
-                   class="text-sm px-4 py-2 sm:px-3 sm:py-1.5 rounded touch-manipulation {view === 'text' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-500'}"
+                   class="text-sm px-4 py-2 min-h-[44px] rounded touch-manipulation {view === 'text' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-500'}"
                  >
                     {t.textView}
                  </button>
@@ -268,7 +268,7 @@
                    on:click={() => view = 'tree'}
                    disabled={isTooLarge}
                    title={isTooLarge ? 'JSON too large for tree view' : ''}
-                   class="text-sm px-4 py-2 sm:px-3 sm:py-1.5 rounded touch-manipulation {view === 'tree' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-500'} {isTooLarge ? 'opacity-50 cursor-not-allowed' : ''}"
+                   class="text-sm px-4 py-2 min-h-[44px] rounded touch-manipulation {view === 'tree' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-500'} {isTooLarge ? 'opacity-50 cursor-not-allowed' : ''}"
                  >
                     {t.treeView}
                  </button>
