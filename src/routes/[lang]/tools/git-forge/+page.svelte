@@ -93,6 +93,28 @@
       }
     ]
   };
+
+  $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": dict.q1,
+        "acceptedAnswer": { "@type": "Answer", "text": dict.a1 }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q2,
+        "acceptedAnswer": { "@type": "Answer", "text": dict.a2 }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q3,
+        "acceptedAnswer": { "@type": "Answer", "text": dict.a3 }
+      }
+    ]
+  };
 </script>
 <Head
   title={dict.title}
@@ -106,6 +128,7 @@
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(howToSchema)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20 transition-colors duration-300">
@@ -137,21 +160,21 @@
               <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-1.5 flex overflow-x-auto overflow-y-hidden gap-1">
                   <button
                       on:click={() => activeTab = 'command'}
-                      class="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-all {activeTab === 'command' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
+                      class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'command' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
                   >
                       <Terminal size={16} />
                       <span class="hidden sm:inline">{dict.tabs.command}</span>
                   </button>
                   <button
                       on:click={() => activeTab = 'ignore'}
-                      class="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-all {activeTab === 'ignore' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
+                      class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'ignore' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
                   >
                       <FileCode size={16} />
                       <span class="hidden sm:inline">{dict.tabs.ignore}</span>
                   </button>
                   <button
                       on:click={() => activeTab = 'commit'}
-                      class="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-all {activeTab === 'commit' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
+                      class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'commit' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
                   >
                       <MessageSquare size={16} />
                       <span class="hidden sm:inline">{dict.tabs.commit}</span>
