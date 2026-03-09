@@ -31,31 +31,67 @@
   $: charCount = content ? content.length : 0;
   $: readingTime = Math.ceil(wordCount / 200);
 
-  $: schema = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "MarkFlow",
-    "headline": dict.title,
-    "alternativeHeadline": "Online Markdown Editor",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "dateModified": new Date().toISOString(),
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
+  $: schema = [
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "MarkFlow",
+      "headline": dict.title,
+      "alternativeHeadline": "Online Markdown Editor",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "dateModified": new Date().toISOString(),
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": dict.description,
+      "featureList": [
+        "Real-time Markdown Preview",
+        "Export to HTML",
+        "Markdown Templates",
+        "Local History",
+        "GitHub Flavored Markdown"
+      ],
+      "screenshot": "https://web-factory.vercel.app/og-image.jpg",
+      "url": $page.url.href,
+      "author": {
+          "@type": "Organization",
+          "name": "MicroFactory"
+      }
     },
-    "description": dict.description,
-    "featureList": [
-      "Real-time Markdown Preview",
-      "Export to HTML",
-      "Markdown Templates",
-      "Local History",
-      "GitHub Flavored Markdown"
-    ],
-    "screenshot": "https://web-factory.vercel.app/og-image.jpg",
-    "url": $page.url.href
-  };
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": dict.q1,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": dict.a1
+          }
+        },
+        {
+          "@type": "Question",
+          "name": dict.q2,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": dict.a2
+          }
+        },
+        {
+          "@type": "Question",
+          "name": dict.q3,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": dict.a3
+          }
+        }
+      ]
+    }
+  ];
 
   $: breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -227,7 +263,7 @@
       <div class="flex items-center gap-3">
          <!-- Template Dropdown -->
          <select
-           class="bg-slate-100 dark:bg-slate-800 border-none text-sm rounded-lg px-3 py-2 cursor-pointer outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-slate-700 dark:text-slate-300"
+           class="bg-slate-100 dark:bg-slate-800 border-none text-sm rounded-lg px-3 py-2 cursor-pointer outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-slate-700 dark:text-slate-300 min-h-[44px]"
            on:change={(e) => applyTemplate(templates[e.currentTarget.selectedIndex - 1])}
          >
            <option disabled selected>{dict.templates}</option>
@@ -258,13 +294,13 @@
     <!-- Mobile Tabs -->
     <div class="sm:hidden flex border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 print:hidden">
       <button
-        class="flex-1 py-2 text-sm font-medium {activeTab === 'editor' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
+        class="flex-1 py-2 min-h-[44px] text-sm font-medium {activeTab === 'editor' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
         on:click={() => activeTab = 'editor'}
       >
         {dict.input}
       </button>
       <button
-        class="flex-1 py-2 text-sm font-medium {activeTab === 'preview' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
+        class="flex-1 py-2 min-h-[44px] text-sm font-medium {activeTab === 'preview' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
         on:click={() => activeTab = 'preview'}
       >
         {dict.preview}
