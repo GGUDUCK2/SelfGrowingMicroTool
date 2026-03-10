@@ -16,8 +16,9 @@
 <div class="flex flex-wrap items-center gap-2 p-2 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
   <!-- Format Selector -->
   <div class="flex items-center gap-2 mr-4">
-    <label class="text-sm font-medium text-slate-600 dark:text-slate-400">{dict.format}:</label>
+    <label for="format-selector" class="text-sm font-medium text-slate-600 dark:text-slate-400">{dict.format}:</label>
     <select
+      id="format-selector"
       bind:value={outputFormat}
       on:change={() => dispatch('change-format', outputFormat)}
       class="bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-slate-100"

@@ -125,6 +125,7 @@
   <div class="relative bg-white dark:bg-slate-900 rounded-xl shadow border border-slate-200 dark:border-slate-700 overflow-hidden cursor-move touch-none"
        style="height: 400px;"
        role="application"
+       tabindex="0"
        aria-label="Graphing Canvas"
        on:mousedown={(e) => { isDragging = true; lastX = e.clientX; lastY = e.clientY; }}
        on:mousemove={(e) => {

@@ -75,8 +75,9 @@
 
     <!-- Master Volume -->
     <div class="flex-1 min-w-[100px]">
-        <label class="text-[10px] uppercase text-slate-500 font-bold mb-1 block">{dict.controls.master}</label>
+        <label for="master-volume" class="text-[10px] uppercase text-slate-500 font-bold mb-1 block">{dict.controls.master}</label>
         <input
+            id="master-volume"
             type="range"
             min="0"
             max="1"

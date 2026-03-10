@@ -8,7 +8,6 @@
 
   export let engine: MetronomeEngine;
   export let settings: RhythmSettings;
-  export let dict: RhythmForgeDictionary;
 
   let gameState: 'idle' | 'playing' | 'summary' = 'idle';
   let score = 0;

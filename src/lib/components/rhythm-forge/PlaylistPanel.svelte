@@ -6,7 +6,6 @@
   import type { RhythmSettings, RhythmForgeDictionary } from '$lib/utils/rhythm-forge/types';
 
   export let settings: RhythmSettings;
-  export let dict: RhythmForgeDictionary;
 
   const dispatch = createEventDispatcher<{
       load: RhythmSettings
