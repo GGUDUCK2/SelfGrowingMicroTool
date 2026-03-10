@@ -5,7 +5,6 @@
   export let selectionStart: number = 0;
   export let selectionEnd: number = 0;
   export let currentTime: number = 0;
-  export let zoom: number = 100; // pixels per second (not used in this simple version, we fit to width)
   export let height: number = 200;
 
   let canvas: HTMLCanvasElement;
@@ -152,6 +151,11 @@
 <div
   bind:this={container}
   class="w-full relative cursor-crosshair select-none"
+  role="slider"
+  tabindex="0"
+  aria-valuemin="0"
+  aria-valuemax={audioBuffer?.duration || 0}
+  aria-valuenow={currentTime}
   on:mousedown={handleMouseDown}
   on:mousemove={handleMouseMove}
   on:mouseup={handleMouseUp}

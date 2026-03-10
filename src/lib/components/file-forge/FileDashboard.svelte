@@ -161,6 +161,15 @@
       e.preventDefault();
       downloadReport();
     }
+    // Added quick shortcuts for navigating tools
+    if ((e.ctrlKey || e.metaKey) && e.key === 'i') {
+        e.preventDefault();
+        activeTab = 'info';
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+        e.preventDefault();
+        activeTab = 'inspector';
+    }
   }
 </script>
 

@@ -33,28 +33,30 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <!-- Octal -->
     <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 relative group">
-        <label class="block text-sm font-medium text-slate-500 mb-2">Octal</label>
+        <label for="perms-octal" class="block text-sm font-medium text-slate-500 mb-2">Octal</label>
         <input
+            id="perms-octal"
             type="text"
             bind:value={octalInput}
             on:input={updateOctal}
             class="w-full text-4xl font-mono font-bold bg-transparent text-slate-900 dark:text-white outline-none tracking-tight"
         />
-        <button class="absolute top-4 right-4 p-2 text-slate-400 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" on:click={() => copy(permission.octal)}>
+        <button aria-label="Copy Octal" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" on:click={() => copy(permission.octal)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
         </button>
     </div>
 
     <!-- Symbolic -->
     <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 relative group md:col-span-2">
-        <label class="block text-sm font-medium text-slate-500 mb-2">Symbolic</label>
+        <label for="perms-symbolic" class="block text-sm font-medium text-slate-500 mb-2">Symbolic</label>
         <input
+            id="perms-symbolic"
             type="text"
             bind:value={symbolicInput}
             on:input={updateSymbolic}
             class="w-full text-4xl font-mono font-bold bg-transparent text-slate-900 dark:text-white outline-none tracking-widest"
         />
-        <button class="absolute top-4 right-4 p-2 text-slate-400 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" on:click={() => copy(permission.symbolic)}>
+        <button aria-label="Copy Symbolic" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" on:click={() => copy(permission.symbolic)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
         </button>
     </div>

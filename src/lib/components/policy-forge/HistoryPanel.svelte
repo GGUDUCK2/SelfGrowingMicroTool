@@ -58,7 +58,7 @@
                             </div>
                         </div>
 
-                        <div on:click|stopPropagation class="flex items-center">
+                        <div on:click|stopPropagation class="flex items-center" role="button" tabindex="0" on:keydown={(e) => e.key === 'Enter' && e.stopPropagation()}>
                             {#if deletingId === item.id}
                                 <div class="flex items-center gap-1">
                                     <button class="p-1 text-green-600 hover:bg-green-100 rounded transition-colors" on:click={(e) => confirmDelete(e, item.id!)} title="Confirm">

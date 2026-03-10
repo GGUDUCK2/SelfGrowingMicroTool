@@ -6,7 +6,6 @@
   export let engine: MetronomeEngine;
   export let lastBeat: BeatEvent | null = null;
   export let settings: RhythmSettings;
-  export let mode: 'metronome' | 'trainer' | 'game' = 'metronome';
 
   let canvas: HTMLCanvasElement;
   let ctx: CanvasRenderingContext2D;
