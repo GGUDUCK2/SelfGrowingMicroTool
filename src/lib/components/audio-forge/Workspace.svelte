@@ -276,7 +276,7 @@
 
     <!-- Sidebar Toggle -->
     <button
-        class="absolute top-20 right-0 bg-white dark:bg-slate-800 p-2 rounded-l-lg shadow-md border-y border-l border-slate-200 dark:border-slate-700 text-slate-500 hover:text-indigo-600 transition-transform hover:-translate-x-1"
+        class="absolute top-20 right-0 bg-white dark:bg-slate-800 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-l-lg shadow-md border-y border-l border-slate-200 dark:border-slate-700 text-slate-500 hover:text-indigo-600 transition-transform hover:-translate-x-1"
         on:click={() => showHistory = !showHistory}
         title={dict.history.title}
     >

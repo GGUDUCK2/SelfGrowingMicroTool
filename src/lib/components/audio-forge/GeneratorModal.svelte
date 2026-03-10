@@ -19,10 +19,10 @@
 
 {#if show}
   <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
+    <div role="dialog" tabindex="-1" aria-labelledby="generator-title" class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
       <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
-        <h3 class="font-bold text-lg text-slate-900 dark:text-white">{dict.modal.title}</h3>
-        <button on:click={() => show = false} class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+        <h3 id="generator-title" class="font-bold text-lg text-slate-900 dark:text-white">{dict.modal.title}</h3>
+        <button on:click={() => show = false} class="min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
           <X class="w-5 h-5" />
         </button>
       </div>
@@ -57,8 +57,8 @@
         </div>
 
         <div class="pt-4 flex justify-end gap-2">
-          <button on:click={() => show = false} class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg">{dict.modal.cancel}</button>
-          <button on:click={handleGenerate} class="px-4 py-2 bg-indigo-600 text-white font-medium hover:bg-indigo-700 rounded-lg">{dict.modal.generate}</button>
+          <button on:click={() => show = false} class="px-4 py-2 min-h-[44px] text-slate-600 hover:bg-slate-100 rounded-lg">{dict.modal.cancel}</button>
+          <button on:click={handleGenerate} class="px-4 py-2 min-h-[44px] bg-indigo-600 text-white font-medium hover:bg-indigo-700 rounded-lg">{dict.modal.generate}</button>
         </div>
       </div>
     </div>

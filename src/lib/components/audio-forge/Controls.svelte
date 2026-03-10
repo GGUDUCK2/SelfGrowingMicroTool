@@ -25,7 +25,7 @@
     <div class="flex items-center gap-2">
         <button
             on:click={isPlaying ? onPause : onPlay}
-            class="p-3 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/30"
+            class="p-3 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/30"
             disabled={isRecording}
             aria-label={isPlaying ? dict.actions.pause : dict.actions.play}
             title={isPlaying ? dict.actions.pause : dict.actions.play}
@@ -39,7 +39,7 @@
 
         <button
             on:click={onStop}
-            class="p-3 rounded-full text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+            class="p-3 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
             disabled={isRecording}
             aria-label={dict.actions.stop}
             title={dict.actions.stop}
@@ -49,7 +49,7 @@
 
         <button
             on:click={onRecord}
-            class="p-3 rounded-full {isRecording ? 'bg-red-500 text-white animate-pulse' : 'text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'} transition-all"
+            class="p-3 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full {isRecording ? 'bg-red-500 text-white animate-pulse' : 'text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'} transition-all"
             aria-label={dict.actions.record}
             title={dict.actions.record}
         >
@@ -68,7 +68,7 @@
             min="10"
             max="500"
             bind:value={zoom}
-            class="w-32 h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+            class="w-32 h-2 min-h-[44px] bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-600"
             aria-label="Zoom"
         />
         <ZoomIn class="w-4 h-4" />

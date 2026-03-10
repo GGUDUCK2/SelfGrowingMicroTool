@@ -154,7 +154,7 @@
   role="slider"
   tabindex="0"
   aria-valuemin="0"
-  aria-valuemax={audioBuffer?.duration || 0}
+  aria-valuemax={buffer?.duration || 0}
   aria-valuenow={currentTime}
   on:mousedown={handleMouseDown}
   on:mousemove={handleMouseMove}

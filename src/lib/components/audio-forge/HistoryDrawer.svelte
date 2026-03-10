@@ -38,7 +38,7 @@
     <div class="fixed inset-y-0 right-0 z-50 w-80 bg-white dark:bg-slate-900 shadow-2xl border-l border-slate-200 dark:border-slate-800 flex flex-col" transition:slide={{ axis: 'x', duration: 300 }}>
         <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-800/50">
             <h3 class="font-bold text-lg text-slate-800 dark:text-white">{dict.history.title}</h3>
-            <button aria-label="Close" on:click={() => dispatch('close')} class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+            <button aria-label="Close" on:click={() => dispatch('close')} class="min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -51,7 +51,7 @@
                     <div class="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow group">
                         <div class="flex justify-between items-start mb-2">
                             <h4 class="font-medium text-slate-900 dark:text-slate-100 truncate pr-2" title={item.name}>{item.name}</h4>
-                            <button on:click|stopPropagation={() => deleteItem(item.id)} class="text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button on:click|stopPropagation={() => deleteItem(item.id)} aria-label="Delete" class="min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <Trash2 class="w-4 h-4" />
                             </button>
                         </div>
@@ -65,7 +65,7 @@
 
                         <div class="flex items-center justify-between">
                             <span class="text-[10px] text-slate-400">{formatTime(item.createdAt)}</span>
-                            <button on:click={() => restore(item)} class="flex items-center gap-1 text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
+                            <button on:click={() => restore(item)} aria-label="Restore" class="flex items-center gap-1 min-h-[44px] px-2 text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
                                 <PlayCircle class="w-3 h-3" /> {dict.history.load}
                             </button>
                         </div>
