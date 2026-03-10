@@ -214,14 +214,14 @@
           />
           <button
             on:click={analyze}
-            class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/30 transition-all active:scale-95"
+            class="px-8 py-4 min-h-[44px] bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/30 transition-all active:scale-95"
             aria-label="Analyze IP"
           >
             {dict.tools.subnetScope.analyze}
           </button>
           <button
              on:click={share}
-             class="px-4 py-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 font-bold rounded-xl transition-colors"
+             class="px-4 py-4 min-h-[44px] min-w-[44px] flex items-center justify-center bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 font-bold rounded-xl transition-colors"
              aria-label="Share Configuration"
           >
              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
@@ -407,21 +407,21 @@
                             <div class="flex gap-2">
                                 <button
                                     on:click={() => toggleStar(item.id!)}
-                                    class="p-2 transition-colors {item.starred ? 'text-yellow-400' : 'text-slate-300 hover:text-yellow-400'}"
+                                    class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors {item.starred ? 'text-yellow-400' : 'text-slate-300 hover:text-yellow-400'}"
                                     aria-label="Toggle Star"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill={item.starred ? "currentColor" : "none"} stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                                 </button>
                                 <button
                                     on:click={() => restore(item)}
-                                    class="px-3 py-1.5 text-sm bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50"
+                                    class="px-3 py-1.5 min-h-[44px] text-sm bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50"
                                 >
                                     {dict.tools.subnetScope.restore}
                                 </button>
                                 <button
                                     on:click={() => deleteHistoryItem(item.id!)}
                                     aria-label="Delete"
-                                    class="p-2 text-slate-400 hover:text-red-500 transition-colors"
+                                    class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                                 </button>

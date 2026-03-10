@@ -47,14 +47,14 @@
     <!-- Tabs -->
     <div class="flex border-b border-gray-200 dark:border-gray-700">
         <button
-            class="flex-1 py-3 text-sm font-medium flex items-center justify-center gap-2 transition-colors {activeTab === 'tables' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            class="flex-1 min-h-[44px] py-3 text-sm font-medium flex items-center justify-center gap-2 transition-colors {activeTab === 'tables' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => activeTab = 'tables'}
         >
             <Database size={16} />
             {t.schema}
         </button>
         <button
-            class="flex-1 py-3 text-sm font-medium flex items-center justify-center gap-2 transition-colors {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            class="flex-1 min-h-[44px] py-3 text-sm font-medium flex items-center justify-center gap-2 transition-colors {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => activeTab = 'history'}
         >
             <History size={16} />
@@ -73,7 +73,7 @@
                 <div class="space-y-2">
                     {#each tables as table}
                         <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                            <button class="w-full flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-left" on:click={() => toggleTable(table.name)}>
+                            <button class="w-full min-h-[44px] flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-left" on:click={() => toggleTable(table.name)}>
                                 <span class="font-bold text-sm text-gray-700 dark:text-gray-200 truncate pr-2" title={table.name}>{table.name}</span>
                                 <div class="flex items-center gap-2 text-xs text-gray-500 shrink-0">
                                     <span>{table.rowCount}</span>
@@ -94,7 +94,7 @@
                                     {/each}
                                     <div class="pt-2 border-t border-gray-100 dark:border-gray-700 mt-2">
                                         <button
-                                            class="w-full py-1 text-xs text-center text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded"
+                                            class="w-full min-h-[44px] py-1 text-xs text-center text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded"
                                             on:click={() => dispatch('run', `SELECT * FROM ${table.name} LIMIT 10`)}
                                         >
                                             SELECT * LIMIT 10
@@ -114,10 +114,10 @@
                         <div class="flex justify-between items-start mb-2">
                              <span class="text-[10px] text-gray-400 font-mono">{formatTime(item.timestamp)}</span>
                              <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button class="p-1 hover:text-yellow-500 text-gray-400" on:click={() => toggleStar(item)} aria-label="Star">
+                                <button class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center hover:text-yellow-500 text-gray-400" on:click={() => toggleStar(item)} aria-label="Star">
                                     <Star size={12} fill={item.starred ? "currentColor" : "none"} class={item.starred ? "text-yellow-500" : ""} />
                                 </button>
-                                <button class="p-1 hover:text-red-500 text-gray-400" on:click={() => deleteHistory(item.id!)} aria-label="Delete">
+                                <button class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center hover:text-red-500 text-gray-400" on:click={() => deleteHistory(item.id!)} aria-label="Delete">
                                     <Trash2 size={12} />
                                 </button>
                             </div>
@@ -130,7 +130,7 @@
                                 {item.status === 'success' ? 'OK' : 'ERR'}
                             </span>
                              <button
-                                class="text-xs flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:underline"
+                                class="text-xs min-h-[44px] flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:underline"
                                 on:click={() => runHistory(item)}
                              >
                                 <Play size={10} />

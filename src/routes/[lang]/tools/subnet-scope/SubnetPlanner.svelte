@@ -81,17 +81,17 @@
                 type="text"
                 bind:value={newItemLabel}
                 placeholder="Label (e.g. Web Servers)"
-                class="flex-1 px-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg"
+                class="flex-1 px-4 py-2 min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg"
             />
             <input
                 type="text"
                 bind:value={newItemCidr}
                 placeholder="CIDR (e.g. 10.0.1.0/24)"
-                class="flex-1 px-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg font-mono"
+                class="flex-1 px-4 py-2 min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg font-mono"
             />
             <button
                 on:click={addItem}
-                class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition-colors"
+                class="px-6 py-2 min-h-[44px] bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition-colors"
             >
                 Add
             </button>
@@ -115,7 +115,7 @@
                     </div>
                     <button
                         on:click={() => removeItem(item.id)}
-                        class="text-slate-400 hover:text-red-500 transition-colors"
+                        class="text-slate-400 min-h-[44px] min-w-[44px] flex items-center justify-center hover:text-red-500 transition-colors"
                         aria-label="Remove"
                     >
                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>

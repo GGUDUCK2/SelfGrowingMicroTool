@@ -56,10 +56,10 @@
 {#if subnets.length > 0}
   <div class="space-y-4" transition:slide>
     <div class="flex justify-end gap-2">
-        <button on:click={downloadCSV} aria-label="Export CSV" class="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+        <button on:click={downloadCSV} aria-label="Export CSV" class="px-3 py-1.5 min-h-[44px] text-sm font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
             {dict.exportCSV || 'Export CSV'}
         </button>
-        <button on:click={downloadJSON} aria-label="Export JSON" class="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+        <button on:click={downloadJSON} aria-label="Export JSON" class="px-3 py-1.5 min-h-[44px] text-sm font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
             {dict.exportJSON || 'Export JSON'}
         </button>
     </div>
@@ -82,7 +82,7 @@
               <td class="px-4 py-3 font-mono text-slate-600 dark:text-slate-300">{subnet.range}</td>
               <td class="px-4 py-3 text-right">
                 <button
-                  class="text-xs font-medium text-slate-500 hover:text-indigo-600 transition-colors"
+                  class="text-xs font-medium text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px]"
                   on:click={() => copy(subnet.network)}
                 >
                   Copy
