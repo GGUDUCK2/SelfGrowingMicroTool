@@ -24,6 +24,7 @@
         "name": toolDict.title,
         "description": toolDict.description,
         "applicationCategory": "MultimediaApplication",
+        "applicationSubCategory": "Audio Editor",
         "operatingSystem": "Any",
         "offers": {
           "@type": "Offer",
@@ -36,6 +37,29 @@
           "Tone Generation",
           "WAV Export",
           "Offline Processing"
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://selfgrowingmicrotool.com/" + lang
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://selfgrowingmicrotool.com/" + lang + "#tools"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": toolDict.title,
+            "item": "https://selfgrowingmicrotool.com/" + lang + "/tools/audio-forge"
+          }
         ]
       },
       {
