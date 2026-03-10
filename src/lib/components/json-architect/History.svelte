@@ -40,13 +40,13 @@
            <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
               <button
                  on:click={() => restore(item)}
-                 class="text-xs px-2 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+                 class="text-xs px-2 py-1 min-h-[44px] bg-indigo-600 text-white rounded hover:bg-indigo-700"
               >
                   {t.restore}
               </button>
                <button
                  on:click={() => item.id && remove(item.id)}
-                 class="text-xs px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded hover:bg-red-200 dark:hover:bg-red-900/50"
+                 class="text-xs px-2 py-1 min-h-[44px] bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded hover:bg-red-200 dark:hover:bg-red-900/50"
               >
                   {t.delete}
               </button>

@@ -71,7 +71,7 @@
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-lg border border-gray-200 dark:border-gray-700">
         <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
             <h3 class="font-bold text-lg text-gray-900 dark:text-white">{t.import}</h3>
-            <button class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-500" on:click={() => dispatch('close')} aria-label="Close">
+            <button class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-500" on:click={() => dispatch('close')} aria-label="Close">
                 <X size={20} />
             </button>
         </div>
@@ -124,13 +124,13 @@
 
         <div class="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3 bg-gray-50 dark:bg-gray-900/50 rounded-b-xl">
             <button
-                class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                class="px-4 py-2 min-h-[44px] text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
                 on:click={() => dispatch('close')}
             >
                 Cancel
             </button>
             <button
-                class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                class="px-4 py-2 min-h-[44px] text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 on:click={handleImport}
                 disabled={!files || !tableName || isProcessing}
             >
