@@ -328,7 +328,7 @@
   $: jsonLdScript = `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}<\/script>`;
 </script>
 <Head
-  title={`${tags.title ? `${tags.title} | ` : ''}${dict.title} - MicroTools Factory`}
+  title={`${tags.title ? `${tags.title} | ` : ''}${dict.title}`}
   description={dict.description}
   keywords="seo, meta tags, open graph, json-ld, preview, social media, metadata, generator"
 />

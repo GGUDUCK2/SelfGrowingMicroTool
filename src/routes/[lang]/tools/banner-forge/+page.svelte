@@ -9,7 +9,7 @@
   $: dict = getDictionary(lang);
   $: toolDict = dict.tools.bannerForge;
 
-  $: title = `${toolDict.title} - ${dict.common.category || 'MicroTools'}`;
+  $: title = toolDict.title;
   $: description = toolDict.description;
   $: canonical = `https://selfgrowingmicrotool.com/${lang}/tools/banner-forge`;
 

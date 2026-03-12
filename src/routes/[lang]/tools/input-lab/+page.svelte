@@ -88,7 +88,7 @@
   }
 </script>
 <Head
-  title={`${dict.title} - MicroTools`}
+  title={dict.title}
   description={dict.description}
   keywords="keyboard tester, gamepad tester, input lag test, ghosting check, pointer events, touch test, device info, keycode checker"
 />
