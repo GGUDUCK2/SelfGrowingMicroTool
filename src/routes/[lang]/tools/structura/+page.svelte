@@ -231,7 +231,18 @@
         "priceCurrency": "USD"
       },
       "description": t.description,
-      "featureList": ["JSON Converter", "YAML Converter", "XML Converter", "CSV Converter", "Code Generator", "Tree Visualizer"]
+      "featureList": ["JSON Converter", "YAML Converter", "XML Converter", "CSV Converter", "Code Generator", "Tree Visualizer"],
+      "mainEntity": {
+        "@type": "FAQPage",
+        "mainEntity": faqItems.map(item => ({
+          "@type": "Question",
+          "name": item.q,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": item.a
+          }
+        }))
+      }
     })}
   </script>`}
 </svelte:head>
@@ -252,7 +263,7 @@
       <!-- Tabs -->
       <div class="flex border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
           <button
-            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] {activeTab === 'convert' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] {activeTab === 'convert' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => activeTab = 'convert'}
           >
               <Zap size={18} />
@@ -262,7 +273,7 @@
               {/if}
           </button>
           <button
-            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] {activeTab === 'codegen' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] {activeTab === 'codegen' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => { activeTab = 'codegen'; runCodeGen(); }}
           >
               <Code size={18} />
@@ -272,7 +283,7 @@
               {/if}
           </button>
           <button
-            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] {activeTab === 'visualizer' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] {activeTab === 'visualizer' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => { activeTab = 'visualizer'; runVisualizer(); }}
           >
               <Network size={18} />
@@ -282,7 +293,7 @@
               {/if}
           </button>
           <button
-            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => activeTab = 'history'}
           >
               <History size={18} />
@@ -302,14 +313,14 @@
                     <div class="flex items-center gap-4 w-full md:w-auto">
                         <!-- Examples Dropdown -->
                         <div class="relative group">
-                            <button class="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                            <button class="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors min-h-[44px]">
                                 <span class="text-indigo-600 dark:text-indigo-400">★</span>
                                 {t.examples.label}
                             </button>
                             <div class="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-1 hidden group-hover:block z-20">
                                 {#each structuraExamples as ex}
                                     <button
-                                        class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors"
+                                        class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors min-h-[44px]"
                                         on:click={() => loadExample(ex)}
                                     >
                                         <span class="font-bold text-xs bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded mr-2">{ex.format}</span>
@@ -325,7 +336,7 @@
                         <select
                             id="input-format"
                             bind:value={inputFormat}
-                            class="pl-3 pr-8 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500"
+                            class="pl-3 pr-8 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500 min-h-[44px]"
                         >
                             {#each formats as f}
                                 <option value={f.value}>{f.label}</option>
@@ -338,7 +349,7 @@
                         <select
                             id="output-format"
                             bind:value={outputFormat}
-                            class="pl-3 pr-8 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500"
+                            class="pl-3 pr-8 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500 min-h-[44px]"
                         >
                             {#each formats as f}
                                 <option value={f.value}>{f.label}</option>
@@ -348,7 +359,7 @@
 
                     <div class="flex items-center gap-2">
                         <button
-                            class="flex items-center gap-2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            class="flex items-center gap-2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px]"
                             on:click={runConversion}
                         >
                             <span>{t.convert}</span>
@@ -357,7 +368,7 @@
                             {/if}
                         </button>
                         <button
-                            class="p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                            class="p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                             on:click={() => showSettings = !showSettings}
                             aria-label={t.settings}
                         >
@@ -434,7 +445,7 @@
                                 id="codegen-lang"
                                 bind:value={codeGenLang}
                                 on:change={runCodeGen}
-                                class="w-full pl-3 pr-8 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg text-sm"
+                                class="w-full pl-3 pr-8 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg text-sm min-h-[44px]"
                             >
                                 <option value="typescript">{t.codegen.typescript}</option>
                                 <option value="zod">{t.codegen.zod}</option>
@@ -451,13 +462,13 @@
                                 type="text"
                                 bind:value={rootName}
                                 on:input={runCodeGen}
-                                class="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg text-sm"
+                                class="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg text-sm min-h-[44px]"
                             />
                         </div>
                     </div>
                     <div class="self-end">
                         <button
-                            class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors"
+                            class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors min-h-[44px]"
                             on:click={runCodeGen}
                         >
                             {t.codegen.generate}
@@ -550,14 +561,14 @@
                                     </div>
                                     <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                         <button
-                                            class="p-1.5 hover:bg-white dark:hover:bg-gray-600 rounded-lg text-gray-400 hover:text-yellow-500 transition-colors"
+                                            class="p-1.5 hover:bg-white dark:hover:bg-gray-600 rounded-lg text-gray-400 hover:text-yellow-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                                             on:click|stopPropagation={() => structuraWorkspace.toggleStar(item.id || 0)}
                                             aria-label={t.star || "Star"}
                                         >
                                             <Star size={16} fill={item.starred ? "currentColor" : "none"} class={item.starred ? "text-yellow-500" : ""} />
                                         </button>
                                         <button
-                                            class="p-1.5 hover:bg-white dark:hover:bg-gray-600 rounded-lg text-gray-400 hover:text-red-500 transition-colors"
+                                            class="p-1.5 hover:bg-white dark:hover:bg-gray-600 rounded-lg text-gray-400 hover:text-red-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                                             on:click|stopPropagation={() => structuraWorkspace.delete(item.id || 0)}
                                             aria-label={t.delete || "Delete"}
                                         >
@@ -565,7 +576,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <button class="w-full text-left" on:click={() => restoreHistory(item)}>
+                                <button class="w-full text-left min-h-[44px]" on:click={() => restoreHistory(item)}>
                                     <p class="text-xs text-gray-500 mb-2">{new Date(item.createdAt).toLocaleString()}</p>
                                     <p class="text-sm font-mono text-gray-700 dark:text-gray-300 line-clamp-3 bg-white dark:bg-gray-800 p-2 rounded border border-gray-100 dark:border-gray-700">
                                         {item.inputPreview}

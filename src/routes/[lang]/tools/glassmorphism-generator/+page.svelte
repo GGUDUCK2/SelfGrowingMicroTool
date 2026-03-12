@@ -216,7 +216,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     <div class="flex justify-center">
         <button
           on:click={copyLink}
-          class="inline-flex items-center justify-center w-full sm:w-auto gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors touch-manipulation"
+          class="inline-flex items-center justify-center w-full sm:w-auto gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors touch-manipulation min-h-[44px]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -278,7 +278,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
         </h2>
         <button
             on:click={saveToHistory}
-            class="text-sm bg-indigo-50 px-3 py-1.5 rounded-lg text-indigo-600 hover:text-indigo-800 font-medium touch-manipulation transition-colors"
+            class="text-sm bg-indigo-50 px-3 py-1.5 rounded-lg text-indigo-600 hover:text-indigo-800 font-medium touch-manipulation transition-colors min-h-[44px]"
         >
             {dict.save}
         </button>
@@ -410,7 +410,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
         <button
           on:click={copyToClipboard}
-          class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white px-4 py-2 sm:px-3 sm:py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 backdrop-blur-sm touch-manipulation"
+          class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white px-4 py-2 sm:px-3 sm:py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 backdrop-blur-sm touch-manipulation min-h-[44px]"
         >
           {#if copied}
             <span in:fly={{ y: 5 }} class="text-green-400">{dict.copied}</span>
@@ -430,7 +430,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                 </h3>
                 <button
                     on:click={clearHistory}
-                    class="text-sm text-red-500 hover:text-red-700 font-medium touch-manipulation"
+                    class="text-sm text-red-500 hover:text-red-700 font-medium touch-manipulation min-h-[44px]"
                 >
                     {dict.clearHistory}
                 </button>
@@ -439,7 +439,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {#each $history as item (item.id)}
                     <div class="group relative bg-gray-50 rounded-xl p-4 border border-gray-200 hover:shadow-md transition-all touch-manipulation">
-                        <button class="w-full text-left" on:click={() => restoreHistory(item)}>
+                        <button class="w-full text-left min-h-[44px]" on:click={() => restoreHistory(item)}>
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-4 h-4 rounded-full border border-gray-300" style="background: {item.color}; opacity: {item.transparency}"></div>
                                 <span class="text-xs text-gray-500">{new Date(item.createdAt).toLocaleString()}</span>
@@ -457,7 +457,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                         </button>
                          <button
                             on:click|stopPropagation={() => item.id && deleteHistory(item.id)}
-                            class="absolute top-2 right-2 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg opacity-0 group-hover:opacity-100 transition-all touch-manipulation"
+                            class="absolute top-2 right-2 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg opacity-0 group-hover:opacity-100 transition-all touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
                             aria-label={dict.delete}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
