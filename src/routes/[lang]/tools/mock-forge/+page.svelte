@@ -199,7 +199,7 @@
   };
 </script>
 <Head
-  title={`${t.title} - MicroTools`}
+  title={t.title}
   description={t.description}
   keywords="mock data generator, fake data, json generator, csv generator, sql insert generator, test data, developer tools"
 />
