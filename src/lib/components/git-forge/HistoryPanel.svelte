@@ -37,7 +37,7 @@
     <div class="flex items-center justify-between mb-4">
         <h3 class="font-bold text-sm text-slate-700 dark:text-slate-200">{dictionary.history.title}</h3>
         {#if $history && $history.length > 0}
-            <button on:click={clear} class="text-xs text-red-500 hover:text-red-600 underline">
+            <button on:click={clear} class="min-h-[44px] min-w-[44px] text-xs text-red-500 hover:text-red-600 underline">
                 {dictionary.history.clear}
             </button>
         {/if}
@@ -70,14 +70,14 @@
                     </div>
 
                     <div class="absolute right-2 top-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity bg-white dark:bg-slate-800 shadow-sm rounded border border-slate-100 dark:border-slate-700">
-                        <button on:click={() => copy(item.content)} class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-indigo-500 rounded" title="Copy">
-                            <Copy size={12} />
+                        <button on:click={() => copy(item.content)} class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-indigo-500 rounded" title="Copy" aria-label="Copy">
+                            <Copy size={16} />
                         </button>
-                        <button on:click={() => toggleStar(item)} class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-yellow-500 rounded" title="Star">
-                            <Star size={12} fill={item.starred ? "currentColor" : "none"} class={item.starred ? "text-yellow-500" : ""} />
+                        <button on:click={() => toggleStar(item)} class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-yellow-500 rounded" title="Star" aria-label="Star">
+                            <Star size={16} fill={item.starred ? "currentColor" : "none"} class={item.starred ? "text-yellow-500" : ""} />
                         </button>
-                        <button on:click={() => deleteItem(item.id)} class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-red-500 rounded" title="Delete">
-                            <Trash2 size={12} />
+                        <button on:click={() => deleteItem(item.id)} class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-red-500 rounded" title="Delete" aria-label="Delete">
+                            <Trash2 size={16} />
                         </button>
                     </div>
                 </div>

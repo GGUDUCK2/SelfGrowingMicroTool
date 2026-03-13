@@ -313,5 +313,20 @@
     "category": "util",
     "tags": ["file", "hash", "converter", "metadata", "base64"],
     "createdAt": "2024-10-01"
+  },
+  {
+    "id": "git-forge",
+    "slug": "git-forge",
+    "title": {
+      "en": "Git Forge",
+      "ko": "깃 포지"
+    },
+    "description": {
+      "en": "The definitive Git companion. Build complex commands, generate .gitignore files, and construct conventional commits visually.",
+      "ko": "완벽한 Git 동반자입니다. 복잡한 명령어를 빌드하고, .gitignore 파일을 생성하고, 컨벤셔널 커밋을 시각적으로 작성하세요."
+    },
+    "category": "dev",
+    "tags": ["git", "gitignore", "commit", "cli", "vcs"],
+    "createdAt": "2024-10-15"
   }
 ]
