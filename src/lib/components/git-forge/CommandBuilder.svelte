@@ -69,7 +69,7 @@
             <div class="flex flex-wrap gap-2">
                 {#each categories as cat}
                     <button
-                        class="px-3 py-1.5 text-xs font-medium rounded-full transition-colors {activeCategory === cat ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700'}"
+                        class="min-h-[44px] min-w-[44px] px-3 py-1.5 text-xs font-medium rounded-full transition-colors {activeCategory === cat ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700'}"
                         on:click={() => handleCategoryChange(cat)}
                     >
                         {dictionary.command.categories[cat] || cat}
@@ -83,7 +83,7 @@
             <div class="space-y-1">
                 {#each commandsByCategory[activeCategory] || [] as cmd}
                     <button
-                        class="w-full text-left px-3 py-2 text-sm rounded-lg transition-colors flex items-center justify-between {activeCommandId === cmd.id ? 'bg-slate-100 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 font-medium' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
+                        class="min-h-[44px] w-full text-left px-3 py-2 text-sm rounded-lg transition-colors flex items-center justify-between {activeCommandId === cmd.id ? 'bg-slate-100 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 font-medium' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
                         on:click={() => handleCommandChange(cmd.id)}
                     >
                         <span>{dictionary.command.operations[cmd.id] || cmd.id}</span>
@@ -129,7 +129,7 @@
                                 type="text"
                                 bind:value={formValues[opt.id]}
                                 placeholder={opt.placeholder}
-                                class="w-full text-sm rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-shadow"
+                                class="min-h-[44px] w-full text-sm rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-shadow"
                             />
                             {#if opt.flag}
                                 <div class="text-[10px] font-mono text-slate-400 mt-1">{opt.flag || 'Positional'}</div>
@@ -138,7 +138,7 @@
                             <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{opt.label}</label>
                             <select
                                 bind:value={formValues[opt.id]}
-                                class="w-full text-sm rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="min-h-[44px] w-full text-sm rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                             >
                                 {#each opt.options || [] as val}
                                     <option value={val}>{val}</option>
@@ -161,15 +161,17 @@
                 <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <button
                         on:click={copy}
-                        class="p-2 hover:bg-white/10 rounded text-slate-400 hover:text-white transition-colors"
+                        class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-white/10 rounded text-slate-400 hover:text-white transition-colors"
                         title={dictionary.command.copy}
+                        aria-label={dictionary.command.copy}
                     >
                         <Copy size={16} />
                     </button>
                     <button
                         on:click={save}
-                        class="p-2 hover:bg-white/10 rounded text-slate-400 hover:text-white transition-colors"
+                        class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-white/10 rounded text-slate-400 hover:text-white transition-colors"
                         title="Save to History"
+                        aria-label="Save to History"
                     >
                         <Save size={16} />
                     </button>

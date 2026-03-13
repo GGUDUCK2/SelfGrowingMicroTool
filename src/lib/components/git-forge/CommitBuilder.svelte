@@ -38,7 +38,7 @@
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dictionary.commit.type}</label>
-                <select bind:value={data.type} class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500">
+                <select bind:value={data.type} class="min-h-[44px] w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500">
                     {#each types as t}
                         <option value={t}>{dictionary.commit.types[t] || t}</option>
                     {/each}
@@ -46,28 +46,28 @@
             </div>
             <div>
                 <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dictionary.commit.scope}</label>
-                <input type="text" bind:value={data.scope} class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="auth, api, ui..." />
+                <input type="text" bind:value={data.scope} class="min-h-[44px] w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="auth, api, ui..." />
             </div>
         </div>
 
         <div>
             <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dictionary.commit.description}</label>
-            <input type="text" bind:value={data.description} class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="add login functionality" />
+            <input type="text" bind:value={data.description} class="min-h-[44px] w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="add login functionality" />
         </div>
 
         <div>
             <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dictionary.commit.body}</label>
-            <textarea bind:value={data.body} rows="4" class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="Detailed explanation..."></textarea>
+            <textarea bind:value={data.body} rows="4" class="min-h-[44px] w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="Detailed explanation..."></textarea>
         </div>
 
         <div>
             <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dictionary.commit.footer}</label>
-            <textarea bind:value={data.footer} rows="2" class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="Closes #123"></textarea>
+            <textarea bind:value={data.footer} rows="2" class="min-h-[44px] w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="Closes #123"></textarea>
         </div>
 
         <div class="flex items-center gap-2">
             <input type="checkbox" id="breaking" bind:checked={data.isBreaking} class="w-4 h-4 text-red-600 rounded border-gray-300 focus:ring-red-500" />
-            <label for="breaking" class="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1">
+            <label for="breaking" class="min-h-[44px] cursor-pointer text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1">
                 <AlertTriangle size={14} class={data.isBreaking ? 'text-red-500' : 'text-slate-400'} />
                 {dictionary.commit.breaking}
             </label>
@@ -79,10 +79,10 @@
         <div class="bg-slate-800 p-3 flex items-center justify-between border-b border-slate-700">
             <span class="text-xs font-mono text-slate-400">git commit -m "..."</span>
             <div class="flex gap-2">
-                <button on:click={save} class="p-1.5 hover:bg-slate-700 rounded text-slate-400 hover:text-white" title="Save">
+                <button on:click={save} class="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-slate-700 rounded text-slate-400 hover:text-white" title="Save" aria-label="Save">
                     <Save size={16} />
                 </button>
-                <button on:click={copy} class="p-1.5 hover:bg-slate-700 rounded text-slate-400 hover:text-white" title={dictionary.commit.copy}>
+                <button on:click={copy} class="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-slate-700 rounded text-slate-400 hover:text-white" title={dictionary.commit.copy} aria-label={dictionary.commit.copy}>
                     <Copy size={16} />
                 </button>
             </div>

@@ -65,7 +65,7 @@
                 type="text"
                 bind:value={searchTerm}
                 placeholder={dictionary.ignore.search}
-                class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-shadow"
+                class="min-h-[44px] w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-shadow"
             />
         </div>
 
@@ -75,10 +75,10 @@
                 {#each selectedTemplates as tmpl (tmpl.id)}
                     <button
                         on:click={() => toggle(tmpl.id)}
-                        class="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300 hover:bg-red-100 hover:text-red-700 dark:hover:bg-red-900/30 transition-colors"
+                        class="min-h-[44px] min-w-[44px] inline-flex items-center gap-1 px-3 py-1 rounded-md text-xs font-medium bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300 hover:bg-red-100 hover:text-red-700 dark:hover:bg-red-900/30 transition-colors"
                     >
                         {tmpl.name}
-                        <X size={12} />
+                        <X size={16} />
                     </button>
                 {/each}
             </div>
@@ -88,7 +88,7 @@
             {#each filteredTemplates as tmpl (tmpl.id)}
                 <button
                     on:click={() => toggle(tmpl.id)}
-                    class="w-full text-left p-3 rounded-lg border transition-all flex items-center justify-between group {selectedIds.includes(tmpl.id) ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-indigo-300 dark:hover:border-slate-600'}"
+                    class="min-h-[44px] w-full text-left p-3 rounded-lg border transition-all flex items-center justify-between group {selectedIds.includes(tmpl.id) ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-indigo-300 dark:hover:border-slate-600'}"
                 >
                     <div>
                         <div class="font-medium text-sm text-slate-900 dark:text-white group-hover:text-indigo-600 transition-colors">{tmpl.name}</div>
@@ -113,13 +113,13 @@
         <div class="bg-slate-800 p-3 flex items-center justify-between border-b border-slate-700">
             <span class="text-xs font-mono text-slate-400">.gitignore</span>
             <div class="flex gap-2">
-                <button on:click={save} class="p-1.5 hover:bg-slate-700 rounded text-slate-400 hover:text-white" title="Save">
+                <button on:click={save} class="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-slate-700 rounded text-slate-400 hover:text-white" title="Save" aria-label="Save">
                     <Save size={16} />
                 </button>
-                <button on:click={copy} class="p-1.5 hover:bg-slate-700 rounded text-slate-400 hover:text-white" title={dictionary.ignore.copy}>
+                <button on:click={copy} class="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-slate-700 rounded text-slate-400 hover:text-white" title={dictionary.ignore.copy} aria-label={dictionary.ignore.copy}>
                     <Copy size={16} />
                 </button>
-                <button on:click={download} class="p-1.5 bg-indigo-600 hover:bg-indigo-500 rounded text-white transition-colors" title={dictionary.ignore.download}>
+                <button on:click={download} class="min-h-[44px] min-w-[44px] flex items-center justify-center bg-indigo-600 hover:bg-indigo-500 rounded text-white transition-colors" title={dictionary.ignore.download} aria-label={dictionary.ignore.download}>
                     <Download size={16} />
                 </button>
             </div>
