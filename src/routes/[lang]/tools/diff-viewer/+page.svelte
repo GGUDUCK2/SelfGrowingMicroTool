@@ -14,6 +14,7 @@
   import MergeConflictResolver from '$lib/components/diff-viewer/MergeConflictResolver.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
+  import Button from '$lib/components/Button.svelte';
   import { Split, Columns, History, RotateCcw, Save, Trash2, ArrowLeftRight, Check, X, Code, FileJson, AlignLeft, Type, Copy, Share2, Info, Keyboard, FileText, Download, GitMerge, FileUp } from 'lucide-svelte';
   import Head from '$lib/components/Head.svelte';
 
@@ -470,8 +471,8 @@
                             placeholder={`<<<<<<< HEAD\nvar x = 1;\n=======\nvar x = 2;\n>>>>>>> feature/new-x`}
                         ></textarea>
                          <div class="flex justify-end gap-2 mt-4">
-                            <button class="btn-secondary" on:click={cancelConflict}>Cancel</button>
-                            <button class="btn-primary" on:click={startResolving}>Start Resolving</button>
+                            <Button variant="secondary" on:click={cancelConflict}>Cancel</Button>
+                            <Button variant="primary" on:click={startResolving}>Start Resolving</Button>
                         </div>
                      </div>
                  {:else}
@@ -553,28 +554,28 @@
         </div>
 
         <div class="flex flex-wrap gap-2 sm:gap-4 items-center">
-            <button class="btn-secondary flex items-center gap-2" on:click={() => showConflictModal = true} title={t.mergeConflict}>
+            <Button variant="secondary" on:click={() => showConflictModal = true} title={t.mergeConflict}>
                 <GitMerge class="w-4 h-4 text-orange-500" />
                 <span class="hidden md:inline">{t.mergeConflict}</span>
-            </button>
-             <button class="btn-secondary flex items-center gap-2" on:click={downloadReport} title={t.downloadReport}>
+            </Button>
+             <Button variant="secondary" on:click={downloadReport} title={t.downloadReport}>
                 <Download class="w-4 h-4 text-blue-500" />
                 <span class="hidden md:inline">Report</span>
-            </button>
-            <button class="btn-secondary flex items-center gap-2" on:click={downloadPatch} title="Download Patch (.patch)">
+            </Button>
+            <Button variant="secondary" on:click={downloadPatch} title="Download Patch (.patch)">
                 <FileUp class="w-4 h-4 text-green-500" />
                 <span class="hidden md:inline">Patch</span>
-            </button>
+            </Button>
             <div class="w-px h-8 bg-gray-200 dark:bg-gray-700 mx-1 hidden sm:block"></div>
-            <button class="btn-secondary flex items-center gap-2" on:click={swapSides} title={t.swap}>
+            <Button variant="secondary" on:click={swapSides} title={t.swap}>
                 <ArrowLeftRight class="w-4 h-4" />
                 <span class="hidden sm:inline">{t.swap}</span>
-            </button>
-            <button class="btn-secondary text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 dark:text-red-400 flex items-center gap-2" on:click={clearAll} title={t.clear + ' (Cmd+K)'}>
+            </Button>
+            <Button variant="danger" on:click={clearAll} title={t.clear + ' (Cmd+K)'}>
                 <Trash2 class="w-4 h-4" />
                 <span class="hidden sm:inline">{t.clear}</span>
-            </button>
-            <button class="btn-primary flex items-center gap-2 relative" on:click={saveToHistory} title={t.save}>
+            </Button>
+            <Button variant="primary" on:click={saveToHistory} title={t.save}>
                 {#if showSaveNotification}
                     <Check class="w-4 h-4" />
                     <span>Saved</span>
@@ -582,7 +583,7 @@
                     <Save class="w-4 h-4" />
                     <span>{t.save}</span>
                 {/if}
-            </button>
+            </Button>
         </div>
     </div>
 
@@ -641,11 +642,3 @@
   </main>
 </div>
 
-<style>
-  .btn-primary {
-    @apply min-h-[44px] min-w-[44px] px-4 sm:px-6 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-sm;
-  }
-  .btn-secondary {
-    @apply min-h-[44px] min-w-[44px] px-4 sm:px-6 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg font-medium transition-all duration-200 hover:bg-slate-50 dark:hover:bg-slate-600 text-sm;
-  }
-</style>
