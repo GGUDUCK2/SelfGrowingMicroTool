@@ -154,6 +154,40 @@
       ]
     })}
   </script>`}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "${dict.q1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a3}"
+        }
+      }
+    ]
+  }
+  </script>`}
+
 </svelte:head>
 
 <!-- Toast -->
@@ -278,7 +312,7 @@
                         <div class="card group">
                             <div class="flex justify-between items-start">
                                 <span class="label">{dict.tools.subnetScope.network}</span>
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600" on:click={() => copyText(result?.networkAddress || '')} aria-label="Copy Network Address">
+                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600 min-h-[44px]" on:click={() => copyText(result?.networkAddress || '')} aria-label="Copy Network Address">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                 </button>
                             </div>
@@ -288,7 +322,7 @@
                         <div class="card group">
                             <div class="flex justify-between items-start">
                                 <span class="label">{dict.tools.subnetScope.broadcast}</span>
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600" on:click={() => copyText(result?.broadcastAddress || '')} aria-label="Copy Broadcast Address">
+                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600 min-h-[44px]" on:click={() => copyText(result?.broadcastAddress || '')} aria-label="Copy Broadcast Address">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                 </button>
                             </div>
@@ -297,7 +331,7 @@
                         <div class="card group">
                             <div class="flex justify-between items-start">
                                 <span class="label">{dict.tools.subnetScope.netmask}</span>
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600" on:click={() => copyText(result?.subnetMask || '')} aria-label="Copy Netmask">
+                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600 min-h-[44px]" on:click={() => copyText(result?.subnetMask || '')} aria-label="Copy Netmask">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                 </button>
                             </div>
@@ -307,7 +341,7 @@
                         <div class="card group">
                             <div class="flex justify-between items-start">
                                 <span class="label">{dict.tools.subnetScope.firstHost}</span>
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600" on:click={() => copyText(result?.firstHost || '')} aria-label="Copy First Host">
+                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600 min-h-[44px]" on:click={() => copyText(result?.firstHost || '')} aria-label="Copy First Host">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                 </button>
                             </div>
@@ -316,7 +350,7 @@
                         <div class="card group">
                             <div class="flex justify-between items-start">
                                 <span class="label">{dict.tools.subnetScope.lastHost}</span>
-                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600" on:click={() => copyText(result?.lastHost || '')} aria-label="Copy Last Host">
+                                <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600 min-h-[44px]" on:click={() => copyText(result?.lastHost || '')} aria-label="Copy Last Host">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                 </button>
                             </div>
@@ -355,13 +389,13 @@
                                         bind:value={newMask}
                                         min={result.subnetMaskLength ? result.subnetMaskLength + 1 : 0}
                                         max={result.version === 4 ? 32 : 128}
-                                        class="w-full mt-2 px-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                                        class="w-full mt-2 px-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none min-h-[44px]"
                                     />
                                 </label>
                             </div>
                             <button
                                 on:click={generateSubnets}
-                                class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition-colors"
+                                class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition-colors min-h-[44px]"
                             >
                                 {dict.tools.subnetScope.generate}
                             </button>

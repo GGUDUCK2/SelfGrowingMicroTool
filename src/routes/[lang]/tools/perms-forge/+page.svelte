@@ -80,6 +80,40 @@
 
 <svelte:head>
                         {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "${dict.q1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a3}"
+        }
+      }
+    ]
+  }
+  </script>`}
+
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20 transition-colors duration-300">
@@ -103,7 +137,7 @@
             <div class="flex items-center gap-2">
                 <button
                     on:click={handleSave}
-                    class="flex items-center gap-2 px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-medium text-sm hover:opacity-90 transition-opacity"
+                    class="flex items-center gap-2 px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-medium text-sm hover:opacity-90 transition-opacity min-h-[44px]"
                 >
                     <Save size={16} />
                     <span class="hidden sm:inline">Save</span>

@@ -155,6 +155,40 @@
     }
   </script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumb)}</script>`}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "${dict.q1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a3}"
+        }
+      }
+    ]
+  }
+  </script>`}
+
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" in:fade={{ duration: 300 }}>
@@ -180,7 +214,7 @@
             <div class="flex items-center justify-between">
                 <h3 class="text-lg font-medium text-slate-200">Preview</h3>
                 <button
-                    class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
+                    class="text-sm text-slate-400 hover:text-indigo-400 transition-colors min-h-[44px]"
                     on:click={() => file = null}
                 >
                     {t.upload.reupload}
@@ -233,7 +267,7 @@
                             {t.config.title}
                         </h3>
                         <button
-                            class="p-2 rounded-lg transition-colors {justSaved ? 'bg-green-500/20 text-green-400' : 'bg-slate-700 hover:bg-indigo-500/20 text-slate-400 hover:text-indigo-400'}"
+                            class="p-2 rounded-lg transition-colors {justSaved ? 'bg-green-500/20 text-green-400' : 'bg-slate-700 hover:bg-indigo-500/20 text-slate-400 hover:text-indigo-400'} min-h-[44px]"
                             title={t.history.save}
                             on:click={saveProject}
                             disabled={isSaving}

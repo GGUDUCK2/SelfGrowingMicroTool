@@ -112,6 +112,40 @@
     ]
   }
   </script>`}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "${dict.q1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a3}"
+        }
+      }
+    ]
+  }
+  </script>`}
+
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20 transition-colors duration-300">
@@ -177,7 +211,7 @@
           <div class="mt-8 w-full max-w-4xl flex justify-center gap-4">
               <button
                   on:click={restart}
-                  class="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-all transform hover:scale-105 shadow-lg shadow-indigo-500/30 outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+                  class="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-all transform hover:scale-105 shadow-lg shadow-indigo-500/30 outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 min-h-[44px]"
               >
                   <RotateCcw size={18} />
                   {dict.restart}

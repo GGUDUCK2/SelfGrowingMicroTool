@@ -265,6 +265,40 @@
 
 
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "${dict.q1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a3}"
+        }
+      }
+    ]
+  }
+  </script>`}
+
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20 transition-colors duration-300">
@@ -293,19 +327,19 @@
               <!-- Mode Switcher -->
               <div class="flex p-1 bg-slate-200 dark:bg-slate-800 rounded-2xl">
                   <button
-                      class="flex-1 py-3 rounded-xl font-bold text-sm transition-all {mode === 'metronome' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}"
+                      class="flex-1 py-3 rounded-xl font-bold text-sm transition-all {mode === 'metronome' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'} min-h-[44px]"
                       on:click={() => mode = 'metronome'}
                   >
                       Metronome
                   </button>
                   <button
-                      class="flex-1 py-3 rounded-xl font-bold text-sm transition-all {mode === 'trainer' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}"
+                      class="flex-1 py-3 rounded-xl font-bold text-sm transition-all {mode === 'trainer' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'} min-h-[44px]"
                       on:click={() => mode = 'trainer'}
                   >
                       {dict.rhythmTrainer?.title || 'Rhythm Trainer'}
                   </button>
                   <button
-                      class="flex-1 py-3 rounded-xl font-bold text-sm transition-all {mode === 'game' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'}"
+                      class="flex-1 py-3 rounded-xl font-bold text-sm transition-all {mode === 'game' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'} min-h-[44px]"
                       on:click={() => mode = 'game'}
                   >
                       {dict.game?.title || 'Rhythm Game'}
@@ -340,13 +374,13 @@
 
               <div class="bg-slate-200 dark:bg-slate-800 p-1 rounded-2xl flex">
                   <button
-                      class="flex-1 py-2 rounded-xl font-bold text-sm transition-all {libraryMode === 'presets' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400'}"
+                      class="flex-1 py-2 rounded-xl font-bold text-sm transition-all {libraryMode === 'presets' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400'} min-h-[44px]"
                       on:click={() => libraryMode = 'presets'}
                   >
                       {dict.libraryMode?.presets || 'Presets & Library'}
                   </button>
                   <button
-                      class="flex-1 py-2 rounded-xl font-bold text-sm transition-all {libraryMode === 'playlists' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400'}"
+                      class="flex-1 py-2 rounded-xl font-bold text-sm transition-all {libraryMode === 'playlists' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400'} min-h-[44px]"
                       on:click={() => libraryMode = 'playlists'}
                   >
                       {dict.libraryMode?.playlists || 'Setlists / Playlists'}

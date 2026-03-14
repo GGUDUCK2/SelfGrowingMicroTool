@@ -60,6 +60,40 @@
 
 <svelte:head>
   {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "${dict.q1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a3}"
+        }
+      }
+    ]
+  }
+  </script>`}
+
 </svelte:head>
 
 <div class="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
@@ -94,13 +128,13 @@
             <input
                 type="text"
                 bind:value={$matrixStore.name}
-                class="bg-gray-100 dark:bg-gray-700 border-none rounded-lg px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500 w-48 lg:w-64"
+                class="bg-gray-100 dark:bg-gray-700 border-none rounded-lg px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500 w-48 lg:w-64 min-h-[44px]"
                 placeholder="Project Name..."
             />
         </div>
 
         <div class="relative group">
-            <button class="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm font-medium">
+            <button class="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm font-medium min-h-[44px]">
                 <Download size={18} />
                 <span class="hidden sm:inline">{t.export}</span>
             </button>
@@ -169,7 +203,7 @@
                  <input
                     type="text"
                     bind:value={$matrixStore.name}
-                    class="bg-transparent border-none text-lg font-bold text-gray-900 dark:text-white focus:ring-0 w-full"
+                    class="bg-transparent border-none text-lg font-bold text-gray-900 dark:text-white focus:ring-0 w-full min-h-[44px]"
                     placeholder="Project Name..."
                 />
             </div>

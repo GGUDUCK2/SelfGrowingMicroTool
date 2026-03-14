@@ -178,6 +178,40 @@
 
 <svelte:head>
                 {@html `<script type="application/ld+json">${JSON.stringify(schemaList)}</script>`}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "${dict.q1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a3}"
+        }
+      }
+    ]
+  }
+  </script>`}
+
 </svelte:head>
 
 <div class="max-w-2xl mx-auto text-center space-y-12 py-12 px-4">
@@ -238,7 +272,7 @@
     <div class="flex items-center justify-center gap-6">
       <button
         on:click={toggleTimer}
-        class="h-14 w-14 sm:h-16 sm:w-16 flex items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:scale-105 active:scale-95 transition-all"
+        class="h-14 w-14 sm:h-16 sm:w-16 flex items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:scale-105 active:scale-95 transition-all min-h-[44px]"
         aria-label={isRunning ? dict.pauseAction : dict.startAction}
       >
         {#if isRunning}
@@ -279,7 +313,7 @@
 
       <button
         on:click={reset}
-        class="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-900 transition-colors"
+        class="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-900 transition-colors min-h-[44px]"
         aria-label={dict.reset}
       >
         <svg

@@ -313,6 +313,40 @@
       ]
     })}
   </script>`}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "${dict.q1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a3}"
+        }
+      }
+    ]
+  }
+  </script>`}
+
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">
@@ -332,7 +366,7 @@
             {dict.title}
           </h1>
           <button
-             class="ml-4 px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-full shadow-sm flex items-center gap-1 transition-all"
+             class="ml-4 px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-full shadow-sm flex items-center gap-1 transition-all min-h-[44px]"
              on:click={() => showWizard = true}
           >
              <span>+ New</span>
@@ -343,14 +377,14 @@
       <div class="flex items-center space-x-3">
            <div class="bg-slate-100 dark:bg-slate-800 rounded-lg p-1 hidden sm:flex">
                <button
-                 class="p-1.5 rounded-md transition-all {viewMode === 'desktop' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}"
+                 class="p-1.5 rounded-md transition-all {viewMode === 'desktop' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-400'} min-h-[44px]"
                  on:click={() => viewMode = 'desktop'}
                  aria-label="Desktop View"
                >
                    <Monitor size={16} />
                </button>
                <button
-                 class="p-1.5 rounded-md transition-all {viewMode === 'mobile' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}"
+                 class="p-1.5 rounded-md transition-all {viewMode === 'mobile' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-400'} min-h-[44px]"
                  on:click={() => viewMode = 'mobile'}
                  aria-label="Mobile View"
                >
@@ -383,7 +417,7 @@
 
            <div class="bg-slate-100 dark:bg-slate-800 rounded-lg p-1 hidden sm:flex">
                <button
-                 class="p-1.5 rounded-md transition-all {$canUndo ? 'text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 shadow-sm' : 'text-slate-300 dark:text-slate-600 cursor-not-allowed'}"
+                 class="p-1.5 rounded-md transition-all {$canUndo ? 'text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 shadow-sm' : 'text-slate-300 dark:text-slate-600 cursor-not-allowed'} min-h-[44px]"
                  on:click={() => gridStore.undo()}
                  disabled={!$canUndo}
                  aria-label={dict.undo || 'Undo'}
@@ -391,7 +425,7 @@
                    <Undo2 size={16} />
                </button>
                <button
-                 class="p-1.5 rounded-md transition-all {$canRedo ? 'text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 shadow-sm' : 'text-slate-300 dark:text-slate-600 cursor-not-allowed'}"
+                 class="p-1.5 rounded-md transition-all {$canRedo ? 'text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 shadow-sm' : 'text-slate-300 dark:text-slate-600 cursor-not-allowed'} min-h-[44px]"
                  on:click={() => gridStore.redo()}
                  disabled={!$canRedo}
                  aria-label={dict.redo || 'Redo'}
@@ -412,7 +446,7 @@
            <div class="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-2 hidden sm:block"></div>
 
            <button
-             class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors"
+             class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors min-h-[44px]"
              on:click={togglePreview}
              aria-label={dict.preview || 'Toggle Preview'}
              title={previewMode ? 'Switch to Structure Mode' : 'Switch to Content Mode'}
@@ -425,7 +459,7 @@
            </button>
 
            <button
-             class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors"
+             class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors min-h-[44px]"
              on:click={handleShare}
              aria-label={dict.share || 'Share'}
            >
@@ -433,7 +467,7 @@
            </button>
 
            <button
-             class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors"
+             class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors min-h-[44px]"
              on:click={() => openInCodePen($gridStore)}
              aria-label={dict.openInCodePen || 'Open in CodePen'}
              title={dict.openInCodePen || 'Open in CodePen'}
@@ -442,7 +476,7 @@
            </button>
 
            <button
-             class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors"
+             class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors min-h-[44px]"
              on:click={() => downloadProjectZip($gridStore)}
              aria-label={dict.exportProject || 'Export Project'}
              title={dict.exportProject || 'Download Project ZIP'}
@@ -451,7 +485,7 @@
            </button>
 
            <button
-             class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors"
+             class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors min-h-[44px]"
              on:click={handleSnapshot}
              aria-label={dict.capture || 'Capture Snapshot'}
              title={dict.capture || 'Capture PNG Snapshot'}
@@ -464,20 +498,20 @@
            <input
              type="text"
              bind:value={projectName}
-             class="bg-transparent border-b border-transparent hover:border-slate-300 focus:border-indigo-500 focus:outline-none w-32 sm:w-48 text-sm font-medium transition-colors text-right sm:text-left text-slate-700 dark:text-slate-200"
+             class="bg-transparent border-b border-transparent hover:border-slate-300 focus:border-indigo-500 focus:outline-none w-32 sm:w-48 text-sm font-medium transition-colors text-right sm:text-left text-slate-700 dark:text-slate-200 min-h-[44px]"
              placeholder="Project Name"
              aria-label="Project Name"
            />
 
            <button
-             class="p-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm"
+             class="p-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm min-h-[44px]"
              on:click={handleSave}
              aria-label={dict.save}
            >
               <Save size={18} />
            </button>
            <button
-             class="p-2 text-slate-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors"
+             class="p-2 text-slate-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors min-h-[44px]"
              on:click={handleReset}
              aria-label={dict.clear}
            >
@@ -485,7 +519,7 @@
            </button>
 
            <button
-             class="p-2 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg transition-colors ml-1"
+             class="p-2 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg transition-colors ml-1 min-h-[44px]"
              on:click={() => showDoctor = !showDoctor}
              aria-label={dict.doctor?.title || 'Grid Doctor'}
              title={dict.doctor?.title || 'Grid Doctor'}
@@ -493,14 +527,14 @@
               <Activity size={18} />
            </button>
            <button
-             class="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg transition-colors ml-1"
+             class="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg transition-colors ml-1 min-h-[44px]"
              on:click={() => showCommandPalette = true}
              aria-label={dict.commandPalette?.title || 'Command Palette'}
            >
               <Command size={18} />
            </button>
            <button
-             class="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg transition-colors ml-1"
+             class="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg transition-colors ml-1 min-h-[44px]"
              on:click={() => showShortcuts = true}
              aria-label={dict.shortcuts || 'Shortcuts'}
            >

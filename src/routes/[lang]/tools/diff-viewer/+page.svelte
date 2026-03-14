@@ -446,7 +446,7 @@
     {#if showConflictModal}
         <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
             <button
-                class="absolute inset-0 bg-black/50 backdrop-blur-sm border-none w-full h-full cursor-default"
+                class="absolute inset-0 bg-black/50 backdrop-blur-sm border-none w-full h-full cursor-default min-h-[44px]"
                 aria-label="Close Modal"
                 on:click={() => showConflictModal = false}
                 on:keydown={(e) => e.key === 'Escape' && (showConflictModal = false)}
@@ -460,7 +460,7 @@
                                 <GitMerge class="w-5 h-5 text-indigo-500" />
                                 {t.mergeConflict}
                             </h3>
-                            <button class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" on:click={cancelConflict}>
+                            <button class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 min-h-[44px]" on:click={cancelConflict}>
                                 <X class="w-5 h-5" />
                             </button>
                         </div>
@@ -494,7 +494,7 @@
             <DiffHistory {translations} onSelect={loadHistoryItem} />
              <!-- Backdrop -->
              <button
-                class="absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                class="absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 min-h-[44px]"
                 on:click={() => isHistoryOpen = false}
                 aria-label="Close"
              >
@@ -503,7 +503,7 @@
         </div>
         <!-- Overlay -->
         <button
-            class="fixed inset-0 bg-black/20 z-40 cursor-default w-full h-full border-none"
+            class="fixed inset-0 bg-black/20 z-40 cursor-default w-full h-full border-none min-h-[44px]"
             aria-label="Close History Overlay"
             on:click={() => isHistoryOpen = false}
             on:keydown={(e) => e.key === 'Escape' && (isHistoryOpen = false)}
@@ -544,11 +544,11 @@
 
             <!-- Options -->
             <label class="flex items-center gap-2 min-h-[44px] text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
-                <input type="checkbox" bind:checked={ignoreWhitespace} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800">
+                <input type="checkbox" bind:checked={ignoreWhitespace} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800 min-h-[44px]">
                 {t.ignoreWhitespace}
             </label>
             <label class="flex items-center gap-2 min-h-[44px] text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
-                <input type="checkbox" bind:checked={ignoreCase} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800">
+                <input type="checkbox" bind:checked={ignoreCase} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800 min-h-[44px]">
                 {t.ignoreCase}
             </label>
         </div>

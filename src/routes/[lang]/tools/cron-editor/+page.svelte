@@ -255,7 +255,7 @@
             id="cron-input"
             type="text"
             bind:value={cronExpression}
-            class="w-full bg-gray-50 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-lg px-4 py-4 text-xl font-mono text-gray-900 dark:text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-gray-400"
+            class="w-full bg-gray-50 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-lg px-4 py-4 text-xl font-mono text-gray-900 dark:text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-gray-400 min-h-[44px]"
             placeholder={lang === 'ko' ? "0 0 * * * (매일 자정)" : "0 0 * * * (Daily Midnight)"}
             aria-label="Cron 표현식 입력"
           />

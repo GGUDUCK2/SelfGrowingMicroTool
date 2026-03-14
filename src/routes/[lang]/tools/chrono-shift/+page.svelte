@@ -325,7 +325,7 @@
                         <ArrowRight size={18} />
                     </button>
                 </div>
-                <button class="btn-secondary text-sm flex items-center gap-2" on:click={setNow}>
+                <button class="btn-secondary text-sm flex items-center gap-2 min-h-[44px]" on:click={setNow}>
                     <RotateCcw size={14} /> Now
                 </button>
             </div>
@@ -377,7 +377,7 @@
                             type="text"
                             bind:value={searchQuery}
                             placeholder={t.searchPlaceholder}
-                            class="w-full text-sm rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-800 focus:ring-indigo-500 focus:border-indigo-500 py-1"
+                            class="w-full text-sm rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-800 focus:ring-indigo-500 focus:border-indigo-500 py-1 min-h-[44px]"
                         />
                         {#if searchQuery && filteredZones.length > 0}
                             <div class="absolute bottom-full left-0 right-0 mb-1 bg-white dark:bg-slate-800 rounded-md shadow-xl border border-slate-200 dark:border-slate-700 max-h-48 overflow-y-auto z-50">
@@ -399,22 +399,22 @@
         <!-- Action Bar -->
         <div class="p-4 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-200 dark:border-slate-700 flex flex-wrap gap-3 justify-between">
             <div class="flex gap-2">
-                 <button class="btn-secondary text-sm flex items-center gap-2" on:click={() => showTeamModal = !showTeamModal}>
+                 <button class="btn-secondary text-sm flex items-center gap-2 min-h-[44px]" on:click={() => showTeamModal = !showTeamModal}>
                     <Users size={16} /> {t.teams.title}
                 </button>
-                <button class="btn-secondary text-sm flex items-center gap-2" on:click={findGoldenHour}>
+                <button class="btn-secondary text-sm flex items-center gap-2 min-h-[44px]" on:click={findGoldenHour}>
                     <Star size={16} class="text-yellow-500" /> {t.goldenHour}
                 </button>
             </div>
 
             <div class="flex gap-2">
-                 <button class="btn-secondary text-sm flex items-center gap-2" on:click={shareLink}>
+                 <button class="btn-secondary text-sm flex items-center gap-2 min-h-[44px]" on:click={shareLink}>
                     <Share2 size={16} /> {t.share}
                 </button>
-                <button class="btn-secondary text-sm flex items-center gap-2" on:click={copyInvite}>
+                <button class="btn-secondary text-sm flex items-center gap-2 min-h-[44px]" on:click={copyInvite}>
                     <Copy size={16} /> {t.copyInvite}
                 </button>
-                 <button class="btn-primary text-sm flex items-center gap-2" on:click={downloadIcs}>
+                 <button class="btn-primary text-sm flex items-center gap-2 min-h-[44px]" on:click={downloadIcs}>
                     <Download size={16} /> {t.downloadIcs}
                 </button>
             </div>
@@ -435,9 +435,9 @@
                             type="text"
                             bind:value={teamName}
                             placeholder={t.teams.namePlaceholder}
-                            class="flex-1 rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-700"
+                            class="flex-1 rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-700 min-h-[44px]"
                         />
-                        <button class="btn-primary" on:click={saveTeam} disabled={!teamName}>
+                        <button class="btn-primary min-h-[44px]" on:click={saveTeam} disabled={!teamName}>
                             <Save size={18} />
                         </button>
                     </div>
@@ -451,10 +451,10 @@
                                 <div class="flex items-center justify-between p-2 bg-slate-50 dark:bg-slate-700/50 rounded-lg group">
                                     <span class="font-medium text-sm dark:text-slate-200">{team.name}</span>
                                     <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <button class="p-1 hover:text-indigo-500" on:click={() => loadTeam(team)} title={t.loadGroup}>
+                                        <button class="p-1 hover:text-indigo-500 min-h-[44px]" on:click={() => loadTeam(team)} title={t.loadGroup}>
                                             <RotateCcw size={14} />
                                         </button>
-                                        <button class="p-1 hover:text-red-500" on:click={() => deleteTeam(team.id!)} title={t.delete}>
+                                        <button class="p-1 hover:text-red-500 min-h-[44px]" on:click={() => deleteTeam(team.id!)} title={t.delete}>
                                             <Trash2 size={14} />
                                         </button>
                                     </div>
@@ -467,7 +467,7 @@
                 </div>
 
                 <div class="mt-6 text-right">
-                    <button class="text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300" on:click={() => showTeamModal = false}>
+                    <button class="text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 min-h-[44px]" on:click={() => showTeamModal = false}>
                         Close
                     </button>
                 </div>

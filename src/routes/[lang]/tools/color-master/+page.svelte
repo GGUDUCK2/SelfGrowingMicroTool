@@ -228,6 +228,40 @@
 <svelte:head>
   {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(howToSchema)}</script>`}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "${dict.q1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a3}"
+        }
+      }
+    ]
+  }
+  </script>`}
+
 </svelte:head>
 
 <Head
@@ -297,7 +331,7 @@
                     <kbd class="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded text-sm font-mono border dark:border-slate-600">Esc</kbd>
                 </li>
             </ul>
-             <button class="mt-6 w-full py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg transition-colors" on:click={closeShortcuts}>Close</button>
+             <button class="mt-6 w-full py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg transition-colors min-h-[44px]" on:click={closeShortcuts}>Close</button>
         </div>
     </div>
   {/if}

@@ -182,7 +182,7 @@
         <div class="flex items-center gap-2 md:hidden">
              <!-- Mobile View Toggle -->
              <button
-                class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 min-h-[44px]"
                 on:click={() => showPreviewOnMobile = !showPreviewOnMobile}
              >
                 {#if showPreviewOnMobile}
@@ -198,7 +198,7 @@
         <!-- History Sidebar (Responsive) -->
         <div class="fixed inset-y-0 left-0 z-30 transform {showHistory ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 shadow-xl md:shadow-none bg-white dark:bg-slate-900 h-full print:hidden">
             <div class="absolute top-2 right-2 md:hidden">
-                <button class="p-2 text-slate-500" on:click={() => showHistory = false}><X size={20}/></button>
+                <button class="p-2 text-slate-500 min-h-[44px]" on:click={() => showHistory = false}><X size={20}/></button>
             </div>
             <HistoryPanel dict={toolDict} />
         </div>
@@ -215,7 +215,7 @@
                 <div class="p-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 font-semibold text-sm text-slate-500 uppercase tracking-wider flex justify-between items-center">
                     {toolDict.editor.title}
                     <div class="flex gap-2">
-                        <button on:click={handleImportJson} class="text-xs text-indigo-600 hover:underline">{toolDict.actions.importJson}</button>
+                        <button on:click={handleImportJson} class="text-xs text-indigo-600 hover:underline min-h-[44px]">{toolDict.actions.importJson}</button>
                     </div>
                 </div>
                 <div class="flex-1 overflow-hidden">

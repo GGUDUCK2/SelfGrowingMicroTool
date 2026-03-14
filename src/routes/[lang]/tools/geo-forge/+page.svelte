@@ -440,7 +440,7 @@
 
      <div class="flex items-center gap-3 w-full md:w-auto overflow-x-auto no-scrollbar">
          <button
-            class="flex items-center gap-2 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors text-sm font-medium"
+            class="flex items-center gap-2 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors text-sm font-medium min-h-[44px]"
             on:click={() => showHistory = !showHistory}
             aria-label="Toggle history"
          >
@@ -448,7 +448,7 @@
             <span class="hidden sm:inline">Recent</span>
          </button>
          <button
-            class="flex items-center gap-2 px-3 py-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 rounded-lg transition-colors text-sm font-medium"
+            class="flex items-center gap-2 px-3 py-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 rounded-lg transition-colors text-sm font-medium min-h-[44px]"
             on:click={handleSaveManual}
             aria-label="Save project"
          >
@@ -464,14 +464,14 @@
 
          <div class="flex bg-slate-100 dark:bg-slate-700/50 p-1 rounded-lg">
              <button
-                class="px-3 py-1.5 rounded-md text-sm font-medium transition-all {activeTab === 'map' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900'}"
+                class="px-3 py-1.5 rounded-md text-sm font-medium transition-all {activeTab === 'map' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900'} min-h-[44px]"
                 on:click={() => activeTab = 'map'}
                 aria-label="Switch to map view"
              >
                 Map View
              </button>
              <button
-                class="px-3 py-1.5 rounded-md text-sm font-medium transition-all {activeTab === 'data' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900'}"
+                class="px-3 py-1.5 rounded-md text-sm font-medium transition-all {activeTab === 'data' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900'} min-h-[44px]"
                 on:click={() => activeTab = 'data'}
                 aria-label="Switch to data editor"
              >
@@ -481,7 +481,7 @@
 
          <!-- Help Button -->
          <button
-            class="ml-2 p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors"
+            class="ml-2 p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors min-h-[44px]"
             on:click={() => showHelp = true}
             aria-label="Help & FAQ"
          >
@@ -520,7 +520,7 @@
       {#if showMobileMenu}
         <div class="fixed inset-0 z-50 flex lg:hidden" role="dialog" aria-modal="true">
             <button
-              class="absolute inset-0 bg-black/50 backdrop-blur-sm cursor-default"
+              class="absolute inset-0 bg-black/50 backdrop-blur-sm cursor-default min-h-[44px]"
               on:click={() => showMobileMenu = false}
               on:keydown={(e) => e.key === 'Escape' && (showMobileMenu = false)}
               transition:fade
@@ -532,7 +532,7 @@
             >
                  <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
                      <h2 class="font-bold text-lg">Menu</h2>
-                     <button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full" on:click={() => showMobileMenu = false} aria-label="Close Menu">
+                     <button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full min-h-[44px]" on:click={() => showMobileMenu = false} aria-label="Close Menu">
                          <X class="w-5 h-5" />
                      </button>
                  </div>
@@ -588,7 +588,7 @@
                   <div class="px-2 py-1 mb-2 border-b border-slate-100 dark:border-slate-700 text-xs font-bold text-slate-500 uppercase">Recent Projects</div>
                   {#if $historyItems && $historyItems.length > 0}
                       {#each $historyItems as item}
-                          <button class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-sm flex gap-3 items-center" on:click={() => handleLoadProject(item)}>
+                          <button class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-sm flex gap-3 items-center min-h-[44px]" on:click={() => handleLoadProject(item)}>
                               {#if item.preview}
                                   <img src={item.preview} alt="Preview" class="w-10 h-10 object-cover rounded bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-600" />
                               {:else}
@@ -637,7 +637,7 @@
                             <div class="flex items-center gap-2">
                                 <span class="text-xs text-red-500 font-bold">{error}</span>
                                 {#if editorFormat === 'wkt'}
-                                    <button class="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded hover:bg-red-200" on:click={handleRepair}>Auto-Repair</button>
+                                    <button class="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded hover:bg-red-200 min-h-[44px]" on:click={handleRepair}>Auto-Repair</button>
                                 {/if}
                             </div>
                          {/if}
@@ -654,9 +654,9 @@
   <!-- Help / FAQ Modal -->
   {#if showHelp}
       <div class="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true">
-          <button class="absolute inset-0 bg-black/50 backdrop-blur-sm cursor-default" on:click={() => showHelp = false} on:keydown={(e) => e.key === 'Escape' && (showHelp = false)} transition:fade aria-label="Close help"></button>
+          <button class="absolute inset-0 bg-black/50 backdrop-blur-sm cursor-default min-h-[44px]" on:click={() => showHelp = false} on:keydown={(e) => e.key === 'Escape' && (showHelp = false)} transition:fade aria-label="Close help"></button>
           <div class="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto bg-white dark:bg-slate-900 rounded-2xl shadow-2xl z-10 pointer-events-auto" transition:fly={{y: 20}}>
-               <button class="absolute top-4 right-4 p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full z-10" on:click={() => showHelp = false} aria-label="Close Help">
+               <button class="absolute top-4 right-4 p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full z-10 min-h-[44px]" on:click={() => showHelp = false} aria-label="Close Help">
                    <X class="w-6 h-6" />
                </button>
                <div class="p-1">

@@ -136,10 +136,10 @@
         </h1>
       </div>
       <div class="flex items-center space-x-2">
-         <button on:click={saveToHistory} class="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-colors" aria-label={dict.tools.deployForge.save}>
+         <button on:click={saveToHistory} class="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-colors min-h-[44px]" aria-label={dict.tools.deployForge.save}>
             <Save size={20} />
          </button>
-     <button on:click={downloadProject} class="flex items-center gap-2 px-3 sm:px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors text-sm">
+     <button on:click={downloadProject} class="flex items-center gap-2 px-3 sm:px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors text-sm min-h-[44px]">
             <Download size={18} />
         <span class="hidden sm:inline">{dict.tools.deployForge.download}</span>
          </button>
@@ -183,28 +183,28 @@
                 <div class="flex items-center border-b border-slate-700 bg-slate-900/50 overflow-x-auto">
                     <button
                         class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap
-                        {activeTab === 'dockerfile' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'}"
+                        {activeTab === 'dockerfile' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'} min-h-[44px]"
                         on:click={() => activeTab = 'dockerfile'}
                     >
                         <FileCode size={16} /> Dockerfile
                     </button>
                     <button
                         class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap
-                        {activeTab === 'compose' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'}"
+                        {activeTab === 'compose' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'} min-h-[44px]"
                         on:click={() => activeTab = 'compose'}
                     >
                         <Layers size={16} /> docker-compose.yml
                     </button>
                     <button
                         class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap
-                        {activeTab === 'env' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'}"
+                        {activeTab === 'env' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'} min-h-[44px]"
                         on:click={() => activeTab = 'env'}
                     >
                         <FileText size={16} /> .env
                     </button>
                     <button
                         class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap
-                        {activeTab === 'ignore' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'}"
+                        {activeTab === 'ignore' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'} min-h-[44px]"
                         on:click={() => activeTab = 'ignore'}
                     >
                         <FileCode size={16} /> .dockerignore

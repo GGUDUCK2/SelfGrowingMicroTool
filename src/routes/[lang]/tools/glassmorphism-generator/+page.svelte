@@ -295,7 +295,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               step="1"
               bind:value={blur}
               aria-label={dict.blur}
-              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation"
+              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px]"
             />
           </label>
         </div>
@@ -310,7 +310,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               step="0.01"
               bind:value={transparency}
               aria-label={dict.transparency}
-              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation"
+              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px]"
             />
           </label>
         </div>
@@ -323,13 +323,13 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                 type="color"
                 bind:value={color}
                 aria-label="{dict.color} picker"
-                class="h-10 w-12 p-0 border-0 rounded cursor-pointer touch-manipulation"
+                class="h-10 w-12 p-0 border-0 rounded cursor-pointer touch-manipulation min-h-[44px]"
               />
               <input
                 type="text"
                 bind:value={color}
                 aria-label="{dict.color} hex code"
-                class="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none uppercase"
+                class="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none uppercase min-h-[44px]"
               />
             </div>
           </label>
@@ -345,7 +345,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               step="1"
               bind:value={outline}
               aria-label={dict.outline}
-              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation"
+              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px]"
             />
           </label>
         </div>
@@ -360,7 +360,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               step="1"
               bind:value={radius}
               aria-label={dict.radius}
-              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation"
+              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px]"
             />
           </label>
         </div>
