@@ -101,7 +101,7 @@
             </svg>
             {dict.queryParams}
         </h2>
-        <button on:click={addParam} class="px-3 py-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-800/50 rounded-lg text-sm font-medium transition-colors flex items-center gap-1 touch-manipulation">
+        <button on:click={addParam} class="px-3 py-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-800/50 rounded-lg text-sm font-medium transition-colors flex items-center gap-1 touch-manipulation min-h-[44px] min-w-[44px]">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             {dict.addParam}
         </button>
@@ -113,7 +113,7 @@
         </div>
     {:else}
         <div class="space-y-3">
-            <div class="grid grid-cols-12 gap-3 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider px-2">
+            <div class="hidden sm:grid sm:grid-cols-12 gap-3 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider px-2">
                 <div class="col-span-1 text-center">✓</div>
                 <div class="col-span-4">{dict.key}</div>
                 <div class="col-span-6">{dict.value}</div>
@@ -121,30 +121,37 @@
             </div>
 
             {#each params as param (param.id)}
-                <div class="grid grid-cols-12 gap-3 items-center group">
-                    <div class="col-span-1 flex justify-center">
-                        <input type="checkbox" checked={param.active} on:change={() => toggleParam(param.id)} class="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-700 cursor-pointer" />
+                <div class="flex flex-col sm:grid sm:grid-cols-12 gap-3 sm:items-center group p-4 sm:p-0 bg-slate-50 dark:bg-slate-900/50 sm:bg-transparent rounded-xl sm:rounded-none border border-slate-100 dark:border-slate-800 sm:border-transparent">
+                    <div class="flex items-center justify-between sm:col-span-1 sm:justify-center">
+                        <label class="flex items-center justify-center min-h-[44px] min-w-[44px] cursor-pointer">
+                            <input type="checkbox" checked={param.active} on:change={() => toggleParam(param.id)} class="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-700 cursor-pointer" aria-label="Toggle parameter" />
+                        </label>
+                        <button on:click={() => removeParam(param.id)} class="sm:hidden text-slate-400 hover:text-red-500 transition-all p-1 min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Remove">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                        </button>
                     </div>
-                    <div class="col-span-4">
+                    <div class="sm:col-span-4">
                         <input
                             type="text"
                             bind:value={param.key}
                             on:input={handleInput}
                             placeholder="Key"
-                            class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-mono focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-slate-200 {param.active ? '' : 'opacity-50'}"
+                            class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-mono focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-slate-200 min-h-[44px] {param.active ? '' : 'opacity-50'}"
                         />
                     </div>
-                    <div class="col-span-6">
+                    <div class="sm:col-span-6">
                         <input
                             type="text"
                             bind:value={param.value}
                             on:input={handleInput}
                             placeholder="Value"
-                            class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-mono focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-slate-200 {param.active ? '' : 'opacity-50'}"
+                            class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-mono focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-slate-200 min-h-[44px] {param.active ? '' : 'opacity-50'}"
                         />
                     </div>
-                    <div class="col-span-1 flex justify-center">
-                         <button on:click={() => removeParam(param.id)} class="text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all p-1" aria-label="Remove">
+                    <div class="hidden sm:flex sm:col-span-1 sm:justify-center">
+                         <button on:click={() => removeParam(param.id)} class="text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all p-1 min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Remove">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
