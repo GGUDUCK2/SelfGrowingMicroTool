@@ -3681,6 +3681,44 @@ export const dictionaries = {
           tip2: "Use **600** for SSH keys and sensitive configuration files.",
           tip3: "Be careful with **777** - it gives everyone write access."
         }
+      },
+      demographicsForge: {
+        title: "Demographics Forge: Global Population Explorer",
+        description: "The definitive tool to visualize, compare, and analyze global population pyramids and demographic transitions from 1950 to 2100.",
+        primaryRegion: "Primary Region",
+        compareRegion: "Compare With",
+        none: "None",
+        shortcuts: "Space: Play/Pause | Arrows: Year",
+        totalPopulation: "Total Population",
+        medianAge: "Median Age",
+        years: "years",
+        dependencyRatio: "Dependency Ratio",
+        dependencyTooltip: "Ratio of youth (0-14) and elderly (65+) to working-age population (15-64). A lower ratio indicates a larger productive workforce.",
+        workingAge: "Working Age",
+        historyTitle: "Saved Snapshots",
+        clear: "Clear All",
+        delete: "Delete",
+        emptyHistory: "No snapshots saved yet. Click the Star button to save.",
+        saveSnapshot: "Save Snapshot",
+        faqTitle: "Demographics Forge FAQ",
+        q1: "What is a Population Pyramid?",
+        a1: "A population pyramid is a graphical illustration that shows the distribution of various age groups in a population, which forms the shape of a pyramid when the population is growing.",
+        q2: "What does the Dependency Ratio mean?",
+        a2: "It measures the pressure on the productive population. It's calculated by dividing the number of dependents (under 15 and over 64) by the total working-age population (15-64).",
+        q3: "Where does this data come from?",
+        a3: "The tool uses a highly optimized, procedural demographic engine modeled after UN World Population Prospects (WPP) trajectories to simulate realistic demographic transitions locally.",
+        guide: {
+          title: "Why Demographics Forge?",
+          intro: "Understanding demographic shifts is crucial for macroeconomics, global business planning, and social sciences. Demographics Forge brings these massive datasets into an interactive, fast, and privacy-first local environment.",
+          featuresTitle: "Core Features",
+          f1: "**Real-time Time Travel:** Drag the slider to instantly see how populations age and shift over a 150-year period.",
+          f2: "**Comparative Overlay:** Select a secondary region to instantly overlay their pyramid and metrics on top of the primary region.",
+          f3: "**Instant Metrics:** View critical economic indicators like Median Age and Dependency Ratios calculated on the fly.",
+          tipsTitle: "Pro Tips",
+          tip1: "Compare **Japan** and **Nigeria** to see the stark contrast between a hyper-aging society and a rapidly growing youth population.",
+          tip2: "Press **Spacebar** to automatically animate the pyramid through time.",
+          tip3: "Hover over the dependency ratio card to understand its economic implications."
+        }
       }
     },
     pwa: {
@@ -6518,6 +6556,44 @@ export const dictionaries = {
           tip1: "공개 웹 디렉토리에는 **755**, 파일에는 **644**를 사용하세요.",
           tip2: "SSH 키와 민감한 설정 파일에는 **600**을 사용하세요.",
           tip3: "**777**은 모두에게 쓰기 권한을 부여하므로 주의해서 사용하세요."
+        }
+      },
+      demographicsForge: {
+        title: "데모그래픽스 포지: 글로벌 인구 탐색기",
+        description: "1950년부터 2100년까지 전 세계 인구 피라미드와 인구 통계학적 전환을 시각화, 비교 및 분석하는 완벽한 도구입니다.",
+        primaryRegion: "주요 지역",
+        compareRegion: "비교 대상",
+        none: "없음",
+        shortcuts: "Space: 재생/일시정지 | 방향키: 연도 이동",
+        totalPopulation: "총 인구",
+        medianAge: "중위 연령",
+        years: "세",
+        dependencyRatio: "부양비",
+        dependencyTooltip: "생산가능인구(15-64세) 대비 유소년(0-14세) 및 노년(65세 이상) 인구의 비율입니다. 비율이 낮을수록 생산적인 노동력이 많음을 의미합니다.",
+        workingAge: "생산가능인구",
+        historyTitle: "저장된 스냅샷",
+        clear: "전체 삭제",
+        delete: "삭제",
+        emptyHistory: "저장된 스냅샷이 없습니다. 별 버튼을 클릭하여 저장하세요.",
+        saveSnapshot: "스냅샷 저장",
+        faqTitle: "데모그래픽스 포지 FAQ",
+        q1: "인구 피라미드란 무엇인가요?",
+        a1: "인구 피라미드는 인구 내 다양한 연령 집단의 분포를 보여주는 그래픽 표현으로, 인구가 증가할 때 피라미드 모양을 형성합니다.",
+        q2: "부양비(Dependency Ratio)는 무엇을 의미하나요?",
+        a2: "생산적인 인구에 가해지는 압력을 측정합니다. 피부양자(15세 미만 및 64세 초과) 수를 총 생산가능인구(15-64세)로 나누어 계산합니다.",
+        q3: "이 데이터는 어디에서 오나요?",
+        a3: "이 도구는 UN 세계 인구 전망(WPP) 궤적을 모델로 하여 브라우저에서 로컬로 현실적인 인구 통계학적 전환을 시뮬레이션하는 고도로 최적화된 절차적 인구 통계 엔진을 사용합니다.",
+        guide: {
+          title: "왜 데모그래픽스 포지인가요?",
+          intro: "인구 구조의 변화를 이해하는 것은 거시 경제, 글로벌 비즈니스 계획 및 사회 과학에 매우 중요합니다. 데모그래픽스 포지는 이러한 방대한 데이터를 빠르고 사생활 보호가 완벽한 로컬 환경에서 상호작용할 수 있게 해줍니다.",
+          featuresTitle: "주요 기능",
+          f1: "**실시간 시간 여행:** 슬라이더를 드래그하여 150년 동안 인구가 어떻게 고령화되고 변화하는지 즉시 확인하세요.",
+          f2: "**비교 오버레이:** 두 번째 지역을 선택하여 주요 지역 위에 해당 지역의 피라미드와 지표를 즉시 겹쳐보세요.",
+          f3: "**즉각적인 지표:** 이동 중에도 계산되는 중위 연령 및 부양비와 같은 중요한 경제 지표를 확인하세요.",
+          tipsTitle: "프로 팁",
+          tip1: "**일본**과 **나이지리아**를 비교하여 초고령 사회와 급격히 성장하는 청년 인구 간의 극명한 대조를 확인하세요.",
+          tip2: "**스페이스바**를 눌러 시간에 따른 피라미드 변화를 자동으로 애니메이션화하세요.",
+          tip3: "부양비 카드에 마우스를 올려 경제적 의미를 이해하세요."
         }
       }
   }
