@@ -94,7 +94,7 @@ export class Permission {
         // Remove non-octal chars
         const clean = val.replace(/[^0-7]/g, '');
         if (clean.length > 0) {
-            let num = parseInt(clean, 8);
+            const num = parseInt(clean, 8);
             if (clean.length === 3 && num <= 0o777) {
                 // If user typed 3 digits, assume no special bits, UNLESS input was like '007' which is ambiguous but standard is just reset special.
                 // Actually if we just assign, special bits are lost if not in input?

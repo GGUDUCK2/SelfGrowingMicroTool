@@ -3537,12 +3537,83 @@ export const dictionaries = {
       },
       gitForge: {
         title: "Git Forge: Command & Config Architect",
-        description: "The definitive Git companion. Build complex commands, generate .gitignore files, and craft conventional commits visually.",
+        description: "The definitive Git companion. Build complex commands, generate .gitignore files, craft conventional commits visually, and fix common mistakes.",
         tabs: {
           command: "Command Builder",
           ignore: "Gitignore Gen",
           commit: "Commit Builder",
+          doctor: "Git Doctor",
           history: "History"
+        },
+        doctor: {
+          whatHappened: "What went wrong?",
+          selectScenario: "Select a scenario from the left to see how to fix it.",
+          scenarios: [
+            {
+              id: "undo-commit-keep",
+              title: "Undo last commit (Keep changes)",
+              brief: "I committed but I want to undo the commit and keep my changes in the working directory.",
+              description: "This will undo your last commit, but leave all the files exactly as they were so you can modify them and commit again.",
+              steps: [
+                { explanation: "Use mixed reset to move HEAD back one commit.", command: "git reset HEAD~1" }
+              ]
+            },
+            {
+              id: "undo-commit-destroy",
+              title: "Undo last commit (Destroy changes)",
+              brief: "I committed and I want to completely destroy the commit and its changes.",
+              description: "Warning: This is a destructive operation. It will permanently delete the changes from your last commit.",
+              steps: [
+                { explanation: "Use hard reset to move HEAD back one commit and discard changes.", command: "git reset --hard HEAD~1" }
+              ]
+            },
+            {
+              id: "amend-message",
+              title: "Change last commit message",
+              brief: "I made a typo in my last commit message.",
+              description: "If you haven't pushed yet, you can easily change the message of your most recent commit.",
+              steps: [
+                { explanation: "Use commit --amend to replace the last commit.", command: "git commit --amend -m \"New commit message\"" }
+              ]
+            },
+            {
+              id: "forgot-file",
+              title: "Forgot to add a file to last commit",
+              brief: "I committed, but I forgot to include a file.",
+              description: "You can add the forgotten file to the staging area and then amend the previous commit.",
+              steps: [
+                { explanation: "Stage the forgotten file.", command: "git add <file_name>" },
+                { explanation: "Amend the last commit without changing its message.", command: "git commit --amend --no-edit" }
+              ]
+            },
+            {
+              id: "rename-branch",
+              title: "Rename a local branch",
+              brief: "I named my branch incorrectly and want to rename it.",
+              description: "You can rename the branch you are currently on.",
+              steps: [
+                { explanation: "Rename the current branch.", command: "git branch -m <new_branch_name>" }
+              ]
+            },
+            {
+              id: "unstage-file",
+              title: "Unstage a file",
+              brief: "I added a file using 'git add' but I don't want to commit it yet.",
+              description: "This will remove the file from the staging area but keep your modifications.",
+              steps: [
+                { explanation: "Unstage the file.", command: "git restore --staged <file_name>" }
+              ]
+            },
+            {
+              id: "discard-local",
+              title: "Discard local changes in a file",
+              brief: "I modified a file but want to revert it to how it was in the last commit.",
+              description: "Warning: This will permanently discard any uncommitted changes in the file.",
+              steps: [
+                { explanation: "Restore the file to its last committed state.", command: "git restore <file_name>" }
+              ]
+            }
+          ]
         },
         command: {
           title: "Command Builder",
@@ -6413,12 +6484,83 @@ export const dictionaries = {
       },
       gitForge: {
         title: "깃 포지: 커맨드 & 설정 아키텍트",
-        description: "완벽한 Git 동반자입니다. 복잡한 명령어를 빌드하고, .gitignore 파일을 생성하고, 컨벤셔널 커밋을 시각적으로 작성하세요.",
+        description: "완벽한 Git 동반자입니다. 복잡한 명령어를 빌드하고, .gitignore 파일을 생성하고, 컨벤셔널 커밋을 작성하며, 흔한 실수를 복구하세요.",
         tabs: {
           command: "커맨드 빌더",
           ignore: "이그노어 생성기",
           commit: "커밋 빌더",
+          doctor: "깃 닥터 (복구)",
           history: "히스토리"
+        },
+        doctor: {
+          whatHappened: "무엇이 잘못되었나요?",
+          selectScenario: "왼쪽에서 시나리오를 선택하여 해결 방법을 확인하세요.",
+          scenarios: [
+            {
+              id: "undo-commit-keep",
+              title: "마지막 커밋 취소 (변경 사항 유지)",
+              brief: "커밋을 했지만, 커밋을 취소하고 작업 디렉토리의 변경 사항은 그대로 유지하고 싶습니다.",
+              description: "마지막 커밋을 취소하지만 모든 파일은 그대로 두어 다시 수정하고 커밋할 수 있게 합니다.",
+              steps: [
+                { explanation: "mixed 리셋을 사용하여 HEAD를 한 커밋 뒤로 이동합니다.", command: "git reset HEAD~1" }
+              ]
+            },
+            {
+              id: "undo-commit-destroy",
+              title: "마지막 커밋 취소 (변경 사항 삭제)",
+              brief: "커밋을 했고, 그 커밋과 변경 사항을 완전히 삭제하고 싶습니다.",
+              description: "경고: 이 작업은 파괴적입니다. 마지막 커밋의 변경 사항을 영구적으로 삭제합니다.",
+              steps: [
+                { explanation: "hard 리셋을 사용하여 HEAD를 한 커밋 뒤로 이동하고 변경 사항을 버립니다.", command: "git reset --hard HEAD~1" }
+              ]
+            },
+            {
+              id: "amend-message",
+              title: "마지막 커밋 메시지 변경",
+              brief: "마지막 커밋 메시지에 오타가 났습니다.",
+              description: "아직 푸시하지 않았다면 가장 최근 커밋의 메시지를 쉽게 변경할 수 있습니다.",
+              steps: [
+                { explanation: "commit --amend를 사용하여 마지막 커밋을 덮어씁니다.", command: "git commit --amend -m \"새로운 커밋 메시지\"" }
+              ]
+            },
+            {
+              id: "forgot-file",
+              title: "마지막 커밋에 파일 추가 누락",
+              brief: "커밋을 했는데 파일을 빼먹었습니다.",
+              description: "빼먹은 파일을 스테이징 영역에 추가한 다음 이전 커밋을 수정(amend)할 수 있습니다.",
+              steps: [
+                { explanation: "빼먹은 파일을 스테이징합니다.", command: "git add <파일명>" },
+                { explanation: "메시지 변경 없이 마지막 커밋을 수정합니다.", command: "git commit --amend --no-edit" }
+              ]
+            },
+            {
+              id: "rename-branch",
+              title: "로컬 브랜치 이름 변경",
+              brief: "브랜치 이름을 잘못 지어서 변경하고 싶습니다.",
+              description: "현재 있는 브랜치의 이름을 변경할 수 있습니다.",
+              steps: [
+                { explanation: "현재 브랜치 이름을 변경합니다.", command: "git branch -m <새_브랜치_이름>" }
+              ]
+            },
+            {
+              id: "unstage-file",
+              title: "파일 스테이징 취소",
+              brief: "'git add'로 파일을 추가했지만 아직 커밋하고 싶지 않습니다.",
+              description: "스테이징 영역에서 파일을 제거하지만 수정 사항은 유지합니다.",
+              steps: [
+                { explanation: "파일의 스테이징을 취소합니다.", command: "git restore --staged <파일명>" }
+              ]
+            },
+            {
+              id: "discard-local",
+              title: "파일의 로컬 변경 사항 버리기",
+              brief: "파일을 수정했지만 마지막 커밋 상태로 되돌리고 싶습니다.",
+              description: "경고: 파일의 커밋되지 않은 변경 사항을 영구적으로 버립니다.",
+              steps: [
+                { explanation: "파일을 마지막 커밋 상태로 복원합니다.", command: "git restore <파일명>" }
+              ]
+            }
+          ]
         },
         command: {
           title: "커맨드 빌더",

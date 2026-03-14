@@ -234,7 +234,7 @@ function formatSql(data: TableData, tableName: string): string {
     const headers = data[0].map(h => String(h).replace(/[^a-zA-Z0-9_]/g, '_'));
     const rows = data.slice(1);
 
-    let sql = `INSERT INTO ${tableName} (${headers.join(', ')}) VALUES\n`;
+    const sql = `INSERT INTO ${tableName} (${headers.join(', ')}) VALUES\n`;
     const values = rows.map(row => {
         const cells = headers.map((_, i) => {
             const cell = row[i];

@@ -103,7 +103,7 @@ export function generateDemographics(regionId: string, year: number): Demographi
     const lambda = currentLe * 1.1; // roughly
 
     // Survival probability to reach this age group
-    let survivalProb = Math.exp(-Math.pow(ageStart / lambda, k));
+    const survivalProb = Math.exp(-Math.pow(ageStart / lambda, k));
 
     // Echo effects (Baby booms and busts based on historical TFR)
     // To simulate realistic pyramids, the size of an age group depends on the TFR *when they were born*
@@ -111,7 +111,7 @@ export function generateDemographics(regionId: string, year: number): Demographi
     const historicalTfr = easeTransition(birthYear, p.tfrDropYear, 50, p.startTfr, p.endTfr);
 
     // Base cohort size is proportional to the TFR at birth year, modified by survival
-    let cohortBase = historicalTfr * survivalProb;
+    const cohortBase = historicalTfr * survivalProb;
 
     // Slight female survival advantage at higher ages
     let mFactor = 0.51; // slightly more boys born

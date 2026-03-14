@@ -71,6 +71,7 @@
                     <button
                         class="min-h-[44px] min-w-[44px] px-3 py-1.5 text-xs font-medium rounded-full transition-colors {activeCategory === cat ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700'}"
                         on:click={() => handleCategoryChange(cat)}
+                        aria-label={`Select category ${dictionary.command.categories[cat] || cat}`}
                     >
                         {dictionary.command.categories[cat] || cat}
                     </button>
@@ -116,7 +117,7 @@
                 {#each activeCommand.options as opt (opt.id)}
                     <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
                         {#if opt.type === 'boolean'}
-                            <label class="flex items-center justify-between cursor-pointer group">
+                            <label class="flex min-h-[44px] items-center justify-between cursor-pointer group">
                                 <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 transition-colors">{opt.label}</span>
                                 <input type="checkbox" bind:checked={formValues[opt.id]} class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600" />
                             </label>

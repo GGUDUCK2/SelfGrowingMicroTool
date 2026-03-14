@@ -44,7 +44,7 @@ export function parseSQL(sql: string): Table[] {
             const parts = line.split(/\s+/);
             if (parts.length < 2) return;
 
-            let name = parts[0].replace(/["`]/g, '');
+            const name = parts[0].replace(/["`]/g, '');
             let typeStr = parts[1].toUpperCase();
 
             // Extract length if present: VARCHAR(255)

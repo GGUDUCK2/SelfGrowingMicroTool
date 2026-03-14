@@ -1,6 +1,7 @@
 <script lang="ts">
   import { liveQuery } from 'dexie';
   import { db, type GitForgeHistory } from '$lib/db';
+  import { gitForgeWorkspace } from '$lib/db/workspace';
   import { createEventDispatcher } from 'svelte';
   import { Copy, Trash2, Clock, Star, Terminal, FileCode, MessageSquare } from 'lucide-svelte';
   import { slide } from 'svelte/transition';
@@ -12,18 +13,18 @@
   let history = liveQuery(() => db.gitForgeHistory.orderBy('createdAt').reverse().limit(50).toArray());
 
   async function deleteItem(id: number | undefined) {
-      if (id) await db.gitForgeHistory.delete(id);
+      if (id) await gitForgeWorkspace.delete(id);
   }
 
   async function clear() {
       if (confirm('Clear all history?')) {
-          await db.gitForgeHistory.clear();
+          await gitForgeWorkspace.clear();
       }
   }
 
   async function toggleStar(item: GitForgeHistory) {
       if (item.id) {
-          await db.gitForgeHistory.update(item.id, { starred: item.starred ? 0 : 1 });
+          await gitForgeWorkspace.toggleStar(item.id);
       }
   }
 

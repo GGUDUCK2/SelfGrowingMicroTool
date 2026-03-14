@@ -5,8 +5,8 @@ export function generateCommit(data: CommitMessage): string {
     const breakingMark = data.isBreaking ? '!' : '';
     const header = `${data.type}${scopePart}${breakingMark}: ${data.description}`;
 
-    let bodyPart = data.body ? `\n\n${data.body}` : '';
-    let footerPart = data.footer ? `\n\n${data.footer}` : '';
+    const bodyPart = data.body ? `\n\n${data.body}` : '';
+    const footerPart = data.footer ? `\n\n${data.footer}` : '';
 
     return `${header}${bodyPart}${footerPart}`;
 }

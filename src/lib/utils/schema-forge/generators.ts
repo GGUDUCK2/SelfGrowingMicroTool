@@ -202,7 +202,7 @@ function generateMermaid(schema: SchemaProject): string {
         lines.push(`  ${table.name} {`);
         table.columns.forEach(col => {
              // Type, Name, PK/FK/Comment
-             let type = mapTypeToSQL(col.type, 'mysql'); // Generic
+             const type = mapTypeToSQL(col.type, 'mysql'); // Generic
              let comment = '';
              if (col.isPk) comment = 'PK';
              else if (schema.relations.find(r => r.fromColumnId === col.id)) comment = 'FK';

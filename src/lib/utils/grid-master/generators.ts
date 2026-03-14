@@ -447,7 +447,7 @@ export function generateLayoutFromText(input: string): GridState {
 
     // Explicitly check for position modifiers first
     let sidebarLeft = definitions.find(d => d.position === 'left' || (['sidebar', 'aside', 'menu'].some(k => d.name.includes(k)) && !d.position && !definitions.some(o => o.position === 'left')));
-    let sidebarRight = definitions.find(d => d.position === 'right' || (['rightbar', 'ads', 'extra'].some(k => d.name.includes(k)) && !d.position));
+    const sidebarRight = definitions.find(d => d.position === 'right' || (['rightbar', 'ads', 'extra'].some(k => d.name.includes(k)) && !d.position));
 
     // Fallback: If "sidebar" is found but no position, assume left unless right is occupied
     if (!sidebarLeft && !sidebarRight) {

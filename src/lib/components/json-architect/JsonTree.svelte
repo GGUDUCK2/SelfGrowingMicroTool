@@ -36,7 +36,7 @@
         <span class="text-gray-400 ml-2 text-xs">[{data.length}]</span>
       {:else}
         <span class="text-purple-600 dark:text-purple-400 font-bold">Object</span>
-        <span class="text-gray-400 ml-2 text-xs">{'{'}{Object.keys(data).length}{'}'}</span>
+        <span class="text-gray-400 ml-2 text-xs">{'{'}{Object.keys(data).length}}</span>
       {/if}
     </div>
 
