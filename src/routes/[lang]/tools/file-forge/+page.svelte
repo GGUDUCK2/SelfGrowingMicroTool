@@ -166,7 +166,7 @@
             </h2>
             <button
               on:click={handleReset}
-              class="text-sm text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 hover:underline"
+              class="text-sm text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 hover:underline min-h-[44px]"
             >
               Analyze Another
             </button>

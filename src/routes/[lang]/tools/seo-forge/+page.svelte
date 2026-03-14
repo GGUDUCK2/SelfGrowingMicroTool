@@ -364,7 +364,7 @@
             <button
                 role="tab"
                 aria-selected={activeTab === 'meta'}
-                class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'meta' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'}"
+                class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'meta' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'} min-h-[44px]"
                 on:click={() => activeTab = 'meta'}
             >
                 {dict.tabs.meta}
@@ -372,7 +372,7 @@
             <button
                 role="tab"
                 aria-selected={activeTab === 'social'}
-                class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'social' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'}"
+                class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'social' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'} min-h-[44px]"
                 on:click={() => activeTab = 'social'}
             >
                 {dict.tabs.social}
@@ -380,7 +380,7 @@
             <button
                 role="tab"
                 aria-selected={activeTab === 'jsonld'}
-                class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'jsonld' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'}"
+                class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'jsonld' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'} min-h-[44px]"
                 on:click={() => activeTab = 'jsonld'}
             >
                 {dict.tabs.jsonld}
@@ -388,7 +388,7 @@
             <button
                 role="tab"
                 aria-selected={activeTab === 'history'}
-                class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'history' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'}"
+                class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'history' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'} min-h-[44px]"
                 on:click={() => activeTab = 'history'}
             >
                 {dict.tabs.history}
@@ -401,7 +401,7 @@
              <div class="flex flex-wrap justify-between items-center mb-4 gap-2">
                  <!-- Templates Dropdown -->
                  <div class="relative group">
-                     <button type="button" class="px-4 py-2 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-1">
+                     <button type="button" class="px-4 py-2 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-1 min-h-[44px]">
                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-template"><rect width="18" height="7" x="3" y="3" rx="1"/><rect width="9" height="7" x="3" y="14" rx="1"/><rect width="5" height="7" x="16" y="14" rx="1"/></svg>
                          {dict.templates.title}
                      </button>
@@ -428,13 +428,13 @@
                              type="text"
                              bind:value={projectName}
                              placeholder={dict.actions.projectPlaceholder}
-                             class="bg-transparent border-none text-xs w-32 focus:ring-0 text-slate-700 dark:text-slate-200"
+                             class="bg-transparent border-none text-xs w-32 focus:ring-0 text-slate-700 dark:text-slate-200 min-h-[44px]"
                          />
                          <button
                             on:click={saveToHistory}
                             aria-label={dict.actions.save}
                             type="button"
-                            class="px-4 py-2 text-xs font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-900 transition-colors flex items-center gap-1 my-1"
+                            class="px-4 py-2 text-xs font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-900 transition-colors flex items-center gap-1 my-1 min-h-[44px]"
                             title="Ctrl+S"
                          >
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
@@ -455,7 +455,7 @@
                     ></textarea>
                     <div class="flex justify-end gap-2">
                         <button on:click={() => showMagicPaste = false} class="px-3 py-1 text-xs text-slate-500 hover:text-slate-700">Cancel</button>
-                        <button on:click={handleMagicPaste} class="px-3 py-1 text-xs bg-indigo-600 text-white rounded hover:bg-indigo-700">Import</button>
+                        <button on:click={handleMagicPaste} class="px-3 py-1 text-xs bg-indigo-600 text-white rounded hover:bg-indigo-700 min-h-[44px]">Import</button>
                     </div>
                 </div>
              {/if}
@@ -490,7 +490,7 @@
                                         {/each}
                                     </select>
                                 {/if}
-                                <button on:click={clearHistory} class="text-xs text-red-500 hover:text-red-600 underline">{dict.actions.clear}</button>
+                                <button on:click={clearHistory} class="text-xs text-red-500 hover:text-red-600 underline min-h-[44px]">{dict.actions.clear}</button>
                             </div>
                         </div>
 
@@ -542,7 +542,7 @@
                         on:click={shareLink}
                         aria-label="Share Link"
                         type="button"
-                        class="px-4 py-2 text-indigo-600 hover:text-indigo-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors"
+                        class="px-4 py-2 text-indigo-600 hover:text-indigo-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors min-h-[44px]"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share-2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
                         {dict.actions.share}
@@ -551,7 +551,7 @@
                         on:click={downloadHtml}
                         aria-label="Download HTML"
                         type="button"
-                        class="px-4 py-2 text-indigo-600 hover:text-indigo-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors"
+                        class="px-4 py-2 text-indigo-600 hover:text-indigo-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors min-h-[44px]"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                         {dict.actions.export}
@@ -627,4 +627,38 @@
   <!-- Canonical -->
 
   {@html jsonLdScript}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "${dict.q1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a3}"
+        }
+      }
+    ]
+  }
+  </script>`}
+
 </svelte:head>

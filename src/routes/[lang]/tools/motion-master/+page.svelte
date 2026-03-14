@@ -108,6 +108,40 @@
     ]
   }
   </script>`}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "${dict.q1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a3}"
+        }
+      }
+    ]
+  }
+  </script>`}
+
 </svelte:head>
 
 <div class="flex h-[calc(100vh-64px)] overflow-hidden bg-slate-50 dark:bg-slate-900">
@@ -153,11 +187,11 @@
                     {/if}
                 </button>
 
-                <button on:click={save} class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" title={dict.save}>
+                <button on:click={save} class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors min-h-[44px]" title={dict.save}>
                     <Save class="w-5 h-5" />
                 </button>
 
-                <button on:click={openExport} class="flex items-center gap-2 px-3 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-sm text-sm font-medium">
+                <button on:click={openExport} class="flex items-center gap-2 px-3 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-sm text-sm font-medium min-h-[44px]">
                     <Code class="w-4 h-4" /> <span class="hidden sm:inline">{dict.export}</span>
                 </button>
            </div>
@@ -208,12 +242,12 @@
                 <button on:click={() => showCodeModal = false}><X class="w-5 h-5 text-slate-500" /></button>
             </div>
             <div class="flex border-b border-slate-200 dark:border-slate-700">
-                <button class="flex-1 py-3 text-sm font-medium {codeMode === 'css' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}" on:click={() => switchCodeMode('css')}>CSS</button>
-                <button class="flex-1 py-3 text-sm font-medium {codeMode === 'tailwind' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}" on:click={() => switchCodeMode('tailwind')}>Tailwind</button>
+                <button class="flex-1 py-3 text-sm font-medium {codeMode === 'css' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'} min-h-[44px]" on:click={() => switchCodeMode('css')}>CSS</button>
+                <button class="flex-1 py-3 text-sm font-medium {codeMode === 'tailwind' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'} min-h-[44px]" on:click={() => switchCodeMode('tailwind')}>Tailwind</button>
             </div>
             <div class="p-4 flex-1 overflow-hidden relative group">
                 <textarea readonly class="w-full h-64 bg-slate-50 dark:bg-slate-900 p-4 rounded-lg font-mono text-xs resize-none focus:outline-none text-slate-700 dark:text-slate-300" value={generatedCode}></textarea>
-                <button on:click={copyCode} class="absolute top-6 right-6 px-3 py-1 bg-white dark:bg-slate-800 rounded shadow text-xs font-bold hover:text-indigo-500 border border-slate-200 dark:border-slate-600">
+                <button on:click={copyCode} class="absolute top-6 right-6 px-3 py-1 bg-white dark:bg-slate-800 rounded shadow text-xs font-bold hover:text-indigo-500 border border-slate-200 dark:border-slate-600 min-h-[44px]">
                     {dict.copy}
                 </button>
             </div>

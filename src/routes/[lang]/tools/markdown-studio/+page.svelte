@@ -273,7 +273,7 @@
          </select>
 
          <button
-           class="p-2 text-slate-500 hover:text-indigo-600 relative hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+           class="p-2 text-slate-500 hover:text-indigo-600 relative hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors min-h-[44px]"
            on:click={() => showHistory = !showHistory}
            title={dict.history}
          >
@@ -413,11 +413,11 @@
   <!-- History Drawer -->
   {#if showHistory}
     <div class="fixed inset-0 z-50 flex justify-end" transition:fade={{ duration: 200 }}>
-      <button class="absolute inset-0 bg-black/20 backdrop-blur-sm" on:click={() => showHistory = false} aria-label="Close history"></button>
+      <button class="absolute inset-0 bg-black/20 backdrop-blur-sm min-h-[44px]" on:click={() => showHistory = false} aria-label="Close history"></button>
       <div class="relative w-full max-w-sm bg-white dark:bg-slate-900 shadow-2xl h-full overflow-y-auto" transition:slide={{ axis: 'x', duration: 300 }}>
         <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
           <h3 class="font-semibold text-slate-900 dark:text-white">{dict.history}</h3>
-          <button class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300" on:click={() => showHistory = false} aria-label="Close history">
+          <button class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 min-h-[44px]" on:click={() => showHistory = false} aria-label="Close history">
             <X size={20} />
           </button>
         </div>
@@ -436,7 +436,7 @@
                      {item.content || '(Empty)'}
                    </div>
                    <button
-                     class="absolute top-2 right-2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                     class="absolute top-2 right-2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity min-h-[44px]"
                      on:click|stopPropagation={() => deleteHistoryItem(item.id)}
                    >
                      <Trash2 size={14} />
@@ -449,7 +449,7 @@
              </div>
              {#if $history.length > 0}
                 <button
-                  class="w-full mt-4 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                  class="w-full mt-4 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors min-h-[44px]"
                   on:click={clearHistory}
                 >
                   {dict.clear}

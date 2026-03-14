@@ -99,6 +99,40 @@
       "description": invoiceDict.description
     })}
   </script>`}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "${dict.q1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a3}"
+        }
+      }
+    ]
+  }
+  </script>`}
+
 </svelte:head>
 
 <div class="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20 print:bg-white print:pb-0">
@@ -116,19 +150,19 @@
         </div>
 
         <div class="flex items-center gap-2">
-            <button on:click={resetInvoice} class="p-2 text-gray-500 hover:text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg" title={invoiceDict.actions.reset}>
+            <button on:click={resetInvoice} class="p-2 text-gray-500 hover:text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg min-h-[44px]" title={invoiceDict.actions.reset}>
                 <RefreshCw size={20} />
             </button>
             <div class="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1"></div>
-            <button on:click={saveInvoice} class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">
+            <button on:click={saveInvoice} class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 min-h-[44px]">
                 <Save size={18} />
                 <span class="hidden sm:inline">{invoiceDict.actions.save}</span>
             </button>
-            <button on:click={downloadImage} class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">
+            <button on:click={downloadImage} class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 min-h-[44px]">
                 <ImageIcon size={18} />
                 <span class="hidden sm:inline">{invoiceDict.actions.downloadImage}</span>
             </button>
-            <button on:click={printInvoice} class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm shadow-blue-500/30">
+            <button on:click={printInvoice} class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm shadow-blue-500/30 min-h-[44px]">
                 <Printer size={18} />
                 <span class="hidden sm:inline">{invoiceDict.actions.downloadPdf}</span>
             </button>
@@ -144,21 +178,21 @@
         <!-- Tabs -->
         <div class="flex border-b border-gray-200 dark:border-gray-700">
             <button
-                class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'editor' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'}"
+                class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'editor' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px]"
                 on:click={() => activeTab = 'editor'}
             >
                 <Edit3 size={16} />
                 Editor
             </button>
             <button
-                class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'clients' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'}"
+                class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'clients' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px]"
                 on:click={() => activeTab = 'clients'}
             >
                 <Users size={16} />
                 Clients
             </button>
             <button
-                class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'history' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'}"
+                class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'history' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px]"
                 on:click={() => activeTab = 'history'}
             >
                 <FileText size={16} />

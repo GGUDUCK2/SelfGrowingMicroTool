@@ -142,6 +142,40 @@
       "description": t.description
     })}
   </script>`}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "${dict.q1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a3}"
+        }
+      }
+    ]
+  }
+  </script>`}
+
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -171,7 +205,7 @@
 
       <div class="flex flex-wrap gap-4">
         <button
-          class="flex-1 py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium shadow-lg shadow-indigo-200 dark:shadow-none transition-all flex items-center justify-center gap-2"
+          class="flex-1 py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium shadow-lg shadow-indigo-200 dark:shadow-none transition-all flex items-center justify-center gap-2 min-h-[44px]"
           on:click={saveToHistory}
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -180,7 +214,7 @@
           {t.save}
         </button>
         <button
-          class="flex-1 py-2 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750 rounded-lg font-medium transition-all flex items-center justify-center gap-2"
+          class="flex-1 py-2 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750 rounded-lg font-medium transition-all flex items-center justify-center gap-2 min-h-[44px]"
           on:click={copyLink}
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -189,7 +223,7 @@
           {copied ? t.copied : t.share}
         </button>
         <button
-          class="flex-1 py-2 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750 rounded-lg font-medium transition-all flex items-center justify-center gap-2"
+          class="flex-1 py-2 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750 rounded-lg font-medium transition-all flex items-center justify-center gap-2 min-h-[44px]"
           on:click={copyPattern}
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -218,7 +252,7 @@
           <div class="space-y-2">
             {#each $history as item}
               <div class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 group">
-                <button class="flex-grow min-w-0 mr-3 text-left focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded p-1" on:click={() => loadHistory(item)}>
+                <button class="flex-grow min-w-0 mr-3 text-left focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded p-1 min-h-[44px]" on:click={() => loadHistory(item)}>
                   <div class="text-sm font-mono font-medium text-slate-700 dark:text-slate-200 truncate">
                     /{item.pattern}/{item.flags}
                   </div>
@@ -227,7 +261,7 @@
                   </div>
                 </button>
                 <button
-                  class="text-slate-400 hover:text-red-500 transition-colors p-1"
+                  class="text-slate-400 hover:text-red-500 transition-colors p-1 min-h-[44px]"
                   on:click={() => deleteHistory(item.id)}
                   title={t.delete}
                 >

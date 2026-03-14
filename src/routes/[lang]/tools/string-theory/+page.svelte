@@ -221,6 +221,40 @@
   {#if jsonLd}
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
   {/if}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "${dict.q1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${dict.q3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${dict.a3}"
+        }
+      }
+    ]
+  }
+  </script>`}
+
 </svelte:head>
 
 <div class="space-y-8 relative">
@@ -246,17 +280,17 @@
              <div class="h-4 w-px bg-slate-300 dark:bg-slate-700"></div>
 
             <div class="flex gap-2">
-                 <button on:click={copyText} class="text-slate-500 hover:text-indigo-600 transition-colors" aria-label="Copy" title="Copy">
+                 <button on:click={copyText} class="text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px]" aria-label="Copy" title="Copy">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
                       </svg>
                  </button>
-                  <button on:click={downloadText} class="text-slate-500 hover:text-indigo-600 transition-colors" aria-label="Download" title="Download">
+                  <button on:click={downloadText} class="text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px]" aria-label="Download" title="Download">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                       </svg>
                  </button>
-                 <button on:click={shareText} class="text-slate-500 hover:text-indigo-600 transition-colors" aria-label="Share" title="Share">
+                 <button on:click={shareText} class="text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px]" aria-label="Share" title="Share">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                       </svg>
@@ -324,7 +358,7 @@
   {#if showHistory}
     <button
       transition:fade={{ duration: 200 }}
-      class="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 w-full h-full cursor-default"
+      class="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 w-full h-full cursor-default min-h-[44px]"
       on:click={() => showHistory = false}
       on:keydown={(e) => e.key === 'Escape' && (showHistory = false)}
       aria-label="Close History Overlay"

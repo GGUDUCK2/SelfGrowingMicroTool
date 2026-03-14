@@ -441,7 +441,7 @@
         </h2>
         <button
             on:click={saveToHistory}
-            class="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
+            class="text-sm text-indigo-600 hover:text-indigo-800 font-medium min-h-[44px]"
             title={lang === "ko" ? "현재 설정을 기록에 저장" : "Save current configuration to history"}
         >
             {lang === "ko" ? "저장" : "Save"}
@@ -461,7 +461,7 @@
                 type="number"
                 inputmode="decimal"
                 bind:value={principal}
-                class="w-full pl-8 pr-4 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                class="w-full pl-8 pr-4 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none min-h-[44px]"
                 class:border-red-500={errors.principal}
               />
             </div>
@@ -483,7 +483,7 @@
                 type="number"
                 inputmode="decimal"
                 bind:value={contribution}
-                class="w-full pl-8 pr-4 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                class="w-full pl-8 pr-4 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none min-h-[44px]"
                 class:border-red-500={errors.contribution}
               />
             </div>
@@ -502,7 +502,7 @@
                 inputmode="decimal"
                 step="0.1"
                 bind:value={rate}
-                class="w-full pl-4 pr-8 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                class="w-full pl-4 pr-8 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none min-h-[44px]"
                 class:border-red-500={errors.rate}
               />
               <span
@@ -516,7 +516,7 @@
               max="20"
               step="0.1"
               bind:value={rate}
-              class="w-full mt-2 accent-indigo-600 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              class="w-full mt-2 accent-indigo-600 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer min-h-[44px]"
               aria-label={lang === "ko"
                 ? "연 수익률 슬라이더"
                 : "Interest Rate Slider"}
@@ -538,7 +538,7 @@
                   inputmode="decimal"
                   step="0.1"
                   bind:value={taxRate}
-                  class="w-full pl-4 pr-8 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                  class="w-full pl-4 pr-8 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none min-h-[44px]"
                   class:border-red-500={errors.taxRate}
                 />
                 <span
@@ -563,7 +563,7 @@
                 inputmode="decimal"
                 step="0.1"
                 bind:value={inflationRate}
-                class="w-full pl-4 pr-8 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                class="w-full pl-4 pr-8 py-3 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none min-h-[44px]"
                 class:border-red-500={errors.inflationRate}
               />
               <span
@@ -613,7 +613,7 @@
                 min="1"
                 max="100"
                 bind:value={years}
-                class="flex-1 accent-indigo-600 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                class="flex-1 accent-indigo-600 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer min-h-[44px]"
                 aria-label={lang === "ko"
                   ? "투자 기간 슬라이더"
                   : "Investment Years Slider"}
@@ -630,7 +630,7 @@
 
         <button
           on:click={downloadCSV}
-          class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors font-medium text-base touch-manipulation"
+          class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors font-medium text-base touch-manipulation min-h-[44px]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
