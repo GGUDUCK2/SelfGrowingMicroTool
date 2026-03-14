@@ -1,5 +1,20 @@
 [
   {
+    "id": "demographics-forge",
+    "slug": "demographics-forge",
+    "title": {
+      "en": "Demographics Forge",
+      "ko": "데모그래픽스 포지"
+    },
+    "description": {
+      "en": "Visualize global population pyramids and demographic transitions.",
+      "ko": "글로벌 인구 피라미드와 인구 통계학적 전환을 시각화하세요."
+    },
+    "category": "data",
+    "tags": ["population", "demographics", "pyramid", "statistics", "chart", "data"],
+    "createdAt": "2024-05-31"
+  },
+  {
     "id": "time-forge",
     "slug": "time-forge",
     "title": {
