@@ -1,5 +1,5 @@
 import Dexie, { type Table } from 'dexie';
-import { db, type CipherHistory, type StructuraHistory } from '../db'; // Import from src/lib/db.ts
+import { db, type CipherHistory, type StructuraHistory, type GitForgeHistory } from '../db'; // Import from src/lib/db.ts
 
 export interface ToolHistoryItem<T = unknown, R = unknown> {
   id?: number;
@@ -236,3 +236,43 @@ export class StructuraWorkspaceAdapter {
 }
 
 export const structuraWorkspace = new StructuraWorkspaceAdapter();
+
+// Restore GitForgeWorkspace functionality
+export class GitForgeWorkspaceAdapter {
+  async save(item: Omit<GitForgeHistory, 'id' | 'createdAt' | 'starred'>) {
+    await db.gitForgeHistory.add({
+      ...item,
+      createdAt: new Date(),
+      starred: 0
+    });
+
+    // Prune
+    const count = await db.gitForgeHistory.where('starred').equals(0).count();
+    if (count > 100) {
+       const oldest = await db.gitForgeHistory.orderBy('createdAt').limit(count - 100).keys();
+       await db.gitForgeHistory.bulkDelete(oldest as number[]);
+    }
+  }
+
+  loadHistory(limit: number) {
+     return db.gitForgeHistory.orderBy('createdAt').reverse().limit(limit).toArray();
+  }
+
+  async delete(id: number) {
+    await db.gitForgeHistory.delete(id);
+  }
+
+  async toggleStar(id: number) {
+    const item = await db.gitForgeHistory.get(id);
+    if (item) {
+        await db.gitForgeHistory.update(id, { starred: item.starred ? 0 : 1 });
+    }
+  }
+
+  async clear() {
+      const nonStarred = await db.gitForgeHistory.where('starred').equals(0).primaryKeys();
+      await db.gitForgeHistory.bulkDelete(nonStarred);
+  }
+}
+
+export const gitForgeWorkspace = new GitForgeWorkspaceAdapter();

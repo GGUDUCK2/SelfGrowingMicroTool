@@ -1,5 +1,5 @@
 <script lang="ts">
-  /* eslint-disable @typescript-eslint/no-unused-vars */
+
   import { colord } from 'colord';
   import { getReadability } from './color-utils';
   import type { ColorMasterDictionary } from '$lib/types/color-master';

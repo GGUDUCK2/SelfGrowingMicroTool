@@ -76,6 +76,7 @@
                     <button
                         on:click={() => toggle(tmpl.id)}
                         class="min-h-[44px] min-w-[44px] inline-flex items-center gap-1 px-3 py-1 rounded-md text-xs font-medium bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300 hover:bg-red-100 hover:text-red-700 dark:hover:bg-red-900/30 transition-colors"
+                        aria-label={`Remove ${tmpl.name}`}
                     >
                         {tmpl.name}
                         <X size={16} />
@@ -89,6 +90,7 @@
                 <button
                     on:click={() => toggle(tmpl.id)}
                     class="min-h-[44px] w-full text-left p-3 rounded-lg border transition-all flex items-center justify-between group {selectedIds.includes(tmpl.id) ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-indigo-300 dark:hover:border-slate-600'}"
+                    aria-label={`Toggle template ${tmpl.name}`}
                 >
                     <div>
                         <div class="font-medium text-sm text-slate-900 dark:text-white group-hover:text-indigo-600 transition-colors">{tmpl.name}</div>

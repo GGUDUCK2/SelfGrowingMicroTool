@@ -8,7 +8,7 @@ const LOCALES = ['en', 'ko'];
 
 export async function GET() {
     const currentDate = new Date().toISOString().split('T')[0];
-    let urls = [];
+    const urls = [];
 
     // Home Pages
     for (const locale of LOCALES) {

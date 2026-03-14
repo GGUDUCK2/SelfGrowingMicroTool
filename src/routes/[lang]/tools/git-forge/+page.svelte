@@ -3,12 +3,14 @@
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import { fade } from 'svelte/transition';
-  import { db } from '$lib/db';
-  import { GitBranch, Terminal, FileCode, MessageSquare, ChevronLeft, Check } from 'lucide-svelte';
+  import { gitForgeWorkspace } from '$lib/db/workspace';
+  import { GitBranch, Terminal, FileCode, MessageSquare, ChevronLeft, Check, Stethoscope } from 'lucide-svelte';
 
+  import { onMount, onDestroy } from 'svelte';
   import CommandBuilder from '$lib/components/git-forge/CommandBuilder.svelte';
   import GitignoreGen from '$lib/components/git-forge/GitignoreGen.svelte';
   import CommitBuilder from '$lib/components/git-forge/CommitBuilder.svelte';
+  import GitDoctor from '$lib/components/git-forge/GitDoctor.svelte';
   import HistoryPanel from '$lib/components/git-forge/HistoryPanel.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
@@ -17,7 +19,7 @@
   $: dict = getDictionary(lang).tools.gitForge;
   $: common = getDictionary(lang).common;
 
-  let activeTab: 'command' | 'ignore' | 'commit' = 'command';
+  let activeTab: 'command' | 'ignore' | 'commit' | 'doctor' = 'command';
   let showToast = false;
   let toastMessage = '';
 
@@ -30,12 +32,10 @@
   async function handleSave(event: CustomEvent) {
       const { type, content, details } = event.detail;
       try {
-          await db.gitForgeHistory.add({
+          await gitForgeWorkspace.save({
               type,
               content,
-              details,
-              createdAt: new Date(),
-              starred: 0
+              details
           });
           triggerToast('Saved to history!');
       } catch (e) {
@@ -46,6 +46,27 @@
   function handleCopy() {
       triggerToast(dict.command.copied);
   }
+
+  function handleKeydown(e: KeyboardEvent) {
+      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) return;
+
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+          e.preventDefault();
+          triggerToast('Ctrl+S intercepted, but you must trigger save from a specific tab.');
+      } else if (e.key === 'Escape') {
+          activeTab = 'command';
+      }
+  }
+
+  onMount(() => {
+      window.addEventListener('keydown', handleKeydown);
+  });
+
+  onDestroy(() => {
+      if (typeof window !== 'undefined') {
+          window.removeEventListener('keydown', handleKeydown);
+      }
+  });
 
   $: breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -116,10 +137,12 @@
     ]
   };
 </script>
+
 <Head
   title={dict.title}
   description={dict.description}
-  keywords="git command generator, gitignore builder, conventional commits, git tools, developer tools"
+  keywords="git command generator, gitignore builder, conventional commits, git tools, developer tools, git doctor, undo git commit"
+  ogImage="https://selfgrowingmicrotool.com/og/git-forge.png"
 />
 
 
@@ -179,6 +202,13 @@
                       <MessageSquare size={16} />
                       <span class="hidden sm:inline">{dict.tabs.commit}</span>
                   </button>
+                  <button
+                      on:click={() => activeTab = 'doctor'}
+                      class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'doctor' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
+                  >
+                      <Stethoscope size={16} />
+                      <span class="hidden sm:inline">{dict.tabs.doctor}</span>
+                  </button>
               </div>
 
               <!-- Content -->
@@ -194,6 +224,10 @@
                   {:else if activeTab === 'commit'}
                       <div transition:fade>
                           <CommitBuilder dictionary={dict} on:save={handleSave} on:copy={handleCopy} />
+                      </div>
+                  {:else if activeTab === 'doctor'}
+                      <div transition:fade>
+                          <GitDoctor dictionary={dict} on:save={handleSave} on:copy={handleCopy} />
                       </div>
                   {/if}
               </div>

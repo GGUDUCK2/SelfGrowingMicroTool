@@ -95,10 +95,10 @@ export async function decodeStego(imageFile: File): Promise<string> {
 
   // We need to read at least header (5 + 4 = 9 bytes) to know if it's valid
   let state: 'magic' | 'length' | 'body' = 'magic';
-  let magicBuffer: number[] = [];
-  let lengthBuffer: number[] = [];
+  const magicBuffer: number[] = [];
+  const lengthBuffer: number[] = [];
   let messageLength = 0;
-  let messageBuffer: number[] = [];
+  const messageBuffer: number[] = [];
 
   for (let i = 0; i < data.length; i += 4) {
     for (let c = 0; c < 3; c++) {

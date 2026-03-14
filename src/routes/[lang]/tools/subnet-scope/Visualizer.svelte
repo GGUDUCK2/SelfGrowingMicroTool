@@ -1,23 +1,10 @@
 <script lang="ts">
-  import { fade } from 'svelte/transition';
-
   export let binary: string; // e.g. "11000000.10101000..." or "2001:..." (binary representation)
   export let maskLength: number;
   export let version: 4 | 6 = 4;
 
   // For IPv6, the binary string might be very long. We might want to truncate or just show it all (it's 128 bits, manageable).
   // The input `binary` from Calculator is already formatted with dots or colons.
-
-  // We need a raw string to calculate indices relative to the mask.
-  $: rawBinary = binary.replace(/[.:]/g, '');
-
-  // We want to render the formatted string but color each character.
-  // So we iterate over the formatted string and keep a separate counter for "bit index".
-
-  function getBitState(char: string, rawIndex: number) {
-      if (char === '.' || char === ':') return 'separator';
-      return rawIndex < maskLength ? 'network' : 'host';
-  }
 
   // Create a structured array for rendering
   $: chars = (() => {
@@ -33,7 +20,7 @@
 
 <div class="p-6 bg-slate-900 rounded-xl overflow-x-auto border border-slate-700 shadow-inner">
     <div class="flex flex-wrap gap-y-2 font-mono text-sm md:text-base leading-relaxed break-all max-w-full">
-        {#each chars as { char, type, index }, i}
+        {#each chars as { char, type, index } (index)}
             <div class="relative inline-flex flex-col items-center group">
                  <span
                     class="inline-block transition-colors duration-300 text-lg md:text-xl"

@@ -72,7 +72,7 @@ class SimpleCron {
 
   public nextRuns(count: number, startDate: Date = new Date()): Date[] {
     const runs: Date[] = [];
-    let current = new Date(startDate.getTime());
+    const current = new Date(startDate.getTime());
     current.setSeconds(0, 0);
     current.setMinutes(current.getMinutes() + 1); // Start from next minute
 

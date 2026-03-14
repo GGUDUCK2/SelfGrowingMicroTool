@@ -152,7 +152,7 @@ export const COMMANDS: CommandDefinition[] = [
 ];
 
 export function generateCommand(def: CommandDefinition, values: Record<string, any>): string {
-    let parts = [def.command];
+    const parts = [def.command];
 
     // Handle subcommand if "action" exists (like git stash pop)
     if (values['action'] && def.id === 'stash') {
