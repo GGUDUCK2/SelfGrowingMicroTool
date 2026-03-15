@@ -1,8 +1,9 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { Copy, Save, AlertTriangle, HelpCircle, Terminal } from 'lucide-svelte';
+  import type { GitForgeDictionary } from './types';
 
-  export let dictionary: any;
+  export let dictionary: GitForgeDictionary;
 
   const dispatch = createEventDispatcher();
 
@@ -20,7 +21,16 @@
   function save(command: string, details: string) {
       dispatch('save', { type: 'command', content: command, details: details });
   }
+
+  function handleKeydown(e: KeyboardEvent) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          e.preventDefault();
+          activeScenarioId = null;
+      }
+  }
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 h-full">
     <!-- Selection Area -->

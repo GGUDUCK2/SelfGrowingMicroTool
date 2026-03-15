@@ -5,8 +5,9 @@
   import { createEventDispatcher } from 'svelte';
   import { Copy, Trash2, Clock, Star, Terminal, FileCode, MessageSquare } from 'lucide-svelte';
   import { slide } from 'svelte/transition';
+  import type { GitForgeDictionary } from './types';
 
-  export let dictionary: any;
+  export let dictionary: GitForgeDictionary;
 
   const dispatch = createEventDispatcher();
 
