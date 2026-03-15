@@ -3,7 +3,7 @@
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import { fade } from 'svelte/transition';
-  import { gitForgeWorkspace } from '$lib/db/workspace';
+  import { saveToHistory } from '$lib/db/workspace';
   import { GitBranch, Terminal, FileCode, MessageSquare, ChevronLeft, Check, Stethoscope } from 'lucide-svelte';
 
   import { onMount, onDestroy } from 'svelte';
@@ -33,11 +33,7 @@
   async function handleSave(event: CustomEvent) {
       const { type, content, details } = event.detail;
       try {
-          await gitForgeWorkspace.save({
-              type,
-              content,
-              details
-          });
+          await saveToHistory('git-forge', { type, content, details }, null);
           triggerToast('Saved to history!');
       } catch (e) {
           console.error('Failed to save', e);
@@ -48,12 +44,27 @@
       triggerToast(dict.command.copied);
   }
 
+  function handleCopyAlias() {
+      triggerToast(dict.command.aliasCreated);
+  }
+
   function handleKeydown(e: KeyboardEvent) {
       if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) return;
 
-      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      if ((e.ctrlKey || e.metaKey) && e.key === '1') {
           e.preventDefault();
-          triggerToast('Ctrl+S intercepted, but you must trigger save from a specific tab.');
+          activeTab = 'command';
+      } else if ((e.ctrlKey || e.metaKey) && e.key === '2') {
+          e.preventDefault();
+          activeTab = 'ignore';
+      } else if ((e.ctrlKey || e.metaKey) && e.key === '3') {
+          e.preventDefault();
+          activeTab = 'commit';
+      } else if ((e.ctrlKey || e.metaKey) && e.key === '4') {
+          e.preventDefault();
+          activeTab = 'doctor';
+      } else if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+          // It's mostly handled per component but as a fallback
       } else if (e.key === 'Escape') {
           activeTab = 'command';
       }
@@ -69,7 +80,7 @@
       }
   });
 
-  $: breadcrumbSchema = {
+  const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
@@ -79,7 +90,7 @@
     ]
   };
 
-  $: softwareSchema = {
+  const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": dict.title,
@@ -87,10 +98,18 @@
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "DeveloperApplication",
     "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "featureList": [
+      "Visual Git Command Builder",
+      "Gitignore File Generator",
+      "Conventional Commits Builder",
+      "Git Doctor for undoing mistakes",
+      "Git Alias Exporter"
+    ]
   };
 
-  $: howToSchema = {
+  const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
     "name": `How to use ${dict.title}`,
@@ -116,7 +135,7 @@
     ]
   };
 
-  $: faqSchema = {
+  const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
@@ -143,11 +162,15 @@
   title={dict.title}
   description={dict.description}
   keywords="git command generator, gitignore builder, conventional commits, git tools, developer tools, git doctor, undo git commit"
-  ogImage="https://selfgrowingmicrotool.com/og/git-forge.png"
+  image="https://selfgrowingmicrotool.com/og/git-forge.png"
+  url={`https://selfgrowingmicrotool.com/${lang}/tools/git-forge`}
 />
 
-
 <svelte:head>
+  <link rel="canonical" href={`https://selfgrowingmicrotool.com/en/tools/git-forge`} />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/git-forge" />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/git-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/git-forge" />
 
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
@@ -215,19 +238,19 @@
               <!-- Content -->
               <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 min-h-[500px]">
                   {#if activeTab === 'command'}
-                      <div transition:fade>
-                          <CommandBuilder dictionary={dict} on:save={handleSave} on:copy={handleCopy} />
+                      <div transition:fade={{ duration: 200 }}>
+                          <CommandBuilder dictionary={dict} on:save={handleSave} on:copy={handleCopy} on:copyAlias={handleCopyAlias} />
                       </div>
                   {:else if activeTab === 'ignore'}
-                      <div transition:fade>
+                      <div transition:fade={{ duration: 200 }}>
                           <GitignoreGen dictionary={dict} on:save={handleSave} on:copy={handleCopy} />
                       </div>
                   {:else if activeTab === 'commit'}
-                      <div transition:fade>
+                      <div transition:fade={{ duration: 200 }}>
                           <CommitBuilder dictionary={dict} on:save={handleSave} on:copy={handleCopy} />
                       </div>
                   {:else if activeTab === 'doctor'}
-                      <div transition:fade>
+                      <div transition:fade={{ duration: 200 }}>
                           <GitDoctor dictionary={dict} on:save={handleSave} on:copy={handleCopy} />
                       </div>
                   {/if}
