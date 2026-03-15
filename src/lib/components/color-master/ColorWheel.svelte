@@ -2,6 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import { colord } from 'colord';
   import type { ColorMasterDictionary } from '$lib/types/color-master';
+  import Button from '$lib/components/Button.svelte';
 
   export let color = '#6366f1'; // Default Indigo
   export let t: ColorMasterDictionary;

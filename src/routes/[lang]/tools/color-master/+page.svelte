@@ -21,6 +21,7 @@
   import type { ScaleStep } from '$lib/types/color-master';
   import FAQSection from '$lib/components/FAQSection.svelte';
   import Head from '$lib/components/Head.svelte';
+  import Button from '$lib/components/Button.svelte';
 
   // --- Props ---
   export let data;
@@ -45,7 +46,7 @@
     "description": t.description,
     "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
     "applicationCategory": "DesignApplication",
-    "applicationSubCategory": "Graphic Design Application",
+    "applicationSubCategory": "Color Palette Generator",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -81,6 +82,28 @@
         "name": "Export",
         "text": "Copy the color codes or export your entire palette for your design.",
         "position": 3
+      }
+    ]
+  };
+
+  $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": dict.q1,
+        "acceptedAnswer": { "@type": "Answer", "text": dict.a1 }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q2,
+        "acceptedAnswer": { "@type": "Answer", "text": dict.a2 }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q3,
+        "acceptedAnswer": { "@type": "Answer", "text": dict.a3 }
       }
     ]
   };
@@ -228,44 +251,11 @@
 <svelte:head>
   {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(howToSchema)}</script>`}
-
-  {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "${dict.q1}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a1}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q2}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a2}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q3}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a3}"
-        }
-      }
-    ]
-  }
-  </script>`}
-
+  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
 </svelte:head>
 
 <Head
-  title={`${t.title} | ${dict.home.title}`}
+  title={t.title}
   description={t.description}
   keywords={t.keywords}
 />
@@ -278,13 +268,14 @@
         <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 pb-2">
         Lumina
         </h1>
-        <button
+        <Button
           on:click={() => showShortcuts = !showShortcuts}
-          class="lg:hidden p-3 flex-shrink-0 min-h-[44px] min-w-[44px] text-slate-400 hover:text-indigo-500 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-full"
-          aria-label={t.shortcuts}
+          class="lg:hidden flex-shrink-0 !rounded-full !px-3"
+          ariaLabel={t.shortcuts}
+          title={t.shortcuts}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-        </button>
+        </Button>
         <div class="absolute -top-6 -right-32 hidden lg:block opacity-0 group-hover:opacity-100 transition-opacity">
             <div class="bg-slate-800 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
                 {t.press} '?' {t.shortcutsHelp}
@@ -331,7 +322,7 @@
                     <kbd class="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded text-sm font-mono border dark:border-slate-600">Esc</kbd>
                 </li>
             </ul>
-             <button class="mt-6 w-full py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg transition-colors min-h-[44px]" on:click={closeShortcuts}>Close</button>
+             <Button class="mt-6 w-full justify-center" variant="primary" on:click={closeShortcuts}>Close</Button>
         </div>
     </div>
   {/if}
@@ -342,13 +333,14 @@
     <div class="md:col-span-5 lg:col-span-4 space-y-8">
       <div class="relative">
           <ColorWheel color={baseColor} {t} on:change={handleColorChange} />
-          <button
-            class="absolute top-0 right-0 p-2 min-h-[44px] min-w-[44px] bg-white dark:bg-slate-800 rounded-full shadow-md hover:scale-110 transition-transform text-indigo-500 border border-indigo-100 dark:border-indigo-900"
+          <Button
+            class="absolute top-2 right-2 !rounded-full !px-3 !py-3 hover:scale-110 shadow-md text-indigo-500 border-indigo-100 dark:border-indigo-900"
             on:click={randomize}
             title={t.inspire}
+            ariaLabel={t.inspire}
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
-          </button>
+          </Button>
       </div>
 
       <!-- Harmony Selector -->
@@ -356,12 +348,12 @@
         <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t.harmony}</h3>
         <div class="grid grid-cols-2 gap-3">
           {#each HARMONY_TYPES as type}
-            <button
-              class="p-3 min-h-[44px] text-sm sm:text-base rounded-lg border transition-all {harmonyType === type ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-500 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700 text-slate-700 dark:text-slate-300'}"
+            <Button
+              class="justify-center {harmonyType === type ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-500 dark:text-indigo-300' : ''}"
               on:click={() => handleTypeChange(type)}
             >
               {t.harmonies[type]}
-            </button>
+            </Button>
           {/each}
         </div>
       </div>
@@ -485,8 +477,9 @@
     <FAQSection
       title={t.faqTitle}
       items={[
-        { q: t.q1, a: t.a1 },
-        { q: t.q2, a: t.a2 }
+        { q: dict.q1, a: dict.a1 },
+        { q: dict.q2, a: dict.a2 },
+        { q: dict.q3, a: dict.a3 }
       ]}
     />
   </article>
