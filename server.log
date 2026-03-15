@@ -5,4 +5,17 @@
   ➜  Local:   http://localhost:4173/
   ➜  Network: use --host to expose
 
+[1;31m[500] GET /ko/tools/pixel-forge[0m
+TypeError: Cannot read properties of undefined (reading 'preset')
+    at file:///app/.svelte-kit/output/server/entries/pages/_lang_/tools/pixel-forge/_page.svelte.js:809:421
+    at Renderer.child (file:///app/.svelte-kit/output/server/chunks/index2.js:2191:20)
+    at Renderer.component (file:///app/.svelte-kit/output/server/chunks/index2.js:2212:24)
+    at Workspace (file:///app/.svelte-kit/output/server/entries/pages/_lang_/tools/pixel-forge/_page.svelte.js:732:14)
+    at file:///app/.svelte-kit/output/server/entries/pages/_lang_/tools/pixel-forge/_page.svelte.js:944:5
+    at Renderer.child (file:///app/.svelte-kit/output/server/chunks/index2.js:2191:20)
+    at Renderer.component (file:///app/.svelte-kit/output/server/chunks/index2.js:2212:24)
+    at _page (file:///app/.svelte-kit/output/server/entries/pages/_lang_/tools/pixel-forge/_page.svelte.js:897:14)
+    at children (file:///app/.svelte-kit/output/server/chunks/internal.js:896:19)
+    at slot (file:///app/.svelte-kit/output/server/chunks/index2.js:2796:5)
+
 [1;31m[404] GET /_vercel/insights/script.js[0m

@@ -49,7 +49,7 @@
   {isDragging ? 'border-indigo-500 bg-indigo-500/10' : 'border-slate-700 bg-slate-800/50 hover:border-indigo-500/50 hover:bg-slate-800'}"
   role="button"
   tabindex="0"
-  aria-label={dict.dropZone.title}
+  aria-label={dict.dropZone?.title || "Drop images here"}
   on:dragover={handleDragOver}
   on:dragleave={handleDragLeave}
   on:drop={handleDrop}
@@ -79,10 +79,10 @@
     </div>
 
     <h3 class="text-xl font-semibold text-slate-200 mb-2">
-      {isDragging ? dict.dropZone.title : dict.dropZone.sub}
+      {isDragging ? dict.dropZone?.title : dict.dropZone?.sub}
     </h3>
     <p class="text-slate-400 max-w-sm">
-      {dict.dropZone.info}
+      {dict.dropZone?.info}
     </p>
   </div>
 </div>

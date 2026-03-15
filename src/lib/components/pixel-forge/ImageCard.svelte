@@ -107,7 +107,7 @@
         />
         <button
             on:click={() => showDiff = false}
-            class="absolute top-2 right-2 p-1.5 bg-slate-800/80 hover:bg-slate-700 text-slate-300 rounded-lg z-30 transition-colors"
+            class="absolute top-2 right-2 min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 bg-slate-800/80 hover:bg-slate-700 text-slate-300 rounded-lg z-30 transition-colors"
             title="Close Diff View"
             aria-label="Close Diff View"
         >
@@ -118,7 +118,7 @@
         {#if job.status === 'done' && job.result}
             <button
                 on:click={() => showDiff = true}
-                class="absolute top-2 right-2 p-1.5 bg-indigo-600/90 hover:bg-indigo-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-lg"
+                class="absolute top-2 right-2 min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 bg-indigo-600/90 hover:bg-indigo-500 text-white rounded-lg md:opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-lg"
                 title="Compare"
                 aria-label="Compare Original and Optimized"
             >
@@ -155,7 +155,7 @@
       </div>
       <button
         on:click={() => onRemove(job.id)}
-        class="text-slate-500 hover:text-red-400 transition-colors p-1"
+        class="text-slate-500 hover:text-red-400 transition-colors p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
         aria-label="Remove image"
       >
         <Trash2 class="w-5 h-5" />
@@ -165,11 +165,11 @@
     <!-- Quick Settings -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         <label class="block">
-            <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.controls.format}</span>
+            <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.controls?.format || "Format"}</span>
             <select
                 bind:value={job.options.format}
                 on:change={handleOptionChange}
-                class="w-full bg-slate-700 border border-slate-600 text-xs text-slate-200 rounded px-2 py-1.5 focus:border-indigo-500 focus:outline-none"
+                class="w-full bg-slate-700 border border-slate-600 text-xs text-slate-200 rounded px-2 py-1.5 min-h-[44px] focus:border-indigo-500 focus:outline-none"
             >
                 <option value="image/jpeg">JPEG</option>
                 <option value="image/png">PNG</option>
@@ -177,9 +177,9 @@
             </select>
         </label>
 
-        <label class="block">
+        <label class="flex flex-col justify-center">
             <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">
-                {dict.controls.quality} ({job.options.targetSizeKB ? 'Auto' : Math.round(job.options.quality * 100) + '%'})
+                {dict.controls?.quality || "Quality"} ({job.options.targetSizeKB ? 'Auto' : Math.round(job.options.quality * 100) + '%'})
             </span>
             <input
                 type="range"
@@ -189,13 +189,13 @@
                 bind:value={job.options.quality}
                 on:input={() => { job.options.targetSizeKB = undefined; handleOptionChange(); }}
                 disabled={!!job.options.targetSizeKB}
-                class="w-full accent-indigo-500 h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer disabled:opacity-50"
+                class="w-full accent-indigo-500 h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer disabled:opacity-50 mt-2"
             />
         </label>
 
         <label class="block relative">
             <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block flex items-center gap-1">
-                {dict.controls.targetSize || "Target Size (KB)"}
+                {dict.controls?.targetSize || "Target Size (KB)"}
                 <Target class="w-3 h-3 text-indigo-400" />
             </span>
             <input
@@ -203,29 +203,29 @@
                 bind:value={job.options.targetSizeKB}
                 placeholder="Optional"
                 on:input={handleOptionChange}
-                class="w-full bg-slate-700 border border-slate-600 text-xs text-slate-200 rounded px-2 py-1.5 focus:border-indigo-500 focus:outline-none placeholder:text-slate-500"
+                class="w-full bg-slate-700 border border-slate-600 text-xs text-slate-200 rounded px-2 py-1.5 min-h-[44px] focus:border-indigo-500 focus:outline-none placeholder:text-slate-500"
             />
         </label>
 
         <label class="block">
-            <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.controls.width}</span>
+            <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.controls?.width || "Width"}</span>
             <input
                 type="number"
                 bind:value={job.options.width}
                 placeholder="Auto"
                 on:input={handleOptionChange}
-                class="w-full bg-slate-700 border border-slate-600 text-xs text-slate-200 rounded px-2 py-1.5 focus:border-indigo-500 focus:outline-none"
+                class="w-full bg-slate-700 border border-slate-600 text-xs text-slate-200 rounded px-2 py-1.5 min-h-[44px] focus:border-indigo-500 focus:outline-none"
             />
         </label>
 
          <div class="flex items-end pb-1 col-span-2 md:col-span-4 mt-2">
              <button
-                class="w-full h-[36px] flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                class="w-full min-h-[44px] flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
                 disabled={job.status !== 'done'}
                 on:click={download}
              >
                 <Download class="w-4 h-4" />
-                {dict.controls.download}
+                {dict.controls?.download || "Download"}
              </button>
          </div>
     </div>
@@ -240,17 +240,17 @@
                      <div class="flex items-center gap-2">
                          {#each job.palette as color}
                              <button
-                                 class="w-6 h-6 rounded-full border border-white/10 relative group"
+                                 class="w-8 h-8 md:w-6 md:h-6 rounded-full border border-white/10 relative group min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0 flex items-center justify-center"
                                  style="background-color: {color};"
                                  on:click={() => copyColor(color)}
                                  title={color}
                                  aria-label={`Copy color ${color}`}
                              >
-                                 <span class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/20 rounded-full transition-opacity">
+                                 <span class="absolute inset-0 md:flex items-center justify-center md:opacity-0 group-hover:opacity-100 bg-black/20 rounded-full transition-opacity">
                                       {#if copiedColor === color}
-                                          <Check class="w-3 h-3 text-white" />
+                                          <Check class="w-4 h-4 md:w-3 md:h-3 text-white" />
                                       {:else}
-                                          <Copy class="w-3 h-3 text-white" />
+                                          <Copy class="w-4 h-4 md:w-3 md:h-3 text-white opacity-0 md:opacity-100 group-hover:opacity-100" />
                                       {/if}
                                  </span>
                              </button>
