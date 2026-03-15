@@ -5,6 +5,7 @@
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import { marked } from 'marked';
+  import FAQSection from '$lib/components/FAQSection.svelte';
 
   $: dict = getDictionary($page.params.lang);
   $: toolDict = dict.tools.pixelForge;
@@ -37,29 +38,15 @@
            "Magic Palette Extraction",
            "Offline capability"
         ]
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": toolDict.q1,
-            "acceptedAnswer": { "@type": "Answer", "text": toolDict.a1 }
-          },
-          {
-            "@type": "Question",
-            "name": toolDict.q2,
-            "acceptedAnswer": { "@type": "Answer", "text": toolDict.a2 }
-          },
-          {
-            "@type": "Question",
-            "name": toolDict.q3,
-            "acceptedAnswer": { "@type": "Answer", "text": toolDict.a3 }
-          }
-        ]
       }
     ]
   });
+
+  $: faqItems = [
+    { q: toolDict.q1, a: toolDict.a1 },
+    { q: toolDict.q2, a: toolDict.a2 },
+    { q: toolDict.q3, a: toolDict.a3 }
+  ];
 
   // Helper to render markdown safely
   const renderMarkdown = (text: string) => marked.parse(text);
@@ -156,21 +143,7 @@
         <li>{@html renderMarkdown(toolDict.guide.tip3)}</li>
     </ul>
 
-    <!-- FAQ for Schema -->
-    <h3>{toolDict.faqTitle}</h3>
-    <dl class="space-y-4">
-        <div>
-            <dt class="font-bold text-slate-200">{toolDict.q1}</dt>
-            <dd class="text-slate-400">{toolDict.a1}</dd>
-        </div>
-        <div>
-            <dt class="font-bold text-slate-200">{toolDict.q2}</dt>
-            <dd class="text-slate-400">{toolDict.a2}</dd>
-        </div>
-        <div>
-            <dt class="font-bold text-slate-200">{toolDict.q3}</dt>
-            <dd class="text-slate-400">{toolDict.a3}</dd>
-        </div>
-    </dl>
   </article>
+
+  <FAQSection title={toolDict.faqTitle} items={faqItems} />
 </div>

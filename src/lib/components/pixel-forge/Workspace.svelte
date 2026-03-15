@@ -180,13 +180,13 @@
             <!-- Preset Selector -->
             <div class="flex flex-col">
                 <label>
-                <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.controls.preset || "Preset"}</span>
+                <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.controls?.preset || "Preset"}</span>
                 <select
                     bind:value={selectedPreset}
                     on:change={handlePresetChange}
-                    class="bg-slate-700 border border-slate-600 text-sm text-slate-200 rounded px-3 py-2 focus:border-indigo-500 focus:outline-none w-full md:w-40"
+                    class="bg-slate-700 border border-slate-600 text-sm text-slate-200 rounded px-3 py-2 min-h-[44px] focus:border-indigo-500 focus:outline-none w-full md:w-40"
                 >
-                    <option value="">{dict.controls.custom || "Custom"}</option>
+                    <option value="">{dict.controls?.custom || "Custom"}</option>
                     {#each presets as preset}
                         <option value={preset.id}>{preset.name}</option>
                     {/each}
@@ -199,8 +199,8 @@
             <!-- Format -->
             <div class="flex flex-col">
                 <label>
-                <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.controls.format}</span>
-                <select bind:value={globalOptions.format} class="bg-slate-700 border border-slate-600 text-sm text-slate-200 rounded px-3 py-2 focus:border-indigo-500 focus:outline-none min-w-[100px]">
+                <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.controls?.format || "Format"}</span>
+                <select bind:value={globalOptions.format} class="bg-slate-700 border border-slate-600 text-sm text-slate-200 rounded px-3 py-2 min-h-[44px] focus:border-indigo-500 focus:outline-none min-w-[100px]">
                     <option value="image/webp">WebP</option>
                     <option value="image/jpeg">JPEG</option>
                     <option value="image/png">PNG</option>
@@ -212,7 +212,7 @@
             <div class="flex flex-col flex-1 md:min-w-[12rem]">
                 <label>
                 <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">
-                    {dict.controls.quality} ({globalOptions.targetSizeKB ? 'Auto' : Math.round(globalOptions.quality * 100) + '%'})
+                    {dict.controls?.quality || "Quality"} ({globalOptions.targetSizeKB ? 'Auto' : Math.round(globalOptions.quality * 100) + '%'})
                 </span>
                 <input
                     type="range"
@@ -230,15 +230,15 @@
             <!-- Watermark Toggle -->
              <button
                 on:click={() => showWatermarkSettings = !showWatermarkSettings}
-                class="mt-4 p-2 rounded-lg transition-colors {showWatermarkSettings ? 'bg-indigo-500/20 text-indigo-400' : 'text-slate-400 hover:text-indigo-400 hover:bg-slate-700'}"
-                title={dict.controls.watermark || "Watermark Settings"}
-                aria-label={dict.controls.watermark || "Watermark Settings"}
+                class="mt-4 p-2 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors {showWatermarkSettings ? 'bg-indigo-500/20 text-indigo-400' : 'text-slate-400 hover:text-indigo-400 hover:bg-slate-700'}"
+                title={dict.controls?.watermark || "Watermark Settings"}
+                aria-label={dict.controls?.watermark || "Watermark Settings"}
              >
                 <Type class="w-5 h-5" />
              </button>
 
             <!-- Apply All -->
-            <button on:click={applyGlobalSettingsToAll} class="mt-4 p-2 text-slate-400 hover:text-indigo-400" title={dict.controls.applyAll}>
+            <button on:click={applyGlobalSettingsToAll} class="mt-4 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-indigo-400" title={dict.controls?.applyAll || "Apply to All"}>
                 <Sliders class="w-5 h-5" />
             </button>
         </div>
@@ -246,15 +246,15 @@
         <!-- Action Buttons -->
         <div class="flex items-center gap-3 w-full md:w-auto justify-end">
             {#if jobs.some(j => j.status === 'done')}
-                <button on:click={downloadAll} class="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors shadow-lg shadow-indigo-900/20">
+                <button on:click={downloadAll} class="flex items-center justify-center gap-2 min-h-[44px] px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors shadow-lg shadow-indigo-900/20">
                     <Archive class="w-4 h-4" />
-                    <span>{dict.controls.downloadAll}</span>
+                    <span>{dict.controls?.downloadAll || "Download All"}</span>
                 </button>
             {/if}
             {#if jobs.length > 0}
-                <button on:click={clearAll} class="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-red-900/30 hover:text-red-400 text-slate-300 rounded-lg font-medium transition-colors">
+                <button on:click={clearAll} class="flex items-center justify-center gap-2 min-h-[44px] px-4 py-2 bg-slate-700 hover:bg-red-900/30 hover:text-red-400 text-slate-300 rounded-lg font-medium transition-colors">
                     <Trash2 class="w-4 h-4" />
-                    <span>{dict.controls.clear}</span>
+                    <span>{dict.controls?.clear || "Clear All"}</span>
                 </button>
             {/if}
         </div>
@@ -265,15 +265,15 @@
         <div class="pt-4 border-t border-slate-700 grid md:grid-cols-4 gap-4 animate-in slide-in-from-top-2 duration-200">
             <label class="block col-span-2">
                  <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">Watermark Text</span>
-                 <input type="text" bind:value={globalOptions.watermark.text} placeholder="e.g. © 2025 My Brand" class="w-full bg-slate-700 border border-slate-600 text-sm text-slate-200 rounded px-3 py-2 focus:border-indigo-500 focus:outline-none" />
+                 <input type="text" bind:value={globalOptions.watermark.text} placeholder="e.g. © 2025 My Brand" class="w-full bg-slate-700 border border-slate-600 text-sm text-slate-200 min-h-[44px] rounded px-3 py-2 focus:border-indigo-500 focus:outline-none" />
             </label>
-            <label class="block">
+            <label class="flex flex-col justify-center">
                  <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">Opacity ({Math.round(globalOptions.watermark.opacity * 100)}%)</span>
                  <input type="range" min="0.1" max="1" step="0.1" bind:value={globalOptions.watermark.opacity} class="w-full accent-indigo-500 h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer mt-2" />
             </label>
             <label class="block">
                  <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">Position</span>
-                 <select bind:value={globalOptions.watermark.position} class="w-full bg-slate-700 border border-slate-600 text-sm text-slate-200 rounded px-3 py-2 focus:border-indigo-500 focus:outline-none">
+                 <select bind:value={globalOptions.watermark.position} class="w-full bg-slate-700 border border-slate-600 text-sm text-slate-200 min-h-[44px] rounded px-3 py-2 focus:border-indigo-500 focus:outline-none">
                      <option value="bottom-right">Bottom Right</option>
                      <option value="bottom-left">Bottom Left</option>
                      <option value="top-right">Top Right</option>
@@ -284,8 +284,8 @@
             <label class="block">
                  <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">Color</span>
                  <div class="flex gap-2">
-                     <input type="color" bind:value={globalOptions.watermark.color} class="h-9 w-9 rounded cursor-pointer bg-transparent border-0 p-0" />
-                     <input type="text" bind:value={globalOptions.watermark.color} class="w-full bg-slate-700 border border-slate-600 text-sm text-slate-200 rounded px-3 py-2 focus:border-indigo-500 focus:outline-none uppercase" />
+                     <input type="color" bind:value={globalOptions.watermark.color} class="min-h-[44px] min-w-[44px] rounded cursor-pointer bg-transparent border-0 p-0" />
+                     <input type="text" bind:value={globalOptions.watermark.color} class="w-full bg-slate-700 border border-slate-600 text-sm text-slate-200 min-h-[44px] rounded px-3 py-2 focus:border-indigo-500 focus:outline-none uppercase" />
                  </div>
             </label>
         </div>
@@ -302,7 +302,7 @@
       </div>
   {:else}
       <div class="text-center py-12 text-slate-500">
-          <p>{dict.dropZone.sub}</p>
+          <p>{dict.dropZone?.sub}</p>
       </div>
   {/if}
 
