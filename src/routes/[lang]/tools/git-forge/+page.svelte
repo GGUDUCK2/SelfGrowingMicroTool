@@ -14,9 +14,10 @@
   import HistoryPanel from '$lib/components/git-forge/HistoryPanel.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
+  import type { GitForgeDictionary } from '$lib/components/git-forge/types';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.gitForge;
+  $: dict = getDictionary(lang).tools.gitForge as GitForgeDictionary;
   $: common = getDictionary(lang).common;
 
   let activeTab: 'command' | 'ignore' | 'commit' | 'doctor' = 'command';

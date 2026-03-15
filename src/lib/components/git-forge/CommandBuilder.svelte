@@ -2,9 +2,10 @@
   import { createEventDispatcher, onMount } from 'svelte';
   import { COMMANDS, generateCommand } from '$lib/utils/git-forge/commands';
   import type { CommandDefinition } from '$lib/utils/git-forge/types';
-  import { Copy, Terminal, Save, HelpCircle } from 'lucide-svelte';
+  import type { GitForgeDictionary } from './types';
+  import { Copy, Terminal, Save, HelpCircle, Zap } from 'lucide-svelte';
 
-  export let dictionary: any;
+  export let dictionary: GitForgeDictionary;
 
   const dispatch = createEventDispatcher();
 
@@ -59,7 +60,41 @@
   function save() {
       dispatch('save', { type: 'command', content: generated, details: activeCommand.command });
   }
+
+  function handleKeydown(e: KeyboardEvent) {
+      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) return;
+
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+          e.preventDefault();
+          save();
+      } else if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          copy();
+      } else if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          e.preventDefault();
+          resetForm(activeCommandId);
+      }
+  }
+
+  // Pre-configured workflow states
+  function loadPreset(presetId: string) {
+      if (presetId === 'new-feature') {
+          activeCategory = 'branching';
+          handleCommandChange('checkout');
+          formValues = { branch: 'feature/new-feature', newBranch: true };
+      } else if (presetId === 'hotfix') {
+          activeCategory = 'branching';
+          handleCommandChange('checkout');
+          formValues = { branch: 'hotfix/bug-fix', newBranch: true };
+      } else if (presetId === 'sync') {
+          activeCategory = 'remote';
+          handleCommandChange('pull');
+          formValues = { rebase: true };
+      }
+  }
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-full">
     <!-- Sidebar: Categories & Commands -->
@@ -101,6 +136,19 @@
     <div class="md:col-span-8 lg:col-span-9 flex flex-col h-full">
         <!-- Configuration -->
         <div class="flex-1 overflow-y-auto mb-6">
+            <!-- Presets -->
+            <div class="flex flex-wrap gap-2 mb-4">
+                <button on:click={() => loadPreset('new-feature')} class="min-h-[44px] flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300 hover:bg-emerald-200 dark:hover:bg-emerald-900/60 transition-colors">
+                    <Zap size={14} /> Feature Branch
+                </button>
+                <button on:click={() => loadPreset('hotfix')} class="min-h-[44px] flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-900/60 transition-colors">
+                    <Zap size={14} /> Hotfix
+                </button>
+                <button on:click={() => loadPreset('sync')} class="min-h-[44px] flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/60 transition-colors">
+                    <Zap size={14} /> Sync (Pull Rebase)
+                </button>
+            </div>
+
             <div class="flex items-center gap-2 mb-4">
                 <h2 class="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
                     {dictionary.command.operations[activeCommand.id] || activeCommand.command}

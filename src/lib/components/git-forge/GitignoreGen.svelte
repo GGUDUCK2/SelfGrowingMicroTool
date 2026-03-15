@@ -2,9 +2,10 @@
   import { createEventDispatcher } from 'svelte';
   import { TEMPLATES } from '$lib/utils/git-forge/templates';
   import type { GitignoreTemplate } from '$lib/utils/git-forge/types';
+  import type { GitForgeDictionary } from './types';
   import { Download, Copy, Search, X, Check, Save } from 'lucide-svelte';
 
-  export let dictionary: any;
+  export let dictionary: GitForgeDictionary;
 
   const dispatch = createEventDispatcher();
 
@@ -54,7 +55,25 @@
           details: selectedTemplates.map(t => t.name).join(', ')
       });
   }
+
+  function handleKeydown(e: KeyboardEvent) {
+      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName) && e.key !== 'Escape') return;
+
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+          e.preventDefault();
+          save();
+      } else if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          copy();
+      } else if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          e.preventDefault();
+          selectedIds = [];
+          searchTerm = '';
+      }
+  }
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
     <!-- Selection Area -->

@@ -2,9 +2,10 @@
   import { createEventDispatcher } from 'svelte';
   import type { CommitMessage } from '$lib/utils/git-forge/types';
   import { generateCommit } from '$lib/utils/git-forge/commits';
-  import { Copy, Save, AlertTriangle, MessageSquare } from 'lucide-svelte';
+  import type { GitForgeDictionary } from './types';
+  import { Copy, Save, AlertTriangle, MessageSquare, Wand2, CheckCircle2, AlertCircle } from 'lucide-svelte';
 
-  export let dictionary: any;
+  export let dictionary: GitForgeDictionary;
 
   const dispatch = createEventDispatcher();
 
@@ -30,11 +31,51 @@
       if (!data.description) return;
       dispatch('save', { type: 'commit', content: message, details: data.type });
   }
+
+  // Feature: Commit Validator
+  $: descLength = data.description.length;
+  $: descWarning = descLength > 50 ? 'Description > 50 chars' : null;
+  $: bodyWarning = data.body.split('\n').some(line => line.length > 72) ? 'Body lines > 72 chars' : null;
+
+  function loadExample(type: 'feat' | 'fix' | 'breaking') {
+      if (type === 'feat') {
+          data = { type: 'feat', scope: 'auth', description: 'add JWT based login', body: 'Implemented login using JSON Web Tokens.\n\nRequires updated environment variables.', footer: 'Closes #42', isBreaking: false };
+      } else if (type === 'fix') {
+          data = { type: 'fix', scope: 'ui', description: 'resolve header overlap on mobile', body: '', footer: '', isBreaking: false };
+      } else {
+          data = { type: 'feat', scope: 'api', description: 'restructure user endpoint response', body: '', footer: '', isBreaking: true };
+      }
+  }
+
+  function handleKeydown(e: KeyboardEvent) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+          e.preventDefault();
+          save();
+      } else if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          copy();
+      } else if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          e.preventDefault();
+          data = { type: 'feat', scope: '', description: '', body: '', footer: '', isBreaking: false };
+      }
+  }
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
     <!-- Form -->
     <div class="space-y-4 overflow-y-auto pr-2">
+        <!-- Smart Examples -->
+        <div class="flex gap-2 pb-2 border-b border-slate-200 dark:border-slate-700 overflow-x-auto">
+            <button on:click={() => loadExample('feat')} class="min-h-[44px] flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300 hover:bg-indigo-200 dark:hover:bg-indigo-900/60 transition-colors whitespace-nowrap">
+                <Wand2 size={14} /> Example: Feature
+            </button>
+            <button on:click={() => loadExample('fix')} class="min-h-[44px] flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-orange-900/60 transition-colors whitespace-nowrap">
+                <Wand2 size={14} /> Example: Fix
+            </button>
+        </div>
+
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <label for="commit-type" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dictionary.commit.type}</label>
@@ -51,13 +92,21 @@
         </div>
 
         <div>
-            <label for="commit-desc" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dictionary.commit.description}</label>
-            <input id="commit-desc" type="text" bind:value={data.description} class="min-h-[44px] w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="add login functionality" />
+            <div class="flex justify-between mb-1">
+                <label for="commit-desc" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dictionary.commit.description}</label>
+                <span class="text-xs {descWarning ? 'text-red-500 font-bold' : 'text-slate-400'}">{descLength}/50</span>
+            </div>
+            <input id="commit-desc" type="text" bind:value={data.description} class="min-h-[44px] w-full rounded-lg {descWarning ? 'border-red-400 focus:ring-red-500' : 'border-slate-200 dark:border-slate-700 focus:ring-indigo-500'} bg-white dark:bg-slate-800 text-sm focus:ring-2" placeholder="add login functionality" />
         </div>
 
         <div>
-            <label for="commit-body" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dictionary.commit.body}</label>
-            <textarea id="commit-body" bind:value={data.body} rows="4" class="min-h-[44px] w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="Detailed explanation..."></textarea>
+            <div class="flex justify-between mb-1">
+                <label for="commit-body" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dictionary.commit.body}</label>
+                {#if bodyWarning}
+                    <span class="text-xs text-red-500 font-bold" transition:slide|local>{bodyWarning}</span>
+                {/if}
+            </div>
+            <textarea id="commit-body" bind:value={data.body} rows="4" class="min-h-[44px] w-full rounded-lg {bodyWarning ? 'border-red-400 focus:ring-red-500' : 'border-slate-200 dark:border-slate-700 focus:ring-indigo-500'} bg-white dark:bg-slate-800 text-sm focus:ring-2" placeholder="Detailed explanation..."></textarea>
         </div>
 
         <div>
@@ -76,6 +125,18 @@
 
     <!-- Preview -->
     <div class="flex flex-col h-full bg-slate-900 rounded-2xl overflow-hidden shadow-xl border border-slate-800">
+        <!-- Validation Banner -->
+        {#if descWarning || bodyWarning}
+            <div class="bg-red-500/10 border-b border-red-500/20 p-2 flex items-center justify-center gap-2 text-red-400 text-xs font-medium">
+                <AlertCircle size={14} />
+                Convention Warning: {descWarning || ''} {descWarning && bodyWarning ? ' | ' : ''} {bodyWarning || ''}
+            </div>
+        {:else if data.description}
+            <div class="bg-emerald-500/10 border-b border-emerald-500/20 p-2 flex items-center justify-center gap-2 text-emerald-400 text-xs font-medium">
+                <CheckCircle2 size={14} />
+                Follows Conventional Commits standard
+            </div>
+        {/if}
         <div class="bg-slate-800 p-3 flex items-center justify-between border-b border-slate-700">
             <span class="text-xs font-mono text-slate-400">git commit -m "..."</span>
             <div class="flex gap-2">
