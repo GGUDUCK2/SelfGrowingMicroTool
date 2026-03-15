@@ -9,6 +9,7 @@
   import Toolbar from '$lib/components/json-architect/Toolbar.svelte';
   import History from '$lib/components/json-architect/History.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
+  import Button from '$lib/components/Button.svelte';
   import { validateJson, formatJson, minifyJson, jsonToTypescript, jsonToGo } from '$lib/utils/json';
   import { db } from '$lib/db';
 
@@ -166,6 +167,50 @@
       input = e.detail;
   }
 
+  $: schema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": t.title,
+    "description": t.description,
+    "applicationCategory": "DeveloperApplication",
+    "applicationSubCategory": "JSON Utility",
+    "operatingSystem": "Web, iOS, Android, Linux, Windows, macOS",
+    "browserRequirements": "Requires JavaScript. HTML5.",
+    "featureList": "Format JSON, Minify JSON, Validate JSON, Convert JSON to TypeScript, Convert JSON to Go, Visual Tree View",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "datePublished": "2023-10-15",
+    "screenshot": "https://selfgrowingmicrotool.com/og/json-architect.png",
+    "author": {
+        "@type": "Organization",
+        "name": "MicroFactory"
+    }
+  };
+
+  $: breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://selfgrowingmicrotool.com/"
+    }, {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tools",
+      "item": "https://selfgrowingmicrotool.com/tools"
+    }, {
+      "@type": "ListItem",
+      "position": 3,
+      "name": t.title,
+      "item": `https://selfgrowingmicrotool.com/${lang}/tools/json-architect`
+    }]
+  };
+
   $: faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -196,50 +241,8 @@
 
 
 <svelte:head>
-
-
-  {@html `<script type="application/ld+json">${JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": t.title,
-    "description": t.description,
-    "applicationCategory": "DeveloperApplication",
-    "applicationSubCategory": "JSON Utility",
-    "operatingSystem": "Web, iOS, Android, Linux, Windows, macOS",
-    "browserRequirements": "Requires JavaScript. HTML5.",
-    "featureList": "Format JSON, Minify JSON, Validate JSON, Convert JSON to TypeScript, Convert JSON to Go, Visual Tree View",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "datePublished": "2023-10-15",
-    "screenshot": "https://selfgrowingmicrotool.com/og/json-architect.png",
-    "author": {
-        "@type": "Organization",
-        "name": "MicroFactory"
-    }
-  })}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [{
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://selfgrowingmicrotool.com/"
-    }, {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Tools",
-      "item": "https://selfgrowingmicrotool.com/tools"
-    }, {
-      "@type": "ListItem",
-      "position": 3,
-      "name": t.title,
-      "item": `https://selfgrowingmicrotool.com/${lang}/tools/json-architect`
-    }]
-  })}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
 </svelte:head>
 
@@ -280,21 +283,21 @@
                 {/if}
              </label>
              <div class="flex gap-2">
-                 <button
+                 <Button
                    on:click={() => view = 'text'}
-                   class="text-sm px-4 py-2 min-h-[44px] rounded touch-manipulation {view === 'text' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-500'}"
+                   class={view === 'text' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800' : ''}
                  >
                     {t.textView}
-                 </button>
+                 </Button>
                  {#if mode === 'json' && parsedData}
-                 <button
+                 <Button
                    on:click={() => view = 'tree'}
                    disabled={isTooLarge}
                    title={isTooLarge ? 'JSON too large for tree view' : ''}
-                   class="text-sm px-4 py-2 min-h-[44px] rounded touch-manipulation {view === 'tree' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300' : 'text-slate-500'} {isTooLarge ? 'opacity-50 cursor-not-allowed' : ''}"
+                   class={view === 'tree' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800' : ''}
                  >
                     {t.treeView}
-                 </button>
+                 </Button>
                  {/if}
              </div>
           </div>
