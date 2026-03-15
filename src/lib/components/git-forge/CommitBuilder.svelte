@@ -3,7 +3,8 @@
   import type { CommitMessage } from '$lib/utils/git-forge/types';
   import { generateCommit } from '$lib/utils/git-forge/commits';
   import type { GitForgeDictionary } from './types';
-  import { Copy, Save, AlertTriangle, MessageSquare, Wand2, CheckCircle2, AlertCircle } from 'lucide-svelte';
+  import { Copy, Save, AlertTriangle, MessageSquare, Wand2, CheckCircle2, AlertCircle, Share2 } from 'lucide-svelte';
+  import { onMount } from 'svelte';
 
   export let dictionary: GitForgeDictionary;
 
@@ -31,6 +32,32 @@
       if (!data.description) return;
       dispatch('save', { type: 'commit', content: message, details: data.type });
   }
+
+  function share() {
+      const url = new URL(window.location.href);
+      // Construct a safe, shareable URL state using a hash or search params
+      url.hash = `state=${encodeURIComponent(JSON.stringify(data))}`;
+      navigator.clipboard.writeText(url.toString());
+      // Re-using the copy toast mechanism for simplicity, but customized message can be sent
+      dispatch('copy');
+  }
+
+  onMount(() => {
+      // Look for shared state in the URL hash
+      try {
+          if (window.location.hash.startsWith('#state=')) {
+              const stateStr = window.location.hash.replace('#state=', '');
+              const parsed = JSON.parse(decodeURIComponent(stateStr));
+              if (parsed && typeof parsed === 'object') {
+                  data = { ...data, ...parsed };
+              }
+              // Clean up hash to not pollute the URL bar while editing
+              window.history.replaceState(null, '', window.location.pathname + window.location.search);
+          }
+      } catch (e) {
+          console.error("Failed to parse shared state from hash", e);
+      }
+  });
 
   // Feature: Commit Validator
   $: descLength = data.description.length;
@@ -140,10 +167,13 @@
         <div class="bg-slate-800 p-3 flex items-center justify-between border-b border-slate-700">
             <span class="text-xs font-mono text-slate-400">git commit -m "..."</span>
             <div class="flex gap-2">
-                <button on:click={save} class="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-slate-700 rounded text-slate-400 hover:text-white" title="Save" aria-label="Save">
+                <button on:click={share} class="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-slate-700 rounded text-slate-400 hover:text-white transition-colors" title={dictionary.commit.share} aria-label={dictionary.commit.share}>
+                    <Share2 size={16} />
+                </button>
+                <button on:click={save} class="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-slate-700 rounded text-slate-400 hover:text-white transition-colors" title="Save" aria-label="Save">
                     <Save size={16} />
                 </button>
-                <button on:click={copy} class="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-slate-700 rounded text-slate-400 hover:text-white" title={dictionary.commit.copy} aria-label={dictionary.commit.copy}>
+                <button on:click={copy} class="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-slate-700 rounded text-slate-400 hover:text-white transition-colors" title={dictionary.commit.copy} aria-label={dictionary.commit.copy}>
                     <Copy size={16} />
                 </button>
             </div>

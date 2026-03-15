@@ -3624,6 +3624,8 @@ export const dictionaries = {
           copy: "Copy Command",
           copied: "Copied!",
           explain: "Explain",
+          createAlias: "Create Alias",
+          aliasCreated: "Alias command created!",
           categories: {
             basic: "Basic",
             branching: "Branching",
@@ -3667,6 +3669,7 @@ export const dictionaries = {
           breaking: "Breaking Change?",
           preview: "Preview",
           copy: "Copy Message",
+          share: "Share",
           types: {
             feat: "Feature",
             fix: "Fix",
@@ -6571,6 +6574,8 @@ export const dictionaries = {
           copy: "명령어 복사",
           copied: "복사됨!",
           explain: "설명",
+          createAlias: "별칭 생성 (Alias)",
+          aliasCreated: "별칭 명령어가 생성되었습니다!",
           categories: {
             basic: "기본",
             branching: "브랜치",
@@ -6614,6 +6619,7 @@ export const dictionaries = {
           breaking: "파괴적 변경?",
           preview: "미리보기",
           copy: "메시지 복사",
+          share: "공유",
           types: {
             feat: "기능 (Feat)",
             fix: "버그 수정 (Fix)",

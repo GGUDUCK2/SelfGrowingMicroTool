@@ -3,7 +3,7 @@
   import { COMMANDS, generateCommand } from '$lib/utils/git-forge/commands';
   import type { CommandDefinition } from '$lib/utils/git-forge/types';
   import type { GitForgeDictionary } from './types';
-  import { Copy, Terminal, Save, HelpCircle, Zap } from 'lucide-svelte';
+  import { Copy, Terminal, Save, HelpCircle, Zap, Code } from 'lucide-svelte';
 
   export let dictionary: GitForgeDictionary;
 
@@ -22,6 +22,9 @@
 
   $: activeCommand = COMMANDS.find(c => c.id === activeCommandId) as CommandDefinition;
   $: generated = activeCommand ? generateCommand(activeCommand, formValues) : '';
+
+  // Format the generated command into a git alias command
+  $: aliasCommand = generated ? `git config --global alias.myalias "${generated.replace(/^git /, '')}"` : '';
 
   onMount(() => {
       resetForm(activeCommandId);
@@ -61,6 +64,12 @@
       dispatch('save', { type: 'command', content: generated, details: activeCommand.command });
   }
 
+  function copyAlias() {
+      navigator.clipboard.writeText(aliasCommand);
+      // Optional: dispatch a specific alias copy event, or just use the generic copy for the toast
+      dispatch('copyAlias');
+  }
+
   function handleKeydown(e: KeyboardEvent) {
       if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) return;
 
@@ -90,6 +99,14 @@
           activeCategory = 'remote';
           handleCommandChange('pull');
           formValues = { rebase: true };
+      } else if (presetId === 'squash') {
+          activeCategory = 'advanced';
+          handleCommandChange('rebase');
+          formValues = { branch: 'HEAD~3', interactive: true };
+      } else if (presetId === 'undo-soft') {
+          activeCategory = 'advanced';
+          handleCommandChange('reset');
+          formValues = { commit: 'HEAD~1', soft: true };
       }
   }
 </script>
@@ -147,6 +164,12 @@
                 <button on:click={() => loadPreset('sync')} class="min-h-[44px] flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/60 transition-colors">
                     <Zap size={14} /> Sync (Pull Rebase)
                 </button>
+                <button on:click={() => loadPreset('squash')} class="min-h-[44px] flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-orange-900/60 transition-colors">
+                    <Zap size={14} /> Squash (Last 3)
+                </button>
+                <button on:click={() => loadPreset('undo-soft')} class="min-h-[44px] flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-900/60 transition-colors">
+                    <Zap size={14} /> Undo Last Commit
+                </button>
             </div>
 
             <div class="flex items-center gap-2 mb-4">
@@ -200,30 +223,51 @@
         </div>
 
         <!-- Terminal Output -->
-        <div class="mt-auto">
-            <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">{dictionary.command.preview}</h3>
-            <div class="bg-slate-900 rounded-xl p-4 shadow-xl flex items-center justify-between group">
-                <div class="flex items-center gap-3 overflow-x-auto">
-                    <Terminal size={18} class="text-green-400 shrink-0" />
-                    <code class="font-mono text-sm text-green-400 whitespace-nowrap">$ {generated}</code>
+        <div class="mt-auto space-y-4">
+            <div>
+                <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">{dictionary.command.preview}</h3>
+                <div class="bg-slate-900 rounded-xl p-4 shadow-xl flex items-center justify-between group border border-slate-800">
+                    <div class="flex items-center gap-3 overflow-x-auto">
+                        <Terminal size={18} class="text-green-400 shrink-0" />
+                        <code class="font-mono text-sm text-green-400 whitespace-nowrap">$ {generated}</code>
+                    </div>
+                    <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+                        <button
+                            on:click={copy}
+                            class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-white/10 rounded text-slate-400 hover:text-white transition-colors"
+                            title={dictionary.command.copy}
+                            aria-label={dictionary.command.copy}
+                        >
+                            <Copy size={16} />
+                        </button>
+                        <button
+                            on:click={save}
+                            class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-white/10 rounded text-slate-400 hover:text-white transition-colors"
+                            title="Save to History"
+                            aria-label="Save to History"
+                        >
+                            <Save size={16} />
+                        </button>
+                    </div>
                 </div>
-                <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            </div>
+
+            <!-- Alias Exporter -->
+            <div>
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{dictionary.command.createAlias}</h3>
                     <button
-                        on:click={copy}
-                        class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-white/10 rounded text-slate-400 hover:text-white transition-colors"
-                        title={dictionary.command.copy}
-                        aria-label={dictionary.command.copy}
+                        on:click={copyAlias}
+                        class="text-[10px] uppercase tracking-wider font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors flex items-center gap-1"
+                        aria-label={dictionary.command.createAlias}
                     >
-                        <Copy size={16} />
+                        <Code size={12} /> {dictionary.command.copy}
                     </button>
-                    <button
-                        on:click={save}
-                        class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-white/10 rounded text-slate-400 hover:text-white transition-colors"
-                        title="Save to History"
-                        aria-label="Save to History"
-                    >
-                        <Save size={16} />
-                    </button>
+                </div>
+                <div class="bg-indigo-50/50 dark:bg-indigo-900/10 rounded-xl p-3 border border-indigo-100 dark:border-indigo-900/30">
+                    <code class="font-mono text-xs text-indigo-800 dark:text-indigo-300 break-all select-all block cursor-pointer" on:click={copyAlias} aria-label="Copy Alias Command">
+                        {aliasCommand}
+                    </code>
                 </div>
             </div>
         </div>
