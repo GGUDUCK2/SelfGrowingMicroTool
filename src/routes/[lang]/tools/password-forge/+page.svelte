@@ -1,0 +1,275 @@
+<script lang="ts">
+  import { page } from '$app/stores';
+  import { getDictionary } from '$lib/dictionaries';
+  import Head from '$lib/components/Head.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import { Shield, KeyRound, Copy, RotateCw, History } from 'lucide-svelte';
+  import { onMount } from 'svelte';
+  import { db } from '$lib/db';
+
+  import { generatePassword, generatePassphrase, getStrength, type PasswordConfig, type PassphraseConfig } from '$lib/utils/password-forge/generator';
+  import GeneratorConfig from '$lib/components/password-forge/GeneratorConfig.svelte';
+  import PassphraseConfigComponent from '$lib/components/password-forge/PassphraseConfig.svelte';
+  import StrengthMeter from '$lib/components/password-forge/StrengthMeter.svelte';
+  import HistoryPanel from '$lib/components/password-forge/HistoryPanel.svelte';
+
+  $: lang = $page.params.lang || 'en';
+  $: dict = getDictionary(lang);
+  $: t = dict.tools.passwordForge;
+
+  let mode: 'password' | 'passphrase' = 'password';
+  let password = '';
+  let entropy = 0;
+  let copied = false;
+  let copyTimeout: ReturnType<typeof setTimeout>;
+
+  let pwdConfig: PasswordConfig = {
+      length: 16,
+      uppercase: true,
+      lowercase: true,
+      numbers: true,
+      symbols: true,
+      excludeSimilar: false,
+      excludeAmbiguous: false
+  };
+
+  let phraseConfig: PassphraseConfig = {
+      words: 4,
+      separator: '-',
+      capitalize: 'first',
+      includeNumber: true
+  };
+
+  onMount(() => {
+      generate();
+  });
+
+  function generate() {
+      let result;
+      if (mode === 'password') {
+          // ensure at least one option is checked
+          if (!pwdConfig.uppercase && !pwdConfig.lowercase && !pwdConfig.numbers && !pwdConfig.symbols) {
+              pwdConfig.lowercase = true;
+          }
+          result = generatePassword(pwdConfig);
+      } else {
+          result = generatePassphrase(phraseConfig);
+      }
+      password = result.password;
+      entropy = result.entropy;
+
+      saveToHistory(password, entropy);
+  }
+
+  async function saveToHistory(pwd: string, ent: number) {
+      if (!pwd) return;
+      const strengthLabel = getStrength(ent).label;
+      await db.passwordForgeHistory.add({
+          password: pwd,
+          mode: mode,
+          length: pwd.length,
+          entropy: ent,
+          strength: strengthLabel,
+          createdAt: new Date(),
+          starred: 0
+      });
+  }
+
+  async function copyToClipboard() {
+      await navigator.clipboard.writeText(password);
+      copied = true;
+      clearTimeout(copyTimeout);
+      copyTimeout = setTimeout(() => {
+          copied = false;
+      }, 2000);
+  }
+
+  $: faqItems = [
+      { q: t.q1, a: t.a1 },
+      { q: t.q2, a: t.a2 },
+      { q: t.q3, a: t.a3 }
+  ];
+</script>
+
+<Head
+  title={t.title}
+  description={t.description}
+/>
+
+<svelte:head>
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "${t.title}",
+    "description": "${t.description}",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Web, iOS, Android, Windows, macOS, Linux",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+        "Cryptographically Secure Password Generation",
+        "xkcd-style Passphrase Generation",
+        "Password Strength Estimation",
+        "Local History Management"
+    ]
+  }
+  </script>`}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "${t.q1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${t.a1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${t.q2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${t.a2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "${t.q3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "${t.a3}"
+        }
+      }
+    ]
+  }
+  </script>`}
+</svelte:head>
+
+<div class="min-h-screen bg-slate-50 dark:bg-slate-900 pb-20 font-sans text-slate-900 dark:text-white transition-colors duration-300">
+  <div class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex items-center gap-4">
+        <div class="p-3 bg-indigo-500 rounded-2xl text-white shadow-lg shadow-indigo-500/30">
+          <KeyRound size={28} />
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+            {t.title}
+          </h1>
+          <p class="mt-1 text-slate-600 dark:text-slate-400 max-w-2xl">{t.description}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+      <!-- Left Column: Generator -->
+      <div class="lg:col-span-8 space-y-8">
+        <!-- Display Area -->
+        <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-slate-700 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+
+            <div class="flex flex-col md:flex-row gap-4 mb-6 relative z-10">
+                <div class="relative flex-grow">
+                    <input
+                        type="text"
+                        readonly
+                        bind:value={password}
+                        class="w-full bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-2xl py-4 px-6 text-2xl md:text-3xl font-mono text-center md:text-left text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors"
+                        aria-label={t.generatedPassword}
+                    />
+                </div>
+                <div class="flex gap-2">
+                    <button
+                        on:click={generate}
+                        class="flex-1 md:flex-none p-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2"
+                        title={t.regenerate}
+                        aria-label={t.regenerate}
+                    >
+                        <RotateCw size={24} />
+                    </button>
+                    <button
+                        on:click={copyToClipboard}
+                        class="flex-1 md:flex-none p-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 relative overflow-hidden"
+                        title={t.copy}
+                        aria-label={t.copy}
+                    >
+                        {#if copied}
+                            <span class="absolute inset-0 bg-green-500 flex items-center justify-center text-white font-bold transition-transform transform scale-100">
+                                {dict.common.copied}
+                            </span>
+                        {:else}
+                            <Copy size={24} />
+                        {/if}
+                    </button>
+                </div>
+            </div>
+
+            <StrengthMeter {entropy} dictionary={t} />
+        </div>
+
+        <!-- Configuration Area -->
+        <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-slate-700">
+            <!-- Tabs -->
+            <div class="flex p-1 mb-8 bg-slate-100 dark:bg-slate-900/50 rounded-xl overflow-x-auto">
+                <button
+                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] {mode === 'password' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                    on:click={() => { mode = 'password'; generate(); }}
+                >
+                    {t.modePassword}
+                </button>
+                <button
+                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] {mode === 'passphrase' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                    on:click={() => { mode = 'passphrase'; generate(); }}
+                >
+                    {t.modePassphrase}
+                </button>
+            </div>
+
+            {#if mode === 'password'}
+                <GeneratorConfig bind:config={pwdConfig} dictionary={t} onGenerate={generate} />
+            {:else}
+                <PassphraseConfigComponent bind:config={phraseConfig} dictionary={t} onGenerate={generate} />
+            {/if}
+        </div>
+
+        <!-- Documentation Area -->
+        <GuideSection
+            title={t.guide.title}
+            intro={t.guide.intro}
+            featuresTitle={t.guide.featuresTitle}
+            f1={t.guide.f1}
+            f2={t.guide.f2}
+            f3={t.guide.f3}
+            tipsTitle={t.guide.tipsTitle}
+            tip1={t.guide.tip1}
+            tip2={t.guide.tip2}
+            tip3={t.guide.tip3}
+        />
+
+        <div class="mt-8">
+            <FAQSection title={t.faqTitle} items={faqItems} />
+        </div>
+      </div>
+
+      <!-- Right Column: History -->
+      <div class="lg:col-span-4">
+        <div class="sticky top-24">
+            <HistoryPanel dictionary={t} />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
