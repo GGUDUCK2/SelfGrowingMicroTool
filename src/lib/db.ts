@@ -4,6 +4,7 @@ import type { IconConfig } from './utils/icon-forge/processor';
 import type { GridArea, GridItem } from '$lib/utils/grid-master/types';
 import type { SchemaField } from '$lib/utils/mock-forge/types';
 import type { LogicForgeHistory } from './types/logic-forge';
+import type { PasswordForgeHistory } from './types/password-forge';
 
 export interface MockForgeSchema {
   id?: number;
@@ -438,6 +439,7 @@ export interface GitForgeHistory {
 }
 
 class MySubClassedDexie extends Dexie {
+  passwordForgeHistory!: DexieTable<PasswordForgeHistory>;
   compoundInterestConfig!: DexieTable<CompoundInterestConfig>;
   compoundInterestHistory!: DexieTable<CompoundInterestHistory>;
   glassmorphismHistory!: DexieTable<GlassmorphismHistory>;
@@ -1672,7 +1674,8 @@ class MySubClassedDexie extends Dexie {
       policyForgeHistory: '++id, companyName, createdAt, starred',
       barcodeForgeHistory: '++id, createdAt, starred'
     });
-    this.version(50).stores({
+    this.version(51).stores({
+      passwordForgeHistory: '++id, createdAt, starred',
       compoundInterestConfig: '++id, updatedAt',
       compoundInterestHistory: '++id, createdAt',
       glassmorphismHistory: '++id, createdAt',

@@ -343,5 +343,20 @@
     "category": "dev",
     "tags": ["git", "gitignore", "commit", "cli", "vcs"],
     "createdAt": "2024-10-15"
+  },
+  {
+    "id": "password-forge",
+    "slug": "password-forge",
+    "title": {
+      "en": "Password Forge",
+      "ko": "패스워드 포지"
+    },
+    "description": {
+      "en": "Create cryptographically secure passwords and passphrases with deep customization and strength analysis.",
+      "ko": "심층적인 사용자 지정 및 강도 분석을 통해 암호학적으로 안전한 비밀번호와 패스프레이즈를 생성하세요."
+    },
+    "category": "util",
+    "tags": ["password", "passphrase", "generator", "security", "crypto", "entropy"],
+    "createdAt": "2024-10-25"
   }
 ]
