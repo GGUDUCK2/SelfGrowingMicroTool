@@ -17,12 +17,16 @@
   import type { GitForgeDictionary } from '$lib/components/git-forge/types';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.gitForge as GitForgeDictionary;
-  $: common = getDictionary(lang).common;
+  $: dict = getDictionary(lang)?.tools?.gitForge as GitForgeDictionary;
+  $: common = getDictionary(lang)?.common;
 
   let activeTab: 'command' | 'ignore' | 'commit' | 'doctor' = 'command';
   let showToast = false;
   let toastMessage = '';
+
+  let commandBuilderComponent: any;
+  let commitBuilderComponent: any;
+  let gitignoreGenComponent: any;
 
   function triggerToast(msg: string) {
       toastMessage = msg;
@@ -46,6 +50,26 @@
 
   function handleCopyAlias() {
       triggerToast(dict.command.aliasCreated);
+  }
+
+  function handleRestore(event: CustomEvent) {
+      const item = event.detail;
+      const type = item.input?.type;
+      if (!type) return;
+
+      activeTab = type;
+      setTimeout(() => {
+          if (type === 'command' && commandBuilderComponent) {
+              commandBuilderComponent.restoreState(item.input);
+              triggerToast('Command state restored');
+          } else if (type === 'ignore' && gitignoreGenComponent) {
+              gitignoreGenComponent.restoreState(item.input);
+              triggerToast('Ignore template restored');
+          } else if (type === 'commit' && commitBuilderComponent) {
+              commitBuilderComponent.restoreState(item.input);
+              triggerToast('Commit state restored');
+          }
+      }, 0);
   }
 
   function handleKeydown(e: KeyboardEvent) {
@@ -80,23 +104,23 @@
       }
   });
 
-  const breadcrumbSchema = {
+  $: breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": `https://selfgrowingmicrotool.com/${lang}` },
       { "@type": "ListItem", "position": 2, "name": "Tools", "item": `https://selfgrowingmicrotool.com/${lang}#tools` },
-      { "@type": "ListItem", "position": 3, "name": dict.title, "item": `https://selfgrowingmicrotool.com/${lang}/tools/git-forge` }
+      { "@type": "ListItem", "position": 3, "name": dict?.title || 'Git Forge', "item": `https://selfgrowingmicrotool.com/${lang}/tools/git-forge` }
     ]
   };
 
-  const softwareSchema = {
+  $: softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": dict.title,
-    "description": dict.description,
+    "name": dict?.title || 'Git Forge',
+    "description": dict?.description || 'Git tools',
     "applicationCategory": "DeveloperApplication",
-    "applicationSubCategory": "DeveloperApplication",
+    "applicationSubCategory": "Version Control System Tool",
     "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
     "isAccessibleForFree": true,
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -105,14 +129,15 @@
       "Gitignore File Generator",
       "Conventional Commits Builder",
       "Git Doctor for undoing mistakes",
-      "Git Alias Exporter"
+      "Git Alias Exporter",
+      "Interactive Git Log Visualizer"
     ]
   };
 
-  const howToSchema = {
+  $: howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": `How to use ${dict.title}`,
+    "name": `How to use ${dict?.title || 'Git Forge'}`,
     "step": [
       {
         "@type": "HowToStep",
@@ -135,32 +160,32 @@
     ]
   };
 
-  const faqSchema = {
+  $: faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
-        "acceptedAnswer": { "@type": "Answer", "text": dict.a1 }
+        "name": dict?.q1 || '',
+        "acceptedAnswer": { "@type": "Answer", "text": dict?.a1 || '' }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
-        "acceptedAnswer": { "@type": "Answer", "text": dict.a2 }
+        "name": dict?.q2 || '',
+        "acceptedAnswer": { "@type": "Answer", "text": dict?.a2 || '' }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
-        "acceptedAnswer": { "@type": "Answer", "text": dict.a3 }
+        "name": dict?.q3 || '',
+        "acceptedAnswer": { "@type": "Answer", "text": dict?.a3 || '' }
       }
     ]
   };
 </script>
 
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title || 'Git Forge'}
+  description={dict?.description || 'Git tools'}
   keywords="git command generator, gitignore builder, conventional commits, git tools, developer tools, git doctor, undo git commit"
   image="https://selfgrowingmicrotool.com/og/git-forge.png"
   url={`https://selfgrowingmicrotool.com/${lang}/tools/git-forge`}
@@ -191,7 +216,7 @@
              <GitBranch size={20} />
           </div>
           <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-red-600 dark:from-orange-400 dark:to-red-400">
-            {dict.title}
+            {dict?.title || 'Git Forge'}
           </h1>
         </div>
       </div>
@@ -210,28 +235,28 @@
                       class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'command' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
                   >
                       <Terminal size={16} />
-                      <span class="hidden sm:inline">{dict.tabs.command}</span>
+                      <span class="hidden sm:inline">{dict?.tabs?.command || 'Command Builder'}</span>
                   </button>
                   <button
                       on:click={() => activeTab = 'ignore'}
                       class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'ignore' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
                   >
                       <FileCode size={16} />
-                      <span class="hidden sm:inline">{dict.tabs.ignore}</span>
+                      <span class="hidden sm:inline">{dict?.tabs?.ignore || '.gitignore'}</span>
                   </button>
                   <button
                       on:click={() => activeTab = 'commit'}
                       class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'commit' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
                   >
                       <MessageSquare size={16} />
-                      <span class="hidden sm:inline">{dict.tabs.commit}</span>
+                      <span class="hidden sm:inline">{dict?.tabs?.commit || 'Commit Builder'}</span>
                   </button>
                   <button
                       on:click={() => activeTab = 'doctor'}
                       class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'doctor' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
                   >
                       <Stethoscope size={16} />
-                      <span class="hidden sm:inline">{dict.tabs.doctor}</span>
+                      <span class="hidden sm:inline">{dict?.tabs?.doctor || 'Git Doctor'}</span>
                   </button>
               </div>
 
@@ -239,15 +264,15 @@
               <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 min-h-[500px]">
                   {#if activeTab === 'command'}
                       <div transition:fade={{ duration: 200 }}>
-                          <CommandBuilder dictionary={dict} on:save={handleSave} on:copy={handleCopy} on:copyAlias={handleCopyAlias} />
+                          <CommandBuilder bind:this={commandBuilderComponent} dictionary={dict} on:save={handleSave} on:copy={handleCopy} on:copyAlias={handleCopyAlias} />
                       </div>
                   {:else if activeTab === 'ignore'}
                       <div transition:fade={{ duration: 200 }}>
-                          <GitignoreGen dictionary={dict} on:save={handleSave} on:copy={handleCopy} />
+                          <GitignoreGen bind:this={gitignoreGenComponent} dictionary={dict} on:save={handleSave} on:copy={handleCopy} />
                       </div>
                   {:else if activeTab === 'commit'}
                       <div transition:fade={{ duration: 200 }}>
-                          <CommitBuilder dictionary={dict} on:save={handleSave} on:copy={handleCopy} />
+                          <CommitBuilder bind:this={commitBuilderComponent} dictionary={dict} on:save={handleSave} on:copy={handleCopy} />
                       </div>
                   {:else if activeTab === 'doctor'}
                       <div transition:fade={{ duration: 200 }}>
@@ -257,6 +282,7 @@
               </div>
 
               <!-- Docs -->
+              {#if dict?.guide}
               <div class="mt-12 space-y-8">
                   <GuideSection
                       title={dict.guide.title}
@@ -279,12 +305,13 @@
                       ]}
                   />
               </div>
+              {/if}
           </div>
 
           <!-- Sidebar (4 cols) -->
           <div class="lg:col-span-4 space-y-6">
               <div class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 sticky top-24 h-[600px]">
-                  <HistoryPanel dictionary={dict} on:copy={handleCopy} />
+                  <HistoryPanel dictionary={dict} on:copy={handleCopy} on:restore={handleRestore} />
               </div>
           </div>
       </div>

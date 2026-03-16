@@ -33,6 +33,10 @@
       navigator.clipboard.writeText(content);
       dispatch('copy');
   }
+
+    function handleRestore(item: ToolHistoryItem) {
+        dispatch('restore', item);
+    }
 </script>
 
 <div class="h-full flex flex-col">
@@ -53,12 +57,13 @@
         {:else if $history}
             {#each $history as item (item.id)}
                 {@const payload = item.input || { type: 'command', content: '', details: '' }}
-                <div class="group relative bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-3 hover:border-indigo-400 dark:hover:border-indigo-500 transition-colors" transition:slide|local>
-                    <div class="flex items-start gap-3">
+                <div class="group relative bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-3 hover:border-indigo-400 dark:hover:border-indigo-500 transition-colors cursor-pointer" transition:slide|local>
+                    <!-- svelte-ignore a11y-click-events-have-key-events -->
+                    <div class="flex items-start gap-3 w-full" on:click={() => handleRestore(item)} role="button" tabindex="0">
                         <div class="p-1.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 mt-0.5">
                             <svelte:component this={payload.type === 'command' ? Terminal : payload.type === 'ignore' ? FileCode : MessageSquare} size={14} />
                         </div>
-                        <div class="flex-1 min-w-0">
+                        <div class="flex-1 min-w-0 text-left">
                             <div class="flex items-center justify-between">
                                 <span class="text-[10px] font-medium text-slate-400 uppercase tracking-wider">{payload.type}</span>
                                 <span class="text-[10px] text-slate-400">{new Date(item.timestamp).toLocaleTimeString()}</span>

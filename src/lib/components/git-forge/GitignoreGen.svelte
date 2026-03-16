@@ -7,6 +7,12 @@
 
   export let dictionary: GitForgeDictionary;
 
+  export function restoreState(state: any) {
+      if (!state || !state.details) return;
+      const names = state.details.split(', ');
+      selectedIds = TEMPLATES.filter(t => names.includes(t.name)).map(t => t.id);
+  }
+
   const dispatch = createEventDispatcher();
 
   let searchTerm = '';
@@ -82,6 +88,7 @@
             <Search class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
             <input
                 type="text"
+                aria-label={dictionary.ignore.search}
                 bind:value={searchTerm}
                 placeholder={dictionary.ignore.search}
                 class="min-h-[44px] w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-shadow"

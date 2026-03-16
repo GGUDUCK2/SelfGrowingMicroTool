@@ -7,6 +7,21 @@
 
   export let dictionary: GitForgeDictionary;
 
+  export function restoreState(state: any) {
+      if (!state || !state.content) return;
+      // Because we only saved the generated string and details(command name) in history,
+      // it is quite difficult to fully reverse engineer the exact formValues without a parser.
+      // However, we can at least try to find the command id from details.
+      const cmd = COMMANDS.find(c => c.command === state.details || dictionary.command.operations[c.id] === state.details);
+      if (cmd) {
+          activeCategory = cmd.category;
+          activeCommandId = cmd.id;
+          resetForm(cmd.id);
+          // We can't easily parse flags back to formValues here without a dedicated parser,
+          // so we rely on the preview generation to start fresh, or users can copy it directly.
+      }
+  }
+
   const dispatch = createEventDispatcher();
 
   let activeCategory: string = 'basic';
@@ -201,6 +216,7 @@
                                 type="text"
                                 bind:value={formValues[opt.id]}
                                 placeholder={opt.placeholder}
+                                aria-label={opt.label}
                                 class="min-h-[44px] w-full text-sm rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-shadow"
                             />
                             {#if opt.flag}
@@ -210,6 +226,7 @@
                             <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{opt.label}</label>
                             <select
                                 bind:value={formValues[opt.id]}
+                                aria-label={opt.label}
                                 class="min-h-[44px] w-full text-sm rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                             >
                                 {#each opt.options || [] as val}
@@ -265,9 +282,9 @@
                     </button>
                 </div>
                 <div class="bg-indigo-50/50 dark:bg-indigo-900/10 rounded-xl p-3 border border-indigo-100 dark:border-indigo-900/30">
-                    <code class="font-mono text-xs text-indigo-800 dark:text-indigo-300 break-all select-all block cursor-pointer" on:click={copyAlias} aria-label="Copy Alias Command">
+                    <button class="font-mono text-xs text-left w-full text-indigo-800 dark:text-indigo-300 break-all select-all block cursor-pointer min-h-[44px]" on:click={copyAlias} aria-label="Copy Alias Command">
                         {aliasCommand}
-                    </code>
+                    </button>
                 </div>
             </div>
         </div>
