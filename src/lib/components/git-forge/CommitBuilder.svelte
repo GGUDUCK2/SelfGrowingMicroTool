@@ -8,6 +8,27 @@
 
   export let dictionary: GitForgeDictionary;
 
+  export function restoreState(state: any) {
+      if (!state || !state.content) return;
+      // We parse the generated commit string back to data as best we can.
+      // format: type(scope)!: description\n\nbody\n\nfooter
+      try {
+          const match = state.content.match(/^([a-z]+)(?:\(([^)]+)\))?(!?):\s*([^\n]+)(?:\n\n([\s\S]*?))?(?:\n\nBREAKING CHANGE:.*)?$/);
+          if (match) {
+              data = {
+                  type: match[1] || 'feat',
+                  scope: match[2] || '',
+                  isBreaking: !!match[3] || state.content.includes('BREAKING CHANGE:'),
+                  description: match[4] || '',
+                  body: match[5] || '', // footer will be messy but this works for basic history
+                  footer: ''
+              };
+          }
+      } catch (e) {
+          console.error(e);
+      }
+  }
+
   const dispatch = createEventDispatcher();
 
   let data: CommitMessage = {
@@ -106,7 +127,7 @@
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <label for="commit-type" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dictionary.commit.type}</label>
-                <select id="commit-type" bind:value={data.type} class="min-h-[44px] w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500">
+                <select id="commit-type" aria-label={dictionary.commit.type} bind:value={data.type} class="min-h-[44px] w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500">
                     {#each types as t}
                         <option value={t}>{dictionary.commit.types[t] || t}</option>
                     {/each}
@@ -114,7 +135,7 @@
             </div>
             <div>
                 <label for="commit-scope" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dictionary.commit.scope}</label>
-                <input id="commit-scope" type="text" bind:value={data.scope} class="min-h-[44px] w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="auth, api, ui..." />
+                <input id="commit-scope" aria-label={dictionary.commit.scope} type="text" bind:value={data.scope} class="min-h-[44px] w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="auth, api, ui..." />
             </div>
         </div>
 
@@ -123,26 +144,26 @@
                 <label for="commit-desc" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dictionary.commit.description}</label>
                 <span class="text-xs {descWarning ? 'text-red-500 font-bold' : 'text-slate-400'}">{descLength}/50</span>
             </div>
-            <input id="commit-desc" type="text" bind:value={data.description} class="min-h-[44px] w-full rounded-lg {descWarning ? 'border-red-400 focus:ring-red-500' : 'border-slate-200 dark:border-slate-700 focus:ring-indigo-500'} bg-white dark:bg-slate-800 text-sm focus:ring-2" placeholder="add login functionality" />
+            <input id="commit-desc" aria-label={dictionary.commit.description} type="text" bind:value={data.description} class="min-h-[44px] w-full rounded-lg {descWarning ? 'border-red-400 focus:ring-red-500' : 'border-slate-200 dark:border-slate-700 focus:ring-indigo-500'} bg-white dark:bg-slate-800 text-sm focus:ring-2" placeholder="add login functionality" />
         </div>
 
         <div>
             <div class="flex justify-between mb-1">
                 <label for="commit-body" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dictionary.commit.body}</label>
                 {#if bodyWarning}
-                    <span class="text-xs text-red-500 font-bold" transition:slide|local>{bodyWarning}</span>
+                    <span class="text-xs text-red-500 font-bold">{bodyWarning}</span>
                 {/if}
             </div>
-            <textarea id="commit-body" bind:value={data.body} rows="4" class="min-h-[44px] w-full rounded-lg {bodyWarning ? 'border-red-400 focus:ring-red-500' : 'border-slate-200 dark:border-slate-700 focus:ring-indigo-500'} bg-white dark:bg-slate-800 text-sm focus:ring-2" placeholder="Detailed explanation..."></textarea>
+            <textarea id="commit-body" aria-label={dictionary.commit.body} bind:value={data.body} rows="4" class="min-h-[44px] w-full rounded-lg {bodyWarning ? 'border-red-400 focus:ring-red-500' : 'border-slate-200 dark:border-slate-700 focus:ring-indigo-500'} bg-white dark:bg-slate-800 text-sm focus:ring-2" placeholder="Detailed explanation..."></textarea>
         </div>
 
         <div>
             <label for="commit-footer" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dictionary.commit.footer}</label>
-            <textarea id="commit-footer" bind:value={data.footer} rows="2" class="min-h-[44px] w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="Closes #123"></textarea>
+            <textarea id="commit-footer" aria-label={dictionary.commit.footer} bind:value={data.footer} rows="2" class="min-h-[44px] w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="Closes #123"></textarea>
         </div>
 
         <div class="flex items-center gap-2">
-            <input type="checkbox" id="breaking" bind:checked={data.isBreaking} class="w-4 h-4 text-red-600 rounded border-gray-300 focus:ring-red-500" />
+            <input type="checkbox" aria-label={dictionary.commit.breaking} id="breaking" bind:checked={data.isBreaking} class="w-4 h-4 text-red-600 rounded border-gray-300 focus:ring-red-500" />
             <label for="breaking" class="min-h-[44px] cursor-pointer text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1">
                 <AlertTriangle size={14} class={data.isBreaking ? 'text-red-500' : 'text-slate-400'} />
                 {dictionary.commit.breaking}
@@ -178,18 +199,43 @@
                 </button>
             </div>
         </div>
-        <div class="flex-1 p-4 overflow-y-auto flex flex-col justify-center">
-            <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
-                <div class="font-mono text-sm text-yellow-400 mb-2 font-bold">{data.type}{data.scope ? `(${data.scope})` : ''}{data.isBreaking ? '!' : ''}: {data.description || '...'}</div>
-                {#if data.body}
-                    <div class="font-mono text-xs text-slate-300 whitespace-pre-wrap mb-4">{data.body}</div>
-                {/if}
-                {#if data.isBreaking}
-                    <div class="font-mono text-xs text-red-400 font-bold mb-1">BREAKING CHANGE: {data.description}</div>
-                {/if}
-                {#if data.footer}
-                    <div class="font-mono text-xs text-slate-400 whitespace-pre-wrap">{data.footer}</div>
-                {/if}
+        <div class="flex-1 p-4 overflow-y-auto flex flex-col">
+            <!-- Git Log Graph Preview -->
+            <div class="flex-1 flex flex-col items-start gap-3 mb-6 relative px-2 pt-4">
+                <div class="absolute left-6 top-8 bottom-0 w-0.5 bg-slate-700"></div>
+
+                <div class="flex gap-4 w-full relative z-10">
+                    <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center shrink-0 border-4 border-slate-900 shadow-sm z-10 text-slate-400 font-mono text-[10px]">d4f2</div>
+                    <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50 flex-1 max-w-sm">
+                        <div class="font-mono text-xs text-slate-400 truncate">docs: update readme</div>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 w-full relative z-10">
+                    <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center shrink-0 border-4 border-slate-900 shadow-sm z-10 text-slate-400 font-mono text-[10px]">1a9b</div>
+                    <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50 flex-1 max-w-sm">
+                        <div class="font-mono text-xs text-slate-400 truncate">fix: resolve dependency conflict</div>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 w-full relative z-10 mt-2 transition-all">
+                    <div class="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center shrink-0 border-4 border-slate-900 shadow-lg z-10 ring-2 ring-indigo-500/50 text-white font-mono text-[10px] animate-pulse">new</div>
+                    <div class="bg-indigo-900/20 p-4 rounded-lg border border-indigo-500/30 flex-1 shadow-lg backdrop-blur-sm relative">
+                        <div class="absolute -left-2 top-4 w-2 h-2 bg-indigo-500/30 rotate-45"></div>
+                        <div class="font-mono text-sm text-yellow-400 mb-2 font-bold break-all">
+                            {data.type}{data.scope ? `(${data.scope})` : ''}{data.isBreaking ? '!' : ''}: {data.description || '...'}
+                        </div>
+                        {#if data.body}
+                            <div class="font-mono text-xs text-slate-300 whitespace-pre-wrap mb-4">{data.body}</div>
+                        {/if}
+                        {#if data.isBreaking}
+                            <div class="font-mono text-xs text-red-400 font-bold mb-1">BREAKING CHANGE: {data.description}</div>
+                        {/if}
+                        {#if data.footer}
+                            <div class="font-mono text-xs text-slate-400 whitespace-pre-wrap break-words">{data.footer}</div>
+                        {/if}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
