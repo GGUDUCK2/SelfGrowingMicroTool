@@ -24,8 +24,8 @@
   </div>
 
   <div class="space-y-4">
-    <div>
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{dictionary.separator}</label>
+    <div role="group" aria-labelledby="separatorLabel">
+      <p id="separatorLabel" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{dictionary.separator}</p>
       <div class="grid grid-cols-4 gap-2">
         {#each [{val: '-', label: 'Hyphen (-)'}, {val: ' ', label: 'Space'}, {val: '.', label: 'Period'}, {val: ',', label: 'Comma'}] as sep}
         <button
@@ -38,8 +38,8 @@
       </div>
     </div>
 
-    <div>
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{dictionary.capitalize}</label>
+    <div role="group" aria-labelledby="capitalizeLabel">
+      <p id="capitalizeLabel" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{dictionary.capitalize}</p>
       <div class="grid grid-cols-3 gap-2">
         {#each ['none', 'first', 'all'] as cap}
         <button

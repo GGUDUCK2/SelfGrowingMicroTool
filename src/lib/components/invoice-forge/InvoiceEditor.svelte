@@ -84,17 +84,18 @@
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <!-- Sender -->
     <div class="space-y-3">
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wide text-xs">{dictionary.editor.from}</label>
-      <input type="text" bind:value={invoice.sender.name} placeholder="Your Name / Company" class="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-transparent" />
-      <input type="email" bind:value={invoice.sender.email} placeholder="Email (Optional)" class="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-transparent" />
-      <textarea bind:value={invoice.sender.address} placeholder="Address" rows="3" class="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-transparent resize-none"></textarea>
+      <label for="invoiceSenderName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wide text-xs">{dictionary.editor.from}</label>
+      <input id="invoiceSenderName" type="text" bind:value={invoice.sender.name} placeholder="Your Name / Company" class="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-transparent" />
+      <input aria-label="Sender Email" type="email" bind:value={invoice.sender.email} placeholder="Email (Optional)" class="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-transparent" />
+      <textarea aria-label="Sender Address" bind:value={invoice.sender.address} placeholder="Address" rows="3" class="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-transparent resize-none"></textarea>
     </div>
 
     <!-- Client -->
     <div class="space-y-3 relative">
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wide text-xs">{dictionary.editor.to}</label>
+      <label for="invoiceClientName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wide text-xs">{dictionary.editor.to}</label>
       <div class="relative">
           <input
+            id="invoiceClientName"
             type="text"
             bind:value={invoice.client.name}
             placeholder="Client Name"
@@ -116,28 +117,28 @@
             </div>
           {/if}
       </div>
-      <input type="email" bind:value={invoice.client.email} placeholder="Client Email" class="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-transparent" />
-      <textarea bind:value={invoice.client.address} placeholder="Client Address" rows="3" class="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-transparent resize-none"></textarea>
+      <input aria-label="Client Email" type="email" bind:value={invoice.client.email} placeholder="Client Email" class="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-transparent" />
+      <textarea aria-label="Client Address" bind:value={invoice.client.address} placeholder="Client Address" rows="3" class="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-transparent resize-none"></textarea>
     </div>
   </div>
 
   <!-- Meta -->
   <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
      <div class="space-y-1">
-        <label class="text-xs font-medium text-gray-500 dark:text-gray-400">{dictionary.editor.number}</label>
-        <input type="text" bind:value={invoice.meta.number} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none font-mono" />
+        <label for="invoiceNumber" class="text-xs font-medium text-gray-500 dark:text-gray-400">{dictionary.editor.number}</label>
+        <input id="invoiceNumber" type="text" bind:value={invoice.meta.number} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none font-mono" />
      </div>
      <div class="space-y-1">
-        <label class="text-xs font-medium text-gray-500 dark:text-gray-400">{dictionary.editor.date}</label>
-        <input type="date" bind:value={invoice.meta.date} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none" />
+        <label for="invoiceDate" class="text-xs font-medium text-gray-500 dark:text-gray-400">{dictionary.editor.date}</label>
+        <input id="invoiceDate" type="date" bind:value={invoice.meta.date} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none" />
      </div>
      <div class="space-y-1">
-        <label class="text-xs font-medium text-gray-500 dark:text-gray-400">{dictionary.editor.dueDate}</label>
-        <input type="date" bind:value={invoice.meta.dueDate} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none" />
+        <label for="invoiceDueDate" class="text-xs font-medium text-gray-500 dark:text-gray-400">{dictionary.editor.dueDate}</label>
+        <input id="invoiceDueDate" type="date" bind:value={invoice.meta.dueDate} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none" />
      </div>
      <div class="space-y-1">
-        <label class="text-xs font-medium text-gray-500 dark:text-gray-400">{dictionary.editor.currency}</label>
-        <input type="text" bind:value={invoice.settings.currency} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none text-center font-bold" />
+        <label for="invoiceCurrency" class="text-xs font-medium text-gray-500 dark:text-gray-400">{dictionary.editor.currency}</label>
+        <input id="invoiceCurrency" type="text" bind:value={invoice.settings.currency} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none text-center font-bold" />
      </div>
   </div>
 
@@ -154,16 +155,16 @@
         {#each invoice.items as item (item.id)}
             <div transition:slide|local class="flex flex-wrap sm:flex-nowrap gap-2 items-start bg-gray-50 dark:bg-gray-700/30 p-2 rounded-md group">
                 <div class="grow w-full sm:w-auto">
-                    <input type="text" bind:value={item.description} placeholder={dictionary.editor.itemDesc} class="w-full p-2 rounded bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700" />
+                    <input aria-label={dictionary.editor.itemDesc} type="text" bind:value={item.description} placeholder={dictionary.editor.itemDesc} class="w-full p-2 rounded bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700" />
                 </div>
                 <div class="w-20 shrink-0">
-                    <input type="number" bind:value={item.quantity} min="0" step="1" placeholder={dictionary.editor.quantity} class="w-full p-2 rounded bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-center" />
+                    <input aria-label={dictionary.editor.quantity} type="number" bind:value={item.quantity} min="0" step="1" placeholder={dictionary.editor.quantity} class="w-full p-2 rounded bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-center" />
                 </div>
                 <div class="w-24 shrink-0">
-                    <input type="number" bind:value={item.price} min="0" step="0.01" placeholder={dictionary.editor.price} class="w-full p-2 rounded bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-right" />
+                    <input aria-label={dictionary.editor.price} type="number" bind:value={item.price} min="0" step="0.01" placeholder={dictionary.editor.price} class="w-full p-2 rounded bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-right" />
                 </div>
                 <div class="w-8 shrink-0 flex justify-center pt-2">
-                    <button on:click={() => removeItem(item.id)} class="text-gray-400 hover:text-red-500 transition-colors">
+                    <button aria-label="Remove item" on:click={() => removeItem(item.id)} class="text-gray-400 hover:text-red-500 transition-colors">
                         <Trash2 size={18} />
                     </button>
                 </div>
@@ -175,21 +176,21 @@
   <!-- Totals & Notes -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-200 dark:border-gray-700">
      <div class="space-y-2">
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{dictionary.editor.notes}</label>
-        <textarea bind:value={invoice.meta.notes} rows="4" class="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-transparent resize-none"></textarea>
+        <label for="invoiceNotes" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{dictionary.editor.notes}</label>
+        <textarea id="invoiceNotes" bind:value={invoice.meta.notes} rows="4" class="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-transparent resize-none"></textarea>
      </div>
      <div class="space-y-3">
         <div class="flex items-center justify-between">
-            <label class="text-sm text-gray-600 dark:text-gray-400">{dictionary.editor.taxRate}</label>
+            <label for="invoiceTaxRate" class="text-sm text-gray-600 dark:text-gray-400">{dictionary.editor.taxRate}</label>
             <div class="w-24 relative">
-                <input type="number" bind:value={invoice.settings.taxRate} min="0" step="0.1" class="w-full p-1 text-right rounded border border-gray-300 dark:border-gray-600 bg-transparent pr-6" />
+                <input id="invoiceTaxRate" type="number" bind:value={invoice.settings.taxRate} min="0" step="0.1" class="w-full p-1 text-right rounded border border-gray-300 dark:border-gray-600 bg-transparent pr-6" />
                 <span class="absolute right-2 top-1.5 text-xs text-gray-500">%</span>
             </div>
         </div>
         <div class="flex items-center justify-between">
-            <label class="text-sm text-gray-600 dark:text-gray-400">{dictionary.editor.discount}</label>
+            <label for="invoiceDiscount" class="text-sm text-gray-600 dark:text-gray-400">{dictionary.editor.discount}</label>
             <div class="w-24 relative">
-                <input type="number" bind:value={invoice.settings.discount} min="0" step="0.1" class="w-full p-1 text-right rounded border border-gray-300 dark:border-gray-600 bg-transparent pr-6" />
+                <input id="invoiceDiscount" type="number" bind:value={invoice.settings.discount} min="0" step="0.1" class="w-full p-1 text-right rounded border border-gray-300 dark:border-gray-600 bg-transparent pr-6" />
                 <span class="absolute right-2 top-1.5 text-xs text-gray-500">%</span>
             </div>
         </div>

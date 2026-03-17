@@ -241,6 +241,7 @@
                 on:click={() => showHistory = false}
                 aria-label="Close History"
               ></button>
+              <!-- svelte-ignore a11y-no-noninteractive-element-to-interactive-role -->
               <aside class="fixed inset-y-0 right-0 z-50 w-80 bg-white dark:bg-slate-900 shadow-2xl transform transition-transform duration-300 lg:hidden" class:translate-x-0={showHistory} class:translate-x-full={!showHistory} aria-modal="true" role="dialog" aria-label="History">
                   <HistoryPanel {dict} onSelect={(expr) => { loadFromHistory(expr); showHistory = false; }} />
               </aside>

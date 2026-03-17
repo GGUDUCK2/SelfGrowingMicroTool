@@ -64,8 +64,8 @@
         </div>
 
         <div class="space-y-4">
-            <div>
-                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Format</label>
+            <div role="group" aria-labelledby="formatLabel">
+                <p id="formatLabel" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Format</p>
                 <div class="grid grid-cols-3 gap-2">
                     {#each ['wkt', 'geojson', 'csv', 'kml', 'gpx'] as fmt}
                         <button

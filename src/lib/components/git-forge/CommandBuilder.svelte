@@ -211,8 +211,9 @@
                                 <div class="text-[10px] font-mono text-slate-400 mt-1">{opt.flag}</div>
                             {/if}
                         {:else if opt.type === 'string'}
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{opt.label}</label>
+                            <label for="string-{opt.id}" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{opt.label}</label>
                             <input
+                                id="string-{opt.id}"
                                 type="text"
                                 bind:value={formValues[opt.id]}
                                 placeholder={opt.placeholder}
@@ -223,8 +224,9 @@
                                 <div class="text-[10px] font-mono text-slate-400 mt-1">{opt.flag || 'Positional'}</div>
                             {/if}
                         {:else if opt.type === 'select'}
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{opt.label}</label>
+                            <label for="select-{opt.id}" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{opt.label}</label>
                             <select
+                                id="select-{opt.id}"
                                 bind:value={formValues[opt.id]}
                                 aria-label={opt.label}
                                 class="min-h-[44px] w-full text-sm rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"

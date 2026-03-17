@@ -152,6 +152,8 @@
 
    <!-- Backdrop -->
    {#if showSidebar}
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div class="fixed inset-0 bg-black/50 z-40 md:hidden" on:click={() => showSidebar = false} transition:fade></div>
    {/if}
 

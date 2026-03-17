@@ -309,7 +309,7 @@
 
           <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
              <div class="flex-1 w-full">
-                <label class="block text-sm font-medium text-gray-700 mb-1 ml-1">{dict.input}</label>
+                 <label for="logicInput" class="block text-sm font-medium text-gray-700 mb-1 ml-1">{dict.input}</label>
                 <div class={mode === 'designer' ? 'pointer-events-none opacity-60' : ''}>
                     <ExpressionInput {lang} label={dict.input} bind:value={expression} {error} on:submit={() => analyze(true)} on:input={() => { if(error) error = null; }} />
                 </div>
