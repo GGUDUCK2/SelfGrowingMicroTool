@@ -50,6 +50,8 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   bind:this={container}
   class="relative w-full max-w-4xl h-64 overflow-y-hidden bg-white dark:bg-slate-800 rounded-xl shadow-inner border-2 border-slate-200 dark:border-slate-700 p-8 font-mono text-2xl leading-relaxed outline-none transition-all duration-200 {focused ? 'border-indigo-500 dark:border-indigo-500 ring-4 ring-indigo-500 ring-opacity-20' : ''}"

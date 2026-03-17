@@ -16,7 +16,6 @@
     import { zenStore } from '$lib/stores/zen-forge';
     import type { ZenForgeDictionary } from '$lib/types/zen-forge';
 
-    export let data;
     $: dict = getDictionary($page.params.lang).tools.zenForge as ZenForgeDictionary;
 
     onMount(() => {

@@ -122,6 +122,8 @@
 </script>
 
 <div class="flex flex-col gap-4">
+  <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+  <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
   <div class="relative bg-white dark:bg-slate-900 rounded-xl shadow border border-slate-200 dark:border-slate-700 overflow-hidden cursor-move touch-none"
        style="height: 400px;"
        role="application"
