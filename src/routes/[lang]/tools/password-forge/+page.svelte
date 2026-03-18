@@ -13,6 +13,7 @@
   import PassphraseConfigComponent from '$lib/components/password-forge/PassphraseConfig.svelte';
   import StrengthMeter from '$lib/components/password-forge/StrengthMeter.svelte';
   import HistoryPanel from '$lib/components/password-forge/HistoryPanel.svelte';
+  import SmartExamples from '$lib/components/password-forge/SmartExamples.svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
@@ -41,9 +42,52 @@
       includeNumber: true
   };
 
+  function applyPasswordConfig(c: PasswordConfig) {
+      mode = 'password';
+      pwdConfig = { ...c };
+      generate();
+  }
+
+  function applyPassphraseConfig(c: PassphraseConfig) {
+      mode = 'passphrase';
+      phraseConfig = { ...c };
+      generate();
+  }
+
   onMount(() => {
       generate();
   });
+
+  function handleKeydown(e: KeyboardEvent) {
+    if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) return;
+    if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+      // Only copy the password if there is no text selected on the page
+      if (!window.getSelection()?.toString()) {
+        e.preventDefault();
+        copyToClipboard();
+      }
+    } else if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      e.preventDefault();
+      generate();
+    } else if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      password = '';
+      entropy = 0;
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      mode = 'password';
+      pwdConfig = {
+        length: 16,
+        uppercase: true,
+        lowercase: true,
+        numbers: true,
+        symbols: true,
+        excludeSimilar: false,
+        excludeAmbiguous: false
+      };
+      generate();
+    }
+  }
 
   function generate() {
       let result;
@@ -154,6 +198,8 @@
   </script>`}
 </svelte:head>
 
+<svelte:window on:keydown={handleKeydown} />
+
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 pb-20 font-sans text-slate-900 dark:text-white transition-colors duration-300">
   <div class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -186,7 +232,7 @@
                         type="text"
                         readonly
                         bind:value={password}
-                        class="w-full bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-2xl py-4 px-6 text-2xl md:text-3xl font-mono text-center md:text-left text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors"
+                        class="w-full min-h-[44px] bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-2xl py-4 px-6 text-2xl md:text-3xl font-mono text-center md:text-left text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors"
                         aria-label={t.generatedPassword}
                     />
                 </div>
@@ -218,6 +264,8 @@
 
             <StrengthMeter {entropy} dictionary={t} />
         </div>
+
+        <SmartExamples dictionary={t} onApplyPassword={applyPasswordConfig} onApplyPassphrase={applyPassphraseConfig} />
 
         <!-- Configuration Area -->
         <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-slate-700">

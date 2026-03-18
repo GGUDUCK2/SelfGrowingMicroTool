@@ -25,7 +25,8 @@
       max="128"
       bind:value={config.length}
       on:input={() => onGenerate()}
-      class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700 accent-indigo-600"
+      class="w-full h-2 min-h-[44px] bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700 accent-indigo-600"
+      aria-label={dictionary.length}
     />
   </div>
 
