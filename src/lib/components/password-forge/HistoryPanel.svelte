@@ -2,7 +2,7 @@
   import { db } from '$lib/db';
   import { liveQuery } from 'dexie';
   import type { PasswordForgeHistory } from '$lib/types/password-forge';
-  import { Copy, Trash2, Shield, Hash, Star } from 'lucide-svelte';
+  import { Copy, Trash2, Shield, Hash, Star, Download } from 'lucide-svelte';
 
   export let dictionary: any;
 
@@ -27,6 +27,28 @@
   function formatDate(date: Date) {
       return new Intl.DateTimeFormat('default', { hour: 'numeric', minute: 'numeric', month: 'short', day: 'numeric' }).format(date);
   }
+
+  function downloadCsv() {
+    if (!$history || $history.length === 0) return;
+
+    let csv = 'Password,Mode,Length,Entropy,Strength,Created At,Starred\n';
+    $history.forEach(item => {
+      // Escape quotes for CSV
+      const safePwd = item.password.replace(/"/g, '""');
+      const dateStr = item.createdAt.toISOString();
+      csv += `"${safePwd}","${item.mode}",${item.length},${item.entropy},"${item.strength}","${dateStr}",${item.starred ? 'Yes' : 'No'}\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('href', url);
+    a.setAttribute('download', 'password_history.csv');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }
 </script>
 
 <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
@@ -35,14 +57,25 @@
       <Shield size={18} class="text-indigo-500" />
       {dictionary.history}
     </h2>
-    <button
-      on:click={clearHistory}
-      class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium px-3 py-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
-      aria-label={dictionary.clearHistory}
-      title={dictionary.clearHistory}
-    >
-      {dictionary.clearHistory}
-    </button>
+    <div class="flex gap-2">
+      <button
+        on:click={downloadCsv}
+        class="text-sm text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium px-3 py-1.5 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors flex items-center justify-center min-h-[44px]"
+        aria-label={dictionary.downloadCsv}
+        title={dictionary.downloadCsv}
+      >
+        <Download size={16} class="mr-1 hidden sm:inline-block" />
+        <span class="sr-only sm:not-sr-only">{dictionary.downloadCsv}</span>
+      </button>
+      <button
+        on:click={clearHistory}
+        class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium px-3 py-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors min-h-[44px]"
+        aria-label={dictionary.clearHistory}
+        title={dictionary.clearHistory}
+      >
+        {dictionary.clearHistory}
+      </button>
+    </div>
   </div>
 
   <div class="max-h-[600px] overflow-y-auto p-2">

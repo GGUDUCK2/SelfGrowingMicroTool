@@ -3567,6 +3567,14 @@ export const dictionaries = {
         none: "None",
         first: "First Letter",
         all: "All Uppercase",
+        downloadCsv: "Download CSV",
+        presets: {
+          title: "Smart Presets",
+          pin: "PIN Code (6 digits)",
+          wifi: "Wi-Fi Key",
+          apple: "Apple-style (15 chars)",
+          crypto: "Crypto Seed (12 words)"
+        },
         guide: {
           title: "The Ultimate Guide to Secure Passwords",
           intro: "Creating strong passwords is the first line of defense in cybersecurity. Password Forge gives you the tools to create uncrackable passwords and memorable passphrases.",
@@ -6569,6 +6577,14 @@ export const dictionaries = {
         none: "없음",
         first: "첫 글자만",
         all: "모두 대문자",
+        downloadCsv: "CSV 내보내기",
+        presets: {
+          title: "스마트 프리셋",
+          pin: "PIN 번호 (6자리)",
+          wifi: "Wi-Fi 비밀번호",
+          apple: "애플 스타일 (15자리)",
+          crypto: "암호화폐 시드 (12단어)"
+        },
         guide: {
           title: "안전한 비밀번호를 위한 완벽 가이드",
           intro: "강력한 비밀번호를 만드는 것은 사이버 보안의 첫 번째 방어선입니다. 패스워드 포지는 해독할 수 없는 비밀번호와 기억하기 쉬운 패스프레이즈를 만들 수 있는 도구를 제공합니다.",
