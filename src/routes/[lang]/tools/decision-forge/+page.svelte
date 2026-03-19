@@ -44,6 +44,31 @@
     ]
   };
 
+  $: breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `https://selfgrowingmicrotool.com/${lang}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": `https://selfgrowingmicrotool.com/${lang}/tools`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": t.title,
+        "item": `https://selfgrowingmicrotool.com/${lang}/tools/decision-forge`
+      }
+    ]
+  };
+
   let showSidebar = false;
 
   function toggleSidebar() {
@@ -60,6 +85,7 @@
 
 <svelte:head>
   {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbLd) + '</script>'}
 
   {@html `<script type="application/ld+json">
   {
@@ -103,7 +129,7 @@
       <div class="flex items-center gap-4">
         <button
           on:click={toggleSidebar}
-          class="lg:hidden p-2 text-gray-500 hover:text-indigo-600 transition-colors"
+          class="lg:hidden p-2 text-gray-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
           aria-label={showSidebar ? 'Close Sidebar' : 'Open Sidebar'}
         >
           {#if showSidebar}
