@@ -196,6 +196,33 @@
     ]
   }
   </script>`}
+
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://microtools.app/${lang === 'en' ? '' : lang + '/'}"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": "https://microtools.app/${lang === 'en' ? '' : lang + '/'}tools"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "${t.title}",
+        "item": "https://microtools.app/${lang === 'en' ? '' : lang + '/'}tools/password-forge"
+      }
+    ]
+  }
+  </script>`}
 </svelte:head>
 
 <svelte:window on:keydown={handleKeydown} />
