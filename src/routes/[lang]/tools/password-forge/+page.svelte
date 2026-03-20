@@ -8,18 +8,25 @@
   import { onMount } from 'svelte';
   import { db } from '$lib/db';
 
-  import { generatePassword, generatePassphrase, getStrength, type PasswordConfig, type PassphraseConfig } from '$lib/utils/password-forge/generator';
+  import { generatePassword, generatePassphrase, generatePronounceable, getStrength, type PasswordConfig, type PassphraseConfig, type PronounceableConfig } from '$lib/utils/password-forge/generator';
   import GeneratorConfig from '$lib/components/password-forge/GeneratorConfig.svelte';
   import PassphraseConfigComponent from '$lib/components/password-forge/PassphraseConfig.svelte';
+  import PronounceableConfigComponent from '$lib/components/password-forge/PronounceableConfig.svelte';
+  import PasswordAnalyzer from '$lib/components/password-forge/PasswordAnalyzer.svelte';
   import StrengthMeter from '$lib/components/password-forge/StrengthMeter.svelte';
   import HistoryPanel from '$lib/components/password-forge/HistoryPanel.svelte';
   import SmartExamples from '$lib/components/password-forge/SmartExamples.svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.passwordForge;
+  $: t = {
+      ...dict.tools.passwordForge,
+      modePronounceable: dict.tools.passwordForge.modePronounceable || 'Pronounceable',
+      modeAnalyzer: dict.tools.passwordForge.modeAnalyzer || 'Analyzer',
+      analyzer: dict.tools.passwordForge.analyzer || {}
+  };
 
-  let mode: 'password' | 'passphrase' = 'password';
+  let mode: 'password' | 'passphrase' | 'pronounceable' | 'analyzer' = 'password';
   let password = '';
   let entropy = 0;
   let copied = false;
@@ -40,6 +47,12 @@
       separator: '-',
       capitalize: 'first',
       includeNumber: true
+  };
+
+  let pronounceConfig: PronounceableConfig = {
+      length: 12,
+      includeNumber: true,
+      includeSymbol: false
   };
 
   function applyPasswordConfig(c: PasswordConfig) {
@@ -90,6 +103,7 @@
   }
 
   function generate() {
+      if (mode === 'analyzer') return;
       let result;
       if (mode === 'password') {
           // ensure at least one option is checked
@@ -97,6 +111,8 @@
               pwdConfig.lowercase = true;
           }
           result = generatePassword(pwdConfig);
+      } else if (mode === 'pronounceable') {
+          result = generatePronounceable(pronounceConfig);
       } else {
           result = generatePassphrase(phraseConfig);
       }
@@ -104,6 +120,20 @@
       entropy = result.entropy;
 
       saveToHistory(password, entropy);
+  }
+
+  function handleUseGenerated() {
+      mode = 'password';
+      pwdConfig = {
+          length: 16,
+          uppercase: true,
+          lowercase: true,
+          numbers: true,
+          symbols: true,
+          excludeSimilar: false,
+          excludeAmbiguous: false
+      };
+      generate();
   }
 
   async function saveToHistory(pwd: string, ent: number) {
@@ -130,9 +160,9 @@
   }
 
   $: faqItems = [
-      { q: t.q1, a: t.a1 },
-      { q: t.q2, a: t.a2 },
-      { q: t.q3, a: t.a3 }
+      { q: t?.faq?.q1 || t?.q1 || '', a: t?.faq?.a1 || t?.a1 || '' },
+      { q: t?.faq?.q2 || t?.q2 || '', a: t?.faq?.a2 || t?.a2 || '' },
+      { q: t?.faq?.q3 || t?.q3 || '', a: t?.faq?.a3 || t?.a3 || '' }
   ];
 </script>
 
@@ -165,36 +195,36 @@
   </script>`}
 
   {@html `<script type="application/ld+json">
-  {
+  ${JSON.stringify({
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${t.q1}",
+        "name": t?.faq?.q1 || t?.q1 || '',
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${t.a1}"
+          "text": t?.faq?.a1 || t?.a1 || ''
         }
       },
       {
         "@type": "Question",
-        "name": "${t.q2}",
+        "name": t?.faq?.q2 || t?.q2 || '',
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${t.a2}"
+          "text": t?.faq?.a2 || t?.a2 || ''
         }
       },
       {
         "@type": "Question",
-        "name": "${t.q3}",
+        "name": t?.faq?.q3 || t?.q3 || '',
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${t.a3}"
+          "text": t?.faq?.a3 || t?.a3 || ''
         }
       }
     ]
-  }
+  })}
   </script>`}
 
   {@html `<script type="application/ld+json">
@@ -250,49 +280,51 @@
       <!-- Left Column: Generator -->
       <div class="lg:col-span-8 space-y-8">
         <!-- Display Area -->
-        <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-slate-700 relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+        {#if mode !== 'analyzer'}
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-slate-700 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
 
-            <div class="flex flex-col md:flex-row gap-4 mb-6 relative z-10">
-                <div class="relative flex-grow">
-                    <input
-                        type="text"
-                        readonly
-                        bind:value={password}
-                        class="w-full min-h-[44px] bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-2xl py-4 px-6 text-2xl md:text-3xl font-mono text-center md:text-left text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors"
-                        aria-label={t.generatedPassword}
-                    />
+                <div class="flex flex-col md:flex-row gap-4 mb-6 relative z-10">
+                    <div class="relative flex-grow">
+                        <input
+                            type="text"
+                            readonly
+                            bind:value={password}
+                            class="w-full min-h-[44px] bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-2xl py-4 px-6 text-2xl md:text-3xl font-mono text-center md:text-left text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors"
+                            aria-label={t.generatedPassword}
+                        />
+                    </div>
+                    <div class="flex gap-2">
+                        <button
+                            on:click={generate}
+                            class="flex-1 md:flex-none p-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2"
+                            title={t.regenerate}
+                            aria-label={t.regenerate}
+                        >
+                            <RotateCw size={24} />
+                        </button>
+                        <button
+                            on:click={copyToClipboard}
+                            class="flex-1 md:flex-none p-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 relative overflow-hidden"
+                            title={t.copy}
+                            aria-label={t.copy}
+                        >
+                            {#if copied}
+                                <span class="absolute inset-0 bg-green-500 flex items-center justify-center text-white font-bold transition-transform transform scale-100">
+                                    {dict.common.copied}
+                                </span>
+                            {:else}
+                                <Copy size={24} />
+                            {/if}
+                        </button>
+                    </div>
                 </div>
-                <div class="flex gap-2">
-                    <button
-                        on:click={generate}
-                        class="flex-1 md:flex-none p-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2"
-                        title={t.regenerate}
-                        aria-label={t.regenerate}
-                    >
-                        <RotateCw size={24} />
-                    </button>
-                    <button
-                        on:click={copyToClipboard}
-                        class="flex-1 md:flex-none p-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 relative overflow-hidden"
-                        title={t.copy}
-                        aria-label={t.copy}
-                    >
-                        {#if copied}
-                            <span class="absolute inset-0 bg-green-500 flex items-center justify-center text-white font-bold transition-transform transform scale-100">
-                                {dict.common.copied}
-                            </span>
-                        {:else}
-                            <Copy size={24} />
-                        {/if}
-                    </button>
-                </div>
+
+                <StrengthMeter {entropy} dictionary={t} />
             </div>
 
-            <StrengthMeter {entropy} dictionary={t} />
-        </div>
-
-        <SmartExamples dictionary={t} onApplyPassword={applyPasswordConfig} onApplyPassphrase={applyPassphraseConfig} />
+            <SmartExamples dictionary={t} onApplyPassword={applyPasswordConfig} onApplyPassphrase={applyPassphraseConfig} />
+        {/if}
 
         <!-- Configuration Area -->
         <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-slate-700">
@@ -310,12 +342,28 @@
                 >
                     {t.modePassphrase}
                 </button>
+                <button
+                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] {mode === 'pronounceable' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                    on:click={() => { mode = 'pronounceable'; generate(); }}
+                >
+                    {t.modePronounceable || 'Pronounceable'}
+                </button>
+                <button
+                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] {mode === 'analyzer' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                    on:click={() => { mode = 'analyzer'; }}
+                >
+                    {t.modeAnalyzer || 'Analyzer'}
+                </button>
             </div>
 
             {#if mode === 'password'}
                 <GeneratorConfig bind:config={pwdConfig} dictionary={t} onGenerate={generate} />
-            {:else}
+            {:else if mode === 'passphrase'}
                 <PassphraseConfigComponent bind:config={phraseConfig} dictionary={t} onGenerate={generate} />
+            {:else if mode === 'pronounceable'}
+                <PronounceableConfigComponent bind:config={pronounceConfig} dictionary={t} onGenerate={generate} />
+            {:else if mode === 'analyzer'}
+                <PasswordAnalyzer dictionary={t} onUseGenerated={handleUseGenerated} />
             {/if}
         </div>
 

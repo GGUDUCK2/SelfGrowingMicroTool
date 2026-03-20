@@ -17,6 +17,19 @@ export interface PassphraseConfig {
     includeNumber: boolean;
 }
 
+export interface PronounceableConfig {
+    length: number;
+    includeNumber: boolean;
+    includeSymbol: boolean;
+}
+
+export interface PasswordAnalysis {
+    score: number; // 1-5
+    entropy: number;
+    feedback: string[];
+    isVulnerable: boolean; // simple check like dictionary word or consecutive chars
+}
+
 const CHAR_SETS = {
     uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
     lowercase: 'abcdefghijklmnopqrstuvwxyz',
@@ -55,7 +68,7 @@ export function generatePassword(config: PasswordConfig): { password: string, en
 
     // Ensure at least one character from each selected set is included
     // This is a naive approach but works well enough for general use
-    let positions = Array.from({ length: config.length }, (_, i) => i);
+    const positions = Array.from({ length: config.length }, (_, i) => i);
     // shuffle positions
     for (let i = positions.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -91,7 +104,7 @@ export function generatePassword(config: PasswordConfig): { password: string, en
 
 export function generatePassphrase(config: PassphraseConfig): { password: string, entropy: number } {
     let password = '';
-    let selectedWords = [];
+    const selectedWords = [];
 
     for(let i=0; i<config.words; i++) {
         const randomArray = new Uint32Array(1);
@@ -122,11 +135,102 @@ export function generatePassphrase(config: PassphraseConfig): { password: string
     password = selectedWords.join(config.separator);
 
     // Entropy = log2(wordlist_size ^ num_words) + optional number entropy
-    let poolSize = wordlist.length;
+    const poolSize = wordlist.length;
     let entropy = config.words * Math.log2(poolSize);
     if (config.includeNumber) entropy += Math.log2(9);
 
     return { password, entropy };
+}
+
+export function generatePronounceable(config: PronounceableConfig): { password: string, entropy: number } {
+    const consonants = 'bcdfghjklmnpqrstvwxyz';
+    const vowels = 'aeiou';
+    const symbols = '!@#$%&*';
+    const numbers = '0123456789';
+    let password = '';
+    let isConsonant = true; // start with consonant usually looks better
+
+    // reserve space for number/symbol
+    const coreLength = config.length - (config.includeNumber ? 1 : 0) - (config.includeSymbol ? 1 : 0);
+
+    for (let i = 0; i < coreLength; i++) {
+        const pool = isConsonant ? consonants : vowels;
+        const array = new Uint32Array(1);
+        crypto.getRandomValues(array);
+        let char = pool[array[0] % pool.length];
+
+        // Randomly uppercase
+        if (crypto.getRandomValues(new Uint32Array(1))[0] % 10 === 0) {
+            char = char.toUpperCase();
+        }
+
+        password += char;
+        isConsonant = !isConsonant; // alternate
+    }
+
+    if (config.includeNumber) {
+        const array = new Uint32Array(1);
+        crypto.getRandomValues(array);
+        const char = numbers[array[0] % numbers.length];
+        password += char;
+    }
+    if (config.includeSymbol) {
+        const array = new Uint32Array(1);
+        crypto.getRandomValues(array);
+        const char = symbols[array[0] % symbols.length];
+        password += char;
+    }
+
+    // Entropy approximation: (consonants * vowels) pattern + symbols/numbers
+    let poolSize = (consonants.length + vowels.length) / 2; // average
+    if (config.includeNumber) poolSize += numbers.length;
+    if (config.includeSymbol) poolSize += symbols.length;
+
+    const entropy = calculateEntropy(poolSize, config.length);
+    return { password, entropy };
+}
+
+export function analyzePassword(password: string): PasswordAnalysis {
+    let entropy = 0;
+    let poolSize = 0;
+    const feedback: string[] = [];
+    let isVulnerable = false;
+
+    if (!password) {
+        return { score: 0, entropy: 0, feedback: ["Password is empty."], isVulnerable: true };
+    }
+
+    if (/[a-z]/.test(password)) poolSize += 26;
+    if (/[A-Z]/.test(password)) poolSize += 26;
+    if (/[0-9]/.test(password)) poolSize += 10;
+    if (/[^a-zA-Z0-9]/.test(password)) poolSize += 32;
+
+    entropy = calculateEntropy(poolSize, password.length);
+
+    if (password.length < 8) {
+        feedback.push("Password is too short. Aim for at least 12 characters.");
+        isVulnerable = true;
+    }
+    if (!/[A-Z]/.test(password)) feedback.push("Add uppercase letters to increase strength.");
+    if (!/[0-9]/.test(password)) feedback.push("Add numbers to increase strength.");
+    if (!/[^a-zA-Z0-9]/.test(password)) feedback.push("Add symbols (e.g. !@#$) to increase strength.");
+
+    // Simple consecutive check (123, abc)
+    if (/(abc|bcd|cde|def|efg|fgh|ghi|hij|ijk|jkl|klm|lmn|mno|nop|opq|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz|012|123|234|345|456|567|678|789)/i.test(password)) {
+        feedback.push("Contains common consecutive characters (e.g. '123' or 'abc').");
+        isVulnerable = true;
+    }
+
+    // Repeated chars check (aaa, 111)
+    if (/(.)\1{2,}/.test(password)) {
+        feedback.push("Contains repeated characters (e.g. 'aaa').");
+        isVulnerable = true;
+    }
+
+    let score = getStrength(entropy).score;
+    if (isVulnerable) score = Math.max(1, score - 1); // penalize
+
+    return { score, entropy, feedback, isVulnerable };
 }
 
 function calculateEntropy(poolSize: number, length: number): number {

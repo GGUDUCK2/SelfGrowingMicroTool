@@ -1,7 +1,7 @@
 export interface PasswordForgeHistory {
     id?: number;
     password: string;
-    mode: 'password' | 'passphrase';
+    mode: 'password' | 'passphrase' | 'pronounceable';
     length: number;
     entropy: number;
     strength: string;
