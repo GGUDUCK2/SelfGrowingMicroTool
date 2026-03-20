@@ -9,7 +9,7 @@
   import { generateInsightReport } from '$lib/utils/log-prism/report';
   import type { LogEntry } from '$lib/utils/log-prism/types';
   import { logPrismDB, pruneHistory } from '$lib/db/log-prism';
-  import { Download, Upload, AlertTriangle, Activity, Trash2, FileJson, List, LayoutGrid, X, FileText } from 'lucide-svelte';
+  import { Download, Upload, AlertTriangle, Activity, Trash2, FileJson, List, LayoutGrid, X, FileText, ChevronLeft } from 'lucide-svelte';
 
   import LogUploader from '$lib/components/log-prism/LogUploader.svelte';
   import LogViewer from '$lib/components/log-prism/LogViewer.svelte';
@@ -228,6 +228,25 @@
       { keys: ['?'], desc: 'Shortcuts' }
   ];
 
+  $: breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `https://selfgrowingmicrotool.com/${lang}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": dict.title,
+        "item": `https://selfgrowingmicrotool.com/${lang}/tools/log-prism`
+      }
+    ]
+  };
+
 </script>
 <Head
   title={dict.title}
@@ -295,6 +314,7 @@
     ]
   }
   </script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
 
 </svelte:head>
 
@@ -303,6 +323,9 @@
     <!-- Header -->
     <header class="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 sm:px-6 shrink-0 z-30">
         <div class="flex items-center gap-3">
+             <a href="/{lang}" aria-label="Back" class="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center p-2 -ml-2 rounded-lg">
+                 <ChevronLeft size={20} />
+             </a>
              <div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400">
                 <Activity size={20} />
             </div>
@@ -313,7 +336,7 @@
 
         <div class="flex items-center gap-3">
             <button
-                class="p-2 text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px]"
+                class="p-2 text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                 on:click={() => showHistory = !showHistory}
                 title="History"
                 aria-label="Toggle History"
@@ -330,7 +353,7 @@
                 </div>
 
                 <button
-                    class="p-2 text-slate-500 hover:text-indigo-600 transition-colors relative min-h-[44px]"
+                    class="p-2 text-slate-500 hover:text-indigo-600 transition-colors relative min-h-[44px] min-w-[44px] flex items-center justify-center"
                     on:click={handleReport}
                     title={dict.report?.title || "Insight Report"}
                     aria-label="Generate Insight Report"
@@ -344,7 +367,7 @@
                 </button>
 
                 <button
-                    class="p-2 text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px]"
+                    class="p-2 text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                     on:click={exportJson}
                     title={dict.export}
                     aria-label={dict.export}
@@ -353,7 +376,7 @@
                 </button>
 
                  <button
-                    class="p-2 text-slate-500 hover:text-red-600 transition-colors min-h-[44px]"
+                    class="p-2 text-slate-500 hover:text-red-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                     on:click={clear}
                     title={dict.clear}
                     aria-label={dict.clear}
@@ -374,7 +397,7 @@
                 <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-6 w-full max-w-sm border border-slate-200 dark:border-slate-800" on:click|stopPropagation role="document">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="font-bold text-lg text-slate-900 dark:text-white">Keyboard Shortcuts</h3>
-                        <button on:click={() => showShortcuts = false} class="text-slate-400 hover:text-slate-600">
+                        <button on:click={() => showShortcuts = false} class="text-slate-400 hover:text-slate-600 min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-lg">
                             <X size={20} />
                         </button>
                     </div>
@@ -420,7 +443,7 @@
                     <LogFilter bind:searchTerm bind:selectedLevels {dict} />
                     <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1 mr-2 gap-1">
                          <button
-                            class="p-2 rounded-md transition-colors {viewMode === 'list' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-indigo-600'} min-h-[44px]"
+                            class="p-2 rounded-md transition-colors {viewMode === 'list' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-indigo-600'} min-h-[44px] min-w-[44px] flex items-center justify-center"
                             on:click={() => viewMode = 'list'}
                             title="List View"
                             aria-label="Switch to List View"
@@ -428,7 +451,7 @@
                             <List size={18} />
                          </button>
                          <button
-                            class="p-2 rounded-md transition-colors {viewMode === 'cluster' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-indigo-600'} min-h-[44px]"
+                            class="p-2 rounded-md transition-colors {viewMode === 'cluster' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-indigo-600'} min-h-[44px] min-w-[44px] flex items-center justify-center"
                             on:click={() => viewMode = 'cluster'}
                             title="Cluster View"
                             aria-label="Switch to Cluster View"

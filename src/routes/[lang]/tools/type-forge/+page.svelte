@@ -22,6 +22,25 @@
   let currentFont: LoadedFont | null = null;
   let showHistory = false;
 
+  $: breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": common.home || "Home",
+        "item": `https://selfgrowingmicrotool.com/${lang}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": dict.title,
+        "item": `https://selfgrowingmicrotool.com/${lang}/tools/type-forge`
+      }
+    ]
+  };
+
   async function handleLoad(event: CustomEvent<LoadedFont>) {
       currentFont = event.detail;
       // Save to history
@@ -108,6 +127,7 @@
     ]
   }
   </script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
 
 </svelte:head>
 
@@ -116,7 +136,7 @@
   <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <a href="/{lang}" aria-label={common.back} class="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors">
+        <a href="/{lang}" aria-label={common.back} class="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center p-2 -ml-2 rounded-lg">
           <ChevronLeft size={20} />
         </a>
         <div class="flex items-center space-x-2">
@@ -132,7 +152,7 @@
       <div class="flex items-center gap-2">
           <button
               on:click={() => showHistory = !showHistory}
-              class="p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors"
+              class="p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg"
               title={dict.history.title}
           >
               <History size={20} />
@@ -158,7 +178,7 @@
                               <span>{currentFont.font.numGlyphs} Glyphs</span>
                           </div>
                       </div>
-                      <button on:click={() => currentFont = null} class="text-sm text-indigo-600 hover:underline">
+                      <button on:click={() => currentFont = null} class="text-sm text-indigo-600 hover:underline min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-lg">
                           Upload New
                       </button>
                   </div>
