@@ -44,7 +44,7 @@
     />
     <button
       on:click={() => dispatch('submit')}
-      class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors"
+      class="px-4 py-2 min-h-[44px] min-w-[44px] bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors"
     >
       {dict.analyze}
     </button>

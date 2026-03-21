@@ -108,9 +108,9 @@
             </p>
         </div>
         <div class="flex gap-2">
-             <button class="btn-secondary text-xs" on:click={() => dispatch('cancel')}>Cancel</button>
+             <button class="btn-secondary text-xs min-h-[44px]" on:click={() => dispatch('cancel')}>Cancel</button>
              <button
-                class="btn-primary text-xs disabled:opacity-50 disabled:cursor-not-allowed"
+                class="btn-primary text-xs disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
                 disabled={getUnresolvedCount() > 0}
                 on:click={handleApply}
             >
@@ -148,7 +148,7 @@
                                 {block.original}
                             </div>
                             <button
-                                class="p-2 text-xs font-medium text-center hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors border-t border-gray-200 dark:border-gray-700
+                                class="p-2 min-h-[44px] text-xs font-medium text-center hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors border-t border-gray-200 dark:border-gray-700
                                 {block.resolved === 'original' ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300' : 'text-gray-600 dark:text-gray-400'}"
                                 on:click={() => resolveBlock(block.id, 'original')}
                             >
@@ -165,7 +165,7 @@
                                 {block.modified}
                             </div>
                             <button
-                                class="p-2 text-xs font-medium text-center hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors border-t border-gray-200 dark:border-gray-700
+                                class="p-2 min-h-[44px] text-xs font-medium text-center hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors border-t border-gray-200 dark:border-gray-700
                                 {block.resolved === 'modified' ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-400'}"
                                 on:click={() => resolveBlock(block.id, 'modified')}
                             >
@@ -175,7 +175,7 @@
                     </div>
 
                     <button
-                        class="w-full p-2 text-xs font-medium text-center border-t border-gray-200 dark:border-gray-700 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors
+                        class="w-full p-2 min-h-[44px] text-xs font-medium text-center border-t border-gray-200 dark:border-gray-700 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors
                         {block.resolved === 'both' ? 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300' : 'text-gray-500 dark:text-gray-400'}"
                         on:click={() => resolveBlock(block.id, 'both')}
                     >
