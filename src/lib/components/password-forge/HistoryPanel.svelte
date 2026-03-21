@@ -2,11 +2,17 @@
   import { db } from '$lib/db';
   import { liveQuery } from 'dexie';
   import type { PasswordForgeHistory } from '$lib/types/password-forge';
-  import { Copy, Trash2, Shield, Hash, Star, Download } from 'lucide-svelte';
+  import { Copy, Trash2, Shield, Hash, Star, Download, AlertTriangle } from 'lucide-svelte';
 
   export let dictionary: any;
 
   let history = liveQuery(() => db.passwordForgeHistory.orderBy('createdAt').reverse().limit(50).toArray());
+
+  const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+
+  function isExpired(date: Date) {
+      return (Date.now() - date.getTime()) > THIRTY_DAYS_MS;
+  }
 
   async function copyToClipboard(text: string) {
     await navigator.clipboard.writeText(text);
@@ -93,9 +99,15 @@
                 <div class="font-mono text-sm text-slate-900 dark:text-slate-100 truncate mb-1 bg-white dark:bg-slate-900 px-2 py-1 rounded inline-block border border-slate-200 dark:border-slate-700">
                     {item.password.substring(0, 16)}{item.password.length > 16 ? '...' : ''}
                 </div>
-                <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-1">
                   <span class="capitalize px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-[10px] font-medium">{item.mode}</span>
                   <span>{formatDate(item.createdAt)}</span>
+                  {#if isExpired(item.createdAt)}
+                    <span class="flex items-center text-amber-600 dark:text-amber-500 bg-amber-50 dark:bg-amber-900/30 px-1.5 py-0.5 rounded text-[10px] font-medium" title={dictionary.rotateSuggested || 'Over 30 days old. Consider rotating.'}>
+                        <AlertTriangle size={10} class="mr-1" />
+                        {dictionary.expired || 'Old'}
+                    </span>
+                  {/if}
                 </div>
               </div>
 
