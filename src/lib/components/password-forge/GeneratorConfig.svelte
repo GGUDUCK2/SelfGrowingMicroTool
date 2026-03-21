@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PasswordConfig } from '$lib/utils/password-forge/generator';
-  import { Shield, Shuffle } from 'lucide-svelte';
+  import { Shield, Shuffle, Copy, Download, Upload } from 'lucide-svelte';
 
   export let config: PasswordConfig;
   export let dictionary: any;
@@ -10,9 +10,47 @@
     config[key] = value;
     onGenerate();
   }
+
+  let showRecipe = false;
+  let recipeText = '';
+
+  function exportRecipe() {
+      try {
+          const recipe = btoa(encodeURIComponent(JSON.stringify(config)));
+          navigator.clipboard.writeText(recipe);
+          recipeText = dictionary.recipeCopied || 'Recipe Copied!';
+          showRecipe = true;
+          setTimeout(() => { showRecipe = false; }, 2000);
+      } catch (e) {
+          alert(dictionary.error || 'Export failed');
+      }
+  }
+
+  function importRecipe() {
+      const recipe = prompt(dictionary.pasteRecipe || 'Paste Recipe:');
+      if (recipe) {
+          try {
+              const parsed = JSON.parse(decodeURIComponent(atob(recipe)));
+              if (parsed && typeof parsed === 'object') {
+                  config = { ...config, ...parsed };
+                  onGenerate();
+              }
+          } catch (e) {
+              alert(dictionary.invalidRecipe || 'Invalid Recipe');
+          }
+      }
+  }
 </script>
 
 <div class="space-y-6">
+  <div class="flex justify-end gap-2 mb-2">
+      <button class="text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1 transition-colors" on:click={exportRecipe}>
+          <Copy size={14} /> {showRecipe ? recipeText : (dictionary.exportRecipe || 'Export Recipe')}
+      </button>
+      <button class="text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1 transition-colors" on:click={importRecipe}>
+          <Upload size={14} /> {dictionary.importRecipe || 'Import Recipe'}
+      </button>
+  </div>
   <div>
     <label for="length-slider" class="flex justify-between text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
       <span>{dictionary.length}</span>

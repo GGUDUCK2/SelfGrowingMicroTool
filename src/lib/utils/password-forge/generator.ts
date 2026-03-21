@@ -15,6 +15,7 @@ export interface PassphraseConfig {
     separator: string;
     capitalize: 'none' | 'first' | 'all';
     includeNumber: boolean;
+    template?: string; // e.g. "word-number-word-symbol"
 }
 
 export interface PronounceableConfig {
@@ -104,7 +105,41 @@ export function generatePassword(config: PasswordConfig): { password: string, en
 
 export function generatePassphrase(config: PassphraseConfig): { password: string, entropy: number } {
     let password = '';
-    const selectedWords = [];
+    const selectedWords: string[] = [];
+    const symbols = '!@#$%^&*()_+~`|}{[]:;?><,./-=';
+
+    // Fallback if template is provided but empty
+    if (config.template) {
+        let parts = config.template.split('-');
+        let templateEntropy = 0;
+
+        parts.forEach((part, index) => {
+            if (part === 'word') {
+                const randomArray = new Uint32Array(1);
+                crypto.getRandomValues(randomArray);
+                let word = wordlist[randomArray[0] % wordlist.length];
+                if (config.capitalize === 'all') word = word.toUpperCase();
+                else if (config.capitalize === 'first') word = word.charAt(0).toUpperCase() + word.slice(1);
+                selectedWords.push(word);
+                templateEntropy += Math.log2(wordlist.length);
+            } else if (part === 'number') {
+                const randomArray = new Uint32Array(1);
+                crypto.getRandomValues(randomArray);
+                const num = randomArray[0] % 100; // 0-99
+                selectedWords.push(num.toString());
+                templateEntropy += Math.log2(100);
+            } else if (part === 'symbol') {
+                const randomArray = new Uint32Array(1);
+                crypto.getRandomValues(randomArray);
+                const sym = symbols[randomArray[0] % symbols.length];
+                selectedWords.push(sym);
+                templateEntropy += Math.log2(symbols.length);
+            }
+        });
+
+        password = selectedWords.join(config.separator);
+        return { password, entropy: templateEntropy };
+    }
 
     for(let i=0; i<config.words; i++) {
         const randomArray = new Uint32Array(1);

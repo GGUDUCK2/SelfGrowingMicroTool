@@ -1,12 +1,51 @@
 <script lang="ts">
   import type { PassphraseConfig } from '$lib/utils/password-forge/generator';
+  import { Copy, Upload } from 'lucide-svelte';
 
   export let config: PassphraseConfig;
   export let dictionary: any;
   export let onGenerate: () => void;
+
+  let showRecipe = false;
+  let recipeText = '';
+
+  function exportRecipe() {
+      try {
+          const recipe = btoa(encodeURIComponent(JSON.stringify(config)));
+          navigator.clipboard.writeText(recipe);
+          recipeText = dictionary.recipeCopied || 'Recipe Copied!';
+          showRecipe = true;
+          setTimeout(() => { showRecipe = false; }, 2000);
+      } catch (e) {
+          alert(dictionary.error || 'Export failed');
+      }
+  }
+
+  function importRecipe() {
+      const recipe = prompt(dictionary.pasteRecipe || 'Paste Recipe:');
+      if (recipe) {
+          try {
+              const parsed = JSON.parse(decodeURIComponent(atob(recipe)));
+              if (parsed && typeof parsed === 'object') {
+                  config = { ...config, ...parsed };
+                  onGenerate();
+              }
+          } catch (e) {
+              alert(dictionary.invalidRecipe || 'Invalid Recipe');
+          }
+      }
+  }
 </script>
 
 <div class="space-y-6">
+  <div class="flex justify-end gap-2 mb-2">
+      <button class="text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1 transition-colors" on:click={exportRecipe}>
+          <Copy size={14} /> {showRecipe ? recipeText : (dictionary.exportRecipe || 'Export Recipe')}
+      </button>
+      <button class="text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1 transition-colors" on:click={importRecipe}>
+          <Upload size={14} /> {dictionary.importRecipe || 'Import Recipe'}
+      </button>
+  </div>
   <div>
     <label for="words-slider" class="flex justify-between text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
       <span>{dictionary.words}</span>
@@ -25,6 +64,33 @@
   </div>
 
   <div class="space-y-4">
+    <div role="group" aria-labelledby="templateLabel">
+      <p id="templateLabel" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{dictionary.template || 'Template (Optional)'}</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <input
+          type="text"
+          bind:value={config.template}
+          on:input={() => onGenerate()}
+          placeholder="e.g. word-word-number-symbol"
+          class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-500 min-h-[44px]"
+        />
+        <div class="flex gap-2">
+            <button
+                class="flex-1 py-2 px-2 border rounded-lg text-xs text-center font-medium min-h-[44px] bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700"
+                on:click={() => {config.template = 'word-number-word-symbol'; onGenerate()}}
+            >
+                word-number-word-symbol
+            </button>
+            <button
+                class="flex-1 py-2 px-2 border rounded-lg text-xs text-center font-medium min-h-[44px] bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700"
+                on:click={() => {config.template = ''; onGenerate()}}
+            >
+                {dictionary.clear || 'Clear'}
+            </button>
+        </div>
+      </div>
+    </div>
+
     <div role="group" aria-labelledby="separatorLabel">
       <p id="separatorLabel" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{dictionary.separator}</p>
       <div class="grid grid-cols-4 gap-2">

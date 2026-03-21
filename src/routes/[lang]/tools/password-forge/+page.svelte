@@ -189,7 +189,10 @@
         "Cryptographically Secure Password Generation",
         "xkcd-style Passphrase Generation",
         "Password Strength Estimation",
-        "Local History Management"
+        "Local History Management",
+        "Password Recipe Export/Import",
+        "Structural Template Passphrases",
+        "Smart Expiry Detection"
     ]
   }
   </script>`}
