@@ -108,6 +108,31 @@
     ]
   };
 
+  $: breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `https://selfgrowingmicrotool.com/${data.lang}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": `https://selfgrowingmicrotool.com/${data.lang}#tools`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": t.title,
+        "item": `https://selfgrowingmicrotool.com/${data.lang}/tools/color-master`
+      }
+    ]
+  };
+
   // --- Derived State ---
   $: harmonies = getHarmonies(baseColor, harmonyType);
   $: displayedHarmonies = visionType === 'none'
@@ -252,6 +277,7 @@
   {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(howToSchema)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
 </svelte:head>
 
 <Head
@@ -290,18 +316,19 @@
   {#if showShortcuts}
     <div
         transition:fade
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
-        role="presentation"
-        on:click={closeShortcuts}
-        on:keydown={(e) => e.key === 'Escape' && closeShortcuts()}
+        class="fixed inset-0 z-50 flex items-center justify-center"
     >
+        <button
+            class="absolute inset-0 w-full h-full bg-black/50 backdrop-blur-sm border-none cursor-default"
+            on:click={closeShortcuts}
+            on:keydown={(e) => e.key === 'Escape' && closeShortcuts()}
+            aria-label="Close shortcuts"
+        ></button>
         <div
-            class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-2xl max-w-sm w-full mx-4"
+            class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-2xl max-w-sm w-full mx-4 relative z-10"
             role="dialog"
             tabindex="-1"
             aria-labelledby="shortcuts-title"
-            on:click|stopPropagation
-            on:keydown|stopPropagation
         >
             <h3 id="shortcuts-title" class="text-xl font-bold mb-4 dark:text-white">{t.shortcutsHelp}</h3>
             <ul class="space-y-2">
