@@ -61,7 +61,7 @@
         {#if $history && $history.length > 0}
             <button
                 on:click={exportHistory}
-                class="p-1.5 text-slate-400 hover:text-indigo-400 hover:bg-slate-700 rounded transition-colors"
+                class="p-1.5 text-slate-400 hover:text-indigo-400 hover:bg-slate-700 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                 title={t.export || "Export CSV"}
                 aria-label={t.export || "Export CSV"}
             >
@@ -70,7 +70,7 @@
         {/if}
         <button
           on:click={clearHistory}
-          class="text-xs text-red-400 hover:text-red-300 transition-colors flex items-center px-2 py-1 rounded hover:bg-red-900/20"
+          class="text-xs text-red-400 hover:text-red-300 transition-colors flex items-center justify-center px-2 py-1 rounded hover:bg-red-900/20 min-h-[44px] min-w-[44px]"
           aria-label={t.clear}
         >
           <Trash2 size={12} class="mr-1" />
@@ -92,7 +92,7 @@
              </span>
              <button
                 on:click={() => toggleFavorite(item.id!)}
-                class="text-slate-600 hover:text-yellow-400 transition-colors"
+                class="text-slate-600 hover:text-yellow-400 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label="Toggle Favorite"
              >
                 <Star size={14} fill={item.isFavorite ? "currentColor" : "none"} class={item.isFavorite ? "text-yellow-400" : ""} />
@@ -100,7 +100,7 @@
           </div>
 
           <button
-            class="w-full text-left"
+            class="w-full text-left min-h-[44px] flex items-center"
             on:click={() => restore(item)}
             aria-label="Restore conversion"
           >

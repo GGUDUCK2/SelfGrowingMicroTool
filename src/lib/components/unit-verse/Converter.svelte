@@ -154,14 +154,14 @@
           type="number"
           inputmode="decimal"
           bind:value={inputValue}
-          class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-2xl font-mono text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+          class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-2xl font-mono text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all min-h-[44px]"
           placeholder="0"
         />
       </div>
 
       <select
         bind:value={fromUnitId}
-        class="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500"
+        class="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]"
         aria-label="{t.from} unit"
       >
         {#each units as unit}
@@ -174,7 +174,7 @@
     <div class="flex justify-center z-10">
       <button
         on:click={swap}
-        class="p-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95"
+        class="p-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95 min-h-[44px] min-w-[44px] flex items-center justify-center"
         aria-label={t.swap}
       >
         <ArrowRightLeft size={20} class="transform md:rotate-0 rotate-90" />
@@ -197,7 +197,7 @@
 
         <button
             on:click={copyResult}
-            class="absolute right-2 top-2 p-2 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded transition-colors"
+            class="absolute right-2 top-2 p-2 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
             title={t.copy}
             aria-label={t.copy}
         >
@@ -211,7 +211,7 @@
 
       <select
         bind:value={toUnitId}
-        class="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500"
+        class="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]"
         aria-label="{t.to} unit"
       >
         {#each units as unit}
@@ -248,7 +248,7 @@
           <div class="flex bg-slate-900 rounded-lg p-1 border border-slate-700">
              {#each [2, 4, 6, 10] as p}
                  <button
-                    class="px-3 py-2 text-sm rounded-md transition-colors {precision === p ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}"
+                    class="px-3 py-2 text-sm rounded-md transition-colors min-h-[44px] min-w-[44px] {precision === p ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}"
                     on:click={() => precision = p}
                     aria-label="{t.precision} {p}"
                     aria-pressed={precision === p}
