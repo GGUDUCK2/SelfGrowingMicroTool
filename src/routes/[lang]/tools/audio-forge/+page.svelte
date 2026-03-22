@@ -5,10 +5,12 @@
   import Workspace from '$lib/components/audio-forge/Workspace.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
+  import { ChevronLeft, Headphones } from 'lucide-svelte';
 
   $: lang = $page.params.lang || 'en';
   // Fallback if dictionary key doesn't exist yet (during development)
   $: dict = getDictionary(lang);
+  $: common = dict.common || { back: "Back", home: "Home" };
   $: toolDict = dict.tools.audioForge || {
       title: "Audio Forge",
       description: "Professional Audio Editor",
@@ -100,14 +102,28 @@
 
 <div class="flex flex-col min-h-screen">
     <!-- Header -->
-    <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 py-4 px-6 flex justify-between items-center">
-        <div>
-            <h1 class="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
-                {toolDict.title}
-            </h1>
-            <p class="text-sm text-slate-500 dark:text-slate-400 hidden sm:block">
-                {toolDict.description}
-            </p>
+    <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between w-full">
+            <div class="flex items-center space-x-3">
+                <a href="/{lang}" aria-label={common.back} class="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center p-2 -ml-2 rounded-lg">
+                    <ChevronLeft size={20} />
+                </a>
+                <div class="flex items-center space-x-2">
+                    <div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400">
+                        <Headphones size={20} />
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
+                            {toolDict.title}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden sm:block">
+                <p class="text-sm text-slate-500 dark:text-slate-400">
+                    {toolDict.description}
+                </p>
+            </div>
         </div>
     </header>
 
