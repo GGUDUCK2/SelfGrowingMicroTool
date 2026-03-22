@@ -80,6 +80,37 @@
           alert('Import failed: ' + err);
       }
   }
+
+  $: schemas = [
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "SQL Forge",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Client-side SQL Engine",
+        "CSV to SQL Import",
+        "JSON to SQL Import",
+        "Query History",
+        "Export Results to CSV"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": t.q1, "acceptedAnswer": { "@type": "Answer", "text": t.a1 } },
+        { "@type": "Question", "name": t.q2, "acceptedAnswer": { "@type": "Answer", "text": t.a2 } },
+        { "@type": "Question", "name": t.q3, "acceptedAnswer": { "@type": "Answer", "text": t.a3 } }
+      ]
+    }
+  ];
 </script>
 <Head
   title={t.title}
@@ -88,38 +119,7 @@
 
 
 <svelte:head>
-      {@html `<script type="application/ld+json">
-    [
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "SQL Forge",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "Any",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "featureList": [
-          "Client-side SQL Engine",
-          "CSV to SQL Import",
-          "JSON to SQL Import",
-          "Query History",
-          "Export Results to CSV"
-        ]
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          { "@type": "Question", "name": "${t.q1}", "acceptedAnswer": { "@type": "Answer", "text": "${t.a1}" } },
-          { "@type": "Question", "name": "${t.q2}", "acceptedAnswer": { "@type": "Answer", "text": "${t.a2}" } },
-          { "@type": "Question", "name": "${t.q3}", "acceptedAnswer": { "@type": "Answer", "text": "${t.a3}" } }
-        ]
-      }
-    ]
-  </script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(schemas)}</script>`}
 </svelte:head>
 
 <div class="h-[calc(100vh-4rem)] flex flex-col bg-gray-50 dark:bg-gray-900">
