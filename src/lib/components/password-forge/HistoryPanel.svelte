@@ -4,7 +4,7 @@
   import type { PasswordForgeHistory } from '$lib/types/password-forge';
   import { Copy, Trash2, Shield, Hash, Star, Download, AlertTriangle } from 'lucide-svelte';
 
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   let history = liveQuery(() => db.passwordForgeHistory.orderBy('createdAt').reverse().limit(50).toArray());
 
