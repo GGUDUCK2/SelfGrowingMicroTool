@@ -16,6 +16,7 @@
   import StrengthMeter from '$lib/components/password-forge/StrengthMeter.svelte';
   import HistoryPanel from '$lib/components/password-forge/HistoryPanel.svelte';
   import SmartExamples from '$lib/components/password-forge/SmartExamples.svelte';
+  import FormattedPassword from '$lib/components/password-forge/FormattedPassword.svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
@@ -31,6 +32,7 @@
   let entropy = 0;
   let copied = false;
   let copyTimeout: ReturnType<typeof setTimeout>;
+  let showPhonetics = false;
 
   let pwdConfig: PasswordConfig = {
       length: 16,
@@ -159,6 +161,25 @@
       }, 2000);
   }
 
+  const natoPhoneticMap: Record<string, string> = {
+    A: 'Alpha', B: 'Bravo', C: 'Charlie', D: 'Delta', E: 'Echo', F: 'Foxtrot',
+    G: 'Golf', H: 'Hotel', I: 'India', J: 'Juliett', K: 'Kilo', L: 'Lima',
+    M: 'Mike', N: 'November', O: 'Oscar', P: 'Papa', Q: 'Quebec', R: 'Romeo',
+    S: 'Sierra', T: 'Tango', U: 'Uniform', V: 'Victor', W: 'Whiskey', X: 'X-ray',
+    Y: 'Yankee', Z: 'Zulu',
+    '0': 'Zero', '1': 'One', '2': 'Two', '3': 'Three', '4': 'Four',
+    '5': 'Five', '6': 'Six', '7': 'Seven', '8': 'Eight', '9': 'Nine'
+  };
+
+  function getPhonetic(char: string): string {
+    const upper = char.toUpperCase();
+    if (natoPhoneticMap[upper]) {
+      return natoPhoneticMap[upper];
+    }
+    if (char === ' ') return '(Space)';
+    return char; // Return the symbol itself
+  }
+
   $: faqItems = [
       { q: t?.faq?.q1 || t?.q1 || '', a: t?.faq?.a1 || t?.a1 || '' },
       { q: t?.faq?.q2 || t?.q2 || '', a: t?.faq?.a2 || t?.a2 || '' },
@@ -172,12 +193,12 @@
 />
 
 <svelte:head>
-  {@html `<script type="application/ld+json">
-  {
+  <!-- eslint-disable svelte/no-at-html-tags -->
+  {@html `<script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "${t.title}",
-    "description": "${t.description}",
+    "name": t.title,
+    "description": t.description,
     "applicationCategory": "SecurityApplication",
     "operatingSystem": "Web, iOS, Android, Windows, macOS, Linux",
     "offers": {
@@ -194,11 +215,9 @@
         "Structural Template Passphrases",
         "Smart Expiry Detection"
     ]
-  }
-  </script>`}
+  })}</script>`}
 
-  {@html `<script type="application/ld+json">
-  ${JSON.stringify({
+  {@html `<script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
@@ -227,11 +246,9 @@
         }
       }
     ]
-  })}
-  </script>`}
+  })}</script>`}
 
-  {@html `<script type="application/ld+json">
-  {
+  {@html `<script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
@@ -239,23 +256,23 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://microtools.app/${lang === 'en' ? '' : lang + '/'}"
+        "item": `https://microtools.app/${lang === 'en' ? '' : lang + '/'}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": "https://microtools.app/${lang === 'en' ? '' : lang + '/'}tools"
+        "item": `https://microtools.app/${lang === 'en' ? '' : lang + '/'}tools`
       },
       {
         "@type": "ListItem",
         "position": 3,
-        "name": "${t.title}",
-        "item": "https://microtools.app/${lang === 'en' ? '' : lang + '/'}tools/password-forge"
+        "name": t.title,
+        "item": `https://microtools.app/${lang === 'en' ? '' : lang + '/'}tools/password-forge`
       }
     ]
-  }
-  </script>`}
+  })}</script>`}
+  <!-- eslint-enable svelte/no-at-html-tags -->
 </svelte:head>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -289,13 +306,7 @@
 
                 <div class="flex flex-col md:flex-row gap-4 mb-6 relative z-10">
                     <div class="relative flex-grow">
-                        <input
-                            type="text"
-                            readonly
-                            bind:value={password}
-                            class="w-full min-h-[44px] bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-2xl py-4 px-6 text-2xl md:text-3xl font-mono text-center md:text-left text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors"
-                            aria-label={t.generatedPassword}
-                        />
+                        <FormattedPassword {password} ariaLabel={t.generatedPassword} />
                     </div>
                     <div class="flex gap-2">
                         <button
@@ -322,6 +333,31 @@
                         </button>
                     </div>
                 </div>
+
+                <!-- Phonetic Aid Toggle -->
+                <div class="flex justify-end mb-4 relative z-10">
+                    <button
+                        class="text-sm font-medium flex items-center gap-2 px-3 py-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] {showPhonetics ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+                        on:click={() => showPhonetics = !showPhonetics}
+                        aria-pressed={showPhonetics}
+                    >
+                        <Shield size={16} />
+                        {t.phoneticToggle || 'Phonetic Aid'}
+                    </button>
+                </div>
+
+                {#if showPhonetics}
+                    <div class="mb-6 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-700 overflow-x-auto relative z-10">
+                        <div class="flex flex-wrap gap-2">
+                            {#each password.split('') as char, i}
+                                <div class="flex flex-col items-center justify-center bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 min-w-[48px]">
+                                    <span class="text-xs text-slate-500 dark:text-slate-400 font-mono mb-1">{char}</span>
+                                    <span class="text-sm font-semibold text-slate-800 dark:text-slate-100 {/[A-Z]/.test(char) ? 'text-emerald-600 dark:text-emerald-400' : ''}">{getPhonetic(char)}</span>
+                                </div>
+                            {/each}
+                        </div>
+                    </div>
+                {/if}
 
                 <StrengthMeter {entropy} dictionary={t} />
             </div>

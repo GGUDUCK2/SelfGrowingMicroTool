@@ -2,7 +2,7 @@
   import { Zap } from 'lucide-svelte';
   import type { PasswordConfig, PassphraseConfig } from '$lib/utils/password-forge/generator';
 
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
   export let onApplyPassword: (config: PasswordConfig) => void;
   export let onApplyPassphrase: (config: PassphraseConfig) => void;
 

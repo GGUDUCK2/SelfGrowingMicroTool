@@ -2,7 +2,7 @@
   import { analyzePassword, type PasswordAnalysis } from '$lib/utils/password-forge/generator';
   import { Shield, AlertTriangle, Info, CheckCircle2 } from 'lucide-svelte';
 
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
   export let onUseGenerated: (pwd: string) => void;
 
   let passwordInput = '';

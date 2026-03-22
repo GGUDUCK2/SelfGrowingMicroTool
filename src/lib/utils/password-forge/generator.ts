@@ -110,7 +110,7 @@ export function generatePassphrase(config: PassphraseConfig): { password: string
 
     // Fallback if template is provided but empty
     if (config.template) {
-        let parts = config.template.split('-');
+        const parts = config.template.split('-');
         let templateEntropy = 0;
 
         parts.forEach((part, index) => {
