@@ -53,7 +53,13 @@
       {#each historyItems as item (item.id)}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-static-element-interactions -->
-        <div class="group relative bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700/50 transition-all cursor-pointer overflow-hidden" on:click={() => restoreItem(item)}>
+        <div
+          class="w-full text-left group relative bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700/50 transition-all cursor-pointer overflow-hidden"
+          on:click={() => restoreItem(item)}
+          role="button"
+          tabindex="0"
+          on:keydown={(e) => e.key === 'Enter' && restoreItem(item)}
+        >
           <div class="flex items-start justify-between mb-2">
             <div class="flex items-center space-x-3 truncate pr-4">
               <div class="p-2 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400 shrink-0">
