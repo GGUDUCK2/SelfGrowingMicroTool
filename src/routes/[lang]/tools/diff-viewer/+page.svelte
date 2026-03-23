@@ -518,7 +518,7 @@
             <!-- Mode Selection -->
             <div class="flex items-center gap-2">
                 <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{t.mode}:</span>
-                <select bind:value={mode} class="min-h-[44px] bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white">
+                <select bind:value={mode} class="min-h-[44px] min-w-[44px] bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white">
                     <option value="lines">{t.lines}</option>
                     <option value="words">{t.words}</option>
                     <option value="chars">{t.chars}</option>
@@ -543,12 +543,12 @@
             </div>
 
             <!-- Options -->
-            <label class="flex items-center gap-2 min-h-[44px] text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
-                <input type="checkbox" bind:checked={ignoreWhitespace} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800 min-h-[44px]">
+            <label class="flex items-center gap-2 min-h-[44px] min-w-[44px] text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
+                <input type="checkbox" bind:checked={ignoreWhitespace} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800">
                 {t.ignoreWhitespace}
             </label>
-            <label class="flex items-center gap-2 min-h-[44px] text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
-                <input type="checkbox" bind:checked={ignoreCase} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800 min-h-[44px]">
+            <label class="flex items-center gap-2 min-h-[44px] min-w-[44px] text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
+                <input type="checkbox" bind:checked={ignoreCase} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800">
                 {t.ignoreCase}
             </label>
         </div>

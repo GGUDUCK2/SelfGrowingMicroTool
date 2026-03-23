@@ -352,7 +352,7 @@
     <div class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-2 flex items-center gap-2 justify-between shrink-0">
        <div class="flex items-center gap-2">
            <button
-             class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"
+             class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center"
              on:click={() => showSidebar = true}
            >
              <Menu class="w-5 h-5" />
@@ -366,21 +366,21 @@
        <div class="flex items-center gap-2">
          <button
             on:click={() => showBatch = true}
-            class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors min-h-[44px]"
             title="Batch Runner"
          >
              <PlayCircle class="w-4 h-4" /> <span class="hidden sm:inline">Runner</span>
          </button>
          <button
             on:click={() => showVariables = true}
-            class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors min-h-[44px]"
             title="Variables"
          >
              <Settings2 class="w-4 h-4" /> <span class="hidden sm:inline">Env</span>
          </button>
          <button
            on:click={() => showCodeModal = true}
-           class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+           class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors min-h-[44px]"
          >
            <Code class="w-4 h-4" /> <span class="hidden sm:inline">Code</span>
          </button>
