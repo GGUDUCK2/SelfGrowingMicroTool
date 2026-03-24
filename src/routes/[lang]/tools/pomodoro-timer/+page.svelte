@@ -168,7 +168,38 @@
     }]
   };
 
-  $: schemaList = [appSchema, breadcrumbSchema];
+    $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": dict.q1,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a1
+        }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q2,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a2
+        }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q3,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a3
+        }
+      }
+    ]
+  };
+
+  $: schemaList = [appSchema, breadcrumbSchema, faqSchema];
 </script>
 <Head
   title={dict.title}
@@ -179,38 +210,7 @@
 <svelte:head>
                 {@html `<script type="application/ld+json">${JSON.stringify(schemaList)}</script>`}
 
-  {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "${dict.q1}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a1}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q2}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a2}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q3}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a3}"
-        }
-      }
-    ]
-  }
-  </script>`}
+
 
 </svelte:head>
 
@@ -240,7 +240,7 @@
         {@const modeKey = m as keyof typeof MODES}
         <button
           on:click={() => setMode(modeKey)}
-          class="px-4 py-2 sm:px-6 sm:py-2 rounded-lg text-sm font-medium transition-all {mode ===
+          class="min-h-[44px] min-w-[44px] px-4 py-2 sm:px-6 sm:py-2 rounded-lg text-sm font-medium transition-all {mode ===
           modeKey
             ? 'bg-white text-gray-900 shadow-sm ring-2 ring-indigo-500 ring-offset-1'
             : 'text-gray-500 hover:text-gray-900'}"
