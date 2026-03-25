@@ -48,7 +48,7 @@
                     <!-- svelte-ignore a11y-interactive-supports-focus -->
                     <div
                         role="button"
-                        class="w-full text-left group flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all cursor-pointer"
+                        class="w-full text-left group flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all cursor-pointer min-h-[44px]"
                         on:click={() => load(item)}
                     >
                         <div class="min-w-0 flex-1">
@@ -61,15 +61,15 @@
                         <div on:click|stopPropagation class="flex items-center" role="button" tabindex="0" on:keydown={(e) => e.key === 'Enter' && e.stopPropagation()}>
                             {#if deletingId === item.id}
                                 <div class="flex items-center gap-1">
-                                    <button class="p-1 text-green-600 hover:bg-green-100 rounded transition-colors" on:click={(e) => confirmDelete(e, item.id!)} title="Confirm">
+                                    <button class="p-1 text-green-600 hover:bg-green-100 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={(e) => confirmDelete(e, item.id!)} title="Confirm">
                                         <Check size={16} />
                                     </button>
-                                    <button class="p-1 text-red-600 hover:bg-red-100 rounded transition-colors" on:click={cancelDelete} title="Cancel">
+                                    <button class="p-1 text-red-600 hover:bg-red-100 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={cancelDelete} title="Cancel">
                                         <X size={16} />
                                     </button>
                                 </div>
                             {:else}
-                                <button class="p-2 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity" on:click={(e) => requestDelete(e, item.id!)}>
+                                <button class="p-2 text-slate-400 hover:text-red-500 md:opacity-0 group-hover:opacity-100 transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={(e) => requestDelete(e, item.id!)}>
                                     <Trash2 size={16} />
                                 </button>
                             {/if}

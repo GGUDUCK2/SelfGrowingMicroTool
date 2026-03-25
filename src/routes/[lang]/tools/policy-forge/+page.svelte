@@ -71,7 +71,7 @@
     { q: toolDict.q3, a: toolDict.a3 }
   ];
 
-  $: jsonLd = JSON.stringify({
+  $: schemaData = {
     "@context": "https://schema.org",
     "@graph": [
       {
@@ -119,7 +119,9 @@
         ]
       }
     ]
-  });
+  };
+
+  $: jsonLd = JSON.stringify(schemaData);
 </script>
 <Head
   title={toolDict.title}
@@ -127,10 +129,7 @@
   keywords="privacy policy generator, terms of service generator, gdpr, ccpa, legal documents, free policy maker"
 />
 
-
 <svelte:head>
-
-
   {@html `<script type="application/ld+json">${jsonLd}</script>`}
 </svelte:head>
 
@@ -138,7 +137,7 @@
     <!-- Header -->
     <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 h-16 flex items-center justify-between px-4 flex-shrink-0 z-20 print:hidden">
         <div class="flex items-center gap-3">
-             <button class="md:hidden p-2 text-slate-500" on:click={() => showHistory = !showHistory}>
+             <button class="md:hidden p-2 text-slate-500 min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={() => showHistory = !showHistory}>
                  <Menu size={20} />
              </button>
              <div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400">
@@ -149,7 +148,7 @@
 
         <div class="flex items-center gap-2 md:hidden">
              <button
-                class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 min-h-[44px]"
+                class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 min-h-[44px] min-w-[44px] flex items-center justify-center"
                 on:click={() => showPreviewOnMobile = !showPreviewOnMobile}
              >
                 {#if showPreviewOnMobile}
@@ -165,7 +164,7 @@
         <!-- History Sidebar (Responsive) -->
         <div class="fixed inset-y-0 left-0 z-30 transform {showHistory ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 shadow-xl md:shadow-none bg-white dark:bg-slate-900 h-full print:hidden">
             <div class="absolute top-2 right-2 md:hidden">
-                <button class="p-2 text-slate-500 min-h-[44px]" on:click={() => showHistory = false}><X size={20}/></button>
+                <button class="p-2 text-slate-500 min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={() => showHistory = false}><X size={20}/></button>
             </div>
             <HistoryPanel dict={toolDict} />
         </div>
