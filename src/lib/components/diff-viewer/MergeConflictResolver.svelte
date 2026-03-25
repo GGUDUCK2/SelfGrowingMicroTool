@@ -104,17 +104,17 @@
                 {translations?.resolveConflict || 'Interactive Resolver'}
             </h3>
             <p class="text-xs text-gray-500 mt-1">
-                {getUnresolvedCount()} conflicts remaining
+                {getUnresolvedCount()} {translations?.conflictsRemaining || 'conflicts remaining'}
             </p>
         </div>
         <div class="flex gap-2">
-             <button class="btn-secondary text-xs min-h-[44px]" on:click={() => dispatch('cancel')}>Cancel</button>
+             <button class="btn-secondary text-xs min-h-[44px] min-w-[44px]" on:click={() => dispatch('cancel')}>{translations?.cancel || 'Cancel'}</button>
              <button
-                class="btn-primary text-xs disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
+                class="btn-primary text-xs disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] min-w-[44px]"
                 disabled={getUnresolvedCount() > 0}
                 on:click={handleApply}
             >
-                Apply Resolution
+                {translations?.applyResolution || 'Apply Resolution'}
             </button>
         </div>
     </div>
@@ -127,67 +127,67 @@
                 </div>
             {:else}
                 <div class="border-2 rounded-lg overflow-hidden transition-all {block.resolved ? 'border-green-500/50' : 'border-orange-500'}">
-                    <div class="bg-orange-100 dark:bg-orange-900/30 p-2 text-xs font-mono text-orange-800 dark:text-orange-200 border-b border-orange-200 dark:border-orange-800/50 flex justify-between">
-                         <span>Conflict Block</span>
+                    <div class="bg-orange-100 dark:bg-orange-900/30 p-2 text-xs font-mono text-orange-800 dark:text-orange-200 border-b border-orange-200 dark:border-orange-800/50 flex justify-between min-h-[44px] items-center">
+                         <span>{translations?.conflictBlock || 'Conflict Block'}</span>
                          {#if block.resolved}
                             <span class="flex items-center gap-1 text-green-600 dark:text-green-400 font-bold">
-                                <Check class="w-3 h-3" /> Resolved ({block.resolved})
+                                <Check class="w-3 h-3" /> {translations?.resolved || 'Resolved'} ({block.resolved})
                             </span>
                          {:else}
-                            <span class="font-bold">Unresolved</span>
+                            <span class="font-bold">{translations?.unresolved || 'Unresolved'}</span>
                          {/if}
                     </div>
 
                     <div class="grid grid-cols-2 divide-x divide-gray-200 dark:divide-gray-700">
                         <!-- Original (Left) -->
                         <div class="flex flex-col">
-                            <div class="p-1.5 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 text-[10px] text-gray-500 font-mono text-center">
-                                HEAD (Current)
+                            <div class="p-1.5 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 text-[10px] text-gray-500 font-mono text-center min-h-[44px] flex items-center justify-center">
+                                {translations?.headCurrent || 'HEAD (Current)'}
                             </div>
                             <div class="p-2 font-mono text-xs bg-white dark:bg-gray-900 min-h-[60px] whitespace-pre-wrap flex-1 overflow-x-auto">
                                 {block.original}
                             </div>
                             <button
-                                class="p-2 min-h-[44px] text-xs font-medium text-center hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors border-t border-gray-200 dark:border-gray-700
+                                class="p-2 min-h-[44px] min-w-[44px] text-xs font-medium text-center hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors border-t border-gray-200 dark:border-gray-700
                                 {block.resolved === 'original' ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300' : 'text-gray-600 dark:text-gray-400'}"
                                 on:click={() => resolveBlock(block.id, 'original')}
                             >
-                                Accept Current
+                                {translations?.acceptCurrent || 'Accept Current'}
                             </button>
                         </div>
 
                         <!-- Modified (Right) -->
                         <div class="flex flex-col">
-                            <div class="p-1.5 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 text-[10px] text-gray-500 font-mono text-center">
-                                Incoming
+                            <div class="p-1.5 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 text-[10px] text-gray-500 font-mono text-center min-h-[44px] flex items-center justify-center">
+                                {translations?.incoming || 'Incoming'}
                             </div>
                             <div class="p-2 font-mono text-xs bg-white dark:bg-gray-900 min-h-[60px] whitespace-pre-wrap flex-1 overflow-x-auto">
                                 {block.modified}
                             </div>
                             <button
-                                class="p-2 min-h-[44px] text-xs font-medium text-center hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors border-t border-gray-200 dark:border-gray-700
+                                class="p-2 min-h-[44px] min-w-[44px] text-xs font-medium text-center hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors border-t border-gray-200 dark:border-gray-700
                                 {block.resolved === 'modified' ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-400'}"
                                 on:click={() => resolveBlock(block.id, 'modified')}
                             >
-                                Accept Incoming
+                                {translations?.acceptIncoming || 'Accept Incoming'}
                             </button>
                         </div>
                     </div>
 
                     <button
-                        class="w-full p-2 min-h-[44px] text-xs font-medium text-center border-t border-gray-200 dark:border-gray-700 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors
+                        class="w-full p-2 min-h-[44px] min-w-[44px] text-xs font-medium text-center border-t border-gray-200 dark:border-gray-700 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors
                         {block.resolved === 'both' ? 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300' : 'text-gray-500 dark:text-gray-400'}"
                         on:click={() => resolveBlock(block.id, 'both')}
                     >
-                        Keep Both (Current then Incoming)
+                        {translations?.keepBoth || 'Keep Both (Current then Incoming)'}
                     </button>
                 </div>
             {/if}
         {/each}
 
         {#if blocks.length === 0}
-            <div class="text-center py-12 text-gray-500">
-                No conflict markers found.
+            <div class="text-center py-12 text-gray-500 min-h-[44px]">
+                {translations?.noConflictMarkers || 'No conflict markers found.'}
             </div>
         {/if}
     </div>

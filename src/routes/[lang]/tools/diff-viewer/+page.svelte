@@ -269,6 +269,9 @@
 
   // Keyboard Shortcuts
   function handleKeydown(e: KeyboardEvent) {
+      const target = e.target as HTMLElement;
+      if (target && ['INPUT', 'TEXTAREA'].includes(target.tagName)) return;
+
       if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
          // Trigger diff (automatic but good for feedback)
          e.preventDefault();
@@ -451,7 +454,7 @@
                 on:click={() => showConflictModal = false}
                 on:keydown={(e) => e.key === 'Escape' && (showConflictModal = false)}
             ></button>
-            <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl p-0 overflow-hidden flex flex-col max-h-[90vh]">
+            <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl p-0 overflow-hidden flex flex-col max-h-[90vh]" role="dialog" tabindex="-1" aria-modal="true">
                  {#if !isResolving}
                     <!-- Input State -->
                      <div class="p-6 flex flex-col h-full">
