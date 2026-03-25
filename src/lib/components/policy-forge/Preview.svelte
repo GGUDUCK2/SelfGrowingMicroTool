@@ -40,13 +40,13 @@
     <div class="h-14 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 bg-white dark:bg-slate-900 shrink-0">
         <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
             <button
-                class="px-3 py-1 text-xs font-medium rounded-md transition-all {activeTab === 'privacy' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}"
+                class="px-3 py-1 text-xs font-medium rounded-md transition-all min-h-[44px] {activeTab === 'privacy' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}"
                 on:click={() => activeTab = 'privacy'}
             >
                 {dict.tabs.privacy}
             </button>
             <button
-                class="px-3 py-1 text-xs font-medium rounded-md transition-all {activeTab === 'terms' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}"
+                class="px-3 py-1 text-xs font-medium rounded-md transition-all min-h-[44px] {activeTab === 'terms' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}"
                 on:click={() => activeTab = 'terms'}
             >
                 {dict.tabs.terms}
@@ -54,25 +54,25 @@
         </div>
 
         <div class="flex items-center gap-2">
-             <button class="p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hidden md:block" on:click={onLoad} title={dict.actions.load}>
+             <button class="p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hidden md:flex items-center justify-center min-h-[44px] min-w-[44px]" on:click={onLoad} title={dict.actions.load}>
                 <FolderOpen size={18} />
             </button>
-            <button class="p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hidden md:block" on:click={onReset} title={dict.actions.reset}>
+            <button class="p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hidden md:flex items-center justify-center min-h-[44px] min-w-[44px]" on:click={onReset} title={dict.actions.reset}>
                 <RotateCcw size={18} />
             </button>
-            <button class="p-2 text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-200 hidden md:block" on:click={onSave} title={dict.actions.save}>
+            <button class="p-2 text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-200 hidden md:flex items-center justify-center min-h-[44px] min-w-[44px]" on:click={onSave} title={dict.actions.save}>
                 <Save size={18} />
             </button>
             <div class="h-4 w-px bg-slate-300 dark:bg-slate-700 mx-1 hidden md:block"></div>
             <button
-                class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors"
+                class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors min-h-[44px] min-w-[44px] justify-center"
                 on:click={copy}
             >
                 <Copy size={14} />
                 {copied ? 'Copied!' : dict.actions.copy}
             </button>
             <button
-                class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm"
+                class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm min-h-[44px] min-w-[44px] justify-center"
                 on:click={download}
             >
                 <Download size={14} />
