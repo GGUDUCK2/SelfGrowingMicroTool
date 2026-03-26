@@ -38,14 +38,14 @@
                     <th class="p-1 bg-slate-100 dark:bg-slate-900 border-b border-r border-slate-200 dark:border-slate-700 w-[150px] relative group">
                         <div class="flex justify-between items-center px-2">
                             <span class="text-xs text-slate-500 font-mono font-bold">{String.fromCharCode(65 + (colIndex % 26))}</span>
-                            <button class="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 p-1 rounded transition-opacity" on:click={() => removeCol(colIndex)} title="Remove Column">
+                            <button class="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 p-1 rounded transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={() => removeCol(colIndex)} title="Remove Column">
                                 <Trash2 size={12} />
                             </button>
                         </div>
                     </th>
                 {/each}
                 <th class="p-1 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 w-10 sticky right-0 z-20">
-                    <button class="w-full h-full flex items-center justify-center text-slate-400 hover:text-indigo-500 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors rounded" on:click={addCol} title="Add Column">
+                    <button class="w-full h-full min-h-[44px] flex items-center justify-center text-slate-400 hover:text-indigo-500 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors rounded" on:click={addCol} title="Add Column">
                         <Plus size={16} />
                     </button>
                 </th>
@@ -55,9 +55,9 @@
             {#each data as row, rowIndex}
                 <tr class="group">
                     <td class="p-1 bg-slate-100 dark:bg-slate-900 border-r border-b border-slate-200 dark:border-slate-700 text-center sticky left-0 z-10 w-10">
-                        <div class="flex flex-col items-center justify-center h-full">
+                        <div class="flex flex-col items-center justify-center h-full min-h-[44px]">
                             <span class="text-xs text-slate-400 mb-1">{rowIndex + 1}</span>
-                            <button class="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 p-0.5 rounded transition-opacity" on:click={() => removeRow(rowIndex)} title="Remove Row">
+                            <button class="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 p-0.5 rounded transition-opacity min-h-[30px] min-w-[30px] flex items-center justify-center" on:click={() => removeRow(rowIndex)} title="Remove Row">
                                 <Trash2 size={10} />
                             </button>
                         </div>
@@ -76,7 +76,7 @@
             {/each}
             <tr>
                 <td class="p-1 bg-slate-100 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700 sticky left-0 z-10">
-                     <button class="w-full h-8 flex items-center justify-center text-slate-400 hover:text-indigo-500 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors rounded" on:click={addRow} title="Add Row">
+                     <button class="w-full min-h-[44px] flex items-center justify-center text-slate-400 hover:text-indigo-500 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors rounded" on:click={addRow} title="Add Row">
                         <Plus size={16} />
                     </button>
                 </td>

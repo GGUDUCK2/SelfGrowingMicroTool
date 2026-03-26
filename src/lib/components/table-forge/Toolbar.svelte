@@ -21,7 +21,7 @@
       id="format-selector"
       bind:value={outputFormat}
       on:change={() => dispatch('change-format', outputFormat)}
-      class="bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-slate-100"
+      class="bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-slate-100 min-h-[44px]"
     >
       {#each formats as fmt}
         <option value={fmt}>{dict.formats[fmt]}</option>
@@ -33,7 +33,7 @@
   <div class="flex items-center gap-2 border-l border-slate-200 dark:border-slate-700 pl-4 mr-4">
     {#if outputFormat === 'markdown' || outputFormat === 'json'}
       <button
-        class="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 {isCompact ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600' : ''}"
+        class="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 {isCompact ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600' : ''} min-h-[44px] min-w-[44px] flex items-center justify-center"
         on:click={() => { isCompact = !isCompact; dispatch('option-change'); }}
         title={dict.compact}
       >
@@ -43,7 +43,7 @@
 
     {#if outputFormat === 'html' || outputFormat === 'json'}
       <button
-        class="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 {isPretty ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600' : ''}"
+        class="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 {isPretty ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600' : ''} min-h-[44px] min-w-[44px] flex items-center justify-center"
         on:click={() => { isPretty = !isPretty; dispatch('option-change'); }}
         title={dict.pretty}
       >
@@ -52,7 +52,7 @@
     {/if}
 
     <button
-        class="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400"
+        class="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 min-h-[44px] min-w-[44px] flex items-center justify-center"
         on:click={() => dispatch('transpose')}
         title={dict.transpose}
     >
@@ -65,7 +65,7 @@
   <!-- Actions -->
   <div class="flex items-center gap-2">
     <button
-      class="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
+      class="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors min-h-[44px] min-w-[44px] justify-center"
       on:click={() => dispatch('copy')}
     >
       <Copy size={16} />
@@ -73,7 +73,7 @@
     </button>
 
     <button
-      class="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
+      class="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors min-h-[44px] min-w-[44px] justify-center"
       on:click={() => dispatch('download')}
     >
       <Download size={16} />
@@ -81,7 +81,7 @@
     </button>
 
     <button
-      class="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded transition-colors shadow-sm"
+      class="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded transition-colors shadow-sm min-h-[44px] min-w-[44px] justify-center"
       on:click={() => dispatch('save')}
     >
       <Save size={16} />

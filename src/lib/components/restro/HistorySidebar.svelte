@@ -59,13 +59,13 @@
 <div class="flex flex-col h-full bg-slate-50 dark:bg-slate-800/50 border-r border-slate-200 dark:border-slate-700 w-full md:w-80">
   <div class="flex border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
     <button
-      class="flex-1 px-4 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'history' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+      class="flex-1 px-4 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 min-h-[44px] {activeTab === 'history' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
       on:click={() => activeTab = 'history'}
     >
       <Clock class="w-4 h-4" /> {dict.history}
     </button>
     <button
-      class="flex-1 px-4 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'saved' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+      class="flex-1 px-4 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 min-h-[44px] {activeTab === 'saved' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
       on:click={() => activeTab = 'saved'}
     >
       <Star class="w-4 h-4" /> {dict.collections}
@@ -77,9 +77,9 @@
       {#if $history$}
         <div class="divide-y divide-slate-100 dark:divide-slate-700/50">
           {#each $history$ as req (req.id)}
-            <div class="group relative w-full text-left hover:bg-white dark:hover:bg-slate-700/50 transition-colors p-3 cursor-pointer outline-none focus:bg-white dark:focus:bg-slate-700/50">
+            <div class="group relative w-full text-left hover:bg-white dark:hover:bg-slate-700/50 transition-colors p-3 cursor-pointer outline-none focus:bg-white dark:focus:bg-slate-700/50 min-h-[44px]">
                 <!-- Clickable area wrapper -->
-                <button class="absolute inset-0 w-full h-full cursor-pointer z-0" on:click={() => onLoadRequest(req)} aria-label="Load request"></button>
+                <button class="absolute inset-0 w-full h-full cursor-pointer z-0 min-h-[44px]" on:click={() => onLoadRequest(req)} aria-label="Load request"></button>
 
                 <div class="relative z-10 pointer-events-none">
                     <div class="flex items-center justify-between mb-1">
@@ -98,7 +98,7 @@
                 </div>
 
               <button
-                 class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity bg-white/80 dark:bg-slate-800/80 rounded shadow-sm z-20 pointer-events-auto"
+                 class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity bg-white/80 dark:bg-slate-800/80 rounded shadow-sm z-20 pointer-events-auto min-h-[44px] min-w-[44px] flex items-center justify-center"
                  on:click|stopPropagation={() => deleteHistory(req.id!)}
                  aria-label="Delete history item"
               >
@@ -117,7 +117,7 @@
             {#each sortedFolderNames as folderName}
                 <div class="border-b border-slate-100 dark:border-slate-800">
                     <button
-                        class="w-full flex items-center gap-2 px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        class="w-full flex items-center gap-2 px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors min-h-[44px]"
                         on:click={() => toggleFolder(folderName)}
                     >
                         {#if expandedFolders[folderName]}
@@ -134,8 +134,8 @@
                     {#if expandedFolders[folderName]}
                         <div class="pl-0 divide-y divide-slate-100 dark:divide-slate-800/50 bg-slate-50/50 dark:bg-slate-900/20">
                             {#each folders[folderName] as req (req.id)}
-                                <div class="group relative w-full text-left hover:bg-white dark:hover:bg-slate-700/50 transition-colors p-3 pl-8 cursor-pointer outline-none border-l-2 border-transparent hover:border-indigo-500">
-                                    <button class="absolute inset-0 w-full h-full cursor-pointer z-0" on:click={() => onLoadRequest(req)} aria-label="Load request"></button>
+                                <div class="group relative w-full text-left hover:bg-white dark:hover:bg-slate-700/50 transition-colors p-3 pl-8 cursor-pointer outline-none border-l-2 border-transparent hover:border-indigo-500 min-h-[44px]">
+                                    <button class="absolute inset-0 w-full h-full cursor-pointer z-0 min-h-[44px]" on:click={() => onLoadRequest(req)} aria-label="Load request"></button>
 
                                     <div class="relative z-10 pointer-events-none">
                                         <div class="font-medium text-sm text-slate-800 dark:text-slate-200 mb-1">{req.name || 'Untitled'}</div>
@@ -146,7 +146,7 @@
                                     </div>
 
                                     <button
-                                        class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity bg-white/80 dark:bg-slate-800/80 rounded shadow-sm z-20 pointer-events-auto"
+                                        class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity bg-white/80 dark:bg-slate-800/80 rounded shadow-sm z-20 pointer-events-auto min-h-[44px] min-w-[44px] flex items-center justify-center"
                                         on:click|stopPropagation={() => deleteSaved(req.id!)}
                                         aria-label="Delete saved item"
                                     >
