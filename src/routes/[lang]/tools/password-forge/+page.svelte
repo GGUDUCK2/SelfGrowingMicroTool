@@ -4,7 +4,7 @@
   import Head from '$lib/components/Head.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
-  import { Shield, KeyRound, Copy, RotateCw, History } from 'lucide-svelte';
+  import { Shield, KeyRound, Copy, RotateCw, Download, Share2 } from 'lucide-svelte';
   import { onMount } from 'svelte';
   import { db } from '$lib/db';
 
@@ -81,6 +81,9 @@
         e.preventDefault();
         copyToClipboard();
       }
+    } else if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      e.preventDefault();
+      copyToClipboard();
     } else if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
       e.preventDefault();
       generate();
@@ -140,10 +143,22 @@
 
   async function saveToHistory(pwd: string, ent: number) {
       if (!pwd) return;
+
+      const count = await db.passwordForgeHistory.count();
+      if (count >= 100) {
+          const oldestUnstarred = await db.passwordForgeHistory
+              .filter(entry => !entry.starred)
+              .sortBy('createdAt');
+
+          if (oldestUnstarred && oldestUnstarred.length > 0 && oldestUnstarred[0].id) {
+              await db.passwordForgeHistory.delete(oldestUnstarred[0].id);
+          }
+      }
+
       const strengthLabel = getStrength(ent).label;
       await db.passwordForgeHistory.add({
           password: pwd,
-          mode: mode,
+          mode: mode as 'password' | 'passphrase' | 'pronounceable',
           length: pwd.length,
           entropy: ent,
           strength: strengthLabel,
@@ -159,6 +174,36 @@
       copyTimeout = setTimeout(() => {
           copied = false;
       }, 2000);
+  }
+
+  function downloadPassword() {
+      if (!password) return;
+      const blob = new Blob([password], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'password.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+  }
+
+  async function sharePassword() {
+      if (!password) return;
+      if (navigator.share) {
+          try {
+              await navigator.share({
+                  title: t.title,
+                  text: password
+              });
+          } catch (e) {
+              // Fallback to copy if share fails (e.g., user cancels)
+          }
+      } else {
+          // Fallback to copy
+          copyToClipboard();
+      }
   }
 
   const natoPhoneticMap: Record<string, string> = {
@@ -185,16 +230,8 @@
       { q: t?.faq?.q2 || t?.q2 || '', a: t?.faq?.a2 || t?.a2 || '' },
       { q: t?.faq?.q3 || t?.q3 || '', a: t?.faq?.a3 || t?.a3 || '' }
   ];
-</script>
 
-<Head
-  title={t.title}
-  description={t.description}
-/>
-
-<svelte:head>
-  <!-- eslint-disable svelte/no-at-html-tags -->
-  {@html `<script type="application/ld+json">${JSON.stringify({
+  $: softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": t.title,
@@ -215,9 +252,9 @@
         "Structural Template Passphrases",
         "Smart Expiry Detection"
     ]
-  })}</script>`}
+  };
 
-  {@html `<script type="application/ld+json">${JSON.stringify({
+  $: faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
@@ -246,9 +283,9 @@
         }
       }
     ]
-  })}</script>`}
+  };
 
-  {@html `<script type="application/ld+json">${JSON.stringify({
+  $: breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
@@ -271,7 +308,21 @@
         "item": `https://microtools.app/${lang === 'en' ? '' : lang + '/'}tools/password-forge`
       }
     ]
-  })}</script>`}
+  };
+</script>
+
+<Head
+  title={t.title}
+  description={t.description}
+/>
+
+<svelte:head>
+  <!-- eslint-disable svelte/no-at-html-tags -->
+  <!-- eslint-disable @typescript-eslint/no-unused-expressions -->
+  {@html `<script type="application/ld+json">` + JSON.stringify(softwareSchema) + `</script>`}
+  {@html `<script type="application/ld+json">` + JSON.stringify(faqSchema) + `</script>`}
+  {@html `<script type="application/ld+json">` + JSON.stringify(breadcrumbSchema) + `</script>`}
+  <!-- eslint-enable @typescript-eslint/no-unused-expressions -->
   <!-- eslint-enable svelte/no-at-html-tags -->
 </svelte:head>
 
@@ -318,6 +369,22 @@
                             <RotateCw size={24} />
                         </button>
                         <button
+                            on:click={downloadPassword}
+                            class="flex-1 md:flex-none p-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2"
+                            title={t.download}
+                            aria-label={t.download}
+                        >
+                            <Download size={24} />
+                        </button>
+                        <button
+                            on:click={sharePassword}
+                            class="flex-1 md:flex-none p-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2"
+                            title={t.share}
+                            aria-label={t.share}
+                        >
+                            <Share2 size={24} />
+                        </button>
+                        <button
                             on:click={copyToClipboard}
                             class="flex-1 md:flex-none p-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 relative overflow-hidden"
                             title={t.copy}
@@ -349,7 +416,7 @@
                 {#if showPhonetics}
                     <div class="mb-6 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-700 overflow-x-auto relative z-10">
                         <div class="flex flex-wrap gap-2">
-                            {#each password.split('') as char, i}
+                            {#each password.split('') as char, i (i)}
                                 <div class="flex flex-col items-center justify-center bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 min-w-[48px]">
                                     <span class="text-xs text-slate-500 dark:text-slate-400 font-mono mb-1">{char}</span>
                                     <span class="text-sm font-semibold text-slate-800 dark:text-slate-100 {/[A-Z]/.test(char) ? 'text-emerald-600 dark:text-emerald-400' : ''}">{getPhonetic(char)}</span>
