@@ -30,10 +30,10 @@
       {dict.history}
     </h3>
     <div class="flex items-center gap-1">
-        <button class="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-700 rounded text-red-500" on:click={clearAll} title={dict.clear}>
+        <button class="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-700 rounded text-red-500 min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={clearAll} title={dict.clear}>
             <Trash2 size={16} />
         </button>
-        <button class="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-700 rounded" on:click={() => dispatch('close')}>
+        <button class="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-700 rounded min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={() => dispatch('close')} aria-label="Close">
             <X size={18} />
         </button>
     </div>
@@ -61,8 +61,9 @@
            </div>
 
            <button
-                class="absolute top-2 right-2 p-1.5 bg-white dark:bg-slate-700 rounded-full shadow-sm opacity-0 group-hover:opacity-100 hover:text-red-500 transition-opacity"
+                class="absolute top-2 right-2 p-1.5 bg-white dark:bg-slate-700 rounded-full shadow-sm opacity-0 group-hover:opacity-100 hover:text-red-500 transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center"
                 on:click|stopPropagation={() => item.id && deleteItem(item.id)}
+                aria-label="Delete history item"
            >
                <Trash2 size={14} />
            </button>

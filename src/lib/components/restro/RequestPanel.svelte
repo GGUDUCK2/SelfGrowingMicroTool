@@ -22,7 +22,7 @@
   <div class="flex rounded-lg shadow-sm w-full">
     <select
       bind:value={method}
-      class="rounded-l-lg border-r-0 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 px-3 py-2 text-sm font-medium focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700 dark:text-slate-200"
+      class="rounded-l-lg border-r-0 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 px-3 py-2 text-sm font-medium focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700 dark:text-slate-200 min-h-[44px]"
     >
       {#each methods as m}
         <option value={m}>{m}</option>
@@ -34,7 +34,7 @@
       on:keydown={handleKeydown}
       placeholder="https://api.example.com/v1/resource"
       aria-label={dict.url}
-      class="flex-1 rounded-r-lg sm:rounded-r-none border border-slate-300 dark:border-slate-600 dark:bg-slate-800 px-4 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none text-slate-900 dark:text-white font-mono"
+      class="flex-1 rounded-r-lg sm:rounded-r-none border border-slate-300 dark:border-slate-600 dark:bg-slate-800 px-4 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none text-slate-900 dark:text-white font-mono min-h-[44px]"
     />
   </div>
 
@@ -42,7 +42,7 @@
     <button
       on:click={onSend}
       disabled={loading}
-      class="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-w-[100px]"
+      class="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-w-[100px] min-h-[44px]"
     >
       {#if loading}
         <Loader2 class="w-4 h-4 animate-spin" />
@@ -54,7 +54,7 @@
 
     <button
         on:click={onSave}
-        class="flex items-center justify-center gap-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 px-4 py-2 rounded-lg font-medium transition-colors"
+        class="flex items-center justify-center gap-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 px-4 py-2 rounded-lg font-medium transition-colors min-w-[44px] min-h-[44px]"
         aria-label={dict.save}
     >
         <Save class="w-4 h-4" />

@@ -29,7 +29,7 @@
                     type="number"
                     id="port"
                     bind:value={config.port}
-                    class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[44px]"
                 />
             </div>
             <div>
@@ -38,7 +38,7 @@
                     type="text"
                     id="baseImage"
                     bind:value={config.baseImage}
-                    class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[44px]"
                 />
             </div>
         </div>
@@ -51,7 +51,7 @@
                     id="buildCmd"
                     bind:value={config.buildCmd}
                     placeholder={currentStack?.buildCmdPlaceholder}
-                    class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[44px]"
                 />
             </div>
             <div>
@@ -61,7 +61,7 @@
                     id="startCmd"
                     bind:value={config.startCmd}
                     placeholder={currentStack?.startCmdPlaceholder}
-                    class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[44px]"
                 />
             </div>
         </div>
@@ -71,7 +71,7 @@
     <div class="space-y-3">
          <div class="flex items-center justify-between">
             <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider">Environment Variables</h3>
-            <button on:click={addEnv} class="text-xs flex items-center gap-1 text-indigo-400 hover:text-indigo-300">
+            <button on:click={addEnv} class="text-xs flex items-center gap-1 text-indigo-400 hover:text-indigo-300 min-h-[44px] px-2">
                 <Plus size={14} /> Add Variable
             </button>
         </div>
@@ -88,24 +88,24 @@
                             type="text"
                             placeholder="KEY"
                             bind:value={env.key}
-                            class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                            class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[44px]"
                         />
                         <input
                             type="text"
                             placeholder="VALUE"
                             bind:value={env.value}
-                            class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                            class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[44px]"
                         />
                         <button
-                            class="p-2 text-slate-500 hover:text-red-400"
+                            class="p-2 text-slate-500 hover:text-red-400 min-h-[44px] min-w-[44px] flex items-center justify-center"
                             on:click={() => removeEnv(env.id)}
                             aria-label="Remove environment variable"
                         >
                             <X size={16} />
                         </button>
                     </div>
-                    <label class="flex items-center gap-2 text-xs text-slate-400 cursor-pointer select-none">
-                        <input type="checkbox" bind:checked={env.isSecret} class="rounded bg-slate-800 border-slate-700 text-indigo-500 focus:ring-indigo-500" />
+                    <label class="flex items-center gap-2 text-xs text-slate-400 cursor-pointer select-none min-h-[44px]">
+                        <input type="checkbox" bind:checked={env.isSecret} class="rounded bg-slate-800 border-slate-700 text-indigo-500 focus:ring-indigo-500 min-w-[20px] min-h-[20px]" />
                         Treat as Secret (exclude from Dockerfile, use .env)
                     </label>
                 </div>
