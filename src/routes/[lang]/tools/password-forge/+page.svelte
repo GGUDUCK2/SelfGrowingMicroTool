@@ -17,6 +17,7 @@
   import HistoryPanel from '$lib/components/password-forge/HistoryPanel.svelte';
   import SmartExamples from '$lib/components/password-forge/SmartExamples.svelte';
   import FormattedPassword from '$lib/components/password-forge/FormattedPassword.svelte';
+  import BulkGenerateModal from '$lib/components/password-forge/BulkGenerateModal.svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
@@ -33,6 +34,7 @@
   let copied = false;
   let copyTimeout: ReturnType<typeof setTimeout>;
   let showPhonetics = false;
+  let showBulkModal = false;
 
   let pwdConfig: PasswordConfig = {
       length: 16,
@@ -67,6 +69,37 @@
       mode = 'passphrase';
       phraseConfig = { ...c };
       generate();
+  }
+
+  function handleBulkGenerate(count: number): string {
+      let csv = 'Password,Entropy,Strength\n';
+      for (let i = 0; i < count; i++) {
+          let pwd = '';
+          let ent = 0;
+          if (mode === 'password') {
+              const res = generatePassword(pwdConfig);
+              pwd = res.password;
+              ent = res.entropy;
+          } else if (mode === 'passphrase') {
+              const res = generatePassphrase(phraseConfig);
+              pwd = res.passphrase;
+              ent = res.entropy;
+          } else if (mode === 'pronounceable') {
+              const res = generatePronounceable(pronounceConfig);
+              pwd = res.password;
+              ent = res.entropy;
+          } else {
+              // Analyzer mode, fallback to standard password
+              const res = generatePassword(pwdConfig);
+              pwd = res.password;
+              ent = res.entropy;
+          }
+          const strength = getStrength(ent).label;
+          // Escape quotes for CSV
+          const safePwd = pwd.replace(/"/g, '""');
+          csv += `"${safePwd}",${ent},"${strength}"\n`;
+      }
+      return csv;
   }
 
   onMount(() => {
@@ -197,7 +230,7 @@
                   title: t.title,
                   text: password
               });
-          } catch (e) {
+          } catch {
               // Fallback to copy if share fails (e.g., user cancels)
           }
       } else {
@@ -328,6 +361,13 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
+<BulkGenerateModal
+    show={showBulkModal}
+    dictionary={t}
+    onClose={() => showBulkModal = false}
+    onGenerate={handleBulkGenerate}
+/>
+
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 pb-20 font-sans text-slate-900 dark:text-white transition-colors duration-300">
   <div class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -401,8 +441,17 @@
                     </div>
                 </div>
 
-                <!-- Phonetic Aid Toggle -->
-                <div class="flex justify-end mb-4 relative z-10">
+                <!-- Extra Actions (Phonetic Aid & Bulk Generate) -->
+                <div class="flex justify-between items-center mb-4 relative z-10">
+                    <button
+                        class="text-sm font-medium flex items-center gap-2 px-3 py-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/30"
+                        on:click={() => showBulkModal = true}
+                        title={t.bulkGenerate || 'Bulk Generate'}
+                    >
+                        <Shield size={16} />
+                        <span class="hidden sm:inline">{t.bulkGenerate || 'Bulk Generate'}</span>
+                    </button>
+
                     <button
                         class="text-sm font-medium flex items-center gap-2 px-3 py-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] {showPhonetics ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
                         on:click={() => showPhonetics = !showPhonetics}
