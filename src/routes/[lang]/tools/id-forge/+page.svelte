@@ -155,6 +155,52 @@
            generatedIds = [];
        }
   }
+
+  $: jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ID Forge",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": "UUID Generation (v1, v3, v4, v5, v7), ULID Generation, Collision Probability Calculator, ID Analysis, Bulk Generation (JSON/SQL/CSV)",
+    "description": dict.description
+  };
+
+  $: jsonLd2 = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": dict.q1,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a1
+        }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q2,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a2
+        }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q3,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a3
+        }
+      }
+    ]
+  };
 </script>
 <Head
   title={dict.title}
@@ -170,55 +216,9 @@
 
 
   <!-- JSON-LD for SoftwareApplication -->
-  {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "ID Forge",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "featureList": "UUID Generation (v1, v3, v4, v5, v7), ULID Generation, Collision Probability Calculator, ID Analysis, Bulk Generation (JSON/SQL/CSV)",
-    "description": "${dict.description}"
-  }
-  </script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
 
-  {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "${dict.q1}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a1}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q2}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a2}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q3}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a3}"
-        }
-      }
-    ]
-  }
-  </script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd2)}</script>`}
 
 </svelte:head>
 

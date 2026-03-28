@@ -29,6 +29,37 @@
     },
     "featureList": "EAN-13, UPC-A, Code 128, ITF-14, Bulk Generator, Vector Export"
   });
+
+  $: faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": dict.q1,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a1
+        }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q2,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a2
+        }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q3,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a3
+        }
+      }
+    ]
+  };
 </script>
 <Head
   title={title}
@@ -39,38 +70,7 @@
 <svelte:head>
       {@html `<script type="application/ld+json">${jsonLd}</script>`}
 
-  {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "${dict.q1}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a1}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q2}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a2}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q3}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a3}"
-        }
-      }
-    ]
-  }
-  </script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(faqJsonLd)}</script>`}
 
 </svelte:head>
 

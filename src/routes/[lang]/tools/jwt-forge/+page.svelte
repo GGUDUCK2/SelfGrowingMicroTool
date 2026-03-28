@@ -93,21 +93,12 @@
         });
     }
   }
-</script>
-<Head
-  title={t.title}
-  description={t.description}
-/>
 
-
-<svelte:head>
-
-  {@html `<script type="application/ld+json">
-  {
+  $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "${t.title}",
-    "description": "${t.description}",
+    "name": t.title,
+    "description": t.description,
     "applicationCategory": "DeveloperTool",
     "applicationSubCategory": "Security Utility",
     "operatingSystem": ["Web", "iOS", "Android", "Windows", "macOS", "Linux"],
@@ -122,41 +113,50 @@
         "Claim Inspection",
         "Secure Client-Side Processing"
     ]
-  }
-  </script>`}
+  };
 
-  {@html `<script type="application/ld+json">
-  {
+  $: jsonLd2 = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": dict.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": dict.a1
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": dict.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": dict.a2
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": dict.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": dict.a3
         }
       }
     ]
-  }
-  </script>`}
+  };
+</script>
+<Head
+  title={t.title}
+  description={t.description}
+/>
+
+
+<svelte:head>
+
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
+
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd2)}</script>`}
 
 </svelte:head>
 

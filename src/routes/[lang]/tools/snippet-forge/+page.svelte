@@ -57,6 +57,54 @@
       showToast = true;
       setTimeout(() => showToast = false, 3000);
   }
+
+  $: jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": dict.title,
+      "description": dict.description,
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "featureList": [
+        "Syntax Highlighting (PrismJS)",
+        "Custom Themes (Dracula, Monokai)",
+        "Background Gradients",
+        "High-Res PNG Export",
+        "macOS/Windows Window Styles",
+        "History Management"
+      ]
+    };
+
+  $: jsonLd2 = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": dict.q1,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a1
+        }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q2,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a2
+        }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q3,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a3
+        }
+      }
+    ]
+  };
 </script>
 <Head
   title={dict.title}
@@ -69,57 +117,9 @@
 <svelte:head>
 
 
-  {@html `<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "${dict.title}",
-      "description": "${dict.description}",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Any",
-      "featureList": [
-        "Syntax Highlighting (PrismJS)",
-        "Custom Themes (Dracula, Monokai)",
-        "Background Gradients",
-        "High-Res PNG Export",
-        "macOS/Windows Window Styles",
-        "History Management"
-      ]
-    }
-  </script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
 
-  {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "${dict.q1}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a1}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q2}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a2}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q3}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a3}"
-        }
-      }
-    ]
-  }
-  </script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd2)}</script>`}
 
 </svelte:head>
 
