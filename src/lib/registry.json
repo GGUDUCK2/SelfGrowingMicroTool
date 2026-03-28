@@ -358,5 +358,20 @@
     "category": "util",
     "tags": ["password", "passphrase", "generator", "security", "crypto", "entropy"],
     "createdAt": "2024-10-25"
+  },
+  {
+    "id": "docker-forge",
+    "slug": "docker-forge",
+    "title": {
+      "en": "Docker Forge",
+      "ko": "도커 포지"
+    },
+    "description": {
+      "en": "Visual Dockerfile builder. Generate Docker configurations with a clean, intuitive interface.",
+      "ko": "시각적 Dockerfile 빌더입니다. 깔끔하고 직관적인 인터페이스로 Docker 구성을 생성하세요."
+    },
+    "category": "dev",
+    "tags": ["docker", "dockerfile", "container", "devops", "generator"],
+    "createdAt": "2024-11-05"
   }
 ]

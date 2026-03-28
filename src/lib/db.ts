@@ -438,7 +438,17 @@ export interface GitForgeHistory {
   starred?: number;
 }
 
+export interface DockerForgeHistory {
+  id?: number;
+  dockerfile: string;
+  compose: string;
+  baseImage: string;
+  createdAt: Date;
+  starred?: number;
+}
+
 class MySubClassedDexie extends Dexie {
+  dockerForgeHistory!: DexieTable<DockerForgeHistory>;
   passwordForgeHistory!: DexieTable<PasswordForgeHistory>;
   compoundInterestConfig!: DexieTable<CompoundInterestConfig>;
   compoundInterestHistory!: DexieTable<CompoundInterestHistory>;
@@ -1722,6 +1732,51 @@ class MySubClassedDexie extends Dexie {
       policyForgeHistory: '++id, companyName, createdAt, starred',
       barcodeForgeHistory: '++id, createdAt, starred',
       gitForgeHistory: '++id, type, createdAt, starred'
+    });
+    this.version(52).stores({
+      passwordForgeHistory: '++id, createdAt, starred',
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      urlHistory: '++id, createdAt',
+      svgHistory: '++id, createdAt, starred',
+      jwtHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      subnetScopeHistory: '++id, createdAt, starred',
+      restroSession: '++id, activeAt',
+      restroHistory: '++id, timestamp',
+      structuraHistory: '++id, createdAt, starred',
+      csvHistory: '++id, createdAt, starred',
+      geoForgeHistory: '++id, createdAt, starred',
+      diagramHistory: '++id, createdAt, starred',
+      diagramConfig: '++id, updatedAt',
+      tableForgeConfig: '++id, updatedAt',
+      tableForgeHistory: '++id, createdAt, starred',
+      timeForgeConfig: '++id',
+      timeForgeHistory: '++id, createdAt',
+      invoiceForgeHistory: '++id, createdAt, starred, status',
+      resumeForgeHistory: '++id, createdAt, starred, jobTitle',
+      sqlForgeHistory: '++id, createdAt, starred',
+      typeForgeHistory: '++id, createdAt, starred',
+      snippetForgeHistory: '++id, title, language, createdAt, starred',
+      snippetForgeCategories: '++id, name',
+      audioForgeHistory: '++id, createdAt, starred',
+      screenForgeHistory: '++id, createdAt, starred',
+      bannerForgeHistory: '++id, createdAt, starred',
+      rhythmForgePlaylists: '++id, createdAt, starred',
+      logicForgeHistory: '++id, createdAt, starred',
+      keyForgeHistory: '++id, wpm, mode, language, timestamp, starred',
+      zenForgeMixes: '++id, createdAt, starred',
+      mathForgeHistory: '++id, createdAt, starred',
+      fileForgeHistory: '++id, createdAt, starred, hash',
+      policyForgeHistory: '++id, companyName, createdAt, starred',
+      barcodeForgeHistory: '++id, createdAt, starred',
+      gitForgeHistory: '++id, type, createdAt, starred',
+      dockerForgeHistory: '++id, createdAt, starred'
     });
   }
 }
