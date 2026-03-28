@@ -299,17 +299,8 @@
     { q: dict.q2, a: dict.a2 },
     { q: dict.q3, a: dict.a3 },
   ];
-</script>
-<Head
-  title={dict.title}
-  description={dict.description}
-/>
 
-
-<svelte:head>
-
-  <!-- JSON-LD -->
-  {@html `<script type="application/ld+json">${JSON.stringify([
+  $: schemaData = [
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
@@ -383,7 +374,16 @@
         "item": "https://selfgrowingmicrotool.com/" + lang + "/tools/compound-interest-calculator"
       }]
     }
-  ])}</script>`}
+  ];
+</script>
+<Head
+  title={dict.title}
+  description={dict.description}
+/>
+
+
+<svelte:head>
+  {@html `<script type="application/ld+json">${JSON.stringify(schemaData)}</script>`}
 </svelte:head>
 
 <div class="max-w-6xl mx-auto py-12 space-y-12 px-4">

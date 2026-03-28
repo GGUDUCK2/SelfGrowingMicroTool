@@ -18,7 +18,7 @@
       q1: "", a1: "", q2: "", a2: "", q3: "", a3: ""
   };
 
-  $: jsonLd = JSON.stringify({
+  $: jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
@@ -85,7 +85,7 @@
         ]
       }
     ]
-  });
+  };
 </script>
 <Head
   title={toolDict.title}
@@ -95,9 +95,7 @@
 
 
 <svelte:head>
-
-
-  {@html `<script type="application/ld+json">${jsonLd}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
 </svelte:head>
 
 <div class="flex flex-col min-h-screen">

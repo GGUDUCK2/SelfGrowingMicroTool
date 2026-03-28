@@ -164,7 +164,7 @@
     "description": dict?.description || '',
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "CSV Utility",
-    "operatingSystem": "Windows, macOS, Linux, Android, iOS",
+    "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript. HTML5.",
     "offers": {
       "@type": "Offer",

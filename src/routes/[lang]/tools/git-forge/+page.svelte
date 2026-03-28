@@ -121,8 +121,7 @@
     "description": dict?.description || 'Git tools',
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "Version Control System Tool",
-    "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
-    "isAccessibleForFree": true,
+    "operatingSystem": "Any",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "featureList": [
       "Visual Git Command Builder",
