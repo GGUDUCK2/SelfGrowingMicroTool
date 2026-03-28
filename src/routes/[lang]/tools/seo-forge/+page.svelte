@@ -326,6 +326,37 @@
   });
 
   $: jsonLdScript = `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}<\/script>`;
+
+  $: faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": dict.q1,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a1
+        }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q2,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a2
+        }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q3,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a3
+        }
+      }
+    ]
+  };
 </script>
 <Head
   title={`${tags.title ? `${tags.title} | ` : ''}${dict.title}`}
@@ -628,37 +659,6 @@
 
   {@html jsonLdScript}
 
-  {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "${dict.q1}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a1}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q2}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a2}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q3}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a3}"
-        }
-      }
-    ]
-  }
-  </script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
 
 </svelte:head>

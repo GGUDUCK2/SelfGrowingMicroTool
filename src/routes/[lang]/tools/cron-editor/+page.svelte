@@ -139,23 +139,8 @@
     q: lang === 'ko' ? f.question.ko : f.question.en,
     a: lang === 'ko' ? f.answer.ko : f.answer.en
   }));
-</script>
-<Head
-  title={`${lang === "ko"
-      ? `Cronos: 전문가용 Cron 에디터 - ${parseResult.isValid ? parseResult.description : "스케줄러"}`
-      : `Cronos: Professional Cron Editor - ${parseResult.isValid ? parseResult.description : "Scheduler"}`}`}
-  description={dict.description}
-  keywords="cron, crontab, schedule, editor, generator, linux, devops"
-/>
 
-
-<svelte:window on:keydown={handleKeydown} />
-
-<svelte:head>
-
-  <!-- JSON-LD -->
-  {@html `<script type="application/ld+json">
-    {
+  $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Cronos: Professional Cron Editor",
@@ -178,10 +163,9 @@
         "@type": "Organization",
         "name": "MicroFactory"
       }
-    }
-  </script>`}
-  {@html `<script type="application/ld+json">
-    {
+    };
+
+  $: jsonLd2 = {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
@@ -189,23 +173,39 @@
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://selfgrowingmicrotool.com/${lang}"
+          "item": "https://selfgrowingmicrotool.com/lang"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Tools",
-          "item": "https://selfgrowingmicrotool.com/${lang}#tools"
+          "item": "https://selfgrowingmicrotool.com/lang#tools"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Cronos",
-          "item": "https://selfgrowingmicrotool.com/${lang}/tools/cron-editor"
+          "item": "https://selfgrowingmicrotool.com/lang/tools/cron-editor"
         }
       ]
-    }
-  </script>`}
+    };
+</script>
+<Head
+  title={`${lang === "ko"
+      ? `Cronos: 전문가용 Cron 에디터 - ${parseResult.isValid ? parseResult.description : "스케줄러"}`
+      : `Cronos: Professional Cron Editor - ${parseResult.isValid ? parseResult.description : "Scheduler"}`}`}
+  description={dict.description}
+  keywords="cron, crontab, schedule, editor, generator, linux, devops"
+/>
+
+
+<svelte:window on:keydown={handleKeydown} />
+
+<svelte:head>
+
+  <!-- JSON-LD -->
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd2)}</script>`}
 </svelte:head>
 
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">

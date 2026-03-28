@@ -281,25 +281,12 @@
   $: prismaCode = generateCode(activeProject, 'prisma');
   $: tsCode = generateCode(activeProject, 'typescript');
 
-</script>
-<Head
-  title={t.title}
-  description={t.description}
-  keywords="database schema, sql generator, prisma schema, db diagram, entity relationship diagram, mysql, postgres, sqlite"
-/>
 
-
-<svelte:head>
-
-  <!-- Twitter -->
-
-  <!-- JSON-LD -->
-  {@html `<script type="application/ld+json">
-    {
+  $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "${t.title}",
-      "description": "${t.description}",
+      "name": t.title,
+      "description": t.description,
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
       "offers": {
@@ -317,41 +304,54 @@
         "Instant Mock Data Generation",
         "Snapshot History"
       ]
-    }
-  </script>`}
+    };
 
-  {@html `<script type="application/ld+json">
-  {
+  $: jsonLd2 = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": dict.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": dict.a1
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": dict.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": dict.a2
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": dict.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": dict.a3
         }
       }
     ]
-  }
-  </script>`}
+  };
+</script>
+<Head
+  title={t.title}
+  description={t.description}
+  keywords="database schema, sql generator, prisma schema, db diagram, entity relationship diagram, mysql, postgres, sqlite"
+/>
+
+
+<svelte:head>
+
+  <!-- Twitter -->
+
+  <!-- JSON-LD -->
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
+
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd2)}</script>`}
 
 </svelte:head>
 

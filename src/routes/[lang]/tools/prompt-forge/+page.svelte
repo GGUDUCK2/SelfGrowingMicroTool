@@ -162,22 +162,8 @@
       showTemplateModal = false;
       showNotification('Template loaded!');
   }
-</script>
-<Head
-  title={dict.title}
-  description={dict.description}
-  keywords="prompt engineering, ai prompt generator, llm prompt testing, prompt variables, openai prompt optimization, prompt management"
-/>
 
-
-<svelte:head>
-
-  <!-- Twitter -->
-
-
-  <!-- JSON-LD -->
-  {@html `<script type="application/ld+json">
-    {
+  $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Prompt Forge",
@@ -196,41 +182,55 @@
         "Template Library",
         "Test Suite Generation (JSON/Python)"
       ]
-    }
-  </script>`}
+    };
 
-  {@html `<script type="application/ld+json">
-  {
+  $: jsonLd2 = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": dict.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": dict.a1
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": dict.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": dict.a2
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": dict.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": dict.a3
         }
       }
     ]
-  }
-  </script>`}
+  };
+</script>
+<Head
+  title={dict.title}
+  description={dict.description}
+  keywords="prompt engineering, ai prompt generator, llm prompt testing, prompt variables, openai prompt optimization, prompt management"
+/>
+
+
+<svelte:head>
+
+  <!-- Twitter -->
+
+
+  <!-- JSON-LD -->
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
+
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd2)}</script>`}
 
 </svelte:head>
 
