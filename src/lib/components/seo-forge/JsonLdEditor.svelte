@@ -225,7 +225,7 @@
         <div class="space-y-3">
              <div class="flex justify-between items-center">
                  <h4 class="text-sm font-medium text-slate-700 dark:text-slate-300">Breadcrumbs</h4>
-                 <button on:click={addCrumb} class="text-xs text-indigo-600 hover:underline">+ Add</button>
+                 <button on:click={addCrumb} class="text-xs text-indigo-600 hover:underline min-h-[44px] min-w-[44px] flex items-center justify-center">+ Add</button>
              </div>
              {#each data.breadcrumbs as crumb, i (i)}
                 <div class="flex gap-2 items-center">
@@ -244,7 +244,7 @@
                         on:input={handleInput}
                         class="flex-1 px-3 py-1.5 text-sm bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded focus:ring-1 focus:ring-indigo-500 focus:outline-none"
                     />
-                    <button on:click={() => removeCrumb(i)} class="text-red-500 hover:text-red-700 px-1">×</button>
+                    <button on:click={() => removeCrumb(i)} class="text-red-500 hover:text-red-700 px-1 min-h-[44px] min-w-[44px] flex items-center justify-center">×</button>
                 </div>
              {/each}
         </div>
@@ -254,13 +254,13 @@
         <div class="space-y-3">
              <div class="flex justify-between items-center">
                  <h4 class="text-sm font-medium text-slate-700 dark:text-slate-300">Questions & Answers</h4>
-                 <button on:click={addFaq} class="text-xs text-indigo-600 hover:underline">+ Add</button>
+                 <button on:click={addFaq} class="text-xs text-indigo-600 hover:underline min-h-[44px] min-w-[44px] flex items-center justify-center">+ Add</button>
              </div>
              {#each data.faq as item, i (i)}
                 <div class="p-3 bg-slate-50 dark:bg-slate-700/30 rounded-lg border border-slate-200 dark:border-slate-700 space-y-2">
                     <div class="flex justify-between">
                          <span class="text-xs text-slate-500">Question #{i + 1}</span>
-                         <button on:click={() => removeFaq(i)} class="text-red-500 hover:text-red-700 text-xs">Remove</button>
+                         <button on:click={() => removeFaq(i)} class="text-red-500 hover:text-red-700 text-xs min-h-[44px] min-w-[44px] flex items-center justify-center">Remove</button>
                     </div>
                     <input
                         type="text"

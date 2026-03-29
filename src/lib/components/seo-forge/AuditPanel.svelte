@@ -80,7 +80,7 @@
                         {#if issue.fixAvailable}
                             <button
                                 on:click={() => fixIssue(issue)}
-                                class="mt-2 text-xs bg-white dark:bg-slate-600 px-2 py-1 rounded border border-slate-200 dark:border-slate-500 hover:bg-slate-100 dark:hover:bg-slate-500 text-slate-700 dark:text-slate-200 transition-colors"
+                                class="min-h-[44px] min-w-[44px] mt-2 text-xs bg-white dark:bg-slate-600 px-2 py-1 rounded border border-slate-200 dark:border-slate-500 hover:bg-slate-100 dark:hover:bg-slate-500 text-slate-700 dark:text-slate-200 transition-colors"
                             >
                                 Auto Fix
                             </button>

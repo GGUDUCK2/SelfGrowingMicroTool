@@ -39,7 +39,7 @@
               <button
                   on:click={() => addKeyword(keyword)}
                   disabled={currentKeywords.includes(keyword)}
-                  class="text-xs px-2.5 py-1 rounded-full border transition-colors flex items-center gap-1
+                  class="min-h-[44px] min-w-[44px] text-xs px-2.5 py-1 rounded-full border transition-colors flex items-center gap-1
                   {currentKeywords.includes(keyword)
                       ? 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-300 dark:border-green-800 cursor-default'
                       : 'bg-white text-slate-600 border-slate-200 hover:border-indigo-300 hover:text-indigo-600 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-600 dark:hover:border-indigo-500'}"

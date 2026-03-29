@@ -47,43 +47,43 @@
         <!-- Tabs -->
         <div class="flex gap-1 overflow-x-auto no-scrollbar max-w-[calc(100%-80px)]">
              <button
-                class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors {activePreview === 'google' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}"
+                class="min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors {activePreview === 'google' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}"
                 on:click={() => activePreview = 'google'}
              >
                 Google
              </button>
              <button
-                class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors {activePreview === 'facebook' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}"
+                class="min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors {activePreview === 'facebook' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}"
                 on:click={() => activePreview = 'facebook'}
              >
                 Facebook
              </button>
              <button
-                class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors {activePreview === 'twitter' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}"
+                class="min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors {activePreview === 'twitter' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}"
                 on:click={() => activePreview = 'twitter'}
              >
                 Twitter
              </button>
              <button
-                class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors {activePreview === 'linkedin' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}"
+                class="min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors {activePreview === 'linkedin' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}"
                 on:click={() => activePreview = 'linkedin'}
              >
                 LinkedIn
              </button>
              <button
-                class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors {activePreview === 'slack' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}"
+                class="min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors {activePreview === 'slack' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}"
                 on:click={() => activePreview = 'slack'}
              >
                 Slack
              </button>
              <button
-                class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors {activePreview === 'discord' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}"
+                class="min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors {activePreview === 'discord' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}"
                 on:click={() => activePreview = 'discord'}
              >
                 Discord
              </button>
              <button
-                class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors {activePreview === 'whatsapp' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}"
+                class="min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors {activePreview === 'whatsapp' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}"
                 on:click={() => activePreview = 'whatsapp'}
              >
                 WhatsApp
@@ -94,7 +94,7 @@
              {#if activePreview === 'google'}
                  <button
                     on:click={() => isMobile = !isMobile}
-                    class="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 transition-colors"
+                    class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 transition-colors"
                     aria-label="Toggle Mobile/Desktop"
                     title={isMobile ? "Switch to Desktop" : "Switch to Mobile"}
                  >
@@ -108,7 +108,7 @@
             <!-- Theme Toggle -->
             <button
                 on:click={() => isDarkMode = !isDarkMode}
-                class="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 transition-colors"
+                class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 transition-colors"
                 aria-label="Toggle Preview Theme"
             >
                 {#if isDarkMode}
