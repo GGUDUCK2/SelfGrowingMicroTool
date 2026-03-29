@@ -1,6 +1,6 @@
 <script lang="ts">
   import Head from '$lib/components/Head.svelte';
-  import { FileImage, History, Zap, Lock, Smartphone } from 'lucide-svelte';
+  import { FileImage, Zap, Lock, Smartphone } from 'lucide-svelte';
   import Workspace from '$lib/components/pixel-forge/Workspace.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
@@ -13,7 +13,6 @@
   // SEO & Meta
   $: title = `${toolDict.title} - ${dict.common.category}`; // e.g. Pixel Forge - Image Tools
   $: description = toolDict.description;
-  $: canonical = `https://web-factory.vercel.app/${$page.params.lang}/tools/pixel-forge`;
 
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
