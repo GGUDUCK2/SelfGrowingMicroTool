@@ -274,10 +274,10 @@
 </script>
 
 <svelte:head>
-  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(howToSchema)}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(howToSchema) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>'}
 </svelte:head>
 
 <Head

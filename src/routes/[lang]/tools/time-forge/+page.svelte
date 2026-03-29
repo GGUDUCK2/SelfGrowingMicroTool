@@ -72,7 +72,7 @@
 </script>
 
 <svelte:head>
-    {@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
+    {@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</script>'}
 
   {@html `<script type="application/ld+json">
   {

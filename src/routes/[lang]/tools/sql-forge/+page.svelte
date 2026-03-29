@@ -119,7 +119,7 @@
 
 
 <svelte:head>
-  {@html `<script type="application/ld+json">${JSON.stringify(schemas)}</script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(schemas) + '</script>'}
 </svelte:head>
 
 <div class="h-[calc(100vh-4rem)] flex flex-col bg-gray-50 dark:bg-gray-900">

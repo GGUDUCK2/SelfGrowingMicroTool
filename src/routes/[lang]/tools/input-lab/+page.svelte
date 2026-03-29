@@ -101,7 +101,7 @@
     <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/input-lab" />
   <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/input-lab" />
 
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
 
   {@html `<script type="application/ld+json">
   {

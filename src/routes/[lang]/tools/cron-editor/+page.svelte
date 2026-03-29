@@ -204,8 +204,8 @@
 <svelte:head>
 
   <!-- JSON-LD -->
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd2)}</script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd2) + '</script>'}
 </svelte:head>
 
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">

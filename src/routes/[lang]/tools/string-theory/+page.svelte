@@ -219,7 +219,7 @@
 <svelte:head>
 
   {#if jsonLd}
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
   {/if}
 
   {@html `<script type="application/ld+json">

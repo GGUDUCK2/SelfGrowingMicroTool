@@ -166,9 +166,9 @@
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/cipher-lab" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/cipher-lab" />
 
-  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(softwareSchema) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">

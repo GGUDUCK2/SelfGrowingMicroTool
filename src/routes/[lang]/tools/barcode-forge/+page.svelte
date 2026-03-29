@@ -68,9 +68,9 @@
 
 
 <svelte:head>
-      {@html `<script type="application/ld+json">${jsonLd}</script>`}
+      {@html '<script type="application/ld+json">' + jsonLd + '</script>'}
 
-  {@html `<script type="application/ld+json">${JSON.stringify(faqJsonLd)}</script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqJsonLd) + '</script>'}
 
 </svelte:head>
 

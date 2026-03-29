@@ -66,7 +66,7 @@
   <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/pixel-forge" />
   <link rel="alternate" hreflang="x-default" href="https://web-factory.vercel.app/en/tools/pixel-forge" />
 
-  {@html `<script type="application/ld+json">${jsonLd}</script>`}
+  {@html '<script type="application/ld+json">' + jsonLd + '</script>'}
 </svelte:head>
 
 <div class="max-w-5xl mx-auto px-4 py-8 md:py-12 space-y-12">

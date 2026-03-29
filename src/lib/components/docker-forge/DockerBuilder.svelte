@@ -23,6 +23,66 @@
   $: dockerfile = generateDockerfile(baseImage, workdir, envVars, runCmds, copySteps, exposePorts, entrypoint, cmd);
   $: compose = generateCompose(baseImage, exposePorts, workdir);
 
+  // Security Check Logic
+  $: securityWarnings = computeSecurityWarnings(baseImage, envVars, runCmds);
+
+  function computeSecurityWarnings(base: string, envs: {key:string, value:string}[], runs: string[]) {
+    const warnings = [];
+    if (base.endsWith(':latest') || !base.includes(':')) {
+      warnings.push(d.warningLatestTag || "Using 'latest' tag is not recommended for production.");
+    }
+    if (base.startsWith('node') && !base.includes('alpine') && !base.includes('slim')) {
+      warnings.push(d.warningFatImage || "Consider using an alpine or slim variant for a smaller attack surface.");
+    }
+    return warnings;
+  }
+
+  // Magic Templates
+  const templates = {
+    nodejs: {
+      baseImage: 'node:18-alpine',
+      workdir: '/app',
+      envVars: [{ key: 'NODE_ENV', value: 'production' }],
+      runCmds: ['npm ci --only=production'],
+      copySteps: [{ src: 'package*.json', dest: './' }, { src: '.', dest: '.' }],
+      exposePorts: ['3000'],
+      entrypoint: '',
+      cmd: 'npm start'
+    },
+    python: {
+      baseImage: 'python:3.11-slim',
+      workdir: '/app',
+      envVars: [{ key: 'PYTHONDONTWRITEBYTECODE', value: '1' }, { key: 'PYTHONUNBUFFERED', value: '1' }],
+      runCmds: ['pip install --no-cache-dir -r requirements.txt'],
+      copySteps: [{ src: 'requirements.txt', dest: '.' }, { src: '.', dest: '.' }],
+      exposePorts: ['8000'],
+      entrypoint: '',
+      cmd: 'uvicorn main:app --host 0.0.0.0 --port 8000'
+    },
+    go: {
+      baseImage: 'golang:1.21-alpine',
+      workdir: '/app',
+      envVars: [{ key: 'CGO_ENABLED', value: '0' }],
+      runCmds: ['go mod download', 'go build -o main .'],
+      copySteps: [{ src: 'go.mod go.sum', dest: './' }, { src: '.', dest: '.' }],
+      exposePorts: ['8080'],
+      entrypoint: '',
+      cmd: './main'
+    }
+  };
+
+  function applyTemplate(type: keyof typeof templates) {
+    const t = templates[type];
+    baseImage = t.baseImage;
+    workdir = t.workdir;
+    envVars = [...t.envVars];
+    runCmds = [...t.runCmds];
+    copySteps = [...t.copySteps];
+    exposePorts = [...t.exposePorts];
+    entrypoint = t.entrypoint;
+    cmd = t.cmd;
+  }
+
   function generateDockerfile(
     base: string,
     wd: string,
@@ -99,9 +159,19 @@
     try {
       const count = await db.dockerForgeHistory.count();
       if (count >= 100) {
-        const oldest = await db.dockerForgeHistory.orderBy('createdAt').limit(1).toArray();
-        if (oldest.length > 0 && oldest[0].id) {
-          await db.dockerForgeHistory.delete(oldest[0].id);
+        // Find oldest unstarred item first
+        const oldestUnstarred = await db.dockerForgeHistory
+          .filter(item => !item.starred)
+          .sortBy('createdAt');
+
+        if (oldestUnstarred.length > 0 && oldestUnstarred[0].id) {
+          await db.dockerForgeHistory.delete(oldestUnstarred[0].id);
+        } else {
+          // Fallback if somehow all 100 items are starred
+          const oldest = await db.dockerForgeHistory.orderBy('createdAt').first();
+          if (oldest && oldest.id) {
+             await db.dockerForgeHistory.delete(oldest.id);
+          }
         }
       }
 
@@ -147,6 +217,35 @@
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
   <div class="lg:col-span-2 space-y-6">
+
+    <!-- Magic Templates -->
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4">
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="text-sm font-medium text-slate-700 dark:text-slate-300 mr-2">{d.magicTemplates || "Magic Templates"}:</span>
+        <button class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]" on:click={() => applyTemplate('nodejs')}>
+          Node.js
+        </button>
+        <button class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]" on:click={() => applyTemplate('python')}>
+          Python
+        </button>
+        <button class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]" on:click={() => applyTemplate('go')}>
+          Go
+        </button>
+      </div>
+    </div>
+
+    <!-- Security Warnings -->
+    {#if securityWarnings.length > 0}
+      <div class="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700/50 rounded-xl p-4 flex flex-col gap-2">
+        {#each securityWarnings as warning}
+          <div class="flex items-start text-sm text-amber-800 dark:text-amber-200">
+            <span class="mr-2">⚠️</span>
+            <span>{warning}</span>
+          </div>
+        {/each}
+      </div>
+    {/if}
+
     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
       <div class="space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -404,6 +503,6 @@
       </Button>
     </div>
 
-    <HistoryPanel {lang} {onRestore} />
+    <HistoryPanel {lang} onRestore={handleRestore} />
   </div>
 </div>

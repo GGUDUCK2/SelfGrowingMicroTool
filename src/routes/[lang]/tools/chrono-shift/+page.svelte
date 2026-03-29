@@ -293,9 +293,9 @@
 
     <!-- Twitter -->
 
-    {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
-    {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
-    {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
+    {@html '<script type="application/ld+json">' + JSON.stringify(softwareSchema) + '</script>'}
+    {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>'}
+    {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
 </svelte:head>
 
 <div class="max-w-6xl mx-auto space-y-8 pb-20 px-4 sm:px-6">

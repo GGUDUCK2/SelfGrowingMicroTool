@@ -411,7 +411,7 @@
       ]
     }
   </script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
 </svelte:head>
 
 <div class="h-[calc(100vh-64px)] flex flex-col bg-slate-50 dark:bg-slate-900 overflow-hidden">

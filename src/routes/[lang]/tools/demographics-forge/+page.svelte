@@ -5,7 +5,7 @@
     import GuideSection from '$lib/components/GuideSection.svelte';
     import FAQSection from '$lib/components/FAQSection.svelte';
 
-    import { onMount, onDestroy } from 'svelte';
+    import { onDestroy } from 'svelte';
     import { generateDemographics } from '$lib/components/demographics-forge/data';
     import PyramidChart from '$lib/components/demographics-forge/PyramidChart.svelte';
     import MetricsPanel from '$lib/components/demographics-forge/MetricsPanel.svelte';
@@ -17,14 +17,14 @@
     $: lang = $page.params.lang;
     $: dict = getDictionary(lang);
     $: t = { ...dict.tools.demographicsForge, lang };
-    $: common = dict.common;
+
 
     // State
     let year = 2024;
     let region = 'world';
     let compareRegion = 'none';
     let isPlaying = false;
-    let playInterval: ReturnType<typeof setInterval>;
+    let playInterval: ReturnType<typeof setInterval> | undefined;
 
     // Derived Data
     $: snapshot = generateDemographics(region, year);
@@ -69,7 +69,7 @@
         } else {
             if (playInterval) {
                 clearInterval(playInterval);
-                playInterval = undefined as any;
+                playInterval = undefined;
             }
         }
     }
@@ -131,8 +131,8 @@
     keywords="population pyramid, demographic transition, global demographics, median age, dependency ratio, visualization"
 />
 
-{@html `<script type="application/ld+json">${JSON.stringify(schema)}</script>`}
-{@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
+{@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</script>'}
+{@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
     <!-- Header -->
