@@ -3567,6 +3567,11 @@ export const dictionaries = {
         restore: "Restore",
         delete: "Delete",
         clear: "Clear All",
+        share: "Share Code",
+        multiStage: "Enable Multi-Stage Build",
+        buildImage: "Build Stage Image",
+        installCmds: "Install Commands",
+        addInstall: "Add Install",
         guide: {
           title: "Why Docker Forge?",
           intro: "Docker Forge simplifies containerization by providing a visual, error-free way to construct Dockerfiles and Compose configurations.",
@@ -3583,7 +3588,7 @@ export const dictionaries = {
         q1: "Is my Dockerfile sent to a server?",
         a1: "No, everything is generated entirely in your browser. Your configuration data never leaves your device.",
         q2: "Can I create multi-stage builds?",
-        a2: "Currently, Docker Forge focuses on single-stage builds optimized for rapid prototyping. We are planning to add multi-stage support in a future update.",
+        a2: "Yes! Use the multi-stage toggle to separate your build dependencies from your runtime environment, resulting in significantly smaller and more secure production images.",
         q3: "How do I use the generated docker-compose.yml?",
         a3: "Download it alongside your Dockerfile and run `docker-compose up -d --build` in the same directory."
       },
@@ -6637,6 +6642,11 @@ export const dictionaries = {
         restore: "복원",
         delete: "삭제",
         clear: "모두 지우기",
+        share: "코드 공유",
+        multiStage: "다중 단계(Multi-Stage) 빌드 활성화",
+        buildImage: "빌드 단계 이미지",
+        installCmds: "설치 명령어",
+        addInstall: "설치 추가",
         guide: {
           title: "왜 도커 포지인가요?",
           intro: "도커 포지는 시각적이고 오류 없는 방식으로 Dockerfile 및 Compose 구성을 작성하여 컨테이너화를 단순화합니다.",
@@ -6653,7 +6663,7 @@ export const dictionaries = {
         q1: "내 Dockerfile이 서버로 전송되나요?",
         a1: "아니요, 모든 것은 전적으로 브라우저에서 생성됩니다. 구성 데이터는 기기를 벗어나지 않습니다.",
         q2: "다중 단계(Multi-stage) 빌드를 생성할 수 있나요?",
-        a2: "현재 도커 포지는 빠른 프로토타이핑에 최적화된 단일 단계 빌드에 중점을 둡니다. 향후 업데이트에서 다중 단계 지원을 추가할 계획입니다.",
+        a2: "네! 다중 단계 토글을 사용하여 빌드 종속성을 런타임 환경에서 분리하면 훨씬 작고 안전한 프로덕션 이미지를 얻을 수 있습니다.",
         q3: "생성된 docker-compose.yml을 어떻게 사용하나요?",
         a3: "Dockerfile과 함께 다운로드하고 같은 디렉토리에서 `docker-compose up -d --build`를 실행하세요."
       },

@@ -17,85 +17,92 @@
   // JSON-LD
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Docker Forge",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Web",
-    "description": description,
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "featureList": "Dockerfile Generator, Docker Compose Generator, Local Dexie Workspace, Visual Builder"
-  });
-
-  $: faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
+    "@graph": [
       {
-        "@type": "Question",
-        "name": d.q1,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": d.a1
-        }
-      },
-      {
-        "@type": "Question",
-        "name": d.q2,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": d.a2
-        }
-      },
-      {
-        "@type": "Question",
-        "name": d.q3,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": d.a3
-        }
-      }
-    ]
-  };
-
-  $: breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `https://microtools.app/${lang}`
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Tools",
-        "item": `https://microtools.app/${lang}/tools`
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
+        "@type": "SoftwareApplication",
         "name": "Docker Forge",
-        "item": `https://microtools.app/${lang}/tools/docker-forge`
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "description": description,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Visual Dockerfile Builder",
+          "Multi-stage Build Support",
+          "Docker Compose Generator",
+          "Local IndexedDB Workspace"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": d.q1,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": d.a1
+            }
+          },
+          {
+            "@type": "Question",
+            "name": d.q2,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": d.a2
+            }
+          },
+          {
+            "@type": "Question",
+            "name": d.q3,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": d.a3
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": `https://web-factory.vercel.app/${lang}`
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": `https://web-factory.vercel.app/${lang}/tools`
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Docker Forge",
+            "item": `https://web-factory.vercel.app/${lang}/tools/docker-forge`
+          }
+        ]
       }
     ]
-  };
+  });
 </script>
 
 <Head
   title={title}
   description={description}
+  keywords="docker, dockerfile, generator, visual builder, docker compose, multi-stage build, container, devops"
 />
 
 <svelte:head>
+  <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/docker-forge" />
+  <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/docker-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://web-factory.vercel.app/en/tools/docker-forge" />
   {@html '<script type="application/ld+json">' + jsonLd + '</script>'}
-  {@html '<script type="application/ld+json">' + JSON.stringify(faqJsonLd) + '</script>'}
-  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbJsonLd) + '</script>'}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

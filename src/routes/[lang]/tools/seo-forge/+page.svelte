@@ -18,7 +18,6 @@
   // Get Dictionary
   $: dictionary = getDictionary($page.params.lang || 'en');
   $: dict = dictionary.tools.seoForge;
-  $: commonDict = dictionary.common;
 
   // State
   let activeTab: 'meta' | 'social' | 'jsonld' | 'history' = 'meta';
@@ -324,8 +323,6 @@
       }
     ]
   });
-
-  $: jsonLdScript = `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}<\/script>`;
 
   $: faqJsonLd = {
     "@context": "https://schema.org",
@@ -657,8 +654,8 @@
 
   <!-- Canonical -->
 
-  {@html jsonLdScript}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqJsonLd) + '</script>'}
 
-  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
+  {@html '<script type="application/ld+json">' + jsonLd + '</script>'}
 
 </svelte:head>

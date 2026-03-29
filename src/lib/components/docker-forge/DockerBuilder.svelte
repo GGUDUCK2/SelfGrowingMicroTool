@@ -2,9 +2,10 @@
   import { dictionaries } from '$lib/dictionaries';
   import Button from '$lib/components/Button.svelte';
   import { db, type DockerForgeHistory } from '$lib/db';
-  import { Copy, Download, Trash2, Plus, Save, Box } from 'lucide-svelte';
+  import { Copy, Download, Trash2, Plus, Save, Box, Share2 } from 'lucide-svelte';
   import { fade } from 'svelte/transition';
   import HistoryPanel from './HistoryPanel.svelte';
+  import { onMount, onDestroy } from 'svelte';
 
   export let lang: string;
 
@@ -20,8 +21,39 @@
   let entrypoint = '';
   let cmd = 'npm start';
 
-  $: dockerfile = generateDockerfile(baseImage, workdir, envVars, runCmds, copySteps, exposePorts, entrypoint, cmd);
+  // Multi-stage support
+  let isMultiStage = false;
+  let buildImage = 'node:18';
+  let installCmds: string[] = ['npm ci'];
+
+  $: dockerfile = generateDockerfile(baseImage, workdir, envVars, runCmds, copySteps, exposePorts, entrypoint, cmd, isMultiStage, buildImage, installCmds);
   $: compose = generateCompose(baseImage, exposePorts, workdir);
+
+  function handleKeydown(e: KeyboardEvent) {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+      e.preventDefault();
+      saveToHistory();
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c') {
+      if (window.getSelection()?.toString()) return;
+      e.preventDefault();
+      copyToClipboard(dockerfile);
+    }
+    if (e.key === 'Escape') {
+      // Could clear form, but might be destructive without warning.
+      // E.g., applyTemplate('nodejs');
+    }
+  }
+
+  onMount(() => {
+    window.addEventListener('keydown', handleKeydown);
+  });
+
+  onDestroy(() => {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('keydown', handleKeydown);
+    }
+  });
 
   // Security Check Logic
   $: securityWarnings = computeSecurityWarnings(baseImage, envVars, runCmds);
@@ -40,6 +72,9 @@
   // Magic Templates
   const templates = {
     nodejs: {
+      isMultiStage: false,
+      buildImage: '',
+      installCmds: [],
       baseImage: 'node:18-alpine',
       workdir: '/app',
       envVars: [{ key: 'NODE_ENV', value: 'production' }],
@@ -49,7 +84,23 @@
       entrypoint: '',
       cmd: 'npm start'
     },
+    nextjs: {
+      isMultiStage: true,
+      buildImage: 'node:18-alpine',
+      installCmds: ['npm ci', 'npm run build'],
+      baseImage: 'node:18-alpine',
+      workdir: '/app',
+      envVars: [{ key: 'NODE_ENV', value: 'production' }],
+      runCmds: [],
+      copySteps: [], // Handled by multi-stage logic conceptually, but for now we'll just set it.
+      exposePorts: ['3000'],
+      entrypoint: '',
+      cmd: 'npm start'
+    },
     python: {
+      isMultiStage: false,
+      buildImage: '',
+      installCmds: [],
       baseImage: 'python:3.11-slim',
       workdir: '/app',
       envVars: [{ key: 'PYTHONDONTWRITEBYTECODE', value: '1' }, { key: 'PYTHONUNBUFFERED', value: '1' }],
@@ -60,19 +111,38 @@
       cmd: 'uvicorn main:app --host 0.0.0.0 --port 8000'
     },
     go: {
-      baseImage: 'golang:1.21-alpine',
+      isMultiStage: true,
+      buildImage: 'golang:1.21-alpine',
+      installCmds: ['go mod download', 'go build -o main .'],
+      baseImage: 'alpine:latest',
       workdir: '/app',
-      envVars: [{ key: 'CGO_ENABLED', value: '0' }],
-      runCmds: ['go mod download', 'go build -o main .'],
-      copySteps: [{ src: 'go.mod go.sum', dest: './' }, { src: '.', dest: '.' }],
+      envVars: [],
+      runCmds: ['apk --no-cache add ca-certificates'],
+      copySteps: [],
       exposePorts: ['8080'],
       entrypoint: '',
       cmd: './main'
+    },
+    rust: {
+      isMultiStage: true,
+      buildImage: 'rust:1.73-slim',
+      installCmds: ['cargo build --release'],
+      baseImage: 'debian:bullseye-slim',
+      workdir: '/app',
+      envVars: [],
+      runCmds: ['apt-get update && apt-get install -y libssl-dev ca-certificates && rm -rf /var/lib/apt/lists/*'],
+      copySteps: [],
+      exposePorts: ['8080'],
+      entrypoint: '',
+      cmd: './target/release/app'
     }
   };
 
   function applyTemplate(type: keyof typeof templates) {
     const t = templates[type];
+    isMultiStage = t.isMultiStage;
+    buildImage = t.buildImage;
+    installCmds = [...t.installCmds];
     baseImage = t.baseImage;
     workdir = t.workdir;
     envVars = [...t.envVars];
@@ -91,17 +161,37 @@
     copies: { src: string; dest: string }[],
     ports: string[],
     ep: string,
-    c: string
+    c: string,
+    multi: boolean,
+    bImage: string,
+    iCmds: string[]
   ) {
     let lines = [];
+
+    if (multi) {
+      if (bImage) lines.push(`FROM ${bImage} AS builder`);
+      if (wd) lines.push(`WORKDIR ${wd}`);
+      lines.push(`COPY . .`);
+      iCmds.forEach(cmd => {
+        if (cmd) lines.push(`RUN ${cmd}`);
+      });
+      lines.push('');
+    }
+
     if (base) lines.push(`FROM ${base}`);
     if (wd) lines.push(`WORKDIR ${wd}`);
     envs.forEach(env => {
       if (env.key && env.value) lines.push(`ENV ${env.key}=${env.value}`);
     });
-    copies.forEach(copy => {
-      if (copy.src && copy.dest) lines.push(`COPY ${copy.src} ${copy.dest}`);
-    });
+
+    if (multi) {
+      lines.push(`COPY --from=builder ${wd} ${wd}`);
+    } else {
+      copies.forEach(copy => {
+        if (copy.src && copy.dest) lines.push(`COPY ${copy.src} ${copy.dest}`);
+      });
+    }
+
     runs.forEach(run => {
       if (run) lines.push(`RUN ${run}`);
     });
@@ -155,6 +245,25 @@
     URL.revokeObjectURL(url);
   }
 
+  async function shareCode() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Docker Forge Code',
+          text: dockerfile
+        });
+      } catch (err) {
+        console.error('Error sharing', err);
+      }
+    } else {
+      copyToClipboard(dockerfile);
+    }
+  }
+
+  function removeInstall(index: number) {
+    installCmds = installCmds.filter((_, i) => i !== index);
+  }
+
   async function saveToHistory() {
     try {
       const count = await db.dockerForgeHistory.count();
@@ -192,13 +301,14 @@
     // For simplicity, we just extract base image and reset the rest to default
     // In a real app we'd parse the dockerfile back into state
     baseImage = item.baseImage;
-    workdir = '';
+    workdir = '/app';
     envVars = [];
     runCmds = [];
-    copySteps = [];
+    copySteps = [{ src: '.', dest: '.' }];
     exposePorts = [];
     cmd = '';
     entrypoint = '';
+    isMultiStage = false;
   }
 
   function removeEnv(index: number) {
@@ -225,11 +335,17 @@
         <button class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]" on:click={() => applyTemplate('nodejs')}>
           Node.js
         </button>
+        <button class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]" on:click={() => applyTemplate('nextjs')}>
+          Next.js
+        </button>
         <button class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]" on:click={() => applyTemplate('python')}>
-          Python
+          Python FastAPI
         </button>
         <button class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]" on:click={() => applyTemplate('go')}>
           Go
+        </button>
+        <button class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]" on:click={() => applyTemplate('rust')}>
+          Rust
         </button>
       </div>
     </div>
@@ -248,9 +364,69 @@
 
     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
       <div class="space-y-6">
+        <!-- Multi-stage Toggle -->
+        <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+          <div>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white">{d.multiStage || 'Multi-Stage Build'}</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Separate build dependencies from runtime for a smaller image.</p>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" class="sr-only peer" bind:checked={isMultiStage}>
+            <div class="w-11 h-6 bg-slate-300 dark:bg-slate-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 min-h-[44px] min-w-[44px]"></div>
+          </label>
+        </div>
+
+        {#if isMultiStage}
+          <div class="p-4 border border-blue-200 dark:border-blue-900/50 rounded-lg bg-blue-50/50 dark:bg-blue-900/10 space-y-4" transition:fade>
+            <div>
+              <label for="buildImage" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{d.buildImage || 'Build Image'} (Builder)</label>
+              <input
+                id="buildImage"
+                type="text"
+                bind:value={buildImage}
+                class="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 min-h-[44px]"
+                placeholder="e.g. node:18"
+              />
+            </div>
+            <div role="group" aria-labelledby="install-cmds-label">
+              <div class="flex justify-between items-center mb-2">
+                <p id="install-cmds-label" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{d.installCmds || 'Install Commands'}</p>
+                <button
+                  class="text-blue-500 hover:text-blue-600 flex items-center text-sm font-medium min-h-[44px] min-w-[44px] justify-center"
+                  on:click={() => installCmds = [...installCmds, '']}
+                >
+                  <Plus size={16} class="mr-1" /> {d.addInstall || 'Add'}
+                </button>
+              </div>
+              <div class="space-y-2">
+                {#each installCmds as cmd, i}
+                  <div class="flex items-center gap-2">
+                    <input
+                      type="text"
+                      bind:value={installCmds[i]}
+                      class="flex-1 px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 min-h-[44px]"
+                      placeholder="npm ci"
+                      aria-label="Install Command"
+                    />
+                    <button
+                      class="text-slate-400 hover:text-red-500 min-h-[44px] min-w-[44px] flex items-center justify-center p-2"
+                      on:click={() => removeInstall(i)}
+                      aria-label="Remove Command"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                {/each}
+              </div>
+            </div>
+          </div>
+        {/if}
+
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label for="baseImage" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{d.baseImage}</label>
+            <label for="baseImage" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+              {#if isMultiStage}Runtime Image{:else}{d.baseImage}{/if}
+            </label>
             <input
               id="baseImage"
               type="text"
@@ -310,44 +486,46 @@
           </div>
         </div>
 
-        <div role="group" aria-labelledby="copy-files-label">
-          <div class="flex justify-between items-center mb-2">
-            <p id="copy-files-label" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{d.copyFiles}</p>
-            <button
-              class="text-blue-500 hover:text-blue-600 flex items-center text-sm font-medium min-h-[44px] min-w-[44px] justify-center"
-              on:click={() => copySteps = [...copySteps, { src: '', dest: '' }]}
-            >
-              <Plus size={16} class="mr-1" /> {d.addCopy}
-            </button>
+        {#if !isMultiStage}
+          <div role="group" aria-labelledby="copy-files-label">
+            <div class="flex justify-between items-center mb-2">
+              <p id="copy-files-label" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{d.copyFiles}</p>
+              <button
+                class="text-blue-500 hover:text-blue-600 flex items-center text-sm font-medium min-h-[44px] min-w-[44px] justify-center"
+                on:click={() => copySteps = [...copySteps, { src: '', dest: '' }]}
+              >
+                <Plus size={16} class="mr-1" /> {d.addCopy}
+              </button>
+            </div>
+            <div class="space-y-2">
+              {#each copySteps as copy, i}
+                <div class="flex items-center gap-2">
+                  <input
+                    type="text"
+                    bind:value={copy.src}
+                    class="flex-1 px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 min-h-[44px]"
+                    placeholder="package*.json"
+                    aria-label={d.sourcePath}
+                  />
+                  <input
+                    type="text"
+                    bind:value={copy.dest}
+                    class="flex-1 px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 min-h-[44px]"
+                    placeholder="./"
+                    aria-label={d.destPath}
+                  />
+                  <button
+                    class="text-slate-400 hover:text-red-500 min-h-[44px] min-w-[44px] flex items-center justify-center p-2"
+                    on:click={() => removeCopy(i)}
+                    aria-label="Remove Copy Step"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              {/each}
+            </div>
           </div>
-          <div class="space-y-2">
-            {#each copySteps as copy, i}
-              <div class="flex items-center gap-2">
-                <input
-                  type="text"
-                  bind:value={copy.src}
-                  class="flex-1 px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 min-h-[44px]"
-                  placeholder="package*.json"
-                  aria-label={d.sourcePath}
-                />
-                <input
-                  type="text"
-                  bind:value={copy.dest}
-                  class="flex-1 px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 min-h-[44px]"
-                  placeholder="./"
-                  aria-label={d.destPath}
-                />
-                <button
-                  class="text-slate-400 hover:text-red-500 min-h-[44px] min-w-[44px] flex items-center justify-center p-2"
-                  on:click={() => removeCopy(i)}
-                  aria-label="Remove Copy Step"
-                >
-                  <Trash2 size={16} />
-                </button>
-              </div>
-            {/each}
-          </div>
-        </div>
+        {/if}
 
         <div role="group" aria-labelledby="run-cmds-label">
           <div class="flex justify-between items-center mb-2">
@@ -467,6 +645,14 @@
             aria-label={d.download}
           >
             <Download size={16} />
+          </button>
+          <button
+            class="text-slate-400 hover:text-indigo-400 min-h-[44px] min-w-[44px] flex items-center justify-center p-2 transition-colors"
+            on:click={shareCode}
+            title={d.share || 'Share Code'}
+            aria-label={d.share || 'Share Code'}
+          >
+            <Share2 size={16} />
           </button>
         </div>
       </div>
