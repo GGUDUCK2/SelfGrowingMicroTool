@@ -201,37 +201,41 @@
                <div class="grid grid-cols-2 gap-3">
                  <div>
                     <label for="barcode-width" class="block text-xs text-slate-500 mb-1">{d.width} ({width})</label>
-                    <input id="barcode-width" type="range" min="1" max="4" step="1" bind:value={width} class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
+                    <div class="flex items-center min-h-[44px]">
+                       <input id="barcode-width" type="range" min="1" max="4" step="1" bind:value={width} class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
+                    </div>
                  </div>
                  <div>
                     <label for="barcode-height" class="block text-xs text-slate-500 mb-1">{d.height} ({height})</label>
-                    <input id="barcode-height" type="range" min="10" max="200" step="10" bind:value={height} class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
+                    <div class="flex items-center min-h-[44px]">
+                       <input id="barcode-height" type="range" min="10" max="200" step="10" bind:value={height} class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
+                    </div>
                  </div>
                </div>
 
                <div class="grid grid-cols-2 gap-3 mt-3">
-                 <label class="flex items-center space-x-2">
+                 <label class="flex items-center space-x-2 min-h-[44px] min-w-[44px]">
                     <input type="checkbox" bind:checked={displayValue} class="rounded text-indigo-600 focus:ring-indigo-500 border-gray-300" />
                     <span class="text-xs text-slate-600 dark:text-slate-300">{d.displayValue}</span>
                  </label>
 
                  <div>
                     <label for="barcode-fontsize" class="block text-xs text-slate-500 mb-1">{d.fontSize}</label>
-                    <input id="barcode-fontsize" type="number" bind:value={fontSize} class="w-full min-h-[44px] p-1 text-xs border rounded bg-transparent focus:ring-2 focus:ring-indigo-500" />
+                    <input id="barcode-fontsize" type="number" bind:value={fontSize} class="w-full min-h-[44px] px-2 py-1 text-sm border rounded-lg bg-transparent focus:ring-2 focus:ring-indigo-500 dark:border-slate-600" />
                  </div>
                </div>
 
                 <div class="grid grid-cols-2 gap-3 mt-3">
                     <div>
                         <label for="barcode-bg" class="block text-xs text-slate-500 mb-1">{d.background}</label>
-                        <div class="flex items-center space-x-1">
+                        <div class="flex items-center space-x-2 min-h-[44px]">
                             <input id="barcode-bg" type="color" bind:value={background} class="h-11 w-11 rounded cursor-pointer border-none p-0 focus:ring-2 focus:ring-indigo-500" />
                             <span class="text-xs font-mono text-slate-400">{background}</span>
                         </div>
                     </div>
                     <div>
                         <label for="barcode-line" class="block text-xs text-slate-500 mb-1">{d.lineColor}</label>
-                        <div class="flex items-center space-x-1">
+                        <div class="flex items-center space-x-2 min-h-[44px]">
                             <input id="barcode-line" type="color" bind:value={lineColor} class="h-11 w-11 rounded cursor-pointer border-none p-0 focus:ring-2 focus:ring-indigo-500" />
                             <span class="text-xs font-mono text-slate-400">{lineColor}</span>
                         </div>

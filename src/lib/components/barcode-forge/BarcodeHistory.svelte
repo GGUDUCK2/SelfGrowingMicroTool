@@ -34,7 +34,7 @@
 <div class="space-y-4">
   <div class="flex justify-between items-center mb-2">
     <h3 class="text-sm font-semibold text-slate-500 uppercase">{d.history}</h3>
-    <button on:click={clearAll} class="text-xs text-rose-500 hover:text-rose-700 underline">
+    <button on:click={clearAll} class="min-h-[44px] min-w-[44px] text-xs text-rose-500 hover:text-rose-700 underline">
         {d.clear}
     </button>
   </div>
@@ -47,17 +47,17 @@
             <p class="text-sm font-medium text-slate-900 dark:text-white truncate">{item.name}</p>
             <p class="text-xs text-slate-500">{item.format} • {new Date(item.createdAt).toLocaleDateString()}</p>
           </div>
-          <div class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+          <div class="flex items-center space-x-1 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
             <button
               on:click={() => onRestore(item)}
-              class="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-md"
+              class="p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-md"
               title={d.restore}
             >
               <RotateCcw size={16} />
             </button>
             <button
               on:click={() => deleteItem(item.id)}
-              class="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-md"
+              class="p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-md"
               title={d.delete}
             >
               <Trash2 size={16} />
