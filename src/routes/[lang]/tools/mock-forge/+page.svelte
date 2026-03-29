@@ -241,8 +241,8 @@
   <link rel="alternate" hreflang="ko" href="{baseUrl}/ko/tools/mock-forge" />
   <link rel="alternate" hreflang="x-default" href="{baseUrl}/en/tools/mock-forge" />
 
-  {@html `<script type="application/ld+json">${JSON.stringify(schemaOrg)}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(schemaOrg) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black pb-20">

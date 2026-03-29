@@ -154,7 +154,7 @@
       ]
     }
   </script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumb)}</script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumb) + '</script>'}
 
   {@html `<script type="application/ld+json">
   {

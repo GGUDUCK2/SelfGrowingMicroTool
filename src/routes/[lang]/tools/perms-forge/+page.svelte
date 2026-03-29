@@ -79,7 +79,7 @@
 
 
 <svelte:head>
-                        {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
+                        {@html '<script type="application/ld+json">' + JSON.stringify(softwareSchema) + '</script>'}
 
   {@html `<script type="application/ld+json">
   {

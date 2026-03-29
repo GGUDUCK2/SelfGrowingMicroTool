@@ -113,8 +113,8 @@
 
 <svelte:head>
 
-  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",

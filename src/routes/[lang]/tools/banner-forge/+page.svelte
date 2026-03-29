@@ -78,7 +78,7 @@
 
 
 
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
 
   {@html `<script type="application/ld+json">
   {

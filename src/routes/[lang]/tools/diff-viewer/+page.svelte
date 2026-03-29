@@ -383,10 +383,10 @@
 </script>
 
 <svelte:head>
-  {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(howToSchema)}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(softwareSchema) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(howToSchema) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
 </svelte:head>
 
 <svelte:window on:keydown={handleKeydown} />
