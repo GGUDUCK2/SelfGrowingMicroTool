@@ -83,7 +83,7 @@
         id="bulk-input"
         bind:value={input}
         rows="10"
-        class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 font-mono"
+        class="w-full min-h-[44px] min-w-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 font-mono"
         placeholder="123456789012&#10;123456789013&#10;123456789014"
     ></textarea>
     <p class="text-xs text-slate-400 mt-1 text-right">
@@ -94,7 +94,7 @@
   <button
     disabled={generating || !input.trim()}
     on:click={generateZip}
-    class="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+    class="w-full min-h-[44px] min-w-[44px] flex items-center justify-center space-x-2 px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
   >
     {#if generating}
         <span>{d.validation.calculating} {progress}%</span>
