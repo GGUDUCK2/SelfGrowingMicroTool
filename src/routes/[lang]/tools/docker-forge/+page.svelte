@@ -15,7 +15,7 @@
   $: description = d.description;
 
   // JSON-LD
-  $: jsonLd = JSON.stringify({
+  $: schemaObj = {
     "@context": "https://schema.org",
     "@graph": [
       {
@@ -89,7 +89,8 @@
         ]
       }
     ]
-  });
+  };
+  $: jsonLd = JSON.stringify(schemaObj);
 </script>
 
 <Head
