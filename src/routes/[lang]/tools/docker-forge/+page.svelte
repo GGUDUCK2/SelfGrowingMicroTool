@@ -102,7 +102,7 @@
   <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/docker-forge" />
   <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/docker-forge" />
   <link rel="alternate" hreflang="x-default" href="https://web-factory.vercel.app/en/tools/docker-forge" />
-  {@html '<script type="application/ld+json">' + jsonLd + '</script>'}
+  {@html `<script type="application/ld+json">${jsonLd}</script>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

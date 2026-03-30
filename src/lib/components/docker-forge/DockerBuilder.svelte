@@ -26,8 +26,26 @@
   let buildImage = 'node:18';
   let installCmds: string[] = ['npm ci'];
 
+  // Visual Size Estimator
+  const imageSizeMap: Record<string, string> = {
+    'alpine:latest': '~5MB',
+    'node:18-alpine': '~175MB',
+    'node:18': '~1GB',
+    'python:3.11-slim': '~150MB',
+    'python:3.11': '~1GB',
+    'golang:1.21-alpine': '~300MB',
+    'golang:1.21': '~800MB',
+    'rust:1.73-slim': '~700MB',
+    'ubuntu:latest': '~70MB',
+    'debian:bullseye-slim': '~80MB'
+  };
+
+  $: estimatedSize = imageSizeMap[baseImage] || 'Unknown';
+
+  let includeDatabase = false;
+
   $: dockerfile = generateDockerfile(baseImage, workdir, envVars, runCmds, copySteps, exposePorts, entrypoint, cmd, isMultiStage, buildImage, installCmds);
-  $: compose = generateCompose(baseImage, exposePorts, workdir);
+  $: compose = generateCompose(baseImage, exposePorts, workdir, includeDatabase);
 
   function handleKeydown(e: KeyboardEvent) {
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
@@ -56,9 +74,9 @@
   });
 
   // Security Check Logic
-  $: securityWarnings = computeSecurityWarnings(baseImage, envVars, runCmds);
+  $: securityWarnings = computeSecurityWarnings(baseImage, envVars, runCmds, dockerfile);
 
-  function computeSecurityWarnings(base: string, envs: {key:string, value:string}[], runs: string[]) {
+  function computeSecurityWarnings(base: string, envs: {key:string, value:string}[], runs: string[], dfString: string) {
     const warnings = [];
     if (base.endsWith(':latest') || !base.includes(':')) {
       warnings.push(d.warningLatestTag || "Using 'latest' tag is not recommended for production.");
@@ -66,6 +84,24 @@
     if (base.startsWith('node') && !base.includes('alpine') && !base.includes('slim')) {
       warnings.push(d.warningFatImage || "Consider using an alpine or slim variant for a smaller attack surface.");
     }
+
+    // Check for missing USER directive
+    if (!dfString.includes('\nUSER ') && !dfString.startsWith('USER ')) {
+       warnings.push(d.warningUser || "Running as root. Consider adding a 'USER' directive for better security.");
+    }
+
+    // Check for consecutive RUN commands
+    let runCount = 0;
+    const lines = dfString.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+        if (lines[i].startsWith('RUN ')) {
+            if (i > 0 && lines[i-1].startsWith('RUN ')) {
+                warnings.push(d.warningMultipleRuns || "Multiple consecutive RUN commands found. Consider chaining them with '&&' to reduce image layers.");
+                break;
+            }
+        }
+    }
+
     return warnings;
   }
 
@@ -203,13 +239,19 @@
     return lines.join('\n');
   }
 
-  function generateCompose(base: string, ports: string[], wd: string) {
+  function generateCompose(base: string, ports: string[], wd: string, incDb: boolean) {
     let lines = [
       'version: "3.8"',
       'services:',
       '  app:',
       '    build: .',
     ];
+
+    if (incDb) {
+      lines.push('    depends_on:');
+      lines.push('      - db');
+    }
+
     if (ports.length > 0) {
       lines.push('    ports:');
       ports.forEach(port => {
@@ -220,7 +262,28 @@
       lines.push('    volumes:');
       lines.push(`      - .:${wd}`);
     }
+    if (incDb) {
+      lines.push('    environment:');
+      lines.push('      - DATABASE_URL=postgres://user:password@db:5432/dbname');
+    }
     lines.push('    restart: unless-stopped');
+
+    if (incDb) {
+      lines.push('');
+      lines.push('  db:');
+      lines.push('    image: postgres:15-alpine');
+      lines.push('    environment:');
+      lines.push('      - POSTGRES_USER=user');
+      lines.push('      - POSTGRES_PASSWORD=password');
+      lines.push('      - POSTGRES_DB=dbname');
+      lines.push('    volumes:');
+      lines.push('      - pgdata:/var/lib/postgresql/data');
+      lines.push('    restart: unless-stopped');
+      lines.push('');
+      lines.push('volumes:');
+      lines.push('  pgdata:');
+    }
+
     return lines.join('\n');
   }
 
@@ -332,19 +395,39 @@
     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4">
       <div class="flex items-center gap-2 flex-wrap">
         <span class="text-sm font-medium text-slate-700 dark:text-slate-300 mr-2">{d.magicTemplates || "Magic Templates"}:</span>
-        <button class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]" on:click={() => applyTemplate('nodejs')}>
+        <button
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]"
+          on:click={() => applyTemplate('nodejs')}
+          aria-label="Magic Template Node.js"
+        >
           Node.js
         </button>
-        <button class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]" on:click={() => applyTemplate('nextjs')}>
+        <button
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]"
+          on:click={() => applyTemplate('nextjs')}
+          aria-label="Magic Template Next.js"
+        >
           Next.js
         </button>
-        <button class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]" on:click={() => applyTemplate('python')}>
+        <button
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]"
+          on:click={() => applyTemplate('python')}
+          aria-label="Magic Template Python FastAPI"
+        >
           Python FastAPI
         </button>
-        <button class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]" on:click={() => applyTemplate('go')}>
+        <button
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]"
+          on:click={() => applyTemplate('go')}
+          aria-label="Magic Template Go"
+        >
           Go
         </button>
-        <button class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]" on:click={() => applyTemplate('rust')}>
+        <button
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]"
+          on:click={() => applyTemplate('rust')}
+          aria-label="Magic Template Rust"
+        >
           Rust
         </button>
       </div>
@@ -364,16 +447,30 @@
 
     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
       <div class="space-y-6">
-        <!-- Multi-stage Toggle -->
-        <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
-          <div>
-            <h3 class="text-sm font-bold text-slate-900 dark:text-white">{d.multiStage || 'Multi-Stage Build'}</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Separate build dependencies from runtime for a smaller image.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Multi-stage Toggle -->
+          <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white">{d.multiStage || 'Multi-Stage Build'}</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Separate build dependencies from runtime.</p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px]" aria-label="Toggle Multi-Stage">
+              <input type="checkbox" class="sr-only peer" bind:checked={isMultiStage}>
+              <div class="w-11 h-6 bg-slate-300 dark:bg-slate-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+            </label>
           </div>
-          <label class="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" class="sr-only peer" bind:checked={isMultiStage}>
-            <div class="w-11 h-6 bg-slate-300 dark:bg-slate-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 min-h-[44px] min-w-[44px]"></div>
-          </label>
+
+          <!-- Add Database Toggle -->
+          <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white">{d.databaseLabel || 'Add Database (Postgres)'}</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{d.databaseDesc || 'Include Postgres in docker-compose.yml'}</p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px]" aria-label="Toggle Database">
+              <input type="checkbox" class="sr-only peer" bind:checked={includeDatabase}>
+              <div class="w-11 h-6 bg-slate-300 dark:bg-slate-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+            </label>
+          </div>
         </div>
 
         {#if isMultiStage}
@@ -424,9 +521,16 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label for="baseImage" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-              {#if isMultiStage}Runtime Image{:else}{d.baseImage}{/if}
-            </label>
+            <div class="flex justify-between items-center mb-1">
+              <label for="baseImage" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                {#if isMultiStage}Runtime Image{:else}{d.baseImage}{/if}
+              </label>
+              {#if estimatedSize !== 'Unknown'}
+                <span class="text-xs text-blue-600 dark:text-blue-400 font-medium bg-blue-100 dark:bg-blue-900/30 px-2 py-0.5 rounded-full" transition:fade>
+                  {d.estimatedSize || 'Est. Size'}: {estimatedSize}
+                </span>
+              {/if}
+            </div>
             <input
               id="baseImage"
               type="text"
