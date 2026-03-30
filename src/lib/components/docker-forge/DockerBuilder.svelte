@@ -2,10 +2,11 @@
   import { dictionaries } from '$lib/dictionaries';
   import Button from '$lib/components/Button.svelte';
   import { db, type DockerForgeHistory } from '$lib/db';
-  import { Copy, Download, Trash2, Plus, Save, Box, Share2 } from 'lucide-svelte';
+  import { Copy, Download, Trash2, Plus, Save, Box, Share2, FileArchive } from 'lucide-svelte';
   import { fade } from 'svelte/transition';
   import HistoryPanel from './HistoryPanel.svelte';
   import { onMount, onDestroy } from 'svelte';
+  import JSZip from 'jszip';
 
   export let lang: string;
 
@@ -42,10 +43,26 @@
 
   $: estimatedSize = imageSizeMap[baseImage] || 'Unknown';
 
-  let includeDatabase = false;
+
+  // Smart Port Suggestions based on image or template
+  $: {
+    const baseLower = baseImage.toLowerCase();
+    const ports = [];
+    if (baseLower.includes('node') || baseLower.includes('next')) ports.push('3000');
+    else if (baseLower.includes('python') || baseLower.includes('fastapi') || baseLower.includes('django')) ports.push('8000');
+    else if (baseLower.includes('nginx') || baseLower.includes('php')) ports.push('80');
+    else if (baseLower.includes('go') || baseLower.includes('rust') || baseLower.includes('tomcat') || baseLower.includes('java')) ports.push('8080');
+    else if (baseLower.includes('ruby')) ports.push('3000');
+
+    if (ports.length > 0 && exposePorts.length === 0) {
+      exposePorts = ports;
+    }
+  }
+
+  let services: Record<string, boolean> = { postgres: false, mysql: false, mongodb: false, redis: false };
 
   $: dockerfile = generateDockerfile(baseImage, workdir, envVars, runCmds, copySteps, exposePorts, entrypoint, cmd, isMultiStage, buildImage, installCmds);
-  $: compose = generateCompose(baseImage, exposePorts, workdir, includeDatabase);
+  $: compose = generateCompose(baseImage, exposePorts, workdir, services);
 
   function handleKeydown(e: KeyboardEvent) {
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
@@ -239,7 +256,7 @@
     return lines.join('\n');
   }
 
-  function generateCompose(base: string, ports: string[], wd: string, incDb: boolean) {
+  function generateCompose(base: string, ports: string[], wd: string, svcs: Record<string, boolean>) {
     let lines = [
       'version: "3.8"',
       'services:',
@@ -247,9 +264,11 @@
       '    build: .',
     ];
 
-    if (incDb) {
+    const activeServices = Object.keys(svcs).filter(k => svcs[k]);
+
+    if (activeServices.length > 0) {
       lines.push('    depends_on:');
-      lines.push('      - db');
+      activeServices.forEach(svc => lines.push(`      - ${svc}`));
     }
 
     if (ports.length > 0) {
@@ -262,15 +281,19 @@
       lines.push('    volumes:');
       lines.push(`      - .:${wd}`);
     }
-    if (incDb) {
+
+    if (activeServices.length > 0) {
       lines.push('    environment:');
-      lines.push('      - DATABASE_URL=postgres://user:password@db:5432/dbname');
+      if (svcs.postgres) lines.push('      - POSTGRES_URL=postgres://user:password@postgres:5432/dbname');
+      if (svcs.mysql) lines.push('      - MYSQL_URL=mysql://user:password@mysql:3306/dbname');
+      if (svcs.mongodb) lines.push('      - MONGO_URL=mongodb://root:example@mongodb:27017/');
+      if (svcs.redis) lines.push('      - REDIS_URL=redis://redis:6379');
     }
     lines.push('    restart: unless-stopped');
 
-    if (incDb) {
+    if (svcs.postgres) {
       lines.push('');
-      lines.push('  db:');
+      lines.push('  postgres:');
       lines.push('    image: postgres:15-alpine');
       lines.push('    environment:');
       lines.push('      - POSTGRES_USER=user');
@@ -279,9 +302,47 @@
       lines.push('    volumes:');
       lines.push('      - pgdata:/var/lib/postgresql/data');
       lines.push('    restart: unless-stopped');
+    }
+
+    if (svcs.mysql) {
+      lines.push('');
+      lines.push('  mysql:');
+      lines.push('    image: mysql:8');
+      lines.push('    environment:');
+      lines.push('      - MYSQL_USER=user');
+      lines.push('      - MYSQL_PASSWORD=password');
+      lines.push('      - MYSQL_DATABASE=dbname');
+      lines.push('      - MYSQL_ROOT_PASSWORD=rootpassword');
+      lines.push('    volumes:');
+      lines.push('      - mysqldata:/var/lib/mysql');
+      lines.push('    restart: unless-stopped');
+    }
+
+    if (svcs.mongodb) {
+      lines.push('');
+      lines.push('  mongodb:');
+      lines.push('    image: mongo:latest');
+      lines.push('    environment:');
+      lines.push('      - MONGO_INITDB_ROOT_USERNAME=root');
+      lines.push('      - MONGO_INITDB_ROOT_PASSWORD=example');
+      lines.push('    volumes:');
+      lines.push('      - mongodata:/data/db');
+      lines.push('    restart: unless-stopped');
+    }
+
+    if (svcs.redis) {
+      lines.push('');
+      lines.push('  redis:');
+      lines.push('    image: redis:alpine');
+      lines.push('    restart: unless-stopped');
+    }
+
+    if (svcs.postgres || svcs.mysql || svcs.mongodb) {
       lines.push('');
       lines.push('volumes:');
-      lines.push('  pgdata:');
+      if (svcs.postgres) lines.push('  pgdata:');
+      if (svcs.mysql) lines.push('  mysqldata:');
+      if (svcs.mongodb) lines.push('  mongodata:');
     }
 
     return lines.join('\n');
@@ -325,6 +386,37 @@
 
   function removeInstall(index: number) {
     installCmds = installCmds.filter((_, i) => i !== index);
+  }
+
+
+  async function downloadZip() {
+    const zip = new JSZip();
+    zip.file("Dockerfile", dockerfile);
+    zip.file("docker-compose.yml", compose);
+
+    // Add a README
+    const readme = `# Docker Forge Project
+
+Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
+
+## Getting Started
+1. Review the \`Dockerfile\` and \`docker-compose.yml\`.
+2. Run \`docker-compose up -d --build\` to build and start your containers.
+3. Access your app!
+`;
+    zip.file("README.md", readme);
+
+    try {
+      const content = await zip.generateAsync({ type: "blob" });
+      const url = URL.createObjectURL(content);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'docker-forge-project.zip';
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Error generating zip:', err);
+    }
   }
 
   async function saveToHistory() {
@@ -460,16 +552,23 @@
             </label>
           </div>
 
-          <!-- Add Database Toggle -->
-          <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+          <!-- Add Database / Services Toggles -->
+          <div class="flex flex-col bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg space-y-3">
             <div>
-              <h3 class="text-sm font-bold text-slate-900 dark:text-white">{d.databaseLabel || 'Add Database (Postgres)'}</h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{d.databaseDesc || 'Include Postgres in docker-compose.yml'}</p>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white">{d.composeServicesLabel || 'Add Services to Compose'}</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{d.composeServicesDesc || 'Include popular databases in docker-compose.yml'}</p>
             </div>
-            <label class="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px]" aria-label="Toggle Database">
-              <input type="checkbox" class="sr-only peer" bind:checked={includeDatabase}>
-              <div class="w-11 h-6 bg-slate-300 dark:bg-slate-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-            </label>
+            <div class="grid grid-cols-2 gap-3">
+              {#each Object.keys(services) as svc}
+                <div class="flex items-center justify-between">
+                  <span class="text-sm font-medium text-slate-700 dark:text-slate-300 capitalize">{svc}</span>
+                  <label class="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px]" aria-label={`Toggle ${svc}`}>
+                    <input type="checkbox" class="sr-only peer" bind:checked={services[svc]}>
+                    <div class="w-11 h-6 bg-slate-300 dark:bg-slate-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                  </label>
+                </div>
+              {/each}
+            </div>
           </div>
         </div>
 
@@ -787,11 +886,18 @@
       </div>
     </div>
 
+
     <div class="flex flex-col gap-2">
-      <Button variant="primary" class="w-full min-h-[44px] flex items-center justify-center gap-2" on:click={saveToHistory}>
-        <Save size={18} /> {d.save}
-      </Button>
+      <div class="grid grid-cols-2 gap-2">
+        <Button variant="primary" class="w-full min-h-[44px] flex items-center justify-center gap-2" on:click={saveToHistory}>
+          <Save size={18} /> {d.save}
+        </Button>
+        <Button variant="secondary" class="w-full min-h-[44px] flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white border-none" on:click={downloadZip}>
+          <FileArchive size={18} /> {d.downloadZip || 'Download ZIP'}
+        </Button>
+      </div>
     </div>
+
 
     <HistoryPanel {lang} onRestore={handleRestore} />
   </div>
