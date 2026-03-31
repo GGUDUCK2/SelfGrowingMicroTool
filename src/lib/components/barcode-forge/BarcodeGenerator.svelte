@@ -215,7 +215,7 @@
 
                <div class="grid grid-cols-2 gap-3 mt-3">
                  <label class="flex items-center space-x-2 min-h-[44px] min-w-[44px]">
-                    <input type="checkbox" bind:checked={displayValue} class="rounded text-indigo-600 focus:ring-indigo-500 border-gray-300" />
+                    <input type="checkbox" bind:checked={displayValue} class="rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 dark:border-slate-600 min-h-[20px] min-w-[20px]" />
                     <span class="text-xs text-slate-600 dark:text-slate-300">{d.displayValue}</span>
                  </label>
 

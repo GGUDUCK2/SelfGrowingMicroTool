@@ -30,48 +30,72 @@
     "featureList": "EAN-13, UPC-A, Code 128, ITF-14, Bulk Generator, Vector Export"
   });
 
-  $: faqJsonLd = {
+  $: faqJsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": d.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": d.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": d.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": d.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": d.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": d.a3
         }
       }
     ]
-  };
+  });
+
+  $: breadcrumbJsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://microfactory.io"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": "https://microfactory.io/en/tools"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": d.title,
+        "item": `https://microfactory.io/${lang}/tools/barcode-forge`
+      }
+    ]
+  });
 </script>
+
 <Head
   title={title}
   description={description}
 />
 
-
 <svelte:head>
-      {@html '<script type="application/ld+json">' + jsonLd + '</script>'}
-
-  {@html '<script type="application/ld+json">' + JSON.stringify(faqJsonLd) + '</script>'}
-
+  {@html `<script type="application/ld+json">${jsonLd}</script>`}
+  {@html `<script type="application/ld+json">${faqJsonLd}</script>`}
+  {@html `<script type="application/ld+json">${breadcrumbJsonLd}</script>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
