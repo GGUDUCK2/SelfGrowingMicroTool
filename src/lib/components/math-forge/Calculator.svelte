@@ -59,7 +59,7 @@
     <input
       type="text"
       bind:value={input}
-      class="w-full bg-transparent text-right text-3xl font-bold text-slate-900 dark:text-white outline-none font-mono min-h-[44px]"
+      class="w-full bg-transparent text-right text-3xl font-bold text-slate-900 dark:text-white outline-none font-mono min-h-[44px] min-w-[44px]"
       placeholder="0"
       aria-label="Calculator Input"
       on:keydown={handleKeydown}
@@ -73,7 +73,7 @@
     {#each buttons as row}
       {#each row as btn}
         <button
-          class="min-h-[44px] h-12 rounded-lg font-medium text-lg transition-colors
+          class="min-h-[44px] min-w-[44px] h-12 rounded-lg font-medium text-lg transition-colors
             {btn === '=' ? 'bg-indigo-600 hover:bg-indigo-700 text-white col-span-1' :
              ['AC'].includes(btn) ? 'bg-red-50 hover:bg-red-100 text-red-600 dark:bg-red-900/20 dark:text-red-400' :
              ['+', '-', '*', '/', '^', '%'].includes(btn) ? 'bg-indigo-50 hover:bg-indigo-100 text-indigo-600 dark:bg-indigo-900/20 dark:text-indigo-400' :
