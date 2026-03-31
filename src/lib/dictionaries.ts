@@ -3585,6 +3585,10 @@ export const dictionaries = {
         parseAction: "Parse Dockerfile",
         emptyPaste: "Please paste a Dockerfile content first.",
         downloadGha: "Download GitHub Action",
+        quickStart: "Quick Start Examples",
+        downloadSuccess: "Downloaded successfully!",
+        shareSuccess: "Shared successfully!",
+        saveSuccess: "Saved to Workspace",
         guide: {
           title: "Why Docker Forge?",
           intro: "Docker Forge simplifies containerization by providing a visual, error-free way to construct Dockerfiles and Compose configurations.",
@@ -6673,6 +6677,10 @@ export const dictionaries = {
         parseAction: "Dockerfile 파싱",
         emptyPaste: "먼저 Dockerfile 내용을 붙여넣으세요.",
         downloadGha: "GitHub Action 다운로드",
+        quickStart: "빠른 시작 예제",
+        downloadSuccess: "성공적으로 다운로드되었습니다!",
+        shareSuccess: "성공적으로 공유되었습니다!",
+        saveSuccess: "작업 공간에 저장되었습니다",
         guide: {
           title: "왜 도커 포지인가요?",
           intro: "도커 포지는 시각적이고 오류 없는 방식으로 Dockerfile 및 Compose 구성을 작성하여 컨테이너화를 단순화합니다.",
