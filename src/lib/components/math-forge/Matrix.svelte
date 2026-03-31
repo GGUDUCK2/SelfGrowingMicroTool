@@ -58,24 +58,24 @@
           <div class="flex justify-between items-center mb-4">
               <h3 class="font-bold text-indigo-600 dark:text-indigo-400">{dict.matrixA}</h3>
               <div class="flex items-center gap-2 text-sm">
-                  <input type="number" aria-label="Rows Matrix A" bind:value={rowsA} min="1" max="10" on:change={() => resize('A', rowsA, colsA)} class="w-12 min-h-[44px] p-1 bg-slate-100 dark:bg-slate-800 rounded text-center" />
+                  <input type="number" aria-label="Rows Matrix A" bind:value={rowsA} min="1" max="10" on:change={() => resize('A', rowsA, colsA)} class="w-12 min-h-[44px] min-w-[44px] p-1 bg-slate-100 dark:bg-slate-800 rounded text-center" />
                   <span>x</span>
-                  <input type="number" aria-label="Columns Matrix A" bind:value={colsA} min="1" max="10" on:change={() => resize('A', rowsA, colsA)} class="w-12 min-h-[44px] p-1 bg-slate-100 dark:bg-slate-800 rounded text-center" />
+                  <input type="number" aria-label="Columns Matrix A" bind:value={colsA} min="1" max="10" on:change={() => resize('A', rowsA, colsA)} class="w-12 min-h-[44px] min-w-[44px] p-1 bg-slate-100 dark:bg-slate-800 rounded text-center" />
               </div>
           </div>
           <div class="overflow-x-auto">
               <div class="grid gap-1" style="grid-template-columns: repeat({colsA}, minmax(50px, 1fr));">
                   {#each matrixA as row, i}
                       {#each row as val, j}
-                          <input type="number" aria-label="Matrix A {i},{j}" bind:value={matrixA[i][j]} class="w-full min-h-[44px] p-2 text-center bg-slate-50 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 focus:border-indigo-500 outline-none" />
+                          <input type="number" aria-label="Matrix A {i},{j}" bind:value={matrixA[i][j]} class="w-full min-h-[44px] min-w-[44px] p-2 text-center bg-slate-50 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 focus:border-indigo-500 outline-none" />
                       {/each}
                   {/each}
               </div>
           </div>
           <div class="flex gap-2 mt-4 text-xs flex-wrap">
-              <button on:click={() => calc('detA')} class="px-3 py-1 min-h-[44px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded transition-colors">{dict.det}</button>
-              <button on:click={() => calc('invA')} class="px-3 py-1 min-h-[44px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded transition-colors">{dict.inv}</button>
-              <button on:click={() => calc('transA')} class="px-3 py-1 min-h-[44px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded transition-colors">{dict.transpose}</button>
+              <button on:click={() => calc('detA')} class="px-3 py-1 min-h-[44px] min-w-[44px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded transition-colors">{dict.det}</button>
+              <button on:click={() => calc('invA')} class="px-3 py-1 min-h-[44px] min-w-[44px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded transition-colors">{dict.inv}</button>
+              <button on:click={() => calc('transA')} class="px-3 py-1 min-h-[44px] min-w-[44px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded transition-colors">{dict.transpose}</button>
           </div>
       </div>
 
@@ -84,33 +84,33 @@
           <div class="flex justify-between items-center mb-4">
               <h3 class="font-bold text-pink-600 dark:text-pink-400">{dict.matrixB}</h3>
               <div class="flex items-center gap-2 text-sm">
-                  <input type="number" aria-label="Rows Matrix B" bind:value={rowsB} min="1" max="10" on:change={() => resize('B', rowsB, colsB)} class="w-12 min-h-[44px] p-1 bg-slate-100 dark:bg-slate-800 rounded text-center" />
+                  <input type="number" aria-label="Rows Matrix B" bind:value={rowsB} min="1" max="10" on:change={() => resize('B', rowsB, colsB)} class="w-12 min-h-[44px] min-w-[44px] p-1 bg-slate-100 dark:bg-slate-800 rounded text-center" />
                   <span>x</span>
-                  <input type="number" aria-label="Columns Matrix B" bind:value={colsB} min="1" max="10" on:change={() => resize('B', rowsB, colsB)} class="w-12 min-h-[44px] p-1 bg-slate-100 dark:bg-slate-800 rounded text-center" />
+                  <input type="number" aria-label="Columns Matrix B" bind:value={colsB} min="1" max="10" on:change={() => resize('B', rowsB, colsB)} class="w-12 min-h-[44px] min-w-[44px] p-1 bg-slate-100 dark:bg-slate-800 rounded text-center" />
               </div>
           </div>
           <div class="overflow-x-auto">
               <div class="grid gap-1" style="grid-template-columns: repeat({colsB}, minmax(50px, 1fr));">
                   {#each matrixB as row, i}
                       {#each row as val, j}
-                          <input type="number" aria-label="Matrix B {i},{j}" bind:value={matrixB[i][j]} class="w-full min-h-[44px] p-2 text-center bg-slate-50 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 focus:border-indigo-500 outline-none" />
+                          <input type="number" aria-label="Matrix B {i},{j}" bind:value={matrixB[i][j]} class="w-full min-h-[44px] min-w-[44px] p-2 text-center bg-slate-50 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 focus:border-indigo-500 outline-none" />
                       {/each}
                   {/each}
               </div>
           </div>
           <div class="flex gap-2 mt-4 text-xs flex-wrap">
-              <button on:click={() => calc('detB')} class="px-3 py-1 min-h-[44px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded transition-colors">{dict.det}</button>
-              <button on:click={() => calc('invB')} class="px-3 py-1 min-h-[44px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded transition-colors">{dict.inv}</button>
-              <button on:click={() => calc('transB')} class="px-3 py-1 min-h-[44px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded transition-colors">{dict.transpose}</button>
+              <button on:click={() => calc('detB')} class="px-3 py-1 min-h-[44px] min-w-[44px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded transition-colors">{dict.det}</button>
+              <button on:click={() => calc('invB')} class="px-3 py-1 min-h-[44px] min-w-[44px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded transition-colors">{dict.inv}</button>
+              <button on:click={() => calc('transB')} class="px-3 py-1 min-h-[44px] min-w-[44px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded transition-colors">{dict.transpose}</button>
           </div>
       </div>
   </div>
 
   <!-- Operations -->
   <div class="flex justify-center gap-4 flex-wrap">
-      <button on:click={() => calc('add')} class="px-6 py-2 min-h-[44px] bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-md font-bold">{dict.add}</button>
-      <button on:click={() => calc('sub')} class="px-6 py-2 min-h-[44px] bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-md font-bold">{dict.sub}</button>
-      <button on:click={() => calc('mul')} class="px-6 py-2 min-h-[44px] bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-md font-bold">{dict.mul}</button>
+      <button on:click={() => calc('add')} class="px-6 py-2 min-h-[44px] min-w-[44px] bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-md font-bold">{dict.add}</button>
+      <button on:click={() => calc('sub')} class="px-6 py-2 min-h-[44px] min-w-[44px] bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-md font-bold">{dict.sub}</button>
+      <button on:click={() => calc('mul')} class="px-6 py-2 min-h-[44px] min-w-[44px] bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-md font-bold">{dict.mul}</button>
   </div>
 
   {#if error}

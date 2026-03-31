@@ -61,7 +61,7 @@
                 </td>
               {/each}
               <td
-                class="px-6 py-4 whitespace-nowrap text-right text-sm {editable ? 'cursor-pointer hover:bg-gray-100 ring-inset focus:ring-2 focus:ring-indigo-500 rounded-md outline-none' : ''}"
+                class="px-6 py-4 min-h-[44px] min-w-[44px] whitespace-nowrap text-right text-sm {editable ? 'cursor-pointer hover:bg-gray-100 ring-inset focus:ring-2 focus:ring-indigo-500 rounded-md outline-none' : ''}"
                 on:click={() => handleRowClick(i, row.result)}
                 on:keydown={(e) => handleKeydown(e, i, row.result)}
                 role={editable ? 'button' : undefined}
