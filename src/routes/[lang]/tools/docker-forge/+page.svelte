@@ -97,6 +97,8 @@
   title={title}
   description={description}
   keywords="docker, dockerfile, generator, visual builder, docker compose, multi-stage build, container, devops"
+  ogImage="https://web-factory.vercel.app/og-image.png"
+  ogUrl={`https://web-factory.vercel.app/${lang}/tools/docker-forge`}
 />
 
 <svelte:head>
