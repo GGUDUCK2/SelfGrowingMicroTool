@@ -1,9 +1,9 @@
 <script lang="ts">
   import { db, type DockerForgeHistory } from '$lib/db';
   import { dictionaries } from '$lib/dictionaries';
-  import Button from '$lib/components/Button.svelte';
-  import { Trash2, RotateCcw, Download, Clock, Star, Play } from 'lucide-svelte';
+  import { Trash2, RotateCcw, Clock, Star } from 'lucide-svelte';
   import { fade } from 'svelte/transition';
+  import { browser } from '$app/environment';
 
   export let lang: string;
   export let onRestore: (item: DockerForgeHistory) => void;
@@ -11,10 +11,14 @@
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
   $: d = dict.tools.dockerForge;
 
-  $: historyItems = browser ? getHistory() : Promise.resolve([]);
+  let historyItems: Promise<DockerForgeHistory[]> = browser ? getHistory() : Promise.resolve([]);
 
   function getHistory() {
     return db.dockerForgeHistory.orderBy('createdAt').reverse().limit(50).toArray();
+  }
+
+  export function refreshHistory() {
+      if (browser) historyItems = getHistory();
   }
 
   async function deleteItem(id: number | undefined) {
@@ -37,8 +41,6 @@
       historyItems = getHistory();
     }
   }
-
-  import { browser } from '$app/environment';
 </script>
 
 <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col h-full">
