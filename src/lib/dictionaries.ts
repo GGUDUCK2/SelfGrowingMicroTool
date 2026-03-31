@@ -3580,6 +3580,11 @@ export const dictionaries = {
         buildImage: "Build Stage Image",
         installCmds: "Install Commands",
         addInstall: "Add Install",
+        smartPaste: "Smart Paste Dockerfile",
+        smartPasteDesc: "Paste an existing Dockerfile here to automatically fill the visual builder.",
+        parseAction: "Parse Dockerfile",
+        emptyPaste: "Please paste a Dockerfile content first.",
+        downloadGha: "Download GitHub Action",
         guide: {
           title: "Why Docker Forge?",
           intro: "Docker Forge simplifies containerization by providing a visual, error-free way to construct Dockerfiles and Compose configurations.",
@@ -6663,6 +6668,11 @@ export const dictionaries = {
         buildImage: "빌드 단계 이미지",
         installCmds: "설치 명령어",
         addInstall: "설치 추가",
+        smartPaste: "스마트 붙여넣기 (Dockerfile)",
+        smartPasteDesc: "기존 Dockerfile 내용을 여기에 붙여넣으면 시각적 빌더가 자동으로 채워집니다.",
+        parseAction: "Dockerfile 파싱",
+        emptyPaste: "먼저 Dockerfile 내용을 붙여넣으세요.",
+        downloadGha: "GitHub Action 다운로드",
         guide: {
           title: "왜 도커 포지인가요?",
           intro: "도커 포지는 시각적이고 오류 없는 방식으로 Dockerfile 및 Compose 구성을 작성하여 컨테이너화를 단순화합니다.",

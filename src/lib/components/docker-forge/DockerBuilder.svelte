@@ -64,20 +64,105 @@
   $: dockerfile = generateDockerfile(baseImage, workdir, envVars, runCmds, copySteps, exposePorts, entrypoint, cmd, isMultiStage, buildImage, installCmds);
   $: compose = generateCompose(baseImage, exposePorts, workdir, services);
 
+  // GitHub Actions Generator
+  $: githubActions = generateGithubActions(baseImage, exposePorts);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  function generateGithubActions(base: string, ports: string[]) {
+    return `name: Docker Build and Publish
+
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ 'v*.*.*' ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: \${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install cosign
+        if: github.event_name != 'pull_request'
+        uses: sigstore/cosign-installer@v3.1.1
+        with:
+          cosign-release: 'v2.1.1'
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3.0.0
+
+      - name: Log into registry \${{ env.REGISTRY }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3.0.0
+        with:
+          registry: \${{ env.REGISTRY }}
+          username: \${{ github.actor }}
+          password: \${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5.0.0
+        with:
+          images: \${{ env.REGISTRY }}/\${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@v5.0.0
+        with:
+          context: .
+          push: \${{ github.event_name != 'pull_request' }}
+          tags: \${{ steps.meta.outputs.tags }}
+          labels: \${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max`;
+  }
+
   function handleKeydown(e: KeyboardEvent) {
+    if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) return;
+
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+      e.preventDefault();
+      copyToClipboard(dockerfile);
+      saveToHistory();
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
       e.preventDefault();
       saveToHistory();
     }
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c') {
-      if (window.getSelection()?.toString()) return;
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
       e.preventDefault();
-      copyToClipboard(dockerfile);
+      clearForm();
     }
     if (e.key === 'Escape') {
-      // Could clear form, but might be destructive without warning.
-      // E.g., applyTemplate('nodejs');
+      e.preventDefault();
+      clearForm();
     }
+  }
+
+  function clearForm() {
+      baseImage = '';
+      workdir = '';
+      envVars = [];
+      runCmds = [];
+      copySteps = [{ src: '.', dest: '.' }];
+      exposePorts = [];
+      entrypoint = '';
+      cmd = '';
+      isMultiStage = false;
+      buildImage = '';
+      installCmds = [];
   }
 
   onMount(() => {
@@ -91,9 +176,9 @@
   });
 
   // Security Check Logic
-  $: securityWarnings = computeSecurityWarnings(baseImage, envVars, runCmds, dockerfile);
+  $: securityWarnings = computeSecurityWarnings(baseImage, dockerfile);
 
-  function computeSecurityWarnings(base: string, envs: {key:string, value:string}[], runs: string[], dfString: string) {
+  function computeSecurityWarnings(base: string, dfString: string) {
     const warnings = [];
     if (base.endsWith(':latest') || !base.includes(':')) {
       warnings.push(d.warningLatestTag || "Using 'latest' tag is not recommended for production.");
@@ -108,7 +193,6 @@
     }
 
     // Check for consecutive RUN commands
-    let runCount = 0;
     const lines = dfString.split('\n');
     for (let i = 0; i < lines.length; i++) {
         if (lines[i].startsWith('RUN ')) {
@@ -120,6 +204,111 @@
     }
 
     return warnings;
+  }
+
+  // Smart Parser
+  let pasteContent = '';
+  let parseError = '';
+
+  function handleSmartPaste() {
+    parseError = '';
+    if (!pasteContent.trim()) {
+      parseError = d.emptyPaste || 'Please paste a Dockerfile content first.';
+      return;
+    }
+
+    const lines = pasteContent.split('\n');
+    let inBuilderStage = false;
+    let foundStages = 0;
+
+    clearForm();
+    copySteps = []; // Because clearForm leaves one empty copyStep
+
+    for (let i = 0; i < lines.length; i++) {
+      let line = lines[i].trim();
+      if (!line || line.startsWith('#')) continue;
+
+      // Handle multiline
+      while (line.endsWith('\\') && i < lines.length - 1) {
+          i++;
+          line = line.slice(0, -1) + ' ' + lines[i].trim();
+      }
+
+      const parts = line.split(/\s+/);
+      const directive = parts[0].toUpperCase();
+      const args = line.substring(directive.length).trim();
+
+      switch (directive) {
+        case 'FROM':
+          foundStages++;
+          if (foundStages === 1 && line.toLowerCase().includes(' as ')) {
+              isMultiStage = true;
+              inBuilderStage = true;
+              buildImage = parts[1];
+          } else if (foundStages === 1) {
+              baseImage = parts[1];
+          } else if (foundStages === 2) {
+              inBuilderStage = false;
+              baseImage = parts[1];
+          }
+          break;
+        case 'WORKDIR':
+          workdir = args;
+          break;
+        case 'ENV':
+          // Can be ENV KEY=VALUE or ENV KEY VALUE
+          if (args.includes('=')) {
+              const eqIndex = args.indexOf('=');
+              envVars = [...envVars, { key: args.substring(0, eqIndex).trim(), value: args.substring(eqIndex + 1).trim() }];
+          } else {
+              const argParts = args.split(/\s+/);
+              envVars = [...envVars, { key: argParts[0], value: argParts.slice(1).join(' ') }];
+          }
+          break;
+        case 'RUN':
+          if (inBuilderStage) {
+              installCmds = [...installCmds, args];
+          } else {
+              runCmds = [...runCmds, args];
+          }
+          break;
+        case 'COPY':
+          if (args.includes('--from=')) {
+              // Ignore copy from builder in our state as it's auto-generated if multi-stage
+          } else {
+              // Usually COPY src dest. Might use JSON array, simplistic parser here:
+              if (args.startsWith('[')) {
+                  // simplistic JSON array fallback
+                  const unbracket = args.replace(/[[\]"]/g, '').split(',');
+                  if (unbracket.length >= 2) {
+                      copySteps = [...copySteps, { src: unbracket[0].trim(), dest: unbracket[unbracket.length-1].trim() }];
+                  }
+              } else {
+                  const cParts = args.split(/\s+/);
+                  if (cParts.length >= 2) {
+                      copySteps = [...copySteps, { src: cParts.slice(0, -1).join(' '), dest: cParts[cParts.length-1] }];
+                  }
+              }
+          }
+          break;
+        case 'EXPOSE':
+          exposePorts = [...exposePorts, ...args.split(/\s+/)];
+          break;
+        case 'ENTRYPOINT':
+          // Simplistic
+          entrypoint = args.replace(/[[\]"]/g, '').split(',').map(s=>s.trim()).join(' ');
+          break;
+        case 'CMD':
+          cmd = args.replace(/[[\]"]/g, '').split(',').map(s=>s.trim()).join(' ');
+          break;
+      }
+    }
+
+    if (copySteps.length === 0 && !isMultiStage) {
+      copySteps = [{ src: '.', dest: '.' }];
+    }
+
+    pasteContent = ''; // clear after success
   }
 
   // Magic Templates
@@ -419,6 +608,9 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let historyPanel: any;
+
   async function saveToHistory() {
     try {
       const count = await db.dockerForgeHistory.count();
@@ -446,6 +638,7 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
         createdAt: new Date(),
         starred: 0
       });
+      if (historyPanel) historyPanel.refreshHistory();
     } catch (e) {
       console.error('Failed to save history', e);
     }
@@ -484,39 +677,64 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
   <div class="lg:col-span-2 space-y-6">
 
     <!-- Magic Templates -->
+    <!-- Smart Paste -->
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4">
+      <div class="flex flex-col gap-2">
+        <label for="smartPaste" class="text-sm font-bold text-slate-900 dark:text-white">
+          {d.smartPaste || "Smart Paste Dockerfile"}
+        </label>
+        <p class="text-xs text-slate-500 dark:text-slate-400">
+          {d.smartPasteDesc || "Paste an existing Dockerfile here to automatically fill the visual builder."}
+        </p>
+        <textarea
+          id="smartPaste"
+          bind:value={pasteContent}
+          class="w-full h-24 px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white font-mono text-sm focus:ring-2 focus:ring-blue-500"
+          placeholder="FROM node:18&#10;WORKDIR /app&#10;COPY package.json .&#10;RUN npm install..."
+        ></textarea>
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-red-500">{parseError}</span>
+          <Button variant="primary" class="text-sm min-h-[44px] min-w-[44px]" on:click={handleSmartPaste}>
+            {d.parseAction || "Parse Dockerfile"}
+          </Button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Magic Templates -->
     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4">
       <div class="flex items-center gap-2 flex-wrap">
-        <span class="text-sm font-medium text-slate-700 dark:text-slate-300 mr-2">{d.magicTemplates || "Magic Templates"}:</span>
+        <span class="text-sm font-bold text-slate-900 dark:text-white mr-2">{d.magicTemplates || "Magic Templates"}:</span>
         <button
-          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]"
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px]"
           on:click={() => applyTemplate('nodejs')}
           aria-label="Magic Template Node.js"
         >
           Node.js
         </button>
         <button
-          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]"
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px]"
           on:click={() => applyTemplate('nextjs')}
           aria-label="Magic Template Next.js"
         >
           Next.js
         </button>
         <button
-          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]"
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px]"
           on:click={() => applyTemplate('python')}
           aria-label="Magic Template Python FastAPI"
         >
           Python FastAPI
         </button>
         <button
-          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]"
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px]"
           on:click={() => applyTemplate('go')}
           aria-label="Magic Template Go"
         >
           Go
         </button>
         <button
-          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px]"
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px]"
           on:click={() => applyTemplate('rust')}
           aria-label="Magic Template Rust"
         >
@@ -528,7 +746,7 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
     <!-- Security Warnings -->
     {#if securityWarnings.length > 0}
       <div class="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700/50 rounded-xl p-4 flex flex-col gap-2">
-        {#each securityWarnings as warning}
+        {#each securityWarnings as warning (warning)}
           <div class="flex items-start text-sm text-amber-800 dark:text-amber-200">
             <span class="mr-2">⚠️</span>
             <span>{warning}</span>
@@ -559,7 +777,7 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{d.composeServicesDesc || 'Include popular databases in docker-compose.yml'}</p>
             </div>
             <div class="grid grid-cols-2 gap-3">
-              {#each Object.keys(services) as svc}
+              {#each Object.keys(services) as svc (svc)}
                 <div class="flex items-center justify-between">
                   <span class="text-sm font-medium text-slate-700 dark:text-slate-300 capitalize">{svc}</span>
                   <label class="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px]" aria-label={`Toggle ${svc}`}>
@@ -595,7 +813,8 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
                 </button>
               </div>
               <div class="space-y-2">
-                {#each installCmds as cmd, i}
+                <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+                {#each installCmds as _, i (i)}
                   <div class="flex items-center gap-2">
                     <input
                       type="text"
@@ -661,7 +880,7 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
             </button>
           </div>
           <div class="space-y-2">
-            {#each envVars as env, i}
+              {#each envVars as env, i (i)}
               <div class="flex items-center gap-2">
                 <input
                   type="text"
@@ -701,7 +920,7 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
               </button>
             </div>
             <div class="space-y-2">
-              {#each copySteps as copy, i}
+                {#each copySteps as copy, i (i)}
                 <div class="flex items-center gap-2">
                   <input
                     type="text"
@@ -741,7 +960,8 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
             </button>
           </div>
           <div class="space-y-2">
-            {#each runCmds as run, i}
+              <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+              {#each runCmds as _, i (i)}
               <div class="flex items-center gap-2">
                 <input
                   type="text"
@@ -773,7 +993,8 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
             </button>
           </div>
           <div class="flex flex-wrap gap-2">
-            {#each exposePorts as port, i}
+              <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+              {#each exposePorts as _, i (i)}
               <div class="flex items-center gap-1 w-32">
                 <input
                   type="text"
@@ -887,18 +1108,41 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
     </div>
 
 
+    <div class="bg-slate-900 rounded-xl shadow-lg overflow-hidden border border-slate-700">
+      <div class="flex items-center justify-between px-4 py-2 border-b border-slate-800 bg-slate-950">
+        <div class="text-slate-300 font-mono text-sm flex items-center">
+          <Box size={16} class="mr-2 text-indigo-400" />
+          .github/workflows/build.yml
+        </div>
+        <div class="flex space-x-2">
+          <button
+            class="text-slate-400 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center p-2 transition-colors"
+            on:click={() => downloadFile(githubActions, 'build.yml')}
+            title={d.downloadGha || 'Download GitHub Action'}
+            aria-label={d.downloadGha || 'Download GitHub Action'}
+          >
+            <Download size={16} />
+          </button>
+        </div>
+      </div>
+      <div class="p-4 overflow-x-auto">
+        <pre class="text-slate-300 font-mono text-sm leading-relaxed whitespace-pre-wrap select-all">{githubActions}</pre>
+      </div>
+    </div>
+
     <div class="flex flex-col gap-2">
       <div class="grid grid-cols-2 gap-2">
-        <Button variant="primary" class="w-full min-h-[44px] flex items-center justify-center gap-2" on:click={saveToHistory}>
+        <Button variant="primary" class="w-full min-h-[44px] min-w-[44px] flex items-center justify-center gap-2" on:click={saveToHistory}>
           <Save size={18} /> {d.save}
         </Button>
-        <Button variant="secondary" class="w-full min-h-[44px] flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white border-none" on:click={downloadZip}>
+        <Button variant="secondary" class="w-full min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white border-none" on:click={downloadZip}>
           <FileArchive size={18} /> {d.downloadZip || 'Download ZIP'}
         </Button>
       </div>
     </div>
 
 
-    <HistoryPanel {lang} onRestore={handleRestore} />
+    <!-- eslint-disable-next-line @typescript-eslint/no-explicit-any -->
+    <HistoryPanel {lang} onRestore={handleRestore} bind:this={historyPanel} />
   </div>
 </div>
