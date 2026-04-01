@@ -25,14 +25,14 @@
   <div class="flex items-center justify-between">
     <span class="block text-sm font-medium text-slate-700 dark:text-slate-300">{label}</span>
     <div class="flex items-center gap-2">
-      <label class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 cursor-pointer">
+      <label class="flex items-center gap-2 text-xs text-slate-500 min-h-[44px] min-w-[44px] dark:text-slate-400 cursor-pointer">
         <input type="checkbox" bind:checked={uppercase} class="rounded border-slate-300 dark:border-slate-600 text-indigo-600 focus:ring-indigo-500 dark:bg-slate-800" />
         UPPERCASE
       </label>
       <button
         on:click={copyToClipboard}
         disabled={!value}
-        class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md transition-colors {copied ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-400' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'} disabled:opacity-50 disabled:cursor-not-allowed"
+        class="flex items-center gap-1.5 px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium rounded-md transition-colors {copied ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-400' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'} disabled:opacity-50 disabled:cursor-not-allowed"
         aria-label="Copy hash to clipboard"
         title="Copy"
       >
