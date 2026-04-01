@@ -1,6 +1,8 @@
 import { redirect } from '@sveltejs/kit';
 
-export const load = ({ params }) => {
+import type { PageServerLoad } from './$types';
+
+export const load: PageServerLoad = ({ params }) => {
   const { lang } = params;
 
   if (lang !== 'en' && lang !== 'ko') {

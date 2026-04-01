@@ -21,6 +21,9 @@ export class ToolWorkspace extends Dexie {
     this.version(1).stores({
       history: '++id, toolId, timestamp, starred, [toolId+starred]'
     });
+    this.version(2).stores({
+      history: '++id, toolId, input, result, timestamp, starred'
+    });
   }
 }
 
@@ -67,17 +70,16 @@ export async function saveToHistory<T, R>(
 
     // Prune old non-starred items (keep max 100 per tool)
     // We only count non-starred items for pruning
-    const count = await workspace.history
-        .where({ toolId, starred: 0 }) // 0 is false in IndexedDB index
-        .count();
+    const allItems = await workspace.history
+        .where('toolId')
+        .equals(toolId)
+        .toArray();
 
-    if (count > 100) {
+    const unstarredItems = allItems.filter(item => !item.starred).sort((a, b) => a.timestamp - b.timestamp);
+
+    if (unstarredItems.length > 100) {
         // Delete oldest non-starred
-        const oldest = await workspace.history
-            .where({ toolId, starred: 0 })
-            .sortBy('timestamp');
-
-        const toDelete = oldest.slice(0, count - 100);
+        const toDelete = unstarredItems.slice(0, unstarredItems.length - 100);
         await workspace.history.bulkDelete(toDelete.map(i => i.id!));
     }
 }
@@ -95,9 +97,15 @@ export async function deleteHistoryItem(id: number) {
 
 export async function clearHistory(toolId: string) {
     // Only clear non-starred
-    await workspace.history
-        .where({ toolId, starred: 0 })
-        .delete();
+    const allItems = await workspace.history
+        .where('toolId')
+        .equals(toolId)
+        .toArray();
+
+    const toDelete = allItems.filter(item => !item.starred).map(item => item.id!);
+    if (toDelete.length > 0) {
+        await workspace.history.bulkDelete(toDelete);
+    }
 }
 
 export function getHistoryObservable(toolId: string) {

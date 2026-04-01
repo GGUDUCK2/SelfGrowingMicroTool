@@ -24,6 +24,7 @@
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web",
         "description": description,
+        "isAccessibleForFree": true,
         "offers": {
           "@type": "Offer",
           "price": "0",
