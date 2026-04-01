@@ -205,6 +205,37 @@
     ]
   } : null;
 
+  $: faqSchema = dict ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": dict.q1,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a1
+        }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q2,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a2
+        }
+      },
+      {
+        "@type": "Question",
+        "name": dict.q3,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": dict.a3
+        }
+      }
+    ]
+  } : null;
+
   const canonicalUrl = `https://web-factory.vercel.app/${$page.params.lang}/tools/string-theory`;
 </script>
 <Head
@@ -217,43 +248,19 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/string-theory" />
+  <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/string-theory" />
+  <link rel="alternate" hreflang="x-default" href="https://web-factory.vercel.app/en/tools/string-theory" />
+
 
   {#if jsonLd}
   {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
   {/if}
 
-  {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "${dict.q1}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a1}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q2}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a2}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q3}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a3}"
-        }
-      }
-    ]
-  }
-  </script>`}
+  {#if faqSchema}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
+  {/if}
 
 </svelte:head>
 
