@@ -29,15 +29,21 @@
     activeTab = tab;
   }
 
+  $: faqItems = [
+    { q: dict.faqQ1, a: dict.faqA1 },
+    { q: dict.faqQ2, a: dict.faqA2 },
+    { q: dict.faqQ3, a: dict.faqA3 }
+  ];
+
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Hash Forge",
+    "name": dict.title,
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "Cryptography Tool",
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript. HTML5. Web Crypto API.",
-    "description": "The definitive tool for generating hashes, HMACs, and verifying file checksums locally with extreme performance.",
+    "description": dict.description,
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -45,11 +51,44 @@
     }
   };
 
-  $: faqItems = [
-    { q: dict.faqQ1, a: dict.faqA1 },
-    { q: dict.faqQ2, a: dict.faqA2 },
-    { q: dict.faqQ3, a: dict.faqA3 }
-  ];
+  $: breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `https://micro-tools.app/${lang}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": `https://micro-tools.app/${lang}/tools`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": dict.title,
+        "item": `https://micro-tools.app/${lang}/tools/hash-forge`
+      }
+    ]
+  };
+
+  $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
+
 </script>
 <Head
   title={dict.title}
@@ -59,6 +98,8 @@
 
 <svelte:head>
       {@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</script>'}
+      {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>'}
+      {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
@@ -81,7 +122,7 @@
     <!-- Left Navigation Sidebar (Desktop) / Top Tabs (Mobile) -->
     <div class="w-full md:w-64 bg-slate-50 dark:bg-slate-800/50 border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-800 p-4 md:flex md:flex-col gap-2 shrink-0 flex overflow-x-auto overflow-y-hidden">
       <button
-        class="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'text' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
+        class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'text' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
         on:click={() => selectTab('text')}
         aria-label={dict.tabs.text}
       >
@@ -89,7 +130,7 @@
         {dict.tabs.text}
       </button>
       <button
-        class="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'file' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
+        class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'file' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
         on:click={() => selectTab('file')}
         aria-label={dict.tabs.file}
       >
@@ -97,7 +138,7 @@
         {dict.tabs.file}
       </button>
       <button
-        class="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'hmac' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
+        class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'hmac' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
         on:click={() => selectTab('hmac')}
         aria-label={dict.tabs.hmac}
       >
@@ -107,7 +148,7 @@
 
       <div class="md:mt-auto">
         <button
-          class="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl text-sm font-medium transition-all w-full shrink-0 {activeTab === 'history' ? 'bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
+          class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all w-full shrink-0 {activeTab === 'history' ? 'bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
           on:click={() => selectTab('history')}
           aria-label={dict.tabs.history}
         >
