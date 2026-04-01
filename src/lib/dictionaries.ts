@@ -3589,6 +3589,27 @@ export const dictionaries = {
         downloadSuccess: "Downloaded successfully!",
         shareSuccess: "Shared successfully!",
         saveSuccess: "Saved to Workspace",
+        buttons: {
+          copy: "Copy",
+          download: "Download",
+          share: "Share",
+          star: "Star",
+          delete: "Delete"
+        },
+        feedback: {
+          copied: "Copied!",
+          saved: "Saved!",
+          processing: "Processing..."
+        },
+        historyPanel: {
+          title: "Workspace History",
+          empty_state: "No history yet.",
+          clear: "Clear All",
+          restore: "Restore"
+        },
+        shortcuts: {
+          help: "Keyboard Shortcuts"
+        },
         guide: {
           title: "Why Docker Forge?",
           intro: "Docker Forge simplifies containerization by providing a visual, error-free way to construct Dockerfiles and Compose configurations.",
@@ -6681,6 +6702,27 @@ export const dictionaries = {
         downloadSuccess: "성공적으로 다운로드되었습니다!",
         shareSuccess: "성공적으로 공유되었습니다!",
         saveSuccess: "작업 공간에 저장되었습니다",
+        buttons: {
+          copy: "복사",
+          download: "다운로드",
+          share: "공유",
+          star: "즐겨찾기",
+          delete: "삭제"
+        },
+        feedback: {
+          copied: "복사됨!",
+          saved: "저장됨!",
+          processing: "처리 중..."
+        },
+        historyPanel: {
+          title: "작업 공간 히스토리",
+          empty_state: "기록이 없습니다.",
+          clear: "모두 지우기",
+          restore: "복원"
+        },
+        shortcuts: {
+          help: "키보드 단축키"
+        },
         guide: {
           title: "왜 도커 포지인가요?",
           intro: "도커 포지는 시각적이고 오류 없는 방식으로 Dockerfile 및 Compose 구성을 작성하여 컨테이너화를 단순화합니다.",
