@@ -108,7 +108,7 @@
   <link rel="alternate" hreflang="x-default" href="https://web-factory.vercel.app/en/tools/docker-forge" />
   <!-- eslint-disable svelte/no-at-html-tags -->
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">` + jsonLd + `</script>`}
+  {@html `<script type="application/ld+json">` + jsonLd + `</` + `script>`}
   <!-- eslint-enable svelte/no-at-html-tags -->
 </svelte:head>
 
