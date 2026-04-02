@@ -135,6 +135,7 @@
     ${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
       "name": "Subnet Scope",
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "Network Utility",

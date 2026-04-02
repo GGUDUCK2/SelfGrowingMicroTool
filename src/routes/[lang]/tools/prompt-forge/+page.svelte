@@ -166,6 +166,7 @@
   $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
       "name": "Prompt Forge",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",

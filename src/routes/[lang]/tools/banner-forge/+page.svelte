@@ -18,6 +18,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
         "name": "Banner Forge",
         "description": description,
         "applicationCategory": "DesignApplication",

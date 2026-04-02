@@ -18,6 +18,7 @@
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
     "name": "Barcode Forge",
     "applicationCategory": "BusinessApplication, UtilitiesApplication",
     "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",

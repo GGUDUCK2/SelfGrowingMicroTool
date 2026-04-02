@@ -35,6 +35,7 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
       "name": "MarkFlow",
       "headline": dict.title,
       "alternativeHeadline": "Online Markdown Editor",

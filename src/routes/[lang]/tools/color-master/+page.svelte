@@ -42,6 +42,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
     "name": t.title,
     "description": t.description,
     "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",

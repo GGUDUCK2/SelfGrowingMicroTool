@@ -38,6 +38,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
     "name": dict.title,
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "Cryptography Tool",

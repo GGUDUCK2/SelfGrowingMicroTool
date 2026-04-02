@@ -23,6 +23,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
         "name": toolDict.title,
         "description": toolDict.description,
         "applicationCategory": "MultimediaApplication",

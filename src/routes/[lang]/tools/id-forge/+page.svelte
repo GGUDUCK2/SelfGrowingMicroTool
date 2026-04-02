@@ -159,6 +159,7 @@
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
     "name": "ID Forge",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",

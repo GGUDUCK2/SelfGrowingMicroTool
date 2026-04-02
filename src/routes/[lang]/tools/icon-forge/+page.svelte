@@ -135,6 +135,7 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
       "name": "Icon Forge",
       "applicationCategory": "DesignApplication",
       "operatingSystem": "Any",

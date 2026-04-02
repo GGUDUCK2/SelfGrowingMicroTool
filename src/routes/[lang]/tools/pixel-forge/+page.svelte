@@ -19,6 +19,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
         "name": "Pixel Forge",
         "description": description,
         "applicationCategory": "DesignApplication",

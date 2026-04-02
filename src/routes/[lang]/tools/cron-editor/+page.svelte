@@ -143,6 +143,7 @@
   $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
       "name": "Cronos: Professional Cron Editor",
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "DevOps",

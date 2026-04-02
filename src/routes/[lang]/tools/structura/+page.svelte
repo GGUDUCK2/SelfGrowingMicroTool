@@ -221,6 +221,7 @@
     ${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
       "name": "Structura",
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "Developer Tool",

@@ -87,6 +87,7 @@
     ${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
       "name": "Invoice Forge",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Any",

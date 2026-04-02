@@ -28,6 +28,7 @@
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
     "name": "QR Forge",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",

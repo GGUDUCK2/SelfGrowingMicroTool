@@ -289,6 +289,7 @@
   $: softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
     "name": t.title,
     "operatingSystem": "Any",
     "applicationCategory": "DeveloperApplication",
