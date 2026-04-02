@@ -148,6 +148,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
         "name": "Diagram Forge",
         "description": t.description,
         "applicationCategory": "DesignApplication",

@@ -19,6 +19,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
     "name": "PDF Forge",
     "headline": toolDict.title,
     "description": description,

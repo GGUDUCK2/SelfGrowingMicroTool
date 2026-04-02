@@ -117,6 +117,7 @@
   $: softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
     "name": dict?.title || 'Git Forge',
     "description": dict?.description || 'Git tools',
     "applicationCategory": "DeveloperApplication",

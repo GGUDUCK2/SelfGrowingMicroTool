@@ -264,6 +264,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
         "name": dict?.title ?? 'Restro',
         "description": dict?.description ?? 'API Client',
         "applicationCategory": "DeveloperApplication",

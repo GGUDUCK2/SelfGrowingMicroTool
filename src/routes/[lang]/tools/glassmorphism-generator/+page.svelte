@@ -162,6 +162,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                   {@html `<script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
     "name": dict.title,
     "description": dict.description,
     "applicationCategory": "DesignApplication",

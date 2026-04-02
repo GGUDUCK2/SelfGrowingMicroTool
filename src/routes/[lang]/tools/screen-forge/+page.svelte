@@ -37,6 +37,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
         "name": t.title,
         "description": t.description,
         "applicationCategory": "MultimediaApplication",

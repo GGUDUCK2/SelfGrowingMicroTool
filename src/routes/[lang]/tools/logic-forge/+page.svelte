@@ -171,6 +171,7 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
       "name": dict.title,
       "url": "https://microfactory.app/tools/logic-forge",
       "author": {

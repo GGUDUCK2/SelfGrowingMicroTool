@@ -284,6 +284,7 @@
   $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
       "name": t.title,
       "description": t.description,
       "applicationCategory": "DeveloperApplication",

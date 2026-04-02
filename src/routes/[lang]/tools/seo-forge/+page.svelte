@@ -282,6 +282,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
         "name": "SEO Forge",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web",

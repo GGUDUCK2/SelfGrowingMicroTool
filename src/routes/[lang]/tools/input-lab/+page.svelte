@@ -24,6 +24,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
         "name": dict.title,
         "description": dict.description,
         "applicationCategory": "DeveloperApplication",

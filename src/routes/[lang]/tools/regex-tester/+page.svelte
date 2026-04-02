@@ -130,6 +130,7 @@
     ${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
       "name": "Regex Pro",
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "DeveloperTool",

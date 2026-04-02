@@ -56,6 +56,7 @@
     ${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
       "name": "Unit Verse",
       "url": `https://selfgrowingmicrotool.com/${lang}/tools/unit-verse`,
       "applicationCategory": "UtilityApplication",

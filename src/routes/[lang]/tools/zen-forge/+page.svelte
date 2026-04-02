@@ -88,6 +88,7 @@
     {@html `<script type="application/ld+json">${JSON.stringify({
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
+        "isAccessibleForFree": true,
         "name": dict.title,
         "description": dict.description,
         "applicationCategory": "Productivity",
