@@ -1,7 +1,7 @@
 <script lang="ts">
   import { dictionaries } from '$lib/dictionaries';
   import Button from '$lib/components/Button.svelte';
-  import { workspace, saveToHistory as workspaceSave, loadLastSession as workspaceLoadLastSession, type ToolHistoryItem } from '$lib/db/workspace';
+  import { saveToHistory as workspaceSave, loadLastSession as workspaceLoadLastSession, type ToolHistoryItem } from '$lib/db/workspace';
   import { Copy, Download, Trash2, Plus, Save, Box, Share2, FileArchive, Star } from 'lucide-svelte';
   import { fade } from 'svelte/transition';
   import HistoryPanel from './HistoryPanel.svelte';
@@ -62,13 +62,13 @@
   let services: Record<string, boolean> = { postgres: false, mysql: false, mongodb: false, redis: false };
 
   $: dockerfile = generateDockerfile(baseImage, workdir, envVars, runCmds, copySteps, exposePorts, entrypoint, cmd, isMultiStage, buildImage, installCmds);
-  $: compose = generateCompose(baseImage, exposePorts, workdir, services);
+  $: compose = generateCompose(exposePorts, workdir, services);
 
   // GitHub Actions Generator
-  $: githubActions = generateGithubActions(baseImage, exposePorts);
+  const githubActions = generateGithubActions();
 
 
-  function generateGithubActions(base: string, ports: string[]) {
+  function generateGithubActions() {
     return `name: Docker Build and Publish
 
 on:
@@ -191,31 +191,68 @@ jobs:
   $: securityWarnings = computeSecurityWarnings(baseImage, dockerfile);
 
   function computeSecurityWarnings(base: string, dfString: string) {
-    const warnings = [];
+    const warnings: { type: 'warning' | 'optimization', text: string }[] = [];
     if (base.endsWith(':latest') || !base.includes(':')) {
-      warnings.push(d.warningLatestTag || "Using 'latest' tag is not recommended for production.");
+      warnings.push({ type: 'warning', text: d.warningLatestTag || "Using 'latest' tag is not recommended for production. Pin a specific version."});
     }
     if (base.startsWith('node') && !base.includes('alpine') && !base.includes('slim')) {
-      warnings.push(d.warningFatImage || "Consider using an alpine or slim variant for a smaller attack surface.");
+      warnings.push({ type: 'optimization', text: d.warningFatImage || "Consider using an alpine or slim variant for a smaller attack surface and faster pulls."});
     }
 
     // Check for missing USER directive
     if (!dfString.includes('\nUSER ') && !dfString.startsWith('USER ')) {
-       warnings.push(d.warningUser || "Running as root. Consider adding a 'USER' directive for better security.");
+       warnings.push({ type: 'warning', text: d.warningUser || "Running as root. Consider adding a 'USER' directive for better security."});
     }
 
     // Check for consecutive RUN commands
     const lines = dfString.split('\n');
+    let consecutiveRuns = 0;
     for (let i = 0; i < lines.length; i++) {
         if (lines[i].startsWith('RUN ')) {
-            if (i > 0 && lines[i-1].startsWith('RUN ')) {
-                warnings.push(d.warningMultipleRuns || "Multiple consecutive RUN commands found. Consider chaining them with '&&' to reduce image layers.");
+            consecutiveRuns++;
+            if (consecutiveRuns > 1) {
+                warnings.push({ type: 'optimization', text: d.warningMultipleRuns || "Multiple consecutive RUN commands found. Consider chaining them with '&&' to reduce image layers."});
                 break;
             }
+        } else if (lines[i].trim() !== '') {
+            consecutiveRuns = 0;
         }
     }
 
+    // Check package manager caches
+    if (dfString.includes('apt-get install') && !dfString.includes('rm -rf /var/lib/apt/lists/')) {
+        warnings.push({ type: 'optimization', text: "Clean up apt cache (rm -rf /var/lib/apt/lists/*) to reduce image size." });
+    }
+    if (dfString.includes('apk add') && !dfString.includes('--no-cache')) {
+        warnings.push({ type: 'optimization', text: "Use 'apk add --no-cache' to avoid storing the index locally." });
+    }
+    if (dfString.includes('pip install') && !dfString.includes('--no-cache-dir')) {
+        warnings.push({ type: 'optimization', text: "Use 'pip install --no-cache-dir' to save space." });
+    }
+    if (dfString.includes('npm install') && !dfString.includes('npm ci')) {
+        warnings.push({ type: 'optimization', text: "Consider using 'npm ci' instead of 'npm install' for reproducible builds." });
+    }
+
     return warnings;
+  }
+
+  // .dockerignore Generator
+  const dockerignore = generateDockerignore();
+
+  function generateDockerignore() {
+    return `.git
+.gitignore
+.env
+node_modules/
+npm-debug.log
+Dockerfile
+docker-compose.yml
+.dockerignore
+.DS_Store
+dist/
+build/
+coverage/
+*.md`;
   }
 
   // Smart Parser
@@ -457,7 +494,7 @@ jobs:
     return lines.join('\n');
   }
 
-  function generateCompose(base: string, ports: string[], wd: string, svcs: Record<string, boolean>) {
+  function generateCompose(ports: string[], wd: string, svcs: Record<string, boolean>) {
     let lines = [
       'version: "3.8"',
       'services:',
@@ -562,13 +599,10 @@ jobs:
     }, 3000);
   }
 
-  let copied = false;
-  async function copyToClipboard(text: string, type: 'dockerfile' | 'compose' | 'github' = 'dockerfile') {
+  async function copyToClipboard(text: string) {
     try {
       await navigator.clipboard.writeText(text);
-      copied = true;
       showToast(d.copied || 'Copied successfully!', 'success');
-      setTimeout(() => copied = false, 2000);
     } catch (err) {
       console.error('Failed to copy', err);
       showToast('Failed to copy', 'error');
@@ -586,6 +620,7 @@ jobs:
       URL.revokeObjectURL(url);
       showToast(d.downloadSuccess || `Downloaded ${filename}`, 'success');
     } catch (err) {
+      console.error('Failed to download', err);
       showToast('Failed to download', 'error');
     }
   }
@@ -618,6 +653,16 @@ jobs:
     const zip = new JSZip();
     zip.file("Dockerfile", dockerfile);
     zip.file("docker-compose.yml", compose);
+    zip.file(".dockerignore", dockerignore);
+
+    // Create github action directory
+    const githubFolder = zip.folder(".github");
+    if (githubFolder) {
+        const workflowsFolder = githubFolder.folder("workflows");
+        if (workflowsFolder) {
+             workflowsFolder.file("build.yml", githubActions);
+        }
+    }
 
     // Add a README
     const readme = `# Docker Forge Project
@@ -664,8 +709,13 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
     }
   }
 
+  interface DockerResult {
+    dockerfile: string;
+    compose?: string;
+  }
+
   function handleRestore(item: ToolHistoryItem) {
-    const result = item.result as any;
+    const result = item.result as DockerResult;
     if (result && result.dockerfile) {
       pasteContent = result.dockerfile;
       handleSmartPaste();
@@ -747,7 +797,7 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
         </div>
       </div>
       <div class="flex flex-wrap gap-2">
-        {#each examples as example}
+        {#each examples as example (example.name)}
           <button
             class="px-4 py-2 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center gap-2 min-h-[44px]"
             on:click={() => loadExample(example.dockerfile)}
@@ -829,15 +879,20 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
       </div>
     </div>
 
-    <!-- Security Warnings -->
+    <!-- Intelligent Linter / Optimizer Warnings -->
     {#if securityWarnings.length > 0}
-      <div class="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700/50 rounded-xl p-4 flex flex-col gap-2">
-        {#each securityWarnings as warning (warning)}
-          <div class="flex items-start text-sm text-amber-800 dark:text-amber-200">
-            <span class="mr-2">⚠️</span>
-            <span>{warning}</span>
-          </div>
-        {/each}
+      <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-amber-200 dark:border-amber-700/50 p-4 flex flex-col gap-3">
+        <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+           <span class="text-amber-500">✨</span> Dockerfile Optimizer
+        </h3>
+        <div class="space-y-2">
+          {#each securityWarnings as warning (warning.text)}
+            <div class="flex items-start text-sm {warning.type === 'warning' ? 'text-amber-800 dark:text-amber-300' : 'text-blue-800 dark:text-blue-300'} bg-{warning.type === 'warning' ? 'amber' : 'blue'}-50 dark:bg-{warning.type === 'warning' ? 'amber' : 'blue'}-900/20 p-2 rounded-lg border border-{warning.type === 'warning' ? 'amber' : 'blue'}-100 dark:border-{warning.type === 'warning' ? 'amber' : 'blue'}-800/50">
+              <span class="mr-2 mt-0.5">{warning.type === 'warning' ? '⚠️' : '💡'}</span>
+              <span>{warning.text}</span>
+            </div>
+          {/each}
+        </div>
       </div>
     {/if}
 
@@ -900,7 +955,7 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
               </div>
               <div class="space-y-2">
 
-                {#each installCmds as _, i (i)}
+                {#each installCmds as installItem, i (i + installItem)}
                   <div class="flex items-center gap-2">
                     <input
                       type="text"
@@ -1047,6 +1102,7 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
           </div>
           <div class="space-y-2">
 
+              <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
               {#each runCmds as _, i (i)}
               <div class="flex items-center gap-2">
                 <input
@@ -1080,6 +1136,7 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
           </div>
           <div class="flex flex-wrap gap-2">
 
+              <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
               {#each exposePorts as _, i (i)}
               <div class="flex items-center gap-1 w-32">
                 <input
@@ -1225,6 +1282,36 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
       </div>
       <div class="p-4 overflow-x-auto">
         <pre class="text-slate-300 font-mono text-sm leading-relaxed whitespace-pre-wrap select-all">{githubActions}</pre>
+      </div>
+    </div>
+
+    <div class="bg-slate-900 rounded-xl shadow-lg overflow-hidden border border-slate-700">
+      <div class="flex items-center justify-between px-4 py-2 border-b border-slate-800 bg-slate-950">
+        <div class="text-slate-300 font-mono text-sm flex items-center">
+          <Box size={16} class="mr-2 text-green-400" />
+          .dockerignore
+        </div>
+        <div class="flex space-x-2">
+          <button
+            class="text-slate-400 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center p-2 transition-colors"
+            on:click={() => copyToClipboard(dockerignore)}
+            title={d.copyToClipboard}
+            aria-label={d.copyToClipboard}
+          >
+            <Copy size={16} />
+          </button>
+          <button
+            class="text-slate-400 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center p-2 transition-colors"
+            on:click={() => downloadFile(dockerignore, '.dockerignore')}
+            title="Download .dockerignore"
+            aria-label="Download .dockerignore"
+          >
+            <Download size={16} />
+          </button>
+        </div>
+      </div>
+      <div class="p-4 overflow-x-auto">
+        <pre class="text-slate-300 font-mono text-sm leading-relaxed whitespace-pre-wrap select-all">{dockerignore}</pre>
       </div>
     </div>
 

@@ -44,9 +44,13 @@
     }
   }
 
+  interface DockerInput {
+    baseImage?: string;
+  }
+
   function getBaseImage(item: ToolHistoryItem) {
       try {
-          const input = item.input as any;
+          const input = item.input as DockerInput;
           return input?.baseImage || 'Unknown Image';
       } catch {
           return 'Unknown Image';
