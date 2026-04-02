@@ -129,7 +129,7 @@
         <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
              <div class="flex items-center justify-between mb-3">
                 <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200">{d.profiles}</h3>
-                <button class="text-xs flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:underline" on:click={addProfile}>
+                <button class="min-h-[44px] min-w-[44px] text-xs flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:underline" on:click={addProfile}>
                     <Plus size={14} /> {d.add}
                 </button>
              </div>
@@ -141,7 +141,7 @@
                           <input type="text" placeholder="Username" class="rounded border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs px-2 py-1.5" bind:value={profile.username} />
                           <input type="text" placeholder="URL" class="rounded border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs px-2 py-1.5" bind:value={profile.url} />
                       </div>
-                      <button class="p-1.5 text-slate-400 hover:text-red-500" on:click={() => remove('profiles', profile.id)}>
+                      <button class="min-h-[44px] min-w-[44px] p-1.5 text-slate-400 hover:text-red-500" on:click={() => remove('profiles', profile.id)}>
                         <Trash2 size={14} />
                       </button>
                    </div>
@@ -154,7 +154,7 @@
       <div class="space-y-4" transition:slide>
         {#each $resumeStore.work as item (item.id)}
           <div class="border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-            <button class="w-full text-left flex items-center justify-between p-3 cursor-pointer select-none" on:click={() => toggle(item.id)}>
+            <button class="min-h-[44px] w-full text-left flex items-center justify-between p-3 cursor-pointer select-none" on:click={() => toggle(item.id)}>
               <div class="flex items-center gap-3">
                  <div class="text-slate-400">
                     {#if expanded[item.id]}<ChevronUp size={16}/>{:else}<ChevronDown size={16}/>{/if}
@@ -164,7 +164,7 @@
                     <div class="text-xs text-slate-500">{item.position || 'Position'}</div>
                  </div>
               </div>
-              <div class="p-2 text-slate-400 hover:text-red-500" role="button" tabindex="0" on:click|stopPropagation={() => remove('work', item.id)} on:keydown|stopPropagation={(e) => e.key === 'Enter' && remove('work', item.id)}>
+              <div class="min-h-[44px] min-w-[44px] p-2 text-slate-400 hover:text-red-500" role="button" tabindex="0" on:click|stopPropagation={() => remove('work', item.id)} on:keydown|stopPropagation={(e) => e.key === 'Enter' && remove('work', item.id)}>
                 <Trash2 size={16} />
               </div>
             </button>
@@ -192,7 +192,7 @@
             {/if}
           </div>
         {/each}
-        <button class="w-full py-3 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg text-slate-500 hover:border-indigo-500 hover:text-indigo-600 transition-colors flex items-center justify-center gap-2 font-medium" on:click={addWork}>
+        <button class="min-h-[44px] w-full py-3 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg text-slate-500 hover:border-indigo-500 hover:text-indigo-600 transition-colors flex items-center justify-center gap-2 font-medium" on:click={addWork}>
             <Plus size={18} /> {d.add}
         </button>
       </div>
@@ -201,7 +201,7 @@
       <div class="space-y-4" transition:slide>
         {#each $resumeStore.education as item (item.id)}
           <div class="border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-            <button class="w-full text-left flex items-center justify-between p-3 cursor-pointer select-none" on:click={() => toggle(item.id)}>
+            <button class="min-h-[44px] w-full text-left flex items-center justify-between p-3 cursor-pointer select-none" on:click={() => toggle(item.id)}>
               <div class="flex items-center gap-3">
                  <div class="text-slate-400">
                     {#if expanded[item.id]}<ChevronUp size={16}/>{:else}<ChevronDown size={16}/>{/if}
@@ -211,7 +211,7 @@
                     <div class="text-xs text-slate-500">{item.area || 'Area'}</div>
                  </div>
               </div>
-              <div class="p-2 text-slate-400 hover:text-red-500" role="button" tabindex="0" on:click|stopPropagation={() => remove('education', item.id)} on:keydown|stopPropagation={(e) => e.key === 'Enter' && remove('education', item.id)}>
+              <div class="min-h-[44px] min-w-[44px] p-2 text-slate-400 hover:text-red-500" role="button" tabindex="0" on:click|stopPropagation={() => remove('education', item.id)} on:keydown|stopPropagation={(e) => e.key === 'Enter' && remove('education', item.id)}>
                 <Trash2 size={16} />
               </div>
             </button>
@@ -230,7 +230,7 @@
             {/if}
           </div>
         {/each}
-        <button class="w-full py-3 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg text-slate-500 hover:border-indigo-500 hover:text-indigo-600 transition-colors flex items-center justify-center gap-2 font-medium" on:click={addEdu}>
+        <button class="min-h-[44px] w-full py-3 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg text-slate-500 hover:border-indigo-500 hover:text-indigo-600 transition-colors flex items-center justify-center gap-2 font-medium" on:click={addEdu}>
             <Plus size={18} /> {d.add}
         </button>
       </div>
@@ -241,12 +241,12 @@
           <div class="flex items-center gap-2">
              <input type="text" placeholder="Skill Name (e.g. JavaScript)" class="input-sm flex-1" bind:value={item.name} />
              <input type="text" placeholder="Level (e.g. Expert)" class="input-sm w-32" bind:value={item.level} />
-             <button class="p-2 text-slate-400 hover:text-red-500" on:click={() => remove('skills', item.id)}>
+             <button class="min-h-[44px] min-w-[44px] p-2 text-slate-400 hover:text-red-500" on:click={() => remove('skills', item.id)}>
                 <Trash2 size={16} />
              </button>
           </div>
          {/each}
-         <button class="w-full py-2 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg text-slate-500 hover:border-indigo-500 hover:text-indigo-600 transition-colors flex items-center justify-center gap-2 text-sm font-medium" on:click={addSkill}>
+         <button class="min-h-[44px] w-full py-2 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg text-slate-500 hover:border-indigo-500 hover:text-indigo-600 transition-colors flex items-center justify-center gap-2 text-sm font-medium" on:click={addSkill}>
             <Plus size={16} /> {d.add}
         </button>
       </div>
@@ -255,7 +255,7 @@
         <div class="space-y-4" transition:slide>
         {#each $resumeStore.projects as item (item.id)}
           <div class="border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-            <button class="w-full text-left flex items-center justify-between p-3 cursor-pointer select-none" on:click={() => toggle(item.id)}>
+            <button class="min-h-[44px] w-full text-left flex items-center justify-between p-3 cursor-pointer select-none" on:click={() => toggle(item.id)}>
               <div class="flex items-center gap-3">
                  <div class="text-slate-400">
                     {#if expanded[item.id]}<ChevronUp size={16}/>{:else}<ChevronDown size={16}/>{/if}
@@ -264,7 +264,7 @@
                     <div class="font-medium text-slate-900 dark:text-white text-sm">{item.name || 'New Project'}</div>
                  </div>
               </div>
-              <div class="p-2 text-slate-400 hover:text-red-500" role="button" tabindex="0" on:click|stopPropagation={() => remove('projects', item.id)} on:keydown|stopPropagation={(e) => e.key === 'Enter' && remove('projects', item.id)}>
+              <div class="min-h-[44px] min-w-[44px] p-2 text-slate-400 hover:text-red-500" role="button" tabindex="0" on:click|stopPropagation={() => remove('projects', item.id)} on:keydown|stopPropagation={(e) => e.key === 'Enter' && remove('projects', item.id)}>
                 <Trash2 size={16} />
               </div>
             </button>
@@ -286,7 +286,7 @@
             {/if}
           </div>
         {/each}
-        <button class="w-full py-3 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg text-slate-500 hover:border-indigo-500 hover:text-indigo-600 transition-colors flex items-center justify-center gap-2 font-medium" on:click={addProject}>
+        <button class="min-h-[44px] w-full py-3 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg text-slate-500 hover:border-indigo-500 hover:text-indigo-600 transition-colors flex items-center justify-center gap-2 font-medium" on:click={addProject}>
             <Plus size={18} /> {d.add}
         </button>
       </div>
@@ -303,12 +303,12 @@
                  </div>
                  <textarea placeholder="Summary" rows="1" class="input-area" bind:value={item.summary}></textarea>
              </div>
-             <button class="p-2 text-slate-400 hover:text-red-500" on:click={() => remove('awards', item.id)}>
+             <button class="min-h-[44px] min-w-[44px] p-2 text-slate-400 hover:text-red-500" on:click={() => remove('awards', item.id)}>
                 <Trash2 size={16} />
              </button>
           </div>
          {/each}
-         <button class="w-full py-3 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg text-slate-500 hover:border-indigo-500 hover:text-indigo-600 transition-colors flex items-center justify-center gap-2 font-medium" on:click={addAward}>
+         <button class="min-h-[44px] w-full py-3 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg text-slate-500 hover:border-indigo-500 hover:text-indigo-600 transition-colors flex items-center justify-center gap-2 font-medium" on:click={addAward}>
             <Plus size={18} /> {d.add}
         </button>
       </div>
