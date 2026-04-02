@@ -32,11 +32,11 @@
   }
 </script>
 
-<div class="flex flex-wrap items-center gap-1 p-2 bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 rounded-t-lg">
+<div class="flex items-center gap-1 p-2 bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 rounded-t-lg overflow-x-auto scrollbar-hide whitespace-nowrap">
   <!-- Formatting Group -->
   <div class="flex items-center gap-1 pr-2 border-r border-slate-300 dark:border-slate-600">
     <button
-      class="p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
       on:click={() => action('bold')}
       title={dictionary.actions.bold}
       aria-label={dictionary.actions.bold}
@@ -44,7 +44,7 @@
       <Bold size={18} />
     </button>
     <button
-      class="p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
       on:click={() => action('italic')}
       title={dictionary.actions.italic}
       aria-label={dictionary.actions.italic}
@@ -52,7 +52,7 @@
       <Italic size={18} />
     </button>
     <button
-      class="p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
       on:click={() => action('heading')}
       title={dictionary.actions.heading}
       aria-label={dictionary.actions.heading}
@@ -64,7 +64,7 @@
   <!-- Structure Group -->
   <div class="flex items-center gap-1 px-2 border-r border-slate-300 dark:border-slate-600">
     <button
-      class="p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
       on:click={() => action('link')}
       title={dictionary.actions.link}
       aria-label={dictionary.actions.link}
@@ -72,7 +72,7 @@
       <Link size={18} />
     </button>
     <button
-      class="p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
       on:click={() => action('image')}
       title={dictionary.actions.image}
       aria-label={dictionary.actions.image}
@@ -80,7 +80,7 @@
       <Image size={18} />
     </button>
     <button
-      class="p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
       on:click={() => action('quote')}
       title={dictionary.actions.quote}
       aria-label={dictionary.actions.quote}
@@ -92,7 +92,7 @@
   <!-- List Group -->
   <div class="flex items-center gap-1 px-2 border-r border-slate-300 dark:border-slate-600">
     <button
-      class="p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
       on:click={() => action('listUl')}
       title={dictionary.actions.listUl}
       aria-label={dictionary.actions.listUl}
@@ -100,7 +100,7 @@
       <List size={18} />
     </button>
     <button
-      class="p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
       on:click={() => action('listOl')}
       title={dictionary.actions.listOl}
       aria-label={dictionary.actions.listOl}
@@ -112,7 +112,7 @@
   <!-- Advanced Group -->
   <div class="flex items-center gap-1 px-2 border-r border-slate-300 dark:border-slate-600 hidden sm:flex">
     <button
-      class="p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
       on:click={() => action('code')}
       title={dictionary.actions.code}
       aria-label={dictionary.actions.code}
@@ -120,7 +120,7 @@
       <Code size={18} />
     </button>
     <button
-      class="p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
       on:click={() => action('table')}
       title={dictionary.actions.table}
       aria-label={dictionary.actions.table}
@@ -128,7 +128,7 @@
       <Table size={18} />
     </button>
     <button
-      class="p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
       on:click={() => action('rule')}
       title={dictionary.actions.rule}
       aria-label={dictionary.actions.rule}
@@ -140,7 +140,7 @@
   <!-- Actions Group -->
   <div class="flex items-center gap-1 ml-auto">
     <button
-      class="p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
       on:click={() => action('copy')}
       title={dictionary.copy}
       aria-label={dictionary.copy}
@@ -149,7 +149,7 @@
       <Copy size={18} />
     </button>
     <button
-      class="p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors hidden sm:block"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors hidden sm:block"
       on:click={() => action('copyHtml')}
       title={dictionary.copyHtml}
       aria-label={dictionary.copyHtml}
@@ -158,7 +158,7 @@
       <FileCode size={18} />
     </button>
     <button
-      class="p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
       on:click={() => action('download')}
       title={dictionary.download}
       aria-label={dictionary.download}
@@ -167,7 +167,7 @@
       <Download size={18} />
     </button>
     <button
-      class="p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
       on:click={() => action('print')}
       title={dictionary.print}
       aria-label={dictionary.print}
@@ -179,7 +179,7 @@
     <div class="w-px h-6 bg-slate-300 dark:bg-slate-600 mx-1"></div>
 
     <button
-      class="p-2.5 text-green-600 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-green-600 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30 rounded transition-colors"
       on:click={() => action('save')}
       title={dictionary.save}
       aria-label={dictionary.save}
@@ -187,7 +187,7 @@
       <Save size={18} />
     </button>
     <button
-      class="p-2.5 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors"
+      class="min-h-[44px] min-w-[44px] p-2.5 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors"
       on:click={() => action('clear')}
       title={dictionary.clear}
       aria-label={dictionary.clear}

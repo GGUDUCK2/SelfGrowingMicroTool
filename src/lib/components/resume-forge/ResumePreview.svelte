@@ -82,25 +82,25 @@
       </div>
 
       <div class="flex items-center gap-2">
-         <button class="p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 md:hidden" on:click={() => fitToScreen = !fitToScreen} title={dict.preview.fitWidth}>
+         <button class="min-h-[44px] min-w-[44px] p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 md:hidden" on:click={() => fitToScreen = !fitToScreen} title={dict.preview.fitWidth}>
              {#if fitToScreen}
                 <Maximize size={20} />
              {:else}
                 <Minimize size={20} />
              {/if}
          </button>
-         <button on:click={onExportJson} class="p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-white" title={dict.actions.exportJson}>
+         <button on:click={onExportJson} class="min-h-[44px] min-w-[44px] p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-white" title={dict.actions.exportJson}>
              <FileJson size={20} />
          </button>
-         <button on:click={onReset} class="p-2 text-slate-500 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400" title={dict.actions.reset}>
+         <button on:click={onReset} class="min-h-[44px] min-w-[44px] p-2 text-slate-500 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400" title={dict.actions.reset}>
              <RotateCcw size={20} />
          </button>
          <div class="h-4 w-px bg-slate-300 dark:bg-slate-700 mx-1"></div>
-         <button on:click={onSave} class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors">
+         <button on:click={onSave} class="min-h-[44px] flex items-center gap-2 px-3 py-1.5 text-sm font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors">
              <Save size={16} />
              <span class="hidden sm:inline">{dict.actions.save}</span>
          </button>
-         <button on:click={print} class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm transition-colors">
+         <button on:click={print} class="min-h-[44px] flex items-center gap-2 px-3 py-1.5 text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm transition-colors">
              <Download size={16} />
              <span class="hidden sm:inline">{dict.actions.downloadPdf}</span>
          </button>

@@ -42,7 +42,7 @@
                         <span>{formatDistanceToNow(item.updatedAt, { addSuffix: true })}</span>
                     </div>
 
-                    <div class="absolute top-3 right-3 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity p-1" role="button" tabindex="0" on:click|stopPropagation={() => remove(item.id!)} on:keydown|stopPropagation={(e) => e.key === 'Enter' && remove(item.id!)}>
+                    <div class="min-h-[44px] min-w-[44px] flex items-center justify-center absolute top-3 right-3 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity p-1" role="button" tabindex="0" on:click|stopPropagation={() => remove(item.id!)} on:keydown|stopPropagation={(e) => e.key === 'Enter' && remove(item.id!)}>
                         <Trash2 size={14} />
                     </div>
                 </button>
