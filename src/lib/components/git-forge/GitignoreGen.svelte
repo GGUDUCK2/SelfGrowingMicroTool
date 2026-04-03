@@ -101,7 +101,7 @@
                 {#each selectedTemplates as tmpl (tmpl.id)}
                     <button
                         on:click={() => toggle(tmpl.id)}
-                        class="min-h-[44px] min-w-[44px] inline-flex items-center gap-1 px-3 py-1 rounded-md text-xs font-medium bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300 hover:bg-red-100 hover:text-red-700 dark:hover:bg-red-900/30 transition-colors"
+                        class="min-h-[44px] inline-flex items-center gap-1 px-3 py-1 rounded-md text-xs font-medium bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300 hover:bg-red-100 hover:text-red-700 dark:hover:bg-red-900/30 transition-colors"
                         aria-label={`Remove ${tmpl.name}`}
                     >
                         {tmpl.name}
