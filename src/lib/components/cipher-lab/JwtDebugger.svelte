@@ -92,7 +92,7 @@
       <div class="space-y-2">
         <div class="flex items-center justify-between">
           <span class="text-xs font-bold uppercase tracking-wider text-red-500">{dict.jwt.header}</span>
-          <button on:click={() => copyToClipboard(JSON.stringify(parsed?.header, null, 2))} class="text-xs text-slate-400 hover:text-indigo-500" aria-label={dict.copy}>
+          <button on:click={() => copyToClipboard(JSON.stringify(parsed?.header, null, 2))} class="text-xs text-slate-400 hover:text-indigo-500 min-h-[44px] min-w-[44px] flex justify-center items-center" aria-label={dict.copy}>
              <Copy size={12}/>
           </button>
         </div>
@@ -106,10 +106,10 @@
         <div class="flex items-center justify-between">
           <span class="text-xs font-bold uppercase tracking-wider text-purple-500">{dict.jwt.payload}</span>
           <div class="flex space-x-2">
-             <button on:click={saveToHistory} class="text-xs text-slate-400 hover:text-indigo-500" aria-label={dict.save}>
+             <button on:click={saveToHistory} class="text-xs text-slate-400 hover:text-indigo-500 min-h-[44px] min-w-[44px] flex justify-center items-center" aria-label={dict.save}>
                <Save size={12}/>
              </button>
-             <button on:click={() => copyToClipboard(JSON.stringify(parsed?.payload, null, 2))} class="text-xs text-slate-400 hover:text-indigo-500" aria-label={dict.copy}>
+             <button on:click={() => copyToClipboard(JSON.stringify(parsed?.payload, null, 2))} class="text-xs text-slate-400 hover:text-indigo-500 min-h-[44px] min-w-[44px] flex justify-center items-center" aria-label={dict.copy}>
                <Copy size={12}/>
              </button>
           </div>
@@ -136,7 +136,7 @@
              </div>
              <button
                on:click={verify}
-               class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm mb-[1px]"
+               class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm mb-[1px] min-h-[44px]"
              >
                {dict.verify}
              </button>

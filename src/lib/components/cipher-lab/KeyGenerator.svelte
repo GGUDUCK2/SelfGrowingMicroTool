@@ -56,7 +56,7 @@
       <select
         id="key-type"
         bind:value={type}
-        class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+        class="w-full min-h-[44px] rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
       >
         <option value="RSA">{dict.keygen.rsa}</option>
         <option value="ECDSA">{dict.keygen.ecdsa}</option>
@@ -66,7 +66,7 @@
       <button
         on:click={generate}
         disabled={isGenerating}
-        class="flex items-center space-x-2 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none disabled:opacity-50"
+        class="flex items-center space-x-2 px-6 py-2 min-h-[44px] bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none disabled:opacity-50"
       >
         {#if isGenerating}
           <RefreshCw size={18} class="animate-spin" />
@@ -84,7 +84,7 @@
       <div class="space-y-2">
         <div class="flex items-center justify-between">
           <span class="text-xs font-bold uppercase tracking-wider text-green-600 dark:text-green-400">{dict.keygen.public}</span>
-          <button on:click={() => copy(publicKey)} class="text-xs text-slate-400 hover:text-indigo-500" aria-label={dict.copy}>
+          <button on:click={() => copy(publicKey)} class="text-xs text-slate-400 hover:text-indigo-500 min-h-[44px] min-w-[44px] flex justify-center items-center" aria-label={dict.copy}>
              <Copy size={12}/>
           </button>
         </div>
@@ -100,7 +100,7 @@
       <div class="space-y-2">
         <div class="flex items-center justify-between">
           <span class="text-xs font-bold uppercase tracking-wider text-red-600 dark:text-red-400">{dict.keygen.private}</span>
-          <button on:click={() => copy(privateKey)} class="text-xs text-slate-400 hover:text-indigo-500" aria-label={dict.copy}>
+          <button on:click={() => copy(privateKey)} class="text-xs text-slate-400 hover:text-indigo-500 min-h-[44px] min-w-[44px] flex justify-center items-center" aria-label={dict.copy}>
              <Copy size={12}/>
           </button>
         </div>

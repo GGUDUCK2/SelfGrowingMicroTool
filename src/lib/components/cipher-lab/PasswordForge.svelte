@@ -89,7 +89,7 @@
     <div class="absolute inset-y-0 right-0 pr-2 flex items-center space-x-1">
       <button
         on:click={generate}
-        class="p-2 text-slate-400 hover:text-indigo-600 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+        class="p-2 text-slate-400 hover:text-indigo-600 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors min-h-[44px] min-w-[44px] flex justify-center items-center"
         title={dict.generate}
         aria-label={dict.generate}
       >
@@ -111,7 +111,7 @@
      <button
         on:click={copyToClipboard}
         aria-label={dict.copy}
-        class="flex items-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+        class="flex items-center space-x-2 px-4 py-2 min-h-[44px] bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
      >
        <Copy size={16} />
        <span>{dict.copy}</span>
@@ -119,7 +119,7 @@
      <button
         on:click={saveToHistory}
         aria-label={dict.save}
-        class="flex items-center space-x-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+        class="flex items-center space-x-2 px-4 py-2 min-h-[44px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
      >
        <Save size={16} />
        <span>{dict.save}</span>
@@ -148,35 +148,37 @@
            <span>{dict.length}</span>
            <span class="font-mono font-bold text-indigo-600">{options.length}</span>
          </label>
-         <input
-           id="length"
-           type="range"
-           min="6"
-           max="64"
-           bind:value={options.length}
-           on:input={generate}
-           class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700 accent-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-         />
+         <div class="py-2">
+           <input
+             id="length"
+             type="range"
+             min="6"
+             max="64"
+             bind:value={options.length}
+             on:input={generate}
+             class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700 accent-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 block min-h-[44px]"
+           />
+         </div>
        </div>
 
        <div class="grid grid-cols-2 gap-2">
-         <label class="flex items-center space-x-2 text-sm text-slate-700 dark:text-slate-300">
+         <label class="flex items-center space-x-2 text-sm text-slate-700 dark:text-slate-300 min-h-[44px] min-w-[44px]">
            <input type="checkbox" bind:checked={options.uppercase} on:change={generate} class="rounded text-indigo-600 focus:ring-indigo-500 dark:bg-slate-800 dark:border-slate-600" />
            <span>{dict.password.uppercase}</span>
          </label>
-         <label class="flex items-center space-x-2 text-sm text-slate-700 dark:text-slate-300">
+         <label class="flex items-center space-x-2 text-sm text-slate-700 dark:text-slate-300 min-h-[44px] min-w-[44px]">
            <input type="checkbox" bind:checked={options.lowercase} on:change={generate} class="rounded text-indigo-600 focus:ring-indigo-500 dark:bg-slate-800 dark:border-slate-600" />
            <span>{dict.password.lowercase}</span>
          </label>
-         <label class="flex items-center space-x-2 text-sm text-slate-700 dark:text-slate-300">
+         <label class="flex items-center space-x-2 text-sm text-slate-700 dark:text-slate-300 min-h-[44px] min-w-[44px]">
            <input type="checkbox" bind:checked={options.numbers} on:change={generate} class="rounded text-indigo-600 focus:ring-indigo-500 dark:bg-slate-800 dark:border-slate-600" />
            <span>{dict.password.numbers}</span>
          </label>
-         <label class="flex items-center space-x-2 text-sm text-slate-700 dark:text-slate-300">
+         <label class="flex items-center space-x-2 text-sm text-slate-700 dark:text-slate-300 min-h-[44px] min-w-[44px]">
            <input type="checkbox" bind:checked={options.symbols} on:change={generate} class="rounded text-indigo-600 focus:ring-indigo-500 dark:bg-slate-800 dark:border-slate-600" />
            <span>{dict.password.symbols}</span>
          </label>
-         <label class="flex items-center space-x-2 text-sm text-slate-700 dark:text-slate-300 col-span-2">
+         <label class="flex items-center space-x-2 text-sm text-slate-700 dark:text-slate-300 col-span-2 min-h-[44px] min-w-[44px]">
            <input type="checkbox" bind:checked={options.ambiguous} on:change={generate} class="rounded text-indigo-600 focus:ring-indigo-500 dark:bg-slate-800 dark:border-slate-600" />
            <span>{dict.password.ambiguous}</span>
          </label>

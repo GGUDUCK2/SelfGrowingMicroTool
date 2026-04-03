@@ -98,7 +98,7 @@
       <select
         id="method"
         bind:value={method}
-        class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+        class="w-full min-h-[44px] rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
       >
         <option value="base64">{dict.encoding.base64}</option>
         <option value="url">{dict.encoding.url}</option>
@@ -115,14 +115,14 @@
       </label>
       <div class="flex rounded-lg bg-slate-100 dark:bg-slate-800 p-1">
         <button
-          class="flex-1 py-1.5 text-sm font-medium rounded-md transition-all {mode === 'encode' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+          class="flex-1 min-h-[44px] py-1.5 text-sm font-medium rounded-md transition-all {mode === 'encode' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
           on:click={() => (mode = 'encode')}
           aria-label={dict.encode}
         >
           {dict.encode}
         </button>
         <button
-          class="flex-1 py-1.5 text-sm font-medium rounded-md transition-all {mode === 'decode' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+          class="flex-1 min-h-[44px] py-1.5 text-sm font-medium rounded-md transition-all {mode === 'decode' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
           on:click={() => (mode = 'decode')}
           aria-label={dict.decode}
         >
@@ -139,7 +139,7 @@
         <label for="enc-input" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
           {dict.input}
         </label>
-        <button on:click={swap} class="text-xs text-slate-500 hover:text-indigo-600 flex items-center space-x-1" title={dict.swap || "Swap"} aria-label={dict.swap || "Swap"}>
+        <button on:click={swap} class="text-xs text-slate-500 hover:text-indigo-600 flex items-center space-x-1 min-h-[44px] min-w-[44px]" title={dict.swap || "Swap"} aria-label={dict.swap || "Swap"}>
            <ArrowLeftRight size={14} />
            <span>Swap</span>
         </button>
@@ -163,7 +163,7 @@
       <div class="flex space-x-2">
         <button
           on:click={copyToClipboard}
-          class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+          class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 min-h-[44px] min-w-[44px]"
           disabled={!output}
           aria-label={dict.copy}
         >
@@ -172,7 +172,7 @@
         </button>
         <button
           on:click={saveToHistory}
-          class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+          class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 min-h-[44px] min-w-[44px]"
           disabled={!output}
           aria-label={dict.save}
         >
