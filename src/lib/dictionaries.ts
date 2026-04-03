@@ -3594,6 +3594,8 @@ export const dictionaries = {
         downloadGha: "Download GitHub Action",
         quickStart: "Quick Start Examples",
         downloadSuccess: "Downloaded successfully!",
+        layerSizeInfo: "Estimated size added by this layer.",
+        smartDockerignore: "Dynamic .dockerignore based on stack",
         shareSuccess: "Shared successfully!",
         saveSuccess: "Saved to Workspace",
         buttons: {
@@ -6714,6 +6716,8 @@ export const dictionaries = {
         downloadGha: "GitHub Action 다운로드",
         quickStart: "빠른 시작 예제",
         downloadSuccess: "성공적으로 다운로드되었습니다!",
+        layerSizeInfo: "이 레이어로 인해 추가될 예상 크기입니다.",
+        smartDockerignore: "스택에 따른 동적 .dockerignore",
         shareSuccess: "성공적으로 공유되었습니다!",
         saveSuccess: "작업 공간에 저장되었습니다",
         buttons: {
