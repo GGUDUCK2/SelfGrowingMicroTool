@@ -15,7 +15,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: toolDict = dict.tools.resumeForge;
+  $: toolDict = dict?.tools?.resumeForge;
 
   let showHistory = false;
   let showPreviewOnMobile = false; // Toggle for mobile view
@@ -53,14 +53,14 @@
               starred: 0
           });
           // Simple toast could be better but sticking to dict
-          alert(toolDict.actions.saved);
+          alert(toolDict?.actions?.saved);
       } catch (e) {
           console.error('Failed to save', e);
       }
   }
 
   function handleReset() {
-      if (confirm(toolDict.actions.reset + '?')) {
+      if (confirm(toolDict?.actions?.reset + '?')) {
           resumeStore.reset();
       }
   }
@@ -98,9 +98,9 @@
 
   // SEO Schema
   $: faqItems = [
-    { q: toolDict.q1, a: toolDict.a1 },
-    { q: toolDict.q2, a: toolDict.a2 },
-    { q: toolDict.q3, a: toolDict.a3 }
+    { q: toolDict?.q1, a: toolDict?.a1 },
+    { q: toolDict?.q2, a: toolDict?.a2 },
+    { q: toolDict?.q3, a: toolDict?.a3 }
   ];
 
   $: jsonLd = JSON.stringify({
@@ -109,8 +109,8 @@
       {
         "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-        "name": toolDict.title,
-        "description": toolDict.description,
+        "name": toolDict?.title,
+        "description": toolDict?.description,
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Any",
         "offers": {
@@ -140,13 +140,13 @@
           {
             "@type": "ListItem",
             "position": 1,
-            "name": dict.home.title,
+            "name": dict?.home?.title,
             "item": `https://selfgrowingmicrotool.com/${lang}`
           },
           {
             "@type": "ListItem",
             "position": 2,
-            "name": toolDict.title,
+            "name": toolDict?.title,
             "item": $page.url.href
           }
         ]
@@ -155,8 +155,8 @@
   });
 </script>
 <Head
-  title={toolDict.title}
-  description={toolDict.description}
+  title={toolDict?.title}
+  description={toolDict?.description}
   keywords="resume builder, cv maker, json resume, free resume template, ats friendly resume, pdf resume"
 />
 
@@ -177,7 +177,7 @@
              <div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400">
                  <FileText size={20} />
              </div>
-             <h1 class="font-bold text-lg hidden sm:block bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{toolDict.title}</h1>
+             <h1 class="font-bold text-lg hidden sm:block bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{toolDict?.title}</h1>
         </div>
 
         <div class="flex items-center gap-2 md:hidden">
@@ -216,9 +216,9 @@
             <!-- Editor Pane -->
             <div class="flex-1 flex flex-col min-w-0 border-r border-slate-200 dark:border-slate-800 h-full {showPreviewOnMobile ? 'hidden md:flex' : 'flex'} print:hidden">
                 <div class="p-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 font-semibold text-sm text-slate-500 uppercase tracking-wider flex justify-between items-center">
-                    {toolDict.editor.title}
+                    {toolDict?.editor?.title}
                     <div class="flex gap-2">
-                        <button on:click={handleImportJson} class="text-xs text-indigo-600 hover:underline min-h-[44px]">{toolDict.actions.importJson}</button>
+                        <button on:click={handleImportJson} class="text-xs text-indigo-600 hover:underline min-h-[44px]">{toolDict?.actions?.importJson}</button>
                     </div>
                 </div>
                 <div class="flex-1 overflow-hidden">
@@ -243,7 +243,7 @@
 <!-- Documentation (Below fold, printable hidden) -->
 <div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 print:hidden">
     <div class="max-w-5xl mx-auto px-4 py-12 space-y-12">
-        <GuideSection {...toolDict.guide} />
-        <FAQSection title={toolDict.faqTitle} items={faqItems} />
+        <GuideSection {...toolDict?.guide} />
+        <FAQSection title={toolDict?.faqTitle} items={faqItems} />
     </div>
 </div>

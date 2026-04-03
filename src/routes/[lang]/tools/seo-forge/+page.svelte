@@ -17,7 +17,7 @@
 
   // Get Dictionary
   $: dictionary = getDictionary($page.params.lang || 'en');
-  $: dict = dictionary.tools.seoForge;
+  $: dict = dictionary?.tools?.seoForge;
 
   // State
   let activeTab: 'meta' | 'social' | 'jsonld' | 'history' = 'meta';
@@ -141,7 +141,7 @@
         projectName: projectName,
         createdAt: new Date()
       });
-      triggerToast(dict.actions.saved);
+      triggerToast(dict?.actions?.saved);
     } catch (err) {
       console.error('Failed to save history:', err);
     }
@@ -160,7 +160,7 @@
      jsonLdData.type = item.jsonLdType || 'Website';
      if (item.projectName) projectName = item.projectName;
      activeTab = 'meta';
-     triggerToast(dict.actions.restore);
+     triggerToast(dict?.actions?.restore);
   }
 
   async function deleteHistory(id: number | undefined) {
@@ -173,7 +173,7 @@
 
   function copyToClipboard(text: string) {
     navigator.clipboard.writeText(text);
-    triggerToast(dict.actions.copied);
+    triggerToast(dict?.actions?.copied);
   }
 
   function downloadHtml() {
@@ -186,7 +186,7 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      triggerToast(dict.actions.export);
+      triggerToast(dict?.actions?.export);
   }
 
   async function shareLink() {
@@ -218,11 +218,11 @@
               // Fallback if user cancels or fails
               console.log('Share canceled or failed', err);
               navigator.clipboard.writeText(shareUrl);
-              triggerToast(dict.actions.share);
+              triggerToast(dict?.actions?.share);
           }
       } else {
           navigator.clipboard.writeText(shareUrl);
-          triggerToast(dict.actions.share);
+          triggerToast(dict?.actions?.share);
       }
   }
 
@@ -242,7 +242,7 @@
               if (state.j) jsonLdData = state.j;
               // Clean URL
               window.history.replaceState({}, '', window.location.pathname);
-              triggerToast(dict.actions.restore);
+              triggerToast(dict?.actions?.restore);
           } catch (e) {
               console.error('Failed to load shared state', e);
           }
@@ -286,7 +286,7 @@
         "name": "SEO Forge",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web",
-        "description": dict.description,
+        "description": dict?.description,
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -317,7 +317,7 @@
           {
             "@type": "ListItem",
             "position": 3,
-            "name": dict.title,
+            "name": dict?.title,
             "item": `https://selfgrowingmicrotool.com/${$page.params.lang}/tools/seo-forge`
           }
         ]
@@ -331,34 +331,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={`${tags.title ? `${tags.title} | ` : ''}${dict.title}`}
-  description={dict.description}
+  title={`${tags.title ? `${tags.title} | ` : ''}${dict?.title}`}
+  description={dict?.description}
   keywords="seo, meta tags, open graph, json-ld, preview, social media, metadata, generator"
 />
 
@@ -376,8 +376,8 @@
   <!-- Header -->
   <div class="bg-indigo-600 text-white py-12 px-4 shadow-lg">
     <div class="max-w-6xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-bold mb-4">{dict.title}</h1>
-      <p class="text-indigo-100 text-lg max-w-2xl">{dict.description}</p>
+      <h1 class="text-3xl md:text-4xl font-bold mb-4">{dict?.title}</h1>
+      <p class="text-indigo-100 text-lg max-w-2xl">{dict?.description}</p>
     </div>
   </div>
 
@@ -396,7 +396,7 @@
                 class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'meta' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'} min-h-[44px]"
                 on:click={() => activeTab = 'meta'}
             >
-                {dict.tabs.meta}
+                {dict?.tabs?.meta}
             </button>
             <button
                 role="tab"
@@ -404,7 +404,7 @@
                 class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'social' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'} min-h-[44px]"
                 on:click={() => activeTab = 'social'}
             >
-                {dict.tabs.social}
+                {dict?.tabs?.social}
             </button>
             <button
                 role="tab"
@@ -412,7 +412,7 @@
                 class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'jsonld' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'} min-h-[44px]"
                 on:click={() => activeTab = 'jsonld'}
             >
-                {dict.tabs.jsonld}
+                {dict?.tabs?.jsonld}
             </button>
             <button
                 role="tab"
@@ -420,7 +420,7 @@
                 class="px-6 py-4 font-medium text-sm transition-colors whitespace-nowrap {activeTab === 'history' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-indigo-500'} min-h-[44px]"
                 on:click={() => activeTab = 'history'}
             >
-                {dict.tabs.history}
+                {dict?.tabs?.history}
             </button>
           </div>
 
@@ -432,42 +432,42 @@
                  <div class="relative group">
                      <button type="button" class="px-4 py-2 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-1 min-h-[44px]">
                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-template"><rect width="18" height="7" x="3" y="3" rx="1"/><rect width="9" height="7" x="3" y="14" rx="1"/><rect width="5" height="7" x="16" y="14" rx="1"/></svg>
-                         {dict.templates.title}
+                         {dict?.templates?.title}
                      </button>
                      <div class="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-100 dark:border-slate-700 hidden group-hover:block z-10">
-                         <button on:click={() => applyTemplate('blog')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict.templates.blog}</button>
-                         <button on:click={() => applyTemplate('product')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict.templates.product}</button>
-                         <button on:click={() => applyTemplate('portfolio')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict.templates.portfolio}</button>
-                         <button on:click={() => applyTemplate('landing')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict.templates.landing}</button>
+                         <button on:click={() => applyTemplate('blog')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict?.templates?.blog}</button>
+                         <button on:click={() => applyTemplate('product')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict?.templates?.product}</button>
+                         <button on:click={() => applyTemplate('portfolio')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict?.templates?.portfolio}</button>
+                         <button on:click={() => applyTemplate('landing')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict?.templates?.landing}</button>
                      </div>
                  </div>
 
                  <div class="flex gap-2">
                      <button
                         on:click={() => showMagicPaste = !showMagicPaste}
-                        aria-label={dict.actions.magicPaste}
+                        aria-label={dict?.actions?.magicPaste}
                         type="button"
                         class="px-4 py-2 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-1"
                      >
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wand"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8 19 13"/><path d="M15 9h0"/><path d="M17.8 6.2 19 5"/><path d="M3 21l9-9"/><path d="M12.2 6.2 11 5"/></svg>
-                        {dict.actions.magicPaste}
+                        {dict?.actions?.magicPaste}
                      </button>
                      <div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-700/50 rounded-lg px-2">
                          <input
                              type="text"
                              bind:value={projectName}
-                             placeholder={dict.actions.projectPlaceholder}
+                             placeholder={dict?.actions?.projectPlaceholder}
                              class="bg-transparent border-none text-xs w-32 focus:ring-0 text-slate-700 dark:text-slate-200 min-h-[44px]"
                          />
                          <button
                             on:click={saveToHistory}
-                            aria-label={dict.actions.save}
+                            aria-label={dict?.actions?.save}
                             type="button"
                             class="px-4 py-2 text-xs font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-900 transition-colors flex items-center gap-1 my-1 min-h-[44px]"
                             title="Ctrl+S"
                          >
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
-                            {dict.actions.save}
+                            {dict?.actions?.save}
                          </button>
                      </div>
                  </div>
@@ -511,7 +511,7 @@
                                     <select
                                         bind:value={historyFilter}
                                         class="text-xs border rounded p-1 bg-white dark:bg-slate-700 text-slate-700 dark:text-white"
-                                        aria-label={dict.actions.projectFilter}
+                                        aria-label={dict?.actions?.projectFilter}
                                     >
                                         <option value="">All Projects</option>
                                         {#each uniqueProjects as proj}
@@ -519,7 +519,7 @@
                                         {/each}
                                     </select>
                                 {/if}
-                                <button on:click={clearHistory} class="text-xs text-red-500 hover:text-red-600 underline min-h-[44px]">{dict.actions.clear}</button>
+                                <button on:click={clearHistory} class="text-xs text-red-500 hover:text-red-600 underline min-h-[44px]">{dict?.actions?.clear}</button>
                             </div>
                         </div>
 
@@ -539,10 +539,10 @@
                                              <div class="text-xs text-slate-500 truncate">{item.url || 'No URL'}</div>
                                          </div>
                                          <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                             <button aria-label={dict.actions.restore} on:click={() => restoreHistory(item)} class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 hover:bg-white dark:hover:bg-slate-600 rounded text-indigo-600" title={dict.actions.restore}>
+                                             <button aria-label={dict?.actions?.restore} on:click={() => restoreHistory(item)} class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 hover:bg-white dark:hover:bg-slate-600 rounded text-indigo-600" title={dict?.actions?.restore}>
                                                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74-2.74L3 12"/><path d="M3 3v9h9"/></svg>
                                              </button>
-                                             <button aria-label={dict.actions.delete} on:click={() => deleteHistory(item.id)} class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 hover:bg-white dark:hover:bg-slate-600 rounded text-red-500" title={dict.actions.delete}>
+                                             <button aria-label={dict?.actions?.delete} on:click={() => deleteHistory(item.id)} class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 hover:bg-white dark:hover:bg-slate-600 rounded text-red-500" title={dict?.actions?.delete}>
                                                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                                              </button>
                                          </div>
@@ -574,7 +574,7 @@
                         class="min-h-[44px] px-4 py-2 text-indigo-600 hover:text-indigo-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors min-h-[44px]"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share-2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
-                        {dict.actions.share}
+                        {dict?.actions?.share}
                     </button>
                     <button
                         on:click={downloadHtml}
@@ -583,7 +583,7 @@
                         class="min-h-[44px] px-4 py-2 text-indigo-600 hover:text-indigo-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors min-h-[44px]"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                        {dict.actions.export}
+                        {dict?.actions?.export}
                     </button>
                     <button
                       on:click={() => copyToClipboard(activeTab === 'jsonld' ? generatedJsonLd : generatedHtml)}
@@ -592,7 +592,7 @@
                       class="min-h-[44px] px-4 py-2 text-indigo-600 hover:text-indigo-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors"
                     >
                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                       {dict.actions.copyHtml}
+                       {dict?.actions?.copyHtml}
                     </button>
                 </div>
              </div>
@@ -624,25 +624,25 @@
   <!-- FAQ / Guide Section -->
    <div class="max-w-6xl mx-auto px-4 mt-24">
       <GuideSection
-        title={dict.guide.title}
-        intro={dict.guide.intro}
-        featuresTitle={dict.guide.featuresTitle}
-        f1={dict.guide.f1}
-        f2={dict.guide.f2}
-        f3={dict.guide.f3}
-        tipsTitle={dict.guide.tipsTitle}
-        tip1={dict.guide.tip1}
-        tip2={dict.guide.tip2}
-        tip3={dict.guide.tip3}
+        title={dict?.guide?.title}
+        intro={dict?.guide?.intro}
+        featuresTitle={dict?.guide?.featuresTitle}
+        f1={dict?.guide?.f1}
+        f2={dict?.guide?.f2}
+        f3={dict?.guide?.f3}
+        tipsTitle={dict?.guide?.tipsTitle}
+        tip1={dict?.guide?.tip1}
+        tip2={dict?.guide?.tip2}
+        tip3={dict?.guide?.tip3}
       />
 
       <div class="max-w-4xl mx-auto mt-12">
         <FAQSection
-            title={dict.faqTitle}
+            title={dict?.faqTitle}
             items={[
-                { q: dict.q1, a: dict.a1 },
-                { q: dict.q2, a: dict.a2 },
-                { q: dict.q3, a: dict.a3 }
+                { q: dict?.q1, a: dict?.a1 },
+                { q: dict?.q2, a: dict?.a2 },
+                { q: dict?.q3, a: dict?.a3 }
             ]}
         />
       </div>

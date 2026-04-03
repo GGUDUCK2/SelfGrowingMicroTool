@@ -18,7 +18,7 @@
   import GuideSection from '$lib/components/GuideSection.svelte';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.keyForge;
+  $: dict = getDictionary(lang)?.tools?.keyForge;
   $: common = getDictionary(lang).common;
 
   let config: GameConfig = {
@@ -87,8 +87,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": dict.title,
-    "description": dict.description,
+    "name": dict?.title,
+    "description": dict?.description,
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -110,34 +110,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
   keywords="typing test, wpm test, code typing practice, mechanical keyboard sound, typing speed test, developer typing"
 />
 
@@ -162,7 +162,7 @@
              <Keyboard size={20} />
           </div>
           <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-            {dict.title}
+            {dict?.title}
           </h1>
         </div>
       </div>
@@ -171,7 +171,7 @@
           <button
               on:click={() => config = { ...config, zen: !config.zen }}
               class="p-2 transition-colors rounded-lg flex items-center gap-1 font-medium text-sm {config.zen ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'text-slate-500'}"
-              title={dict.zen}
+              title={dict?.zen}
           >
               <Zap size={16} />
               <span class="hidden md:inline">Zen</span>
@@ -179,7 +179,7 @@
           <button
               on:click={() => showKeyboard = !showKeyboard}
               class="p-2 transition-colors rounded-lg {showKeyboard ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'text-slate-500'}"
-              title={dict.keyboard}
+              title={dict?.keyboard}
           >
               <Keyboard size={20} />
           </button>
@@ -215,7 +215,7 @@
                   class="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-all transform hover:scale-105 shadow-lg shadow-indigo-500/30 outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 min-h-[44px]"
               >
                   <RotateCcw size={18} />
-                  {dict.restart}
+                  {dict?.restart}
               </button>
           </div>
 
@@ -228,24 +228,24 @@
           <div class="mt-20 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
               <div class="lg:col-span-8 space-y-8">
                   <GuideSection
-                      title={dict.guide.title}
-                      intro={dict.guide.intro}
-                      featuresTitle={dict.guide.featuresTitle}
-                      f1={dict.guide.f1}
-                      f2={dict.guide.f2}
-                      f3={dict.guide.f3}
-                      tipsTitle={dict.guide.tipsTitle}
-                      tip1={dict.guide.tip1}
-                      tip2={dict.guide.tip2}
-                      tip3={dict.guide.tip3}
+                      title={dict?.guide?.title}
+                      intro={dict?.guide?.intro}
+                      featuresTitle={dict?.guide?.featuresTitle}
+                      f1={dict?.guide?.f1}
+                      f2={dict?.guide?.f2}
+                      f3={dict?.guide?.f3}
+                      tipsTitle={dict?.guide?.tipsTitle}
+                      tip1={dict?.guide?.tip1}
+                      tip2={dict?.guide?.tip2}
+                      tip3={dict?.guide?.tip3}
                   />
                   <div class="mt-8">
                       <FAQSection
-                          title={dict.faqTitle}
+                          title={dict?.faqTitle}
                           items={[
-                              { q: dict.q1, a: dict.a1 },
-                              { q: dict.q2, a: dict.a2 },
-                              { q: dict.q3, a: dict.a3 }
+                              { q: dict?.q1, a: dict?.a1 },
+                              { q: dict?.q2, a: dict?.a2 },
+                              { q: dict?.q3, a: dict?.a3 }
                           ]}
                       />
                   </div>

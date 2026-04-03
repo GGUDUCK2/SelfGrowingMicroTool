@@ -11,7 +11,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.screenForge;
+  $: t = dict?.tools?.screenForge;
 
   let currentBlob: Blob | null = null;
   let view: 'record' | 'preview' = 'record';
@@ -38,8 +38,8 @@
       {
         "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-        "name": t.title,
-        "description": t.description,
+        "name": t?.title,
+        "description": t?.description,
         "applicationCategory": "MultimediaApplication",
         "operatingSystem": "Web",
         "offers": {
@@ -48,9 +48,9 @@
           "priceCurrency": "USD"
         },
         "featureList": [
-           t.guide.f1.replace(/\*\*(.*?)\*\*/g, '$1'),
-           t.guide.f2.replace(/\*\*(.*?)\*\*/g, '$1'),
-           t.guide.f3.replace(/\*\*(.*?)\*\*/g, '$1')
+           (t?.guide?.f1 || "").replace(/\*\*(.*?)\*\*/g, '$1'),
+           (t?.guide?.f2 || "").replace(/\*\*(.*?)\*\*/g, '$1'),
+           (t?.guide?.f3 || "").replace(/\*\*(.*?)\*\*/g, '$1')
         ]
       },
       {
@@ -58,18 +58,18 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": t.q1,
-            "acceptedAnswer": { "@type": "Answer", "text": t.a1 }
+            "name": t?.q1,
+            "acceptedAnswer": { "@type": "Answer", "text": t?.a1 }
           },
           {
             "@type": "Question",
-            "name": t.q2,
-            "acceptedAnswer": { "@type": "Answer", "text": t.a2 }
+            "name": t?.q2,
+            "acceptedAnswer": { "@type": "Answer", "text": t?.a2 }
           },
           {
             "@type": "Question",
-            "name": t.q3,
-            "acceptedAnswer": { "@type": "Answer", "text": t.a3 }
+            "name": t?.q3,
+            "acceptedAnswer": { "@type": "Answer", "text": t?.a3 }
           }
         ]
       }
@@ -77,8 +77,8 @@
   };
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
   keywords="screen recorder, screen capture, video recorder, webm recorder, browser screen recording, no watermark"
 />
 
@@ -101,7 +101,7 @@
              <Monitor size={20} />
         </div>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-            {t.title}
+            {t?.title}
         </h1>
     </div>
   </header>
@@ -125,24 +125,24 @@
       <!-- Guide & FAQ -->
       <section class="grid md:grid-cols-2 gap-12 border-t border-slate-200 dark:border-slate-800 pt-12">
            <GuideSection
-               title={t.guide.title}
-               intro={t.guide.intro}
-               featuresTitle={t.guide.featuresTitle}
-               f1={t.guide.f1}
-               f2={t.guide.f2}
-               f3={t.guide.f3}
-               tipsTitle={t.guide.tipsTitle}
-               tip1={t.guide.tip1}
-               tip2={t.guide.tip2}
-               tip3={t.guide.tip3}
+               title={t?.guide?.title}
+               intro={t?.guide?.intro}
+               featuresTitle={t?.guide?.featuresTitle}
+               f1={t?.guide?.f1}
+               f2={t?.guide?.f2}
+               f3={t?.guide?.f3}
+               tipsTitle={t?.guide?.tipsTitle}
+               tip1={t?.guide?.tip1}
+               tip2={t?.guide?.tip2}
+               tip3={t?.guide?.tip3}
            />
 
            <FAQSection
-               title={t.faqTitle}
+               title={t?.faqTitle}
                items={[
-                   { q: t.q1, a: t.a1 },
-                   { q: t.q2, a: t.a2 },
-                   { q: t.q3, a: t.a3 }
+                   { q: t?.q1, a: t?.a1 },
+                   { q: t?.q2, a: t?.a2 },
+                   { q: t?.q3, a: t?.a3 }
                ]}
            />
       </section>

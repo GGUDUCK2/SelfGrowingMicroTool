@@ -88,7 +88,7 @@
             locations = [{
                 id: nanoid(),
                 zoneName: localZone,
-                customLabel: t.home
+                customLabel: t?.home
             }];
         }
     });
@@ -102,12 +102,12 @@
     $: overlapScore = TimeEngine.calculateOverlapScore(locations.map(l => l.zoneName), selectedDate);
 
     $: overlapColor = overlapScore >= 80 ? 'text-green-500' : overlapScore >= 50 ? 'text-yellow-500' : 'text-red-500';
-    $: overlapLabel = overlapScore >= 80 ? t.excellent : overlapScore >= 50 ? t.good : t.poor;
+    $: overlapLabel = overlapScore >= 80 ? t?.excellent : overlapScore >= 50 ? t?.good : t?.poor;
 
     $: faqItems = [
-        { q: t.q1, a: t.a1 },
-        { q: t.q2, a: t.a2 },
-        { q: t.q3, a: t.a3 }
+        { q: t?.q1, a: t?.a1 },
+        { q: t?.q2, a: t?.a2 },
+        { q: t?.q3, a: t?.a3 }
     ].filter(i => i.q && i.a);
 
     // Methods
@@ -167,7 +167,7 @@
         });
         teamName = '';
         showTeamModal = false;
-        alert(t.teams.saved);
+        alert(t?.teams?.saved);
     }
 
     async function loadTeam(team: TeamGroup) {
@@ -185,16 +185,16 @@
             return `${l.customLabel || l.zoneName}: ${slot.formattedTime} (${slot.formattedDate})`;
         }).join('\n');
 
-        const text = `${t.meetingTime}\n\n${times}\n\nGenerated with Chrono Shift`;
+        const text = `${t?.meetingTime}\n\n${times}\n\nGenerated with Chrono Shift`;
         navigator.clipboard.writeText(text);
-        alert(t.copied);
+        alert(t?.copied);
     }
 
     function shareLink() {
         const state = btoa(unescape(encodeURIComponent(JSON.stringify(locations))));
         const url = `${window.location.origin}${window.location.pathname}?state=${state}`;
         navigator.clipboard.writeText(url);
-        alert(t.copied);
+        alert(t?.copied);
     }
 
     // JSON-LD Schema
@@ -202,8 +202,8 @@
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-        "name": t.title,
-        "description": t.description,
+        "name": t?.title,
+        "description": t?.description,
         "applicationCategory": "BusinessApplication",
         "applicationSubCategory": "Time Management",
         "operatingSystem": "Any",
@@ -284,8 +284,8 @@
     }
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
   keywords="time zone converter, world clock, meeting planner, overlap scheduler, time zone map, global meeting, team scheduler, golden hour, dst calculator, international meeting"
 />
 
@@ -303,10 +303,10 @@
     <!-- Header -->
     <div class="text-center space-y-4 pt-8">
         <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
-            {t.title}
+            {t?.title}
         </h1>
         <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            {t.description}
+            {t?.description}
         </p>
     </div>
 
@@ -333,7 +333,7 @@
 
             <div class="flex items-center gap-4">
                 <div class="flex flex-col items-end">
-                    <span class="text-xs text-slate-500 uppercase font-semibold tracking-wider">{t.overlap}</span>
+                    <span class="text-xs text-slate-500 uppercase font-semibold tracking-wider">{t?.overlap}</span>
                     <div class="flex items-center gap-2">
                         <span class="text-2xl font-bold {overlapColor}">{overlapScore}%</span>
                         <span class="text-sm font-medium text-slate-600 dark:text-slate-400">({overlapLabel})</span>
@@ -371,13 +371,13 @@
                     <div class="mb-3 mx-auto w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 group-hover:text-indigo-500 transition-colors">
                         <Plus size={24} />
                     </div>
-                    <p class="text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">{t.addLocation}</p>
+                    <p class="text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">{t?.addLocation}</p>
 
                     <div class="relative w-full max-w-[200px] mx-auto">
                         <input
                             type="text"
                             bind:value={searchQuery}
-                            placeholder={t.searchPlaceholder}
+                            placeholder={t?.searchPlaceholder}
                             class="w-full text-sm rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-800 focus:ring-indigo-500 focus:border-indigo-500 py-1 min-h-[44px]"
                         />
                         {#if searchQuery && filteredZones.length > 0}
@@ -401,22 +401,22 @@
         <div class="p-4 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-200 dark:border-slate-700 flex flex-wrap gap-3 justify-between">
             <div class="flex gap-2">
                  <button class="btn-secondary text-sm flex items-center gap-2 min-h-[44px]" on:click={() => showTeamModal = !showTeamModal}>
-                    <Users size={16} /> {t.teams.title}
+                    <Users size={16} /> {t?.teams?.title}
                 </button>
                 <button class="btn-secondary text-sm flex items-center gap-2 min-h-[44px]" on:click={findGoldenHour}>
-                    <Star size={16} class="text-yellow-500" /> {t.goldenHour}
+                    <Star size={16} class="text-yellow-500" /> {t?.goldenHour}
                 </button>
             </div>
 
             <div class="flex gap-2">
                  <button class="btn-secondary text-sm flex items-center gap-2 min-h-[44px]" on:click={shareLink}>
-                    <Share2 size={16} /> {t.share}
+                    <Share2 size={16} /> {t?.share}
                 </button>
                 <button class="btn-secondary text-sm flex items-center gap-2 min-h-[44px]" on:click={copyInvite}>
-                    <Copy size={16} /> {t.copyInvite}
+                    <Copy size={16} /> {t?.copyInvite}
                 </button>
                  <button class="btn-primary text-sm flex items-center gap-2 min-h-[44px]" on:click={downloadIcs}>
-                    <Download size={16} /> {t.downloadIcs}
+                    <Download size={16} /> {t?.downloadIcs}
                 </button>
             </div>
         </div>
@@ -426,16 +426,16 @@
     {#if showTeamModal}
         <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" transition:fade>
             <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl max-w-md w-full p-6 border border-slate-200 dark:border-slate-700">
-                <h3 class="text-xl font-bold mb-4 dark:text-white">{t.teams.title}</h3>
+                <h3 class="text-xl font-bold mb-4 dark:text-white">{t?.teams?.title}</h3>
 
                 <div class="mb-6">
-                    <label for="team-name" class="block text-sm font-medium mb-1 dark:text-slate-300">{t.teams.save}</label>
+                    <label for="team-name" class="block text-sm font-medium mb-1 dark:text-slate-300">{t?.teams?.save}</label>
                     <div class="flex gap-2">
                         <input
                             id="team-name"
                             type="text"
                             bind:value={teamName}
-                            placeholder={t.teams.namePlaceholder}
+                            placeholder={t?.teams?.namePlaceholder}
                             class="flex-1 rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-700 min-h-[44px]"
                         />
                         <button class="btn-primary min-h-[44px]" on:click={saveTeam} disabled={!teamName}>
@@ -445,17 +445,17 @@
                 </div>
 
                 <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
-                    <h4 class="text-sm font-semibold mb-2 dark:text-slate-400">{t.savedGroups}</h4>
+                    <h4 class="text-sm font-semibold mb-2 dark:text-slate-400">{t?.savedGroups}</h4>
                     {#if $savedTeams && $savedTeams.length > 0}
                         <div class="space-y-2 max-h-48 overflow-y-auto">
                             {#each $savedTeams as team}
                                 <div class="flex items-center justify-between p-2 bg-slate-50 dark:bg-slate-700/50 rounded-lg group">
                                     <span class="font-medium text-sm dark:text-slate-200">{team.name}</span>
                                     <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <button class="p-1 hover:text-indigo-500 min-h-[44px]" on:click={() => loadTeam(team)} title={t.loadGroup}>
+                                        <button class="p-1 hover:text-indigo-500 min-h-[44px]" on:click={() => loadTeam(team)} title={t?.loadGroup}>
                                             <RotateCcw size={14} />
                                         </button>
-                                        <button class="p-1 hover:text-red-500 min-h-[44px]" on:click={() => deleteTeam(team.id!)} title={t.delete}>
+                                        <button class="p-1 hover:text-red-500 min-h-[44px]" on:click={() => deleteTeam(team.id!)} title={t?.delete}>
                                             <Trash2 size={14} />
                                         </button>
                                     </div>
@@ -463,7 +463,7 @@
                             {/each}
                         </div>
                     {:else}
-                        <p class="text-sm text-slate-500 italic">{t.noGroups}</p>
+                        <p class="text-sm text-slate-500 italic">{t?.noGroups}</p>
                     {/if}
                 </div>
 
@@ -478,19 +478,19 @@
 
     <!-- Guide Section -->
     <GuideSection
-        title={t.guide.title}
-        intro={t.guide.intro}
-        featuresTitle={t.guide.featuresTitle}
-        f1={t.guide.f1}
-        f2={t.guide.f2}
-        f3={t.guide.f3}
-        tipsTitle={t.guide.tipsTitle}
-        tip1={t.guide.tip1}
-        tip2={t.guide.tip2}
-        tip3={t.guide.tip3}
+        title={t?.guide?.title}
+        intro={t?.guide?.intro}
+        featuresTitle={t?.guide?.featuresTitle}
+        f1={t?.guide?.f1}
+        f2={t?.guide?.f2}
+        f3={t?.guide?.f3}
+        tipsTitle={t?.guide?.tipsTitle}
+        tip1={t?.guide?.tip1}
+        tip2={t?.guide?.tip2}
+        tip3={t?.guide?.tip3}
     />
 
-    <FAQSection title={t.faqTitle} items={faqItems} />
+    <FAQSection title={t?.faqTitle} items={faqItems} />
 </div>
 
 <style>

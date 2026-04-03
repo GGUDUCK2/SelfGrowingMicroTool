@@ -22,9 +22,9 @@
   let showHistory = false;
 
   $: faqItems = dict ? [
-    { q: dict.q1, a: dict.a1 },
-    { q: dict.q2, a: dict.a2 },
-    { q: dict.q3, a: dict.a3 }
+    { q: dict?.q1, a: dict?.a1 },
+    { q: dict?.q2, a: dict?.a2 },
+    { q: dict?.q3, a: dict?.a3 }
   ] : [];
 
   $: jsonLd = dict ? {
@@ -41,7 +41,7 @@
           "price": "0",
           "priceCurrency": "USD"
         },
-        "description": dict.description,
+        "description": dict?.description,
         "featureList": [
             "URL Parsing",
             "Query Parameter Editor",
@@ -84,7 +84,7 @@
           {
             "@type": "ListItem",
             "position": 3,
-            "name": dict.title,
+            "name": dict?.title,
             "item": `https://selfgrowingmicrotool.com/${lang}/tools/url-forge`
           }
         ]
@@ -128,8 +128,8 @@
   }
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
   keywords="url parser, query string editor, utm builder, url encode, url decode"
 />
 
@@ -151,7 +151,7 @@
          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
          </svg>
-         {dict.title}
+         {dict?.title}
      </h1>
      <div class="flex gap-2">
          <button
@@ -162,7 +162,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span class="hidden sm:inline">{dict.history}</span>
+            <span class="hidden sm:inline">{dict?.history}</span>
          </button>
      </div>
   </div>
@@ -184,19 +184,19 @@
   <!-- Documentation Section -->
   <section class="mt-20">
     <GuideSection
-      title={dict.guide.title}
-      intro={dict.guide.intro}
-      featuresTitle={dict.guide.featuresTitle}
-      f1={dict.guide.f1}
-      f2={dict.guide.f2}
-      f3={dict.guide.f3}
-      tipsTitle={dict.guide.tipsTitle}
-      tip1={dict.guide.tip1}
-      tip2={dict.guide.tip2}
-      tip3={dict.guide.tip3}
+      title={dict?.guide?.title}
+      intro={dict?.guide?.intro}
+      featuresTitle={dict?.guide?.featuresTitle}
+      f1={dict?.guide?.f1}
+      f2={dict?.guide?.f2}
+      f3={dict?.guide?.f3}
+      tipsTitle={dict?.guide?.tipsTitle}
+      tip1={dict?.guide?.tip1}
+      tip2={dict?.guide?.tip2}
+      tip3={dict?.guide?.tip3}
     />
     <div class="mt-12 max-w-4xl mx-auto">
-        <FAQSection title={dict.faqTitle} items={faqItems} />
+        <FAQSection title={dict?.faqTitle} items={faqItems} />
     </div>
   </section>
 

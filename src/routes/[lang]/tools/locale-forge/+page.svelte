@@ -23,9 +23,9 @@
   $: hasData = $projectStore.data.length > 0;
 
   $: faqItems = [
-      { q: dict.q1, a: dict.a1 },
-      { q: dict.q2, a: dict.a2 },
-      { q: dict.q3, a: dict.a3 }
+      { q: dict?.q1, a: dict?.a1 },
+      { q: dict?.q2, a: dict?.a2 },
+      { q: dict?.q3, a: dict?.a3 }
   ];
 
   $: breadcrumbSchema = {
@@ -34,23 +34,23 @@
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": `https://selfgrowingmicrotool.com/${lang}` },
       { "@type": "ListItem", "position": 2, "name": "Tools", "item": `https://selfgrowingmicrotool.com/${lang}#tools` },
-      { "@type": "ListItem", "position": 3, "name": dict.title, "item": `https://selfgrowingmicrotool.com/${lang}/tools/locale-forge` }
+      { "@type": "ListItem", "position": 3, "name": dict?.title, "item": `https://selfgrowingmicrotool.com/${lang}/tools/locale-forge` }
     ]
   };
 
-  $: clean = (text: string) => text ? text.replace(/\*\*/g, '') : '';
-  $: featureList = dict.guide?.f1 ? [
-    clean(dict.guide.f1),
-    clean(dict.guide.f2),
-    clean(dict.guide.f3)
+  $: clean = (text: string) => text ? (text || "").replace(/\*\*/g, '') : '';
+  $: featureList = dict?.guide?.f1 ? [
+    clean(dict?.guide?.f1),
+    clean(dict?.guide?.f2),
+    clean(dict?.guide?.f3)
   ] : undefined;
 
   $: softwareSchema = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-      "name": dict.title,
-      "description": dict.description,
+      "name": dict?.title,
+      "description": dict?.description,
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "Localization Tool",
       "operatingSystem": "Any",
@@ -66,7 +66,7 @@
   $: howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": `How to use ${dict.title}`,
+    "name": `How to use ${dict?.title}`,
     "description": "Step-by-step guide to managing translations",
     "step": [
       {
@@ -101,8 +101,8 @@
   };
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
   keywords="translation manager, i18n tool, locale editor, json translation, localization forge"
 />
 
@@ -124,7 +124,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                  </a>
                  <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-                    {dict.title}
+                    {dict?.title}
                  </h1>
              </div>
         </div>
@@ -132,7 +132,7 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         <div class="prose dark:prose-invert max-w-none mb-8">
-            <p class="lead">{dict.description}</p>
+            <p class="lead">{dict?.description}</p>
         </div>
 
         <ProjectManager />
@@ -148,18 +148,18 @@
 
         <div class="mt-20 space-y-12">
              <GuideSection
-                title={dict.guide.title}
-                intro={dict.guide.intro}
-                featuresTitle={dict.guide.featuresTitle}
-                f1={dict.guide.f1}
-                f2={dict.guide.f2}
-                f3={dict.guide.f3}
-                tipsTitle={dict.guide.tipsTitle}
-                tip1={dict.guide.tip1}
-                tip2={dict.guide.tip2}
-                tip3={dict.guide.tip3}
+                title={dict?.guide?.title}
+                intro={dict?.guide?.intro}
+                featuresTitle={dict?.guide?.featuresTitle}
+                f1={dict?.guide?.f1}
+                f2={dict?.guide?.f2}
+                f3={dict?.guide?.f3}
+                tipsTitle={dict?.guide?.tipsTitle}
+                tip1={dict?.guide?.tip1}
+                tip2={dict?.guide?.tip2}
+                tip3={dict?.guide?.tip3}
              />
-             <FAQSection title={dict.faqTitle} items={faqItems} />
+             <FAQSection title={dict?.faqTitle} items={faqItems} />
         </div>
     </main>
 </div>

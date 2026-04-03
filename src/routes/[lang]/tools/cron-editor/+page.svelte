@@ -195,7 +195,7 @@
   title={`${lang === "ko"
       ? `Cronos: 전문가용 Cron 에디터 - ${parseResult.isValid ? parseResult.description : "스케줄러"}`
       : `Cronos: Professional Cron Editor - ${parseResult.isValid ? parseResult.description : "Scheduler"}`}`}
-  description={dict.description}
+  description={dict?.description}
   keywords="cron, crontab, schedule, editor, generator, linux, devops"
 />
 
@@ -217,10 +217,10 @@
       <h1
         class="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400"
       >
-        {dict.title}
+        {dict?.title}
       </h1>
       <p class="text-gray-600 dark:text-gray-400">
-        {dict.description}
+        {dict?.description}
       </p>
     </div>
     <div class="flex-shrink-0">
@@ -244,11 +244,11 @@
           for="cron-input"
           class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex justify-between"
         >
-          <span>{dict.expression}</span>
+          <span>{dict?.expression}</span>
           <span class="text-xs text-gray-500 font-normal">
             {lang === "ko"
-              ? `단축키: Ctrl+K (${dict.shortcuts.clear})`
-              : `Shortcut: Ctrl+K (${dict.shortcuts.clear})`}
+              ? `단축키: Ctrl+K (${dict?.shortcuts?.clear})`
+              : `Shortcut: Ctrl+K (${dict?.shortcuts?.clear})`}
           </span>
         </label>
         <div class="relative group">
@@ -266,7 +266,7 @@
             <button
               class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center"
               on:click={() => (cronExpression = "* * * * *")}
-              title={dict.clear}
+              title={dict?.clear}
             >
               ✕
             </button>
@@ -290,7 +290,7 @@
       <!-- Presets -->
       <div class="bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-6">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-          {dict.presets}
+          {dict?.presets}
         </h3>
         <div class="flex flex-wrap gap-2">
           {#each lang === "ko" ? COMMON_PRESETS_KO : COMMON_PRESETS as preset}
@@ -316,17 +316,17 @@
         <h3
           class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wider"
         >
-          {dict.shortcuts.title}
+          {dict?.shortcuts?.title}
         </h3>
         <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
           <li class="flex justify-between">
-            <span>{dict.shortcuts.copy}</span>
+            <span>{dict?.shortcuts?.copy}</span>
             <kbd class="bg-gray-100 dark:bg-black/40 px-2 py-0.5 rounded text-gray-500 dark:text-gray-300 font-mono"
               >Ctrl + S</kbd
             >
           </li>
           <li class="flex justify-between">
-            <span>{dict.shortcuts.clear}</span>
+            <span>{dict?.shortcuts?.clear}</span>
             <kbd class="bg-gray-100 dark:bg-black/40 px-2 py-0.5 rounded text-gray-500 dark:text-gray-300 font-mono"
               >Ctrl + K</kbd
             >

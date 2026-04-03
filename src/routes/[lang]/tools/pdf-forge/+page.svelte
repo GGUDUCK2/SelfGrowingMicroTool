@@ -9,11 +9,11 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: toolDict = dict.tools.pdfForge;
+  $: toolDict = dict?.tools?.pdfForge;
 
   // SEO
-  $: title = `${toolDict.title} - ${dict.home.title}`;
-  $: description = toolDict.description;
+  $: title = `${toolDict?.title} - ${dict?.home?.title}`;
+  $: description = toolDict?.description;
   $: canonical = `https://selfgrowingmicrotool.com/${lang}/tools/pdf-forge`;
 
   $: schema = {
@@ -21,7 +21,7 @@
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
     "name": "PDF Forge",
-    "headline": toolDict.title,
+    "headline": toolDict?.title,
     "description": description,
     "applicationCategory": "ProductivityApplication",
     "applicationSubCategory": "PDF Utility",
@@ -84,26 +84,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -139,7 +139,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Organize with Ease</h3>
         <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed prose prose-sm dark:prose-invert">
-            {@html renderMarkdown(toolDict.guide.f1)}
+            {@html renderMarkdown(toolDict?.guide?.f1)}
         </div>
      </article>
      <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
@@ -148,7 +148,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Visual Editor</h3>
         <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed prose prose-sm dark:prose-invert">
-            {@html renderMarkdown(toolDict.guide.f2)}
+            {@html renderMarkdown(toolDict?.guide?.f2)}
         </div>
      </article>
      <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
@@ -157,7 +157,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Privacy First</h3>
         <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed prose prose-sm dark:prose-invert">
-            {@html renderMarkdown(toolDict.guide.f3)}
+            {@html renderMarkdown(toolDict?.guide?.f3)}
         </div>
      </article>
   </section>
@@ -165,24 +165,24 @@
   <!-- Guide & FAQ -->
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-12 border-t border-slate-200 dark:border-slate-800">
       <article class="lg:col-span-7 prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-400">
-          <h2 class="text-slate-900 dark:text-white">{toolDict.guide.title}</h2>
-          <p class="lead">{toolDict.guide.intro}</p>
+          <h2 class="text-slate-900 dark:text-white">{toolDict?.guide?.title}</h2>
+          <p class="lead">{toolDict?.guide?.intro}</p>
 
-          <h3 class="text-slate-900 dark:text-white">{toolDict.guide.tipsTitle}</h3>
+          <h3 class="text-slate-900 dark:text-white">{toolDict?.guide?.tipsTitle}</h3>
           <ul>
-              <li>{@html renderMarkdown(toolDict.guide.tip1)}</li>
-              <li>{@html renderMarkdown(toolDict.guide.tip2)}</li>
-              <li>{@html renderMarkdown(toolDict.guide.tip3)}</li>
+              <li>{@html renderMarkdown(toolDict?.guide?.tip1)}</li>
+              <li>{@html renderMarkdown(toolDict?.guide?.tip2)}</li>
+              <li>{@html renderMarkdown(toolDict?.guide?.tip3)}</li>
           </ul>
       </article>
 
       <div class="lg:col-span-5 space-y-8">
           <FAQSection
-              title={toolDict.faqTitle}
+              title={toolDict?.faqTitle}
               items={[
-                  { q: toolDict.q1, a: toolDict.a1 },
-                  { q: toolDict.q2, a: toolDict.a2 },
-                  { q: toolDict.q3, a: toolDict.a3 }
+                  { q: toolDict?.q1, a: toolDict?.a1 },
+                  { q: toolDict?.q2, a: toolDict?.a2 },
+                  { q: toolDict?.q3, a: toolDict?.a3 }
               ]}
           />
       </div>

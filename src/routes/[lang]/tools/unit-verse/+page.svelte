@@ -12,11 +12,11 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.unitVerse;
+  $: t = dict?.tools?.unitVerse;
 
   $: faqItems = [
-    { q: t.q1, a: t.a1 },
-    { q: t.q2, a: t.a2 }
+    { q: t?.q1, a: t?.a1 },
+    { q: t?.q2, a: t?.a2 }
   ];
 
   let selectedCategory = 'length';
@@ -45,9 +45,9 @@
   }
 </script>
 <Head
-  title={`${t.title} | ${dict.home.title}`}
-  description={t.description}
-  keywords={t.keywords}
+  title={`${t?.title} | ${dict?.home?.title}`}
+  description={t?.description}
+  keywords={t?.keywords}
 />
 
 
@@ -68,8 +68,8 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": t.description,
-      "featureList": t.featureList,
+      "description": t?.description,
+      "featureList": t?.featureList,
       "screenshot": "https://selfgrowingmicrotool.com/og/unit-verse.png"
     })}
   </script>`}
@@ -107,26 +107,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -140,11 +140,11 @@
   <header class="bg-slate-800/50 backdrop-blur-md border-b border-slate-700/50 sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-4">
-        <a href="/{lang}" class="p-2 hover:bg-slate-700 rounded-full transition-colors group" aria-label={dict.common.back}>
+        <a href="/{lang}" class="p-2 hover:bg-slate-700 rounded-full transition-colors group" aria-label={dict?.common?.back}>
           <MoveLeft size={20} class="text-slate-400 group-hover:text-white" />
         </a>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-violet-400">
-          {t.title}
+          {t?.title}
         </h1>
       </div>
     </div>
@@ -177,9 +177,9 @@
         />
 
         <!-- Documentation / Guide -->
-        <Guide t={t.guide}>
+        <Guide t={t?.guide}>
            <div class="mt-8">
-             <FAQSection title={t.faqTitle} items={faqItems} />
+             <FAQSection title={t?.faqTitle} items={faqItems} />
            </div>
         </Guide>
       </div>
@@ -190,12 +190,12 @@
 
           <!-- Promo / Cross-link -->
           <div class="bg-gradient-to-br from-indigo-900/50 to-violet-900/50 border border-indigo-500/30 rounded-2xl p-6">
-              <h3 class="font-semibold text-white mb-2">{t.promoTitle}</h3>
+              <h3 class="font-semibold text-white mb-2">{t?.promoTitle}</h3>
               <p class="text-sm text-indigo-200 mb-4">
-                  {t.promoText}
+                  {t?.promoText}
               </p>
               <a href="/{lang}/tools/compound-interest-calculator" class="block w-full text-center py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors text-sm font-medium">
-                  {t.promoAction}
+                  {t?.promoAction}
               </a>
           </div>
       </div>

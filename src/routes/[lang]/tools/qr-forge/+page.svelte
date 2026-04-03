@@ -14,15 +14,15 @@
 
   $: lang = $page.params.lang || 'en';
   $: dictionary = getDictionary(lang);
-  $: t = dictionary.tools.qrForge || {
+  $: t = dictionary?.tools?.qrForge || {
       title: "QR Forge: Pro Code Generator",
       description: "The definitive tool to generate, analyze, and customize QR codes."
   };
 
   $: faqItems = [
-    { q: t.q1 || 'Do these QR codes expire?', a: t.a1 || 'No. The QR codes generated here contain the data directly (Static QR Code). They do not rely on any redirect service, so they will work forever.' },
-    { q: t.q2 || 'Is it safe for WiFi passwords?', a: t.a2 || 'Yes. The generation happens locally on your device. Your WiFi password is never transmitted over the internet.' },
-    { q: t.q3 || 'What is Error Correction?', a: t.a3 || 'Error correction allows the QR code to be readable even if part of it is damaged or covered. Level H allows up to 30% damage recovery, but makes the code denser.' }
+    { q: t?.q1 || 'Do these QR codes expire?', a: t?.a1 || 'No. The QR codes generated here contain the data directly (Static QR Code). They do not rely on any redirect service, so they will work forever.' },
+    { q: t?.q2 || 'Is it safe for WiFi passwords?', a: t?.a2 || 'Yes. The generation happens locally on your device. Your WiFi password is never transmitted over the internet.' },
+    { q: t?.q3 || 'What is Error Correction?', a: t?.a3 || 'Error correction allows the QR code to be readable even if part of it is damaged or covered. Level H allows up to 30% damage recovery, but makes the code denser.' }
   ];
 
   $: jsonLd = {
@@ -91,7 +91,7 @@
           const { id, ...rest } = state;
           const entry = { ...rest, createdAt: Date.now() };
           await db.history.add(entry);
-          saveStatus = t.feedback?.saved || 'Saved!';
+          saveStatus = t?.feedback?.saved || 'Saved!';
           setTimeout(() => saveStatus = '', 2000);
       } catch (e) {
           console.error(e);
@@ -138,8 +138,8 @@
   });
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
   keywords="qr code generator, wifi qr code, vcard qr code, crypto qr code, free qr generator, no expiry qr code"
 />
 
@@ -155,26 +155,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -188,10 +188,10 @@
   <div class="bg-gradient-to-r from-indigo-900 via-slate-900 to-slate-900 border-b border-slate-800 pb-12 pt-12 px-4">
     <div class="max-w-6xl mx-auto">
       <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 mb-4 tracking-tight">
-        {t.title}
+        {t?.title}
       </h1>
       <p class="text-xl text-slate-400 max-w-2xl leading-relaxed">
-        {t.description}
+        {t?.description}
       </p>
     </div>
   </div>
@@ -211,14 +211,14 @@
                         title="Save to History (Ctrl+S)"
                     >
                         <Save size={16} />
-                        <span>{saveStatus || (t.save || 'Save')}</span>
+                        <span>{saveStatus || (t?.save || 'Save')}</span>
                     </button>
                     <button
                         on:click={() => showHistory = !showHistory}
                         class="flex-1 sm:flex-none flex items-center justify-center space-x-1 px-4 py-2 bg-slate-700 text-slate-300 hover:bg-slate-600 rounded-lg text-sm transition-colors border border-slate-600 min-h-[44px]"
                     >
                         <History size={16} />
-                        <span>{t.history || 'History'}</span>
+                        <span>{t?.history || 'History'}</span>
                     </button>
                 </div>
              </div>
@@ -236,27 +236,27 @@
 
         <!-- Documentation / Guide -->
         <div class="prose prose-invert prose-slate max-w-none bg-slate-800/50 p-8 rounded-xl border border-slate-700/50">
-            <h2>{t.guide?.title || 'Why QR Forge?'}</h2>
-            <p>{t.guide?.intro || 'QR Forge is the definitive tool for generating high-quality, permanent QR codes directly in your browser.'}</p>
+            <h2>{t?.guide?.title || 'Why QR Forge?'}</h2>
+            <p>{t?.guide?.intro || 'QR Forge is the definitive tool for generating high-quality, permanent QR codes directly in your browser.'}</p>
 
-            <h3>{t.guide?.featuresTitle || 'Key Features'}</h3>
+            <h3>{t?.guide?.featuresTitle || 'Key Features'}</h3>
             <ul>
-                <li><strong>{t.guide?.f1_title || 'Privacy First:'}</strong> {t.guide?.f1_desc || '100% Client-side generation. No data is ever sent to a server.'}</li>
-                <li><strong>{t.guide?.f2_title || 'Universal Formats:'}</strong> {t.guide?.f2_desc || 'Support for WiFi, VCard 3.0, Crypto, and more.'}</li>
-                <li><strong>{t.guide?.f3_title || 'Pro Customization:'}</strong> {t.guide?.f3_desc || 'Control error correction levels, margins, and colors.'}</li>
+                <li><strong>{t?.guide?.f1_title || 'Privacy First:'}</strong> {t?.guide?.f1_desc || '100% Client-side generation. No data is ever sent to a server.'}</li>
+                <li><strong>{t?.guide?.f2_title || 'Universal Formats:'}</strong> {t?.guide?.f2_desc || 'Support for WiFi, VCard 3.0, Crypto, and more.'}</li>
+                <li><strong>{t?.guide?.f3_title || 'Pro Customization:'}</strong> {t?.guide?.f3_desc || 'Control error correction levels, margins, and colors.'}</li>
             </ul>
 
-            <h3>{t.guide?.tipsTitle || 'Pro Tips'}</h3>
+            <h3>{t?.guide?.tipsTitle || 'Pro Tips'}</h3>
             <ul>
-                <li>{t.guide?.tip1 || 'Use "High" error correction if you plan to add a logo or print on damaged surfaces.'}</li>
-                <li>{t.guide?.tip2 || 'WiFi QR codes work natively on iOS and Android. Just scan to join.'}</li>
-                <li>{t.guide?.tip3 || 'Always test your QR code with a phone camera before printing.'}</li>
+                <li>{t?.guide?.tip1 || 'Use "High" error correction if you plan to add a logo or print on damaged surfaces.'}</li>
+                <li>{t?.guide?.tip2 || 'WiFi QR codes work natively on iOS and Android. Just scan to join.'}</li>
+                <li>{t?.guide?.tip3 || 'Always test your QR code with a phone camera before printing.'}</li>
             </ul>
 
             <hr class="border-slate-700 my-8"/>
 
             <div class="not-prose mt-8">
-              <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
+              <FAQSection title={t?.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
             </div>
         </div>
       </div>

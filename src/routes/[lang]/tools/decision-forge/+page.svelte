@@ -15,7 +15,7 @@
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
   // Fallback if dictionary not yet updated
-  $: t = (dict.tools as any).decisionForge || {
+  $: t = (dict?.tools as any)?.decisionForge || {
       title: "Decision Forge",
       description: "Weighted Decision Matrix",
       export: "Export",
@@ -28,8 +28,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": t.title,
-    "description": t.description,
+    "name": t?.title,
+    "description": t?.description,
     "applicationCategory": "ProductivityApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -64,7 +64,7 @@
       {
         "@type": "ListItem",
         "position": 3,
-        "name": t.title,
+        "name": t?.title,
         "item": `https://selfgrowingmicrotool.com/${lang}/tools/decision-forge`
       }
     ]
@@ -82,26 +82,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
@@ -109,8 +109,8 @@
 </script>
 
 <Head
-  title="{t.title} - MicroFactory"
-  description={t.description}
+  title="{t?.title} - MicroFactory"
+  description={t?.description}
   url="https://selfgrowingmicrotool.com/{lang}/tools/decision-forge"
   imageUrl="https://selfgrowingmicrotool.com/og/decision-forge.png"
 />
@@ -142,8 +142,8 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
             </div>
             <div>
-                <h1 class="text-xl font-bold text-gray-900 dark:text-white leading-tight">{t.title}</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400 hidden sm:block">{t.description}</p>
+                <h1 class="text-xl font-bold text-gray-900 dark:text-white leading-tight">{t?.title}</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400 hidden sm:block">{t?.description}</p>
             </div>
         </div>
       </div>
@@ -161,7 +161,7 @@
         <div class="relative group">
             <button class="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm font-medium min-h-[44px]">
                 <Download size={18} />
-                <span class="hidden sm:inline">{t.export}</span>
+                <span class="hidden sm:inline">{t?.export}</span>
             </button>
             <!-- Dropdown -->
             <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right z-50">
@@ -170,14 +170,14 @@
                     class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 min-h-[44px]"
                 >
                     <FileSpreadsheet size={16} class="text-green-600" />
-                    <span>{t.downloadCsv}</span>
+                    <span>{t?.downloadCsv}</span>
                 </button>
                 <button
                     on:click={() => exportToJson($matrixStore)}
                     class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 min-h-[44px]"
                 >
                     <FileJson size={16} class="text-yellow-600" />
-                    <span>{t.downloadJson}</span>
+                    <span>{t?.downloadJson}</span>
                 </button>
             </div>
         </div>
@@ -185,7 +185,7 @@
         <button
             on:click={() => matrixStore.reset()}
             class="p-2 text-gray-400 hover:text-red-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-            title={t.reset}
+            title={t?.reset}
         >
             <RotateCcw size={20} />
         </button>
@@ -241,13 +241,13 @@
         </section>
 
         <!-- Documentation -->
-        <GuideSection guide={t.guide} />
+        <GuideSection guide={t?.guide} />
 
         <!-- FAQ -->
-        <FAQSection title={t.faqTitle} items={[
-          { question: t.q1, answer: t.a1 },
-          { question: t.q2, answer: t.a2 },
-          { question: t.q3, answer: t.a3 }
+        <FAQSection title={t?.faqTitle} items={[
+          { question: t?.q1, answer: t?.a1 },
+          { question: t?.q2, answer: t?.a2 },
+          { question: t?.q3, answer: t?.a3 }
         ]} />
       </div>
     </div>

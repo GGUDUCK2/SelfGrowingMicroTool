@@ -13,13 +13,13 @@
 </script>
 
 <svelte:head>
-  <title>{dict.home.title}</title>
-  <meta name="description" content={dict.home.description} />
+  <title>{dict?.home?.title}</title>
+  <meta name="description" content={dict?.home?.description} />
   <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content={dict.home.title} />
-  <meta property="og:description" content={dict.home.description} />
+  <meta property="og:title" content={dict?.home?.title} />
+  <meta property="og:description" content={dict?.home?.description} />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}" />
   <meta property="og:site_name" content="MicroFactory" />
@@ -28,9 +28,9 @@
   {@html `<script type="application/ld+json">${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": dict.home.title,
+      "name": dict?.home?.title,
       "url": "https://selfgrowingmicrotool.com/" + lang,
-      "description": dict.home.description
+      "description": dict?.home?.description
     })}</script>`}
 </svelte:head>
 
@@ -43,14 +43,14 @@
       <span
         class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600"
       >
-        {dict.home.title}
+        {dict?.home?.title}
       </span>
     </h1>
     <p
       in:fly={{ y: 20, duration: 800, delay: 200 }}
       class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed"
     >
-      {dict.home.description}
+      {dict?.home?.description}
     </p>
   </section>
 

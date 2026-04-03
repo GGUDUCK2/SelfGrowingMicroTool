@@ -43,7 +43,7 @@
   let toastMessage = '';
 
   // Derived
-  $: activeTable = activeProject.tables.find(t => t.id === activeTableId);
+  $: activeTable = activeProject.tables.find(t => t?.id === activeTableId);
 
   // Methods
   async function loadProjects() {
@@ -67,7 +67,7 @@
   }
 
   async function loadTemplate(templateId: string) {
-      const template = TEMPLATES.find(t => t.id === templateId);
+      const template = TEMPLATES.find(t => t?.id === templateId);
       if (template) {
           const newProject = template.factory();
           const id = await schemaForgeWorkspace.save(newProject);
@@ -101,7 +101,7 @@
           importSqlContent = '';
           loadProjects();
       } else {
-          alert(t.messages.noTablesFound);
+          alert(t?.messages?.noTablesFound);
       }
   }
 
@@ -153,7 +153,7 @@
 
   function handleDeleteTable(e: CustomEvent<string>) {
       const id = e.detail;
-      activeProject.tables = activeProject.tables.filter(t => t.id !== id);
+      activeProject.tables = activeProject.tables.filter(t => t?.id !== id);
       if (activeTableId === id) activeTableId = null;
       save();
   }
@@ -175,7 +175,7 @@
       };
       activeProject.snapshots = [snapshot, ...activeProject.snapshots].slice(0, 10);
       await save();
-      showToastMessage(t.history.saved);
+      showToastMessage(t?.history?.saved);
   }
 
   function restoreSnapshot(snapshot: SchemaSnapshot) {
@@ -184,7 +184,7 @@
           activeProject.relations = JSON.parse(JSON.stringify(snapshot.data.relations));
           save();
           showHistory = false;
-          showToastMessage(t.history.restored);
+          showToastMessage(t?.history?.restored);
       }
   }
 
@@ -204,7 +204,7 @@
       const encoded = btoa(encodeURIComponent(json));
       const url = `${window.location.origin}${window.location.pathname}?share=${encoded}`;
       await navigator.clipboard.writeText(url);
-      showToastMessage(t.messages.linkCopied);
+      showToastMessage(t?.messages?.linkCopied);
   }
 
   function showToastMessage(msg: string) {
@@ -227,7 +227,7 @@
               activeProject = project;
               save();
               window.history.replaceState({}, '', window.location.pathname);
-              showToastMessage(t.messages.sharedLoaded);
+              showToastMessage(t?.messages?.sharedLoaded);
               return true;
           } catch (e) {
               console.error('Failed to load shared project', e);
@@ -285,8 +285,8 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-      "name": t.title,
-      "description": t.description,
+      "name": t?.title,
+      "description": t?.description,
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
       "offers": {
@@ -312,34 +312,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": t.q1,
+        "name": t?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": t.a1
+          "text": t?.a1
         }
       },
       {
         "@type": "Question",
-        "name": t.q2,
+        "name": t?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": t.a2
+          "text": t?.a2
         }
       },
       {
         "@type": "Question",
-        "name": t.q3,
+        "name": t?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": t.a3
+          "text": t?.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
   keywords="database schema, sql generator, prisma schema, db diagram, entity relationship diagram, mysql, postgres, sqlite"
 />
 
@@ -367,7 +367,7 @@
     <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" transition:fade>
         <div class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col border border-slate-200 dark:border-slate-800">
             <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
-                <h3 class="font-bold text-lg">{t.messages.importTitle}</h3>
+                <h3 class="font-bold text-lg">{t?.messages?.importTitle}</h3>
                 <button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded min-h-[44px]" on:click={() => showImport = false} aria-label="Close">
                      <X size={20} />
                 </button>
@@ -377,7 +377,7 @@
                 <textarea
                     bind:value={importSqlContent}
                     class="w-full flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-3 font-mono text-sm resize-none focus:border-indigo-500 focus:ring-0"
-                    placeholder={t.messages.importPlaceholder}
+                    placeholder={t?.messages?.importPlaceholder}
                 ></textarea>
             </div>
             <div class="p-4 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-2">
@@ -385,13 +385,13 @@
                     class="px-4 py-2 rounded-lg text-sm font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors min-h-[44px]"
                     on:click={() => showImport = false}
                 >
-                    {t.messages.cancel}
+                    {t?.messages?.cancel}
                 </button>
                 <button
                     class="px-4 py-2 rounded-lg text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white transition-colors min-h-[44px]"
                     on:click={importSQL}
                 >
-                    {t.messages.import}
+                    {t?.messages?.import}
                 </button>
             </div>
         </div>
@@ -408,7 +408,7 @@
                     <button
                         class="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-sm font-medium min-h-[44px]"
                         on:click={() => showProjects = !showProjects}
-                        aria-label={t.toolbar.select}
+                        aria-label={t?.toolbar?.select}
                     >
                         <FolderOpen size={18} class="text-indigo-600 dark:text-indigo-400" />
                         <span class="max-w-[150px] truncate">{activeProject.name}</span>
@@ -417,11 +417,11 @@
                     {#if showProjects}
                         <div class="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50" transition:slide>
                             <div class="flex justify-between items-center mb-2 px-2">
-                                 <span class="text-xs font-bold text-slate-500 uppercase">{t.toolbar.myProjects}</span>
+                                 <span class="text-xs font-bold text-slate-500 uppercase">{t?.toolbar?.myProjects}</span>
                                  <button
                                   class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded min-h-[44px]"
                                   on:click={createProject}
-                                  aria-label={t.toolbar.newProject}
+                                  aria-label={t?.toolbar?.newProject}
                                  >
                                      <Plus size={14} />
                                  </button>
@@ -438,7 +438,7 @@
                                         <button
                                             class="p-2 opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 transition-opacity min-h-[44px]"
                                             on:click={(e) => deleteProject(p.id || 0, e)}
-                                            aria-label={t.toolbar.delete}
+                                            aria-label={t?.toolbar?.delete}
                                         >
                                             <Trash2 size={14} />
                                         </button>
@@ -454,8 +454,8 @@
                     bind:value={activeProject.name}
                     on:change={save}
                     class="bg-transparent border-none focus:ring-0 text-sm font-medium text-slate-600 dark:text-slate-300 w-48 hover:bg-slate-100 dark:hover:bg-slate-800 rounded px-2 min-h-[44px]"
-                    placeholder={t.toolbar.projectName}
-                    aria-label={t.toolbar.projectName}
+                    placeholder={t?.toolbar?.projectName}
+                    aria-label={t?.toolbar?.projectName}
                 />
             </div>
 
@@ -467,10 +467,10 @@
                         <button
                             class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold flex items-center gap-2 transition-colors min-h-[44px]"
                             on:click={() => showHistory = !showHistory}
-                            aria-label={t.toolbar.history}
+                            aria-label={t?.toolbar?.history}
                         >
                             <History size={14} />
-                            {t.toolbar.history}
+                            {t?.toolbar?.history}
                         </button>
                         {#if showHistory}
                              <div class="absolute top-full right-0 mt-2 w-72 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50" transition:slide>
@@ -479,9 +479,9 @@
                                     on:click={takeSnapshot}
                                 >
                                     <Plus size={14} />
-                                    {t.history.takeSnapshot}
+                                    {t?.history?.takeSnapshot}
                                 </button>
-                                <div class="text-xs font-bold text-slate-500 uppercase px-2 mb-2">{t.history.snapshots}</div>
+                                <div class="text-xs font-bold text-slate-500 uppercase px-2 mb-2">{t?.history?.snapshots}</div>
                                 <div class="space-y-1 max-h-60 overflow-y-auto">
                                     {#if activeProject.snapshots && activeProject.snapshots.length > 0}
                                         {#each activeProject.snapshots as snap}
@@ -496,7 +496,7 @@
                                             </button>
                                         {/each}
                                     {:else}
-                                        <div class="px-3 py-2 text-sm text-slate-400 italic">{t.history.empty}</div>
+                                        <div class="px-3 py-2 text-sm text-slate-400 italic">{t?.history?.empty}</div>
                                     {/if}
                                 </div>
                             </div>
@@ -506,10 +506,10 @@
                     <button
                         class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold flex items-center gap-2 transition-colors min-h-[44px]"
                         on:click={shareProject}
-                        aria-label={t.toolbar.share}
+                        aria-label={t?.toolbar?.share}
                     >
                         <Share2 size={14} />
-                        {t.toolbar.share}
+                        {t?.toolbar?.share}
                     </button>
 
                     <div class="w-px h-6 bg-slate-300 dark:bg-slate-700 mx-1"></div>
@@ -518,10 +518,10 @@
                         <button
                             class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold flex items-center gap-2 transition-colors min-h-[44px]"
                             on:click={() => showTemplates = !showTemplates}
-                            aria-label={t.toolbar.templates}
+                            aria-label={t?.toolbar?.templates}
                         >
                             <Wand2 size={14} />
-                            {t.toolbar.templates}
+                            {t?.toolbar?.templates}
                         </button>
                         {#if showTemplates}
                             <div class="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50" transition:slide>
@@ -544,10 +544,10 @@
                     <button
                         class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold flex items-center gap-2 transition-colors min-h-[44px]"
                         on:click={() => showImport = true}
-                        aria-label={t.toolbar.import}
+                        aria-label={t?.toolbar?.import}
                     >
                         <Upload size={14} />
-                        {t.toolbar.import}
+                        {t?.toolbar?.import}
                     </button>
                 </div>
 
@@ -556,51 +556,51 @@
                     <button
                         class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'design' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px]"
                         on:click={() => activeTab = 'design'}
-                        aria-label={t.tabs.design}
+                        aria-label={t?.tabs?.design}
                     >
                         <Layout size={14} />
-                        {t.tabs.design}
+                        {t?.tabs?.design}
                     </button>
                     <button
                         class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'diagram' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px]"
                         on:click={() => activeTab = 'diagram'}
-                        aria-label={t.tabs.diagram}
+                        aria-label={t?.tabs?.diagram}
                     >
                         <Database size={14} />
-                        {t.tabs.diagram}
+                        {t?.tabs?.diagram}
                     </button>
                     <button
                         class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'data' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px]"
                         on:click={() => activeTab = 'data'}
-                        aria-label={t.tabs.data}
+                        aria-label={t?.tabs?.data}
                     >
                         <TableIcon size={14} />
-                        {t.tabs.data}
+                        {t?.tabs?.data}
                     </button>
                     <div class="w-px bg-slate-300 dark:bg-slate-700 mx-1 my-1"></div>
                     <button
                         class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'sql' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px]"
                         on:click={() => activeTab = 'sql'}
-                        aria-label={t.tabs.sql}
+                        aria-label={t?.tabs?.sql}
                     >
                         <Code size={14} />
-                        {t.tabs.sql}
+                        {t?.tabs?.sql}
                     </button>
                     <button
                         class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'prisma' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px]"
                         on:click={() => activeTab = 'prisma'}
-                        aria-label={t.tabs.prisma}
+                        aria-label={t?.tabs?.prisma}
                     >
                         <FileCode size={14} />
-                        {t.tabs.prisma}
+                        {t?.tabs?.prisma}
                     </button>
                     <button
                         class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'typescript' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px]"
                         on:click={() => activeTab = 'typescript'}
-                        aria-label={t.tabs.typescript}
+                        aria-label={t?.tabs?.typescript}
                     >
                         <span class="text-xs font-mono">TS</span>
-                        {t.tabs.typescript}
+                        {t?.tabs?.typescript}
                     </button>
                 </div>
 
@@ -608,14 +608,14 @@
                     class="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50 min-h-[44px]"
                     on:click={save}
                     disabled={isSaving}
-                    aria-label={t.toolbar.save}
+                    aria-label={t?.toolbar?.save}
                 >
                     {#if isSaving}
                         <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                     {:else}
                         <Save size={16} />
                     {/if}
-                    {t.toolbar.save}
+                    {t?.toolbar?.save}
                 </button>
             </div>
         </header>
@@ -635,8 +635,8 @@
                     {:else}
                         <div class="h-full flex flex-col items-center justify-center text-slate-400">
                             <Database size={64} class="mb-4 opacity-20" />
-                            <h2 class="text-xl font-bold text-slate-600 dark:text-slate-300">{t.tables.title}</h2>
-                            <p class="text-sm">{t.tables.start}</p>
+                            <h2 class="text-xl font-bold text-slate-600 dark:text-slate-300">{t?.tables?.title}</h2>
+                            <p class="text-sm">{t?.tables?.start}</p>
                         </div>
                     {/if}
                  {:else if activeTab === 'diagram'}
@@ -645,10 +645,10 @@
                     {#if activeTable}
                         <div class="h-full flex flex-col">
                             <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900">
-                                <h3 class="font-bold text-lg">{activeTable.name} {t.tabs.data}</h3>
+                                <h3 class="font-bold text-lg">{activeTable.name} {t?.tabs?.data}</h3>
                                 <button class="px-3 py-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg text-sm font-medium flex items-center gap-2 min-h-[44px]" on:click={generateData}>
                                     <RefreshCw size={14} />
-                                    {t.data.regenerate}
+                                    {t?.data?.regenerate}
                                 </button>
                             </div>
                             <div class="flex-1 overflow-auto p-4">
@@ -679,8 +679,8 @@
                     {:else}
                          <div class="h-full flex flex-col items-center justify-center text-slate-400">
                             <TableIcon size={64} class="mb-4 opacity-20" />
-                            <h2 class="text-xl font-bold text-slate-600 dark:text-slate-300">{t.tables.title}</h2>
-                            <p class="text-sm">{t.data.empty}</p>
+                            <h2 class="text-xl font-bold text-slate-600 dark:text-slate-300">{t?.tables?.title}</h2>
+                            <p class="text-sm">{t?.data?.empty}</p>
                         </div>
                     {/if}
                  {:else if activeTab === 'sql'}
@@ -696,38 +696,38 @@
 
     <!-- Documentation -->
     <article class="prose dark:prose-invert max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h2>{t.guide.title}</h2>
-        <p>{t.guide.intro}</p>
+        <h2>{t?.guide?.title}</h2>
+        <p>{t?.guide?.intro}</p>
 
-        <h3>{t.guide.featuresTitle}</h3>
+        <h3>{t?.guide?.featuresTitle}</h3>
         <ul>
-          <li><span class="markdown-body">{@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html t.guide.f4.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html (t?.guide?.f1 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html (t?.guide?.f2 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html (t?.guide?.f3 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html (t?.guide?.f4 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
         </ul>
 
-        <h3>{t.guide.tipsTitle}</h3>
+        <h3>{t?.guide?.tipsTitle}</h3>
         <ul>
-          <li><span class="markdown-body">{@html t.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html t.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html t.guide.tip4.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html (t?.guide?.tip1 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html (t?.guide?.tip2 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html (t?.guide?.tip3 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html (t?.guide?.tip4 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
         </ul>
 
-        <h3>{t.faqTitle}</h3>
+        <h3>{t?.faqTitle}</h3>
         <div class="space-y-4">
           <div>
-            <h4 class="font-bold">{t.q1}</h4>
-            <p>{t.a1}</p>
+            <h4 class="font-bold">{t?.q1}</h4>
+            <p>{t?.a1}</p>
           </div>
           <div>
-            <h4 class="font-bold">{t.q2}</h4>
-            <p>{t.a2}</p>
+            <h4 class="font-bold">{t?.q2}</h4>
+            <p>{t?.a2}</p>
           </div>
            <div>
-            <h4 class="font-bold">{t.q3}</h4>
-            <p>{t.a3}</p>
+            <h4 class="font-bold">{t?.q3}</h4>
+            <p>{t?.a3}</p>
           </div>
         </div>
     </article>

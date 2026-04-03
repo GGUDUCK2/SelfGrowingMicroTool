@@ -19,13 +19,13 @@
   // Dictionary
   $: lang = $page.params.lang || 'en';
   $: dictionary = getDictionary(lang);
-  $: t = dictionary.tools.mockForge;
+  $: t = dictionary?.tools?.mockForge;
   $: common = dictionary.common;
 
   $: faqItems = [
-    { q: t.q1, a: t.a1 },
-    { q: t.q2, a: t.a2 },
-    { q: t.q3, a: t.a3 }
+    { q: t?.q1, a: t?.a1 },
+    { q: t?.q2, a: t?.a2 },
+    { q: t?.q3, a: t?.a3 }
   ];
 
   // State
@@ -164,8 +164,8 @@
       {
         "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-        "name": t.title,
-        "description": t.description,
+        "name": t?.title,
+        "description": t?.description,
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Any",
         "offers": {
@@ -174,9 +174,9 @@
           "priceCurrency": "USD"
         },
         "featureList": [
-          t.guide.f1.replace(/\*\*/g, ''),
-          t.guide.f2.replace(/\*\*/g, ''),
-          t.guide.f3.replace(/\*\*/g, '')
+          (t?.guide?.f1 || "").replace(/\*\*/g, ''),
+          (t?.guide?.f2 || "").replace(/\*\*/g, ''),
+          (t?.guide?.f3 || "").replace(/\*\*/g, '')
         ]
       },
       {
@@ -191,7 +191,7 @@
           {
             "@type": "ListItem",
             "position": 2,
-            "name": t.title,
+            "name": t?.title,
             "item": canonical
           }
         ]
@@ -205,34 +205,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
   keywords="mock data generator, fake data, json generator, csv generator, sql insert generator, test data, developer tools"
 />
 
@@ -256,7 +256,7 @@
            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
         </a>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
-          {t.title}
+          {t?.title}
         </h1>
       </div>
 
@@ -264,18 +264,18 @@
         <button
           class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors min-h-[44px]"
           on:click={generatePreview}
-          aria-label={t.generate}
+          aria-label={t?.generate}
         >
           <RefreshCw size={16} class={previewLoading ? 'animate-spin' : ''} />
-          <span class="hidden sm:inline">{t.generate}</span>
+          <span class="hidden sm:inline">{t?.generate}</span>
         </button>
         <button
           class="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-lg transition-colors min-h-[44px]"
           on:click={saveSchema}
-          aria-label={t.actions.save}
+          aria-label={t?.actions?.save}
         >
           <Save size={16} />
-          <span class="hidden sm:inline">{t.actions.save}</span>
+          <span class="hidden sm:inline">{t?.actions?.save}</span>
         </button>
       </div>
     </div>
@@ -287,7 +287,7 @@
       <!-- Left Column: Schema Builder -->
       <div class="lg:col-span-5 space-y-6">
         <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
-          <h2 class="text-lg font-bold text-slate-800 dark:text-white mb-4">{t.schema}</h2>
+          <h2 class="text-lg font-bold text-slate-800 dark:text-white mb-4">{t?.schema}</h2>
           <SchemaBuilder bind:fields={schema} dictionary={t} />
         </div>
 
@@ -304,7 +304,7 @@
       <div class="lg:col-span-7 h-full min-h-[500px]">
         <div class="h-auto lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)]">
           <h2 class="text-lg font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
-            {t.preview}
+            {t?.preview}
             <span class="text-xs font-normal bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 px-2 py-0.5 rounded-full">Live</span>
           </h2>
           <PreviewTable data={previewData} loading={previewLoading} />
@@ -315,8 +315,8 @@
 
     <!-- Guide & FAQ -->
     <div class="mt-24 max-w-4xl mx-auto space-y-20">
-      <GuideSection {...t.guide} />
-      <FAQSection title={t.faqTitle} items={faqItems} />
+      <GuideSection {...t?.guide} />
+      <FAQSection title={t?.faqTitle} items={faqItems} />
     </div>
   </main>
 

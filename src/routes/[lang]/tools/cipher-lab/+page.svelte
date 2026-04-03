@@ -18,7 +18,7 @@
   import { onMount, onDestroy } from 'svelte';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.cipherLab;
+  $: dict = getDictionary(lang)?.tools?.cipherLab;
   $: common = getDictionary(lang).common;
 
   $: breadcrumbSchema = {
@@ -37,7 +37,7 @@
     },{
       "@type": "ListItem",
       "position": 3,
-      "name": dict.title,
+      "name": dict?.title,
       "item": `https://selfgrowingmicrotool.com/${lang}/tools/cipher-lab`
     }]
   };
@@ -46,8 +46,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": dict.title,
-    "description": dict.description,
+    "name": dict?.title,
+    "description": dict?.description,
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -55,13 +55,13 @@
       "price": "0",
       "priceCurrency": "USD"
     },
-    "featureList": [dict.guide.f1, dict.guide.f2, dict.guide.f3].map(f => f.replace(/\*\*/g, '')).join(", ")
+    "featureList": [dict?.guide?.f1, dict?.guide?.f2, dict?.guide?.f3].map(f => f.replace(/\*\*/g, '')).join(", ")
   };
 
   $: faqItems = [
-    { q: dict.q1, a: dict.a1 },
-    { q: dict.q2, a: dict.a2 },
-    { q: dict.q3, a: dict.a3 }
+    { q: dict?.q1, a: dict?.a1 },
+    { q: dict?.q2, a: dict?.a2 },
+    { q: dict?.q3, a: dict?.a3 }
   ];
 
   $: faqSchema = {
@@ -98,11 +98,11 @@
       input: input || '',
       settings: settings || '{}'
     });
-    showToastMsg(dict.feedback.saved || 'Saved to secure history');
+    showToastMsg(dict?.feedback?.saved || 'Saved to secure history');
   }
 
   function handleCopy() {
-    showToastMsg(dict.copied);
+    showToastMsg(dict?.copied);
   }
 
   function handleRestore(event: CustomEvent) {
@@ -151,8 +151,8 @@
   }
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
   keywords="hash generator, hmac calculator, jwt debugger, password generator, aes encryption, web crypto api, sha-256, sha-512, md5, base64 encoder"
 />
 
@@ -185,7 +185,7 @@
              <Shield size={20} />
           </div>
           <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-            {dict.title}
+            {dict?.title}
           </h1>
         </div>
       </div>
@@ -206,7 +206,7 @@
              on:click={() => activeTab = 'hash'}
            >
              <Hash size={16} />
-             <span>{dict.tabs.hash}</span>
+             <span>{dict?.tabs?.hash}</span>
            </button>
            <button
              role="tab"
@@ -215,7 +215,7 @@
              on:click={() => activeTab = 'encoders'}
            >
              <Code size={16} />
-             <span>{dict.tabs.encoders}</span>
+             <span>{dict?.tabs?.encoders}</span>
            </button>
            <button
              role="tab"
@@ -224,7 +224,7 @@
              on:click={() => activeTab = 'jwt'}
            >
              <Key size={16} />
-             <span>{dict.tabs.jwt}</span>
+             <span>{dict?.tabs?.jwt}</span>
            </button>
            <button
              role="tab"
@@ -233,7 +233,7 @@
              on:click={() => activeTab = 'password'}
            >
              <Lock size={16} />
-             <span>{dict.tabs.password}</span>
+             <span>{dict?.tabs?.password}</span>
            </button>
            <button
              role="tab"
@@ -242,7 +242,7 @@
              on:click={() => activeTab = 'keygen'}
            >
              <KeyRound size={16} />
-             <span>{dict.tabs.keygen}</span>
+             <span>{dict?.tabs?.keygen}</span>
            </button>
            <button
              role="tab"
@@ -251,7 +251,7 @@
              on:click={() => activeTab = 'vault'}
            >
              <Vault size={16} />
-             <span>{dict.tabs.vault}</span>
+             <span>{dict?.tabs?.vault}</span>
            </button>
         </div>
 
@@ -275,19 +275,19 @@
         <!-- Guide & FAQ -->
         <div class="mt-12 space-y-8">
            <GuideSection
-             title={dict.guide.title}
-             intro={dict.guide.intro}
-             featuresTitle={dict.guide.featuresTitle}
-             f1={dict.guide.f1}
-             f2={dict.guide.f2}
-             f3={dict.guide.f3}
-             tipsTitle={dict.guide.tipsTitle}
-             tip1={dict.guide.tip1}
-             tip2={dict.guide.tip2}
-             tip3={dict.guide.tip3}
+             title={dict?.guide?.title}
+             intro={dict?.guide?.intro}
+             featuresTitle={dict?.guide?.featuresTitle}
+             f1={dict?.guide?.f1}
+             f2={dict?.guide?.f2}
+             f3={dict?.guide?.f3}
+             tipsTitle={dict?.guide?.tipsTitle}
+             tip1={dict?.guide?.tip1}
+             tip2={dict?.guide?.tip2}
+             tip3={dict?.guide?.tip3}
            />
 
-           <FAQSection title={dict.faqTitle} items={faqItems} />
+           <FAQSection title={dict?.faqTitle} items={faqItems} />
         </div>
       </div>
 

@@ -22,10 +22,10 @@
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
   $: t = {
-      ...dict.tools.passwordForge,
-      modePronounceable: dict.tools.passwordForge.modePronounceable || 'Pronounceable',
-      modeAnalyzer: dict.tools.passwordForge.modeAnalyzer || 'Analyzer',
-      analyzer: dict.tools.passwordForge.analyzer || {}
+      ...dict?.tools?.passwordForge,
+      modePronounceable: dict?.tools?.passwordForge?.modePronounceable || 'Pronounceable',
+      modeAnalyzer: dict?.tools?.passwordForge?.modeAnalyzer || 'Analyzer',
+      analyzer: dict?.tools?.passwordForge?.analyzer || {}
   };
 
   let mode: 'password' | 'passphrase' | 'pronounceable' | 'analyzer' = 'password';
@@ -227,7 +227,7 @@
       if (navigator.share) {
           try {
               await navigator.share({
-                  title: t.title,
+                  title: t?.title,
                   text: password
               });
           } catch {
@@ -268,8 +268,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": t.title,
-    "description": t.description,
+    "name": t?.title,
+    "description": t?.description,
     "applicationCategory": "SecurityApplication",
     "operatingSystem": "Web, iOS, Android, Windows, macOS, Linux",
     "offers": {
@@ -338,7 +338,7 @@
       {
         "@type": "ListItem",
         "position": 3,
-        "name": t.title,
+        "name": t?.title,
         "item": `https://microtools.app/${lang === 'en' ? '' : lang + '/'}tools/password-forge`
       }
     ]
@@ -346,8 +346,8 @@
 </script>
 
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
 />
 
 <svelte:head>
@@ -378,9 +378,9 @@
         </div>
         <div>
           <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-            {t.title}
+            {t?.title}
           </h1>
-          <p class="mt-1 text-slate-600 dark:text-slate-400 max-w-2xl">{t.description}</p>
+          <p class="mt-1 text-slate-600 dark:text-slate-400 max-w-2xl">{t?.description}</p>
         </div>
       </div>
     </div>
@@ -398,42 +398,42 @@
 
                 <div class="flex flex-col md:flex-row gap-4 mb-6 relative z-10">
                     <div class="relative flex-grow">
-                        <FormattedPassword {password} ariaLabel={t.generatedPassword} />
+                        <FormattedPassword {password} ariaLabel={t?.generatedPassword} />
                     </div>
                     <div class="flex gap-2">
                         <button
                             on:click={generate}
                             class="flex-1 md:flex-none p-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2"
-                            title={t.regenerate}
-                            aria-label={t.regenerate}
+                            title={t?.regenerate}
+                            aria-label={t?.regenerate}
                         >
                             <RotateCw size={24} />
                         </button>
                         <button
                             on:click={downloadPassword}
                             class="flex-1 md:flex-none p-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2"
-                            title={t.download}
-                            aria-label={t.download}
+                            title={t?.download}
+                            aria-label={t?.download}
                         >
                             <Download size={24} />
                         </button>
                         <button
                             on:click={sharePassword}
                             class="flex-1 md:flex-none p-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2"
-                            title={t.share}
-                            aria-label={t.share}
+                            title={t?.share}
+                            aria-label={t?.share}
                         >
                             <Share2 size={24} />
                         </button>
                         <button
                             on:click={copyToClipboard}
                             class="flex-1 md:flex-none p-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 relative overflow-hidden"
-                            title={t.copy}
-                            aria-label={t.copy}
+                            title={t?.copy}
+                            aria-label={t?.copy}
                         >
                             {#if copied}
                                 <span class="absolute inset-0 bg-green-500 flex items-center justify-center text-white font-bold transition-transform transform scale-100">
-                                    {dict.common.copied}
+                                    {dict?.common?.copied}
                                 </span>
                             {:else}
                                 <Copy size={24} />
@@ -447,10 +447,10 @@
                     <button
                         class="text-sm font-medium flex items-center gap-2 px-3 py-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/30"
                         on:click={() => showBulkModal = true}
-                        title={t.bulkGenerate || 'Bulk Generate'}
+                        title={t?.bulkGenerate || 'Bulk Generate'}
                     >
                         <Shield size={16} />
-                        <span class="hidden sm:inline">{t.bulkGenerate || 'Bulk Generate'}</span>
+                        <span class="hidden sm:inline">{t?.bulkGenerate || 'Bulk Generate'}</span>
                     </button>
 
                     <button
@@ -459,7 +459,7 @@
                         aria-pressed={showPhonetics}
                     >
                         <Shield size={16} />
-                        {t.phoneticToggle || 'Phonetic Aid'}
+                        {t?.phoneticToggle || 'Phonetic Aid'}
                     </button>
                 </div>
 
@@ -490,25 +490,25 @@
                     class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] {mode === 'password' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                     on:click={() => { mode = 'password'; generate(); }}
                 >
-                    {t.modePassword}
+                    {t?.modePassword}
                 </button>
                 <button
                     class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] {mode === 'passphrase' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                     on:click={() => { mode = 'passphrase'; generate(); }}
                 >
-                    {t.modePassphrase}
+                    {t?.modePassphrase}
                 </button>
                 <button
                     class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] {mode === 'pronounceable' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                     on:click={() => { mode = 'pronounceable'; generate(); }}
                 >
-                    {t.modePronounceable || 'Pronounceable'}
+                    {t?.modePronounceable || 'Pronounceable'}
                 </button>
                 <button
                     class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] {mode === 'analyzer' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                     on:click={() => { mode = 'analyzer'; }}
                 >
-                    {t.modeAnalyzer || 'Analyzer'}
+                    {t?.modeAnalyzer || 'Analyzer'}
                 </button>
             </div>
 
@@ -525,20 +525,20 @@
 
         <!-- Documentation Area -->
         <GuideSection
-            title={t.guide.title}
-            intro={t.guide.intro}
-            featuresTitle={t.guide.featuresTitle}
-            f1={t.guide.f1}
-            f2={t.guide.f2}
-            f3={t.guide.f3}
-            tipsTitle={t.guide.tipsTitle}
-            tip1={t.guide.tip1}
-            tip2={t.guide.tip2}
-            tip3={t.guide.tip3}
+            title={t?.guide?.title}
+            intro={t?.guide?.intro}
+            featuresTitle={t?.guide?.featuresTitle}
+            f1={t?.guide?.f1}
+            f2={t?.guide?.f2}
+            f3={t?.guide?.f3}
+            tipsTitle={t?.guide?.tipsTitle}
+            tip1={t?.guide?.tip1}
+            tip2={t?.guide?.tip2}
+            tip3={t?.guide?.tip3}
         />
 
         <div class="mt-8">
-            <FAQSection title={t.faqTitle} items={faqItems} />
+            <FAQSection title={t?.faqTitle} items={faqItems} />
         </div>
       </div>
 

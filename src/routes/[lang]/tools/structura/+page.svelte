@@ -18,12 +18,12 @@
 
   export let data;
 
-  $: t = data.dict.tools.structura;
+  $: t = data.dict?.tools?.structura;
 
   $: faqItems = [
-    { q: t.q1, a: t.a1 },
-    { q: t.q2, a: t.a2 },
-    { q: t.q3, a: t.a3 }
+    { q: t?.q1, a: t?.a1 },
+    { q: t?.q2, a: t?.a2 },
+    { q: t?.q3, a: t?.a3 }
   ];
 
   // Tabs
@@ -211,8 +211,8 @@
   ];
 </script>
 <Head
-  title={`${t.title} | Web Factory`}
-  description={t.description}
+  title={`${t?.title} | Web Factory`}
+  description={t?.description}
 />
 
 
@@ -231,7 +231,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": t.description,
+      "description": t?.description,
       "featureList": ["JSON Converter", "YAML Converter", "XML Converter", "CSV Converter", "Code Generator", "Tree Visualizer"],
       "mainEntity": {
         "@type": "FAQPage",
@@ -255,7 +255,7 @@
       Structura
     </h1>
     <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-      {t.description}
+      {t?.description}
     </p>
   </div>
 
@@ -268,7 +268,7 @@
             on:click={() => activeTab = 'convert'}
           >
               <Zap size={18} />
-              {t.tabs.convert}
+              {t?.tabs?.convert}
               {#if activeTab === 'convert'}
                 <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400" transition:slide={{ axis: 'x' }}></div>
               {/if}
@@ -278,7 +278,7 @@
             on:click={() => { activeTab = 'codegen'; runCodeGen(); }}
           >
               <Code size={18} />
-              {t.tabs.codegen}
+              {t?.tabs?.codegen}
               {#if activeTab === 'codegen'}
                 <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400" transition:slide={{ axis: 'x' }}></div>
               {/if}
@@ -288,7 +288,7 @@
             on:click={() => { activeTab = 'visualizer'; runVisualizer(); }}
           >
               <Network size={18} />
-              {t.tabs.visualizer}
+              {t?.tabs?.visualizer}
               {#if activeTab === 'visualizer'}
                 <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400" transition:slide={{ axis: 'x' }}></div>
               {/if}
@@ -298,7 +298,7 @@
             on:click={() => activeTab = 'history'}
           >
               <History size={18} />
-              {t.tabs.history}
+              {t?.tabs?.history}
               {#if activeTab === 'history'}
                 <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400" transition:slide={{ axis: 'x' }}></div>
               {/if}
@@ -316,7 +316,7 @@
                         <div class="relative group">
                             <button class="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors min-h-[44px]">
                                 <span class="text-indigo-600 dark:text-indigo-400">★</span>
-                                {t.examples.label}
+                                {t?.examples?.label}
                             </button>
                             <div class="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-1 hidden group-hover:block z-20">
                                 {#each structuraExamples as ex}
@@ -363,7 +363,7 @@
                             class="flex items-center gap-2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px]"
                             on:click={runConversion}
                         >
-                            <span>{t.convert}</span>
+                            <span>{t?.convert}</span>
                             {#if isConverting}
                                 <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                             {/if}
@@ -371,7 +371,7 @@
                         <button
                             class="p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                             on:click={() => showSettings = !showSettings}
-                            aria-label={t.settings}
+                            aria-label={t?.settings}
                         >
                             <Settings size={20} />
                         </button>
@@ -384,10 +384,10 @@
                             bind:indent
                             bind:csvDelimiter
                             labels={{
-                                title: t.settings,
-                                indent: t.indent,
-                                delimiter: t.delimiter,
-                                options: t.options
+                                title: t?.settings,
+                                indent: t?.indent,
+                                delimiter: t?.delimiter,
+                                options: t?.options
                             }}
                         />
                     </div>
@@ -396,36 +396,36 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[500px]">
                     <div class="flex flex-col gap-2 h-full">
                         <div class="flex justify-between items-center px-1">
-                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.input}</span>
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t?.input}</span>
                             <Toolbar
                                 showDownload={false}
                                 on:copy={() => handleCopy(input)}
                                 on:clear={handleClear}
-                                labels={{ copy: t.copy, download: t.download, clear: t.clear }}
+                                labels={{ copy: t?.copy, download: t?.download, clear: t?.clear }}
                             />
                         </div>
                         <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
-                            <DataEditor bind:value={input} language={inputFormat} placeholder={t.inputPlaceholder} />
+                            <DataEditor bind:value={input} language={inputFormat} placeholder={t?.inputPlaceholder} />
                         </div>
                     </div>
 
                     <div class="flex flex-col gap-2 h-full">
                         <div class="flex justify-between items-center px-1">
-                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.output}</span>
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t?.output}</span>
                             <Toolbar
                                 showClear={false}
                                 on:copy={() => handleCopy(output)}
                                 on:download={() => handleDownload(output, outputFormat)}
-                                labels={{ copy: t.copy, download: t.download, clear: t.clear }}
+                                labels={{ copy: t?.copy, download: t?.download, clear: t?.clear }}
                             />
                         </div>
                         <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 relative">
-                            <DataEditor bind:value={output} language={outputFormat} readonly={true} placeholder={t.outputPlaceholder} />
+                            <DataEditor bind:value={output} language={outputFormat} readonly={true} placeholder={t?.outputPlaceholder} />
 
                             {#if error}
                                 <div class="absolute inset-x-0 bottom-0 p-4 bg-red-50 dark:bg-red-900/20 border-t border-red-100 dark:border-red-900/50 backdrop-blur-sm" transition:fly={{ y: 20 }}>
                                     <div class="flex items-start gap-2 text-red-600 dark:text-red-400">
-                                        <span class="font-bold text-sm">{t.error}:</span>
+                                        <span class="font-bold text-sm">{t?.error}:</span>
                                         <span class="text-sm font-mono break-all">{error}</span>
                                     </div>
                                 </div>
@@ -441,23 +441,23 @@
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-gray-50 dark:bg-gray-700/50 p-4 rounded-xl">
                     <div class="flex items-center gap-4 w-full">
                         <div class="flex-1">
-                            <label for="codegen-lang" class="block text-xs font-medium text-gray-500 mb-1">{t.codegen.language}</label>
+                            <label for="codegen-lang" class="block text-xs font-medium text-gray-500 mb-1">{t?.codegen?.language}</label>
                             <select
                                 id="codegen-lang"
                                 bind:value={codeGenLang}
                                 on:change={runCodeGen}
                                 class="w-full pl-3 pr-8 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg text-sm min-h-[44px]"
                             >
-                                <option value="typescript">{t.codegen.typescript}</option>
-                                <option value="zod">{t.codegen.zod}</option>
-                                <option value="go">{t.codegen.go}</option>
-                                <option value="python">{t.codegen.python}</option>
-                                <option value="pydantic">{t.codegen.pydantic}</option>
-                                <option value="json_schema">{t.codegen.jsonSchema}</option>
+                                <option value="typescript">{t?.codegen?.typescript}</option>
+                                <option value="zod">{t?.codegen?.zod}</option>
+                                <option value="go">{t?.codegen?.go}</option>
+                                <option value="python">{t?.codegen?.python}</option>
+                                <option value="pydantic">{t?.codegen?.pydantic}</option>
+                                <option value="json_schema">{t?.codegen?.jsonSchema}</option>
                             </select>
                         </div>
                         <div class="flex-1">
-                            <label for="codegen-name" class="block text-xs font-medium text-gray-500 mb-1">{t.codegen.name}</label>
+                            <label for="codegen-name" class="block text-xs font-medium text-gray-500 mb-1">{t?.codegen?.name}</label>
                             <input
                                 id="codegen-name"
                                 type="text"
@@ -472,7 +472,7 @@
                             class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors min-h-[44px]"
                             on:click={runCodeGen}
                         >
-                            {t.codegen.generate}
+                            {t?.codegen?.generate}
                         </button>
                     </div>
                 </div>
@@ -480,20 +480,20 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[500px]">
                      <div class="flex flex-col gap-2 h-full">
                          <div class="flex justify-between items-center px-1">
-                             <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.input}</span>
+                             <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t?.input}</span>
                          </div>
                          <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
-                             <DataEditor bind:value={input} language={inputFormat} placeholder={t.inputPlaceholder} />
+                             <DataEditor bind:value={input} language={inputFormat} placeholder={t?.inputPlaceholder} />
                          </div>
                      </div>
                      <div class="flex flex-col gap-2 h-full">
                         <div class="flex justify-between items-center px-1">
-                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.codegen.title}</span>
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t?.codegen?.title}</span>
                              <Toolbar
                                 showDownload={false}
                                 showClear={false}
                                 on:copy={() => handleCopy(generatedCode)}
-                                labels={{ copy: t.copy, download: t.download, clear: t.clear }}
+                                labels={{ copy: t?.copy, download: t?.download, clear: t?.clear }}
                             />
                         </div>
                          <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 relative">
@@ -519,17 +519,17 @@
                      <!-- Input Side (Small) -->
                      <div class="w-1/3 flex flex-col gap-2">
                         <div class="flex justify-between items-center px-1">
-                             <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.input}</span>
+                             <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t?.input}</span>
                         </div>
                         <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
-                             <DataEditor bind:value={input} language={inputFormat} placeholder={t.inputPlaceholder} />
+                             <DataEditor bind:value={input} language={inputFormat} placeholder={t?.inputPlaceholder} />
                          </div>
                      </div>
 
                      <!-- Visualizer Side -->
                      <div class="w-2/3 flex flex-col gap-2">
                          <div class="flex justify-between items-center px-1">
-                             <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.visualizer.title}</span>
+                             <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t?.visualizer?.title}</span>
                          </div>
                          <div class="flex-1 min-h-0">
                             {#if visualizerData}
@@ -538,7 +538,7 @@
                                 <div class="h-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-400 p-8 text-center">
                                     <div>
                                         <Network size={48} class="mx-auto mb-4 opacity-20" />
-                                        <p>{t.visualizer.empty}</p>
+                                        <p>{t?.visualizer?.empty}</p>
                                     </div>
                                 </div>
                             {/if}
@@ -564,14 +564,14 @@
                                         <button
                                             class="p-1.5 hover:bg-white dark:hover:bg-gray-600 rounded-lg text-gray-400 hover:text-yellow-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                                             on:click|stopPropagation={() => structuraWorkspace.toggleStar(item.id || 0)}
-                                            aria-label={t.star || "Star"}
+                                            aria-label={t?.star || "Star"}
                                         >
                                             <Star size={16} fill={item.starred ? "currentColor" : "none"} class={item.starred ? "text-yellow-500" : ""} />
                                         </button>
                                         <button
                                             class="p-1.5 hover:bg-white dark:hover:bg-gray-600 rounded-lg text-gray-400 hover:text-red-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                                             on:click|stopPropagation={() => structuraWorkspace.delete(item.id || 0)}
-                                            aria-label={t.delete || "Delete"}
+                                            aria-label={t?.delete || "Delete"}
                                         >
                                             <Trash2 size={16} />
                                         </button>
@@ -589,7 +589,7 @@
                  {:else}
                     <div class="text-center py-20 text-gray-500">
                         <History size={48} class="mx-auto mb-4 opacity-20" />
-                        <p>{t.history}</p>
+                        <p>{t?.history}</p>
                     </div>
                  {/if}
              </div>
@@ -599,32 +599,32 @@
 
   <!-- Documentation & Guides -->
   <article class="prose dark:prose-invert max-w-none mt-20 p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-    <h2>{t.guide.title}</h2>
+    <h2>{t?.guide?.title}</h2>
     <p>
-      {t.guide.intro}
+      {t?.guide?.intro}
     </p>
 
-    <h3>{t.guide.featuresTitle}</h3>
+    <h3>{t?.guide?.featuresTitle}</h3>
     <ul>
-      <li><span class="markdown-body">{@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-      <li><span class="markdown-body">{@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-      <li><span class="markdown-body">{@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-      <li><span class="markdown-body">{@html t.guide.f4.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <li><span class="markdown-body">{@html (t?.guide?.f1 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <li><span class="markdown-body">{@html (t?.guide?.f2 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <li><span class="markdown-body">{@html (t?.guide?.f3 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <li><span class="markdown-body">{@html (t?.guide?.f4 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
     </ul>
 
-    <h3>{t.guide.tipsTitle}</h3>
+    <h3>{t?.guide?.tipsTitle}</h3>
     <ul>
-      <li><span class="markdown-body">{@html t.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-      <li><span class="markdown-body">{@html t.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-      <li><span class="markdown-body">{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <li><span class="markdown-body">{@html (t?.guide?.tip1 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <li><span class="markdown-body">{@html (t?.guide?.tip2 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <li><span class="markdown-body">{@html (t?.guide?.tip3 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
     </ul>
 
-    <FAQSection title={t.faqTitle} items={faqItems} />
+    <FAQSection title={t?.faqTitle} items={faqItems} />
   </article>
 
   <div class="flex justify-center mt-8 text-sm text-gray-400">
       <div class="flex items-center gap-2">
-          <span>{t.shortcuts.help}:</span>
+          <span>{t?.shortcuts?.help}:</span>
           <kbd class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 text-xs">Ctrl + Enter</kbd>
           <span>to Convert</span>
       </div>

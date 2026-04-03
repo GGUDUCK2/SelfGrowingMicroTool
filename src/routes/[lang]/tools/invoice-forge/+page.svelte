@@ -19,7 +19,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dictionary = getDictionary(lang);
-  $: invoiceDict = dictionary.tools.invoiceForge;
+  $: invoiceDict = dictionary?.tools?.invoiceForge;
 
   let invoice: Invoice = createEmptyInvoice();
   let showSidebar = true;
@@ -41,7 +41,7 @@
         starred: 0
     });
     // Optional: show toast
-    alert(invoiceDict.actions.saved);
+    alert(invoiceDict?.actions?.saved);
   }
 
   function loadInvoice(data: any) {
@@ -76,8 +76,8 @@
   }
 </script>
 <Head
-  title={invoiceDict.title}
-  description={invoiceDict.description}
+  title={invoiceDict?.title}
+  description={invoiceDict?.description}
   keywords="invoice generator, free invoice maker, pdf invoice, bill generator, receipt maker"
 />
 
@@ -97,7 +97,7 @@
         "priceCurrency": "USD"
       },
       "featureList": "Invoice Generation, Client Management, PDF Export, Currency Support",
-      "description": invoiceDict.description
+      "description": invoiceDict?.description
     })}
   </script>`}
 
@@ -108,26 +108,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${invoiceDict.q1}",
+        "name": "${invoiceDict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${invoiceDict.a1}"
+          "text": "${invoiceDict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${invoiceDict.q2}",
+        "name": "${invoiceDict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${invoiceDict.a2}"
+          "text": "${invoiceDict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${invoiceDict.q3}",
+        "name": "${invoiceDict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${invoiceDict.a3}"
+          "text": "${invoiceDict?.a3}"
         }
       }
     ]
@@ -146,26 +146,26 @@
                 <ArrowLeft size={20} />
             </a>
             <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 hidden sm:block">
-                {invoiceDict.title}
+                {invoiceDict?.title}
             </h1>
         </div>
 
         <div class="flex items-center gap-2">
-            <button on:click={resetInvoice} class="p-2 text-gray-500 hover:text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg min-h-[44px]" title={invoiceDict.actions.reset}>
+            <button on:click={resetInvoice} class="p-2 text-gray-500 hover:text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg min-h-[44px]" title={invoiceDict?.actions?.reset}>
                 <RefreshCw size={20} />
             </button>
             <div class="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1"></div>
             <button on:click={saveInvoice} class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 min-h-[44px]">
                 <Save size={18} />
-                <span class="hidden sm:inline">{invoiceDict.actions.save}</span>
+                <span class="hidden sm:inline">{invoiceDict?.actions?.save}</span>
             </button>
             <button on:click={downloadImage} class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 min-h-[44px]">
                 <ImageIcon size={18} />
-                <span class="hidden sm:inline">{invoiceDict.actions.downloadImage}</span>
+                <span class="hidden sm:inline">{invoiceDict?.actions?.downloadImage}</span>
             </button>
             <button on:click={printInvoice} class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm shadow-blue-500/30 min-h-[44px]">
                 <Printer size={18} />
-                <span class="hidden sm:inline">{invoiceDict.actions.downloadPdf}</span>
+                <span class="hidden sm:inline">{invoiceDict?.actions?.downloadPdf}</span>
             </button>
         </div>
     </div>
@@ -230,9 +230,9 @@
   <div class="max-w-4xl mx-auto px-4 mt-20 pb-20 print:hidden">
       <!-- Guide Section -->
       <section class="mb-16">
-          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">{invoiceDict.guide.title}</h2>
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">{invoiceDict?.guide?.title}</h2>
           <p class="text-lg text-gray-600 dark:text-gray-300 mb-10 text-center leading-relaxed max-w-2xl mx-auto">
-              {invoiceDict.guide.intro}
+              {invoiceDict?.guide?.intro}
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
@@ -242,7 +242,7 @@
                       Local Privacy
                   </h3>
                   <p class="text-gray-600 dark:text-gray-400 text-sm">
-                      {invoiceDict.guide.f1.replace('**Local Privacy:** ', '')}
+                      {(invoiceDict?.guide?.f1 || "").replace('**Local Privacy:** ', '')}
                   </p>
               </div>
               <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
@@ -251,7 +251,7 @@
                       Smart Defaults
                   </h3>
                   <p class="text-gray-600 dark:text-gray-400 text-sm">
-                      {invoiceDict.guide.f2.replace('**Smart Defaults:** ', '')}
+                      {(invoiceDict?.guide?.f2 || "").replace('**Smart Defaults:** ', '')}
                   </p>
               </div>
               <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
@@ -260,25 +260,25 @@
                       Print Perfect
                   </h3>
                   <p class="text-gray-600 dark:text-gray-400 text-sm">
-                      {invoiceDict.guide.f3.replace('**Print Perfect:** ', '')}
+                      {(invoiceDict?.guide?.f3 || "").replace('**Print Perfect:** ', '')}
                   </p>
               </div>
           </div>
 
           <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800">
-              <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-4">{invoiceDict.guide.tipsTitle}</h3>
+              <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-4">{invoiceDict?.guide?.tipsTitle}</h3>
               <ul class="space-y-2 text-blue-800 dark:text-blue-200 text-sm">
                   <li class="flex items-start gap-2">
                       <span class="mt-1 block w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></span>
-                      <span>{invoiceDict.guide.tip1.replace(/\*\*(.*?)\*\*/g, '$1')}</span>
+                      <span>{(invoiceDict?.guide?.tip1 || "").replace(/\*\*(.*?)\*\*/g, '$1')}</span>
                   </li>
                   <li class="flex items-start gap-2">
                       <span class="mt-1 block w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></span>
-                      <span>{invoiceDict.guide.tip2.replace(/\*\*(.*?)\*\*/g, '$1')}</span>
+                      <span>{(invoiceDict?.guide?.tip2 || "").replace(/\*\*(.*?)\*\*/g, '$1')}</span>
                   </li>
                   <li class="flex items-start gap-2">
                       <span class="mt-1 block w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></span>
-                      <span>{invoiceDict.guide.tip3.replace(/\*\*(.*?)\*\*/g, '$1')}</span>
+                      <span>{(invoiceDict?.guide?.tip3 || "").replace(/\*\*(.*?)\*\*/g, '$1')}</span>
                   </li>
               </ul>
           </div>
@@ -286,11 +286,11 @@
 
       <!-- FAQ Section -->
       <FAQSection
-          title={invoiceDict.faqTitle}
+          title={invoiceDict?.faqTitle}
           items={[
-              { q: invoiceDict.q1, a: invoiceDict.a1 },
-              { q: invoiceDict.q2, a: invoiceDict.a2 },
-              { q: invoiceDict.q3, a: invoiceDict.a3 }
+              { q: invoiceDict?.q1, a: invoiceDict?.a1 },
+              { q: invoiceDict?.q2, a: invoiceDict?.a2 },
+              { q: invoiceDict?.q3, a: invoiceDict?.a3 }
           ]}
       />
   </div>

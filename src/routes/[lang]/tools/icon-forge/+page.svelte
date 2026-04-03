@@ -17,7 +17,7 @@
 
   // Dynamic dictionary loading
   $: dict = getDictionary($page.params.lang);
-  $: t = dict.tools.iconForge;
+  $: t = dict?.tools?.iconForge;
 
   $: faqItems = [
     { q: t?.q1, a: t?.a1 },
@@ -114,12 +114,12 @@
         desc: parts.slice(1).join(':').replace(/\*\*/g, '').trim()
       };
     }
-    return { title: text.replace(/\*\*/g, ''), desc: '' };
+    return { title: (text || "").replace(/\*\*/g, ''), desc: '' };
   }
 </script>
 <Head
-  title={`${t.title} - ${t.category || 'Design'}`}
-  description={t.description}
+  title={`${t?.title} - ${t?.category || 'Design'}`}
+  description={t?.description}
   keywords="favicon generator, pwa icon, maskable icon, app icon generator, ios icon generator, android icon generator, svg to ico"
 />
 
@@ -144,7 +144,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": "${t.description}",
+      "description": "${t?.description}",
       "featureList": [
         "Generate ICO, PNG, and SVG favicons",
         "Create PWA Manifest JSON",
@@ -164,26 +164,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -199,8 +199,8 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
       </svg>
     </div>
-    <h1 class="text-3xl font-bold text-slate-50 sm:text-4xl mb-4">{t.title}</h1>
-    <p class="text-lg text-slate-400 max-w-2xl mx-auto">{t.description}</p>
+    <h1 class="text-3xl font-bold text-slate-50 sm:text-4xl mb-4">{t?.title}</h1>
+    <p class="text-lg text-slate-400 max-w-2xl mx-auto">{t?.description}</p>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -218,7 +218,7 @@
                     class="text-sm text-slate-400 hover:text-indigo-400 transition-colors min-h-[44px]"
                     on:click={() => file = null}
                 >
-                    {t.upload.reupload}
+                    {t?.upload?.reupload}
                 </button>
             </div>
 
@@ -228,11 +228,11 @@
 
         <!-- Documentation -->
         <div class="prose prose-invert max-w-none mt-16 pt-16 border-t border-slate-700/50">
-            <h2 class="text-2xl font-bold text-slate-50 mb-6">{t.guide.title}</h2>
-            <p class="text-slate-400 leading-relaxed mb-8">{t.guide.intro}</p>
+            <h2 class="text-2xl font-bold text-slate-50 mb-6">{t?.guide?.title}</h2>
+            <p class="text-slate-400 leading-relaxed mb-8">{t?.guide?.intro}</p>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              {#each [t.guide.f1, t.guide.f2, t.guide.f3] as f}
+              {#each [t?.guide?.f1, t?.guide?.f2, t?.guide?.f3] as f}
                 {@const feature = parseFeature(f)}
                 <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-700/50">
                   <p class="text-sm text-slate-400">
@@ -245,14 +245,14 @@
               {/each}
             </div>
 
-            <h3 class="text-xl font-bold text-slate-50 mb-4">{t.guide.tipsTitle}</h3>
+            <h3 class="text-xl font-bold text-slate-50 mb-4">{t?.guide?.tipsTitle}</h3>
             <ul class="space-y-3 mb-12 list-disc list-inside text-slate-400">
-               <li>{@html t.guide.tip1}</li>
-               <li>{@html t.guide.tip2}</li>
-               <li>{@html t.guide.tip3}</li>
+               <li>{@html t?.guide?.tip1}</li>
+               <li>{@html t?.guide?.tip2}</li>
+               <li>{@html t?.guide?.tip3}</li>
             </ul>
 
-            <FAQSection title={t.faqTitle} items={faqItems} />
+            <FAQSection title={t?.faqTitle} items={faqItems} />
         </div>
     </div>
 
@@ -265,11 +265,11 @@
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-lg font-medium text-slate-50 flex items-center">
                             <svg class="w-5 h-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                            {t.config.title}
+                            {t?.config?.title}
                         </h3>
                         <button
                             class="p-2 rounded-lg transition-colors {justSaved ? 'bg-green-500/20 text-green-400' : 'bg-slate-700 hover:bg-indigo-500/20 text-slate-400 hover:text-indigo-400'} min-h-[44px]"
-                            title={t.history.save}
+                            title={t?.history?.save}
                             on:click={saveProject}
                             disabled={isSaving}
                         >

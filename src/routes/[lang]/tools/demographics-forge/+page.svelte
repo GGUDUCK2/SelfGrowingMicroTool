@@ -16,7 +16,7 @@
 
     $: lang = $page.params.lang;
     $: dict = getDictionary(lang);
-    $: t = { ...dict.tools.demographicsForge, lang };
+    $: t = { ...dict?.tools?.demographicsForge, lang };
 
 
     // State
@@ -96,17 +96,17 @@
 
     // Dynamic FAQ logic for SEO
     $: faqItems = [
-        { question: t.q1, answer: t.a1 },
-        { question: t.q2, answer: t.a2 },
-        { question: t.q3, answer: t.a3 }
+        { question: t?.q1, answer: t?.a1 },
+        { question: t?.q2, answer: t?.a2 },
+        { question: t?.q3, answer: t?.a3 }
     ];
 
     $: schema = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-        "name": t.title,
-        "description": t.description,
+        "name": t?.title,
+        "description": t?.description,
         "applicationCategory": "EducationalApplication",
         "applicationSubCategory": "Data Visualization Tool",
         "operatingSystem": "Any"
@@ -127,8 +127,8 @@
 </script>
 
 <Head
-    title={t.title}
-    description={t.description}
+    title={t?.title}
+    description={t?.description}
     keywords="population pyramid, demographic transition, global demographics, median age, dependency ratio, visualization"
 />
 
@@ -138,8 +138,8 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
     <!-- Header -->
     <div class="mb-8">
-        <h1 class="text-3xl font-bold tracking-tight text-primary mb-2">{t.title}</h1>
-        <p class="text-lg text-muted-foreground">{t.description}</p>
+        <h1 class="text-3xl font-bold tracking-tight text-primary mb-2">{t?.title}</h1>
+        <p class="text-lg text-muted-foreground">{t?.description}</p>
     </div>
 
     <!-- Main Workspace -->
@@ -164,7 +164,7 @@
                         class="text-sm text-primary hover:underline"
                         on:click={saveSnapshot}
                     >
-                        {t.saveSnapshot}
+                        {t?.saveSnapshot}
                     </button>
                 </div>
 
@@ -196,15 +196,15 @@
     <div class="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
         <div class="lg:col-span-2 space-y-12">
             <GuideSection
-                title={t.guide.title}
-                intro={t.guide.intro}
-                featuresTitle={t.guide.featuresTitle}
-                features={[t.guide.f1, t.guide.f2, t.guide.f3]}
-                tipsTitle={t.guide.tipsTitle}
-                tips={[t.guide.tip1, t.guide.tip2, t.guide.tip3]}
+                title={t?.guide?.title}
+                intro={t?.guide?.intro}
+                featuresTitle={t?.guide?.featuresTitle}
+                features={[t?.guide?.f1, t?.guide?.f2, t?.guide?.f3]}
+                tipsTitle={t?.guide?.tipsTitle}
+                tips={[t?.guide?.tip1, t?.guide?.tip2, t?.guide?.tip3]}
             />
 
-            <FAQSection title={t.faqTitle} items={faqItems} />
+            <FAQSection title={t?.faqTitle} items={faqItems} />
         </div>
     </div>
 </div>

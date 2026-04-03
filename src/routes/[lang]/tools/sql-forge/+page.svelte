@@ -16,7 +16,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.sqlForge;
+  $: t = dict?.tools?.sqlForge;
 
   let engine: SqlEngine;
   let query = '';
@@ -106,16 +106,16 @@
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": t.q1, "acceptedAnswer": { "@type": "Answer", "text": t.a1 } },
-        { "@type": "Question", "name": t.q2, "acceptedAnswer": { "@type": "Answer", "text": t.a2 } },
-        { "@type": "Question", "name": t.q3, "acceptedAnswer": { "@type": "Answer", "text": t.a3 } }
+        { "@type": "Question", "name": t?.q1, "acceptedAnswer": { "@type": "Answer", "text": t?.a1 } },
+        { "@type": "Question", "name": t?.q2, "acceptedAnswer": { "@type": "Answer", "text": t?.a2 } },
+        { "@type": "Question", "name": t?.q3, "acceptedAnswer": { "@type": "Answer", "text": t?.a3 } }
       ]
     }
   ];
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
 />
 
 
@@ -137,7 +137,7 @@
             <div class="p-1.5 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400 hidden md:block">
                 <Database size={20} />
             </div>
-            <h1 class="font-bold text-gray-900 dark:text-white truncate hidden sm:block">{t.title}</h1>
+            <h1 class="font-bold text-gray-900 dark:text-white truncate hidden sm:block">{t?.title}</h1>
         </div>
 
         <div class="flex items-center gap-2">
@@ -146,7 +146,7 @@
                 on:click={() => showImport = true}
             >
                 <Upload size={16} />
-                <span class="hidden sm:inline">{t.import}</span>
+                <span class="hidden sm:inline">{t?.import}</span>
             </button>
             <button
                 class="flex items-center gap-2 px-4 py-1.5 min-h-[44px] text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors shadow-sm disabled:opacity-50"
@@ -158,7 +158,7 @@
                 {:else}
                     <Play size={16} />
                 {/if}
-                <span>{t.run}</span>
+                <span>{t?.run}</span>
             </button>
         </div>
     </header>
@@ -195,7 +195,7 @@
                 <div class="flex items-center justify-between px-1">
                     <label class="text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
                         <Terminal size={14} />
-                        {t.input}
+                        {t?.input}
                     </label>
                     <span class="text-xs text-gray-400">Ctrl + Enter to Run</span>
                 </div>
@@ -207,7 +207,7 @@
                 <div class="flex items-center justify-between px-1">
                     <label class="text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
                         <Code size={14} />
-                        {t.output}
+                        {t?.output}
                     </label>
                 </div>
                 <ResultTable {result} {t} />
@@ -215,8 +215,8 @@
 
             <!-- Guide Section (Below fold) -->
             <div class="mt-8 prose dark:prose-invert max-w-none bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
-                <h2>{t.guide.title}</h2>
-                <p>{t.guide.intro}</p>
+                <h2>{t?.guide?.title}</h2>
+                <p>{t?.guide?.intro}</p>
 
                 <div class="grid md:grid-cols-3 gap-6 not-prose my-8">
                     <div class="p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
@@ -224,35 +224,35 @@
                             <Clock size={18} class="text-indigo-500" />
                             Fast
                         </h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400"><span class="markdown-body">{@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400"><span class="markdown-body">{@html (t?.guide?.f1 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>
                     </div>
                     <div class="p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
                         <h3 class="font-bold mb-2 flex items-center gap-2">
                             <FolderOpen size={18} class="text-green-500" />
                             Versatile
                         </h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400"><span class="markdown-body">{@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400"><span class="markdown-body">{@html (t?.guide?.f2 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>
                     </div>
                     <div class="p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
                         <h3 class="font-bold mb-2 flex items-center gap-2">
                             <Database size={18} class="text-purple-500" />
                             Private
                         </h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400"><span class="markdown-body">{@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400"><span class="markdown-body">{@html (t?.guide?.f3 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>
                     </div>
                 </div>
 
-                <h3>{t.guide.tipsTitle}</h3>
+                <h3>{t?.guide?.tipsTitle}</h3>
                 <ul>
-                    <li><span class="markdown-body">{@html t.guide.tip1.replace(/`(.*?)`/g, '<code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">$1</code>')}</span></li>
-                    <li><span class="markdown-body">{@html t.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-                    <li><span class="markdown-body">{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+                    <li><span class="markdown-body">{@html (t?.guide?.tip1 || "").replace(/`(.*?)`/g, '<code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">$1</code>')}</span></li>
+                    <li><span class="markdown-body">{@html (t?.guide?.tip2 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+                    <li><span class="markdown-body">{@html (t?.guide?.tip3 || "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
                 </ul>
 
-                <FAQSection title={t.faqTitle} items={[
-                    { question: t.q1, answer: t.a1 },
-                    { question: t.q2, answer: t.a2 },
-                    { question: t.q3, answer: t.a3 }
+                <FAQSection title={t?.faqTitle} items={[
+                    { question: t?.q1, answer: t?.a1 },
+                    { question: t?.q2, answer: t?.a2 },
+                    { question: t?.q3, answer: t?.a3 }
                 ]} />
             </div>
         </main>

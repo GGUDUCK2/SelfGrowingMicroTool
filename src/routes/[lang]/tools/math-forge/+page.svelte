@@ -20,11 +20,11 @@
   $: dict = getDictionary(lang)?.tools?.mathForge || getDictionary('en').tools.mathForge;
   $: common = getDictionary(lang)?.common || getDictionary('en').common;
 
-  $: clean = (text: string) => text.replace(/\*\*/g, '');
+  $: clean = (text: string) => (text || "").replace(/\*\*/g, '');
   $: featureList = [
-    clean(dict.guide.f1),
-    clean(dict.guide.f2),
-    clean(dict.guide.f3)
+    clean(dict?.guide?.f1),
+    clean(dict?.guide?.f2),
+    clean(dict?.guide?.f3)
   ];
   $: canonicalUrl = `https://selfgrowingmicrotool.com/${lang}/tools/math-forge`;
 
@@ -34,7 +34,7 @@
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": `https://selfgrowingmicrotool.com/${lang}` },
       { "@type": "ListItem", "position": 2, "name": "Tools", "item": `https://selfgrowingmicrotool.com/${lang}#tools` },
-      { "@type": "ListItem", "position": 3, "name": dict.title, "item": `https://selfgrowingmicrotool.com/${lang}/tools/math-forge` }
+      { "@type": "ListItem", "position": 3, "name": dict?.title, "item": `https://selfgrowingmicrotool.com/${lang}/tools/math-forge` }
     ]
   };
 
@@ -44,18 +44,18 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
-        "acceptedAnswer": { "@type": "Answer", "text": dict.a1 }
+        "name": dict?.q1,
+        "acceptedAnswer": { "@type": "Answer", "text": dict?.a1 }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
-        "acceptedAnswer": { "@type": "Answer", "text": dict.a2 }
+        "name": dict?.q2,
+        "acceptedAnswer": { "@type": "Answer", "text": dict?.a2 }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
-        "acceptedAnswer": { "@type": "Answer", "text": dict.a3 }
+        "name": dict?.q3,
+        "acceptedAnswer": { "@type": "Answer", "text": dict?.a3 }
       }
     ]
   };
@@ -106,8 +106,8 @@
   }
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
 />
 
 
@@ -120,8 +120,8 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-      "name": "${dict.title}",
-      "description": "${dict.description}",
+      "name": "${dict?.title}",
+      "description": "${dict?.description}",
       "applicationCategory": "EducationalApplication",
       "applicationSubCategory": "Calculator Application",
       "operatingSystem": "Any",
@@ -147,7 +147,7 @@
              <CalcIcon size={20} />
           </div>
           <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 hidden sm:block">
-            {dict.title}
+            {dict?.title}
           </h1>
         </div>
       </div>
@@ -169,7 +169,7 @@
                     aria-controls="calculator-panel"
                     class="flex-1 min-w-[100px] min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'calculator' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
                     on:click={() => activeTab = 'calculator'}>
-                      <CalcIcon size={16} /> {dict.tabs.calculator}
+                      <CalcIcon size={16} /> {dict?.tabs?.calculator}
                   </button>
                   <button
                     role="tab"
@@ -177,7 +177,7 @@
                     aria-controls="grapher-panel"
                     class="flex-1 min-w-[100px] min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'grapher' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
                     on:click={() => activeTab = 'grapher'}>
-                      <LineChart size={16} /> {dict.tabs.grapher}
+                      <LineChart size={16} /> {dict?.tabs?.grapher}
                   </button>
                   <button
                     role="tab"
@@ -185,7 +185,7 @@
                     aria-controls="matrix-panel"
                     class="flex-1 min-w-[100px] min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'matrix' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
                     on:click={() => activeTab = 'matrix'}>
-                      <Grid3X3 size={16} /> {dict.tabs.matrix}
+                      <Grid3X3 size={16} /> {dict?.tabs?.matrix}
                   </button>
                   <button
                     role="tab"
@@ -193,7 +193,7 @@
                     aria-controls="statistics-panel"
                     class="flex-1 min-w-[100px] min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'statistics' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
                     on:click={() => activeTab = 'statistics'}>
-                      <BarChart size={16} /> {dict.tabs.statistics}
+                      <BarChart size={16} /> {dict?.tabs?.statistics}
                   </button>
               </div>
 
@@ -213,23 +213,23 @@
               <!-- Guide & FAQ -->
               <div class="mt-12 space-y-8">
                   <GuideSection
-                      title={dict.guide.title}
-                      intro={dict.guide.intro}
-                      featuresTitle={dict.guide.featuresTitle}
-                      f1={dict.guide.f1}
-                      f2={dict.guide.f2}
-                      f3={dict.guide.f3}
-                      tipsTitle={dict.guide.tipsTitle}
-                      tip1={dict.guide.tip1}
-                      tip2={dict.guide.tip2}
-                      tip3={dict.guide.tip3}
+                      title={dict?.guide?.title}
+                      intro={dict?.guide?.intro}
+                      featuresTitle={dict?.guide?.featuresTitle}
+                      f1={dict?.guide?.f1}
+                      f2={dict?.guide?.f2}
+                      f3={dict?.guide?.f3}
+                      tipsTitle={dict?.guide?.tipsTitle}
+                      tip1={dict?.guide?.tip1}
+                      tip2={dict?.guide?.tip2}
+                      tip3={dict?.guide?.tip3}
                   />
                   <FAQSection
-                      title={dict.faqTitle}
+                      title={dict?.faqTitle}
                       items={[
-                          { q: dict.q1, a: dict.a1 },
-                          { q: dict.q2, a: dict.a2 },
-                          { q: dict.q3, a: dict.a3 }
+                          { q: dict?.q1, a: dict?.a1 },
+                          { q: dict?.q2, a: dict?.a2 },
+                          { q: dict?.q3, a: dict?.a3 }
                       ]}
                   />
               </div>

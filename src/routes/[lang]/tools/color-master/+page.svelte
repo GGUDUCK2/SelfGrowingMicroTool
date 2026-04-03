@@ -37,14 +37,14 @@
   let currentScale: ScaleStep[] = [];
 
   $: dict = getDictionary(data.lang);
-  $: t = dict.tools.colorMaster;
+  $: t = dict?.tools?.colorMaster;
 
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": t.title,
-    "description": t.description,
+    "name": t?.title,
+    "description": t?.description,
     "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
     "applicationCategory": "DesignApplication",
     "applicationSubCategory": "Color Palette Generator",
@@ -54,17 +54,17 @@
       "priceCurrency": "USD"
     },
     "featureList": [
-      t.guide.f1.replace(/\*\*(.*?)\*\*/g, '$1'),
-      t.guide.f2.replace(/\*\*(.*?)\*\*/g, '$1'),
-      t.guide.f3.replace(/\*\*(.*?)\*\*/g, '$1'),
-      t.guide.f4.replace(/\*\*(.*?)\*\*/g, '$1')
+      (t?.guide?.f1 || "").replace(/\*\*(.*?)\*\*/g, '$1'),
+      (t?.guide?.f2 || "").replace(/\*\*(.*?)\*\*/g, '$1'),
+      (t?.guide?.f3 || "").replace(/\*\*(.*?)\*\*/g, '$1'),
+      (t?.guide?.f4 || "").replace(/\*\*(.*?)\*\*/g, '$1')
     ]
   };
 
   $: howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": `How to use ${t.title}`,
+    "name": `How to use ${t?.title}`,
     "step": [
       {
         "@type": "HowToStep",
@@ -93,18 +93,18 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
-        "acceptedAnswer": { "@type": "Answer", "text": dict.a1 }
+        "name": dict?.q1,
+        "acceptedAnswer": { "@type": "Answer", "text": dict?.a1 }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
-        "acceptedAnswer": { "@type": "Answer", "text": dict.a2 }
+        "name": dict?.q2,
+        "acceptedAnswer": { "@type": "Answer", "text": dict?.a2 }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
-        "acceptedAnswer": { "@type": "Answer", "text": dict.a3 }
+        "name": dict?.q3,
+        "acceptedAnswer": { "@type": "Answer", "text": dict?.a3 }
       }
     ]
   };
@@ -128,7 +128,7 @@
       {
         "@type": "ListItem",
         "position": 3,
-        "name": t.title,
+        "name": t?.title,
         "item": `https://selfgrowingmicrotool.com/${data.lang}/tools/color-master`
       }
     ]
@@ -282,9 +282,9 @@
 </svelte:head>
 
 <Head
-  title={t.title}
-  description={t.description}
-  keywords={t.keywords}
+  title={t?.title}
+  description={t?.description}
+  keywords={t?.keywords}
 />
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 relative">
@@ -298,19 +298,19 @@
         <Button
           on:click={() => showShortcuts = !showShortcuts}
           class="lg:hidden flex-shrink-0 !rounded-full !px-3"
-          ariaLabel={t.shortcuts}
-          title={t.shortcuts}
+          ariaLabel={t?.shortcuts}
+          title={t?.shortcuts}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
         </Button>
         <div class="absolute -top-6 -right-32 hidden lg:block opacity-0 group-hover:opacity-100 transition-opacity">
             <div class="bg-slate-800 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
-                {t.press} '?' {t.shortcutsHelp}
+                {t?.press} '?' {t?.shortcutsHelp}
             </div>
         </div>
     </div>
     <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-      {t.description}
+      {t?.description}
     </p>
   </div>
 
@@ -331,22 +331,22 @@
             tabindex="-1"
             aria-labelledby="shortcuts-title"
         >
-            <h3 id="shortcuts-title" class="text-xl font-bold mb-4 dark:text-white">{t.shortcutsHelp}</h3>
+            <h3 id="shortcuts-title" class="text-xl font-bold mb-4 dark:text-white">{t?.shortcutsHelp}</h3>
             <ul class="space-y-2">
                 <li class="flex justify-between">
-                    <span class="text-slate-600 dark:text-slate-400">{t.random}</span>
+                    <span class="text-slate-600 dark:text-slate-400">{t?.random}</span>
                     <kbd class="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded text-sm font-mono border dark:border-slate-600">Space</kbd>
                 </li>
                 <li class="flex justify-between">
-                    <span class="text-slate-600 dark:text-slate-400">{t.copyHex}</span>
+                    <span class="text-slate-600 dark:text-slate-400">{t?.copyHex}</span>
                     <kbd class="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded text-sm font-mono border dark:border-slate-600">Ctrl+C</kbd>
                 </li>
                 <li class="flex justify-between">
-                    <span class="text-slate-600 dark:text-slate-400">{t.save}</span>
+                    <span class="text-slate-600 dark:text-slate-400">{t?.save}</span>
                     <kbd class="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded text-sm font-mono border dark:border-slate-600">Ctrl+S</kbd>
                 </li>
                 <li class="flex justify-between">
-                    <span class="text-slate-600 dark:text-slate-400">{t.reset}</span>
+                    <span class="text-slate-600 dark:text-slate-400">{t?.reset}</span>
                     <kbd class="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded text-sm font-mono border dark:border-slate-600">Esc</kbd>
                 </li>
             </ul>
@@ -364,8 +364,8 @@
           <Button
             class="absolute top-2 right-2 !rounded-full !px-3 !py-3 hover:scale-110 shadow-md text-indigo-500 border-indigo-100 dark:border-indigo-900"
             on:click={randomize}
-            title={t.inspire}
-            ariaLabel={t.inspire}
+            title={t?.inspire}
+            ariaLabel={t?.inspire}
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
           </Button>
@@ -373,14 +373,14 @@
 
       <!-- Harmony Selector -->
       <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
-        <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t.harmony}</h3>
+        <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t?.harmony}</h3>
         <div class="grid grid-cols-2 gap-3">
           {#each HARMONY_TYPES as type}
             <Button
               class="justify-center {harmonyType === type ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-500 dark:text-indigo-300' : ''}"
               on:click={() => handleTypeChange(type)}
             >
-              {t.harmonies[type]}
+              {t?.harmonies[type]}
             </Button>
           {/each}
         </div>
@@ -388,16 +388,16 @@
 
       <!-- Vision Simulator -->
       <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
-        <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t.visionSimulator}</h3>
+        <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t?.visionSimulator}</h3>
         <select
           bind:value={visionType}
           class="w-full p-3 min-h-[44px] text-base bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none dark:text-white"
         >
-          <option value="none">{t.normal}</option>
-          <option value="protanopia">{t.protanopia}</option>
-          <option value="deuteranopia">{t.deuteranopia}</option>
-          <option value="tritanopia">{t.tritanopia}</option>
-          <option value="achromatopsia">{t.achromatopsia}</option>
+          <option value="none">{t?.normal}</option>
+          <option value="protanopia">{t?.protanopia}</option>
+          <option value="deuteranopia">{t?.deuteranopia}</option>
+          <option value="tritanopia">{t?.tritanopia}</option>
+          <option value="achromatopsia">{t?.achromatopsia}</option>
         </select>
         {#if visionType !== 'none'}
           <p class="text-xs text-amber-600 dark:text-amber-400 mt-2 bg-amber-50 dark:bg-amber-900/20 p-2 rounded">
@@ -421,7 +421,7 @@
 
       <!-- Palette Display -->
       <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
-        <PaletteDisplay colors={displayedHarmonies} {t} title="{t.harmonies[harmonyType]} Palette" />
+        <PaletteDisplay colors={displayedHarmonies} {t} title="{t?.harmonies[harmonyType]} Palette" />
       </div>
 
       <!-- New Feature: Contrast Grid -->
@@ -443,9 +443,9 @@
   <!-- Documentation -->
   <article class="prose prose-indigo dark:prose-invert max-w-none bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
     <section class="mb-12">
-      <h2 class="text-3xl font-bold mb-6">{t.guide.title}</h2>
+      <h2 class="text-3xl font-bold mb-6">{t?.guide?.title}</h2>
       <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-        {@html t.guide.intro.replace(/\*\*(.*?)\*\*/g, '<strong class="text-indigo-600 dark:text-indigo-400">$1</strong>')}
+        {@html (t?.guide?.intro || "").replace(/\*\*(.*?)\*\*/g, '<strong class="text-indigo-600 dark:text-indigo-400">$1</strong>')}
       </p>
     </section>
 
@@ -453,10 +453,10 @@
       <section>
         <h3 class="flex items-center gap-2 text-xl font-bold text-slate-900 dark:text-white mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-          {t.guide.featuresTitle}
+          {t?.guide?.featuresTitle}
         </h3>
         <ul class="space-y-3 list-none pl-0">
-          {#each [t.guide.f1, t.guide.f2, t.guide.f3, t.guide.f4] as feature}
+          {#each [t?.guide?.f1, t?.guide?.f2, t?.guide?.f3, t?.guide?.f4] as feature}
             <li class="flex gap-3 text-slate-600 dark:text-slate-300">
               <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0"></span>
               <span>{@html feature.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-900 dark:text-white">$1</strong>')}</span>
@@ -468,10 +468,10 @@
       <section>
         <h3 class="flex items-center gap-2 text-xl font-bold text-slate-900 dark:text-white mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          {t.guide.technicalTitle}
+          {t?.guide?.technicalTitle}
         </h3>
         <ul class="space-y-3 list-none pl-0">
-          {#each [t.guide.tech1, t.guide.tech2, t.guide.tech3] as tech}
+          {#each [t?.guide?.tech1, t?.guide?.tech2, t?.guide?.tech3] as tech}
             <li class="flex gap-3 text-slate-600 dark:text-slate-300">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-emerald-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
               <span>{@html tech}</span>
@@ -484,15 +484,15 @@
     <section class="mb-12 bg-indigo-50 dark:bg-slate-700/30 rounded-2xl p-6 border border-indigo-100 dark:border-slate-600">
       <h3 class="flex items-center gap-2 text-xl font-bold text-indigo-900 dark:text-indigo-100 mb-4">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-        {t.guide.tipsTitle}
+        {t?.guide?.tipsTitle}
       </h3>
       <div class="grid md:grid-cols-2 gap-6">
         <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-indigo-100 dark:border-slate-600">
           <p class="text-indigo-800 dark:text-indigo-200 font-medium mb-2">Pro Tip</p>
-          <p class="text-slate-600 dark:text-slate-300 text-sm">{t.guide.tip1}</p>
+          <p class="text-slate-600 dark:text-slate-300 text-sm">{t?.guide?.tip1}</p>
         </div>
         <ul class="space-y-3 list-none pl-0">
-          {#each [t.guide.tip2, t.guide.tip3, t.guide.tip4] as tip}
+          {#each [t?.guide?.tip2, t?.guide?.tip3, t?.guide?.tip4] as tip}
             <li class="flex gap-3 text-slate-600 dark:text-slate-300 text-sm">
               <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>
               <span>{@html tip.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-900 dark:text-white">$1</strong>')}</span>
@@ -503,11 +503,11 @@
     </section>
 
     <FAQSection
-      title={t.faqTitle}
+      title={t?.faqTitle}
       items={[
-        { q: dict.q1, a: dict.a1 },
-        { q: dict.q2, a: dict.a2 },
-        { q: dict.q3, a: dict.a3 }
+        { q: dict?.q1, a: dict?.a1 },
+        { q: dict?.q2, a: dict?.a2 },
+        { q: dict?.q3, a: dict?.a3 }
       ]}
     />
   </article>

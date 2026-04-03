@@ -99,7 +99,7 @@
            // Show toast? relying on button text change handled in Toolbar if possible,
            // but Toolbar is dumb. Let's send a prop or assume simple alert for now/Toolbar handles visual feedback.
            // Actually Toolbar handles 'copied!' state for copy button, but maybe not share.
-           alert(t.linkCopied); // Fallback for now.
+           alert(t?.linkCopied); // Fallback for now.
            return;
       }
 
@@ -134,7 +134,7 @@
           type = 'minify';
       } else if (action === 'validate') {
           // Already validated
-          output = t.validJson; // Or just show success indicator
+          output = t?.validJson; // Or just show success indicator
           mode = 'json'; // strictly it is just a message
           type = 'validate';
       } else if (action === 'toTs') {
@@ -171,8 +171,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": t.title,
-    "description": t.description,
+    "name": t?.title,
+    "description": t?.description,
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "JSON Utility",
     "operatingSystem": "Web, iOS, Android, Linux, Windows, macOS",
@@ -207,7 +207,7 @@
     }, {
       "@type": "ListItem",
       "position": 3,
-      "name": t.title,
+      "name": t?.title,
       "item": `https://selfgrowingmicrotool.com/${lang}/tools/json-architect`
     }]
   };
@@ -218,26 +218,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": t.q1,
-        "acceptedAnswer": { "@type": "Answer", "text": t.a1 }
+        "name": t?.q1,
+        "acceptedAnswer": { "@type": "Answer", "text": t?.a1 }
       },
       {
         "@type": "Question",
-        "name": t.q2,
-        "acceptedAnswer": { "@type": "Answer", "text": t.a2 }
+        "name": t?.q2,
+        "acceptedAnswer": { "@type": "Answer", "text": t?.a2 }
       },
       {
         "@type": "Question",
-        "name": t.q3,
-        "acceptedAnswer": { "@type": "Answer", "text": t.a3 }
+        "name": t?.q3,
+        "acceptedAnswer": { "@type": "Answer", "text": t?.a3 }
       }
     ]
   };
 
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
 />
 
 
@@ -249,8 +249,8 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
   <div class="mb-8">
-    <h1 class="text-3xl font-bold text-slate-900 dark:text-slate-100 sm:text-4xl">{t.title}</h1>
-    <p class="mt-2 text-lg text-slate-600 dark:text-slate-400">{t.description}</p>
+    <h1 class="text-3xl font-bold text-slate-900 dark:text-slate-100 sm:text-4xl">{t?.title}</h1>
+    <p class="mt-2 text-lg text-slate-600 dark:text-slate-400">{t?.description}</p>
   </div>
 
   <div class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur py-2 shadow-sm">
@@ -259,26 +259,26 @@
 
   <div class="flex flex-col lg:flex-row gap-6 min-h-[500px] lg:min-h-[calc(100vh-14rem)]">
       <!-- Input Column -->
-      <section class="flex-1 flex flex-col gap-2" aria-label={t.input}>
+      <section class="flex-1 flex flex-col gap-2" aria-label={t?.input}>
           <div class="flex justify-between items-center">
-             <label for="json-input" class="text-sm font-semibold text-slate-300">{t.input}</label>
+             <label for="json-input" class="text-sm font-semibold text-slate-300">{t?.input}</label>
              {#if error}
                 <span class="text-xs text-red-600 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded">{error}</span>
              {:else if parsedData}
-                <span class="text-xs text-green-600 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded">{t.validJson}</span>
+                <span class="text-xs text-green-600 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded">{t?.validJson}</span>
              {/if}
           </div>
-          <JsonEditor id="json-input" bind:value={input} placeholder={t.input} />
+          <JsonEditor id="json-input" bind:value={input} placeholder={t?.input} />
       </section>
 
       <!-- Divider -->
       <div class="hidden lg:block w-px bg-slate-600 self-stretch"></div>
 
       <!-- Output Column -->
-      <section class="flex-1 flex flex-col gap-2" aria-label={t.output}>
+      <section class="flex-1 flex flex-col gap-2" aria-label={t?.output}>
           <div class="flex justify-between items-center">
              <label for="json-output" class="text-sm font-semibold text-slate-300">
-                {t.output}
+                {t?.output}
                 {#if mode !== 'json'}
                   <span class="ml-2 px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-xs text-slate-500">{mode.toUpperCase()}</span>
                 {/if}
@@ -288,7 +288,7 @@
                    on:click={() => view = 'text'}
                    class={view === 'text' ? 'min-h-[44px] bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800' : 'min-h-[44px]'}
                  >
-                    {t.textView}
+                    {t?.textView}
                  </Button>
                  {#if mode === 'json' && parsedData}
                  <Button
@@ -297,7 +297,7 @@
                    title={isTooLarge ? 'JSON too large for tree view' : ''}
                    class={view === 'tree' ? 'min-h-[44px] bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800' : 'min-h-[44px]'}
                  >
-                    {t.treeView}
+                    {t?.treeView}
                  </Button>
                  {/if}
              </div>
@@ -317,10 +317,10 @@
 
   <!-- FAQ Section -->
   <div class="mt-16">
-      <FAQSection title={t.faqTitle} items={[
-        { q: t.q1, a: t.a1 },
-        { q: t.q2, a: t.a2 },
-        { q: t.q3, a: t.a3 }
+      <FAQSection title={t?.faqTitle} items={[
+        { q: t?.q1, a: t?.a1 },
+        { q: t?.q2, a: t?.a2 },
+        { q: t?.q3, a: t?.a3 }
       ]} />
   </div>
 

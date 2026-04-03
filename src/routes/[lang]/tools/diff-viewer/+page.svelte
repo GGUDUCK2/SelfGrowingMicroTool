@@ -20,13 +20,13 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.diffViewer;
+  $: t = dict?.tools?.diffViewer;
   $: translations = t; // For passing to components
 
   $: faqItems = [
-    { q: t.q1, a: t.a1 },
-    { q: t.q2, a: t.a2 },
-    { q: t.q3, a: t.a3 }
+    { q: t?.q1, a: t?.a1 },
+    { q: t?.q2, a: t?.a2 },
+    { q: t?.q3, a: t?.a3 }
   ];
 
   let original = '';
@@ -169,7 +169,7 @@
 <html lang="${lang}">
 <head>
     <meta charset="UTF-8">
-    <title>${escapeHtml(t.title)} - Report</title>
+    <title>${escapeHtml(t?.title)} - Report</title>
     <style>
         body { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; line-height: 1.5; padding: 20px; background: #f9fafb; color: #111827; }
         .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
@@ -184,7 +184,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>${escapeHtml(t.title)} - Comparison Report</h1>
+            <h1>${escapeHtml(t?.title)} - Comparison Report</h1>
             <p>Generated on ${new Date().toLocaleString()}</p>
         </div>
         <div class="stats">
@@ -290,7 +290,7 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": t.title,
+    "name": t?.title,
     "operatingSystem": "Any",
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "DeveloperApplication",
@@ -300,10 +300,10 @@
       "price": "0",
       "priceCurrency": "USD"
     },
-    "description": t.description,
+    "description": t?.description,
     "url": `https://selfgrowingmicrotool.com/${lang}/tools/diff-viewer`,
     "image": "https://web-factory.vercel.app/og/diff-viewer.png",
-    "featureList": [t.guide.f1, t.guide.f2, t.guide.f3].map(s => s.replace(/\*\*/g, '')),
+    "featureList": [t?.guide?.f1, t?.guide?.f2, t?.guide?.f3].map(s => (s || "").replace(/\*\*/g, '')),
     "author": {
         "@type": "Organization",
         "name": "MicroFactory"
@@ -329,7 +329,7 @@
       {
         "@type": "ListItem",
         "position": 3,
-        "name": t.title,
+        "name": t?.title,
         "item": `https://selfgrowingmicrotool.com/${lang}/tools/diff-viewer`
       }
     ]
@@ -338,7 +338,7 @@
   $: howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": `How to compare text files with ${t.title}`,
+    "name": `How to compare text files with ${t?.title}`,
     "step": [
       {
         "@type": "HowToStep",
@@ -393,8 +393,8 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
   image="https://web-factory.vercel.app/og/diff-viewer.png"
   keywords={keywords}
 />
@@ -408,7 +408,7 @@
            <ArrowLeftRight class="w-5 h-5" />
         </a>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 truncate">
-          {t.title}
+          {t?.title}
         </h1>
       </div>
 
@@ -423,16 +423,16 @@
         <button
           class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors relative"
           on:click={() => isHistoryOpen = !isHistoryOpen}
-          title={t.history + ' (Cmd+/)'}
-          aria-label={t.history}
+          title={t?.history + ' (Cmd+/)'}
+          aria-label={t?.history}
         >
           <History class="w-5 h-5" />
         </button>
         <button
           class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors"
           on:click={copyShareLink}
-          title={t.share}
-          aria-label={t.share}
+          title={t?.share}
+          aria-label={t?.share}
         >
             {#if showCopyNotification}
                 <Check class="w-5 h-5 text-green-500" />
@@ -462,13 +462,13 @@
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
                                 <GitMerge class="w-5 h-5 text-indigo-500" />
-                                {t.mergeConflict}
+                                {t?.mergeConflict}
                             </h3>
                             <button class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 min-h-[44px]" on:click={cancelConflict}>
                                 <X class="w-5 h-5" />
                             </button>
                         </div>
-                         <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">{t.pasteConflict}</p>
+                         <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">{t?.pasteConflict}</p>
                          <textarea
                             bind:value={conflictInput}
                             class="flex-1 w-full p-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg font-mono text-xs focus:ring-2 focus:ring-indigo-500 outline-none resize-none mb-4 min-h-[300px]"
@@ -521,12 +521,12 @@
         <div class="flex flex-wrap gap-2 sm:gap-4 items-center">
             <!-- Mode Selection -->
             <div class="flex items-center gap-2">
-                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{t.mode}:</span>
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{t?.mode}:</span>
                 <select bind:value={mode} class="min-h-[44px] min-w-[44px] bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white">
-                    <option value="lines">{t.lines}</option>
-                    <option value="words">{t.words}</option>
-                    <option value="chars">{t.chars}</option>
-                    <option value="json">{t.json}</option>
+                    <option value="lines">{t?.lines}</option>
+                    <option value="words">{t?.words}</option>
+                    <option value="chars">{t?.chars}</option>
+                    <option value="json">{t?.json}</option>
                 </select>
             </div>
 
@@ -536,33 +536,33 @@
                     class="px-3 py-1.5 min-h-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'split' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
                     on:click={() => viewMode = 'split'}
                 >
-                    <Columns class="w-4 h-4 inline mr-1" /> {t.split}
+                    <Columns class="w-4 h-4 inline mr-1" /> {t?.split}
                 </button>
                 <button
                     class="px-3 py-1.5 min-h-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'unified' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
                     on:click={() => viewMode = 'unified'}
                 >
-                    <AlignLeft class="w-4 h-4 inline mr-1" /> {t.unified}
+                    <AlignLeft class="w-4 h-4 inline mr-1" /> {t?.unified}
                 </button>
             </div>
 
             <!-- Options -->
             <label class="flex items-center gap-2 min-h-[44px] min-w-[44px] text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
                 <input type="checkbox" bind:checked={ignoreWhitespace} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800">
-                {t.ignoreWhitespace}
+                {t?.ignoreWhitespace}
             </label>
             <label class="flex items-center gap-2 min-h-[44px] min-w-[44px] text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
                 <input type="checkbox" bind:checked={ignoreCase} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800">
-                {t.ignoreCase}
+                {t?.ignoreCase}
             </label>
         </div>
 
         <div class="flex flex-wrap gap-2 sm:gap-4 items-center">
-            <Button variant="secondary" on:click={() => showConflictModal = true} title={t.mergeConflict}>
+            <Button variant="secondary" on:click={() => showConflictModal = true} title={t?.mergeConflict}>
                 <GitMerge class="w-4 h-4 text-orange-500" />
-                <span class="hidden md:inline">{t.mergeConflict}</span>
+                <span class="hidden md:inline">{t?.mergeConflict}</span>
             </Button>
-             <Button variant="secondary" on:click={downloadReport} title={t.downloadReport}>
+             <Button variant="secondary" on:click={downloadReport} title={t?.downloadReport}>
                 <Download class="w-4 h-4 text-blue-500" />
                 <span class="hidden md:inline">Report</span>
             </Button>
@@ -571,21 +571,21 @@
                 <span class="hidden md:inline">Patch</span>
             </Button>
             <div class="w-px h-8 bg-gray-200 dark:bg-gray-700 mx-1 hidden sm:block"></div>
-            <Button variant="secondary" on:click={swapSides} title={t.swap}>
+            <Button variant="secondary" on:click={swapSides} title={t?.swap}>
                 <ArrowLeftRight class="w-4 h-4" />
-                <span class="hidden sm:inline">{t.swap}</span>
+                <span class="hidden sm:inline">{t?.swap}</span>
             </Button>
-            <Button variant="danger" on:click={clearAll} title={t.clear + ' (Cmd+K)'}>
+            <Button variant="danger" on:click={clearAll} title={t?.clear + ' (Cmd+K)'}>
                 <Trash2 class="w-4 h-4" />
-                <span class="hidden sm:inline">{t.clear}</span>
+                <span class="hidden sm:inline">{t?.clear}</span>
             </Button>
-            <Button variant="primary" on:click={saveToHistory} title={t.save}>
+            <Button variant="primary" on:click={saveToHistory} title={t?.save}>
                 {#if showSaveNotification}
                     <Check class="w-4 h-4" />
                     <span>Saved</span>
                 {:else}
                     <Save class="w-4 h-4" />
-                    <span>{t.save}</span>
+                    <span>{t?.save}</span>
                 {/if}
             </Button>
         </div>
@@ -600,7 +600,7 @@
             <DiffEditor
                 bind:this={originalEditor}
                 bind:value={original}
-                label={t.original}
+                label={t?.original}
                 placeholder="Paste original text here..."
                 on:scroll={(e) => handleEditorScroll(e, 'original')}
             />
@@ -609,7 +609,7 @@
             <DiffEditor
                 bind:this={modifiedEditor}
                 bind:value={modified}
-                label={t.modified}
+                label={t?.modified}
                 placeholder="Paste modified text here..."
                 on:scroll={(e) => handleEditorScroll(e, 'modified')}
             />
@@ -621,27 +621,27 @@
         <DiffVisualizer
             {diffResult}
             mode={viewMode}
-            originalLabel={t.original}
-            modifiedLabel={t.modified}
+            originalLabel={t?.original}
+            modifiedLabel={t?.modified}
         />
     </div>
 
     <!-- Guide & SEO Content -->
     <div class="mt-12 space-y-12">
       <GuideSection
-        title={t.guide.title}
-        intro={t.guide.intro}
-        featuresTitle={t.guide.featuresTitle}
-        f1={t.guide.f1}
-        f2={t.guide.f2}
-        f3={t.guide.f3}
-        tipsTitle={t.guide.tipsTitle}
-        tip1={t.guide.tip1}
-        tip2={t.guide.tip2}
-        tip3={t.guide.tip3}
+        title={t?.guide?.title}
+        intro={t?.guide?.intro}
+        featuresTitle={t?.guide?.featuresTitle}
+        f1={t?.guide?.f1}
+        f2={t?.guide?.f2}
+        f3={t?.guide?.f3}
+        tipsTitle={t?.guide?.tipsTitle}
+        tip1={t?.guide?.tip1}
+        tip2={t?.guide?.tip2}
+        tip3={t?.guide?.tip3}
       />
 
-      <FAQSection title={t.faqTitle} items={faqItems} />
+      <FAQSection title={t?.faqTitle} items={faqItems} />
     </div>
   </main>
 </div>

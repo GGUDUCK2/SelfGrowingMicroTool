@@ -8,7 +8,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
-  $: d = dict.tools.dockerForge;
+  $: d = dict?.tools?.dockerForge;
 
   // SEO
   $: title = d.title;

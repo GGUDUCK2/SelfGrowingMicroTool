@@ -16,7 +16,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.diagramForge;
+  $: t = dict?.tools?.diagramForge;
 
   let code = templates[0].code;
   let theme = 'default';
@@ -70,7 +70,7 @@
           createdAt: new Date(),
           starred: 0
       });
-      alert(t.saved);
+      alert(t?.saved);
   }
 
   function handleLoadHistory(item: DiagramForgeHistory) {
@@ -134,13 +134,13 @@
 
   function handleCopyLink() {
       navigator.clipboard.writeText(window.location.href);
-      alert(t.actions.copyLink + ' Copied!');
+      alert(t?.actions?.copyLink + ' Copied!');
   }
 
   $: faqItems = [
-    { q: t.q1, a: t.a1 },
-    { q: t.q2, a: t.a2 },
-    { q: t.q3, a: t.a3 }
+    { q: t?.q1, a: t?.a1 },
+    { q: t?.q2, a: t?.a2 },
+    { q: t?.q3, a: t?.a3 }
   ];
 
   $: schema = {
@@ -150,7 +150,7 @@
         "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
         "name": "Diagram Forge",
-        "description": t.description,
+        "description": t?.description,
         "applicationCategory": "DesignApplication",
         "operatingSystem": "Any",
         "url": `https://selfgrowingmicrotool.com/${lang}/tools/diagram-forge`,
@@ -193,8 +193,8 @@
   $: jsonLdScript = `<script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}<\/script>`;
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
 />
 
 
@@ -208,26 +208,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -294,20 +294,20 @@
 <div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
     <div class="max-w-4xl mx-auto px-4 py-12">
         <GuideSection
-            title={t.guide.title}
-            intro={t.guide.intro}
-            featuresTitle={t.guide.featuresTitle}
-            f1={t.guide.f1}
-            f2={t.guide.f2}
-            f3={t.guide.f3}
-            tipsTitle={t.guide.tipsTitle}
-            tip1={t.guide.tip1}
-            tip2={t.guide.tip2}
-            tip3={t.guide.tip3}
+            title={t?.guide?.title}
+            intro={t?.guide?.intro}
+            featuresTitle={t?.guide?.featuresTitle}
+            f1={t?.guide?.f1}
+            f2={t?.guide?.f2}
+            f3={t?.guide?.f3}
+            tipsTitle={t?.guide?.tipsTitle}
+            tip1={t?.guide?.tip1}
+            tip2={t?.guide?.tip2}
+            tip3={t?.guide?.tip3}
         />
 
         <FAQSection
-            title={t.faqTitle}
+            title={t?.faqTitle}
             items={faqItems}
         />
     </div>

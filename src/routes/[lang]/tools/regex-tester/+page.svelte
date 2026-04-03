@@ -15,12 +15,12 @@
 
   $: lang = $page.params.lang || 'en';
   $: dictionary = getDictionary(lang);
-  $: t = dictionary.tools.regexTester;
+  $: t = dictionary?.tools?.regexTester;
 
   $: faqItems = [
-    { q: t.q1, a: t.a1 },
-    { q: t.q2, a: t.a2 },
-    { q: t.q3, a: t.a3 }
+    { q: t?.q1, a: t?.a1 },
+    { q: t?.q2, a: t?.a2 },
+    { q: t?.q3, a: t?.a3 }
   ];
 
   let pattern = '';
@@ -118,8 +118,8 @@
   });
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
   keywords="regex, regex tester, regular expression, debug regex, regex visualizer"
 />
 
@@ -140,7 +140,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": t.description
+      "description": t?.description
     })}
   </script>`}
 
@@ -151,26 +151,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -191,10 +191,10 @@
       </svg>
     </div>
     <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
-      {t.title}
+      {t?.title}
     </h1>
     <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-      {t.description}
+      {t?.description}
     </p>
   </div>
 
@@ -212,7 +212,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293zM9 4a1 1 0 011-1h5a1 1 0 110 2h-5a1 1 0 01-1-1z" />
           </svg>
-          {t.save}
+          {t?.save}
         </button>
         <button
           class="flex-1 py-2 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750 rounded-lg font-medium transition-all flex items-center justify-center gap-2 min-h-[44px]"
@@ -221,7 +221,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
           </svg>
-          {copied ? t.copied : t.share}
+          {copied ? t?.copied : t?.share}
         </button>
         <button
           class="flex-1 py-2 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750 rounded-lg font-medium transition-all flex items-center justify-center gap-2 min-h-[44px]"
@@ -230,7 +230,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
           </svg>
-          {t.copy}
+          {t?.copy}
         </button>
       </div>
 
@@ -248,7 +248,7 @@
 
       <!-- History Section -->
       <div class="bg-white/50 dark:bg-slate-800/50 backdrop-blur-md rounded-xl p-4 border border-indigo-100 dark:border-indigo-900 shadow-sm">
-        <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-4 px-2">{t.history}</h3>
+        <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-4 px-2">{t?.history}</h3>
         {#if $history && $history.length > 0}
           <div class="space-y-2">
             {#each $history as item}
@@ -264,7 +264,7 @@
                 <button
                   class="text-slate-400 hover:text-red-500 transition-colors p-1 min-h-[44px]"
                   on:click={() => deleteHistory(item.id)}
-                  title={t.delete}
+                  title={t?.delete}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -275,7 +275,7 @@
           </div>
         {:else}
           <div class="text-center py-8 text-slate-400 dark:text-slate-600 text-sm">
-            {t.historyEmpty || "No history yet"}
+            {t?.historyEmpty || "No history yet"}
           </div>
         {/if}
       </div>
@@ -284,6 +284,6 @@
 
   <!-- Documentation & FAQ -->
   <div class="max-w-4xl mx-auto">
-    <FAQSection title={t.faqTitle} items={faqItems} />
+    <FAQSection title={t?.faqTitle} items={faqItems} />
   </div>
 </div>

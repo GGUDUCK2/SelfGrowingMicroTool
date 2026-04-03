@@ -36,7 +36,7 @@
       error = '';
       checkSignature();
     } catch (e) {
-      error = t.error;
+      error = t?.error;
     }
   } else {
     parsed = { header: null, payload: null, signature: '', rawHeader: '', rawPayload: '', rawSignature: '' };
@@ -98,8 +98,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": t.title,
-    "description": t.description,
+    "name": t?.title,
+    "description": t?.description,
     "applicationCategory": "DeveloperTool",
     "applicationSubCategory": "Security Utility",
     "operatingSystem": ["Web", "iOS", "Android", "Windows", "macOS", "Linux"],
@@ -122,34 +122,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
 />
 
 
@@ -169,10 +169,10 @@
         <div class="p-2 bg-pink-500 rounded-lg text-white">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         </div>
-        {t.title}
+        {t?.title}
       </h1>
       <p class="mt-2 text-slate-600 dark:text-slate-400 max-w-2xl">
-        {t.description}
+        {t?.description}
       </p>
     </div>
   </div>
@@ -183,7 +183,7 @@
       <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
         <TokenEditor
           bind:token
-          label={t.input}
+          label={t?.input}
           id="jwt-main-input"
           on:input={debouncedSave}
         />
@@ -221,29 +221,29 @@
   <div class="max-w-4xl mx-auto px-4 mt-12">
     <article class="prose dark:prose-invert max-w-none">
        <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 mb-6">
-        {t.guide.title}
+        {t?.guide?.title}
       </h2>
 
       <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">
-        {t.guide.intro}
+        {t?.guide?.intro}
       </p>
 
       <div class="grid md:grid-cols-2 gap-8 mb-12">
         <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
-          <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{t.guide.featuresTitle}</h3>
+          <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{t?.guide?.featuresTitle}</h3>
           <ul class="space-y-2 text-slate-600 dark:text-slate-400 list-disc pl-5">
-            <li>{@html t.guide.f1}</li>
-            <li>{@html t.guide.f2}</li>
-            <li>{@html t.guide.f3}</li>
+            <li>{@html t?.guide?.f1}</li>
+            <li>{@html t?.guide?.f2}</li>
+            <li>{@html t?.guide?.f3}</li>
           </ul>
         </div>
 
         <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
-           <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{t.guide.tipsTitle}</h3>
+           <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{t?.guide?.tipsTitle}</h3>
            <ul class="space-y-2 text-slate-600 dark:text-slate-400 list-disc pl-5">
-             <li>{@html t.guide.tip1}</li>
-             <li>{@html t.guide.tip2}</li>
-             <li>{@html t.guide.tip3}</li>
+             <li>{@html t?.guide?.tip1}</li>
+             <li>{@html t?.guide?.tip2}</li>
+             <li>{@html t?.guide?.tip3}</li>
            </ul>
         </div>
       </div>
@@ -251,11 +251,11 @@
 
     <div class="mt-12">
         <FAQSection
-            title={t.faqTitle}
+            title={t?.faqTitle}
             items={[
-                { q: t.q1, a: t.a1 },
-                { q: t.q2, a: t.a2 },
-                { q: t.q3, a: t.a3 }
+                { q: t?.q1, a: t?.a1 },
+                { q: t?.q2, a: t?.a2 },
+                { q: t?.q3, a: t?.a3 }
             ]}
         />
     </div>
