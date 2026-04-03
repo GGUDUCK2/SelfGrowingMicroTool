@@ -45,8 +45,8 @@
         />
     </div>
 
-    <div class="flex-1 overflow-auto border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900">
-        <table class="w-full text-sm text-left border-collapse">
+    <div class="flex-1 overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900">
+        <table class="w-full text-sm text-left border-collapse min-w-max">
             <thead class="bg-slate-50 dark:bg-slate-800 sticky top-0 z-10 text-xs uppercase text-slate-500 font-bold">
                 <tr>
                     <th class="p-3 border-b border-slate-200 dark:border-slate-700 w-1/4">Key</th>
@@ -65,7 +65,7 @@
                         {#each $projectStore.languages as lang}
                             <td class="p-2 align-top">
                                 <textarea
-                                    class="w-full bg-transparent border border-transparent hover:border-slate-200 dark:hover:border-slate-700 focus:border-indigo-500 focus:ring-0 rounded px-2 py-1 text-slate-800 dark:text-slate-200 resize-none overflow-hidden min-h-[2.5em]"
+                                    class="w-full bg-transparent border border-transparent hover:border-slate-200 dark:hover:border-slate-700 focus:border-indigo-500 focus:ring-0 rounded px-2 py-2.5 text-slate-800 dark:text-slate-200 resize-none overflow-hidden min-h-[44px]"
                                     value={item.values[lang] || ''}
                                     on:input={(e) => updateValue(item.key, lang, e.currentTarget.value)}
                                     rows="1"

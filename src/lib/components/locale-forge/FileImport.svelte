@@ -70,14 +70,12 @@
   }
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div
-  class="border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer {dragging ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-300 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-500'}"
+<label
+  for="fileInput"
+  class="block border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer min-h-[44px] min-w-[44px] {dragging ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-300 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-500'}"
   on:dragover|preventDefault={() => dragging = true}
   on:dragleave={() => dragging = false}
   on:drop={onDrop}
-  on:click={() => document.getElementById('fileInput')?.click()}
-  on:keydown={(e) => e.key === 'Enter' && document.getElementById('fileInput')?.click()}
 >
   <input
     type="file"
@@ -97,4 +95,4 @@
     </p>
     <p class="text-xs">e.g. en.json, ko.json</p>
   </div>
-</div>
+</label>
