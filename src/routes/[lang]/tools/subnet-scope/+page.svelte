@@ -118,21 +118,8 @@
 
   // Tabs
   let activeTab: 'analyze' | 'subnetting' | 'planner' | 'history' = 'analyze';
-</script>
-<Head
-  title={dict.tools.subnetScope.title}
-  description={dict.tools.subnetScope.description}
-/>
 
-
-<svelte:window on:keydown={handleKeydown} />
-
-<svelte:head>
-
-
-
-  {@html `<script type="application/ld+json">
-    ${JSON.stringify({
+  $: schemaObj1 = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
@@ -153,7 +140,22 @@
         "Private/Public IP Detection",
         "Export Subnet Plan (CSV/JSON)"
       ]
-    })}
+    };
+</script>
+<Head
+  title={dict.tools.subnetScope.title}
+  description={dict.tools.subnetScope.description}
+/>
+
+
+<svelte:window on:keydown={handleKeydown} />
+
+<svelte:head>
+
+
+
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify(schemaObj1)}
   </script>`}
 
   {@html `<script type="application/ld+json">

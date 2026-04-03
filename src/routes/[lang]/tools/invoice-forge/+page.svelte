@@ -74,17 +74,8 @@
         }
     }
   }
-</script>
-<Head
-  title={invoiceDict.title}
-  description={invoiceDict.description}
-  keywords="invoice generator, free invoice maker, pdf invoice, bill generator, receipt maker"
-/>
 
-
-<svelte:head>
-        {@html `<script type="application/ld+json">
-    ${JSON.stringify({
+  $: schemaObj1 = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
@@ -98,7 +89,18 @@
       },
       "featureList": "Invoice Generation, Client Management, PDF Export, Currency Support",
       "description": invoiceDict.description
-    })}
+    };
+</script>
+<Head
+  title={invoiceDict.title}
+  description={invoiceDict.description}
+  keywords="invoice generator, free invoice maker, pdf invoice, bill generator, receipt maker"
+/>
+
+
+<svelte:head>
+        {@html `<script type="application/ld+json">
+    ${JSON.stringify(schemaObj1)}
   </script>`}
 
   {@html `<script type="application/ld+json">

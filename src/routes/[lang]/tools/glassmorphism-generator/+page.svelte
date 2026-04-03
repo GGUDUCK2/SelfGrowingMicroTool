@@ -151,15 +151,8 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
   // Breadcrumb Names
   $: homeName = lang === "ko" ? "홈" : "Home";
   $: toolsName = lang === "ko" ? "도구" : "Tools";
-</script>
-<Head
-  title={dict.title}
-  description={dict.description}
-/>
 
-
-<svelte:head>
-                  {@html `<script type="application/ld+json">${JSON.stringify({
+  $: schemaObj1 = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
@@ -183,8 +176,8 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
         }
       }))
     }
-  })}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify({
+  };
+  $: schemaObj2 = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [{
@@ -203,7 +196,17 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
       "name": dict.title,
       "item": `https://selfgrowingmicrotool.com/${lang}/tools/glassmorphism-generator`
     }]
-  })}</script>`}
+  };
+</script>
+<Head
+  title={dict.title}
+  description={dict.description}
+/>
+
+
+<svelte:head>
+                  {@html `<script type="application/ld+json">${JSON.stringify(schemaObj1)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(schemaObj2)}</script>`}
 </svelte:head>
 
 <div class="max-w-6xl mx-auto py-12 space-y-12 px-4">

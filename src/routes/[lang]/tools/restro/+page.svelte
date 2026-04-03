@@ -244,22 +244,8 @@
           showBatch = false;
       }
   }
-</script>
-<Head
-  title={dict?.title ?? 'Restro'}
-  description={dict?.description ?? 'API Client'}
-  keywords="api client, rest, http, testing, debug, fetch, curl, developer tools"
-/>
 
-
-<svelte:window on:keydown={handleKeydown} />
-
-<svelte:head>
-
-
-
-  {@html `<script type="application/ld+json">
-  ${JSON.stringify({
+  $: schemaObj1 = {
     "@context": "https://schema.org",
     "@graph": [
       {
@@ -286,7 +272,23 @@
       },
       breadcrumbSchema
     ]
-  })}
+  };
+</script>
+<Head
+  title={dict?.title ?? 'Restro'}
+  description={dict?.description ?? 'API Client'}
+  keywords="api client, rest, http, testing, debug, fetch, curl, developer tools"
+/>
+
+
+<svelte:window on:keydown={handleKeydown} />
+
+<svelte:head>
+
+
+
+  {@html `<script type="application/ld+json">
+  ${JSON.stringify(schemaObj1)}
   </script>`}
 
   {@html `<script type="application/ld+json">

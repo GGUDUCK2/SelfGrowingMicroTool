@@ -655,7 +655,7 @@
 
   <!-- Canonical -->
 
-  {@html '<script type="application/ld+json">' + JSON.stringify(faqJsonLd) + '</script>'}
+  {@html '<script type="application/ld+json">' + faqJsonLd + '</script>'}
 
   {@html '<script type="application/ld+json">' + jsonLd + '</script>'}
 
