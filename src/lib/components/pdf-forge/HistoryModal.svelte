@@ -51,7 +51,7 @@
       <!-- Header -->
       <div class="flex items-center justify-between p-6 border-b border-slate-100 dark:border-slate-700">
         <h2 class="text-xl font-bold text-slate-900 dark:text-white">{dict.history.title}</h2>
-        <button on:click={close} class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" aria-label="Close">
+        <button style="min-height: 44px; min-width: 44px;" on:click={close} class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" aria-label="Close">
           <X class="w-5 h-5" />
         </button>
       </div>
@@ -77,7 +77,7 @@
                 </div>
               </div>
               <div class="flex items-center gap-2 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
-                <button
+                <button style="min-height: 44px; min-width: 44px;"
                   on:click={() => item.id && handleLoad(item.id)}
                   class="p-2 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 rounded-lg"
                   title={dict.history.restore}
@@ -85,7 +85,7 @@
                 >
                   <RotateCcw class="w-5 h-5" />
                 </button>
-                <button
+                <button style="min-height: 44px; min-width: 44px;"
                   on:click={() => item.id && handleDelete(item.id)}
                   class="p-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg"
                   title={dict.history.delete}

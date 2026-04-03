@@ -90,7 +90,7 @@
              <span class="text-xs uppercase font-bold text-slate-500 tracking-wider">
                  {item.categoryId}
              </span>
-             <button
+             <button style="min-height: 44px; min-width: 44px;"
                 on:click={() => toggleFavorite(item.id!)}
                 class="text-slate-600 hover:text-yellow-400 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label="Toggle Favorite"
@@ -99,7 +99,7 @@
              </button>
           </div>
 
-          <button
+          <button style="min-height: 44px; min-width: 44px;"
             class="w-full text-left min-h-[44px] flex items-center"
             on:click={() => restore(item)}
             aria-label="Restore conversion"

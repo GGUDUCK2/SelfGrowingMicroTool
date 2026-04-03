@@ -44,7 +44,7 @@
       {dict.history?.title || "History"}
     </h3>
     {#if history.length > 0}
-      <button
+      <button style="min-height: 44px; min-width: 44px;"
         on:click={handleClear}
         class="text-xs text-slate-400 hover:text-red-400 flex items-center gap-1 transition-colors"
       >

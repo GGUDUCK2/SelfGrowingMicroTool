@@ -21,7 +21,7 @@
 <div class="relative bg-slate-800 rounded-xl p-4 flex flex-col items-center gap-3 transition-all border border-slate-700
     {isPlaying ? 'ring-2 ring-indigo-500/50 shadow-lg shadow-indigo-900/20 bg-slate-750' : 'opacity-80 hover:opacity-100 hover:bg-slate-750'}">
 
-    <button on:click={toggle} class="w-12 h-12 rounded-full flex items-center justify-center transition-colors shadow-md
+    <button style="min-height: 44px; min-width: 44px;" on:click={toggle} class="w-12 h-12 rounded-full flex items-center justify-center transition-colors shadow-md
         {isPlaying ? 'bg-indigo-500 text-white' : 'bg-slate-700 text-slate-400 hover:text-white hover:bg-slate-600'}">
         <svelte:component this={Icon} size={24} />
     </button>

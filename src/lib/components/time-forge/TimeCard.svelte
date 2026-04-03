@@ -80,7 +80,7 @@
 
   <div class="flex items-center space-x-2 min-w-[80px] justify-end opacity-0 group-hover:opacity-100 transition-opacity focus-within:opacity-100">
     {#if !isHome}
-      <button
+      <button style="min-height: 44px; min-width: 44px;"
         type="button"
         class="p-2 text-slate-500 hover:text-indigo-400 hover:bg-slate-700 rounded-lg transition-colors"
         title="Set as Home Base"
@@ -89,7 +89,7 @@
       >
         <Home class="w-4 h-4" />
       </button>
-      <button
+      <button style="min-height: 44px; min-width: 44px;"
         type="button"
         class="p-2 text-slate-500 hover:text-red-400 hover:bg-slate-700 rounded-lg transition-colors"
         title="Remove City"

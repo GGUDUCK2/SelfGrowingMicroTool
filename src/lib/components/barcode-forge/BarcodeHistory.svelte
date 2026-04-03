@@ -48,14 +48,14 @@
             <p class="text-xs text-slate-500">{item.format} • {new Date(item.createdAt).toLocaleDateString()}</p>
           </div>
           <div class="flex items-center space-x-1 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
-            <button
+            <button style="min-height: 44px; min-width: 44px;"
               on:click={() => onRestore(item)}
               class="p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-md"
               title={d.restore}
             >
               <RotateCcw size={16} />
             </button>
-            <button
+            <button style="min-height: 44px; min-width: 44px;"
               on:click={() => deleteItem(item.id)}
               class="p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-md"
               title={d.delete}
