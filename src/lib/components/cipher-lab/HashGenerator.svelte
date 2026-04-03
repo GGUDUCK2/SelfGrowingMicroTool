@@ -221,21 +221,21 @@
           <label for="mode" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
               {dict.mode}
           </label>
-          <label class="flex items-center space-x-2 text-xs text-slate-500 cursor-pointer select-none">
+          <label class="flex items-center space-x-2 text-xs text-slate-500 cursor-pointer select-none min-h-[44px] min-w-[44px]">
              <input type="checkbox" bind:checked={isBulk} class="rounded text-indigo-600 focus:ring-indigo-500 dark:bg-slate-800 dark:border-slate-600" />
              <span class="font-medium text-indigo-600 dark:text-indigo-400">{dict.hashing.bulk}</span>
           </label>
         </div>
         <div class="flex rounded-lg bg-slate-100 dark:bg-slate-800 p-1">
           <button
-            class="flex-1 py-1.5 text-sm font-medium rounded-md transition-all {mode === 'hash' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+            class="flex-1 min-h-[44px] py-1.5 text-sm font-medium rounded-md transition-all {mode === 'hash' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
             on:click={() => (mode = 'hash')}
             aria-label="Switch to Hash mode"
           >
             Hash
           </button>
           <button
-            class="flex-1 py-1.5 text-sm font-medium rounded-md transition-all {mode === 'hmac' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+            class="flex-1 min-h-[44px] py-1.5 text-sm font-medium rounded-md transition-all {mode === 'hmac' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
             on:click={() => (mode = 'hmac')}
             aria-label="Switch to HMAC mode"
           >
@@ -252,7 +252,7 @@
         <select
           id="algo"
           bind:value={algorithm}
-          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+          class="w-full min-h-[44px] rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
         >
           <option value="SHA-1">{dict.hashing.sha1}</option>
           <option value="SHA-256">{dict.hashing.sha256}</option>
@@ -264,15 +264,15 @@
   </div>
 
   <!-- Smart Examples -->
-  <div class="flex flex-wrap gap-2 text-xs">
+  <div class="flex flex-wrap gap-2 text-xs items-center">
     <span class="text-slate-500 py-1 font-medium select-none">Try:</span>
-    <button on:click={() => loadExample('text')} class="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors">
+    <button on:click={() => loadExample('text')} class="px-2 py-1 min-h-[44px] rounded bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors">
       Simple Text
     </button>
-    <button on:click={() => loadExample('json')} class="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors">
+    <button on:click={() => loadExample('json')} class="px-2 py-1 min-h-[44px] rounded bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors">
       JSON Data
     </button>
-    <button on:click={() => loadExample('log')} class="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors">
+    <button on:click={() => loadExample('log')} class="px-2 py-1 min-h-[44px] rounded bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors">
       Log File (Bulk)
     </button>
   </div>
@@ -290,7 +290,7 @@
                 <Wand2 size={12} class="mr-1"/> Looks like {detectedType}
              </span>
            {/if}
-           <button on:click={triggerFileInput} class="text-xs text-slate-500 hover:text-indigo-600 flex items-center gap-1 transition-colors" aria-label="Upload File">
+           <button on:click={triggerFileInput} class="text-xs text-slate-500 hover:text-indigo-600 flex items-center gap-1 transition-colors min-h-[44px] min-w-[44px]" aria-label="Upload File">
              <FileUp size={12} /> <span>Upload</span>
            </button>
         </div>
@@ -352,7 +352,7 @@
       <div class="flex space-x-2">
         <button
           on:click={copyToClipboard}
-          class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors"
+          class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors min-h-[44px] min-w-[44px]"
           disabled={!output}
           aria-label={dict.copy}
         >
@@ -362,7 +362,7 @@
         </button>
         <button
           on:click={saveToHistory}
-          class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors"
+          class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors min-h-[44px] min-w-[44px]"
           disabled={!output}
           aria-label={dict.save}
         >

@@ -57,14 +57,14 @@
   <!-- Mode Switch -->
   <div class="flex rounded-lg bg-slate-100 dark:bg-slate-800 p-1 w-full md:w-1/2">
     <button
-      class="flex-1 py-1.5 text-sm font-medium rounded-md transition-all flex items-center justify-center gap-2 {mode === 'encrypt' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+      class="flex-1 min-h-[44px] py-1.5 text-sm font-medium rounded-md transition-all flex items-center justify-center gap-2 {mode === 'encrypt' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
       on:click={() => { mode = 'encrypt'; input = ''; result = ''; error = ''; }}
     >
       <Lock size={14} />
       <span>{dict.vault?.encrypt || 'Encrypt'}</span>
     </button>
     <button
-      class="flex-1 py-1.5 text-sm font-medium rounded-md transition-all flex items-center justify-center gap-2 {mode === 'decrypt' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+      class="flex-1 min-h-[44px] py-1.5 text-sm font-medium rounded-md transition-all flex items-center justify-center gap-2 {mode === 'decrypt' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
       on:click={() => { mode = 'decrypt'; input = ''; result = ''; error = ''; }}
     >
       <Unlock size={14} />
@@ -108,7 +108,7 @@
       <button
         on:click={process}
         disabled={!input || !password || isProcessing}
-        class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex justify-center items-center gap-2"
+        class="w-full min-h-[44px] py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex justify-center items-center gap-2"
       >
         {#if isProcessing}
            <span class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
@@ -142,7 +142,7 @@
            <button
              on:click={copyResult}
              disabled={!result}
-             class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 disabled:opacity-50"
+             class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 disabled:opacity-50 min-h-[44px] min-w-[44px]"
              aria-label={dict.copy}
            >
              <Copy size={14} />
@@ -151,7 +151,7 @@
            <button
              on:click={saveToHistory}
              disabled={!result}
-             class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 disabled:opacity-50"
+             class="flex items-center space-x-1 text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 disabled:opacity-50 min-h-[44px] min-w-[44px]"
              aria-label={dict.save}
            >
              <Save size={14} />
