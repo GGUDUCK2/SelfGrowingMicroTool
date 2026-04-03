@@ -116,18 +116,8 @@
     if (params.has('flags')) flags = params.get('flags') || 'g';
     if (params.has('text')) testString = params.get('text') || '';
   });
-</script>
-<Head
-  title={t.title}
-  description={t.description}
-  keywords="regex, regex tester, regular expression, debug regex, regex visualizer"
-/>
 
-
-<svelte:head>
-
-  {@html `<script type="application/ld+json">
-    ${JSON.stringify({
+  $: schemaObj1 = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
@@ -141,7 +131,19 @@
         "priceCurrency": "USD"
       },
       "description": t.description
-    })}
+    };
+</script>
+<Head
+  title={t.title}
+  description={t.description}
+  keywords="regex, regex tester, regular expression, debug regex, regex visualizer"
+/>
+
+
+<svelte:head>
+
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify(schemaObj1)}
   </script>`}
 
   {@html `<script type="application/ld+json">

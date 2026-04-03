@@ -222,23 +222,8 @@
           clearTimeout(historyTimeout);
       };
   });
-</script>
-<Head
-  title={dict.title}
-  description={dict.description}
-  keywords="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots, Text to Grid, Visual Grid Editor, Mock Content, Wireframing, Content Presets, Layout Gallery, Smart History, Wireframe Builder, Grid Wizard, Bento Grid, SaaS Dashboard, React Grid Layout, Vue Grid, Svelte Grid, Kanban Layout, Video Player Layout, Command Palette, React Export, Vue Export, Svelte Export, Tailwind Config, Grid Doctor, Layout Audit"
-/>
 
-
-<svelte:window on:keydown={handleKeydown} />
-
-<svelte:head>
-                    <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/grid-master" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
-
-  {@html `<script type="application/ld+json">
-    ${JSON.stringify({
+  $: schemaObj1 = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Grid Master",
@@ -281,10 +266,8 @@
         "Responsive Layout Checker",
         "Tailwind Config Export"
       ]
-    })}
-  </script>`}
-  {@html `<script type="application/ld+json">
-    ${JSON.stringify({
+    };
+  $: schemaObj2 = {
       "@context": "https://schema.org",
       "@type": "HowTo",
       "name": "How to create a CSS Grid Layout",
@@ -311,7 +294,27 @@
           "text": "Copy the generated CSS or Tailwind code instantly for your project."
         }
       ]
-    })}
+    };
+</script>
+<Head
+  title={dict.title}
+  description={dict.description}
+  keywords="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots, Text to Grid, Visual Grid Editor, Mock Content, Wireframing, Content Presets, Layout Gallery, Smart History, Wireframe Builder, Grid Wizard, Bento Grid, SaaS Dashboard, React Grid Layout, Vue Grid, Svelte Grid, Kanban Layout, Video Player Layout, Command Palette, React Export, Vue Export, Svelte Export, Tailwind Config, Grid Doctor, Layout Audit"
+/>
+
+
+<svelte:window on:keydown={handleKeydown} />
+
+<svelte:head>
+                    <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/grid-master" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
+
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify(schemaObj1)}
+  </script>`}
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify(schemaObj2)}
   </script>`}
 
   {@html `<script type="application/ld+json">

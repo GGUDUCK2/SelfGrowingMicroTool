@@ -209,16 +209,8 @@
     { value: 'xml', label: 'XML' },
     { value: 'csv', label: 'CSV' },
   ];
-</script>
-<Head
-  title={`${t.title} | Web Factory`}
-  description={t.description}
-/>
 
-
-<svelte:head>
-      {@html `<script type="application/ld+json">
-    ${JSON.stringify({
+  $: schemaObj1 = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
@@ -244,7 +236,17 @@
           }
         }))
       }
-    })}
+    };
+</script>
+<Head
+  title={`${t.title} | Web Factory`}
+  description={t.description}
+/>
+
+
+<svelte:head>
+      {@html `<script type="application/ld+json">
+    ${JSON.stringify(schemaObj1)}
   </script>`}
 </svelte:head>
 

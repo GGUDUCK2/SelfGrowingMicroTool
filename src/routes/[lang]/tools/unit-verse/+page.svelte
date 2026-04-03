@@ -43,17 +43,8 @@
       params.set('to', record.toUnitId);
       window.history.replaceState({}, '', `?${params.toString()}`);
   }
-</script>
-<Head
-  title={`${t.title} | ${dict.home.title}`}
-  description={t.description}
-  keywords={t.keywords}
-/>
 
-
-<svelte:head>
-                      {@html `<script type="application/ld+json">
-    ${JSON.stringify({
+  $: schemaObj1 = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
@@ -71,10 +62,8 @@
       "description": t.description,
       "featureList": t.featureList,
       "screenshot": "https://selfgrowingmicrotool.com/og/unit-verse.png"
-    })}
-  </script>`}
-  {@html `<script type="application/ld+json">
-    ${JSON.stringify({
+    };
+  $: schemaObj2 = {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
@@ -97,7 +86,21 @@
           "item": `https://selfgrowingmicrotool.com/${lang}/tools/unit-verse`
         }
       ]
-    })}
+    };
+</script>
+<Head
+  title={`${t.title} | ${dict.home.title}`}
+  description={t.description}
+  keywords={t.keywords}
+/>
+
+
+<svelte:head>
+                      {@html `<script type="application/ld+json">
+    ${JSON.stringify(schemaObj1)}
+  </script>`}
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify(schemaObj2)}
   </script>`}
 
   {@html `<script type="application/ld+json">
