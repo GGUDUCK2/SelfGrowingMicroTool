@@ -97,7 +97,7 @@
 
         <!-- Selected Tags -->
         {#if selectedIds.length > 0}
-            <div class="flex flex-wrap gap-2">
+            <div class="flex gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap">
                 {#each selectedTemplates as tmpl (tmpl.id)}
                     <button
                         on:click={() => toggle(tmpl.id)}

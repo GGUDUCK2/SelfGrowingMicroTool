@@ -224,8 +224,8 @@
   });
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
   keywords="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots, Text to Grid, Visual Grid Editor, Mock Content, Wireframing, Content Presets, Layout Gallery, Smart History, Wireframe Builder, Grid Wizard, Bento Grid, SaaS Dashboard, React Grid Layout, Vue Grid, Svelte Grid, Kanban Layout, Video Player Layout, Command Palette, React Export, Vue Export, Svelte Export, Tailwind Config, Grid Doctor, Layout Audit"
 />
 
@@ -321,26 +321,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -363,7 +363,7 @@
              <LayoutGrid size={20} />
           </div>
           <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 hidden sm:block">
-            {dict.title}
+            {dict?.title}
           </h1>
           <button
              class="ml-4 px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-full shadow-sm flex items-center gap-1 transition-all min-h-[44px]"
@@ -579,38 +579,38 @@
 
           <!-- Documentation -->
           <div class="mt-12 prose dark:prose-invert max-w-none">
-              <h2 class="text-2xl font-bold">{dict.guide.title}</h2>
-              <p>{dict.guide.intro}</p>
+              <h2 class="text-2xl font-bold">{dict?.guide?.title}</h2>
+              <p>{dict?.guide?.intro}</p>
 
-              <h3 class="text-xl font-semibold">{dict.guide.featuresTitle}</h3>
+              <h3 class="text-xl font-semibold">{dict?.guide?.featuresTitle}</h3>
               <ul class="grid grid-cols-1 md:grid-cols-3 gap-4 not-prose">
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                    {@html dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
+                    {@html dict?.guide?.f1.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
                  </li>
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                    {@html dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
+                    {@html dict?.guide?.f2.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
                  </li>
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                    {@html dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
+                    {@html dict?.guide?.f3.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
                  </li>
               </ul>
 
               <h3 class="text-xl font-semibold mt-8">{dict.faqTitle}</h3>
               <div class="grid gap-4 not-prose">
                  <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <h4 class="font-semibold text-lg mb-2">{dict.q1}</h4>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a1}</p>
+                    <h4 class="font-semibold text-lg mb-2">{dict?.q1}</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict?.a1}</p>
                  </div>
                  <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <h4 class="font-semibold text-lg mb-2">{dict.q2}</h4>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a2}</p>
+                    <h4 class="font-semibold text-lg mb-2">{dict?.q2}</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict?.a2}</p>
                  </div>
                  <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <h4 class="font-semibold text-lg mb-2">{dict.q3}</h4>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a3}</p>
+                    <h4 class="font-semibold text-lg mb-2">{dict?.q3}</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict?.a3}</p>
                  </div>
               </div>
           </div>

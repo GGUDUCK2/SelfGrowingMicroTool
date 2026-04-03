@@ -7,7 +7,7 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="flex flex-wrap items-center gap-2 mb-4 p-2 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700">
+<div class="flex items-center gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap mb-4 p-2 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700">
   <div class="flex gap-2 mr-auto">
       <Button
         type="button"

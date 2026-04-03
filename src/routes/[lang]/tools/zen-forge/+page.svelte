@@ -73,8 +73,8 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <Head
-    title={dict.title}
-    description={dict.description}
+    title={dict?.title}
+    description={dict?.description}
     image="https://micro-factory.vercel.app/og/zen-forge.png"
     keywords="ambient, noise, focus, relax, generator, binaural, soundscape, recording, thunder, rain, meditation"
 />
@@ -89,8 +89,8 @@
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-        "name": dict.title,
-        "description": dict.description,
+        "name": dict?.title,
+        "description": dict?.description,
         "applicationCategory": "Productivity",
         "operatingSystem": "Any",
         "offers": {
@@ -123,26 +123,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -159,9 +159,9 @@
         <!-- Header -->
         <div class="mb-8 text-center transition-all duration-500 {$zenStore.isFocusMode ? 'opacity-0 h-0 overflow-hidden mb-0' : 'opacity-100'}">
             <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 mb-2 drop-shadow-lg">
-                {dict.title}
+                {dict?.title}
             </h1>
-            <p class="text-slate-300 max-w-2xl mx-auto">{dict.description}</p>
+            <p class="text-slate-300 max-w-2xl mx-auto">{dict?.description}</p>
         </div>
 
         <!-- Main Workspace -->
@@ -208,12 +208,12 @@
         {#if !$zenStore.isFocusMode}
             <div class="mt-16 bg-slate-900/90 backdrop-blur rounded-2xl border border-slate-800 p-8 shadow-xl" transition:slide>
                  <GuideSection
-                    guide={dict.guide}
+                    guide={dict?.guide}
                     faqTitle={dict.faqTitle}
                     faqItems={[
-                        { q: dict.q1, a: dict.a1 },
-                        { q: dict.q2, a: dict.a2 },
-                        { q: dict.q3, a: dict.a3 }
+                        { q: dict?.q1, a: dict?.a1 },
+                        { q: dict?.q2, a: dict?.a2 },
+                        { q: dict?.q3, a: dict?.a3 }
                     ]}
                 />
             </div>

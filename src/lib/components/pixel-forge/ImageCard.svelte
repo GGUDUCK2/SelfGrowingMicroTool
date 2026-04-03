@@ -266,7 +266,7 @@
                         {dict.card?.privacy || "Privacy Scanner"}
                         <span class="bg-indigo-500/20 text-indigo-400 px-1.5 py-0.5 rounded text-[9px]">{dict.card?.stripped || "Stripped"}</span>
                     </span>
-                    <div class="flex flex-wrap gap-2">
+                    <div class="flex gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap">
                         {#each job.metadataFound as meta}
                             <span class="text-[10px] bg-red-900/20 text-red-300 border border-red-900/30 px-2 py-0.5 rounded flex items-center gap-1">
                                 {meta}

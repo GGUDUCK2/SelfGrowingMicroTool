@@ -18,9 +18,9 @@
   $: t = dictionary.tools.regexTester;
 
   $: faqItems = [
-    { q: t.q1, a: t.a1 },
-    { q: t.q2, a: t.a2 },
-    { q: t.q3, a: t.a3 }
+    { q: t?.q1, a: t?.a1 },
+    { q: t?.q2, a: t?.a2 },
+    { q: t?.q3, a: t?.a3 }
   ];
 
   let pattern = '';
@@ -118,8 +118,8 @@
   });
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
   keywords="regex, regex tester, regular expression, debug regex, regex visualizer"
 />
 
@@ -140,7 +140,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": t.description
+      "description": t?.description
     })}
   </script>`}
 
@@ -151,26 +151,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -191,10 +191,10 @@
       </svg>
     </div>
     <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
-      {t.title}
+      {t?.title}
     </h1>
     <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-      {t.description}
+      {t?.description}
     </p>
   </div>
 

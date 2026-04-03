@@ -52,7 +52,7 @@
 
 <div class="bg-slate-900 rounded-xl overflow-hidden shadow-lg border border-slate-800 flex flex-col h-full">
   <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 py-3 bg-slate-950 border-b border-slate-800 gap-3">
-      <div class="flex flex-wrap gap-2" role="tablist" aria-label="Code Output Format">
+      <div class="flex gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap" role="tablist" aria-label="Code Output Format">
           <button
             role="tab"
             aria-selected={activeTab === 'tailwind'}

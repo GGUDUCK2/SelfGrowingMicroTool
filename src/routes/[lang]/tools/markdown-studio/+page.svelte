@@ -37,7 +37,7 @@
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
       "name": "MarkFlow",
-      "headline": dict.title,
+      "headline": dict?.title,
       "alternativeHeadline": "Online Markdown Editor",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
@@ -47,7 +47,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": dict.description,
+      "description": dict?.description,
       "featureList": [
         "Real-time Markdown Preview",
         "Export to HTML",
@@ -68,26 +68,26 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": dict.q1,
+          "name": dict?.q1,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": dict.a1
+            "text": dict?.a1
           }
         },
         {
           "@type": "Question",
-          "name": dict.q2,
+          "name": dict?.q2,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": dict.a2
+            "text": dict?.a2
           }
         },
         {
           "@type": "Question",
-          "name": dict.q3,
+          "name": dict?.q3,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": dict.a3
+            "text": dict?.a3
           }
         }
       ]
@@ -110,7 +110,7 @@
     }, {
       "@type": "ListItem",
       "position": 3,
-      "name": dict.title,
+      "name": dict?.title,
       "item": `https://web-factory.vercel.app/${lang}/tools/markdown-studio`
     }]
   };
@@ -235,8 +235,8 @@
 </script>
 
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
   image="https://web-factory.vercel.app/og-image.jpg"
   url={$page.url.href}
   keywords="markdown editor, online markdown editor, github flavored markdown, markdown preview, markdown to html"
@@ -349,43 +349,43 @@
   <!-- Content for SEO/Landing below the tool -->
   <section class="max-w-4xl mx-auto px-6 py-12 space-y-12 print:hidden">
     <div class="bg-indigo-50 dark:bg-indigo-900/10 rounded-2xl p-8 border border-indigo-100 dark:border-indigo-900/30">
-      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{dict.guide.title}</h2>
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{dict?.guide?.title}</h2>
       <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
-        {dict.guide.intro}
+        {dict?.guide?.intro}
       </p>
 
       <div class="grid md:grid-cols-2 gap-6">
         <div>
-          <h3 class="font-semibold text-slate-900 dark:text-white mb-2">{dict.guide.featuresTitle}</h3>
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2">{dict?.guide?.featuresTitle}</h3>
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
             <li class="flex items-start gap-2">
               <span class="text-indigo-500 mt-1">✓</span>
-              <span>{@html marked.parseInline(dict.guide.f1)}</span>
+              <span>{@html marked.parseInline(dict?.guide?.f1)}</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-indigo-500 mt-1">✓</span>
-              <span>{@html marked.parseInline(dict.guide.f2)}</span>
+              <span>{@html marked.parseInline(dict?.guide?.f2)}</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-indigo-500 mt-1">✓</span>
-              <span>{@html marked.parseInline(dict.guide.f3)}</span>
+              <span>{@html marked.parseInline(dict?.guide?.f3)}</span>
             </li>
           </ul>
         </div>
         <div>
-          <h3 class="font-semibold text-slate-900 dark:text-white mb-2">{dict.guide.tipsTitle}</h3>
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2">{dict?.guide?.tipsTitle}</h3>
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
              <li class="flex items-start gap-2">
               <span class="text-amber-500 mt-1">💡</span>
-              <span>{@html marked.parseInline(dict.guide.tip1)}</span>
+              <span>{@html marked.parseInline(dict?.guide?.tip1)}</span>
             </li>
              <li class="flex items-start gap-2">
               <span class="text-amber-500 mt-1">💡</span>
-              <span>{@html marked.parseInline(dict.guide.tip2)}</span>
+              <span>{@html marked.parseInline(dict?.guide?.tip2)}</span>
             </li>
              <li class="flex items-start gap-2">
               <span class="text-amber-500 mt-1">💡</span>
-              <span>{@html marked.parseInline(dict.guide.tip3)}</span>
+              <span>{@html marked.parseInline(dict?.guide?.tip3)}</span>
             </li>
           </ul>
         </div>
@@ -395,9 +395,9 @@
     <FAQSection
       title={dict.faqTitle}
       items={[
-        { q: dict.q1, a: dict.a1 },
-        { q: dict.q2, a: dict.a2 },
-        { q: dict.q3, a: dict.a3 }
+        { q: dict?.q1, a: dict?.a1 },
+        { q: dict?.q2, a: dict?.a2 },
+        { q: dict?.q3, a: dict?.a3 }
       ]}
     />
 

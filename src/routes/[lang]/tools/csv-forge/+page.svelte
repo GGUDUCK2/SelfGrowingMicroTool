@@ -231,7 +231,7 @@
              on:click={() => activeTab = 'editor'}
            >
              <Edit3 size={16} />
-             <span>{dict.tabs.editor}</span>
+             <span>{dict?.tabs?.editor}</span>
            </button>
            <button
              role="tab"
@@ -240,7 +240,7 @@
              on:click={() => activeTab = 'converter'}
            >
              <ArrowRightLeft size={16} />
-             <span>{dict.tabs.converter}</span>
+             <span>{dict?.tabs?.converter}</span>
            </button>
            <button
              role="tab"
@@ -249,7 +249,7 @@
              on:click={() => activeTab = 'analyzer'}
            >
              <BarChart2 size={16} />
-             <span>{dict.tabs.analyzer}</span>
+             <span>{dict?.tabs?.analyzer}</span>
            </button>
         </div>
 
@@ -265,16 +265,16 @@
 
         <div class="mt-12 space-y-8">
            <GuideSection
-             title={dict.guide.title}
-             intro={dict.guide.intro}
-             featuresTitle={dict.guide.featuresTitle}
-             f1={dict.guide.f1}
-             f2={dict.guide.f2}
-             f3={dict.guide.f3}
-             tipsTitle={dict.guide.tipsTitle}
-             tip1={dict.guide.tip1}
-             tip2={dict.guide.tip2}
-             tip3={dict.guide.tip3}
+             title={dict?.guide?.title}
+             intro={dict?.guide?.intro}
+             featuresTitle={dict?.guide?.featuresTitle}
+             f1={dict?.guide?.f1}
+             f2={dict?.guide?.f2}
+             f3={dict?.guide?.f3}
+             tipsTitle={dict?.guide?.tipsTitle}
+             tip1={dict?.guide?.tip1}
+             tip2={dict?.guide?.tip2}
+             tip3={dict?.guide?.tip3}
            />
 
            <FAQSection title={dict.faqTitle} items={faqItems} />

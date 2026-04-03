@@ -6,7 +6,7 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="flex flex-wrap items-center gap-2">
+<div class="flex items-center gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap">
   <button
     class="flex items-center gap-2 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors text-sm font-medium"
     on:click={() => dispatch('copy')}

@@ -285,8 +285,8 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-      "name": t.title,
-      "description": t.description,
+      "name": t?.title,
+      "description": t?.description,
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
       "offers": {
@@ -312,34 +312,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": t.q1,
+        "name": t?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": t.a1
+          "text": t?.a1
         }
       },
       {
         "@type": "Question",
-        "name": t.q2,
+        "name": t?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": t.a2
+          "text": t?.a2
         }
       },
       {
         "@type": "Question",
-        "name": t.q3,
+        "name": t?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": t.a3
+          "text": t?.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
   keywords="database schema, sql generator, prisma schema, db diagram, entity relationship diagram, mysql, postgres, sqlite"
 />
 
@@ -696,38 +696,38 @@
 
     <!-- Documentation -->
     <article class="prose dark:prose-invert max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h2>{t.guide.title}</h2>
-        <p>{t.guide.intro}</p>
+        <h2>{t?.guide?.title}</h2>
+        <p>{t?.guide?.intro}</p>
 
-        <h3>{t.guide.featuresTitle}</h3>
+        <h3>{t?.guide?.featuresTitle}</h3>
         <ul>
-          <li><span class="markdown-body">{@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html t.guide.f4.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html t?.guide?.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html t?.guide?.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html t?.guide?.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html t?.guide?.f4.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
         </ul>
 
-        <h3>{t.guide.tipsTitle}</h3>
+        <h3>{t?.guide?.tipsTitle}</h3>
         <ul>
-          <li><span class="markdown-body">{@html t.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html t.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html t.guide.tip4.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html t?.guide?.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html t?.guide?.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html t?.guide?.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+          <li><span class="markdown-body">{@html t?.guide?.tip4.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
         </ul>
 
         <h3>{t.faqTitle}</h3>
         <div class="space-y-4">
           <div>
-            <h4 class="font-bold">{t.q1}</h4>
-            <p>{t.a1}</p>
+            <h4 class="font-bold">{t?.q1}</h4>
+            <p>{t?.a1}</p>
           </div>
           <div>
-            <h4 class="font-bold">{t.q2}</h4>
-            <p>{t.a2}</p>
+            <h4 class="font-bold">{t?.q2}</h4>
+            <p>{t?.a2}</p>
           </div>
            <div>
-            <h4 class="font-bold">{t.q3}</h4>
-            <p>{t.a3}</p>
+            <h4 class="font-bold">{t?.q3}</h4>
+            <p>{t?.a3}</p>
           </div>
         </div>
     </article>

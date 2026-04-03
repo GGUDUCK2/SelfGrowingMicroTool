@@ -9,8 +9,8 @@
   $: dict = getDictionary(lang);
   $: toolDict = dict.tools.bannerForge;
 
-  $: title = toolDict.title;
-  $: description = toolDict.description;
+  $: title = toolDict?.title;
+  $: description = toolDict?.description;
   $: canonical = `https://selfgrowingmicrotool.com/${lang}/tools/banner-forge`;
 
   $: jsonLd = {
@@ -60,7 +60,7 @@
         }, {
           "@type": "ListItem",
           "position": 3,
-          "name": toolDict.title,
+          "name": toolDict?.title,
           "item": canonical
         }]
       }
@@ -88,26 +88,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -122,9 +122,9 @@
     <!-- Guide & FAQ -->
     <div class="max-w-5xl mx-auto px-4 py-16 space-y-16">
         <section class="prose dark:prose-invert max-w-none">
-            <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6">{toolDict.guide.title}</h2>
+            <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6">{toolDict?.guide?.title}</h2>
             <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-                {toolDict.guide.intro}
+                {toolDict?.guide?.intro}
             </p>
 
             <div class="grid md:grid-cols-3 gap-8 mt-12 not-prose">
@@ -161,9 +161,9 @@
         <FAQSection
             title={toolDict.faqTitle}
             items={[
-                { q: toolDict.q1, a: toolDict.a1 },
-                { q: toolDict.q2, a: toolDict.a2 },
-                { q: toolDict.q3, a: toolDict.a3 }
+                { q: toolDict?.q1, a: toolDict?.a1 },
+                { q: toolDict?.q2, a: toolDict?.a2 },
+                { q: toolDict?.q3, a: toolDict?.a3 }
             ]}
         />
     </div>

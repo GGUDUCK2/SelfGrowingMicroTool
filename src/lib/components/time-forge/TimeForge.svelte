@@ -132,7 +132,7 @@
   <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4 bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
     <CitySearch on:add={handleAddCity} />
 
-    <div class="flex flex-wrap items-center gap-2 w-full xl:w-auto justify-end">
+    <div class="flex items-center gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap w-full xl:w-auto justify-end">
 
         <!-- Creative Feature: Golden Hour -->
         <button

@@ -191,34 +191,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
   keywords="prompt engineering, ai prompt generator, llm prompt testing, prompt variables, openai prompt optimization, prompt management"
 />
 
@@ -324,16 +324,16 @@
         <div class="mt-20 w-full pb-20 px-4">
             <div class="max-w-6xl mx-auto">
                 <GuideSection
-                    title={dict.guide.title}
-                    intro={dict.guide.intro}
-                    featuresTitle={dict.guide.featuresTitle}
-                    f1={dict.guide.f1}
-                    f2={dict.guide.f2}
-                    f3={dict.guide.f3}
-                    tipsTitle={dict.guide.tipsTitle}
-                    tip1={dict.guide.tip1}
-                    tip2={dict.guide.tip2}
-                    tip3={dict.guide.tip3}
+                    title={dict?.guide?.title}
+                    intro={dict?.guide?.intro}
+                    featuresTitle={dict?.guide?.featuresTitle}
+                    f1={dict?.guide?.f1}
+                    f2={dict?.guide?.f2}
+                    f3={dict?.guide?.f3}
+                    tipsTitle={dict?.guide?.tipsTitle}
+                    tip1={dict?.guide?.tip1}
+                    tip2={dict?.guide?.tip2}
+                    tip3={dict?.guide?.tip3}
                 />
             </div>
 
@@ -341,9 +341,9 @@
                 <FAQSection
                     title={dict.faqTitle}
                     items={[
-                        { q: dict.q1, a: dict.a1 },
-                        { q: dict.q2, a: dict.a2 },
-                        { q: dict.q3, a: dict.a3 }
+                        { q: dict?.q1, a: dict?.a1 },
+                        { q: dict?.q2, a: dict?.a2 },
+                        { q: dict?.q3, a: dict?.a3 }
                     ]}
                 />
             </div>

@@ -66,7 +66,7 @@
 
 {#if anatomy.length > 0}
   <div transition:fade class="mt-6">
-      <div class="flex flex-wrap gap-2 font-mono text-sm md:text-base">
+      <div class="flex gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap font-mono text-sm md:text-base">
           {#each anatomy as part}
               <div class="flex flex-col group relative">
                   <span class="{part.color} px-2 py-1 rounded border border-black/5 dark:border-white/5 text-center transition-transform hover:scale-105 cursor-help">

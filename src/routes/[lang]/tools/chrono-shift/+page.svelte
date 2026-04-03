@@ -105,9 +105,9 @@
     $: overlapLabel = overlapScore >= 80 ? t.excellent : overlapScore >= 50 ? t.good : t.poor;
 
     $: faqItems = [
-        { q: t.q1, a: t.a1 },
-        { q: t.q2, a: t.a2 },
-        { q: t.q3, a: t.a3 }
+        { q: t?.q1, a: t?.a1 },
+        { q: t?.q2, a: t?.a2 },
+        { q: t?.q3, a: t?.a3 }
     ].filter(i => i.q && i.a);
 
     // Methods
@@ -202,8 +202,8 @@
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-        "name": t.title,
-        "description": t.description,
+        "name": t?.title,
+        "description": t?.description,
         "applicationCategory": "BusinessApplication",
         "applicationSubCategory": "Time Management",
         "operatingSystem": "Any",
@@ -284,8 +284,8 @@
     }
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
   keywords="time zone converter, world clock, meeting planner, overlap scheduler, time zone map, global meeting, team scheduler, golden hour, dst calculator, international meeting"
 />
 
@@ -303,10 +303,10 @@
     <!-- Header -->
     <div class="text-center space-y-4 pt-8">
         <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
-            {t.title}
+            {t?.title}
         </h1>
         <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            {t.description}
+            {t?.description}
         </p>
     </div>
 
@@ -478,16 +478,16 @@
 
     <!-- Guide Section -->
     <GuideSection
-        title={t.guide.title}
-        intro={t.guide.intro}
-        featuresTitle={t.guide.featuresTitle}
-        f1={t.guide.f1}
-        f2={t.guide.f2}
-        f3={t.guide.f3}
-        tipsTitle={t.guide.tipsTitle}
-        tip1={t.guide.tip1}
-        tip2={t.guide.tip2}
-        tip3={t.guide.tip3}
+        title={t?.guide?.title}
+        intro={t?.guide?.intro}
+        featuresTitle={t?.guide?.featuresTitle}
+        f1={t?.guide?.f1}
+        f2={t?.guide?.f2}
+        f3={t?.guide?.f3}
+        tipsTitle={t?.guide?.tipsTitle}
+        tip1={t?.guide?.tip1}
+        tip2={t?.guide?.tip2}
+        tip3={t?.guide?.tip3}
     />
 
     <FAQSection title={t.faqTitle} items={faqItems} />

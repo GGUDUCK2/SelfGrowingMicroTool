@@ -23,9 +23,9 @@
   $: common = dictionary.common;
 
   $: faqItems = [
-    { q: t.q1, a: t.a1 },
-    { q: t.q2, a: t.a2 },
-    { q: t.q3, a: t.a3 }
+    { q: t?.q1, a: t?.a1 },
+    { q: t?.q2, a: t?.a2 },
+    { q: t?.q3, a: t?.a3 }
   ];
 
   // State
@@ -164,8 +164,8 @@
       {
         "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-        "name": t.title,
-        "description": t.description,
+        "name": t?.title,
+        "description": t?.description,
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Any",
         "offers": {
@@ -174,9 +174,9 @@
           "priceCurrency": "USD"
         },
         "featureList": [
-          t.guide.f1.replace(/\*\*/g, ''),
-          t.guide.f2.replace(/\*\*/g, ''),
-          t.guide.f3.replace(/\*\*/g, '')
+          t?.guide?.f1.replace(/\*\*/g, ''),
+          t?.guide?.f2.replace(/\*\*/g, ''),
+          t?.guide?.f3.replace(/\*\*/g, '')
         ]
       },
       {
@@ -191,7 +191,7 @@
           {
             "@type": "ListItem",
             "position": 2,
-            "name": t.title,
+            "name": t?.title,
             "item": canonical
           }
         ]
@@ -205,34 +205,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
   keywords="mock data generator, fake data, json generator, csv generator, sql insert generator, test data, developer tools"
 />
 
@@ -256,7 +256,7 @@
            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
         </a>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
-          {t.title}
+          {t?.title}
         </h1>
       </div>
 
@@ -315,7 +315,7 @@
 
     <!-- Guide & FAQ -->
     <div class="mt-24 max-w-4xl mx-auto space-y-20">
-      <GuideSection {...t.guide} />
+      <GuideSection {...t?.guide} />
       <FAQSection title={t.faqTitle} items={faqItems} />
     </div>
   </main>

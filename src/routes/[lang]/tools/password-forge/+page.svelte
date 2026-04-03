@@ -227,7 +227,7 @@
       if (navigator.share) {
           try {
               await navigator.share({
-                  title: t.title,
+                  title: t?.title,
                   text: password
               });
           } catch {
@@ -268,8 +268,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": t.title,
-    "description": t.description,
+    "name": t?.title,
+    "description": t?.description,
     "applicationCategory": "SecurityApplication",
     "operatingSystem": "Web, iOS, Android, Windows, macOS, Linux",
     "offers": {
@@ -338,7 +338,7 @@
       {
         "@type": "ListItem",
         "position": 3,
-        "name": t.title,
+        "name": t?.title,
         "item": `https://microtools.app/${lang === 'en' ? '' : lang + '/'}tools/password-forge`
       }
     ]
@@ -346,8 +346,8 @@
 </script>
 
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
 />
 
 <svelte:head>
@@ -378,9 +378,9 @@
         </div>
         <div>
           <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-            {t.title}
+            {t?.title}
           </h1>
-          <p class="mt-1 text-slate-600 dark:text-slate-400 max-w-2xl">{t.description}</p>
+          <p class="mt-1 text-slate-600 dark:text-slate-400 max-w-2xl">{t?.description}</p>
         </div>
       </div>
     </div>
@@ -525,16 +525,16 @@
 
         <!-- Documentation Area -->
         <GuideSection
-            title={t.guide.title}
-            intro={t.guide.intro}
-            featuresTitle={t.guide.featuresTitle}
-            f1={t.guide.f1}
-            f2={t.guide.f2}
-            f3={t.guide.f3}
-            tipsTitle={t.guide.tipsTitle}
-            tip1={t.guide.tip1}
-            tip2={t.guide.tip2}
-            tip3={t.guide.tip3}
+            title={t?.guide?.title}
+            intro={t?.guide?.intro}
+            featuresTitle={t?.guide?.featuresTitle}
+            f1={t?.guide?.f1}
+            f2={t?.guide?.f2}
+            f3={t?.guide?.f3}
+            tipsTitle={t?.guide?.tipsTitle}
+            tip1={t?.guide?.tip1}
+            tip2={t?.guide?.tip2}
+            tip3={t?.guide?.tip3}
         />
 
         <div class="mt-8">

@@ -24,9 +24,9 @@
   $: translations = t; // For passing to components
 
   $: faqItems = [
-    { q: t.q1, a: t.a1 },
-    { q: t.q2, a: t.a2 },
-    { q: t.q3, a: t.a3 }
+    { q: t?.q1, a: t?.a1 },
+    { q: t?.q2, a: t?.a2 },
+    { q: t?.q3, a: t?.a3 }
   ];
 
   let original = '';
@@ -169,7 +169,7 @@
 <html lang="${lang}">
 <head>
     <meta charset="UTF-8">
-    <title>${escapeHtml(t.title)} - Report</title>
+    <title>${escapeHtml(t?.title)} - Report</title>
     <style>
         body { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; line-height: 1.5; padding: 20px; background: #f9fafb; color: #111827; }
         .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
@@ -184,7 +184,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>${escapeHtml(t.title)} - Comparison Report</h1>
+            <h1>${escapeHtml(t?.title)} - Comparison Report</h1>
             <p>Generated on ${new Date().toLocaleString()}</p>
         </div>
         <div class="stats">
@@ -290,7 +290,7 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": t.title,
+    "name": t?.title,
     "operatingSystem": "Any",
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "DeveloperApplication",
@@ -300,10 +300,10 @@
       "price": "0",
       "priceCurrency": "USD"
     },
-    "description": t.description,
+    "description": t?.description,
     "url": `https://selfgrowingmicrotool.com/${lang}/tools/diff-viewer`,
     "image": "https://web-factory.vercel.app/og/diff-viewer.png",
-    "featureList": [t.guide.f1, t.guide.f2, t.guide.f3].map(s => s.replace(/\*\*/g, '')),
+    "featureList": [t?.guide?.f1, t?.guide?.f2, t?.guide?.f3].map(s => s.replace(/\*\*/g, '')),
     "author": {
         "@type": "Organization",
         "name": "MicroFactory"
@@ -329,7 +329,7 @@
       {
         "@type": "ListItem",
         "position": 3,
-        "name": t.title,
+        "name": t?.title,
         "item": `https://selfgrowingmicrotool.com/${lang}/tools/diff-viewer`
       }
     ]
@@ -338,7 +338,7 @@
   $: howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": `How to compare text files with ${t.title}`,
+    "name": `How to compare text files with ${t?.title}`,
     "step": [
       {
         "@type": "HowToStep",
@@ -393,8 +393,8 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
   image="https://web-factory.vercel.app/og/diff-viewer.png"
   keywords={keywords}
 />
@@ -408,7 +408,7 @@
            <ArrowLeftRight class="w-5 h-5" />
         </a>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 truncate">
-          {t.title}
+          {t?.title}
         </h1>
       </div>
 
@@ -629,16 +629,16 @@
     <!-- Guide & SEO Content -->
     <div class="mt-12 space-y-12">
       <GuideSection
-        title={t.guide.title}
-        intro={t.guide.intro}
-        featuresTitle={t.guide.featuresTitle}
-        f1={t.guide.f1}
-        f2={t.guide.f2}
-        f3={t.guide.f3}
-        tipsTitle={t.guide.tipsTitle}
-        tip1={t.guide.tip1}
-        tip2={t.guide.tip2}
-        tip3={t.guide.tip3}
+        title={t?.guide?.title}
+        intro={t?.guide?.intro}
+        featuresTitle={t?.guide?.featuresTitle}
+        f1={t?.guide?.f1}
+        f2={t?.guide?.f2}
+        f3={t?.guide?.f3}
+        tipsTitle={t?.guide?.tipsTitle}
+        tip1={t?.guide?.tip1}
+        tip2={t?.guide?.tip2}
+        tip3={t?.guide?.tip3}
       />
 
       <FAQSection title={t.faqTitle} items={faqItems} />

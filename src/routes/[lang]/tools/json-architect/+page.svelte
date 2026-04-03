@@ -171,8 +171,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": t.title,
-    "description": t.description,
+    "name": t?.title,
+    "description": t?.description,
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "JSON Utility",
     "operatingSystem": "Web, iOS, Android, Linux, Windows, macOS",
@@ -207,7 +207,7 @@
     }, {
       "@type": "ListItem",
       "position": 3,
-      "name": t.title,
+      "name": t?.title,
       "item": `https://selfgrowingmicrotool.com/${lang}/tools/json-architect`
     }]
   };
@@ -218,26 +218,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": t.q1,
-        "acceptedAnswer": { "@type": "Answer", "text": t.a1 }
+        "name": t?.q1,
+        "acceptedAnswer": { "@type": "Answer", "text": t?.a1 }
       },
       {
         "@type": "Question",
-        "name": t.q2,
-        "acceptedAnswer": { "@type": "Answer", "text": t.a2 }
+        "name": t?.q2,
+        "acceptedAnswer": { "@type": "Answer", "text": t?.a2 }
       },
       {
         "@type": "Question",
-        "name": t.q3,
-        "acceptedAnswer": { "@type": "Answer", "text": t.a3 }
+        "name": t?.q3,
+        "acceptedAnswer": { "@type": "Answer", "text": t?.a3 }
       }
     ]
   };
 
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={t?.title}
+  description={t?.description}
 />
 
 
@@ -249,8 +249,8 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
   <div class="mb-8">
-    <h1 class="text-3xl font-bold text-slate-900 dark:text-slate-100 sm:text-4xl">{t.title}</h1>
-    <p class="mt-2 text-lg text-slate-600 dark:text-slate-400">{t.description}</p>
+    <h1 class="text-3xl font-bold text-slate-900 dark:text-slate-100 sm:text-4xl">{t?.title}</h1>
+    <p class="mt-2 text-lg text-slate-600 dark:text-slate-400">{t?.description}</p>
   </div>
 
   <div class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur py-2 shadow-sm">
@@ -318,9 +318,9 @@
   <!-- FAQ Section -->
   <div class="mt-16">
       <FAQSection title={t.faqTitle} items={[
-        { q: t.q1, a: t.a1 },
-        { q: t.q2, a: t.a2 },
-        { q: t.q3, a: t.a3 }
+        { q: t?.q1, a: t?.a1 },
+        { q: t?.q2, a: t?.a2 },
+        { q: t?.q3, a: t?.a3 }
       ]} />
   </div>
 

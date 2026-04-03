@@ -87,8 +87,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": dict.title,
-    "description": dict.description,
+    "name": dict?.title,
+    "description": dict?.description,
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -110,34 +110,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
   keywords="typing test, wpm test, code typing practice, mechanical keyboard sound, typing speed test, developer typing"
 />
 
@@ -162,7 +162,7 @@
              <Keyboard size={20} />
           </div>
           <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-            {dict.title}
+            {dict?.title}
           </h1>
         </div>
       </div>
@@ -228,24 +228,24 @@
           <div class="mt-20 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
               <div class="lg:col-span-8 space-y-8">
                   <GuideSection
-                      title={dict.guide.title}
-                      intro={dict.guide.intro}
-                      featuresTitle={dict.guide.featuresTitle}
-                      f1={dict.guide.f1}
-                      f2={dict.guide.f2}
-                      f3={dict.guide.f3}
-                      tipsTitle={dict.guide.tipsTitle}
-                      tip1={dict.guide.tip1}
-                      tip2={dict.guide.tip2}
-                      tip3={dict.guide.tip3}
+                      title={dict?.guide?.title}
+                      intro={dict?.guide?.intro}
+                      featuresTitle={dict?.guide?.featuresTitle}
+                      f1={dict?.guide?.f1}
+                      f2={dict?.guide?.f2}
+                      f3={dict?.guide?.f3}
+                      tipsTitle={dict?.guide?.tipsTitle}
+                      tip1={dict?.guide?.tip1}
+                      tip2={dict?.guide?.tip2}
+                      tip3={dict?.guide?.tip3}
                   />
                   <div class="mt-8">
                       <FAQSection
                           title={dict.faqTitle}
                           items={[
-                              { q: dict.q1, a: dict.a1 },
-                              { q: dict.q2, a: dict.a2 },
-                              { q: dict.q3, a: dict.a3 }
+                              { q: dict?.q1, a: dict?.a1 },
+                              { q: dict?.q2, a: dict?.a2 },
+                              { q: dict?.q3, a: dict?.a3 }
                           ]}
                       />
                   </div>

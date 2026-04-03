@@ -76,7 +76,7 @@
   <!-- Smart Examples -->
   <div class="flex flex-col space-y-2">
       <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-1">Quick Presets</span>
-      <div class="flex flex-wrap gap-2">
+      <div class="flex gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap">
         <button on:click={() => loadExample('uuid-v7', 5, 'json')} class="px-3 py-1.5 text-xs font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors border border-transparent hover:border-indigo-200 dark:hover:border-indigo-800">
             UUID v7 (JSON Batch)
         </button>

@@ -92,7 +92,7 @@
         </div>
         <span class="text-xs font-mono text-slate-500 ml-2">Output Preview ({ids.length})</span>
       </div>
-      <div class="flex flex-wrap items-center gap-2 justify-center">
+      <div class="flex items-center gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap justify-center">
         <!-- Bulk Export Options -->
         {#if ids.length > 0}
         <div class="flex items-center bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-0.5">

@@ -169,7 +169,7 @@
       "priceCurrency": "USD"
     },
     "featureList": "UUID Generation (v1, v3, v4, v5, v7), ULID Generation, Collision Probability Calculator, ID Analysis, Bulk Generation (JSON/SQL/CSV)",
-    "description": dict.description
+    "description": dict?.description
   };
 
   $: jsonLd2 = {
@@ -178,34 +178,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
   keywords="uuid generator, ulid generator, nanoid generator, guid, uuid v7, collision calculator, id generator"
 />
 
@@ -233,7 +233,7 @@
       ID <span class="text-indigo-600 dark:text-indigo-400">Forge</span>
     </h1>
     <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-      {dict.description}
+      {dict?.description}
     </p>
   </div>
 
@@ -246,7 +246,7 @@
                 on:click={() => handleTabChange(tab)}
                 class="flex-1 py-3 text-sm font-bold rounded-xl transition-all {activeTab === tab ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
             >
-                {dict.tabs[tab] || tab}
+                {dict?.tabs[tab] || tab}
             </button>
         {/each}
     </div>
@@ -284,9 +284,9 @@
 
   <!-- Documentation / SEO Content -->
   <div class="prose prose-slate dark:prose-invert max-w-none">
-    <h2>{dict.guide.title}</h2>
+    <h2>{dict?.guide?.title}</h2>
     <p>
-      {dict.guide.intro}
+      {dict?.guide?.intro}
     </p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 not-prose my-8">
@@ -308,37 +308,37 @@
     <div class="space-y-6 not-prose">
         <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <summary class="flex items-center justify-between p-6 cursor-pointer font-medium">
-                <span>{dict.q1}</span>
+                <span>{dict?.q1}</span>
                 <span class="transition-transform group-open:rotate-180">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
             </summary>
             <div class="px-6 pb-6 text-slate-600 dark:text-slate-300">
-                {dict.a1}
+                {dict?.a1}
             </div>
         </details>
 
         <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <summary class="flex items-center justify-between p-6 cursor-pointer font-medium">
-                <span>{dict.q2}</span>
+                <span>{dict?.q2}</span>
                 <span class="transition-transform group-open:rotate-180">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
             </summary>
             <div class="px-6 pb-6 text-slate-600 dark:text-slate-300">
-                {dict.a2}
+                {dict?.a2}
             </div>
         </details>
 
         <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <summary class="flex items-center justify-between p-6 cursor-pointer font-medium">
-                <span>{dict.q3}</span>
+                <span>{dict?.q3}</span>
                 <span class="transition-transform group-open:rotate-180">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
             </summary>
             <div class="px-6 pb-6 text-slate-600 dark:text-slate-300">
-                {dict.a3}
+                {dict?.a3}
             </div>
         </details>
     </div>

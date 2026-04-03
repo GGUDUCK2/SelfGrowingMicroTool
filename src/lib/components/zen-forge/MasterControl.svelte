@@ -59,7 +59,7 @@
     }
 </script>
 
-<div class="bg-slate-800/80 backdrop-blur border border-slate-700 rounded-2xl p-4 flex flex-wrap items-center gap-4 shadow-xl">
+<div class="bg-slate-800/80 backdrop-blur border border-slate-700 rounded-2xl p-4 flex items-center gap-4 overflow-x-auto scrollbar-hide whitespace-nowrap shadow-xl">
     <!-- Play/Pause (Global Context) -->
     <button
         on:click={togglePlay}

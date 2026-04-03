@@ -118,7 +118,7 @@
               <!-- Color -->
               <div role="group" aria-labelledby="color-label">
                   <span id="color-label" class="block text-sm font-medium mb-1 opacity-70">{dict.color}</span>
-                  <div class="flex flex-wrap gap-2">
+                  <div class="flex gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap">
                       {#each colors as c (c)}
                           <button
                               class="w-6 h-6 rounded-full border-2 transition-transform hover:scale-110 {color === c ? 'border-black dark:border-white ring-2 ring-offset-2 ring-indigo-500' : 'border-transparent'}"

@@ -175,7 +175,7 @@
   <!-- Top Bar -->
   <div class="flex flex-col gap-4 bg-slate-800/50 p-4 rounded-xl border border-slate-700">
      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-        <div class="flex flex-wrap items-center gap-4 w-full md:w-auto">
+        <div class="flex items-center gap-4 overflow-x-auto scrollbar-hide whitespace-nowrap w-full md:w-auto">
 
             <!-- Preset Selector -->
             <div class="flex flex-col">

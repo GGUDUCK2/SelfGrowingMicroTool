@@ -21,9 +21,9 @@
   $: t = data.dict.tools.structura;
 
   $: faqItems = [
-    { q: t.q1, a: t.a1 },
-    { q: t.q2, a: t.a2 },
-    { q: t.q3, a: t.a3 }
+    { q: t?.q1, a: t?.a1 },
+    { q: t?.q2, a: t?.a2 },
+    { q: t?.q3, a: t?.a3 }
   ];
 
   // Tabs
@@ -211,8 +211,8 @@
   ];
 </script>
 <Head
-  title={`${t.title} | Web Factory`}
-  description={t.description}
+  title={`${t?.title} | Web Factory`}
+  description={t?.description}
 />
 
 
@@ -231,7 +231,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": t.description,
+      "description": t?.description,
       "featureList": ["JSON Converter", "YAML Converter", "XML Converter", "CSV Converter", "Code Generator", "Tree Visualizer"],
       "mainEntity": {
         "@type": "FAQPage",
@@ -255,7 +255,7 @@
       Structura
     </h1>
     <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-      {t.description}
+      {t?.description}
     </p>
   </div>
 
@@ -599,24 +599,24 @@
 
   <!-- Documentation & Guides -->
   <article class="prose dark:prose-invert max-w-none mt-20 p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-    <h2>{t.guide.title}</h2>
+    <h2>{t?.guide?.title}</h2>
     <p>
-      {t.guide.intro}
+      {t?.guide?.intro}
     </p>
 
-    <h3>{t.guide.featuresTitle}</h3>
+    <h3>{t?.guide?.featuresTitle}</h3>
     <ul>
-      <li><span class="markdown-body">{@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-      <li><span class="markdown-body">{@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-      <li><span class="markdown-body">{@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-      <li><span class="markdown-body">{@html t.guide.f4.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <li><span class="markdown-body">{@html t?.guide?.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <li><span class="markdown-body">{@html t?.guide?.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <li><span class="markdown-body">{@html t?.guide?.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <li><span class="markdown-body">{@html t?.guide?.f4.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
     </ul>
 
-    <h3>{t.guide.tipsTitle}</h3>
+    <h3>{t?.guide?.tipsTitle}</h3>
     <ul>
-      <li><span class="markdown-body">{@html t.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-      <li><span class="markdown-body">{@html t.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-      <li><span class="markdown-body">{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <li><span class="markdown-body">{@html t?.guide?.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <li><span class="markdown-body">{@html t?.guide?.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <li><span class="markdown-body">{@html t?.guide?.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
     </ul>
 
     <FAQSection title={t.faqTitle} items={faqItems} />

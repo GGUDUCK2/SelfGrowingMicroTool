@@ -296,26 +296,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -489,7 +489,7 @@
 <!-- Documentation Section -->
 <div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
   <div class="max-w-6xl mx-auto px-4 py-12">
-    <GuideSection {...dict.guide} />
+    <GuideSection {...dict?.guide} />
     <FAQSection title={dict.faqTitle} items={faqItems} />
   </div>
 </div>

@@ -17,10 +17,10 @@
       </a>
       <div>
         <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">
-          {dict.title}
+          {dict?.title}
         </h1>
         <p class="mt-2 text-lg text-slate-600 dark:text-slate-400">
-          {dict.description}
+          {dict?.description}
         </p>
       </div>
     </div>

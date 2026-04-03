@@ -13,7 +13,7 @@
   const formats: OutputFormat[] = ['markdown', 'csv', 'json', 'html', 'sql', 'latex', 'ascii'];
 </script>
 
-<div class="flex flex-wrap items-center gap-2 p-2 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+<div class="flex items-center gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap p-2 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
   <!-- Format Selector -->
   <div class="flex items-center gap-2 mr-4">
     <label for="format-selector" class="text-sm font-medium text-slate-600 dark:text-slate-400">{dict.format}:</label>

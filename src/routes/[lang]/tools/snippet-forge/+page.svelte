@@ -62,8 +62,8 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-      "name": dict.title,
-      "description": dict.description,
+      "name": dict?.title,
+      "description": dict?.description,
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
       "featureList": [
@@ -82,34 +82,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
   keywords="code screenshots, snippet image, carbon alternative, code to image, syntax highlighting image, developer tools"
 />
 
@@ -135,7 +135,7 @@
                    <Code2 size={20} />
                </div>
                <h1 class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 hidden sm:block">
-                   {dict.title.split(':')[0]}
+                   {dict?.title.split(':')[0]}
                </h1>
            </div>
 
@@ -202,49 +202,49 @@
            <!-- Guide -->
            <article class="prose dark:prose-invert max-w-none">
                <h2 class="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
-                   {dict.guide.title}
+                   {dict?.guide?.title}
                </h2>
                <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-10">
-                   {dict.guide.intro}
+                   {dict?.guide?.intro}
                </p>
 
                <div class="grid md:grid-cols-2 gap-8 not-prose">
                     <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-700">
                         <h3 class="text-xl font-bold mb-4 text-slate-800 dark:text-white flex items-center gap-2">
-                             <span class="text-indigo-500">✨</span> {dict.guide.featuresTitle}
+                             <span class="text-indigo-500">✨</span> {dict?.guide?.featuresTitle}
                         </h3>
                         <ul class="space-y-3">
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <div class="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div>
-                                 <span>{@html marked.parseInline(dict.guide.f1)}</span>
+                                 <span>{@html marked.parseInline(dict?.guide?.f1)}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <div class="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div>
-                                 <span>{@html marked.parseInline(dict.guide.f2)}</span>
+                                 <span>{@html marked.parseInline(dict?.guide?.f2)}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <div class="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div>
-                                 <span>{@html marked.parseInline(dict.guide.f3)}</span>
+                                 <span>{@html marked.parseInline(dict?.guide?.f3)}</span>
                              </li>
                         </ul>
                     </div>
 
                     <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-700">
                         <h3 class="text-xl font-bold mb-4 text-slate-800 dark:text-white flex items-center gap-2">
-                             <span class="text-amber-500">💡</span> {dict.guide.tipsTitle}
+                             <span class="text-amber-500">💡</span> {dict?.guide?.tipsTitle}
                         </h3>
                          <ul class="space-y-3">
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <div class="mt-1 w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></div>
-                                 <span>{@html marked.parseInline(dict.guide.tip1)}</span>
+                                 <span>{@html marked.parseInline(dict?.guide?.tip1)}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <div class="mt-1 w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></div>
-                                 <span>{@html marked.parseInline(dict.guide.tip2)}</span>
+                                 <span>{@html marked.parseInline(dict?.guide?.tip2)}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <div class="mt-1 w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></div>
-                                 <span>{@html marked.parseInline(dict.guide.tip3)}</span>
+                                 <span>{@html marked.parseInline(dict?.guide?.tip3)}</span>
                              </li>
                         </ul>
                     </div>
@@ -255,9 +255,9 @@
            <FAQSection
                title={dict.faqTitle}
                items={[
-                   { question: dict.q1, answer: dict.a1 },
-                   { question: dict.q2, answer: dict.a2 },
-                   { question: dict.q3, answer: dict.a3 }
+                   { question: dict?.q1, answer: dict?.a1 },
+                   { question: dict?.q2, answer: dict?.a2 },
+                   { question: dict?.q3, answer: dict?.a3 }
                ]}
            />
        </div>

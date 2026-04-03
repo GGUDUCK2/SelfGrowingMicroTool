@@ -24,8 +24,8 @@
       {
         "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-        "name": toolDict.title,
-        "description": toolDict.description,
+        "name": toolDict?.title,
+        "description": toolDict?.description,
         "applicationCategory": "MultimediaApplication",
         "applicationSubCategory": "Audio Editor",
         "operatingSystem": "Any",
@@ -60,7 +60,7 @@
           {
             "@type": "ListItem",
             "position": 3,
-            "name": toolDict.title,
+            "name": toolDict?.title,
             "item": "https://selfgrowingmicrotool.com/" + lang + "/tools/audio-forge"
           }
         ]
@@ -70,18 +70,18 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": toolDict.q1,
-            "acceptedAnswer": { "@type": "Answer", "text": toolDict.a1 }
+            "name": toolDict?.q1,
+            "acceptedAnswer": { "@type": "Answer", "text": toolDict?.a1 }
           },
           {
             "@type": "Question",
-            "name": toolDict.q2,
-            "acceptedAnswer": { "@type": "Answer", "text": toolDict.a2 }
+            "name": toolDict?.q2,
+            "acceptedAnswer": { "@type": "Answer", "text": toolDict?.a2 }
           },
           {
             "@type": "Question",
-            "name": toolDict.q3,
-            "acceptedAnswer": { "@type": "Answer", "text": toolDict.a3 }
+            "name": toolDict?.q3,
+            "acceptedAnswer": { "@type": "Answer", "text": toolDict?.a3 }
           }
         ]
       }
@@ -89,8 +89,8 @@
   };
 </script>
 <Head
-  title={toolDict.title}
-  description={toolDict.description}
+  title={toolDict?.title}
+  description={toolDict?.description}
   keywords="audio editor, waveform editor, sound recorder, tone generator, wav editor, online audio tool"
 />
 
@@ -113,14 +113,14 @@
                     </div>
                     <div>
                         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
-                            {toolDict.title}
+                            {toolDict?.title}
                         </h1>
                     </div>
                 </div>
             </div>
             <div class="hidden sm:block">
                 <p class="text-sm text-slate-500 dark:text-slate-400">
-                    {toolDict.description}
+                    {toolDict?.description}
                 </p>
             </div>
         </div>
@@ -134,18 +134,18 @@
     <!-- Documentation -->
     <div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
         <div class="max-w-5xl mx-auto px-4 py-12">
-            {#if toolDict.guide.title}
+            {#if toolDict?.guide?.title}
                 <GuideSection
-                    title={toolDict.guide.title}
-                    intro={toolDict.guide.intro}
-                    featuresTitle={toolDict.guide.featuresTitle}
-                    tipsTitle={toolDict.guide.tipsTitle}
-                    f1={toolDict.guide.f1}
-                    f2={toolDict.guide.f2}
-                    f3={toolDict.guide.f3}
-                    tip1={toolDict.guide.tip1}
-                    tip2={toolDict.guide.tip2}
-                    tip3={toolDict.guide.tip3}
+                    title={toolDict?.guide?.title}
+                    intro={toolDict?.guide?.intro}
+                    featuresTitle={toolDict?.guide?.featuresTitle}
+                    tipsTitle={toolDict?.guide?.tipsTitle}
+                    f1={toolDict?.guide?.f1}
+                    f2={toolDict?.guide?.f2}
+                    f3={toolDict?.guide?.f3}
+                    tip1={toolDict?.guide?.tip1}
+                    tip2={toolDict?.guide?.tip2}
+                    tip3={toolDict?.guide?.tip3}
                 />
             {/if}
 
@@ -153,9 +153,9 @@
                 <FAQSection
                     title={toolDict.faqTitle}
                     items={[
-                        { q: toolDict.q1, a: toolDict.a1 },
-                        { q: toolDict.q2, a: toolDict.a2 },
-                        { q: toolDict.q3, a: toolDict.a3 }
+                        { q: toolDict?.q1, a: toolDict?.a1 },
+                        { q: toolDict?.q2, a: toolDict?.a2 },
+                        { q: toolDict?.q3, a: toolDict?.a3 }
                     ]}
                 />
             </div>

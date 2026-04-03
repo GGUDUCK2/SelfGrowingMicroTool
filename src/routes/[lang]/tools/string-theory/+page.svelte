@@ -167,9 +167,9 @@
   }
 
   $: faqItems = dict ? [
-    { q: dict.q1, a: dict.a1 },
-    { q: dict.q2, a: dict.a2 },
-    { q: dict.q3, a: dict.a3 }
+    { q: dict?.q1, a: dict?.a1 },
+    { q: dict?.q2, a: dict?.a2 },
+    { q: dict?.q3, a: dict?.a3 }
   ] : [];
 
   // Wait for dict to be ready
@@ -187,7 +187,7 @@
           "price": "0",
           "priceCurrency": "USD"
         },
-        "description": dict.description,
+        "description": dict?.description,
         "featureList": [
             "Text Analysis",
             "Case Conversion",
@@ -211,26 +211,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
@@ -239,8 +239,8 @@
   const canonicalUrl = `https://web-factory.vercel.app/${$page.params.lang}/tools/string-theory`;
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
   keywords="string manipulation, text converter, case converter, slugify, base64, url encode, text analysis, ulid generator, nanoid generator"
 />
 
@@ -335,25 +335,25 @@
 
   <!-- Documentation Section -->
   <section class="mt-20 prose dark:prose-invert max-w-4xl mx-auto">
-    <h2 class="text-3xl font-bold text-slate-900 dark:text-white">{dict.guide.title}</h2>
-    <p class="text-lg text-slate-600 dark:text-slate-400">{dict.guide.intro}</p>
+    <h2 class="text-3xl font-bold text-slate-900 dark:text-white">{dict?.guide?.title}</h2>
+    <p class="text-lg text-slate-600 dark:text-slate-400">{dict?.guide?.intro}</p>
 
     <div class="grid md:grid-cols-3 gap-8 my-12">
       <div class="bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-2xl border border-indigo-100 dark:border-indigo-900/50">
-        <h3 class="text-indigo-900 dark:text-indigo-300 font-bold mb-3">{dict.guide.featuresTitle}</h3>
+        <h3 class="text-indigo-900 dark:text-indigo-300 font-bold mb-3">{dict?.guide?.featuresTitle}</h3>
         <ul class="space-y-2 text-indigo-800 dark:text-indigo-200 text-sm">
-          <li>{@html dict.guide.f1}</li>
-          <li>{@html dict.guide.f2}</li>
-          <li>{@html dict.guide.f3}</li>
+          <li>{@html dict?.guide?.f1}</li>
+          <li>{@html dict?.guide?.f2}</li>
+          <li>{@html dict?.guide?.f3}</li>
         </ul>
       </div>
 
       <div class="bg-emerald-50 dark:bg-emerald-900/20 p-6 rounded-2xl border border-emerald-100 dark:border-emerald-900/50">
-        <h3 class="text-emerald-900 dark:text-emerald-300 font-bold mb-3">{dict.guide.tipsTitle}</h3>
+        <h3 class="text-emerald-900 dark:text-emerald-300 font-bold mb-3">{dict?.guide?.tipsTitle}</h3>
         <ul class="space-y-2 text-emerald-800 dark:text-emerald-200 text-sm">
-          <li>{@html dict.guide.tip1}</li>
-          <li>{@html dict.guide.tip2}</li>
-          <li>{@html dict.guide.tip3}</li>
+          <li>{@html dict?.guide?.tip1}</li>
+          <li>{@html dict?.guide?.tip2}</li>
+          <li>{@html dict?.guide?.tip3}</li>
         </ul>
       </div>
 

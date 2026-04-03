@@ -241,7 +241,7 @@
       {
         "@type": "ListItem",
         "position": 2,
-        "name": dict.title,
+        "name": dict?.title,
         "item": `https://selfgrowingmicrotool.com/${lang}/tools/log-prism`
       }
     ]
@@ -249,8 +249,8 @@
 
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
   keywords="log viewer, log analyzer, nginx log parser, syslog viewer, json log viewer, error log analysis, automated insights, smart log generation"
 />
 
@@ -265,8 +265,8 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-      "name": "${dict.title}",
-      "description": "${dict.description}",
+      "name": "${dict?.title}",
+      "description": "${dict?.description}",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
       "featureList": [
@@ -290,26 +290,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -331,7 +331,7 @@
                 <Activity size={20} />
             </div>
             <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 hidden sm:block">
-                {dict.title}
+                {dict?.title}
             </h1>
         </div>
 
@@ -512,27 +512,27 @@
     <!-- Documentation -->
     <section class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12">
         <div class="max-w-4xl mx-auto px-6">
-            <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">{dict.guide.title}</h2>
+            <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">{dict?.guide?.title}</h2>
             <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
-                {dict.guide.intro}
+                {dict?.guide?.intro}
             </p>
 
             <div class="grid md:grid-cols-3 gap-6 mb-12">
                 <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-                    <h3 class="font-bold text-indigo-600 dark:text-indigo-400 mb-2">{dict.guide.featuresTitle}</h3>
+                    <h3 class="font-bold text-indigo-600 dark:text-indigo-400 mb-2">{dict?.guide?.featuresTitle}</h3>
                     <ul class="text-sm space-y-2 text-slate-600 dark:text-slate-400">
-                        <li>{@html dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-                        <li>{@html dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-                        <li>{@html dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dict?.guide?.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dict?.guide?.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dict?.guide?.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
                     </ul>
                 </div>
 
                  <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 md:col-span-2">
-                    <h3 class="font-bold text-amber-600 dark:text-amber-400 mb-2">{dict.guide.tipsTitle}</h3>
+                    <h3 class="font-bold text-amber-600 dark:text-amber-400 mb-2">{dict?.guide?.tipsTitle}</h3>
                     <ul class="text-sm space-y-2 text-slate-600 dark:text-slate-400 grid md:grid-cols-2 gap-4">
-                        <li>{@html dict.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-                        <li>{@html dict.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-                        <li>{@html dict.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dict?.guide?.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dict?.guide?.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dict?.guide?.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
                     </ul>
                 </div>
             </div>
@@ -540,9 +540,9 @@
             <FAQSection
                 title={dict.faqTitle}
                 items={[
-                    { q: dict.q1, a: dict.a1 },
-                    { q: dict.q2, a: dict.a2 },
-                    { q: dict.q3, a: dict.a3 }
+                    { q: dict?.q1, a: dict?.a1 },
+                    { q: dict?.q2, a: dict?.a2 },
+                    { q: dict?.q3, a: dict?.a3 }
                 ]}
             />
         </div>

@@ -55,7 +55,7 @@
 
     <div class="mt-4">
       <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">{dictionary.flags}</div>
-      <div class="flex flex-wrap gap-2">
+      <div class="flex gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap">
         {#each availableFlags as flag}
           <button
             type="button"

@@ -285,23 +285,23 @@
               {#if dict?.guide}
               <div class="mt-12 space-y-8">
                   <GuideSection
-                      title={dict.guide.title}
-                      intro={dict.guide.intro}
-                      featuresTitle={dict.guide.featuresTitle}
-                      f1={dict.guide.f1}
-                      f2={dict.guide.f2}
-                      f3={dict.guide.f3}
-                      tipsTitle={dict.guide.tipsTitle}
-                      tip1={dict.guide.tip1}
-                      tip2={dict.guide.tip2}
-                      tip3={dict.guide.tip3}
+                      title={dict?.guide?.title}
+                      intro={dict?.guide?.intro}
+                      featuresTitle={dict?.guide?.featuresTitle}
+                      f1={dict?.guide?.f1}
+                      f2={dict?.guide?.f2}
+                      f3={dict?.guide?.f3}
+                      tipsTitle={dict?.guide?.tipsTitle}
+                      tip1={dict?.guide?.tip1}
+                      tip2={dict?.guide?.tip2}
+                      tip3={dict?.guide?.tip3}
                   />
                   <FAQSection
                       title={dict.faqTitle}
                       items={[
-                          { q: dict.q1, a: dict.a1 },
-                          { q: dict.q2, a: dict.a2 },
-                          { q: dict.q3, a: dict.a3 }
+                          { q: dict?.q1, a: dict?.a1 },
+                          { q: dict?.q2, a: dict?.a2 },
+                          { q: dict?.q3, a: dict?.a3 }
                       ]}
                   />
               </div>

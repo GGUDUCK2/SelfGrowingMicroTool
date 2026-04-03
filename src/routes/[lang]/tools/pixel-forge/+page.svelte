@@ -11,8 +11,8 @@
   $: toolDict = dict.tools.pixelForge;
 
   // SEO & Meta
-  $: title = `${toolDict.title} - ${dict.common.category}`; // e.g. Pixel Forge - Image Tools
-  $: description = toolDict.description;
+  $: title = `${toolDict?.title} - ${dict.common.category}`; // e.g. Pixel Forge - Image Tools
+  $: description = toolDict?.description;
 
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
@@ -43,9 +43,9 @@
   });
 
   $: faqItems = [
-    { q: toolDict.q1, a: toolDict.a1 },
-    { q: toolDict.q2, a: toolDict.a2 },
-    { q: toolDict.q3, a: toolDict.a3 }
+    { q: toolDict?.q1, a: toolDict?.a1 },
+    { q: toolDict?.q2, a: toolDict?.a2 },
+    { q: toolDict?.q3, a: toolDict?.a3 }
   ];
 
   // Helper to render markdown safely
@@ -97,7 +97,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-200">Lightning Fast</h3>
         <div class="text-slate-400 text-sm leading-relaxed">
-            {@html renderMarkdown(toolDict.guide.f1)}
+            {@html renderMarkdown(toolDict?.guide?.f1)}
         </div>
      </div>
 
@@ -107,7 +107,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-200">Privacy First</h3>
         <div class="text-slate-400 text-sm leading-relaxed">
-             {@html renderMarkdown(toolDict.guide.f2)}
+             {@html renderMarkdown(toolDict?.guide?.f2)}
         </div>
      </div>
 
@@ -117,16 +117,16 @@
         </div>
         <h3 class="text-lg font-bold text-slate-200">Mobile Optimized</h3>
         <div class="text-slate-400 text-sm leading-relaxed">
-             {@html renderMarkdown(toolDict.guide.f3)}
+             {@html renderMarkdown(toolDict?.guide?.f3)}
         </div>
      </div>
   </section>
 
   <!-- Documentation -->
   <article class="prose prose-invert prose-slate max-w-none pt-12 border-t border-slate-800">
-    <h2>{toolDict.guide.title}</h2>
+    <h2>{toolDict?.guide?.title}</h2>
     <p>
-      {toolDict.guide.intro}
+      {toolDict?.guide?.intro}
     </p>
 
     <h3>Supported Formats</h3>
@@ -136,11 +136,11 @@
       <li><strong>PNG:</strong> Lossless compression, ideal for graphics and transparent images.</li>
     </ul>
 
-    <h3>{toolDict.guide.tipsTitle}</h3>
+    <h3>{toolDict?.guide?.tipsTitle}</h3>
     <ul>
-        <li>{@html renderMarkdown(toolDict.guide.tip1)}</li>
-        <li>{@html renderMarkdown(toolDict.guide.tip2)}</li>
-        <li>{@html renderMarkdown(toolDict.guide.tip3)}</li>
+        <li>{@html renderMarkdown(toolDict?.guide?.tip1)}</li>
+        <li>{@html renderMarkdown(toolDict?.guide?.tip2)}</li>
+        <li>{@html renderMarkdown(toolDict?.guide?.tip3)}</li>
     </ul>
 
   </article>

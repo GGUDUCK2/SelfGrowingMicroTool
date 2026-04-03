@@ -64,7 +64,7 @@
             <Sparkles size={20} />
             <span class="font-bold text-sm uppercase tracking-wider">{dict.smartMix.title}</span>
         </div>
-        <div class="flex flex-wrap gap-2">
+        <div class="flex gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap">
             {#each ['focus', 'relax', 'sleep', 'meditate'] as tag}
                 <button
                     on:click={() => zenStore.applySmartMix(tag)}

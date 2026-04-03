@@ -23,9 +23,9 @@
   $: dict = getDictionary(lang).tools.logicForge;
 
   $: faqItems = [
-    { q: dict.q1, a: dict.a1 },
-    { q: dict.q2, a: dict.a2 },
-    { q: dict.q3, a: dict.a3 }
+    { q: dict?.q1, a: dict?.a1 },
+    { q: dict?.q2, a: dict?.a2 },
+    { q: dict?.q3, a: dict?.a3 }
   ];
 
   let expression = '';
@@ -172,7 +172,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-      "name": dict.title,
+      "name": dict?.title,
       "url": "https://microfactory.app/tools/logic-forge",
       "author": {
         "@type": "Organization",
@@ -209,7 +209,7 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": dict.title,
+          "name": dict?.title,
           "item": "https://microfactory.app/tools/logic-forge"
         }
       ]
@@ -222,34 +222,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={`${expression ? expression + ' - ' : ''}${dict.title}`}
-  description={dict.description}
+  title={`${expression ? expression + ' - ' : ''}${dict?.title}`}
+  description={dict?.description}
   keywords="logic gates, truth table generator, boolean algebra, logic circuit simulator, online tool, digital logic design, karnaugh map, boolean simplifier"
 />
 
@@ -267,10 +267,10 @@
   <!-- Header -->
   <div class="text-center space-y-4 pt-4">
     <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 tracking-tight">
-      {dict.title.split(':')[0]}
+      {dict?.title.split(':')[0]}
     </h1>
     <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-      {dict.description}
+      {dict?.description}
     </p>
   </div>
 
@@ -392,6 +392,6 @@
     </div>
   </main>
 
-  <GuideSection {...dict.guide} />
+  <GuideSection {...dict?.guide} />
   <FAQSection title={dict.faqTitle} items={faqItems} />
 </div>

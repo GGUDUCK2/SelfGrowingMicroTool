@@ -195,7 +195,7 @@
   title={`${lang === "ko"
       ? `Cronos: 전문가용 Cron 에디터 - ${parseResult.isValid ? parseResult.description : "스케줄러"}`
       : `Cronos: Professional Cron Editor - ${parseResult.isValid ? parseResult.description : "Scheduler"}`}`}
-  description={dict.description}
+  description={dict?.description}
   keywords="cron, crontab, schedule, editor, generator, linux, devops"
 />
 
@@ -217,10 +217,10 @@
       <h1
         class="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400"
       >
-        {dict.title}
+        {dict?.title}
       </h1>
       <p class="text-gray-600 dark:text-gray-400">
-        {dict.description}
+        {dict?.description}
       </p>
     </div>
     <div class="flex-shrink-0">

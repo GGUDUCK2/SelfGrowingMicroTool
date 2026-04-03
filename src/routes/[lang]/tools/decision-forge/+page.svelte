@@ -28,8 +28,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": t.title,
-    "description": t.description,
+    "name": t?.title,
+    "description": t?.description,
     "applicationCategory": "ProductivityApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -64,7 +64,7 @@
       {
         "@type": "ListItem",
         "position": 3,
-        "name": t.title,
+        "name": t?.title,
         "item": `https://selfgrowingmicrotool.com/${lang}/tools/decision-forge`
       }
     ]
@@ -82,26 +82,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
@@ -109,8 +109,8 @@
 </script>
 
 <Head
-  title="{t.title} - MicroFactory"
-  description={t.description}
+  title="{t?.title} - MicroFactory"
+  description={t?.description}
   url="https://selfgrowingmicrotool.com/{lang}/tools/decision-forge"
   imageUrl="https://selfgrowingmicrotool.com/og/decision-forge.png"
 />
@@ -142,8 +142,8 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
             </div>
             <div>
-                <h1 class="text-xl font-bold text-gray-900 dark:text-white leading-tight">{t.title}</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400 hidden sm:block">{t.description}</p>
+                <h1 class="text-xl font-bold text-gray-900 dark:text-white leading-tight">{t?.title}</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400 hidden sm:block">{t?.description}</p>
             </div>
         </div>
       </div>
@@ -241,13 +241,13 @@
         </section>
 
         <!-- Documentation -->
-        <GuideSection guide={t.guide} />
+        <GuideSection guide={t?.guide} />
 
         <!-- FAQ -->
         <FAQSection title={t.faqTitle} items={[
-          { question: t.q1, answer: t.a1 },
-          { question: t.q2, answer: t.a2 },
-          { question: t.q3, answer: t.a3 }
+          { question: t?.q1, answer: t?.a1 },
+          { question: t?.q2, answer: t?.a2 },
+          { question: t?.q3, answer: t?.a3 }
         ]} />
       </div>
     </div>

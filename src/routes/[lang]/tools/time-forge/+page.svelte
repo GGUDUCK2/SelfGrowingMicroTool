@@ -36,16 +36,16 @@
 
   $: faqs = [
     {
-      q: t.q1,
-      a: t.a1
+      q: t?.q1,
+      a: t?.a1
     },
     {
-      q: t.q2,
-      a: t.a2
+      q: t?.q2,
+      a: t?.a2
     },
     {
-      q: t.q3,
-      a: t.a3
+      q: t?.q3,
+      a: t?.a3
     }
   ];
 
@@ -53,7 +53,7 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": t.title,
+    "name": t?.title,
     "applicationCategory": "ProductivityApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -61,7 +61,7 @@
         "price": "0",
         "priceCurrency": "USD"
     },
-    "description": t.description,
+    "description": t?.description,
     "featureList": [t.features.visualPlanning.title, t.features.teamWorkspaces.title, t.features.smartSharing.title],
     "screenshot": "https://microfactory.dev/og/time-forge.png",
     "author": {
@@ -82,26 +82,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -111,17 +111,17 @@
 </svelte:head>
 
 <Head
-  title="{t.title} - {t.description}"
-  description={t.description}
+  title="{t?.title} - {t?.description}"
+  description={t?.description}
   image="https://microfactory.dev/og/time-forge.png"
 />
 
 <div class="max-w-4xl mx-auto px-4 py-12">
 
   <div class="mb-10 text-center">
-    <h1 class="text-4xl font-extrabold text-white mb-4 tracking-tight">{t.title}</h1>
+    <h1 class="text-4xl font-extrabold text-white mb-4 tracking-tight">{t?.title}</h1>
     <p class="text-lg text-slate-400 max-w-2xl mx-auto">
-      {t.description}
+      {t?.description}
     </p>
   </div>
 

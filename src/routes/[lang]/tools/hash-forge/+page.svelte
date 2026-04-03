@@ -39,12 +39,12 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": dict.title,
+    "name": dict?.title,
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "Cryptography Tool",
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript. HTML5. Web Crypto API.",
-    "description": dict.description,
+    "description": dict?.description,
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -71,7 +71,7 @@
       {
         "@type": "ListItem",
         "position": 3,
-        "name": dict.title,
+        "name": dict?.title,
         "item": `https://micro-tools.app/${lang}/tools/hash-forge`
       }
     ]
@@ -92,8 +92,8 @@
 
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
 />
 
 
@@ -110,10 +110,10 @@
       <Hash size={48} class="text-indigo-600 dark:text-indigo-400" />
     </div>
     <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-      {dict.title}
+      {dict?.title}
     </h1>
     <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-      {dict.description}
+      {dict?.description}
     </p>
   </div>
 
@@ -125,36 +125,36 @@
       <button
         class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'text' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
         on:click={() => selectTab('text')}
-        aria-label={dict.tabs.text}
+        aria-label={dict?.tabs?.text}
       >
         <FileText size={18} />
-        {dict.tabs.text}
+        {dict?.tabs?.text}
       </button>
       <button
         class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'file' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
         on:click={() => selectTab('file')}
-        aria-label={dict.tabs.file}
+        aria-label={dict?.tabs?.file}
       >
         <Shield size={18} />
-        {dict.tabs.file}
+        {dict?.tabs?.file}
       </button>
       <button
         class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'hmac' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
         on:click={() => selectTab('hmac')}
-        aria-label={dict.tabs.hmac}
+        aria-label={dict?.tabs?.hmac}
       >
         <KeyRound size={18} />
-        {dict.tabs.hmac}
+        {dict?.tabs?.hmac}
       </button>
 
       <div class="md:mt-auto">
         <button
           class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all w-full shrink-0 {activeTab === 'history' ? 'bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
           on:click={() => selectTab('history')}
-          aria-label={dict.tabs.history}
+          aria-label={dict?.tabs?.history}
         >
           <Clock size={18} />
-          {dict.tabs.history}
+          {dict?.tabs?.history}
         </button>
       </div>
     </div>

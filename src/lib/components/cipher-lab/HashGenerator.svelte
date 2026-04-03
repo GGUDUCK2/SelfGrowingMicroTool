@@ -264,7 +264,7 @@
   </div>
 
   <!-- Smart Examples -->
-  <div class="flex flex-wrap gap-2 text-xs">
+  <div class="flex gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap text-xs">
     <span class="text-slate-500 py-1 font-medium select-none">Try:</span>
     <button on:click={() => loadExample('text')} class="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors">
       Simple Text

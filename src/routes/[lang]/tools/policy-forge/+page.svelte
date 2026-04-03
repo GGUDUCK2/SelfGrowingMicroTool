@@ -66,9 +66,9 @@
 
   // SEO Schema
   $: faqItems = [
-    { q: toolDict.q1, a: toolDict.a1 },
-    { q: toolDict.q2, a: toolDict.a2 },
-    { q: toolDict.q3, a: toolDict.a3 }
+    { q: toolDict?.q1, a: toolDict?.a1 },
+    { q: toolDict?.q2, a: toolDict?.a2 },
+    { q: toolDict?.q3, a: toolDict?.a3 }
   ];
 
   $: schemaData = {
@@ -77,8 +77,8 @@
       {
         "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-        "name": toolDict.title,
-        "description": toolDict.description,
+        "name": toolDict?.title,
+        "description": toolDict?.description,
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Any",
         "offers": {
@@ -114,7 +114,7 @@
           {
             "@type": "ListItem",
             "position": 2,
-            "name": toolDict.title,
+            "name": toolDict?.title,
             "item": $page.url.href
           }
         ]
@@ -125,8 +125,8 @@
   $: jsonLd = JSON.stringify(schemaData);
 </script>
 <Head
-  title={toolDict.title}
-  description={toolDict.description}
+  title={toolDict?.title}
+  description={toolDict?.description}
   keywords="privacy policy generator, terms of service generator, gdpr, ccpa, legal documents, free policy maker"
 />
 
@@ -144,7 +144,7 @@
              <div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400">
                  <FileText size={20} />
              </div>
-             <h1 class="font-bold text-lg hidden sm:block bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{toolDict.title}</h1>
+             <h1 class="font-bold text-lg hidden sm:block bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{toolDict?.title}</h1>
         </div>
 
         <div class="flex items-center gap-2 md:hidden">
@@ -201,7 +201,7 @@
 <!-- Documentation -->
 <div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 print:hidden">
     <div class="max-w-5xl mx-auto px-4 py-12 space-y-12">
-        <GuideSection {...toolDict.guide} />
+        <GuideSection {...toolDict?.guide} />
         <FAQSection title={toolDict.faqTitle} items={faqItems} />
     </div>
 </div>

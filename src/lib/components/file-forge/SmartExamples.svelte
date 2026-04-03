@@ -37,7 +37,7 @@
 </script>
 
 <div class="flex flex-wrap gap-2 justify-center mt-4 border-t border-dashed border-slate-200 dark:border-slate-800 pt-4">
-    <span class="text-xs text-slate-400 w-full text-center mb-1">{dict?.smartExamples?.title || 'Try a Sample:'}</span>
+    <span class="text-xs text-slate-400 w-full text-center mb-1 block">{dict?.smartExamples?.title || 'Try a Sample:'}</span>
     <button
         on:click={loadText}
         class="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 transition-all shadow-sm"

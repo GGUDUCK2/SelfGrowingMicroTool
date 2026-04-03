@@ -125,17 +125,17 @@
   }
 
   $: faqItems = [
-    { q: dict.q1, a: dict.a1 },
-    { q: dict.q2, a: dict.a2 },
-    { q: dict.q3, a: dict.a3 },
+    { q: dict?.q1, a: dict?.a1 },
+    { q: dict?.q2, a: dict?.a2 },
+    { q: dict?.q3, a: dict?.a3 },
   ];
 
   $: appSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": dict.title,
-    "description": dict.description,
+    "name": dict?.title,
+    "description": dict?.description,
     "applicationCategory": "ProductivityApplication",
     "applicationSubCategory": "Time Management",
     "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
@@ -164,7 +164,7 @@
     }, {
       "@type": "ListItem",
       "position": 3,
-      "name": dict.title,
+      "name": dict?.title,
       "item": `https://selfgrowingmicrotool.com/${lang}/tools/pomodoro-timer`
     }]
   };
@@ -175,26 +175,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
@@ -203,8 +203,8 @@
   $: schemaList = [appSchema, breadcrumbSchema, faqSchema];
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
 />
 
 
@@ -218,10 +218,10 @@
 <div class="max-w-2xl mx-auto text-center space-y-12 py-12 px-4">
   <div class="space-y-4">
     <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">
-      {dict.title}
+      {dict?.title}
     </h1>
     <p class="text-gray-500">
-      {dict.description}
+      {dict?.description}
     </p>
   </div>
 
@@ -336,7 +336,7 @@
     </div>
   </div>
 
-  <GuideSection {...dict.guide} />
+  <GuideSection {...dict?.guide} />
 
   <FAQSection title={dict.faqTitle} items={faqItems} />
 </div>

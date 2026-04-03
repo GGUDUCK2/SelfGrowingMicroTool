@@ -143,9 +143,9 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
   // FAQ Data
   $: faqItems = [
-    { q: dict.q1, a: dict.a1 },
-    { q: dict.q2, a: dict.a2 },
-    { q: dict.q3, a: dict.a3 },
+    { q: dict?.q1, a: dict?.a1 },
+    { q: dict?.q2, a: dict?.a2 },
+    { q: dict?.q3, a: dict?.a3 },
   ];
 
   // Breadcrumb Names
@@ -153,8 +153,8 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
   $: toolsName = lang === "ko" ? "도구" : "Tools";
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
 />
 
 
@@ -163,8 +163,8 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": dict.title,
-    "description": dict.description,
+    "name": dict?.title,
+    "description": dict?.description,
     "applicationCategory": "DesignApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -200,7 +200,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     }, {
       "@type": "ListItem",
       "position": 3,
-      "name": dict.title,
+      "name": dict?.title,
       "item": `https://selfgrowingmicrotool.com/${lang}/tools/glassmorphism-generator`
     }]
   })}</script>`}
@@ -209,10 +209,10 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 <div class="max-w-6xl mx-auto py-12 space-y-12 px-4">
   <div class="text-center space-y-4">
     <h1 class="text-4xl font-bold text-gray-900">
-      {dict.title}
+      {dict?.title}
     </h1>
     <p class="text-gray-500 max-w-2xl mx-auto">
-      {dict.description}
+      {dict?.description}
     </p>
     <div class="flex justify-center">
         <button
@@ -470,18 +470,18 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
       {/if}
 
        <!-- Guide Section -->
-       {#if dict.guide}
+       {#if dict?.guide}
         <GuideSection
-          title={dict.guide.title}
-          intro={dict.guide.intro}
-          featuresTitle={dict.guide.featuresTitle}
-          f1={dict.guide.f1}
-          f2={dict.guide.f2}
-          f3={dict.guide.f3}
-          tipsTitle={dict.guide.tipsTitle}
-          tip1={dict.guide.tip1}
-          tip2={dict.guide.tip2}
-          tip3={dict.guide.tip3}
+          title={dict?.guide?.title}
+          intro={dict?.guide?.intro}
+          featuresTitle={dict?.guide?.featuresTitle}
+          f1={dict?.guide?.f1}
+          f2={dict?.guide?.f2}
+          f3={dict?.guide?.f3}
+          tipsTitle={dict?.guide?.tipsTitle}
+          tip1={dict?.guide?.tip1}
+          tip2={dict?.guide?.tip2}
+          tip3={dict?.guide?.tip3}
         />
        {/if}
 

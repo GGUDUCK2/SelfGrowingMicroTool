@@ -15,7 +15,7 @@
 
 </script>
 
-<div class="flex flex-wrap items-center gap-2 p-2 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap p-2 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
   <div class="flex items-center gap-1">
     <button on:click={onNew} class="btn-tool" title={dict.actions.new}>
       <Plus class="w-4 h-4" /> <span class="hidden sm:inline">{dict.actions.new}</span>

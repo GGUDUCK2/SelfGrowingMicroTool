@@ -79,8 +79,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": dict.title,
-    "description": dict.description,
+    "name": dict?.title,
+    "description": dict?.description,
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -102,34 +102,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
   keywords="css animation, keyframes generator, animation tool, web motion design, tailwind animation"
 />
 
@@ -167,7 +167,7 @@
                    <Menu class="w-5 h-5 text-slate-500" />
                </button>
                <h1 class="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600 hidden sm:block">
-                   {dict.title.split(':')[0]}
+                   {dict?.title.split(':')[0]}
                </h1>
            </div>
 
@@ -263,29 +263,29 @@
   <div class="max-w-4xl mx-auto px-4 py-12">
     <article class="prose dark:prose-invert max-w-none">
       <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 mb-6">
-        {dict.guide.title}
+        {dict?.guide?.title}
       </h2>
 
       <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">
-        {dict.guide.intro}
+        {dict?.guide?.intro}
       </p>
 
       <div class="grid md:grid-cols-2 gap-8 mb-12">
         <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl">
-          <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{dict.guide.featuresTitle}</h3>
+          <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{dict?.guide?.featuresTitle}</h3>
           <ul class="space-y-2 text-slate-600 dark:text-slate-400 list-disc list-inside">
-            <li>{@html dict.guide.f1}</li>
-            <li>{@html dict.guide.f2}</li>
-            <li>{@html dict.guide.f3}</li>
+            <li>{@html dict?.guide?.f1}</li>
+            <li>{@html dict?.guide?.f2}</li>
+            <li>{@html dict?.guide?.f3}</li>
           </ul>
         </div>
 
         <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl">
-           <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{dict.guide.tipsTitle}</h3>
+           <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{dict?.guide?.tipsTitle}</h3>
            <ul class="space-y-2 text-slate-600 dark:text-slate-400 list-disc list-inside">
-             <li>{@html dict.guide.tip1}</li>
-             <li>{@html dict.guide.tip2}</li>
-             <li>{@html dict.guide.tip3}</li>
+             <li>{@html dict?.guide?.tip1}</li>
+             <li>{@html dict?.guide?.tip2}</li>
+             <li>{@html dict?.guide?.tip3}</li>
            </ul>
         </div>
       </div>
@@ -294,16 +294,16 @@
           <h3 class="text-2xl font-bold mb-6 text-slate-800 dark:text-white">{dict.faqTitle}</h3>
           <div class="space-y-6">
               <div>
-                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{dict.q1}</h4>
-                  <p class="text-slate-600 dark:text-slate-400">{dict.a1}</p>
+                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{dict?.q1}</h4>
+                  <p class="text-slate-600 dark:text-slate-400">{dict?.a1}</p>
               </div>
               <div>
-                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{dict.q2}</h4>
-                  <p class="text-slate-600 dark:text-slate-400">{dict.a2}</p>
+                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{dict?.q2}</h4>
+                  <p class="text-slate-600 dark:text-slate-400">{dict?.a2}</p>
               </div>
               <div>
-                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{dict.q3}</h4>
-                  <p class="text-slate-600 dark:text-slate-400">{dict.a3}</p>
+                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{dict?.q3}</h4>
+                  <p class="text-slate-600 dark:text-slate-400">{dict?.a3}</p>
               </div>
           </div>
       </div>

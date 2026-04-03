@@ -34,7 +34,7 @@
   {#if suggestions.length === 0}
       <p class="text-xs text-slate-500 italic">{dictionary.keywordSuggester?.empty || 'Type in the title or description to generate suggestions...'}</p>
   {:else}
-      <div class="flex flex-wrap gap-2">
+      <div class="flex gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap">
           {#each suggestions as keyword}
               <button
                   on:click={() => addKeyword(keyword)}

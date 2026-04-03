@@ -47,7 +47,7 @@
 
 <div class="space-y-6">
   <div class="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
-    <div class="flex flex-wrap gap-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg shrink-0">
+    <div class="flex gap-2 overflow-x-auto scrollbar-hide whitespace-nowrap p-1 bg-slate-100 dark:bg-slate-800 rounded-lg shrink-0">
       <button
         class="flex items-center space-x-2 px-4 py-2 min-h-[44px] touch-manipulation rounded-md text-sm font-medium transition-all {format === 'json' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
         on:click={() => (format = 'json')}

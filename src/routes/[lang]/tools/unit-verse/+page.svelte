@@ -15,8 +15,8 @@
   $: t = dict.tools.unitVerse;
 
   $: faqItems = [
-    { q: t.q1, a: t.a1 },
-    { q: t.q2, a: t.a2 }
+    { q: t?.q1, a: t?.a1 },
+    { q: t?.q2, a: t?.a2 }
   ];
 
   let selectedCategory = 'length';
@@ -45,8 +45,8 @@
   }
 </script>
 <Head
-  title={`${t.title} | ${dict.home.title}`}
-  description={t.description}
+  title={`${t?.title} | ${dict.home.title}`}
+  description={t?.description}
   keywords={t.keywords}
 />
 
@@ -68,7 +68,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": t.description,
+      "description": t?.description,
       "featureList": t.featureList,
       "screenshot": "https://selfgrowingmicrotool.com/og/unit-verse.png"
     })}
@@ -107,26 +107,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -144,7 +144,7 @@
           <MoveLeft size={20} class="text-slate-400 group-hover:text-white" />
         </a>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-violet-400">
-          {t.title}
+          {t?.title}
         </h1>
       </div>
     </div>
@@ -177,7 +177,7 @@
         />
 
         <!-- Documentation / Guide -->
-        <Guide t={t.guide}>
+        <Guide t={t?.guide}>
            <div class="mt-8">
              <FAQSection title={t.faqTitle} items={faqItems} />
            </div>
