@@ -136,6 +136,19 @@
           window.removeEventListener('keydown', handleKeydown);
       }
   });
+
+  $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
 </script>
 <Head
   title={t.title}
@@ -148,38 +161,7 @@
                   {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
   {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumb) + '</script>'}
 
-  {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "${dict.q1}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a1}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q2}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a2}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q3}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a3}"
-        }
-      }
-    ]
-  }
-  </script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
 
 </svelte:head>
 
@@ -207,7 +189,7 @@
                 <div class="flex space-x-2 w-full sm:w-auto">
                     <button
                         on:click={saveToHistory}
-                        class="flex-1 sm:flex-none flex items-center justify-center space-x-1 px-4 py-2 bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600/30 rounded-lg text-sm transition-colors border border-indigo-500/30 min-h-[44px]"
+                        class="flex-1 sm:flex-none flex items-center justify-center space-x-1 px-4 py-2 bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600/30 rounded-lg text-sm transition-colors border border-indigo-500/30 min-h-[44px] min-w-[44px]"
                         title="Save to History (Ctrl+S)"
                     >
                         <Save size={16} />

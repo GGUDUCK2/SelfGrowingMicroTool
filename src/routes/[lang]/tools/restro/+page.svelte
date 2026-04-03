@@ -163,7 +163,7 @@
   }
 
   async function handleSave() {
-    const input = prompt(dict.save + ' (Name or Folder/Name):', 'My Request');
+    const input = prompt(dictionary.save + ' (Name or Folder/Name):', 'My Request');
     if (input) {
        let folder = 'Default';
        let name = input;
@@ -184,7 +184,7 @@
          name,
          folder
        });
-       // alert(dict.saved); // Dictionary update needed, using fallback
+       // alert(dictionary.saved); // Dictionary update needed, using fallback
        alert('Saved!');
     }
   }
@@ -244,6 +244,19 @@
           showBatch = false;
       }
   }
+
+  $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
 </script>
 <Head
   title={dict?.title ?? 'Restro'}
@@ -289,38 +302,7 @@
   })}
   </script>`}
 
-  {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "${dict.q1}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a1}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q2}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a2}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q3}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a3}"
-        }
-      }
-    ]
-  }
-  </script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
 
 </svelte:head>
 
@@ -451,7 +433,7 @@
   <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden">
       <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
-        <h3 class="font-bold text-lg text-slate-800 dark:text-white">{dict.generateCode}</h3>
+        <h3 class="font-bold text-lg text-slate-800 dark:text-white">{dictionary.generateCode}</h3>
         <button on:click={() => showCodeModal = false} class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
           <X class="w-5 h-5" />
         </button>
@@ -489,8 +471,8 @@
 <!-- Documentation Section -->
 <div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
   <div class="max-w-6xl mx-auto px-4 py-12">
-    <GuideSection {...dict.guide} />
-    <FAQSection title={dict.faqTitle} items={faqItems} />
+    <GuideSection {...dictionary.guide} />
+    <FAQSection title={dictionary.faqTitle} items={faqItems} />
   </div>
 </div>
 {/if}

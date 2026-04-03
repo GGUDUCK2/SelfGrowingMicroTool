@@ -54,9 +54,9 @@
                  : 'plaintext';
 
   $: faqItems = [
-    { q: dict.tools.deployForge.q1, a: dict.tools.deployForge.a1 },
-    { q: dict.tools.deployForge.q2, a: dict.tools.deployForge.a2 },
-    { q: dict.tools.deployForge.q3, a: dict.tools.deployForge.a3 }
+    { q: dictionary.tools.deployForge.q1, a: dictionary.tools.deployForge.a1 },
+    { q: dictionary.tools.deployForge.q2, a: dictionary.tools.deployForge.a2 },
+    { q: dictionary.tools.deployForge.q3, a: dictionary.tools.deployForge.a3 }
   ];
 
   // --- Actions ---
@@ -112,12 +112,25 @@
           updatedAt: Date.now()
       });
       // Show toast or feedback?
-      alert(dict.tools.deployForge.saved);
+      alert(dictionary.tools.deployForge.saved);
   }
+
+  $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
 </script>
 <Head
-  title={`${dict.tools.deployForge.title} | ${dict.home.title}`}
-  description={dict.tools.deployForge.description}
+  title={`${dictionary.tools.deployForge.title} | ${dictionary.home.title}`}
+  description={dictionary.tools.deployForge.description}
   keywords="dockerfile generator, docker compose builder, container architect, devops tool"
 />
 
@@ -132,16 +145,16 @@
           <MoveLeft size={20} class="text-slate-400 group-hover:text-white" />
         </a>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
-          {dict.tools.deployForge.title}
+          {dictionary.tools.deployForge.title}
         </h1>
       </div>
       <div class="flex items-center space-x-2">
-         <button on:click={saveToHistory} class="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={dict.tools.deployForge.save}>
+         <button on:click={saveToHistory} class="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={dictionary.tools.deployForge.save}>
             <Save size={20} />
          </button>
      <button on:click={downloadProject} class="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors text-sm min-h-[44px] min-w-[44px]">
             <Download size={18} />
-        <span class="hidden sm:inline">{dict.tools.deployForge.download}</span>
+        <span class="hidden sm:inline">{dictionary.tools.deployForge.download}</span>
          </button>
       </div>
     </div>
@@ -153,7 +166,7 @@
         <!-- Left Column: Config (5 cols) -->
         <div class="lg:col-span-5 space-y-8">
             <section>
-                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">{dict.tools.deployForge.selectStack}</h2>
+                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">{dictionary.tools.deployForge.selectStack}</h2>
                 <StackSelector
                     selectedStackId={currentStackId}
                     on:select={handleStackSelect}
@@ -168,7 +181,7 @@
             </section>
 
             <section>
-                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">{dict.tools.deployForge.addServices}</h2>
+                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">{dictionary.tools.deployForge.addServices}</h2>
                 <DatabaseSelector
                     selectedDatabases={config.databases}
                     on:change={handleDbChange}
@@ -235,7 +248,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": ${JSON.stringify(dict.tools.deployForge.description)},
+      "description": ${JSON.stringify(dictionary.tools.deployForge.description)},
       "featureList": "Dockerfile generation, Docker Compose builder, Multi-stage build optimization"
     }
     </script>`}
@@ -243,30 +256,30 @@
     <div class="mt-20 border-t border-slate-800 pt-16">
         <div class="prose prose-invert max-w-none">
             <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400 mb-6">
-                {dict.tools.deployForge.guide.title}
+                {dictionary.tools.deployForge.guide.title}
             </h2>
             <div class="grid md:grid-cols-2 gap-12 text-slate-300 leading-relaxed">
                 <div>
-                    <h3 class="text-xl font-semibold text-white mb-4">{dict.tools.deployForge.guide.introTitle}</h3>
+                    <h3 class="text-xl font-semibold text-white mb-4">{dictionary.tools.deployForge.guide.introTitle}</h3>
                     <p class="mb-4">
-                        {dict.tools.deployForge.guide.intro}
+                        {dictionary.tools.deployForge.guide.intro}
                     </p>
                 </div>
                 <div>
-                    <h3 class="text-xl font-semibold text-white mb-4">{dict.tools.deployForge.guide.featuresTitle}</h3>
+                    <h3 class="text-xl font-semibold text-white mb-4">{dictionary.tools.deployForge.guide.featuresTitle}</h3>
                     <div class="space-y-3 markdown-content">
                         <!-- We render these as markdown-like lists -->
                         <div class="flex items-start gap-2">
                             <span class="text-indigo-400 mt-1">•</span>
-                            <span>{@html dict.tools.deployForge.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+                            <span>{@html dictionary.tools.deployForge.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                         </div>
                         <div class="flex items-start gap-2">
                             <span class="text-indigo-400 mt-1">•</span>
-                            <span>{@html dict.tools.deployForge.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+                            <span>{@html dictionary.tools.deployForge.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                         </div>
                         <div class="flex items-start gap-2">
                             <span class="text-indigo-400 mt-1">•</span>
-                            <span>{@html dict.tools.deployForge.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+                            <span>{@html dictionary.tools.deployForge.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                         </div>
                     </div>
                 </div>
@@ -274,7 +287,7 @@
 
             <div class="mt-12">
                 <FAQSection
-                    title={dict.tools.deployForge.faqTitle}
+                    title={dictionary.tools.deployForge.faqTitle}
                     items={faqItems}
                 />
             </div>

@@ -8,10 +8,10 @@
   import FAQSection from '$lib/components/FAQSection.svelte';
 
   $: dict = getDictionary($page.params.lang);
-  $: toolDict = dict.tools.pixelForge;
+  $: toolDict = dictionary.tools.pixelForge;
 
   // SEO & Meta
-  $: title = `${toolDict.title} - ${dict.common.category}`; // e.g. Pixel Forge - Image Tools
+  $: title = `${toolDict.title} - ${dictionary.common.category}`; // e.g. Pixel Forge - Image Tools
   $: description = toolDict.description;
 
   $: jsonLd = JSON.stringify({
@@ -50,6 +50,19 @@
 
   // Helper to render markdown safely
   const renderMarkdown = (text: string) => marked.parse(text);
+
+  $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
 </script>
 <Head
   title={title}

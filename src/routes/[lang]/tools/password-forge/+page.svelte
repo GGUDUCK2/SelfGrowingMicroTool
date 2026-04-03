@@ -22,10 +22,10 @@
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
   $: t = {
-      ...dict.tools.passwordForge,
-      modePronounceable: dict.tools.passwordForge.modePronounceable || 'Pronounceable',
-      modeAnalyzer: dict.tools.passwordForge.modeAnalyzer || 'Analyzer',
-      analyzer: dict.tools.passwordForge.analyzer || {}
+      ...t.tools.passwordForge,
+      modePronounceable: t.tools.passwordForge.modePronounceable || 'Pronounceable',
+      modeAnalyzer: t.tools.passwordForge.modeAnalyzer || 'Analyzer',
+      analyzer: t.tools.passwordForge.analyzer || {}
   };
 
   let mode: 'password' | 'passphrase' | 'pronounceable' | 'analyzer' = 'password';
@@ -433,7 +433,7 @@
                         >
                             {#if copied}
                                 <span class="absolute inset-0 bg-green-500 flex items-center justify-center text-white font-bold transition-transform transform scale-100">
-                                    {dict.common.copied}
+                                    {t.common.copied}
                                 </span>
                             {:else}
                                 <Copy size={24} />

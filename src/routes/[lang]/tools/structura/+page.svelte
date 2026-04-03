@@ -18,7 +18,7 @@
 
   export let data;
 
-  $: t = data.dict.tools.structura;
+  $: t = data.t.tools.structura;
 
   $: faqItems = [
     { q: t.q1, a: t.a1 },

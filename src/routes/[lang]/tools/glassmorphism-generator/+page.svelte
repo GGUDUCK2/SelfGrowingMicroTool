@@ -143,9 +143,9 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
   // FAQ Data
   $: faqItems = [
-    { q: dict.q1, a: dict.a1 },
-    { q: dict.q2, a: dict.a2 },
-    { q: dict.q3, a: dict.a3 },
+    { q: dictionary.q1, a: dictionary.a1 },
+    { q: dictionary.q2, a: dictionary.a2 },
+    { q: dictionary.q3, a: dictionary.a3 },
   ];
 
   // Breadcrumb Names
@@ -153,8 +153,8 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
   $: toolsName = lang === "ko" ? "도구" : "Tools";
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dictionary.title}
+  description={dictionary.description}
 />
 
 
@@ -163,8 +163,8 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": dict.title,
-    "description": dict.description,
+    "name": dictionary.title,
+    "description": dictionary.description,
     "applicationCategory": "DesignApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -200,7 +200,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     }, {
       "@type": "ListItem",
       "position": 3,
-      "name": dict.title,
+      "name": dictionary.title,
       "item": `https://selfgrowingmicrotool.com/${lang}/tools/glassmorphism-generator`
     }]
   })}</script>`}
@@ -209,10 +209,10 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 <div class="max-w-6xl mx-auto py-12 space-y-12 px-4">
   <div class="text-center space-y-4">
     <h1 class="text-4xl font-bold text-gray-900">
-      {dict.title}
+      {dictionary.title}
     </h1>
     <p class="text-gray-500 max-w-2xl mx-auto">
-      {dict.description}
+      {dictionary.description}
     </p>
     <div class="flex justify-center">
         <button
@@ -238,9 +238,9 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
             <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" />
           </svg>
           {#if linkCopied}
-            {dict.linkCopied}
+            {dictionary.linkCopied}
           {:else}
-            {dict.shareLink}
+            {dictionary.shareLink}
           {/if}
         </button>
     </div>
@@ -275,27 +275,27 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
             <line x1="8" y1="10" y2="14" />
             <line x1="16" y1="18" y2="22" />
             </svg>
-            {dict.config}
+            {dictionary.config}
         </h2>
         <button
             on:click={saveToHistory}
             class="text-sm bg-indigo-50 px-3 py-1.5 rounded-lg text-indigo-600 hover:text-indigo-800 font-medium touch-manipulation transition-colors min-h-[44px]"
         >
-            {dict.save}
+            {dictionary.save}
         </button>
       </div>
 
       <div class="space-y-6">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">
-            {dict.blur} ({blur}px)
+            {dictionary.blur} ({blur}px)
             <input
               type="range"
               min="0"
               max="40"
               step="1"
               bind:value={blur}
-              aria-label={dict.blur}
+              aria-label={dictionary.blur}
               class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px]"
             />
           </label>
@@ -303,14 +303,14 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">
-            {dict.transparency} ({Math.round(transparency * 100)}%)
+            {dictionary.transparency} ({Math.round(transparency * 100)}%)
             <input
               type="range"
               min="0"
               max="1"
               step="0.01"
               bind:value={transparency}
-              aria-label={dict.transparency}
+              aria-label={dictionary.transparency}
               class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px]"
             />
           </label>
@@ -318,18 +318,18 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">
-            {dict.color}
+            {dictionary.color}
             <div class="flex gap-2 mt-2">
               <input
                 type="color"
                 bind:value={color}
-                aria-label="{dict.color} picker"
+                aria-label="{dictionary.color} picker"
                 class="h-10 w-12 p-0 border-0 rounded cursor-pointer touch-manipulation min-h-[44px]"
               />
               <input
                 type="text"
                 bind:value={color}
-                aria-label="{dict.color} hex code"
+                aria-label="{dictionary.color} hex code"
                 class="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none uppercase min-h-[44px]"
               />
             </div>
@@ -338,14 +338,14 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">
-            {dict.outline} ({outline}px)
+            {dictionary.outline} ({outline}px)
             <input
               type="range"
               min="0"
               max="10"
               step="1"
               bind:value={outline}
-              aria-label={dict.outline}
+              aria-label={dictionary.outline}
               class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px]"
             />
           </label>
@@ -353,14 +353,14 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">
-            {dict.radius} ({radius}px)
+            {dictionary.radius} ({radius}px)
             <input
               type="range"
               min="0"
               max="100"
               step="1"
               bind:value={radius}
-              aria-label={dict.radius}
+              aria-label={dictionary.radius}
               class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px]"
             />
           </label>
@@ -397,14 +397,14 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
           class="z-10 w-64 h-40 flex items-center justify-center text-white/90 font-medium"
           style={cssCode}
         >
-          <span class="drop-shadow-md text-lg">{dict.preview}</span>
+          <span class="drop-shadow-md text-lg">{dictionary.preview}</span>
         </div>
       </div>
 
       <!-- CSS Code Output -->
       <div class="bg-slate-900 rounded-2xl p-6 shadow-lg relative group">
         <h3 class="text-slate-400 text-xs font-semibold uppercase mb-4">
-          {dict.cssCode}
+          {dictionary.cssCode}
         </h3>
         <pre
           class="text-green-400 font-mono text-sm overflow-x-auto whitespace-pre-wrap">{cssCode}</pre>
@@ -414,9 +414,9 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
           class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white px-4 py-2 sm:px-3 sm:py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 backdrop-blur-sm touch-manipulation min-h-[44px]"
         >
           {#if copied}
-            <span in:fly={{ y: 5 }} class="text-green-400">{dict.copied}</span>
+            <span in:fly={{ y: 5 }} class="text-green-400">{dictionary.copied}</span>
           {:else}
-            <span in:fade>{dict.copy}</span>
+            <span in:fade>{dictionary.copy}</span>
           {/if}
         </button>
       </div>
@@ -427,13 +427,13 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-xl font-bold text-gray-900 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-history text-indigo-600"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12"/><path d="M3 3v9h9"/><path d="M12 7v5l4 2"/></svg>
-                    {dict.history}
+                    {dictionary.history}
                 </h3>
                 <button
                     on:click={clearHistory}
                     class="text-sm text-red-500 hover:text-red-700 font-medium touch-manipulation min-h-[44px]"
                 >
-                    {dict.clearHistory}
+                    {dictionary.clearHistory}
                 </button>
             </div>
 
@@ -447,11 +447,11 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                             </div>
                             <div class="space-y-1 text-xs text-gray-600">
                                 <div class="flex justify-between">
-                                    <span>{dict.blur}:</span>
+                                    <span>{dictionary.blur}:</span>
                                     <span class="font-medium">{item.blur}px</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span>{dict.transparency}:</span>
+                                    <span>{dictionary.transparency}:</span>
                                     <span class="font-medium">{Math.round(item.transparency * 100)}%</span>
                                 </div>
                             </div>
@@ -459,7 +459,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                          <button
                             on:click|stopPropagation={() => item.id && deleteHistory(item.id)}
                             class="absolute top-2 right-2 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg opacity-0 group-hover:opacity-100 transition-all touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
-                            aria-label={dict.delete}
+                            aria-label={dictionary.delete}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                         </button>
@@ -470,23 +470,23 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
       {/if}
 
        <!-- Guide Section -->
-       {#if dict.guide}
+       {#if dictionary.guide}
         <GuideSection
-          title={dict.guide.title}
-          intro={dict.guide.intro}
-          featuresTitle={dict.guide.featuresTitle}
-          f1={dict.guide.f1}
-          f2={dict.guide.f2}
-          f3={dict.guide.f3}
-          tipsTitle={dict.guide.tipsTitle}
-          tip1={dict.guide.tip1}
-          tip2={dict.guide.tip2}
-          tip3={dict.guide.tip3}
+          title={dictionary.guide.title}
+          intro={dictionary.guide.intro}
+          featuresTitle={dictionary.guide.featuresTitle}
+          f1={dictionary.guide.f1}
+          f2={dictionary.guide.f2}
+          f3={dictionary.guide.f3}
+          tipsTitle={dictionary.guide.tipsTitle}
+          tip1={dictionary.guide.tip1}
+          tip2={dictionary.guide.tip2}
+          tip3={dictionary.guide.tip3}
         />
        {/if}
 
       <!-- FAQ Section -->
-      <FAQSection title={dict.faqTitle} items={faqItems} />
+      <FAQSection title={dictionary.faqTitle} items={faqItems} />
     </div>
   </div>
 </div>

@@ -16,7 +16,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.sqlForge;
+  $: t = t.tools.sqlForge;
 
   let engine: SqlEngine;
   let query = '';

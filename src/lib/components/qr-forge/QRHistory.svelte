@@ -39,7 +39,7 @@
         <Clock size={20} />
         {d.history || 'Recent History'}
     </h3>
-    <button on:click={clearAll} class="text-xs text-slate-400 hover:text-red-400 transition-colors">
+    <button on:click={clearAll} class="text-xs text-slate-400 hover:text-red-400 transition-colors min-h-[44px] min-w-[44px]">
         {d.clear || 'Clear All'}
     </button>
   </div>

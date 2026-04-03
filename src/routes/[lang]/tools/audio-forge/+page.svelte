@@ -10,8 +10,8 @@
   $: lang = $page.params.lang || 'en';
   // Fallback if dictionary key doesn't exist yet (during development)
   $: dict = getDictionary(lang);
-  $: common = dict.common || { back: "Back", home: "Home" };
-  $: toolDict = dict.tools.audioForge || {
+  $: common = dictionary.common || { back: "Back", home: "Home" };
+  $: toolDict = dictionary.tools.audioForge || {
       title: "Audio Forge",
       description: "Professional Audio Editor",
       guide: {},

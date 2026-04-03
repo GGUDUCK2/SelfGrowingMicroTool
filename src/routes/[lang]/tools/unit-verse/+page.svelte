@@ -12,7 +12,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.unitVerse;
+  $: t = t.tools.unitVerse;
 
   $: faqItems = [
     { q: t.q1, a: t.a1 },
@@ -43,9 +43,22 @@
       params.set('to', record.toUnitId);
       window.history.replaceState({}, '', `?${params.toString()}`);
   }
+
+  $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
 </script>
 <Head
-  title={`${t.title} | ${dict.home.title}`}
+  title={`${t.title} | ${t.home.title}`}
   description={t.description}
   keywords={t.keywords}
 />
@@ -100,38 +113,7 @@
     })}
   </script>`}
 
-  {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "${dict.q1}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a1}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q2}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a2}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q3}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a3}"
-        }
-      }
-    ]
-  }
-  </script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
 
 </svelte:head>
 
@@ -140,7 +122,7 @@
   <header class="bg-slate-800/50 backdrop-blur-md border-b border-slate-700/50 sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-4">
-        <a href="/{lang}" class="p-2 hover:bg-slate-700 rounded-full transition-colors group" aria-label={dict.common.back}>
+        <a href="/{lang}" class="p-2 hover:bg-slate-700 rounded-full transition-colors group" aria-label={t.common.back}>
           <MoveLeft size={20} class="text-slate-400 group-hover:text-white" />
         </a>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-violet-400">

@@ -75,7 +75,7 @@
     let title = userPrompt.split('\n')[0].slice(0, 50) || 'Untitled Prompt';
     if (title.length === 50) title += '...';
 
-    const name = prompt(dict.scenarioName || "Enter a name for this prompt:", title);
+    const name = prompt(dictionary.scenarioName || "Enter a name for this prompt:", title);
     if (!name) return;
 
     // Create payload (store system & user prompt as JSON in template field)
@@ -91,7 +91,7 @@
             starred: 0
         });
 
-        showNotification(dict.toolbar.saved);
+        showNotification(dictionary.toolbar.saved);
     } catch (e) {
         console.error(e);
         alert('Failed to save history.');
@@ -138,7 +138,7 @@
           values = {};
           scenarios = { 'default': {} };
           activeScenarioId = 'default';
-          showNotification(dict.toolbar.cleared);
+          showNotification(dictionary.toolbar.cleared);
       }
   }
 
@@ -191,34 +191,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dictionary.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dictionary.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dictionary.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dictionary.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dictionary.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dictionary.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dictionary.title}
+  description={dictionary.description}
   keywords="prompt engineering, ai prompt generator, llm prompt testing, prompt variables, openai prompt optimization, prompt management"
 />
 
@@ -281,21 +281,21 @@
                 <span>~${totalCost.toFixed(5)}</span>
              </div>
 
-             <button on:click={handleClear} class="p-2 text-slate-500 hover:text-red-500 transition-colors min-h-[44px]" title={dict.toolbar.clear} aria-label={dict.toolbar.clear}>
+             <button on:click={handleClear} class="p-2 text-slate-500 hover:text-red-500 transition-colors min-h-[44px]" title={dictionary.toolbar.clear} aria-label={dictionary.toolbar.clear}>
                  <Trash2 class="w-5 h-5" />
              </button>
              <button on:click={() => showTemplateModal = true} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors" title="Templates" aria-label="Templates">
                  <BookTemplate class="w-5 h-5" />
              </button>
-             <button on:click={handleExport} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors min-h-[44px]" title={dict.toolbar.export} aria-label={dict.toolbar.export}>
+             <button on:click={handleExport} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors min-h-[44px]" title={dictionary.toolbar.export} aria-label={dictionary.toolbar.export}>
                  <Download class="w-5 h-5" />
              </button>
              <button on:click={() => showCodeExport = true} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors" title="Export Code (Ctrl+E)" aria-label="Export Code">
                  <Code class="w-5 h-5" />
              </button>
-             <button on:click={handleSave} class="flex items-center gap-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg font-medium text-sm transition-colors shadow-sm min-h-[44px]" aria-label={dict.toolbar.save} title="Save (Ctrl+S)">
+             <button on:click={handleSave} class="flex items-center gap-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg font-medium text-sm transition-colors shadow-sm min-h-[44px]" aria-label={dictionary.toolbar.save} title="Save (Ctrl+S)">
                  <Save class="w-4 h-4" />
-                 <span class="hidden sm:inline">{dict.toolbar.save}</span>
+                 <span class="hidden sm:inline">{dictionary.toolbar.save}</span>
              </button>
         </div>
      </header>
@@ -324,26 +324,26 @@
         <div class="mt-20 w-full pb-20 px-4">
             <div class="max-w-6xl mx-auto">
                 <GuideSection
-                    title={dict.guide.title}
-                    intro={dict.guide.intro}
-                    featuresTitle={dict.guide.featuresTitle}
-                    f1={dict.guide.f1}
-                    f2={dict.guide.f2}
-                    f3={dict.guide.f3}
-                    tipsTitle={dict.guide.tipsTitle}
-                    tip1={dict.guide.tip1}
-                    tip2={dict.guide.tip2}
-                    tip3={dict.guide.tip3}
+                    title={dictionary.guide.title}
+                    intro={dictionary.guide.intro}
+                    featuresTitle={dictionary.guide.featuresTitle}
+                    f1={dictionary.guide.f1}
+                    f2={dictionary.guide.f2}
+                    f3={dictionary.guide.f3}
+                    tipsTitle={dictionary.guide.tipsTitle}
+                    tip1={dictionary.guide.tip1}
+                    tip2={dictionary.guide.tip2}
+                    tip3={dictionary.guide.tip3}
                 />
             </div>
 
             <div class="max-w-4xl mx-auto mt-12">
                 <FAQSection
-                    title={dict.faqTitle}
+                    title={dictionary.faqTitle}
                     items={[
-                        { q: dict.q1, a: dict.a1 },
-                        { q: dict.q2, a: dict.a2 },
-                        { q: dict.q3, a: dict.a3 }
+                        { q: dictionary.q1, a: dictionary.a1 },
+                        { q: dictionary.q2, a: dictionary.a2 },
+                        { q: dictionary.q3, a: dictionary.a3 }
                     ]}
                 />
             </div>

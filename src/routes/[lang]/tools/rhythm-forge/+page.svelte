@@ -232,8 +232,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": dict.title,
-    "description": dict.description,
+    "name": dictionary.title,
+    "description": dictionary.description,
     "applicationCategory": "MultimediaApplication",
     "applicationSubCategory": "Music Learning",
     "operatingSystem": "Any",
@@ -256,8 +256,8 @@
   };
 </script>
 <Head
-  title={`${mode === 'game' ? (dict.game?.title || 'Rhythm Game') : (settings.isPlaying ? `▶ ${settings.bpm} BPM` : dict.title)}`}
-  description={dict.description}
+  title={`${mode === 'game' ? (dictionary.game?.title || 'Rhythm Game') : (settings.isPlaying ? `▶ ${settings.bpm} BPM` : dictionary.title)}`}
+  description={dictionary.description}
   keywords="metronome, polyrhythm generator, online metronome, rhythm trainer, music tools, tap tempo, bpm calculator, gap click, speed trainer, timing accuracy, drum practice"
 />
 
@@ -274,26 +274,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dictionary.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dictionary.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dictionary.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dictionary.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dictionary.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dictionary.a3}"
         }
       }
     ]
@@ -313,10 +313,10 @@
               <Activity class="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
           </div>
           <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-              {dict.title.split(':')[0]}
+              {dictionary.title.split(':')[0]}
           </h1>
           <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              {dict.description}
+              {dictionary.description}
           </p>
       </div>
 
@@ -337,13 +337,13 @@
                       class="flex-1 py-3 rounded-xl font-bold text-sm transition-all {mode === 'trainer' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'} min-h-[44px]"
                       on:click={() => mode = 'trainer'}
                   >
-                      {dict.rhythmTrainer?.title || 'Rhythm Trainer'}
+                      {dictionary.rhythmTrainer?.title || 'Rhythm Trainer'}
                   </button>
                   <button
                       class="flex-1 py-3 rounded-xl font-bold text-sm transition-all {mode === 'game' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'} min-h-[44px]"
                       on:click={() => mode = 'game'}
                   >
-                      {dict.game?.title || 'Rhythm Game'}
+                      {dictionary.game?.title || 'Rhythm Game'}
                   </button>
               </div>
 
@@ -378,13 +378,13 @@
                       class="flex-1 py-2 rounded-xl font-bold text-sm transition-all {libraryMode === 'presets' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400'} min-h-[44px]"
                       on:click={() => libraryMode = 'presets'}
                   >
-                      {dict.libraryMode?.presets || 'Presets & Library'}
+                      {dictionary.libraryMode?.presets || 'Presets & Library'}
                   </button>
                   <button
                       class="flex-1 py-2 rounded-xl font-bold text-sm transition-all {libraryMode === 'playlists' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400'} min-h-[44px]"
                       on:click={() => libraryMode = 'playlists'}
                   >
-                      {dict.libraryMode?.playlists || 'Setlists / Playlists'}
+                      {dictionary.libraryMode?.playlists || 'Setlists / Playlists'}
                   </button>
               </div>
 
@@ -398,14 +398,14 @@
 
       <!-- Documentation -->
       <div class="mt-20 border-t border-slate-200 dark:border-slate-800 pt-12">
-          <GuideSection {...dict.guide} />
+          <GuideSection {...dictionary.guide} />
           <div class="mt-12">
               <FAQSection
-                  title={dict.faqTitle}
+                  title={dictionary.faqTitle}
                   items={[
-                      { q: dict.q1, a: dict.a1 },
-                      { q: dict.q2, a: dict.a2 },
-                      { q: dict.q3, a: dict.a3 }
+                      { q: dictionary.q1, a: dictionary.a1 },
+                      { q: dictionary.q2, a: dictionary.a2 },
+                      { q: dictionary.q3, a: dictionary.a3 }
                   ]}
               />
           </div>

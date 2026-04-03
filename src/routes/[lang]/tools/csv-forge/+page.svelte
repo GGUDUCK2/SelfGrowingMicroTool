@@ -63,7 +63,7 @@
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-    showToastMsg(dict.downloadSuccess);
+    showToastMsg(dictionary.downloadSuccess);
   }
 
   async function saveToHistory() {
@@ -212,13 +212,13 @@
 
         <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 space-y-4">
           <label for="rawCsv" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
-            {dict.inputLabel}
+            {dictionary.inputLabel}
           </label>
           <textarea
             id="rawCsv"
             bind:value={rawCsv}
             rows="5"
-            placeholder={dict.placeholder}
+            placeholder={dictionary.placeholder}
             class="w-full bg-slate-50 dark:bg-[#0d1117] border border-slate-200 dark:border-slate-800 rounded-xl p-4 font-mono text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all resize-y"
           ></textarea>
         </div>
@@ -231,7 +231,7 @@
              on:click={() => activeTab = 'editor'}
            >
              <Edit3 size={16} />
-             <span>{dict.tabs.editor}</span>
+             <span>{dictionary.tabs.editor}</span>
            </button>
            <button
              role="tab"
@@ -240,7 +240,7 @@
              on:click={() => activeTab = 'converter'}
            >
              <ArrowRightLeft size={16} />
-             <span>{dict.tabs.converter}</span>
+             <span>{dictionary.tabs.converter}</span>
            </button>
            <button
              role="tab"
@@ -249,7 +249,7 @@
              on:click={() => activeTab = 'analyzer'}
            >
              <BarChart2 size={16} />
-             <span>{dict.tabs.analyzer}</span>
+             <span>{dictionary.tabs.analyzer}</span>
            </button>
         </div>
 
@@ -265,19 +265,19 @@
 
         <div class="mt-12 space-y-8">
            <GuideSection
-             title={dict.guide.title}
-             intro={dict.guide.intro}
-             featuresTitle={dict.guide.featuresTitle}
-             f1={dict.guide.f1}
-             f2={dict.guide.f2}
-             f3={dict.guide.f3}
-             tipsTitle={dict.guide.tipsTitle}
-             tip1={dict.guide.tip1}
-             tip2={dict.guide.tip2}
-             tip3={dict.guide.tip3}
+             title={dictionary.guide.title}
+             intro={dictionary.guide.intro}
+             featuresTitle={dictionary.guide.featuresTitle}
+             f1={dictionary.guide.f1}
+             f2={dictionary.guide.f2}
+             f3={dictionary.guide.f3}
+             tipsTitle={dictionary.guide.tipsTitle}
+             tip1={dictionary.guide.tip1}
+             tip2={dictionary.guide.tip2}
+             tip3={dictionary.guide.tip3}
            />
 
-           <FAQSection title={dict.faqTitle} items={faqItems} />
+           <FAQSection title={dictionary.faqTitle} items={faqItems} />
         </div>
       </div>
 

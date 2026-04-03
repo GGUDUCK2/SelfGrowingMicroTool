@@ -295,9 +295,9 @@
 
   // FAQ Data
   $: faqItems = [
-    { q: dict.q1, a: dict.a1 },
-    { q: dict.q2, a: dict.a2 },
-    { q: dict.q3, a: dict.a3 },
+    { q: dictionary.q1, a: dictionary.a1 },
+    { q: dictionary.q2, a: dictionary.a2 },
+    { q: dictionary.q3, a: dictionary.a3 },
   ];
 
   $: schemaData = [
@@ -305,8 +305,8 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-      "name": dict.title,
-      "description": dict.description,
+      "name": dictionary.title,
+      "description": dictionary.description,
       "applicationCategory": "FinanceApplication",
       "applicationSubCategory": "FinanceApplication",
       "operatingSystem": "Android, iOS, macOS, Windows, Linux",
@@ -331,26 +331,26 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": dict.q1,
+          "name": dictionary.q1,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": dict.a1
+            "text": dictionary.a1
           }
         },
         {
           "@type": "Question",
-          "name": dict.q2,
+          "name": dictionary.q2,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": dict.a2
+            "text": dictionary.a2
           }
         },
         {
           "@type": "Question",
-          "name": dict.q3,
+          "name": dictionary.q3,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": dict.a3
+            "text": dictionary.a3
           }
         }
       ]
@@ -371,15 +371,15 @@
       },{
         "@type": "ListItem",
         "position": 3,
-        "name": dict.title,
+        "name": dictionary.title,
         "item": "https://selfgrowingmicrotool.com/" + lang + "/tools/compound-interest-calculator"
       }]
     }
   ];
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dictionary.title}
+  description={dictionary.description}
 />
 
 
@@ -438,7 +438,7 @@
                 y2="22"
             /></svg
             >
-            {dict.config}
+            {dictionary.config}
         </h2>
         <button
             on:click={saveToHistory}
@@ -724,8 +724,8 @@
           <HistoryList
             {history}
             {lang}
-            title={dict.history}
-            deleteLabel={dict.delete}
+            title={dictionary.history}
+            deleteLabel={dictionary.delete}
             {restoreHistory}
             {deleteHistory}
           />
@@ -733,7 +733,7 @@
       {/if}
 
       <!-- FAQ Section -->
-      <FAQSection title={dict.faqTitle} items={faqItems} />
+      <FAQSection title={dictionary.faqTitle} items={faqItems} />
     </div>
   </div>
 </div>

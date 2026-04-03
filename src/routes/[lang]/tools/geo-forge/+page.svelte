@@ -379,8 +379,8 @@
   };
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dictionary.title}
+  description={dictionary.description}
   keywords="geojson, wkt, csv, map, converter, geospatial, gis tools, visualization, coordinates"
 />
 
@@ -393,8 +393,8 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-      "name": "${dict.title}",
-      "description": "${dict.description}",
+      "name": "${dictionary.title}",
+      "description": "${dictionary.description}",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
       "offers": {
@@ -433,7 +433,7 @@
          </div>
          <div>
              <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-                {dict.title}
+                {dictionary.title}
              </h1>
              <p class="text-xs text-slate-500 hidden sm:block">Professional Geospatial Toolkit</p>
          </div>
@@ -661,23 +661,23 @@
                    <X class="w-6 h-6" />
                </button>
                <div class="p-1">
-                  {#if dict.guide && dict.guide.title}
+                  {#if dictionary.guide && dictionary.guide.title}
                     <div class="px-6 pt-6">
                         <GuideSection
-                            title={dict.guide.title}
-                            intro={dict.guide.intro}
-                            featuresTitle={dict.guide.featuresTitle}
-                            f1={dict.guide.f1}
-                            f2={dict.guide.f2}
-                            f3={dict.guide.f3}
-                            tipsTitle={dict.guide.tipsTitle}
-                            tip1={dict.guide.tip1}
-                            tip2={dict.guide.tip2}
-                            tip3={dict.guide.tip3}
+                            title={dictionary.guide.title}
+                            intro={dictionary.guide.intro}
+                            featuresTitle={dictionary.guide.featuresTitle}
+                            f1={dictionary.guide.f1}
+                            f2={dictionary.guide.f2}
+                            f3={dictionary.guide.f3}
+                            tipsTitle={dictionary.guide.tipsTitle}
+                            tip1={dictionary.guide.tip1}
+                            tip2={dictionary.guide.tip2}
+                            tip3={dictionary.guide.tip3}
                         />
                     </div>
                   {/if}
-                  <FAQSection title={dict.faqTitle} items={faqItems} injectSchema={false} />
+                  <FAQSection title={dictionary.faqTitle} items={faqItems} injectSchema={false} />
                </div>
           </div>
       </div>

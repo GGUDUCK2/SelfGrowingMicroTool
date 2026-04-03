@@ -15,7 +15,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: toolDict = dict.tools.policyForge;
+  $: toolDict = dictionary.tools.policyForge;
 
   let showHistory = false;
   let showPreviewOnMobile = false;
@@ -108,7 +108,7 @@
           {
             "@type": "ListItem",
             "position": 1,
-            "name": dict.home.title,
+            "name": dictionary.home.title,
             "item": `https://selfgrowingmicrotool.com/${lang}`
           },
           {

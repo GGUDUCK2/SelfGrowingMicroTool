@@ -169,7 +169,7 @@
       "priceCurrency": "USD"
     },
     "featureList": "UUID Generation (v1, v3, v4, v5, v7), ULID Generation, Collision Probability Calculator, ID Analysis, Bulk Generation (JSON/SQL/CSV)",
-    "description": dict.description
+    "description": dictionary.description
   };
 
   $: jsonLd2 = {
@@ -178,34 +178,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dictionary.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dictionary.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dictionary.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dictionary.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dictionary.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dictionary.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dictionary.title}
+  description={dictionary.description}
   keywords="uuid generator, ulid generator, nanoid generator, guid, uuid v7, collision calculator, id generator"
 />
 
@@ -233,7 +233,7 @@
       ID <span class="text-indigo-600 dark:text-indigo-400">Forge</span>
     </h1>
     <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-      {dict.description}
+      {dictionary.description}
     </p>
   </div>
 
@@ -246,7 +246,7 @@
                 on:click={() => handleTabChange(tab)}
                 class="flex-1 py-3 text-sm font-bold rounded-xl transition-all {activeTab === tab ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
             >
-                {dict.tabs[tab] || tab}
+                {dictionary.tabs[tab] || tab}
             </button>
         {/each}
     </div>
@@ -260,8 +260,8 @@
 
                     <!-- Shortcuts Helper -->
                     <div class="text-xs text-slate-400 flex items-center justify-between px-2">
-                        <span>{dict.shortcuts}: <kbd class="font-mono bg-slate-100 dark:bg-slate-800 px-1 rounded">Cmd/Ctrl + Enter</kbd> {dict.generate}</span>
-                        <span><kbd class="font-mono bg-slate-100 dark:bg-slate-800 px-1 rounded">Cmd/Ctrl + K</kbd> {dict.buttons.delete || 'Clear'}</span>
+                        <span>{dictionary.shortcuts}: <kbd class="font-mono bg-slate-100 dark:bg-slate-800 px-1 rounded">Cmd/Ctrl + Enter</kbd> {dictionary.generate}</span>
+                        <span><kbd class="font-mono bg-slate-100 dark:bg-slate-800 px-1 rounded">Cmd/Ctrl + K</kbd> {dictionary.buttons.delete || 'Clear'}</span>
                     </div>
 
                     <History on:restore={handleRestore} />
@@ -284,61 +284,61 @@
 
   <!-- Documentation / SEO Content -->
   <div class="prose prose-slate dark:prose-invert max-w-none">
-    <h2>{dict.guide.title}</h2>
+    <h2>{dictionary.guide.title}</h2>
     <p>
-      {dict.guide.intro}
+      {dictionary.guide.intro}
     </p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 not-prose my-8">
         <div class="p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
             <h3 class="text-lg font-bold mb-2">UUID v7</h3>
             <p class="text-slate-600 dark:text-slate-300 text-sm">
-                {dict.faqTitle === 'ID Forge FAQ' ? "Combines a Unix timestamp with random bits. It's time-sortable, making it index-friendly for databases like PostgreSQL and MySQL, avoiding the fragmentation issues of v4." : "Time-sortable UUID."}
+                {dictionary.faqTitle === 'ID Forge FAQ' ? "Combines a Unix timestamp with random bits. It's time-sortable, making it index-friendly for databases like PostgreSQL and MySQL, avoiding the fragmentation issues of v4." : "Time-sortable UUID."}
             </p>
         </div>
         <div class="p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
             <h3 class="text-lg font-bold mb-2">ULID</h3>
             <p class="text-slate-600 dark:text-slate-300 text-sm">
-                 {dict.faqTitle === 'ID Forge FAQ' ? "Universally Unique Lexicographically Sortable Identifier. Uses Crockford's Base32 encoding for URL safety and compactness (26 chars)." : "URL-safe sortable ID."}
+                 {dictionary.faqTitle === 'ID Forge FAQ' ? "Universally Unique Lexicographically Sortable Identifier. Uses Crockford's Base32 encoding for URL safety and compactness (26 chars)." : "URL-safe sortable ID."}
             </p>
         </div>
     </div>
 
-    <h2>{dict.faqTitle}</h2>
+    <h2>{dictionary.faqTitle}</h2>
     <div class="space-y-6 not-prose">
         <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <summary class="flex items-center justify-between p-6 cursor-pointer font-medium">
-                <span>{dict.q1}</span>
+                <span>{dictionary.q1}</span>
                 <span class="transition-transform group-open:rotate-180">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
             </summary>
             <div class="px-6 pb-6 text-slate-600 dark:text-slate-300">
-                {dict.a1}
+                {dictionary.a1}
             </div>
         </details>
 
         <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <summary class="flex items-center justify-between p-6 cursor-pointer font-medium">
-                <span>{dict.q2}</span>
+                <span>{dictionary.q2}</span>
                 <span class="transition-transform group-open:rotate-180">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
             </summary>
             <div class="px-6 pb-6 text-slate-600 dark:text-slate-300">
-                {dict.a2}
+                {dictionary.a2}
             </div>
         </details>
 
         <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <summary class="flex items-center justify-between p-6 cursor-pointer font-medium">
-                <span>{dict.q3}</span>
+                <span>{dictionary.q3}</span>
                 <span class="transition-transform group-open:rotate-180">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
             </summary>
             <div class="px-6 pb-6 text-slate-600 dark:text-slate-300">
-                {dict.a3}
+                {dictionary.a3}
             </div>
         </details>
     </div>

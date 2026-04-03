@@ -17,7 +17,7 @@
 
   // Dynamic dictionary loading
   $: dict = getDictionary($page.params.lang);
-  $: t = dict.tools.iconForge;
+  $: t = t.tools.iconForge;
 
   $: faqItems = [
     { q: t?.q1, a: t?.a1 },
@@ -116,6 +116,19 @@
     }
     return { title: text.replace(/\*\*/g, ''), desc: '' };
   }
+
+  $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
 </script>
 <Head
   title={`${t.title} - ${t.category || 'Design'}`}
@@ -157,38 +170,7 @@
   </script>`}
   {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumb) + '</script>'}
 
-  {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "${dict.q1}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a1}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q2}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a2}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q3}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a3}"
-        }
-      }
-    ]
-  }
-  </script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
 
 </svelte:head>
 

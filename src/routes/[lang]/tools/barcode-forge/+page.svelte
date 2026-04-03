@@ -8,7 +8,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
-  $: d = dict.tools.barcodeForge;
+  $: d = dictionary.tools.barcodeForge;
 
   // SEO
   $: title = d.title;

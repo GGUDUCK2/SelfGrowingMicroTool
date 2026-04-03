@@ -55,7 +55,7 @@
     },{
       "@type": "ListItem",
       "position": 3,
-      "name": dict.title,
+      "name": dictionary.title,
       "item": `https://selfgrowingmicrotool.com/${lang}/tools/file-forge`
     }]
   };
@@ -64,8 +64,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": dict.title,
-    "description": dict.description,
+    "name": dictionary.title,
+    "description": dictionary.description,
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -77,9 +77,9 @@
   };
 
   $: faqItems = [
-    { q: dict.q1, a: dict.a1 },
-    { q: dict.q2, a: dict.a2 },
-    { q: dict.q3, a: dict.a3 }
+    { q: dictionary.q1, a: dictionary.a1 },
+    { q: dictionary.q2, a: dictionary.a2 },
+    { q: dictionary.q3, a: dictionary.a3 }
   ];
 
   $: faqSchema = {
@@ -106,8 +106,8 @@
   }
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dictionary.title}
+  description={dictionary.description}
   keywords="file hash, hex viewer, entropy analysis, magic number, md5, sha256, base64 converter, image converter, resize image, metadata viewer, file analysis, privacy first, steganography, zip analysis, risk assessment, pdf metadata, entropy map, metadata stripper, hex editor, exif remover, magic lens, file compare, smart history"
 />
 
@@ -140,7 +140,7 @@
              <FileBox size={20} />
           </div>
           <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-            {dict.title}
+            {dictionary.title}
           </h1>
         </div>
       </div>
@@ -160,7 +160,7 @@
           <div class="flex items-center justify-between mb-4">
             <h2 class="text-lg font-bold text-slate-700 dark:text-slate-200">
               {#if restoredData}
-                {dict.restoredMode || 'History View'}
+                {dictionary.restoredMode || 'History View'}
               {:else}
                 Active File
               {/if}
@@ -179,20 +179,20 @@
 
         <div class="mt-12">
            <GuideSection
-             title={dict.guide.title}
-             intro={dict.guide.intro}
-             featuresTitle={dict.guide.featuresTitle}
-             f1={dict.guide.f1}
-             f2={dict.guide.f2}
-             f3={dict.guide.f3}
-             tipsTitle={dict.guide.tipsTitle}
-             tip1={dict.guide.tip1}
-             tip2={dict.guide.tip2}
-             tip3={dict.guide.tip3}
+             title={dictionary.guide.title}
+             intro={dictionary.guide.intro}
+             featuresTitle={dictionary.guide.featuresTitle}
+             f1={dictionary.guide.f1}
+             f2={dictionary.guide.f2}
+             f3={dictionary.guide.f3}
+             tipsTitle={dictionary.guide.tipsTitle}
+             tip1={dictionary.guide.tip1}
+             tip2={dictionary.guide.tip2}
+             tip3={dictionary.guide.tip3}
            />
 
            <div class="mt-8">
-             <FAQSection title={dict.faqTitle} items={faqItems} />
+             <FAQSection title={dictionary.faqTitle} items={faqItems} />
            </div>
         </div>
       </div>

@@ -106,14 +106,14 @@
       const hash = btoa(data);
       const url = `${window.location.origin}${window.location.pathname}#project=${hash}`;
       await navigator.clipboard.writeText(url);
-      showToastMsg(dict.shareCopied || 'Share link copied!');
+      showToastMsg(dictionary.shareCopied || 'Share link copied!');
   }
 
   function restoreSession() {
       if (lastSessionState) {
           gridStore.load(lastSessionState);
           canRestoreSession = false;
-          showToastMsg(dict.sessionRestored || 'Session restored');
+          showToastMsg(dictionary.sessionRestored || 'Session restored');
       }
   }
 
@@ -128,7 +128,7 @@
       // Also save to session history
       saveToHistory('grid-master', $gridStore, { name: projectName });
 
-      showToastMsg(dict.save + ' ' + (dict.copied || 'Saved').replace('!', ''));
+      showToastMsg(dictionary.save + ' ' + (dictionary.copied || 'Saved').replace('!', ''));
   }
 
   function handleReset() {
@@ -224,8 +224,8 @@
   });
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dictionary.title}
+  description={dictionary.description}
   keywords="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots, Text to Grid, Visual Grid Editor, Mock Content, Wireframing, Content Presets, Layout Gallery, Smart History, Wireframe Builder, Grid Wizard, Bento Grid, SaaS Dashboard, React Grid Layout, Vue Grid, Svelte Grid, Kanban Layout, Video Player Layout, Command Palette, React Export, Vue Export, Svelte Export, Tailwind Config, Grid Doctor, Layout Audit"
 />
 
@@ -321,26 +321,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dictionary.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dictionary.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dictionary.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dictionary.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dictionary.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dictionary.a3}"
         }
       }
     ]
@@ -363,7 +363,7 @@
              <LayoutGrid size={20} />
           </div>
           <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 hidden sm:block">
-            {dict.title}
+            {dictionary.title}
           </h1>
           <button
              class="ml-4 px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-full shadow-sm flex items-center gap-1 transition-all min-h-[44px]"
@@ -395,8 +395,8 @@
            <button
              class="p-2 ml-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors hidden sm:flex"
              on:click={() => showResponsiveCheck = true}
-             title={dict.responsiveCheck || "Responsive Check"}
-             aria-label={dict.responsiveCheck || "Responsive Check"}
+             title={dictionary.responsiveCheck || "Responsive Check"}
+             aria-label={dictionary.responsiveCheck || "Responsive Check"}
            >
                <ScanEye size={18} />
            </button>
@@ -410,7 +410,7 @@
                  transition:slide={{ axis: 'x' }}
                >
                    <History size={14} />
-                   {dict.restoreSession || 'Restore Session'}
+                   {dictionary.restoreSession || 'Restore Session'}
                </button>
                <div class="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-2 hidden sm:block" transition:fade></div>
            {/if}
@@ -420,7 +420,7 @@
                  class="p-1.5 rounded-md transition-all {$canUndo ? 'text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 shadow-sm' : 'text-slate-300 dark:text-slate-600 cursor-not-allowed'} min-h-[44px]"
                  on:click={() => gridStore.undo()}
                  disabled={!$canUndo}
-                 aria-label={dict.undo || 'Undo'}
+                 aria-label={dictionary.undo || 'Undo'}
                >
                    <Undo2 size={16} />
                </button>
@@ -428,7 +428,7 @@
                  class="p-1.5 rounded-md transition-all {$canRedo ? 'text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 shadow-sm' : 'text-slate-300 dark:text-slate-600 cursor-not-allowed'} min-h-[44px]"
                  on:click={() => gridStore.redo()}
                  disabled={!$canRedo}
-                 aria-label={dict.redo || 'Redo'}
+                 aria-label={dictionary.redo || 'Redo'}
                >
                    <Redo2 size={16} />
                </button>
@@ -437,8 +437,8 @@
            <button
              class="p-2 ml-1 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors hidden sm:flex {showTimeline ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : ''}"
              on:click={() => showTimeline = !showTimeline}
-             aria-label={dict.timeMachine || 'Time Machine'}
-             title={dict.timeMachine || 'Time Machine'}
+             aria-label={dictionary.timeMachine || 'Time Machine'}
+             title={dictionary.timeMachine || 'Time Machine'}
            >
                <Clock size={18} />
            </button>
@@ -448,7 +448,7 @@
            <button
              class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors min-h-[44px]"
              on:click={togglePreview}
-             aria-label={dict.preview || 'Toggle Preview'}
+             aria-label={dictionary.preview || 'Toggle Preview'}
              title={previewMode ? 'Switch to Structure Mode' : 'Switch to Content Mode'}
            >
               {#if previewMode}
@@ -461,7 +461,7 @@
            <button
              class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors min-h-[44px]"
              on:click={handleShare}
-             aria-label={dict.share || 'Share'}
+             aria-label={dictionary.share || 'Share'}
            >
               <Share2 size={18} />
            </button>
@@ -469,8 +469,8 @@
            <button
              class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors min-h-[44px]"
              on:click={() => openInCodePen($gridStore)}
-             aria-label={dict.openInCodePen || 'Open in CodePen'}
-             title={dict.openInCodePen || 'Open in CodePen'}
+             aria-label={dictionary.openInCodePen || 'Open in CodePen'}
+             title={dictionary.openInCodePen || 'Open in CodePen'}
            >
               <Code size={18} />
            </button>
@@ -478,8 +478,8 @@
            <button
              class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors min-h-[44px]"
              on:click={() => downloadProjectZip($gridStore)}
-             aria-label={dict.exportProject || 'Export Project'}
-             title={dict.exportProject || 'Download Project ZIP'}
+             aria-label={dictionary.exportProject || 'Export Project'}
+             title={dictionary.exportProject || 'Download Project ZIP'}
            >
               <Download size={18} />
            </button>
@@ -487,8 +487,8 @@
            <button
              class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors min-h-[44px]"
              on:click={handleSnapshot}
-             aria-label={dict.capture || 'Capture Snapshot'}
-             title={dict.capture || 'Capture PNG Snapshot'}
+             aria-label={dictionary.capture || 'Capture Snapshot'}
+             title={dictionary.capture || 'Capture PNG Snapshot'}
            >
               <Camera size={18} />
            </button>
@@ -506,14 +506,14 @@
            <button
              class="p-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm min-h-[44px]"
              on:click={handleSave}
-             aria-label={dict.save}
+             aria-label={dictionary.save}
            >
               <Save size={18} />
            </button>
            <button
              class="p-2 text-slate-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors min-h-[44px]"
              on:click={handleReset}
-             aria-label={dict.clear}
+             aria-label={dictionary.clear}
            >
               <RotateCcw size={18} />
            </button>
@@ -521,22 +521,22 @@
            <button
              class="p-2 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg transition-colors ml-1 min-h-[44px]"
              on:click={() => showDoctor = !showDoctor}
-             aria-label={dict.doctor?.title || 'Grid Doctor'}
-             title={dict.doctor?.title || 'Grid Doctor'}
+             aria-label={dictionary.doctor?.title || 'Grid Doctor'}
+             title={dictionary.doctor?.title || 'Grid Doctor'}
            >
               <Activity size={18} />
            </button>
            <button
              class="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg transition-colors ml-1 min-h-[44px]"
              on:click={() => showCommandPalette = true}
-             aria-label={dict.commandPalette?.title || 'Command Palette'}
+             aria-label={dictionary.commandPalette?.title || 'Command Palette'}
            >
               <Command size={18} />
            </button>
            <button
              class="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg transition-colors ml-1 min-h-[44px]"
              on:click={() => showShortcuts = true}
-             aria-label={dict.shortcuts || 'Shortcuts'}
+             aria-label={dictionary.shortcuts || 'Shortcuts'}
            >
               <HelpCircle size={18} />
            </button>
@@ -579,38 +579,38 @@
 
           <!-- Documentation -->
           <div class="mt-12 prose dark:prose-invert max-w-none">
-              <h2 class="text-2xl font-bold">{dict.guide.title}</h2>
-              <p>{dict.guide.intro}</p>
+              <h2 class="text-2xl font-bold">{dictionary.guide.title}</h2>
+              <p>{dictionary.guide.intro}</p>
 
-              <h3 class="text-xl font-semibold">{dict.guide.featuresTitle}</h3>
+              <h3 class="text-xl font-semibold">{dictionary.guide.featuresTitle}</h3>
               <ul class="grid grid-cols-1 md:grid-cols-3 gap-4 not-prose">
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                    {@html dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
+                    {@html dictionary.guide.f1.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
                  </li>
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                    {@html dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
+                    {@html dictionary.guide.f2.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
                  </li>
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                    {@html dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
+                    {@html dictionary.guide.f3.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
                  </li>
               </ul>
 
-              <h3 class="text-xl font-semibold mt-8">{dict.faqTitle}</h3>
+              <h3 class="text-xl font-semibold mt-8">{dictionary.faqTitle}</h3>
               <div class="grid gap-4 not-prose">
                  <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <h4 class="font-semibold text-lg mb-2">{dict.q1}</h4>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a1}</p>
+                    <h4 class="font-semibold text-lg mb-2">{dictionary.q1}</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dictionary.a1}</p>
                  </div>
                  <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <h4 class="font-semibold text-lg mb-2">{dict.q2}</h4>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a2}</p>
+                    <h4 class="font-semibold text-lg mb-2">{dictionary.q2}</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dictionary.a2}</p>
                  </div>
                  <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <h4 class="font-semibold text-lg mb-2">{dict.q3}</h4>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a3}</p>
+                    <h4 class="font-semibold text-lg mb-2">{dictionary.q3}</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dictionary.a3}</p>
                  </div>
               </div>
           </div>
@@ -662,10 +662,10 @@
 
   {#if showConfirmReset}
       <ConfirmDialog
-        title={dict.confirm?.reset || 'Reset Grid?'}
-        message={dict.confirm?.resetMessage || 'Are you sure you want to reset the grid? This action cannot be undone.'}
-        confirmText={dict.confirm?.yes || 'Yes'}
-        cancelText={dict.confirm?.no || 'No'}
+        title={dictionary.confirm?.reset || 'Reset Grid?'}
+        message={dictionary.confirm?.resetMessage || 'Are you sure you want to reset the grid? This action cannot be undone.'}
+        confirmText={dictionary.confirm?.yes || 'Yes'}
+        cancelText={dictionary.confirm?.no || 'No'}
         on:confirm={confirmReset}
         on:cancel={() => showConfirmReset = false}
       />

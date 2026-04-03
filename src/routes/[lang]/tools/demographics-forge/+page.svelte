@@ -16,7 +16,7 @@
 
     $: lang = $page.params.lang;
     $: dict = getDictionary(lang);
-    $: t = { ...dict.tools.demographicsForge, lang };
+    $: t = { ...t.tools.demographicsForge, lang };
 
 
     // State

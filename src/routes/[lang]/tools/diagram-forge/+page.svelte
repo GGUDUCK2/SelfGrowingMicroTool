@@ -16,7 +16,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.diagramForge;
+  $: t = t.tools.diagramForge;
 
   let code = templates[0].code;
   let theme = 'default';
@@ -191,6 +191,19 @@
   };
 
   $: jsonLdScript = `<script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}<\/script>`;
+
+  $: faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
 </script>
 <Head
   title={t.title}
@@ -201,38 +214,7 @@
 <svelte:head>
                         {@html jsonLdScript}
 
-  {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "${dict.q1}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a1}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q2}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a2}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict.q3}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict.a3}"
-        }
-      }
-    ]
-  }
-  </script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
 
 </svelte:head>
 

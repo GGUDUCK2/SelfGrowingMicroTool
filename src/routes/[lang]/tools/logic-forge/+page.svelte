@@ -23,9 +23,9 @@
   $: dict = getDictionary(lang).tools.logicForge;
 
   $: faqItems = [
-    { q: dict.q1, a: dict.a1 },
-    { q: dict.q2, a: dict.a2 },
-    { q: dict.q3, a: dict.a3 }
+    { q: dictionary.q1, a: dictionary.a1 },
+    { q: dictionary.q2, a: dictionary.a2 },
+    { q: dictionary.q3, a: dictionary.a3 }
   ];
 
   let expression = '';
@@ -172,7 +172,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-      "name": dict.title,
+      "name": dictionary.title,
       "url": "https://microfactory.app/tools/logic-forge",
       "author": {
         "@type": "Organization",
@@ -209,7 +209,7 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": dict.title,
+          "name": dictionary.title,
           "item": "https://microfactory.app/tools/logic-forge"
         }
       ]
@@ -222,34 +222,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dictionary.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dictionary.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dictionary.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dictionary.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dictionary.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dictionary.a3
         }
       }
     ]
   };
 </script>
 <Head
-  title={`${expression ? expression + ' - ' : ''}${dict.title}`}
-  description={dict.description}
+  title={`${expression ? expression + ' - ' : ''}${dictionary.title}`}
+  description={dictionary.description}
   keywords="logic gates, truth table generator, boolean algebra, logic circuit simulator, online tool, digital logic design, karnaugh map, boolean simplifier"
 />
 
@@ -267,10 +267,10 @@
   <!-- Header -->
   <div class="text-center space-y-4 pt-4">
     <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 tracking-tight">
-      {dict.title.split(':')[0]}
+      {dictionary.title.split(':')[0]}
     </h1>
     <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-      {dict.description}
+      {dictionary.description}
     </p>
   </div>
 
@@ -291,27 +291,27 @@
                    class="flex-1 sm:flex-none px-4 py-2 min-h-[44px] min-w-[44px] text-sm font-medium rounded-md transition-colors {mode === 'analyzer' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}"
                    on:click={() => mode = 'analyzer'}
                 >
-                   {dict.analyzer}
+                   {dictionary.analyzer}
                 </button>
                 <button
                    class="flex-1 sm:flex-none px-4 py-2 min-h-[44px] min-w-[44px] text-sm font-medium rounded-md transition-colors {mode === 'designer' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}"
                    on:click={toggleMode}
                 >
-                   {dict.designer}
+                   {dictionary.designer}
                 </button>
              </div>
              {#if mode === 'designer'}
                 <span class="text-xs text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full animate-pulse w-full sm:w-auto text-center">
-                   {dict.editingTruthTable}
+                   {dictionary.editingTruthTable}
                 </span>
              {/if}
           </div>
 
           <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
              <div class="flex-1 w-full">
-                 <label for="logicInput" class="block text-sm font-medium text-gray-700 mb-1 ml-1">{dict.input}</label>
+                 <label for="logicInput" class="block text-sm font-medium text-gray-700 mb-1 ml-1">{dictionary.input}</label>
                 <div class={mode === 'designer' ? 'pointer-events-none opacity-60' : ''}>
-                    <ExpressionInput {lang} label={dict.input} bind:value={expression} {error} on:submit={() => analyze(true)} on:input={() => { if(error) error = null; }} />
+                    <ExpressionInput {lang} label={dictionary.input} bind:value={expression} {error} on:submit={() => analyze(true)} on:input={() => { if(error) error = null; }} />
                 </div>
              </div>
              <div class="flex items-end h-full sm:pt-6">
@@ -322,7 +322,7 @@
           <!-- Quick Operators Helper -->
           {#if mode === 'analyzer'}
           <div class="flex flex-wrap gap-2 text-xs text-gray-500 font-mono">
-             {#each Object.values(dict.operators) as label (label)}
+             {#each Object.values(dictionary.operators) as label (label)}
                  <button
                     class="px-3 py-2 min-h-[44px] min-w-[44px] bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors"
                     aria-label="Insert {label}"
@@ -347,14 +347,14 @@
              on:click={() => activeTab = 'table'}
           >
              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-table"><path d="M12 3v18"/><path d="M3 12h18"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
-             {dict.truthTable}
+             {dictionary.truthTable}
           </button>
           <button
              class="px-4 py-2 min-h-[44px] min-w-[44px] font-medium text-sm rounded-t-lg transition-colors flex items-center gap-2 border-b-2 whitespace-nowrap {activeTab === 'circuit' ? 'border-indigo-600 text-indigo-700 bg-indigo-50/50' : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'}"
              on:click={() => activeTab = 'circuit'}
           >
              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-network"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>
-             {dict.circuit}
+             {dictionary.circuit}
           </button>
           <button
              class="px-4 py-2 min-h-[44px] min-w-[44px] font-medium text-sm rounded-t-lg transition-colors flex items-center gap-2 border-b-2 whitespace-nowrap {activeTab === 'kmap' ? 'border-indigo-600 text-indigo-700 bg-indigo-50/50' : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'}"
@@ -368,7 +368,7 @@
              on:click={() => activeTab = 'simplify'}
           >
              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-             {dict.simplify}
+             {dictionary.simplify}
           </button>
        </div>
 
@@ -392,6 +392,6 @@
     </div>
   </main>
 
-  <GuideSection {...dict.guide} />
-  <FAQSection title={dict.faqTitle} items={faqItems} />
+  <GuideSection {...dictionary.guide} />
+  <FAQSection title={dictionary.faqTitle} items={faqItems} />
 </div>

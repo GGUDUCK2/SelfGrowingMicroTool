@@ -37,7 +37,7 @@
     },{
       "@type": "ListItem",
       "position": 3,
-      "name": dict.title,
+      "name": dictionary.title,
       "item": `https://selfgrowingmicrotool.com/${lang}/tools/cipher-lab`
     }]
   };
@@ -46,8 +46,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": dict.title,
-    "description": dict.description,
+    "name": dictionary.title,
+    "description": dictionary.description,
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -55,13 +55,13 @@
       "price": "0",
       "priceCurrency": "USD"
     },
-    "featureList": [dict.guide.f1, dict.guide.f2, dict.guide.f3].map(f => f.replace(/\*\*/g, '')).join(", ")
+    "featureList": [dictionary.guide.f1, dictionary.guide.f2, dictionary.guide.f3].map(f => f.replace(/\*\*/g, '')).join(", ")
   };
 
   $: faqItems = [
-    { q: dict.q1, a: dict.a1 },
-    { q: dict.q2, a: dict.a2 },
-    { q: dict.q3, a: dict.a3 }
+    { q: dictionary.q1, a: dictionary.a1 },
+    { q: dictionary.q2, a: dictionary.a2 },
+    { q: dictionary.q3, a: dictionary.a3 }
   ];
 
   $: faqSchema = {
@@ -98,11 +98,11 @@
       input: input || '',
       settings: settings || '{}'
     });
-    showToastMsg(dict.feedback.saved || 'Saved to secure history');
+    showToastMsg(dictionary.feedback.saved || 'Saved to secure history');
   }
 
   function handleCopy() {
-    showToastMsg(dict.copied);
+    showToastMsg(dictionary.copied);
   }
 
   function handleRestore(event: CustomEvent) {
@@ -151,8 +151,8 @@
   }
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dictionary.title}
+  description={dictionary.description}
   keywords="hash generator, hmac calculator, jwt debugger, password generator, aes encryption, web crypto api, sha-256, sha-512, md5, base64 encoder"
 />
 
@@ -185,7 +185,7 @@
              <Shield size={20} />
           </div>
           <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-            {dict.title}
+            {dictionary.title}
           </h1>
         </div>
       </div>
@@ -206,7 +206,7 @@
              on:click={() => activeTab = 'hash'}
            >
              <Hash size={16} />
-             <span>{dict.tabs.hash}</span>
+             <span>{dictionary.tabs.hash}</span>
            </button>
            <button
              role="tab"
@@ -215,7 +215,7 @@
              on:click={() => activeTab = 'encoders'}
            >
              <Code size={16} />
-             <span>{dict.tabs.encoders}</span>
+             <span>{dictionary.tabs.encoders}</span>
            </button>
            <button
              role="tab"
@@ -224,7 +224,7 @@
              on:click={() => activeTab = 'jwt'}
            >
              <Key size={16} />
-             <span>{dict.tabs.jwt}</span>
+             <span>{dictionary.tabs.jwt}</span>
            </button>
            <button
              role="tab"
@@ -233,7 +233,7 @@
              on:click={() => activeTab = 'password'}
            >
              <Lock size={16} />
-             <span>{dict.tabs.password}</span>
+             <span>{dictionary.tabs.password}</span>
            </button>
            <button
              role="tab"
@@ -242,7 +242,7 @@
              on:click={() => activeTab = 'keygen'}
            >
              <KeyRound size={16} />
-             <span>{dict.tabs.keygen}</span>
+             <span>{dictionary.tabs.keygen}</span>
            </button>
            <button
              role="tab"
@@ -251,7 +251,7 @@
              on:click={() => activeTab = 'vault'}
            >
              <Vault size={16} />
-             <span>{dict.tabs.vault}</span>
+             <span>{dictionary.tabs.vault}</span>
            </button>
         </div>
 
@@ -275,19 +275,19 @@
         <!-- Guide & FAQ -->
         <div class="mt-12 space-y-8">
            <GuideSection
-             title={dict.guide.title}
-             intro={dict.guide.intro}
-             featuresTitle={dict.guide.featuresTitle}
-             f1={dict.guide.f1}
-             f2={dict.guide.f2}
-             f3={dict.guide.f3}
-             tipsTitle={dict.guide.tipsTitle}
-             tip1={dict.guide.tip1}
-             tip2={dict.guide.tip2}
-             tip3={dict.guide.tip3}
+             title={dictionary.guide.title}
+             intro={dictionary.guide.intro}
+             featuresTitle={dictionary.guide.featuresTitle}
+             f1={dictionary.guide.f1}
+             f2={dictionary.guide.f2}
+             f3={dictionary.guide.f3}
+             tipsTitle={dictionary.guide.tipsTitle}
+             tip1={dictionary.guide.tip1}
+             tip2={dictionary.guide.tip2}
+             tip3={dictionary.guide.tip3}
            />
 
-           <FAQSection title={dict.faqTitle} items={faqItems} />
+           <FAQSection title={dictionary.faqTitle} items={faqItems} />
         </div>
       </div>
 

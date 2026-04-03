@@ -82,7 +82,7 @@
           url.searchParams.set('tab', activeTab);
       }
       navigator.clipboard.writeText(url.toString());
-      showToast(dict.tools.subnetScope.linkCopied || 'Link Copied!');
+      showToast(dictionary.tools.subnetScope.linkCopied || 'Link Copied!');
   }
 
   // History
@@ -120,8 +120,8 @@
   let activeTab: 'analyze' | 'subnetting' | 'planner' | 'history' = 'analyze';
 </script>
 <Head
-  title={dict.tools.subnetScope.title}
-  description={dict.tools.subnetScope.description}
+  title={dictionary.tools.subnetScope.title}
+  description={dictionary.tools.subnetScope.description}
 />
 
 
@@ -163,26 +163,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dictionary.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dictionary.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dictionary.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dictionary.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dictionary.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dictionary.a3}"
         }
       }
     ]
@@ -203,32 +203,32 @@
   <div class="text-center space-y-4" in:fade={{ duration: 600 }}>
     <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
       <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
-        {dict.tools.subnetScope.title}
+        {dictionary.tools.subnetScope.title}
       </span>
     </h1>
     <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-      {dict.tools.subnetScope.description}
+      {dictionary.tools.subnetScope.description}
     </p>
   </div>
 
   <!-- Cloud & Common Presets -->
   <div class="space-y-3 max-w-2xl mx-auto">
-      <div class="text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">{dict.tools.subnetScope.presets.title}</div>
+      <div class="text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">{dictionary.tools.subnetScope.presets.title}</div>
       <div class="flex flex-wrap justify-center gap-2">
           <button on:click={() => loadExample('10.0.0.0/16')} class="px-3 py-1 text-xs min-h-[44px] min-w-[44px] font-medium bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-100 dark:border-orange-800 rounded-full hover:bg-orange-100 dark:hover:bg-orange-900/40 transition-colors">
-              {dict.tools.subnetScope.presets.aws}
+              {dictionary.tools.subnetScope.presets.aws}
           </button>
           <button on:click={() => loadExample('10.0.0.0/16')} class="px-3 py-1 text-xs min-h-[44px] min-w-[44px] font-medium bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800 rounded-full hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
-              {dict.tools.subnetScope.presets.azure}
+              {dictionary.tools.subnetScope.presets.azure}
           </button>
           <button on:click={() => loadExample('192.168.1.0/24')} class="px-3 py-1 text-xs min-h-[44px] min-w-[44px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-              {dict.tools.subnetScope.presets.home}
+              {dictionary.tools.subnetScope.presets.home}
           </button>
           <button on:click={() => loadExample('172.17.0.0/16')} class="px-3 py-1 text-xs min-h-[44px] min-w-[44px] font-medium bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-300 border border-cyan-100 dark:border-cyan-800 rounded-full hover:bg-cyan-100 dark:hover:bg-cyan-900/40 transition-colors">
-              {dict.tools.subnetScope.presets.docker}
+              {dictionary.tools.subnetScope.presets.docker}
           </button>
           <button on:click={() => loadExample('10.10.10.0/30')} class="px-3 py-1 text-xs min-h-[44px] min-w-[44px] font-medium bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-800 rounded-full hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors">
-              {dict.tools.subnetScope.presets.p2p}
+              {dictionary.tools.subnetScope.presets.p2p}
           </button>
           <button on:click={() => loadExample('2001:db8::/64')} class="px-3 py-1 text-xs min-h-[44px] min-w-[44px] font-medium bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300 border border-violet-100 dark:border-violet-800 rounded-full hover:bg-violet-100 dark:hover:bg-violet-900/40 transition-colors">
               IPv6 Site (/64)
@@ -252,7 +252,7 @@
             class="px-8 py-4 min-h-[44px] bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/30 transition-all active:scale-95"
             aria-label="Analyze IP"
           >
-            {dict.tools.subnetScope.analyze}
+            {dictionary.tools.subnetScope.analyze}
           </button>
           <button
              on:click={share}
@@ -277,7 +277,7 @@
               class="pb-4 min-h-[44px] text-sm font-medium transition-colors border-b-2 {activeTab === 'subnetting' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
               on:click={() => activeTab = 'subnetting'}
           >
-              {dict.tools.subnetScope.subnetting}
+              {dictionary.tools.subnetScope.subnetting}
           </button>
           <button
               class="pb-4 min-h-[44px] text-sm font-medium transition-colors border-b-2 {activeTab === 'planner' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
@@ -289,7 +289,7 @@
               class="pb-4 min-h-[44px] text-sm font-medium transition-colors border-b-2 {activeTab === 'history' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
               on:click={() => activeTab = 'history'}
           >
-              {dict.tools.subnetScope.history}
+              {dictionary.tools.subnetScope.history}
           </button>
       </nav>
   </div>
@@ -303,7 +303,7 @@
                     <!-- Visualizer -->
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
                         <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">{dict.tools.subnetScope.binary}</h3>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">{dictionary.tools.subnetScope.binary}</h3>
                         </div>
                         <Visualizer binary={result.binary || ''} maskLength={result.subnetMaskLength || 0} version={result.version} />
                     </div>
@@ -312,7 +312,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <div class="card group">
                             <div class="flex justify-between items-start">
-                                <span class="label">{dict.tools.subnetScope.network}</span>
+                                <span class="label">{dictionary.tools.subnetScope.network}</span>
                                 <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600 min-h-[44px]" on:click={() => copyText(result?.networkAddress || '')} aria-label="Copy Network Address">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                 </button>
@@ -322,7 +322,7 @@
                         {#if result.version === 4}
                         <div class="card group">
                             <div class="flex justify-between items-start">
-                                <span class="label">{dict.tools.subnetScope.broadcast}</span>
+                                <span class="label">{dictionary.tools.subnetScope.broadcast}</span>
                                 <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600 min-h-[44px]" on:click={() => copyText(result?.broadcastAddress || '')} aria-label="Copy Broadcast Address">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                 </button>
@@ -331,7 +331,7 @@
                         </div>
                         <div class="card group">
                             <div class="flex justify-between items-start">
-                                <span class="label">{dict.tools.subnetScope.netmask}</span>
+                                <span class="label">{dictionary.tools.subnetScope.netmask}</span>
                                 <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600 min-h-[44px]" on:click={() => copyText(result?.subnetMask || '')} aria-label="Copy Netmask">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                 </button>
@@ -341,7 +341,7 @@
                         {/if}
                         <div class="card group">
                             <div class="flex justify-between items-start">
-                                <span class="label">{dict.tools.subnetScope.firstHost}</span>
+                                <span class="label">{dictionary.tools.subnetScope.firstHost}</span>
                                 <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600 min-h-[44px]" on:click={() => copyText(result?.firstHost || '')} aria-label="Copy First Host">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                 </button>
@@ -350,7 +350,7 @@
                         </div>
                         <div class="card group">
                             <div class="flex justify-between items-start">
-                                <span class="label">{dict.tools.subnetScope.lastHost}</span>
+                                <span class="label">{dictionary.tools.subnetScope.lastHost}</span>
                                 <button class="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-500 hover:text-indigo-600 min-h-[44px]" on:click={() => copyText(result?.lastHost || '')} aria-label="Copy Last Host">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                 </button>
@@ -358,11 +358,11 @@
                             <div class="value">{result.lastHost}</div>
                         </div>
                         <div class="card">
-                            <span class="label">{dict.tools.subnetScope.hosts}</span>
+                            <span class="label">{dictionary.tools.subnetScope.hosts}</span>
                             <div class="value">{parseInt(result.totalHosts || '0').toLocaleString()}</div>
                         </div>
                         <div class="card">
-                            <span class="label">{dict.tools.subnetScope.type}</span>
+                            <span class="label">{dictionary.tools.subnetScope.type}</span>
                             <div class="flex gap-2">
                                 <span class="badge">{result.type}</span>
                                 {#if result.isPrivate}<span class="badge bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">Private</span>{/if}
@@ -384,7 +384,7 @@
                             </div>
                             <div class="flex-1 min-w-[200px]">
                                 <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                    {dict.tools.subnetScope.newMask} (/{result.subnetMaskLength ? result.subnetMaskLength + 1 : 0} - /{result.version === 4 ? 32 : 128})
+                                    {dictionary.tools.subnetScope.newMask} (/{result.subnetMaskLength ? result.subnetMaskLength + 1 : 0} - /{result.version === 4 ? 32 : 128})
                                     <input
                                         type="number"
                                         bind:value={newMask}
@@ -398,12 +398,12 @@
                                 on:click={generateSubnets}
                                 class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition-colors min-h-[44px]"
                             >
-                                {dict.tools.subnetScope.generate}
+                                {dictionary.tools.subnetScope.generate}
                             </button>
                         </div>
                     </div>
 
-                    <SubnetTable {subnets} dict={dict.tools.subnetScope} commonDict={dict.common} />
+                    <SubnetTable {subnets} dict={dictionary.tools.subnetScope} commonDict={dictionary.common} />
                 </div>
             {/if}
         {:else}
@@ -415,7 +415,7 @@
 
       {#if activeTab === 'planner'}
           <div in:fade>
-              <SubnetPlanner dict={dict.tools.subnetScope} />
+              <SubnetPlanner dict={dictionary.tools.subnetScope} />
           </div>
       {/if}
 
@@ -427,7 +427,7 @@
                     on:click={() => clearHistory('subnet-scope')}
                     class="text-sm text-red-500 hover:text-red-600 font-medium"
                 >
-                    {dict.tools.subnetScope.clear}
+                    {dictionary.tools.subnetScope.clear}
                 </button>
             </div>
 
@@ -451,7 +451,7 @@
                                     on:click={() => restore(item)}
                                     class="px-3 py-1.5 min-h-[44px] text-sm bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50"
                                 >
-                                    {dict.tools.subnetScope.restore}
+                                    {dictionary.tools.subnetScope.restore}
                                 </button>
                                 <button
                                     on:click={() => deleteHistoryItem(item.id!)}
@@ -475,8 +475,8 @@
 
   <!-- Documentation -->
   <article class="prose dark:prose-invert max-w-none mt-20 pt-12 border-t border-slate-200 dark:border-slate-800">
-      <h2 class="text-3xl font-bold mb-6">{dict.tools.subnetScope.guide.title}</h2>
-      <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-400">{dict.tools.subnetScope.guide.intro}</p>
+      <h2 class="text-3xl font-bold mb-6">{dictionary.tools.subnetScope.guide.title}</h2>
+      <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-400">{dictionary.tools.subnetScope.guide.intro}</p>
 
       <div class="grid md:grid-cols-3 gap-8 my-12">
           <div class="bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-2xl">
@@ -493,19 +493,19 @@
           </div>
       </div>
 
-      <h3 class="text-2xl font-bold mt-12 mb-6">{dict.tools.subnetScope.faqTitle}</h3>
+      <h3 class="text-2xl font-bold mt-12 mb-6">{dictionary.tools.subnetScope.faqTitle}</h3>
       <div class="space-y-6">
       <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-100 dark:border-slate-700">
-          <h4 class="font-bold text-lg mb-2">{dict.tools.subnetScope.q1}</h4>
-          <p class="text-slate-600 dark:text-slate-400">{dict.tools.subnetScope.a1}</p>
+          <h4 class="font-bold text-lg mb-2">{dictionary.tools.subnetScope.q1}</h4>
+          <p class="text-slate-600 dark:text-slate-400">{dictionary.tools.subnetScope.a1}</p>
       </div>
       <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-100 dark:border-slate-700">
-          <h4 class="font-bold text-lg mb-2">{dict.tools.subnetScope.q2}</h4>
-          <p class="text-slate-600 dark:text-slate-400">{dict.tools.subnetScope.a2}</p>
+          <h4 class="font-bold text-lg mb-2">{dictionary.tools.subnetScope.q2}</h4>
+          <p class="text-slate-600 dark:text-slate-400">{dictionary.tools.subnetScope.a2}</p>
       </div>
       <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-100 dark:border-slate-700">
-          <h4 class="font-bold text-lg mb-2">{dict.tools.subnetScope.q3}</h4>
-          <p class="text-slate-600 dark:text-slate-400">{dict.tools.subnetScope.a3}</p>
+          <h4 class="font-bold text-lg mb-2">{dictionary.tools.subnetScope.q3}</h4>
+          <p class="text-slate-600 dark:text-slate-400">{dictionary.tools.subnetScope.a3}</p>
       </div>
       </div>
   </article>

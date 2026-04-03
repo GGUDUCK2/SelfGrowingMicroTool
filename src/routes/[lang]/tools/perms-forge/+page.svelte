@@ -42,7 +42,7 @@
                 octal: permission.octal,
                 symbolic: permission.symbolic
             }, permission.value); // Store numeric value as result
-            triggerToast(dict.copied || 'Saved!'); // Reusing copied/saved msg
+            triggerToast(dictionary.copied || 'Saved!'); // Reusing copied/saved msg
         } catch (e) {
             console.error(e);
         }
@@ -65,16 +65,16 @@
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-        "name": dict.title,
-        "description": dict.description,
+        "name": dictionary.title,
+        "description": dictionary.description,
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Linux, Unix, macOS",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
     };
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dictionary.title}
+  description={dictionary.description}
   keywords="chmod calculator, linux permissions, rwxr-xr-x, 755, 777, chmod generator, symbolic to octal"
 />
 
@@ -89,26 +89,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dictionary.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dictionary.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dictionary.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dictionary.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dictionary.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dictionary.a3}"
         }
       }
     ]
@@ -131,7 +131,7 @@
                         <Shield size={20} />
                     </div>
                     <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-600 dark:from-indigo-400 dark:to-blue-400">
-                        {dict.title}
+                        {dictionary.title}
                     </h1>
                 </div>
             </div>
@@ -158,14 +158,14 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
                         <!-- Grid Editor -->
                         <div in:fade={{ duration: 300, delay: 100 }}>
-                            <div class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">{dict.grid}</div>
+                            <div class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">{dictionary.grid}</div>
                             <PermissionGrid {permission} onUpdate={handleUpdate} />
                         </div>
 
                         <!-- Numeric/Text Representations -->
                         <div class="space-y-6" in:fade={{ duration: 300, delay: 200 }}>
                             <div>
-                                <div class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">{dict.presets}</div>
+                                <div class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">{dictionary.presets}</div>
                                 <Presets {permission} onUpdate={handleUpdate} />
                             </div>
                             <Representation {permission} onUpdate={handleUpdate} />
@@ -175,31 +175,31 @@
 
                 <!-- Command Generator -->
                 <div in:fade={{ duration: 300, delay: 300 }}>
-                    <div class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">{dict.command}</div>
+                    <div class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">{dictionary.command}</div>
                     <CommandBuilder {permission} />
                 </div>
 
                 <!-- Guide & FAQ -->
                 <div class="mt-16 border-t border-slate-200 dark:border-slate-800 pt-8">
                     <GuideSection
-                        title={dict.guide.title}
-                        intro={dict.guide.intro}
-                        featuresTitle={dict.guide.featuresTitle}
-                        f1={dict.guide.f1}
-                        f2={dict.guide.f2}
-                        f3={dict.guide.f3}
-                        tipsTitle={dict.guide.tipsTitle}
-                        tip1={dict.guide.tip1}
-                        tip2={dict.guide.tip2}
-                        tip3={dict.guide.tip3}
+                        title={dictionary.guide.title}
+                        intro={dictionary.guide.intro}
+                        featuresTitle={dictionary.guide.featuresTitle}
+                        f1={dictionary.guide.f1}
+                        f2={dictionary.guide.f2}
+                        f3={dictionary.guide.f3}
+                        tipsTitle={dictionary.guide.tipsTitle}
+                        tip1={dictionary.guide.tip1}
+                        tip2={dictionary.guide.tip2}
+                        tip3={dictionary.guide.tip3}
                     />
                     <div class="mt-8">
                         <FAQSection
-                            title={dict.faqTitle}
+                            title={dictionary.faqTitle}
                             items={[
-                                { q: dict.q1, a: dict.a1 },
-                                { q: dict.q2, a: dict.a2 },
-                                { q: dict.q3, a: dict.a3 }
+                                { q: dictionary.q1, a: dictionary.a1 },
+                                { q: dictionary.q2, a: dictionary.a2 },
+                                { q: dictionary.q3, a: dictionary.a3 }
                             ]}
                         />
                     </div>

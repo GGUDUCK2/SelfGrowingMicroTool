@@ -10,7 +10,7 @@
   // State initialization
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.timeForge;
+  $: t = t.tools.timeForge;
 
   // Load state from URL if present
   onMount(() => {
@@ -82,26 +82,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${t.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${t.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${t.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${t.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${t.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${t.a3}"
         }
       }
     ]

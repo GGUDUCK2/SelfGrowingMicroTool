@@ -11,7 +11,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.screenForge;
+  $: t = t.tools.screenForge;
 
   let currentBlob: Blob | null = null;
   let view: 'record' | 'preview' = 'record';

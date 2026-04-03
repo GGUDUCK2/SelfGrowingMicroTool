@@ -30,21 +30,21 @@
   }
 
   $: faqItems = [
-    { q: dict.faqQ1, a: dict.faqA1 },
-    { q: dict.faqQ2, a: dict.faqA2 },
-    { q: dict.faqQ3, a: dict.faqA3 }
+    { q: dictionary.faqQ1, a: dictionary.faqA1 },
+    { q: dictionary.faqQ2, a: dictionary.faqA2 },
+    { q: dictionary.faqQ3, a: dictionary.faqA3 }
   ];
 
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": dict.title,
+    "name": dictionary.title,
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "Cryptography Tool",
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript. HTML5. Web Crypto API.",
-    "description": dict.description,
+    "description": dictionary.description,
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -71,7 +71,7 @@
       {
         "@type": "ListItem",
         "position": 3,
-        "name": dict.title,
+        "name": dictionary.title,
         "item": `https://micro-tools.app/${lang}/tools/hash-forge`
       }
     ]
@@ -92,8 +92,8 @@
 
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dictionary.title}
+  description={dictionary.description}
 />
 
 
@@ -110,10 +110,10 @@
       <Hash size={48} class="text-indigo-600 dark:text-indigo-400" />
     </div>
     <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-      {dict.title}
+      {dictionary.title}
     </h1>
     <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-      {dict.description}
+      {dictionary.description}
     </p>
   </div>
 
@@ -125,36 +125,36 @@
       <button
         class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'text' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
         on:click={() => selectTab('text')}
-        aria-label={dict.tabs.text}
+        aria-label={dictionary.tabs.text}
       >
         <FileText size={18} />
-        {dict.tabs.text}
+        {dictionary.tabs.text}
       </button>
       <button
         class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'file' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
         on:click={() => selectTab('file')}
-        aria-label={dict.tabs.file}
+        aria-label={dictionary.tabs.file}
       >
         <Shield size={18} />
-        {dict.tabs.file}
+        {dictionary.tabs.file}
       </button>
       <button
         class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'hmac' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
         on:click={() => selectTab('hmac')}
-        aria-label={dict.tabs.hmac}
+        aria-label={dictionary.tabs.hmac}
       >
         <KeyRound size={18} />
-        {dict.tabs.hmac}
+        {dictionary.tabs.hmac}
       </button>
 
       <div class="md:mt-auto">
         <button
           class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all w-full shrink-0 {activeTab === 'history' ? 'bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
           on:click={() => selectTab('history')}
-          aria-label={dict.tabs.history}
+          aria-label={dictionary.tabs.history}
         >
           <Clock size={18} />
-          {dict.tabs.history}
+          {dictionary.tabs.history}
         </button>
       </div>
     </div>
@@ -190,20 +190,20 @@
   </div>
 
   <GuideSection
-    title={dict.guideTitle}
-    intro={dict.guideIntro}
-    featuresTitle={dict.guideFeaturesTitle}
-    f1={dict.guideF1}
-    f2={dict.guideF2}
-    f3={dict.guideF3}
-    tipsTitle={dict.guideTipsTitle}
-    tip1={dict.guideTip1}
-    tip2={dict.guideTip2}
-    tip3={dict.guideTip3}
+    title={dictionary.guideTitle}
+    intro={dictionary.guideIntro}
+    featuresTitle={dictionary.guideFeaturesTitle}
+    f1={dictionary.guideF1}
+    f2={dictionary.guideF2}
+    f3={dictionary.guideF3}
+    tipsTitle={dictionary.guideTipsTitle}
+    tip1={dictionary.guideTip1}
+    tip2={dictionary.guideTip2}
+    tip3={dictionary.guideTip3}
   />
 
   <FAQSection
-    title={dict.faqTitle}
+    title={dictionary.faqTitle}
     items={faqItems}
   />
 </div>

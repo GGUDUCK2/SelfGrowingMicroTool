@@ -37,7 +37,7 @@
   let currentScale: ScaleStep[] = [];
 
   $: dict = getDictionary(data.lang);
-  $: t = dict.tools.colorMaster;
+  $: t = t.tools.colorMaster;
 
   $: schema = {
     "@context": "https://schema.org",
@@ -93,18 +93,18 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
-        "acceptedAnswer": { "@type": "Answer", "text": dict.a1 }
+        "name": t.q1,
+        "acceptedAnswer": { "@type": "Answer", "text": t.a1 }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
-        "acceptedAnswer": { "@type": "Answer", "text": dict.a2 }
+        "name": t.q2,
+        "acceptedAnswer": { "@type": "Answer", "text": t.a2 }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
-        "acceptedAnswer": { "@type": "Answer", "text": dict.a3 }
+        "name": t.q3,
+        "acceptedAnswer": { "@type": "Answer", "text": t.a3 }
       }
     ]
   };
@@ -505,9 +505,9 @@
     <FAQSection
       title={t.faqTitle}
       items={[
-        { q: dict.q1, a: dict.a1 },
-        { q: dict.q2, a: dict.a2 },
-        { q: dict.q3, a: dict.a3 }
+        { q: t.q1, a: t.a1 },
+        { q: t.q2, a: t.a2 },
+        { q: t.q3, a: t.a3 }
       ]}
     />
   </article>

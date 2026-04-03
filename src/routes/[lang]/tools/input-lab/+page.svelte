@@ -25,8 +25,8 @@
       {
         "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-        "name": dict.title,
-        "description": dict.description,
+        "name": dictionary.title,
+        "description": dictionary.description,
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Any",
         "offers": {
@@ -35,9 +35,9 @@
           "priceCurrency": "USD"
         },
         "featureList": [
-            dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '$1'),
-            dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '$1'),
-            dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '$1')
+            dictionary.guide.f1.replace(/\*\*(.*?)\*\*/g, '$1'),
+            dictionary.guide.f2.replace(/\*\*(.*?)\*\*/g, '$1'),
+            dictionary.guide.f3.replace(/\*\*(.*?)\*\*/g, '$1')
         ]
       },
     ]
@@ -89,8 +89,8 @@
   }
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dictionary.title}
+  description={dictionary.description}
   keywords="keyboard tester, gamepad tester, input lag test, ghosting check, pointer events, touch test, device info, keycode checker"
 />
 
@@ -111,26 +111,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dictionary.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dictionary.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dictionary.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dictionary.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dictionary.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dictionary.a3}"
         }
       }
     ]
@@ -152,7 +152,7 @@
              <Keyboard size={20} />
           </div>
           <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-            {dict.title}
+            {dictionary.title}
           </h1>
         </div>
       </div>
@@ -183,7 +183,7 @@
                  on:click={() => activeTab = 'keyboard'}
              >
                  <Keyboard size={16} />
-                 <span>{dict.tabs.keyboard}</span>
+                 <span>{dictionary.tabs.keyboard}</span>
              </button>
              <button
                  role="tab"
@@ -192,7 +192,7 @@
                  on:click={() => activeTab = 'gamepad'}
              >
                  <Gamepad2 size={16} />
-                 <span>{dict.tabs.gamepad}</span>
+                 <span>{dictionary.tabs.gamepad}</span>
              </button>
              <button
                  role="tab"
@@ -201,7 +201,7 @@
                  on:click={() => activeTab = 'pointer'}
              >
                  <MousePointer2 size={16} />
-                 <span>{dict.tabs.pointer}</span>
+                 <span>{dictionary.tabs.pointer}</span>
              </button>
              <button
                  role="tab"
@@ -210,7 +210,7 @@
                  on:click={() => activeTab = 'screen'}
              >
                  <Monitor size={16} />
-                 <span>{dict.tabs.screen}</span>
+                 <span>{dictionary.tabs.screen}</span>
              </button>
              <button
                  role="tab"
@@ -219,7 +219,7 @@
                  on:click={() => activeTab = 'history'}
              >
                  <History size={16} />
-                 <span>{dict.tabs.history}</span>
+                 <span>{dictionary.tabs.history}</span>
              </button>
          </div>
 
@@ -250,22 +250,22 @@
     </div>
 
     <GuideSection
-      title={dict.guide.title}
-      intro={dict.guide.intro}
-      featuresTitle={dict.guide.featuresTitle}
-      f1={dict.guide.f1}
-      f2={dict.guide.f2}
-      f3={dict.guide.f3}
-      tipsTitle={dict.guide.tipsTitle}
-      tip1={dict.guide.tip1}
-      tip2={dict.guide.tip2}
-      tip3={dict.guide.tip3}
+      title={dictionary.guide.title}
+      intro={dictionary.guide.intro}
+      featuresTitle={dictionary.guide.featuresTitle}
+      f1={dictionary.guide.f1}
+      f2={dictionary.guide.f2}
+      f3={dictionary.guide.f3}
+      tipsTitle={dictionary.guide.tipsTitle}
+      tip1={dictionary.guide.tip1}
+      tip2={dictionary.guide.tip2}
+      tip3={dictionary.guide.tip3}
     />
 
-    <FAQSection title={dict.faqTitle} items={[
-      { q: dict.q1, a: dict.a1 },
-      { q: dict.q2, a: dict.a2 },
-      { q: dict.q3, a: dict.a3 }
+    <FAQSection title={dictionary.faqTitle} items={[
+      { q: dictionary.q1, a: dictionary.a1 },
+      { q: dictionary.q2, a: dictionary.a2 },
+      { q: dictionary.q3, a: dictionary.a3 }
     ]} />
   </main>
 

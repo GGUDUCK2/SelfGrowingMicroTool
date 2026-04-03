@@ -37,7 +37,7 @@
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
       "name": "MarkFlow",
-      "headline": dict.title,
+      "headline": dictionary.title,
       "alternativeHeadline": "Online Markdown Editor",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
@@ -47,7 +47,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": dict.description,
+      "description": dictionary.description,
       "featureList": [
         "Real-time Markdown Preview",
         "Export to HTML",
@@ -68,26 +68,26 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": dict.q1,
+          "name": dictionary.q1,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": dict.a1
+            "text": dictionary.a1
           }
         },
         {
           "@type": "Question",
-          "name": dict.q2,
+          "name": dictionary.q2,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": dict.a2
+            "text": dictionary.a2
           }
         },
         {
           "@type": "Question",
-          "name": dict.q3,
+          "name": dictionary.q3,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": dict.a3
+            "text": dictionary.a3
           }
         }
       ]
@@ -110,7 +110,7 @@
     }, {
       "@type": "ListItem",
       "position": 3,
-      "name": dict.title,
+      "name": dictionary.title,
       "item": `https://web-factory.vercel.app/${lang}/tools/markdown-studio`
     }]
   };
@@ -168,7 +168,7 @@
         createdAt: new Date(),
         starred: 0
       });
-      showNotification(dict.feedback.saved);
+      showNotification(dictionary.feedback.saved);
     } catch (err) {
       console.error(err);
     }
@@ -190,7 +190,7 @@
   async function copyToClipboard(text: string) {
     try {
       await copyToClipboardUtil(text);
-      showNotification(dict.feedback.copied);
+      showNotification(dictionary.feedback.copied);
     } catch (err) {
       console.error('Failed to copy', err);
     }
@@ -235,8 +235,8 @@
 </script>
 
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dictionary.title}
+  description={dictionary.description}
   image="https://web-factory.vercel.app/og-image.jpg"
   url={$page.url.href}
   keywords="markdown editor, online markdown editor, github flavored markdown, markdown preview, markdown to html"
@@ -267,7 +267,7 @@
            class="bg-slate-100 dark:bg-slate-800 border-none text-sm rounded-lg px-3 py-2 cursor-pointer outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-slate-700 dark:text-slate-300 min-h-[44px]"
            on:change={(e) => applyTemplate(templates[e.currentTarget.selectedIndex - 1])}
          >
-           <option disabled selected>{dict.templates}</option>
+           <option disabled selected>{dictionary.templates}</option>
            {#each templates as tmpl}
              <option>{tmpl.name}</option>
            {/each}
@@ -276,7 +276,7 @@
          <button
            class="p-2 text-slate-500 hover:text-indigo-600 relative hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors min-h-[44px]"
            on:click={() => showHistory = !showHistory}
-           title={dict.history}
+           title={dictionary.history}
          >
            <History size={20} />
          </button>
@@ -298,13 +298,13 @@
         class="flex-1 py-2 min-h-[44px] text-sm font-medium {activeTab === 'editor' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
         on:click={() => activeTab = 'editor'}
       >
-        {dict.input}
+        {dictionary.input}
       </button>
       <button
         class="flex-1 py-2 min-h-[44px] text-sm font-medium {activeTab === 'preview' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
         on:click={() => activeTab = 'preview'}
       >
-        {dict.preview}
+        {dictionary.preview}
       </button>
     </div>
 
@@ -327,8 +327,8 @@
         </div>
         <!-- Stats Bar -->
         <div class="min-h-[2rem] py-1 flex-wrap bg-slate-100 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 flex items-center px-4 text-xs text-slate-500 gap-4 select-none print:hidden">
-           <span>{wordCount} {dict.words}</span>
-           <span>{charCount} {dict.chars}</span>
+           <span>{wordCount} {dictionary.words}</span>
+           <span>{charCount} {dictionary.chars}</span>
            <span>{readingTime} min read</span>
         </div>
       </div>
@@ -349,43 +349,43 @@
   <!-- Content for SEO/Landing below the tool -->
   <section class="max-w-4xl mx-auto px-6 py-12 space-y-12 print:hidden">
     <div class="bg-indigo-50 dark:bg-indigo-900/10 rounded-2xl p-8 border border-indigo-100 dark:border-indigo-900/30">
-      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{dict.guide.title}</h2>
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{dictionary.guide.title}</h2>
       <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
-        {dict.guide.intro}
+        {dictionary.guide.intro}
       </p>
 
       <div class="grid md:grid-cols-2 gap-6">
         <div>
-          <h3 class="font-semibold text-slate-900 dark:text-white mb-2">{dict.guide.featuresTitle}</h3>
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2">{dictionary.guide.featuresTitle}</h3>
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
             <li class="flex items-start gap-2">
               <span class="text-indigo-500 mt-1">✓</span>
-              <span>{@html marked.parseInline(dict.guide.f1)}</span>
+              <span>{@html marked.parseInline(dictionary.guide.f1)}</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-indigo-500 mt-1">✓</span>
-              <span>{@html marked.parseInline(dict.guide.f2)}</span>
+              <span>{@html marked.parseInline(dictionary.guide.f2)}</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-indigo-500 mt-1">✓</span>
-              <span>{@html marked.parseInline(dict.guide.f3)}</span>
+              <span>{@html marked.parseInline(dictionary.guide.f3)}</span>
             </li>
           </ul>
         </div>
         <div>
-          <h3 class="font-semibold text-slate-900 dark:text-white mb-2">{dict.guide.tipsTitle}</h3>
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2">{dictionary.guide.tipsTitle}</h3>
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
              <li class="flex items-start gap-2">
               <span class="text-amber-500 mt-1">💡</span>
-              <span>{@html marked.parseInline(dict.guide.tip1)}</span>
+              <span>{@html marked.parseInline(dictionary.guide.tip1)}</span>
             </li>
              <li class="flex items-start gap-2">
               <span class="text-amber-500 mt-1">💡</span>
-              <span>{@html marked.parseInline(dict.guide.tip2)}</span>
+              <span>{@html marked.parseInline(dictionary.guide.tip2)}</span>
             </li>
              <li class="flex items-start gap-2">
               <span class="text-amber-500 mt-1">💡</span>
-              <span>{@html marked.parseInline(dict.guide.tip3)}</span>
+              <span>{@html marked.parseInline(dictionary.guide.tip3)}</span>
             </li>
           </ul>
         </div>
@@ -393,11 +393,11 @@
     </div>
 
     <FAQSection
-      title={dict.faqTitle}
+      title={dictionary.faqTitle}
       items={[
-        { q: dict.q1, a: dict.a1 },
-        { q: dict.q2, a: dict.a2 },
-        { q: dict.q3, a: dict.a3 }
+        { q: dictionary.q1, a: dictionary.a1 },
+        { q: dictionary.q2, a: dictionary.a2 },
+        { q: dictionary.q3, a: dictionary.a3 }
       ]}
     />
 
@@ -417,7 +417,7 @@
       <button class="absolute inset-0 bg-black/20 backdrop-blur-sm min-h-[44px]" on:click={() => showHistory = false} aria-label="Close history"></button>
       <div class="relative w-full max-w-sm bg-white dark:bg-slate-900 shadow-2xl h-full overflow-y-auto" transition:slide={{ axis: 'x', duration: 300 }}>
         <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-          <h3 class="font-semibold text-slate-900 dark:text-white">{dict.history}</h3>
+          <h3 class="font-semibold text-slate-900 dark:text-white">{dictionary.history}</h3>
           <button class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 min-h-[44px]" on:click={() => showHistory = false} aria-label="Close history">
             <X size={20} />
           </button>
@@ -445,7 +445,7 @@
                  </div>
                {/each}
                {#if $history.length === 0}
-                 <p class="text-center text-slate-500 py-8">{dict.historyEmpty || "No history"}</p>
+                 <p class="text-center text-slate-500 py-8">{dictionary.historyEmpty || "No history"}</p>
                {/if}
              </div>
              {#if $history.length > 0}
@@ -453,7 +453,7 @@
                   class="w-full mt-4 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors min-h-[44px]"
                   on:click={clearHistory}
                 >
-                  {dict.clear}
+                  {dictionary.clear}
                 </button>
              {/if}
            {/if}

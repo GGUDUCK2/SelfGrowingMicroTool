@@ -125,17 +125,17 @@
   }
 
   $: faqItems = [
-    { q: dict.q1, a: dict.a1 },
-    { q: dict.q2, a: dict.a2 },
-    { q: dict.q3, a: dict.a3 },
+    { q: dictionary.q1, a: dictionary.a1 },
+    { q: dictionary.q2, a: dictionary.a2 },
+    { q: dictionary.q3, a: dictionary.a3 },
   ];
 
   $: appSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-    "name": dict.title,
-    "description": dict.description,
+    "name": dictionary.title,
+    "description": dictionary.description,
     "applicationCategory": "ProductivityApplication",
     "applicationSubCategory": "Time Management",
     "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
@@ -164,7 +164,7 @@
     }, {
       "@type": "ListItem",
       "position": 3,
-      "name": dict.title,
+      "name": dictionary.title,
       "item": `https://selfgrowingmicrotool.com/${lang}/tools/pomodoro-timer`
     }]
   };
@@ -175,26 +175,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dictionary.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dictionary.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dictionary.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dictionary.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dictionary.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dictionary.a3
         }
       }
     ]
@@ -203,8 +203,8 @@
   $: schemaList = [appSchema, breadcrumbSchema, faqSchema];
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dictionary.title}
+  description={dictionary.description}
 />
 
 
@@ -218,10 +218,10 @@
 <div class="max-w-2xl mx-auto text-center space-y-12 py-12 px-4">
   <div class="space-y-4">
     <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">
-      {dict.title}
+      {dictionary.title}
     </h1>
     <p class="text-gray-500">
-      {dict.description}
+      {dictionary.description}
     </p>
   </div>
 
@@ -264,8 +264,8 @@
         class="text-xs sm:text-sm uppercase tracking-widest text-gray-400 font-semibold mt-4"
       >
         {isRunning
-          ? dict.running
-          : dict.paused}
+          ? dictionary.running
+          : dictionary.paused}
       </div>
     </div>
 
@@ -274,7 +274,7 @@
       <button
         on:click={toggleTimer}
         class="h-14 w-14 sm:h-16 sm:w-16 flex items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:scale-105 active:scale-95 transition-all min-h-[44px]"
-        aria-label={isRunning ? dict.pauseAction : dict.startAction}
+        aria-label={isRunning ? dictionary.pauseAction : dictionary.startAction}
       >
         {#if isRunning}
           <svg
@@ -315,7 +315,7 @@
       <button
         on:click={reset}
         class="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-900 transition-colors min-h-[44px]"
-        aria-label={dict.reset}
+        aria-label={dictionary.reset}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -336,7 +336,7 @@
     </div>
   </div>
 
-  <GuideSection {...dict.guide} />
+  <GuideSection {...dictionary.guide} />
 
-  <FAQSection title={dict.faqTitle} items={faqItems} />
+  <FAQSection title={dictionary.faqTitle} items={faqItems} />
 </div>

@@ -77,7 +77,7 @@
   function detectSpikes(logs: LogEntry[]) {
       if (logs.length < 50) return null;
       const errors = logs.filter(e => e.level === 'error').length;
-      if (errors / logs.length > 0.15) return `${dict.levels.error} Rate: ${(errors/logs.length*100).toFixed(1)}%`;
+      if (errors / logs.length > 0.15) return `${dictionary.levels.error} Rate: ${(errors/logs.length*100).toFixed(1)}%`;
       return null;
   }
 
@@ -241,7 +241,7 @@
       {
         "@type": "ListItem",
         "position": 2,
-        "name": dict.title,
+        "name": dictionary.title,
         "item": `https://selfgrowingmicrotool.com/${lang}/tools/log-prism`
       }
     ]
@@ -249,8 +249,8 @@
 
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dictionary.title}
+  description={dictionary.description}
   keywords="log viewer, log analyzer, nginx log parser, syslog viewer, json log viewer, error log analysis, automated insights, smart log generation"
 />
 
@@ -265,8 +265,8 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
         "isAccessibleForFree": true,
-      "name": "${dict.title}",
-      "description": "${dict.description}",
+      "name": "${dictionary.title}",
+      "description": "${dictionary.description}",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
       "featureList": [
@@ -290,26 +290,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dictionary.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dictionary.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dictionary.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dictionary.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dictionary.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dictionary.a3}"
         }
       }
     ]
@@ -331,7 +331,7 @@
                 <Activity size={20} />
             </div>
             <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 hidden sm:block">
-                {dict.title}
+                {dictionary.title}
             </h1>
         </div>
 
@@ -347,16 +347,16 @@
 
             {#if entries.length > 0}
                 <div class="hidden sm:flex items-center gap-4 mr-4 text-xs font-mono text-slate-500 border-l border-slate-200 dark:border-slate-700 pl-4">
-                    <span>{stats.filtered} / {stats.total} {dict.entries}</span>
+                    <span>{stats.filtered} / {stats.total} {dictionary.entries}</span>
                     {#if stats.errors > 0}
-                        <span class="text-red-500 font-bold">{stats.errors} {dict.errors}</span>
+                        <span class="text-red-500 font-bold">{stats.errors} {dictionary.errors}</span>
                     {/if}
                 </div>
 
                 <button
                     class="p-2 text-slate-500 hover:text-indigo-600 transition-colors relative min-h-[44px] min-w-[44px] flex items-center justify-center"
                     on:click={handleReport}
-                    title={dict.report?.title || "Insight Report"}
+                    title={dictionary.report?.title || "Insight Report"}
                     aria-label="Generate Insight Report"
                 >
                     <FileText size={20} />
@@ -370,8 +370,8 @@
                 <button
                     class="p-2 text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                     on:click={exportJson}
-                    title={dict.export}
-                    aria-label={dict.export}
+                    title={dictionary.export}
+                    aria-label={dictionary.export}
                 >
                     <Download size={20} />
                 </button>
@@ -379,8 +379,8 @@
                  <button
                     class="p-2 text-slate-500 hover:text-red-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                     on:click={clear}
-                    title={dict.clear}
-                    aria-label={dict.clear}
+                    title={dictionary.clear}
+                    aria-label={dictionary.clear}
                 >
                     <Trash2 size={20} />
                 </button>
@@ -512,37 +512,37 @@
     <!-- Documentation -->
     <section class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12">
         <div class="max-w-4xl mx-auto px-6">
-            <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">{dict.guide.title}</h2>
+            <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">{dictionary.guide.title}</h2>
             <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
-                {dict.guide.intro}
+                {dictionary.guide.intro}
             </p>
 
             <div class="grid md:grid-cols-3 gap-6 mb-12">
                 <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-                    <h3 class="font-bold text-indigo-600 dark:text-indigo-400 mb-2">{dict.guide.featuresTitle}</h3>
+                    <h3 class="font-bold text-indigo-600 dark:text-indigo-400 mb-2">{dictionary.guide.featuresTitle}</h3>
                     <ul class="text-sm space-y-2 text-slate-600 dark:text-slate-400">
-                        <li>{@html dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-                        <li>{@html dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-                        <li>{@html dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dictionary.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dictionary.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dictionary.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
                     </ul>
                 </div>
 
                  <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 md:col-span-2">
-                    <h3 class="font-bold text-amber-600 dark:text-amber-400 mb-2">{dict.guide.tipsTitle}</h3>
+                    <h3 class="font-bold text-amber-600 dark:text-amber-400 mb-2">{dictionary.guide.tipsTitle}</h3>
                     <ul class="text-sm space-y-2 text-slate-600 dark:text-slate-400 grid md:grid-cols-2 gap-4">
-                        <li>{@html dict.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-                        <li>{@html dict.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-                        <li>{@html dict.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dictionary.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dictionary.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
+                        <li>{@html dictionary.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
                     </ul>
                 </div>
             </div>
 
             <FAQSection
-                title={dict.faqTitle}
+                title={dictionary.faqTitle}
                 items={[
-                    { q: dict.q1, a: dict.a1 },
-                    { q: dict.q2, a: dict.a2 },
-                    { q: dict.q3, a: dict.a3 }
+                    { q: dictionary.q1, a: dictionary.a1 },
+                    { q: dictionary.q2, a: dictionary.a2 },
+                    { q: dictionary.q3, a: dictionary.a3 }
                 ]}
             />
         </div>

@@ -9,10 +9,10 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: toolDict = dict.tools.pdfForge;
+  $: toolDict = dictionary.tools.pdfForge;
 
   // SEO
-  $: title = `${toolDict.title} - ${dict.home.title}`;
+  $: title = `${toolDict.title} - ${dictionary.home.title}`;
   $: description = toolDict.description;
   $: canonical = `https://selfgrowingmicrotool.com/${lang}/tools/pdf-forge`;
 
@@ -84,26 +84,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dictionary.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dictionary.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dictionary.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dictionary.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dictionary.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dictionary.a3}"
         }
       }
     ]

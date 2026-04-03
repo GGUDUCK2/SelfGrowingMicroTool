@@ -15,7 +15,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: toolDict = dict.tools.resumeForge;
+  $: toolDict = dictionary.tools.resumeForge;
 
   let showHistory = false;
   let showPreviewOnMobile = false; // Toggle for mobile view
@@ -140,7 +140,7 @@
           {
             "@type": "ListItem",
             "position": 1,
-            "name": dict.home.title,
+            "name": dictionary.home.title,
             "item": `https://selfgrowingmicrotool.com/${lang}`
           },
           {
