@@ -141,56 +141,53 @@
         "Export Subnet Plan (CSV/JSON)"
       ]
     };
-</script>
-<Head
-  title={dict.tools.subnetScope.title}
-  description={dict.tools.subnetScope.description}
-/>
 
-
-<svelte:window on:keydown={handleKeydown} />
-
-<svelte:head>
-
-
-
-  {@html `<script type="application/ld+json">
-    ${JSON.stringify(schemaObj1)}
-  </script>`}
-
-  {@html `<script type="application/ld+json">
-  {
+  $: faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": dict?.tools?.subnetScope?.q1 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": dict?.tools?.subnetScope?.a1 || ""
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": dict?.tools?.subnetScope?.q2 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": dict?.tools?.subnetScope?.a2 || ""
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": dict?.tools?.subnetScope?.q3 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": dict?.tools?.subnetScope?.a3 || ""
         }
       }
     ]
-  }
-  </script>`}
+  };
+</script>
 
+<Head
+  title={dict.tools.subnetScope.title}
+  description={dict.tools.subnetScope.description}
+/>
+
+<svelte:window on:keydown={handleKeydown} />
+
+<svelte:head>
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify(schemaObj1)}
+  </script>`}
+  {@html `<script type="application/ld+json">
+    ${JSON.stringify(faqSchema)}
+  </script>`}
 </svelte:head>
 
 <!-- Toast -->
@@ -268,7 +265,7 @@
 
   <!-- Navigation -->
   <div class="flex justify-center border-b border-slate-200 dark:border-slate-800">
-      <nav class="flex gap-8">
+      <nav class="flex gap-8 px-4 overflow-x-auto scrollbar-hide whitespace-nowrap">
           <button
               class="pb-4 min-h-[44px] text-sm font-medium transition-colors border-b-2 {activeTab === 'analyze' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
               on:click={() => activeTab = 'analyze'}
