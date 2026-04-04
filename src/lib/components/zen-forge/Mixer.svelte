@@ -66,7 +66,7 @@
         </div>
         <div class="flex flex-wrap gap-2">
             {#each ['focus', 'relax', 'sleep', 'meditate'] as tag}
-                <button
+                <button style="min-height: 44px; min-width: 44px;"
                     on:click={() => zenStore.applySmartMix(tag)}
                     class="px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-500/20 hover:bg-indigo-500/40 text-indigo-200 transition-colors border border-indigo-500/30"
                 >

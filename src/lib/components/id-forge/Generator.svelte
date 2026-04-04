@@ -77,16 +77,16 @@
   <div class="flex flex-col space-y-2">
       <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-1">Quick Presets</span>
       <div class="flex flex-wrap gap-2">
-        <button on:click={() => loadExample('uuid-v7', 5, 'json')} class="px-3 py-1.5 text-xs font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors border border-transparent hover:border-indigo-200 dark:hover:border-indigo-800">
+        <button style="min-height: 44px; min-width: 44px;" on:click={() => loadExample('uuid-v7', 5, 'json')} class="px-3 py-1.5 text-xs font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors border border-transparent hover:border-indigo-200 dark:hover:border-indigo-800">
             UUID v7 (JSON Batch)
         </button>
-        <button on:click={() => loadExample('ulid', 1, 'plain')} class="px-3 py-1.5 text-xs font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-300 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors border border-transparent hover:border-emerald-200 dark:hover:border-emerald-800">
+        <button style="min-height: 44px; min-width: 44px;" on:click={() => loadExample('ulid', 1, 'plain')} class="px-3 py-1.5 text-xs font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-300 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors border border-transparent hover:border-emerald-200 dark:hover:border-emerald-800">
             ULID (Sortable)
         </button>
-        <button on:click={() => loadExample('nanoid', 1, 'plain', { nanoidLength: 10 })} class="px-3 py-1.5 text-xs font-medium bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-300 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-900/50 transition-colors border border-transparent hover:border-rose-200 dark:hover:border-rose-800">
+        <button style="min-height: 44px; min-width: 44px;" on:click={() => loadExample('nanoid', 1, 'plain', { nanoidLength: 10 })} class="px-3 py-1.5 text-xs font-medium bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-300 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-900/50 transition-colors border border-transparent hover:border-rose-200 dark:hover:border-rose-800">
             Short NanoID (10)
         </button>
-        <button on:click={() => loadExample('uuid-v4', 100, 'sql')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors border border-transparent hover:border-slate-300 dark:hover:border-slate-500">
+        <button style="min-height: 44px; min-width: 44px;" on:click={() => loadExample('uuid-v4', 100, 'sql')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors border border-transparent hover:border-slate-300 dark:hover:border-slate-500">
             SQL Bulk Insert (100)
         </button>
       </div>
@@ -206,7 +206,7 @@
   </div>
 
   <!-- Generate Button -->
-  <button
+  <button style="min-height: 44px; min-width: 44px;"
     on:click={generate}
     class="w-full min-h-12 px-8 py-4 text-lg bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/30 transition-all transform active:scale-[0.98] flex items-center justify-center space-x-2"
   >

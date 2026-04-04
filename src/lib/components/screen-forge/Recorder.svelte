@@ -121,7 +121,7 @@
         {#if !isRecording}
             <!-- Config Mode -->
              <div class="flex gap-4">
-                <button
+                <button style="min-height: 44px; min-width: 44px;"
                     class="flex flex-col items-center gap-2 p-4 rounded-xl transition-all w-24 {micEnabled ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700' : 'bg-slate-50 dark:bg-slate-700 text-slate-500 border border-transparent hover:bg-slate-100 dark:hover:bg-slate-600'}"
                     on:click={() => micEnabled = !micEnabled}
                     title={micEnabled ? t.micOn : t.micOff}
@@ -135,7 +135,7 @@
                     {/if}
                 </button>
 
-                <button
+                <button style="min-height: 44px; min-width: 44px;"
                     class="flex flex-col items-center gap-2 p-4 rounded-xl transition-all w-32 bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:-translate-y-0.5 active:translate-y-0"
                     on:click={start}
                 >
@@ -153,7 +153,7 @@
              </div>
         {:else}
             <!-- Recording Mode -->
-            <button
+            <button style="min-height: 44px; min-width: 44px;"
                 class="p-4 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
                 on:click={togglePause}
                 title={isPaused ? t.resume : t.pause}
@@ -165,7 +165,7 @@
                 {/if}
             </button>
 
-            <button
+            <button style="min-height: 44px; min-width: 44px;"
                 class="p-4 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-500/30 transition-all hover:scale-105 active:scale-95"
                 on:click={stop}
                 title={t.stop}

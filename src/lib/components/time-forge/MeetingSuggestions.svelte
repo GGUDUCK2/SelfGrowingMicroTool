@@ -35,7 +35,7 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {#each suggestions as slot}
-            <button
+            <button style="min-height: 44px; min-width: 44px;"
                 class="flex flex-col items-start p-3 rounded-lg bg-slate-700/40 hover:bg-slate-700 border border-transparent hover:border-emerald-500/30 transition-all group text-left"
                 on:click={() => jumpTo(slot.start)}
             >

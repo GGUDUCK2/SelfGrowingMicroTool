@@ -31,7 +31,7 @@
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm" transition:fade on:click={() => dispatch('close')}>
     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl max-w-md w-full p-6 relative" transition:scale on:click|stopPropagation>
-      <button class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" on:click={() => dispatch('close')}>
+      <button style="min-height: 44px; min-width: 44px;" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" on:click={() => dispatch('close')}>
         <X class="w-5 h-5" />
       </button>
 
@@ -55,10 +55,10 @@
         </div>
 
         <div class="flex gap-2 justify-end pt-2">
-            <button class="px-4 py-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 font-medium" on:click={clear}>
+            <button style="min-height: 44px; min-width: 44px;" class="px-4 py-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 font-medium" on:click={clear}>
                 {dict.actions?.clear || "Clear"}
             </button>
-            <button class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold transition-colors shadow-lg shadow-indigo-500/20" on:click={save}>
+            <button style="min-height: 44px; min-width: 44px;" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold transition-colors shadow-lg shadow-indigo-500/20" on:click={save}>
                 {dict.actions?.save || "Save"}
             </button>
         </div>

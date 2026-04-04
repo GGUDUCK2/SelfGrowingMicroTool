@@ -56,7 +56,7 @@
 </script>
 
 <div class="flex items-center space-x-3 mb-6">
-  <button
+  <button style="min-height: 44px; min-width: 44px;"
     type="button"
     class="flex items-center px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-sm font-medium transition-colors border border-slate-600"
     on:click={() => showSaveModal = true}
@@ -65,7 +65,7 @@
     {t.buttons.saveTeam}
   </button>
 
-  <button
+  <button style="min-height: 44px; min-width: 44px;"
     type="button"
     class="flex items-center px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-sm font-medium transition-colors border border-slate-600"
     on:click={() => showLoadModal = true}
@@ -87,11 +87,11 @@
         class="w-full h-11 px-4 bg-slate-700 text-slate-50 border border-slate-600 rounded-lg focus:border-indigo-500 mb-4 focus:outline-none"
       />
       <div class="flex justify-end space-x-3">
-        <button
+        <button style="min-height: 44px; min-width: 44px;"
             class="px-4 py-2 text-slate-400 hover:text-white transition-colors"
             on:click={() => showSaveModal = false}
         >Cancel</button>
-        <button
+        <button style="min-height: 44px; min-width: 44px;"
             class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg font-medium transition-colors"
             on:click={handleSaveTeam}
         >Save</button>
@@ -111,14 +111,14 @@
         <ul class="space-y-2 mb-4 max-h-60 overflow-y-auto pr-2">
             {#each teams as team}
                 <li class="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg hover:bg-slate-700 transition-colors">
-                    <button
+                    <button style="min-height: 44px; min-width: 44px;"
                         class="flex-1 text-left"
                         on:click={() => handleLoadTeam(team)}
                     >
                         <span class="block text-slate-200 font-medium">{team.name}</span>
                         <span class="text-xs text-slate-500">{team.cityIds.length} cities • {team.createdAt.toLocaleDateString()}</span>
                     </button>
-                    <button
+                    <button style="min-height: 44px; min-width: 44px;"
                         class="p-2 text-slate-500 hover:text-red-400 transition-colors"
                         on:click={() => handleDeleteTeam(team.id!)}
                         title="Delete Team"
@@ -131,7 +131,7 @@
       {/if}
 
       <div class="flex justify-end">
-        <button
+        <button style="min-height: 44px; min-width: 44px;"
             class="px-4 py-2 text-slate-400 hover:text-white transition-colors"
             on:click={() => showLoadModal = false}
         >Close</button>

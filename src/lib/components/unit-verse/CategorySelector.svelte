@@ -30,7 +30,7 @@
 
 <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-6" role="tablist">
   {#each categories as category}
-    <button
+    <button style="min-height: 44px; min-width: 44px;"
       role="tab"
       aria-selected={selectedCategory === category.id}
       class="flex flex-col items-center justify-center p-4 min-h-[88px] rounded-xl transition-all duration-200 border

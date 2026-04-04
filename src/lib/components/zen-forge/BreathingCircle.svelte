@@ -61,7 +61,7 @@
 </script>
 
 <div class="flex flex-col items-center gap-4">
-    <button
+    <button style="min-height: 44px; min-width: 44px;"
         class="relative w-48 h-48 flex items-center justify-center cursor-pointer group focus:outline-none focus:ring-4 focus:ring-indigo-500/20 rounded-full"
         on:click={toggle}
         aria-label={isRunning ? 'Stop Breathing Exercise' : 'Start Breathing Exercise'}
