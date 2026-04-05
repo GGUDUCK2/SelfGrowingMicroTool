@@ -3598,6 +3598,11 @@ export const dictionaries = {
         smartDockerignore: "Dynamic .dockerignore based on stack",
         shareSuccess: "Shared successfully!",
         saveSuccess: "Saved to Workspace",
+        smartAnalyzer: "Smart Project Analyzer",
+        smartAnalyzerDesc: "Drag and drop your package.json, requirements.txt, go.mod, or Cargo.toml here to auto-configure the environment.",
+        sizeEstimator: "Storage Profile Estimate",
+        totalSize: "Total Size",
+        unsupportedFile: "Unsupported file format. Try package.json or requirements.txt.",
         buttons: {
           copy: "Copy",
           download: "Download",
@@ -6719,6 +6724,11 @@ export const dictionaries = {
         layerSizeInfo: "이 레이어로 인해 추가될 예상 크기입니다.",
         smartDockerignore: "스택에 따른 동적 .dockerignore",
         shareSuccess: "성공적으로 공유되었습니다!",
+        smartAnalyzer: "스마트 프로젝트 분석기",
+        smartAnalyzerDesc: "package.json, requirements.txt, go.mod, 또는 Cargo.toml 파일을 여기에 드래그 앤 드롭하여 환경을 자동으로 구성하세요.",
+        sizeEstimator: "스토리지 프로파일 예상치",
+        totalSize: "총 예상 크기",
+        unsupportedFile: "지원되지 않는 파일 형식입니다. package.json 또는 requirements.txt를 사용해보세요.",
         saveSuccess: "작업 공간에 저장되었습니다",
         buttons: {
           copy: "복사",
