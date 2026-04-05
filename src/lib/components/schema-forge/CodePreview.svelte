@@ -48,7 +48,7 @@
 <div class="relative w-full h-full bg-slate-900 rounded-lg overflow-hidden flex flex-col group">
     <div class="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
         <button
-            class="p-2 bg-slate-800 text-slate-300 hover:text-white rounded shadow-sm border border-slate-700 transition-colors"
+            class="p-2 bg-slate-800 text-slate-300 hover:text-white rounded shadow-sm border border-slate-700 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
             on:click={handleCopy}
             title="Copy"
         >
@@ -59,7 +59,7 @@
             {/if}
         </button>
         <button
-            class="p-2 bg-slate-800 text-slate-300 hover:text-white rounded shadow-sm border border-slate-700 transition-colors"
+            class="p-2 bg-slate-800 text-slate-300 hover:text-white rounded shadow-sm border border-slate-700 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
             on:click={handleDownload}
             title="Download"
         >
