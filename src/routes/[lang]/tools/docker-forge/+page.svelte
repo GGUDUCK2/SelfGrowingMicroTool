@@ -11,8 +11,8 @@
   $: d = dict.tools.dockerForge;
 
   // SEO
-  $: title = d.title;
-  $: description = d.description;
+  $: title = d?.title || "Docker Forge";
+  $: description = d?.description || "Visual Dockerfile Builder";
 
   // JSON-LD
   $: schemaObj = {
@@ -106,6 +106,17 @@
 />
 
 <svelte:head>
+  <title>{title} | Web Factory</title>
+  <meta name="description" content={description} />
+  <meta name="keywords" content="docker, dockerfile, generator, visual builder, docker compose, multi-stage build, container, devops" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={`https://web-factory.vercel.app/${lang}/tools/docker-forge`} />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <link rel="canonical" href={`https://web-factory.vercel.app/${lang}/tools/docker-forge`} />
   <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/docker-forge" />
   <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/docker-forge" />
   <link rel="alternate" hreflang="x-default" href="https://web-factory.vercel.app/en/tools/docker-forge" />
