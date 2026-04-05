@@ -197,6 +197,19 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
       "item": `https://selfgrowingmicrotool.com/${lang}/tools/glassmorphism-generator`
     }]
   };
+
+  $: schemaObj3 = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
 </script>
 <Head
   title={dict.title}
@@ -205,8 +218,9 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
 
 <svelte:head>
-                  {@html `<script type="application/ld+json">${JSON.stringify(schemaObj1)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(schemaObj1)}</script>`}
   {@html `<script type="application/ld+json">${JSON.stringify(schemaObj2)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(schemaObj3)}</script>`}
 </svelte:head>
 
 <div class="max-w-6xl mx-auto py-12 space-y-12 px-4">
@@ -220,7 +234,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     <div class="flex justify-center">
         <button
           on:click={copyLink}
-          class="inline-flex items-center justify-center w-full sm:w-auto gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors touch-manipulation min-h-[44px]"
+          class="inline-flex items-center justify-center w-full sm:w-auto gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors touch-manipulation min-h-[44px] min-w-[44px]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -282,7 +296,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
         </h2>
         <button
             on:click={saveToHistory}
-            class="text-sm bg-indigo-50 px-3 py-1.5 rounded-lg text-indigo-600 hover:text-indigo-800 font-medium touch-manipulation transition-colors min-h-[44px]"
+            class="text-sm bg-indigo-50 px-3 py-1.5 rounded-lg text-indigo-600 hover:text-indigo-800 font-medium touch-manipulation transition-colors min-h-[44px] min-w-[44px]"
         >
             {dict.save}
         </button>
@@ -299,7 +313,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               step="1"
               bind:value={blur}
               aria-label={dict.blur}
-              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px]"
+              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px] min-w-[44px]"
             />
           </label>
         </div>
@@ -314,7 +328,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               step="0.01"
               bind:value={transparency}
               aria-label={dict.transparency}
-              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px]"
+              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px] min-w-[44px]"
             />
           </label>
         </div>
@@ -327,13 +341,13 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                 type="color"
                 bind:value={color}
                 aria-label="{dict.color} picker"
-                class="h-10 w-12 p-0 border-0 rounded cursor-pointer touch-manipulation min-h-[44px]"
+                class="h-10 w-12 p-0 border-0 rounded cursor-pointer touch-manipulation min-h-[44px] min-w-[44px]"
               />
               <input
                 type="text"
                 bind:value={color}
                 aria-label="{dict.color} hex code"
-                class="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none uppercase min-h-[44px]"
+                class="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none uppercase min-h-[44px] min-w-[44px]"
               />
             </div>
           </label>
@@ -349,7 +363,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               step="1"
               bind:value={outline}
               aria-label={dict.outline}
-              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px]"
+              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px] min-w-[44px]"
             />
           </label>
         </div>
@@ -364,7 +378,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
               step="1"
               bind:value={radius}
               aria-label={dict.radius}
-              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px]"
+              class="w-full mt-2 accent-indigo-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer touch-manipulation min-h-[44px] min-w-[44px]"
             />
           </label>
         </div>
@@ -414,7 +428,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
         <button
           on:click={copyToClipboard}
-          class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white px-4 py-2 sm:px-3 sm:py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 backdrop-blur-sm touch-manipulation min-h-[44px]"
+          class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white px-4 py-2 sm:px-3 sm:py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 backdrop-blur-sm touch-manipulation min-h-[44px] min-w-[44px]"
         >
           {#if copied}
             <span in:fly={{ y: 5 }} class="text-green-400">{dict.copied}</span>
@@ -434,7 +448,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                 </h3>
                 <button
                     on:click={clearHistory}
-                    class="text-sm text-red-500 hover:text-red-700 font-medium touch-manipulation min-h-[44px]"
+                    class="text-sm text-red-500 hover:text-red-700 font-medium touch-manipulation min-h-[44px] min-w-[44px]"
                 >
                     {dict.clearHistory}
                 </button>
@@ -443,7 +457,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {#each $history as item (item.id)}
                     <div class="group relative bg-gray-50 rounded-xl p-4 border border-gray-200 hover:shadow-md transition-all touch-manipulation">
-                        <button class="w-full text-left min-h-[44px]" on:click={() => restoreHistory(item)}>
+                        <button class="w-full text-left min-h-[44px] min-w-[44px]" on:click={() => restoreHistory(item)}>
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-4 h-4 rounded-full border border-gray-300" style="background: {item.color}; opacity: {item.transparency}"></div>
                                 <span class="text-xs text-gray-500">{new Date(item.createdAt).toLocaleString()}</span>
