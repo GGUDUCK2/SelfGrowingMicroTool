@@ -55,7 +55,7 @@
         {#each starredItems as item (item.id)}
           <div transition:slide|local class="flex items-center justify-between p-3 rounded-xl bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-900/30 hover:border-amber-300 dark:hover:border-amber-700 transition-colors group">
             <button
-              class="flex items-center gap-3 flex-1 text-left focus:outline-none"
+              class="flex items-center gap-3 flex-1 text-left focus:outline-none min-h-[44px]"
               on:click={() => load(item)}
               on:keydown={(e) => (e.key === 'Enter' || e.key === ' ') && load(item)}
             >
@@ -68,7 +68,7 @@
 
             <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity">
               <button
-                class="p-2 text-amber-500 hover:text-amber-600 focus:outline-none"
+                class="p-2 text-amber-500 hover:text-amber-600 focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center"
                 on:click={() => toggleStar(item)}
                 aria-label="Unstar"
               >
@@ -89,7 +89,7 @@
         {#each recentItems as item (item.id)}
           <div transition:slide|local class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 hover:border-indigo-200 dark:hover:border-indigo-800 transition-colors group">
             <button
-              class="flex items-center gap-3 flex-1 text-left focus:outline-none"
+              class="flex items-center gap-3 flex-1 text-left focus:outline-none min-h-[44px]"
               on:click={() => load(item)}
               on:keydown={(e) => (e.key === 'Enter' || e.key === ' ') && load(item)}
             >
@@ -102,14 +102,14 @@
 
             <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity">
               <button
-                class="p-2 text-slate-400 hover:text-amber-500 focus:outline-none"
+                class="p-2 text-slate-400 hover:text-amber-500 focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center"
                 on:click={() => toggleStar(item)}
                 aria-label="Star"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
               </button>
               <button
-                class="p-2 text-slate-400 hover:text-red-500 focus:outline-none"
+                class="p-2 text-slate-400 hover:text-red-500 focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center"
                 on:click={() => item.id && deleteItem(item.id)}
                 aria-label="Delete"
               >

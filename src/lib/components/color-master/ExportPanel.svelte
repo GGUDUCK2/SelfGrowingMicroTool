@@ -173,7 +173,7 @@ ${palette.map((c, i) => `$color-harmony-${i + 1}: ${c.hex};`).join('\n')}`;
 
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
     <button
-      class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+      class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[44px] min-w-[44px]"
       on:click={() => copyCode(generateCSS, 'CSS')}
     >
       <span class="font-bold text-slate-700 dark:text-slate-200">CSS</span>
@@ -181,7 +181,7 @@ ${palette.map((c, i) => `$color-harmony-${i + 1}: ${c.hex};`).join('\n')}`;
     </button>
 
     <button
-      class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+      class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[44px] min-w-[44px]"
       on:click={() => copyCode(generateTailwind, 'Tailwind')}
     >
       <span class="font-bold text-sky-500">Tailwind</span>
@@ -189,7 +189,7 @@ ${palette.map((c, i) => `$color-harmony-${i + 1}: ${c.hex};`).join('\n')}`;
     </button>
 
     <button
-      class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+      class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[44px] min-w-[44px]"
       on:click={() => copyCode(generateSCSS, 'SCSS')}
     >
       <span class="font-bold text-pink-500">SCSS</span>
@@ -197,7 +197,7 @@ ${palette.map((c, i) => `$color-harmony-${i + 1}: ${c.hex};`).join('\n')}`;
     </button>
 
     <button
-      class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+      class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[44px] min-w-[44px]"
       on:click={() => copyCode(generateJSON, 'JSON')}
     >
       <span class="font-bold text-amber-500">JSON</span>
@@ -205,7 +205,7 @@ ${palette.map((c, i) => `$color-harmony-${i + 1}: ${c.hex};`).join('\n')}`;
     </button>
 
     <button
-      class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+      class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[44px] min-w-[44px]"
       on:click={() => copyCode(generateUrl, 'URL')}
     >
       <span class="font-bold text-indigo-500">URL</span>
@@ -213,7 +213,7 @@ ${palette.map((c, i) => `$color-harmony-${i + 1}: ${c.hex};`).join('\n')}`;
     </button>
 
     <button
-      class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+      class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[44px] min-w-[44px]"
       on:click={downloadImage}
     >
       <span class="font-bold text-teal-500">Image</span>
