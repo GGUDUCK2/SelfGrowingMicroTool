@@ -3603,6 +3603,10 @@ export const dictionaries = {
         sizeEstimator: "Storage Profile Estimate",
         totalSize: "Total Size",
         unsupportedFile: "Unsupported file format. Try package.json or requirements.txt.",
+        optimizeAction: "1-Click Auto-Optimize",
+        optimizeDesc: "Automatically refactor to best practices",
+        optimizeSuccess: "Optimized configuration!",
+        alreadyOptimized: "Already optimized!",
         buttons: {
           copy: "Copy",
           download: "Download",
@@ -6729,6 +6733,10 @@ export const dictionaries = {
         sizeEstimator: "스토리지 프로파일 예상치",
         totalSize: "총 예상 크기",
         unsupportedFile: "지원되지 않는 파일 형식입니다. package.json 또는 requirements.txt를 사용해보세요.",
+        optimizeAction: "원클릭 자동 최적화",
+        optimizeDesc: "모범 사례에 맞게 자동으로 리팩토링합니다",
+        optimizeSuccess: "구성이 최적화되었습니다!",
+        alreadyOptimized: "이미 최적화되어 있습니다!",
         saveSuccess: "작업 공간에 저장되었습니다",
         buttons: {
           copy: "복사",

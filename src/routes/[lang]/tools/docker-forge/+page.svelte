@@ -8,7 +8,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
-  $: d = dict.tools.dockerForge;
+  $: d = dict?.tools?.dockerForge || dictionaries.en.tools.dockerForge;
 
   // SEO
   $: title = d?.title || "Docker Forge";
@@ -20,7 +20,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "name": "Docker Forge",
+        "name": d?.title || "Docker Forge",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web",
         "description": description,
@@ -37,7 +37,8 @@
           "Local IndexedDB Workspace",
           "GitHub Actions CI/CD Pipeline Generator",
           "Intelligent Linter & Security Check",
-          ".dockerignore Configuration"
+          ".dockerignore Configuration",
+          "Smart Auto-Optimize Refactoring"
         ]
       },
       {
@@ -87,7 +88,7 @@
           {
             "@type": "ListItem",
             "position": 3,
-            "name": "Docker Forge",
+            "name": d?.title || "Docker Forge",
             "item": `https://web-factory.vercel.app/${lang}/tools/docker-forge`
           }
         ]
@@ -127,23 +128,23 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
   <div class="text-center mb-12">
     <h1 class="text-4xl font-extrabold text-slate-900 dark:text-white sm:text-5xl sm:tracking-tight lg:text-6xl">
-      {d.title}
+      {d?.title}
     </h1>
     <p class="mt-5 max-w-xl mx-auto text-xl text-slate-500 dark:text-slate-400">
-      {d.description}
+      {d?.description}
     </p>
   </div>
 
   <DockerBuilder {lang} />
 
   <div class="mt-24 space-y-24">
-    <GuideSection {...d.guide} />
+    <GuideSection {...d?.guide} />
     <FAQSection
-      title={d.faqTitle}
+      title={d?.faqTitle}
       items={[
-        { q: d.q1, a: d.a1 },
-        { q: d.q2, a: d.a2 },
-        { q: d.q3, a: d.a3 }
+        { q: d?.q1, a: d?.a1 },
+        { q: d?.q2, a: d?.a2 },
+        { q: d?.q3, a: d?.a3 }
       ]}
     />
   </div>
