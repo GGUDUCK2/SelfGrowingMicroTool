@@ -110,7 +110,7 @@
     <button
         on:click={generateZip}
         disabled={isGenerating || !state.bulk?.items}
-        class="w-full flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-700 disabled:cursor-not-allowed text-white py-3 px-4 rounded-xl transition-all shadow-lg hover:shadow-indigo-500/20"
+        class="w-full flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-700 disabled:cursor-not-allowed text-white py-3 px-4 rounded-xl transition-all shadow-lg hover:shadow-indigo-500/20 min-h-[44px] min-w-[44px]"
     >
         {#if isGenerating}
             <Loader2 class="animate-spin" size={20} />

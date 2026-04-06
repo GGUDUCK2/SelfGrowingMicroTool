@@ -39,7 +39,7 @@
         <Clock size={20} />
         {d.history || 'Recent History'}
     </h3>
-    <button on:click={clearAll} class="text-xs text-slate-400 hover:text-red-400 transition-colors">
+    <button on:click={clearAll} class="text-xs text-slate-400 hover:text-red-400 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center">
         {d.clear || 'Clear All'}
     </button>
   </div>
@@ -77,21 +77,21 @@
                     <div class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button
                             on:click={() => restore(item)}
-                            class="p-1.5 text-slate-400 hover:text-indigo-400 rounded-md hover:bg-slate-700"
+                            class="p-1.5 text-slate-400 hover:text-indigo-400 rounded-md hover:bg-slate-700 min-h-[44px] min-w-[44px] flex items-center justify-center"
                             title={d.restore || "Restore"}
                         >
                             <RotateCcw size={16} />
                         </button>
                         <button
                             on:click={() => toggleStar(item)}
-                            class="p-1.5 rounded-md hover:bg-slate-700 {item.starred ? 'text-yellow-400' : 'text-slate-400 hover:text-yellow-400'}"
+                            class="p-1.5 rounded-md hover:bg-slate-700 min-h-[44px] min-w-[44px] flex items-center justify-center {item.starred ? 'text-yellow-400' : 'text-slate-400 hover:text-yellow-400'}"
                             title="Star"
                         >
                             <Star size={16} fill={item.starred ? "currentColor" : "none"} />
                         </button>
                         <button
                             on:click={() => remove(item.id)}
-                            class="p-1.5 text-slate-400 hover:text-red-400 rounded-md hover:bg-slate-700"
+                            class="p-1.5 text-slate-400 hover:text-red-400 rounded-md hover:bg-slate-700 min-h-[44px] min-w-[44px] flex items-center justify-center"
                             title={d.delete || "Delete"}
                         >
                             <Trash2 size={16} />

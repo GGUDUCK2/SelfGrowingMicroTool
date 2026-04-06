@@ -66,7 +66,7 @@
     <div class="grid grid-cols-3 sm:grid-cols-4 gap-2">
       {#each types as type}
         <button
-          class="px-3 py-2 text-sm rounded-lg border transition-all duration-200 {state.type === type ? 'bg-indigo-600 border-indigo-500 text-white font-medium shadow-md ring-2 ring-indigo-500/20' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600 hover:border-slate-500'}"
+          class="px-3 py-2 text-sm rounded-lg border transition-all duration-200 min-h-[44px] min-w-[44px] {state.type === type ? 'bg-indigo-600 border-indigo-500 text-white font-medium shadow-md ring-2 ring-indigo-500/20' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600 hover:border-slate-500'}"
           on:click={() => state.type = type}
         >
           {d.types?.[type] || type.toUpperCase()}
@@ -221,7 +221,7 @@
                 {#if state.design.logo}
                     <div class="relative w-12 h-12 bg-white rounded-lg p-1 border border-slate-600">
                         <img src={state.design.logo} alt="Logo" class="w-full h-full object-contain" />
-                        <button on:click={clearLogo} class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-0.5 shadow-md hover:bg-red-600">
+                        <button on:click={clearLogo} class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-0.5 shadow-md hover:bg-red-600 min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Clear logo">
                             <X size={12} />
                         </button>
                     </div>
@@ -234,7 +234,7 @@
                         on:change={handleLogoUpload}
                         class="hidden"
                     />
-                    <div class="flex items-center justify-center space-x-2 w-full px-4 py-2 bg-slate-700 border border-slate-600 border-dashed rounded-lg cursor-pointer hover:bg-slate-600 transition-colors">
+                    <div class="flex items-center justify-center space-x-2 w-full px-4 py-2 bg-slate-700 border border-slate-600 border-dashed rounded-lg cursor-pointer hover:bg-slate-600 transition-colors min-h-[44px] min-w-[44px]">
                         <Upload size={16} class="text-slate-400" />
                         <span class="text-sm text-slate-300">{d.uploadLogo || 'Upload Image'}</span>
                     </div>
