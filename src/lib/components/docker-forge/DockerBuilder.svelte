@@ -15,7 +15,7 @@
   export let lang: string;
 
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
-  $: d = dict.tools.dockerForge;
+  $: d = dict?.tools?.dockerForge || dictionaries.en.tools.dockerForge;
 
   let baseImage = 'node:18-alpine';
   let workdir = '/app';
@@ -266,15 +266,15 @@ jobs:
   function computeSecurityWarnings(base: string, dfString: string) {
     const warnings: { type: 'warning' | 'optimization', text: string }[] = [];
     if (base.endsWith(':latest') || !base.includes(':')) {
-      warnings.push({ type: 'warning', text: d.warningLatestTag || "Using 'latest' tag is not recommended for production. Pin a specific version."});
+      warnings.push({ type: 'warning', text: d?.warningLatestTag || "Using 'latest' tag is not recommended for production. Pin a specific version."});
     }
     if (base.startsWith('node') && !base.includes('alpine') && !base.includes('slim')) {
-      warnings.push({ type: 'optimization', text: d.warningFatImage || "Consider using an alpine or slim variant for a smaller attack surface and faster pulls."});
+      warnings.push({ type: 'optimization', text: d?.warningFatImage || "Consider using an alpine or slim variant for a smaller attack surface and faster pulls."});
     }
 
     // Check for missing USER directive
     if (!dfString.includes('\nUSER ') && !dfString.startsWith('USER ')) {
-       warnings.push({ type: 'warning', text: d.warningUser || "Running as root. Consider adding a 'USER' directive for better security."});
+       warnings.push({ type: 'warning', text: d?.warningUser || "Running as root. Consider adding a 'USER' directive for better security."});
     }
 
     // Check for consecutive RUN commands
@@ -284,7 +284,7 @@ jobs:
         if (lines[i].startsWith('RUN ')) {
             consecutiveRuns++;
             if (consecutiveRuns > 1) {
-                warnings.push({ type: 'optimization', text: d.warningMultipleRuns || "Multiple consecutive RUN commands found. Consider chaining them with '&&' to reduce image layers."});
+                warnings.push({ type: 'optimization', text: d?.warningMultipleRuns || "Multiple consecutive RUN commands found. Consider chaining them with '&&' to reduce image layers."});
                 break;
             }
         } else if (lines[i].trim() !== '') {
@@ -425,6 +425,71 @@ Cargo.lock
       }
     } catch (e) {
       parseError = "Failed to parse file.";
+    }
+  }
+
+  function handleOptimize() {
+    let optimized = false;
+
+    // 1. Optimize Base Image
+    // Use alpine to be consistent and to guarantee that the `addgroup -S` command added below works on the generated image
+    if (baseImage && !baseImage.includes('alpine')) {
+        if (baseImage.startsWith('node')) baseImage = 'node:18-alpine';
+        else if (baseImage.startsWith('python')) baseImage = 'python:3.11-alpine';
+        else if (baseImage.startsWith('golang')) baseImage = 'golang:1.21-alpine';
+        else if (baseImage.startsWith('ubuntu') || baseImage.startsWith('debian')) baseImage = 'alpine:latest';
+        else if (!baseImage.includes(':')) baseImage = baseImage + ':alpine';
+        else baseImage = baseImage.split(':')[0] + ':alpine'; // try best effort
+        optimized = true;
+    }
+
+    // 2. Add non-root user
+    const hasUserCreate = runCmds.some(cmd => cmd.includes('useradd') || cmd.includes('adduser'));
+    let userDirectiveAdded = false;
+
+    // Check if the base image uses alpine or debian/ubuntu-like system to determine the correct adduser command
+    let userAddCmd = '';
+    if (baseImage.includes('alpine')) {
+        userAddCmd = 'addgroup -S nonroot && adduser -S nonroot -G nonroot';
+    } else if (baseImage.includes('slim') || baseImage.startsWith('node') || baseImage.startsWith('python') || baseImage.startsWith('ubuntu') || baseImage.startsWith('debian')) {
+        userAddCmd = 'groupadd -r nonroot && useradd -r -g nonroot nonroot';
+    }
+
+    if (!hasUserCreate && userAddCmd && !runCmds.some(cmd => cmd === 'USER nonroot')) {
+        runCmds = [
+            ...runCmds,
+            userAddCmd
+        ];
+        userDirectiveAdded = true;
+        optimized = true;
+    }
+
+    // 3. Merge RUN commands
+    if (runCmds.length > 1) {
+        const mergedRuns = [];
+        let currentChain = [];
+        for (const cmd of runCmds) {
+            if (cmd === 'USER nonroot') {
+               // Skip, this was from previous implementation
+            } else {
+                currentChain.push(cmd);
+            }
+        }
+        if (currentChain.length > 0) {
+            mergedRuns.push(currentChain.join(' && \\\n    '));
+        }
+
+        if (mergedRuns.length < runCmds.length || userDirectiveAdded) {
+            runCmds = mergedRuns;
+            optimized = true;
+        }
+    }
+
+    if (optimized) {
+        showToast(d.optimizeSuccess || 'Optimized configuration!', 'success');
+        saveToHistory();
+    } else {
+        showToast(d.alreadyOptimized || 'Already optimized!', 'success');
     }
   }
 
@@ -682,6 +747,13 @@ Cargo.lock
     runs.forEach(run => {
       if (run) lines.push(`RUN ${run}`);
     });
+
+    // Add USER nonroot if optimized
+    // Best effort check to see if we should add USER nonroot
+    const hasUserCreateCmd = runs.some(run => run.includes('adduser') || run.includes('useradd'));
+    if (hasUserCreateCmd && !lines.some(line => line.startsWith('USER '))) {
+        lines.push(`USER nonroot`);
+    }
     ports.forEach(port => {
       if (port) lines.push(`EXPOSE ${port}`);
     });
@@ -1078,11 +1150,16 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
             {/if}
         </div>
 
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between mt-2">
           <span class="text-xs text-red-500">{parseError}</span>
-          <Button variant="primary" class="text-sm min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={d.parseAction || "Parse Dockerfile"} on:click={handleSmartPaste}>
-            {d.parseAction || "Parse Dockerfile"}
-          </Button>
+          <div class="flex gap-2">
+            <Button variant="secondary" class="text-sm min-h-[44px] min-w-[44px] flex items-center justify-center border-blue-500 text-blue-600 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/30" aria-label={d.optimizeAction || "1-Click Auto-Optimize"} on:click={handleOptimize} title={d.optimizeDesc || "Automatically refactor to best practices"}>
+              <span class="mr-1">✨</span> {d.optimizeAction || "1-Click Auto-Optimize"}
+            </Button>
+            <Button variant="primary" class="text-sm min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={d.parseAction || "Parse Dockerfile"} on:click={handleSmartPaste}>
+              {d.parseAction || "Parse Dockerfile"}
+            </Button>
+          </div>
         </div>
       </div>
     </div>
@@ -1099,35 +1176,35 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
       </div>
       <div class="flex items-center gap-2 flex-wrap">
         <button
-          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px]"
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
           on:click={() => applyTemplate('nodejs')}
           aria-label="Magic Template Node.js"
         >
           Node.js
         </button>
         <button
-          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px]"
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
           on:click={() => applyTemplate('nextjs')}
           aria-label="Magic Template Next.js"
         >
           Next.js
         </button>
         <button
-          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px]"
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
           on:click={() => applyTemplate('python')}
           aria-label="Magic Template Python FastAPI"
         >
           Python FastAPI
         </button>
         <button
-          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px]"
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
           on:click={() => applyTemplate('go')}
           aria-label="Magic Template Go"
         >
           Go
         </button>
         <button
-          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px]"
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
           on:click={() => applyTemplate('rust')}
           aria-label="Magic Template Rust"
         >
@@ -1157,12 +1234,12 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
       <div class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <!-- Multi-stage Toggle -->
-          <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+          <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg min-h-[44px]">
             <div>
               <h3 class="text-sm font-bold text-slate-900 dark:text-white">{d.multiStage || 'Multi-Stage Build'}</h3>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Separate build dependencies from runtime.</p>
             </div>
-            <label class="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Toggle Multi-Stage">
+            <label class="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px] justify-center" aria-label="Toggle Multi-Stage">
               <input type="checkbox" class="sr-only peer" bind:checked={isMultiStage}>
               <div class="w-11 h-6 bg-slate-300 dark:bg-slate-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
             </label>
@@ -1178,7 +1255,7 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
               {#each Object.keys(services) as svc (svc)}
                 <div class="flex items-center justify-between min-h-[44px]">
                   <span class="text-sm font-medium text-slate-700 dark:text-slate-300 capitalize">{svc}</span>
-                  <label class="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={`Toggle ${svc}`}>
+                  <label class="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px] justify-center" aria-label={`Toggle ${svc}`}>
                     <input type="checkbox" class="sr-only peer" bind:checked={services[svc]}>
                     <div class="w-11 h-6 bg-slate-300 dark:bg-slate-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                   </label>
@@ -1190,14 +1267,14 @@ Generated by Docker Forge (https://web-factory.vercel.app/en/tools/docker-forge)
 
         <!-- Healthcheck Configurator -->
         <div class="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800">
-          <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-700/50 p-4">
+        <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg min-h-[44px]">
             <div>
               <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 {d.healthcheck || 'Healthcheck'}
               </h3>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{d.healthcheckDesc || 'Configure Healthcheck to monitor container state'}</p>
             </div>
-            <label class="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Toggle Healthcheck">
+          <label class="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px] justify-center" aria-label="Toggle Healthcheck">
               <input type="checkbox" class="sr-only peer" bind:checked={isHealthcheck}>
               <div class="w-11 h-6 bg-slate-300 dark:bg-slate-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
             </label>
