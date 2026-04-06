@@ -10,6 +10,103 @@ export const dictionaries = {
       actions: "Actions",
     },
     tools: {
+      shadowForge: {
+        title: "Shadow Forge: CSS Elevation Master",
+        description: "The definitive tool for generating layered CSS box-shadows and neumorphism. Create smooth, hyper-realistic physical shadows.",
+        tabs: {
+          custom: "Custom Layers",
+          smooth: "Smooth Shadows",
+          neumorphism: "Neumorphism"
+        },
+        controls: {
+          addLayer: "Add Layer",
+          offsetX: "Offset X",
+          offsetY: "Offset Y",
+          blur: "Blur Radius",
+          spread: "Spread Radius",
+          color: "Color",
+          inset: "Inset",
+          enabled: "Enabled",
+          remove: "Remove",
+          reverseOrder: "Reverse Order",
+          layerPrefix: "Layer",
+          alpha: "Alpha"
+        },
+        smooth: {
+          layers: "Layers Count",
+          alpha: "Base Alpha",
+          distance: "Distance",
+          blurMultiplier: "Blur Multiplier",
+          easing: "Easing Curve",
+          info: "Generate multiple physical layers automatically.",
+          linear: "Linear",
+          easeOut: "Ease Out (Recommended)",
+          easeIn: "Ease In",
+          easeInOut: "Ease In Out"
+        },
+        neumorphism: {
+          distance: "Distance",
+          intensity: "Intensity",
+          blur: "Blur",
+          shape: "Shape",
+          shapes: {
+            flat: "Flat",
+            concave: "Concave",
+            convex: "Convex",
+            pressed: "Pressed"
+          },
+          lightPosition: "Light Position",
+          info: "Ensure your box color matches the background color.",
+          directions: {
+            topLeft: "Top Left",
+            topRight: "Top Right",
+            bottomLeft: "Bottom Left",
+            bottomRight: "Bottom Right"
+          }
+        },
+        canvas: {
+          bgColor: "Background Color",
+          boxColor: "Box Color",
+          width: "Width",
+          height: "Height",
+          borderRadius: "Border Radius",
+          lightSource: "Light Source"
+        },
+        export: {
+          css: "Vanilla CSS",
+          tailwind: "Tailwind CSS",
+          copyCss: "Copy CSS",
+          copyTailwind: "Copy Tailwind",
+          save: "Save to History",
+          copied: "Copied!",
+          saved: "Saved!"
+        },
+        history: {
+          title: "Saved Shadows",
+          noHistory: "No shadows saved yet.",
+          clear: "Clear All"
+        },
+        guide: {
+          title: "Ultimate Guide to CSS Shadows",
+          intro: "Shadow Forge provides advanced layering and interpolation techniques to create hyper-realistic physical shadows and neumorphic designs for your web applications.",
+          featuresTitle: "Core Features",
+          f1: "<strong>Multi-Layer Shadows:</strong> Combine multiple shadows for deeper realism.",
+          f2: "<strong>Smooth Shadows:</strong> Auto-interpolate up to 10 layers based on easing curves.",
+          f3: "<strong>Neumorphism Mode:</strong> Easily generate trendy soft UI styles matching your background color.",
+          tipsTitle: "Pro Tips",
+          tip1: "Use 5-6 layers with decreasing alpha and increasing blur for the smoothest physical shadows.",
+          tip2: "For neumorphism, ensure your box color matches the background color exactly.",
+          tip3: "Use the interactive light source on the canvas to visually adjust all shadow offsets simultaneously."
+        },
+        faqTitle: "Frequently Asked Questions",
+        q1: "Why do I need multiple box shadows?",
+        a1: "Single box shadows often look harsh and artificial. In the real world, shadows diffuse based on the distance from the light source. By layering multiple shadows with increasing blur and decreasing opacity, you simulate this natural light diffusion.",
+        q2: "What is Neumorphism?",
+        a2: "Neumorphism (or soft UI) is a design trend that uses subtle highlights and shadows to make elements appear extruded from or pressed into the background. It relies heavily on identical background and element colors combined with dual box-shadows.",
+        q3: "How do I apply the Tailwind output?",
+        a3: "You can add the generated Tailwind configuration directly to your tailwind.config.js under the theme.extend.boxShadow property, giving it a custom name like 'shadow-smooth'."
+      },
+
       hashForge: {
         title: "Hash Forge: The Cryptographic Toolkit",
         description: "The definitive tool for generating hashes, HMACs, and verifying file checksums locally with extreme performance.",
@@ -4003,6 +4100,103 @@ export const dictionaries = {
       actions: "작업",
     },
     tools: {
+      shadowForge: {
+        title: "섀도우 포지 (Shadow Forge): CSS 그림자 생성기",
+        description: "최고의 CSS 다중 그림자 및 뉴모피즘 생성 도구입니다. 부드럽고 사실적인 물리적 그림자를 디자인하세요.",
+        tabs: {
+          custom: "사용자 정의 레이어",
+          smooth: "부드러운 그림자",
+          neumorphism: "뉴모피즘"
+        },
+        controls: {
+          addLayer: "레이어 추가",
+          offsetX: "X 오프셋",
+          offsetY: "Y 오프셋",
+          blur: "흐림 반경",
+          spread: "확산 반경",
+          color: "색상",
+          inset: "내부 그림자(Inset)",
+          enabled: "활성화",
+          remove: "제거",
+          reverseOrder: "순서 반전",
+          layerPrefix: "레이어",
+          alpha: "투명도"
+        },
+        smooth: {
+          layers: "레이어 개수",
+          alpha: "기본 투명도",
+          distance: "거리",
+          blurMultiplier: "흐림 배수",
+          easing: "곡선(Easing)",
+          info: "물리적 특성을 가진 여러 레이어를 자동 생성합니다.",
+          linear: "선형 (Linear)",
+          easeOut: "이즈 아웃 (권장)",
+          easeIn: "이즈 인",
+          easeInOut: "이즈 인 아웃"
+        },
+        neumorphism: {
+          distance: "거리",
+          intensity: "강도",
+          blur: "흐림",
+          shape: "모양",
+          shapes: {
+            flat: "평면 (Flat)",
+            concave: "오목한 (Concave)",
+            convex: "볼록한 (Convex)",
+            pressed: "눌린 (Pressed)"
+          },
+          lightPosition: "빛의 위치",
+          info: "뉴모피즘의 경우 상자 색상이 배경색과 정확히 일치해야 합니다.",
+          directions: {
+            topLeft: "좌측 상단",
+            topRight: "우측 상단",
+            bottomLeft: "좌측 하단",
+            bottomRight: "우측 하단"
+          }
+        },
+        canvas: {
+          bgColor: "배경 색상",
+          boxColor: "상자 색상",
+          width: "너비",
+          height: "높이",
+          borderRadius: "테두리 반경",
+          lightSource: "광원"
+        },
+        export: {
+          css: "일반 CSS",
+          tailwind: "Tailwind CSS",
+          copyCss: "CSS 복사",
+          copyTailwind: "Tailwind 복사",
+          save: "기록에 저장",
+          copied: "복사됨!",
+          saved: "저장됨!"
+        },
+        history: {
+          title: "저장된 그림자",
+          noHistory: "저장된 그림자가 없습니다.",
+          clear: "모두 지우기"
+        },
+        guide: {
+          title: "CSS 그림자 얼티밋 가이드",
+          intro: "섀도우 포지는 다중 레이어링과 보간 기술을 제공하여 사실적인 물리적 그림자와 뉴모피즘 디자인을 구현할 수 있도록 돕습니다.",
+          featuresTitle: "주요 기능",
+          f1: "<strong>다중 레이어 그림자:</strong> 여러 그림자를 결합하여 깊이감을 높입니다.",
+          f2: "<strong>부드러운 그림자:</strong> Easing 곡선을 기반으로 최대 10개의 레이어를 자동 보간합니다.",
+          f3: "<strong>뉴모피즘 모드:</strong> 배경색에 맞춰 트렌디한 소프트 UI 스타일을 쉽게 생성합니다.",
+          tipsTitle: "전문가 팁",
+          tip1: "가장 부드러운 물리적 그림자를 얻으려면 투명도를 줄이고 흐림을 늘리면서 5~6개의 레이어를 사용하세요.",
+          tip2: "뉴모피즘의 경우 상자 색상이 배경색과 정확히 일치해야 합니다.",
+          tip3: "캔버스의 인터랙티브 광원을 사용하여 모든 그림자 오프셋을 한 번에 시각적으로 조정하세요."
+        },
+        faqTitle: "자주 묻는 질문",
+        q1: "왜 다중 상자 그림자가 필요한가요?",
+        a1: "단일 상자 그림자는 종종 거칠고 인위적으로 보입니다. 실제 세계에서는 광원과의 거리에 따라 그림자가 확산됩니다. 흐림 정도가 증가하고 불투명도가 감소하는 여러 그림자를 겹침으로써 이러한 자연스러운 빛 확산을 시뮬레이션할 수 있습니다.",
+        q2: "뉴모피즘(Neumorphism)이란 무엇인가요?",
+        a2: "뉴모피즘(또는 소프트 UI)은 미세한 하이라이트와 그림자를 사용하여 요소가 배경에서 돌출되거나 눌려있는 것처럼 보이게 하는 디자인 트렌드입니다. 주로 배경과 요소 색상을 동일하게 유지하면서 이중 그림자를 적용합니다.",
+        q3: "출력된 Tailwind CSS는 어떻게 적용하나요?",
+        a3: "생성된 Tailwind 설정을 tailwind.config.js의 theme.extend.boxShadow 속성 아래에 추가하고, 'shadow-smooth'와 같은 사용자 정의 이름을 부여하여 사용할 수 있습니다."
+      },
+
       hashForge: {
         title: "해시 포지 (Hash Forge): 암호화 툴킷",
         description: "해시, HMAC 및 파일 체크섬을 브라우저에서 안전하고 빠르게 생성 및 검증하는 최고의 도구입니다.",
