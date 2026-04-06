@@ -192,14 +192,14 @@
   <div class="grid grid-cols-2 gap-3 w-full">
     <button
         on:click={downloadPNG}
-        class="flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg transition-colors"
+        class="flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
     >
         <Download size={18} />
         <span>PNG</span>
     </button>
     <button
         on:click={downloadSVG}
-        class="flex items-center justify-center space-x-2 bg-slate-700 hover:bg-slate-600 text-white py-2 px-4 rounded-lg transition-colors border border-slate-600"
+        class="flex items-center justify-center space-x-2 bg-slate-700 hover:bg-slate-600 text-white py-2 px-4 rounded-lg transition-colors border border-slate-600 min-h-[44px] min-w-[44px]"
         title="SVG does not support logo embedding currently"
     >
         <Download size={18} />
@@ -207,7 +207,7 @@
     </button>
     <button
         on:click={copyToClipboard}
-        class="col-span-2 flex items-center justify-center space-x-2 bg-slate-700 hover:bg-slate-600 text-slate-200 py-2 px-4 rounded-lg transition-colors border border-slate-600 group"
+        class="col-span-2 flex items-center justify-center space-x-2 bg-slate-700 hover:bg-slate-600 text-slate-200 py-2 px-4 rounded-lg transition-colors border border-slate-600 group min-h-[44px] min-w-[44px]"
     >
         {#if copied}
             <Check size={18} class="text-green-400" />
