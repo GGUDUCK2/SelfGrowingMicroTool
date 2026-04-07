@@ -136,34 +136,34 @@
                     <!-- X / Y -->
                     <div class="space-y-1">
                         <div class="flex justify-between">
-                            <label class="text-xs text-slate-500">{dict.controls.offsetX} ({layer.x}px)</label>
+                            <label for={`offsetX-${i}`} class="text-xs text-slate-500">{dict.controls.offsetX} ({layer.x}px)</label>
                         </div>
-                        <input type="range" min="-100" max="100" bind:value={layer.x} class="w-full accent-indigo-600 min-h-[44px]" />
+                        <input id={`offsetX-${i}`} type="range" min="-100" max="100" bind:value={layer.x} class="w-full accent-indigo-600 min-h-[44px]" />
                     </div>
                     <div class="space-y-1">
                         <div class="flex justify-between">
-                            <label class="text-xs text-slate-500">{dict.controls.offsetY} ({layer.y}px)</label>
+                            <label for={`offsetY-${i}`} class="text-xs text-slate-500">{dict.controls.offsetY} ({layer.y}px)</label>
                         </div>
-                        <input type="range" min="-100" max="100" bind:value={layer.y} class="w-full accent-indigo-600 min-h-[44px]" />
+                        <input id={`offsetY-${i}`} type="range" min="-100" max="100" bind:value={layer.y} class="w-full accent-indigo-600 min-h-[44px]" />
                     </div>
 
                     <!-- Blur / Spread -->
                     <div class="space-y-1">
                         <div class="flex justify-between">
-                            <label class="text-xs text-slate-500">{dict.controls.blur} ({layer.blur}px)</label>
+                            <label for={`blur-${i}`} class="text-xs text-slate-500">{dict.controls.blur} ({layer.blur}px)</label>
                         </div>
-                        <input type="range" min="0" max="200" bind:value={layer.blur} class="w-full accent-indigo-600 min-h-[44px]" />
+                        <input id={`blur-${i}`} type="range" min="0" max="200" bind:value={layer.blur} class="w-full accent-indigo-600 min-h-[44px]" />
                     </div>
                     <div class="space-y-1">
                         <div class="flex justify-between">
-                            <label class="text-xs text-slate-500">{dict.controls.spread} ({layer.spread}px)</label>
+                            <label for={`spread-${i}`} class="text-xs text-slate-500">{dict.controls.spread} ({layer.spread}px)</label>
                         </div>
-                        <input type="range" min="-100" max="100" bind:value={layer.spread} class="w-full accent-indigo-600 min-h-[44px]" />
+                        <input id={`spread-${i}`} type="range" min="-100" max="100" bind:value={layer.spread} class="w-full accent-indigo-600 min-h-[44px]" />
                     </div>
 
                     <!-- Color Picker -->
                     <div class="col-span-2 space-y-3">
-                        <label class="text-xs text-slate-500">{dict.controls.color}</label>
+                        <span class="block text-xs font-medium text-slate-500">{dict.controls.color}</span>
                         <div class="flex items-center gap-3">
                             <div class="relative w-10 h-10 rounded-lg overflow-hidden border border-slate-300 dark:border-slate-600 shrink-0 shadow-sm" style="background: {layer.color}">
                                 <input type="color" value={parseRgba(layer.color).hex} on:input={(e) => handleHexChange(i, e)} class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -208,39 +208,39 @@
 
            <div class="space-y-1">
                 <div class="flex justify-between">
-                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300">{dict.smooth.layers}</label>
+                    <label for="smoothLayers" class="text-sm font-medium text-slate-700 dark:text-slate-300">{dict.smooth.layers}</label>
                     <span class="text-sm text-slate-500">{$shadowStore.smoothConfig.layersCount}</span>
                 </div>
-                <input type="range" min="2" max="10" bind:value={$shadowStore.smoothConfig.layersCount} on:input={handleSmoothChange} class="w-full accent-indigo-600 min-h-[44px]" />
+                <input id="smoothLayers" type="range" min="2" max="10" bind:value={$shadowStore.smoothConfig.layersCount} on:input={handleSmoothChange} class="w-full accent-indigo-600 min-h-[44px]" />
            </div>
 
            <div class="space-y-1">
                 <div class="flex justify-between">
-                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300">{dict.smooth.distance}</label>
+                    <label for="smoothDistance" class="text-sm font-medium text-slate-700 dark:text-slate-300">{dict.smooth.distance}</label>
                     <span class="text-sm text-slate-500">{$shadowStore.smoothConfig.distance}px</span>
                 </div>
-                <input type="range" min="10" max="200" bind:value={$shadowStore.smoothConfig.distance} on:input={handleSmoothChange} class="w-full accent-indigo-600 min-h-[44px]" />
+                <input id="smoothDistance" type="range" min="10" max="200" bind:value={$shadowStore.smoothConfig.distance} on:input={handleSmoothChange} class="w-full accent-indigo-600 min-h-[44px]" />
            </div>
 
             <div class="space-y-1">
                 <div class="flex justify-between">
-                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300">{dict.smooth.alpha}</label>
+                    <label for="smoothAlpha" class="text-sm font-medium text-slate-700 dark:text-slate-300">{dict.smooth.alpha}</label>
                     <span class="text-sm text-slate-500">{Math.round($shadowStore.smoothConfig.alpha * 100)}%</span>
                 </div>
-                <input type="range" min="0.01" max="0.5" step="0.01" bind:value={$shadowStore.smoothConfig.alpha} on:input={handleSmoothChange} class="w-full accent-indigo-600 min-h-[44px]" />
+                <input id="smoothAlpha" type="range" min="0.01" max="0.5" step="0.01" bind:value={$shadowStore.smoothConfig.alpha} on:input={handleSmoothChange} class="w-full accent-indigo-600 min-h-[44px]" />
            </div>
 
            <div class="space-y-1">
                 <div class="flex justify-between">
-                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300">{dict.smooth.blurMultiplier}</label>
+                    <label for="smoothBlur" class="text-sm font-medium text-slate-700 dark:text-slate-300">{dict.smooth.blurMultiplier}</label>
                     <span class="text-sm text-slate-500">{$shadowStore.smoothConfig.blurMultiplier}x</span>
                 </div>
-                <input type="range" min="0.5" max="3" step="0.1" bind:value={$shadowStore.smoothConfig.blurMultiplier} on:input={handleSmoothChange} class="w-full accent-indigo-600 min-h-[44px]" />
+                <input id="smoothBlur" type="range" min="0.5" max="3" step="0.1" bind:value={$shadowStore.smoothConfig.blurMultiplier} on:input={handleSmoothChange} class="w-full accent-indigo-600 min-h-[44px]" />
            </div>
 
            <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-700 dark:text-slate-300">{dict.smooth.easing}</label>
-                <select bind:value={$shadowStore.smoothConfig.easing} on:change={handleSmoothChange} class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm min-h-[44px] focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                <label for="smoothEasing" class="text-sm font-medium text-slate-700 dark:text-slate-300">{dict.smooth.easing}</label>
+                <select id="smoothEasing" bind:value={$shadowStore.smoothConfig.easing} on:change={handleSmoothChange} class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm min-h-[44px] focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                     <option value="linear">{dict.smooth.linear}</option>
                     <option value="easeOut">{dict.smooth.easeOut}</option>
                     <option value="easeIn">{dict.smooth.easeIn}</option>
