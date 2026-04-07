@@ -45,7 +45,7 @@
 
 <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
     <div class="flex justify-between items-center mb-4">
-        <h2 class="text-lg font-bold text-slate-800 dark:text-white">{dict.inputLabel}</h2>
+        <label for="urlInput" class="text-lg font-bold text-slate-800 dark:text-white">{dict.inputLabel}</label>
         <button on:click={handleClear} class="text-sm text-slate-500 hover:text-red-500 transition-colors p-2 min-h-[44px] min-w-[44px]" aria-label="Clear">
             {dict.clear}
         </button>
@@ -53,6 +53,7 @@
 
     <div class="relative">
         <textarea
+            id="urlInput"
             bind:value={url}
             on:input={handleInput}
             placeholder={dict.placeholder}

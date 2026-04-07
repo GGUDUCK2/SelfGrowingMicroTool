@@ -41,7 +41,7 @@
           "price": "0",
           "priceCurrency": "USD"
         },
-        "description": dict.description,
+        "description": dict?.description,
         "featureList": [
             "URL Parsing",
             "Query Parameter Editor",
@@ -84,7 +84,7 @@
           {
             "@type": "ListItem",
             "position": 3,
-            "name": dict.title,
+            "name": dict?.title,
             "item": `https://selfgrowingmicrotool.com/${lang}/tools/url-forge`
           }
         ]
@@ -128,8 +128,9 @@
   }
 </script>
 <Head
-  title={dict.title}
-  description={dict.description}
+  title={dict?.title}
+  description={dict?.description}
+  url={canonicalUrl}
   keywords="url parser, query string editor, utm builder, url encode, url decode"
 />
 
