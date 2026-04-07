@@ -40,7 +40,8 @@
           ".dockerignore Configuration",
           "Smart Auto-Optimize Refactoring",
           "Compose Service Architecture Visualizer",
-          "Build & Run Makefile Generator"
+          "Build & Run Makefile Generator",
+          "Kubernetes Manifest Generator"
         ]
       },
       {

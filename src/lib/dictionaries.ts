@@ -3736,9 +3736,11 @@ export const dictionaries = {
         a3: "No. All barcode generation happens locally in your browser using JavaScript. Your product codes remain private."
       },
 
-      dockerForge: {
+            dockerForge: {
         title: "Docker Forge",
         description: "Visual Dockerfile builder. Generate Docker configurations with a clean, intuitive interface.",
+        k8sManifests: "Kubernetes Manifests",
+        downloadK8s: "Download K8s YAML",
         baseImage: "Base Image",
         workdir: "Working Directory",
         magicTemplates: "Magic Templates",
@@ -7065,9 +7067,11 @@ export const dictionaries = {
         a3: "아니요. 모든 바코드 생성은 JavaScript를 사용하여 브라우저에서 로컬로 수행됩니다. 귀하의 상품 코드는 비공개로 유지됩니다."
       },
 
-      dockerForge: {
+            dockerForge: {
         title: "도커 포지",
         description: "시각적 Dockerfile 빌더입니다. 깔끔하고 직관적인 인터페이스로 Docker 구성을 생성하세요.",
+        k8sManifests: "쿠버네티스 매니페스트",
+        downloadK8s: "K8s YAML 다운로드",
         baseImage: "베이스 이미지",
         workdir: "작업 디렉토리",
         magicTemplates: "매직 템플릿",
