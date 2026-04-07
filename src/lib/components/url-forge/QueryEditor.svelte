@@ -138,6 +138,7 @@
                             bind:value={param.key}
                             on:input={handleInput}
                             placeholder="Key"
+                            aria-label="Query Key"
                             class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-mono focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-slate-200 min-h-[44px] {param.active ? '' : 'opacity-50'}"
                         />
                     </div>
@@ -147,6 +148,7 @@
                             bind:value={param.value}
                             on:input={handleInput}
                             placeholder="Value"
+                            aria-label="Query Value"
                             class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-mono focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-slate-200 min-h-[44px] {param.active ? '' : 'opacity-50'}"
                         />
                     </div>
