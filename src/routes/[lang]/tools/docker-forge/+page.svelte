@@ -38,7 +38,9 @@
           "GitHub Actions CI/CD Pipeline Generator",
           "Intelligent Linter & Security Check",
           ".dockerignore Configuration",
-          "Smart Auto-Optimize Refactoring"
+          "Smart Auto-Optimize Refactoring",
+          "Compose Service Architecture Visualizer",
+          "Build & Run Makefile Generator"
         ]
       },
       {
