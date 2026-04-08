@@ -57,6 +57,14 @@
       downloadBlob(yaml, 'configmap.yaml', 'application/x-yaml');
   }
 
+
+  function copyJSON() {
+      const data = getKeyValuePairs(content);
+      navigator.clipboard.writeText(JSON.stringify(data, null, 2)).then(() => {
+          // If we had a toast prop, we could call it. Since not, we just rely on standard behavior.
+      });
+  }
+
   function downloadBlob(dataStr: string, filename: string, type: string) {
       const blob = new Blob([dataStr], { type });
       const url = URL.createObjectURL(blob);
@@ -95,6 +103,11 @@
       <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={exportK8s}>
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon><line x1="12" y1="22" x2="12" y2="15.5"></line><polyline points="22 8.5 12 15.5 2 8.5"></polyline><polyline points="2 15.5 12 8.5 22 15.5"></polyline><line x1="12" y1="2" x2="12" y2="8.5"></line></svg>
           {t.export.k8s}
+      </button>
+
+      <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={copyJSON}>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          {t.copyJson}
       </button>
   </div>
 </div>

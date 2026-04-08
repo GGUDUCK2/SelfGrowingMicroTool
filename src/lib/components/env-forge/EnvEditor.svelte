@@ -19,8 +19,23 @@
     }
   }
 
+
+  let isDragging = false;
+
+  function handleDragOver(e: DragEvent) {
+      e.preventDefault();
+      isDragging = true;
+  }
+
+  function handleDragLeave(e: DragEvent) {
+      e.preventDefault();
+      isDragging = false;
+  }
+
   function handleDrop(event: DragEvent) {
     event.preventDefault();
+    isDragging = false;
+
     const file = event.dataTransfer?.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -41,8 +56,9 @@
 </script>
 
 <div
-  class="relative w-full h-full flex flex-col"
-  on:dragover|preventDefault
+  class="relative w-full h-full flex flex-col transition-colors duration-200 {isDragging ? 'bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl ring-2 ring-indigo-500' : ''}"
+  on:dragover|preventDefault={handleDragOver}
+  on:dragleave|preventDefault={handleDragLeave}
   on:drop|preventDefault={handleDrop}
   role="region"
   aria-label="Editor Dropzone"
