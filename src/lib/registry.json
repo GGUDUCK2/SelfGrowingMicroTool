@@ -373,5 +373,20 @@
     "category": "dev",
     "tags": ["docker", "dockerfile", "container", "devops", "generator"],
     "createdAt": "2024-11-05"
+  },
+  {
+    "id": "env-forge",
+    "slug": "env-forge",
+    "title": {
+      "en": "Env Forge",
+      "ko": "Env 포지"
+    },
+    "description": {
+      "en": "Advanced environment variables manager and formatter.",
+      "ko": "고급 환경 변수 관리자 및 포맷터입니다."
+    },
+    "category": "dev",
+    "tags": ["env", "dotenv", "environment", "variables", "config", "manager"],
+    "createdAt": "2024-11-10"
   }
 ]
