@@ -3736,6 +3736,71 @@ export const dictionaries = {
         a3: "No. All barcode generation happens locally in your browser using JavaScript. Your product codes remain private."
       },
 
+      envForge: {
+        title: "Env Forge",
+        description: "Advanced environment variables manager. Parse, format, validate, and export .env files with ease.",
+        tabs: {
+          editor: "Editor",
+          formatter: "Formatter",
+          validator: "Validator",
+          exporter: "Exporter",
+          history: "History"
+        },
+        editorTitle: "Raw .env Content",
+        placeholder: "Paste your .env content here...\\n# Examples:\\nAPI_KEY=your_secret_key\\nPORT=3000",
+        format: "Format",
+        validate: "Validate",
+        download: "Download",
+        copy: "Copy",
+        clear: "Clear",
+        upload: "Upload .env",
+        sortAlphabetically: "Sort Alphabetically",
+        removeDuplicates: "Remove Duplicates",
+        alignEquals: "Align Equals",
+        generateExample: "Generate .env.example",
+        validation: {
+          title: "Validation Results",
+          noErrors: "No errors found! Your .env file looks perfect.",
+          invalidKey: "Invalid Key Format",
+          spacesInValue: "Value contains spaces but is not quoted",
+          duplicateKey: "Duplicate Key"
+        },
+        export: {
+          title: "Export Options",
+          json: "JSON Format",
+          yaml: "YAML Format",
+          docker: "Docker --env-file",
+          k8s: "Kubernetes ConfigMap"
+        },
+        toasts: {
+          copied: "Copied to clipboard",
+          downloaded: "Downloaded successfully",
+          formatted: "Formatted successfully",
+          cleared: "Editor cleared"
+        },
+        guideTitle: "The Ultimate Guide to Env Forge",
+        guideIntro: "Env Forge is the definitive solution for managing, formatting, and validating your environment variables.",
+        featuresTitle: "Key Features",
+        f1: "**Smart Formatting:** Automatically sort keys, remove duplicates, and align equals signs for perfect readability.",
+        f2: "**Strict Validation:** Catch common mistakes like invalid key names or unquoted values with spaces before they break your app.",
+        f3: "**Multi-Format Export:** Convert your .env data to JSON, YAML, Docker env files, or Kubernetes ConfigMaps instantly.",
+        f4: "**Local Workspace:** Your data never leaves your browser. All history is securely saved in IndexedDB.",
+        technicalTitle: "Technical Details",
+        tech1: "Uses advanced regex parsing to handle comments and complex quoted values correctly.",
+        tech2: "Built with SvelteKit and Tailwind CSS for a seamless, responsive experience.",
+        tech3: "100% client-side processing ensures zero data leakage for your sensitive secrets.",
+        tipsTitle: "Pro Tips",
+        tip1: "Use **Ctrl+S** or **Cmd+S** to quickly save and copy your formatted .env file.",
+        tip2: "Drag and drop any .env file directly into the editor to load it instantly.",
+        tip3: "Always generate a **.env.example** file before committing to version control to share required keys without secrets.",
+        faqTitle: "Frequently Asked Questions",
+        q1: "Are my secrets safe?",
+        a1: "Yes! Env Forge is entirely a client-side tool. Your environment variables are never sent to any server. They are processed locally in your browser and saved only to your local IndexedDB workspace.",
+        q2: "What formats does the exporter support?",
+        a2: "You can export your .env data to JSON, YAML, Docker --env-file format, and Kubernetes ConfigMap format with a single click.",
+        q3: "How does the validator work?",
+        a3: "The validator checks for common issues such as keys containing spaces or invalid characters, values with spaces that are not enclosed in quotes, and duplicate keys within the same file."
+      },
             dockerForge: {
         title: "Docker Forge",
         description: "Visual Dockerfile builder. Generate Docker configurations with a clean, intuitive interface.",
@@ -7070,6 +7135,71 @@ export const dictionaries = {
         a3: "아니요. 모든 바코드 생성은 JavaScript를 사용하여 브라우저에서 로컬로 수행됩니다. 귀하의 상품 코드는 비공개로 유지됩니다."
       },
 
+      envForge: {
+        title: "Env 포지",
+        description: "고급 환경 변수 관리자입니다. .env 파일을 쉽게 구문 분석, 포맷팅, 검증 및 내보낼 수 있습니다.",
+        tabs: {
+          editor: "에디터",
+          formatter: "포맷터",
+          validator: "검증기",
+          exporter: "내보내기",
+          history: "기록"
+        },
+        editorTitle: "원본 .env 내용",
+        placeholder: "여기에 .env 내용을 붙여넣으세요...\\n# 예시:\\nAPI_KEY=your_secret_key\\nPORT=3000",
+        format: "포맷팅",
+        validate: "검증",
+        download: "다운로드",
+        copy: "복사",
+        clear: "지우기",
+        upload: ".env 업로드",
+        sortAlphabetically: "알파벳순 정렬",
+        removeDuplicates: "중복 제거",
+        alignEquals: "등호 정렬",
+        generateExample: ".env.example 생성",
+        validation: {
+          title: "검증 결과",
+          noErrors: "오류가 발견되지 않았습니다! .env 파일이 완벽합니다.",
+          invalidKey: "잘못된 키 형식",
+          spacesInValue: "값에 공백이 있지만 따옴표로 묶이지 않음",
+          duplicateKey: "중복된 키"
+        },
+        export: {
+          title: "내보내기 옵션",
+          json: "JSON 형식",
+          yaml: "YAML 형식",
+          docker: "Docker --env-file",
+          k8s: "쿠버네티스 ConfigMap"
+        },
+        toasts: {
+          copied: "클립보드에 복사되었습니다",
+          downloaded: "성공적으로 다운로드되었습니다",
+          formatted: "성공적으로 포맷되었습니다",
+          cleared: "에디터가 초기화되었습니다"
+        },
+        guideTitle: "Env 포지 궁극의 가이드",
+        guideIntro: "Env 포지는 환경 변수를 관리, 포맷팅 및 검증하기 위한 완벽한 솔루션입니다.",
+        featuresTitle: "주요 기능",
+        f1: "**스마트 포맷팅:** 완벽한 가독성을 위해 키를 자동으로 정렬하고 중복을 제거하며 등호를 정렬합니다.",
+        f2: "**엄격한 검증:** 앱이 중단되기 전에 잘못된 키 이름이나 공백이 있는 따옴표 없는 값과 같은 일반적인 실수를 잡아냅니다.",
+        f3: "**다중 형식 내보내기:** 한 번의 클릭으로 .env 데이터를 JSON, YAML, Docker 환경 파일 또는 Kubernetes ConfigMap으로 변환합니다.",
+        f4: "**로컬 작업 공간:** 데이터는 브라우저를 벗어나지 않습니다. 모든 기록은 IndexedDB에 안전하게 저장됩니다.",
+        technicalTitle: "기술 세부 정보",
+        tech1: "고급 정규식 파싱을 사용하여 주석과 복잡한 따옴표 값을 올바르게 처리합니다.",
+        tech2: "SvelteKit 및 Tailwind CSS로 구축되어 매끄럽고 반응이 빠른 경험을 제공합니다.",
+        tech3: "100% 클라이언트 측 처리로 민감한 비밀 정보의 데이터 유출이 전혀 발생하지 않도록 보장합니다.",
+        tipsTitle: "프로 팁",
+        tip1: "**Ctrl+S** 또는 **Cmd+S**를 사용하여 포맷된 .env 파일을 빠르게 저장하고 복사하세요.",
+        tip2: "모든 .env 파일을 에디터로 드래그 앤 드롭하여 즉시 불러오세요.",
+        tip3: "버전 관리에 커밋하기 전에 항상 **.env.example** 파일을 생성하여 비밀 정보 없이 필요한 키를 공유하세요.",
+        faqTitle: "자주 묻는 질문",
+        q1: "내 비밀 정보는 안전한가요?",
+        a1: "네! Env 포지는 전적으로 클라이언트 측 도구입니다. 환경 변수는 절대로 서버로 전송되지 않습니다. 브라우저에서 로컬로 처리되며 로컬 IndexedDB 작업 공간에만 저장됩니다.",
+        q2: "내보내기에서 지원하는 형식은 무엇인가요?",
+        a2: "클릭 한 번으로 .env 데이터를 JSON, YAML, Docker --env-file 형식 및 Kubernetes ConfigMap 형식으로 내보낼 수 있습니다.",
+        q3: "검증기는 어떻게 작동하나요?",
+        a3: "검증기는 공백이나 잘못된 문자가 포함된 키, 따옴표로 묶이지 않은 공백이 있는 값, 동일한 파일 내의 중복 키와 같은 일반적인 문제를 확인합니다."
+      },
             dockerForge: {
         title: "도커 포지",
         description: "시각적 Dockerfile 빌더입니다. 깔끔하고 직관적인 인터페이스로 Docker 구성을 생성하세요.",
