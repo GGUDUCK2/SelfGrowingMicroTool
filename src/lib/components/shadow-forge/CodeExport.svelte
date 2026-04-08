@@ -80,7 +80,7 @@ module.exports = {
   <span class="text-blue-300">border-radius</span>: <span class="text-emerald-400">{config.canvas.borderRadius}px</span>;
   <span class="text-blue-300">background</span>: <span class="text-amber-300">{config.mode === 'neumorphism' ? getNeumorphismBackground(config.neumorphismConfig, config.canvas.bgColor) : config.canvas.boxColor}</span>;
   <span class="text-blue-300">box-shadow</span>: <span class="text-pink-300">{cssShadow}</span>;
-{'}'}</code></pre>
+}</code></pre>
     </div>
 </div>
 
