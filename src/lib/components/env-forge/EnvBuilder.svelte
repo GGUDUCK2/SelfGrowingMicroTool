@@ -51,13 +51,21 @@
       });
   }
 
+
   function handleSaveShortcut(e: KeyboardEvent) {
       if ((e.ctrlKey || e.metaKey) && e.key === 's') {
           e.preventDefault();
           saveState();
           copyToClipboard();
+      } else if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          e.preventDefault();
+          content = '';
+          showToast('Editor cleared', 'success');
+      } else if (e.key === 'Escape') {
+          content = '';
       }
   }
+
 
   function copyToClipboard() {
       if (!content) return;
@@ -99,6 +107,10 @@
               {t.editorTitle}
           </h2>
           <div class="flex items-center gap-2">
+              <button class="min-h-[44px] min-w-[44px] px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-lg hover:bg-amber-200 dark:hover:bg-amber-800/50 transition font-medium text-sm flex items-center gap-1" on:click={() => { content = "PORT=3000\nDATABASE_URL=postgres://user:pass@localhost:5432/db\nAPI_KEY=sk_test_12345\nDEBUG=true"; handleContentChange(new CustomEvent('change', {detail: content})); }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                  Example
+              </button>
               <button class="min-h-[44px] min-w-[44px] px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition font-medium flex items-center gap-2" on:click={copyToClipboard}>
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                   {t.copy}

@@ -3758,6 +3758,10 @@ export const dictionaries = {
         removeDuplicates: "Remove Duplicates",
         alignEquals: "Align Equals",
         generateExample: "Generate .env.example",
+
+        obfuscate: "Obfuscate Values",
+        copyJson: "Copy as JSON",
+
         validation: {
           title: "Validation Results",
           noErrors: "No errors found! Your .env file looks perfect.",
@@ -7157,6 +7161,10 @@ export const dictionaries = {
         removeDuplicates: "중복 제거",
         alignEquals: "등호 정렬",
         generateExample: ".env.example 생성",
+
+        obfuscate: "값 난독화",
+        copyJson: "JSON으로 복사",
+
         validation: {
           title: "검증 결과",
           noErrors: "오류가 발견되지 않았습니다! .env 파일이 완벽합니다.",

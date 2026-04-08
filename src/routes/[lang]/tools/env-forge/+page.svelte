@@ -30,12 +30,14 @@
           "price": "0",
           "priceCurrency": "USD"
         },
-        "featureList": [
+                "featureList": [
           "Advanced .env Formatter",
           "Duplicate Key Removal",
           "Syntax Validation for .env",
           "Local IndexedDB Workspace",
-          "Export to JSON, YAML, Docker, Kubernetes"
+          "Export to JSON, YAML, Docker, Kubernetes",
+          "Smart Drag and Drop",
+          "Value Obfuscation for secure sharing"
         ]
       },
       {

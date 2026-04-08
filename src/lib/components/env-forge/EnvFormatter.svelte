@@ -78,6 +78,19 @@
           }).join('\n');
       }
 
+
+      else if (action === 'obfuscate') {
+          content = lines.map(line => {
+              if (line.type === 'kv') {
+                  // Keep the key, replace value with asterisks, keeping length if possible
+                  // Or just standard 8 asterisks for safety.
+                  const masked = '********';
+                  return `${line.key}=${masked}`;
+              }
+              return line.raw;
+          }).join('\n');
+      }
+
       dispatch('change', content);
   }
 </script>
@@ -102,6 +115,11 @@
       <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={() => format('generateExample')}>
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
           {t.generateExample}
+      </button>
+
+      <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={() => format('obfuscate')}>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle><line x1="2" y1="2" x2="22" y2="22"></line></svg>
+          {t.obfuscate}
       </button>
   </div>
 </div>
