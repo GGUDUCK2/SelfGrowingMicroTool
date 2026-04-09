@@ -43,14 +43,14 @@
   <div class="flex flex-wrap gap-2 justify-between items-center mb-4">
     <div class="flex gap-2">
       <button
-        class="flex items-center space-x-2 px-3 py-2 min-h-[44px] bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
+        class="flex items-center space-x-2 px-3 py-2 min-h-[44px] min-w-[44px] bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
         on:click={addRow}
       >
         <Plus size={16} />
         <span class="text-sm font-medium">{dict.editor.addRow}</span>
       </button>
       <button
-        class="flex items-center space-x-2 px-3 py-2 min-h-[44px] bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
+        class="flex items-center space-x-2 px-3 py-2 min-h-[44px] min-w-[44px] bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
         on:click={addColumn}
       >
         <Plus size={16} />
@@ -59,14 +59,14 @@
     </div>
     <div class="flex gap-2">
       <button
-        class="flex items-center space-x-2 px-3 py-2 min-h-[44px] bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+        class="flex items-center space-x-2 px-3 py-2 min-h-[44px] min-w-[44px] bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
         on:click={() => dispatch('clear')}
       >
         <Trash2 size={16} />
         <span class="text-sm font-medium">{dict.editor.clear}</span>
       </button>
       <button
-        class="flex items-center space-x-2 px-4 py-2 min-h-[44px] bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+        class="flex items-center space-x-2 px-4 py-2 min-h-[44px] min-w-[44px] bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
         on:click={handleDownload}
       >
         <Download size={16} />

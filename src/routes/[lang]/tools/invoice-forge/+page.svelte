@@ -144,7 +144,7 @@
   <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30 print:hidden">
     <div class="max-w-[1600px] mx-auto px-4 h-16 flex items-center justify-between">
         <div class="flex items-center gap-4">
-            <a href="/{lang}" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full text-gray-500">
+            <a href="/{lang}" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full text-gray-500 min-h-[44px] min-w-[44px] flex items-center justify-center">
                 <ArrowLeft size={20} />
             </a>
             <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 hidden sm:block">
