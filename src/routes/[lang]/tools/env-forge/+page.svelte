@@ -8,7 +8,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
-  $: d = dict?.tools?.envForge || dictionaries.en.tools.envForge;
+  $: d = (dict?.tools as any)?.envForge || (dictionaries.en.tools as any).envForge;
 
   // SEO
   $: title = d?.title || "Env Forge";
@@ -115,8 +115,8 @@
   title={title}
   description={description}
   keywords="env, environment variables, dotenv, config, kubernetes configmap, docker env file, yaml, json, format env"
-  ogImage="https://web-factory.vercel.app/og-image.png"
-  ogUrl={`https://web-factory.vercel.app/${lang}/tools/env-forge`}
+  image="https://web-factory.vercel.app/og-image.png"
+  url={`https://web-factory.vercel.app/${lang}/tools/env-forge`}
 />
 
 <svelte:head>
