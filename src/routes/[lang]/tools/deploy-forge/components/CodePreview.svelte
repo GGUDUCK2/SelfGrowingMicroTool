@@ -51,7 +51,7 @@
 <div class="relative group rounded-lg overflow-hidden border border-slate-700 bg-slate-900/50">
     <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
         <button
-            class="p-2 bg-slate-800 text-slate-400 hover:text-white rounded-md border border-slate-700 shadow-lg"
+            class="p-2 bg-slate-800 text-slate-400 hover:text-white rounded-md border border-slate-700 shadow-lg min-h-[44px] min-w-[44px] flex items-center justify-center"
             on:click={copy}
             aria-label="Copy code"
         >

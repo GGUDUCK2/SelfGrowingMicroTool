@@ -143,7 +143,7 @@
   <header class="bg-slate-800/50 backdrop-blur-md border-b border-slate-700/50 sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-4">
-        <a href="/{lang}" class="p-2 hover:bg-slate-700 rounded-full transition-colors group" aria-label={dict.common.back}>
+        <a href="/{lang}" class="p-2 hover:bg-slate-700 rounded-full transition-colors group min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={dict.common.back}>
           <MoveLeft size={20} class="text-slate-400 group-hover:text-white" />
         </a>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-violet-400">
