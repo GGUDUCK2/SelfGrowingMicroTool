@@ -61,9 +61,9 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      { "@type": "Question", "name": dict.q1, "acceptedAnswer": { "@type": "Answer", "text": dict.a1 } },
-      { "@type": "Question", "name": dict.q2, "acceptedAnswer": { "@type": "Answer", "text": dict.a2 } },
-      { "@type": "Question", "name": dict.q3, "acceptedAnswer": { "@type": "Answer", "text": dict.a3 } }
+      { "@type": "Question", "name": dict?.q1, "acceptedAnswer": { "@type": "Answer", "text": dict?.a1 } },
+      { "@type": "Question", "name": dict?.q2, "acceptedAnswer": { "@type": "Answer", "text": dict?.a2 } },
+      { "@type": "Question", "name": dict?.q3, "acceptedAnswer": { "@type": "Answer", "text": dict?.a3 } }
     ]
   } : {};
 </script>
@@ -179,9 +179,9 @@
            <FAQSection
                title={dict.faqTitle}
                items={[
-                   { question: dict.q1, answer: dict.a1 },
-                   { question: dict.q2, answer: dict.a2 },
-                   { question: dict.q3, answer: dict.a3 }
+                   { question: dict?.q1, answer: dict?.a1 },
+                   { question: dict?.q2, answer: dict?.a2 },
+                   { question: dict?.q3, answer: dict?.a3 }
                ]}
            />
        </div>

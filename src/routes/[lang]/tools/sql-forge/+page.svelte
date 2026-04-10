@@ -106,9 +106,9 @@
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": t.q1, "acceptedAnswer": { "@type": "Answer", "text": t.a1 } },
-        { "@type": "Question", "name": t.q2, "acceptedAnswer": { "@type": "Answer", "text": t.a2 } },
-        { "@type": "Question", "name": t.q3, "acceptedAnswer": { "@type": "Answer", "text": t.a3 } }
+        { "@type": "Question", "name": t?.q1, "acceptedAnswer": { "@type": "Answer", "text": t?.a1 } },
+        { "@type": "Question", "name": t?.q2, "acceptedAnswer": { "@type": "Answer", "text": t?.a2 } },
+        { "@type": "Question", "name": t?.q3, "acceptedAnswer": { "@type": "Answer", "text": t?.a3 } }
       ]
     }
   ];
@@ -250,9 +250,9 @@
                 </ul>
 
                 <FAQSection title={t.faqTitle} items={[
-                    { question: t.q1, answer: t.a1 },
-                    { question: t.q2, answer: t.a2 },
-                    { question: t.q3, answer: t.a3 }
+                    { question: t?.q1, answer: t?.a1 },
+                    { question: t?.q2, answer: t?.a2 },
+                    { question: t?.q3, answer: t?.a3 }
                 ]} />
             </div>
         </main>

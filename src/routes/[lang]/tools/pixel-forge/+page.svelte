@@ -43,9 +43,9 @@
   });
 
   $: faqItems = [
-    { q: toolDict.q1, a: toolDict.a1 },
-    { q: toolDict.q2, a: toolDict.a2 },
-    { q: toolDict.q3, a: toolDict.a3 }
+    { q: toolDict?.q1, a: toolDict?.a1 },
+    { q: toolDict?.q2, a: toolDict?.a2 },
+    { q: toolDict?.q3, a: toolDict?.a3 }
   ];
 
   // Helper to render markdown safely

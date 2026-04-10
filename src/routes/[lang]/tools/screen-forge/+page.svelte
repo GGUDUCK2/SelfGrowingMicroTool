@@ -58,18 +58,18 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": t.q1,
-            "acceptedAnswer": { "@type": "Answer", "text": t.a1 }
+            "name": t?.q1,
+            "acceptedAnswer": { "@type": "Answer", "text": t?.a1 }
           },
           {
             "@type": "Question",
-            "name": t.q2,
-            "acceptedAnswer": { "@type": "Answer", "text": t.a2 }
+            "name": t?.q2,
+            "acceptedAnswer": { "@type": "Answer", "text": t?.a2 }
           },
           {
             "@type": "Question",
-            "name": t.q3,
-            "acceptedAnswer": { "@type": "Answer", "text": t.a3 }
+            "name": t?.q3,
+            "acceptedAnswer": { "@type": "Answer", "text": t?.a3 }
           }
         ]
       }
@@ -140,9 +140,9 @@
            <FAQSection
                title={t.faqTitle}
                items={[
-                   { q: t.q1, a: t.a1 },
-                   { q: t.q2, a: t.a2 },
-                   { q: t.q3, a: t.a3 }
+                   { q: t?.q1, a: t?.a1 },
+                   { q: t?.q2, a: t?.a2 },
+                   { q: t?.q3, a: t?.a3 }
                ]}
            />
       </section>

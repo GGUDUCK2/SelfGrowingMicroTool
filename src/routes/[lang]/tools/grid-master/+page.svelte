@@ -324,26 +324,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -604,16 +604,16 @@
               <h3 class="text-xl font-semibold mt-8">{dict.faqTitle}</h3>
               <div class="grid gap-4 not-prose">
                  <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <h4 class="font-semibold text-lg mb-2">{dict.q1}</h4>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a1}</p>
+                    <h4 class="font-semibold text-lg mb-2">{dict?.q1}</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict?.a1}</p>
                  </div>
                  <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <h4 class="font-semibold text-lg mb-2">{dict.q2}</h4>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a2}</p>
+                    <h4 class="font-semibold text-lg mb-2">{dict?.q2}</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict?.a2}</p>
                  </div>
                  <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <h4 class="font-semibold text-lg mb-2">{dict.q3}</h4>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict.a3}</p>
+                    <h4 class="font-semibold text-lg mb-2">{dict?.q3}</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict?.a3}</p>
                  </div>
               </div>
           </div>

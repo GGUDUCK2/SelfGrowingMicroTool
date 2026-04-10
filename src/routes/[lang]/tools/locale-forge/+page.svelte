@@ -23,9 +23,9 @@
   $: hasData = $projectStore.data.length > 0;
 
   $: faqItems = [
-      { q: dict.q1, a: dict.a1 },
-      { q: dict.q2, a: dict.a2 },
-      { q: dict.q3, a: dict.a3 }
+      { q: dict?.q1, a: dict?.a1 },
+      { q: dict?.q2, a: dict?.a2 },
+      { q: dict?.q3, a: dict?.a3 }
   ];
 
   $: breadcrumbSchema = {

@@ -143,9 +143,9 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
   // FAQ Data
   $: faqItems = [
-    { q: dict.q1, a: dict.a1 },
-    { q: dict.q2, a: dict.a2 },
-    { q: dict.q3, a: dict.a3 },
+    { q: dict?.q1, a: dict?.a1 },
+    { q: dict?.q2, a: dict?.a2 },
+    { q: dict?.q3, a: dict?.a3 },
   ];
 
   // Breadcrumb Names
