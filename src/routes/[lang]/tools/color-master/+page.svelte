@@ -93,18 +93,18 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
-        "acceptedAnswer": { "@type": "Answer", "text": dict.a1 }
+        "name": dict?.q1,
+        "acceptedAnswer": { "@type": "Answer", "text": dict?.a1 }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
-        "acceptedAnswer": { "@type": "Answer", "text": dict.a2 }
+        "name": dict?.q2,
+        "acceptedAnswer": { "@type": "Answer", "text": dict?.a2 }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
-        "acceptedAnswer": { "@type": "Answer", "text": dict.a3 }
+        "name": dict?.q3,
+        "acceptedAnswer": { "@type": "Answer", "text": dict?.a3 }
       }
     ]
   };
@@ -505,9 +505,9 @@
     <FAQSection
       title={t.faqTitle}
       items={[
-        { q: dict.q1, a: dict.a1 },
-        { q: dict.q2, a: dict.a2 },
-        { q: dict.q3, a: dict.a3 }
+        { q: dict?.q1, a: dict?.a1 },
+        { q: dict?.q2, a: dict?.a2 },
+        { q: dict?.q3, a: dict?.a3 }
       ]}
     />
   </article>

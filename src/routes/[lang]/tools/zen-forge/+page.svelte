@@ -125,26 +125,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict.q1}",
+        "name": "${dict?.q1}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a1}"
+          "text": "${dict?.a1}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q2}",
+        "name": "${dict?.q2}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a2}"
+          "text": "${dict?.a2}"
         }
       },
       {
         "@type": "Question",
-        "name": "${dict.q3}",
+        "name": "${dict?.q3}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict.a3}"
+          "text": "${dict?.a3}"
         }
       }
     ]
@@ -213,9 +213,9 @@
                     guide={dict.guide}
                     faqTitle={dict.faqTitle}
                     faqItems={[
-                        { q: dict.q1, a: dict.a1 },
-                        { q: dict.q2, a: dict.a2 },
-                        { q: dict.q3, a: dict.a3 }
+                        { q: dict?.q1, a: dict?.a1 },
+                        { q: dict?.q2, a: dict?.a2 },
+                        { q: dict?.q3, a: dict?.a3 }
                     ]}
                 />
             </div>

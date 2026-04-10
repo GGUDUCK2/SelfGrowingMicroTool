@@ -102,26 +102,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict.q1,
+        "name": dict?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a1
+          "text": dict?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict.q2,
+        "name": dict?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a2
+          "text": dict?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict.q3,
+        "name": dict?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict.a3
+          "text": dict?.a3
         }
       }
     ]
@@ -294,16 +294,16 @@
           <h3 class="text-2xl font-bold mb-6 text-slate-800 dark:text-white">{dict.faqTitle}</h3>
           <div class="space-y-6">
               <div>
-                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{dict.q1}</h4>
-                  <p class="text-slate-600 dark:text-slate-400">{dict.a1}</p>
+                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{dict?.q1}</h4>
+                  <p class="text-slate-600 dark:text-slate-400">{dict?.a1}</p>
               </div>
               <div>
-                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{dict.q2}</h4>
-                  <p class="text-slate-600 dark:text-slate-400">{dict.a2}</p>
+                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{dict?.q2}</h4>
+                  <p class="text-slate-600 dark:text-slate-400">{dict?.a2}</p>
               </div>
               <div>
-                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{dict.q3}</h4>
-                  <p class="text-slate-600 dark:text-slate-400">{dict.a3}</p>
+                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{dict?.q3}</h4>
+                  <p class="text-slate-600 dark:text-slate-400">{dict?.a3}</p>
               </div>
           </div>
       </div>
