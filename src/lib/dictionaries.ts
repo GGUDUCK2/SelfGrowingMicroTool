@@ -10,6 +10,60 @@ export const dictionaries = {
       actions: "Actions",
     },
     tools: {
+      xpathForge: {
+        title: "XPath Forge: XML/HTML Navigator",
+        description: "The definitive tool to validate, test, and generate XPath expressions against XML and HTML in your browser.",
+        editor: {
+          title: "Source Document",
+          placeholder: "Paste your XML or HTML here...",
+          loadExample: "Load Example",
+          upload: "Upload File",
+          clear: "Clear"
+        },
+        xpath: {
+          title: "XPath Expression",
+          placeholder: "e.g., //book[price>35.00]",
+          evaluate: "Evaluate",
+          autoEvaluate: "Auto-evaluate",
+        },
+        results: {
+          title: "Results",
+          matchedCount: "nodes matched",
+          empty: "No nodes matched or empty expression.",
+          error: "Invalid XPath expression.",
+          parseError: "Invalid XML/HTML document."
+        },
+        history: {
+          title: "Recent XPath Queries",
+          empty: "No history found. Try evaluating an XPath."
+        },
+        cheatsheet: {
+          title: "XPath Cheatsheet",
+          basic: "Basic Selection",
+          predicates: "Predicates",
+          functions: "Functions"
+        },
+        guide: {
+          title: "The Ultimate Guide to XPath Testing",
+          intro: "Welcome to XPath Forge, the professional-grade environment for testing and mastering XPath queries. Whether you are web scraping, parsing complex XML data, or building automated tests, XPath Forge gives you the exact tools to precisely locate any node.",
+          featuresTitle: "Core Features",
+          f1: "**Real-time Evaluation:** See matched nodes instantly as you type your XPath.",
+          f2: "**Deep Document Parsing:** Robust support for both strict XML and loose HTML structures.",
+          f3: "**Persistent Workspace:** Your recent queries and documents are securely saved locally using Dexie.js.",
+          f4: "**One-Click Utilities:** Copy results, load examples, and clear the workspace in a single click.",
+          tipsTitle: "Advanced Pro Tips",
+          tip1: "**Use Predicates:** Narrow down selections using `[condition]` like `//div[@class='container']`.",
+          tip2: "**Text Functions:** Utilize `contains()`, `starts-with()`, and `text()` for powerful text-based node finding.",
+          tip3: "**Axes Navigation:** Master axes like `following-sibling::` or `parent::` to traverse complex document trees."
+        },
+        faqTitle: "Frequently Asked Questions",
+        q1: "Does my data leave my browser?",
+        a1: "No. XPath Forge processes all XML/HTML and evaluates XPath expressions entirely locally in your browser. No server communication is involved.",
+        q2: "Can I test XPath against HTML?",
+        a2: "Yes. The tool automatically detects HTML and uses standard DOM parsing to allow precise querying of HTML elements.",
+        q3: "How is my history saved?",
+        a3: "Your history is saved locally using IndexedDB. You can review your past queries, star your favorites, or clear them at any time."
+      },
       svgForge: {
         title: "SVG Forge: Vector Optimizer",
         description: "The definitive tool to analyze, format, and hyper-optimize SVG markup in your browser without sacrificing visual quality.",
@@ -4277,6 +4331,60 @@ export const dictionaries = {
       actions: "작업",
     },
     tools: {
+      xpathForge: {
+        title: "XPath 포지: XML/HTML 내비게이터",
+        description: "브라우저에서 XML 및 HTML에 대해 XPath 표현식을 검증, 테스트 및 생성하는 궁극의 도구입니다.",
+        editor: {
+          title: "원본 문서",
+          placeholder: "여기에 XML 또는 HTML을 붙여넣으세요...",
+          loadExample: "예제 불러오기",
+          upload: "파일 업로드",
+          clear: "지우기"
+        },
+        xpath: {
+          title: "XPath 표현식",
+          placeholder: "예: //book[price>35.00]",
+          evaluate: "평가",
+          autoEvaluate: "자동 평가",
+        },
+        results: {
+          title: "결과",
+          matchedCount: "개 노드 일치",
+          empty: "일치하는 노드가 없거나 표현식이 비어 있습니다.",
+          error: "잘못된 XPath 표현식입니다.",
+          parseError: "잘못된 XML/HTML 문서입니다."
+        },
+        history: {
+          title: "최근 XPath 쿼리",
+          empty: "기록이 없습니다. XPath를 평가해 보세요."
+        },
+        cheatsheet: {
+          title: "XPath 치트시트",
+          basic: "기본 선택",
+          predicates: "조건 (Predicates)",
+          functions: "함수 (Functions)"
+        },
+        guide: {
+          title: "XPath 테스트를 위한 궁극의 가이드",
+          intro: "XPath 포지에 오신 것을 환영합니다. XPath 쿼리를 테스트하고 마스터하기 위한 전문가급 환경입니다. 웹 스크래핑, 복잡한 XML 데이터 파싱 또는 자동화된 테스트 구축 시, XPath 포지는 노드를 정확하게 찾을 수 있는 도구를 제공합니다.",
+          featuresTitle: "핵심 기능",
+          f1: "**실시간 평가:** XPath를 입력하는 즉시 일치하는 노드를 확인하세요.",
+          f2: "**심층 문서 파싱:** 엄격한 XML 및 유연한 HTML 구조를 모두 강력하게 지원합니다.",
+          f3: "**영구 작업 공간:** 최근 쿼리와 문서가 Dexie.js를 사용하여 로컬에 안전하게 저장됩니다.",
+          f4: "**원클릭 유틸리티:** 클릭 한 번으로 결과를 복사하고, 예제를 불러오고, 작업 공간을 지울 수 있습니다.",
+          tipsTitle: "고급 프로 팁",
+          tip1: "**조건 (Predicates) 사용:** `//div[@class='container']`와 같이 `[condition]`을 사용하여 선택 범위를 좁히세요.",
+          tip2: "**텍스트 함수:** `contains()`, `starts-with()`, `text()`를 활용하여 텍스트 기반 노드를 강력하게 찾을 수 있습니다.",
+          tip3: "**축(Axes) 내비게이션:** `following-sibling::` 또는 `parent::`와 같은 축을 마스터하여 복잡한 문서 트리를 탐색하세요."
+        },
+        faqTitle: "자주 묻는 질문 (FAQ)",
+        q1: "내 데이터가 브라우저 외부로 전송되나요?",
+        a1: "아니요. XPath 포지는 모든 XML/HTML을 처리하고 XPath 표현식을 전적으로 브라우저 로컬에서 평가합니다. 서버 통신은 포함되지 않습니다.",
+        q2: "HTML에 대해 XPath를 테스트할 수 있나요?",
+        a2: "네. 이 도구는 HTML을 자동으로 감지하고 표준 DOM 파싱을 사용하여 HTML 요소를 정확하게 쿼리할 수 있도록 합니다.",
+        q3: "내 기록은 어떻게 저장되나요?",
+        a3: "기록은 IndexedDB를 사용하여 로컬에 저장됩니다. 과거 쿼리를 검토하거나, 즐겨찾기에 추가하거나, 언제든지 지울 수 있습니다."
+      },
       svgForge: {
         title: "SVG 포지: 벡터 최적화 도구",
         description: "시각적 품질 저하 없이 브라우저 내에서 SVG 마크업을 분석, 형식화, 초고도 최적화하는 궁극의 도구입니다.",
