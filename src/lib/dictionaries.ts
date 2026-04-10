@@ -3797,9 +3797,22 @@ export const dictionaries = {
           editor: "Editor",
           formatter: "Formatter",
           validator: "Validator",
+          compare: "Compare",
           exporter: "Exporter",
           history: "History"
         },
+        compare: {
+          title: "Compare Environments",
+          subtitle: "Paste another .env content below to compare:",
+          placeholder: "Paste .env.production or .env.local here...",
+          identical: "Both environments are identical.",
+          missingInCompare: "Keys missing in compared environment",
+          missingInBase: "Keys missing in base environment",
+          differingValues: "Keys with differing values",
+          base: "Base",
+          compare: "Compare"
+        },
+        templates: "Templates",
         editorTitle: "Raw .env Content",
         placeholder: "Paste your .env content here...\\n# Examples:\\nAPI_KEY=your_secret_key\\nPORT=3000",
         format: "Format",
@@ -3811,6 +3824,7 @@ export const dictionaries = {
         sortAlphabetically: "Sort Alphabetically",
         removeDuplicates: "Remove Duplicates",
         alignEquals: "Align Equals",
+        groupByPrefix: "Group by Prefix",
         generateExample: "Generate .env.example",
 
         obfuscate: "Obfuscate Values",
@@ -7254,9 +7268,22 @@ export const dictionaries = {
           editor: "에디터",
           formatter: "포맷터",
           validator: "검증기",
+          compare: "비교",
           exporter: "내보내기",
           history: "기록"
         },
+        compare: {
+          title: "환경 비교",
+          subtitle: "비교할 다른 .env 내용을 아래에 붙여넣으세요:",
+          placeholder: ".env.production 또는 .env.local을 여기에 붙여넣으세요...",
+          identical: "두 환경이 동일합니다.",
+          missingInCompare: "비교 환경에서 누락된 키",
+          missingInBase: "기본 환경에서 누락된 키",
+          differingValues: "값이 다른 키",
+          base: "기본",
+          compare: "비교"
+        },
+        templates: "템플릿",
         editorTitle: "원본 .env 내용",
         placeholder: "여기에 .env 내용을 붙여넣으세요...\\n# 예시:\\nAPI_KEY=your_secret_key\\nPORT=3000",
         format: "포맷팅",
@@ -7268,6 +7295,7 @@ export const dictionaries = {
         sortAlphabetically: "알파벳순 정렬",
         removeDuplicates: "중복 제거",
         alignEquals: "등호 정렬",
+        groupByPrefix: "접두사로 그룹화",
         generateExample: ".env.example 생성",
 
         obfuscate: "값 난독화",

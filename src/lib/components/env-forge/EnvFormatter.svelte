@@ -90,6 +90,26 @@
               return line.raw;
           }).join('\n');
       }
+      else if (action === 'groupByPrefix') {
+          // Group by the first part of the key before an underscore. E.g. DATABASE_URL -> DATABASE
+          const kvs = lines.filter(l => l.type === 'kv');
+          const groups: Record<string, typeof kvs> = {};
+          for (const kv of kvs) {
+              const prefix = kv.key!.split('_')[0].toUpperCase();
+              if (!groups[prefix]) groups[prefix] = [];
+              groups[prefix].push(kv);
+          }
+
+          let newContent = '';
+          const sortedPrefixes = Object.keys(groups).sort();
+          for (const prefix of sortedPrefixes) {
+              newContent += `\n# --- ${prefix} ---\n`;
+              for (const kv of groups[prefix]) {
+                  newContent += `${kv.key}=${kv.value}\n`;
+              }
+          }
+          content = newContent.trim();
+      }
 
       dispatch('change', content);
   }
@@ -120,6 +140,11 @@
       <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={() => format('obfuscate')}>
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle><line x1="2" y1="2" x2="22" y2="22"></line></svg>
           {t.obfuscate}
+      </button>
+
+      <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={() => format('groupByPrefix')}>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          {t.groupByPrefix}
       </button>
   </div>
 </div>
