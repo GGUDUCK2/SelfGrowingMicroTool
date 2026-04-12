@@ -1,6 +1,6 @@
 <script lang="ts">
   export let content: string;
-  export let t: any;
+  export let t: Record<string, any>;
 
   let compareContent = '';
 

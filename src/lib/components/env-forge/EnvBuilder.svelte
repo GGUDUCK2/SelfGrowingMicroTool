@@ -8,7 +8,7 @@
   import HistoryPanel from './HistoryPanel.svelte';
   import { workspace } from '$lib/db/workspace';
 
-  export let t: any;
+  export let t: Record<string, any>;
   export let showToast: (msg: string, type?: 'success' | 'error') => void;
 
   let activeTab = 'formatter';
@@ -50,6 +50,16 @@
           timestamp: Date.now(),
           starred: false
       });
+
+      // Keep only last 100 items
+      const allItems = await workspace.history.where('toolId').equals(TOOL_ID).sortBy('timestamp');
+      if (allItems.length > 100) {
+          const itemsToDelete = allItems.slice(0, allItems.length - 100);
+          const idsToDelete = itemsToDelete.filter(i => !i.starred).map(i => i.id!);
+          if (idsToDelete.length > 0) {
+              await workspace.history.bulkDelete(idsToDelete);
+          }
+      }
   }
 
 
@@ -64,6 +74,27 @@
           showToast('Editor cleared', 'success');
       } else if (e.key === 'Escape') {
           content = '';
+      }
+  }
+
+
+
+  async function shareContent() {
+      if (!content) return;
+      if (navigator.share) {
+          try {
+              await navigator.share({
+                  title: 'Env Forge Configuration',
+                  text: content
+              });
+              showToast(t.toasts?.shared || 'Shared successfully', 'success');
+          } catch (err) {
+              if (err.name !== 'AbortError') {
+                  showToast(t.toasts?.shareError || 'Failed to share', 'error');
+              }
+          }
+      } else {
+          copyToClipboard();
       }
   }
 
@@ -131,13 +162,17 @@
                   </div>
                   {/if}
               </div>
-              <button class="min-h-[44px] min-w-[44px] px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition font-medium flex items-center gap-2" on:click={copyToClipboard}>
+              <button class="min-h-[44px] min-w-[44px] px-4 py-2 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition font-medium gap-2" on:click={copyToClipboard}>
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                   {t.copy}
               </button>
-              <button class="min-h-[44px] min-w-[44px] px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium flex items-center gap-2 shadow-md shadow-indigo-500/20" on:click={downloadFile}>
+              <button class="min-h-[44px] min-w-[44px] px-4 py-2 flex items-center justify-center bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium gap-2 shadow-md shadow-indigo-500/20" on:click={downloadFile}>
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                   {t.download}
+              </button>
+              <button class="min-h-[44px] min-w-[44px] px-4 py-2 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition font-medium gap-2" on:click={shareContent}>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                  {t.share || 'Share'}
               </button>
           </div>
       </div>
