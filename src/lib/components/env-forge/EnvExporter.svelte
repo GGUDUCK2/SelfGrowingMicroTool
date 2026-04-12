@@ -1,6 +1,6 @@
 <script lang="ts">
   export let content: string;
-  export let t: any;
+  export let t: Record<string, any>;
 
   function getKeyValuePairs(str: string): Record<string, string> {
       const result: Record<string, string> = {};

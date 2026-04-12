@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
 
   export let content: string = '';
-  export let t: any;
+  export let t: Record<string, any>;
 
   const dispatch = createEventDispatcher();
 
