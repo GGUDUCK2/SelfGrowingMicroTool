@@ -37,3 +37,16 @@ test-results/
 
 # Vercel
 .vercel/
+
+# Agent artifacts (Jules 작업 부산물)
+*.py
+*.log
+*.png
+!static/**/*.png
+!src/**/*.png
+patch_*.cjs
+patch_*.sh
+*_report.md
+report.md
+daily_report.md
+daily_improvement_report.md
