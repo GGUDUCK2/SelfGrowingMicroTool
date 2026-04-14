@@ -10,6 +10,18 @@
   $: lang = data.lang as Language;
   $: dict = getDictionary(lang);
   $: tools = registry;
+
+  let searchQuery = "";
+  let selectedCategory = "all";
+
+  $: categories = ["all", ...new Set(registry.map(t => t.category))].filter(Boolean);
+
+  $: filteredTools = tools.filter(tool => {
+    const matchesSearch = tool.title[lang]?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          tool.description[lang]?.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === "all" || tool.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 </script>
 
 <svelte:head>
@@ -54,8 +66,44 @@
     </p>
   </section>
 
+  <section class="max-w-4xl mx-auto space-y-6">
+    <!-- Search Bar -->
+    <div class="relative">
+      <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <input
+        type="text"
+        bind:value={searchQuery}
+        placeholder={lang === 'ko' ? "도구 검색..." : "Search tools..."}
+        class="w-full pl-11 pr-4 py-4 min-h-[44px] bg-white border border-gray-200 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all text-gray-900"
+      />
+    </div>
+
+    <!-- Category Filter -->
+    <div class="flex flex-wrap gap-2 justify-center pb-8">
+      {#each categories as category}
+        <button
+          on:click={() => selectedCategory = category}
+          class="px-4 py-2 min-h-[44px] rounded-full text-sm font-medium transition-all capitalize
+            {selectedCategory === category
+              ? 'bg-indigo-600 text-white shadow-md'
+              : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50 hover:text-gray-900'}"
+        >
+          {category}
+        </button>
+      {/each}
+    </div>
+  </section>
+
+  {#if filteredTools.length === 0}
+    <div class="text-center py-12">
+      <p class="text-gray-500 text-lg">{lang === 'ko' ? "검색 결과가 없습니다." : "No tools found matching your criteria."}</p>
+    </div>
+  {/if}
+
   <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    {#each tools as tool, i}
+    {#each filteredTools as tool, i (tool.id)}
       <a
         href="/{lang}/tools/{tool.slug}"
         in:fly={{ y: 20, duration: 800, delay: 400 + i * 100 }}

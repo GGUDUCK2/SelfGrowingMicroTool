@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  import AdPlaceholder from "$lib/components/AdPlaceholder.svelte";
 
   // 현재 언어 가져오기
   $: lang = $page.params.lang || "en";
@@ -92,13 +93,24 @@
 
   <main class="flex-1 container mx-auto px-4 py-8 md:py-12">
     <slot />
+
+    <!-- Global AdSense Placeholder -->
+    <AdPlaceholder />
   </main>
 
   <footer class="border-t border-gray-200 bg-white py-12">
-    <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
-      <p>
-        &copy; {new Date().getFullYear()} Self-Growing Micro Tools. All rights reserved.
-      </p>
+    <div class="container mx-auto px-4">
+      <div class="flex justify-center gap-6 mb-8 text-sm">
+        <a href="/{lang}/about" class="text-gray-500 hover:text-gray-900 transition-colors">About</a>
+        <a href="/{lang}/privacy-policy" class="text-gray-500 hover:text-gray-900 transition-colors">Privacy Policy</a>
+        <a href="/{lang}/terms-of-service" class="text-gray-500 hover:text-gray-900 transition-colors">Terms of Service</a>
+        <a href="/{lang}/contact" class="text-gray-500 hover:text-gray-900 transition-colors">Contact</a>
+      </div>
+      <div class="text-center text-gray-500 text-sm">
+        <p>
+          &copy; {new Date().getFullYear()} Self-Growing Micro Tools. All rights reserved.
+        </p>
+      </div>
     </div>
   </footer>
 </div>

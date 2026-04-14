@@ -5,6 +5,7 @@
   import Workspace from '$lib/components/audio-forge/Workspace.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import { ChevronLeft, Headphones } from 'lucide-svelte';
 
   $: lang = $page.params.lang || 'en';
@@ -159,6 +160,8 @@
                     ]}
                 />
             </div>
+
+            <RelatedTools {lang} currentSlug="audio-forge" currentCategory="productivity" />
         </div>
     </div>
 </div>

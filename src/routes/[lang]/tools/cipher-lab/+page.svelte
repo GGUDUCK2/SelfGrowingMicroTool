@@ -7,6 +7,7 @@
   import { cipherWorkspace } from '$lib/db/workspace';
   import FAQSection from '$lib/components/FAQSection.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import HashGenerator from '$lib/components/cipher-lab/HashGenerator.svelte';
   import EncoderDecoder from '$lib/components/cipher-lab/EncoderDecoder.svelte';
   import JwtDebugger from '$lib/components/cipher-lab/JwtDebugger.svelte';
@@ -300,6 +301,8 @@
 
       </div>
     </div>
+
+    <RelatedTools {lang} currentSlug="cipher-lab" currentCategory="security" />
   </main>
 
   <!-- Toast -->

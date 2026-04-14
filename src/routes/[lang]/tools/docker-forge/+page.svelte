@@ -5,6 +5,7 @@
   import DockerBuilder from '$lib/components/docker-forge/DockerBuilder.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
@@ -150,5 +151,7 @@
         { q: d?.q3, a: d?.a3 }
       ]}
     />
+
+    <RelatedTools {lang} currentSlug="docker-forge" currentCategory="dev" />
   </div>
 </div>
