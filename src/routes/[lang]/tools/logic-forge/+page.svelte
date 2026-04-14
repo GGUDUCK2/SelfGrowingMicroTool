@@ -17,6 +17,7 @@
   import Toolbar from '$lib/components/logic-forge/Toolbar.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import { copyToClipboard } from '$lib/utils';
 
   $: lang = $page.params.lang || 'en';
@@ -394,4 +395,5 @@
 
   <GuideSection {...dict.guide} />
   <FAQSection title={dict.faqTitle} items={faqItems} />
+  <RelatedTools currentToolId="logic-forge" category="development" />
 </div>

@@ -18,6 +18,7 @@
   import SmartExamples from '$lib/components/password-forge/SmartExamples.svelte';
   import FormattedPassword from '$lib/components/password-forge/FormattedPassword.svelte';
   import BulkGenerateModal from '$lib/components/password-forge/BulkGenerateModal.svelte';
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
@@ -373,6 +374,9 @@
   <div class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div class="flex items-center gap-4">
+        <a href="/{lang}" aria-label={dict?.common?.back || "Back"} class="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center p-2 -ml-2 rounded-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </a>
         <div class="p-3 bg-indigo-500 rounded-2xl text-white shadow-lg shadow-indigo-500/30">
           <KeyRound size={28} />
         </div>
@@ -539,6 +543,9 @@
 
         <div class="mt-8">
             <FAQSection title={t.faqTitle} items={faqItems} />
+        </div>
+        <div class="mt-8">
+            <RelatedTools currentToolId="password-forge" category="security" />
         </div>
       </div>
 

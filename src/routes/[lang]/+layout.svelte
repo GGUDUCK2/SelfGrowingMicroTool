@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from "$lib/components/AdPlaceholder.svelte";
   import { page } from "$app/stores";
 
   // 현재 언어 가져오기
@@ -91,6 +92,7 @@
   </header>
 
   <main class="flex-1 container mx-auto px-4 py-8 md:py-12">
+    <AdPlaceholder />
     <slot />
   </main>
 

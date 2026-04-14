@@ -10,6 +10,7 @@
   import FAQSection from '$lib/components/FAQSection.svelte';
   import { Save, History } from 'lucide-svelte';
   import { fade } from 'svelte/transition';
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import { onMount, onDestroy } from 'svelte';
 
   $: lang = $page.params.lang || 'en';
@@ -257,6 +258,9 @@
 
             <div class="not-prose mt-8">
               <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
+            </div>
+            <div class="mt-8">
+              <RelatedTools currentToolId="qr-forge" category="generator" />
             </div>
         </div>
       </div>
