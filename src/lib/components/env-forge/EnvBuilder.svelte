@@ -72,6 +72,10 @@
           e.preventDefault();
           content = '';
           showToast('Editor cleared', 'success');
+      } else if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          activeTab = 'formatter';
+          showToast(t.tabs.formatter + ' mode enabled', 'success');
       } else if (e.key === 'Escape') {
           content = '';
       }
