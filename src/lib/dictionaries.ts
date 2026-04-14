@@ -3850,6 +3850,9 @@ export const dictionaries = {
           formatted: "Formatted successfully",
           cleared: "Editor cleared"
         },
+        shortcuts: {
+          help: "Shortcuts: Ctrl+S (Save/Copy), Ctrl+K (Clear), Ctrl+Enter (Format), Esc (Reset)"
+        },
         guideTitle: "The Ultimate Guide to Env Forge",
         guideIntro: "Env Forge is the definitive solution for managing, formatting, and validating your environment variables.",
         featuresTitle: "Key Features",
@@ -7320,6 +7323,9 @@ export const dictionaries = {
           downloaded: "성공적으로 다운로드되었습니다",
           formatted: "성공적으로 포맷되었습니다",
           cleared: "에디터가 초기화되었습니다"
+        },
+        shortcuts: {
+          help: "단축키: Ctrl+S (저장/복사), Ctrl+K (초기화), Ctrl+Enter (포맷), Esc (리셋)"
         },
         guideTitle: "Env 포지 궁극의 가이드",
         guideIntro: "Env 포지는 환경 변수를 관리, 포맷팅 및 검증하기 위한 완벽한 솔루션입니다.",
