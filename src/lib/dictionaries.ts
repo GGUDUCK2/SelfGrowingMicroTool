@@ -3828,6 +3828,9 @@ export const dictionaries = {
         generateExample: "Generate .env.example",
 
         obfuscate: "Obfuscate Values",
+        jsonToEnv: "JSON to .env",
+        encodeBase64: "Encode Base64",
+        decodeBase64: "Decode Base64",
         copyJson: "Copy as JSON",
 
         validation: {
@@ -7302,6 +7305,9 @@ export const dictionaries = {
         generateExample: ".env.example 생성",
 
         obfuscate: "값 난독화",
+        jsonToEnv: "JSON을 .env로",
+        encodeBase64: "Base64 인코딩",
+        decodeBase64: "Base64 디코딩",
         copyJson: "JSON으로 복사",
 
         validation: {
