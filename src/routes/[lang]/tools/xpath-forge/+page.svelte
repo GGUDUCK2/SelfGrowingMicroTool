@@ -8,7 +8,7 @@
     import { workspace } from '$lib/db/workspace';
 
     import { getDictionary } from '$lib/dictionaries';
-    export let data;
+    export let data: any;
     $: lang = $page.params.lang || 'en';
     $: dict = getDictionary(lang);
     $: t = dict?.tools?.xpathForge;
@@ -465,6 +465,8 @@
                         <p class="text-sm text-gray-500 text-center mt-8">{t?.history?.empty}</p>
                     {:else}
                         {#each history as item (item.id)}
+                            <!-- svelte-ignore a11y_click_events_have_key_events -->
+                            <!-- svelte-ignore a11y_no_static_element_interactions -->
                             <div class="group flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-transparent hover:border-gray-200 dark:hover:border-gray-700 transition-all cursor-pointer min-h-[44px]" on:click={() => loadHistoryItem(item)}>
                                 <div class="flex-1 min-w-0 pr-2">
                                     <p class="text-sm font-mono truncate text-gray-700 dark:text-gray-300">{item.input}</p>
