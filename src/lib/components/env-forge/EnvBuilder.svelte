@@ -25,9 +25,13 @@
       }
   });
 
+  let autoSaveTimeout: ReturnType<typeof setTimeout>;
   async function handleContentChange(e: CustomEvent<string>) {
       content = e.detail;
-      await saveState();
+      if (autoSaveTimeout) clearTimeout(autoSaveTimeout);
+      autoSaveTimeout = setTimeout(async () => {
+          await saveState();
+      }, 1500);
   }
 
   async function handleLoadHistory(e: CustomEvent<string>) {

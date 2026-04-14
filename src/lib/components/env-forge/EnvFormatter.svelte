@@ -90,6 +90,53 @@
               return line.raw;
           }).join('\n');
       }
+      else if (action === 'encodeBase64') {
+          content = lines.map(line => {
+              if (line.type === 'kv') {
+                  try {
+                      return `${line.key}=${btoa(line.value)}`;
+                  } catch (e) {
+                      return line.raw;
+                  }
+              }
+              return line.raw;
+          }).join('\n');
+      }
+      else if (action === 'decodeBase64') {
+          content = lines.map(line => {
+              if (line.type === 'kv') {
+                  try {
+                      return `${line.key}=${atob(line.value)}`;
+                  } catch (e) {
+                      return line.raw;
+                  }
+              }
+              return line.raw;
+          }).join('\n');
+      }
+      else if (action === 'jsonToEnv') {
+          try {
+              const obj = JSON.parse(content);
+              const envLines: string[] = [];
+              const flattenObj = (ob: any, prefix = '') => {
+                  for (const key in ob) {
+                      if (typeof ob[key] === 'object' && ob[key] !== null && !Array.isArray(ob[key])) {
+                          flattenObj(ob[key], `${prefix}${key}_`);
+                      } else {
+                          const val = String(ob[key]);
+                          const needsQuotes = /[\s#]/.test(val);
+                          const safeVal = needsQuotes ? `"${val.replace(/"/g, '\\"')}"` : val;
+                          envLines.push(`${(prefix + key).toUpperCase()}=${safeVal}`);
+                      }
+                  }
+              };
+              flattenObj(obj);
+              content = envLines.join('\n');
+          } catch (e) {
+              dispatch('error', 'Invalid JSON input');
+              return;
+          }
+      }
       else if (action === 'groupByPrefix') {
           // Group by the first part of the key before an underscore. E.g. DATABASE_URL -> DATABASE
           const kvs = lines.filter(l => l.type === 'kv');
@@ -145,6 +192,21 @@
       <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={() => format('groupByPrefix')}>
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
           {t.groupByPrefix}
+      </button>
+
+      <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={() => format('jsonToEnv')}>
+          <span class="text-indigo-500 font-bold font-mono">{"{ }"}</span>
+          {t.jsonToEnv}
+      </button>
+
+      <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={() => format('encodeBase64')}>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          {t.encodeBase64}
+      </button>
+
+      <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={() => format('decodeBase64')}>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          {t.decodeBase64}
       </button>
   </div>
 </div>
