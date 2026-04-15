@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { FileImage, Zap, Lock, Smartphone } from 'lucide-svelte';
   import Workspace from '$lib/components/pixel-forge/Workspace.svelte';
@@ -87,7 +88,10 @@
   <!-- Main Tool -->
   <main>
     <Workspace dict={toolDict} />
-  </main>
+    <div class="mt-12">
+    <RelatedTools {lang} currentSlug="pixel-forge" currentCategory="design" />
+  </div>
+</main>
 
   <!-- Features Grid -->
   <section class="grid md:grid-cols-3 gap-8 pt-12 border-t border-slate-800">

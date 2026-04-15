@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
@@ -619,7 +620,10 @@
           </div>
       </div>
     </div>
-  </main>
+    <div class="mt-12">
+    <RelatedTools {lang} currentSlug="grid-master" currentCategory="dev" />
+  </div>
+</main>
 
   <!-- Toast -->
   {#if showToast}

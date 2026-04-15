@@ -1,4 +1,7 @@
 <script lang="ts">
+  $: lang = $page.params.lang || 'en';
+  import { page } from '$app/stores';
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { fade, slide } from 'svelte/transition';
   import { getDictionary } from '$lib/dictionaries';
@@ -524,3 +527,7 @@
         @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300;
     }
 </style>
+
+  <div class="mt-12 mb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <RelatedTools {lang} currentSlug="subnet-scope" currentCategory="dev" />
+  </div>

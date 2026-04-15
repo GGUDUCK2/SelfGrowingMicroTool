@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
@@ -507,7 +508,10 @@
                 {/if}
             </div>
         {/if}
-    </main>
+      <div class="mt-12">
+    <RelatedTools {lang} currentSlug="log-prism" currentCategory="dev" />
+  </div>
+</main>
 
     <!-- Documentation -->
     <section class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12">

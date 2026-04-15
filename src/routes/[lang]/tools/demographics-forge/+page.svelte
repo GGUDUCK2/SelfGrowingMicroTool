@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
     import Head from '$lib/components/Head.svelte';
     import { getDictionary } from '$lib/dictionaries';
     import { page } from '$app/stores';
@@ -207,4 +208,9 @@
             <FAQSection title={t.faqTitle} items={faqItems} />
         </div>
     </div>
+
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20">
+    <RelatedTools {lang} currentSlug="demographics-forge" currentCategory="data" />
+  </div>
 </div>

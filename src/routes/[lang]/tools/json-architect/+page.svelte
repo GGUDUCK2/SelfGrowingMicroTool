@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
@@ -332,4 +333,9 @@
          <a href="/{lang}/tools/schema-forge" class="text-indigo-600 dark:text-indigo-400 hover:underline">Schema Forge</a>
      </div>
   </section>
+
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20">
+    <RelatedTools {lang} currentSlug="json-architect" currentCategory="dev" />
+  </div>
 </div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import { fade } from 'svelte/transition';
   import { page } from '$app/stores';
   import { dictionaries } from '$lib/dictionaries';
@@ -287,7 +288,11 @@
          </div>
       </div>
     </div>
-  </main>
+
+  <div class="mt-12 mb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <RelatedTools {lang} currentSlug="csv-forge" currentCategory="dev" />
+  </div>
+</main>
 
   {#if showToast}
     <div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50" transition:fade>

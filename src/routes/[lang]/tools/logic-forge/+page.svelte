@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
@@ -390,7 +391,10 @@
     <div class="lg:hidden">
        <HistoryPanel {lang} on:restore={handleRestore} />
     </div>
-  </main>
+    <div class="mt-12">
+    <RelatedTools {lang} currentSlug="logic-forge" currentCategory="dev" />
+  </div>
+</main>
 
   <GuideSection {...dict.guide} />
   <FAQSection title={dict.faqTitle} items={faqItems} />

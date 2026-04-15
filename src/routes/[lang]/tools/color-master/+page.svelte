@@ -1,4 +1,6 @@
 <script lang="ts">
+  $: lang = $page.params.lang || 'en';
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import { onMount, onDestroy } from 'svelte';
   import { browser } from '$app/environment';
   import { page } from '$app/stores';
@@ -512,4 +514,9 @@
     />
   </article>
 
+
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20">
+    <RelatedTools {lang} currentSlug="color-master" currentCategory="design" />
+  </div>
 </div>

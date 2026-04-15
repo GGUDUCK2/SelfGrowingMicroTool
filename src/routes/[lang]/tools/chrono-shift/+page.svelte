@@ -1,4 +1,7 @@
 <script lang="ts">
+  $: lang = $page.params.lang || 'en';
+  import { page } from '$app/stores';
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
     import { onMount } from 'svelte';
     import { getDictionary } from '$lib/dictionaries';
@@ -501,3 +504,7 @@
         @apply min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg shadow-sm text-sm font-medium text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-700 hover:bg-slate-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors;
     }
 </style>
+
+  <div class="mt-12 mb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <RelatedTools {lang} currentSlug="chrono-shift" currentCategory="dev" />
+  </div>

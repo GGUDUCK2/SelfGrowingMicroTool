@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount } from "svelte";
   import { fade, fly, slide } from "svelte/transition";
@@ -533,3 +534,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     }
   }
 </style>
+
+  <div class="mt-12 mb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <RelatedTools {lang} currentSlug="glassmorphism-generator" currentCategory="dev" />
+  </div>

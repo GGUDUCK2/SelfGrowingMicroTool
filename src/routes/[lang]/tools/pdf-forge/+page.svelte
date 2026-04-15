@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { FileText, Shield, Layers, Zap } from 'lucide-svelte';
   import Workspace from '$lib/components/pdf-forge/Workspace.svelte';
@@ -129,7 +130,10 @@
   <!-- Workspace -->
   <main class="bg-white dark:bg-slate-900 rounded-3xl shadow-xl dark:shadow-2xl dark:shadow-indigo-900/10 border border-slate-200 dark:border-slate-800 overflow-hidden min-h-[600px] relative z-10">
     <Workspace dict={toolDict} />
-  </main>
+    <div class="mt-12">
+    <RelatedTools {lang} currentSlug="pdf-forge" currentCategory="productivity" />
+  </div>
+</main>
 
   <!-- Features -->
   <section class="grid grid-cols-1 md:grid-cols-3 gap-8">
