@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
@@ -348,7 +349,10 @@
                 />
             </div>
         </div>
-     </main>
+       <div class="mt-12">
+    <RelatedTools {lang} currentSlug="prompt-forge" currentCategory="ai" />
+  </div>
+</main>
   </div>
 
   <!-- Toast -->

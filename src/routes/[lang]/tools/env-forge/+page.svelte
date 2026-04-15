@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { dictionaries } from '$lib/dictionaries';
@@ -228,5 +229,10 @@
         { q: d?.q3, a: d?.a3 }
       ]}
     />
+  </div>
+
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20">
+    <RelatedTools {lang} currentSlug="env-forge" currentCategory="dev" />
   </div>
 </div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { page } from "$app/stores";
   import { onMount, onDestroy } from "svelte";
@@ -338,5 +339,10 @@
 
   <div class="mt-12">
     <FAQSection title={lang === 'ko' ? '자주 묻는 질문' : 'Frequently Asked Questions'} items={faqItems} />
+  </div>
+
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20">
+    <RelatedTools {lang} currentSlug="cron-editor" currentCategory="dev" />
   </div>
 </div>

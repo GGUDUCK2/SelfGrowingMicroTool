@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
@@ -311,3 +312,7 @@
     </article>
   </div>
 </div>
+
+  <div class="mt-12 mb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <RelatedTools {lang} currentSlug="motion-master" currentCategory="dev" />
+  </div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import { onMount } from 'svelte';
   import { fade, fly } from 'svelte/transition';
   import { getDictionary } from '$lib/dictionaries';
@@ -643,6 +644,9 @@
 
       <FAQSection title={t.faqTitle} items={faqItems} />
     </div>
-  </main>
+    <div class="mt-12">
+    <RelatedTools {lang} currentSlug="diff-viewer" currentCategory="dev" />
+  </div>
+</main>
 </div>
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
   import { fade, slide } from 'svelte/transition';
@@ -647,6 +648,11 @@
         />
       </div>
    </div>
+
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20">
+    <RelatedTools {lang} currentSlug="seo-forge" currentCategory="marketing" />
+  </div>
 </div>
 
 <svelte:head>

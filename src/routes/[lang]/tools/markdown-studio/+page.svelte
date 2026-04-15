@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import { onMount } from 'svelte';
   import { marked } from 'marked';
   import { fade, slide } from 'svelte/transition';
@@ -344,7 +345,11 @@
       </div>
     </div>
 
-  </main>
+
+  <div class="mt-12 mb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <RelatedTools {lang} currentSlug="markdown-studio" currentCategory="dev" />
+  </div>
+</main>
 
   <!-- Content for SEO/Landing below the tool -->
   <section class="max-w-4xl mx-auto px-6 py-12 space-y-12 print:hidden">

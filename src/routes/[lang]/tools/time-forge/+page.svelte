@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import { timeStore } from '$lib/utils/time-forge/store';
   import TimeForge from '$lib/components/time-forge/TimeForge.svelte';
   import Head from '$lib/components/Head.svelte';
@@ -149,4 +150,9 @@
     <FAQSection title={t.faqTitle} items={faqs} />
   </div>
 
+
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20">
+    <RelatedTools {lang} currentSlug="time-forge" currentCategory="productivity" />
+  </div>
 </div>

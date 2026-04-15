@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
@@ -267,7 +268,10 @@
       { q: dict?.q2, a: dict?.a2 },
       { q: dict?.q3, a: dict?.a3 }
     ]} />
-  </main>
+    <div class="mt-12">
+    <RelatedTools {lang} currentSlug="input-lab" currentCategory="util" />
+  </div>
+</main>
 
   <!-- Toast -->
   {#if showToast}

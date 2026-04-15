@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
@@ -692,4 +693,9 @@
         on:close={() => showExportModal = false}
       />
   {/if}
+
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20">
+    <RelatedTools {lang} currentSlug="geo-forge" currentCategory="util" />
+  </div>
 </div>

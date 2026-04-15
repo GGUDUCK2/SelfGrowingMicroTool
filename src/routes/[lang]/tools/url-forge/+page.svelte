@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { dictionaries } from '$lib/dictionaries';
@@ -215,3 +216,7 @@
     </div>
   {/if}
 </div>
+
+  <div class="mt-12 mb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <RelatedTools {lang} currentSlug="url-forge" currentCategory="dev" />
+  </div>

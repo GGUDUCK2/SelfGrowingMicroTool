@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
@@ -318,7 +319,11 @@
       <GuideSection {...t.guide} />
       <FAQSection title={t.faqTitle} items={faqItems} />
     </div>
-  </main>
+
+  <div class="mt-12 mb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <RelatedTools {lang} currentSlug="mock-forge" currentCategory="dev" />
+  </div>
+</main>
 
   {#if showToast}
     <div transition:fade class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-3 rounded-full shadow-lg flex items-center gap-2 font-medium text-sm">

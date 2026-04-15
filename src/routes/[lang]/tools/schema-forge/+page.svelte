@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount, onDestroy } from 'svelte';
   import { page } from '$app/stores';
@@ -715,7 +716,10 @@
                  {:else if activeTab === 'typescript'}
                     <CodePreview code={tsCode} language="typescript" />
                  {/if}
-            </main>
+              <div class="mt-12">
+    <RelatedTools {lang} currentSlug="schema-forge" currentCategory="dev" />
+  </div>
+</main>
         </div>
     </div>
 

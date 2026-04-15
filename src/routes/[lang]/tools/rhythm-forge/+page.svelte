@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount, onDestroy } from 'svelte';
   import { page } from '$app/stores';
@@ -410,5 +411,8 @@
               />
           </div>
       </div>
-  </main>
+    <div class="mt-12">
+    <RelatedTools {lang} currentSlug="rhythm-forge" currentCategory="music" />
+  </div>
+</main>
 </div>
