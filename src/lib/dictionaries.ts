@@ -3845,7 +3845,10 @@ export const dictionaries = {
           json: "JSON Format",
           yaml: "YAML Format",
           docker: "Docker --env-file",
-          k8s: "Kubernetes ConfigMap"
+          k8s: "Kubernetes ConfigMap",
+          vercel: "Vercel JSON Format",
+          netlify: "Netlify JSON Format",
+          typescript: "TypeScript Types (env.d.ts)"
         },
         toasts: {
           copied: "Copied to clipboard",
@@ -7322,7 +7325,10 @@ export const dictionaries = {
           json: "JSON 형식",
           yaml: "YAML 형식",
           docker: "Docker --env-file",
-          k8s: "쿠버네티스 ConfigMap"
+          k8s: "쿠버네티스 ConfigMap",
+          vercel: "Vercel JSON 형식",
+          netlify: "Netlify JSON 형식",
+          typescript: "TypeScript 타입 (env.d.ts)"
         },
         toasts: {
           copied: "클립보드에 복사되었습니다",

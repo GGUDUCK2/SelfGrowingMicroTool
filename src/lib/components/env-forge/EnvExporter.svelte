@@ -57,6 +57,36 @@
       downloadBlob(yaml, 'configmap.yaml', 'application/x-yaml');
   }
 
+  function exportVercel() {
+      const data = getKeyValuePairs(content);
+      // Vercel CLI format: [{"type": "encrypted", "key": "...", "value": "...", "target": ["production"]}]
+      const vercelJSON = Object.entries(data).map(([k, v]) => ({
+          type: "plain",
+          key: k,
+          value: v,
+          target: ["development", "preview", "production"]
+      }));
+      downloadBlob(JSON.stringify(vercelJSON, null, 2), 'vercel.json', 'application/json');
+  }
+
+  function exportNetlify() {
+      const data = getKeyValuePairs(content);
+      // Netlify Toml/JSON format. For simplicity, plain JSON object.
+      downloadBlob(JSON.stringify(data, null, 2), 'netlify-env.json', 'application/json');
+  }
+
+  function exportTypeScript() {
+      const data = getKeyValuePairs(content);
+      let ts = `// Auto-generated types for your .env file\n\n`;
+      ts += `declare namespace NodeJS {\n`;
+      ts += `  export interface ProcessEnv {\n`;
+      for (const key of Object.keys(data)) {
+          ts += `    ${key}: string;\n`;
+      }
+      ts += `  }\n`;
+      ts += `}\n`;
+      downloadBlob(ts, 'env.d.ts', 'application/typescript');
+  }
 
   function copyJSON() {
       const data = getKeyValuePairs(content);
@@ -103,6 +133,21 @@
       <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={exportK8s}>
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon><line x1="12" y1="22" x2="12" y2="15.5"></line><polyline points="22 8.5 12 15.5 2 8.5"></polyline><polyline points="2 15.5 12 8.5 22 15.5"></polyline><line x1="12" y1="2" x2="12" y2="8.5"></line></svg>
           {t.export.k8s}
+      </button>
+
+      <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={exportVercel}>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 22 10-20 10 20z"></path></svg>
+          {t.export.vercel || 'Vercel JSON'}
+      </button>
+
+      <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={exportNetlify}>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2-8 4v12l8 4 8-4V6l-8-4z"></path><path d="m12 22v-8"></path><path d="m4 18 8-4 8 4"></path><path d="m12 14-8-4"></path><path d="m12 14 8-4"></path></svg>
+          {t.export.netlify || 'Netlify JSON'}
+      </button>
+
+      <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={exportTypeScript}>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><path d="m8 10 3-3 3 3"></path><path d="M11 7v10"></path></svg>
+          {t.export.typescript || 'TypeScript'}
       </button>
 
       <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={copyJSON}>
