@@ -1,8 +1,3 @@
-<script lang="ts">
-  import { page } from "$app/stores";
-  $: lang = $page.params.lang || "en";
-</script>
-
 <svelte:head>
   <title>About Us | MicroFactory</title>
 </svelte:head>
