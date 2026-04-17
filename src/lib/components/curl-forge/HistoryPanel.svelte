@@ -1,20 +1,24 @@
 <script lang="ts">
-  import { History, Trash2, ArrowRight } from 'lucide-svelte';
-  import type { CurlHistoryItem } from '$lib/utils/curl-forge/db';
-  import { db } from '$lib/utils/curl-forge/db';
+  import { History, Trash2, ArrowRight, Star } from 'lucide-svelte';
+  import { workspace, type ToolHistoryItem, clearHistory, deleteHistoryItem, toggleStar } from '$lib/db/workspace';
   import { liveQuery } from 'dexie';
 
-  export let dict: any = {};
-  export let onLoad: (item: CurlHistoryItem) => void;
+  export let dict: Record<string, unknown> = {};
+  export let onLoad: (item: ToolHistoryItem) => void;
 
-  let history$ = liveQuery(() => db.history.orderBy('createdAt').reverse().toArray());
+  const TOOL_ID = 'curl-forge';
+  let history$ = liveQuery(() => workspace.history.where('toolId').equals(TOOL_ID).reverse().sortBy('timestamp'));
 
   async function handleClearHistory() {
-    await db.history.clear();
+    await clearHistory(TOOL_ID);
   }
 
   async function handleDelete(id: number) {
-    await db.history.delete(id);
+    await deleteHistoryItem(id);
+  }
+
+  async function handleToggleStar(id: number) {
+    await toggleStar(id);
   }
 
   function getMethodColor(method: string) {
@@ -57,8 +61,11 @@
             on:click={() => onLoad(item)}
             class="flex-1 text-left flex items-center min-h-[44px] overflow-hidden"
           >
-            <span class="font-bold text-sm mr-3 {getMethodColor(item.method)} w-12 shrink-0">{item.method}</span>
-            <span class="text-sm text-slate-700 dark:text-slate-300 truncate w-full max-w-[200px] sm:max-w-[400px]">{item.url || 'No URL'}</span>
+            {#if item.input}
+               {@const req = item.input as Record<string, string>}
+               <span class="font-bold text-sm mr-3 {getMethodColor(req.method)} w-12 shrink-0">{req.method}</span>
+               <span class="text-sm text-slate-700 dark:text-slate-300 truncate w-full max-w-[200px] sm:max-w-[400px]">{req.url || 'No URL'}</span>
+            {/if}
           </button>
 
           <div class="flex items-center shrink-0 ml-2">
@@ -68,6 +75,13 @@
               aria-label="Load Request"
             >
               <ArrowRight class="w-4 h-4" />
+            </button>
+            <button
+              on:click={() => item.id && handleToggleStar(item.id)}
+              class="p-2 text-slate-400 hover:text-yellow-500 {item.starred ? 'text-yellow-500 opacity-100' : 'opacity-0 group-hover:opacity-100'} transition-all min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg"
+              aria-label="Star Request"
+            >
+              <Star class="w-4 h-4 {item.starred ? 'fill-current' : ''}" />
             </button>
             <button
               on:click={() => item.id && handleDelete(item.id)}
