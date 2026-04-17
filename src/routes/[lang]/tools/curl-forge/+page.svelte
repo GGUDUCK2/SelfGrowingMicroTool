@@ -1,0 +1,139 @@
+<script lang="ts">
+  import Head from '$lib/components/Head.svelte';
+  import { page } from '$app/stores';
+  import { getDictionary } from '$lib/dictionaries';
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
+  import CurlBuilder from '$lib/components/curl-forge/CurlBuilder.svelte';
+  import HistoryPanel from '$lib/components/curl-forge/HistoryPanel.svelte';
+  import { db, type CurlHistoryItem } from '$lib/utils/curl-forge/db';
+
+  export let data: any;
+
+  $: lang = $page.params.lang || 'en';
+  $: dict = getDictionary(lang).tools?.curlForge || getDictionary('en').tools.curlForge;
+
+  $: title = dict?.title || "Curl Forge";
+  $: description = dict?.description || "cURL command builder and exporter.";
+
+  let requestData = {
+    method: 'GET',
+    url: '',
+    headers: {} as Record<string, string>,
+    body: ''
+  };
+
+  async function handleSave(newData: any) {
+    requestData = { ...newData };
+    if (newData.url) {
+      const items = await db.history.where('url').equals(newData.url).toArray();
+      const existing = items.find(i => i.method === newData.method && JSON.stringify(i.headers) === JSON.stringify(newData.headers) && i.body === newData.body);
+
+      if (!existing) {
+        await db.history.add({
+          method: newData.method,
+          url: newData.url,
+          headers: newData.headers,
+          body: newData.body,
+          createdAt: new Date().toISOString()
+        });
+      } else {
+        await db.history.update(existing.id!, { createdAt: new Date().toISOString() });
+      }
+    }
+  }
+
+  function handleLoadHistory(item: CurlHistoryItem) {
+    requestData = {
+      method: item.method,
+      url: item.url,
+      headers: { ...item.headers },
+      body: item.body
+    };
+  }
+
+  $: schemaObj = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": title,
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "description": description,
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Visual Request Builder",
+          "cURL Command Parser",
+          "Code Export (Fetch, Python, Axios)",
+          "Local IndexedDB Workspace"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": (dict?.faq || []).map((item: any) => ({
+          "@type": "Question",
+          "name": item.q,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": item.a
+          }
+        }))
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": `https://webfactory.app/${lang}`
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": title,
+            "item": `https://webfactory.app/${lang}/tools/curl-forge`
+          }
+        ]
+      }
+    ]
+  };
+</script>
+
+<Head
+  {title}
+  {description}
+  schema={JSON.stringify(schemaObj)}
+/>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="mb-8">
+    <a href="/{lang}" class="inline-flex items-center text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white mb-6 transition-colors min-h-[44px] min-w-[44px]">
+      <span class="mr-2">&larr;</span> {getDictionary(lang).common?.back || 'Back to Home'}
+    </a>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+      {title}
+    </h1>
+    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl">
+      {description}
+    </p>
+  </div>
+
+  <div class="space-y-8">
+    <CurlBuilder {dict} bind:data={requestData} onSave={handleSave} />
+    <HistoryPanel {dict} onLoad={handleLoadHistory} />
+  </div>
+
+  <div class="mt-16 space-y-12 border-t border-slate-200 dark:border-slate-800 pt-16">
+    <GuideSection dict={dict?.guide || {}} />
+    <FAQSection title={dict?.faqTitle || 'FAQ'} items={dict?.faq || []} />
+    <RelatedTools {lang} currentSlug="curl-forge" currentCategory="dev" />
+  </div>
+</div>

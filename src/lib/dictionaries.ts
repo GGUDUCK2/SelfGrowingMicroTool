@@ -10,6 +10,53 @@ export const dictionaries = {
       actions: "Actions",
     },
     tools: {
+      curlForge: {
+        title: "Curl Forge: The Definitive API Request Builder",
+        description: "Visually construct, parse, and export cURL commands to fetch, Python, and more.",
+        builder: {
+          title: "Request Builder",
+          method: "Method",
+          url: "URL",
+          headers: "Headers",
+          body: "Body",
+          addHeader: "Add Header",
+          headerKey: "Key",
+          headerValue: "Value",
+          copy: "Copy cURL",
+          clear: "Clear All",
+          import: "Import cURL"
+        },
+        export: {
+          title: "Code Export",
+          curl: "cURL",
+          fetch: "Fetch (JS)",
+          python: "Python (Requests)",
+          node: "Node.js (Axios)"
+        },
+        history: {
+          title: "Recent Activities",
+          empty: "No requests found.",
+          clear: "Clear History"
+        },
+        guide: {
+          title: "The Ultimate Guide to Curl Forge",
+          intro: "Curl Forge is a professional-grade tool designed for developers to visually build, manage, and export HTTP requests. It simplifies working with APIs by turning complex cURL commands into an intuitive UI.",
+          featuresTitle: "Key Features",
+          f1: "Visual Builder: Construct complex requests with headers and body payloads easily.",
+          f2: "Smart Import/Export: Paste raw cURL commands and instantly convert them to JS, Python, or Axios code.",
+          f3: "Local Workspace: Your request history is safely stored in your browser using Dexie.js.",
+          tipsTitle: "Advanced Pro Tips",
+          tip1: "Use the 'Import cURL' button to quickly paste a command copied from your browser's DevTools.",
+          tip2: "Toggle between different code exports with a single click to integrate the request into your codebase.",
+          tip3: "Regularly save your important requests. The history log keeps track of your recent activities."
+        },
+        faqTitle: "Frequently Asked Questions",
+        faq: [
+          { q: "Is my request data secure?", a: "Yes, all data is processed locally in your browser. Nothing is sent to external servers." },
+          { q: "Can I parse an existing cURL command?", a: "Absolutely. Paste your cURL command into the Import modal, and the builder will auto-populate the fields." },
+          { q: "What export formats are supported?", a: "Currently, we support raw cURL, JavaScript fetch API, Python (Requests), and Node.js (Axios)." }
+        ]
+      },
       xpathForge: {
         title: "XPath Forge: XML/HTML Navigator",
         description: "The definitive tool to validate, test, and generate XPath expressions against XML and HTML in your browser.",
@@ -4354,6 +4401,53 @@ export const dictionaries = {
       actions: "작업",
     },
     tools: {
+      curlForge: {
+        title: "Curl 포지: 완벽한 API 요청 빌더",
+        description: "시각적으로 cURL 명령을 구성하고 구문 분석하여 fetch, Python 등으로 내보냅니다.",
+        builder: {
+          title: "요청 빌더",
+          method: "메서드",
+          url: "URL",
+          headers: "헤더",
+          body: "본문",
+          addHeader: "헤더 추가",
+          headerKey: "키",
+          headerValue: "값",
+          copy: "cURL 복사",
+          clear: "모두 지우기",
+          import: "cURL 가져오기"
+        },
+        export: {
+          title: "코드 내보내기",
+          curl: "cURL",
+          fetch: "Fetch (JS)",
+          python: "Python (Requests)",
+          node: "Node.js (Axios)"
+        },
+        history: {
+          title: "최근 활동",
+          empty: "요청 내역이 없습니다.",
+          clear: "기록 지우기"
+        },
+        guide: {
+          title: "Curl 포지 사용 가이드",
+          intro: "Curl 포지는 개발자가 HTTP 요청을 시각적으로 구축, 관리 및 내보낼 수 있도록 설계된 전문가용 도구입니다. 복잡한 cURL 명령을 직관적인 UI로 변환하여 API 작업을 간소화합니다.",
+          featuresTitle: "주요 기능",
+          f1: "시각적 빌더: 헤더와 본문 페이로드를 포함한 복잡한 요청을 쉽게 구성하세요.",
+          f2: "스마트 가져오기/내보내기: 원시 cURL 명령을 붙여넣고 즉시 JS, Python 또는 Axios 코드로 변환하세요.",
+          f3: "로컬 작업 공간: Dexie.js를 사용하여 요청 내역이 브라우저에 안전하게 저장됩니다.",
+          tipsTitle: "고급 프로 팁",
+          tip1: "브라우저 개발자 도구에서 복사한 명령을 'cURL 가져오기' 버튼을 사용하여 빠르게 붙여넣으세요.",
+          tip2: "원클릭으로 다양한 코드 내보내기 형식을 전환하여 코드베이스에 요청을 통합하세요.",
+          tip3: "중요한 요청을 정기적으로 저장하세요. 기록 로그가 최근 활동을 추적합니다."
+        },
+        faqTitle: "자주 묻는 질문",
+        faq: [
+          { q: "제 요청 데이터는 안전한가요?", a: "네, 모든 데이터는 브라우저에서 로컬로 처리됩니다. 외부 서버로 전송되지 않습니다." },
+          { q: "기존 cURL 명령을 구문 분석할 수 있나요?", a: "물론입니다. 가져오기 모달에 cURL 명령을 붙여넣으면 빌더가 필드를 자동 완성합니다." },
+          { q: "지원되는 내보내기 형식은 무엇인가요?", a: "현재 원시 cURL, JavaScript fetch API, Python(Requests) 및 Node.js(Axios)를 지원합니다." }
+        ]
+      },
       xpathForge: {
         title: "XPath 포지: XML/HTML 내비게이터",
         description: "브라우저에서 XML 및 HTML에 대해 XPath 표현식을 검증, 테스트 및 생성하는 궁극의 도구입니다.",
