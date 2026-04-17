@@ -52,7 +52,7 @@
     <div class="flex items-center gap-1 ml-auto sm:ml-0">
       <button
         on:click={toggleOptions}
-        class="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
+        class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
         title="Options"
       >
         {#if showOptions}
@@ -63,7 +63,7 @@
       </button>
       <button
         on:click={onDelete}
-        class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
+        class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
         title="Delete"
       >
         <Trash2 size={16} />

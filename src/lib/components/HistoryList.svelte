@@ -53,7 +53,7 @@
         </button>
         <button
           on:click={() => item.id && deleteHistory(item.id)}
-          class="p-2 text-gray-400 hover:text-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 rounded-full"
+          class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-gray-400 hover:text-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 rounded-full"
           aria-label={deleteLabel}
         >
           <svg
