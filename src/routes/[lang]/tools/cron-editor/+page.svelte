@@ -296,7 +296,7 @@
         <div class="flex flex-wrap gap-2">
           {#each lang === "ko" ? COMMON_PRESETS_KO : COMMON_PRESETS as preset}
             <button
-              class="px-3 py-1.5 bg-indigo-50 dark:bg-indigo-500/10 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 rounded-full text-sm transition-colors border border-indigo-200 dark:border-indigo-500/20 min-h-[44px]"
+              class="px-3 py-1.5 bg-indigo-50 dark:bg-indigo-500/10 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 rounded-full text-sm transition-colors border border-indigo-200 dark:border-indigo-500/20 min-h-[44px] min-w-[44px]"
               on:click={() => handlePreset(preset.value)}
             >
               {preset.name}

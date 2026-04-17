@@ -40,13 +40,13 @@
     <div class="h-14 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 bg-white dark:bg-slate-900 shrink-0">
         <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
             <button
-                class="px-3 py-1 text-xs font-medium rounded-md transition-all min-h-[44px] {activeTab === 'privacy' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}"
+                class="px-3 py-1 text-xs font-medium rounded-md transition-all min-h-[44px] min-w-[44px] {activeTab === 'privacy' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}"
                 on:click={() => activeTab = 'privacy'}
             >
                 {dict.tabs.privacy}
             </button>
             <button
-                class="px-3 py-1 text-xs font-medium rounded-md transition-all min-h-[44px] {activeTab === 'terms' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}"
+                class="px-3 py-1 text-xs font-medium rounded-md transition-all min-h-[44px] min-w-[44px] {activeTab === 'terms' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}"
                 on:click={() => activeTab = 'terms'}
             >
                 {dict.tabs.terms}

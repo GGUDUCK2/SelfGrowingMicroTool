@@ -443,7 +443,7 @@
         </h2>
         <button
             on:click={saveToHistory}
-            class="text-sm text-indigo-600 hover:text-indigo-800 font-medium min-h-[44px]"
+            class="text-sm text-indigo-600 hover:text-indigo-800 font-medium min-h-[44px] min-w-[44px]"
             title={lang === "ko" ? "현재 설정을 기록에 저장" : "Save current configuration to history"}
         >
             {lang === "ko" ? "저장" : "Save"}

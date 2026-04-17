@@ -53,14 +53,14 @@ module.exports = {
 <div class="h-64 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col shrink-0 relative z-10">
     <div class="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
         <div class="flex space-x-2">
-            <button class="px-4 py-2 text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm flex items-center gap-2 min-h-[44px] transition-colors" on:click={copyCss}>
+            <button class="px-4 py-2 text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm flex items-center gap-2 min-h-[44px] min-w-[44px] transition-colors" on:click={copyCss}>
                 {#if copiedCss}
                     <Check size={16} /> {dict.export.copied}
                 {:else}
                     <Copy size={16} /> {dict.export.copyCss}
                 {/if}
             </button>
-            <button class="px-4 py-2 text-sm font-medium bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg shadow-sm flex items-center gap-2 min-h-[44px] transition-colors" on:click={copyTailwind}>
+            <button class="px-4 py-2 text-sm font-medium bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg shadow-sm flex items-center gap-2 min-h-[44px] min-w-[44px] transition-colors" on:click={copyTailwind}>
                 {#if copiedTailwind}
                     <Check size={16} /> {dict.export.copied}
                 {:else}
@@ -68,7 +68,7 @@ module.exports = {
                 {/if}
             </button>
         </div>
-        <button class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-2 min-h-[44px]" on:click={handleSave}>
+        <button class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-2 min-h-[44px] min-w-[44px]" on:click={handleSave}>
             <Save size={16} /> {dict.export.save}
         </button>
     </div>

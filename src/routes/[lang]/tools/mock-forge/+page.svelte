@@ -263,7 +263,7 @@
 
       <div class="flex items-center gap-2">
         <button
-          class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors min-h-[44px]"
+          class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
           on:click={generatePreview}
           aria-label={t.generate}
         >
@@ -271,7 +271,7 @@
           <span class="hidden sm:inline">{t.generate}</span>
         </button>
         <button
-          class="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-lg transition-colors min-h-[44px]"
+          class="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
           on:click={saveSchema}
           aria-label={t.actions.save}
         >

@@ -59,7 +59,7 @@
                 <Clock size={18} class="text-indigo-600" />
                 {dict.history.title}
             </h3>
-            <button class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white rounded-lg transition-colors min-h-[44px]" on:click={() => dispatch('close')}>
+            <button class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white rounded-lg transition-colors min-h-[44px] min-w-[44px]" on:click={() => dispatch('close')}>
                 <X size={20} />
             </button>
         </div>

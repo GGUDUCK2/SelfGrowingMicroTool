@@ -160,7 +160,7 @@
         </div>
 
         <div class="relative group">
-            <button class="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm font-medium min-h-[44px]">
+            <button class="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm font-medium min-h-[44px] min-w-[44px]">
                 <Download size={18} />
                 <span class="hidden sm:inline">{t.export}</span>
             </button>

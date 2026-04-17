@@ -282,19 +282,19 @@
                 <span>~${totalCost.toFixed(5)}</span>
              </div>
 
-             <button on:click={handleClear} class="p-2 text-slate-500 hover:text-red-500 transition-colors min-h-[44px]" title={dict.toolbar.clear} aria-label={dict.toolbar.clear}>
+             <button on:click={handleClear} class="p-2 text-slate-500 hover:text-red-500 transition-colors min-h-[44px] min-w-[44px]" title={dict.toolbar.clear} aria-label={dict.toolbar.clear}>
                  <Trash2 class="w-5 h-5" />
              </button>
              <button on:click={() => showTemplateModal = true} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors" title="Templates" aria-label="Templates">
                  <BookTemplate class="w-5 h-5" />
              </button>
-             <button on:click={handleExport} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors min-h-[44px]" title={dict.toolbar.export} aria-label={dict.toolbar.export}>
+             <button on:click={handleExport} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors min-h-[44px] min-w-[44px]" title={dict.toolbar.export} aria-label={dict.toolbar.export}>
                  <Download class="w-5 h-5" />
              </button>
              <button on:click={() => showCodeExport = true} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors" title="Export Code (Ctrl+E)" aria-label="Export Code">
                  <Code class="w-5 h-5" />
              </button>
-             <button on:click={handleSave} class="flex items-center gap-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg font-medium text-sm transition-colors shadow-sm min-h-[44px]" aria-label={dict.toolbar.save} title="Save (Ctrl+S)">
+             <button on:click={handleSave} class="flex items-center gap-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg font-medium text-sm transition-colors shadow-sm min-h-[44px] min-w-[44px]" aria-label={dict.toolbar.save} title="Save (Ctrl+S)">
                  <Save class="w-4 h-4" />
                  <span class="hidden sm:inline">{dict.toolbar.save}</span>
              </button>

@@ -164,7 +164,7 @@
 
         <div class="flex items-center gap-2">
             <input type="checkbox" aria-label={dictionary.commit.breaking} id="breaking" bind:checked={data.isBreaking} class="w-4 h-4 text-red-600 rounded border-gray-300 focus:ring-red-500" />
-            <label for="breaking" class="min-h-[44px] cursor-pointer text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1">
+            <label for="breaking" class="min-h-[44px] min-w-[44px] cursor-pointer text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1">
                 <AlertTriangle size={14} class={data.isBreaking ? 'text-red-500' : 'text-slate-400'} />
                 {dictionary.commit.breaking}
             </label>

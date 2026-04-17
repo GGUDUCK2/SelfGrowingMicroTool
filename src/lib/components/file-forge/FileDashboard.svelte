@@ -265,7 +265,7 @@
     <div class="absolute right-0 top-0 h-full flex items-center pr-4 bg-gradient-to-l from-white via-white to-transparent dark:from-slate-900 dark:via-slate-900 pl-8 pointer-events-none">
         <button
             on:click={handleShare}
-            class="pointer-events-auto p-3 min-h-[44px] mr-2 text-slate-400 hover:text-indigo-500 transition-colors focus:ring-2 focus:ring-indigo-500 rounded-lg outline-none"
+            class="pointer-events-auto p-3 min-h-[44px] min-w-[44px] mr-2 text-slate-400 hover:text-indigo-500 transition-colors focus:ring-2 focus:ring-indigo-500 rounded-lg outline-none"
             title={dict?.share || 'Share'}
             aria-label={dict?.share || 'Share'}
         >
@@ -274,7 +274,7 @@
         {#if currentHistoryId}
             <button
                 on:click={toggleStar}
-                class="pointer-events-auto p-3 min-h-[44px] mr-2 text-slate-400 hover:text-yellow-400 transition-colors focus:ring-2 focus:ring-yellow-400 rounded-lg outline-none {starred ? 'text-yellow-400' : ''}"
+                class="pointer-events-auto p-3 min-h-[44px] min-w-[44px] mr-2 text-slate-400 hover:text-yellow-400 transition-colors focus:ring-2 focus:ring-yellow-400 rounded-lg outline-none {starred ? 'text-yellow-400' : ''}"
                 title={dict?.star || 'Star this analysis'}
                 aria-label={dict?.star || 'Star this analysis'}
             >
@@ -283,7 +283,7 @@
         {/if}
         <button
             on:click={downloadReport}
-            class="pointer-events-auto flex items-center gap-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-4 min-h-[44px] py-2 rounded-lg transition-colors whitespace-nowrap shadow-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+            class="pointer-events-auto flex items-center gap-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-4 min-h-[44px] min-w-[44px] py-2 rounded-lg transition-colors whitespace-nowrap shadow-sm focus:ring-2 focus:ring-indigo-500 outline-none"
             title={dict?.downloadReport || 'Download Report'}
             aria-label={dict?.downloadReport || 'Download Report'}
         >

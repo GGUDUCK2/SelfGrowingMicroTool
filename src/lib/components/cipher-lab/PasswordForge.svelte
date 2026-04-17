@@ -111,7 +111,7 @@
      <button
         on:click={copyToClipboard}
         aria-label={dict.copy}
-        class="flex items-center space-x-2 px-4 py-2 min-h-[44px] bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+        class="flex items-center space-x-2 px-4 py-2 min-h-[44px] min-w-[44px] bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
      >
        <Copy size={16} />
        <span>{dict.copy}</span>
@@ -119,7 +119,7 @@
      <button
         on:click={saveToHistory}
         aria-label={dict.save}
-        class="flex items-center space-x-2 px-4 py-2 min-h-[44px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+        class="flex items-center space-x-2 px-4 py-2 min-h-[44px] min-w-[44px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
      >
        <Save size={16} />
        <span>{dict.save}</span>

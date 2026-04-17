@@ -33,7 +33,7 @@
   <div class="flex border-b border-slate-200 dark:border-slate-800 overflow-x-auto">
     {#each steps as step, i}
       <button
-        class="flex-1 min-w-[80px] p-3 text-sm font-medium text-center border-b-2 transition-colors min-h-[44px] {currentStep === i ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+        class="flex-1 min-w-[80px] p-3 text-sm font-medium text-center border-b-2 transition-colors min-h-[44px] min-w-[44px] {currentStep === i ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
         on:click={() => currentStep = i}
       >
         {dict.wizard[step.label]}
@@ -80,7 +80,7 @@
             {#each step1Keys as key}
                 <div class="flex items-center justify-between min-h-[44px]">
                     <span class="text-slate-700 dark:text-slate-300 text-sm font-medium">{dict.toggles[key]}</span>
-                    <label class="relative inline-flex items-center cursor-pointer min-h-[44px] flex items-center">
+                    <label class="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px] flex items-center">
                         <input type="checkbox" bind:checked={$policyStore[key]} class="sr-only peer">
                         <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
                     </label>
@@ -102,7 +102,7 @@
              {#each step2Keys as key}
                 <div class="flex items-center justify-between min-h-[44px]">
                     <span class="text-slate-700 dark:text-slate-300 text-sm font-medium">{dict.toggles[key]}</span>
-                    <label class="relative inline-flex items-center cursor-pointer min-h-[44px] flex items-center">
+                    <label class="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px] flex items-center">
                         <input type="checkbox" bind:checked={$policyStore[key]} class="sr-only peer">
                         <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
                     </label>
@@ -136,7 +136,7 @@
 
             <div class="flex items-center justify-between min-h-[44px]">
                 <span class="text-slate-700 dark:text-slate-300 text-sm font-medium">{dict.toggles.termination}</span>
-                <label class="relative inline-flex items-center cursor-pointer min-h-[44px] flex items-center">
+                <label class="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px] flex items-center">
                     <input type="checkbox" bind:checked={$policyStore.termination} class="sr-only peer">
                     <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
                 </label>

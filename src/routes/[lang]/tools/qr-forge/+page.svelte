@@ -208,7 +208,7 @@
                 <div class="flex space-x-2 w-full sm:w-auto">
                     <button
                         on:click={saveToHistory}
-                        class="flex-1 sm:flex-none flex items-center justify-center space-x-1 px-4 py-2 bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600/30 rounded-lg text-sm transition-colors border border-indigo-500/30 min-h-[44px]"
+                        class="flex-1 sm:flex-none flex items-center justify-center space-x-1 px-4 py-2 bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600/30 rounded-lg text-sm transition-colors border border-indigo-500/30 min-h-[44px] min-w-[44px]"
                         title="Save to History (Ctrl+S)"
                     >
                         <Save size={16} />

@@ -25,11 +25,11 @@
   </div>
 
   <div class="space-y-3 pt-4 border-t border-slate-200 dark:border-slate-700">
-    <label class="flex items-center space-x-3 cursor-pointer min-h-[44px]">
+    <label class="flex items-center space-x-3 cursor-pointer min-h-[44px] min-w-[44px]">
       <input type="checkbox" bind:checked={config.includeNumber} on:change={() => onGenerate()} class="w-5 h-5 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500" />
       <span class="text-sm text-slate-700 dark:text-slate-300">{dictionary.includeNumber}</span>
     </label>
-    <label class="flex items-center space-x-3 cursor-pointer min-h-[44px]">
+    <label class="flex items-center space-x-3 cursor-pointer min-h-[44px] min-w-[44px]">
       <input type="checkbox" bind:checked={config.includeSymbol} on:change={() => onGenerate()} class="w-5 h-5 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500" />
       <span class="text-sm text-slate-700 dark:text-slate-300">{dictionary.symbols}</span>
     </label>

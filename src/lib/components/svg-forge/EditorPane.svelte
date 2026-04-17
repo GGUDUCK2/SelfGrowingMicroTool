@@ -51,7 +51,7 @@
       <Button variant="secondary" size="sm" onclick={loadExample} class="min-h-[44px]">
         {t.editor.loadExample}
       </Button>
-      <label class="cursor-pointer min-h-[44px] inline-flex items-center justify-center rounded-lg px-3 text-sm font-medium transition-colors bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700">
+      <label class="cursor-pointer min-h-[44px] min-w-[44px] inline-flex items-center justify-center rounded-lg px-3 text-sm font-medium transition-colors bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700">
         <input type="file" accept=".svg" class="hidden" onchange={handleFileUpload} />
         {t.editor.upload}
       </label>

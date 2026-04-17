@@ -209,7 +209,7 @@
 
       <div class="flex flex-wrap gap-4">
         <button
-          class="flex-1 py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium shadow-lg shadow-indigo-200 dark:shadow-none transition-all flex items-center justify-center gap-2 min-h-[44px]"
+          class="flex-1 py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium shadow-lg shadow-indigo-200 dark:shadow-none transition-all flex items-center justify-center gap-2 min-h-[44px] min-w-[44px]"
           on:click={saveToHistory}
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -218,7 +218,7 @@
           {t.save}
         </button>
         <button
-          class="flex-1 py-2 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750 rounded-lg font-medium transition-all flex items-center justify-center gap-2 min-h-[44px]"
+          class="flex-1 py-2 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750 rounded-lg font-medium transition-all flex items-center justify-center gap-2 min-h-[44px] min-w-[44px]"
           on:click={copyLink}
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -227,7 +227,7 @@
           {copied ? t.copied : t.share}
         </button>
         <button
-          class="flex-1 py-2 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750 rounded-lg font-medium transition-all flex items-center justify-center gap-2 min-h-[44px]"
+          class="flex-1 py-2 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750 rounded-lg font-medium transition-all flex items-center justify-center gap-2 min-h-[44px] min-w-[44px]"
           on:click={copyPattern}
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -265,7 +265,7 @@
                   </div>
                 </button>
                 <button
-                  class="text-slate-400 hover:text-red-500 transition-colors p-1 min-h-[44px]"
+                  class="text-slate-400 hover:text-red-500 transition-colors p-1 min-h-[44px] min-w-[44px]"
                   on:click={() => deleteHistory(item.id)}
                   title={t.delete}
                 >

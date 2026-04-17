@@ -216,7 +216,7 @@
             <div class="flex items-center justify-between">
                 <h3 class="text-lg font-medium text-slate-200">Preview</h3>
                 <button
-                    class="text-sm text-slate-400 hover:text-indigo-400 transition-colors min-h-[44px]"
+                    class="text-sm text-slate-400 hover:text-indigo-400 transition-colors min-h-[44px] min-w-[44px]"
                     on:click={() => file = null}
                 >
                     {t.upload.reupload}
@@ -269,7 +269,7 @@
                             {t.config.title}
                         </h3>
                         <button
-                            class="p-2 rounded-lg transition-colors {justSaved ? 'bg-green-500/20 text-green-400' : 'bg-slate-700 hover:bg-indigo-500/20 text-slate-400 hover:text-indigo-400'} min-h-[44px]"
+                            class="p-2 rounded-lg transition-colors {justSaved ? 'bg-green-500/20 text-green-400' : 'bg-slate-700 hover:bg-indigo-500/20 text-slate-400 hover:text-indigo-400'} min-h-[44px] min-w-[44px]"
                             title={t.history.save}
                             on:click={saveProject}
                             disabled={isSaving}

@@ -136,7 +136,7 @@
              </div>
              <button
                on:click={verify}
-               class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm mb-[1px] min-h-[44px]"
+               class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm mb-[1px] min-h-[44px] min-w-[44px]"
              >
                {dict.verify}
              </button>

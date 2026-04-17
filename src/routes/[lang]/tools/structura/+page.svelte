@@ -269,7 +269,7 @@
       <!-- Tabs -->
       <div class="flex border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
           <button
-            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] {activeTab === 'convert' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'convert' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => activeTab = 'convert'}
           >
               <Zap size={18} />
@@ -279,7 +279,7 @@
               {/if}
           </button>
           <button
-            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] {activeTab === 'codegen' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'codegen' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => { activeTab = 'codegen'; runCodeGen(); }}
           >
               <Code size={18} />
@@ -289,7 +289,7 @@
               {/if}
           </button>
           <button
-            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] {activeTab === 'visualizer' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'visualizer' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => { activeTab = 'visualizer'; runVisualizer(); }}
           >
               <Network size={18} />
@@ -299,7 +299,7 @@
               {/if}
           </button>
           <button
-            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => activeTab = 'history'}
           >
               <History size={18} />
@@ -319,7 +319,7 @@
                     <div class="flex items-center gap-4 w-full md:w-auto">
                         <!-- Examples Dropdown -->
                         <div class="relative group">
-                            <button class="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors min-h-[44px]">
+                            <button class="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors min-h-[44px] min-w-[44px]">
                                 <span class="text-indigo-600 dark:text-indigo-400">★</span>
                                 {t.examples.label}
                             </button>
@@ -365,7 +365,7 @@
 
                     <div class="flex items-center gap-2">
                         <button
-                            class="flex items-center gap-2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px]"
+                            class="flex items-center gap-2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px] min-w-[44px]"
                             on:click={runConversion}
                         >
                             <span>{t.convert}</span>
@@ -474,7 +474,7 @@
                     </div>
                     <div class="self-end">
                         <button
-                            class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors min-h-[44px]"
+                            class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors min-h-[44px] min-w-[44px]"
                             on:click={runCodeGen}
                         >
                             {t.codegen.generate}

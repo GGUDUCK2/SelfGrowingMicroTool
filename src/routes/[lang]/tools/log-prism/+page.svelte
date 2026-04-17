@@ -475,7 +475,7 @@
                         <LogTimeline entries={filteredEntries} {timeRange} onSelectTime={handleTimeSelect} />
                         {#if timeRange}
                             <button
-                                class="absolute top-1 right-1 px-3 py-1.5 bg-slate-800 text-white text-xs rounded opacity-80 hover:opacity-100 shadow-md z-30 min-h-[44px]"
+                                class="absolute top-1 right-1 px-3 py-1.5 bg-slate-800 text-white text-xs rounded opacity-80 hover:opacity-100 shadow-md z-30 min-h-[44px] min-w-[44px]"
                                 on:click={clearTimeFilter}
                                 aria-label="Clear Time Zoom"
                             >

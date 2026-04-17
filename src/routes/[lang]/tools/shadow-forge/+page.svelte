@@ -96,7 +96,7 @@
        </div>
        <div class="flex items-center gap-2">
             <button
-                class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors min-h-[44px]"
+                class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
                 on:click={() => showHistory = true}
             >
                 <History size={18} />
