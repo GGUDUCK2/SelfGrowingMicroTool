@@ -30,7 +30,7 @@
 <div class="flex flex-col h-full bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
   <div class="flex border-b border-slate-200 dark:border-slate-700 overflow-x-auto">
     <button
-      class="px-4 py-2 text-sm font-medium border-b-2 transition-colors min-h-[44px] shrink-0 {activeTab === 'params' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+      class="px-4 py-2 text-sm font-medium border-b-2 transition-colors min-h-[44px] min-w-[44px] shrink-0 {activeTab === 'params' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
       on:click={() => activeTab = 'params'}
     >
       {dict.params}
@@ -39,7 +39,7 @@
       {/if}
     </button>
     <button
-      class="px-4 py-2 text-sm font-medium border-b-2 transition-colors min-h-[44px] shrink-0 {activeTab === 'headers' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+      class="px-4 py-2 text-sm font-medium border-b-2 transition-colors min-h-[44px] min-w-[44px] shrink-0 {activeTab === 'headers' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
       on:click={() => activeTab = 'headers'}
     >
       {dict.headers}
@@ -48,7 +48,7 @@
       {/if}
     </button>
     <button
-      class="px-4 py-2 text-sm font-medium border-b-2 transition-colors min-h-[44px] shrink-0 {activeTab === 'body' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+      class="px-4 py-2 text-sm font-medium border-b-2 transition-colors min-h-[44px] min-w-[44px] shrink-0 {activeTab === 'body' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
       on:click={() => activeTab = 'body'}
     >
       {dict.body}
@@ -90,7 +90,7 @@
         {/each}
         <button
           on:click={addParam}
-          class="flex items-center gap-1 text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline mt-2 min-h-[44px] px-2"
+          class="flex items-center gap-1 text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline mt-2 min-h-[44px] min-w-[44px] px-2"
         >
           <Plus class="w-3 h-3" /> Add Parameter
         </button>
@@ -127,7 +127,7 @@
         {/each}
         <button
           on:click={addHeader}
-          class="flex items-center gap-1 text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline mt-2 min-h-[44px] px-2"
+          class="flex items-center gap-1 text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline mt-2 min-h-[44px] min-w-[44px] px-2"
         >
           <Plus class="w-3 h-3" /> Add Header
         </button>
@@ -136,15 +136,15 @@
     {:else if activeTab === 'body'}
       <div class="flex flex-col h-full">
         <div class="flex gap-4 mb-3 text-sm flex-wrap">
-          <label class="flex items-center gap-2 cursor-pointer min-h-[44px] px-2">
+          <label class="flex items-center gap-2 cursor-pointer min-h-[44px] min-w-[44px] px-2 justify-center">
             <input type="radio" bind:group={bodyType} value="none" class="text-indigo-600 focus:ring-indigo-500 w-4 h-4" />
             <span class="text-slate-700 dark:text-slate-300">None</span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer min-h-[44px] px-2">
+          <label class="flex items-center gap-2 cursor-pointer min-h-[44px] min-w-[44px] px-2 justify-center">
             <input type="radio" bind:group={bodyType} value="json" class="text-indigo-600 focus:ring-indigo-500 w-4 h-4" />
             <span class="text-slate-700 dark:text-slate-300">JSON</span>
           </label>
-          <label class="flex items-center gap-2 cursor-pointer min-h-[44px] px-2">
+          <label class="flex items-center gap-2 cursor-pointer min-h-[44px] min-w-[44px] px-2 justify-center">
             <input type="radio" bind:group={bodyType} value="text" class="text-indigo-600 focus:ring-indigo-500 w-4 h-4" />
             <span class="text-slate-700 dark:text-slate-300">Text</span>
           </label>

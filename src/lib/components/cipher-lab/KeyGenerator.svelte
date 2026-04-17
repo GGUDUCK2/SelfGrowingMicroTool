@@ -66,7 +66,7 @@
       <button
         on:click={generate}
         disabled={isGenerating}
-        class="flex items-center space-x-2 px-6 py-2 min-h-[44px] bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none disabled:opacity-50"
+        class="flex items-center space-x-2 px-6 py-2 min-h-[44px] min-w-[44px] bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none disabled:opacity-50"
       >
         {#if isGenerating}
           <RefreshCw size={18} class="animate-spin" />

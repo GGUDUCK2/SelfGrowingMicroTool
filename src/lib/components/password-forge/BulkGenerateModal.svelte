@@ -72,13 +72,13 @@
 
       <div class="flex gap-3">
         <button
-          class="flex-1 px-4 py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-medium rounded-xl transition-colors min-h-[44px]"
+          class="flex-1 px-4 py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-medium rounded-xl transition-colors min-h-[44px] min-w-[44px]"
           on:click={onClose}
         >
           {dictionary.bulkCancel || 'Cancel'}
         </button>
         <button
-          class="flex-1 px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition-colors flex items-center justify-center gap-2 min-h-[44px]"
+          class="flex-1 px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition-colors flex items-center justify-center gap-2 min-h-[44px] min-w-[44px]"
           on:click={handleDownload}
         >
           <Download size={18} />

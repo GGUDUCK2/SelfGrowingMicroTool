@@ -80,13 +80,13 @@
 
   <div class="flex border-b border-slate-200 dark:border-slate-700 shrink-0 overflow-x-auto">
       <button
-      class="px-4 py-2 text-sm font-medium border-b-2 transition-colors min-h-[44px] shrink-0 {activeTab === 'body' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+      class="px-4 py-2 text-sm font-medium border-b-2 transition-colors min-h-[44px] min-w-[44px] shrink-0 {activeTab === 'body' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
         on:click={() => activeTab = 'body'}
       >
         {dict.body}
       </button>
       <button
-      class="px-4 py-2 text-sm font-medium border-b-2 transition-colors min-h-[44px] shrink-0 {activeTab === 'headers' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+      class="px-4 py-2 text-sm font-medium border-b-2 transition-colors min-h-[44px] min-w-[44px] shrink-0 {activeTab === 'headers' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
         on:click={() => activeTab = 'headers'}
       >
         {dict.headers}

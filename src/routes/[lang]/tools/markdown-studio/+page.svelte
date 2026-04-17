@@ -275,7 +275,7 @@
          </select>
 
          <button
-           class="p-2 text-slate-500 hover:text-indigo-600 relative hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors min-h-[44px]"
+           class="p-2 text-slate-500 hover:text-indigo-600 relative hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
            on:click={() => showHistory = !showHistory}
            title={dict.history}
          >
@@ -296,13 +296,13 @@
     <!-- Mobile Tabs -->
     <div class="sm:hidden flex border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 print:hidden">
       <button
-        class="flex-1 py-2 min-h-[44px] text-sm font-medium {activeTab === 'editor' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
+        class="flex-1 py-2 min-h-[44px] min-w-[44px] text-sm font-medium {activeTab === 'editor' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
         on:click={() => activeTab = 'editor'}
       >
         {dict.input}
       </button>
       <button
-        class="flex-1 py-2 min-h-[44px] text-sm font-medium {activeTab === 'preview' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
+        class="flex-1 py-2 min-h-[44px] min-w-[44px] text-sm font-medium {activeTab === 'preview' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
         on:click={() => activeTab = 'preview'}
       >
         {dict.preview}
@@ -419,11 +419,11 @@
   <!-- History Drawer -->
   {#if showHistory}
     <div class="fixed inset-0 z-50 flex justify-end" transition:fade={{ duration: 200 }}>
-      <button class="absolute inset-0 bg-black/20 backdrop-blur-sm min-h-[44px]" on:click={() => showHistory = false} aria-label="Close history"></button>
+      <button class="absolute inset-0 bg-black/20 backdrop-blur-sm min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={() => showHistory = false} aria-label="Close history"></button>
       <div class="relative w-full max-w-sm bg-white dark:bg-slate-900 shadow-2xl h-full overflow-y-auto" transition:slide={{ axis: 'x', duration: 300 }}>
         <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
           <h3 class="font-semibold text-slate-900 dark:text-white">{dict.history}</h3>
-          <button class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 min-h-[44px]" on:click={() => showHistory = false} aria-label="Close history">
+          <button class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 min-h-[44px] min-w-[44px]" on:click={() => showHistory = false} aria-label="Close history">
             <X size={20} />
           </button>
         </div>
@@ -442,7 +442,7 @@
                      {item.content || '(Empty)'}
                    </div>
                    <button
-                     class="absolute top-2 right-2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity min-h-[44px]"
+                     class="absolute top-2 right-2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity min-h-[44px] min-w-[44px]"
                      on:click|stopPropagation={() => deleteHistoryItem(item.id)}
                    >
                      <Trash2 size={14} />

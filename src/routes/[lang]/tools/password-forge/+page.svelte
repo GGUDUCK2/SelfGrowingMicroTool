@@ -488,25 +488,25 @@
             <!-- Tabs -->
             <div class="flex p-1 mb-8 bg-slate-100 dark:bg-slate-900/50 rounded-xl overflow-x-auto">
                 <button
-                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] {mode === 'password' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] min-w-[44px] {mode === 'password' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                     on:click={() => { mode = 'password'; generate(); }}
                 >
                     {t.modePassword}
                 </button>
                 <button
-                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] {mode === 'passphrase' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] min-w-[44px] {mode === 'passphrase' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                     on:click={() => { mode = 'passphrase'; generate(); }}
                 >
                     {t.modePassphrase}
                 </button>
                 <button
-                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] {mode === 'pronounceable' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] min-w-[44px] {mode === 'pronounceable' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                     on:click={() => { mode = 'pronounceable'; generate(); }}
                 >
                     {t.modePronounceable || 'Pronounceable'}
                 </button>
                 <button
-                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] {mode === 'analyzer' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] min-w-[44px] {mode === 'analyzer' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                     on:click={() => { mode = 'analyzer'; }}
                 >
                     {t.modeAnalyzer || 'Analyzer'}

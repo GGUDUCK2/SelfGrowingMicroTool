@@ -42,7 +42,7 @@
     <button
       on:click={onSend}
       disabled={loading}
-      class="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-w-[100px] min-h-[44px]"
+      class="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-w-[100px] min-h-[44px] min-w-[44px]"
     >
       {#if loading}
         <Loader2 class="w-4 h-4 animate-spin" />

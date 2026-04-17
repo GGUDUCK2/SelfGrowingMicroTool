@@ -56,7 +56,7 @@
         <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">{group.title}</h3>
         <div class="space-y-2">
           {#each group.keys as key}
-            <label class="flex items-center justify-between cursor-pointer group min-h-[44px]">
+            <label class="flex items-center justify-between cursor-pointer group min-h-[44px] min-w-[44px]">
               <span class="text-sm text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-200 transition-colors">
                 {t.config.plugins[key] || key}
               </span>

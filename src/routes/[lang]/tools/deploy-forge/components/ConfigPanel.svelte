@@ -71,7 +71,7 @@
     <div class="space-y-3">
          <div class="flex items-center justify-between">
             <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider">Environment Variables</h3>
-            <button on:click={addEnv} class="text-xs flex items-center gap-1 text-indigo-400 hover:text-indigo-300 min-h-[44px] px-2">
+            <button on:click={addEnv} class="text-xs flex items-center gap-1 text-indigo-400 hover:text-indigo-300 min-h-[44px] min-w-[44px] px-2">
                 <Plus size={14} /> Add Variable
             </button>
         </div>
@@ -104,7 +104,7 @@
                             <X size={16} />
                         </button>
                     </div>
-                    <label class="flex items-center gap-2 text-xs text-slate-400 cursor-pointer select-none min-h-[44px]">
+                    <label class="flex items-center gap-2 text-xs text-slate-400 cursor-pointer select-none min-h-[44px] min-w-[44px]">
                         <input type="checkbox" bind:checked={env.isSecret} class="rounded bg-slate-800 border-slate-700 text-indigo-500 focus:ring-indigo-500 min-w-[20px] min-h-[20px]" />
                         Treat as Secret (exclude from Dockerfile, use .env)
                     </label>

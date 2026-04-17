@@ -76,7 +76,7 @@
                         {#each $projects as p}
                             <div class="flex items-center group rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50">
                                 <button
-                                    class="flex-1 text-left px-3 py-2 min-h-[44px] text-sm truncate"
+                                    class="flex-1 text-left px-3 py-2 min-h-[44px] min-w-[44px] text-sm truncate"
                                     on:click={() => loadProject(p.id!)}
                                 >
                                     {p.name}

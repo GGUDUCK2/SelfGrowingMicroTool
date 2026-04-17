@@ -57,14 +57,14 @@
   <!-- Mode Switch -->
   <div class="flex rounded-lg bg-slate-100 dark:bg-slate-800 p-1 w-full md:w-1/2">
     <button
-      class="flex-1 min-h-[44px] py-1.5 text-sm font-medium rounded-md transition-all flex items-center justify-center gap-2 {mode === 'encrypt' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+      class="flex-1 min-h-[44px] min-w-[44px] py-1.5 text-sm font-medium rounded-md transition-all flex items-center justify-center gap-2 {mode === 'encrypt' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
       on:click={() => { mode = 'encrypt'; input = ''; result = ''; error = ''; }}
     >
       <Lock size={14} />
       <span>{dict.vault?.encrypt || 'Encrypt'}</span>
     </button>
     <button
-      class="flex-1 min-h-[44px] py-1.5 text-sm font-medium rounded-md transition-all flex items-center justify-center gap-2 {mode === 'decrypt' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+      class="flex-1 min-h-[44px] min-w-[44px] py-1.5 text-sm font-medium rounded-md transition-all flex items-center justify-center gap-2 {mode === 'decrypt' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
       on:click={() => { mode = 'decrypt'; input = ''; result = ''; error = ''; }}
     >
       <Unlock size={14} />

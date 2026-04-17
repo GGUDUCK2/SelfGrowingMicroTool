@@ -416,9 +416,9 @@
       <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
          <!-- Example Dropdown (Simple) -->
          <div class="flex items-center gap-1 mr-2 overflow-x-auto pb-1 md:pb-0 scrollbar-hide">
-            <button class="text-sm px-3 py-2 min-h-[44px] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0" aria-label="Load Code Example" on:click={() => loadExample('code')}>Code</button>
-            <button class="text-sm px-3 py-2 min-h-[44px] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0" aria-label="Load JSON Example" on:click={() => loadExample('json')}>JSON</button>
-            <button class="text-sm px-3 py-2 min-h-[44px] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0" aria-label="Load Text Example" on:click={() => loadExample('text')}>Text</button>
+            <button class="text-sm px-3 py-2 min-h-[44px] min-w-[44px] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0" aria-label="Load Code Example" on:click={() => loadExample('code')}>Code</button>
+            <button class="text-sm px-3 py-2 min-h-[44px] min-w-[44px] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0" aria-label="Load JSON Example" on:click={() => loadExample('json')}>JSON</button>
+            <button class="text-sm px-3 py-2 min-h-[44px] min-w-[44px] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0" aria-label="Load Text Example" on:click={() => loadExample('text')}>Text</button>
          </div>
 
         <button
@@ -465,7 +465,7 @@
                                 <GitMerge class="w-5 h-5 text-indigo-500" />
                                 {t.mergeConflict}
                             </h3>
-                            <button class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 min-h-[44px]" on:click={cancelConflict}>
+                            <button class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 min-h-[44px] min-w-[44px]" on:click={cancelConflict}>
                                 <X class="w-5 h-5" />
                             </button>
                         </div>
@@ -499,7 +499,7 @@
             <DiffHistory {translations} onSelect={loadHistoryItem} />
              <!-- Backdrop -->
              <button
-                class="absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 min-h-[44px]"
+                class="absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 min-h-[44px] min-w-[44px]"
                 on:click={() => isHistoryOpen = false}
                 aria-label="Close"
              >
@@ -534,13 +534,13 @@
             <!-- View Mode -->
             <div class="flex bg-gray-100 dark:bg-gray-900 rounded-lg p-1">
                 <button
-                    class="px-3 py-1.5 min-h-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'split' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
+                    class="px-3 py-1.5 min-h-[44px] min-w-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'split' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
                     on:click={() => viewMode = 'split'}
                 >
                     <Columns class="w-4 h-4 inline mr-1" /> {t.split}
                 </button>
                 <button
-                    class="px-3 py-1.5 min-h-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'unified' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
+                    class="px-3 py-1.5 min-h-[44px] min-w-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'unified' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
                     on:click={() => viewMode = 'unified'}
                 >
                     <AlignLeft class="w-4 h-4 inline mr-1" /> {t.unified}

@@ -143,14 +143,14 @@
 
         <div class="flex items-center gap-2">
             <button
-                class="flex items-center gap-2 px-3 py-1.5 min-h-[44px] text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                class="flex items-center gap-2 px-3 py-1.5 min-h-[44px] min-w-[44px] text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
                 on:click={() => showImport = true}
             >
                 <Upload size={16} />
                 <span class="hidden sm:inline">{t.import}</span>
             </button>
             <button
-                class="flex items-center gap-2 px-4 py-1.5 min-h-[44px] text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors shadow-sm disabled:opacity-50"
+                class="flex items-center gap-2 px-4 py-1.5 min-h-[44px] min-w-[44px] text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors shadow-sm disabled:opacity-50"
                 on:click={() => handleRun()}
                 disabled={isRunning}
             >

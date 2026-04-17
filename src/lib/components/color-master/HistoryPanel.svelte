@@ -55,7 +55,7 @@
         {#each starredItems as item (item.id)}
           <div transition:slide|local class="flex items-center justify-between p-3 rounded-xl bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-900/30 hover:border-amber-300 dark:hover:border-amber-700 transition-colors group">
             <button
-              class="flex items-center gap-3 flex-1 text-left focus:outline-none min-h-[44px]"
+              class="flex items-center gap-3 flex-1 text-left focus:outline-none min-h-[44px] min-w-[44px]"
               on:click={() => load(item)}
               on:keydown={(e) => (e.key === 'Enter' || e.key === ' ') && load(item)}
             >
@@ -89,7 +89,7 @@
         {#each recentItems as item (item.id)}
           <div transition:slide|local class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 hover:border-indigo-200 dark:hover:border-indigo-800 transition-colors group">
             <button
-              class="flex items-center gap-3 flex-1 text-left focus:outline-none min-h-[44px]"
+              class="flex items-center gap-3 flex-1 text-left focus:outline-none min-h-[44px] min-w-[44px]"
               on:click={() => load(item)}
               on:keydown={(e) => (e.key === 'Enter' || e.key === ' ') && load(item)}
             >

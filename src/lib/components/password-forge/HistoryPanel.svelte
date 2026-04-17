@@ -66,7 +66,7 @@
     <div class="flex gap-2">
       <button
         on:click={downloadCsv}
-        class="text-sm text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium px-3 py-1.5 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors flex items-center justify-center min-h-[44px]"
+        class="text-sm text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium px-3 py-1.5 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors flex items-center justify-center min-h-[44px] min-w-[44px]"
         aria-label={dictionary.downloadCsv}
         title={dictionary.downloadCsv}
       >
@@ -75,7 +75,7 @@
       </button>
       <button
         on:click={clearHistory}
-        class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium px-3 py-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors min-h-[44px]"
+        class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium px-3 py-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors min-h-[44px] min-w-[44px]"
         aria-label={dictionary.clearHistory}
         title={dictionary.clearHistory}
       >

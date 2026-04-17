@@ -136,7 +136,7 @@
             <div class="flex flex-wrap gap-2">
                 {#each categories as cat}
                     <button
-                        class="min-h-[44px] px-3 py-1.5 text-xs font-medium rounded-full transition-colors {activeCategory === cat ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700'}"
+                        class="min-h-[44px] min-w-[44px] px-3 py-1.5 text-xs font-medium rounded-full transition-colors {activeCategory === cat ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700'}"
                         on:click={() => handleCategoryChange(cat)}
                         aria-label={`Select category ${dictionary.command.categories[cat] || cat}`}
                     >
@@ -203,7 +203,7 @@
                 {#each activeCommand.options as opt (opt.id)}
                     <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
                         {#if opt.type === 'boolean'}
-                            <label class="flex min-h-[44px] items-center justify-between cursor-pointer group">
+                            <label class="flex min-h-[44px] min-w-[44px] items-center justify-between cursor-pointer group">
                                 <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 transition-colors">{opt.label}</span>
                                 <input type="checkbox" bind:checked={formValues[opt.id]} class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500 dark:bg-slate-700 dark:border-slate-600" />
                             </label>
@@ -277,7 +277,7 @@
                     <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{dictionary.command.createAlias}</h3>
                     <button
                         on:click={copyAlias}
-                        class="min-h-[44px] text-[10px] uppercase tracking-wider font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors flex items-center gap-1"
+                        class="min-h-[44px] min-w-[44px] text-[10px] uppercase tracking-wider font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors flex items-center gap-1"
                         aria-label={dictionary.command.createAlias}
                     >
                         <Code size={12} /> {dictionary.command.copy}

@@ -96,11 +96,11 @@
              <RotateCcw size={20} />
          </button>
          <div class="h-4 w-px bg-slate-300 dark:bg-slate-700 mx-1"></div>
-         <button on:click={onSave} class="min-h-[44px] flex items-center gap-2 px-3 py-1.5 text-sm font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors">
+         <button on:click={onSave} class="min-h-[44px] min-w-[44px] flex items-center gap-2 px-3 py-1.5 text-sm font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors">
              <Save size={16} />
              <span class="hidden sm:inline">{dict.actions.save}</span>
          </button>
-         <button on:click={print} class="min-h-[44px] flex items-center gap-2 px-3 py-1.5 text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm transition-colors">
+         <button on:click={print} class="min-h-[44px] min-w-[44px] flex items-center gap-2 px-3 py-1.5 text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm transition-colors">
              <Download size={16} />
              <span class="hidden sm:inline">{dict.actions.downloadPdf}</span>
          </button>

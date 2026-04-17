@@ -58,7 +58,7 @@
 
         <div class="pt-4 flex justify-end gap-2">
           <button on:click={() => show = false} class="px-4 py-2 min-h-[44px] text-slate-600 hover:bg-slate-100 rounded-lg">{dict.modal.cancel}</button>
-          <button on:click={handleGenerate} class="px-4 py-2 min-h-[44px] bg-indigo-600 text-white font-medium hover:bg-indigo-700 rounded-lg">{dict.modal.generate}</button>
+          <button on:click={handleGenerate} class="px-4 py-2 min-h-[44px] min-w-[44px] bg-indigo-600 text-white font-medium hover:bg-indigo-700 rounded-lg">{dict.modal.generate}</button>
         </div>
       </div>
     </div>

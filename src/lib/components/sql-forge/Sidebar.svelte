@@ -47,14 +47,14 @@
     <!-- Tabs -->
     <div class="flex border-b border-gray-200 dark:border-gray-700">
         <button
-            class="flex-1 min-h-[44px] py-3 text-sm font-medium flex items-center justify-center gap-2 transition-colors {activeTab === 'tables' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            class="flex-1 min-h-[44px] min-w-[44px] py-3 text-sm font-medium flex items-center justify-center gap-2 transition-colors {activeTab === 'tables' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => activeTab = 'tables'}
         >
             <Database size={16} />
             {t.schema}
         </button>
         <button
-            class="flex-1 min-h-[44px] py-3 text-sm font-medium flex items-center justify-center gap-2 transition-colors {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+            class="flex-1 min-h-[44px] min-w-[44px] py-3 text-sm font-medium flex items-center justify-center gap-2 transition-colors {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => activeTab = 'history'}
         >
             <History size={16} />
@@ -130,7 +130,7 @@
                                 {item.status === 'success' ? 'OK' : 'ERR'}
                             </span>
                              <button
-                                class="text-xs min-h-[44px] flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:underline"
+                                class="text-xs min-h-[44px] min-w-[44px] flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:underline"
                                 on:click={() => runHistory(item)}
                              >
                                 <Play size={10} />

@@ -228,14 +228,14 @@
         </div>
         <div class="flex rounded-lg bg-slate-100 dark:bg-slate-800 p-1">
           <button
-            class="flex-1 min-h-[44px] py-1.5 text-sm font-medium rounded-md transition-all {mode === 'hash' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+            class="flex-1 min-h-[44px] min-w-[44px] py-1.5 text-sm font-medium rounded-md transition-all {mode === 'hash' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
             on:click={() => (mode = 'hash')}
             aria-label="Switch to Hash mode"
           >
             Hash
           </button>
           <button
-            class="flex-1 min-h-[44px] py-1.5 text-sm font-medium rounded-md transition-all {mode === 'hmac' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+            class="flex-1 min-h-[44px] min-w-[44px] py-1.5 text-sm font-medium rounded-md transition-all {mode === 'hmac' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
             on:click={() => (mode = 'hmac')}
             aria-label="Switch to HMAC mode"
           >

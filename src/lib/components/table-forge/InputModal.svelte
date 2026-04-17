@@ -34,7 +34,7 @@
           </div>
           <div class="p-4 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-2">
               <button on:click={() => open = false} class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded min-h-[44px]">Cancel</button>
-              <button on:click={handleImport} class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded shadow-sm min-h-[44px]">Import</button>
+              <button on:click={handleImport} class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded shadow-sm min-h-[44px] min-w-[44px]">Import</button>
           </div>
       </div>
   </div>

@@ -76,13 +76,13 @@
         />
         <div class="flex gap-2">
             <button
-                class="flex-1 py-2 px-2 border rounded-lg text-xs text-center font-medium min-h-[44px] bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700"
+                class="flex-1 py-2 px-2 border rounded-lg text-xs text-center font-medium min-h-[44px] min-w-[44px] bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700"
                 on:click={() => {config.template = 'word-number-word-symbol'; onGenerate()}}
             >
                 word-number-word-symbol
             </button>
             <button
-                class="flex-1 py-2 px-2 border rounded-lg text-xs text-center font-medium min-h-[44px] bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700"
+                class="flex-1 py-2 px-2 border rounded-lg text-xs text-center font-medium min-h-[44px] min-w-[44px] bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700"
                 on:click={() => {config.template = ''; onGenerate()}}
             >
                 {dictionary.clear || 'Clear'}
@@ -96,7 +96,7 @@
       <div class="grid grid-cols-4 gap-2">
         {#each [{val: '-', label: 'Hyphen (-)'}, {val: ' ', label: 'Space'}, {val: '.', label: 'Period'}, {val: ',', label: 'Comma'}] as sep}
         <button
-          class="py-2 px-3 border rounded-lg text-sm text-center font-medium min-h-[44px] {config.separator === sep.val ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 dark:border-indigo-500' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700'}"
+          class="py-2 px-3 border rounded-lg text-sm text-center font-medium min-h-[44px] min-w-[44px] {config.separator === sep.val ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 dark:border-indigo-500' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700'}"
           on:click={() => {config.separator = sep.val; onGenerate()}}
         >
           {sep.val === ' ' ? 'Space' : sep.val}
@@ -110,7 +110,7 @@
       <div class="grid grid-cols-3 gap-2">
         {#each ['none', 'first', 'all'] as cap}
         <button
-          class="py-2 px-3 border rounded-lg text-sm font-medium capitalize min-h-[44px] {config.capitalize === cap ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 dark:border-indigo-500' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700'}"
+          class="py-2 px-3 border rounded-lg text-sm font-medium capitalize min-h-[44px] min-w-[44px] {config.capitalize === cap ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 dark:border-indigo-500' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700'}"
           on:click={() => {config.capitalize = cap as 'none'|'first'|'all'; onGenerate()}}
         >
           {dictionary[cap] || cap}

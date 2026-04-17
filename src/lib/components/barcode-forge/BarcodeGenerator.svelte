@@ -148,19 +148,19 @@
       <!-- Tabs -->
       <div class="flex border-b border-slate-200 dark:border-slate-700">
         <button style="min-height: 44px; min-width: 44px;"
-          class="flex-1 py-3 min-h-[44px] text-sm font-medium focus:ring-2 focus:ring-indigo-500 transition-colors {activeTab === 'generator' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+          class="flex-1 py-3 min-h-[44px] min-w-[44px] text-sm font-medium focus:ring-2 focus:ring-indigo-500 transition-colors {activeTab === 'generator' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
           on:click={() => activeTab = 'generator'}
         >
           {d.generate}
         </button>
         <button style="min-height: 44px; min-width: 44px;"
-          class="flex-1 py-3 min-h-[44px] text-sm font-medium focus:ring-2 focus:ring-indigo-500 transition-colors {activeTab === 'bulk' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+          class="flex-1 py-3 min-h-[44px] min-w-[44px] text-sm font-medium focus:ring-2 focus:ring-indigo-500 transition-colors {activeTab === 'bulk' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
           on:click={() => activeTab = 'bulk'}
         >
           {d.bulk}
         </button>
         <button style="min-height: 44px; min-width: 44px;"
-          class="flex-1 py-3 min-h-[44px] text-sm font-medium focus:ring-2 focus:ring-indigo-500 transition-colors {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+          class="flex-1 py-3 min-h-[44px] min-w-[44px] text-sm font-medium focus:ring-2 focus:ring-indigo-500 transition-colors {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
           on:click={() => activeTab = 'history'}
         >
           {d.history}
