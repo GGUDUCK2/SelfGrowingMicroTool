@@ -68,7 +68,7 @@ export function generateCurl(data: RequestData): string {
 }
 
 export function generateFetch(data: RequestData): string {
-  const options: any = {
+  const options: Record<string, unknown> = {
     method: data.method,
   };
 
@@ -105,7 +105,7 @@ export function generatePython(data: RequestData): string {
 export function generateAxios(data: RequestData): string {
   let ax = `const axios = require('axios');\n\n`;
 
-  const options: any = {
+  const options: Record<string, unknown> = {
     method: data.method.toLowerCase(),
     maxBodyLength: Infinity,
     url: data.url,

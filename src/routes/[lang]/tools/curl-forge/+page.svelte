@@ -7,9 +7,10 @@
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import CurlBuilder from '$lib/components/curl-forge/CurlBuilder.svelte';
   import HistoryPanel from '$lib/components/curl-forge/HistoryPanel.svelte';
-  import { db, type CurlHistoryItem } from '$lib/utils/curl-forge/db';
+  import { saveToHistory, type ToolHistoryItem } from '$lib/db/workspace';
+  import type { RequestData } from '$lib/utils/curl-forge/parser';
 
-  export let data: any;
+  export let data: Record<string, unknown>;
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang).tools?.curlForge || getDictionary('en').tools.curlForge;
@@ -24,33 +25,24 @@
     body: ''
   };
 
-  async function handleSave(newData: any) {
+  async function handleSave(newData: RequestData) {
     requestData = { ...newData };
     if (newData.url) {
-      const items = await db.history.where('url').equals(newData.url).toArray();
-      const existing = items.find(i => i.method === newData.method && JSON.stringify(i.headers) === JSON.stringify(newData.headers) && i.body === newData.body);
-
-      if (!existing) {
-        await db.history.add({
-          method: newData.method,
-          url: newData.url,
-          headers: newData.headers,
-          body: newData.body,
-          createdAt: new Date().toISOString()
-        });
-      } else {
-        await db.history.update(existing.id!, { createdAt: new Date().toISOString() });
-      }
+        // Save to the global workspace
+        await saveToHistory('curl-forge', newData, null);
     }
   }
 
-  function handleLoadHistory(item: CurlHistoryItem) {
-    requestData = {
-      method: item.method,
-      url: item.url,
-      headers: { ...item.headers },
-      body: item.body
-    };
+  function handleLoadHistory(item: ToolHistoryItem) {
+    if (item.input) {
+        const i = item.input as RequestData;
+        requestData = {
+            method: i.method,
+            url: i.url,
+            headers: { ...i.headers },
+            body: i.body || ''
+        };
+    }
   }
 
   $: schemaObj = {
@@ -77,7 +69,7 @@
       },
       {
         "@type": "FAQPage",
-        "mainEntity": (dict?.faq || []).map((item: any) => ({
+        "mainEntity": (dict?.faq || []).map((item: Record<string, string>) => ({
           "@type": "Question",
           "name": item.q,
           "acceptedAnswer": {
@@ -115,7 +107,8 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
   <div class="mb-8">
-    <a href="/{lang}" class="inline-flex items-center text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white mb-6 transition-colors min-h-[44px] min-w-[44px]">
+    <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+    <a href={`/${lang || 'en'}`} data-sveltekit-preload-data="hover" class="inline-flex items-center text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white mb-6 transition-colors min-h-[44px] min-w-[44px]">
       <span class="mr-2">&larr;</span> {getDictionary(lang).common?.back || 'Back to Home'}
     </a>
     <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
