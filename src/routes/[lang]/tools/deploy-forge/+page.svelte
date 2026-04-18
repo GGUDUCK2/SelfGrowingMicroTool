@@ -223,11 +223,10 @@
 
     <!-- Documentation -->
     <!-- JSON-LD for SEO -->
-    {@html `<script type="application/ld+json">
-    {
+    {@html '<script type="application/ld+json">' + JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "isAccessibleForFree": true,
+      "isAccessibleForFree": true,
       "name": "Deploy Forge",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Web",
@@ -236,10 +235,22 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": ${JSON.stringify(dict.tools.deployForge.description)},
+      "description": dict.tools.deployForge.description,
       "featureList": "Dockerfile generation, Docker Compose builder, Multi-stage build optimization"
-    }
-    </script>`}
+    }) + '</script>'}
+
+    {@html '<script type="application/ld+json">' + JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": f.a
+        }
+      }))
+    }) + '</script>'}
 
     <div class="mt-20 border-t border-slate-800 pt-16">
         <div class="prose prose-invert max-w-none">
