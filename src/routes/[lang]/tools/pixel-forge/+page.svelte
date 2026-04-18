@@ -15,6 +15,12 @@
   $: title = `${toolDict.title} - ${dict.common.category}`; // e.g. Pixel Forge - Image Tools
   $: description = toolDict.description;
 
+  $: faqItems = [
+    { q: toolDict?.q1, a: toolDict?.a1 },
+    { q: toolDict?.q2, a: toolDict?.a2 },
+    { q: toolDict?.q3, a: toolDict?.a3 }
+  ];
+
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@graph": [
@@ -39,15 +45,20 @@
            "Magic Palette Extraction",
            "Offline capability"
         ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": faqItems.map(f => ({
+          "@type": "Question",
+          "name": f.q,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": f.a
+          }
+        }))
       }
     ]
   });
-
-  $: faqItems = [
-    { q: toolDict?.q1, a: toolDict?.a1 },
-    { q: toolDict?.q2, a: toolDict?.a2 },
-    { q: toolDict?.q3, a: toolDict?.a3 }
-  ];
 
   // Helper to render markdown safely
   const renderMarkdown = (text: string) => marked.parse(text);
