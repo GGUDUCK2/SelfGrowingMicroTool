@@ -10,13 +10,34 @@
   import { saveToHistory, type ToolHistoryItem } from '$lib/db/workspace';
   import type { RequestData } from '$lib/utils/curl-forge/parser';
 
-  export let data: Record<string, unknown>;
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang).tools?.curlForge || getDictionary('en').tools.curlForge;
 
   $: title = dict?.title || "Curl Forge";
   $: description = dict?.description || "cURL command builder and exporter.";
+
+
+  import { onMount, onDestroy } from 'svelte';
+
+  function handleKeyDown(e: KeyboardEvent) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        // simulate send action (which relies on reactive states currently)
+    } else if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        requestData = { method: 'GET', url: '', headers: {}, body: '' };
+    }
+  }
+
+  onMount(() => {
+    window.addEventListener('keydown', handleKeyDown);
+  });
+  onDestroy(() => {
+    if (typeof window !== 'undefined') {
+        window.removeEventListener('keydown', handleKeyDown);
+    }
+  });
 
   let requestData = {
     method: 'GET',
@@ -62,8 +83,8 @@
         },
         "featureList": [
           "Visual Request Builder",
-          "cURL Command Parser",
-          "Code Export (Fetch, Python, Axios)",
+          "cURL Command Parser with Smart Paste",
+          "Code Export (Fetch, Python, Axios, Playwright, Cypress)",
           "Local IndexedDB Workspace"
         ]
       },
