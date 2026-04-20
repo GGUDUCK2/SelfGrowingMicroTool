@@ -121,3 +121,50 @@ export function generateAxios(data: RequestData): string {
 
   return ax;
 }
+
+export function generatePlaywright(data: RequestData): string {
+  let pw = `import { test, expect } from '@playwright/test';\n\n`;
+  pw += `test('API Test: ${data.method} ${data.url}', async ({ request }) => {\n`;
+  pw += `  const response = await request.${data.method.toLowerCase()}('${data.url}', {\n`;
+
+  if (Object.keys(data.headers).length > 0) {
+    pw += `    headers: ${JSON.stringify(data.headers, null, 6).replace(/}$/, '    }')},\n`;
+  }
+
+  if (data.body && (data.method === 'POST' || data.method === 'PUT' || data.method === 'PATCH')) {
+    pw += `    data: '${data.body.replace(/'/g, "\\'")}',\n`;
+  }
+
+  pw += `  });\n\n`;
+  pw += `  expect(response.ok()).toBeTruthy();\n`;
+  pw += `  const responseBody = await response.json();\n`;
+  pw += `  console.log(responseBody);\n`;
+  pw += `});\n`;
+
+  return pw;
+}
+
+export function generateCypress(data: RequestData): string {
+  let cy = `describe('API Test', () => {\n`;
+  cy += `  it('${data.method} ${data.url}', () => {\n`;
+  cy += `    cy.request({\n`;
+  cy += `      method: '${data.method}',\n`;
+  cy += `      url: '${data.url || 'http://localhost'}',\n`;
+
+  if (Object.keys(data.headers).length > 0) {
+    cy += `      headers: ${JSON.stringify(data.headers, null, 8).replace(/}$/, '      }')},\n`;
+  }
+
+  if (data.body && (data.method === 'POST' || data.method === 'PUT' || data.method === 'PATCH')) {
+    cy += `      body: '${data.body.replace(/'/g, "\\'")}',\n`;
+  }
+
+  cy += `    }).then((response) => {\n`;
+  cy += `      expect(response.status).to.be.oneOf([200, 201]);\n`;
+  cy += `      cy.log(response.body);\n`;
+  cy += `    });\n`;
+  cy += `  });\n`;
+  cy += `});\n`;
+
+  return cy;
+}

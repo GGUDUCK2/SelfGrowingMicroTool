@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { parseCurl, generateCurl, generateFetch, generatePython, generateAxios } from '$lib/utils/curl-forge/parser';
+  import { parseCurl, generateCurl, generateFetch, generatePython, generateAxios, generatePlaywright, generateCypress } from '$lib/utils/curl-forge/parser';
   import { Copy, Trash2, Plus, ArrowDownToLine, Check } from 'lucide-svelte';
   import Button from '$lib/components/Button.svelte';
 
-  export let dict: Record<string, unknown> = {};
+  export let dict: Record<string, any> = {};
   export let data = {
     method: 'GET',
     url: 'https://api.example.com/data',
@@ -57,6 +57,30 @@
      }
   }
 
+
+
+  let magicPasteToast = false;
+  let magicPasteTimeout: ReturnType<typeof setTimeout>;
+
+  function handleGlobalPaste(e: ClipboardEvent) {
+    // Ignore if typing in an input/textarea
+    const target = e.target as HTMLElement;
+    if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') return;
+
+    const pastedText = e.clipboardData?.getData('text');
+    if (pastedText && pastedText.trim().toLowerCase().startsWith('curl ')) {
+        const parsed = parseCurl(pastedText);
+        if (parsed && parsed.url) {
+            data = parsed;
+            headerKeys = Object.keys(data.headers);
+            headerValues = Object.values(data.headers);
+            onSave(data);
+            magicPasteToast = true;
+            clearTimeout(magicPasteTimeout);
+            magicPasteTimeout = setTimeout(() => magicPasteToast = false, 3000);
+        }
+    }
+  }
 
   let importRaw = '';
   let showImport = false;
@@ -185,6 +209,8 @@
   $: fetchCode = generateFetch(data);
   $: pyCode = generatePython(data);
   $: axiosCode = generateAxios(data);
+  $: playwrightCode = generatePlaywright(data);
+  $: cypressCode = generateCypress(data);
 
   let activeTab = 'curl';
 
@@ -226,9 +252,20 @@
 
 </script>
 
+<svelte:window on:paste={handleGlobalPaste} />
+
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
   <!-- Left Side: Builder -->
   <div class="space-y-6">
+    {#if magicPasteToast}
+      <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in-up">
+        <div class="bg-indigo-600 text-white px-4 py-2 rounded-full shadow-lg flex items-center text-sm font-medium">
+          <span class="mr-2">🪄</span>
+          {dict?.builder?.magicPasteSuccess || 'Magic Paste: cURL command parsed!'}
+        </div>
+      </div>
+    {/if}
+
     <div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-xl font-bold text-slate-900 dark:text-white">{dict?.builder?.title || 'Request Builder'}</h2>
@@ -457,7 +494,9 @@
             { id: 'curl', label: dict?.export?.curl || 'cURL', code: curlCode },
             { id: 'fetch', label: dict?.export?.fetch || 'Fetch (JS)', code: fetchCode },
             { id: 'python', label: dict?.export?.python || 'Python', code: pyCode },
-            { id: 'axios', label: dict?.export?.node || 'Axios', code: axiosCode }
+            { id: 'axios', label: dict?.export?.node || 'Axios', code: axiosCode },
+            { id: 'playwright', label: dict?.export?.playwright || 'Playwright', code: playwrightCode },
+            { id: 'cypress', label: dict?.export?.cypress || 'Cypress', code: cypressCode }
           ] as tab (tab.id)}
             <button
               on:click={() => activeTab = tab.id}
@@ -474,7 +513,9 @@
           on:click={() => copyToClipboard(
             activeTab === 'curl' ? curlCode :
             activeTab === 'fetch' ? fetchCode :
-            activeTab === 'python' ? pyCode : axiosCode,
+            activeTab === 'python' ? pyCode :
+            activeTab === 'axios' ? axiosCode :
+            activeTab === 'playwright' ? playwrightCode : cypressCode,
             activeTab
           )}
           class="absolute top-4 right-4 p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center shadow-md"
@@ -489,7 +530,9 @@
         <pre class="font-mono text-sm text-slate-300 overflow-x-auto whitespace-pre-wrap mt-2 break-all">{
           activeTab === 'curl' ? curlCode :
           activeTab === 'fetch' ? fetchCode :
-          activeTab === 'python' ? pyCode : axiosCode
+          activeTab === 'python' ? pyCode :
+          activeTab === 'axios' ? axiosCode :
+          activeTab === 'playwright' ? playwrightCode : cypressCode
         }</pre>
       </div>
     </div>
