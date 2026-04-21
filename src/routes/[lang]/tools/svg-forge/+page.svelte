@@ -15,7 +15,7 @@
   import { optimizeSvg, defaultSvgoConfig, type SvgoConfig } from '$lib/utils/svg-forge/optimizer';
 
   // --- Props & Localization ---
-  export let data: any;
+
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
   $: t = dict.tools.svgForge;
