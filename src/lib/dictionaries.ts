@@ -24,7 +24,11 @@ export const dictionaries = {
           headerValue: "Value",
           copy: "Copy cURL",
           clear: "Clear All",
-          import: "Import cURL"
+          import: "Import cURL",
+          examples: "Examples",
+          formatJson: "Format JSON",
+          invalidJson: "Invalid JSON",
+          magicPasteSuccess: "Magic Paste: cURL command parsed!"
         },
         export: {
           title: "Code Export",
@@ -4415,7 +4419,11 @@ export const dictionaries = {
           headerValue: "값",
           copy: "cURL 복사",
           clear: "모두 지우기",
-          import: "cURL 가져오기"
+          import: "cURL 가져오기",
+          examples: "예시",
+          formatJson: "JSON 포맷",
+          invalidJson: "잘못된 JSON",
+          magicPasteSuccess: "매직 페이스트: cURL 명령 파싱 완료!"
         },
         export: {
           title: "코드 내보내기",
