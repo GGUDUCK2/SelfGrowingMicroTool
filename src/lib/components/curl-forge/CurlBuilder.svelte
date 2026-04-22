@@ -219,7 +219,7 @@
   let responseTime = '';
   let isSending = false;
 
-  async function handleSend() {
+  export async function handleSend() {
       if (!data.url) return;
       isSending = true;
       responseData = '';
@@ -241,13 +241,70 @@
           } catch {
               responseData = text;
           }
-      } catch (err: any) {
+      } catch (err: unknown) {
           responseTime = `${Date.now() - startTime}ms`;
           responseStatus = 'Error';
-          responseData = err.message || 'Failed to fetch. CORS or network error.';
+          responseData = err instanceof Error ? err.message : 'Failed to fetch. CORS or network error.';
       } finally {
           isSending = false;
       }
+  }
+
+  // JSON Formatter logic
+  let invalidJson = false;
+
+  function formatBodyJson() {
+    if (!data.body) return;
+    try {
+        const parsed = JSON.parse(data.body);
+        data.body = JSON.stringify(parsed, null, 2);
+        invalidJson = false;
+        onSave(data);
+    } catch {
+        invalidJson = true;
+        setTimeout(() => invalidJson = false, 3000);
+    }
+  }
+
+  // Smart Examples
+  const smartExamples = [
+    {
+      label: 'JSON POST',
+      data: {
+        method: 'POST',
+        url: 'https://dummyjson.com/products/add',
+        headers: { 'Content-Type': 'application/json' },
+        body: '{\n  "title": "Perfume Oil",\n  "description": "Mega Discount",\n  "price": 13\n}'
+      }
+    },
+    {
+      label: 'Bearer Auth GET',
+      data: {
+        method: 'GET',
+        url: 'https://httpbin.org/bearer',
+        headers: { 'Authorization': 'Bearer YOUR_TOKEN_HERE' },
+        body: ''
+      }
+    },
+    {
+      label: 'GitHub API: Get User',
+      data: {
+        method: 'GET',
+        url: 'https://api.github.com/users/octocat',
+        headers: {
+          'Accept': 'application/vnd.github.v3+json',
+          'User-Agent': 'curl-forge'
+        },
+        body: ''
+      }
+    }
+  ];
+
+  function loadExample(exampleData: RequestData) {
+    data = { ...exampleData };
+    headerKeys = Object.keys(data.headers);
+    headerValues = Object.values(data.headers);
+    onSave(data);
   }
 
 </script>
@@ -267,9 +324,26 @@
     {/if}
 
     <div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
-      <div class="flex justify-between items-center mb-6">
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
         <h2 class="text-xl font-bold text-slate-900 dark:text-white">{dict?.builder?.title || 'Request Builder'}</h2>
-        <div class="flex space-x-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="relative group">
+            <Button variant="outline" class="min-h-[44px] px-3">
+              {dict?.export?.examples || 'Examples'}
+            </Button>
+            <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
+              <div class="py-1">
+                {#each smartExamples as ex}
+                  <button
+                    on:click={() => loadExample(ex.data)}
+                    class="block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 min-h-[44px]"
+                  >
+                    {ex.label}
+                  </button>
+                {/each}
+              </div>
+            </div>
+          </div>
           <Button variant="outline" on:click={() => showImport = !showImport} class="min-h-[44px] min-w-[44px] px-3">
             <ArrowDownToLine class="w-4 h-4 mr-2" />
             <span class="hidden sm:inline">{dict?.builder?.import || 'Import'}</span>
@@ -469,14 +543,27 @@
         </div>
 
         <!-- Body -->
-        <div class="pt-4 border-t border-slate-200 dark:border-slate-800">
-          <label for="body-input" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{dict?.builder?.body || 'Body'}</label>
+        <div class="pt-4 border-t border-slate-200 dark:border-slate-800 relative">
+          <div class="flex justify-between items-center mb-2">
+            <label for="body-input" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict?.builder?.body || 'Body'}</label>
+            <div class="flex items-center space-x-2">
+              {#if invalidJson}
+                <span class="text-xs text-red-500 animate-pulse">{dict?.export?.invalidJson || 'Invalid JSON'}</span>
+              {/if}
+              <button
+                on:click={formatBodyJson}
+                class="text-xs text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 font-medium px-2 min-h-[32px] flex items-center bg-blue-50 dark:bg-blue-900/20 rounded-md transition-colors"
+              >
+                {dict?.export?.formatJson || 'Format JSON'}
+              </button>
+            </div>
+          </div>
           <textarea
             id="body-input"
             bind:value={data.body}
-            on:input={() => onSave(data)}
+            on:input={() => { invalidJson = false; onSave(data); }}
             rows="6"
-            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-3 font-mono text-sm min-h-[44px] focus:ring-2 focus:ring-blue-500"
+            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-3 font-mono text-sm min-h-[44px] focus:ring-2 focus:ring-blue-500 {invalidJson ? 'border-red-500 ring-1 ring-red-500' : ''}"
             placeholder={`{"key": "value"}`}
           ></textarea>
         </div>

@@ -20,10 +20,14 @@
 
   import { onMount, onDestroy } from 'svelte';
 
+  let builderComponent: CurlBuilder;
+
   function handleKeyDown(e: KeyboardEvent) {
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
         e.preventDefault();
-        // simulate send action (which relies on reactive states currently)
+        if (builderComponent && typeof builderComponent.handleSend === 'function') {
+            builderComponent.handleSend();
+        }
     } else if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
         requestData = { method: 'GET', url: '', headers: {}, body: '' };
@@ -141,7 +145,7 @@
   </div>
 
   <div class="space-y-8">
-    <CurlBuilder {dict} bind:data={requestData} onSave={handleSave} />
+    <CurlBuilder {dict} bind:data={requestData} onSave={handleSave} bind:this={builderComponent} />
     <HistoryPanel {dict} onLoad={handleLoadHistory} />
   </div>
 
