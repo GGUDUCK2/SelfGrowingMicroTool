@@ -45,8 +45,4 @@ test-results/
 !src/**/*.png
 patch_*.cjs
 patch_*.sh
-*_report.md
-report.md
-daily_report.md
-daily_improvement_report.md
 scripts/
