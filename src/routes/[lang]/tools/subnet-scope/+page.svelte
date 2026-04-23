@@ -184,12 +184,8 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-  {@html `<script type="application/ld+json">
-    ${JSON.stringify(schemaObj1)}
-  </script>`}
-  {@html `<script type="application/ld+json">
-    ${JSON.stringify(faqSchema)}
-  </script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(schemaObj1) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
 </svelte:head>
 
 <!-- Toast -->
