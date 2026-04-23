@@ -9,10 +9,9 @@
   import FAQSection from "$lib/components/FAQSection.svelte";
   import GuideSection from "$lib/components/GuideSection.svelte";
 
-  export let data: PageData;
 
   type Language = "en" | "ko";
-  $: lang = data.lang as Language;
+  $: lang = ($page.params.lang || "en") as Language;
   $: dict = dictionaries[lang]?.tools?.pomodoroTimer || dictionaries.en.tools.pomodoroTimer;
 
   // Timer State

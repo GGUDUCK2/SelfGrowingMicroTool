@@ -12,8 +12,7 @@
   import { db, type GlassmorphismHistory } from "$lib/db";
   import { liveQuery } from "dexie";
 
-  export let data;
-  $: lang = (data.lang as "en" | "ko") || "en";
+    $: lang = (($page.params.lang || "en") as "en" | "ko") || "en";
   $: dict =
     dictionaries[lang]?.tools?.glassmorphism ||
     dictionaries.en.tools.glassmorphism;

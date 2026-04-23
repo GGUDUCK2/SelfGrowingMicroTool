@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { getDictionary } from "$lib/dictionaries";
   $: lang = $page.params.lang || 'en';
   import { page } from '$app/stores';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
@@ -19,9 +20,8 @@
   import type { StructuraHistory } from '$lib/db';
   import { liveQuery, type Subscription } from 'dexie';
 
-  export let data;
 
-  $: t = data.dict.tools.structura;
+  $: t = getDictionary($page.params.lang || "en")?.tools.structura;
 
   $: faqItems = [
     { q: t?.q1, a: t?.a1 },

@@ -14,8 +14,7 @@
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
 
-  export let data;
-  $: dict = getDictionary(data.lang);
+    $: dict = getDictionary(($page.params.lang || "en"));
 
   let input = '192.168.1.0/24';
   let result: NetworkInfo | null = null;

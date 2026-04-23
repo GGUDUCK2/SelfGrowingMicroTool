@@ -13,8 +13,7 @@
   import GrowthChart from "$lib/components/GrowthChart.svelte";
   import HistoryList from "$lib/components/HistoryList.svelte";
 
-  export let data;
-  $: lang = (data.lang as "en" | "ko") || "en";
+    $: lang = (($page.params.lang || "en") as "en" | "ko") || "en";
   $: dict =
     dictionaries[lang]?.tools?.compoundInterest ||
     dictionaries.en.tools.compoundInterest;

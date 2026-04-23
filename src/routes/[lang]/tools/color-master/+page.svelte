@@ -26,7 +26,6 @@
   import Button from '$lib/components/Button.svelte';
 
   // --- Props ---
-  export let data;
 
   const HARMONY_TYPES: HarmonyType[] = ['complementary', 'analogous', 'triadic', 'tetradic', 'split-complementary', 'monochromatic'];
   const VISION_TYPES: VisionType[] = ['none', 'protanopia', 'deuteranopia', 'tritanopia', 'achromatopsia'];
@@ -38,7 +37,7 @@
   let showShortcuts = false;
   let currentScale: ScaleStep[] = [];
 
-  $: dict = getDictionary(data.lang);
+  $: dict = getDictionary(($page.params.lang || "en"));
   $: t = dict.tools.colorMaster;
 
   $: schema = {
@@ -119,19 +118,19 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://selfgrowingmicrotool.com/${data.lang}`
+        "item": `https://selfgrowingmicrotool.com/${($page.params.lang || "en")}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": `https://selfgrowingmicrotool.com/${data.lang}#tools`
+        "item": `https://selfgrowingmicrotool.com/${($page.params.lang || "en")}#tools`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": t.title,
-        "item": `https://selfgrowingmicrotool.com/${data.lang}/tools/color-master`
+        "item": `https://selfgrowingmicrotool.com/${($page.params.lang || "en")}/tools/color-master`
       }
     ]
   };
