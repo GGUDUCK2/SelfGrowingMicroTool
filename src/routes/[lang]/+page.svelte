@@ -1,13 +1,13 @@
 <script lang="ts">
+  import { page } from "$app/stores";
   import { getDictionary } from "$lib/dictionaries";
   import registry from "$lib/registry.json";
   import { fade, fly } from "svelte/transition";
 
-  export let data;
 
   type Language = "en" | "ko";
 
-  $: lang = data.lang as Language;
+  $: lang = ($page.params.lang || "en") as Language;
   $: dict = getDictionary(lang);
   $: tools = registry;
 
