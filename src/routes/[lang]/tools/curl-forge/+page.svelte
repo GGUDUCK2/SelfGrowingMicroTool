@@ -28,6 +28,11 @@
         if (builderComponent && typeof builderComponent.handleSend === 'function') {
             builderComponent.handleSend();
         }
+    } else if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        if (builderComponent && typeof builderComponent.copyActiveCode === 'function') {
+            builderComponent.copyActiveCode();
+        }
     } else if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
         requestData = { method: 'GET', url: '', headers: {}, body: '' };
@@ -89,7 +94,10 @@
           "Visual Request Builder",
           "cURL Command Parser with Smart Paste",
           "Code Export (Fetch, Python, Axios, Playwright, Cypress)",
-          "Local IndexedDB Workspace"
+          "Local IndexedDB Workspace",
+          "Smart Dynamic Variables",
+          "Response Actions (Copy/Download JSON)",
+          "Auto TypeScript Interface Generation"
         ]
       },
       {

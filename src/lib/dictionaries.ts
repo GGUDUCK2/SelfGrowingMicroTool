@@ -35,7 +35,12 @@ export const dictionaries = {
           curl: "cURL",
           fetch: "Fetch (JS)",
           python: "Python (Requests)",
-          node: "Node.js (Axios)"
+          node: "Node.js (Axios)",
+          playwright: "Playwright",
+          cypress: "Cypress",
+          typescript: "TypeScript",
+          copyResponse: "Copy Response",
+          downloadResponse: "Download JSON"
         },
         history: {
           title: "Recent Activities",
@@ -4430,7 +4435,12 @@ export const dictionaries = {
           curl: "cURL",
           fetch: "Fetch (JS)",
           python: "Python (Requests)",
-          node: "Node.js (Axios)"
+          node: "Node.js (Axios)",
+          playwright: "Playwright",
+          cypress: "Cypress",
+          typescript: "TypeScript",
+          copyResponse: "응답 복사",
+          downloadResponse: "JSON 다운로드"
         },
         history: {
           title: "최근 활동",
