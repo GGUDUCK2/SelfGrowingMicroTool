@@ -1,5 +1,6 @@
 <script lang="ts">
   import { parseCurl, generateCurl, generateFetch, generatePython, generateAxios, generatePlaywright, generateCypress } from '$lib/utils/curl-forge/parser';
+  import { generateTypeScriptInterfaces } from '$lib/utils/curl-forge/type-generator';
   import { Copy, Trash2, Plus, ArrowDownToLine, Check } from 'lucide-svelte';
   import Button from '$lib/components/Button.svelte';
 
@@ -211,6 +212,7 @@
   $: axiosCode = generateAxios(data);
   $: playwrightCode = generatePlaywright(data);
   $: cypressCode = generateCypress(data);
+  $: tsCode = generateTypeScriptInterfaces(responseData);
 
   let activeTab = 'curl';
 
@@ -219,6 +221,24 @@
   let responseTime = '';
   let isSending = false;
 
+  function applyDynamicVariables(str: string): string {
+    if (!str) return str;
+    return str
+      .replace(/\{\{\$uuid\}\}/g, () => crypto.randomUUID())
+      .replace(/\{\{\$timestamp\}\}/g, () => Date.now().toString())
+      .replace(/\{\{\$randomInt\}\}/g, () => Math.floor(Math.random() * 10000).toString());
+  }
+
+  export function copyActiveCode() {
+      const codeToCopy = activeTab === 'curl' ? curlCode :
+                         activeTab === 'fetch' ? fetchCode :
+                         activeTab === 'python' ? pyCode :
+                         activeTab === 'axios' ? axiosCode :
+                         activeTab === 'playwright' ? playwrightCode :
+                         activeTab === 'typescript' ? tsCode : cypressCode;
+      copyToClipboard(codeToCopy, activeTab);
+  }
+
   export async function handleSend() {
       if (!data.url) return;
       isSending = true;
@@ -226,12 +246,19 @@
       responseStatus = '';
       responseTime = '';
 
+      let processedUrl = applyDynamicVariables(data.url.startsWith('http') ? data.url : `http://${data.url}`);
+      let processedBody = applyDynamicVariables(data.body);
+      let processedHeaders: Record<string, string> = {};
+      for (const [key, value] of Object.entries(data.headers)) {
+          processedHeaders[applyDynamicVariables(key)] = applyDynamicVariables(value);
+      }
+
       const startTime = Date.now();
       try {
-          const res = await fetch(data.url.startsWith('http') ? data.url : `http://${data.url}`, {
+          const res = await fetch(processedUrl, {
               method: data.method,
-              headers: data.headers,
-              body: (data.method === 'GET' || data.method === 'HEAD') ? undefined : (data.body || undefined)
+              headers: processedHeaders,
+              body: (data.method === 'GET' || data.method === 'HEAD') ? undefined : (processedBody || undefined)
           });
           responseTime = `${Date.now() - startTime}ms`;
           responseStatus = `${res.status} ${res.statusText}`;
@@ -305,6 +332,9 @@
     headerKeys = Object.keys(data.headers);
     headerValues = Object.values(data.headers);
     onSave(data);
+    setTimeout(() => {
+       handleSend();
+    }, 50);
   }
 
 </script>
@@ -547,6 +577,7 @@
           <div class="flex justify-between items-center mb-2">
             <label for="body-input" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict?.builder?.body || 'Body'}</label>
             <div class="flex items-center space-x-2">
+              <span class="text-xs text-slate-500 hidden sm:inline-block">Magic variables: {`{{$uuid}}`}, {`{{$timestamp}}`}, {`{{$randomInt}}`}</span>
               {#if invalidJson}
                 <span class="text-xs text-red-500 animate-pulse">{dict?.export?.invalidJson || 'Invalid JSON'}</span>
               {/if}
@@ -583,7 +614,8 @@
             { id: 'python', label: dict?.export?.python || 'Python', code: pyCode },
             { id: 'axios', label: dict?.export?.node || 'Axios', code: axiosCode },
             { id: 'playwright', label: dict?.export?.playwright || 'Playwright', code: playwrightCode },
-            { id: 'cypress', label: dict?.export?.cypress || 'Cypress', code: cypressCode }
+            { id: 'cypress', label: dict?.export?.cypress || 'Cypress', code: cypressCode },
+            { id: 'typescript', label: dict?.export?.typescript || 'TypeScript', code: tsCode }
           ] as tab (tab.id)}
             <button
               on:click={() => activeTab = tab.id}
@@ -602,7 +634,8 @@
             activeTab === 'fetch' ? fetchCode :
             activeTab === 'python' ? pyCode :
             activeTab === 'axios' ? axiosCode :
-            activeTab === 'playwright' ? playwrightCode : cypressCode,
+            activeTab === 'playwright' ? playwrightCode :
+            activeTab === 'typescript' ? tsCode : cypressCode,
             activeTab
           )}
           class="absolute top-4 right-4 p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center shadow-md"
@@ -619,21 +652,56 @@
           activeTab === 'fetch' ? fetchCode :
           activeTab === 'python' ? pyCode :
           activeTab === 'axios' ? axiosCode :
-          activeTab === 'playwright' ? playwrightCode : cypressCode
+          activeTab === 'playwright' ? playwrightCode :
+          activeTab === 'typescript' ? tsCode : cypressCode
         }</pre>
       </div>
     </div>
 
     <!-- Live Response Panel -->
-    <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col flex-1 min-h-[300px]">
+    <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col flex-1 min-h-[300px] relative">
       <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 px-4 py-3 min-h-[44px]">
           <h3 class="font-bold text-sm text-slate-900 dark:text-white">Response</h3>
-          {#if responseStatus}
-            <div class="flex space-x-4 text-xs font-mono">
-                <span class="px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 {responseStatus.startsWith('2') ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}">{responseStatus}</span>
-                <span class="px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">{responseTime}</span>
-            </div>
-          {/if}
+          <div class="flex items-center space-x-4">
+              {#if responseStatus}
+                <div class="flex space-x-2 text-xs font-mono">
+                    <span class="px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 {responseStatus.startsWith('2') ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}">{responseStatus}</span>
+                    <span class="px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">{responseTime}</span>
+                </div>
+              {/if}
+              {#if responseData}
+                <div class="flex items-center space-x-1">
+                    <button
+                        on:click={() => copyToClipboard(responseData, 'response')}
+                        class="p-2 text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded min-h-[32px] min-w-[32px] flex items-center justify-center transition-colors"
+                        title={dict?.export?.copyResponse || 'Copy Response'}
+                    >
+                        {#if copiedStates['response']}
+                            <Check class="w-4 h-4 text-green-500" />
+                        {:else}
+                            <Copy class="w-4 h-4" />
+                        {/if}
+                    </button>
+                    <button
+                        on:click={() => {
+                            const blob = new Blob([responseData], { type: 'application/json' });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `response_${Date.now()}.json`;
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                            URL.revokeObjectURL(url);
+                        }}
+                        class="p-2 text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded min-h-[32px] min-w-[32px] flex items-center justify-center transition-colors"
+                        title={dict?.export?.downloadResponse || 'Download JSON'}
+                    >
+                        <ArrowDownToLine class="w-4 h-4" />
+                    </button>
+                </div>
+              {/if}
+          </div>
       </div>
       <div class="p-4 flex-1 bg-slate-50 dark:bg-slate-950 overflow-y-auto">
           {#if isSending}
