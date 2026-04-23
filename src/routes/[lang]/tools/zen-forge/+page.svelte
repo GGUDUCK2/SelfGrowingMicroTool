@@ -117,40 +117,9 @@
     <link rel="alternate" hreflang="ko" href="https://micro-factory.vercel.app/ko/tools/zen-forge" />
     <link rel="alternate" hreflang="x-default" href="https://micro-factory.vercel.app/en/tools/zen-forge" />
 
-    {@html `<script type="application/ld+json">${JSON.stringify(schemaObj1)}</script>`}
+    {@html '<script type="application/ld+json">' + JSON.stringify(schemaObj1) + '</script>'}
 
-  {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "${dict?.q1}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict?.a1}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict?.q2}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict?.a2}"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "${dict?.q3}",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${dict?.a3}"
-        }
-      }
-    ]
-  }
-  </script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": dict?.q1, "acceptedAnswer": {"@type": "Answer", "text": dict?.a1}}, {"@type": "Question", "name": dict?.q2, "acceptedAnswer": {"@type": "Answer", "text": dict?.a2}}, {"@type": "Question", "name": dict?.q3, "acceptedAnswer": {"@type": "Answer", "text": dict?.a3}}]}) + '</script>'}
 
 </svelte:head>
 

@@ -146,8 +146,8 @@
 />
 
 <svelte:head>
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(faqLd)}</script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqLd) + '</script>'}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 pb-20">
