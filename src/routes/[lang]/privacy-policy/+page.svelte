@@ -33,6 +33,31 @@
   <p>This Privacy Policy is effective as of the date prominently stated at the top and will remain in full effect except with respect to any changes in its provisions in the future, which will become effective immediately upon being posted on this dedicated page.</p>
   <p>We reserve the right to periodically update, modify, or change our Privacy Policy at any time. We strongly encourage you to check this Privacy Policy periodically to stay informed about how we are protecting your information.</p>
 
+  <h2>GDPR Data Protection Rights</h2>
+  <p>We would like to make sure you are fully aware of all of your data protection rights. Every user is entitled to the following:</p>
+  <ul>
+    <li><strong>The right to access</strong> – You have the right to request copies of your personal data. We may charge you a small fee for this service.</li>
+    <li><strong>The right to rectification</strong> – You have the right to request that we correct any information you believe is inaccurate. You also have the right to request that we complete the information you believe is incomplete.</li>
+    <li><strong>The right to erasure</strong> – You have the right to request that we erase your personal data, under certain conditions.</li>
+    <li><strong>The right to restrict processing</strong> – You have the right to request that we restrict the processing of your personal data, under certain conditions.</li>
+    <li><strong>The right to object to processing</strong> – You have the right to object to our processing of your personal data, under certain conditions.</li>
+    <li><strong>The right to data portability</strong> – You have the right to request that we transfer the data that we have collected to another organization, or directly to you, under certain conditions.</li>
+  </ul>
+  <p>If you make a request, we have one month to respond to you. If you would like to exercise any of these rights, please contact us.</p>
+
+  <h2>CCPA Privacy Rights (Do Not Sell My Personal Information)</h2>
+  <p>Under the CCPA, among other rights, California consumers have the right to:</p>
+  <ul>
+    <li>Request that a business that collects a consumer's personal data disclose the categories and specific pieces of personal data that a business has collected about consumers.</li>
+    <li>Request that a business delete any personal data about the consumer that a business has collected.</li>
+    <li>Request that a business that sells a consumer's personal data, not sell the consumer's personal data.</li>
+  </ul>
+  <p>If you make a request, we have one month to respond to you. If you would like to exercise any of these rights, please contact us.</p>
+
+  <h2>Children's Information</h2>
+  <p>Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.</p>
+  <p>MicroFactory does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</p>
+
   <h2>Contact Us</h2>
   <p>If you have any questions, concerns, or require further clarification about this Privacy Policy, please do not hesitate to contact us via our official GitHub repository, contact page, or designated support channels.</p>
 </div>

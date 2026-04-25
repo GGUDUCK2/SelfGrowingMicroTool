@@ -36,6 +36,15 @@
   <p>We reserve the right, at our sole discretion, to modify, amend, or replace these Terms at any time. What constitutes a material change will be determined entirely at our sole discretion.</p>
   <p>By continuing to access or use our Service after any revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, please immediately stop using the Service.</p>
 
+  <h2>Indemnification</h2>
+  <p>You agree to defend, indemnify, and hold harmless MicroFactory and its licensee and licensors, and their employees, contractors, agents, officers, and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney's fees), resulting from or arising out of a) your use and access of the Service, by you or any person using your account and password; b) a breach of these Terms, or c) Content posted on the Service.</p>
+
+  <h2>Data Retention and Deletion</h2>
+  <p>MicroFactory primarily processes data locally on your device. Any data explicitly saved, submitted, or processed through our optional server-side components (if any exist) is retained only for as long as is necessary for the purposes set out in our Privacy Policy. We will retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our policies. You may request the deletion of your data by contacting us, and we will honor such requests subject to any overriding legal obligations.</p>
+
+  <h2>Severability</h2>
+  <p>If any provision of these Terms is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law and the remaining provisions will continue in full force and effect.</p>
+
   <h2>Contact Us</h2>
   <p>If you have any questions, inquiries, or require clarification about these Terms of Service, please contact us via our official support channels or GitHub repository.</p>
 </div>
