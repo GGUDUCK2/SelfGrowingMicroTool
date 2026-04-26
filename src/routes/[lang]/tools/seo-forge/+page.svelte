@@ -326,7 +326,7 @@
     ]
   });
 
-  $: faqJsonLd = {
+  $: faqJsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
@@ -355,7 +355,7 @@
         }
       }
     ]
-  };
+  });
 </script>
 <Head
   title={`${tags.title ? `${tags.title} | ` : ''}${dict.title}`}
