@@ -38,26 +38,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": d.q1,
+        "name": d?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": d.a1
+          "text": d?.a1
         }
       },
       {
         "@type": "Question",
-        "name": d.q2,
+        "name": d?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": d.a2
+          "text": d?.a2
         }
       },
       {
         "@type": "Question",
-        "name": d.q3,
+        "name": d?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": d.a3
+          "text": d?.a3
         }
       }
     ]
@@ -117,9 +117,9 @@
     <FAQSection
       title={d.faqTitle}
       items={[
-        { q: d.q1, a: d.a1 },
-        { q: d.q2, a: d.a2 },
-        { q: d.q3, a: d.a3 }
+        { q: d?.q1, a: d?.a1 },
+        { q: d?.q2, a: d?.a2 },
+        { q: d?.q3, a: d?.a3 }
       ]}
     />
   </div>
