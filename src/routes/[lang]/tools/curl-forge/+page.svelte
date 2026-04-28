@@ -104,10 +104,10 @@
         "@type": "FAQPage",
         "mainEntity": (dict?.faq || []).map((item: Record<string, string>) => ({
           "@type": "Question",
-          "name": item.q,
+          "name": item?.q || '',
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": item.a
+            "text": item?.a || ''
           }
         }))
       },

@@ -4,7 +4,7 @@
   import { Copy, Trash2, Plus, ArrowDownToLine, Check } from 'lucide-svelte';
   import Button from '$lib/components/Button.svelte';
 
-  export let dict: Record<string, any> = {};
+  export let dict: Record<string, unknown> = {};
   export let data = {
     method: 'GET',
     url: 'https://api.example.com/data',
@@ -363,7 +363,7 @@
             </Button>
             <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
               <div class="py-1">
-                {#each smartExamples as ex}
+                {#each smartExamples as ex, i (i)}
                   <button
                     on:click={() => loadExample(ex.data)}
                     class="block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 min-h-[44px]"
@@ -377,6 +377,24 @@
           <Button variant="outline" on:click={() => showImport = !showImport} class="min-h-[44px] min-w-[44px] px-3">
             <ArrowDownToLine class="w-4 h-4 mr-2" />
             <span class="hidden sm:inline">{dict?.builder?.import || 'Import'}</span>
+          </Button>
+
+
+          <Button variant="primary" on:click={handleSend} disabled={isSending || !data.url} class="min-h-[44px] min-w-[44px] px-3 whitespace-nowrap">
+            <span class="hidden sm:inline">
+            {#if isSending}
+               ...
+            {:else}
+               Run Request
+            {/if}
+            </span>
+            <span class="sm:hidden">
+            {#if isSending}
+               ...
+            {:else}
+               Run
+            {/if}
+            </span>
           </Button>
           <Button variant="danger" on:click={handleClear} class="min-h-[44px] min-w-[44px] flex items-center justify-center">
             <Trash2 class="w-4 h-4" />
