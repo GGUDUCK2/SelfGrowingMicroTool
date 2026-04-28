@@ -4,7 +4,7 @@ export function generateTypeScriptInterfaces(jsonString: string, rootName: strin
     const interfaces: Record<string, string> = {};
     const seen = new Set<string>();
 
-    function getType(value: any, name: string): string {
+    function getType(value: unknown, name: string): string {
       if (value === null) return 'any | null';
       if (Array.isArray(value)) {
         if (value.length === 0) return 'any[]';
@@ -14,14 +14,14 @@ export function generateTypeScriptInterfaces(jsonString: string, rootName: strin
         const interfaceName = name.charAt(0).toUpperCase() + name.slice(1);
         if (!seen.has(interfaceName)) {
             seen.add(interfaceName);
-            generateInterface(value, interfaceName);
+            generateInterface(value as Record<string, unknown>, interfaceName);
         }
         return interfaceName;
       }
       return typeof value;
     }
 
-    function generateInterface(obj: Record<string, any>, name: string) {
+    function generateInterface(obj: Record<string, unknown>, name: string) {
       let props = '';
       for (const [key, value] of Object.entries(obj)) {
         const typeStr = getType(value, key);
@@ -36,7 +36,7 @@ export function generateTypeScriptInterfaces(jsonString: string, rootName: strin
     }
 
     return Object.values(interfaces).join('\n\n');
-  } catch (e) {
+  } catch {
     return '// Invalid JSON for TypeScript generation\n';
   }
 }
