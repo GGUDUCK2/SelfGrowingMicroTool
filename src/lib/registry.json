@@ -541,5 +541,26 @@
       "generator"
     ],
     "createdAt": "2024-11-15"
+  },
+  {
+    "id": "hash-forge",
+    "slug": "hash-forge",
+    "title": {
+      "en": "Hash Forge",
+      "ko": "해시 포지"
+    },
+    "description": {
+      "en": "The definitive tool for generating hashes, HMACs, and verifying file checksums locally.",
+      "ko": "해시, HMAC 및 파일 체크섬을 브라우저에서 안전하고 빠르게 생성 및 검증하는 최고의 도구입니다."
+    },
+    "category": "dev",
+    "tags": [
+      "hash",
+      "crypto",
+      "hmac",
+      "checksum",
+      "security"
+    ],
+    "createdAt": "2026-04-28"
   }
 ]
