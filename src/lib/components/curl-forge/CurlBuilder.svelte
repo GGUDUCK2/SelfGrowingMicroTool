@@ -146,6 +146,57 @@
       updateParams();
   }
 
+  // Response Filter
+  let responseSearchTerm = '';
+  $: filteredResponseData = filterResponse(responseData, responseSearchTerm);
+
+  function filterResponse(res: string, term: string) {
+      if (!term || !res) return res;
+      try {
+         const obj = JSON.parse(res);
+         const termLower = term.toLowerCase();
+         // Simple object filter logic for top level (expandable as needed)
+         if (typeof obj === 'object' && obj !== null) {
+            const filteredObj: any = Array.isArray(obj) ? [] : {};
+            let matchFound = false;
+
+            const traverse = (o: any, path: string = ''): any => {
+                 if (typeof o === 'string' && o.toLowerCase().includes(termLower)) return true;
+                 if (typeof o === 'number' && o.toString().includes(termLower)) return true;
+                 if (typeof o === 'boolean' && o.toString().includes(termLower)) return true;
+                 if (path.toLowerCase().includes(termLower)) return true;
+
+                 if (typeof o === 'object' && o !== null) {
+                     for (const k in o) {
+                         if (traverse(o[k], k)) return true;
+                     }
+                 }
+                 return false;
+            };
+
+            for (const key in obj) {
+                if (key.toLowerCase().includes(termLower) || traverse(obj[key])) {
+                    filteredObj[key] = obj[key];
+                    matchFound = true;
+                }
+            }
+            if (matchFound) return JSON.stringify(filteredObj, null, 2);
+         }
+
+         // Fallback to text search if not JSON or no deep matches
+         if (res.toLowerCase().includes(termLower)) {
+             return res;
+         }
+         return `No matches found for "${term}"`;
+      } catch(e) {
+         // Not JSON, just do text search
+         if (res.toLowerCase().includes(term.toLowerCase())) {
+             return res;
+         }
+         return `No matches found for "${term}"`;
+      }
+  }
+
   let showAuth = false;
   let authType = 'bearer';
   let authUsername = '';
@@ -588,6 +639,45 @@
               </div>
             {/each}
           </div>
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-medium text-slate-700 dark:text-slate-300">Query Parameters</h3>
+            <Button variant="secondary" on:click={addParam} class="min-h-[44px] text-sm py-1 px-3">
+              <Plus class="w-4 h-4 mr-2" />
+              Add Param
+            </Button>
+          </div>
+
+          <div class="space-y-2 mb-6">
+            <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+            {#each paramKeys as _p, i (i)}
+              <div class="flex items-center gap-2">
+                <input
+                  type="text"
+                  bind:value={paramKeys[i]}
+                  on:input={updateParams}
+                  placeholder="Key"
+                  class="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-sm min-h-[44px]"
+                  aria-label="Query Parameter Key"
+                />
+                <input
+                  type="text"
+                  bind:value={paramValues[i]}
+                  on:input={updateParams}
+                  placeholder="Value"
+                  class="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-sm min-h-[44px]"
+                  aria-label="Query Parameter Value"
+                />
+                <button
+                  on:click={() => removeParam(i)}
+                  class="p-2 text-slate-400 hover:text-red-500 dark:hover:text-red-400 min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+                  aria-label="Remove Parameter"
+                >
+                  <Trash2 class="w-4 h-4" />
+                </button>
+              </div>
+            {/each}
+          </div>
+
         </div>
 
         <!-- Body -->
@@ -721,11 +811,22 @@
               {/if}
           </div>
       </div>
+      {#if responseData && !isSending}
+      <div class="px-4 py-2 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex items-center">
+          <input
+              type="text"
+              bind:value={responseSearchTerm}
+              placeholder="Search Response JSON..."
+              class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-sm min-h-[44px] focus:ring-2 focus:ring-blue-500"
+              aria-label="Search Response"
+          />
+      </div>
+      {/if}
       <div class="p-4 flex-1 bg-slate-50 dark:bg-slate-950 overflow-y-auto">
           {#if isSending}
               <div class="flex justify-center items-center h-full text-slate-400">Sending request...</div>
           {:else if responseData}
-              <pre class="font-mono text-sm text-slate-800 dark:text-slate-300 whitespace-pre-wrap break-all">{responseData}</pre>
+              <pre class="font-mono text-sm text-slate-800 dark:text-slate-300 whitespace-pre-wrap break-all">{filteredResponseData}</pre>
           {:else}
               <div class="flex justify-center items-center h-full text-slate-400 text-sm">Hit "Send" to see the response here. Note: Client-side CORS limitations apply.</div>
           {/if}
