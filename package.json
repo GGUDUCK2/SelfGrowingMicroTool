@@ -15,6 +15,7 @@
         "@sveltejs/adapter-vercel": "^6.3.3",
         "@sveltejs/kit": "^2.57.1",
         "@sveltejs/vite-plugin-svelte": "^5.0.3",
+        "@types/crypto-js": "^4.2.2",
         "@types/d3-array": "^3.2.2",
         "@types/d3-format": "^3.0.4",
         "@types/d3-scale": "^4.0.9",
@@ -43,7 +44,6 @@
     "type": "module",
     "dependencies": {
         "@paralleldrive/cuid2": "^3.0.6",
-        "@types/crypto-js": "^4.2.2",
         "@types/diff": "^7.0.2",
         "@types/dompurify": "^3.0.5",
         "@types/ip-address": "^6.0.0",
