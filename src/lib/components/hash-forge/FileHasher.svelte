@@ -7,18 +7,34 @@
 
   export let dict: any;
   export let onNewHistory: () => void;
+  export let restoredData: HashForgeHistoryItem | null = null;
 
   let selectedAlgorithm: HashAlgorithm = 'SHA-256';
   let isHashing = false;
   let progress = 0;
   let currentFile: File | null = null;
-  let hashResult = '';
+  let hashResult: { hex: string, base64: string } | null = null;
   let errorMsg = '';
+
+  // Note: For files, we cannot easily restore the actual File object from History
+  // due to browser security. We can only show the previous result.
+  let isRestoredView = false;
+  let restoredFileName = '';
+
+  $: if (restoredData && restoredData.type === 'file') {
+    selectedAlgorithm = restoredData.algorithm as HashAlgorithm;
+    hashResult = { hex: restoredData.result, base64: restoredData.base64Result || '' };
+    isRestoredView = true;
+    restoredFileName = restoredData.inputName;
+    currentFile = null; // Clear any newly selected file
+    restoredData = null; // Clear to prevent loops
+  }
 
   async function handleFile(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       currentFile = input.files[0];
+      isRestoredView = false;
       await performHash();
     }
   }
@@ -28,20 +44,21 @@
 
     isHashing = true;
     errorMsg = '';
-    hashResult = '';
+    hashResult = null;
     progress = 0;
 
     try {
       const result = await hashFileChunked(currentFile, selectedAlgorithm, (p) => {
         progress = p;
       });
-      hashResult = result.hex;
+      hashResult = result;
 
       await saveToHistory({
         type: 'file',
         inputName: currentFile.name,
         algorithm: selectedAlgorithm,
-        result: hashResult
+        result: hashResult.hex,
+        base64Result: hashResult.base64
       });
       onNewHistory();
     } catch (err) {
@@ -61,7 +78,7 @@
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
-  $: if (selectedAlgorithm && currentFile && !isHashing) {
+  $: if (selectedAlgorithm && currentFile && !isHashing && !isRestoredView) {
     performHash();
   }
 </script>
@@ -93,6 +110,13 @@
       {#if isHashing}
         <Loader2 size={48} class="text-indigo-500 animate-spin" />
         <p class="text-slate-600 dark:text-slate-400 font-medium">{dict.fileHash.hashing} {progress}%</p>
+      {:else if isRestoredView}
+        <File size={48} class="text-indigo-400" />
+        <div class="text-center">
+          <p class="text-slate-800 dark:text-slate-200 font-medium break-all px-4">{restoredFileName}</p>
+          <p class="text-sm text-slate-500 mt-1">Restored from History</p>
+          <p class="text-xs text-indigo-500 mt-2">Drop a new file to hash again</p>
+        </div>
       {:else if currentFile}
         <File size={48} class="text-indigo-500" />
         <div class="text-center">
@@ -120,9 +144,10 @@
   {#if hashResult && !isHashing}
     <div class="animate-in fade-in slide-in-from-bottom-2 duration-300">
       <HashOutput
-        value={hashResult}
+        result={hashResult}
         label="{selectedAlgorithm} Checksum"
         uppercase={false}
+        dict={dict}
       />
     </div>
   {/if}

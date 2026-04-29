@@ -344,7 +344,14 @@ export const dictionaries = {
         common: {
           copy: "Copy",
           copied: "Copied!",
-          uppercase: "UPPERCASE"
+          uppercase: "UPPERCASE",
+          expectedHash: "Expected Hash",
+          expectedHashPlaceholder: "Paste expected hex or base64 to verify...",
+          match: "Match",
+          mismatch: "Mismatch",
+          base64: "Base64",
+          hex: "Hex",
+          examples: "Examples"
         },
         guideTitle: "Why use Hash Forge?",
         guideIntro: "Hash Forge is a professional-grade cryptographic utility designed to run entirely in your browser. From verifying multi-gigabyte files to generating HMAC signatures for API authentication, your data never leaves your device.",
@@ -4744,7 +4751,14 @@ export const dictionaries = {
         common: {
           copy: "복사",
           copied: "복사됨!",
-          uppercase: "대문자"
+          uppercase: "대문자",
+          expectedHash: "기대하는 해시",
+          expectedHashPlaceholder: "검증할 hex 또는 base64 해시를 붙여넣으세요...",
+          match: "일치",
+          mismatch: "불일치",
+          base64: "Base64",
+          hex: "Hex",
+          examples: "예시"
         },
         guideTitle: "Hash Forge를 사용해야 하는 이유",
         guideIntro: "Hash Forge는 브라우저 내에서 전적으로 실행되도록 설계된 전문가용 암호화 유틸리티입니다. 대용량 파일 검증부터 API 인증을 위한 HMAC 서명 생성까지 데이터는 기기를 벗어나지 않습니다.",

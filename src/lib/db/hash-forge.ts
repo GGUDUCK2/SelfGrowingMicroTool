@@ -3,8 +3,11 @@ import { workspaceDB } from './workspace';
 export interface HashForgeHistoryItem {
   type: 'text' | 'file' | 'hmac';
   inputName: string; // The text content (truncated), file name, or HMAC message
+  fullMessage?: string; // Original full text message
+  secret?: string; // Original secret for HMAC
   algorithm: string;
-  result: string;
+  result: string; // Hex result
+  base64Result?: string; // Base64 result
 }
 
 export const TOOL_ID = 'hash-forge';
