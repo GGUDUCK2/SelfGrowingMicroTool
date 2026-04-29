@@ -7,6 +7,7 @@
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
+  import { POPULAR_CITIES } from '$lib/utils/time-forge/cities';
 
   // State initialization
   $: lang = $page.params.lang || 'en';
@@ -19,16 +20,14 @@
     if (stateParam) {
       try {
         const decoded = JSON.parse(atob(stateParam));
-        import('$lib/utils/time-forge/cities').then(({ POPULAR_CITIES }) => {
-             const selectedCities = decoded.cities.map((id: string) => POPULAR_CITIES.find(c => c.id === id)).filter(Boolean);
-             if (selectedCities.length > 0) {
-                 timeStore.loadState({
-                     selectedCities,
-                     homeCityId: decoded.home,
-                     referenceTime: new Date(decoded.time)
-                 });
-             }
-        });
+        const selectedCities = decoded.cities.map((id: string) => POPULAR_CITIES.find(c => c.id === id)).filter(Boolean);
+        if (selectedCities.length > 0) {
+            timeStore.loadState({
+                selectedCities,
+                homeCityId: decoded.home,
+                referenceTime: new Date(decoded.time)
+            });
+        }
       } catch (e) {
         console.error('Failed to parse state from URL', e);
       }

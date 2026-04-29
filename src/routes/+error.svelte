@@ -20,7 +20,7 @@
 
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <a
-        href="/"
+        href={$page.params.lang ? '/' + $page.params.lang : '/'}
         class="bg-indigo-500 text-white px-6 py-3 rounded-lg hover:bg-indigo-600 transition-colors font-medium"
       >
         Go Home / 홈으로 돌아가기

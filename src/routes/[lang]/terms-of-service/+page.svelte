@@ -38,6 +38,7 @@
 
   <h2>Indemnification</h2>
   <p>You agree to defend, indemnify, and hold harmless MicroFactory and its licensee and licensors, and their employees, contractors, agents, officers, and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney's fees), resulting from or arising out of a) your use and access of the Service, by you or any person using your account and password; b) a breach of these Terms, or c) Content posted on the Service.</p>
+  <p>This indemnification obligation will survive these Terms of Service and your use of the Service. We reserve the right to assume the exclusive defense and control of any matter otherwise subject to indemnification by you, in which event you will assist and cooperate with us in asserting any available defenses.</p>
 
   <h2>Data Retention and Deletion</h2>
   <p>MicroFactory primarily processes data locally on your device. Any data explicitly saved, submitted, or processed through our optional server-side components (if any exist) is retained only for as long as is necessary for the purposes set out in our Privacy Policy. We will retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our policies. You may request the deletion of your data by contacting us, and we will honor such requests subject to any overriding legal obligations.</p>
