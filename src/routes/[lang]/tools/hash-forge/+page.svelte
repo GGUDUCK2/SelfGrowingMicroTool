@@ -12,6 +12,7 @@
   import HistorySidebar from '$lib/components/hash-forge/HistorySidebar.svelte';
   import { Shield, FileText, KeyRound, Clock, Hash } from 'lucide-svelte';
   import { onMount, onDestroy } from 'svelte';
+  import type { HashForgeHistoryItem } from '$lib/db/hash-forge';
 
   $: lang = $page.params.lang || 'en';
   // Use fallback if somehow dict gets undefined, but normally it shouldn't
@@ -19,6 +20,8 @@
 
   type Tab = 'text' | 'file' | 'hmac' | 'history';
   let activeTab: Tab = 'text';
+
+  let restoredData: HashForgeHistoryItem | null = null;
 
   // State to force history sidebar reload
   let historyKey = 0;
@@ -164,21 +167,22 @@
     <div class="flex-1 p-6 md:p-8 flex flex-col min-h-0 relative bg-white dark:bg-slate-900 w-full overflow-y-auto">
       {#if activeTab === 'text'}
         <div in:fade={{ duration: 200 }} class="max-w-3xl mx-auto w-full">
-          <TextHasher {dict} onNewHistory={refreshHistory} />
+          <TextHasher {dict} onNewHistory={refreshHistory} bind:restoredData />
         </div>
       {:else if activeTab === 'file'}
         <div in:fade={{ duration: 200 }} class="max-w-3xl mx-auto w-full">
-          <FileHasher {dict} onNewHistory={refreshHistory} />
+          <FileHasher {dict} onNewHistory={refreshHistory} bind:restoredData />
         </div>
       {:else if activeTab === 'hmac'}
         <div in:fade={{ duration: 200 }} class="max-w-3xl mx-auto w-full">
-          <HmacGenerator {dict} onNewHistory={refreshHistory} />
+          <HmacGenerator {dict} onNewHistory={refreshHistory} bind:restoredData />
         </div>
       {:else if activeTab === 'history'}
         <div in:fade={{ duration: 200 }} class="h-full">
           {#key historyKey}
             <HistorySidebar
               onSelect={(item) => {
+                restoredData = item;
                 if (item.type === 'text') selectTab('text');
                 else if (item.type === 'file') selectTab('file');
                 else if (item.type === 'hmac') selectTab('hmac');
