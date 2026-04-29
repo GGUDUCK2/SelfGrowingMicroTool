@@ -54,6 +54,10 @@
   </ul>
   <p>If you make a request, we have one month to respond to you. If you would like to exercise any of these rights, please contact us.</p>
 
+  <h2>Indemnification and Disclaimer</h2>
+  <p>MicroFactory provides its web-based productivity tools strictly on an "as-is" and "as-available" basis without any warranties of any kind. You explicitly agree that your use of the MicroFactory service is completely at your own risk. To the fullest extent permitted by applicable law, MicroFactory disclaims all warranties, express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
+  <p>By using this service, you agree to indemnify, defend, and hold harmless MicroFactory, its affiliates, officers, directors, employees, consultants, and agents from any and all third-party claims, liability, damages, and/or costs (including, but not limited to, attorney's fees) arising from your use of the MicroFactory tools, your violation of these terms, or your infringement of any intellectual property or other right of any person or entity.</p>
+
   <h2>Children's Information</h2>
   <p>Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.</p>
   <p>MicroFactory does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</p>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { timeStore } from '$lib/utils/time-forge/store';
-  import { type City } from '$lib/utils/time-forge/cities';
+  import { type City, POPULAR_CITIES } from '$lib/utils/time-forge/cities';
   import { getTeams, saveTeam, deleteTeam, type TimeForgeTeam } from '$lib/utils/time-forge/db';
   import { Save, Trash2, FolderOpen } from 'lucide-svelte';
   import { getDictionary } from '$lib/dictionaries';
@@ -36,7 +36,6 @@
   }
 
   async function handleLoadTeam(team: TimeForgeTeam) {
-    const { POPULAR_CITIES } = await import('$lib/utils/time-forge/cities');
     const cities = team.cityIds.map(id => POPULAR_CITIES.find(c => c.id === id)).filter(Boolean) as City[];
     timeStore.reorderCities(cities);
     showLoadModal = false;
