@@ -24,6 +24,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/audio-forge",
         "isAccessibleForFree": true,
         "name": toolDict.title,
         "description": toolDict.description,
