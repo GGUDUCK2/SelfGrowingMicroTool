@@ -28,6 +28,7 @@
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/decision-forge",
         "isAccessibleForFree": true,
     "name": t.title,
     "description": t.description,
