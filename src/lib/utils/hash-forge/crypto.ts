@@ -120,7 +120,7 @@ export function hashFileChunked(
 
         // Convert ArrayBuffer to CryptoJS WordArray
         const arrayBuffer = e.target.result as ArrayBuffer;
-        const wordArray = CryptoJS.lib.WordArray.create(new Uint8Array(arrayBuffer) as any);
+        const wordArray = CryptoJS.lib.WordArray.create(new Uint8Array(arrayBuffer));
 
         hasher.update(wordArray);
 
@@ -144,7 +144,7 @@ export function hashFileChunked(
         }
       };
 
-      reader.onerror = function(e) {
+      reader.onerror = function() {
         reject(reader.error);
       };
 

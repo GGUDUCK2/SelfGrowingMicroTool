@@ -4,7 +4,7 @@
   export let result: { hex: string, base64: string } | null = null;
   export let label: string = 'Hash Result';
   export let uppercase: boolean = false;
-  export let dict: any;
+  export let dict: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   let expectedHash = '';
   let copiedHex = false;
@@ -29,6 +29,24 @@
       console.error('Failed to copy', err);
     }
   }
+
+  async function downloadHash(text: string, type: 'hex' | 'base64') {
+    if (!text) return;
+    try {
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `hash-${type}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Failed to download', err);
+    }
+  }
+
 </script>
 
 <div class="space-y-6">
@@ -74,6 +92,15 @@
           {dict?.common?.uppercase || "UPPERCASE"}
         </label>
         <button
+          on:click={() => downloadHash(displayHexValue, 'hex')}
+          disabled={!result}
+          class="flex items-center gap-1.5 px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium rounded-md transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          aria-label="Download hex hash"
+          title="Download"
+        >
+          {dict?.common?.download || "Download"}
+        </button>
+        <button
           on:click={() => copyToClipboard(displayHexValue, 'hex')}
           disabled={!result}
           class="flex items-center gap-1.5 px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium rounded-md transition-colors {copiedHex ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-400' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'} disabled:opacity-50 disabled:cursor-not-allowed"
@@ -106,6 +133,15 @@
     <div class="space-y-2">
       <div class="flex items-center justify-between">
         <span class="block text-sm font-medium text-slate-700 dark:text-slate-300">{label} (Base64)</span>
+        <button
+          on:click={() => downloadHash(result?.base64 || '', 'base64')}
+          disabled={!result}
+          class="flex items-center gap-1.5 px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium rounded-md transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          aria-label="Download base64 hash"
+          title="Download"
+        >
+          {dict?.common?.download || "Download"}
+        </button>
         <button
           on:click={() => copyToClipboard(result?.base64 || '', 'base64')}
           disabled={!result}
