@@ -19,6 +19,7 @@
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/barcode-forge",
         "isAccessibleForFree": true,
     "name": "Barcode Forge",
     "applicationCategory": "BusinessApplication, UtilitiesApplication",

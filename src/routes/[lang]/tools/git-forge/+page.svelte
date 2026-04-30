@@ -118,6 +118,7 @@
   $: softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/git-forge",
         "isAccessibleForFree": true,
     "name": dict?.title || 'Git Forge',
     "description": dict?.description || 'Git tools',

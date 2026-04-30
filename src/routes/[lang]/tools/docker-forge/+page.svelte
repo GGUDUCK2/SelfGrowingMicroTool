@@ -21,6 +21,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/docker-forge",
         "name": d?.title || "Docker Forge",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web",
