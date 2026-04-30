@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+
   import { File, UploadCloud, Loader2, AlertCircle } from 'lucide-svelte';
   import { hashFileChunked, ALGORITHMS, type HashAlgorithm } from '$lib/utils/hash-forge/crypto';
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
 
-  export let dict: any;
+  export let dict: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   export let onNewHistory: () => void;
   export let restoredData: HashForgeHistoryItem | null = null;
 
@@ -78,18 +78,21 @@
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
-  $: if (selectedAlgorithm && currentFile && !isHashing && !isRestoredView) {
-    performHash();
+  function handleAlgorithmChange(algo: HashAlgorithm) {
+    selectedAlgorithm = algo;
+    if (currentFile && !isHashing && !isRestoredView) {
+      performHash();
+    }
   }
 </script>
 
 <div class="space-y-6">
   <!-- Algorithm Selection -->
   <div class="flex flex-wrap gap-2">
-    {#each ALGORITHMS as algo}
+    {#each ALGORITHMS as algo (algo)}
       <button
         class="px-4 py-2 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {selectedAlgorithm === algo ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 dark:shadow-indigo-900/20' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'}"
-        on:click={() => selectedAlgorithm = algo}
+        on:click={() => handleAlgorithmChange(algo)}
         aria-label="Select algorithm {algo}"
       >
         {algo}

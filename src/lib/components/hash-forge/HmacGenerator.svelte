@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+
   import { Shield, KeyRound, Sparkles } from 'lucide-svelte';
   import { generateHmac, ALGORITHMS, type HashAlgorithm } from '$lib/utils/hash-forge/crypto';
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
 
-  export let dict: any;
+  export let dict: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   export let onNewHistory: () => void;
   export let restoredData: HashForgeHistoryItem | null = null;
 
@@ -99,7 +99,7 @@
 <div class="space-y-6">
   <!-- Algorithm Selection -->
   <div class="flex flex-wrap gap-2">
-    {#each ALGORITHMS as algo}
+    {#each ALGORITHMS as algo (algo)}
       <button
         class="px-4 py-2 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {selectedAlgorithm === algo ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 dark:shadow-indigo-900/20' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'}"
         on:click={() => selectedAlgorithm = algo}
@@ -115,7 +115,7 @@
     <span class="text-xs font-medium text-slate-500 dark:text-slate-400 flex items-center gap-1">
       <Sparkles size={14} /> {dict?.common?.examples || "Examples"}:
     </span>
-    {#each EXAMPLES as example}
+    {#each EXAMPLES as example (example.label)}
       <button
         class="px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-md hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition-colors font-medium border border-indigo-100 dark:border-indigo-800"
         on:click={() => applyExample(example.secret, example.message)}

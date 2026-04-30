@@ -3,7 +3,7 @@
   import Head from '$lib/components/Head.svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
-  import { fade, slide } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
   import FAQSection from '$lib/components/FAQSection.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
   import TextHasher from '$lib/components/hash-forge/TextHasher.svelte';
@@ -11,7 +11,7 @@
   import HmacGenerator from '$lib/components/hash-forge/HmacGenerator.svelte';
   import HistorySidebar from '$lib/components/hash-forge/HistorySidebar.svelte';
   import { Shield, FileText, KeyRound, Clock, Hash } from 'lucide-svelte';
-  import { onMount, onDestroy } from 'svelte';
+
   import type { HashForgeHistoryItem } from '$lib/db/hash-forge';
 
   $: lang = $page.params.lang || 'en';
@@ -102,9 +102,13 @@
 
 
 <svelte:head>
-      {@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</script>'}
-      {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>'}
-      {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
+      <!-- eslint-disable svelte/no-at-html-tags -->
+      {@html '<!-- ' + JSON.stringify(schema) + ' -->'}
+      <script type="application/ld+json">{@html JSON.stringify(schema)}</script>
+      {@html '<!-- ' + JSON.stringify(breadcrumbSchema) + ' -->'}
+      <script type="application/ld+json">{@html JSON.stringify(breadcrumbSchema)}</script>
+      {@html '<!-- ' + JSON.stringify(faqSchema) + ' -->'}
+      <script type="application/ld+json">{@html JSON.stringify(faqSchema)}</script>
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">

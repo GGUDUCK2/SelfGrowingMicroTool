@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+
   import { Star, StarOff, Trash2, Clock, File, Type, KeyRound } from 'lucide-svelte';
   import { getHistory, toggleStar, deleteFromHistory, clearHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
   import type { ToolHistoryItem } from '$lib/db/workspace';
-  import { fade, slide } from 'svelte/transition';
+  import { slide } from 'svelte/transition';
 
   export let history: ToolHistoryItem<HashForgeHistoryItem>[] = [];
   export let onSelect: (item: HashForgeHistoryItem) => void;
@@ -30,7 +30,8 @@
     }
   }
 
-  onMount(() => {
+  import { onMount } from 'svelte';
+onMount(() => {
     loadHistory();
     // In a real scenario, we'd use Svelte store reactivity or Dexie liveQuery.
     // For now, we'll reload when needed via a method or interval.
