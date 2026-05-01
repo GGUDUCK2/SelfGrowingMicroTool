@@ -67,7 +67,7 @@
               <div class="grid gap-1" style="grid-template-columns: repeat({colsA}, minmax(50px, 1fr));">
                   {#each matrixA as row, i}
                       {#each row as val, j}
-                          <input type="number" aria-label="Matrix A {i},{j}" bind:value={matrixA[i][j]} class="w-full min-h-[44px] min-w-[44px] p-2 text-center bg-slate-50 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 focus:border-indigo-500 outline-none" />
+                          <input type="number" aria-label="Matrix A {i},{j}" bind:value={matrixA[i][j]} class="w-full min-h-[44px] p-2 text-center bg-slate-50 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 focus:border-indigo-500 outline-none" />
                       {/each}
                   {/each}
               </div>
@@ -93,7 +93,7 @@
               <div class="grid gap-1" style="grid-template-columns: repeat({colsB}, minmax(50px, 1fr));">
                   {#each matrixB as row, i}
                       {#each row as val, j}
-                          <input type="number" aria-label="Matrix B {i},{j}" bind:value={matrixB[i][j]} class="w-full min-h-[44px] min-w-[44px] p-2 text-center bg-slate-50 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 focus:border-indigo-500 outline-none" />
+                          <input type="number" aria-label="Matrix B {i},{j}" bind:value={matrixB[i][j]} class="w-full min-h-[44px] p-2 text-center bg-slate-50 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 focus:border-indigo-500 outline-none" />
                       {/each}
                   {/each}
               </div>

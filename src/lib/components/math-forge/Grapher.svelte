@@ -160,7 +160,7 @@
               <button on:click={() => removeFunction(i)} aria-label="Remove Function {i+1}" class="p-1 min-h-[44px] min-w-[44px] text-slate-400 hover:text-red-500 rounded flex justify-center items-center"><X size={14} /></button>
           </div>
       {/each}
-      <button on:click={addFunction} class="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 font-medium px-2 py-1 min-h-[44px] min-w-[44px] hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded w-full justify-center border-2 border-dashed border-indigo-200 dark:border-indigo-900">
+      <button on:click={addFunction} class="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 font-medium px-2 py-1 min-h-[44px] hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded w-full justify-center border-2 border-dashed border-indigo-200 dark:border-indigo-900">
           <Plus size={16} /> {dict.addFunction}
       </button>
   </div>

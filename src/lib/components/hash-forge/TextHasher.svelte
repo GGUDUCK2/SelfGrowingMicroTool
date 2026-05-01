@@ -133,7 +133,7 @@
         on:input={handleInput}
         on:blur={saveCurrentToHistory}
         placeholder={dict.textHash.placeholder}
-        class="w-full h-40 px-4 py-3 min-h-[44px] min-w-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl resize-y focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-slate-800 dark:text-slate-200 placeholder-slate-400 font-mono"
+        class="w-full h-40 px-4 py-3 min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl resize-y focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-slate-800 dark:text-slate-200 placeholder-slate-400 font-mono"
         aria-label={dict.textHash.inputLabel}
       ></textarea>
     </div>

@@ -38,7 +38,7 @@
     {#if $history}
       {#each $history as item (item.id)}
         <div class="group flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors border border-transparent hover:border-slate-100 dark:hover:border-slate-600">
-          <button class="min-h-[44px] min-w-[44px] flex-1 text-left overflow-hidden mr-4" on:click={() => restore(item)}>
+          <button class="min-h-[44px] flex-1 text-left overflow-hidden mr-4" on:click={() => restore(item)}>
             <div class="flex items-center gap-2 mb-1">
               <span class="text-xs font-mono font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
                 {item.algorithm || 'JWT'}

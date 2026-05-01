@@ -59,7 +59,7 @@
     <input
       type="text"
       bind:value={input}
-      class="w-full bg-transparent text-right text-3xl font-bold text-slate-900 dark:text-white outline-none font-mono min-h-[44px] min-w-[44px]"
+      class="w-full bg-transparent text-right text-3xl font-bold text-slate-900 dark:text-white outline-none font-mono min-h-[44px]"
       placeholder="0"
       aria-label="Calculator Input"
       on:keydown={handleKeydown}
