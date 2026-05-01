@@ -10,6 +10,65 @@ export const dictionaries = {
       actions: "Actions",
     },
     tools: {
+
+    yamlForge: {
+      title: "YAML Forge",
+      description: "The definitive YAML toolkit. Convert JSON to YAML, format YAML, and validate syntax instantly.",
+      tabs: {
+        converter: "Converter",
+        validator: "Validator",
+        formatter: "Formatter",
+        history: "History"
+      },
+      converter: {
+        title: "JSON / YAML Converter",
+        inputPlaceholder: "Paste your JSON or YAML here...",
+        outputPlaceholder: "Converted result will appear here...",
+        format: "Format Output",
+        copy: "Copy",
+        download: "Download",
+        clear: "Clear",
+        modeJsonToYaml: "JSON → YAML",
+        modeYamlToJson: "YAML → JSON",
+        errorInvalidInput: "Invalid input format"
+      },
+      validator: {
+        title: "YAML Validator",
+        inputPlaceholder: "Paste your YAML here to validate...",
+        valid: "Valid YAML",
+        invalid: "Invalid YAML"
+      },
+      formatter: {
+        title: "YAML Formatter",
+        inputPlaceholder: "Paste your YAML here...",
+        format: "Format",
+        indent2: "2 Spaces",
+        indent4: "4 Spaces"
+      },
+      history: {
+        title: "Recent Activity",
+        empty: "No recent activity.",
+        clear: "Clear All"
+      },
+      guideTitle: "How to use YAML Forge",
+      guideIntro: "YAML Forge provides a complete suite of tools to manage your YAML and JSON files seamlessly.",
+      guideFeaturesTitle: "Key Features",
+      guideF1: "Bi-directional Conversion: Instantly convert between JSON and YAML formats.",
+      guideF2: "Syntax Validation: Quickly catch syntax errors with real-time validation.",
+      guideF3: "Local Workspace: Your history is saved securely in your browser.",
+      guideTipsTitle: "Pro Tips",
+      guideTip1: "Use keyboard shortcuts (Ctrl+Enter) to format quickly.",
+      guideTip2: "Hover over error messages for detailed line numbers.",
+      guideTip3: "Star important history items to prevent them from being cleared.",
+      faqTitle: "Frequently Asked Questions",
+      faqQ1: "Is my data sent to a server?",
+      faqA1: "No, all processing happens locally in your browser. Your data never leaves your device.",
+      faqQ2: "What size files can I process?",
+      faqA2: "Since processing is local, it depends on your device's memory, but typically files up to several megabytes work flawlessly.",
+      faqQ3: "Does it support YAML 1.2?",
+      faqA3: "Yes, we use the latest parsing libraries that support modern YAML standards."
+    },
+
       curlForge: {
         title: "Curl Forge: The Definitive API Request Builder",
         description: "Visually construct, parse, and export cURL commands to fetch, Python, and more.",
@@ -4420,6 +4479,65 @@ export const dictionaries = {
       actions: "작업",
     },
     tools: {
+
+    yamlForge: {
+      title: "YAML 포지",
+      description: "완벽한 YAML 툴킷입니다. JSON을 YAML로 변환하고, YAML을 포맷팅하며, 구문을 즉시 유효성 검사하세요.",
+      tabs: {
+        converter: "변환기",
+        validator: "검증기",
+        formatter: "포맷터",
+        history: "히스토리"
+      },
+      converter: {
+        title: "JSON / YAML 변환기",
+        inputPlaceholder: "여기에 JSON 또는 YAML을 붙여넣으세요...",
+        outputPlaceholder: "변환된 결과가 여기에 표시됩니다...",
+        format: "출력 포맷",
+        copy: "복사",
+        download: "다운로드",
+        clear: "지우기",
+        modeJsonToYaml: "JSON → YAML",
+        modeYamlToJson: "YAML → JSON",
+        errorInvalidInput: "잘못된 입력 형식"
+      },
+      validator: {
+        title: "YAML 검증기",
+        inputPlaceholder: "검증할 YAML을 여기에 붙여넣으세요...",
+        valid: "유효한 YAML",
+        invalid: "유효하지 않은 YAML"
+      },
+      formatter: {
+        title: "YAML 포맷터",
+        inputPlaceholder: "여기에 YAML을 붙여넣으세요...",
+        format: "포맷",
+        indent2: "2칸 들여쓰기",
+        indent4: "4칸 들여쓰기"
+      },
+      history: {
+        title: "최근 활동",
+        empty: "최근 활동이 없습니다.",
+        clear: "모두 지우기"
+      },
+      guideTitle: "YAML 포지 사용법",
+      guideIntro: "YAML 포지는 YAML 및 JSON 파일을 원활하게 관리할 수 있는 완벽한 도구 모음을 제공합니다.",
+      guideFeaturesTitle: "주요 기능",
+      guideF1: "양방향 변환: JSON과 YAML 형식을 즉시 변환합니다.",
+      guideF2: "구문 검증: 실시간 검증으로 구문 오류를 빠르게 찾습니다.",
+      guideF3: "로컬 워크스페이스: 브라우저에 히스토리가 안전하게 저장됩니다.",
+      guideTipsTitle: "프로 팁",
+      guideTip1: "키보드 단축키(Ctrl+Enter)를 사용하여 빠르게 포맷팅하세요.",
+      guideTip2: "오류 메시지에 마우스를 올리면 자세한 줄 번호를 확인할 수 있습니다.",
+      guideTip3: "중요한 히스토리 항목에 별표를 표시하여 지워지지 않도록 하세요.",
+      faqTitle: "자주 묻는 질문",
+      faqQ1: "내 데이터가 서버로 전송되나요?",
+      faqA1: "아니요, 모든 처리는 브라우저에서 로컬로 진행됩니다. 데이터는 기기를 떠나지 않습니다.",
+      faqQ2: "얼마나 큰 파일을 처리할 수 있나요?",
+      faqA2: "처리는 로컬에서 이루어지므로 기기 메모리에 따라 다르지만, 일반적으로 수 메가바이트 크기의 파일도 원활하게 처리됩니다.",
+      faqQ3: "YAML 1.2를 지원하나요?",
+      faqA3: "네, 최신 YAML 표준을 지원하는 최신 파싱 라이브러리를 사용합니다."
+    },
+
       curlForge: {
         title: "Curl 포지: 완벽한 API 요청 빌더",
         description: "시각적으로 cURL 명령을 구성하고 구문 분석하여 fetch, Python 등으로 내보냅니다.",
