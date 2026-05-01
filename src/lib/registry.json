@@ -562,5 +562,26 @@
       "security"
     ],
     "createdAt": "2026-04-28"
+  },
+  {
+    "id": "yaml-forge",
+    "slug": "yaml-forge",
+    "title": {
+      "en": "YAML Forge",
+      "ko": "YAML 포지"
+    },
+    "description": {
+      "en": "The definitive YAML toolkit. Convert JSON to YAML, format YAML, and validate syntax instantly.",
+      "ko": "완벽한 YAML 툴킷입니다. JSON을 YAML로 변환하고, YAML을 포맷팅하며, 구문을 즉시 유효성 검사하세요."
+    },
+    "category": "dev",
+    "tags": [
+      "yaml",
+      "json",
+      "converter",
+      "formatter",
+      "validator"
+    ],
+    "createdAt": "2024-05-15"
   }
 ]
