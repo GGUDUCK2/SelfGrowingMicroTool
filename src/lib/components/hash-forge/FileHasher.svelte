@@ -1,6 +1,5 @@
 <script lang="ts">
-
-  import { File, UploadCloud, Loader2, AlertCircle } from 'lucide-svelte';
+  import { File, UploadCloud, Loader2, AlertCircle, Copy, Check, Download } from 'lucide-svelte';
   import { hashFileChunked, ALGORITHMS, type HashAlgorithm } from '$lib/utils/hash-forge/crypto';
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
@@ -11,62 +10,84 @@
 
   let selectedAlgorithm: HashAlgorithm = 'SHA-256';
   let isHashing = false;
-  let progress = 0;
-  let currentFile: File | null = null;
-  let hashResult: { hex: string, base64: string } | null = null;
   let errorMsg = '';
+
+  interface ProcessedFile {
+    file: window.File;
+    progress: number;
+    result: { hex: string, base64: string } | null;
+    error: string | null;
+    copied: boolean;
+  }
+
+  let filesList: ProcessedFile[] = [];
 
   // Note: For files, we cannot easily restore the actual File object from History
   // due to browser security. We can only show the previous result.
   let isRestoredView = false;
   let restoredFileName = '';
+  let hashResult: { hex: string, base64: string } | null = null;
 
   $: if (restoredData && restoredData.type === 'file') {
     selectedAlgorithm = restoredData.algorithm as HashAlgorithm;
     hashResult = { hex: restoredData.result, base64: restoredData.base64Result || '' };
     isRestoredView = true;
     restoredFileName = restoredData.inputName;
-    currentFile = null; // Clear any newly selected file
+    filesList = []; // Clear current files
     restoredData = null; // Clear to prevent loops
   }
 
   async function handleFile(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      currentFile = input.files[0];
       isRestoredView = false;
-      await performHash();
+
+      const newFiles = Array.from(input.files).map(file => ({
+        file,
+        progress: 0,
+        result: null,
+        error: null,
+        copied: false
+      }));
+
+      filesList = [...newFiles, ...filesList];
+      // reset input value so the same file can be selected again if needed
+      input.value = '';
+
+      await processFiles(newFiles);
     }
   }
 
-  async function performHash() {
-    if (!currentFile) return;
-
+  async function processFiles(filesToProcess: ProcessedFile[]) {
     isHashing = true;
     errorMsg = '';
-    hashResult = null;
-    progress = 0;
 
-    try {
-      const result = await hashFileChunked(currentFile, selectedAlgorithm, (p) => {
-        progress = p;
-      });
-      hashResult = result;
+    // Process sequentially to not freeze UI with many large files
+    for (const item of filesToProcess) {
+      try {
+        const result = await hashFileChunked(item.file, selectedAlgorithm, (p) => {
+          item.progress = p;
+          filesList = filesList; // trigger reactivity
+        });
+        item.result = result;
+        filesList = filesList; // trigger reactivity
 
-      await saveToHistory({
-        type: 'file',
-        inputName: currentFile.name,
-        algorithm: selectedAlgorithm,
-        result: hashResult.hex,
-        base64Result: hashResult.base64
-      });
-      onNewHistory();
-    } catch (err) {
-      console.error(err);
-      errorMsg = 'Failed to hash file. It may be too large for memory processing.';
-    } finally {
-      isHashing = false;
+        await saveToHistory({
+          type: 'file',
+          inputName: item.file.name,
+          algorithm: selectedAlgorithm,
+          result: result.hex,
+          base64Result: result.base64
+        });
+        onNewHistory();
+      } catch (err) {
+        console.error(err);
+        item.error = 'Failed to hash';
+        filesList = filesList;
+      }
     }
+
+    isHashing = false;
   }
 
   function formatBytes(bytes: number, decimals = 2) {
@@ -80,10 +101,45 @@
 
   function handleAlgorithmChange(algo: HashAlgorithm) {
     selectedAlgorithm = algo;
-    if (currentFile && !isHashing && !isRestoredView) {
-      performHash();
+    if (filesList.length > 0 && !isRestoredView) {
+      // Re-hash all files with new algo
+      filesList = filesList.map(f => ({...f, progress: 0, result: null, error: null}));
+      processFiles(filesList);
     }
   }
+
+  async function copyToClipboard(item: ProcessedFile) {
+    if (!item.result) return;
+    try {
+      await navigator.clipboard.writeText(item.result.hex);
+      item.copied = true;
+      filesList = filesList;
+      setTimeout(() => {
+        item.copied = false;
+        filesList = filesList;
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy', err);
+    }
+  }
+
+  function exportChecksums() {
+    const validFiles = filesList.filter(f => f.result);
+    if (validFiles.length === 0) return;
+
+    // Standard format: <hash> *<filename>
+    const content = validFiles.map(f => `${f.result?.hex} *${f.file.name}`).join('\n');
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `checksums_${selectedAlgorithm.toLowerCase()}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
 </script>
 
 <div class="space-y-6">
@@ -104,33 +160,25 @@
   <div class="relative group">
     <input
       type="file"
+      multiple
       class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
       on:change={handleFile}
       disabled={isHashing}
       aria-label={dict.fileHash.dropzone}
     />
     <div class="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-8 flex flex-col items-center justify-center gap-4 bg-slate-50 dark:bg-slate-900/50 group-hover:bg-indigo-50/50 dark:group-hover:bg-indigo-900/10 group-hover:border-indigo-400 dark:group-hover:border-indigo-500 transition-all min-h-[200px]">
-      {#if isHashing}
-        <Loader2 size={48} class="text-indigo-500 animate-spin" />
-        <p class="text-slate-600 dark:text-slate-400 font-medium">{dict.fileHash.hashing} {progress}%</p>
-      {:else if isRestoredView}
+      {#if isRestoredView}
         <File size={48} class="text-indigo-400" />
         <div class="text-center">
           <p class="text-slate-800 dark:text-slate-200 font-medium break-all px-4">{restoredFileName}</p>
           <p class="text-sm text-slate-500 mt-1">Restored from History</p>
-          <p class="text-xs text-indigo-500 mt-2">Drop a new file to hash again</p>
-        </div>
-      {:else if currentFile}
-        <File size={48} class="text-indigo-500" />
-        <div class="text-center">
-          <p class="text-slate-800 dark:text-slate-200 font-medium break-all px-4">{currentFile.name}</p>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{formatBytes(currentFile.size)}</p>
+          <p class="text-xs text-indigo-500 mt-2">Drop new files to hash again</p>
         </div>
       {:else}
         <UploadCloud size={48} class="text-slate-400 group-hover:text-indigo-500 transition-colors" />
         <div class="text-center">
-          <p class="text-slate-600 dark:text-slate-400 font-medium">Drag & drop a file here</p>
-          <p class="text-sm text-slate-500 mt-1">or click to browse</p>
+          <p class="text-slate-600 dark:text-slate-400 font-medium">{dict?.fileHash?.batchTitle || "Drag & drop files here"}</p>
+          <p class="text-sm text-slate-500 mt-1">or click to browse multiple files</p>
         </div>
       {/if}
     </div>
@@ -143,8 +191,8 @@
     </div>
   {/if}
 
-  <!-- Output -->
-  {#if hashResult && !isHashing}
+  {#if isRestoredView && hashResult}
+    <!-- Output for single restored item -->
     <div class="animate-in fade-in slide-in-from-bottom-2 duration-300">
       <HashOutput
         result={hashResult}
@@ -152,6 +200,64 @@
         uppercase={false}
         dict={dict}
       />
+    </div>
+  {:else if filesList.length > 0}
+    <!-- Batch Output -->
+    <div class="animate-in fade-in slide-in-from-bottom-2 duration-300 space-y-4">
+      <div class="flex items-center justify-between">
+         <h3 class="font-medium text-slate-800 dark:text-slate-200">Processed Files ({filesList.length})</h3>
+         {#if filesList.some(f => f.result)}
+           <button
+             on:click={exportChecksums}
+             class="flex items-center gap-2 px-4 py-2 min-h-[44px] min-w-[44px] bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-900/50 rounded-lg text-sm font-medium transition-colors"
+           >
+             <Download size={16} />
+             {dict?.fileHash?.exportChecksums || "Export Checksums"}
+           </button>
+         {/if}
+      </div>
+
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+        <ul class="divide-y divide-slate-100 dark:divide-slate-800/50 max-h-[400px] overflow-y-auto">
+          {#each filesList as item, i (item.file.name + i)}
+            <li class="p-4 flex flex-col sm:flex-row sm:items-center gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+               <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between mb-1">
+                    <p class="text-sm font-medium text-slate-800 dark:text-slate-200 truncate pr-4">{item.file.name}</p>
+                    <span class="text-xs text-slate-500 whitespace-nowrap">{formatBytes(item.file.size)}</span>
+                  </div>
+
+                  {#if !item.result && !item.error}
+                     <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-1.5 mt-2">
+                        <div class="bg-indigo-500 h-1.5 rounded-full transition-all duration-300" style="width: {item.progress}%"></div>
+                     </div>
+                  {:else if item.error}
+                     <p class="text-xs text-red-500">{item.error}</p>
+                  {:else if item.result}
+                     <p class="text-xs font-mono text-slate-500 dark:text-slate-400 break-all bg-slate-100 dark:bg-slate-800 p-2 rounded mt-1">
+                        {item.result.hex}
+                     </p>
+                  {/if}
+               </div>
+
+               {#if item.result}
+                 <button
+                    on:click={() => copyToClipboard(item)}
+                    class="flex items-center justify-center min-h-[44px] min-w-[44px] shrink-0 p-2 text-slate-500 hover:bg-slate-200 hover:text-slate-700 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-200 rounded-lg transition-colors {item.copied ? 'text-emerald-600 dark:text-emerald-400' : ''}"
+                    aria-label="Copy hash"
+                    title="Copy hash"
+                 >
+                    {#if item.copied}
+                       <Check size={18} />
+                    {:else}
+                       <Copy size={18} />
+                    {/if}
+                 </button>
+               {/if}
+            </li>
+          {/each}
+        </ul>
+      </div>
     </div>
   {/if}
 </div>
