@@ -336,10 +336,13 @@ export const dictionaries = {
           hashing: "Hashing...",
           fileSize: "Size",
           algorithm: "Algorithm",
+          batchTitle: "Drag & drop files here",
+          exportChecksums: "Export Checksums",
         },
         hmac: {
           secretLabel: "Secret Key",
           secretPlaceholder: "Enter a strong secret key...",
+          generateKey: "Generate Secure Key",
         },
         common: {
           copy: "Copy",
@@ -4743,10 +4746,13 @@ export const dictionaries = {
           hashing: "해싱 중...",
           fileSize: "크기",
           algorithm: "알고리즘",
+          batchTitle: "여기로 파일들을 드래그 앤 드롭하세요",
+          exportChecksums: "체크섬 내보내기",
         },
         hmac: {
           secretLabel: "비밀 키 (Secret Key)",
           secretPlaceholder: "강력한 비밀 키를 입력하세요...",
+          generateKey: "보안 키 생성",
         },
         common: {
           copy: "복사",

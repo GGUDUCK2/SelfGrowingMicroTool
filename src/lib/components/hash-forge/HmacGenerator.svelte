@@ -1,6 +1,6 @@
 <script lang="ts">
 
-  import { Shield, KeyRound, Sparkles } from 'lucide-svelte';
+  import { Shield, KeyRound, Sparkles, RefreshCw } from 'lucide-svelte';
   import { generateHmac, ALGORITHMS, type HashAlgorithm } from '$lib/utils/hash-forge/crypto';
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
@@ -81,6 +81,17 @@
     }, 50); // fast UI update
   }
 
+  function generateSecureKey() {
+    const array = new Uint8Array(32);
+    crypto.getRandomValues(array);
+    let hex = '';
+    for (let i = 0; i < array.length; i++) {
+        hex += array[i].toString(16).padStart(2, '0');
+    }
+    secret = hex;
+    handleInput();
+  }
+
   // Handle keyboard shortcuts
   function handleKeydown(e: KeyboardEvent) {
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
@@ -128,10 +139,19 @@
 
   <div class="space-y-4">
     <div>
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1 flex items-center gap-2">
-        <KeyRound size={16} class="text-indigo-500" />
-        {dict.hmac.secretLabel}
-      </label>
+      <div class="flex items-center justify-between mb-1">
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+          <KeyRound size={16} class="text-indigo-500" />
+          {dict.hmac.secretLabel}
+        </label>
+        <button
+          on:click={generateSecureKey}
+          class="text-xs flex items-center gap-1 text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors min-h-[44px] min-w-[44px]"
+        >
+          <RefreshCw size={14} />
+          {dict?.hmac?.generateKey || "Generate Secure Key"}
+        </button>
+      </div>
       <input
         type="text"
         bind:value={secret}
