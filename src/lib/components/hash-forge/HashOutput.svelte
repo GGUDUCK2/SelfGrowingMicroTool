@@ -61,7 +61,7 @@
         type="text"
         bind:value={expectedHash}
         placeholder={dict?.common?.expectedHashPlaceholder || "Paste expected hex or base64 to verify..."}
-        class="w-full px-4 py-3 min-h-[44px] min-w-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-slate-800 dark:text-slate-200 placeholder-slate-400 font-mono pr-12"
+        class="w-full px-4 py-3 min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-slate-800 dark:text-slate-200 placeholder-slate-400 font-mono pr-12"
         aria-label="Expected Hash"
       />
       {#if expectedHash && result}

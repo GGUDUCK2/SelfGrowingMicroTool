@@ -62,7 +62,7 @@
       <div class="space-y-3">
           {#each $historyItems as item}
               <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700 transition">
-                  <button class="flex-grow min-h-[44px] min-w-[44px] flex items-center justify-start text-left truncate px-2" on:click={() => item.id && loadItem(item.id)} aria-label="Load History Item">
+                  <button class="flex-grow min-h-[44px] flex items-center justify-start text-left truncate px-2" on:click={() => item.id && loadItem(item.id)} aria-label="Load History Item">
                       <span class="text-sm font-medium text-slate-700 dark:text-slate-300 truncate">
                            {new Date(item.timestamp).toLocaleString()}
                       </span>

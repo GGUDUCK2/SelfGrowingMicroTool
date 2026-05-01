@@ -27,7 +27,7 @@
     {#each dbs as db}
         <button
             type="button"
-            class="flex items-center p-3 rounded-lg border transition-all gap-3 text-left min-h-[44px] min-w-[44px]
+            class="flex items-center p-3 rounded-lg border transition-all gap-3 text-left min-h-[44px]
             {selectedDatabases.includes(db.id) ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400' : 'border-slate-700 bg-slate-800/50 hover:bg-slate-800 hover:border-slate-600 text-slate-400'}"
             on:click={() => toggle(db.id)}
             aria-label={`Toggle ${db.name} database`}

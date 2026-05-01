@@ -234,7 +234,7 @@
                         on:change={handleLogoUpload}
                         class="hidden"
                     />
-                    <div class="flex items-center justify-center space-x-2 w-full px-4 py-2 bg-slate-700 border border-slate-600 border-dashed rounded-lg cursor-pointer hover:bg-slate-600 transition-colors min-h-[44px] min-w-[44px]">
+                    <div class="flex items-center justify-center space-x-2 w-full px-4 py-2 bg-slate-700 border border-slate-600 border-dashed rounded-lg cursor-pointer hover:bg-slate-600 transition-colors min-h-[44px]">
                         <Upload size={16} class="text-slate-400" />
                         <span class="text-sm text-slate-300">{d.uploadLogo || 'Upload Image'}</span>
                     </div>

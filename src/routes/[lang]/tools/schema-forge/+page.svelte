@@ -456,7 +456,7 @@
                                 {#each projects as p}
                                     <div class="flex items-center group rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50">
                                         <button
-                                            class="flex-1 text-left px-3 py-2 text-sm truncate min-h-[44px] min-w-[44px]"
+                                            class="flex-1 text-left px-3 py-2 text-sm truncate min-h-[44px]"
                                             on:click={() => loadProject(p.id || 0)}
                                         >
                                             {p.name}

@@ -284,7 +284,7 @@
                     </button>
                 </div>
                 <div class="bg-indigo-50/50 dark:bg-indigo-900/10 rounded-xl p-3 border border-indigo-100 dark:border-indigo-900/30">
-                    <button class="font-mono text-xs text-left w-full text-indigo-800 dark:text-indigo-300 break-all select-all block cursor-pointer min-h-[44px] min-w-[44px]" on:click={copyAlias} aria-label="Copy Alias Command">
+                    <button class="font-mono text-xs text-left w-full text-indigo-800 dark:text-indigo-300 break-all select-all block cursor-pointer min-h-[44px]" on:click={copyAlias} aria-label="Copy Alias Command">
                         {aliasCommand}
                     </button>
                 </div>
