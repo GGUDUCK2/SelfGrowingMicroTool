@@ -415,6 +415,9 @@ export const dictionaries = {
           mismatch: "Mismatch",
           base64: "Base64",
           hex: "Hex",
+          text: "Text",
+          downloadJson: "Download JSON",
+          copyJson: "Copy JSON",
           examples: "Examples"
         },
         guideTitle: "Why use Hash Forge?",
@@ -4886,6 +4889,9 @@ export const dictionaries = {
           mismatch: "불일치",
           base64: "Base64",
           hex: "Hex",
+          text: "텍스트",
+          downloadJson: "JSON 다운로드",
+          copyJson: "JSON 복사",
           examples: "예시"
         },
         guideTitle: "Hash Forge를 사용해야 하는 이유",

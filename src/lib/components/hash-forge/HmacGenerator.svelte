@@ -1,7 +1,7 @@
 <script lang="ts">
 
   import { Shield, KeyRound, Sparkles, RefreshCw } from 'lucide-svelte';
-  import { generateHmac, ALGORITHMS, type HashAlgorithm } from '$lib/utils/hash-forge/crypto';
+  import { generateHmac, ALGORITHMS, type HashAlgorithm, type InputFormat } from '$lib/utils/hash-forge/crypto';
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
 
@@ -10,7 +10,9 @@
   export let restoredData: HashForgeHistoryItem | null = null;
 
   let message = '';
+  let inputFormat: InputFormat = 'text';
   let secret = '';
+  let secretFormat: InputFormat = 'text';
   let selectedAlgorithm: HashAlgorithm = 'SHA-256';
   let hmacResult: { hex: string, base64: string } | null = null;
 
@@ -32,7 +34,9 @@
 
   $: if (restoredData && restoredData.type === 'hmac') {
     message = restoredData.fullMessage || restoredData.inputName;
+    inputFormat = (restoredData.inputFormat as InputFormat) || 'text';
     secret = restoredData.secret || '';
+    secretFormat = (restoredData.secretFormat as InputFormat) || 'text';
     selectedAlgorithm = restoredData.algorithm as HashAlgorithm;
     hmacResult = { hex: restoredData.result, base64: restoredData.base64Result || '' };
     restoredData = null; // Clear to prevent loops
@@ -44,7 +48,7 @@
       return;
     }
     try {
-      const result = await generateHmac(message, secret, selectedAlgorithm);
+      const result = await generateHmac(message, secret, selectedAlgorithm, inputFormat, secretFormat);
       hmacResult = result;
     } catch (err) {
       console.error(err);
@@ -64,7 +68,9 @@
       type: 'hmac',
       inputName: message.length > 30 ? message.substring(0, 30) + '...' : message,
       fullMessage: message,
+      inputFormat: inputFormat,
       secret: secret,
+      secretFormat: secretFormat,
       algorithm: selectedAlgorithm,
       result: hmacResult.hex,
       base64Result: hmacResult.base64
@@ -102,7 +108,7 @@
     }
   }
 
-  $: if (selectedAlgorithm && message !== undefined && secret !== undefined) handleInput();
+  $: if (selectedAlgorithm && message !== undefined && secret !== undefined && inputFormat && secretFormat) handleInput();
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -140,17 +146,32 @@
   <div class="space-y-4">
     <div>
       <div class="flex items-center justify-between mb-1">
-        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
-          <KeyRound size={16} class="text-indigo-500" />
-          {dict.hmac.secretLabel}
-        </label>
-        <button
-          on:click={generateSecureKey}
-          class="text-xs flex items-center gap-1 text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors min-h-[44px] min-w-[44px]"
-        >
-          <RefreshCw size={14} />
-          {dict?.hmac?.generateKey || "Generate Secure Key"}
-        </button>
+        <div class="flex items-center gap-2">
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+            <KeyRound size={16} class="text-indigo-500" />
+            {dict.hmac.secretLabel}
+          </label>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5">
+            {#each ['text', 'hex', 'base64'] as format (format)}
+              <button
+                class="px-3 py-1 text-xs font-medium rounded-md transition-colors min-h-[32px] min-w-[44px] {secretFormat === format ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+                on:click={() => { secretFormat = format as InputFormat; }}
+                aria-label={`Secret format ${format}`}
+              >
+                {dict?.common?.[format] || format.toUpperCase()}
+              </button>
+            {/each}
+          </div>
+          <button
+            on:click={generateSecureKey}
+            class="text-xs flex items-center gap-1 text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors min-h-[44px] min-w-[44px]"
+          >
+            <RefreshCw size={14} />
+            <span class="hidden sm:inline">{dict?.hmac?.generateKey || "Generate Secure Key"}</span>
+          </button>
+        </div>
       </div>
       <input
         type="text"
@@ -169,7 +190,20 @@
           <Shield size={16} class="text-indigo-500" />
           {dict.textHash.inputLabel}
         </label>
-        <span class="text-xs text-slate-400">Ctrl+K to clear</span>
+        <div class="flex items-center gap-3">
+          <div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5">
+            {#each ['text', 'hex', 'base64'] as format (format)}
+              <button
+                class="px-3 py-1 text-xs font-medium rounded-md transition-colors min-h-[32px] min-w-[44px] {inputFormat === format ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+                on:click={() => { inputFormat = format as InputFormat; }}
+                aria-label={`Input format ${format}`}
+              >
+                {dict?.common?.[format] || format.toUpperCase()}
+              </button>
+            {/each}
+          </div>
+          <span class="text-xs text-slate-400 hidden sm:inline">Ctrl+K to clear</span>
+        </div>
       </div>
       <textarea
         bind:value={message}

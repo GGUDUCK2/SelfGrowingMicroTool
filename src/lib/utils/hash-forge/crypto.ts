@@ -2,6 +2,7 @@ import CryptoJS from 'crypto-js';
 
 export const ALGORITHMS = ['MD5', 'SHA-1', 'SHA-256', 'SHA-384', 'SHA-512', 'SHA-3'] as const;
 export type HashAlgorithm = typeof ALGORITHMS[number];
+export type InputFormat = 'text' | 'hex' | 'base64';
 
 export interface HashResult {
   hex: string;
@@ -23,11 +24,51 @@ function bufferToBase64(buffer: ArrayBuffer): string {
   return btoa(binary);
 }
 
-export async function hashText(text: string, algorithm: HashAlgorithm): Promise<HashResult> {
+function parseInputData(input: string, format: InputFormat): ArrayBuffer {
+  if (format === 'hex') {
+    const cleanHex = input.replace(/[^0-9a-fA-F]/g, '');
+    const buffer = new ArrayBuffer(Math.ceil(cleanHex.length / 2));
+    const bytes = new Uint8Array(buffer);
+    for (let i = 0; i < bytes.length; i++) {
+      bytes[i] = parseInt(cleanHex.substring(i * 2, i * 2 + 2), 16);
+    }
+    return buffer;
+  } else if (format === 'base64') {
+    try {
+      const binaryString = atob(input);
+      const buffer = new ArrayBuffer(binaryString.length);
+      const bytes = new Uint8Array(buffer);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      return buffer;
+    } catch {
+      // Fallback if invalid base64
+      return new TextEncoder().encode(input).buffer as ArrayBuffer;
+    }
+  } else {
+    return new TextEncoder().encode(input).buffer as ArrayBuffer;
+  }
+}
+
+function getCryptoJsWordarray(input: string, format: InputFormat) {
+  if (format === 'hex') {
+    return CryptoJS.enc.Hex.parse(input.replace(/[^0-9a-fA-F]/g, ''));
+  } else if (format === 'base64') {
+    try {
+      return CryptoJS.enc.Base64.parse(input);
+    } catch {
+      return CryptoJS.enc.Utf8.parse(input);
+    }
+  } else {
+    return CryptoJS.enc.Utf8.parse(input);
+  }
+}
+
+export async function hashText(text: string, algorithm: HashAlgorithm, format: InputFormat = 'text'): Promise<HashResult> {
   // Use Web Crypto API if possible for performance
   if (algorithm !== 'MD5' && algorithm !== 'SHA-3') {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(text);
+    const data = parseInputData(text, format);
     const hashBuffer = await crypto.subtle.digest(algorithm, data);
     return {
       hex: bufferToHex(hashBuffer),
@@ -38,9 +79,10 @@ export async function hashText(text: string, algorithm: HashAlgorithm): Promise<
 
   // Fallback to CryptoJS for MD5 and SHA-3
   let hash;
+  const wordarray = getCryptoJsWordarray(text, format);
   switch (algorithm) {
-    case 'MD5': hash = CryptoJS.MD5(text); break;
-    case 'SHA-3': hash = CryptoJS.SHA3(text); break;
+    case 'MD5': hash = CryptoJS.MD5(wordarray); break;
+    case 'SHA-3': hash = CryptoJS.SHA3(wordarray); break;
     default: throw new Error('Unsupported algorithm');
   }
   return {
@@ -50,11 +92,10 @@ export async function hashText(text: string, algorithm: HashAlgorithm): Promise<
   };
 }
 
-export async function generateHmac(message: string, secret: string, algorithm: HashAlgorithm): Promise<HashResult> {
+export async function generateHmac(message: string, secret: string, algorithm: HashAlgorithm, messageFormat: InputFormat = 'text', secretFormat: InputFormat = 'text'): Promise<HashResult> {
   if (algorithm !== 'MD5' && algorithm !== 'SHA-3') {
-    const encoder = new TextEncoder();
-    const keyData = encoder.encode(secret);
-    const messageData = encoder.encode(message);
+    const keyData = parseInputData(secret, secretFormat);
+    const messageData = parseInputData(message, messageFormat);
 
     const key = await crypto.subtle.importKey(
       'raw',
@@ -74,9 +115,14 @@ export async function generateHmac(message: string, secret: string, algorithm: H
   }
 
   let hmac;
+  const messageWordarray = getCryptoJsWordarray(message, messageFormat);
+  // CryptoJS.Hmac* functions expect the secret to be a string or WordArray.
+  // Using WordArray for consistency
+  const secretWordarray = getCryptoJsWordarray(secret, secretFormat);
+
   switch (algorithm) {
-    case 'MD5': hmac = CryptoJS.HmacMD5(message, secret); break;
-    case 'SHA-3': hmac = CryptoJS.HmacSHA3(message, secret); break;
+    case 'MD5': hmac = CryptoJS.HmacMD5(messageWordarray, secretWordarray); break;
+    case 'SHA-3': hmac = CryptoJS.HmacSHA3(messageWordarray, secretWordarray); break;
     default: throw new Error('Unsupported algorithm');
   }
   return {
