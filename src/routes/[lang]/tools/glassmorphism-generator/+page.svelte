@@ -218,9 +218,9 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
 
 <svelte:head>
-  {@html `<script type="application/ld+json">${JSON.stringify(schemaObj1)}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(schemaObj2)}</script>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(schemaObj3)}</script>`}
+  {@html '<script type="application/ld+json">' + JSON.stringify(schemaObj1) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(schemaObj2) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify(schemaObj3) + '</script>'}
 </svelte:head>
 
 <div class="max-w-6xl mx-auto py-12 space-y-12 px-4">
