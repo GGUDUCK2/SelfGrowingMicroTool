@@ -4,7 +4,9 @@ export interface HashForgeHistoryItem {
   type: 'text' | 'file' | 'hmac';
   inputName: string; // The text content (truncated), file name, or HMAC message
   fullMessage?: string; // Original full text message
+  inputFormat?: string; // e.g. text, hex, base64
   secret?: string; // Original secret for HMAC
+  secretFormat?: string; // e.g. text, hex, base64
   algorithm: string;
   result: string; // Hex result
   base64Result?: string; // Base64 result

@@ -1,7 +1,7 @@
 <script lang="ts">
 
-  import { Shield, Sparkles } from 'lucide-svelte';
-  import { hashText, ALGORITHMS, type HashAlgorithm } from '$lib/utils/hash-forge/crypto';
+  import { Shield, Sparkles, Download, Copy, Check } from 'lucide-svelte';
+  import { hashText, ALGORITHMS, type HashAlgorithm, type InputFormat } from '$lib/utils/hash-forge/crypto';
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
 
@@ -10,6 +10,7 @@
   export let restoredData: HashForgeHistoryItem | null = null;
 
   let message = '';
+  let inputFormat: InputFormat = 'text';
   let selectedAlgorithm: HashAlgorithm = 'SHA-256';
   let hashResult: { hex: string, base64: string } | null = null;
   let matrixMode = false;
@@ -17,6 +18,7 @@
 
   let lastSavedMessage = '';
   let lastSavedAlgorithm: HashAlgorithm | null = null;
+  let copiedJson = false;
 
   // Smart Examples
   const EXAMPLES = [
@@ -32,6 +34,7 @@
 
   $: if (restoredData && restoredData.type === 'text') {
     message = restoredData.fullMessage || restoredData.inputName;
+    inputFormat = (restoredData.inputFormat as InputFormat) || 'text';
     selectedAlgorithm = restoredData.algorithm as HashAlgorithm;
     hashResult = { hex: restoredData.result, base64: restoredData.base64Result || '' };
     restoredData = null; // Clear to prevent loops
@@ -44,7 +47,7 @@
     try {
       if (matrixMode) {
         const promises = ALGORITHMS.map(async (algo) => {
-          const res = await hashText(message, algo);
+          const res = await hashText(message, algo, inputFormat);
           return { algo, res };
         });
         const results = await Promise.all(promises);
@@ -55,7 +58,7 @@
         matrixResult = newMatrix;
         hashResult = null;
       } else {
-        const result = await hashText(message, selectedAlgorithm);
+        const result = await hashText(message, selectedAlgorithm, inputFormat);
         hashResult = result;
         matrixResult = null;
       }
@@ -77,6 +80,7 @@
       type: 'text',
       inputName: message.length > 30 ? message.substring(0, 30) + '...' : (message === '' ? '[Empty String]' : message),
       fullMessage: message,
+      inputFormat: inputFormat,
       algorithm: selectedAlgorithm,
       result: hashResult.hex,
       base64Result: hashResult.base64
@@ -102,7 +106,31 @@
     }
   }
 
-  $: if ((selectedAlgorithm || matrixMode) && message !== undefined) handleInput();
+  async function copyMatrixJson() {
+    if (!matrixResult) return;
+    try {
+      await navigator.clipboard.writeText(JSON.stringify(matrixResult, null, 2));
+      copiedJson = true;
+      setTimeout(() => copiedJson = false, 2000);
+    } catch (err) {
+      console.error('Failed to copy matrix JSON', err);
+    }
+  }
+
+  function downloadMatrixJson() {
+    if (!matrixResult) return;
+    const blob = new Blob([JSON.stringify(matrixResult, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `matrix-hashes.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  $: if ((selectedAlgorithm || matrixMode || inputFormat) && message !== undefined) handleInput();
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -155,7 +183,20 @@
           <Shield size={16} class="text-indigo-500" />
           {dict.textHash.inputLabel}
         </label>
-        <span class="text-xs text-slate-400">Ctrl+K to clear</span>
+        <div class="flex items-center gap-3">
+          <div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5">
+            {#each ['text', 'hex', 'base64'] as format (format)}
+              <button
+                class="px-3 py-1 text-xs font-medium rounded-md transition-colors min-h-[32px] min-w-[44px] {inputFormat === format ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+                on:click={() => { inputFormat = format as InputFormat; }}
+                aria-label={`Input format ${format}`}
+              >
+                {dict?.common?.[format] || format.toUpperCase()}
+              </button>
+            {/each}
+          </div>
+          <span class="text-xs text-slate-400 hidden sm:inline">Ctrl+K to clear</span>
+        </div>
       </div>
       <textarea
         bind:value={message}
@@ -170,6 +211,28 @@
 
   {#if matrixMode && matrixResult}
     <div class="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
+      <div class="flex items-center justify-end gap-2 -mb-4">
+        <button
+          on:click={downloadMatrixJson}
+          class="flex items-center gap-1.5 px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium rounded-md transition-colors bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-900/50"
+          aria-label="Download Matrix JSON"
+        >
+          <Download size={14} />
+          {dict?.common?.downloadJson || "Download JSON"}
+        </button>
+        <button
+          on:click={copyMatrixJson}
+          class="flex items-center gap-1.5 px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium rounded-md transition-colors {copiedJson ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-400' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'}"
+          aria-label="Copy Matrix JSON"
+        >
+          {#if copiedJson}
+            <Check size={14} /> {dict?.common?.copied || "Copied!"}
+          {:else}
+            <Copy size={14} /> {dict?.common?.copyJson || "Copy JSON"}
+          {/if}
+        </button>
+      </div>
+
       {#each ALGORITHMS as algo (algo)}
         <div class="pb-6 border-b border-slate-100 dark:border-slate-800 last:border-0">
           <HashOutput

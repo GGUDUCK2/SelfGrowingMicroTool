@@ -103,8 +103,11 @@
 
 <svelte:head>
       <!-- eslint-disable svelte/no-at-html-tags -->
+      <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
       {@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</script>'}
+      <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
       {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>'}
+      <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
       {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
 </svelte:head>
 
