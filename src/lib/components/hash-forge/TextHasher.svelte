@@ -5,13 +5,15 @@
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
 
-  export let dict: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  export let dict: Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
   export let onNewHistory: () => void;
   export let restoredData: HashForgeHistoryItem | null = null;
 
   let message = '';
   let selectedAlgorithm: HashAlgorithm = 'SHA-256';
   let hashResult: { hex: string, base64: string } | null = null;
+  let matrixMode = false;
+  let matrixResult: Record<string, {hex: string, base64: string}> | null = null;
 
   let lastSavedMessage = '';
   let lastSavedAlgorithm: HashAlgorithm | null = null;
@@ -40,11 +42,27 @@
       // hashResult = null; // Actually, empty string can be hashed!
     }
     try {
-      const result = await hashText(message, selectedAlgorithm);
-      hashResult = result;
+      if (matrixMode) {
+        const promises = ALGORITHMS.map(async (algo) => {
+          const res = await hashText(message, algo);
+          return { algo, res };
+        });
+        const results = await Promise.all(promises);
+        const newMatrix: Record<string, {hex: string, base64: string}> = {};
+        for (const {algo, res} of results) {
+          newMatrix[algo] = res;
+        }
+        matrixResult = newMatrix;
+        hashResult = null;
+      } else {
+        const result = await hashText(message, selectedAlgorithm);
+        hashResult = result;
+        matrixResult = null;
+      }
     } catch (err) {
       console.error(err);
       hashResult = null;
+      matrixResult = null;
     }
   }
 
@@ -84,23 +102,34 @@
     }
   }
 
-  $: if (selectedAlgorithm && message !== undefined) handleInput();
+  $: if ((selectedAlgorithm || matrixMode) && message !== undefined) handleInput();
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
 
 <div class="space-y-6">
   <!-- Algorithm Selection -->
-  <div class="flex flex-wrap gap-2">
-    {#each ALGORITHMS as algo (algo)}
-      <button
-        class="px-4 py-2 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {selectedAlgorithm === algo ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 dark:shadow-indigo-900/20' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'}"
-        on:click={() => selectedAlgorithm = algo}
-        aria-label="Select algorithm {algo}"
-      >
-        {algo}
-      </button>
-    {/each}
+  <div class="flex flex-wrap items-center gap-2">
+    {#if !matrixMode}
+      {#each ALGORITHMS as algo (algo)}
+        <button
+          class="px-4 py-2 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {selectedAlgorithm === algo ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 dark:shadow-indigo-900/20' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'}"
+          on:click={() => selectedAlgorithm = algo}
+          aria-label="Select algorithm {algo}"
+        >
+          {algo}
+        </button>
+      {/each}
+    {/if}
+
+    <button
+      class="px-4 py-2 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {matrixMode ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 dark:shadow-indigo-900/20' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'} ml-auto flex items-center gap-2"
+      on:click={() => { matrixMode = !matrixMode; handleInput(); }}
+      aria-label={dict?.hashForge?.matrixMode || "Matrix Mode"}
+    >
+      <Sparkles size={16} />
+      {dict?.hashForge?.matrixMode || "Matrix Mode"}
+    </button>
   </div>
 
   <!-- Smart Examples -->
@@ -139,7 +168,20 @@
     </div>
   </div>
 
-  {#if hashResult}
+  {#if matrixMode && matrixResult}
+    <div class="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
+      {#each ALGORITHMS as algo (algo)}
+        <div class="pb-6 border-b border-slate-100 dark:border-slate-800 last:border-0">
+          <HashOutput
+            result={matrixResult[algo]}
+            label="{algo} Hash"
+            uppercase={false}
+            dict={dict}
+          />
+        </div>
+      {/each}
+    </div>
+  {:else if hashResult}
     <div class="animate-in fade-in slide-in-from-bottom-2 duration-300">
       <HashOutput
         result={hashResult}
