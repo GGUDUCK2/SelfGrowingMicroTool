@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { File, UploadCloud, Loader2, AlertCircle, Copy, Check, Download } from 'lucide-svelte';
+  import { UploadCloud, File, AlertCircle, Copy, Check, Download, CheckCircle2, XCircle } from 'lucide-svelte';
   import { hashFileChunked, ALGORITHMS, type HashAlgorithm } from '$lib/utils/hash-forge/crypto';
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
 
-  export let dict: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  export let dict: Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
   export let onNewHistory: () => void;
   export let restoredData: HashForgeHistoryItem | null = null;
 
@@ -27,6 +27,24 @@
   let isRestoredView = false;
   let restoredFileName = '';
   let hashResult: { hex: string, base64: string } | null = null;
+  let expectedHashes: Record<string, string> = {};
+
+  function parseChecksumFile(text: string): Record<string, string> {
+    const hashes: Record<string, string> = {};
+    const lines = text.split('\n');
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      // Typical format: <hash> *<filename> or <hash>  <filename>
+      const match = trimmed.match(/^([a-fA-F0-9]+)\s+[* ]?(.*)$/);
+      if (match) {
+        const hash = match[1].toLowerCase();
+        const filename = match[2].trim();
+        hashes[filename] = hash;
+      }
+    }
+    return hashes;
+  }
 
   $: if (restoredData && restoredData.type === 'file') {
     selectedAlgorithm = restoredData.algorithm as HashAlgorithm;
@@ -42,7 +60,24 @@
     if (input.files && input.files.length > 0) {
       isRestoredView = false;
 
-      const newFiles = Array.from(input.files).map(file => ({
+      const fileArray = Array.from(input.files);
+
+      // Check for checksum files
+      for (const file of fileArray) {
+        if (file.name.endsWith('.sha256') || file.name.endsWith('.md5') || file.name.endsWith('.txt')) {
+          try {
+            const text = await file.text();
+            const parsed = parseChecksumFile(text);
+            if (Object.keys(parsed).length > 0) {
+              expectedHashes = { ...expectedHashes, ...parsed };
+            }
+          } catch (e) {
+            console.error('Failed to parse checksum file', e);
+          }
+        }
+      }
+
+      const newFiles = fileArray.map(file => ({
         file,
         progress: 0,
         result: null,
@@ -234,9 +269,24 @@
                   {:else if item.error}
                      <p class="text-xs text-red-500">{item.error}</p>
                   {:else if item.result}
-                     <p class="text-xs font-mono text-slate-500 dark:text-slate-400 break-all bg-slate-100 dark:bg-slate-800 p-2 rounded mt-1">
-                        {item.result.hex}
-                     </p>
+                     <div class="mt-1 space-y-1">
+                       <p class="text-xs font-mono text-slate-500 dark:text-slate-400 break-all bg-slate-100 dark:bg-slate-800 p-2 rounded">
+                          {item.result.hex}
+                       </p>
+                       {#if expectedHashes[item.file.name]}
+                         {#if expectedHashes[item.file.name] === item.result.hex.toLowerCase()}
+                           <div class="flex items-center gap-1 text-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded-md text-xs font-medium border border-emerald-200 dark:border-emerald-800 w-fit">
+                             <CheckCircle2 size={14} />
+                             {dict?.common?.match || "Match"}
+                           </div>
+                         {:else}
+                           <div class="flex items-center gap-1 text-red-500 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded-md text-xs font-medium border border-red-200 dark:border-red-800 w-fit">
+                             <XCircle size={14} />
+                             {dict?.common?.mismatch || "Mismatch"}
+                           </div>
+                         {/if}
+                       {/if}
+                     </div>
                   {/if}
                </div>
 

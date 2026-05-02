@@ -4,7 +4,7 @@
   export let result: { hex: string, base64: string } | null = null;
   export let label: string = 'Hash Result';
   export let uppercase: boolean = false;
-  export let dict: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  export let dict: Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   let expectedHash = '';
   let copiedHex = false;

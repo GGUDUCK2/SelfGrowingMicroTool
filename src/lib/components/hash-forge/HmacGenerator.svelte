@@ -5,7 +5,7 @@
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
 
-  export let dict: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  export let dict: Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
   export let onNewHistory: () => void;
   export let restoredData: HashForgeHistoryItem | null = null;
 

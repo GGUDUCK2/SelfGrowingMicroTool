@@ -403,6 +403,8 @@ export const dictionaries = {
           secretPlaceholder: "Enter a strong secret key...",
           generateKey: "Generate Secure Key",
         },
+        matrixMode: "Matrix Mode",
+        checksumFileFound: "Checksum File Validated",
         common: {
           copy: "Copy",
           copied: "Copied!",
@@ -4872,6 +4874,8 @@ export const dictionaries = {
           secretPlaceholder: "강력한 비밀 키를 입력하세요...",
           generateKey: "보안 키 생성",
         },
+        matrixMode: "매트릭스 모드",
+        checksumFileFound: "체크섬 파일 검증됨",
         common: {
           copy: "복사",
           copied: "복사됨!",
