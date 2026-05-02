@@ -22,12 +22,12 @@ export async function extractMetadata(file: File): Promise<FileMetadata> {
       const dimensions = await getImageDimensions(file);
       if (dimensions) metadata.dimensions = dimensions;
     } else if (file.type === 'application/pdf') {
-      const pdfLib = await import('pdf-lib');
+      const { PDFDocument } = await import('pdf-lib');
       const arrayBuffer = await file.arrayBuffer();
       // Load only headers if possible, but PDFDocument.load loads whole doc.
       // For very large PDFs this might be slow.
       // We can use { ignoreEncryption: true }
-      const pdfDoc = await pdfLib.PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
+      const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
       metadata.pageCount = pdfDoc.getPageCount();
     } else if (file.type === 'application/zip' || file.name.endsWith('.zip')) {
       const JSZip = (await import('jszip')).default;
