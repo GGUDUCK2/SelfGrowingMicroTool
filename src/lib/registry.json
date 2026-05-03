@@ -583,5 +583,25 @@
       "validator"
     ],
     "createdAt": "2024-05-15"
+  },
+  {
+    "id": "csp-forge",
+    "slug": "csp-forge",
+    "title": {
+      "en": "CSP Forge",
+      "ko": "CSP 포지"
+    },
+    "description": {
+      "en": "The definitive Content Security Policy (CSP) builder. Visually construct, evaluate, and export secure policies.",
+      "ko": "완벽한 콘텐츠 보안 정책(CSP) 빌더입니다. 안전한 정책을 시각적으로 구성, 평가 및 내보내세요."
+    },
+    "category": "dev",
+    "tags": [
+      "csp",
+      "security",
+      "headers",
+      "generator"
+    ],
+    "createdAt": "2024-11-20"
   }
 ]
