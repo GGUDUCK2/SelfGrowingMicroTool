@@ -26,6 +26,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/pixel-forge",
         "isAccessibleForFree": true,
         "name": "Pixel Forge",
         "description": description,

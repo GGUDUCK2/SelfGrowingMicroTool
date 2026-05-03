@@ -42,6 +42,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/hash-forge",
         "isAccessibleForFree": true,
     "name": dict.title,
     "applicationCategory": "DeveloperApplication",

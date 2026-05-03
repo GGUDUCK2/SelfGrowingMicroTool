@@ -149,6 +149,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/diagram-forge",
         "isAccessibleForFree": true,
         "name": "Diagram Forge",
         "description": t.description,

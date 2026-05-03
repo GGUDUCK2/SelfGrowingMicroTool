@@ -227,6 +227,7 @@
   $: schemaObj1 = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/grid-master",
       "name": "Grid Master",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Web, iOS, Android, Linux, Windows, macOS",

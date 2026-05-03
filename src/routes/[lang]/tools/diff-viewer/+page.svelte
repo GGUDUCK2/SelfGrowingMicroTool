@@ -290,6 +290,7 @@
   $: softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/diff-viewer",
         "isAccessibleForFree": true,
     "name": t.title,
     "operatingSystem": "Any",

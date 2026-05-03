@@ -121,6 +121,7 @@
   $: schemaObj1 = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/regex-tester",
         "isAccessibleForFree": true,
       "name": "Regex Pro",
       "applicationCategory": "DeveloperApplication",

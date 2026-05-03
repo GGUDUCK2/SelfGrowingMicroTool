@@ -25,6 +25,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/input-lab",
         "isAccessibleForFree": true,
         "name": dict.title,
         "description": dict.description,

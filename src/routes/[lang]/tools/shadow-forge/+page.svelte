@@ -36,6 +36,7 @@
   $: jsonLd = dict ? {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/shadow-forge",
     "name": "Shadow Forge",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",

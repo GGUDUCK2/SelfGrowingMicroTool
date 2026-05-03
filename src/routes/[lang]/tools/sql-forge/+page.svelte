@@ -86,6 +86,7 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/sql-forge",
         "isAccessibleForFree": true,
       "name": "SQL Forge",
       "applicationCategory": "DeveloperApplication",

@@ -87,6 +87,7 @@
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/key-forge",
         "isAccessibleForFree": true,
     "name": dict.title,
     "description": dict.description,

@@ -33,6 +33,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/url-forge",
         "name": "URL Forge",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",

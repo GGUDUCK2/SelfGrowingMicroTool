@@ -89,6 +89,7 @@
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/svg-forge",
     "name": t?.title || "SVG Forge",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",

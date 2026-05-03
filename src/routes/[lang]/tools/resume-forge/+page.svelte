@@ -109,6 +109,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/resume-forge",
         "isAccessibleForFree": true,
         "name": toolDict.title,
         "description": toolDict.description,

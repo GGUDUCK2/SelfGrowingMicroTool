@@ -79,6 +79,7 @@
   $: schemaObj1 = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/invoice-forge",
         "isAccessibleForFree": true,
       "name": "Invoice Forge",
       "applicationCategory": "BusinessApplication",

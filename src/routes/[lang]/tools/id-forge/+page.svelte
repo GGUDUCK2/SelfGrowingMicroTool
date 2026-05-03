@@ -160,6 +160,7 @@
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/id-forge",
         "isAccessibleForFree": true,
     "name": "ID Forge",
     "applicationCategory": "DeveloperApplication",

@@ -172,6 +172,7 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/logic-forge",
         "isAccessibleForFree": true,
       "name": dict.title,
       "url": "https://microfactory.app/tools/logic-forge",

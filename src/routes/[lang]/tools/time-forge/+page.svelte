@@ -52,6 +52,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/time-forge",
         "isAccessibleForFree": true,
     "name": t.title,
     "applicationCategory": "ProductivityApplication",

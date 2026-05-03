@@ -171,6 +171,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/json-architect",
         "isAccessibleForFree": true,
     "name": t.title,
     "description": t.description,

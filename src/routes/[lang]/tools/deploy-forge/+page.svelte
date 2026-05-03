@@ -226,6 +226,7 @@
     {@html '<script type="application/ld+json">' + JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/deploy-forge",
       "isAccessibleForFree": true,
       "name": "Deploy Forge",
       "applicationCategory": "DeveloperApplication",

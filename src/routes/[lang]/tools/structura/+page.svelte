@@ -216,6 +216,7 @@
   $: schemaObj1 = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/structura",
         "isAccessibleForFree": true,
       "name": "Structura",
       "applicationCategory": "DeveloperApplication",

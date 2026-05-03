@@ -43,6 +43,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/color-master",
         "isAccessibleForFree": true,
     "name": t.title,
     "description": t.description,

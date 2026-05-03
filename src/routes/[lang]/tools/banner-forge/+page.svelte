@@ -19,6 +19,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/banner-forge",
         "isAccessibleForFree": true,
         "name": "Banner Forge",
         "description": description,

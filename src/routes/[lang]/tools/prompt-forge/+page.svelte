@@ -167,6 +167,7 @@
   $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/prompt-forge",
         "isAccessibleForFree": true,
       "name": "Prompt Forge",
       "applicationCategory": "DeveloperApplication",

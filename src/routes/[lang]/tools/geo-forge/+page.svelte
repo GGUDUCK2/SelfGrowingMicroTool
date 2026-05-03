@@ -393,6 +393,7 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/${lang}/tools/geo-forge",
         "isAccessibleForFree": true,
       "name": "${dict.title}",
       "description": "${dict.description}",

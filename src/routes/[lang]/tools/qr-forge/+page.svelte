@@ -29,6 +29,7 @@
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/qr-forge",
         "isAccessibleForFree": true,
     "name": "QR Forge",
     "applicationCategory": "UtilitiesApplication",

@@ -265,6 +265,7 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/${lang}/tools/log-prism",
         "isAccessibleForFree": true,
       "name": "${dict.title}",
       "description": "${dict.description}",
