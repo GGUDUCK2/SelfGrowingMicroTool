@@ -116,10 +116,10 @@
     <link rel="alternate" hreflang="en" href="https://micro-factory.vercel.app/en/tools/zen-forge" />
     <link rel="alternate" hreflang="ko" href="https://micro-factory.vercel.app/ko/tools/zen-forge" />
     <link rel="alternate" hreflang="x-default" href="https://micro-factory.vercel.app/en/tools/zen-forge" />
-
+    <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
     {@html '<script type="application/ld+json">' + JSON.stringify(schemaObj1) + '</script>'}
-
-  {@html '<script type="application/ld+json">' + JSON.stringify({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": dict?.q1, "acceptedAnswer": {"@type": "Answer", "text": dict?.a1}}, {"@type": "Question", "name": dict?.q2, "acceptedAnswer": {"@type": "Answer", "text": dict?.a2}}, {"@type": "Question", "name": dict?.q3, "acceptedAnswer": {"@type": "Answer", "text": dict?.a3}}]}) + '</script>'}
+    <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+    {@html '<script type="application/ld+json">' + JSON.stringify({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": dict?.q1, "acceptedAnswer": {"@type": "Answer", "text": dict?.a1}}, {"@type": "Question", "name": dict?.q2, "acceptedAnswer": {"@type": "Answer", "text": dict?.a2}}, {"@type": "Question", "name": dict?.q3, "acceptedAnswer": {"@type": "Answer", "text": dict?.a3}}]}) + '</script>'}
 
 </svelte:head>
 
@@ -194,6 +194,6 @@
 
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20">
-    <RelatedTools {lang} currentSlug="zen-forge" currentCategory="productivity" />
+    <RelatedTools lang={$page.params.lang || 'en'} currentSlug="zen-forge" currentCategory="productivity" />
   </div>
 </div>
