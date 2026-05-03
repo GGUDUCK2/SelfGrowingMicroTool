@@ -55,6 +55,7 @@
     $: schema = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/xpath-forge",
         "name": t?.title || "XPath Forge",
         "description": t?.description || "XPath testing tool",
         "applicationCategory": "DeveloperApplication",

@@ -179,6 +179,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/string-theory",
         "name": "String Theory",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",

@@ -49,6 +49,7 @@
   $: softwareSchema = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/locale-forge",
         "isAccessibleForFree": true,
       "name": dict.title,
       "description": dict.description,

@@ -21,6 +21,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/env-forge",
         "name": d?.title || "Env Forge",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web",

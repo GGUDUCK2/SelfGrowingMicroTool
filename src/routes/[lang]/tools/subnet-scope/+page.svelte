@@ -124,6 +124,7 @@
   $: schemaObj1 = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/subnet-scope",
         "isAccessibleForFree": true,
       "name": "Subnet Scope",
       "applicationCategory": "DeveloperApplication",

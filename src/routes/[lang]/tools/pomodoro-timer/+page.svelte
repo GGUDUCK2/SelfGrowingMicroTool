@@ -134,6 +134,7 @@
   $: appSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/pomodoro-timer",
         "isAccessibleForFree": true,
     "name": dict.title,
     "description": dict.description,

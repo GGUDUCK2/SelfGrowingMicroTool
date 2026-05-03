@@ -48,6 +48,7 @@
   $: schemaObj1 = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/unit-verse",
         "isAccessibleForFree": true,
       "name": "Unit Verse",
       "url": `https://selfgrowingmicrotool.com/${lang}/tools/unit-verse`,

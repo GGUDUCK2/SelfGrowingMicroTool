@@ -283,6 +283,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/seo-forge",
         "isAccessibleForFree": true,
         "name": "SEO Forge",
         "applicationCategory": "DeveloperApplication",

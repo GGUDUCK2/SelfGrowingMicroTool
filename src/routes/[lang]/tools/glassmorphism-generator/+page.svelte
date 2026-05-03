@@ -155,6 +155,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
   $: schemaObj1 = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/glassmorphism-generator",
         "isAccessibleForFree": true,
     "name": dict.title,
     "description": dict.description,

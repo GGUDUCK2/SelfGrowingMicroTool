@@ -144,6 +144,7 @@
   $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/cron-editor",
         "isAccessibleForFree": true,
       "name": "Cronos: Professional Cron Editor",
       "applicationCategory": "DeveloperApplication",

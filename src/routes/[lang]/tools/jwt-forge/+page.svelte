@@ -98,6 +98,7 @@
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/jwt-forge",
         "isAccessibleForFree": true,
     "name": t.title,
     "description": t.description,

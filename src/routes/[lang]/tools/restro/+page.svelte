@@ -251,6 +251,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/restro",
         "isAccessibleForFree": true,
         "name": dict?.title ?? 'Restro',
         "description": dict?.description ?? 'API Client',

@@ -20,6 +20,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/pdf-forge",
         "isAccessibleForFree": true,
     "name": "PDF Forge",
     "headline": toolDict.title,

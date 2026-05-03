@@ -285,6 +285,7 @@
   $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/schema-forge",
         "isAccessibleForFree": true,
       "name": t?.title,
       "description": t?.description,

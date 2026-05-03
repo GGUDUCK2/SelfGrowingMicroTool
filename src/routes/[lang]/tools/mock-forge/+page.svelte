@@ -164,6 +164,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/mock-forge",
         "isAccessibleForFree": true,
         "name": t.title,
         "description": t.description,
