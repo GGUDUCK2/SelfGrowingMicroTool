@@ -50,17 +50,17 @@
   <section class="text-center py-20 space-y-6">
     <h1
       in:fly={{ y: 20, duration: 800 }}
-      class="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900"
+      class="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white"
     >
       <span
-        class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600"
+        class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400"
       >
         {dict.home.title}
       </span>
     </h1>
     <p
       in:fly={{ y: 20, duration: 800, delay: 200 }}
-      class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed"
+      class="text-xl text-gray-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed"
     >
       {dict.home.description}
     </p>
@@ -70,13 +70,13 @@
     <!-- Search Bar -->
     <div class="relative">
       <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 dark:text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </div>
       <input
         type="text"
         bind:value={searchQuery}
         placeholder={lang === 'ko' ? "도구 검색..." : "Search tools..."}
-        class="w-full pl-11 pr-4 py-4 min-h-[44px] bg-white border border-gray-200 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all text-gray-900"
+        class="w-full pl-11 pr-4 py-4 min-h-[44px] bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500"
       />
     </div>
 
@@ -88,7 +88,7 @@
           class="px-4 py-2 min-h-[44px] rounded-full text-sm font-medium transition-all capitalize
             {selectedCategory === category
               ? 'bg-indigo-600 text-white shadow-md'
-              : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50 hover:text-gray-900'}"
+              : 'bg-white dark:bg-slate-800 text-gray-600 dark:text-slate-300 border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 hover:text-gray-900 dark:hover:text-white'}"
         >
           {category}
         </button>
@@ -98,7 +98,7 @@
 
   {#if filteredTools.length === 0}
     <div class="text-center py-12">
-      <p class="text-gray-500 text-lg">{lang === 'ko' ? "검색 결과가 없습니다." : "No tools found matching your criteria."}</p>
+      <p class="text-gray-500 dark:text-slate-400 text-lg">{lang === 'ko' ? "검색 결과가 없습니다." : "No tools found matching your criteria."}</p>
     </div>
   {/if}
 
@@ -107,15 +107,15 @@
       <a
         href="/{lang}/tools/{tool.slug}"
         in:fly={{ y: 20, duration: 800, delay: 400 + i * 100 }}
-        class="group relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 overflow-hidden"
+        class="group relative bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm hover:shadow-2xl dark:hover:shadow-indigo-500/10 hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-slate-700 overflow-hidden"
       >
         <div
-          class="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-purple-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          class="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-purple-50/50 dark:from-indigo-900/20 dark:to-purple-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         ></div>
 
         <div class="relative z-10">
           <div
-            class="mb-6 inline-flex p-3 rounded-xl bg-indigo-50 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300"
+            class="mb-6 inline-flex p-3 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300"
           >
             {#if tool.slug === "pomodoro-timer"}
               <svg
@@ -172,12 +172,12 @@
           </div>
 
           <h2
-            class="text-2xl font-bold text-gray-900 mb-3 ml-1 group-hover:text-indigo-600 transition-colors"
+            class="text-2xl font-bold text-gray-900 dark:text-white mb-3 ml-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
           >
             {tool.title[lang]}
           </h2>
           <p
-            class="text-gray-500 leading-relaxed group-hover:text-gray-600 transition-colors"
+            class="text-gray-500 dark:text-slate-400 leading-relaxed group-hover:text-gray-600 dark:group-hover:text-slate-300 transition-colors"
           >
             {tool.description[lang]}
           </p>

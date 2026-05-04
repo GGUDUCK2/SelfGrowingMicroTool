@@ -7,17 +7,17 @@
 </script>
 
 <div
-  class="min-h-screen flex flex-col bg-gray-50 text-gray-900 font-sans antialiased"
+  class="min-h-screen flex flex-col bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-slate-100 font-sans antialiased transition-colors"
 >
   <header
-    class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-xl"
+    class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl transition-colors"
   >
     <div
       class="container mx-auto px-3 sm:px-4 h-14 sm:h-16 flex items-center justify-between gap-2"
     >
       <a
         href="/{lang}"
-        class="flex items-center gap-2 font-bold text-lg sm:text-xl tracking-tight text-gray-900 hover:opacity-80 transition-opacity flex-shrink-0"
+        class="flex items-center gap-2 font-bold text-lg sm:text-xl tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex-shrink-0"
       >
         <div
           class="size-7 sm:size-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20"
@@ -43,12 +43,12 @@
       <nav class="flex items-center gap-2 sm:gap-4 md:gap-6 flex-shrink-0">
         <a
           href="/{lang}/tools"
-          class="text-xs sm:text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors hidden sm:block"
+          class="text-xs sm:text-sm font-medium text-gray-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors hidden sm:block"
           >Tools</a
         >
         <a
           href="/{lang}/pwa"
-          class="text-xs sm:text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors flex items-center gap-1"
+          class="text-xs sm:text-sm font-medium text-gray-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-1"
           title={lang === "ko" ? "앱 설치" : "Install App"}
         >
           <svg
@@ -71,19 +71,21 @@
             >{lang === "ko" ? "설치" : "Install"}</span
           >
         </a>
-        <div class="h-4 w-px bg-gray-200"></div>
+        <div class="h-4 w-px bg-gray-200 dark:bg-slate-700"></div>
         <div class="flex items-center gap-1 sm:gap-2">
           <a
             href="/en{$page.url.pathname.replace(/^\/(en|ko)/, '')}"
             class:text-indigo-600={lang === "en"}
-            class="text-xs sm:text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors px-1"
+            class:dark:text-indigo-400={lang === "en"}
+            class="text-xs sm:text-sm font-medium text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors px-1"
             >EN</a
           >
-          <span class="text-gray-300">/</span>
+          <span class="text-gray-300 dark:text-slate-600">/</span>
           <a
             href="/ko{$page.url.pathname.replace(/^\/(en|ko)/, '')}"
             class:text-indigo-600={lang === "ko"}
-            class="text-xs sm:text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors px-1"
+            class:dark:text-indigo-400={lang === "ko"}
+            class="text-xs sm:text-sm font-medium text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors px-1"
             >KO</a
           >
         </div>
@@ -98,15 +100,15 @@
     <AdPlaceholder />
   </main>
 
-  <footer class="border-t border-gray-200 bg-white py-12">
+  <footer class="border-t border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12 transition-colors">
     <div class="container mx-auto px-4">
       <div class="flex justify-center gap-6 mb-8 text-sm">
-        <a href="/{lang}/about" class="text-gray-500 hover:text-gray-900 transition-colors">About</a>
-        <a href="/{lang}/privacy-policy" class="text-gray-500 hover:text-gray-900 transition-colors">Privacy Policy</a>
-        <a href="/{lang}/terms-of-service" class="text-gray-500 hover:text-gray-900 transition-colors">Terms of Service</a>
-        <a href="/{lang}/contact" class="text-gray-500 hover:text-gray-900 transition-colors">Contact</a>
+        <a href="/{lang}/about" class="text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors">About</a>
+        <a href="/{lang}/privacy-policy" class="text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors">Privacy Policy</a>
+        <a href="/{lang}/terms-of-service" class="text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors">Terms of Service</a>
+        <a href="/{lang}/contact" class="text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors">Contact</a>
       </div>
-      <div class="text-center text-gray-500 text-sm">
+      <div class="text-center text-gray-500 dark:text-slate-400 text-sm">
         <p>
           &copy; {new Date().getFullYear()} Self-Growing Micro Tools. All rights reserved.
         </p>
