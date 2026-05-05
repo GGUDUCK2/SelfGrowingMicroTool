@@ -86,6 +86,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/csp-forge",
     "isAccessibleForFree": true,
     "name": dict?.title,
     "applicationCategory": "DeveloperApplication",
