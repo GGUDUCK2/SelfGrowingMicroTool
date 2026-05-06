@@ -5,7 +5,7 @@
   import FieldRow from './FieldRow.svelte';
 
   export let fields: SchemaField[] = [];
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   function addField() {
     const id = crypto.randomUUID();

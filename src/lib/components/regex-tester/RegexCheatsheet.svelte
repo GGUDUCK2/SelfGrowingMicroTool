@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   const cheatSheetItems = [
     { label: 'Any character except newline', code: '.' },

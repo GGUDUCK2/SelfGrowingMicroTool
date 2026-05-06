@@ -5,7 +5,7 @@
 
   export let header: JwtHeader | null = null;
   export let payload: JwtPayload | null = null;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
 </script>
 

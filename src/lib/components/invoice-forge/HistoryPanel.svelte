@@ -5,7 +5,7 @@
   import { format } from 'date-fns';
   import { formatCurrency } from '$lib/utils/invoice-forge/calculations';
 
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
   export let onLoad: (data: any) => void;
 
   let historyQuery = liveQuery(() => db.invoiceForgeHistory.orderBy('createdAt').reverse().toArray());

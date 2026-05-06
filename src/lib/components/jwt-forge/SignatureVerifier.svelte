@@ -3,7 +3,7 @@
 
   export let secret = '';
   export let isValid: boolean | null = null;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   const dispatch = createEventDispatcher();
 

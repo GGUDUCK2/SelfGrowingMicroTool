@@ -3,7 +3,7 @@
   import { Copy, Upload } from 'lucide-svelte';
 
   export let config: PassphraseConfig;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
   export let onGenerate: () => void;
 
   let showRecipe = false;

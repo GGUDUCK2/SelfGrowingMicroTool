@@ -6,7 +6,7 @@
   import { browser } from '$app/environment';
 
   export let onLoad: (schema: MockForgeSchema) => void;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   let history;
 

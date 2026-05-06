@@ -3,7 +3,7 @@
 
   export let pattern = '';
   export let flags = 'g';
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   const dispatch = createEventDispatcher();
 

@@ -2,7 +2,7 @@
   import { getStrength, getCrackTimeEstimation } from '$lib/utils/password-forge/generator';
 
   export let entropy: number = 0;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   $: strength = getStrength(entropy);
   $: timeToCrack = getCrackTimeEstimation(entropy);

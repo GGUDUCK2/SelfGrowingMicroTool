@@ -2,7 +2,7 @@
   import { fade } from 'svelte/transition';
 
   export let policy: string = '';
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   let activeFormat: 'header' | 'meta' | 'nginx' | 'apache' = 'header';
   let copied = false;

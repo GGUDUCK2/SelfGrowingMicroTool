@@ -22,7 +22,7 @@
   import { createEventDispatcher } from 'svelte';
   import { fade } from 'svelte/transition';
 
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
   export let hasContent: boolean = false;
 
   const dispatch = createEventDispatcher();

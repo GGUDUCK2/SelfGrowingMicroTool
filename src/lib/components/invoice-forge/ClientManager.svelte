@@ -3,7 +3,7 @@
   import { liveQuery } from 'dexie';
   import { Plus, Trash2, User } from 'lucide-svelte';
 
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   let newClientName = '';
   let newClientEmail = '';
