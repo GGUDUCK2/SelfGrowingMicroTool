@@ -1,7 +1,12 @@
+<script lang="ts">
+  import { page } from "$app/stores";
+  $: lang = $page.params.lang || "en";
+</script>
+
 <svelte:head>
   <title>Privacy Policy | MicroFactory</title>
   <meta name="robots" content="noindex" />
-  {@html '<script type="application/ld+json">' + JSON.stringify({"@context":"https://schema.org","@type":"WebPage","name":"Privacy Policy","description":"Privacy Policy for MicroFactory"}) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify({"@context":"https://schema.org","@type":"WebPage","@id":"https://selfgrowingmicrotool.com/" + lang + "/privacy-policy","name":"Privacy Policy","description":"Privacy Policy for MicroFactory"}) + '</script>'}
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8 prose prose-slate dark:prose-invert">
