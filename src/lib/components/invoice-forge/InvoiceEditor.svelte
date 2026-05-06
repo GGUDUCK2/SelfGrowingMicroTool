@@ -5,7 +5,7 @@
   import { v4 as uuidv4 } from 'uuid';
 
   export let invoice: Invoice;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
   export let clients: InvoiceClient[] = [];
 
   let showClientSuggestions = false;

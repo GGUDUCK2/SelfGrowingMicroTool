@@ -3,7 +3,7 @@
   import { calculateTotal, formatCurrency } from '$lib/utils/invoice-forge/calculations';
 
   export let invoice: Invoice;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   $: totals = calculateTotal(invoice.items, invoice.settings);
 </script>

@@ -4,7 +4,7 @@
   import { format } from 'date-fns';
   import { createEventDispatcher } from 'svelte';
 
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   const dispatch = createEventDispatcher();
 

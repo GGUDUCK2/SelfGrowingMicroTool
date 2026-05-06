@@ -4,7 +4,7 @@
   export let testString = '';
   export let matches: { index: number; content: string; groups?: string[] }[] = [];
   export let error = '';
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   const dispatch = createEventDispatcher();
 

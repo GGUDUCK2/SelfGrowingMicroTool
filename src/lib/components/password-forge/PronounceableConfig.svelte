@@ -2,7 +2,7 @@
   import type { PronounceableConfig } from '$lib/utils/password-forge/generator';
 
   export let config: PronounceableConfig;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
   export let onGenerate: () => void;
 </script>
 

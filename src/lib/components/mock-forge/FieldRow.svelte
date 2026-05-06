@@ -4,7 +4,7 @@
   import type { SchemaField, FieldType } from '$lib/utils/mock-forge/types';
 
   export let field: SchemaField;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
   export let onDelete: () => void;
 
   let showOptions = false;

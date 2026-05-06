@@ -1,6 +1,6 @@
 <script lang="ts">
   export let url: string;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   let status: 'idle' | 'loading' | 'success' | 'error' = 'idle';
   let dimensions = { w: 0, h: 0 };

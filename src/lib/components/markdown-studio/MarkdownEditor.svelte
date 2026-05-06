@@ -2,7 +2,7 @@
   import { onMount, createEventDispatcher } from 'svelte';
 
   export let value: string = "";
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   const dispatch = createEventDispatcher();
   let textarea: HTMLTextAreaElement;

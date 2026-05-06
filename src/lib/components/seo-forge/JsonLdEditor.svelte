@@ -4,7 +4,7 @@
 
   export let data: JsonLdData;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   const dispatch = createEventDispatcher();
 

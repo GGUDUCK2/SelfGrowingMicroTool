@@ -5,7 +5,7 @@
   import { db } from '$lib/db';
   import { fade } from 'svelte/transition';
 
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   const dispatch = createEventDispatcher();
 

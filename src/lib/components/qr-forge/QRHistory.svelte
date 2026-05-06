@@ -6,7 +6,7 @@
   import { slide } from 'svelte/transition';
 
   export let onLoad: (state: QRState) => void;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   let history = liveQuery(() => db.history.orderBy('createdAt').reverse().limit(50).toArray());
 

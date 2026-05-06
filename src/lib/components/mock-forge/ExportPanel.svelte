@@ -3,7 +3,7 @@
   import type { GeneratorOptions } from '$lib/utils/mock-forge/types';
 
   export let options: GeneratorOptions;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
   export let onExport: (format: GeneratorOptions['format']) => void;
 </script>
 

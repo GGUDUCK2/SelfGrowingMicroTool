@@ -3,7 +3,7 @@
   import { Shield, Shuffle, Copy, Download, Upload } from 'lucide-svelte';
 
   export let config: PasswordConfig;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
   export let onGenerate: () => void;
 
   function updateConfig(key: keyof PasswordConfig, value: any) {
