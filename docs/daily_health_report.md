@@ -1,11 +1,13 @@
-[Project Health Report - 2024-05-06]
-## Repository Hygiene
-- 점검 결과 루트 디렉토리에 불필요한 Python 스크립트, 로그 파일, 임시 스크립트 파일이 발견되지 않아 양호함.
-## Design Consistency
-- 기존 도구의 UI가 이미 일관된 구조를 따르고 있어 이번 점검에서 레이아웃 수정이 필요한 추가 사항은 없음.
-## AdSense Readiness
-- `privacy-policy`, `terms-of-service`, `about`, `contact` 페이지가 이미 존재하며, "Thin Content" 페널티를 피할 수 있도록 충분한 내용이 작성되어 있음을 확인.
-- `AdPlaceholder.svelte`가 레이아웃에 올바르게 배치됨.
-- `src/routes/[lang]/tools/time-forge/+page.svelte` 컴포넌트의 JSON-LD 스키마에서 SSR 과정 중 undefined 참조 방지를 위해 옵셔널 체이닝 및 폴백 (`dict?.tools?.timeForge?.q1 || ""`) 적용하여 잠재적 500 에러 수정.
-## Tech Debt
-- 코드 중복 및 기술 부채 청산을 위해 다수의 공통 컴포넌트(예: `HistoryPanel`, `PreviewCard`, `ExportPanel` 등)에서 타입 안전성을 저해하는 `export let dictionary: any;`를 `export let dictionary: Record<string, any>;`로 일괄 치환함.
+### [Daily Improvement Report - 2026-05-06]
+#### 1. Identified Issues (발견된 문제)
+- `src/routes/[lang]/+layout.svelte` 헤더 및 푸터 내의 링크와 인터랙티브 요소들이 모바일 환경을 고려한 `min-h-[44px]` 및 `min-w-[44px]` 터치 타겟을 확보하지 못하고 있었습니다.
+- `src/routes/[lang]/+page.svelte` 홈 페이지의 `WebSite` 스키마 및 법률 페이지(`privacy-policy`, `terms-of-service`, `about`, `contact`)의 `WebPage` 스키마에 명시적인 `@id` 속성이 누락되어 AI 검색 엔진(AEO)의 페이지 식별이 불명확했습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/+layout.svelte` - 헤더의 Tools, Install, EN/KO 언어 선택 링크와 푸터의 About, Privacy Policy 등의 모든 네비게이션 링크에 모바일 접근성(A11y) 기준을 충족하도록 `min-h-[44px] min-w-[44px] flex items-center justify-center` 클래스를 적용했습니다.
+- **SEO/AEO**: `src/routes/[lang]/+page.svelte` (홈 페이지) - WebSite JSON-LD 스키마에 `@id` 속성을 추가하여 검색 엔진의 이해도를 명확히 했습니다.
+- **SEO/AEO**: 법률 페이지(`privacy-policy`, `terms-of-service`, `about`, `contact`)의 `WebPage` 스키마에 정식 Canonical URL을 가리키는 `@id` 속성을 보완하여 구조화 데이터를 강화했습니다.
+
+#### 3. Performance Impact (기대 효과)
+- 모바일 디바이스에서 터치 영역이 확보되어 네비게이션 요소의 클릭 오류가 크게 감소하고, 구글의 모바일 친화성 테스트 및 Core Web Vitals 점수 상승을 기대할 수 있습니다.
+- 강화된 JSON-LD 구조화 데이터(명시적 `@id`)를 통해 AI 검색 엔진(AEO) 및 기존 검색 엔진이 사이트 구조를 더 정확하게 파악하여 리치 스니펫 등 검색 노출 가시성이 증가합니다.

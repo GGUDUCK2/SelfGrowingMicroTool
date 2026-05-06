@@ -17,7 +17,7 @@
     >
       <a
         href="/{lang}"
-        class="flex items-center gap-2 font-bold text-lg sm:text-xl tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex-shrink-0"
+        class="flex items-center gap-2 font-bold text-lg sm:text-xl tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex-shrink-0 min-h-[44px] min-w-[44px]"
       >
         <div
           class="size-7 sm:size-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20"
@@ -43,12 +43,12 @@
       <nav class="flex items-center gap-2 sm:gap-4 md:gap-6 flex-shrink-0">
         <a
           href="/{lang}/tools"
-          class="text-xs sm:text-sm font-medium text-gray-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors hidden sm:block"
+          class="text-xs sm:text-sm font-medium text-gray-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors hidden sm:flex items-center justify-center min-h-[44px] min-w-[44px]"
           >Tools</a
         >
         <a
           href="/{lang}/pwa"
-          class="text-xs sm:text-sm font-medium text-gray-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-1"
+          class="text-xs sm:text-sm font-medium text-gray-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center justify-center gap-1 min-h-[44px] min-w-[44px]"
           title={lang === "ko" ? "앱 설치" : "Install App"}
         >
           <svg
@@ -77,7 +77,7 @@
             href="/en{$page.url.pathname.replace(/^\/(en|ko)/, '')}"
             class:text-indigo-600={lang === "en"}
             class:dark:text-indigo-400={lang === "en"}
-            class="text-xs sm:text-sm font-medium text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors px-1"
+            class="text-xs sm:text-sm font-medium text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors px-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
             >EN</a
           >
           <span class="text-gray-300 dark:text-slate-600">/</span>
@@ -85,7 +85,7 @@
             href="/ko{$page.url.pathname.replace(/^\/(en|ko)/, '')}"
             class:text-indigo-600={lang === "ko"}
             class:dark:text-indigo-400={lang === "ko"}
-            class="text-xs sm:text-sm font-medium text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors px-1"
+            class="text-xs sm:text-sm font-medium text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors px-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
             >KO</a
           >
         </div>
@@ -102,11 +102,11 @@
 
   <footer class="border-t border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12 transition-colors">
     <div class="container mx-auto px-4">
-      <div class="flex justify-center gap-6 mb-8 text-sm">
-        <a href="/{lang}/about" class="text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors">About</a>
-        <a href="/{lang}/privacy-policy" class="text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors">Privacy Policy</a>
-        <a href="/{lang}/terms-of-service" class="text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors">Terms of Service</a>
-        <a href="/{lang}/contact" class="text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors">Contact</a>
+      <div class="flex justify-center flex-wrap gap-2 sm:gap-6 mb-8 text-sm">
+        <a href="/{lang}/about" class="text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2">About</a>
+        <a href="/{lang}/privacy-policy" class="text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2">Privacy Policy</a>
+        <a href="/{lang}/terms-of-service" class="text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2">Terms of Service</a>
+        <a href="/{lang}/contact" class="text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2">Contact</a>
       </div>
       <div class="text-center text-gray-500 dark:text-slate-400 text-sm">
         <p>

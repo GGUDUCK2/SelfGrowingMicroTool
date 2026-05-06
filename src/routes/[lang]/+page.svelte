@@ -40,6 +40,7 @@
   {@html `<script type="application/ld+json">${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",
+      "@id": "https://selfgrowingmicrotool.com/" + lang,
       "name": dict.home.title,
       "url": "https://selfgrowingmicrotool.com/" + lang,
       "description": dict.home.description
