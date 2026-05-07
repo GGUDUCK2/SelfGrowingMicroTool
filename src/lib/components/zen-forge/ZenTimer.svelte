@@ -129,9 +129,7 @@
 
     <!-- Controls -->
     <div class="flex items-center gap-4 z-10">
-        <button style="min-height: 44px; min-width: 44px;"
-            on:click={toggle}
-            class="p-4 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-900/50 transition-all hover:scale-105 active:scale-95"
+        <button class="min-h-[44px] min-w-[44px] p-4 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-900/50 transition-all hover:scale-105 active:scale-95" on:click={toggle}
             aria-label={isRunning ? (dict.timerDict?.stop || 'Stop') : (dict.timerDict?.start || 'Start')}
         >
             {#if isRunning}
@@ -141,9 +139,7 @@
             {/if}
         </button>
 
-        <button style="min-height: 44px; min-width: 44px;"
-            on:click={reset}
-            class="p-3 rounded-full bg-slate-700 hover:bg-slate-600 text-slate-300 transition-colors"
+        <button class="min-h-[44px] min-w-[44px] p-3 rounded-full bg-slate-700 hover:bg-slate-600 text-slate-300 transition-colors" on:click={reset}
             aria-label="Reset Timer"
         >
             <RotateCcw size={20} />
@@ -153,9 +149,7 @@
     <!-- Presets -->
     <div class="flex flex-wrap justify-center gap-2 z-10 max-w-[200px]">
         {#each presets as min}
-            <button style="min-height: 44px; min-width: 44px;"
-                on:click={() => setTime(min)}
-                class="px-3 py-1 rounded-full text-xs font-medium border border-slate-600 hover:border-indigo-500 hover:text-indigo-400 transition-colors {initialTime === min * 60 ? 'bg-indigo-900/30 text-indigo-300 border-indigo-500' : 'text-slate-400'}"
+            <button class="min-h-[44px] min-w-[44px] px-3 py-1 rounded-full text-xs font-medium border border-slate-600 hover:border-indigo-500 hover:text-indigo-400 transition-colors {initialTime === min * 60 ? 'bg-indigo-900/30 text-indigo-300 border-indigo-500' : 'text-slate-400'}" on:click={() => setTime(min)}
             >
                 {min}{dict.timerDict?.min || 'm'}
             </button>

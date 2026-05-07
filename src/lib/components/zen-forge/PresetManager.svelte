@@ -43,9 +43,7 @@
 <div class="bg-slate-800/50 p-4 rounded-3xl border border-slate-700 flex flex-col gap-4 max-h-[400px] flex-1 min-h-[200px]">
     <div class="flex items-center justify-between">
         <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">{dict.controls.presets}</h3>
-        <button style="min-height: 44px; min-width: 44px;"
-            on:click={handleSave}
-            class="p-2 text-indigo-400 hover:text-indigo-300 hover:bg-indigo-900/30 rounded-lg transition-colors flex items-center gap-2 text-xs font-medium"
+        <button class="min-h-[44px] min-w-[44px] p-2 text-indigo-400 hover:text-indigo-300 hover:bg-indigo-900/30 rounded-lg transition-colors flex items-center gap-2 text-xs font-medium" on:click={handleSave}
             aria-label={dict.controls.save}
         >
             <Save size={16} />
@@ -58,9 +56,7 @@
         <div class="space-y-1">
             <div class="text-xs text-slate-500 font-bold px-2 uppercase tracking-wide opacity-50">{dict.history.system}</div>
             {#each systemPresets as preset}
-                <button style="min-height: 44px; min-width: 44px;"
-                    on:click={() => load(preset.tracks)}
-                    class="w-full text-left px-3 py-2 rounded-xl bg-slate-700/30 hover:bg-slate-700 text-slate-300 text-sm transition-colors flex items-center gap-2 group"
+                <button class="min-h-[44px] min-w-[44px] w-full text-left px-3 py-2 rounded-xl bg-slate-700/30 hover:bg-slate-700 text-slate-300 text-sm transition-colors flex items-center gap-2 group" on:click={() => load(preset.tracks)}
                 >
                     <div class="w-2 h-2 rounded-full bg-indigo-500/50 group-hover:bg-indigo-400"></div>
                     {dict.presets[preset.name as keyof typeof dict.presets] || preset.name}
@@ -74,25 +70,19 @@
                 <div class="text-xs text-slate-500 font-bold px-2 py-1 uppercase tracking-wide opacity-50">{dict.history.user}</div>
                 {#each $userMixes as mix}
                     <div class="flex items-center group w-full bg-slate-700/30 hover:bg-slate-700 rounded-xl pr-2 transition-colors border border-transparent hover:border-slate-600">
-                        <button style="min-height: 44px; min-width: 44px;"
-                            on:click={() => load(mix.tracks)}
-                            class="flex-1 text-left px-3 py-2 text-slate-300 text-sm flex items-center gap-2 overflow-hidden"
+                        <button class="min-h-[44px] min-w-[44px] flex-1 text-left px-3 py-2 text-slate-300 text-sm flex items-center gap-2 overflow-hidden" on:click={() => load(mix.tracks)}
                         >
                             <Folder size={14} class="text-indigo-400 shrink-0" />
                             <span class="truncate">{mix.name}</span>
                         </button>
 
                         <div class="flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button style="min-height: 44px; min-width: 44px;"
-                                on:click|stopPropagation={() => star(mix.id!, mix.starred || 0)}
-                                class="p-1.5 hover:text-yellow-400 transition-colors {mix.starred ? 'text-yellow-400 opacity-100' : 'text-slate-500'}"
+                            <button class="min-h-[44px] min-w-[44px] p-1.5 hover:text-yellow-400 transition-colors {mix.starred ? 'text-yellow-400 opacity-100' : 'text-slate-500'}" on:click|stopPropagation={() => star(mix.id!, mix.starred || 0)}
                                 aria-label="Star Mix"
                             >
                                 <Star size={14} fill={mix.starred ? "currentColor" : "none"} />
                             </button>
-                            <button style="min-height: 44px; min-width: 44px;"
-                                on:click|stopPropagation={() => remove(mix.id!)}
-                                class="p-1.5 text-slate-500 hover:text-red-400 transition-colors"
+                            <button class="min-h-[44px] min-w-[44px] p-1.5 text-slate-500 hover:text-red-400 transition-colors" on:click|stopPropagation={() => remove(mix.id!)}
                                 aria-label="Delete Mix"
                             >
                                 <Trash2 size={14} />

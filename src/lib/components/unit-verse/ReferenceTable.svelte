@@ -71,8 +71,7 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
       {#each referenceData as item}
-        <button style="min-height: 44px; min-width: 44px;"
-          class="flex items-center justify-between bg-slate-900/50 hover:bg-slate-700 border border-slate-700/50 rounded-lg p-3 transition-all group text-left min-h-[44px]"
+        <button class="min-h-[44px] min-w-[44px] flex items-center justify-between bg-slate-900/50 hover:bg-slate-700 border border-slate-700/50 rounded-lg p-3 transition-all group text-left min-h-[44px]"
           on:click={() => copyToClipboard(item.value, item.unit.id)}
           aria-label="Copy {item.value} {item.unit.name.en}"
         >

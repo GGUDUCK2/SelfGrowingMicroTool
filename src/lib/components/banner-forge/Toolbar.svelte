@@ -93,8 +93,7 @@
         <h3 class="text-xs font-semibold uppercase text-slate-500 tracking-wider">{dict.dimensions}</h3>
         <div class="grid grid-cols-2 gap-2">
             {#each sizes as size}
-                <button style="min-height: 44px; min-width: 44px;"
-                    class="px-2 py-2 text-xs border rounded hover:bg-indigo-50 hover:border-indigo-200 truncate transition-colors text-left
+                <button class="min-h-[44px] min-w-[44px] px-2 py-2 text-xs border rounded hover:bg-indigo-50 hover:border-indigo-200 truncate transition-colors text-left
                            {state.width === size.width && state.height === size.height ? 'bg-indigo-100 border-indigo-500 text-indigo-700' : 'bg-white border-slate-200 text-slate-600'}"
                     on:click={() => handleResize(size)}
                     title="{size.width}x{size.height}"
@@ -112,9 +111,9 @@
 
         <!-- Tabs for BG Type -->
         <div class="flex gap-2 mb-2">
-             <button style="min-height: 44px; min-width: 44px;" class="flex-1 py-1 text-xs border-b-2 {state.background.type === 'color' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-slate-500'}" on:click={() => handleBackground('color', '#ffffff')}>{dict.color}</button>
-             <button style="min-height: 44px; min-width: 44px;" class="flex-1 py-1 text-xs border-b-2 {state.background.type === 'gradient' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-slate-500'}" on:click={() => handleBackground('gradient', gradients[0])}>{dict.gradient}</button>
-             <button style="min-height: 44px; min-width: 44px;" class="flex-1 py-1 text-xs border-b-2 {state.background.type === 'pattern' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-slate-500'}" on:click={() => handleBackground('pattern', 'dots')}>{dict.pattern}</button>
+             <button class="min-h-[44px] min-w-[44px] flex-1 py-1 text-xs border-b-2 {state.background.type === 'color' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-slate-500'}" on:click={() => handleBackground('color', '#ffffff')}>{dict.color}</button>
+             <button class="min-h-[44px] min-w-[44px] flex-1 py-1 text-xs border-b-2 {state.background.type === 'gradient' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-slate-500'}" on:click={() => handleBackground('gradient', gradients[0])}>{dict.gradient}</button>
+             <button class="min-h-[44px] min-w-[44px] flex-1 py-1 text-xs border-b-2 {state.background.type === 'pattern' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-slate-500'}" on:click={() => handleBackground('pattern', 'dots')}>{dict.pattern}</button>
         </div>
 
         {#if state.background.type === 'color'}
@@ -126,8 +125,7 @@
             <div class="grid grid-cols-4 gap-2">
                 {#each gradients as grad}
                     <button
-                        class="w-full h-8 rounded border border-slate-200 ring-2 ring-transparent hover:ring-indigo-300 transition-all"
-                        style="min-height: 44px; min-width: 44px; background: {grad}"
+                        class="w-full h-8 rounded border border-slate-200 ring-2 ring-transparent hover:ring-indigo-300 transition-all min-h-[44px] min-w-[44px]"  style="background: {grad}"
                         on:click={() => handleBackground('gradient', grad)}
                         aria-label="Select Gradient"
                     ></button>
@@ -136,8 +134,7 @@
         {:else if state.background.type === 'pattern'}
              <div class="grid grid-cols-3 gap-2">
                 {#each patterns as pat}
-                    <button style="min-height: 44px; min-width: 44px;"
-                        class="w-full py-2 rounded border border-slate-200 text-[10px] uppercase font-bold text-slate-500 hover:bg-slate-50 hover:text-indigo-600"
+                    <button class="min-h-[44px] min-w-[44px] w-full py-2 rounded border border-slate-200 text-[10px] uppercase font-bold text-slate-500 hover:bg-slate-50 hover:text-indigo-600"
                         on:click={() => handleBackground('pattern', pat)}
                     >
                         {pat}
@@ -154,7 +151,7 @@
                 <h3 class="text-xs font-semibold uppercase text-slate-500 tracking-wider">
                     {dict.textLayers}
                 </h3>
-                <button style="min-height: 44px; min-width: 44px;" on:click={deleteLayer} class="text-red-500 hover:bg-red-50 p-1.5 rounded transition-colors" title={dict.history.delete}>
+                <button class="min-h-[44px] min-w-[44px] text-red-500 hover:bg-red-50 p-1.5 rounded transition-colors" on:click={deleteLayer} title={dict.history.delete}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                 </button>
             </div>
@@ -228,15 +225,15 @@
                 <div>
                     <span class="text-xs font-medium text-slate-600 mb-1 block">{dict.layers.align}</span>
                     <div class="flex border border-slate-300 rounded-lg overflow-hidden" role="group" aria-label="Text Alignment">
-                        <button style="min-height: 44px; min-width: 44px;" aria-label="Align Left" class="flex-1 py-2 hover:bg-slate-50 flex justify-center {selectedLayer.style.textAlign === 'left' ? 'bg-slate-100 text-indigo-600' : 'text-slate-600'}" on:click={() => updateLayer('textAlign', 'left')}>
+                        <button class="min-h-[44px] min-w-[44px] flex-1 py-2 hover:bg-slate-50 flex justify-center {selectedLayer.style.textAlign === 'left' ? 'bg-slate-100 text-indigo-600' : 'text-slate-600'}" aria-label="Align Left" on:click={() => updateLayer('textAlign', 'left')}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="17" x2="3" y1="6" y2="6"/><line x1="21" x2="3" y1="12" y2="12"/><line x1="17" x2="3" y1="18" y2="18"/></svg>
                         </button>
                         <div class="w-px bg-slate-300"></div>
-                        <button style="min-height: 44px; min-width: 44px;" aria-label="Align Center" class="flex-1 py-2 hover:bg-slate-50 flex justify-center {selectedLayer.style.textAlign === 'center' ? 'bg-slate-100 text-indigo-600' : 'text-slate-600'}" on:click={() => updateLayer('textAlign', 'center')}>
+                        <button class="min-h-[44px] min-w-[44px] flex-1 py-2 hover:bg-slate-50 flex justify-center {selectedLayer.style.textAlign === 'center' ? 'bg-slate-100 text-indigo-600' : 'text-slate-600'}" aria-label="Align Center" on:click={() => updateLayer('textAlign', 'center')}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="17" x2="7" y1="12" y2="12"/><line x1="21" x2="3" y1="18" y2="18"/></svg>
                         </button>
                         <div class="w-px bg-slate-300"></div>
-                        <button style="min-height: 44px; min-width: 44px;" aria-label="Align Right" class="flex-1 py-2 hover:bg-slate-50 flex justify-center {selectedLayer.style.textAlign === 'right' ? 'bg-slate-100 text-indigo-600' : 'text-slate-600'}" on:click={() => updateLayer('textAlign', 'right')}>
+                        <button class="min-h-[44px] min-w-[44px] flex-1 py-2 hover:bg-slate-50 flex justify-center {selectedLayer.style.textAlign === 'right' ? 'bg-slate-100 text-indigo-600' : 'text-slate-600'}" aria-label="Align Right" on:click={() => updateLayer('textAlign', 'right')}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="7" y1="6" y2="6"/><line x1="21" x2="3" y1="12" y2="12"/><line x1="21" x2="7" y1="18" y2="18"/></svg>
                         </button>
                     </div>
@@ -250,9 +247,7 @@
         </div>
     {:else}
         <div class="pt-4 border-t border-slate-200 space-y-2">
-            <button style="min-height: 44px; min-width: 44px;"
-                on:click={addTextLayer}
-                class="w-full py-3 bg-white border-2 border-dashed border-indigo-300 text-indigo-600 rounded-xl hover:bg-indigo-50 hover:border-indigo-500 transition-all flex items-center justify-center gap-2 text-sm font-bold"
+            <button class="min-h-[44px] min-w-[44px] w-full py-3 bg-white border-2 border-dashed border-indigo-300 text-indigo-600 rounded-xl hover:bg-indigo-50 hover:border-indigo-500 transition-all flex items-center justify-center gap-2 text-sm font-bold" on:click={addTextLayer}
             >
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                 {dict.addText}

@@ -66,9 +66,7 @@
         </div>
         <div class="flex flex-wrap gap-2">
             {#each ['focus', 'relax', 'sleep', 'meditate'] as tag}
-                <button style="min-height: 44px; min-width: 44px;"
-                    on:click={() => zenStore.applySmartMix(tag)}
-                    class="px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-500/20 hover:bg-indigo-500/40 text-indigo-200 transition-colors border border-indigo-500/30"
+                <button class="min-h-[44px] min-w-[44px] px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-500/20 hover:bg-indigo-500/40 text-indigo-200 transition-colors border border-indigo-500/30" on:click={() => zenStore.applySmartMix(tag)}
                 >
                     {dict.smartMix[tag] || tag.charAt(0).toUpperCase() + tag.slice(1)}
                 </button>

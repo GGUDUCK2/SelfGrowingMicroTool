@@ -162,8 +162,7 @@
             <div class="bg-surface border border-border/50 rounded-xl p-4 sm:p-6 shadow-sm min-h-[400px] flex flex-col">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-lg font-semibold">{snapshot.year} {lang === 'ko' ? '인구 피라미드' : 'Population Pyramid'}</h2>
-                    <button style="min-height: 44px; min-width: 44px;"
-                        class="text-sm text-primary hover:underline"
+                    <button class="min-h-[44px] min-w-[44px] text-sm text-primary hover:underline"
                         on:click={saveSnapshot}
                     >
                         {t.saveSnapshot}

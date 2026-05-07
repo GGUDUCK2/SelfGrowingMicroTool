@@ -105,9 +105,7 @@
             labelOriginal={dict.card?.original || "Original"}
             labelOptimized={dict.card?.optimized || "Optimized"}
         />
-        <button style="min-height: 44px; min-width: 44px;"
-            on:click={() => showDiff = false}
-            class="absolute top-2 right-2 min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 bg-slate-800/80 hover:bg-slate-700 text-slate-300 rounded-lg z-30 transition-colors"
+        <button class="min-h-[44px] min-w-[44px] absolute top-2 right-2 min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 bg-slate-800/80 hover:bg-slate-700 text-slate-300 rounded-lg z-30 transition-colors" on:click={() => showDiff = false}
             title="Close Diff View"
             aria-label="Close Diff View"
         >
@@ -116,9 +114,7 @@
     {:else}
         <img src={job.previewUrl} alt="Preview" class="w-full h-full object-contain" />
         {#if job.status === 'done' && job.result}
-            <button style="min-height: 44px; min-width: 44px;"
-                on:click={() => showDiff = true}
-                class="absolute top-2 right-2 min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 bg-indigo-600/90 hover:bg-indigo-500 text-white rounded-lg md:opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-lg"
+            <button class="min-h-[44px] min-w-[44px] absolute top-2 right-2 min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 bg-indigo-600/90 hover:bg-indigo-500 text-white rounded-lg md:opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-lg" on:click={() => showDiff = true}
                 title="Compare"
                 aria-label="Compare Original and Optimized"
             >
@@ -153,9 +149,7 @@
             {/if}
         </div>
       </div>
-      <button style="min-height: 44px; min-width: 44px;"
-        on:click={() => onRemove(job.id)}
-        class="text-slate-500 hover:text-red-400 transition-colors p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
+      <button class="min-h-[44px] min-w-[44px] text-slate-500 hover:text-red-400 transition-colors p-1 min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={() => onRemove(job.id)}
         aria-label="Remove image"
       >
         <Trash2 class="w-5 h-5" />
@@ -219,8 +213,7 @@
         </label>
 
          <div class="flex items-end pb-1 col-span-2 md:col-span-4 mt-2">
-             <button style="min-height: 44px; min-width: 44px;"
-                class="w-full min-h-[44px] flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+             <button class="min-h-[44px] min-w-[44px] w-full min-h-[44px] flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
                 disabled={job.status !== 'done'}
                 on:click={download}
              >

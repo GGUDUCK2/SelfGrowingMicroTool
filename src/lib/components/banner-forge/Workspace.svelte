@@ -97,7 +97,7 @@
             <h2 class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
                 <span class="text-indigo-600">❖</span> Editor
             </h2>
-            <button style="min-height: 44px; min-width: 44px;" on:click={() => showHistory = !showHistory} class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-slate-100 rounded-lg transition-colors" title={dict.history.title}>
+            <button class="min-h-[44px] min-w-[44px] p-2 text-slate-500 hover:text-indigo-600 hover:bg-slate-100 rounded-lg transition-colors" on:click={() => showHistory = !showHistory} title={dict.history.title}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </button>
         </div>
@@ -108,14 +108,14 @@
 
         <div class="p-4 border-t border-slate-200 dark:border-slate-800 space-y-2 bg-slate-50/50 dark:bg-slate-900">
             <div class="grid grid-cols-2 gap-2">
-                <button style="min-height: 44px; min-width: 44px;" on:click={() => handleExport('png')} class="px-3 py-2.5 bg-white border border-slate-200 hover:border-indigo-300 text-slate-700 text-xs font-bold rounded-lg transition-colors shadow-sm flex items-center justify-center gap-1">
+                <button class="min-h-[44px] min-w-[44px] px-3 py-2.5 bg-white border border-slate-200 hover:border-indigo-300 text-slate-700 text-xs font-bold rounded-lg transition-colors shadow-sm flex items-center justify-center gap-1" on:click={() => handleExport('png')}>
                     PNG
                 </button>
-                <button style="min-height: 44px; min-width: 44px;" on:click={() => handleExport('jpeg')} class="px-3 py-2.5 bg-white border border-slate-200 hover:border-indigo-300 text-slate-700 text-xs font-bold rounded-lg transition-colors shadow-sm flex items-center justify-center gap-1">
+                <button class="min-h-[44px] min-w-[44px] px-3 py-2.5 bg-white border border-slate-200 hover:border-indigo-300 text-slate-700 text-xs font-bold rounded-lg transition-colors shadow-sm flex items-center justify-center gap-1" on:click={() => handleExport('jpeg')}>
                     JPG
                 </button>
             </div>
-            <button style="min-height: 44px; min-width: 44px;" on:click={handleSave} class="w-full px-3 py-3 bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold rounded-lg transition-colors flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20">
+            <button class="min-h-[44px] min-w-[44px] w-full px-3 py-3 bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold rounded-lg transition-colors flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20" on:click={handleSave}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
                 {dict.history.save}
             </button>
@@ -126,20 +126,20 @@
     <main class="flex-1 order-1 lg:order-2 h-[60vh] lg:h-full relative bg-slate-100 dark:bg-slate-950 overflow-hidden flex flex-col">
         <!-- Zoom Controls -->
         <div class="absolute bottom-4 left-4 lg:top-4 lg:bottom-auto z-10 flex gap-2 bg-white dark:bg-slate-800 p-1.5 rounded-lg shadow-md border border-slate-200 dark:border-slate-700">
-            <button style="min-height: 44px; min-width: 44px;" on:click={() => zoom = Math.max(0.1, zoom - 0.1)} class="p-1.5 hover:bg-slate-100 rounded text-slate-600" aria-label="Zoom Out">
+            <button class="min-h-[44px] min-w-[44px] p-1.5 hover:bg-slate-100 rounded text-slate-600" on:click={() => zoom = Math.max(0.1, zoom - 0.1)} aria-label="Zoom Out">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
             </button>
             <span class="text-xs font-mono w-12 flex items-center justify-center text-slate-500">{Math.round(zoom * 100)}%</span>
-            <button style="min-height: 44px; min-width: 44px;" on:click={() => zoom = Math.min(2, zoom + 0.1)} class="p-1.5 hover:bg-slate-100 rounded text-slate-600" aria-label="Zoom In">
+            <button class="min-h-[44px] min-w-[44px] p-1.5 hover:bg-slate-100 rounded text-slate-600" on:click={() => zoom = Math.min(2, zoom + 0.1)} aria-label="Zoom In">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
             </button>
-            <button style="min-height: 44px; min-width: 44px;" on:click={() => zoom = 0.6} class="p-1.5 hover:bg-slate-100 rounded text-slate-600 text-xs font-bold px-2">
+            <button class="min-h-[44px] min-w-[44px] p-1.5 hover:bg-slate-100 rounded text-slate-600 text-xs font-bold px-2" on:click={() => zoom = 0.6}>
                 Reset
             </button>
         </div>
 
         <div class="absolute bottom-4 right-4 lg:top-4 lg:bottom-auto z-10 flex gap-2">
-             <button style="min-height: 44px; min-width: 44px;" on:click={() => handleExport('copy')} class="p-2.5 bg-white dark:bg-slate-800 shadow-md border border-slate-200 dark:border-slate-700 rounded-lg text-slate-600 hover:text-indigo-600 transition-colors" title={dict.export.copy}>
+             <button class="min-h-[44px] min-w-[44px] p-2.5 bg-white dark:bg-slate-800 shadow-md border border-slate-200 dark:border-slate-700 rounded-lg text-slate-600 hover:text-indigo-600 transition-colors" on:click={() => handleExport('copy')} title={dict.export.copy}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
              </button>
         </div>
@@ -155,7 +155,7 @@
     {#if showHistory}
         <div class="absolute inset-0 z-30 flex">
             <!-- Backdrop -->
-            <button style="min-height: 44px; min-width: 44px;" class="flex-1 bg-black/20 backdrop-blur-sm cursor-default w-full h-full" on:click={() => showHistory = false} transition:fade aria-label="Close History"></button>
+            <button class="min-h-[44px] min-w-[44px] flex-1 bg-black/20 backdrop-blur-sm cursor-default w-full h-full" on:click={() => showHistory = false} transition:fade aria-label="Close History"></button>
             <!-- Drawer -->
             <div transition:slide={{axis: 'x', duration: 300}} class="h-full">
                 <HistorySidebar {dict} on:close={() => showHistory = false} on:restore={handleRestore} />
