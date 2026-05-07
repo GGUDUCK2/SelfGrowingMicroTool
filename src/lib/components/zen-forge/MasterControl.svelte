@@ -61,9 +61,7 @@
 
 <div class="bg-slate-800/80 backdrop-blur border border-slate-700 rounded-2xl p-4 flex flex-wrap items-center gap-4 shadow-xl">
     <!-- Play/Pause (Global Context) -->
-    <button style="min-height: 44px; min-width: 44px;"
-        on:click={togglePlay}
-        class="p-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full transition-all shadow-lg shadow-indigo-500/30"
+    <button class="min-h-[44px] min-w-[44px] p-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full transition-all shadow-lg shadow-indigo-500/30" on:click={togglePlay}
         aria-label={isPlaying ? dict.controls.pause : dict.controls.play}
     >
         {#if isPlaying}
@@ -92,9 +90,7 @@
     <!-- Toggles Group -->
     <div class="flex items-center gap-2">
         <!-- Spatial Audio -->
-        <button style="min-height: 44px; min-width: 44px;"
-            on:click={toggleSpatial}
-            class="p-2 rounded-xl border transition-all {$zenStore.spatialMode ? 'bg-indigo-500/20 border-indigo-500 text-indigo-300 shadow-[0_0_10px_rgba(99,102,241,0.3)]' : 'bg-slate-700 border-slate-600 text-slate-400 hover:text-slate-200'}"
+        <button class="min-h-[44px] min-w-[44px] p-2 rounded-xl border transition-all {$zenStore.spatialMode ? 'bg-indigo-500/20 border-indigo-500 text-indigo-300 shadow-[0_0_10px_rgba(99,102,241,0.3)]' : 'bg-slate-700 border-slate-600 text-slate-400 hover:text-slate-200'}" on:click={toggleSpatial}
             title={dict.controls?.spatialAudio || "3D Spatial Audio"}
             aria-label={dict.controls?.spatialAudio || "3D Spatial Audio"}
         >
@@ -102,9 +98,7 @@
         </button>
 
         <!-- Record Button -->
-        <button style="min-height: 44px; min-width: 44px;"
-            on:click={toggleRecord}
-            class="p-2 rounded-xl border flex items-center gap-2 transition-all {$zenStore.isRecording ? 'bg-red-500/20 border-red-500 text-red-400 animate-pulse' : 'bg-slate-700 border-slate-600 text-slate-300 hover:text-white'}"
+        <button class="min-h-[44px] min-w-[44px] p-2 rounded-xl border flex items-center gap-2 transition-all {$zenStore.isRecording ? 'bg-red-500/20 border-red-500 text-red-400 animate-pulse' : 'bg-slate-700 border-slate-600 text-slate-300 hover:text-white'}" on:click={toggleRecord}
             title={$zenStore.isRecording ? dict.controls.stopRecord : dict.controls.record}
             aria-label={$zenStore.isRecording ? dict.controls.stopRecord : dict.controls.record}
         >
@@ -116,9 +110,7 @@
         </button>
 
         <!-- Focus Mode -->
-        <button style="min-height: 44px; min-width: 44px;"
-            on:click={toggleFocus}
-            class="p-2 rounded-xl border transition-all {$zenStore.isFocusMode ? 'bg-emerald-500/20 border-emerald-500 text-emerald-300' : 'bg-slate-700 border-slate-600 text-slate-400 hover:text-slate-200'}"
+        <button class="min-h-[44px] min-w-[44px] p-2 rounded-xl border transition-all {$zenStore.isFocusMode ? 'bg-emerald-500/20 border-emerald-500 text-emerald-300' : 'bg-slate-700 border-slate-600 text-slate-400 hover:text-slate-200'}" on:click={toggleFocus}
             title={dict.controls?.focusMode || "Focus Mode"}
             aria-label={dict.controls?.focusMode || "Focus Mode"}
         >
@@ -129,9 +121,7 @@
     <div class="h-6 w-px bg-slate-700 mx-1"></div>
 
     <div class="relative">
-        <button style="min-height: 44px; min-width: 44px;"
-            on:click={handleShare}
-            class="p-2 text-slate-400 hover:text-indigo-400 transition-colors"
+        <button class="min-h-[44px] min-w-[44px] p-2 text-slate-400 hover:text-indigo-400 transition-colors" on:click={handleShare}
             title={dict.controls.share || 'Share Mix'}
             aria-label={dict.controls.share || 'Share Mix'}
         >
@@ -144,7 +134,7 @@
         {/if}
     </div>
 
-    <button style="min-height: 44px; min-width: 44px;" on:click={handleReset} class="p-2 text-slate-400 hover:text-white" title={dict.controls.reset} aria-label={dict.controls.reset}>
+    <button class="min-h-[44px] min-w-[44px] p-2 text-slate-400 hover:text-white" on:click={handleReset} title={dict.controls.reset} aria-label={dict.controls.reset}>
         <RefreshCw size={20} />
     </button>
 </div>

@@ -97,8 +97,7 @@
 
   <!-- Undo/Redo -->
   <div class="flex items-center gap-1">
-      <button style="min-height: 44px; min-width: 44px;"
-        class="p-3 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+      <button class="min-h-[44px] min-w-[44px] p-3 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
         disabled={!canUndo || $isProcessing}
         on:click={undo}
         title={dict.shortcuts.undo || "Undo"}
@@ -106,8 +105,7 @@
       >
         <Undo class="w-5 h-5" />
       </button>
-      <button style="min-height: 44px; min-width: 44px;"
-        class="p-3 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+      <button class="min-h-[44px] min-w-[44px] p-3 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
         disabled={!canRedo || $isProcessing}
         on:click={redo}
         title={dict.shortcuts.redo || "Redo"}
@@ -120,8 +118,7 @@
   <div class="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1"></div>
 
   <!-- Add More -->
-  <button style="min-height: 44px; min-width: 44px;"
-    class="p-3 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors tooltip relative group"
+  <button class="min-h-[44px] min-w-[44px] p-3 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors tooltip relative group"
     title={dict.actions.add}
     on:click={triggerUpload}
     aria-label="Add Files"
@@ -131,8 +128,7 @@
   </button>
 
   <!-- History & Save Session -->
-  <button style="min-height: 44px; min-width: 44px;"
-    class="p-3 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl transition-colors"
+  <button class="min-h-[44px] min-w-[44px] p-3 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl transition-colors"
     title={dict.history.title || "History"}
     on:click={toggleHistory}
     aria-label="History"
@@ -140,8 +136,7 @@
     <History class="w-5 h-5" />
   </button>
 
-  <button style="min-height: 44px; min-width: 44px;"
-    class="p-3 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl transition-colors"
+  <button class="min-h-[44px] min-w-[44px] p-3 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl transition-colors"
     title={dict.actions.saveSession || "Save Session"}
     on:click={handleSaveSession}
     aria-label="Save Session"
@@ -152,8 +147,7 @@
   <div class="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1"></div>
 
   <!-- Creative Tools -->
-  <button style="min-height: 44px; min-width: 44px;"
-    class="p-3 text-slate-500 hover:text-pink-600 hover:bg-pink-50 dark:hover:bg-pink-900/20 rounded-xl transition-colors disabled:opacity-30"
+  <button class="min-h-[44px] min-w-[44px] p-3 text-slate-500 hover:text-pink-600 hover:bg-pink-50 dark:hover:bg-pink-900/20 rounded-xl transition-colors disabled:opacity-30"
     title={dict.actions?.zipper || "Zipper Merge (Interleave)"}
     disabled={!canZipper}
     on:click={zipperMerge}
@@ -162,8 +156,7 @@
     <Shuffle class="w-5 h-5" />
   </button>
 
-  <button style="min-height: 44px; min-width: 44px;"
-    class="p-3 text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-colors"
+  <button class="min-h-[44px] min-w-[44px] p-3 text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-colors"
     title={dict.actions?.sort || "Sort by Name"}
     on:click={() => sortPages('name')}
     aria-label="Sort"
@@ -171,8 +164,7 @@
     <ArrowDownAZ class="w-5 h-5" />
   </button>
 
-  <button style="min-height: 44px; min-width: 44px;"
-    class="p-3 text-slate-500 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-xl transition-colors"
+  <button class="min-h-[44px] min-w-[44px] p-3 text-slate-500 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-xl transition-colors"
     title={dict.actions?.watermark || "Watermark"}
     on:click={() => showWatermark = true}
     aria-label="Watermark"
@@ -180,8 +172,7 @@
     <Stamp class="w-5 h-5" />
   </button>
 
-  <button style="min-height: 44px; min-width: 44px;"
-    class="p-3 text-slate-500 hover:text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-xl transition-colors"
+  <button class="min-h-[44px] min-w-[44px] p-3 text-slate-500 hover:text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-xl transition-colors"
     title={dict.actions?.images || "Export Images"}
     on:click={exportImages}
     aria-label="Export Images"
@@ -193,8 +184,7 @@
 
   <!-- Extract -->
   {#if hasSelection}
-      <button style="min-height: 44px; min-width: 44px;"
-        class="flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100"
+      <button class="min-h-[44px] min-w-[44px] flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100"
         on:click={() => extractSelectedPages()}
         transition:scale
         title={dict.actions.extract}
@@ -205,8 +195,7 @@
   {/if}
 
   <!-- Rotation -->
-  <button style="min-height: 44px; min-width: 44px;"
-    class="flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all
+  <button class="min-h-[44px] min-w-[44px] flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all
     {hasSelection
       ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700'
       : 'text-slate-300 dark:text-slate-700 cursor-not-allowed'}"
@@ -219,8 +208,7 @@
   </button>
 
   <!-- Delete -->
-  <button style="min-height: 44px; min-width: 44px;"
-    class="flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all
+  <button class="min-h-[44px] min-w-[44px] flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all
     {hasSelection
       ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40'
       : 'text-slate-300 dark:text-slate-700 cursor-not-allowed'}"
@@ -235,8 +223,7 @@
   <div class="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1"></div>
 
   <!-- Reset -->
-  <button style="min-height: 44px; min-width: 44px;"
-    class="p-3 text-slate-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-colors"
+  <button class="min-h-[44px] min-w-[44px] p-3 text-slate-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-colors"
     title={dict.actions.reset}
     on:click={() => { if(confirm('Clear all pages?')) clearAll(); }}
     aria-label="Reset"
@@ -245,8 +232,7 @@
   </button>
 
   <!-- Merge (Primary) -->
-  <button style="min-height: 44px; min-width: 44px;"
-    class="flex items-center gap-2 pl-4 pr-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold shadow-lg shadow-indigo-500/20 active:scale-95 transition-all
+  <button class="min-h-[44px] min-w-[44px] flex items-center gap-2 pl-4 pr-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold shadow-lg shadow-indigo-500/20 active:scale-95 transition-all
     {$isProcessing ? 'opacity-75 cursor-wait' : ''}"
     disabled={!hasPages || $isProcessing}
     on:click={() => mergeAndDownload()}

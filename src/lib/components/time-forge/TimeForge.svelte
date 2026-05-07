@@ -135,8 +135,7 @@
     <div class="flex flex-wrap items-center gap-2 w-full xl:w-auto justify-end">
 
         <!-- Creative Feature: Golden Hour -->
-        <button style="min-height: 44px; min-width: 44px;"
-            class="flex items-center space-x-2 px-3 py-2 bg-gradient-to-r from-amber-500/10 to-orange-500/10 hover:from-amber-500/20 hover:to-orange-500/20 text-amber-500 border border-amber-500/30 rounded-lg transition-all"
+        <button class="min-h-[44px] min-w-[44px] flex items-center space-x-2 px-3 py-2 bg-gradient-to-r from-amber-500/10 to-orange-500/10 hover:from-amber-500/20 hover:to-orange-500/20 text-amber-500 border border-amber-500/30 rounded-lg transition-all"
             on:click={findGoldenHour}
         >
             <Sparkles class="w-4 h-4" />
@@ -144,8 +143,7 @@
         </button>
 
         <!-- Creative Feature: ICS Export -->
-        <button style="min-height: 44px; min-width: 44px;"
-            class="flex items-center space-x-2 px-3 py-2 bg-slate-700/50 hover:bg-slate-700 text-slate-300 border border-slate-600 rounded-lg transition-all"
+        <button class="min-h-[44px] min-w-[44px] flex items-center space-x-2 px-3 py-2 bg-slate-700/50 hover:bg-slate-700 text-slate-300 border border-slate-600 rounded-lg transition-all"
             on:click={exportICS}
         >
             <Calendar class="w-4 h-4" />
@@ -154,9 +152,9 @@
 
        <div class="w-px h-6 bg-slate-700 mx-1 hidden sm:block"></div>
 
-      <button style="min-height: 44px; min-width: 44px;"
+      <button
         type="button"
-        class={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all border ${$timeStore.isMeetingMode ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/50' : 'text-slate-400 hover:text-indigo-400 bg-slate-700/50 border-transparent hover:border-slate-600'}`}
+        class={`min-h-[44px] min-w-[44px] flex items-center space-x-2 px-3 py-2 rounded-lg transition-all border ${$timeStore.isMeetingMode ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/50' : 'text-slate-400 hover:text-indigo-400 bg-slate-700/50 border-transparent hover:border-slate-600'}`}
         title={t.shortcuts.meetingMode}
         on:click={toggleMeetingMode}
       >
@@ -164,9 +162,7 @@
         <span class="text-sm font-medium hidden sm:inline">{t.buttons.meetingMode}</span>
       </button>
 
-       <button style="min-height: 44px; min-width: 44px;"
-        type="button"
-        class="p-2 text-slate-400 hover:text-indigo-400 bg-slate-700/50 rounded-lg transition-colors border border-transparent hover:border-slate-600"
+       <button class="min-h-[44px] min-w-[44px] p-2 text-slate-400 hover:text-indigo-400 bg-slate-700/50 rounded-lg transition-colors border border-transparent hover:border-slate-600" type="button"
         title={t.buttons.share}
         aria-label={t.buttons.share}
         on:click={copyLink}
@@ -174,9 +170,7 @@
         <Share2 class="w-5 h-5" />
       </button>
 
-      <button style="min-height: 44px; min-width: 44px;"
-        type="button"
-        class="p-2 text-slate-400 hover:text-indigo-400 bg-slate-700/50 rounded-lg transition-colors border border-transparent hover:border-slate-600"
+      <button class="min-h-[44px] min-w-[44px] p-2 text-slate-400 hover:text-indigo-400 bg-slate-700/50 rounded-lg transition-colors border border-transparent hover:border-slate-600" type="button"
         title={t.buttons.reset}
         aria-label={t.buttons.reset}
         on:click={reset}
@@ -184,9 +178,7 @@
         <RotateCcw class="w-5 h-5" />
       </button>
 
-      <button style="min-height: 44px; min-width: 44px;"
-        type="button"
-        class="p-2 text-slate-400 hover:text-indigo-400 bg-slate-700/50 rounded-lg transition-colors border border-transparent hover:border-slate-600"
+      <button class="min-h-[44px] min-w-[44px] p-2 text-slate-400 hover:text-indigo-400 bg-slate-700/50 rounded-lg transition-colors border border-transparent hover:border-slate-600" type="button"
         title="{t.shortcuts.help} (?)"
         aria-label={t.shortcuts.help}
         on:click={() => showShortcuts = true}

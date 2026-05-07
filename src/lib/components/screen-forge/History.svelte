@@ -58,8 +58,7 @@
                     <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow group">
                         <div class="flex items-start justify-between mb-2">
                             <h4 class="font-medium text-slate-900 dark:text-white truncate pr-2" title={item.name}>{item.name}</h4>
-                            <button style="min-height: 44px; min-width: 44px;"
-                                class="text-slate-400 hover:text-red-500 transition-colors p-1 opacity-0 group-hover:opacity-100 focus:opacity-100"
+                            <button class="min-h-[44px] min-w-[44px] text-slate-400 hover:text-red-500 transition-colors p-1 opacity-0 group-hover:opacity-100 focus:opacity-100"
                                 on:click={() => remove(item.id!)}
                                 title={t.delete}
                             >
@@ -82,15 +81,13 @@
                         </div>
 
                         <div class="flex gap-2">
-                            <button style="min-height: 44px; min-width: 44px;"
-                                class="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 text-sm font-medium transition-colors"
+                            <button class="min-h-[44px] min-w-[44px] flex-1 flex items-center justify-center gap-2 py-2 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 text-sm font-medium transition-colors"
                                 on:click={() => onPlay(item.blob)}
                             >
                                 <Play size={14} />
                                 {t.play}
                             </button>
-                             <button style="min-height: 44px; min-width: 44px;"
-                                class="p-2 rounded-lg bg-slate-50 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                             <button class="min-h-[44px] min-w-[44px] p-2 rounded-lg bg-slate-50 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
                                 on:click={() => download(item)}
                                 title={t.download}
                             >

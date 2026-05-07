@@ -96,21 +96,15 @@
         <!-- Bulk Export Options -->
         {#if ids.length > 0}
         <div class="flex items-center bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-0.5">
-            <button style="min-height: 44px; min-width: 44px;"
-                on:click={() => copyText(formatOutput(ids, 'json'))}
-                class="px-2 py-1 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
+            <button class="min-h-[44px] min-w-[44px] px-2 py-1 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors" on:click={() => copyText(formatOutput(ids, 'json'))}
                 title="Copy as JSON"
             >JSON</button>
             <div class="w-px h-3 bg-slate-200 dark:bg-slate-700 mx-0.5"></div>
-            <button style="min-height: 44px; min-width: 44px;"
-                on:click={() => copyText(formatOutput(ids, 'sql'))}
-                class="px-2 py-1 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
+            <button class="min-h-[44px] min-w-[44px] px-2 py-1 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors" on:click={() => copyText(formatOutput(ids, 'sql'))}
                 title="Copy as SQL"
             >SQL</button>
              <div class="w-px h-3 bg-slate-200 dark:bg-slate-700 mx-0.5"></div>
-            <button style="min-height: 44px; min-width: 44px;"
-                on:click={() => copyText(formatOutput(ids, 'csv'))}
-                class="px-2 py-1 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
+            <button class="min-h-[44px] min-w-[44px] px-2 py-1 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors" on:click={() => copyText(formatOutput(ids, 'csv'))}
                 title="Copy as CSV"
             >CSV</button>
         </div>
@@ -118,9 +112,7 @@
 
         <div class="h-4 w-px bg-slate-300 dark:bg-slate-600 mx-1 hidden md:block"></div>
 
-        <button style="min-height: 44px; min-width: 44px;"
-          on:click={() => copyText(output)}
-          class="p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors relative group"
+        <button class="min-h-[44px] min-w-[44px] p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors relative group" on:click={() => copyText(output)}
           aria-label={dict.buttons.copy}
           title={dict.buttons.copy}
         >
@@ -129,17 +121,13 @@
           {/if}
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
         </button>
-        <button style="min-height: 44px; min-width: 44px;"
-          on:click={() => download()}
-          class="p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors"
+        <button class="min-h-[44px] min-w-[44px] p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors" on:click={() => download()}
           aria-label={dict.buttons.download}
           title={dict.buttons.download}
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
         </button>
-        <button style="min-height: 44px; min-width: 44px;"
-            on:click={share}
-            class="p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors"
+        <button class="min-h-[44px] min-w-[44px] p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors" on:click={share}
             aria-label={dict.buttons.share}
             title={dict.buttons.share}
         >
@@ -160,8 +148,7 @@
                 {#each ids as id}
                 <div class="flex items-center gap-2 p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors group">
                     <span class="flex-1 font-mono text-xs text-slate-600 dark:text-slate-400 truncate" title={id}>{id}</span>
-                    <button style="min-height: 44px; min-width: 44px;"
-                        class="w-8 h-8 flex items-center justify-center bg-slate-700 hover:bg-slate-600 rounded border border-slate-600 text-slate-300 opacity-0 group-hover:opacity-100 transition-all focus:opacity-100"
+                    <button class="min-h-[44px] min-w-[44px] w-8 h-8 flex items-center justify-center bg-slate-700 hover:bg-slate-600 rounded border border-slate-600 text-slate-300 opacity-0 group-hover:opacity-100 transition-all focus:opacity-100"
                         on:click={() => copyText(id)}
                         aria-label="Copy ID"
                         title="Copy"

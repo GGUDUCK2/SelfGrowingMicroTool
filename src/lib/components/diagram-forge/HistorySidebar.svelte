@@ -42,8 +42,7 @@
                 </div>
             {/if}
             {#each $history as item (item.id)}
-                <button style="min-height: 44px; min-width: 44px;"
-                    class="w-full text-left bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all group relative shadow-sm"
+                <button class="min-h-[44px] min-w-[44px] w-full text-left bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all group relative shadow-sm"
                     on:click={() => onLoad(item)}
                     transition:fade
                 >

@@ -30,13 +30,12 @@
 
 <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-6" role="tablist">
   {#each categories as category}
-    <button style="min-height: 44px; min-width: 44px;"
-      role="tab"
-      aria-selected={selectedCategory === category.id}
-      class="flex flex-col items-center justify-center p-4 min-h-[88px] rounded-xl transition-all duration-200 border
+    <button class="min-h-[44px] min-w-[44px] flex flex-col items-center justify-center p-4 min-h-[88px] rounded-xl transition-all duration-200 border
         {selectedCategory === category.id
           ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg scale-105 z-10'
           : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700 hover:border-slate-600 hover:text-slate-200'}"
+      role="tab"
+      aria-selected={selectedCategory === category.id}
       on:click={() => selectCategory(category.id)}
       aria-label={t.categories[category.id] || category.name.en}
     >

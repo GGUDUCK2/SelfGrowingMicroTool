@@ -30,8 +30,7 @@
 <div class="flex flex-col h-full bg-surface border border-border/50 rounded-xl overflow-hidden shadow-sm">
     <div class="p-4 border-b border-border/50 flex items-center justify-between bg-muted/20">
         <h3 class="font-semibold text-sm">{t.historyTitle || 'History'}</h3>
-        <button style="min-height: 44px; min-width: 44px;"
-            class="text-xs text-muted-foreground hover:text-danger transition-colors p-1"
+        <button class="min-h-[44px] min-w-[44px] text-xs text-muted-foreground hover:text-danger transition-colors p-1"
             on:click={handleClear}
             title={t.clear}
             aria-label={t.clear}
@@ -68,16 +67,14 @@
 
                     <!-- Actions overlay -->
                     <div class="opacity-0 group-hover:opacity-100 transition-opacity flex justify-end gap-1 mt-1">
-                        <button style="min-height: 44px; min-width: 44px;"
-                            class="p-1.5 text-muted-foreground hover:text-amber-500 rounded-md hover:bg-muted transition-colors {item.starred ? 'text-amber-500 opacity-100' : ''}"
+                        <button class="min-h-[44px] min-w-[44px] p-1.5 text-muted-foreground hover:text-amber-500 rounded-md hover:bg-muted transition-colors {item.starred ? 'text-amber-500 opacity-100' : ''}"
                             on:click|stopPropagation={() => toggleStar(item.id!)}
                             title="Star"
                             aria-label="Star"
                         >
                             <Star class="w-4 h-4 {item.starred ? 'fill-current' : ''}" />
                         </button>
-                        <button style="min-height: 44px; min-width: 44px;"
-                            class="p-1.5 text-muted-foreground hover:text-danger rounded-md hover:bg-muted transition-colors"
+                        <button class="min-h-[44px] min-w-[44px] p-1.5 text-muted-foreground hover:text-danger rounded-md hover:bg-muted transition-colors"
                             on:click|stopPropagation={() => deleteHistoryItem(item.id!)}
                             title={t.delete}
                             aria-label={t.delete}

@@ -36,23 +36,17 @@
                     </div>
 
                     <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button style="min-height: 44px; min-width: 44px;"
-                            on:click={() => zenStore.loadFromHistory(mix.id!)}
-                            class="p-2 hover:bg-indigo-500/20 text-indigo-400 rounded-lg transition-colors"
+                        <button class="min-h-[44px] min-w-[44px] p-2 hover:bg-indigo-500/20 text-indigo-400 rounded-lg transition-colors" on:click={() => zenStore.loadFromHistory(mix.id!)}
                             title={dict.controls?.play || "Play"}
                         >
                             <Play size={16} class="fill-current" />
                         </button>
-                        <button style="min-height: 44px; min-width: 44px;"
-                            on:click={() => toggleStar(mix.id!, mix.starred)}
-                            class="p-2 hover:bg-yellow-500/20 text-slate-400 hover:text-yellow-400 rounded-lg transition-colors"
+                        <button class="min-h-[44px] min-w-[44px] p-2 hover:bg-yellow-500/20 text-slate-400 hover:text-yellow-400 rounded-lg transition-colors" on:click={() => toggleStar(mix.id!, mix.starred)}
                             title="Star"
                         >
                             <Star size={16} class={mix.starred ? "fill-current" : ""} />
                         </button>
-                        <button style="min-height: 44px; min-width: 44px;"
-                            on:click={() => deleteMix(mix.id!)}
-                            class="p-2 hover:bg-red-500/20 text-slate-400 hover:text-red-400 rounded-lg transition-colors"
+                        <button class="min-h-[44px] min-w-[44px] p-2 hover:bg-red-500/20 text-slate-400 hover:text-red-400 rounded-lg transition-colors" on:click={() => deleteMix(mix.id!)}
                             title={dict.controls?.reset || "Delete"}
                         >
                             <Trash2 size={16} />

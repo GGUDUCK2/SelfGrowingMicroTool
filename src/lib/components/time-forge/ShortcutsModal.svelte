@@ -46,7 +46,7 @@
           on:click|stopPropagation
           on:keydown|stopPropagation
       >
-          <button style="min-height: 44px; min-width: 44px;" class="absolute top-4 right-4 text-slate-500 hover:text-white transition-colors" on:click={close}>
+          <button class="min-h-[44px] min-w-[44px] absolute top-4 right-4 text-slate-500 hover:text-white transition-colors" on:click={close}>
               <X class="w-5 h-5" />
           </button>
 

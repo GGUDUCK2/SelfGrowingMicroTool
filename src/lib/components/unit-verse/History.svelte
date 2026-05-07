@@ -90,17 +90,14 @@
              <span class="text-xs uppercase font-bold text-slate-500 tracking-wider">
                  {item.categoryId}
              </span>
-             <button style="min-height: 44px; min-width: 44px;"
-                on:click={() => toggleFavorite(item.id!)}
-                class="text-slate-600 hover:text-yellow-400 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+             <button class="min-h-[44px] min-w-[44px] text-slate-600 hover:text-yellow-400 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={() => toggleFavorite(item.id!)}
                 aria-label="Toggle Favorite"
              >
                 <Star size={14} fill={item.isFavorite ? "currentColor" : "none"} class={item.isFavorite ? "text-yellow-400" : ""} />
              </button>
           </div>
 
-          <button style="min-height: 44px; min-width: 44px;"
-            class="w-full text-left min-h-[44px] flex items-center"
+          <button class="min-h-[44px] min-w-[44px] w-full text-left min-h-[44px] flex items-center"
             on:click={() => restore(item)}
             aria-label="Restore conversion"
           >

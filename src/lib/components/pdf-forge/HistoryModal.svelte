@@ -51,7 +51,7 @@
       <!-- Header -->
       <div class="flex items-center justify-between p-6 border-b border-slate-100 dark:border-slate-700">
         <h2 class="text-xl font-bold text-slate-900 dark:text-white">{dict.history.title}</h2>
-        <button style="min-height: 44px; min-width: 44px;" on:click={close} class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" aria-label="Close">
+        <button class="min-h-[44px] min-w-[44px] p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" on:click={close} aria-label="Close">
           <X class="w-5 h-5" />
         </button>
       </div>
@@ -77,17 +77,13 @@
                 </div>
               </div>
               <div class="flex items-center gap-2 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
-                <button style="min-height: 44px; min-width: 44px;"
-                  on:click={() => item.id && handleLoad(item.id)}
-                  class="p-2 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 rounded-lg"
+                <button class="min-h-[44px] min-w-[44px] p-2 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 rounded-lg" on:click={() => item.id && handleLoad(item.id)}
                   title={dict.history.restore}
                   aria-label="Restore session"
                 >
                   <RotateCcw class="w-5 h-5" />
                 </button>
-                <button style="min-height: 44px; min-width: 44px;"
-                  on:click={() => item.id && handleDelete(item.id)}
-                  class="p-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg"
+                <button class="min-h-[44px] min-w-[44px] p-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg" on:click={() => item.id && handleDelete(item.id)}
                   title={dict.history.delete}
                   aria-label="Delete session"
                 >

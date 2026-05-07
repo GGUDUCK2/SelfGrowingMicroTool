@@ -80,16 +80,14 @@
          </div>
 
          <div class="flex gap-2">
-            <button style="min-height: 44px; min-width: 44px;"
-                class="flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors font-medium"
+            <button class="min-h-[44px] min-w-[44px] flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors font-medium"
                 on:click={onDiscard}
             >
                 <Trash2 size={20} />
                 <span class="hidden sm:inline">{t.discard}</span>
             </button>
 
-            <button style="min-height: 44px; min-width: 44px;"
-                class="flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors font-medium relative overflow-hidden"
+            <button class="min-h-[44px] min-w-[44px] flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors font-medium relative overflow-hidden"
                 on:click={save}
                 disabled={isSaved || isSaving}
             >
@@ -102,8 +100,7 @@
                 {/if}
             </button>
 
-            <button style="min-height: 44px; min-width: 44px;"
-                class="flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/30 transition-all hover:-translate-y-0.5 font-bold"
+            <button class="min-h-[44px] min-w-[44px] flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/30 transition-all hover:-translate-y-0.5 font-bold"
                 on:click={download}
             >
                 <Download size={20} />

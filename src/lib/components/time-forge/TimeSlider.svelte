@@ -67,9 +67,7 @@
 
 <div class="w-full bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50 backdrop-blur-sm transition-all duration-300 {isMeetingMode ? 'ring-2 ring-emerald-500/50' : ''}">
   <div class="flex items-center justify-between mb-6">
-    <button style="min-height: 44px; min-width: 44px;"
-      type="button"
-      class="text-xs font-medium text-slate-400 hover:text-indigo-400 px-3 py-1.5 rounded-lg hover:bg-slate-700 transition-colors"
+    <button class="min-h-[44px] min-w-[44px] text-xs font-medium text-slate-400 hover:text-indigo-400 px-3 py-1.5 rounded-lg hover:bg-slate-700 transition-colors" type="button"
       on:click={() => shiftDay(-1)}
     >
       &larr; {t.shortcuts.prevDay}
@@ -80,18 +78,14 @@
         {format(value, 'MMMM d, yyyy')}
       </span>
       <div class="flex items-center space-x-3 mt-1">
-        <button style="min-height: 44px; min-width: 44px;"
-            type="button"
-            class="text-xs text-indigo-400 hover:text-indigo-300 font-medium"
+        <button class="min-h-[44px] min-w-[44px] text-xs text-indigo-400 hover:text-indigo-300 font-medium" type="button"
             on:click={resetToNow}
         >
             {t.shortcuts.reset}
         </button>
         {#if isMeetingMode}
              <span class="text-slate-600">•</span>
-             <button style="min-height: 44px; min-width: 44px;"
-                type="button"
-                class="text-xs text-emerald-400 hover:text-emerald-300 font-medium flex items-center"
+             <button class="min-h-[44px] min-w-[44px] text-xs text-emerald-400 hover:text-emerald-300 font-medium flex items-center" type="button"
                 on:click={snapToNextSlot}
             >
                 {t.shortcuts.nextSlot} &rarr;
@@ -100,9 +94,7 @@
       </div>
     </div>
 
-    <button style="min-height: 44px; min-width: 44px;"
-      type="button"
-      class="text-xs font-medium text-slate-400 hover:text-indigo-400 px-3 py-1.5 rounded-lg hover:bg-slate-700 transition-colors"
+    <button class="min-h-[44px] min-w-[44px] text-xs font-medium text-slate-400 hover:text-indigo-400 px-3 py-1.5 rounded-lg hover:bg-slate-700 transition-colors" type="button"
       on:click={() => shiftDay(1)}
     >
       {t.shortcuts.nextDay} &rarr;
