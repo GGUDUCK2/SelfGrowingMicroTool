@@ -74,41 +74,39 @@
 </script>
 
 <svelte:head>
-    {@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</script>'}
-
-  {@html `<script type="application/ld+json">
-  {
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</script>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify({
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict?.tools?.timeForge?.q1 || ""}",
+        "name": dict?.tools?.timeForge?.q1 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict?.tools?.timeForge?.a1 || ""}"
+          "text": dict?.tools?.timeForge?.a1 || ""
         }
       },
       {
         "@type": "Question",
-        "name": "${dict?.tools?.timeForge?.q2 || ""}",
+        "name": dict?.tools?.timeForge?.q2 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict?.tools?.timeForge?.a2 || ""}"
+          "text": dict?.tools?.timeForge?.a2 || ""
         }
       },
       {
         "@type": "Question",
-        "name": "${dict?.tools?.timeForge?.q3 || ""}",
+        "name": dict?.tools?.timeForge?.q3 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict?.tools?.timeForge?.a3 || ""}"
+          "text": dict?.tools?.timeForge?.a3 || ""
         }
       }
     ]
-  }
-  </script>`}
-
+  }) + '</script>'}
 </svelte:head>
 
 <Head

@@ -72,16 +72,14 @@
 
 
 <svelte:head>
-
-
-  {@html `<script type="application/ld+json">
-  {
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/${lang}/tools/type-forge",
-        "isAccessibleForFree": true,
-    "name": "${dict.title}",
-    "description": "${dict.description}",
+    "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/type-forge",
+    "isAccessibleForFree": true,
+    "name": dict.title,
+    "description": dict.description,
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
     "offers": {
@@ -95,43 +93,42 @@
       "CSS @font-face Generator",
       "Local Processing"
     ]
-  }
-  </script>`}
+  }) + '</script>'}
 
-  {@html `<script type="application/ld+json">
-  {
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify({
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict?.q1}",
+        "name": dict?.q1 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict?.a1}"
+          "text": dict?.a1 || ""
         }
       },
       {
         "@type": "Question",
-        "name": "${dict?.q2}",
+        "name": dict?.q2 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict?.a2}"
+          "text": dict?.a2 || ""
         }
       },
       {
         "@type": "Question",
-        "name": "${dict?.q3}",
+        "name": dict?.q3 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict?.a3}"
+          "text": dict?.a3 || ""
         }
       }
     ]
-  }
-  </script>`}
-  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>'}
+  }) + '</script>'}
 
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>'}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">
