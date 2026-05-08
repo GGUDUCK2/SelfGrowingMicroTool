@@ -1,3 +1,4 @@
+import { PDFDocument } from "pdf-lib";
 export interface FileMetadata {
   name: string;
   type: string;
@@ -22,7 +23,7 @@ export async function extractMetadata(file: File): Promise<FileMetadata> {
       const dimensions = await getImageDimensions(file);
       if (dimensions) metadata.dimensions = dimensions;
     } else if (file.type === 'application/pdf') {
-      const { PDFDocument } = await import('pdf-lib');
+
       const arrayBuffer = await file.arrayBuffer();
       // Load only headers if possible, but PDFDocument.load loads whole doc.
       // For very large PDFs this might be slow.
