@@ -105,16 +105,6 @@
       message = '';
       secret = '';
       hmacResult = null;
-    } else if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-      e.preventDefault();
-      handleInput();
-    } else if (e.key === 'Escape') {
-      message = '';
-      secret = '';
-      hmacResult = null;
-    } else if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-      e.preventDefault();
-      saveCurrentToHistory();
     }
   }
 

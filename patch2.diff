@@ -1,0 +1,19 @@
+--- src/lib/components/hash-forge/TextHasher.svelte
++++ src/lib/components/hash-forge/TextHasher.svelte
+@@ -95,6 +95,17 @@
+       e.preventDefault();
+       message = '';
+       hashResult = null;
++      matrixResult = null;
++    } else if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
++      e.preventDefault();
++      handleInput();
++    } else if (e.key === 'Escape') {
++      message = '';
++      hashResult = null;
++      matrixResult = null;
++    } else if ((e.ctrlKey || e.metaKey) && e.key === 's') {
++      e.preventDefault();
++      saveCurrentToHistory();
+     }
+   }

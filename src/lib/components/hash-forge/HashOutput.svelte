@@ -1,14 +1,16 @@
 <script lang="ts">
-  import { Copy, Check, CheckCircle2, XCircle } from 'lucide-svelte';
+  import { Copy, Check, CheckCircle2, XCircle, Share2 } from 'lucide-svelte';
 
   export let result: { hex: string, base64: string } | null = null;
   export let label: string = 'Hash Result';
   export let uppercase: boolean = false;
-  export let dict: Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+  export let dict: Record<string, unknown>;
 
   let expectedHash = '';
   let copiedHex = false;
   let copiedBase64 = false;
+  let sharedHex = false;
+  let sharedBase64 = false;
 
   $: displayHexValue = uppercase && result ? result.hex.toUpperCase() : (result ? result.hex : '');
 
@@ -46,6 +48,27 @@
       console.error('Failed to download', err);
     }
   }
+
+  async function shareHash(text: string, type: 'hex' | 'base64') {
+    if (!text || !navigator.share) return;
+    try {
+      await navigator.share({
+        title: label,
+        text: text,
+      });
+      if (type === 'hex') {
+        sharedHex = true;
+        setTimeout(() => sharedHex = false, 2000);
+      } else {
+        sharedBase64 = true;
+        setTimeout(() => sharedBase64 = false, 2000);
+      }
+    } catch (err) {
+      console.error('Failed to share', err);
+    }
+  }
+
+  $: canShare = typeof navigator !== 'undefined' && !!navigator.share;
 
 </script>
 
@@ -91,6 +114,17 @@
           <input type="checkbox" bind:checked={uppercase} class="rounded border-slate-300 dark:border-slate-600 text-indigo-600 focus:ring-indigo-500 dark:bg-slate-800" />
           {dict?.common?.uppercase || "UPPERCASE"}
         </label>
+        {#if canShare}
+          <button
+            on:click={() => shareHash(displayHexValue, 'hex')}
+            disabled={!result}
+            class="flex items-center gap-1.5 px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium rounded-md transition-colors {sharedHex ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-400' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'} disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Share hex hash"
+            title="Share"
+          >
+            <Share2 size={14} /> <span class="hidden sm:inline">{sharedHex ? (dict?.common?.shared || "Shared!") : (dict?.common?.share || "Share")}</span>
+          </button>
+        {/if}
         <button
           on:click={() => downloadHash(displayHexValue, 'hex')}
           disabled={!result}
@@ -133,6 +167,18 @@
     <div class="space-y-2">
       <div class="flex items-center justify-between">
         <span class="block text-sm font-medium text-slate-700 dark:text-slate-300">{label} (Base64)</span>
+        <div class="flex items-center gap-2">
+        {#if canShare}
+          <button
+            on:click={() => shareHash(result?.base64 || '', 'base64')}
+            disabled={!result}
+            class="flex items-center gap-1.5 px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium rounded-md transition-colors {sharedBase64 ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-400' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'} disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Share base64 hash"
+            title="Share"
+          >
+            <Share2 size={14} /> <span class="hidden sm:inline">{sharedBase64 ? (dict?.common?.shared || "Shared!") : (dict?.common?.share || "Share")}</span>
+          </button>
+        {/if}
         <button
           on:click={() => downloadHash(result?.base64 || '', 'base64')}
           disabled={!result}
@@ -155,6 +201,7 @@
             <Copy size={14} /> {dict?.common?.copy || "Copy"}
           {/if}
         </button>
+        </div>
       </div>
 
       <div
