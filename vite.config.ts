@@ -5,7 +5,7 @@ export default defineConfig({
     plugins: [sveltekit()],
     build: {
         rollupOptions: {
-            external: ['stream', 'encoding']
+            external: ['stream', 'encoding', 'react-native-fetch-blob']
         }
     }
 });
