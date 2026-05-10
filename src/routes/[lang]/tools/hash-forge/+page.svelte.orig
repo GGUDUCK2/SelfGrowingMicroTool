@@ -99,12 +99,6 @@
 <Head
   title={dict.title}
   description={dict.description}
-  openGraph={{
-    title: dict.title,
-    description: dict.description,
-    url: `https://micro-tools.app/${lang}/tools/hash-forge`
-  }}
-  twitter={{ card: 'summary_large_image', title: dict.title, description: dict.description }}
 />
 
 
