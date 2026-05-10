@@ -54,8 +54,10 @@
         showInstallButton = false;
     }
 </script>
-
 <svelte:head>
+  {@html '<script type="application/ld+json">' + JSON.stringify({"@context":"https://schema.org","@type":"WebPage","@id":"https://selfgrowingmicrotool.com/" + lang + "/pwa","name":"PWA Installation","description":"Install the PWA for MicroFactory"}) + '</script>'}
+
+
     <title>{dict.pwa.title}</title>
     <meta name="description" content={dict.pwa.description} />
 </svelte:head>
