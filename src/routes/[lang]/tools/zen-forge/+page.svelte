@@ -16,6 +16,7 @@
     import { engine } from '$lib/utils/zen-forge/engine';
     import { zenStore } from '$lib/stores/zen-forge';
     import type { ZenForgeDictionary } from '$lib/types/zen-forge';
+  $: lang = $page.params.lang || 'en';
 
     $: dict = getDictionary($page.params.lang).tools.zenForge as ZenForgeDictionary;
 

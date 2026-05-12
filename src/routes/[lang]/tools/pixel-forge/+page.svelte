@@ -7,6 +7,7 @@
   import { getDictionary } from '$lib/dictionaries';
   import { marked } from 'marked';
   import FAQSection from '$lib/components/FAQSection.svelte';
+  $: lang = $page.params.lang || 'en';
 
   $: dict = getDictionary($page.params.lang);
   $: toolDict = dict.tools.pixelForge;

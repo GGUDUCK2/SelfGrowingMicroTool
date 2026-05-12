@@ -19,6 +19,7 @@
   import { StringHistoryManager } from '$lib/db/string-theory';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
+  $: lang = $page.params.lang || 'en';
 
   $: dict = getDictionary($page.params.lang || 'en').tools.stringTheory;
 
