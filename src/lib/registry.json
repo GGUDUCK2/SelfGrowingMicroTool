@@ -585,6 +585,27 @@
     "createdAt": "2024-05-15"
   },
   {
+    "id": "url-forge",
+    "slug": "url-forge",
+    "title": {
+      "en": "URL Forge",
+      "ko": "URL 포지"
+    },
+    "description": {
+      "en": "The definitive URL toolkit. Parse complex URLs, manipulate query parameters, generate UTM tags, and encode/decode instantly.",
+      "ko": "가장 완벽한 URL 툴킷입니다. 복잡한 URL을 분석하고, 쿼리 매개변수를 조작하며, UTM 태그를 생성하고 즉시 인코딩/디코딩하세요."
+    },
+    "category": "dev",
+    "tags": [
+      "url",
+      "parser",
+      "encode",
+      "decode",
+      "utm"
+    ],
+    "createdAt": "2024-05-12"
+  },
+  {
     "id": "csp-forge",
     "slug": "csp-forge",
     "title": {
