@@ -19,7 +19,7 @@
       {#each relatedTools as tool (tool.id)}
         <a
           href="/{lang}/tools/{tool.slug}"
-          class="block p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:shadow-lg transition-all"
+          class="block p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:shadow-lg transition-all min-h-[44px] min-w-[44px]"
         >
           <div class="font-semibold text-slate-900 dark:text-white mb-2">
             {tool.title[lang]}
