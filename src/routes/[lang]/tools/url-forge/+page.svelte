@@ -5,7 +5,6 @@
   import { dictionaries } from '$lib/dictionaries';
   import GuideSection from '$lib/components/GuideSection.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
-  import { onMount, onDestroy } from 'svelte';
   import { fade, fly } from 'svelte/transition';
 
   import UrlParser from '$lib/components/url-forge/UrlParser.svelte';
@@ -14,7 +13,7 @@
   import EncoderDecoder from '$lib/components/url-forge/EncoderDecoder.svelte';
   import HistorySidebar from '$lib/components/url-forge/HistorySidebar.svelte';
 
-  import { workspace, saveToHistory, loadHistory } from '$lib/db/workspace';
+  import { saveToHistory } from '$lib/db/workspace';
 
   $: lang = $page.params.lang as 'en' | 'ko';
   $: dict = dictionaries[lang].tools.urlForge;
@@ -107,8 +106,9 @@
     }
   }
 
-  function handleRestore(event: CustomEvent<{ data: any }>) {
-    if (event.detail.data.input && event.detail.data.input.rawUrl) {
+  function handleRestore(event: CustomEvent<{ data: Record<string, unknown> }>) {
+    const detailData = event.detail.data as any;
+    if (detailData.input && detailData.input.rawUrl) {
       currentUrl = event.detail.data.input.rawUrl;
     }
     showHistory = false;
@@ -143,6 +143,7 @@
 <svelte:head>
 
   {#if jsonLd}
+    <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
     {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
   {/if}
 </svelte:head>
