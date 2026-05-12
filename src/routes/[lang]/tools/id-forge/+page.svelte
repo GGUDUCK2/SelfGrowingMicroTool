@@ -15,6 +15,7 @@
   import { generateIds, formatOutput, type GenerationOptions, type IdType } from '$lib/utils/id-forge/id-forge';
   import { db, type IdForgeHistory } from '$lib/db';
   import { getDictionary } from '$lib/dictionaries';
+  $: lang = $page.params.lang || 'en';
 
   let activeTab: 'generate' | 'analyze' | 'collision' = 'generate';
   let generatedOutput = '';

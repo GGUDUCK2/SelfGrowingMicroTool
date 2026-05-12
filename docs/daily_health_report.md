@@ -42,3 +42,15 @@
 #### 3. Performance Impact (기대 효과)
 - 프로젝트 루트의 불필요한 파일을 정리하여 유지보수성과 구조적 일관성을 개선했습니다.
 - 보안 취약점을 해결하여 애플리케이션의 안정성과 보안을 강화했습니다.
+
+### [Daily Improvement Report - 2026-05-13]
+#### 1. Identified Issues (발견된 문제)
+- 5개의 도구 페이지(`id-forge`, `pixel-forge`, `seo-forge`, `string-theory`, `zen-forge`)에서 `lang` 변수가 선언되지 않아 `no-undef` 린트 에러가 발생하고 있었습니다.
+- 이로 인해 `<RelatedTools>` 컴포넌트의 라우팅과 `application/ld+json` 스키마(Canonical URL, OpenGraph) 내부에서 참조 에러가 발생하여 SEO 및 AEO 인덱싱 기능이 정상 작동하지 않을 위험이 있었습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/id-forge/+page.svelte`, `src/routes/[lang]/tools/pixel-forge/+page.svelte`, `src/routes/[lang]/tools/seo-forge/+page.svelte`, `src/routes/[lang]/tools/string-theory/+page.svelte`, `src/routes/[lang]/tools/zen-forge/+page.svelte` - 누락된 언어 파라미터 선언(`$: lang = $page.params.lang || 'en';`) 추가.
+- **SEO/AEO**: `lang` 변수를 정상적으로 할당하여 각 도구 페이지의 `SoftwareApplication` / `WebApplication` JSON-LD 스키마의 `@id` (Canonical URL) 속성이 올바르게 주입되도록 수정했습니다.
+
+#### 3. Performance Impact (기대 효과)
+- 빌드 안정성 확보 및 AI 검색 엔진 크롤러가 각 도구의 구조화된 데이터(`Schema.org`)와 메타데이터에 온전하게 접근할 수 있게 되어 시맨틱 이해도(AEO)와 리치 스니펫 노출 확률이 높아집니다.

@@ -15,6 +15,7 @@
   import { defaultMetaTags, generateHtml, generateJsonLd, parseHtml, seoTemplates, type MetaTags, type JsonLdData } from '$lib/utils/seo';
   import { page } from '$app/stores';
   import { liveQuery } from 'dexie';
+  $: lang = $page.params.lang || 'en';
 
   // Get Dictionary
   $: dictionary = getDictionary($page.params.lang || 'en');
