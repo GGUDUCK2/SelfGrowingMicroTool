@@ -22,12 +22,12 @@
       <!-- svelte-ignore svelte/no-navigation-without-resolve -->
       <a
         href={$page.params.lang ? '/' + $page.params.lang : '/'}
-        class="bg-indigo-500 text-white px-6 py-3 rounded-lg hover:bg-indigo-600 transition-colors font-medium"
+        class="bg-indigo-500 text-white px-6 py-3 rounded-lg hover:bg-indigo-600 transition-colors font-medium min-h-[44px] min-w-[44px] flex items-center justify-center"
       >
         Go Home / 홈으로 돌아가기
       </a>
       <button
-         class="border border-slate-600 text-slate-300 px-6 py-3 rounded-lg hover:bg-slate-800 transition-colors"
+         class="border border-slate-600 text-slate-300 px-6 py-3 rounded-lg hover:bg-slate-800 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
          on:click={() => window.location.href = 'https://github.com/microfactory/issues'}
       >
         Report Issue / 문제 신고하기
