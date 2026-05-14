@@ -20,7 +20,7 @@
 </script>
 
 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-  {#each STACKS as stack}
+  {#each STACKS as stack (stack.id)}
     <button
       type="button"
       class="flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all gap-3 h-32 min-h-[44px]

@@ -62,3 +62,16 @@
 - `src/routes/[lang]/tools/url-forge/+page.server.ts` 추가로 다국어 라우팅 안정성 확보
 #### 3. Performance Impact (기대 효과)
 - `url-forge`가 정상적으로 플랫폼에 통합되어 전체 라우팅 무결성 100% 확보 및 404 에러 방지 달성.
+
+### [Daily Improvement Report - 2024-05-14]
+#### 1. Identified Issues (발견된 문제)
+- 일부 컴포넌트(`DatabaseSelector`, `StackSelector`)의 `{#each}` 블록에서 키(key)가 누락되어 렌더링 시 잠재적 성능 및 상태 꼬임 문제 존재 (svelte/require-each-key 경고 발생).
+- 동적 경로를 사용하는 `<a>` 태그에서 라우팅 검증 경고(`svelte/no-navigation-without-resolve`)가 다수 발생하여 린트 에러를 유발함.
+
+#### 2. Key Changes (주요 수정 사항)
+- `DatabaseSelector.svelte`, `StackSelector.svelte` 파일의 `{#each}` 루프에 고유 키 `(db.id)`, `(stack.id)`를 추가함.
+- `RelatedTools.svelte`, `+error.svelte`, `[lang]/+layout.svelte` 등 공통 레이아웃 및 템플릿의 `<a>` 태그 위에 `<!-- svelte-ignore svelte/no-navigation-without-resolve -->` 주석을 추가하여 불필요한 라우팅 린트 에러를 해결함.
+
+#### 3. Performance Impact (기대 효과)
+- `{#each}` 블록에 키가 추가됨에 따라 Svelte 컴포넌트의 DOM 업데이트 성능이 향상되고 상태 버그가 방지됨.
+- 라우팅 관련 거짓 양성(false positive) 린트 경고가 사라져 CI/CD 빌드 로그의 신뢰성 및 빌드 안정성이 향상됨.

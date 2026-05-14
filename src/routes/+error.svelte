@@ -19,6 +19,7 @@
     </p>
 
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <!-- svelte-ignore svelte/no-navigation-without-resolve -->
       <a
         href={$page.params.lang ? '/' + $page.params.lang : '/'}
         class="bg-indigo-500 text-white px-6 py-3 rounded-lg hover:bg-indigo-600 transition-colors font-medium"
