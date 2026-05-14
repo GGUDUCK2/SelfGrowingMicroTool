@@ -24,7 +24,7 @@
 </script>
 
 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-    {#each dbs as db}
+    {#each dbs as db (db.id)}
         <button
             type="button"
             class="flex items-center p-3 rounded-lg border transition-all gap-3 text-left min-h-[44px]

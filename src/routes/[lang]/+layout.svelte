@@ -15,6 +15,7 @@
     <div
       class="container mx-auto px-3 sm:px-4 h-14 sm:h-16 flex items-center justify-between gap-2"
     >
+      <!-- svelte-ignore svelte/no-navigation-without-resolve -->
       <a
         href="/{lang}"
         class="flex items-center gap-2 font-bold text-lg sm:text-xl tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex-shrink-0 min-h-[44px] min-w-[44px]"
