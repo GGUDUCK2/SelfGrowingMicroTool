@@ -389,6 +389,7 @@ export const dictionaries = {
         textHash: {
           inputLabel: "Text to Hash",
           placeholder: "Enter text to hash here...",
+          looksLikeHash: "Looks like a {algo} hash",
         },
         fileHash: {
           dropzone: "Drag & drop a file here, or click to browse",
@@ -397,6 +398,9 @@ export const dictionaries = {
           algorithm: "Algorithm",
           batchTitle: "Drag & drop files here",
           exportChecksums: "Export Checksums",
+          expectedHashInput: "Expected Checksum (Optional)",
+          expectedHashPlaceholder: "Paste expected hex hash here to auto-detect and verify...",
+          autoDetectedAlgo: "Auto-detected {algo}",
         },
         hmac: {
           secretLabel: "Secret Key",
@@ -4897,6 +4901,7 @@ export const dictionaries = {
         textHash: {
           inputLabel: "해시할 텍스트",
           placeholder: "여기에 텍스트를 입력하세요...",
+          looksLikeHash: "{algo} 해시로 보입니다",
         },
         fileHash: {
           dropzone: "여기로 파일을 드래그하거나 클릭하여 찾아보세요",
@@ -4905,6 +4910,9 @@ export const dictionaries = {
           algorithm: "알고리즘",
           batchTitle: "여기로 파일들을 드래그 앤 드롭하세요",
           exportChecksums: "체크섬 내보내기",
+          expectedHashInput: "예상 체크섬 (선택 사항)",
+          expectedHashPlaceholder: "여기에 예상 16진수 해시를 붙여넣어 자동 감지하고 검증하세요...",
+          autoDetectedAlgo: "자동 감지됨: {algo}",
         },
         hmac: {
           secretLabel: "비밀 키 (Secret Key)",

@@ -68,7 +68,11 @@
     }
   }
 
-  $: canShare = typeof navigator !== 'undefined' && !!navigator.share;
+  let canShare = false;
+  import { onMount } from 'svelte';
+  onMount(() => {
+    canShare = typeof navigator !== 'undefined' && !!navigator.share;
+  });
 
 </script>
 

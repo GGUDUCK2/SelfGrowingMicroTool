@@ -1,6 +1,6 @@
 <script lang="ts">
 
-  import { Shield, Sparkles, Download, Copy, Check } from 'lucide-svelte';
+  import { Shield, Sparkles, Download, Copy, Check, Search } from 'lucide-svelte';
   import { hashText, ALGORITHMS, type HashAlgorithm, type InputFormat } from '$lib/utils/hash-forge/crypto';
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
@@ -19,6 +19,24 @@
   let lastSavedMessage = '';
   let lastSavedAlgorithm: HashAlgorithm | null = null;
   let copiedJson = false;
+
+  let analyzedHashType: string | null = null;
+
+  $: if (message && typeof message === 'string') {
+    const cleaned = message.trim();
+    if (/^[a-fA-F0-9]+$/.test(cleaned)) {
+      if (cleaned.length === 32) analyzedHashType = 'MD5';
+      else if (cleaned.length === 40) analyzedHashType = 'SHA-1';
+      else if (cleaned.length === 64) analyzedHashType = 'SHA-256';
+      else if (cleaned.length === 96) analyzedHashType = 'SHA-384';
+      else if (cleaned.length === 128) analyzedHashType = 'SHA-512';
+      else analyzedHashType = null;
+    } else {
+      analyzedHashType = null;
+    }
+  } else {
+    analyzedHashType = null;
+  }
 
   // Smart Examples
   const EXAMPLES = [
@@ -217,6 +235,13 @@
         class="w-full h-40 px-4 py-3 min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl resize-y focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-slate-800 dark:text-slate-200 placeholder-slate-400 font-mono"
         aria-label={dict.textHash.inputLabel}
       ></textarea>
+
+      {#if analyzedHashType}
+        <div class="mt-2 flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 px-3 py-2 rounded-lg border border-indigo-100 dark:border-indigo-800 animate-in fade-in slide-in-from-top-1">
+          <Search size={16} />
+          <span>{dict?.textHash?.looksLikeHash?.replace('{algo}', analyzedHashType) || `Looks like a ${analyzedHashType} hash`}</span>
+        </div>
+      {/if}
     </div>
   </div>
 
