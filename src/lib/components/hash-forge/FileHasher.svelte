@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { UploadCloud, File, AlertCircle, Copy, Check, Download, CheckCircle2, XCircle } from 'lucide-svelte';
+  import { UploadCloud, File, AlertCircle, Copy, Check, Download, CheckCircle2, XCircle, Target } from 'lucide-svelte';
   import { hashFileChunked, ALGORITHMS, type HashAlgorithm } from '$lib/utils/hash-forge/crypto';
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
@@ -30,6 +30,21 @@
   let restoredFileName = '';
   let hashResult: { hex: string, base64: string } | null = null;
   let expectedHashes: Record<string, string> = {};
+  let expectedChecksumInput = '';
+
+  $: if (expectedChecksumInput) {
+    const cleaned = expectedChecksumInput.trim().toLowerCase();
+    let detectedAlgo: HashAlgorithm | null = null;
+    if (cleaned.length === 32) detectedAlgo = 'MD5';
+    else if (cleaned.length === 40) detectedAlgo = 'SHA-1';
+    else if (cleaned.length === 64) detectedAlgo = 'SHA-256';
+    else if (cleaned.length === 96) detectedAlgo = 'SHA-384';
+    else if (cleaned.length === 128) detectedAlgo = 'SHA-512';
+
+    if (detectedAlgo && selectedAlgorithm !== detectedAlgo) {
+      handleAlgorithmChange(detectedAlgo);
+    }
+  }
 
   function parseChecksumFile(text: string): Record<string, string> {
     const hashes: Record<string, string> = {};
@@ -79,15 +94,20 @@
         }
       }
 
-      const newFiles = fileArray.map(file => ({
-        file,
-        progress: 0,
-        result: null,
-        error: null,
-        copied: false,
-        speed: '',
-        eta: ''
-      }));
+      const newFiles = fileArray.map(file => {
+        if (expectedChecksumInput.trim()) {
+           expectedHashes[file.name] = expectedChecksumInput.trim().toLowerCase();
+        }
+        return {
+          file,
+          progress: 0,
+          result: null,
+          error: null,
+          copied: false,
+          speed: '',
+          eta: ''
+        };
+      });
 
       filesList = [...newFiles, ...filesList];
       // reset input value so the same file can be selected again if needed
@@ -217,6 +237,32 @@
         {algo}
       </button>
     {/each}
+  </div>
+
+  <!-- Smart Checksum Verifier -->
+  <div class="space-y-2">
+    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+      <Target size={16} class="text-indigo-500" />
+      {dict?.fileHash?.expectedHashInput || "Expected Checksum (Optional)"}
+    </label>
+    <div class="relative">
+      <input
+        type="text"
+        bind:value={expectedChecksumInput}
+        placeholder={dict?.fileHash?.expectedHashPlaceholder || "Paste expected hex hash here to auto-detect and verify..."}
+        class="w-full px-4 py-3 min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-slate-800 dark:text-slate-200 placeholder-slate-400 font-mono text-sm"
+        aria-label={dict?.fileHash?.expectedHashInput || "Expected Checksum"}
+      />
+      {#if expectedChecksumInput.trim()}
+        <div class="absolute right-3 top-1/2 -translate-y-1/2">
+          {#if expectedChecksumInput.trim().length === 32 || expectedChecksumInput.trim().length === 40 || expectedChecksumInput.trim().length === 64 || expectedChecksumInput.trim().length === 96 || expectedChecksumInput.trim().length === 128}
+            <span class="text-xs font-medium px-2 py-1 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-400 rounded-md">
+              {dict?.fileHash?.autoDetectedAlgo?.replace('{algo}', selectedAlgorithm) || `Auto-detected ${selectedAlgorithm}`}
+            </span>
+          {/if}
+        </div>
+      {/if}
+    </div>
   </div>
 
   <!-- Dropzone -->
