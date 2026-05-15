@@ -624,5 +624,26 @@
       "generator"
     ],
     "createdAt": "2024-11-20"
+  },
+  {
+    "id": "svg-forge",
+    "slug": "svg-forge",
+    "title": {
+      "en": "SVG Forge",
+      "ko": "SVG 포지"
+    },
+    "description": {
+      "en": "Analyze, format, and hyper-optimize SVG markup in your browser without sacrificing visual quality.",
+      "ko": "시각적 품질 저하 없이 브라우저 내에서 SVG 마크업을 분석, 형식화, 초고도 최적화하세요."
+    },
+    "category": "design",
+    "tags": [
+      "svg",
+      "optimize",
+      "vector",
+      "image",
+      "svgo"
+    ],
+    "createdAt": "2026-05-15"
   }
 ]
