@@ -34,22 +34,22 @@
   }
 
   $: faqItems = [
-    { q: dict.faqQ1, a: dict.faqA1 },
-    { q: dict.faqQ2, a: dict.faqA2 },
-    { q: dict.faqQ3, a: dict.faqA3 }
+    { q: dict?.faqQ1 || '', a: dict?.faqA1 || '' },
+    { q: dict?.faqQ2 || '', a: dict?.faqA2 || '' },
+    { q: dict?.faqQ3 || '', a: dict?.faqA3 || '' }
   ];
 
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/hash-forge",
-        "isAccessibleForFree": true,
-    "name": dict.title,
+    "@id": "https://micro-tools.app/" + lang + "/tools/hash-forge",
+    "isAccessibleForFree": true,
+    "name": dict?.title || '',
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "Cryptography Tool",
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript. HTML5. Web Crypto API.",
-    "description": dict.description,
+    "description": dict?.description || '',
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -76,7 +76,7 @@
       {
         "@type": "ListItem",
         "position": 3,
-        "name": dict.title,
+        "name": dict?.title || '',
         "item": `https://micro-tools.app/${lang}/tools/hash-forge`
       }
     ]

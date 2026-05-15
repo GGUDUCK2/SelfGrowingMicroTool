@@ -390,6 +390,10 @@ export const dictionaries = {
           inputLabel: "Text to Hash",
           placeholder: "Enter text to hash here...",
           looksLikeHash: "Looks like a {algo} hash",
+          enableSalt: "Add Salt",
+          prependSalt: "Prepend",
+          appendSalt: "Append",
+          saltPlaceholder: "Enter salt string...",
         },
         fileHash: {
           dropzone: "Drag & drop a file here, or click to browse",
@@ -4902,6 +4906,10 @@ export const dictionaries = {
           inputLabel: "해시할 텍스트",
           placeholder: "여기에 텍스트를 입력하세요...",
           looksLikeHash: "{algo} 해시로 보입니다",
+          enableSalt: "솔트(Salt) 추가",
+          prependSalt: "앞에 추가 (Prepend)",
+          appendSalt: "뒤에 추가 (Append)",
+          saltPlaceholder: "솔트 문자열 입력...",
         },
         fileHash: {
           dropzone: "여기로 파일을 드래그하거나 클릭하여 찾아보세요",

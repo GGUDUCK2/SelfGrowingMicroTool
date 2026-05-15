@@ -18,6 +18,13 @@
 
   let lastSavedMessage = '';
   let lastSavedAlgorithm: HashAlgorithm | null = null;
+  let salt = '';
+  let saltPosition: 'prepend' | 'append' = 'append';
+  let isSaltEnabled = false;
+  let lastSavedSalt = '';
+  let lastSavedSaltPosition = 'append';
+  let lastSavedIsSaltEnabled = false;
+
   let copiedJson = false;
 
   let analyzedHashType: string | null = null;
@@ -55,17 +62,26 @@
     inputFormat = (restoredData.inputFormat as InputFormat) || 'text';
     selectedAlgorithm = restoredData.algorithm as HashAlgorithm;
     hashResult = { hex: restoredData.result, base64: restoredData.base64Result || '' };
+    if (restoredData.salt !== undefined || restoredData.isSaltEnabled !== undefined) {
+      salt = restoredData.salt || '';
+      saltPosition = (restoredData.saltPosition as 'prepend' | 'append') || 'append';
+      isSaltEnabled = !!restoredData.isSaltEnabled;
+    }
     restoredData = null; // Clear to prevent loops
   }
 
   async function computeHash() {
-    if (message === '') { // Explicitly allow empty string
-      // hashResult = null; // Actually, empty string can be hashed!
+    let finalMessage = message;
+    // Note: Applying salt natively when format is hex or base64 is tricky.
+    // We will append/prepend the string value and assume the format applies to the combined string.
+    if (isSaltEnabled && salt) {
+       finalMessage = saltPosition === 'prepend' ? (salt + message) : (message + salt);
     }
+
     try {
       if (matrixMode) {
         const promises = ALGORITHMS.map(async (algo) => {
-          const res = await hashText(message, algo, inputFormat);
+          const res = await hashText(finalMessage, algo, inputFormat);
           return { algo, res };
         });
         const results = await Promise.all(promises);
@@ -76,7 +92,7 @@
         matrixResult = newMatrix;
         hashResult = null;
       } else {
-        const result = await hashText(message, selectedAlgorithm, inputFormat);
+        const result = await hashText(finalMessage, selectedAlgorithm, inputFormat);
         hashResult = result;
         matrixResult = null;
       }
@@ -89,10 +105,13 @@
 
   async function saveCurrentToHistory() {
     if (message === null || message === undefined || !hashResult) return;
-    if (lastSavedMessage === message && lastSavedAlgorithm === selectedAlgorithm) return;
+    if (lastSavedMessage === message && lastSavedAlgorithm === selectedAlgorithm && lastSavedSalt === salt && lastSavedSaltPosition === saltPosition && lastSavedIsSaltEnabled === isSaltEnabled) return;
 
     lastSavedMessage = message;
     lastSavedAlgorithm = selectedAlgorithm;
+    lastSavedSalt = salt;
+    lastSavedSaltPosition = saltPosition;
+    lastSavedIsSaltEnabled = isSaltEnabled;
 
     await saveToHistory({
       type: 'text',
@@ -100,6 +119,9 @@
       fullMessage: message,
       inputFormat: inputFormat,
       algorithm: selectedAlgorithm,
+      salt: salt,
+      saltPosition: saltPosition,
+      isSaltEnabled: isSaltEnabled,
       result: hashResult.hex,
       base64Result: hashResult.base64
     });
@@ -120,6 +142,7 @@
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
       e.preventDefault();
       message = '';
+      salt = '';
       hashResult = null;
       matrixResult = null;
     } else if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
@@ -127,6 +150,7 @@
       handleInput();
     } else if (e.key === 'Escape') {
       message = '';
+      salt = '';
       hashResult = null;
       matrixResult = null;
     } else if ((e.ctrlKey || e.metaKey) && e.key === 's') {
@@ -159,7 +183,7 @@
     URL.revokeObjectURL(url);
   }
 
-  $: if ((selectedAlgorithm || matrixMode || inputFormat) && message !== undefined) handleInput();
+  $: if ((selectedAlgorithm || matrixMode || inputFormat || salt || saltPosition || isSaltEnabled) && message !== undefined) handleInput();
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -205,7 +229,43 @@
     {/each}
   </div>
 
+
   <div class="space-y-4">
+    <div class="flex items-center gap-2 mb-2">
+      <label class="flex items-center gap-2 cursor-pointer text-sm font-medium text-slate-700 dark:text-slate-300">
+        <input type="checkbox" bind:checked={isSaltEnabled} class="rounded border-slate-300 dark:border-slate-600 text-indigo-600 focus:ring-indigo-500 dark:bg-slate-800" />
+        {dict?.textHash?.enableSalt || "Add Salt"}
+      </label>
+    </div>
+
+    {#if isSaltEnabled}
+      <div class="flex items-center gap-3 animate-in fade-in slide-in-from-top-1 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-200 dark:border-slate-700">
+        <div class="flex items-center bg-slate-200 dark:bg-slate-900 rounded-lg p-0.5 shrink-0">
+          <button
+            class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors min-h-[44px] {saltPosition === 'prepend' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+            on:click={() => saltPosition = 'prepend'}
+            aria-label={dict?.textHash?.prependSalt || "Prepend Salt"}
+          >
+            {dict?.textHash?.prependSalt || "Prepend"}
+          </button>
+          <button
+            class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors min-h-[44px] {saltPosition === 'append' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+            on:click={() => saltPosition = 'append'}
+            aria-label={dict?.textHash?.appendSalt || "Append Salt"}
+          >
+            {dict?.textHash?.appendSalt || "Append"}
+          </button>
+        </div>
+        <input
+          type="text"
+          bind:value={salt}
+          on:input={handleInput}
+          placeholder={dict?.textHash?.saltPlaceholder || "Enter salt string..."}
+          class="flex-1 px-3 py-2 min-h-[44px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-slate-800 dark:text-slate-200 placeholder-slate-400 font-mono text-sm"
+          aria-label={dict?.textHash?.saltPlaceholder || "Salt"}
+        />
+      </div>
+    {/if}
     <div>
       <div class="flex items-center justify-between mb-1">
         <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
