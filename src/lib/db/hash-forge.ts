@@ -8,6 +8,9 @@ export interface HashForgeHistoryItem {
   secret?: string; // Original secret for HMAC
   secretFormat?: string; // e.g. text, hex, base64
   algorithm: string;
+  salt?: string;
+  saltPosition?: 'prepend' | 'append';
+  isSaltEnabled?: boolean;
   result: string; // Hex result
   base64Result?: string; // Base64 result
 }
