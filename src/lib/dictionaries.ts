@@ -238,12 +238,17 @@ export const dictionaries = {
           title: "Optimized Result",
           copy: "Copy Code",
           copied: "Code copied to clipboard!",
+          copyDataUriTitle: "Copy as Data URI",
+          copiedDataUri: "Data URI copied to clipboard!",
           download: "Download SVG",
           downloaded: "SVG file downloaded!",
           empty: "Paste SVG markup or upload a file to see the preview.",
           original: "Original Size",
           optimized: "Optimized Size",
-          savings: "Savings"
+          savings: "Savings",
+          bgCheckered: "Checkered Background",
+          bgWhite: "White Background",
+          bgDark: "Dark Background"
         },
         history: {
           title: "Local Workspace",
@@ -4754,12 +4759,17 @@ export const dictionaries = {
           title: "최적화 결과",
           copy: "코드 복사",
           copied: "코드가 클립보드에 복사되었습니다!",
+          copyDataUriTitle: "Data URI로 복사",
+          copiedDataUri: "Data URI가 클립보드에 복사되었습니다!",
           download: "SVG 다운로드",
           downloaded: "SVG 파일이 다운로드되었습니다!",
           empty: "미리보기를 보려면 SVG 마크업을 붙여넣거나 파일을 업로드하세요.",
           original: "원본 크기",
           optimized: "최적화 크기",
-          savings: "절감"
+          savings: "절감",
+          bgCheckered: "체크무늬 배경",
+          bgWhite: "흰색 배경",
+          bgDark: "어두운 배경"
         },
         history: {
           title: "로컬 작업 공간",
