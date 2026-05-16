@@ -1,7 +1,7 @@
 <script lang="ts">
   import RelatedTools from '$lib/components/RelatedTools.svelte';
-  import { onMount } from 'svelte';
   import Head from '$lib/components/Head.svelte';
+  import { onMount } from 'svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
   import FAQSection from '$lib/components/FAQSection.svelte';
@@ -29,7 +29,7 @@
   let originalSize = 0;
   let optimizedSize = 0;
 
-  let historyPanelRef: any;
+  let historyPanelRef: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   // --- Logic ---
   $: {
@@ -78,12 +78,32 @@
   }
 
   // Handle Restore
-  function handleRestore(input: string, result: string, savedConfig: any) {
+  function handleRestore(input: string, result: string, savedConfig: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
     rawSvg = input;
     if (savedConfig) {
       config = savedConfig;
     }
   }
+
+  // Handle Keyboard Shortcuts
+  onMount(() => {
+    const handleKeydown = (e: KeyboardEvent) => {
+      // Ctrl/Cmd + S to Save
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        if (rawSvg && !optimizationError) {
+          handleSave();
+        }
+      }
+      // Ctrl/Cmd + K to Clear Input
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        rawSvg = '';
+      }
+    };
+    window.addEventListener('keydown', handleKeydown);
+    return () => window.removeEventListener('keydown', handleKeydown);
+  });
 
   // --- SEO & Schema ---
   $: jsonLd = {
@@ -147,7 +167,9 @@
 />
 
 <svelte:head>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags, @typescript-eslint/no-unused-expressions -->
   {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
+  <!-- eslint-disable-next-line svelte/no-at-html-tags, @typescript-eslint/no-unused-expressions -->
   {@html '<script type="application/ld+json">' + JSON.stringify(faqLd) + '</script>'}
 </svelte:head>
 
@@ -233,8 +255,11 @@
             {t?.guide?.featuresTitle}
           </h3>
           <ul class="space-y-3">
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             <li class="flex gap-2"><span class="text-indigo-500">•</span> {@html t?.guide?.f1}</li>
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             <li class="flex gap-2"><span class="text-indigo-500">•</span> {@html t?.guide?.f2}</li>
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             <li class="flex gap-2"><span class="text-indigo-500">•</span> {@html t?.guide?.f3}</li>
           </ul>
         </div>
