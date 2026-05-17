@@ -645,5 +645,653 @@
       "svgo"
     ],
     "createdAt": "2026-05-15"
+  },
+  {
+    "id": "audio-forge",
+    "slug": "audio-forge",
+    "title": {
+      "en": "Audio Forge",
+      "ko": "Audio Forge"
+    },
+    "description": {
+      "en": "Tool for Audio Forge",
+      "ko": "Audio Forge 도구"
+    },
+    "category": "productivity",
+    "tags": [
+      "audio",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "banner-forge",
+    "slug": "banner-forge",
+    "title": {
+      "en": "Banner Forge",
+      "ko": "Banner Forge"
+    },
+    "description": {
+      "en": "Tool for Banner Forge",
+      "ko": "Banner Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "banner",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "barcode-forge",
+    "slug": "barcode-forge",
+    "title": {
+      "en": "Barcode Forge",
+      "ko": "Barcode Forge"
+    },
+    "description": {
+      "en": "Tool for Barcode Forge",
+      "ko": "Barcode Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "barcode",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "chrono-shift",
+    "slug": "chrono-shift",
+    "title": {
+      "en": "Chrono Shift",
+      "ko": "Chrono Shift"
+    },
+    "description": {
+      "en": "Tool for Chrono Shift",
+      "ko": "Chrono Shift 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "chrono",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "cipher-lab",
+    "slug": "cipher-lab",
+    "title": {
+      "en": "Cipher Lab",
+      "ko": "Cipher Lab"
+    },
+    "description": {
+      "en": "Tool for Cipher Lab",
+      "ko": "Cipher Lab 도구"
+    },
+    "category": "security",
+    "tags": [
+      "cipher",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "compound-interest-calculator",
+    "slug": "compound-interest-calculator",
+    "title": {
+      "en": "Compound Interest Calculator",
+      "ko": "Compound Interest Calculator"
+    },
+    "description": {
+      "en": "Tool for Compound Interest Calculator",
+      "ko": "Compound Interest Calculator 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "compound",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "csv-forge",
+    "slug": "csv-forge",
+    "title": {
+      "en": "Csv Forge",
+      "ko": "Csv Forge"
+    },
+    "description": {
+      "en": "Tool for Csv Forge",
+      "ko": "Csv Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "csv",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "decision-forge",
+    "slug": "decision-forge",
+    "title": {
+      "en": "Decision Forge",
+      "ko": "Decision Forge"
+    },
+    "description": {
+      "en": "Tool for Decision Forge",
+      "ko": "Decision Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "decision",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "deploy-forge",
+    "slug": "deploy-forge",
+    "title": {
+      "en": "Deploy Forge",
+      "ko": "Deploy Forge"
+    },
+    "description": {
+      "en": "Tool for Deploy Forge",
+      "ko": "Deploy Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "deploy",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "diagram-forge",
+    "slug": "diagram-forge",
+    "title": {
+      "en": "Diagram Forge",
+      "ko": "Diagram Forge"
+    },
+    "description": {
+      "en": "Tool for Diagram Forge",
+      "ko": "Diagram Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "diagram",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "glassmorphism-generator",
+    "slug": "glassmorphism-generator",
+    "title": {
+      "en": "Glassmorphism Generator",
+      "ko": "Glassmorphism Generator"
+    },
+    "description": {
+      "en": "Tool for Glassmorphism Generator",
+      "ko": "Glassmorphism Generator 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "glassmorphism",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "invoice-forge",
+    "slug": "invoice-forge",
+    "title": {
+      "en": "Invoice Forge",
+      "ko": "Invoice Forge"
+    },
+    "description": {
+      "en": "Tool for Invoice Forge",
+      "ko": "Invoice Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "invoice",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "jwt-forge",
+    "slug": "jwt-forge",
+    "title": {
+      "en": "Jwt Forge",
+      "ko": "Jwt Forge"
+    },
+    "description": {
+      "en": "Tool for Jwt Forge",
+      "ko": "Jwt Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "jwt",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "key-forge",
+    "slug": "key-forge",
+    "title": {
+      "en": "Key Forge",
+      "ko": "Key Forge"
+    },
+    "description": {
+      "en": "Tool for Key Forge",
+      "ko": "Key Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "key",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "locale-forge",
+    "slug": "locale-forge",
+    "title": {
+      "en": "Locale Forge",
+      "ko": "Locale Forge"
+    },
+    "description": {
+      "en": "Tool for Locale Forge",
+      "ko": "Locale Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "locale",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "markdown-studio",
+    "slug": "markdown-studio",
+    "title": {
+      "en": "Markdown Studio",
+      "ko": "Markdown Studio"
+    },
+    "description": {
+      "en": "Tool for Markdown Studio",
+      "ko": "Markdown Studio 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "markdown",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "math-forge",
+    "slug": "math-forge",
+    "title": {
+      "en": "Math Forge",
+      "ko": "Math Forge"
+    },
+    "description": {
+      "en": "Tool for Math Forge",
+      "ko": "Math Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "math",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "mock-forge",
+    "slug": "mock-forge",
+    "title": {
+      "en": "Mock Forge",
+      "ko": "Mock Forge"
+    },
+    "description": {
+      "en": "Tool for Mock Forge",
+      "ko": "Mock Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "mock",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "motion-master",
+    "slug": "motion-master",
+    "title": {
+      "en": "Motion Master",
+      "ko": "Motion Master"
+    },
+    "description": {
+      "en": "Tool for Motion Master",
+      "ko": "Motion Master 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "motion",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "perms-forge",
+    "slug": "perms-forge",
+    "title": {
+      "en": "Perms Forge",
+      "ko": "Perms Forge"
+    },
+    "description": {
+      "en": "Tool for Perms Forge",
+      "ko": "Perms Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "perms",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "policy-forge",
+    "slug": "policy-forge",
+    "title": {
+      "en": "Policy Forge",
+      "ko": "Policy Forge"
+    },
+    "description": {
+      "en": "Tool for Policy Forge",
+      "ko": "Policy Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "policy",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "pomodoro-timer",
+    "slug": "pomodoro-timer",
+    "title": {
+      "en": "Pomodoro Timer",
+      "ko": "Pomodoro Timer"
+    },
+    "description": {
+      "en": "Tool for Pomodoro Timer",
+      "ko": "Pomodoro Timer 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "pomodoro",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "qr-forge",
+    "slug": "qr-forge",
+    "title": {
+      "en": "Qr Forge",
+      "ko": "Qr Forge"
+    },
+    "description": {
+      "en": "Tool for Qr Forge",
+      "ko": "Qr Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "qr",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "restro",
+    "slug": "restro",
+    "title": {
+      "en": "Restro",
+      "ko": "Restro"
+    },
+    "description": {
+      "en": "Tool for Restro",
+      "ko": "Restro 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "restro",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "resume-forge",
+    "slug": "resume-forge",
+    "title": {
+      "en": "Resume Forge",
+      "ko": "Resume Forge"
+    },
+    "description": {
+      "en": "Tool for Resume Forge",
+      "ko": "Resume Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "resume",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "screen-forge",
+    "slug": "screen-forge",
+    "title": {
+      "en": "Screen Forge",
+      "ko": "Screen Forge"
+    },
+    "description": {
+      "en": "Tool for Screen Forge",
+      "ko": "Screen Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "screen",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "shadow-forge",
+    "slug": "shadow-forge",
+    "title": {
+      "en": "Shadow Forge",
+      "ko": "Shadow Forge"
+    },
+    "description": {
+      "en": "Tool for Shadow Forge",
+      "ko": "Shadow Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "shadow",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "snippet-forge",
+    "slug": "snippet-forge",
+    "title": {
+      "en": "Snippet Forge",
+      "ko": "Snippet Forge"
+    },
+    "description": {
+      "en": "Tool for Snippet Forge",
+      "ko": "Snippet Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "snippet",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "sql-forge",
+    "slug": "sql-forge",
+    "title": {
+      "en": "Sql Forge",
+      "ko": "Sql Forge"
+    },
+    "description": {
+      "en": "Tool for Sql Forge",
+      "ko": "Sql Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "sql",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "string-theory",
+    "slug": "string-theory",
+    "title": {
+      "en": "String Theory",
+      "ko": "String Theory"
+    },
+    "description": {
+      "en": "Tool for String Theory",
+      "ko": "String Theory 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "string",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "structura",
+    "slug": "structura",
+    "title": {
+      "en": "Structura",
+      "ko": "Structura"
+    },
+    "description": {
+      "en": "Tool for Structura",
+      "ko": "Structura 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "structura",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "subnet-scope",
+    "slug": "subnet-scope",
+    "title": {
+      "en": "Subnet Scope",
+      "ko": "Subnet Scope"
+    },
+    "description": {
+      "en": "Tool for Subnet Scope",
+      "ko": "Subnet Scope 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "subnet",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "table-forge",
+    "slug": "table-forge",
+    "title": {
+      "en": "Table Forge",
+      "ko": "Table Forge"
+    },
+    "description": {
+      "en": "Tool for Table Forge",
+      "ko": "Table Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "table",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "type-forge",
+    "slug": "type-forge",
+    "title": {
+      "en": "Type Forge",
+      "ko": "Type Forge"
+    },
+    "description": {
+      "en": "Tool for Type Forge",
+      "ko": "Type Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "type",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "unit-verse",
+    "slug": "unit-verse",
+    "title": {
+      "en": "Unit Verse",
+      "ko": "Unit Verse"
+    },
+    "description": {
+      "en": "Tool for Unit Verse",
+      "ko": "Unit Verse 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "unit",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "xpath-forge",
+    "slug": "xpath-forge",
+    "title": {
+      "en": "Xpath Forge",
+      "ko": "Xpath Forge"
+    },
+    "description": {
+      "en": "Tool for Xpath Forge",
+      "ko": "Xpath Forge 도구"
+    },
+    "category": "dev",
+    "tags": [
+      "xpath",
+      "tool"
+    ],
+    "createdAt": "2026-05-17"
   }
 ]
