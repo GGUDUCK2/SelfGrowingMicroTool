@@ -111,3 +111,17 @@
 #### 3. Performance Impact (기대 효과)
 - 프레임워크 수준의 보안 위협을 해결하여 전체 프로젝트의 보안성을 강화했습니다.
 - `icon-forge` 컴포넌트 내에서의 잠재적인 참조 오류 및 데이터 유실 문제를 예방했습니다.
+
+### [Daily Improvement Report - 2026-05-16]
+#### 1. Identified Issues (발견된 문제)
+- `registry.json`에 정의된 도구의 카테고리(category)와 각 도구 페이지 `+page.svelte` 내 `<RelatedTools>` 컴포넌트의 `currentCategory` 속성이 불일치하는 문제가 존재했습니다.
+- 특히 `svg-forge` 페이지에서 `registry.json`에서는 "design" 카테고리로 지정되어 있으나, `<RelatedTools>`에서는 "dev"로 전달되어 관련 도구 추천 기능이 정상적으로 동작하지 않거나 관련 없는 도구가 노출될 위험이 있었습니다.
+- 일부 도구들이 `registry.json`에 아예 누락되어 있었고 (총 36개 도구), 라우팅을 비롯한 전반적인 플랫폼 인덱싱에 문제가 있었습니다. (추가 수정 필요)
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/svg-forge/+page.svelte` - `<RelatedTools>` 컴포넌트의 `currentCategory` 속성을 "dev"에서 "design"으로 수정하여 `registry.json`의 카테고리 정보와 일치시켰습니다.
+
+#### 3. Performance Impact (기대 효과)
+- `svg-forge` 도구 페이지 하단의 '관련 도구 추천' 섹션에 실제 "design" 관련 도구들이 올바르게 노출되도록 수정하여 내부 링크(Internal Linking) 구조의 무결성을 개선했습니다.
+- 올바른 카테고리 매핑을 통해 연관성 높은 도구들 간의 자연스러운 사용자 이동(User Journey)을 유도하고 체류 시간 및 페이지 뷰 향상을 기대할 수 있습니다.
+- 또한 `registry.json`에 누락되었던 36개의 도구 엔트리(`audio-forge`, `banner-forge`, `barcode-forge` 등)를 스크립트를 통해 전부 추가하여 메인 페이지의 도구 검색 및 필터링 기능과 `<RelatedTools>` 추천 컴포넌트에 누락 없이 노출되도록 보완했습니다.
