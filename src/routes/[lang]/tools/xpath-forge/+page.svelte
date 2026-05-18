@@ -2,8 +2,7 @@
   import RelatedTools from '$lib/components/RelatedTools.svelte';
     import { page } from '$app/stores';
     import { onMount } from 'svelte';
-    import Head from '$lib/components/Head.svelte';
-    import FAQSection from '$lib/components/FAQSection.svelte';
+        import FAQSection from '$lib/components/FAQSection.svelte';
     import { Play, Copy, Download, Trash2, Code, ChevronRight, History, Star, Maximize2, Link as LinkIcon } from 'lucide-svelte';
     import { workspace, type ToolHistoryItem } from '$lib/db/workspace';
 
@@ -51,6 +50,10 @@
     let isHtml = false;
     let editorMode: 'raw' | 'tree' = 'raw';
     let resultsMode: 'nodes' | 'code' = 'nodes';
+
+    // New features state
+    let namespaces: Array<{ prefix: string, uri: string }> = [];
+    let isNamespacesExpanded = false;
 
     // For Tree Viewer
     let parsedNodes: Array<TreeNode> = [];
@@ -172,7 +175,14 @@
             }
 
             try {
-                const nsResolver = doc.createNSResolver(doc.documentElement);
+                // Custom namespace resolver
+                const nsResolver = (prefix: string) => {
+                    const ns = namespaces.find(n => n.prefix === prefix);
+                    if (ns) return ns.uri;
+                    // Fallback to default resolver
+                    const defaultResolver = doc.createNSResolver(doc.documentElement);
+                    return defaultResolver ? defaultResolver.lookupNamespaceURI(prefix) : null;
+                };
                 const result = doc.evaluate(
                     xpathExpression,
                     doc,
@@ -309,6 +319,46 @@
         }
     }
 
+    function prettifyDocument() {
+        if (!sourceDocument) return;
+        try {
+            let formatted = '';
+            let reg = /(>)(<)(\/*)/g;
+            let xml = sourceDocument.replace(reg, '$1\n$2$3');
+            let pad = 0;
+            xml.split('\n').forEach(function(node) {
+                let indent = 0;
+                if (node.match( /.+<\/\w[^>]*>$/ )) {
+                    indent = 0;
+                } else if (node.match( /^<\/\w/ )) {
+                    if (pad !== 0) pad -= 1;
+                } else if (node.match( /^<\w[^>]*[^\/]>.*$/ )) {
+                    indent = 1;
+                } else {
+                    indent = 0;
+                }
+                let padding = '';
+                for (let i = 0; i < pad; i++) {
+                    padding += '  ';
+                }
+                formatted += padding + node + '\n';
+                pad += indent;
+            });
+            sourceDocument = formatted.trim();
+        } catch {
+            showToast(t?.editor?.formatError || 'Failed to format', 'error');
+        }
+    }
+
+    function addNamespace() {
+        namespaces = [...namespaces, { prefix: '', uri: '' }];
+    }
+
+    function removeNamespace(index: number) {
+        namespaces = namespaces.filter((_, i) => i !== index);
+        if (autoEvaluate) evaluateXPath();
+    }
+
     function clearEditor() {
         sourceDocument = '';
         xpathExpression = '';
@@ -408,11 +458,18 @@
     </div>
 {/if}
 
-<Head
-    title={t?.title}
-    description={t?.description}
-    schemas={[schema, faqSchema]}
-/>
+<svelte:head>
+    <title>{t?.title} | MicroFactory</title>
+    <meta name="description" content={t?.description} />
+    <meta property="og:title" content={t?.title} />
+    <meta property="og:description" content={t?.description} />
+    <meta name="twitter:title" content={t?.title} />
+    <meta name="twitter:description" content={t?.description} />
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+    {@html '<scr' + 'ipt type="application/ld+json">' + JSON.stringify(schema) + '</scr' + 'ipt>'}
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+    {@html '<scr' + 'ipt type="application/ld+json">' + JSON.stringify(faqSchema) + '</scr' + 'ipt>'}
+</svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
     <!-- Header -->
@@ -461,6 +518,62 @@
                 />
             </div>
 
+            <!-- Namespaces section -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
+                <button
+                    class="flex items-center justify-between w-full text-left font-medium text-sm text-gray-700 dark:text-gray-300 min-h-[44px]"
+                    on:click={() => isNamespacesExpanded = !isNamespacesExpanded}
+                >
+                    <span class="flex items-center gap-2">
+                        <Code class="w-4 h-4 text-indigo-500" />
+                        {t?.namespaces?.title || 'Namespaces'}
+                        {#if namespaces.length > 0}
+                            <span class="bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400 text-xs px-2 py-0.5 rounded-full">
+                                {namespaces.length}
+                            </span>
+                        {/if}
+                    </span>
+                    <ChevronRight class="w-4 h-4 transition-transform {isNamespacesExpanded ? 'rotate-90' : ''}" />
+                </button>
+
+                {#if isNamespacesExpanded}
+                    <div class="mt-4 space-y-3">
+                        {#each namespaces as _, i (i)}
+                            <div class="flex items-center gap-2">
+                                <input
+                                    type="text"
+                                    bind:value={namespaces[i].prefix}
+                                    on:input={() => autoEvaluate && evaluateXPath()}
+                                    placeholder={t?.namespaces?.prefix || 'Prefix (e.g. svg)'}
+                                    class="w-1/3 px-3 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                />
+                                <span class="text-gray-500 font-bold">:</span>
+                                <input
+                                    type="text"
+                                    bind:value={namespaces[i].uri}
+                                    on:input={() => autoEvaluate && evaluateXPath()}
+                                    placeholder={t?.namespaces?.uri || 'URI (e.g. http://www.w3.org/2000/svg)'}
+                                    class="flex-1 px-3 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                />
+                                <button
+                                    class="p-2 text-gray-400 hover:text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                                    on:click={() => removeNamespace(i)}
+                                    aria-label="Remove Namespace"
+                                >
+                                    <Trash2 class="w-4 h-4" />
+                                </button>
+                            </div>
+                        {/each}
+                        <button
+                            class="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-700 dark:hover:text-indigo-300 min-h-[44px]"
+                            on:click={addNamespace}
+                        >
+                            <span class="text-lg leading-none">+</span> {t?.namespaces?.add || 'Add Namespace'}
+                        </button>
+                    </div>
+                {/if}
+            </div>
+
             <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 h-[500px]">
                 <!-- Document Editor -->
                 <div class="flex flex-col h-full bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
@@ -486,6 +599,9 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-1 overflow-x-auto scrollbar-hide whitespace-nowrap shrink-0">
+                            <button class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={t?.editor?.prettify || 'Prettify'} on:click={prettifyDocument}>
+                                <Code class="w-4 h-4" />
+                            </button>
                             <label class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg cursor-pointer text-gray-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={t?.editor?.upload}>
                                 <input type="file" class="hidden" accept=".xml,.html,.txt" on:change={handleFileUpload} />
                                 <Download class="w-4 h-4" />
