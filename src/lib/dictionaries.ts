@@ -128,6 +128,12 @@ export const dictionaries = {
       xpathForge: {
         title: "XPath Forge: XML/HTML Navigator",
         description: "The definitive tool to validate, test, and generate XPath expressions against XML and HTML in your browser.",
+        namespaces: {
+          title: "Namespaces",
+          prefix: "Prefix (e.g. svg)",
+          uri: "URI (e.g. http://www.w3.org/2000/svg)",
+          add: "Add Namespace"
+        },
         editor: {
           title: "Source Document",
           placeholder: "Paste your XML or HTML here...",
@@ -4654,6 +4660,12 @@ export const dictionaries = {
       xpathForge: {
         title: "XPath 포지: XML/HTML 내비게이터",
         description: "브라우저에서 XML 및 HTML에 대해 XPath 표현식을 검증, 테스트 및 생성하는 궁극의 도구입니다.",
+        namespaces: {
+          title: "네임스페이스",
+          prefix: "접두사 (예: svg)",
+          uri: "URI (예: http://www.w3.org/2000/svg)",
+          add: "네임스페이스 추가"
+        },
         editor: {
           title: "원본 문서",
           placeholder: "여기에 XML 또는 HTML을 붙여넣으세요...",
