@@ -133,7 +133,10 @@ export const dictionaries = {
           placeholder: "Paste your XML or HTML here...",
           loadExample: "Load Example",
           upload: "Upload File",
-          clear: "Clear"
+          clear: "Clear",
+          raw: "Raw",
+          tree: "Tree Viewer",
+          treeEmpty: "No valid XML/HTML parsed yet."
         },
         xpath: {
           title: "XPath Expression",
@@ -146,7 +149,9 @@ export const dictionaries = {
           matchedCount: "nodes matched",
           empty: "No nodes matched or empty expression.",
           error: "Invalid XPath expression.",
-          parseError: "Invalid XML/HTML document."
+          parseError: "Invalid XML/HTML document.",
+          nodes: "Nodes",
+          code: "Code"
         },
         history: {
           title: "Recent XPath Queries",
@@ -4654,7 +4659,10 @@ export const dictionaries = {
           placeholder: "여기에 XML 또는 HTML을 붙여넣으세요...",
           loadExample: "예제 불러오기",
           upload: "파일 업로드",
-          clear: "지우기"
+          clear: "지우기",
+          raw: "원문",
+          tree: "트리 뷰어",
+          treeEmpty: "유효한 XML/HTML이 구문 분석되지 않았습니다."
         },
         xpath: {
           title: "XPath 표현식",
@@ -4667,7 +4675,9 @@ export const dictionaries = {
           matchedCount: "개 노드 일치",
           empty: "일치하는 노드가 없거나 표현식이 비어 있습니다.",
           error: "잘못된 XPath 표현식입니다.",
-          parseError: "잘못된 XML/HTML 문서입니다."
+          parseError: "잘못된 XML/HTML 문서입니다.",
+          nodes: "노드",
+          code: "코드"
         },
         history: {
           title: "최근 XPath 쿼리",
