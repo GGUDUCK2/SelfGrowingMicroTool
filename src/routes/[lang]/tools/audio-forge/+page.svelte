@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
@@ -152,7 +153,8 @@
             {/if}
 
             <div class="mt-12">
-                <FAQSection
+                <AdPlaceholder />
+  <FAQSection
                     title={toolDict.faqTitle}
                     items={[
                         { q: toolDict?.q1, a: toolDict?.a1 },

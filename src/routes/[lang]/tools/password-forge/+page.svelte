@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
@@ -540,7 +541,8 @@
         />
 
         <div class="mt-8">
-            <FAQSection title={t.faqTitle} items={faqItems} />
+            <AdPlaceholder />
+  <FAQSection title={t.faqTitle} items={faqItems} />
         </div>
       </div>
 

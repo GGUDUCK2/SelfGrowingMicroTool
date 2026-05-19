@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
@@ -640,7 +641,8 @@
       />
 
       <div class="max-w-4xl mx-auto mt-12">
-        <FAQSection
+        <AdPlaceholder />
+  <FAQSection
             title={dict.faqTitle}
             items={[
                 { q: dict?.q1, a: dict?.a1 },

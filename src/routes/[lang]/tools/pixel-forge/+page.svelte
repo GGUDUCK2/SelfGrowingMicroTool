@@ -1,4 +1,6 @@
 <script lang="ts">
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { FileImage, Zap, Lock, Smartphone } from 'lucide-svelte';
@@ -162,5 +164,7 @@
 
   </article>
 
+  <GuideSection dict={toolDict} />
+  <AdPlaceholder />
   <FAQSection title={toolDict.faqTitle} items={faqItems} />
 </div>

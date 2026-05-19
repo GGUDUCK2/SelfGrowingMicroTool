@@ -1,4 +1,7 @@
 <script lang="ts">
+  import FAQSection from '$lib/components/FAQSection.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
@@ -622,7 +625,10 @@
       </div>
     </div>
     <div class="mt-12">
-    <RelatedTools {lang} currentSlug="grid-master" currentCategory="dev" />
+    <GuideSection dict={dict} />
+  <AdPlaceholder />
+  <FAQSection dict={dict} />
+  <RelatedTools {lang} currentSlug="grid-master" currentCategory="dev" />
   </div>
 </main>
 

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount, onDestroy } from 'svelte';
@@ -252,7 +254,9 @@
     </article>
 
     <div class="mt-12">
-        <FAQSection
+        <GuideSection dict={t} />
+  <AdPlaceholder />
+  <FAQSection
             title={t.faqTitle}
             items={[
                 { q: t?.q1, a: t?.a1 },

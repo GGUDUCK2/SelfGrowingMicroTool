@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
@@ -160,7 +161,8 @@
 
   <div class="mt-16 space-y-12 border-t border-slate-200 dark:border-slate-800 pt-16">
     <GuideSection dict={dict?.guide || {}} />
-    <FAQSection title={dict?.faqTitle || 'FAQ'} items={dict?.faq || []} />
+    <AdPlaceholder />
+  <FAQSection title={dict?.faqTitle || 'FAQ'} items={dict?.faq || []} />
     <RelatedTools {lang} currentSlug="curl-forge" currentCategory="dev" />
   </div>
 </div>

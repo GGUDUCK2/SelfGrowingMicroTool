@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import { page } from '$app/stores';
   import Head from '$lib/components/Head.svelte';
@@ -246,7 +247,8 @@
         <GuideSection guide={t.guide} />
 
         <!-- FAQ -->
-        <FAQSection title={t.faqTitle} items={[
+        <AdPlaceholder />
+  <FAQSection title={t.faqTitle} items={[
           { question: t.q1, answer: t.a1 },
           { question: t.q2, answer: t.a2 },
           { question: t.q3, answer: t.a3 }

@@ -1,4 +1,7 @@
 <script lang="ts">
+  import FAQSection from '$lib/components/FAQSection.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
@@ -347,6 +350,9 @@
 
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20">
-    <RelatedTools {lang} currentSlug="id-forge" currentCategory="dev" />
+    <GuideSection dict={dict} />
+  <AdPlaceholder />
+  <FAQSection dict={dict} />
+  <RelatedTools {lang} currentSlug="id-forge" currentCategory="dev" />
   </div>
 </div>

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { getDictionary } from '$lib/dictionaries';
@@ -258,7 +260,9 @@
             <hr class="border-slate-700 my-8"/>
 
             <div class="not-prose mt-8">
-              <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
+              <GuideSection dict={t} />
+  <AdPlaceholder />
+  <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
             </div>
         </div>
       </div>

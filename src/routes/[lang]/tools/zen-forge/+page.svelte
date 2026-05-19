@@ -1,4 +1,6 @@
 <script lang="ts">
+  import FAQSection from '$lib/components/FAQSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
     import { onMount, onDestroy } from 'svelte';
     import { page } from '$app/stores';
@@ -196,6 +198,8 @@
 
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20">
-    <RelatedTools lang={$page.params.lang || 'en'} currentSlug="zen-forge" currentCategory="productivity" />
+    <AdPlaceholder />
+  <FAQSection dict={dict} />
+  <RelatedTools lang={$page.params.lang || 'en'} currentSlug="zen-forge" currentCategory="productivity" />
   </div>
 </div>

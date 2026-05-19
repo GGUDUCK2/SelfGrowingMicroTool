@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount } from "svelte";
@@ -504,7 +505,8 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
        {/if}
 
       <!-- FAQ Section -->
-      <FAQSection title={dict.faqTitle} items={faqItems} />
+      <AdPlaceholder />
+  <FAQSection title={dict.faqTitle} items={faqItems} />
     </div>
   </div>
 </div>

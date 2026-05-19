@@ -1,4 +1,7 @@
 <script lang="ts">
+  import FAQSection from '$lib/components/FAQSection.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   $: lang = $page.params.lang || 'en';
   import { page } from '$app/stores';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
@@ -525,5 +528,8 @@
 </style>
 
   <div class="mt-12 mb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <RelatedTools {lang} currentSlug="subnet-scope" currentCategory="dev" />
+    <GuideSection dict={dict} />
+  <AdPlaceholder />
+  <FAQSection dict={dict} />
+  <RelatedTools {lang} currentSlug="subnet-scope" currentCategory="dev" />
   </div>

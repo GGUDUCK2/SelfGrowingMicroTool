@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import { page } from '$app/stores';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
@@ -340,6 +341,7 @@
 
   <GuideSection {...dict.guide} />
 
+  <AdPlaceholder />
   <FAQSection title={dict.faqTitle} items={faqItems} />
 </div>
 

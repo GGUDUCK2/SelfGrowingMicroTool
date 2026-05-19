@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
@@ -679,7 +680,8 @@
                         />
                     </div>
                   {/if}
-                  <FAQSection title={dict.faqTitle} items={faqItems} injectSchema={false} />
+                  <AdPlaceholder />
+  <FAQSection title={dict.faqTitle} items={faqItems} injectSchema={false} />
                </div>
           </div>
       </div>

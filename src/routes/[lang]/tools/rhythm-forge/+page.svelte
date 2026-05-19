@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount, onDestroy } from 'svelte';
@@ -402,7 +403,8 @@
       <div class="mt-20 border-t border-slate-200 dark:border-slate-800 pt-12">
           <GuideSection {...dict.guide} />
           <div class="mt-12">
-              <FAQSection
+              <AdPlaceholder />
+  <FAQSection
                   title={dict.faqTitle}
                   items={[
                       { q: dict?.q1, a: dict?.a1 },

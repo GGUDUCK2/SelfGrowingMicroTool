@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
@@ -494,7 +495,8 @@
 <div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
   <div class="max-w-6xl mx-auto px-4 py-12">
     <GuideSection {...dict.guide} />
-    <FAQSection title={dict.faqTitle} items={faqItems} />
+    <AdPlaceholder />
+  <FAQSection title={dict.faqTitle} items={faqItems} />
   </div>
 </div>
 {/if}

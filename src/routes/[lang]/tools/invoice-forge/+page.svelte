@@ -1,4 +1,6 @@
 <script lang="ts">
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
@@ -289,7 +291,9 @@
       </section>
 
       <!-- FAQ Section -->
-      <FAQSection
+      <GuideSection dict={invoiceDict} />
+  <AdPlaceholder />
+  <FAQSection
           title={invoiceDict.faqTitle}
           items={[
               { q: invoiceDict?.q1, a: invoiceDict?.a1 },
