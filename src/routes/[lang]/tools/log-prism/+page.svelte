@@ -399,7 +399,7 @@
             <div class="absolute inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" on:click={() => showShortcuts = false}>
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-                <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-6 w-full max-w-sm border border-slate-200 dark:border-slate-800" on:click|stopPropagation role="document">
+                <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-6 w-full max-w-sm border border-slate-200 dark:border-slate-800 min-h-[44px] min-w-[44px]" on:click|stopPropagation role="document">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="font-bold text-lg text-slate-900 dark:text-white">Keyboard Shortcuts</h3>
                         <button on:click={() => showShortcuts = false} class="text-slate-400 hover:text-slate-600 min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-lg">
@@ -425,7 +425,7 @@
         {#if showHistory}
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <div class="absolute inset-0 z-40 bg-black/20 backdrop-blur-sm" on:click={() => showHistory = false}></div>
+            <div class="absolute inset-0 z-40 bg-black/20 backdrop-blur-sm min-h-[44px] min-w-[44px]" on:click={() => showHistory = false}></div>
             <HistorySidebar onClose={() => showHistory = false} onLoad={handleHistoryLoad} />
         {/if}
 
