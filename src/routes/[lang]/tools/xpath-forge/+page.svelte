@@ -2,6 +2,7 @@
   import GuideSection from '$lib/components/GuideSection.svelte';
   import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
+  import Head from '$lib/components/Head.svelte';
     import { page } from '$app/stores';
     import { onMount } from 'svelte';
         import FAQSection from '$lib/components/FAQSection.svelte';
@@ -460,13 +461,12 @@
     </div>
 {/if}
 
+<Head
+  title={t?.title}
+  description={t?.description}
+/>
+
 <svelte:head>
-    <title>{t?.title} | MicroFactory</title>
-    <meta name="description" content={t?.description} />
-    <meta property="og:title" content={t?.title} />
-    <meta property="og:description" content={t?.description} />
-    <meta name="twitter:title" content={t?.title} />
-    <meta name="twitter:description" content={t?.description} />
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html '<scr' + 'ipt type="application/ld+json">' + JSON.stringify(schema) + '</scr' + 'ipt>'}
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -639,7 +639,7 @@
                                                         <!-- svelte-ignore a11y_click_events_have_key_events -->
                                                         <!-- svelte-ignore a11y_no_static_element_interactions -->
                                                         <div
-                                                            class="cursor-pointer text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 w-4 h-4 flex items-center justify-center"
+                                                            class="cursor-pointer text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 w-4 h-4 flex items-center justify-center -ml-2 p-2"
                                                             on:click={() => toggleNodeExpand(n)}
                                                         >
                                                             <ChevronRight class="w-3 h-3 transition-transform {n.expanded ? 'rotate-90' : ''}" />
@@ -651,7 +651,7 @@
                                                     <!-- svelte-ignore a11y_click_events_have_key_events -->
                                                     <!-- svelte-ignore a11y_no_static_element_interactions -->
                                                     <div
-                                                        class="cursor-pointer flex flex-wrap gap-2 items-center hover:bg-gray-200 dark:hover:bg-gray-800 px-2 py-0.5 rounded"
+                                                        class="cursor-pointer flex flex-wrap gap-2 items-center hover:bg-gray-200 dark:hover:bg-gray-800 px-2 py-1 -my-1 rounded relative z-10"
                                                         on:click={() => selectTreeNode(n.xpath)}
                                                     >
                                                         <span class="text-blue-600 dark:text-blue-400 font-semibold">&lt;{n.name}&gt;</span>
@@ -668,7 +668,7 @@
                                                     <!-- svelte-ignore a11y_click_events_have_key_events -->
                                                     <!-- svelte-ignore a11y_no_static_element_interactions -->
                                                     <div
-                                                        class="opacity-0 group-hover:opacity-100 text-[10px] text-gray-400 cursor-pointer ml-auto hover:text-indigo-500"
+                                                        class="opacity-0 group-hover:opacity-100 text-[10px] text-gray-400 cursor-pointer ml-auto hover:text-indigo-500 py-1"
                                                         on:click={() => selectTreeNode(n.xpath)}
                                                     >
                                                         {n.xpath}
@@ -684,7 +684,7 @@
                                                                         <!-- svelte-ignore a11y_click_events_have_key_events -->
                                                                         <!-- svelte-ignore a11y_no_static_element_interactions -->
                                                                         <div
-                                                                            class="cursor-pointer text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 w-4 h-4 flex items-center justify-center"
+                                                                            class="cursor-pointer text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 w-4 h-4 flex items-center justify-center -ml-2 p-2"
                                                                             on:click={() => toggleNodeExpand(child)}
                                                                         >
                                                                             <ChevronRight class="w-3 h-3 transition-transform {child.expanded ? 'rotate-90' : ''}" />
@@ -696,7 +696,7 @@
                                                                     <!-- svelte-ignore a11y_click_events_have_key_events -->
                                                                     <!-- svelte-ignore a11y_no_static_element_interactions -->
                                                                     <div
-                                                                        class="cursor-pointer flex flex-wrap gap-2 items-center hover:bg-gray-200 dark:hover:bg-gray-800 px-2 py-0.5 rounded"
+                                                                        class="cursor-pointer flex flex-wrap gap-2 items-center hover:bg-gray-200 dark:hover:bg-gray-800 px-2 py-1 -my-1 rounded relative z-10"
                                                                         on:click={() => selectTreeNode(child.xpath)}
                                                                     >
                                                                         <span class="text-blue-600 dark:text-blue-400 font-semibold">&lt;{child.name}&gt;</span>
@@ -867,7 +867,7 @@ nodes = tree.xpath('{xpathExpression}')</pre>
                         {#each history as item (item.id)}
                             <!-- svelte-ignore a11y_click_events_have_key_events -->
                             <!-- svelte-ignore a11y_no_static_element_interactions -->
-                            <div class="group flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-transparent hover:border-gray-200 dark:hover:border-gray-700 transition-all cursor-pointer min-h-[44px]" on:click={() => loadHistoryItem(item)}>
+                            <div class="group flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-transparent hover:border-gray-200 dark:hover:border-gray-700 transition-all cursor-pointer min-h-[44px] min-w-[44px]" on:click={() => loadHistoryItem(item)}>
                                 <div class="flex-1 min-w-0 pr-2">
                                     <p class="text-sm font-mono truncate text-gray-700 dark:text-gray-300">{item.input}</p>
                                     <p class="text-xs text-gray-400 mt-1">{(item.result as {matchedCount?: number})?.matchedCount || 0} {t?.results?.matchedCount}</p>
@@ -906,13 +906,13 @@ nodes = tree.xpath('{xpathExpression}')</pre>
                         <ul class="space-y-2 font-mono text-xs">
                             <!-- svelte-ignore a11y_click_events_have_key_events -->
                             <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px]" on:click={() => xpathExpression = '//book'}><span>//node</span><span class="text-gray-400 ml-2 text-right">All node elements</span></li>
+                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px] min-w-[44px]" on:click={() => xpathExpression = '//book'}><span>//node</span><span class="text-gray-400 ml-2 text-right">All node elements</span></li>
                             <!-- svelte-ignore a11y_click_events_have_key_events -->
                             <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px]" on:click={() => xpathExpression = '//@category'}><span>//@attr</span><span class="text-gray-400 ml-2 text-right">All attr attributes</span></li>
+                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px] min-w-[44px]" on:click={() => xpathExpression = '//@category'}><span>//@attr</span><span class="text-gray-400 ml-2 text-right">All attr attributes</span></li>
                             <!-- svelte-ignore a11y_click_events_have_key_events -->
                             <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px]" on:click={() => xpathExpression = '/bookstore/book[1]'}><span>/node/child[1]</span><span class="text-gray-400 ml-2 text-right">First child</span></li>
+                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px] min-w-[44px]" on:click={() => xpathExpression = '/bookstore/book[1]'}><span>/node/child[1]</span><span class="text-gray-400 ml-2 text-right">First child</span></li>
                         </ul>
                     </div>
                     <div>
@@ -920,10 +920,10 @@ nodes = tree.xpath('{xpathExpression}')</pre>
                         <ul class="space-y-2 font-mono text-xs">
                             <!-- svelte-ignore a11y_click_events_have_key_events -->
                             <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px]" on:click={() => xpathExpression = '//book[@category="web"]'}><span>//node[@attr="val"]</span></li>
+                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px] min-w-[44px]" on:click={() => xpathExpression = '//book[@category="web"]'}><span>//node[@attr="val"]</span></li>
                             <!-- svelte-ignore a11y_click_events_have_key_events -->
                             <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px]" on:click={() => xpathExpression = '//book[price>35.00]'}><span>//node[child>val]</span></li>
+                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px] min-w-[44px]" on:click={() => xpathExpression = '//book[price>35.00]'}><span>//node[child>val]</span></li>
                         </ul>
                     </div>
                     <div>
@@ -931,13 +931,13 @@ nodes = tree.xpath('{xpathExpression}')</pre>
                         <ul class="space-y-2 font-mono text-xs">
                             <!-- svelte-ignore a11y_click_events_have_key_events -->
                             <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px]" on:click={() => xpathExpression = '//*[contains(text(), "XML")]'}><span>contains(text(), "val")</span></li>
+                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px] min-w-[44px]" on:click={() => xpathExpression = '//*[contains(text(), "XML")]'}><span>contains(text(), "val")</span></li>
                             <!-- svelte-ignore a11y_click_events_have_key_events -->
                             <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px]" on:click={() => xpathExpression = '//*[starts-with(@category, "c")]'}><span>starts-with(@attr, "val")</span></li>
+                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px] min-w-[44px]" on:click={() => xpathExpression = '//*[starts-with(@category, "c")]'}><span>starts-with(@attr, "val")</span></li>
                             <!-- svelte-ignore a11y_click_events_have_key_events -->
                             <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px]" on:click={() => xpathExpression = 'count(//book)'}><span>count(//node)</span></li>
+                            <li class="flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1.5 rounded min-h-[44px] min-w-[44px]" on:click={() => xpathExpression = 'count(//book)'}><span>count(//node)</span></li>
                         </ul>
                     </div>
                 </div>

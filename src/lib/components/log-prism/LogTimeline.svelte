@@ -132,5 +132,5 @@
 
 <div class="w-full" bind:this={container}>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <canvas bind:this={canvas} class="w-full cursor-crosshair rounded bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800" on:click={handleClick}></canvas>
+    <canvas bind:this={canvas} class="w-full cursor-crosshair rounded bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 min-h-[44px] min-w-[44px]" on:click={handleClick}></canvas>
 </div>

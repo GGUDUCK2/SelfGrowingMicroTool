@@ -177,7 +177,7 @@
         {#if showHistory}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-static-element-interactions -->
-        <div class="fixed inset-0 bg-black/50 z-20 md:hidden" on:click={() => showHistory = false}></div>
+        <div class="fixed inset-0 bg-black/50 z-20 md:hidden min-h-[44px] min-w-[44px]" on:click={() => showHistory = false}></div>
         {/if}
 
         <!-- Main Workspace -->

@@ -48,7 +48,7 @@
                     <!-- svelte-ignore a11y-interactive-supports-focus -->
                     <div
                         role="button"
-                        class="w-full text-left group flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all cursor-pointer min-h-[44px]"
+                        class="w-full text-left group flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all cursor-pointer min-h-[44px] min-w-[44px]"
                         on:click={() => load(item)}
                     >
                         <div class="min-w-0 flex-1">
