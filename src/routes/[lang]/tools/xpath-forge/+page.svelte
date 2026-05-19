@@ -1,4 +1,6 @@
 <script lang="ts">
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
     import { page } from '$app/stores';
     import { onMount } from 'svelte';
@@ -970,7 +972,9 @@ nodes = tree.xpath('{xpathExpression}')</pre>
             <li><span class="markdown-body">{@html t?.guide?.tip3?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
         </ul>
 
-        <FAQSection title={t?.faqTitle || 'FAQ'} items={faqItems} />
+        <GuideSection dict={t} />
+  <AdPlaceholder />
+  <FAQSection title={t?.faqTitle || 'FAQ'} items={faqItems} />
     </article>
 </div>
 

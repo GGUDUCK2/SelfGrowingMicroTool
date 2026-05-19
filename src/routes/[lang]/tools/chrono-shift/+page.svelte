@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   $: lang = $page.params.lang || 'en';
   import { page } from '$app/stores';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
@@ -493,7 +494,8 @@
         tip3={t.guide.tip3}
     />
 
-    <FAQSection title={t.faqTitle} items={faqItems} />
+    <AdPlaceholder />
+  <FAQSection title={t.faqTitle} items={faqItems} />
 </div>
 
 <style>

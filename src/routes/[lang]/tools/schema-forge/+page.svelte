@@ -1,4 +1,7 @@
 <script lang="ts">
+  import FAQSection from '$lib/components/FAQSection.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount, onDestroy } from 'svelte';
@@ -718,7 +721,10 @@
                     <CodePreview code={tsCode} language="typescript" />
                  {/if}
               <div class="mt-12">
-    <RelatedTools {lang} currentSlug="schema-forge" currentCategory="dev" />
+    <GuideSection dict={t} />
+  <AdPlaceholder />
+  <FAQSection dict={t} />
+  <RelatedTools {lang} currentSlug="schema-forge" currentCategory="dev" />
   </div>
 </main>
         </div>

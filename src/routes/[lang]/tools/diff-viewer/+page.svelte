@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import { onMount } from 'svelte';
   import { fade, fly } from 'svelte/transition';
@@ -643,7 +644,8 @@
         tip3={t.guide.tip3}
       />
 
-      <FAQSection title={t.faqTitle} items={faqItems} />
+      <AdPlaceholder />
+  <FAQSection title={t.faqTitle} items={faqItems} />
     </div>
     <div class="mt-12">
     <RelatedTools {lang} currentSlug="diff-viewer" currentCategory="dev" />

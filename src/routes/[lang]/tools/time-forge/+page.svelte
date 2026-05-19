@@ -1,4 +1,6 @@
 <script lang="ts">
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import { timeStore } from '$lib/utils/time-forge/store';
   import TimeForge from '$lib/components/time-forge/TimeForge.svelte';
@@ -116,7 +118,9 @@
       </div>
     </div>
 
-    <FAQSection title={t.faqTitle} items={faqs} />
+    <GuideSection dict={t} />
+  <AdPlaceholder />
+  <FAQSection title={t.faqTitle} items={faqs} />
   </div>
 
 

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
@@ -288,7 +290,9 @@
 
   <!-- Documentation & FAQ -->
   <div class="max-w-4xl mx-auto">
-    <FAQSection title={t.faqTitle} items={faqItems} />
+    <GuideSection dict={t} />
+  <AdPlaceholder />
+  <FAQSection title={t.faqTitle} items={faqItems} />
   </div>
 
 

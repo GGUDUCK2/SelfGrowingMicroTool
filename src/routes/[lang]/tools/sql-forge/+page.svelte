@@ -1,4 +1,6 @@
 <script lang="ts">
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { onMount } from 'svelte';
@@ -251,7 +253,9 @@
                     <li><span class="markdown-body">{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
                 </ul>
 
-                <FAQSection title={t.faqTitle} items={[
+                <GuideSection dict={t} />
+  <AdPlaceholder />
+  <FAQSection title={t.faqTitle} items={[
                     { question: t?.q1, answer: t?.a1 },
                     { question: t?.q2, answer: t?.a2 },
                     { question: t?.q3, answer: t?.a3 }

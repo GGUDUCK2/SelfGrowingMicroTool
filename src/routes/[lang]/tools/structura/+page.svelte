@@ -1,4 +1,6 @@
 <script lang="ts">
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import { getDictionary } from "$lib/dictionaries";
   $: lang = $page.params.lang || 'en';
   import { page } from '$app/stores';
@@ -623,7 +625,9 @@
       <li><span class="markdown-body">{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
     </ul>
 
-    <FAQSection title={t.faqTitle} items={faqItems} />
+    <GuideSection dict={t} />
+  <AdPlaceholder />
+  <FAQSection title={t.faqTitle} items={faqItems} />
   </article>
 
   <div class="flex justify-center mt-8 text-sm text-gray-400">

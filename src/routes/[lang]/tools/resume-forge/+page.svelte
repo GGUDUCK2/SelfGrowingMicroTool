@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { page } from '$app/stores';
@@ -250,6 +251,7 @@
 <div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 print:hidden">
     <div class="max-w-5xl mx-auto px-4 py-12 space-y-12">
         <GuideSection {...toolDict.guide} />
-        <FAQSection title={toolDict.faqTitle} items={faqItems} />
+        <AdPlaceholder />
+  <FAQSection title={toolDict.faqTitle} items={faqItems} />
     </div>
 </div>

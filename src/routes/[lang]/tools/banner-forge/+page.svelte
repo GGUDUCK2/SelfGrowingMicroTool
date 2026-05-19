@@ -1,4 +1,6 @@
 <script lang="ts">
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import Workspace from '$lib/components/banner-forge/Workspace.svelte';
@@ -160,7 +162,9 @@
             </div>
         </section>
 
-        <FAQSection
+        <GuideSection dict={toolDict} />
+  <AdPlaceholder />
+  <FAQSection
             title={toolDict.faqTitle}
             items={[
                 { q: toolDict.q1, a: toolDict.a1 },

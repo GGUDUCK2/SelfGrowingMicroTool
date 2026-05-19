@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
     import Head from '$lib/components/Head.svelte';
     import { getDictionary } from '$lib/dictionaries';
@@ -205,7 +206,8 @@
                 tips={[t.guide.tip1, t.guide.tip2, t.guide.tip3]}
             />
 
-            <FAQSection title={t.faqTitle} items={faqItems} />
+            <AdPlaceholder />
+  <FAQSection title={t.faqTitle} items={faqItems} />
         </div>
     </div>
 

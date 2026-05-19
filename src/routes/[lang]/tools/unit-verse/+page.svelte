@@ -1,4 +1,6 @@
 <script lang="ts">
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { getDictionary } from '$lib/dictionaries';
@@ -150,7 +152,9 @@
         <!-- Documentation / Guide -->
         <Guide t={t.guide}>
            <div class="mt-8">
-             <FAQSection title={t.faqTitle} items={faqItems} />
+             <GuideSection dict={t} />
+  <AdPlaceholder />
+  <FAQSection title={t.faqTitle} items={faqItems} />
            </div>
         </Guide>
       </div>

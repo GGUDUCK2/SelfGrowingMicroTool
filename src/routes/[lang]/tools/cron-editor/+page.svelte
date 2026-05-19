@@ -1,4 +1,6 @@
 <script lang="ts">
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { page } from "$app/stores";
@@ -353,7 +355,9 @@
   </div>
 
   <div class="mt-12">
-    <FAQSection title={lang === 'ko' ? '자주 묻는 질문' : 'Frequently Asked Questions'} items={faqItems} />
+    <GuideSection dict={dict} />
+  <AdPlaceholder />
+  <FAQSection title={lang === 'ko' ? '자주 묻는 질문' : 'Frequently Asked Questions'} items={faqItems} />
   </div>
 
 

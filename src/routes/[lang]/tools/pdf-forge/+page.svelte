@@ -1,4 +1,6 @@
 <script lang="ts">
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { FileText, Shield, Layers, Zap } from 'lucide-svelte';
@@ -182,7 +184,9 @@
       </article>
 
       <div class="lg:col-span-5 space-y-8">
-          <FAQSection
+          <GuideSection dict={toolDict} />
+  <AdPlaceholder />
+  <FAQSection
               title={toolDict.faqTitle}
               items={[
                   { q: toolDict.q1, a: toolDict.a1 },

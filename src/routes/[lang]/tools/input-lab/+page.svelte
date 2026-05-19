@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
   import { getDictionary } from '$lib/dictionaries';
@@ -264,7 +265,8 @@
       tip3={dict.guide.tip3}
     />
 
-    <FAQSection title={dict.faqTitle} items={[
+    <AdPlaceholder />
+  <FAQSection title={dict.faqTitle} items={[
       { q: dict?.q1, a: dict?.a1 },
       { q: dict?.q2, a: dict?.a2 },
       { q: dict?.q3, a: dict?.a3 }
