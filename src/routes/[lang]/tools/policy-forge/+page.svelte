@@ -134,7 +134,8 @@
 />
 
 <svelte:head>
-  {@html '<script type="application/ld+json">' + jsonLd + '</script>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + jsonLd + '</scr' + 'ipt>'}
 </svelte:head>
 
 <div class="h-screen flex flex-col bg-slate-50 dark:bg-slate-900 overflow-hidden">

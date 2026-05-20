@@ -223,9 +223,11 @@
 
 
   <!-- JSON-LD for SoftwareApplication -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</scr' + 'ipt>'}
 
-  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd2) + '</script>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd2) + '</scr' + 'ipt>'}
 
 </svelte:head>
 

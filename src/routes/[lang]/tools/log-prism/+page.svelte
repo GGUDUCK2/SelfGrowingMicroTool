@@ -263,6 +263,7 @@
 <svelte:head>
 
 
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -287,6 +288,7 @@
     }
   </script>`}
 
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -319,7 +321,8 @@
     ]
   }
   </script>`}
-  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</scr' + 'ipt>'}
 
 </svelte:head>
 

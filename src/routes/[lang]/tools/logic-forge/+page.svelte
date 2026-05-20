@@ -260,9 +260,11 @@
 <svelte:window on:keydown={handleGlobalKeydown} />
 
 <svelte:head>
-        {@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</script>'}
+        <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</scr' + 'ipt>'}
 
-  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</scr' + 'ipt>'}
 
 </svelte:head>
 
