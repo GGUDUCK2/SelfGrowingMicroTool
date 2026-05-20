@@ -10,6 +10,55 @@ export const dictionaries = {
       actions: "Actions",
     },
     tools: {
+      clampForge: {
+        title: "Clamp Forge: Fluid Typography",
+        description: "Generate precise CSS clamp() functions for fluid typography and spacing. Set your min/max viewport and sizes, and grab the perfect scaling formula instantly.",
+        minViewport: "Min Viewport Width",
+        maxViewport: "Max Viewport Width",
+        minSize: "Min Font Size",
+        maxSize: "Max Font Size",
+        baseRem: "Base REM (1rem = ?px)",
+        unit: "Target Unit",
+        pixels: "Pixels (px)",
+        rems: "REM",
+        resultLabel: "Generated clamp()",
+        copyTailwind: "Copy Tailwind Class",
+        copyCss: "Copy CSS",
+        visualizerTitle: "Fluid Scaling Visualizer",
+        history: "Saved Scales",
+        saveScale: "Save Scale",
+        clear: "Clear All",
+        restore: "Restore",
+        delete: "Delete",
+        guideTitle: "How to use Clamp Forge?",
+        guideSubtitle: "Mastering fluid design with CSS clamp()",
+        guide: {
+          title: "Guide: Building Fluid Layouts",
+          subtitle: "How to master the CSS clamp function",
+          sections: [
+            {
+              title: "What is CSS clamp()?",
+              content: "The clamp() function allows you to set a value that scales between a minimum and a maximum based on a varying metric (usually viewport width). It takes three parameters: a minimum value, a preferred value (the fluid part), and a maximum value."
+            },
+            {
+              title: "How to use this tool?",
+              content: "1. Enter the viewport widths where you want scaling to start (Min) and stop (Max).\n2. Enter the font sizes you want at those viewports.\n3. The tool calculates the preferred value (slope and intersection) automatically.\n4. Copy the generated CSS or Tailwind class directly into your project."
+            },
+            {
+              title: "REM vs PX",
+              content: "Using REM is highly recommended for accessibility, as it respects the user's default browser font size. By default, 1rem equals 16px, but you can adjust this if your project uses a different base."
+            }
+          ]
+        },
+        faqTitle: "Frequently Asked Questions",
+        q1: "Why should I use clamp() instead of media queries?",
+        a1: "clamp() provides continuous fluid scaling, meaning your typography or spacing adjusts smoothly across every pixel of viewport change. Media queries only provide sudden 'jumps' at specific breakpoints, which can lead to awkward sizing in between.",
+        q2: "Can I use this for padding or margins?",
+        a2: "Absolutely! The math behind fluid typography works exactly the same for fluid spacing. Just enter your desired padding values instead of font sizes.",
+        q3: "What is the 'Preferred Value' in clamp()?",
+        a3: "The preferred value is usually a combination of vw (viewport width) and rem. It represents the 'slope' of the scaling graph. Clamp Forge calculates the exact math needed to hit your min and max sizes at your specified viewports."
+      },
+
 
     yamlForge: {
       title: "YAML Forge",
@@ -4542,6 +4591,55 @@ export const dictionaries = {
       actions: "작업",
     },
     tools: {
+      clampForge: {
+        title: "클램프 포지: 유동적 타이포그래피",
+        description: "반응형 웹을 위한 정밀한 CSS clamp() 함수를 생성합니다. 최소/최대 뷰포트와 폰트 크기를 설정하고 완벽한 스케일링 공식을 즉시 얻으세요.",
+        minViewport: "최소 뷰포트 너비",
+        maxViewport: "최대 뷰포트 너비",
+        minSize: "최소 폰트 크기",
+        maxSize: "최대 폰트 크기",
+        baseRem: "기본 REM (1rem = ?px)",
+        unit: "출력 단위",
+        pixels: "픽셀 (px)",
+        rems: "REM",
+        resultLabel: "생성된 clamp()",
+        copyTailwind: "Tailwind 클래스 복사",
+        copyCss: "CSS 복사",
+        visualizerTitle: "유동적 스케일링 시각화",
+        history: "저장된 스케일",
+        saveScale: "스케일 저장",
+        clear: "전체 삭제",
+        restore: "복원",
+        delete: "삭제",
+        guideTitle: "Clamp Forge 사용 방법",
+        guideSubtitle: "CSS clamp()로 유동적 디자인 마스터하기",
+        guide: {
+          title: "가이드: 유동적 레이아웃 구축하기",
+          subtitle: "CSS clamp 함수를 마스터하는 방법",
+          sections: [
+            {
+              title: "CSS clamp()란 무엇인가요?",
+              content: "clamp() 함수는 뷰포트 너비 등 변화하는 지표를 기반으로 값이 최소값과 최대값 사이에서 유동적으로 조절되게 합니다. 최소값, 선호값(유동적인 부분), 최대값의 세 가지 매개변수를 사용합니다."
+            },
+            {
+              title: "이 도구를 어떻게 사용하나요?",
+              content: "1. 스케일링이 시작되고 멈출 뷰포트 너비(최소 및 최대)를 입력합니다.\n2. 해당 뷰포트에서의 폰트 크기를 입력합니다.\n3. 도구가 선호값(기울기와 교차점)을 자동으로 계산합니다.\n4. 생성된 CSS나 Tailwind 클래스를 프로젝트에 복사하여 붙여넣습니다."
+            },
+            {
+              title: "REM 대 PX",
+              content: "접근성을 위해 REM 사용을 적극 권장합니다. REM은 사용자의 브라우저 기본 폰트 크기를 존중합니다. 기본적으로 1rem은 16px이지만, 프로젝트의 기본값이 다르다면 조정할 수 있습니다."
+            }
+          ]
+        },
+        faqTitle: "자주 묻는 질문",
+        q1: "미디어 쿼리 대신 clamp()를 사용해야 하는 이유는 무엇인가요?",
+        a1: "clamp()는 지속적이고 매끄러운 크기 조절을 제공하여 뷰포트 변화의 매 픽셀마다 타이포그래피나 여백이 자연스럽게 조정됩니다. 반면 미디어 쿼리는 특정 중단점에서만 갑작스러운 변화를 주어 중간 크기에서 어색할 수 있습니다.",
+        q2: "패딩이나 마진에도 사용할 수 있나요?",
+        a2: "물론입니다! 유동적 타이포그래피의 수학적 원리는 유동적 여백에도 동일하게 적용됩니다. 폰트 크기 대신 원하는 패딩 값을 입력하기만 하면 됩니다.",
+        q3: "clamp()에서 '선호값(Preferred Value)'이란 무엇인가요?",
+        a3: "선호값은 대개 vw(뷰포트 너비)와 rem의 조합으로, 스케일링 그래프의 '기울기'를 나타냅니다. Clamp Forge는 지정한 뷰포트에서 최소 및 최대 크기에 도달하는 데 필요한 정확한 수학 공식을 계산합니다."
+      },
+
 
     yamlForge: {
       title: "YAML 포지",
