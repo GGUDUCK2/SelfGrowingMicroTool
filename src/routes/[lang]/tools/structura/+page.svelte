@@ -251,6 +251,8 @@
 
 
 <svelte:head>
+      <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html '<script type="application/ld+json">' + JSON.stringify(schemaObj1) + '</script>'}
 </svelte:head>
 
@@ -325,7 +327,7 @@
                                 {t.examples.label}
                             </button>
                             <div class="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-1 hidden group-hover:block z-20">
-                                {#each structuraExamples as ex}
+                                {#each structuraExamples as ex (ex.name)}
                                     <button
                                         class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors min-h-[44px]"
                                         on:click={() => loadExample(ex)}
@@ -345,7 +347,7 @@
                             bind:value={inputFormat}
                             class="pl-3 pr-8 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500 min-h-[44px]"
                         >
-                            {#each formats as f}
+                            {#each formats as f (f.value)}
                                 <option value={f.value}>{f.label}</option>
                             {/each}
                         </select>
@@ -358,7 +360,7 @@
                             bind:value={outputFormat}
                             class="pl-3 pr-8 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500 min-h-[44px]"
                         >
-                            {#each formats as f}
+                            {#each formats as f (f.value)}
                                 <option value={f.value}>{f.label}</option>
                             {/each}
                         </select>
@@ -558,7 +560,7 @@
              <div transition:fade={{ duration: 200 }}>
                  {#if history && history.length > 0}
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {#each history as item}
+                        {#each history as item (item.id)}
                             <div class="group relative bg-gray-50 dark:bg-gray-700/30 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all">
                                 <div class="flex justify-between items-start mb-3">
                                     <div class="flex items-center gap-2 text-xs font-mono">
@@ -612,16 +614,23 @@
 
     <h3>{t.guide.featuresTitle}</h3>
     <ul>
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <li><span class="markdown-body">{@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <li><span class="markdown-body">{@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <li><span class="markdown-body">{@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <li><span class="markdown-body">{@html t.guide.f4.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
     </ul>
 
     <h3>{t.guide.tipsTitle}</h3>
     <ul>
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <li><span class="markdown-body">{@html t.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <li><span class="markdown-body">{@html t.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <li><span class="markdown-body">{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
     </ul>
 

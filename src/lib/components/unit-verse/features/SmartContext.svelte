@@ -6,7 +6,7 @@
   export let value: number; // The input value
   export let fromUnitId: string;
   export let categoryId: string;
-  export let t: any;
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   $: lang = (t && t.lang === 'ko') ? 'ko' : 'en'; // Simple heuristic, better to pass lang prop
 

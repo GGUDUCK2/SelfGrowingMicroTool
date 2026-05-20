@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import Button from '$lib/components/Button.svelte';
 
-  export let t: any; // dictionary object
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   const dispatch = createEventDispatcher();
 </script>

@@ -4,7 +4,7 @@
   import { db } from '$lib/db';
 
   export let blob: Blob;
-  export let t: any;
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   export let onDiscard: () => void;
 
   let videoUrl = '';

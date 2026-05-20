@@ -2,7 +2,7 @@
   import type { SvgoConfig } from '$lib/utils/svg-forge/optimizer';
 
   export let config: SvgoConfig;
-  export let t: any;
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   // Grouped configuration options based on SVGO plugins
   const configGroups = [

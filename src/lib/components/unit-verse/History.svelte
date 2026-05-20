@@ -6,7 +6,7 @@
   import { createEventDispatcher } from 'svelte';
   import Papa from 'papaparse';
 
-  export let t: any;
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   const dispatch = createEventDispatcher();
 
   let history = liveQuery(async () => {

@@ -3,7 +3,7 @@
   import { workspace, type ToolHistoryItem } from '$lib/db/workspace';
   import Button from '$lib/components/Button.svelte';
 
-  export let t: any;
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   export let onRestore: (input: string, result: string, config: any) => void;
   export let onToast: (msg: string) => void;
 

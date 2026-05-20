@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let t: any;
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   function formatText(text: string) {
     if (!text) return "";
