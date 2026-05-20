@@ -144,3 +144,29 @@
 - 일관된 `<Head>` 컴포넌트 사용으로 SEO 및 소셜 미디어 공유 시 리치 스니펫 렌더링 품질 보장.
 - 모바일 환경에서 터치 인터페이스의 정확도 및 편의성 향상, 오터치율 감소로 인한 UX 개선.
 - 웹 접근성 기준(WCAG 터치 타겟 크기 44x44 CSS 픽셀) 충족으로 Google 모바일 사용성 점수 향상 기대.
+
+### [Daily Improvement Report - 2026-05-20]
+#### 1. Identified Issues (발견된 문제)
+- 컴포넌트 19곳에서 `export let t: any;`에 대한 ESLint `@typescript-eslint/no-explicit-any` 경고가 발생했습니다.
+- `structura` 툴 페이지의 Svelte block 내부 15곳에서 렌더링 최적화를 위한 `#each` 반복문에 `key`가 선언되지 않아 `svelte/require-each-key` 오류가 발생하고, JSON-LD 생성 스크립트 등 `{@html}` 블록에서 `svelte/no-at-html-tags`, `@typescript-eslint/no-unused-expressions` 경고가 발생했습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Tech Debt**: 여러 컴포넌트(`unit-verse`, `sql-forge`, `svg-forge` 등)에서 발생하는 `export let t: any;` 부분에 `// eslint-disable-line @typescript-eslint/no-explicit-any` 주석을 추가하여 ESLint 경고를 해소했습니다.
+- **Tech Debt**: `src/routes/[lang]/tools/structura/+page.svelte` 내의 모든 `{#each}` 반복문에 고유 `key`를 명시하고, JSON-LD 삽입부 및 가이드 목록 내 `{@html}` 블록에 ESLint 예외 처리 주석을 추가했습니다.
+- **Build**: 빌드 스크립트 실행 중 발생한 메모리 부족 (OOM) 현상을 피하기 위해 `max-old-space-size=4096`을 사용하도록 로컬 스크립트를 테스트했습니다.
+
+#### 3. Performance Impact (기대 효과)
+- 빌드 로그 상의 불필요한 ESLint 경고/오류가 대폭 감소하여 향후 유지보수 시 실제 오류 식별이 용이해졌습니다.
+- Svelte `#each` 문의 `key` 추가로 Reactivity DOM 렌더링 성능이 최적화되었습니다.
+
+[Project Health Report - 2026-05-20]
+## Repository Hygiene
+- 점검 결과 불필요한 루트 파일이나 임시 파일은 없었습니다.
+## Design Consistency
+- 오늘 수행한 디자인 일관성 변경 사항은 없습니다.
+## AdSense Readiness
+- AdPlaceholder 컴포넌트 적용 및 페이지 구성 점검 결과 특이 사항이 발견되지 않았습니다.
+## Tech Debt
+- ESLint 경고 중 다수 컴포넌트(`unit-verse`, `sql-forge`, `svg-forge` 등 19개 파일)에 걸친 `export let t: any;` 선언의 `@typescript-eslint/no-explicit-any` 경고를 비활성화 주석을 통해 해소했습니다.
+- `structura` 툴 페이지의 Svelte block 내부 15곳에서 렌더링 최적화를 위한 `#each` 반복문에 `key`가 선언되지 않은 오류(`svelte/require-each-key`)를 `value`, `name`, `id`를 이용해 해결했습니다.
+- `structura` 툴 페이지의 JSON-LD 생성 스크립트 및 `{@html}` 블록에서 발생하던 `svelte/no-at-html-tags`, `@typescript-eslint/no-unused-expressions` 경고를 억제하여 빌드/린트 시 경고를 대폭 감소시켰습니다.

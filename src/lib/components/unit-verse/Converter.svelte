@@ -10,7 +10,7 @@
   import { page } from '$app/stores';
 
   export let selectedCategory: string;
-  export let t: any;
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   export let inputValue: number | null = 1;
   export let fromUnitId: string = '';

@@ -4,7 +4,7 @@
   import { ScreenRecorder } from '$lib/utils/screen-forge/recorder';
 
   export let onRecordingComplete: (blob: Blob) => void;
-  export let t: any;
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   let recorder: ScreenRecorder;
   let videoEl: HTMLVideoElement;

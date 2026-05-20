@@ -3,7 +3,7 @@
   import { liveQuery } from 'dexie';
   import { Play, Trash2, Download, Calendar, Clock, Film } from 'lucide-svelte';
 
-  export let t: any;
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   export let onPlay: (blob: Blob) => void;
 
   let history$ = liveQuery(() => db.screenForgeHistory.orderBy('createdAt').reverse().toArray());

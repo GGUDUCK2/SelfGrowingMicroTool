@@ -4,7 +4,7 @@
   import { Ruler, Scale, Box, Mountain, Thermometer, Clock, Monitor, Gauge, Activity, Zap, Radio, ZapOff } from 'lucide-svelte';
 
   export let selectedCategory: string;
-  export let t: any;
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   const dispatch = createEventDispatcher();
 

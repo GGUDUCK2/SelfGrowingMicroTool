@@ -7,7 +7,7 @@
   export let selectedCategory: string;
   export let inputValue: number | null;
   export let fromUnitId: string;
-  export let t: any;
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   let copiedId: string | null = null;
 

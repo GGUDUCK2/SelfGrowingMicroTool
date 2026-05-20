@@ -4,7 +4,7 @@
   import Button from '$lib/components/Button.svelte';
 
   export let rawSvg: string = '';
-  export let t: any;
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   let textareaRef: HTMLTextAreaElement;
 

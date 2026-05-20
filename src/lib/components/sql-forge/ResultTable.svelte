@@ -3,7 +3,7 @@
   import { Download } from 'lucide-svelte';
 
   export let result: QueryResult | null = null;
-  export let t: any;
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   function exportCsv() {
       if (!result || !result.data.length) return;

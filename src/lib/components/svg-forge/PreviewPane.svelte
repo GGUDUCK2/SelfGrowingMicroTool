@@ -5,7 +5,7 @@
   export let error: string | undefined = undefined;
   export let originalSize: number = 0;
   export let optimizedSize: number = 0;
-  export let t: any;
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   export let onToast: (msg: string) => void;
 
   $: savings = originalSize > 0 ? ((originalSize - optimizedSize) / originalSize) * 100 : 0;

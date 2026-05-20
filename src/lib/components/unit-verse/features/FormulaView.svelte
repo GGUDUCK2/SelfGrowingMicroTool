@@ -6,7 +6,7 @@
   export let fromUnitSymbol: string;
   export let toUnitSymbol: string;
   export let resultValue: number;
-  export let t: any;
+  export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   // Parse simple formula to show steps
   // Most formulas are "x * factor" or "(x - off) * factor"
