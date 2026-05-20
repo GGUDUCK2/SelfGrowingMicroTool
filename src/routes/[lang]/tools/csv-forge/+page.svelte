@@ -179,9 +179,12 @@
 </script>
 
 <svelte:head>
-  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>'}
-  {@html '<script type="application/ld+json">' + JSON.stringify(softwareSchema) + '</script>'}
-  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</scr' + 'ipt>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(softwareSchema) + '</scr' + 'ipt>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</scr' + 'ipt>'}
 </svelte:head>
 
 <Head

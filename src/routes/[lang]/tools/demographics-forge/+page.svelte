@@ -135,8 +135,10 @@
     keywords="population pyramid, demographic transition, global demographics, median age, dependency ratio, visualization"
 />
 
-{@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</script>'}
-{@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
+<!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</scr' + 'ipt>'}
+<!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</scr' + 'ipt>'}
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
     <!-- Header -->

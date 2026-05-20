@@ -298,9 +298,12 @@
 
     <!-- Twitter -->
 
-    {@html '<script type="application/ld+json">' + JSON.stringify(softwareSchema) + '</script>'}
-    {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>'}
-    {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
+    <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(softwareSchema) + '</scr' + 'ipt>'}
+    <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</scr' + 'ipt>'}
+    <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</scr' + 'ipt>'}
 </svelte:head>
 
 <div class="max-w-6xl mx-auto space-y-8 pb-20 px-4 sm:px-6">

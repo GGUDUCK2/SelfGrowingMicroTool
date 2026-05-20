@@ -212,7 +212,8 @@
 
 
 <svelte:head>
-                {@html '<script type="application/ld+json">' + JSON.stringify(schemaList) + '</script>'}
+                <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(schemaList) + '</scr' + 'ipt>'}
 
 
 

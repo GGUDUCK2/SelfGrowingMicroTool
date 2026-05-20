@@ -149,9 +149,12 @@
 
 
 <svelte:head>
-                  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
-  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumb) + '</script>'}
+                  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</scr' + 'ipt>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumb) + '</scr' + 'ipt>'}
 
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",

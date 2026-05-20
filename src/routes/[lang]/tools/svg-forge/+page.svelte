@@ -170,9 +170,11 @@
 
 <svelte:head>
   <!-- eslint-disable-next-line svelte/no-at-html-tags, @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</scr' + 'ipt>'}
   <!-- eslint-disable-next-line svelte/no-at-html-tags, @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(faqLd) + '</script>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqLd) + '</scr' + 'ipt>'}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 pb-20">

@@ -83,8 +83,10 @@
 
 
 <svelte:head>
-                        {@html '<script type="application/ld+json">' + JSON.stringify(softwareSchema) + '</script>'}
+                        <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(softwareSchema) + '</scr' + 'ipt>'}
 
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",

@@ -188,8 +188,10 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-  {@html '<script type="application/ld+json">' + JSON.stringify(schemaObj1) + '</script>'}
-  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(schemaObj1) + '</scr' + 'ipt>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</scr' + 'ipt>'}
 </svelte:head>
 
 <!-- Toast -->

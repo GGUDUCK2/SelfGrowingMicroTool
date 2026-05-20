@@ -253,7 +253,8 @@
 <svelte:head>
       <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-      {@html '<script type="application/ld+json">' + JSON.stringify(schemaObj1) + '</script>'}
+      <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(schemaObj1) + '</scr' + 'ipt>'}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">

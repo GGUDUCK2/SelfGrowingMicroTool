@@ -99,7 +99,8 @@
 
 
 <svelte:head>
-  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</script>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</scr' + 'ipt>'}
 </svelte:head>
 
 <div class="flex flex-col min-h-screen">

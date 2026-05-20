@@ -97,9 +97,12 @@
 />
 
 <svelte:head>
-  {@html '<script type="application/ld+json">' + jsonLd + '</script>'}
-  {@html '<script type="application/ld+json">' + faqJsonLd + '</script>'}
-  {@html '<script type="application/ld+json">' + breadcrumbJsonLd + '</script>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + jsonLd + '</scr' + 'ipt>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + faqJsonLd + '</scr' + 'ipt>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + breadcrumbJsonLd + '</scr' + 'ipt>'}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
