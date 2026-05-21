@@ -23,6 +23,33 @@
   let copiedTw = false;
   let activeTab: 'builder' | 'history' = 'builder';
 
+  type Preset = 'h1' | 'h2' | 'body' | 'spacing';
+
+  const applyPreset = (preset: Preset) => {
+    unit = 'rem';
+    minWidth = 320;
+    maxWidth = 1200;
+
+    switch (preset) {
+      case 'h1':
+        minSize = 2;
+        maxSize = 4;
+        break;
+      case 'h2':
+        minSize = 1.5;
+        maxSize = 2.5;
+        break;
+      case 'body':
+        minSize = 1;
+        maxSize = 1.125;
+        break;
+      case 'spacing':
+        minSize = 2;
+        maxSize = 5;
+        break;
+    }
+  };
+
   // Math
   // slope = (maxSize - minSize) / (maxWidth - minWidth)
   // intersection = -minWidth * slope + minSize
@@ -79,7 +106,24 @@
     unit = item.unit as 'rem' | 'px';
     activeTab = 'builder';
   };
+
+  const handleKeydown = (e: KeyboardEvent) => {
+    if (e.ctrlKey || e.metaKey) {
+      if (e.key === 'c' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+        // Prevent default copy if not in input, copy CSS
+        e.preventDefault();
+        copyToClipboard(calculatedClamp, 'css');
+      } else if (e.key === 's') {
+        e.preventDefault();
+        saveScale();
+      }
+    } else if (e.key === 'Escape') {
+      // Optional clear or reset
+    }
+  };
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
   <div class="lg:col-span-2 space-y-6">
@@ -102,6 +146,41 @@
       <div class="p-6 sm:p-8">
         {#if activeTab === 'builder'}
           <div class="space-y-8" in:fade>
+            <!-- Presets Section -->
+            <div class="pb-6 border-b border-slate-200 dark:border-slate-700">
+              <h3 class="text-sm font-medium text-slate-500 uppercase tracking-wide mb-3">{d.presetsTitle}</h3>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <button
+                  on:click={() => applyPreset('h1')}
+                  class="min-h-[44px] px-3 py-2 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg transition-colors text-center"
+                  title={d.presetH1}
+                >
+                  H1
+                </button>
+                <button
+                  on:click={() => applyPreset('h2')}
+                  class="min-h-[44px] px-3 py-2 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg transition-colors text-center"
+                  title={d.presetH2}
+                >
+                  H2
+                </button>
+                <button
+                  on:click={() => applyPreset('body')}
+                  class="min-h-[44px] px-3 py-2 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg transition-colors text-center"
+                  title={d.presetBody}
+                >
+                  Body
+                </button>
+                <button
+                  on:click={() => applyPreset('spacing')}
+                  class="min-h-[44px] px-3 py-2 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg transition-colors text-center"
+                  title={d.presetSpacing}
+                >
+                  Spacing
+                </button>
+              </div>
+            </div>
+
             <!-- Viewport Settings -->
             <div>
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center">
