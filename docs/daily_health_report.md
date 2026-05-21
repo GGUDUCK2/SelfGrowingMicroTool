@@ -187,3 +187,13 @@
 - `registry.json` 등록 및 다국어 SEO 구성으로 검색 엔진에서의 리치 스니펫 가시성을 확보했습니다.
 - **Bug Fix**: `ClampBuilder.svelte`에서 생성되는 Tailwind 클래스 문자열의 공백을 언더스코어(`_`)로 치환하여 `text-[clamp(...)]` 임의값 문법이 정상 작동하도록 렌더링 버그 수정.
 - **Code Hygiene**: 사용되지 않는 lucide-svelte 아이콘 및 Svelte 내부 라이프사이클 임포트를 정리.
+
+### [Daily Improvement Report - 2026-05-21]
+#### 1. Identified Issues (발견된 문제)
+- `snippet-forge`, `time-forge`, `unit-verse`, `zen-forge` 툴 페이지 등에서 JSON-LD 주입을 위한 `{@html}` 블록 내부에 `</script>` 문자열을 직접 사용하여 `Unterminated string constant` 및 `element_unclosed` Svelte 파싱 에러가 발생하여 빌드/린트 안정성을 해치는 문제가 있었습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Tech Debt**: `<script>` 종료 태그 문자열을 `</scr' + 'ipt>`로 분리하여 Svelte 컴파일러의 파싱 충돌을 우회하도록 수정했습니다.
+
+#### 3. Performance Impact (기대 효과)
+- ESLint 파싱 에러를 제거하여 린터가 다른 잠재적 코드 문제를 정상적으로 검사할 수 있게 복구하였으며 빌드/린트 파이프라인의 안정성이 향상되었습니다.
