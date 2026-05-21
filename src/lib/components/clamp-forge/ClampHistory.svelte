@@ -56,13 +56,13 @@
             </p>
           </div>
           <div class="flex items-center space-x-1 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
-            <button class="p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-md transition-colors {item.starred ? 'text-yellow-500 hover:bg-yellow-50' : 'text-slate-400 hover:text-yellow-500 hover:bg-yellow-50'}" on:click={() => toggleStar(item)} title="Star">
+            <button class="p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-md transition-colors {item.starred ? 'text-yellow-500 hover:bg-yellow-50' : 'text-slate-400 hover:text-yellow-500 hover:bg-yellow-50'}" on:click={() => toggleStar(item)} title="Star" aria-label="Star">
               <Star size={16} fill={item.starred ? 'currentColor' : 'none'} />
             </button>
-            <button class="p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors" on:click={() => onRestore(item)} title={d.restore}>
+            <button class="p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors" on:click={() => onRestore(item)} title={d.restore} aria-label={d.restore}>
               <RotateCcw size={16} />
             </button>
-            <button class="p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-md transition-colors" on:click={() => deleteItem(item.id)} title={d.delete}>
+            <button class="p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-md transition-colors" on:click={() => deleteItem(item.id)} title={d.delete} aria-label={d.delete}>
               <Trash2 size={16} />
             </button>
           </div>
