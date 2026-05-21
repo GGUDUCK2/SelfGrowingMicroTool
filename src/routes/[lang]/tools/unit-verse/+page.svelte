@@ -105,7 +105,7 @@
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html '<script type="application/ld+json">' + JSON.stringify(schemaObj2) + '</scr' + 'ipt>'}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [ { "@type": "Question", "name": dict?.q1 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.a1 || "" } }, { "@type": "Question", "name": dict?.q2 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.a2 || "" } }, { "@type": "Question", "name": dict?.q3 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.a3 || "" } } ] }) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [ { "@type": "Question", "name": dict?.q1 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.a1 || "" } }, { "@type": "Question", "name": dict?.q2 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.a2 || "" } }, { "@type": "Question", "name": dict?.q3 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.a3 || "" } } ] }) + '</scr' + 'ipt>'}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-900 text-slate-100 pb-20">
