@@ -241,26 +241,52 @@
              </div>
         </div>
 
+
         <!-- Documentation / Guide -->
         <div class="prose prose-invert prose-slate max-w-none bg-slate-800/50 p-8 rounded-xl border border-slate-700/50">
-            <h2>{t.guide?.title || 'Why QR Forge?'}</h2>
-            <p>{t.guide?.intro || 'QR Forge is the definitive tool for generating high-quality, permanent QR codes directly in your browser.'}</p>
+            <h2>{t.guide?.title || 'Why QR Forge? The Definitive Guide to Professional QR Code Generation'}</h2>
+            <p>{t.guide?.intro || 'QR Forge is the ultimate, professional-grade tool engineered for generating high-quality, permanent QR codes directly within your browser. In an era where digital connectivity is paramount, having a reliable, secure, and privacy-focused QR code generator is essential for businesses, marketers, and individuals alike. Unlike many online tools that track your data or redirect your links through third-party servers, QR Forge operates entirely on the client side. This means your data never leaves your device, ensuring absolute privacy and security. Furthermore, the QR codes generated here are static and permanent. They do not expire, they do not require a subscription, and they will continue to work flawlessly for as long as the underlying data remains valid.'}</p>
 
-            <h3>{t.guide?.featuresTitle || 'Key Features'}</h3>
+            <h3>{t.guide?.featuresTitle || 'Deep Functionality & Core Features'}</h3>
+            <p>{t.guide?.featuresDesc || 'Our tool is built upon a robust architecture designed to handle a multitude of use cases with precision and speed.'}</p>
             <ul>
-                <li><strong>{t.guide?.f1_title || 'Privacy First:'}</strong> {t.guide?.f1_desc || '100% Client-side generation. No data is ever sent to a server.'}</li>
-                <li><strong>{t.guide?.f2_title || 'Universal Formats:'}</strong> {t.guide?.f2_desc || 'Support for WiFi, VCard 3.0, Crypto, and more.'}</li>
-                <li><strong>{t.guide?.f3_title || 'Pro Customization:'}</strong> {t.guide?.f3_desc || 'Control error correction levels, margins, and colors.'}</li>
+                <li><strong>{t.guide?.f1_title || 'Uncompromising Privacy (Client-Side Generation):'}</strong> {t.guide?.f1_desc || 'Security is our top priority. Every single QR code is generated locally in your web browser utilizing advanced WebAssembly and HTML5 Canvas technologies. At no point is your sensitive information—be it a WiFi password, a cryptocurrency address, or personal contact details—transmitted to our servers. This zero-trust model guarantees that your data remains yours alone.'}</li>
+                <li><strong>{t.guide?.f2_title || 'Universal Data Formats:'}</strong> {t.guide?.f2_desc || 'QR Forge goes far beyond simple URLs. We support a comprehensive suite of data formats designed for modern needs. Generate VCard 3.0 codes for seamless contact sharing, WiFi network codes that allow instant connection without typing complex passwords, standardized cryptocurrency payment requests (Bitcoin, Ethereum, etc.), and pre-formatted Email or SMS templates.'}</li>
+                <li><strong>{t.guide?.f3_title || 'Professional-Grade Customization:'}</strong> {t.guide?.f3_desc || 'A QR code should not just be functional; it should be visually integrated into your brand. Control the exact hexadecimal values of the foreground and background colors. Adjust the margin (quiet zone) to ensure scannability in dense layouts. Most importantly, control the Error Correction Level (L, M, Q, H) to determine how much damage the code can sustain while remaining readable—crucial for printing on textured surfaces or embedding logos.'}</li>
+                <li><strong>{t.guide?.f4_title || 'High-Resolution Export & SVGs:'}</strong> {t.guide?.f4_desc || 'Download your generated QR codes in crisp, high-resolution PNG format for general web and print use, or export them as infinitely scalable Vector Graphics (SVG). SVGs are perfect for professional design workflows in Adobe Illustrator or Figma, ensuring your QR codes look razor-sharp on everything from business cards to massive billboards.'}</li>
+                <li><strong>{t.guide?.f5_title || 'Bulk Generation (Matrix Mode):'}</strong> {t.guide?.f5_desc || 'Need to generate hundreds of unique QR codes for an event, inventory management, or a marketing campaign? Our Bulk Generation tool allows you to paste a list of URLs or text strings and instantly render a grid of QR codes, drastically reducing manual workload and improving operational efficiency.'}</li>
             </ul>
 
-            <h3>{t.guide?.tipsTitle || 'Pro Tips'}</h3>
+            <h3>{t.guide?.archTitle || 'The Architecture of Scannability'}</h3>
+            <p>{t.guide?.archDesc || 'Understanding how QR codes work can help you deploy them more effectively. A Quick Response (QR) code is a two-dimensional matrix barcode capable of storing significantly more data than a standard UPC barcode. The data is encoded using specific patterns of squares (modules). Key architectural components include:'}</p>
             <ul>
-                <li>{t.guide?.tip1 || 'Use "High" error correction if you plan to add a logo or print on damaged surfaces.'}</li>
-                <li>{t.guide?.tip2 || 'WiFi QR codes work natively on iOS and Android. Just scan to join.'}</li>
-                <li>{t.guide?.tip3 || 'Always test your QR code with a phone camera before printing.'}</li>
+                <li><strong>Finder Patterns:</strong> The three large squares in the corners allow scanners to detect the orientation and boundaries of the code instantly.</li>
+                <li><strong>Alignment Patterns:</strong> Smaller squares found in larger QR codes that help the scanner compensate for distortion when scanned at an angle or on a curved surface.</li>
+                <li><strong>Timing Patterns:</strong> Alternating black and white modules connecting the finder patterns, defining the coordinate system of the grid.</li>
+                <li><strong>Quiet Zone:</strong> The essential blank margin surrounding the code. Without a sufficient quiet zone (minimum 4 modules), scanners may fail to distinguish the code from its surroundings.</li>
             </ul>
 
-            <hr class="border-slate-700 my-8"/>
+            <h3>{t.guide?.tipsTitle || 'Advanced Pro Tips for Maximum Reliability'}</h3>
+            <p>{t.guide?.tipsDesc || 'To ensure your QR codes scan instantly for 100% of your users, follow these professional guidelines:'}</p>
+            <ul>
+                <li>{t.guide?.tip1 || '<strong>Mastering Error Correction:</strong> Error correction uses the Reed-Solomon algorithm to add redundancy. Level L (Low) allows ~7% data recovery and creates the simplest, cleanest looking code. Level H (High) allows up to 30% recovery, making the code much denser. Always use Level H if you are placing a logo in the center of the code, or if the code will be printed on a surface that might get scratched or dirty (like a shipping label or outdoor poster).'}</li>
+                <li>{t.guide?.tip2 || '<strong>The Contrast Rule:</strong> Never invert the colors (e.g., white code on a black background) unless absolutely necessary, as older barcode scanners and some budget smartphone cameras cannot read inverted codes. Ensure a high contrast ratio between the foreground (dark) and background (light) colors. Avoid using pale colors for the data modules.'}</li>
+                <li>{t.guide?.tip3 || '<strong>Sizing Matters:</strong> The minimum recommended scanning distance is typically 10 times the width of the QR code. For a code printed on a business card (e.g., 1 inch / 2.5 cm wide), the optimal scanning distance is roughly 10 inches. If you are printing a code on a billboard meant to be scanned from 30 feet away, the code needs to be at least 3 feet wide.'}</li>
+                <li>{t.guide?.tip4 || '<strong>Test Exhaustively:</strong> Before committing a QR code to a large print run, always test it using multiple devices (iOS native camera, Android Google Lens, and dedicated scanning apps) under various lighting conditions. Print a test copy at the exact final size to verify scannability.'}</li>
+                <li>{t.guide?.tip5 || '<strong>Data Density Optimization:</strong> The more data you put into a QR code, the denser the matrix becomes, making it harder to scan at small sizes. If you need to share a very long URL, consider using a reliable URL shortener first (though be aware this introduces a dependency on the shortening service). For VCards, only include essential contact information to keep the code clean.'}</li>
+            </ul>
+
+            <h3>{t.guide?.historyTitle || 'Persistent Local Workspace (IndexedDB)'}</h3>
+            <p>{t.guide?.historyDesc || 'QR Forge is designed for productivity. We utilize Dexie.js, a robust wrapper around the browser native IndexedDB, to provide a persistent local workspace. Every time you generate a complex QR code—perhaps a meticulously styled WiFi credential or a detailed VCard—you can save it to your history. This log is stored securely on your device, allowing you to reload previous configurations instantly, rename projects for organization, and maintain a seamless workflow without ever needing to create an account or log in to a remote server.'}</p>
+
+                        <hr class="border-slate-700 my-8"/>
+
+            <div class="not-prose mt-8">
+              <GuideSection dict={t} />
+              <AdPlaceholder />
+              <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
+            </div>
+        </div>
 
             <div class="not-prose mt-8">
               <GuideSection dict={t} />
