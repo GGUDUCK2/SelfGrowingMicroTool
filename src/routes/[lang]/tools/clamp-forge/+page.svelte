@@ -95,6 +95,15 @@
 <Head
   title={title}
   description={description}
+  openGraph={{
+    title: title,
+    description: description,
+    url: "https://selfgrowingmicrotool.com/" + lang + "/tools/clamp-forge"
+  }}
+  twitter={{
+    title: title,
+    description: description
+  }}
 />
 
 <svelte:head>

@@ -2,7 +2,8 @@
     import { fade } from 'svelte/transition';
   import { Copy, Save, Check, Settings2, Monitor } from 'lucide-svelte';
   import { dictionaries } from '$lib/dictionaries';
-  import { db, type ClampForgeHistory } from '$lib/db';
+  import type { ClampForgeHistory } from '$lib/db';
+  import { clampForgeWorkspace } from '$lib/db/workspace';
   import { browser } from '$app/environment';
   import ClampHistory from './ClampHistory.svelte';
 
@@ -21,7 +22,28 @@
 
   let copiedCss = false;
   let copiedTw = false;
-  let activeTab: 'builder' | 'history' = 'builder';
+  let copiedVars = false;
+  let activeTab: 'builder' | 'scale' | 'history' = 'builder';
+
+  // Interactive Preview
+  let customPreviewText = 'Fluid Typography';
+
+  // Scale Generator State
+  let scaleRatio = 1.25; // Major Third by default
+  let scaleStepsDown = 2; // xs, sm
+  let scaleStepsUp = 5; // lg, xl, 2xl, 3xl, 4xl
+
+  // Common Scale Ratios
+  const scaleRatios = [
+    { name: 'Minor Second (1.067)', value: 1.067 },
+    { name: 'Major Second (1.125)', value: 1.125 },
+    { name: 'Minor Third (1.200)', value: 1.200 },
+    { name: 'Major Third (1.250)', value: 1.250 },
+    { name: 'Perfect Fourth (1.333)', value: 1.333 },
+    { name: 'Augmented Fourth (1.414)', value: 1.414 },
+    { name: 'Perfect Fifth (1.500)', value: 1.500 },
+    { name: 'Golden Ratio (1.618)', value: 1.618 }
+  ];
 
   type Preset = 'h1' | 'h2' | 'body' | 'spacing';
 
@@ -69,30 +91,67 @@
   $: calculatedClamp = `clamp(${+(minSizeVal).toFixed(4)}rem, ${intersectionRem}rem + ${slopeVw}vw, ${+(maxSizeVal).toFixed(4)}rem)`;
   $: tailwindClass = `text-[${calculatedClamp}]`;
 
-  const copyToClipboard = async (text: string, type: 'css' | 'tw') => {
+  // Calculate Scale Array
+  $: generatedScale = (() => {
+      const steps = [];
+      const totalSteps = scaleStepsDown + 1 + scaleStepsUp;
+      let currentMin = minSizeVal / Math.pow(scaleRatio, scaleStepsDown);
+      let currentMax = maxSizeVal / Math.pow(scaleRatio, scaleStepsDown);
+
+      const stepNames = ['xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl', '8xl'];
+      // Shift index so 'base' is at scaleStepsDown
+      const startIndex = Math.max(0, 2 - scaleStepsDown);
+
+      for (let i = 0; i < totalSteps; i++) {
+          const sSlope = (currentMax - currentMin) / (maxWidthRem - minWidthRem);
+          const sIntersection = -minWidthRem * sSlope + currentMin;
+          const sSlopeVw = +(sSlope * 100).toFixed(4);
+          const sIntersectionRem = +sIntersection.toFixed(4);
+          const sClamp = `clamp(${+(currentMin).toFixed(4)}rem, ${sIntersectionRem}rem + ${sSlopeVw}vw, ${+(currentMax).toFixed(4)}rem)`;
+
+          let name = stepNames[startIndex + i] || `step-${i}`;
+          if (i === scaleStepsDown) name = 'base';
+
+          steps.push({
+             name: name,
+             min: +(currentMin).toFixed(4),
+             max: +(currentMax).toFixed(4),
+             clamp: sClamp
+          });
+
+          currentMin *= scaleRatio;
+          currentMax *= scaleRatio;
+      }
+      return steps;
+  })();
+
+  $: scaleVariablesText = `:root {\n${generatedScale.map(s => `  --text-${s.name}: ${s.clamp};`).join('\n')}\n}`;
+
+  const copyToClipboard = async (text: string, type: 'css' | 'tw' | 'vars') => {
     if (browser) {
       await navigator.clipboard.writeText(text);
       if (type === 'css') {
         copiedCss = true;
         setTimeout(() => copiedCss = false, 2000);
-      } else {
+      } else if (type === 'tw') {
         copiedTw = true;
         setTimeout(() => copiedTw = false, 2000);
+      } else if (type === 'vars') {
+        copiedVars = true;
+        setTimeout(() => copiedVars = false, 2000);
       }
     }
   };
 
   const saveScale = async () => {
     if (browser) {
-      await db.clampForgeHistory.add({
+      await clampForgeWorkspace.save({
         minWidth,
         maxWidth,
         minSize,
         maxSize,
         unit,
-        result: calculatedClamp,
-        createdAt: new Date(),
-        starred: 0
+        result: calculatedClamp
       });
       activeTab = 'history';
     }
@@ -116,9 +175,20 @@
       } else if (e.key === 's') {
         e.preventDefault();
         saveScale();
+      } else if (e.key === 'k') {
+        e.preventDefault();
+        minWidth = 320;
+        maxWidth = 1200;
+        minSize = 1;
+        maxSize = 2.5;
+        unit = 'rem';
       }
     } else if (e.key === 'Escape') {
-      // Optional clear or reset
+        minWidth = 320;
+        maxWidth = 1200;
+        minSize = 1;
+        maxSize = 2.5;
+        unit = 'rem';
     }
   };
 </script>
@@ -128,18 +198,24 @@
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
   <div class="lg:col-span-2 space-y-6">
     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
-      <div class="flex border-b border-slate-200 dark:border-slate-700">
+      <div class="flex border-b border-slate-200 dark:border-slate-700 overflow-x-auto">
         <button
-          class="flex-1 py-4 text-sm font-medium transition-colors {activeTab === 'builder' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px]"
+          class="flex-1 py-4 px-2 whitespace-nowrap text-sm font-medium transition-colors {activeTab === 'builder' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px]"
           on:click={() => activeTab = 'builder'}
         >
-          {d.title}
+          {d.title || 'Builder'}
         </button>
         <button
-          class="flex-1 py-4 text-sm font-medium transition-colors {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px]"
+          class="flex-1 py-4 px-2 whitespace-nowrap text-sm font-medium transition-colors {activeTab === 'scale' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px]"
+          on:click={() => activeTab = 'scale'}
+        >
+          {d.scaleTitle || 'Scale Mode'}
+        </button>
+        <button
+          class="flex-1 py-4 px-2 whitespace-nowrap text-sm font-medium transition-colors {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px]"
           on:click={() => activeTab = 'history'}
         >
-          {d.history}
+          {d.history || 'History'}
         </button>
       </div>
 
@@ -251,6 +327,89 @@
             </div>
 
           </div>
+        {:else if activeTab === 'scale'}
+          <div class="space-y-8" in:fade>
+             <div class="space-y-6">
+                <p class="text-sm text-slate-600 dark:text-slate-400">
+                    {d.scaleDesc || 'Generate a full fluid typography scale based on a ratio.'}
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label for="scaleRatio" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                            {d.scaleRatio || 'Scale Ratio'}
+                        </label>
+                        <select id="scaleRatio" bind:value={scaleRatio} class="w-full min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-4 focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-white">
+                            {#each scaleRatios as ratio (ratio.value)}
+                                <option value={ratio.value}>{ratio.name}</option>
+                            {/each}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label for="scaleStepsDown" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                            {d.stepsDown || 'Steps Down (Smaller)'}
+                        </label>
+                        <input id="scaleStepsDown" type="number" min="0" max="4" bind:value={scaleStepsDown} class="w-full min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-4 focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-white" />
+                    </div>
+                    <div class="space-y-2">
+                        <label for="scaleStepsUp" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                            {d.stepsUp || 'Steps Up (Larger)'}
+                        </label>
+                        <input id="scaleStepsUp" type="number" min="0" max="8" bind:value={scaleStepsUp} class="w-full min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-4 focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-white" />
+                    </div>
+                </div>
+
+                <div class="mt-8 space-y-4">
+                    <div class="flex justify-between items-end">
+                         <h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wide">
+                            {d.generatedVariables || 'Generated Variables'}
+                         </h3>
+                         <button
+                          on:click={() => copyToClipboard(scaleVariablesText, 'vars')}
+                          class="min-h-[44px] px-4 flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm transition-colors font-medium text-sm"
+                        >
+                          {#if copiedVars}
+                            <Check size={16} />
+                            <span>Copied!</span>
+                          {:else}
+                            <Copy size={16} />
+                            <span>{d.copyVariables || 'Copy All'}</span>
+                          {/if}
+                        </button>
+                    </div>
+
+                    <div class="bg-slate-900 p-4 rounded-xl overflow-x-auto custom-scrollbar border border-slate-700">
+                        <pre class="text-sm font-mono text-slate-300"><code>{scaleVariablesText}</code></pre>
+                    </div>
+
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-sm text-left text-slate-500 dark:text-slate-400">
+                            <thead class="text-xs text-slate-700 uppercase bg-slate-50 dark:bg-slate-800 dark:text-slate-300">
+                                <tr>
+                                    <th scope="col" class="px-4 py-3">Step</th>
+                                    <th scope="col" class="px-4 py-3">Min</th>
+                                    <th scope="col" class="px-4 py-3">Max</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {#each generatedScale as step (step.name)}
+                                    <tr class="bg-white border-b dark:bg-slate-900 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800">
+                                        <td class="px-4 py-3 font-medium text-slate-900 whitespace-nowrap dark:text-white">
+                                            {step.name}
+                                        </td>
+                                        <td class="px-4 py-3">{step.min}rem</td>
+                                        <td class="px-4 py-3">{step.max}rem</td>
+                                    </tr>
+                                {/each}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+             </div>
+          </div>
         {:else}
           <div in:fade>
             <ClampHistory {lang} onRestore={handleRestore} />
@@ -350,13 +509,17 @@
           <div class="absolute bottom-[-24px] left-[70%] text-xs text-slate-500">{maxWidth}px</div>
         </div>
 
-        <div class="mt-12 text-center">
-          <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Live Preview</p>
-          <div
-            class="font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900 p-4 rounded-lg inline-block w-full overflow-hidden text-ellipsis whitespace-nowrap border border-slate-200 dark:border-slate-700"
-            style="font-size: {calculatedClamp}; line-height: 1.2;"
-          >
-            Fluid Typography
+        <div class="mt-12">
+          <p class="text-sm text-center text-slate-600 dark:text-slate-400 mb-4">{d.livePreview || 'Live Preview'}</p>
+          <div class="flex flex-col items-center">
+              <input
+                type="text"
+                bind:value={customPreviewText}
+                class="font-bold text-center text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900 p-4 rounded-lg w-full border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
+                style="font-size: {calculatedClamp}; line-height: 1.2; min-height: 44px;"
+                aria-label={d.customPreviewText || 'Custom Preview Text'}
+              />
+              <p class="text-xs text-slate-400 mt-2">{d.editPreviewHint || 'Try typing your own text above'}</p>
           </div>
         </div>
       </div>

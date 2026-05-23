@@ -284,3 +284,43 @@ export class GitForgeWorkspaceAdapter {
 }
 
 export const gitForgeWorkspace = new GitForgeWorkspaceAdapter();
+
+// Restore ClampForgeWorkspace functionality
+export class ClampForgeWorkspaceAdapter {
+  async save(item: Omit<import('../db').ClampForgeHistory, 'id' | 'createdAt' | 'starred'>) {
+    await db.clampForgeHistory.add({
+      ...item,
+      createdAt: new Date(),
+      starred: 0
+    });
+
+    // Prune
+    const count = await db.clampForgeHistory.where('starred').equals(0).count();
+    if (count > 100) {
+       const oldest = await db.clampForgeHistory.orderBy('createdAt').limit(count - 100).keys();
+       await db.clampForgeHistory.bulkDelete(oldest as number[]);
+    }
+  }
+
+  loadHistory(limit: number) {
+     return db.clampForgeHistory.orderBy('createdAt').reverse().limit(limit).toArray();
+  }
+
+  async delete(id: number) {
+    await db.clampForgeHistory.delete(id);
+  }
+
+  async toggleStar(id: number) {
+    const item = await db.clampForgeHistory.get(id);
+    if (item) {
+        await db.clampForgeHistory.update(id, { starred: item.starred ? 0 : 1 });
+    }
+  }
+
+  async clear() {
+      const nonStarred = await db.clampForgeHistory.where('starred').equals(0).primaryKeys();
+      await db.clampForgeHistory.bulkDelete(nonStarred);
+  }
+}
+
+export const clampForgeWorkspace = new ClampForgeWorkspaceAdapter();

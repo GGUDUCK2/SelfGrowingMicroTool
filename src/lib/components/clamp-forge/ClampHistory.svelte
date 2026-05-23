@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { db, type ClampForgeHistory } from '$lib/db';
+  import type { ClampForgeHistory } from '$lib/db';
+  import { clampForgeWorkspace } from '$lib/db/workspace';
   import { liveQuery } from 'dexie';
   import { browser } from '$app/environment';
   import { Trash2, RotateCcw, Star } from 'lucide-svelte';
@@ -13,26 +14,26 @@
 
   let history = liveQuery(() => {
     if (browser) {
-      return db.clampForgeHistory.orderBy('createdAt').reverse().limit(50).toArray();
+      return clampForgeWorkspace.loadHistory(50);
     }
     return [];
   });
 
   const deleteItem = async (id?: number) => {
     if (id && browser) {
-      await db.clampForgeHistory.delete(id);
+      await clampForgeWorkspace.delete(id);
     }
   };
 
   const clearAll = async () => {
     if (browser && confirm('Are you sure you want to clear all history?')) {
-        await db.clampForgeHistory.clear();
+        await clampForgeWorkspace.clear();
     }
   };
 
   const toggleStar = async (item: ClampForgeHistory) => {
     if (item.id && browser) {
-      await db.clampForgeHistory.update(item.id, { starred: item.starred ? 0 : 1 });
+      await clampForgeWorkspace.toggleStar(item.id);
     }
   };
 </script>
