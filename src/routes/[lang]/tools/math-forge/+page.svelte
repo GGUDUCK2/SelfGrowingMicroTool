@@ -124,10 +124,10 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/${lang}/tools/math-forge",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/math-forge",
         "isAccessibleForFree": true,
-      "name": "${dict.title}",
-      "description": "${dict.description}",
+      "name": dict?.title || "",
+      "description": dict?.description || "",
       "applicationCategory": "EducationalApplication",
       "applicationSubCategory": "Calculator Application",
       "operatingSystem": "Any",

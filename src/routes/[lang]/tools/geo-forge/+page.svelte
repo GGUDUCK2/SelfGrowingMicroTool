@@ -395,10 +395,10 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/${lang}/tools/geo-forge",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/geo-forge",
         "isAccessibleForFree": true,
-      "name": "${dict.title}",
-      "description": "${dict.description}",
+      "name": dict?.title || "",
+      "description": dict?.description || "",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
       "offers": {

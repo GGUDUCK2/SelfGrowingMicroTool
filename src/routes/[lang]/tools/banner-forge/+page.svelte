@@ -14,7 +14,7 @@
 
   $: title = toolDict.title;
   $: description = toolDict.description;
-  $: canonical = `https://selfgrowingmicrotool.com/${lang}/tools/banner-forge`;
+  $: canonical = "https://selfgrowingmicrotool.com/" + lang + "/tools/banner-forge";
 
   $: jsonLd = {
     "@context": "https://schema.org",
@@ -94,26 +94,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict?.q1}",
+        "name": dict?.q1 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict?.a1}"
+          "text": dict?.a1 || ""
         }
       },
       {
         "@type": "Question",
-        "name": "${dict?.q2}",
+        "name": dict?.q2 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict?.a2}"
+          "text": dict?.a2 || ""
         }
       },
       {
         "@type": "Question",
-        "name": "${dict?.q3}",
+        "name": dict?.q3 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict?.a3}"
+          "text": dict?.a3 || ""
         }
       }
     ]
