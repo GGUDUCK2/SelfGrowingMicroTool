@@ -114,26 +114,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${invoiceDict?.q1}",
+        "name": invoiceDict?.q1 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${invoiceDict?.a1}"
+          "text": invoiceDict?.a1 || ""
         }
       },
       {
         "@type": "Question",
-        "name": "${invoiceDict?.q2}",
+        "name": invoiceDict?.q2 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${invoiceDict?.a2}"
+          "text": invoiceDict?.a2 || ""
         }
       },
       {
         "@type": "Question",
-        "name": "${invoiceDict?.q3}",
+        "name": invoiceDict?.q3 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${invoiceDict?.a3}"
+          "text": invoiceDict?.a3 || ""
         }
       }
     ]

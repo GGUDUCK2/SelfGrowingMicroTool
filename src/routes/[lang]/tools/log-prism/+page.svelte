@@ -268,10 +268,10 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/${lang}/tools/log-prism",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/log-prism",
         "isAccessibleForFree": true,
-      "name": "${dict.title}",
-      "description": "${dict.description}",
+      "name": dict?.title || "",
+      "description": dict?.description || "",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
       "featureList": [
@@ -296,26 +296,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict?.q1}",
+        "name": dict?.q1 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict?.a1}"
+          "text": dict?.a1 || ""
         }
       },
       {
         "@type": "Question",
-        "name": "${dict?.q2}",
+        "name": dict?.q2 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict?.a2}"
+          "text": dict?.a2 || ""
         }
       },
       {
         "@type": "Question",
-        "name": "${dict?.q3}",
+        "name": dict?.q3 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict?.a3}"
+          "text": dict?.a3 || ""
         }
       }
     ]

@@ -140,7 +140,7 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/${lang}/tools/icon-forge",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/icon-forge",
         "isAccessibleForFree": true,
       "name": "Icon Forge",
       "applicationCategory": "DesignApplication",
@@ -150,7 +150,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": "${t.description}",
+      "description": t?.description || "",
       "featureList": [
         "Generate ICO, PNG, and SVG favicons",
         "Create PWA Manifest JSON",
@@ -172,26 +172,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "${dict?.q1}",
+        "name": dict?.q1 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict?.a1}"
+          "text": dict?.a1 || ""
         }
       },
       {
         "@type": "Question",
-        "name": "${dict?.q2}",
+        "name": dict?.q2 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict?.a2}"
+          "text": dict?.a2 || ""
         }
       },
       {
         "@type": "Question",
-        "name": "${dict?.q3}",
+        "name": dict?.q3 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "${dict?.a3}"
+          "text": dict?.a3 || ""
         }
       }
     ]

@@ -110,19 +110,19 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://micro-tools.app/${lang}`
+        "item": `https://selfgrowingmicrotool.com/${lang}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": `https://micro-tools.app/${lang}/tools`
+        "item": `https://selfgrowingmicrotool.com/${lang}/tools`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": dict?.title,
-        "item": `https://micro-tools.app/${lang}/tools/csp-forge`
+        "item": `https://selfgrowingmicrotool.com/${lang}/tools/csp-forge`
       }
     ]
   };

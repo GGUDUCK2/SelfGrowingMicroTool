@@ -43,7 +43,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "@id": "https://micro-tools.app/" + lang + "/tools/hash-forge",
+    "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/hash-forge",
     "isAccessibleForFree": true,
     "name": dict?.title || '',
     "applicationCategory": "DeveloperApplication",
@@ -66,19 +66,19 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://micro-tools.app/${lang}`
+        "item": `https://selfgrowingmicrotool.com/${lang}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": `https://micro-tools.app/${lang}/tools`
+        "item": `https://selfgrowingmicrotool.com/${lang}/tools`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": dict?.title || '',
-        "item": `https://micro-tools.app/${lang}/tools/hash-forge`
+        "item": `https://selfgrowingmicrotool.com/${lang}/tools/hash-forge`
       }
     ]
   };
@@ -103,7 +103,7 @@
   openGraph={{
     title: dict.title,
     description: dict.description,
-    url: `https://micro-tools.app/${lang}/tools/hash-forge`
+    url: `https://selfgrowingmicrotool.com/${lang}/tools/hash-forge`
   }}
   twitter={{ card: 'summary_large_image', title: dict.title, description: dict.description }}
 />
