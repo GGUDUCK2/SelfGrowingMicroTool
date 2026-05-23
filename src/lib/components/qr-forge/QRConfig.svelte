@@ -85,7 +85,7 @@
             type="url"
             bind:value={state.url}
             placeholder="https://example.com"
-            class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-slate-400"
+            class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-slate-400 min-h-[44px]"
           />
         </label>
       </div>
@@ -96,7 +96,7 @@
           <textarea
             bind:value={state.text}
             rows="4"
-            class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-slate-400"
+            class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-slate-400 min-h-[44px]"
             placeholder={d.placeholders?.text || 'Enter text here...'}
           ></textarea>
         </label>
@@ -105,23 +105,23 @@
       <div transition:slide class="grid grid-cols-1 gap-4">
         <label class="block">
           <span class="block text-sm font-medium text-slate-300 mb-1">SSID (Network Name)</span>
-          <input type="text" bind:value={state.wifi.ssid} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+          <input type="text" bind:value={state.wifi.ssid} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent min-h-[44px]" />
         </label>
         <label class="block">
           <span class="block text-sm font-medium text-slate-300 mb-1">Password</span>
-          <input type="text" bind:value={state.wifi.password} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+          <input type="text" bind:value={state.wifi.password} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent min-h-[44px]" />
         </label>
         <div class="grid grid-cols-2 gap-4">
           <label class="block">
             <span class="block text-sm font-medium text-slate-300 mb-1">Encryption</span>
-            <select bind:value={state.wifi.encryption} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+            <select bind:value={state.wifi.encryption} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent min-h-[44px]">
               <option value="WPA">WPA/WPA2</option>
               <option value="WEP">WEP</option>
               <option value="nopass">None</option>
             </select>
           </label>
           <div class="flex items-center pt-6">
-            <label class="flex items-center space-x-2 cursor-pointer">
+            <label class="flex items-center space-x-2 cursor-pointer min-h-[44px]">
               <input type="checkbox" bind:checked={state.wifi.hidden} class="w-4 h-4 rounded border-slate-600 text-indigo-600 bg-slate-700 focus:ring-indigo-500 focus:ring-offset-slate-800" />
               <span class="text-sm text-slate-300">Hidden Network</span>
             </label>
@@ -132,60 +132,60 @@
       <div transition:slide class="space-y-3">
         <label class="block">
           <span class="block text-sm font-medium text-slate-300 mb-1">To</span>
-          <input type="email" bind:value={state.email.to} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500" />
+          <input type="email" bind:value={state.email.to} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
         </label>
         <label class="block">
           <span class="block text-sm font-medium text-slate-300 mb-1">Subject</span>
-          <input type="text" bind:value={state.email.subject} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500" />
+          <input type="text" bind:value={state.email.subject} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
         </label>
         <label class="block">
           <span class="block text-sm font-medium text-slate-300 mb-1">Body</span>
-          <textarea rows="3" bind:value={state.email.body} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500"></textarea>
+          <textarea rows="3" bind:value={state.email.body} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]"></textarea>
         </label>
       </div>
     {:else if state.type === 'sms' && state.sms}
       <div transition:slide class="space-y-3">
         <label class="block">
           <span class="block text-sm font-medium text-slate-300 mb-1">Phone Number</span>
-          <input type="tel" bind:value={state.sms.phone} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500" />
+          <input type="tel" bind:value={state.sms.phone} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
         </label>
         <label class="block">
           <span class="block text-sm font-medium text-slate-300 mb-1">Message</span>
-          <textarea rows="3" bind:value={state.sms.message} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500"></textarea>
+          <textarea rows="3" bind:value={state.sms.message} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]"></textarea>
         </label>
       </div>
     {:else if state.type === 'vcard' && state.vcard}
       <div transition:slide class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <label class="block col-span-1">
           <span class="block text-sm font-medium text-slate-300 mb-1">First Name</span>
-          <input type="text" bind:value={state.vcard.firstName} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500" />
+          <input type="text" bind:value={state.vcard.firstName} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
         </label>
         <label class="block col-span-1">
           <span class="block text-sm font-medium text-slate-300 mb-1">Last Name</span>
-          <input type="text" bind:value={state.vcard.lastName} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500" />
+          <input type="text" bind:value={state.vcard.lastName} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
         </label>
         <label class="block col-span-2 sm:col-span-1">
           <span class="block text-sm font-medium text-slate-300 mb-1">Phone</span>
-          <input type="tel" bind:value={state.vcard.phone} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500" />
+          <input type="tel" bind:value={state.vcard.phone} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
         </label>
         <label class="block col-span-2 sm:col-span-1">
           <span class="block text-sm font-medium text-slate-300 mb-1">Email</span>
-          <input type="email" bind:value={state.vcard.email} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500" />
+          <input type="email" bind:value={state.vcard.email} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
         </label>
         <label class="block col-span-2">
            <span class="block text-sm font-medium text-slate-300 mb-1">Organization</span>
-           <input type="text" bind:value={state.vcard.org} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500" />
+           <input type="text" bind:value={state.vcard.org} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
         </label>
          <label class="block col-span-2">
            <span class="block text-sm font-medium text-slate-300 mb-1">Website</span>
-           <input type="url" bind:value={state.vcard.url} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500" />
+           <input type="url" bind:value={state.vcard.url} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
         </label>
       </div>
     {:else if state.type === 'crypto' && state.crypto}
       <div transition:slide class="space-y-3">
         <label class="block">
           <span class="block text-sm font-medium text-slate-300 mb-1">Currency</span>
-          <select bind:value={state.crypto.currency} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500">
+          <select bind:value={state.crypto.currency} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
             <option value="BTC">Bitcoin (BTC)</option>
             <option value="ETH">Ethereum (ETH)</option>
             <option value="SOL">Solana (SOL)</option>
@@ -193,11 +193,11 @@
         </label>
         <label class="block">
           <span class="block text-sm font-medium text-slate-300 mb-1">Address</span>
-          <input type="text" bind:value={state.crypto.address} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 font-mono" />
+          <input type="text" bind:value={state.crypto.address} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 font-mono min-h-[44px]" />
         </label>
         <label class="block">
           <span class="block text-sm font-medium text-slate-300 mb-1">Amount (Optional)</span>
-          <input type="number" step="any" bind:value={state.crypto.amount} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500" />
+          <input type="number" step="any" bind:value={state.crypto.amount} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
         </label>
       </div>
     {:else if state.type === 'bulk' && state.bulk}
@@ -242,8 +242,9 @@
              </div>
              {#if state.design.logo}
                 <div class="mt-2">
-                    <span class="block text-xs text-slate-400 mb-1">{d.logoSize || 'Logo Size'}</span>
+                    <label class="block min-h-[44px]"><span class="block text-xs text-slate-400 mb-1">{d.logoSize || 'Logo Size'}</span>
                     <input type="range" min="0.1" max="0.3" step="0.01" bind:value={state.design.logoSize} class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500" />
+                    </label>
                 </div>
              {/if}
         </div>
@@ -251,7 +252,7 @@
         <!-- Frame -->
         <div>
              <span class="block text-sm font-medium text-slate-300 mb-2">{d.frame || 'Frame'}</span>
-             <select aria-label={d.frame || 'Frame'} bind:value={state.design.frame} class="w-full bg-slate-700 border-slate-600 rounded-lg px-3 py-2 text-slate-50 mb-2">
+             <select aria-label={d.frame || 'Frame'} bind:value={state.design.frame} class="w-full bg-slate-700 border-slate-600 rounded-lg px-3 py-2 text-slate-50 mb-2 min-h-[44px]">
                  <option value="none">{d.frameNone || 'None'}</option>
                  <option value="simple">{d.frameSimple || 'Simple Border'}</option>
                  <option value="scan_me">{d.frameScanMe || '"Scan Me" Label'}</option>
@@ -262,7 +263,7 @@
                         type="text"
                         bind:value={state.design.frameText}
                         placeholder={d.frameTextPlaceholder || 'SCAN ME'}
-                        class="w-full bg-slate-700 border-slate-600 rounded-lg px-3 py-2 text-slate-50 text-sm"
+                        class="w-full bg-slate-700 border-slate-600 rounded-lg px-3 py-2 text-slate-50 text-sm min-h-[44px]"
                     />
                 </div>
              {/if}
@@ -280,20 +281,20 @@
       <label class="block">
         <span class="block text-sm font-medium text-slate-300 mb-1">{d.colors?.dark || 'Foreground Color'}</span>
         <div class="flex items-center space-x-2">
-            <input type="color" bind:value={state.design.colorDark} class="h-10 w-10 rounded cursor-pointer bg-transparent border-none" />
-            <input type="text" bind:value={state.design.colorDark} class="flex-1 bg-slate-700 border-slate-600 rounded-lg px-3 py-2 text-slate-50 text-sm font-mono uppercase" />
+            <input type="color" bind:value={state.design.colorDark} class="h-[44px] w-[44px] rounded cursor-pointer bg-transparent border-none min-h-[44px] min-w-[44px]" />
+            <input type="text" bind:value={state.design.colorDark} class="flex-1 bg-slate-700 border-slate-600 rounded-lg px-3 py-2 text-slate-50 text-sm font-mono uppercase min-h-[44px]" />
         </div>
       </label>
       <label class="block">
         <span class="block text-sm font-medium text-slate-300 mb-1">{d.colors?.light || 'Background Color'}</span>
         <div class="flex items-center space-x-2">
-            <input type="color" bind:value={state.design.colorLight} class="h-10 w-10 rounded cursor-pointer bg-transparent border-none" />
-            <input type="text" bind:value={state.design.colorLight} class="flex-1 bg-slate-700 border-slate-600 rounded-lg px-3 py-2 text-slate-50 text-sm font-mono uppercase" />
+            <input type="color" bind:value={state.design.colorLight} class="h-[44px] w-[44px] rounded cursor-pointer bg-transparent border-none min-h-[44px] min-w-[44px]" />
+            <input type="text" bind:value={state.design.colorLight} class="flex-1 bg-slate-700 border-slate-600 rounded-lg px-3 py-2 text-slate-50 text-sm font-mono uppercase min-h-[44px]" />
         </div>
       </label>
       <label class="block">
         <span class="block text-sm font-medium text-slate-300 mb-1">{d.errorLevel || 'Error Correction'}</span>
-        <select bind:value={state.design.errorCorrectionLevel} class="w-full bg-slate-700 border-slate-600 rounded-lg px-3 py-2 text-slate-50">
+        <select bind:value={state.design.errorCorrectionLevel} class="w-full bg-slate-700 border-slate-600 rounded-lg px-3 py-2 text-slate-50 min-h-[44px]">
           <option value="L">Low (7%)</option>
           <option value="M">Medium (15%)</option>
           <option value="Q">Quartile (25%)</option>
@@ -302,7 +303,7 @@
       </label>
       <label class="block">
          <span class="block text-sm font-medium text-slate-300 mb-1">{d.margin || 'Margin'}</span>
-         <input type="number" min="0" max="10" bind:value={state.design.margin} class="w-full bg-slate-700 border-slate-600 rounded-lg px-3 py-2 text-slate-50" />
+         <input type="number" min="0" max="10" bind:value={state.design.margin} class="w-full bg-slate-700 border-slate-600 rounded-lg px-3 py-2 text-slate-50 min-h-[44px]" />
       </label>
     </div>
   </div>

@@ -86,7 +86,7 @@
             <textarea
                 bind:value={state.bulk.items}
                 rows="8"
-                class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 font-mono text-sm placeholder-slate-400"
+                class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 font-mono text-sm placeholder-slate-400 min-h-[44px]"
                 placeholder={d.bulkPlaceholder || 'https://site1.com\nhttps://site2.com\n...'}
             ></textarea>
         </label>
@@ -102,7 +102,7 @@
                 type="text"
                 bind:value={state.bulk.prefix}
                 placeholder="https://"
-                class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 placeholder-slate-400"
+                class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 placeholder-slate-400 min-h-[44px]"
             />
         </label>
     </div>
