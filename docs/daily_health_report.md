@@ -197,3 +197,16 @@
 
 #### 3. Performance Impact (기대 효과)
 - ESLint 파싱 에러를 제거하여 린터가 다른 잠재적 코드 문제를 정상적으로 검사할 수 있게 복구하였으며 빌드/린트 파이프라인의 안정성이 향상되었습니다.
+
+[Project Health Report - 2025-05-24]
+## Repository Hygiene
+- [@eslint/js dependency] 패키지 내 누락된 `@eslint/js` 종속성을 추가하여 `npm run lint` 스크립트가 다시 동작하도록 개선하였습니다.
+
+## Design Consistency
+- 특이사항 없음. (당일 주요 빌드 문제 해결에 집중)
+
+## AdSense Readiness
+- 특이사항 없음. (당일 주요 빌드 문제 해결에 집중)
+
+## Tech Debt
+- [QR Forge 페이지 빌드 오류 해결] `src/routes/[lang]/tools/qr-forge/+page.svelte` 내 중복된 `<div>` 구조로 인한 'attempted to close an element that was not open' Svelte 컴파일 오류를 닫는 태그를 정리하여 수정 완료. 빌드 성공 확인.
