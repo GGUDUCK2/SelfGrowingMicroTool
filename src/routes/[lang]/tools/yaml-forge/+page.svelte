@@ -101,13 +101,12 @@
 />
 
 <svelte:head>
-  <!-- eslint-disable svelte/no-at-html-tags -->
-  {@html '<!-- ' + JSON.stringify(schema) + ' -->'}
-  <script type="application/ld+json">{@html JSON.stringify(schema)}</script>
-  {@html '<!-- ' + JSON.stringify(breadcrumbSchema) + ' -->'}
-  <script type="application/ld+json">{@html JSON.stringify(breadcrumbSchema)}</script>
-  {@html '<!-- ' + JSON.stringify(faqSchema) + ' -->'}
-  <script type="application/ld+json">{@html JSON.stringify(faqSchema)}</script>
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</scr' + 'ipt>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</scr' + 'ipt>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</scr' + 'ipt>'}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
