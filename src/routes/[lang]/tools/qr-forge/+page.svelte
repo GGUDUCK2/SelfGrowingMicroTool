@@ -287,13 +287,6 @@
               <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
             </div>
         </div>
-
-            <div class="not-prose mt-8">
-              <GuideSection dict={t} />
-  <AdPlaceholder />
-  <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
-            </div>
-        </div>
       </div>
 
       <!-- Right: Preview -->
