@@ -47,6 +47,11 @@ export const dictionaries = {
         delete: "Delete",
         guideTitle: "How to use Clamp Forge?",
         guideSubtitle: "Mastering fluid design with CSS clamp()",
+        simulatorLabel: "Viewport Width Simulator",
+        computedSizeLabel: "Computed Size",
+        scalePreview: "Scale Preview",
+        scalePreviewTitle: "Typography Scale Preview",
+        scalePreviewDesc: "Visual representation of your generated scale",
         guide: {
           title: "Guide: Building Fluid Layouts",
           subtitle: "How to master the CSS clamp function",
@@ -4643,6 +4648,11 @@ export const dictionaries = {
         delete: "삭제",
         guideTitle: "Clamp Forge 사용 방법",
         guideSubtitle: "CSS clamp()로 유동적 디자인 마스터하기",
+        simulatorLabel: "뷰포트 너비 시뮬레이터",
+        computedSizeLabel: "계산된 크기",
+        scalePreview: "스케일 미리보기",
+        scalePreviewTitle: "타이포그래피 스케일 미리보기",
+        scalePreviewDesc: "생성된 스케일의 시각적 표현입니다",
         guide: {
           title: "가이드: 유동적 레이아웃 구축하기",
           subtitle: "CSS clamp 함수를 마스터하는 방법",

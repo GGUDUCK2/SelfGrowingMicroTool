@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { fade } from 'svelte/transition';
-  import { Copy, Save, Check, Settings2, Monitor } from 'lucide-svelte';
+
+  import { Copy, Save, Check, Monitor, Settings2 } from 'lucide-svelte';
   import { dictionaries } from '$lib/dictionaries';
   import type { ClampForgeHistory } from '$lib/db';
   import { clampForgeWorkspace } from '$lib/db/workspace';
@@ -23,7 +23,54 @@
   let copiedCss = false;
   let copiedTw = false;
   let copiedVars = false;
-  let activeTab: 'builder' | 'scale' | 'history' = 'builder';
+  let activeTab: 'builder' | 'scale' | 'preview' | 'history' = 'builder';
+
+
+  // Advanced Exports
+  let exportFormat: 'css' | 'tailwind' | 'scss' = 'css';
+
+  $: formattedExportText = (() => {
+      if (exportFormat === 'css') return scaleVariablesText;
+
+      if (exportFormat === 'tailwind') {
+          let twObj = generatedScale.reduce((acc, step) => {
+              acc[step.name] = step.clamp;
+              return acc;
+          }, {} as Record<string, string>);
+
+          return `module.exports = {
+  theme: {
+    extend: {
+      fontSize: ${JSON.stringify(twObj, null, 8).replace(/}$/, '      }')}
+    }
+  }
+}`;
+      }
+
+      if (exportFormat === 'scss') {
+          return generatedScale.map(step => `$font-size-${step.name}: ${step.clamp};`).join('\n');
+      }
+
+      return scaleVariablesText;
+  })();
+
+  // Interactive Simulator
+  let simulatorWidth = 768; // Initial simulator width
+  $: {
+    // Keep simulator width within min/max bounds when they change
+    if (simulatorWidth < minWidth) simulatorWidth = minWidth;
+    if (simulatorWidth > maxWidth) simulatorWidth = maxWidth;
+  }
+
+  $: simulatedSize = (() => {
+    let vwRem = simulatorWidth / baseRem;
+    let valRem = intersection + (slope * vwRem);
+    if (valRem < minSizeVal) valRem = minSizeVal;
+    if (valRem > maxSizeVal) valRem = maxSizeVal;
+
+    // Return in px for display
+    return (valRem * baseRem).toFixed(1);
+  })();
 
   // Interactive Preview
   let customPreviewText = 'Fluid Typography';
@@ -143,6 +190,23 @@
     }
   };
 
+  const shareResult = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: d.title || 'Clamp Forge Result',
+          text: `Here is my fluid typography setting:
+${calculatedClamp}`,
+          url: window.location.href,
+        });
+      } catch (err) {
+        console.error('Share failed:', err);
+      }
+    } else {
+      copyToClipboard(calculatedClamp, 'css');
+    }
+  };
+
   const saveScale = async () => {
     if (browser) {
       await clampForgeWorkspace.save({
@@ -175,6 +239,10 @@
       } else if (e.key === 's') {
         e.preventDefault();
         saveScale();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        // Recalculate logic is reactive, just focus preview text
+        document.getElementById('previewTextInput')?.focus();
       } else if (e.key === 'k') {
         e.preventDefault();
         minWidth = 320;
@@ -210,6 +278,12 @@
           on:click={() => activeTab = 'scale'}
         >
           {d.scaleTitle || 'Scale Mode'}
+        </button>
+        <button
+          class="flex-1 py-4 px-2 whitespace-nowrap text-sm font-medium transition-colors {activeTab === 'preview' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px]"
+          on:click={() => activeTab = 'preview'}
+        >
+          {d.scalePreview || 'Scale Preview'}
         </button>
         <button
           class="flex-1 py-4 px-2 whitespace-nowrap text-sm font-medium transition-colors {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px]"
@@ -368,7 +442,7 @@
                             {d.generatedVariables || 'Generated Variables'}
                          </h3>
                          <button
-                          on:click={() => copyToClipboard(scaleVariablesText, 'vars')}
+                          on:click={() => copyToClipboard(formattedExportText, 'vars')}
                           class="min-h-[44px] px-4 flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm transition-colors font-medium text-sm"
                         >
                           {#if copiedVars}
@@ -381,8 +455,29 @@
                         </button>
                     </div>
 
-                    <div class="bg-slate-900 p-4 rounded-xl overflow-x-auto custom-scrollbar border border-slate-700">
-                        <pre class="text-sm font-mono text-slate-300"><code>{scaleVariablesText}</code></pre>
+                                        <div class="flex items-center space-x-2 mb-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg inline-flex">
+                        <button
+                            class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors {exportFormat === 'css' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+                            on:click={() => exportFormat = 'css'}
+                        >
+                            CSS Variables
+                        </button>
+                        <button
+                            class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors {exportFormat === 'tailwind' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+                            on:click={() => exportFormat = 'tailwind'}
+                        >
+                            Tailwind Config
+                        </button>
+                        <button
+                            class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors {exportFormat === 'scss' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+                            on:click={() => exportFormat = 'scss'}
+                        >
+                            SCSS
+                        </button>
+                    </div>
+
+                    <div class="bg-slate-900 p-4 rounded-xl overflow-x-auto custom-scrollbar border border-slate-700 relative group">
+                        <pre class="text-sm font-mono text-slate-300"><code>{formattedExportText}</code></pre>
                     </div>
 
                     <div class="overflow-x-auto custom-scrollbar">
@@ -408,6 +503,36 @@
                         </table>
                     </div>
                 </div>
+             </div>
+          </div>
+        {:else if activeTab === 'preview'}
+          <div in:fade class="space-y-8">
+             <div class="flex items-center justify-between">
+                <div>
+                   <h3 class="text-lg font-bold text-slate-900 dark:text-white">{d.scalePreviewTitle || 'Typography Scale Preview'}</h3>
+                   <p class="text-sm text-slate-500">{d.scalePreviewDesc || 'Visual representation of your generated scale'}</p>
+                </div>
+             </div>
+
+             <div class="space-y-12 bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                {#each [...generatedScale].reverse() as step (step.name)}
+                   <div class="border-b border-slate-100 dark:border-slate-800 pb-8 last:border-0 last:pb-0">
+                      <div class="flex items-baseline justify-between mb-2">
+                         <span class="text-xs font-bold uppercase tracking-wider text-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-1 rounded">
+                            {step.name}
+                         </span>
+                         <span class="text-xs font-mono text-slate-400">
+                            {step.min}rem &rarr; {step.max}rem
+                         </span>
+                      </div>
+                      <p
+                         class="text-slate-900 dark:text-white font-bold leading-tight"
+                         style="font-size: {step.clamp};"
+                      >
+                         The quick brown fox jumps over the lazy dog
+                      </p>
+                   </div>
+                {/each}
              </div>
           </div>
         {:else}
@@ -464,6 +589,14 @@
           <Save size={18} />
           <span>{d.saveScale}</span>
         </button>
+
+        <button
+          on:click={shareResult}
+          class="min-h-[44px] sm:col-span-3 flex items-center justify-center space-x-2 bg-indigo-50 dark:bg-indigo-900/50 hover:bg-indigo-100 dark:hover:bg-indigo-800 text-indigo-700 dark:text-indigo-300 rounded-lg transition-colors font-medium text-sm"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>
+          <span>{d.share || 'Share Result'}</span>
+        </button>
       </div>
     </div>
     {/if}
@@ -514,6 +647,7 @@
           <div class="flex flex-col items-center">
               <input
                 type="text"
+                id="previewTextInput"
                 bind:value={customPreviewText}
                 class="font-bold text-center text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900 p-4 rounded-lg w-full border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
                 style="font-size: {calculatedClamp}; line-height: 1.2; min-height: 44px;"
@@ -522,6 +656,38 @@
               <p class="text-xs text-slate-400 mt-2">{d.editPreviewHint || 'Try typing your own text above'}</p>
           </div>
         </div>
+
+          <!-- Simulator Slider -->
+          <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+            <div class="flex justify-between items-center mb-2">
+              <label for="simulatorRange" class="text-xs font-medium text-slate-600 dark:text-slate-400">
+                {d.simulatorLabel || 'Viewport Width Simulator'}
+              </label>
+              <span class="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-1 rounded">
+                {simulatorWidth}px
+              </span>
+            </div>
+
+            <input
+              id="simulatorRange"
+              type="range"
+              min={Math.max(320, minWidth - 200)}
+              max={Math.min(3840, maxWidth + 400)}
+              bind:value={simulatorWidth}
+              class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+            />
+
+            <div class="mt-4 flex flex-col items-center justify-center p-3 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800">
+              <span class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mb-1">{d.computedSizeLabel || 'Computed Size'}</span>
+              <span class="text-2xl font-bold font-mono text-slate-800 dark:text-white">
+                {simulatedSize}px
+              </span>
+              <span class="text-xs text-slate-400 mt-1">
+                ({(Number(simulatedSize) / baseRem).toFixed(2)}rem)
+              </span>
+            </div>
+          </div>
+
       </div>
     </div>
   </div>
