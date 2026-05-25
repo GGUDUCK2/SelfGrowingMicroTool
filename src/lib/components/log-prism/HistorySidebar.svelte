@@ -2,7 +2,7 @@
   import { liveQuery } from 'dexie';
   import { logPrismDB } from '$lib/db/log-prism';
   import type { LogSession } from '$lib/utils/log-prism/types';
-  import { X, Clock, Trash2, FileText, Star } from 'lucide-svelte';
+  import { X, Clock, Trash2, FileText, Star } from '@lucide/svelte';
   import { createEventDispatcher } from 'svelte';
 
   export let onClose: () => void;

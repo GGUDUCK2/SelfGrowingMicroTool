@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Copy, Check, RefreshCw } from 'lucide-svelte';
+  import { Copy, Check, RefreshCw } from '@lucide/svelte';
   import { calculateHash } from '$lib/utils/file-forge/hash';
 
   export let file: File | null;

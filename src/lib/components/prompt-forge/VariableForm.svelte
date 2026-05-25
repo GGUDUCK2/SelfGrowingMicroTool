@@ -1,6 +1,6 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
-  import { Sparkles, Plus, Trash2, Layers } from 'lucide-svelte';
+  import { Sparkles, Plus, Trash2, Layers } from '@lucide/svelte';
   import { autoFillVariables } from '$lib/utils/prompt-forge/magic';
 
   export let variables: string[] = [];

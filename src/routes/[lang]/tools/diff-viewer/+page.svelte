@@ -17,7 +17,7 @@
   import GuideSection from '$lib/components/GuideSection.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
   import Button from '$lib/components/Button.svelte';
-  import { Split, Columns, History, RotateCcw, Save, Trash2, ArrowLeftRight, Check, X, Code, FileJson, AlignLeft, Type, Copy, Share2, Info, Keyboard, FileText, Download, GitMerge, FileUp } from 'lucide-svelte';
+  import { Split, Columns, History, RotateCcw, Save, Trash2, ArrowLeftRight, Check, X, Code, FileJson, AlignLeft, Type, Copy, Share2, Info, Keyboard, FileText, Download, GitMerge, FileUp } from '@lucide/svelte';
   import Head from '$lib/components/Head.svelte';
 
   $: lang = $page.params.lang || 'en';

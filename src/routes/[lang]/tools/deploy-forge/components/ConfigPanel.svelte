@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Plus, X } from 'lucide-svelte';
+    import { Plus, X } from '@lucide/svelte';
     import type { ProjectConfig, StackId } from '$lib/utils/deploy-forge/types';
     import { STACKS } from '$lib/utils/deploy-forge/defaults';
 

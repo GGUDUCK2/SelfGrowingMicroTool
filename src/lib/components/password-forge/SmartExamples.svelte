@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Zap } from 'lucide-svelte';
+  import { Zap } from '@lucide/svelte';
   import type { PasswordConfig, PassphraseConfig } from '$lib/utils/password-forge/generator';
 
   export let dictionary: Record<string, any>;

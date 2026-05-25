@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { UploadCloud } from 'lucide-svelte';
+  import { UploadCloud } from '@lucide/svelte';
   import { createEventDispatcher } from 'svelte';
   import SmartExamples from './SmartExamples.svelte';
 

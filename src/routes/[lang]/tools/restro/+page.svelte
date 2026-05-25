@@ -13,7 +13,7 @@
   import { executeRequest, sub, type HttpResponse } from '$lib/utils/restro/client';
   import { generateCurl, generateFetch, generateMarkdownDocs } from '$lib/utils/restro/code-gen';
   import { db, addToHistory, type RestroRequest } from '$lib/db/restro';
-  import { Code, Share2, Menu, X, Settings2, PlayCircle } from 'lucide-svelte';
+  import { Code, Share2, Menu, X, Settings2, PlayCircle } from '@lucide/svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
   import { liveQuery } from 'dexie';

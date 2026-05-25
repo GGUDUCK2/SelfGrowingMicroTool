@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Trash2 } from 'lucide-svelte';
+  import { Trash2 } from '@lucide/svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
   export let value: string;

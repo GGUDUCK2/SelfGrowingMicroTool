@@ -1,7 +1,7 @@
 <script lang="ts">
   import { policyStore } from '$lib/stores/policy-forge';
   import { fade } from 'svelte/transition';
-  import { ChevronRight, ChevronLeft } from 'lucide-svelte';
+  import { ChevronRight, ChevronLeft } from '@lucide/svelte';
   import type { PolicyData } from '$lib/types/policy-forge';
 
   export let dict: any;

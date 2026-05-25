@@ -22,7 +22,7 @@
   import ResponsiveModal from '$lib/components/grid-master/ResponsiveModal.svelte';
   import GridDoctor from '$lib/components/grid-master/GridDoctor.svelte';
   import TimelineHistory from '$lib/components/grid-master/TimelineHistory.svelte';
-  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2, Eye, EyeOff, Share2, HelpCircle, History, Download, Command, ScanEye, Activity, Camera, Code, Clock } from 'lucide-svelte';
+  import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2, Eye, EyeOff, Share2, HelpCircle, History, Download, Command, ScanEye, Activity, Camera, Code, Clock } from '@lucide/svelte';
   import { fade, slide } from 'svelte/transition';
   import type { GridState } from '$lib/utils/grid-master/types';
 

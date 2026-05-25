@@ -3,7 +3,7 @@
   import { db } from '$lib/db';
   import { browser } from '$app/environment';
   import { liveQuery } from 'dexie';
-  import { Clock, ArchiveRestore, Star, Trash2, Check, Copy, FileText } from 'lucide-svelte';
+  import { Clock, ArchiveRestore, Star, Trash2, Check, Copy, FileText } from '@lucide/svelte';
   import { slide } from 'svelte/transition';
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

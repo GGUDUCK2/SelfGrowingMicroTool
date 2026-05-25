@@ -14,7 +14,7 @@
     import GuideSection from '$lib/components/GuideSection.svelte';
     import FAQSection from '$lib/components/FAQSection.svelte';
     import { fade, slide } from 'svelte/transition';
-    import { Check, Shield, Save } from 'lucide-svelte';
+    import { Check, Shield, Save } from '@lucide/svelte';
 
     $: lang = $page.params.lang || 'en';
     $: dict = getDictionary(lang).tools.permsForge;

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Check } from 'lucide-svelte';
+  import { Check } from '@lucide/svelte';
   import type { PDFPage } from '$lib/types/pdf-forge';
 
   export let page: PDFPage;

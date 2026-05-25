@@ -1,7 +1,7 @@
 <script lang="ts">
   import { gridMasterWorkspace } from '$lib/db/grid-master';
   import { gridStore } from '$lib/utils/grid-master/store';
-  import { Trash2, Star, FolderOpen } from 'lucide-svelte';
+  import { Trash2, Star, FolderOpen } from '@lucide/svelte';
   import { liveQuery } from 'dexie';
   import { browser } from '$app/environment';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';

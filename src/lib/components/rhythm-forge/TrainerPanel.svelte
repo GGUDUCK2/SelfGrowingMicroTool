@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { MetronomeEngine } from '$lib/utils/rhythm-forge/audio';
-  import { Play, Square, Target, Activity, Trophy } from 'lucide-svelte';
+  import { Play, Square, Target, Activity, Trophy } from '@lucide/svelte';
   import { db } from '$lib/db';
   import type { RhythmSettings, RhythmForgeDictionary } from '$lib/utils/rhythm-forge/types';
 

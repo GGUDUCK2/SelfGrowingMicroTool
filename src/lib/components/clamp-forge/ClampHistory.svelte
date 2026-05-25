@@ -3,7 +3,7 @@
   import { clampForgeWorkspace } from '$lib/db/workspace';
   import { liveQuery } from 'dexie';
   import { browser } from '$app/environment';
-  import { Trash2, RotateCcw, Star } from 'lucide-svelte';
+  import { Trash2, RotateCcw, Star } from '@lucide/svelte';
   import { dictionaries } from '$lib/dictionaries';
 
   export let lang: string = 'en';

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
-  import { Trash2, GripVertical, ChevronDown, ChevronUp } from 'lucide-svelte';
+  import { Trash2, GripVertical, ChevronDown, ChevronUp } from '@lucide/svelte';
   import type { SchemaField, FieldType } from '$lib/utils/mock-forge/types';
 
   export let field: SchemaField;

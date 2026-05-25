@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Upload, Image as ImageIcon, AlertCircle } from 'lucide-svelte';
+  import { Upload, Image as ImageIcon, AlertCircle } from '@lucide/svelte';
   import type { IconForgeDictionary } from '$lib/types/icon-forge';
 
   export let t: IconForgeDictionary;

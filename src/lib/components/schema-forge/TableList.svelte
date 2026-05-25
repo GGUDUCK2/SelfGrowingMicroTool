@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { SchemaProject } from '$lib/types/schema-forge';
-  import { Plus, Table as TableIcon, Trash2, GripVertical } from 'lucide-svelte';
+  import { Plus, Table as TableIcon, Trash2, GripVertical } from '@lucide/svelte';
   import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
 

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onDestroy } from 'svelte';
-    import { Play, Pause, RotateCcw } from 'lucide-svelte';
+    import { Play, Pause, RotateCcw } from '@lucide/svelte';
     import { engine } from '$lib/utils/zen-forge/engine';
     import { zenStore } from '$lib/stores/zen-forge';
     import type { ZenForgeDictionary } from '$lib/types/zen-forge';

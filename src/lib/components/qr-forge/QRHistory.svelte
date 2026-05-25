@@ -2,7 +2,7 @@
   import { db } from '$lib/db/qr-forge';
   import type { QRState } from '$lib/utils/qr-forge/types';
   import { liveQuery } from 'dexie';
-  import { Trash2, RotateCcw, Star, Clock } from 'lucide-svelte';
+  import { Trash2, RotateCcw, Star, Clock } from '@lucide/svelte';
   import { slide } from 'svelte/transition';
 
   export let onLoad: (state: QRState) => void;

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { LogEntry } from '$lib/utils/log-prism/types';
-  import { X, Copy } from 'lucide-svelte';
+  import { X, Copy } from '@lucide/svelte';
 
   export let entry: LogEntry | null = null;
   export let dict: any;

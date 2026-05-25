@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Copy, Check, Download, RotateCcw } from 'lucide-svelte';
+  import { Copy, Check, Download, RotateCcw } from '@lucide/svelte';
 
   export let showCopy = true;
   export let showDownload = true;

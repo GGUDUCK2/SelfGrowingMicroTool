@@ -2,7 +2,7 @@
   import { dictionaries } from '$lib/dictionaries';
   import Button from '$lib/components/Button.svelte';
   import { saveToHistory as workspaceSave, loadLastSession as workspaceLoadLastSession, type ToolHistoryItem } from '$lib/db/workspace';
-  import { Copy, Download, Trash2, Plus, Save, Box, Share2, FileArchive, Star } from 'lucide-svelte';
+  import { Copy, Download, Trash2, Plus, Save, Box, Share2, FileArchive, Star } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
   import HistoryPanel from './HistoryPanel.svelte';
   import { onMount, onDestroy } from 'svelte';

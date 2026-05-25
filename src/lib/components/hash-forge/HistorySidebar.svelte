@@ -1,6 +1,6 @@
 <script lang="ts">
 
-  import { Star, StarOff, Trash2, Clock, File, Type, KeyRound } from 'lucide-svelte';
+  import { Star, StarOff, Trash2, Clock, File, Type, KeyRound } from '@lucide/svelte';
   import { getHistory, toggleStar, deleteFromHistory, clearHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
   import type { ToolHistoryItem } from '$lib/db/workspace';
   import { slide } from 'svelte/transition';

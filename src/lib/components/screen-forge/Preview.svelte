@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { Download, RotateCcw, Save, Trash2, Check } from 'lucide-svelte';
+  import { Download, RotateCcw, Save, Trash2, Check } from '@lucide/svelte';
   import { db } from '$lib/db';
 
   export let blob: Blob;

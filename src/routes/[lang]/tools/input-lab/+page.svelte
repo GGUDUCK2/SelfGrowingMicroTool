@@ -6,7 +6,7 @@
   import { page } from '$app/stores';
   import { fade, slide } from 'svelte/transition';
   import { db } from '$lib/db';
-  import { Keyboard, Gamepad2, MousePointer2, Monitor, History, Save, Check, RotateCcw } from 'lucide-svelte';
+  import { Keyboard, Gamepad2, MousePointer2, Monitor, History, Save, Check, RotateCcw } from '@lucide/svelte';
 
   import KeyboardTester from '$lib/components/input-lab/KeyboardTester.svelte';
   import GamepadTester from '$lib/components/input-lab/GamepadTester.svelte';

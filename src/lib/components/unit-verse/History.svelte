@@ -1,7 +1,7 @@
 <script lang="ts">
   import { liveQuery } from 'dexie';
   import { db, toggleFavorite, clearHistory, type ConversionRecord } from '$lib/db/unit-verse';
-  import { Star, Trash2, RotateCcw, Download } from 'lucide-svelte';
+  import { Star, Trash2, RotateCcw, Download } from '@lucide/svelte';
   import { slide } from 'svelte/transition';
   import { createEventDispatcher } from 'svelte';
   import Papa from 'papaparse';

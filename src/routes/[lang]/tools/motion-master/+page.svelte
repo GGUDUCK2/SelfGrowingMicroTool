@@ -16,7 +16,7 @@
   import PropertyPanel from '$lib/components/motion-master/PropertyPanel.svelte';
   import HistorySidebar from '$lib/components/motion-master/HistorySidebar.svelte';
 
-  import { Play, Pause, Save, Share2, Code, Menu, X, Settings, RotateCcw } from 'lucide-svelte';
+  import { Play, Pause, Save, Share2, Code, Menu, X, Settings, RotateCcw } from '@lucide/svelte';
   import { fly, fade } from 'svelte/transition';
 
   $: lang = $page.params.lang || 'en';

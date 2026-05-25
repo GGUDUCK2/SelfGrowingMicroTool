@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Shield, AlertTriangle, CheckCircle, Info } from 'lucide-svelte';
+  import { Shield, AlertTriangle, CheckCircle, Info } from '@lucide/svelte';
   import type { RiskAnalysis } from '$lib/utils/file-forge/risk';
 
   export let risk: RiskAnalysis;

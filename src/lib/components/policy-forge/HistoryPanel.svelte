@@ -3,7 +3,7 @@
   import { db } from '$lib/db';
   import { policyStore } from '$lib/stores/policy-forge';
   import { browser } from '$app/environment';
-  import { Trash2, X, Check } from 'lucide-svelte';
+  import { Trash2, X, Check } from '@lucide/svelte';
 
   export let dict: any;
 

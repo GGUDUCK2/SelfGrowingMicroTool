@@ -1,7 +1,7 @@
 <script lang="ts">
   import { contextData, findClosestContext } from '$lib/utils/unit-verse/context-data';
   import { unitEngine } from '$lib/utils/unit-verse/engine';
-  import { Lightbulb } from 'lucide-svelte';
+  import { Lightbulb } from '@lucide/svelte';
 
   export let value: number; // The input value
   export let fromUnitId: string;

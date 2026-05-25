@@ -9,7 +9,7 @@
   import type { RhythmSettings, BeatEvent, SoundPack, RhythmForgeDictionary } from '$lib/utils/rhythm-forge/types';
   import { db, type RhythmForgePreset, type RhythmForgeHistory } from '$lib/db';
   import type { RhythmPreset } from '$lib/utils/rhythm-forge/presets';
-  import { Activity } from 'lucide-svelte';
+  import { Activity } from '@lucide/svelte';
   import { SessionTracker } from '$lib/utils/rhythm-forge/session';
   import { decompressState } from '$lib/utils/url-state';
 

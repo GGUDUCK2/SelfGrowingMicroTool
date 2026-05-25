@@ -2,7 +2,7 @@
   import { matrixStore } from '$lib/utils/decision-forge/store';
   import WeightSlider from './WeightSlider.svelte';
   import { fly, fade } from 'svelte/transition';
-  import { Trash2, Plus } from 'lucide-svelte';
+  import { Trash2, Plus } from '@lucide/svelte';
 
   let draggedItem: string | null = null;
   // Drag and drop is complex to implement perfectly in one go without a lib,

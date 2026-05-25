@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { getHistory, toggleStar, deleteFromHistory, clearHistory, type YamlForgeHistoryItem } from '$lib/db/yaml-forge';
-  import { Star, Trash2, Clock, Code, FileJson } from 'lucide-svelte';
+  import { Star, Trash2, Clock, Code, FileJson } from '@lucide/svelte';
 
   export let dict: Record<string, unknown>;
   export let onSelect: (item: YamlForgeHistoryItem) => void;

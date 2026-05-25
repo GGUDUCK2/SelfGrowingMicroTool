@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
   import { parseJwt, verifyJwtSignature, type ParsedJWT } from '$lib/utils/cipher/jwt';
-  import { Copy, Save, CheckCircle, XCircle } from 'lucide-svelte';
+  import { Copy, Save, CheckCircle, XCircle } from '@lucide/svelte';
   import Prism from 'prismjs';
   import 'prismjs/components/prism-json';
   import type { CipherDictionary } from '$lib/types/cipher';

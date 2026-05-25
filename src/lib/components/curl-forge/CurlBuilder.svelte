@@ -1,7 +1,7 @@
 <script lang="ts">
   import { parseCurl, generateCurl, generateFetch, generatePython, generateAxios, generatePlaywright, generateCypress } from '$lib/utils/curl-forge/parser';
   import { generateTypeScriptInterfaces } from '$lib/utils/curl-forge/type-generator';
-  import { Copy, Trash2, Plus, ArrowDownToLine, Check } from 'lucide-svelte';
+  import { Copy, Trash2, Plus, ArrowDownToLine, Check } from '@lucide/svelte';
   import Button from '$lib/components/Button.svelte';
 
   export let dict: Record<string, unknown> = {};

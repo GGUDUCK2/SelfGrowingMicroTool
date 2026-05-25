@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { convertToJson, convertToHtmlTable, convertToSqlInsert } from '$lib/utils/csv-forge/parser';
-  import { Copy, Check, FileJson, Table, Database } from 'lucide-svelte';
+  import { Copy, Check, FileJson, Table, Database } from '@lucide/svelte';
 
   export let data: any[][] = [];
   export let dict: any;

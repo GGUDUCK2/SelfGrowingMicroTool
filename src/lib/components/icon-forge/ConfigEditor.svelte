@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { RotateCcw, Check, Palette, Sparkles, Settings2 } from 'lucide-svelte';
+  import { RotateCcw, Check, Palette, Sparkles, Settings2 } from '@lucide/svelte';
   import { IconProcessor, type IconConfig } from '$lib/utils/icon-forge/processor';
   import type { IconForgeDictionary } from '$lib/types/icon-forge';
   import { createEventDispatcher } from 'svelte';

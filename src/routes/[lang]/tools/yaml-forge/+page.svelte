@@ -11,7 +11,7 @@
   import Validator from '$lib/components/yaml-forge/Validator.svelte';
   import Formatter from '$lib/components/yaml-forge/Formatter.svelte';
   import HistorySidebar from '$lib/components/yaml-forge/HistorySidebar.svelte';
-  import { FileJson, Code, CheckSquare, Clock, Code2 } from 'lucide-svelte';
+  import { FileJson, Code, CheckSquare, Clock, Code2 } from '@lucide/svelte';
 
   import type { YamlForgeHistoryItem } from '$lib/db/yaml-forge';
 

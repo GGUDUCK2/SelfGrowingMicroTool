@@ -3,7 +3,7 @@
   import { db } from '$lib/db';
   import { browser } from '$app/environment';
   import { dictionaries } from '$lib/dictionaries';
-  import { Hash, FileCode, Search, FileSearch, ArrowRightLeft, Image, Lock, Download, AlertCircle, Star, Shield, Share2 } from 'lucide-svelte';
+  import { Hash, FileCode, Search, FileSearch, ArrowRightLeft, Image, Lock, Download, AlertCircle, Star, Shield, Share2 } from '@lucide/svelte';
   import { generateReport, type AnalysisData } from '$lib/utils/file-forge/report';
   import HashPanel from './HashPanel.svelte';
   import Base64Panel from './Base64Panel.svelte';

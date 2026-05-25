@@ -1,6 +1,6 @@
 <script lang="ts">
     import { animationStore, selectedKeyframeId } from '$lib/utils/motion-master/store';
-    import { Trash2, Plus, Play, Pause, RotateCcw, X } from 'lucide-svelte';
+    import { Trash2, Plus, Play, Pause, RotateCcw, X } from '@lucide/svelte';
 
     // Dictionary prop will be passed from page
     export let dict: any;

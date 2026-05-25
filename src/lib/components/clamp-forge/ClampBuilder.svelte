@@ -1,6 +1,6 @@
 <script lang="ts">
     import { fade } from 'svelte/transition';
-  import { Copy, Save, Check, Settings2, Monitor } from 'lucide-svelte';
+  import { Copy, Save, Check, Settings2, Monitor } from '@lucide/svelte';
   import { dictionaries } from '$lib/dictionaries';
   import type { ClampForgeHistory } from '$lib/db';
   import { clampForgeWorkspace } from '$lib/db/workspace';

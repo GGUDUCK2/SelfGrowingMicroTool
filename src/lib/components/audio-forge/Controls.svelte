@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Play, Pause, Square, Mic, ZoomIn, ZoomOut } from 'lucide-svelte';
+  import { Play, Pause, Square, Mic, ZoomIn, ZoomOut } from '@lucide/svelte';
 
   export let isPlaying = false;
   export let isRecording = false;

@@ -15,7 +15,7 @@
   import CsvAnalyzer from '$lib/components/csv-forge/CsvAnalyzer.svelte';
   import HistoryPanel from '$lib/components/csv-forge/HistoryPanel.svelte';
 
-  import { Check, FileSpreadsheet, Edit3, ArrowRightLeft, BarChart2 } from 'lucide-svelte';
+  import { Check, FileSpreadsheet, Edit3, ArrowRightLeft, BarChart2 } from '@lucide/svelte';
   import Head from '$lib/components/Head.svelte';
 
   $: lang = $page.params.lang as 'en' | 'ko';

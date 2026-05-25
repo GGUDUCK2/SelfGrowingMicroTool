@@ -9,7 +9,7 @@
   import History from '$lib/components/screen-forge/History.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
-  import { Monitor } from 'lucide-svelte';
+  import { Monitor } from '@lucide/svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);

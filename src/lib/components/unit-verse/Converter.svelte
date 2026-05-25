@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ArrowRightLeft, Copy, Check } from 'lucide-svelte';
+  import { ArrowRightLeft, Copy, Check } from '@lucide/svelte';
   import { categories, type UnitDefinition } from '$lib/utils/unit-verse/definitions';
   import { unitEngine } from '$lib/utils/unit-verse/engine';
   import SmartContext from './features/SmartContext.svelte';

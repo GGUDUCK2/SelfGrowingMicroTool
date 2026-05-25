@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { X, BookTemplate, Code, PenTool, TrendingUp, Search, Smile } from 'lucide-svelte';
+  import { X, BookTemplate, Code, PenTool, TrendingUp, Search, Smile } from '@lucide/svelte';
   import { TEMPLATES, type PromptTemplate } from '$lib/utils/prompt-forge/templates';
   import { fade, scale } from 'svelte/transition';
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import yaml from 'js-yaml';
   import { saveToHistory, type YamlForgeHistoryItem } from '$lib/db/yaml-forge';
-  import { Copy, Download, Trash2, Check, AlertCircle, Play } from 'lucide-svelte';
+  import { Copy, Download, Trash2, Check, AlertCircle, Play } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
 
   export let dict: Record<string, unknown>;

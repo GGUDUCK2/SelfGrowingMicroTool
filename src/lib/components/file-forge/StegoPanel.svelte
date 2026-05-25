@@ -1,6 +1,6 @@
 <script lang="ts">
   import { encodeStego, decodeStego } from '$lib/utils/file-forge/stego';
-  import { Lock, Unlock, Download, RefreshCw, AlertCircle, FileText } from 'lucide-svelte';
+  import { Lock, Unlock, Download, RefreshCw, AlertCircle, FileText } from '@lucide/svelte';
   import { slide } from 'svelte/transition';
 
   export let file: File;

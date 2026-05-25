@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Resume } from '$lib/utils/resume-forge/types';
-  import { MapPin, Mail, Phone, Globe, Linkedin, Github, Twitter } from 'lucide-svelte';
+  import { MapPin, Mail, Phone, Globe, Linkedin, Github, Twitter } from '@lucide/svelte';
 
   export let resume: Resume;
 

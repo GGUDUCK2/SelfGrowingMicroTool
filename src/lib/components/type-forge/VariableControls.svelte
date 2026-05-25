@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { VariableAxis } from '$lib/utils/type-forge/types';
-  import { RotateCcw } from 'lucide-svelte';
+  import { RotateCcw } from '@lucide/svelte';
 
   export let axes: VariableAxis[];
   export let dict: any;

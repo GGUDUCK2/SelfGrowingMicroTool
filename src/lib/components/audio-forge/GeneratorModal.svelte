@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { X } from 'lucide-svelte';
+  import { X } from '@lucide/svelte';
 
   export let show = false;
   export let dict: any;

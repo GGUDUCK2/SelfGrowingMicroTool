@@ -2,7 +2,7 @@
   import { STACKS } from '$lib/utils/deploy-forge/defaults';
   import type { StackId } from '$lib/utils/deploy-forge/types';
   import { createEventDispatcher } from 'svelte';
-  import { Hexagon, FileCode, Box, Cog, LayoutTemplate } from 'lucide-svelte';
+  import { Hexagon, FileCode, Box, Cog, LayoutTemplate } from '@lucide/svelte';
 
   export let selectedStackId: StackId;
   const dispatch = createEventDispatcher();

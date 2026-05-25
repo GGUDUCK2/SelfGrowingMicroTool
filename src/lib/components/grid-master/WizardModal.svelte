@@ -3,7 +3,7 @@
   import { fade, fly } from 'svelte/transition';
   import { gridStore } from '$lib/utils/grid-master/store';
   import { generateLayoutFromText } from '$lib/utils/grid-master/generators';
-  import { X, Layout, FileText, LayoutDashboard, ArrowRight, ArrowLeft, Check, Smartphone, Monitor, Wand2, Image, Database, Type } from 'lucide-svelte';
+  import { X, Layout, FileText, LayoutDashboard, ArrowRight, ArrowLeft, Check, Smartphone, Monitor, Wand2, Image, Database, Type } from '@lucide/svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
   import { nanoid } from 'nanoid';
   import { getRandomColor } from '$lib/utils/grid-master/constants';

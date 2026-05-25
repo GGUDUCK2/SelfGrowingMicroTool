@@ -3,7 +3,7 @@
   import Seoul from './templates/Seoul.svelte';
   import Tokyo from './templates/Tokyo.svelte';
   import NewYork from './templates/NewYork.svelte';
-  import { Printer, Download, Save, RotateCcw, FileJson, Layout, Type, Palette, Maximize, Minimize } from 'lucide-svelte';
+  import { Printer, Download, Save, RotateCcw, FileJson, Layout, Type, Palette, Maximize, Minimize } from '@lucide/svelte';
 
   export let dict: any;
   export let onSave: () => void;

@@ -2,7 +2,7 @@
   import { createEventDispatcher, onMount } from 'svelte';
   import { slide, fade } from 'svelte/transition';
   import { computeHash, computeHmac } from '$lib/utils/cipher/hashing';
-  import { Copy, Save, Search, Wand2, FileUp, Zap, Sparkles } from 'lucide-svelte';
+  import { Copy, Save, Search, Wand2, FileUp, Zap, Sparkles } from '@lucide/svelte';
   import type { CipherDictionary } from '$lib/types/cipher';
 
   export let dict: CipherDictionary;

@@ -2,7 +2,7 @@
   import type { QRState, QRType } from '$lib/utils/qr-forge/types';
   import QRBulk from './QRBulk.svelte';
   import { slide } from 'svelte/transition';
-  import { Upload, X } from 'lucide-svelte';
+  import { Upload, X } from '@lucide/svelte';
   import { dictionaries } from '$lib/dictionaries';
 
   export let state: QRState;

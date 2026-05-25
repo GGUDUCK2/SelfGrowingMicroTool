@@ -46,3 +46,7 @@ test-results/
 patch_*.cjs
 patch_*.sh
 scripts/
+
+.svelte-kit
+build
+node_modules

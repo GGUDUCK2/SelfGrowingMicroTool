@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Music, Activity, Clock, Split, Zap, Ghost } from 'lucide-svelte';
+  import { Music, Activity, Clock, Split, Zap, Ghost } from '@lucide/svelte';
   import type { RhythmSettings, SoundPack, RhythmForgeDictionary } from '$lib/utils/rhythm-forge/types';
 
   export let settings: RhythmSettings;

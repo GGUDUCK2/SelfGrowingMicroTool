@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { Trash2, Star } from 'lucide-svelte';
+    import { Trash2, Star } from '@lucide/svelte';
     import { getHistoryObservable, toggleStar, deleteHistoryItem, clearHistory } from '$lib/db/workspace';
     import { liveQuery } from 'dexie';
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Upload, FileText, Clipboard, Play } from 'lucide-svelte';
+  import { Upload, FileText, Clipboard, Play } from '@lucide/svelte';
   import { createEventDispatcher } from 'svelte';
   import { generateNginxLog, generateSyslog, generateJsonLog } from '$lib/utils/log-prism/generators';
 

@@ -6,7 +6,7 @@
   import { getDictionary } from '$lib/dictionaries';
   import { db } from '$lib/db';
   import type { LoadedFont, VariableAxis } from '$lib/utils/type-forge/types';
-  import { Type, History, Info, ChevronLeft } from 'lucide-svelte';
+  import { Type, History, Info, ChevronLeft } from '@lucide/svelte';
 
   import FontUploader from '$lib/components/type-forge/FontUploader.svelte';
   import PreviewCanvas from '$lib/components/type-forge/PreviewCanvas.svelte';

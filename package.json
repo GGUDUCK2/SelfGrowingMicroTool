@@ -31,7 +31,6 @@
         "eslint": "^9.39.2",
         "eslint-plugin-svelte": "^3.14.0",
         "globals": "^17.0.0",
-        "lucide-svelte": "^0.469.0",
         "postcss": "^8.4.49",
         "svelte": "^5.16.0",
         "svelte-check": "^4.1.1",
@@ -44,6 +43,7 @@
     },
     "type": "module",
     "dependencies": {
+        "@lucide/svelte": "^1.16.0",
         "@paralleldrive/cuid2": "^3.0.6",
         "@types/diff": "^7.0.2",
         "@types/dompurify": "^3.0.5",

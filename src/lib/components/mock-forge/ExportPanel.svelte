@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Download, FileJson, FileCode, FileSpreadsheet, Database } from 'lucide-svelte';
+  import { Download, FileJson, FileCode, FileSpreadsheet, Database } from '@lucide/svelte';
   import type { GeneratorOptions } from '$lib/utils/mock-forge/types';
 
   export let options: GeneratorOptions;

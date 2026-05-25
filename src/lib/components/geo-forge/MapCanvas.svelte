@@ -2,7 +2,7 @@
   import { getViewport, generatePath, projectToScreen, screenToGeo, distance, type Viewport } from '$lib/utils/geo-forge';
   import type { GeoJSON, Position, Layer } from '$lib/utils/geo-forge/types';
   import { createEventDispatcher } from 'svelte';
-  import { Maximize, Minus, Plus, Hand, PenTool, Eraser, Ruler } from 'lucide-svelte';
+  import { Maximize, Minus, Plus, Hand, PenTool, Eraser, Ruler } from '@lucide/svelte';
 
   export let layers: Layer[] = [];
   export let activeLayerId: string | null = null;

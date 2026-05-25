@@ -1,7 +1,7 @@
 <script lang="ts">
   import { db, type InvoiceHistory } from '$lib/db';
   import { liveQuery } from 'dexie';
-  import { FileText, Trash2 } from 'lucide-svelte';
+  import { FileText, Trash2 } from '@lucide/svelte';
   import { format } from 'date-fns';
   import { formatCurrency } from '$lib/utils/invoice-forge/calculations';
 

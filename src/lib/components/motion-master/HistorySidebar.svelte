@@ -2,7 +2,7 @@
   import { liveQuery } from 'dexie';
   import { db, type MotionMasterHistory } from '$lib/db';
   import { animationStore } from '$lib/utils/motion-master/store';
-  import { Trash2, Star, Clock, X } from 'lucide-svelte';
+  import { Trash2, Star, Clock, X } from '@lucide/svelte';
 
   export let dict: any;
   export let onClose: () => void;

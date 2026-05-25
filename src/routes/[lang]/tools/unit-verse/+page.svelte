@@ -11,7 +11,7 @@
   import History from '$lib/components/unit-verse/History.svelte';
   import Guide from '$lib/components/unit-verse/Guide.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
-  import { MoveLeft } from 'lucide-svelte';
+  import { MoveLeft } from '@lucide/svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);

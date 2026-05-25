@@ -3,7 +3,7 @@
   import { liveQuery } from 'dexie';
   import { db, type AudioForgeHistory } from '$lib/db';
   import { createEventDispatcher } from 'svelte';
-  import { Trash2, Clock, PlayCircle } from 'lucide-svelte';
+  import { Trash2, Clock, PlayCircle } from '@lucide/svelte';
 
   export let show = false;
   export let dict: any;

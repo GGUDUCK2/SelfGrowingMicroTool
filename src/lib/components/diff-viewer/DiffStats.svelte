@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FileDiff, Plus, Minus, Hash } from 'lucide-svelte';
+  import { FileDiff, Plus, Minus, Hash } from '@lucide/svelte';
 
   export let stats = {
       additions: 0,

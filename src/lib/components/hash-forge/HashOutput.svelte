@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Copy, Check, CheckCircle2, XCircle, Share2 } from 'lucide-svelte';
+  import { Copy, Check, CheckCircle2, XCircle, Share2 } from '@lucide/svelte';
 
   export let result: { hex: string, base64: string } | null = null;
   export let label: string = 'Hash Result';

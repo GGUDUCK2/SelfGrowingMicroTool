@@ -1,7 +1,7 @@
 <script lang="ts">
   import { flatten } from '$lib/utils/locale-forge/flattener';
   import { projectStore } from '$lib/utils/locale-forge/store';
-  import { Upload } from 'lucide-svelte';
+  import { Upload } from '@lucide/svelte';
 
   let dragging = false;
 

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { FileText, Image, File } from 'lucide-svelte';
+  import { FileText, Image, File } from '@lucide/svelte';
   import type { dictionaries } from '$lib/dictionaries';
 
   type FileForgeDict = typeof dictionaries.en.tools.fileForge;

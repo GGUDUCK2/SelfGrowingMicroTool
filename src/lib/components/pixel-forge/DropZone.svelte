@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Upload, ImageIcon } from 'lucide-svelte';
+  import { Upload, ImageIcon } from '@lucide/svelte';
   import type { PixelForgeDictionary } from '$lib/utils/pixel-forge/types';
 
   export let onFilesSelected: (files: FileList) => void;

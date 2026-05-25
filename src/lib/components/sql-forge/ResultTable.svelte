@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { QueryResult } from '$lib/utils/sql-forge/engine';
-  import { Download } from 'lucide-svelte';
+  import { Download } from '@lucide/svelte';
 
   export let result: QueryResult | null = null;
   export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any

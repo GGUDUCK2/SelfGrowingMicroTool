@@ -1,7 +1,7 @@
 <script lang="ts">
   import { db, type InputLabHistory } from '$lib/db';
   import { liveQuery } from 'dexie';
-  import { Clock, Trash2, Download, Eye, Star } from 'lucide-svelte';
+  import { Clock, Trash2, Download, Eye, Star } from '@lucide/svelte';
   import { slide } from 'svelte/transition';
 
   export let dict: any;

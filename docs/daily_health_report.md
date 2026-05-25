@@ -210,3 +210,30 @@
 
 ## Tech Debt
 - [QR Forge 페이지 빌드 오류 해결] `src/routes/[lang]/tools/qr-forge/+page.svelte` 내 중복된 `<div>` 구조로 인한 'attempted to close an element that was not open' Svelte 컴파일 오류를 닫는 태그를 정리하여 수정 완료. 빌드 성공 확인.
+
+[Project Health Report - 2024-05-25]
+## Repository Hygiene
+- 점검 결과 불필요한 루트 파일이나 임시 파일은 없었습니다.
+
+## Design Consistency
+- `RelatedTools.svelte` 내에서 사용 중이던 부적절한 `svelte-ignore` 주석을 `eslint-disable-next-line`으로 변경하여 일관성과 린트 퀄리티를 확보했습니다.
+
+## AdSense Readiness
+- 특이사항 없음.
+
+## Tech Debt
+- `package.json`에서 deprecated 된 `lucide-svelte` 패키지를 제거하고, 새로운 `@lucide/svelte` 패키지로 교체했습니다.
+- 전체 Svelte 및 TypeScript 파일(`src/` 내부 250개 이상의 파일)을 대상으로 일괄적으로 import 문을 `lucide-svelte`에서 `@lucide/svelte`로 업데이트하여 빌드 환경의 미래 호환성을 확보했습니다.
+
+### [Daily Improvement Report - 2024-05-25]
+#### 1. Identified Issues (발견된 문제)
+- `npm install` 실행 시 `lucide-svelte` 패키지가 deprecated 되었다는 경고가 발생했습니다.
+- `src/lib/components/RelatedTools.svelte` 컴포넌트 내부의 링크에 사용된 `svelte-ignore` 주석이 현재의 Svelte/ESLint 규칙과 충돌하거나 비권장 방식으로 사용되고 있었습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Tech Debt**: `package.json`의 `lucide-svelte` 종속성을 삭제하고 `@lucide/svelte`를 설치했습니다. 이후 `src/` 하위의 모든 `.svelte` 및 `.ts` 파일에서 `import { ... } from 'lucide-svelte'` 구문을 `from '@lucide/svelte'`로 전면 수정했습니다.
+- **Design Consistency**: `RelatedTools.svelte` 내비게이션 라우팅 린트 무시 주석을 `<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->`로 변경하여 프로젝트 메모리 가이드라인을 준수했습니다.
+
+#### 3. Performance Impact (기대 효과)
+- Deprecated 된 패키지를 제거하고 올바른 패키지 버전으로 교체함으로써 NPM 설치 시 발생하던 경고가 제거되었으며, 향후 의존성 업데이트의 안정성을 확보했습니다.
+- ESLint 무시 방식 통일로 코드 리뷰와 CI 빌드 과정에서 일관된 코드 품질을 유지할 수 있게 되었습니다.

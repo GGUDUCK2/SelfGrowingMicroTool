@@ -1,6 +1,6 @@
 <script lang="ts">
   import { animationStore, selectedKeyframeId } from '$lib/utils/motion-master/store';
-  import { Plus, X } from 'lucide-svelte';
+  import { Plus, X } from '@lucide/svelte';
 
   let track: HTMLElement;
   let isDragging = false;

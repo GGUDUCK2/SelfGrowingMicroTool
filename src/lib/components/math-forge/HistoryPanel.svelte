@@ -2,7 +2,7 @@
   import { liveQuery } from 'dexie';
   import { db } from '$lib/db';
   import { browser } from '$app/environment';
-  import { Trash2, Copy } from 'lucide-svelte';
+  import { Trash2, Copy } from '@lucide/svelte';
 
   export let dict: any;
   export let onSelect: (expression: string) => void;

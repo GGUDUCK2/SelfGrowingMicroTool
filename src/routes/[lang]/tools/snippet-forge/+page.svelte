@@ -13,7 +13,7 @@
   import FAQSection from '$lib/components/FAQSection.svelte';
   import { db, type SnippetForgeHistory } from '$lib/db';
   import { marked } from 'marked';
-  import { History, Menu, X, Code2 } from 'lucide-svelte';
+  import { History, Menu, X, Code2 } from '@lucide/svelte';
   import { fade, slide } from 'svelte/transition';
 
   $: lang = $page.params.lang || 'en';
@@ -283,7 +283,7 @@
 {/if}
 
 <script context="module">
-    import { Check } from 'lucide-svelte';
+    import { Check } from '@lucide/svelte';
 </script>
 
   <div class="mt-12 mb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

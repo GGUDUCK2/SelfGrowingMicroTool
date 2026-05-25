@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Clock, Star, Trash2, ArrowRight, Folder, FolderOpen, ChevronRight, ChevronDown } from 'lucide-svelte';
+  import { Clock, Star, Trash2, ArrowRight, Folder, FolderOpen, ChevronRight, ChevronDown } from '@lucide/svelte';
   import type { RestroRequest } from '$lib/db/restro';
   import { liveQuery } from 'dexie';
   import { db } from '$lib/db/restro';
