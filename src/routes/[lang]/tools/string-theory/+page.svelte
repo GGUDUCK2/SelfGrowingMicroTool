@@ -241,7 +241,7 @@
     ]
   } : null;
 
-  const canonicalUrl = `https://web-factory.vercel.app/${$page.params.lang}/tools/string-theory`;
+  const canonicalUrl = `https://selfgrowingmicrotool.com/${$page.params.lang}/tools/string-theory`;
 </script>
 <Head
   title={dict.title}
@@ -254,9 +254,9 @@
 
 <svelte:head>
   <link rel="canonical" href={canonicalUrl} />
-  <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/string-theory" />
-  <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/string-theory" />
-  <link rel="alternate" hreflang="x-default" href="https://web-factory.vercel.app/en/tools/string-theory" />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/string-theory" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/string-theory" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/string-theory" />
 
 
   {#if jsonLd}

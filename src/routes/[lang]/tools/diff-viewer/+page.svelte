@@ -297,7 +297,7 @@
     "operatingSystem": "Any",
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "DeveloperApplication",
-    "screenshot": "https://web-factory.vercel.app/og/diff-viewer.png",
+    "screenshot": "https://selfgrowingmicrotool.com/og/diff-viewer.png",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -305,7 +305,7 @@
     },
     "description": t.description,
     "url": `https://selfgrowingmicrotool.com/${lang}/tools/diff-viewer`,
-    "image": "https://web-factory.vercel.app/og/diff-viewer.png",
+    "image": "https://selfgrowingmicrotool.com/og/diff-viewer.png",
     "featureList": [t.guide.f1, t.guide.f2, t.guide.f3].map(s => s.replace(/\*\*/g, '')),
     "author": {
         "@type": "Organization",
@@ -402,7 +402,7 @@
 <Head
   title={t.title}
   description={t.description}
-  image="https://web-factory.vercel.app/og/diff-viewer.png"
+  image="https://selfgrowingmicrotool.com/og/diff-viewer.png"
   keywords={keywords}
 />
 

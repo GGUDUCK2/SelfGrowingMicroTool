@@ -59,7 +59,7 @@
         "Local History",
         "GitHub Flavored Markdown"
       ],
-      "screenshot": "https://web-factory.vercel.app/og-image.jpg",
+      "screenshot": "https://selfgrowingmicrotool.com/og-image.jpg",
       "url": $page.url.href,
       "author": {
           "@type": "Organization",
@@ -105,17 +105,17 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://web-factory.vercel.app/"
+      "item": "https://selfgrowingmicrotool.com/"
     }, {
       "@type": "ListItem",
       "position": 2,
       "name": "Tools",
-      "item": "https://web-factory.vercel.app/tools"
+      "item": "https://selfgrowingmicrotool.com/tools"
     }, {
       "@type": "ListItem",
       "position": 3,
       "name": dict.title,
-      "item": `https://web-factory.vercel.app/${lang}/tools/markdown-studio`
+      "item": `https://selfgrowingmicrotool.com/${lang}/tools/markdown-studio`
     }]
   };
 
@@ -241,7 +241,7 @@
 <Head
   title={dict.title}
   description={dict.description}
-  image="https://web-factory.vercel.app/og-image.jpg"
+  image="https://selfgrowingmicrotool.com/og-image.jpg"
   url={$page.url.href}
   keywords="markdown editor, online markdown editor, github flavored markdown, markdown preview, markdown to html"
 />

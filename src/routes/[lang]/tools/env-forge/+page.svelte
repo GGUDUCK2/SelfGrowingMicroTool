@@ -79,19 +79,19 @@
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": `https://web-factory.vercel.app/${lang}`
+            "item": `https://selfgrowingmicrotool.com/${lang}`
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Tools",
-            "item": `https://web-factory.vercel.app/${lang}/tools`
+            "item": `https://selfgrowingmicrotool.com/${lang}/tools`
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": d?.title || "Env Forge",
-            "item": `https://web-factory.vercel.app/${lang}/tools/env-forge`
+            "item": `https://selfgrowingmicrotool.com/${lang}/tools/env-forge`
           }
         ]
       }
@@ -117,16 +117,16 @@
 <Head
   title={title}
   description={description}
-  url={`https://web-factory.vercel.app/${lang}/tools/env-forge`}
+  url={`https://selfgrowingmicrotool.com/${lang}/tools/env-forge`}
   keywords="env, environment variables, dotenv, config, kubernetes configmap, docker env file, yaml, json, format env"
-  image="https://web-factory.vercel.app/og-image.png"
+  image="https://selfgrowingmicrotool.com/og-image.png"
 />
 
 <svelte:head>
-  <link rel="canonical" href={`https://web-factory.vercel.app/${lang}/tools/env-forge`} />
-  <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/env-forge" />
-  <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/env-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://web-factory.vercel.app/en/tools/env-forge" />
+  <link rel="canonical" href={`https://selfgrowingmicrotool.com/${lang}/tools/env-forge`} />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/env-forge" />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/env-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/env-forge" />
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">` + jsonLd + `</` + `script>`}
