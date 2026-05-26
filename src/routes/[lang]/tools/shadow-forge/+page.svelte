@@ -56,8 +56,8 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Tools", "item": `https://web-factory.vercel.app/${lang}/tools` },
-      { "@type": "ListItem", "position": 2, "name": "Shadow Forge", "item": `https://web-factory.vercel.app/${lang}/tools/shadow-forge` }
+      { "@type": "ListItem", "position": 1, "name": "Tools", "item": `https://selfgrowingmicrotool.com/${lang}/tools` },
+      { "@type": "ListItem", "position": 2, "name": "Shadow Forge", "item": `https://selfgrowingmicrotool.com/${lang}/tools/shadow-forge` }
     ]
   };
 

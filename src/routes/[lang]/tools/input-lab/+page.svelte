@@ -102,8 +102,8 @@
 
   <!-- Twitter -->
 
-    <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/input-lab" />
-  <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/input-lab" />
+    <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/input-lab" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/input-lab" />
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</scr' + 'ipt>'}

@@ -83,19 +83,19 @@
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": `https://web-factory.vercel.app/${lang}`
+            "item": `https://selfgrowingmicrotool.com/${lang}`
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Tools",
-            "item": `https://web-factory.vercel.app/${lang}/tools`
+            "item": `https://selfgrowingmicrotool.com/${lang}/tools`
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": d?.title || "Docker Forge",
-            "item": `https://web-factory.vercel.app/${lang}/tools/docker-forge`
+            "item": `https://selfgrowingmicrotool.com/${lang}/tools/docker-forge`
           }
         ]
       }
@@ -108,8 +108,8 @@
   title={title}
   description={description}
   keywords="docker, dockerfile, generator, visual builder, docker compose, multi-stage build, container, devops"
-  ogImage="https://web-factory.vercel.app/og-image.png"
-  ogUrl={`https://web-factory.vercel.app/${lang}/tools/docker-forge`}
+  ogImage="https://selfgrowingmicrotool.com/og-image.png"
+  ogUrl={`https://selfgrowingmicrotool.com/${lang}/tools/docker-forge`}
 />
 
 <svelte:head>
@@ -118,15 +118,15 @@
   <meta name="keywords" content="docker, dockerfile, generator, visual builder, docker compose, multi-stage build, container, devops" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:url" content={`https://web-factory.vercel.app/${lang}/tools/docker-forge`} />
+  <meta property="og:url" content={`https://selfgrowingmicrotool.com/${lang}/tools/docker-forge`} />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <link rel="canonical" href={`https://web-factory.vercel.app/${lang}/tools/docker-forge`} />
-  <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/docker-forge" />
-  <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/docker-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://web-factory.vercel.app/en/tools/docker-forge" />
+  <link rel="canonical" href={`https://selfgrowingmicrotool.com/${lang}/tools/docker-forge`} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/docker-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/docker-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/docker-forge" />
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">` + jsonLd + `</` + `script>`}
 </svelte:head>

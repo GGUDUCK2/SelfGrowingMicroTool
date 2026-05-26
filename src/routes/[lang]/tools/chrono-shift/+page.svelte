@@ -232,17 +232,17 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://web-factory.vercel.app/${($page.params.lang || "en")}`
+        "item": `https://selfgrowingmicrotool.com/${($page.params.lang || "en")}`
       },{
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": `https://web-factory.vercel.app/${($page.params.lang || "en")}#tools`
+        "item": `https://selfgrowingmicrotool.com/${($page.params.lang || "en")}#tools`
       },{
         "@type": "ListItem",
         "position": 3,
         "name": "Chrono Shift",
-        "item": `https://web-factory.vercel.app/${($page.params.lang || "en")}/tools/chrono-shift`
+        "item": `https://selfgrowingmicrotool.com/${($page.params.lang || "en")}/tools/chrono-shift`
       }]
     };
 

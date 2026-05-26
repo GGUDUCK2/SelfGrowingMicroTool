@@ -210,3 +210,16 @@
 
 ## Tech Debt
 - [QR Forge 페이지 빌드 오류 해결] `src/routes/[lang]/tools/qr-forge/+page.svelte` 내 중복된 `<div>` 구조로 인한 'attempted to close an element that was not open' Svelte 컴파일 오류를 닫는 태그를 정리하여 수정 완료. 빌드 성공 확인.
+
+---
+### [Daily Improvement Report - 2024-05-26]
+#### 1. Identified Issues (발견된 문제)
+- 구버전 도메인(`microfactory.io`, `web-factory.vercel.app`, `micro-tools.app`)이 소스 코드(특히 SEO/AEO 관련 메타데이터 및 JSON-LD 스키마, 구조화 데이터)에 하드코딩 되어 남아있음. 이는 검색 가시성 저하 및 표준 도메인(`selfgrowingmicrotool.com`)과의 불일치를 초래함.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/` 하위의 여러 파일들 (`src/lib/components/Head.svelte`, `src/routes/[lang]/tools/barcode-forge/+page.svelte` 등) - 구버전 도메인을 정규 도메인(`selfgrowingmicrotool.com`)으로 일괄 변경.
+- **SEO/AEO**: `BreadcrumbList`, `@id`, OpenGraph 이미지 및 URL 등의 도메인을 정규 도메인으로 통일하여 구조화 데이터의 정확성 및 신뢰성 확보.
+
+#### 3. Performance Impact (기대 효과)
+- 일관된 도메인 제공으로 AI 검색 엔진 크롤러 및 일반 검색 엔진(Google 등)에서의 정확한 인덱싱 지원.
+- 혼동 없는 리치 스니펫 노출 및 SEO 품질 점수 향상.

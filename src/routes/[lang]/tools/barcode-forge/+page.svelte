@@ -73,19 +73,19 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://microfactory.io"
+        "item": "https://selfgrowingmicrotool.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": "https://microfactory.io/en/tools"
+        "item": "https://selfgrowingmicrotool.com/en/tools"
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": d.title,
-        "item": `https://microfactory.io/${lang}/tools/barcode-forge`
+        "item": `https://selfgrowingmicrotool.com/${lang}/tools/barcode-forge`
       }
     ]
   });

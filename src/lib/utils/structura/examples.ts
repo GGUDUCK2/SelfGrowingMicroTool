@@ -47,13 +47,13 @@ logging:
     data: `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://web-factory.vercel.app/</loc>
+    <loc>https://selfgrowingmicrotool.com/</loc>
     <lastmod>2025-02-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://web-factory.vercel.app/tools/structura</loc>
+    <loc>https://selfgrowingmicrotool.com/tools/structura</loc>
     <lastmod>2025-02-06</lastmod>
     <priority>0.8</priority>
   </url>

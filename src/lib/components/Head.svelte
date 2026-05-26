@@ -1,8 +1,8 @@
 <script lang="ts">
   export let title: string;
   export let description: string;
-  export let image: string = 'https://web-factory.vercel.app/og/default.png';
-  export let url: string = 'https://web-factory.vercel.app';
+  export let image: string = 'https://selfgrowingmicrotool.com/og/default.png';
+  export let url: string = 'https://selfgrowingmicrotool.com';
   export let keywords: string | undefined = undefined;
 </script>
 

@@ -78,9 +78,9 @@
 
 
 
-    <link rel="alternate" hreflang="en" href="https://web-factory.vercel.app/en/tools/pixel-forge" />
-  <link rel="alternate" hreflang="ko" href="https://web-factory.vercel.app/ko/tools/pixel-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://web-factory.vercel.app/en/tools/pixel-forge" />
+    <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/pixel-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/pixel-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/pixel-forge" />
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html '<script type="application/ld+json">' + jsonLd + '</scr' + 'ipt>'}

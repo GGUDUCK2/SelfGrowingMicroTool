@@ -94,7 +94,7 @@
     ]
   } : null;
 
-  const canonicalUrl = `https://web-factory.vercel.app/${$page.params.lang}/tools/url-forge`;
+  const canonicalUrl = `https://selfgrowingmicrotool.com/${$page.params.lang}/tools/url-forge`;
 
   function handleUrlChange(event: CustomEvent<{ url: string }>) {
     currentUrl = event.detail.url;
