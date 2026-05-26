@@ -555,7 +555,7 @@ ${calculatedClamp}`,
         </code>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
         <button
           on:click={() => copyToClipboard(calculatedClamp, 'css')}
           class="min-h-[44px] flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm transition-colors font-medium text-sm"
@@ -597,6 +597,10 @@ ${calculatedClamp}`,
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>
           <span>{d.share || 'Share Result'}</span>
         </button>
+      </div>
+
+      <div class="text-xs text-slate-500 text-center mt-4">
+        {d.shortcutsHint || 'Shortcuts: Ctrl+C (Copy), Ctrl+S (Save), Esc (Reset)'}
       </div>
     </div>
     {/if}
@@ -666,6 +670,18 @@ ${calculatedClamp}`,
               <span class="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-1 rounded">
                 {simulatorWidth}px
               </span>
+            </div>
+
+            <div class="flex space-x-2 mb-4 overflow-x-auto pb-1">
+              {#each [320, 768, 1024, 1440] as bp}
+                <button
+                  on:click={() => simulatorWidth = bp}
+                  class="flex-1 min-h-[36px] min-w-[50px] text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded transition-colors whitespace-nowrap"
+                  aria-label="Snap to {bp}px"
+                >
+                  {bp}px
+                </button>
+              {/each}
             </div>
 
             <input
