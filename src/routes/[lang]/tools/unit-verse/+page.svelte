@@ -169,7 +169,7 @@
               <p class="text-sm text-indigo-200 mb-4">
                   {t.promoText}
               </p>
-              <a href="/{lang}/tools/compound-interest-calculator" class="block w-full text-center py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors text-sm font-medium">
+              <a href="/{lang}/tools/compound-interest-calculator" class="block w-full text-center py-2 min-h-[44px] min-w-[44px] bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors text-sm font-medium">
                   {t.promoAction}
               </a>
           </div>

@@ -415,10 +415,10 @@
 
     <section>
        <h3 class="text-lg font-bold mb-4 text-slate-900 dark:text-slate-100">Related Tools</h3>
-       <div class="flex gap-4 flex-wrap">
-           <a href="/{lang}/tools/snippet-forge" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">Snippet Forge</a>
+       <div class="flex gap-4 flex-wrap items-center">
+           <a href="/{lang}/tools/snippet-forge" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] text-indigo-600 dark:text-indigo-400 hover:underline font-medium">Snippet Forge</a>
            <span class="text-slate-300">|</span>
-           <a href="/{lang}/tools/diff-viewer" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">Diff Viewer</a>
+           <a href="/{lang}/tools/diff-viewer" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] text-indigo-600 dark:text-indigo-400 hover:underline font-medium">Diff Viewer</a>
        </div>
     </section>
   </section>
