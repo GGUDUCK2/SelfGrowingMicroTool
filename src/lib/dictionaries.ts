@@ -10,6 +10,79 @@ export const dictionaries = {
       actions: "Actions",
     },
     tools: {
+      loremForge: {
+        title: "Lorem Forge: Professional Dummy Text Generator",
+        description: "Generate dummy text with custom dictionaries, precise targeting, and rich formatting. Perfect for mockups, prototypes, and UI testing.",
+        config: {
+          dictionary: "Dictionary",
+          dictionaries: {
+            standard: "Standard Latin",
+            corporate: "Corporate Jargon",
+            tech: "Tech Buzzwords",
+            hangul: "Hangul (Korean)"
+          },
+          targetType: "Target By",
+          targetTypes: {
+            paragraphs: "Paragraphs",
+            words: "Words",
+            characters: "Characters",
+            bytes: "Bytes"
+          },
+          countLabel: "Count",
+          format: "Format",
+          formats: {
+            plain: "Plain Text",
+            html: "HTML Tags",
+            markdown: "Markdown"
+          },
+          startWithLorem: "Start with 'Lorem ipsum...'",
+          generate: "Generate",
+          reset: "Reset"
+        },
+        preview: {
+          title: "Preview",
+          copy: "Copy",
+          download: "Download",
+          saveHistory: "Save to History",
+          bytes: "Bytes",
+          words: "Words",
+          chars: "Characters",
+          copied: "Copied!",
+          saved: "Saved!"
+        },
+        guideTitle: "How to use Lorem Forge?",
+        guideSubtitle: "Mastering dummy text generation for modern workflows",
+        guideFeatures: [
+          {
+            title: "Choose a Dictionary",
+            desc: "Select the tone that matches your project. From the classic Standard Latin to Tech Buzzwords, Corporate Jargon, or native Hangul."
+          },
+          {
+            title: "Set Precise Targets",
+            desc: "Need exactly 500 bytes for a database limit test? Or maybe exactly 5 paragraphs for a layout mockup? Toggle the Target Type and specify the exact count."
+          },
+          {
+            title: "Rich Text Formatting",
+            desc: "Instead of plain text, generate your text wrapped in HTML <p> tags or formatted as Markdown, directly saving you time."
+          }
+        ],
+        faqTitle: "Frequently Asked Questions",
+        faqs: [
+          {
+            q: "What is the difference between Character and Byte targeting?",
+            a: "Characters represent the visible symbols, while Bytes represent the storage size. In standard Latin, 1 character is usually 1 byte. In Hangul, 1 character is typically 3 bytes."
+          },
+          {
+            q: "Does this tool work completely offline?",
+            a: "Yes! Lorem Forge is built to run entirely in your browser using local logic. It does not send any requests to external servers, making it incredibly fast and secure."
+          },
+          {
+            q: "Can I save generated text snippets?",
+            a: "Absolutely. Use the 'Save to History' button to store the generated text locally in your browser's IndexedDB. You can review your history anytime from the same device."
+          }
+        ]
+      },
+
       clampForge: {
         title: "Clamp Forge: Fluid Typography",
         description: "Generate precise CSS clamp() functions for fluid typography and spacing. Set your min/max viewport and sizes, and grab the perfect scaling formula instantly.",
@@ -4611,6 +4684,79 @@ export const dictionaries = {
       actions: "작업",
     },
     tools: {
+      loremForge: {
+        title: "로렘 포지: 전문가용 더미 텍스트 생성기",
+        description: "사용자 정의 사전, 정밀한 타겟팅 및 풍부한 서식으로 더미 텍스트를 생성하세요. 목업, 프로토타입 및 UI 테스트에 완벽합니다.",
+        config: {
+          dictionary: "사전 선택",
+          dictionaries: {
+            standard: "표준 라틴어 (Standard Latin)",
+            corporate: "기업 용어 (Corporate Jargon)",
+            tech: "기술 용어 (Tech Buzzwords)",
+            hangul: "한글 (Hangul)"
+          },
+          targetType: "타겟 방식",
+          targetTypes: {
+            paragraphs: "단락 (Paragraphs)",
+            words: "단어 (Words)",
+            characters: "글자 수 (Characters)",
+            bytes: "바이트 수 (Bytes)"
+          },
+          countLabel: "개수",
+          format: "출력 형식",
+          formats: {
+            plain: "일반 텍스트 (Plain)",
+            html: "HTML 태그",
+            markdown: "마크다운 (Markdown)"
+          },
+          startWithLorem: "'Lorem ipsum...' 으로 시작",
+          generate: "생성하기",
+          reset: "초기화"
+        },
+        preview: {
+          title: "미리보기",
+          copy: "복사",
+          download: "다운로드",
+          saveHistory: "히스토리에 저장",
+          bytes: "바이트",
+          words: "단어",
+          chars: "글자수",
+          copied: "복사되었습니다!",
+          saved: "저장되었습니다!"
+        },
+        guideTitle: "Lorem Forge 사용 방법",
+        guideSubtitle: "현대적인 워크플로우를 위한 더미 텍스트 생성 가이드",
+        guideFeatures: [
+          {
+            title: "적절한 사전 선택하기",
+            desc: "프로젝트 톤에 맞는 사전을 선택하세요. 고전적인 표준 라틴어부터 기술 전문 용어, 기업 용어, 그리고 자연스러운 한글 텍스트까지 지원합니다."
+          },
+          {
+            title: "정밀한 타겟팅 설정",
+            desc: "데이터베이스 한도 테스트를 위해 정확히 500바이트가 필요하신가요? 혹은 레이아웃 목업을 위해 정확히 5단락이 필요하신가요? 타겟 방식을 토글하고 정확한 개수를 지정하세요."
+          },
+          {
+            title: "서식 있는 텍스트 출력",
+            desc: "일반 텍스트 대신 HTML <p> 태그로 래핑하거나 마크다운으로 형식이 지정된 텍스트를 직접 생성하여 작업 시간을 절약하세요."
+          }
+        ],
+        faqTitle: "자주 묻는 질문 (FAQ)",
+        faqs: [
+          {
+            q: "글자 수와 바이트 수 타겟팅의 차이점은 무엇인가요?",
+            a: "글자 수는 눈에 보이는 기호의 수를 나타내는 반면, 바이트 수는 저장소 크기를 나타냅니다. 표준 라틴어의 경우 1자는 보통 1바이트지만 한글 1자는 일반적으로 3바이트를 차지합니다."
+          },
+          {
+            q: "이 도구는 완전히 오프라인에서 작동하나요?",
+            a: "네! 로렘 포지는 로컬 로직을 사용하여 전적으로 브라우저 내에서 실행되도록 구축되었습니다. 외부 서버로 어떠한 요청도 보내지 않아 매우 빠르고 안전합니다."
+          },
+          {
+            q: "생성된 텍스트 스니펫을 저장할 수 있나요?",
+            a: "물론입니다. '히스토리에 저장' 버튼을 사용하여 브라우저의 IndexedDB에 생성된 텍스트를 로컬로 저장하세요. 같은 기기에서 언제든 히스토리를 다시 확인할 수 있습니다."
+          }
+        ]
+      },
+
       clampForge: {
         title: "클램프 포지: 유동적 타이포그래피",
         description: "반응형 웹을 위한 정밀한 CSS clamp() 함수를 생성합니다. 최소/최대 뷰포트와 폰트 크기를 설정하고 완벽한 스케일링 공식을 즉시 얻으세요.",

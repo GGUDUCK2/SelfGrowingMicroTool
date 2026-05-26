@@ -675,6 +675,27 @@
     "createdAt": "2024-08-01"
   },
   {
+    "id": "lorem-forge",
+    "slug": "lorem-forge",
+    "title": {
+      "en": "Lorem Forge",
+      "ko": "로렘 포지"
+    },
+    "description": {
+      "en": "Generate professional dummy text with custom dictionaries, precise targeting, and rich formatting.",
+      "ko": "사용자 정의 사전, 정밀한 타겟팅 및 풍부한 서식으로 전문적인 더미 텍스트를 생성하세요."
+    },
+    "category": "design",
+    "tags": [
+      "lorem",
+      "ipsum",
+      "generator",
+      "dummy",
+      "text"
+    ],
+    "createdAt": "2024-11-20"
+  },
+  {
     "id": "markdown-studio",
     "slug": "markdown-studio",
     "title": {
