@@ -236,3 +236,21 @@
 #### 3. Performance Impact (기대 효과)
 - 모바일 환경에서의 터치 타겟(Touch Target) 크기 권장 사항을 충족하여 Lighthouse의 Accessibility 점수가 개선되고 터치 조작 관련 사용성이 향상될 것으로 기대합니다.
 ---
+
+---
+### [Daily Improvement Report - 2024-05-27]
+#### 1. Identified Issues
+- Deprecated `svelte-ignore svelte/no-navigation-without-resolve` in `RelatedTools.svelte`.
+- Missing ESLint ignore directives for raw HTML in JSON-LD structured data in `color-master/+page.svelte` (e.g. `svelte/no-at-html-tags`).
+- `curl-forge/+page.svelte` used a deprecated `<Head>` prop (`schema`) and a non-canonical domain (`webfactory.app`) inside the `BreadcrumbList`.
+
+#### 2. Key Changes
+- **Code**: `src/lib/components/RelatedTools.svelte` - Replaced `svelte-ignore` with `<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->`.
+- **Code**: `src/routes/[lang]/tools/color-master/+page.svelte` - Injected `<!-- eslint-disable-next-line svelte/no-at-html-tags -->` to prevent XSS warnings on JSON-LD schemas.
+- **SEO/AEO**: `src/routes/[lang]/tools/curl-forge/+page.svelte` - Refactored `schema` prop into `svelte:head` tag, implemented `selfgrowingmicrotool.com` as the canonical domain for the breadcrumb item links.
+
+#### 3. Performance Impact
+- Resolved SvelteKit/ESLint compilation and warning errors.
+- Improved SEO consistency by properly defining raw JSON-LD schemas inside `<svelte:head>`.
+- Ensured consistent domain authority (AEO optimization) via the canonical URL string replacing deprecated instances.
+---
