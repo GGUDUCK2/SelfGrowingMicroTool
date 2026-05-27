@@ -120,13 +120,13 @@
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": `https://webfactory.app/${lang}`
+            "item": `https://selfgrowingmicrotool.com/${lang}`
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": title,
-            "item": `https://webfactory.app/${lang}/tools/curl-forge`
+            "item": `https://selfgrowingmicrotool.com/${lang}/tools/curl-forge`
           }
         ]
       }
@@ -137,8 +137,13 @@
 <Head
   {title}
   {description}
-  schema={JSON.stringify(schemaObj)}
 />
+
+<svelte:head>
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+  {@html '<script type="application/ld+json">' + JSON.stringify(schemaObj) + '</scr' + 'ipt>'}
+</svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
   <div class="mb-8">

@@ -17,7 +17,7 @@
     </h3>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       {#each relatedTools as tool (tool.id)}
-        <!-- svelte-ignore svelte/no-navigation-without-resolve -->
+        <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
         <a
           href="/{lang}/tools/{tool.slug}"
           class="block p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:shadow-lg transition-all min-h-[44px] min-w-[44px]"
