@@ -152,6 +152,6 @@
 
     <!-- Related Tools -->
     <div class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800">
-        <RelatedTools currentCategory="design" />
+        <RelatedTools {lang} currentSlug="lorem-forge" currentCategory="design" />
     </div>
 </div>

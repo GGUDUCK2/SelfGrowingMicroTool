@@ -20,7 +20,7 @@
   </label>
   <textarea
     id={id}
-    class="w-full h-48 p-4 font-mono text-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none outline-none transition-all shadow-sm break-all"
+    class="w-full h-48 min-h-[44px] p-4 font-mono text-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none outline-none transition-all shadow-sm break-all"
     placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
     value={token}
     on:input={handleInput}
