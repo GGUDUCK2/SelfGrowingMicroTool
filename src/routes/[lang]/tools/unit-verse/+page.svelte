@@ -152,7 +152,7 @@
         <!-- Documentation / Guide -->
         <Guide t={t.guide}>
            <div class="mt-8">
-             <GuideSection dict={t} />
+             <GuideSection {...t?.guide} />
   <AdPlaceholder />
   <FAQSection title={t.faqTitle} items={faqItems} />
            </div>
@@ -169,6 +169,7 @@
               <p class="text-sm text-indigo-200 mb-4">
                   {t.promoText}
               </p>
+              <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
               <a href="/{lang}/tools/compound-interest-calculator" class="block w-full text-center py-2 min-h-[44px] min-w-[44px] bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors text-sm font-medium">
                   {t.promoAction}
               </a>

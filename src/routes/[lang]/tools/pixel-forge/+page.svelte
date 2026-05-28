@@ -165,7 +165,7 @@
 
   </article>
 
-  <GuideSection dict={toolDict} />
+  <GuideSection {...toolDict?.guide} />
   <AdPlaceholder />
   <FAQSection title={toolDict.faqTitle} items={faqItems} />
 </div>

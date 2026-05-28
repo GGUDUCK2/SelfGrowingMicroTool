@@ -364,7 +364,7 @@
         </ul>
       </div>
 
-      <GuideSection dict={dict} />
+      <GuideSection {...dict?.guide} />
   <AdPlaceholder />
   <FAQSection title={dict.faqTitle} items={faqItems} />
     </div>

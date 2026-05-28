@@ -84,6 +84,7 @@
   {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</scr' + 'ipt>'}
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -187,7 +188,7 @@
       </article>
 
       <div class="lg:col-span-5 space-y-8">
-          <GuideSection dict={toolDict} />
+          <GuideSection {...toolDict?.guide} />
   <AdPlaceholder />
   <FAQSection
               title={toolDict.faqTitle}

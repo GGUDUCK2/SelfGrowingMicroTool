@@ -136,6 +136,7 @@
 
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -165,6 +166,7 @@
   {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumb) + '</scr' + 'ipt>'}
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -260,7 +262,7 @@
                <li>{@html t.guide.tip3}</li>
             </ul>
 
-            <GuideSection dict={t} />
+            <GuideSection {...t?.guide} />
   <AdPlaceholder />
   <FAQSection title={t.faqTitle} items={faqItems} />
         </div>

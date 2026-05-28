@@ -264,6 +264,7 @@
 
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -289,6 +290,7 @@
   </script>`}
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -547,7 +549,7 @@
                 </div>
             </div>
 
-            <GuideSection dict={dict} />
+            <GuideSection {...dict?.guide} />
   <AdPlaceholder />
   <FAQSection
                 title={dict.faqTitle}

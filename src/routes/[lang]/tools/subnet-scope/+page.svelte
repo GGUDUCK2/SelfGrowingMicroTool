@@ -530,8 +530,15 @@
 </style>
 
   <div class="mt-12 mb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <GuideSection dict={dict} />
+    <GuideSection {...dict?.guide} />
   <AdPlaceholder />
-  <FAQSection dict={dict} />
+  <FAQSection
+      title={dict?.faqTitle}
+      items={[
+        { q: dict?.q1, a: dict?.a1 },
+        { q: dict?.q2, a: dict?.a2 },
+        { q: dict?.q3, a: dict?.a3 }
+      ]}
+    />
   <RelatedTools {lang} currentSlug="subnet-scope" currentCategory="dev" />
   </div>

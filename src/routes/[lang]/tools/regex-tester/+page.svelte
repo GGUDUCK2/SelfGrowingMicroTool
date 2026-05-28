@@ -146,10 +146,12 @@
 
 <svelte:head>
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
     ${JSON.stringify(schemaObj1)}
   </script>`}
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -290,7 +292,7 @@
 
   <!-- Documentation & FAQ -->
   <div class="max-w-4xl mx-auto">
-    <GuideSection dict={t} />
+    <GuideSection {...t?.guide} />
   <AdPlaceholder />
   <FAQSection title={t.faqTitle} items={faqItems} />
   </div>

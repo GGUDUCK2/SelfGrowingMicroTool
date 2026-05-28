@@ -358,7 +358,7 @@
   </div>
 
   <div class="mt-12">
-    <GuideSection dict={dict} />
+    <GuideSection {...dict?.guide} />
   <AdPlaceholder />
   <FAQSection title={lang === 'ko' ? '자주 묻는 질문' : 'Frequently Asked Questions'} items={faqItems} />
   </div>

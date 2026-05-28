@@ -724,9 +724,16 @@
                     <CodePreview code={tsCode} language="typescript" />
                  {/if}
               <div class="mt-12">
-    <GuideSection dict={t} />
+    <GuideSection {...t?.guide} />
   <AdPlaceholder />
-  <FAQSection dict={t} />
+  <FAQSection
+      title={t?.faqTitle}
+      items={[
+        { q: t?.q1, a: t?.a1 },
+        { q: t?.q2, a: t?.a2 },
+        { q: t?.q3, a: t?.a3 }
+      ]}
+    />
   <RelatedTools {lang} currentSlug="schema-forge" currentCategory="dev" />
   </div>
 </main>

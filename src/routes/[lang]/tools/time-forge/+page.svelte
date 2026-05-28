@@ -118,7 +118,7 @@
       </div>
     </div>
 
-    <GuideSection dict={t} />
+    <GuideSection {...t?.guide} />
   <AdPlaceholder />
   <FAQSection title={t.faqTitle} items={faqs} />
   </div>

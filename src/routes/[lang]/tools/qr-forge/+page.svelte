@@ -155,6 +155,7 @@
   {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumb) + '</scr' + 'ipt>'}
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -282,7 +283,7 @@
                         <hr class="border-slate-700 my-8"/>
 
             <div class="not-prose mt-8">
-              <GuideSection dict={t} />
+              <GuideSection {...t?.guide} />
               <AdPlaceholder />
               <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
             </div>

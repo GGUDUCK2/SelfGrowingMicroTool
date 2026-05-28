@@ -514,7 +514,7 @@
       </div>
     </section>
 
-    <GuideSection dict={t} />
+    <GuideSection {...t?.guide} />
   <AdPlaceholder />
   <FAQSection
       title={t.faqTitle}

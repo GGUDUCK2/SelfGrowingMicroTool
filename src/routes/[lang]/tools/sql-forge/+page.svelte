@@ -254,7 +254,7 @@
                     <li><span class="markdown-body">{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
                 </ul>
 
-                <GuideSection dict={t} />
+                <GuideSection {...t?.guide} />
   <AdPlaceholder />
   <FAQSection title={t.faqTitle} items={[
                     { question: t?.q1, answer: t?.a1 },
