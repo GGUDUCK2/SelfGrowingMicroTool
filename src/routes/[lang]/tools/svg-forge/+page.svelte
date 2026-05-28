@@ -281,7 +281,7 @@
         </div>
       </div>
 
-      <GuideSection dict={t} />
+      <GuideSection {...t?.guide} />
   <AdPlaceholder />
   <FAQSection title={t?.faq?.title} items={[
         { q: t?.faq?.q1, a: t?.faq?.a1 },

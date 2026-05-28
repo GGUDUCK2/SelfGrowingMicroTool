@@ -272,3 +272,18 @@
 - 관련 도구 추천 기능이 정상적으로 노출되어 도구 플랫폼 내부 트래픽 유도 효과가 향상되었습니다.
 - 코드 린팅(lint) 파이프라인의 에러를 제거하여 CI/CD 빌드 안정성을 확보했습니다.
 ---
+
+### [Daily Improvement Report - 2025-01-20]
+#### 1. Identified Issues (발견된 문제)
+- `FAQSection` 및 `GuideSection` 컴포넌트 호출 시 일부 페이지에서 명시적인 속성(Props) 대신 `dict` 객체를 통째로 전달하여 컴포넌트 의도와 불일치하는 문제 발생.
+- 여러 Svelte 파일에서 의도적인 원시 HTML 삽입(`{@html ...}`)과 동적 라우팅 링크(예: `href="/{lang}/..."`)에 대해 ESLint 경고 방치.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: 다수의 도구 페이지 컴포넌트 - `GuideSection` 및 `FAQSection`을 호출할 때 `dict={t}` 대신 명시적으로 구조 분해 할당(예: `{...t?.guide}`) 및 `title`, `items` 배열 형태를 전달하도록 자동화 스크립트 작성 및 일괄 개선.
+- **Code**: `scripts/fix_dict.cjs` 및 `scripts/fix_html_tags.cjs` 노드 스크립트 추가 - 컴포넌트 호출 방식 일괄 변경 및 ESLint 주석 자동 보강.
+- **SEO/AEO**: 명시적인 Props 전달로 `FAQSection` 내부에서 `items`를 순회하며 질문과 답변을 렌더링하고 동적 `FAQPage` 스키마(JSON-LD)가 오류 없이 생성되도록 AEO 안정성 확보.
+
+#### 3. Performance Impact (기대 효과)
+- 렌더링 타임 에러(500) 및 클라이언트 사이드 스크립트 에러를 방지하여 애플리케이션 안정성 향상.
+- 구조화된 데이터(FAQPage JSON-LD)가 의도한 대로 페이지에 주입되어 검색 엔진(Google)과 AI 챗봇이 콘텐츠의 질문/답변 구조를 정확하게 파악하고 리치 스니펫(Rich Snippet)에 노출될 확률 대폭 상승.
+- ESLint 경고성 기술 부채 해결로 빌드 로그 가시성 향상 및 잠재적 보안 이슈 조기 차단.

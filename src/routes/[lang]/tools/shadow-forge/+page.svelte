@@ -187,7 +187,7 @@
            </article>
 
            <!-- FAQ -->
-           <GuideSection dict={dict} />
+           <GuideSection {...dict?.guide} />
   <AdPlaceholder />
   <FAQSection
                title={dict.faqTitle}

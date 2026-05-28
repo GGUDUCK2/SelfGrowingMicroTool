@@ -315,13 +315,16 @@
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/grid-master" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
     ${JSON.stringify(schemaObj1)}
   </script>`}
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
     ${JSON.stringify(schemaObj2)}
   </script>`}
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -625,9 +628,16 @@
       </div>
     </div>
     <div class="mt-12">
-    <GuideSection dict={dict} />
+    <GuideSection {...dict?.guide} />
   <AdPlaceholder />
-  <FAQSection dict={dict} />
+  <FAQSection
+      title={dict?.faqTitle}
+      items={[
+        { q: dict?.q1, a: dict?.a1 },
+        { q: dict?.q2, a: dict?.a2 },
+        { q: dict?.q3, a: dict?.a3 }
+      ]}
+    />
   <RelatedTools {lang} currentSlug="grid-master" currentCategory="dev" />
   </div>
 </main>

@@ -324,7 +324,7 @@
 
   <!-- FAQ Section -->
   <div class="mt-16">
-      <GuideSection dict={t} />
+      <GuideSection {...t?.guide} />
   <AdPlaceholder />
   <FAQSection title={t.faqTitle} items={[
         { q: t?.q1, a: t?.a1 },
@@ -336,8 +336,10 @@
   <section class="mt-12 mb-8">
      <h3 class="text-lg font-bold mb-4 text-slate-900 dark:text-slate-100">Related Tools</h3>
      <div class="flex gap-4 items-center">
+         <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
          <a href="/{lang}/tools/diff-viewer" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] text-indigo-600 dark:text-indigo-400 hover:underline">Diff Viewer</a>
          <span class="text-slate-300">|</span>
+         <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
          <a href="/{lang}/tools/schema-forge" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] text-indigo-600 dark:text-indigo-400 hover:underline">Schema Forge</a>
      </div>
   </section>

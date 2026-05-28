@@ -288,7 +288,7 @@
             </div>
 
             <div class="mt-12">
-                <GuideSection dict={dict} />
+                <GuideSection {...dict?.guide} />
   <AdPlaceholder />
   <FAQSection
                     title={dict.tools.deployForge.faqTitle}

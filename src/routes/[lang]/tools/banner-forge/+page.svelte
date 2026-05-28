@@ -87,6 +87,7 @@
   {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</scr' + 'ipt>'}
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -164,7 +165,7 @@
             </div>
         </section>
 
-        <GuideSection dict={toolDict} />
+        <GuideSection {...toolDict?.guide} />
   <AdPlaceholder />
   <FAQSection
             title={toolDict.faqTitle}
