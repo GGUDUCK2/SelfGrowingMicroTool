@@ -159,61 +159,7 @@
 
   <div class="mt-24 space-y-24">
     <!-- Inline Guide Section mapping localized keys -->
-    <section class="max-w-4xl mx-auto">
-        <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">
-          {d?.guideTitle}
-        </h2>
-        <p class="text-lg text-slate-600 dark:text-slate-300 mb-12 leading-relaxed">
-          {d?.guideIntro}
-        </p>
-
-        <div class="grid md:grid-cols-2 gap-12">
-          <!-- Features -->
-          <div>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
-              <span class="flex items-center justify-center w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-              </span>
-              {d?.featuresTitle}
-            </h3>
-            <ul class="space-y-4 text-slate-600 dark:text-slate-300 list-none pl-0">
-               <li class="flex gap-3"><span class="w-1.5 h-1.5 mt-2 rounded-full bg-indigo-500 shrink-0"></span><span>{@html d?.f1?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-               <li class="flex gap-3"><span class="w-1.5 h-1.5 mt-2 rounded-full bg-indigo-500 shrink-0"></span><span>{@html d?.f2?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-               <li class="flex gap-3"><span class="w-1.5 h-1.5 mt-2 rounded-full bg-indigo-500 shrink-0"></span><span>{@html d?.f3?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-               <li class="flex gap-3"><span class="w-1.5 h-1.5 mt-2 rounded-full bg-indigo-500 shrink-0"></span><span>{@html d?.f4?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-            </ul>
-          </div>
-
-          <!-- Technical & Tips -->
-          <div class="space-y-12">
-            <div>
-              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
-                <span class="flex items-center justify-center w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                </span>
-                {d?.technicalTitle}
-              </h3>
-              <ul class="space-y-4 text-slate-600 dark:text-slate-300 list-none pl-0">
-                <li class="flex gap-3 items-start"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>{d?.tech1}</span></li>
-                <li class="flex gap-3 items-start"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>{d?.tech2}</span></li>
-                <li class="flex gap-3 items-start"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>{d?.tech3}</span></li>
-              </ul>
-            </div>
-
-            <div class="bg-amber-50 dark:bg-amber-900/20 rounded-xl p-6 border border-amber-100 dark:border-amber-900/50">
-              <h3 class="text-lg font-bold text-amber-900 dark:text-amber-500 mb-4 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                {d?.tipsTitle}
-              </h3>
-              <ul class="space-y-3 text-sm text-amber-800 dark:text-amber-200/80 list-none pl-0">
-                <li class="flex gap-2"><span>•</span> <span>{@html d?.tip1?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-                <li class="flex gap-2"><span>•</span> <span>{@html d?.tip2?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-                <li class="flex gap-2"><span>•</span> <span>{@html d?.tip3?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-    </section>
+    <GuideSection title={d?.guideTitle} intro={d?.guideIntro} featuresTitle={d?.featuresTitle} f1={d?.f1} f2={d?.f2} f3={d?.f3} tipsTitle={d?.tipsTitle} tip1={d?.tip1} tip2={d?.tip2} tip3={d?.tip3} />
 
     <AdPlaceholder />
   <FAQSection
