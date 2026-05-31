@@ -121,15 +121,15 @@ export class LoremGenerator {
             }
 
             // Format into sentences/paragraphs
-            let result = '';
+            const result = '';
             let wordIndex = 0;
             const wordsToUse = words.slice(0, count);
 
             while (wordIndex < wordsToUse.length) {
-                let paragraphWords = wordsToUse.slice(wordIndex, wordIndex + 50);
+                const paragraphWords = wordsToUse.slice(wordIndex, wordIndex + 50);
                 if (paragraphWords.length > 0) {
                      // Very basic sentence structuring
-                     let pText = this.capitalize(paragraphWords.join(' ')) + '.';
+                     const pText = this.capitalize(paragraphWords.join(' ')) + '.';
                      paragraphs.push(pText);
                 }
                 wordIndex += 50;
@@ -151,7 +151,7 @@ export class LoremGenerator {
                 if (options.targetType === 'bytes') {
                     const encoder = new TextEncoder();
                     const decoder = new TextDecoder('utf-8');
-                    let encoded = encoder.encode(text);
+                    const encoded = encoder.encode(text);
                     if (encoded.length > count) {
                         return decoder.decode(encoded.slice(0, count)).replace(/\uFFFD/g, ''); // Remove replacement chars
                     }
