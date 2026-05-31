@@ -304,3 +304,15 @@
 - Build stability improved significantly, resolving out-of-memory crashes on Vercel or local environments.
 - Core pages now correctly expose OpenGraph tags, increasing visibility and accurate previews on social media sharing.
 - Component robustness enhanced, avoiding potential SvelteKit compilation errors related to missing prop values.
+
+
+### [Daily Improvement Report - 2026-05-31]
+#### 1. Identified Issues (발견된 문제)
+- env-forge 도구 페이지에 GuideSection 컴포넌트가 누락되어 있어 SEO/AEO 및 사용자 가이드 제공이 불완전했음.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: src/routes/[lang]/tools/env-forge/+page.svelte - 하드코딩된 Guide 영역을 공통 GuideSection 컴포넌트로 교체
+
+#### 3. Performance Impact (기대 효과)
+- 공통 컴포넌트 사용을 통한 코드 중복 제거 및 유지보수성 향상
+- SEO/AEO 일관성 개선
