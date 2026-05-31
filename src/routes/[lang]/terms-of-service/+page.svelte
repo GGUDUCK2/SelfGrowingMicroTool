@@ -1,11 +1,16 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from "$app/stores";
   $: lang = $page.params.lang || "en";
 </script>
 
+<Head title="Terms of Service" description="Terms of Service for MicroFactory" />
+
+
 <svelte:head>
   <title>Terms of Service | MicroFactory</title>
   <meta name="robots" content="noindex" />
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html '<script type="application/ld+json">' + JSON.stringify({"@context":"https://schema.org","@type":"WebPage","@id":"https://selfgrowingmicrotool.com/" + lang + "/terms-of-service","name":"Terms of Service","description":"Terms of Service for MicroFactory"}) + '</script>'}
 </svelte:head>
 

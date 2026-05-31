@@ -1,6 +1,6 @@
 <script lang="ts">
-  export let title: string;
-  export let description: string;
+  export let title: string = "";
+  export let description: string = "";
   export let image: string = 'https://selfgrowingmicrotool.com/og/default.png';
   export let url: string = 'https://selfgrowingmicrotool.com';
   export let keywords: string | undefined = undefined;

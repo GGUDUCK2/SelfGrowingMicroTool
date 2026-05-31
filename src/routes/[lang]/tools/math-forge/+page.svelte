@@ -121,6 +121,7 @@
   {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</scr' + 'ipt>'}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
