@@ -62,6 +62,14 @@
     if (simulatorWidth > maxWidth) simulatorWidth = maxWidth;
   }
 
+  // Smart Preset indicator logic
+  $: activeBreakpoint = (() => {
+    if (simulatorWidth <= 480) return 'mobile';
+    if (simulatorWidth > 480 && simulatorWidth <= 768) return 'tablet';
+    if (simulatorWidth > 768 && simulatorWidth <= 1024) return 'laptop';
+    return 'desktop';
+  })();
+
   $: simulatedSize = (() => {
     let vwRem = simulatorWidth / baseRem;
     let valRem = intersection + (slope * vwRem);
@@ -101,20 +109,20 @@
 
     switch (preset) {
       case 'h1':
-        minSize = 2;
-        maxSize = 4;
+        minSize = 2.5;
+        maxSize = 4.5;
         break;
       case 'h2':
-        minSize = 1.5;
-        maxSize = 2.5;
+        minSize = 1.75;
+        maxSize = 3;
         break;
       case 'body':
         minSize = 1;
-        maxSize = 1.125;
+        maxSize = 1.25;
         break;
       case 'spacing':
-        minSize = 2;
-        maxSize = 5;
+        minSize = 1.5;
+        maxSize = 3;
         break;
     }
   };
@@ -200,7 +208,7 @@ ${calculatedClamp}`,
           url: window.location.href,
         });
       } catch (err) {
-        console.error('Share failed:', err);
+        // Share failed
       }
     } else {
       copyToClipboard(calculatedClamp, 'css');
@@ -238,11 +246,23 @@ ${calculatedClamp}`,
         copyToClipboard(calculatedClamp, 'css');
       } else if (e.key === 's') {
         e.preventDefault();
-        saveScale();
+        // Trigger Dexie Workspace save
+        if (browser) {
+          clampForgeWorkspace.save({
+            minWidth,
+            maxWidth,
+            minSize,
+            maxSize,
+            unit,
+            result: calculatedClamp
+          });
+          // Also show a toast/visual indicator if possible, but copying logic usually has one
+          // We could reuse copiedCss but let's just trigger saveScale which might log it as well
+        }
       } else if (e.key === 'Enter') {
         e.preventDefault();
-        // Recalculate logic is reactive, just focus preview text
-        document.getElementById('previewTextInput')?.focus();
+        // Automatically copy the CSS value instead of focusing the preview input
+        copyToClipboard(calculatedClamp, 'css');
       } else if (e.key === 'k') {
         e.preventDefault();
         minWidth = 320;
@@ -291,6 +311,13 @@ ${calculatedClamp}`,
         >
           {d.history || 'History'}
         </button>
+      </div>
+
+      <!-- Keyboard Shortcuts Help -->
+      <div class="px-6 sm:px-8 pt-4 pb-2 text-xs text-slate-400 dark:text-slate-500 flex flex-wrap gap-4 border-b border-slate-100 dark:border-slate-800">
+          <span class="flex items-center gap-1"><kbd class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600 font-mono text-[10px]">Ctrl+Enter</kbd> {d.shortcutCopy || 'Copy Clamp'}</span>
+          <span class="flex items-center gap-1"><kbd class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600 font-mono text-[10px]">Ctrl+S</kbd> {d.shortcutSave || 'Save History'}</span>
+          <span class="flex items-center gap-1"><kbd class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600 font-mono text-[10px]">Esc</kbd> {d.shortcutReset || 'Reset'}</span>
       </div>
 
       <div class="p-6 sm:p-8">
@@ -608,7 +635,7 @@ ${calculatedClamp}`,
 
   <div class="lg:col-span-1">
     <div class="sticky top-8 space-y-6">
-      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 flex flex-col h-full">
         <h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wide mb-6">
           {d.visualizerTitle}
         </h3>
@@ -673,13 +700,14 @@ ${calculatedClamp}`,
             </div>
 
             <div class="flex space-x-2 mb-4 overflow-x-auto pb-1">
-              {#each [320, 768, 1024, 1440] as bp}
+              {#each [{bp: 320, name: 'Mobile'}, {bp: 768, name: 'Tablet'}, {bp: 1024, name: 'Desktop'}, {bp: 1440, name: 'Wide'}] as target}
                 <button
-                  on:click={() => simulatorWidth = bp}
-                  class="flex-1 min-h-[36px] min-w-[50px] text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded transition-colors whitespace-nowrap"
-                  aria-label="Snap to {bp}px"
+                  on:click={() => simulatorWidth = target.bp}
+                  class="flex-1 min-h-[36px] min-w-[50px] text-xs font-medium rounded transition-colors whitespace-nowrap flex flex-col items-center justify-center {simulatorWidth === target.bp ? 'bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 ring-1 ring-indigo-500' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300'}"
+                  aria-label="Snap to {target.bp}px"
                 >
-                  {bp}px
+                  <span>{target.name}</span>
+                  <span class="text-[10px] opacity-70">{target.bp}px</span>
                 </button>
               {/each}
             </div>
@@ -705,6 +733,60 @@ ${calculatedClamp}`,
           </div>
 
       </div>
+    </div>
+  </div>
+
+  <!-- Multi-Viewport Live Comparison Mode -->
+  <div class="mt-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
+    <div class="p-6 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+        <h3 class="text-lg font-semibold text-slate-900 dark:text-white flex items-center">
+          <Monitor class="mr-2 h-5 w-5 text-indigo-500" />
+          {d.multiViewportTitle || 'Live Multi-Device Preview'}
+        </h3>
+    </div>
+
+    <div class="p-6 bg-slate-50 dark:bg-slate-900/50">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+            <!-- Mobile -->
+            <div class="flex flex-col items-center space-y-3">
+                <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider flex justify-between w-full max-w-[320px] px-2">
+                    <span>Mobile</span>
+                    <span>320px</span>
+                </div>
+                <div class="w-full max-w-[320px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm p-4 overflow-hidden">
+                    <p class="font-bold text-slate-900 dark:text-white whitespace-nowrap overflow-hidden text-ellipsis" style="font-size: clamp({minSize}{unit}, {intersection}{unit} + {slope * 100}vw, {maxSize}{unit}); line-height: 1.2;">
+                        {customPreviewText || 'Fluid Typography'}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tablet -->
+            <div class="flex flex-col items-center space-y-3">
+                <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider flex justify-between w-full max-w-[768px] px-2">
+                    <span>Tablet</span>
+                    <span>768px</span>
+                </div>
+                <div class="w-full max-w-[768px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm p-4 overflow-hidden">
+                    <p class="font-bold text-slate-900 dark:text-white whitespace-nowrap overflow-hidden text-ellipsis" style="font-size: clamp({minSize}{unit}, {intersection}{unit} + {slope * 100}vw, {maxSize}{unit}); line-height: 1.2;">
+                        {customPreviewText || 'Fluid Typography'}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Desktop -->
+            <div class="flex flex-col items-center space-y-3">
+                <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider flex justify-between w-full max-w-[1024px] px-2">
+                    <span>Desktop</span>
+                    <span>1024px</span>
+                </div>
+                <div class="w-full max-w-[1024px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm p-4 overflow-hidden">
+                    <p class="font-bold text-slate-900 dark:text-white whitespace-nowrap overflow-hidden text-ellipsis" style="font-size: clamp({minSize}{unit}, {intersection}{unit} + {slope * 100}vw, {maxSize}{unit}); line-height: 1.2;">
+                        {customPreviewText || 'Fluid Typography'}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <p class="text-center text-xs text-slate-400 mt-6">{d.multiViewportHint || 'See how your font scales instantly across predefined breakpoints.'}</p>
     </div>
   </div>
 </div>
