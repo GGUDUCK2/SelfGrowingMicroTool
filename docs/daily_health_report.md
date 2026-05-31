@@ -287,3 +287,20 @@
 - 렌더링 타임 에러(500) 및 클라이언트 사이드 스크립트 에러를 방지하여 애플리케이션 안정성 향상.
 - 구조화된 데이터(FAQPage JSON-LD)가 의도한 대로 페이지에 주입되어 검색 엔진(Google)과 AI 챗봇이 콘텐츠의 질문/답변 구조를 정확하게 파악하고 리치 스니펫(Rich Snippet)에 노출될 확률 대폭 상승.
 - ESLint 경고성 기술 부채 해결로 빌드 로그 가시성 향상 및 잠재적 보안 이슈 조기 차단.
+
+### [Daily Improvement Report - 2024-05-31]
+#### 1. Identified Issues (발견된 문제)
+- `npm run build` failed due to JavaScript heap out of memory.
+- `package.json` had Vite build limit not set.
+- Various non-tool pages (`[lang]/+page.svelte`, `[lang]/about/+page.svelte`, `[lang]/contact/+page.svelte`, `[lang]/privacy-policy/+page.svelte`, `[lang]/pwa/+page.svelte`, `[lang]/terms-of-service/+page.svelte`) were missing the `<Head>` component for SEO and OpenGraph optimization.
+- The `Head.svelte` component had strictly typed `title` and `description` props with no default fallbacks, which could cause Svelte compiler warnings/errors if not explicitly provided.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `package.json` - Increased Vite build memory limit using `NODE_OPTIONS='--max-old-space-size=4096' vite build`.
+- **Code**: `src/lib/components/Head.svelte` - Added default empty string values to `title` and `description` to prevent compilation errors if missing.
+- **SEO/AEO**: `src/routes/[lang]/+page.svelte` and other static pages (`about`, `contact`, `privacy-policy`, `pwa`, `terms-of-service`) - Injected the `<Head>` component with appropriate titles and descriptions to improve metadata indexing and ensure rich social media previews.
+
+#### 3. Performance Impact (기대 효과)
+- Build stability improved significantly, resolving out-of-memory crashes on Vercel or local environments.
+- Core pages now correctly expose OpenGraph tags, increasing visibility and accurate previews on social media sharing.
+- Component robustness enhanced, avoiding potential SvelteKit compilation errors related to missing prop values.

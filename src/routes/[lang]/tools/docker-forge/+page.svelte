@@ -128,6 +128,7 @@
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/docker-forge" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/docker-forge" />
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">` + jsonLd + `</` + `script>`}
 </svelte:head>
 

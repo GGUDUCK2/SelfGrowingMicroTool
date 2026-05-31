@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "vite dev",
-        "build": "vite build",
+        "build": "cross-env NODE_OPTIONS=--max-old-space-size=4096 vite build",
         "preview": "vite preview",
         "check": "svelte-kit sync && tsc || tsc",
         "check:watch": "svelte-kit sync && tsc -w || tsc -w",
@@ -28,6 +28,7 @@
         "@types/yaml": "^1.9.6",
         "autoprefixer": "^10.4.20",
         "clsx": "^2.1.1",
+        "cross-env": "^10.1.0",
         "eslint": "^9.39.2",
         "eslint-plugin-svelte": "^3.14.0",
         "globals": "^17.0.0",

@@ -225,6 +225,7 @@
 
     <!-- Documentation -->
     <!-- JSON-LD for SEO -->
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
     {@html '<script type="application/ld+json">' + JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
@@ -242,6 +243,7 @@
       "featureList": "Dockerfile generation, Docker Compose builder, Multi-stage build optimization"
     }) + '</script>'}
 
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
     {@html '<script type="application/ld+json">' + JSON.stringify({
       "@context": "https://schema.org",
       "@type": "FAQPage",

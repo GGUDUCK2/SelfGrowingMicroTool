@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Head from '$lib/components/Head.svelte';
   import { page } from "$app/stores";
     import { getDictionary } from "$lib/dictionaries";
     import { onMount } from "svelte";
@@ -54,7 +55,11 @@
         showInstallButton = false;
     }
 </script>
+
+<Head title="MicroFactory" description="MicroFactory Tools" />
+
 <svelte:head>
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html '<script type="application/ld+json">' + JSON.stringify({"@context":"https://schema.org","@type":"WebPage","@id":"https://selfgrowingmicrotool.com/" + lang + "/pwa","name":"PWA Installation","description":"Install the PWA for MicroFactory"}) + '</script>'}
 
 
