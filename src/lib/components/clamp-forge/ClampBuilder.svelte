@@ -1,16 +1,19 @@
 <script lang="ts">
 
-  import { Copy, Save, Check, Monitor, Settings2 } from 'lucide-svelte';
+  import { Copy, Save, Check, Monitor, Settings2, Share } from 'lucide-svelte';
   import { dictionaries } from '$lib/dictionaries';
   import type { ClampForgeHistory } from '$lib/db';
   import { clampForgeWorkspace } from '$lib/db/workspace';
   import { browser } from '$app/environment';
+  import { onMount } from 'svelte';
   import ClampHistory from './ClampHistory.svelte';
 
   export let lang: string = 'en';
 
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
   $: d = dict.tools.clampForge;
+
+
 
   // State
   let minWidth = 320;
@@ -20,9 +23,9 @@
   let unit: 'rem' | 'px' = 'rem';
   let baseRem = 16;
 
-  let copiedCss = false;
-  let copiedTw = false;
-  let copiedVars = false;
+
+
+
   let activeTab: 'builder' | 'scale' | 'preview' | 'history' = 'builder';
 
 
@@ -80,8 +83,38 @@
     return (valRem * baseRem).toFixed(1);
   })();
 
+
+  onMount(() => {
+    const handleKeydown = (e: KeyboardEvent) => {
+      // Don't hijack if user is typing in an input
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+      if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+        e.preventDefault();
+        copyToClipboard(calculatedClamp, 'css');
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        saveResult();
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        resetToDefault();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeydown);
+    return () => window.removeEventListener('keydown', handleKeydown);
+  });
+
   // Interactive Preview
   let customPreviewText = 'Fluid Typography';
+
+
+  const resetToDefault = () => {
+      minWidth = 320; maxWidth = 1200; minSize = 1; maxSize = 2.5; unit = 'rem';
+      customPreviewText = 'Fluid Typography';
+  };
 
   // Scale Generator State
   let scaleRatio = 1.25; // Major Third by default
@@ -358,7 +391,27 @@ ${calculatedClamp}`,
               </div>
             </div>
 
-            <!-- Viewport Settings -->
+
+      <!-- Smart Presets -->
+      <div class="mb-8">
+        <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">{d.smartPresets || 'Smart Presets'}</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+           <button on:click={() => applyPreset('h1')} class="py-2 px-3 text-xs font-medium rounded-lg bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 transition-colors min-h-[44px] flex flex-col items-center justify-center border border-indigo-100 dark:border-indigo-800">
+             <span class="block">{d.h1Title || 'H1 Title'}</span>
+           </button>
+           <button on:click={() => applyPreset('h2')} class="py-2 px-3 text-xs font-medium rounded-lg bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 transition-colors min-h-[44px] flex flex-col items-center justify-center border border-indigo-100 dark:border-indigo-800">
+             <span class="block">{d.h2Subtitle || 'H2 Subtitle'}</span>
+           </button>
+           <button on:click={() => applyPreset('body')} class="py-2 px-3 text-xs font-medium rounded-lg bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 transition-colors min-h-[44px] flex flex-col items-center justify-center border border-indigo-100 dark:border-indigo-800">
+             <span class="block">{d.bodyText || 'Body Text'}</span>
+           </button>
+           <button on:click={() => applyPreset('spacing')} class="py-2 px-3 text-xs font-medium rounded-lg bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-900/30 dark:hover:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 transition-colors min-h-[44px] flex flex-col items-center justify-center border border-emerald-100 dark:border-emerald-800">
+             <span class="block">{d.spacing || 'Spacing'}</span>
+           </button>
+        </div>
+      </div>
+
+        <!-- Viewport Settings -->
             <div>
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center">
                 <Monitor class="mr-2 h-5 w-5 text-indigo-500" />
@@ -621,7 +674,7 @@ ${calculatedClamp}`,
           on:click={shareResult}
           class="min-h-[44px] sm:col-span-3 flex items-center justify-center space-x-2 bg-indigo-50 dark:bg-indigo-900/50 hover:bg-indigo-100 dark:hover:bg-indigo-800 text-indigo-700 dark:text-indigo-300 rounded-lg transition-colors font-medium text-sm"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>
+          <Share size={18} />
           <span>{d.share || 'Share Result'}</span>
         </button>
       </div>

@@ -28,7 +28,7 @@ export default [
 		ignores: ['build/', '.svelte-kit/', 'dist/']
 	},
 	{
-		files: ['src/lib/components/color-master/UIPreview.svelte', 'src/lib/components/seo-forge/AuditPanel.svelte', 'src/lib/components/seo-forge/PreviewCard.svelte'],
+		files: ['src/lib/components/color-master/UIPreview.svelte', 'src/lib/components/seo-forge/AuditPanel.svelte', 'src/lib/components/seo-forge/PreviewCard.svelte', 'src/lib/components/clamp-forge/ClampBuilder.svelte'],
 		rules: {
 			'@typescript-eslint/no-unused-vars': 'off'
 		}
