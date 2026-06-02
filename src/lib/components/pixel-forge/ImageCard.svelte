@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { Trash2, Download, RefreshCw, FileImage, Sliders, ArrowRight, Eye, Split, Target, Copy, Check } from 'lucide-svelte';
+  import { Trash2, Download, RefreshCw, FileImage, Sliders, ArrowRight, Eye, Split, Target, Copy, Check } from '@lucide/svelte';
   import type { ImageJob, ExportOptions, PixelForgeDictionary } from '$lib/utils/pixel-forge/types';
   import { ImageProcessor } from '$lib/utils/pixel-forge/processor';
   import DiffSlider from './DiffSlider.svelte';

@@ -2,7 +2,7 @@
   import { timeStore } from '$lib/utils/time-forge/store';
   import { findBestMeetingSlots, type MeetingSlot } from '$lib/utils/time-forge/meeting-scheduler';
   import { format } from 'date-fns';
-  import { CalendarCheck, ArrowRight } from 'lucide-svelte';
+  import { CalendarCheck, ArrowRight } from '@lucide/svelte';
   import { createEventDispatcher } from 'svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';

@@ -1,6 +1,6 @@
 <script lang="ts">
   import yaml from 'js-yaml';
-  import { CheckCircle2, XCircle, Trash2 } from 'lucide-svelte';
+  import { CheckCircle2, XCircle, Trash2 } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
 
   export let dict: Record<string, unknown>;

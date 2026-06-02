@@ -11,7 +11,7 @@
   import MatrixEditor from '$lib/components/decision-forge/MatrixEditor.svelte';
   import ResultsChart from '$lib/components/decision-forge/ResultsChart.svelte';
   import HistoryPanel from '$lib/components/decision-forge/HistoryPanel.svelte';
-  import { Download, FileJson, FileSpreadsheet, Sidebar, X, RotateCcw } from 'lucide-svelte';
+  import { Download, FileJson, FileSpreadsheet, Sidebar, X, RotateCcw } from '@lucide/svelte';
   import { fade, slide } from 'svelte/transition';
 
   $: lang = $page.params.lang || 'en';

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { workspace, toggleStar as toggleStarAction, deleteHistoryItem, clearHistory as clearHistoryAction, type ToolHistoryItem } from '$lib/db/workspace';
   import { dictionaries } from '$lib/dictionaries';
-  import { Trash2, RotateCcw, Clock, Star } from 'lucide-svelte';
+  import { Trash2, RotateCcw, Clock, Star } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
   import { browser } from '$app/environment';
 

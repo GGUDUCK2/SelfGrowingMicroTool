@@ -2,7 +2,7 @@
   import { DATABASE_DEFINITIONS } from '$lib/utils/deploy-forge/defaults';
   import type { DatabaseId } from '$lib/utils/deploy-forge/types';
   import { createEventDispatcher } from 'svelte';
-  import { Database } from 'lucide-svelte';
+  import { Database } from '@lucide/svelte';
 
   export let selectedDatabases: DatabaseId[] = [];
   const dispatch = createEventDispatcher();

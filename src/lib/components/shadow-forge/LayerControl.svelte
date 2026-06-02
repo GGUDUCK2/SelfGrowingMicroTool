@@ -1,6 +1,6 @@
 <script lang="ts">
   import { shadowStore } from '$lib/utils/shadow-forge/store';
-  import { Plus, Trash2, GripVertical, ChevronUp, ChevronDown } from 'lucide-svelte';
+  import { Plus, Trash2, GripVertical, ChevronUp, ChevronDown } from '@lucide/svelte';
   import NeumorphismPanel from './NeumorphismPanel.svelte';
 
   export let dict: any;

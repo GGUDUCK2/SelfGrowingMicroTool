@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Copy, Download, Trash2, Wand2, Camera, Wrench, Circle, ArrowRightLeft } from 'lucide-svelte';
+  import { Copy, Download, Trash2, Wand2, Camera, Wrench, Circle, ArrowRightLeft } from '@lucide/svelte';
 
   export let dict: Record<string, string> = {};
   const dispatch = createEventDispatcher();

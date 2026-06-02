@@ -17,7 +17,7 @@
   import { convertData, detectFormat, type Format } from '$lib/utils/structura/converter';
   import { generateCode, type CodeGenLanguage } from '$lib/utils/structura/codegen';
   import { structuraExamples } from '$lib/utils/structura/examples';
-  import { ArrowRight, Settings, Code, History, Zap, Star, Trash2, Network } from 'lucide-svelte';
+  import { ArrowRight, Settings, Code, History, Zap, Star, Trash2, Network } from '@lucide/svelte';
   import { structuraWorkspace } from '$lib/db/workspace';
   import type { StructuraHistory } from '$lib/db';
   import { liveQuery, type Subscription } from 'dexie';

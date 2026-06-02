@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import { fade, scale } from 'svelte/transition';
   import { watermark } from '$lib/utils/pdf-forge/store';
-  import { X } from 'lucide-svelte';
+  import { X } from '@lucide/svelte';
   import type { PdfForgeDictionary } from '$lib/types/pdf-forge';
 
   export let isOpen = false;

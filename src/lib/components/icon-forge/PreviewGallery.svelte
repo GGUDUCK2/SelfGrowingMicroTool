@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import { ShieldCheck, Circle } from 'lucide-svelte';
+  import { ShieldCheck, Circle } from '@lucide/svelte';
   import type { IconConfig } from '$lib/utils/icon-forge/processor';
   import type { IconForgeDictionary } from '$lib/types/icon-forge';
 

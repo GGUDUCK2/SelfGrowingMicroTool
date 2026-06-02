@@ -18,7 +18,7 @@
   import TemplateModal from '$lib/components/prompt-forge/TemplateModal.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
-  import { Menu, X, Save, Copy, Trash2, Download, Code, BookTemplate } from 'lucide-svelte';
+  import { Menu, X, Save, Copy, Trash2, Download, Code, BookTemplate } from '@lucide/svelte';
 
   // Locale
   $: lang = $page.params.lang || 'en';

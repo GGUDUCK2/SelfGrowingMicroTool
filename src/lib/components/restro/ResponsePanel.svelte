@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import Prism from 'prismjs';
   import 'prismjs/components/prism-json';
-  import { Check, Copy } from 'lucide-svelte';
+  import { Check, Copy } from '@lucide/svelte';
   import type { RestroDictionary } from '$lib/types/restro';
 
   export let response: {

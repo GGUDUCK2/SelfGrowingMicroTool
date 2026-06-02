@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Matrix } from '$lib/utils/math-forge/engine';
-  import { Plus, Minus, X, ArrowRight, Trash2 } from 'lucide-svelte';
+  import { Plus, Minus, X, ArrowRight, Trash2 } from '@lucide/svelte';
 
   export let dict: any;
 

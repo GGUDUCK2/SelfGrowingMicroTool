@@ -26,7 +26,7 @@
 
   import { db, saveProject, getRecentProjects, type GeoForgeProject } from '$lib/db/geo-forge';
   import { addToHistory } from '$lib/db/workspace';
-  import { History, Globe, Code, Save, Clock, Layers, Eye, EyeOff, Plus, Trash2, Box, CircleDot, Maximize, Menu, X, CircleHelp } from 'lucide-svelte';
+  import { History, Globe, Code, Save, Clock, Layers, Eye, EyeOff, Plus, Trash2, Box, CircleDot, Maximize, Menu, X, CircleHelp } from '@lucide/svelte';
   import { fade, slide, fly } from 'svelte/transition';
   import { liveQuery } from 'dexie';
   import { v4 as uuidv4 } from 'uuid';

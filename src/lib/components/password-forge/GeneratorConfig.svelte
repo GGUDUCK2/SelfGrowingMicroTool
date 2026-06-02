@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PasswordConfig } from '$lib/utils/password-forge/generator';
-  import { Shield, Shuffle, Copy, Download, Upload } from 'lucide-svelte';
+  import { Shield, Shuffle, Copy, Download, Upload } from '@lucide/svelte';
 
   export let config: PasswordConfig;
   export let dictionary: Record<string, any>;

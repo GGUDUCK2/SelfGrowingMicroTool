@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Search, Filter, X } from 'lucide-svelte';
+  import { Search, Filter, X } from '@lucide/svelte';
 
   export let searchTerm = '';
   export let selectedLevels: Record<string, boolean> = { error: true, warn: true, info: true, debug: true };

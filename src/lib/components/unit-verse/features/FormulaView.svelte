@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Calculator, ArrowRight } from 'lucide-svelte';
+  import { Calculator, ArrowRight } from '@lucide/svelte';
 
   export let formula: string; // e.g., "x * 1.609"
   export let inputValue: number;

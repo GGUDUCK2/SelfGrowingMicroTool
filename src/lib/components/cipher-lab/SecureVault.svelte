@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
   import { encryptData, decryptData } from '$lib/utils/cipher/encryption';
-  import { Copy, Lock, Unlock, ShieldAlert, Save } from 'lucide-svelte';
+  import { Copy, Lock, Unlock, ShieldAlert, Save } from '@lucide/svelte';
   import type { CipherDictionary } from '$lib/types/cipher';
 
   export let dict: CipherDictionary;

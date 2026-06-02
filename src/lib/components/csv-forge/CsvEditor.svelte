@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Plus, Trash2, Download } from 'lucide-svelte';
+  import { Plus, Trash2, Download } from '@lucide/svelte';
 
   export let data: any[][] = [];
   export let dict: any;

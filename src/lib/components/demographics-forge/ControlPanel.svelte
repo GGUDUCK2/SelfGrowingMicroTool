@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Play, Pause, SkipForward, SkipBack } from 'lucide-svelte';
+    import { Play, Pause, SkipForward, SkipBack } from '@lucide/svelte';
     import Button from '$lib/components/Button.svelte';
     import { REGIONS } from './data';
 

@@ -9,7 +9,7 @@
   import { getDictionary } from '$lib/dictionaries';
   import { SqlEngine, type QueryResult, type TableInfo } from '$lib/utils/sql-forge/engine';
   import { db } from '$lib/db';
-  import { Play, Upload, Database, Code, Terminal, Clock, FolderOpen, Menu, X } from 'lucide-svelte';
+  import { Play, Upload, Database, Code, Terminal, Clock, FolderOpen, Menu, X } from '@lucide/svelte';
 
   import SqlEditor from '$lib/components/sql-forge/SqlEditor.svelte';
   import ResultTable from '$lib/components/sql-forge/ResultTable.svelte';

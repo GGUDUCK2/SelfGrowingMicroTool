@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { MathEngine } from '$lib/utils/math-forge/engine';
-  import { Plus, X, RefreshCw } from 'lucide-svelte';
+  import { Plus, X, RefreshCw } from '@lucide/svelte';
 
   export let dict: any;
   const engine = new MathEngine();

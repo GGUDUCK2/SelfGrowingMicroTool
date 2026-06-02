@@ -3,7 +3,7 @@
   import { getHistoryObservable, deleteHistoryItem, clearHistory, toggleStar } from '$lib/db/workspace';
   import type { ToolHistoryItem } from '$lib/db/workspace';
   import { createEventDispatcher } from 'svelte';
-  import { Copy, Trash2, Clock, Star, Terminal, FileCode, MessageSquare } from 'lucide-svelte';
+  import { Copy, Trash2, Clock, Star, Terminal, FileCode, MessageSquare } from '@lucide/svelte';
   import { slide } from 'svelte/transition';
   import type { GitForgeDictionary } from './types';
 

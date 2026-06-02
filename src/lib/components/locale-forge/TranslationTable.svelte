@@ -1,6 +1,6 @@
 <script lang="ts">
   import { projectStore } from '$lib/utils/locale-forge/store';
-  import { Trash2 } from 'lucide-svelte';
+  import { Trash2 } from '@lucide/svelte';
 
   let filter = '';
 

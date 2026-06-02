@@ -1,6 +1,6 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
-  import { Database, History, ChevronRight, ChevronDown, Trash2, Star, Play } from 'lucide-svelte';
+  import { Database, History, ChevronRight, ChevronDown, Trash2, Star, Play } from '@lucide/svelte';
   import type { TableInfo } from '$lib/utils/sql-forge/engine';
   import type { SqlForgeHistory } from '$lib/db';
   import { db } from '$lib/db';

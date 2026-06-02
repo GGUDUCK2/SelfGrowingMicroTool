@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import { db, type SnippetForgeHistory } from '$lib/db';
   import { liveQuery } from 'dexie';
-  import { X, Trash2, Clock } from 'lucide-svelte';
+  import { X, Trash2, Clock } from '@lucide/svelte';
   import { slide } from 'svelte/transition';
 
   export let dict: any;

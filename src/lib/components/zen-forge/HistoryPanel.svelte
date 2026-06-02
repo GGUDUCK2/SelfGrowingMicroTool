@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Trash2, Play, Star } from 'lucide-svelte';
+    import { Trash2, Play, Star } from '@lucide/svelte';
     import { zenStore } from '$lib/stores/zen-forge';
     import { getMixes, deleteMix, toggleStar } from '$lib/db/zen-forge';
     import type { ZenForgeDictionary, ZenForgeMix } from '$lib/types/zen-forge';

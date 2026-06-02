@@ -10,7 +10,7 @@
     generateSvelte
   } from '$lib/utils/grid-master/codegen';
   import { openInStackBlitz, downloadSVG, downloadProjectZip, downloadPNG } from '$lib/utils/grid-master/export';
-  import { Copy, Check, Code, FileCode, Download, Zap, FileType, Boxes, Box, Image, Package, Camera, FileJson } from 'lucide-svelte';
+  import { Copy, Check, Code, FileCode, Download, Zap, FileType, Boxes, Box, Image, Package, Camera, FileJson } from '@lucide/svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
   export let dict: GridMasterDictionary;

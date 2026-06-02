@@ -3,7 +3,7 @@
   import { db, type CipherHistory } from '$lib/db';
   import { cipherWorkspace } from '$lib/db/workspace';
   import { createEventDispatcher } from 'svelte';
-  import { Trash2, Copy, RotateCcw, Star } from 'lucide-svelte';
+  import { Trash2, Copy, RotateCcw, Star } from '@lucide/svelte';
   import type { CipherDictionary } from '$lib/types/cipher';
 
   export let dict: CipherDictionary;

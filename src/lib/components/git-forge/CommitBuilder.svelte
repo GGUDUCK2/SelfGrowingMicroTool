@@ -3,7 +3,7 @@
   import type { CommitMessage } from '$lib/utils/git-forge/types';
   import { generateCommit } from '$lib/utils/git-forge/commits';
   import type { GitForgeDictionary } from './types';
-  import { Copy, Save, AlertTriangle, MessageSquare, Wand2, CheckCircle2, AlertCircle, Share2 } from 'lucide-svelte';
+  import { Copy, Save, AlertTriangle, MessageSquare, Wand2, CheckCircle2, AlertCircle, Share2 } from '@lucide/svelte';
   import { onMount } from 'svelte';
 
   export let dictionary: GitForgeDictionary;

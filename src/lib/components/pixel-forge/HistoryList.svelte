@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { Clock, Trash2, ArrowRight } from 'lucide-svelte';
+  import { Clock, Trash2, ArrowRight } from '@lucide/svelte';
   import type { PixelHistoryItem, PixelForgeDictionary } from '$lib/utils/pixel-forge/types';
   import { getHistory, clearHistory } from '$lib/utils/pixel-forge/db';
   import { format } from 'date-fns';

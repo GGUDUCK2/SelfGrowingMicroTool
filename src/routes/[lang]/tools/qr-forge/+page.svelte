@@ -11,7 +11,7 @@
   import type { QRState } from '$lib/utils/qr-forge/types';
   import { db } from '$lib/db/qr-forge';
   import FAQSection from '$lib/components/FAQSection.svelte';
-  import { Save, History } from 'lucide-svelte';
+  import { Save, History } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
   import { onMount, onDestroy } from 'svelte';
 

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Play, Square, Minus, Plus, Volume2, Share2 } from 'lucide-svelte';
+  import { Play, Square, Minus, Plus, Volume2, Share2 } from '@lucide/svelte';
   import type { RhythmSettings, RhythmForgeDictionary } from '$lib/utils/rhythm-forge/types';
   import { compressState } from '$lib/utils/url-state';
 

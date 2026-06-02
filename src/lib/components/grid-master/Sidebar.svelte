@@ -3,7 +3,7 @@
   import {
     Plus, Trash2, LayoutTemplate, Clock, Settings2, Wand2,
     AlignLeft, AlignCenter, AlignRight, Maximize
-  } from 'lucide-svelte';
+  } from '@lucide/svelte';
   import type { GridMasterDictionary, JustifyItems, AlignItems, JustifyContent, AlignContent } from '$lib/utils/grid-master/types';
   import { templates } from '$lib/utils/grid-master/templates';
   import { generateMagicLayout, generateLayoutFromText, remixLayout } from '$lib/utils/grid-master/generators';

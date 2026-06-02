@@ -13,7 +13,7 @@
   import CodeExport from '$lib/components/shadow-forge/CodeExport.svelte';
   import HistoryPanel from '$lib/components/shadow-forge/HistoryPanel.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
-  import { History, LayoutTemplate } from 'lucide-svelte';
+  import { History, LayoutTemplate } from '@lucide/svelte';
   import { fade, slide } from 'svelte/transition';
 
   $: lang = $page.params.lang || 'en';

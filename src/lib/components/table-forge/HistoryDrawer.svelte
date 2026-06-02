@@ -3,7 +3,7 @@
   import { slide, fade } from 'svelte/transition';
   import { db, type TableForgeHistory } from '$lib/db';
   import { liveQuery } from 'dexie';
-  import { X, Clock, Trash2, RotateCcw } from 'lucide-svelte';
+  import { X, Clock, Trash2, RotateCcw } from '@lucide/svelte';
 
   export let dict: any;
   const dispatch = createEventDispatcher();

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Copy, Save, AlertTriangle, HelpCircle, Terminal } from 'lucide-svelte';
+  import { Copy, Save, AlertTriangle, HelpCircle, Terminal } from '@lucide/svelte';
   import type { GitForgeDictionary } from './types';
 
   export let dictionary: GitForgeDictionary;

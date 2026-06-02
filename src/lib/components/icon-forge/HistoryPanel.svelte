@@ -1,7 +1,7 @@
 <script lang="ts">
   import { liveQuery } from 'dexie';
   import { db, type IconForgeProject } from '$lib/db';
-  import { Star, Trash2, History as HistoryIcon, ArrowUpRight } from 'lucide-svelte';
+  import { Star, Trash2, History as HistoryIcon, ArrowUpRight } from '@lucide/svelte';
   import { createEventDispatcher } from 'svelte';
   import { fade, slide } from 'svelte/transition';
   import type { IconForgeDictionary } from '$lib/types/icon-forge';

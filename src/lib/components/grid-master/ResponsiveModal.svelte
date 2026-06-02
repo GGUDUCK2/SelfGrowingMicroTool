@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { fade, scale } from 'svelte/transition';
-  import { X, Smartphone, Tablet, Monitor } from 'lucide-svelte';
+  import { X, Smartphone, Tablet, Monitor } from '@lucide/svelte';
   import GridCanvas from './GridCanvas.svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 

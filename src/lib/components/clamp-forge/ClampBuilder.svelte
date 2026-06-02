@@ -1,6 +1,6 @@
 <script lang="ts">
 
-  import { Copy, Save, Check, Monitor, Settings2, Share } from 'lucide-svelte';
+  import { Copy, Save, Check, Monitor, Settings2, Share } from '@lucide/svelte';
   import { dictionaries } from '$lib/dictionaries';
   import type { ClampForgeHistory } from '$lib/db';
   import { clampForgeWorkspace } from '$lib/db/workspace';

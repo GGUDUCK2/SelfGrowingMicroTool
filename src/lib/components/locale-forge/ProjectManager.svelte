@@ -3,7 +3,7 @@
   import { localeForgeWorkspace } from '$lib/db/locale-forge';
   import { liveQuery } from 'dexie';
   import { browser } from '$app/environment';
-  import { FolderOpen, Save, Trash2, Plus } from 'lucide-svelte';
+  import { FolderOpen, Save, Trash2, Plus } from '@lucide/svelte';
 
   let projects = liveQuery(() => localeForgeWorkspace.loadAll());
   let showList = false;

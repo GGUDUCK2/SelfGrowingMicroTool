@@ -1,6 +1,6 @@
 <script lang="ts">
   import { flip } from 'svelte/animate';
-  import { Plus } from 'lucide-svelte';
+  import { Plus } from '@lucide/svelte';
   import type { SchemaField } from '$lib/utils/mock-forge/types';
   import FieldRow from './FieldRow.svelte';
 

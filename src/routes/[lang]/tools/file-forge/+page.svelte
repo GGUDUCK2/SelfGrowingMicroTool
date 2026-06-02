@@ -5,7 +5,7 @@
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import { fade } from 'svelte/transition';
-  import { FileBox } from 'lucide-svelte';
+  import { FileBox } from '@lucide/svelte';
   import DropZone from '$lib/components/file-forge/DropZone.svelte';
   import SmartExamples from '$lib/components/file-forge/SmartExamples.svelte';
   import FileDashboard from '$lib/components/file-forge/FileDashboard.svelte';

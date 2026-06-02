@@ -4,7 +4,7 @@
   import { loadSession } from '$lib/utils/pdf-forge/engine';
   import type { PdfForgeDictionary } from '$lib/types/pdf-forge';
   import { fade, fly } from 'svelte/transition';
-  import { X, Trash2, RotateCcw, FileText } from 'lucide-svelte';
+  import { X, Trash2, RotateCcw, FileText } from '@lucide/svelte';
 
   export let dict: PdfForgeDictionary;
   export let isOpen = false;

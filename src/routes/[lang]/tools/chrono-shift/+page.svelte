@@ -7,7 +7,7 @@
     import { onMount } from 'svelte';
     import { getDictionary } from '$lib/dictionaries';
     import { fade, slide } from 'svelte/transition';
-    import { Plus, Download, Copy, Trash2, Save, Share2, Users, Star, Calendar as CalendarIcon, ArrowLeft, ArrowRight, RotateCcw } from 'lucide-svelte';
+    import { Plus, Download, Copy, Trash2, Save, Share2, Users, Star, Calendar as CalendarIcon, ArrowLeft, ArrowRight, RotateCcw } from '@lucide/svelte';
     import { db, type TimeZoneLocation, type TeamGroup } from '$lib/db/chrono-shift';
     import { TimeEngine } from '$lib/utils/chrono-shift/time-engine';
     import LocationCard from './LocationCard.svelte';

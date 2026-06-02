@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import { Gamepad2, AlertCircle } from 'lucide-svelte';
+  import { Gamepad2, AlertCircle } from '@lucide/svelte';
 
   export let dict: any;
   export let onLog: (event: any) => void;

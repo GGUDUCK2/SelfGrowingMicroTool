@@ -1,6 +1,6 @@
 <script lang="ts">
 
-  import { Shield, KeyRound, Sparkles, RefreshCw } from 'lucide-svelte';
+  import { Shield, KeyRound, Sparkles, RefreshCw } from '@lucide/svelte';
   import { generateHmac, ALGORITHMS, type HashAlgorithm, type InputFormat } from '$lib/utils/hash-forge/crypto';
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';

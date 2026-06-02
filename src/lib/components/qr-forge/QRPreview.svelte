@@ -2,7 +2,7 @@
   import { generatePayload } from '$lib/utils/qr-forge/generator';
   import type { QRState } from '$lib/utils/qr-forge/types';
   import QRCode from 'qrcode';
-  import { Download, Copy, Check } from 'lucide-svelte';
+  import { Download, Copy, Check } from '@lucide/svelte';
   import { dictionaries } from '$lib/dictionaries';
 
   export let state: QRState;

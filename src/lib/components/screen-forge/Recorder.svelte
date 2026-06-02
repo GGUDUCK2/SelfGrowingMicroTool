@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import { Mic, MicOff, Monitor, StopCircle, Pause, Play, Video } from 'lucide-svelte';
+  import { Mic, MicOff, Monitor, StopCircle, Pause, Play, Video } from '@lucide/svelte';
   import { ScreenRecorder } from '$lib/utils/screen-forge/recorder';
 
   export let onRecordingComplete: (blob: Blob) => void;

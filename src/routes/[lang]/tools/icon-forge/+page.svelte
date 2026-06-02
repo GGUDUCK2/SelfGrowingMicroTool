@@ -15,7 +15,7 @@
   import HistoryPanel from '$lib/components/icon-forge/HistoryPanel.svelte';
   import type { IconConfig } from '$lib/utils/icon-forge/processor';
   import { db, type IconForgeProject } from '$lib/db';
-  import { Save, Check } from 'lucide-svelte';
+  import { Save, Check } from '@lucide/svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
 
   // Dynamic dictionary loading

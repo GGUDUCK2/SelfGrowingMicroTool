@@ -2,7 +2,7 @@
   import { extractMetadata, type FileMetadata } from '$lib/utils/file-forge/metadata';
   import { convertImage } from '$lib/utils/file-forge/image';
   import { detectFileType } from '$lib/utils/file-forge/signatures';
-  import { Download, File as FileIcon, Image as ImageIcon, ShieldCheck, Check, AlertTriangle, Wand2 } from 'lucide-svelte';
+  import { Download, File as FileIcon, Image as ImageIcon, ShieldCheck, Check, AlertTriangle, Wand2 } from '@lucide/svelte';
   import { onDestroy } from 'svelte';
 
   export let file: File;

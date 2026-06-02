@@ -1,7 +1,7 @@
 <script lang="ts">
   import { db, type TypeForgeHistory } from '$lib/db';
   import { liveQuery } from 'dexie';
-  import { Clock, Star, Trash2, RotateCcw } from 'lucide-svelte';
+  import { Clock, Star, Trash2, RotateCcw } from '@lucide/svelte';
   import { createEventDispatcher } from 'svelte';
 
   export let dict: any;

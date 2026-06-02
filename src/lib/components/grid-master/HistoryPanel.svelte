@@ -4,7 +4,7 @@
   import { downloadPNG } from '$lib/utils/grid-master/export';
   import { liveQuery } from 'dexie';
   import { browser } from '$app/environment';
-  import { Clock, RotateCcw, Star, Trash2, Save, Camera } from 'lucide-svelte';
+  import { Clock, RotateCcw, Star, Trash2, Save, Camera } from '@lucide/svelte';
   import TemplatePreview from './TemplatePreview.svelte';
   import ConfirmDialog from './ConfirmDialog.svelte';
   import type { GridState, GridMasterDictionary } from '$lib/utils/grid-master/types';

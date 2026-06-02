@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resumeStore } from '$lib/utils/resume-forge/store';
   import { createWork, createEducation, createSkill, createProject, createProfile, createAward } from '$lib/utils/resume-forge/types';
-  import { Plus, Trash2, ChevronDown, ChevronUp, User, Briefcase, GraduationCap, Code, FolderGit2, Award, Link } from 'lucide-svelte';
+  import { Plus, Trash2, ChevronDown, ChevronUp, User, Briefcase, GraduationCap, Code, FolderGit2, Award, Link } from '@lucide/svelte';
   import { slide } from 'svelte/transition';
 
   export let dict: any;

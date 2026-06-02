@@ -6,7 +6,7 @@
     Type, LayoutDashboard, BarChart3, Table, FormInput,
     LogIn, Video, Image as ImageIcon, DollarSign, Users,
     Quote, MapPin, Kanban, Rss, Calendar, UserCircle
-  } from 'lucide-svelte';
+  } from '@lucide/svelte';
 
   export let isOpen = false;
   export let areaId: string | null = null;

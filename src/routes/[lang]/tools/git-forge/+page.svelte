@@ -6,7 +6,7 @@
   import { getDictionary } from '$lib/dictionaries';
   import { fade } from 'svelte/transition';
   import { saveToHistory } from '$lib/db/workspace';
-  import { GitBranch, Terminal, FileCode, MessageSquare, ChevronLeft, Check, Stethoscope } from 'lucide-svelte';
+  import { GitBranch, Terminal, FileCode, MessageSquare, ChevronLeft, Check, Stethoscope } from '@lucide/svelte';
 
   import { onMount, onDestroy } from 'svelte';
   import CommandBuilder from '$lib/components/git-forge/CommandBuilder.svelte';

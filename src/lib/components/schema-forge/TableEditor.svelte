@@ -2,7 +2,7 @@
   import type { Table, Column } from '$lib/types/schema-forge';
   import { DATA_TYPES } from '$lib/types/schema-forge';
   import { inferColumnDetails } from '$lib/utils/schema-forge/smart-inference';
-  import { Plus, Trash2, Key, Check, Info, Sparkles } from 'lucide-svelte';
+  import { Plus, Trash2, Key, Check, Info, Sparkles } from '@lucide/svelte';
   import { createEventDispatcher } from 'svelte';
   import { nanoid } from 'nanoid';
   import { slide } from 'svelte/transition';

@@ -11,7 +11,7 @@
   import FileHasher from '$lib/components/hash-forge/FileHasher.svelte';
   import HmacGenerator from '$lib/components/hash-forge/HmacGenerator.svelte';
   import HistorySidebar from '$lib/components/hash-forge/HistorySidebar.svelte';
-  import { Shield, FileText, KeyRound, Clock, Hash } from 'lucide-svelte';
+  import { Shield, FileText, KeyRound, Clock, Hash } from '@lucide/svelte';
 
   import type { HashForgeHistoryItem } from '$lib/db/hash-forge';
 

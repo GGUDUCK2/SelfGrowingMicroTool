@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Check, X, Split, GitMerge } from 'lucide-svelte';
+  import { Check, X, Split, GitMerge } from '@lucide/svelte';
 
   export let content: string;
   export let translations: any;

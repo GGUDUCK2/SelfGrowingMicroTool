@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Copy, Check, Download, History, RefreshCcw } from 'lucide-svelte';
+  import { Copy, Check, Download, History, RefreshCcw } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
 
   export let text: string = "";

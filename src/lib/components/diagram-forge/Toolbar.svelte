@@ -8,7 +8,7 @@
     Save,
     LayoutTemplate,
     Palette
-  } from 'lucide-svelte';
+  } from '@lucide/svelte';
   import { templates } from '$lib/utils/diagram-forge/templates';
 
   export let theme: string = 'default';

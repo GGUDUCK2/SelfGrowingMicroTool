@@ -1,7 +1,7 @@
 <script lang="ts">
   import { db, type RestroRequest, type RestroVariable } from '$lib/db/restro';
   import { executeRequest, substituteVariables } from '$lib/utils/restro/client';
-  import { Play, Loader2, CheckCircle, XCircle, AlertCircle } from 'lucide-svelte';
+  import { Play, Loader2, CheckCircle, XCircle, AlertCircle } from '@lucide/svelte';
   import { liveQuery } from 'dexie';
 
   export let requests: RestroRequest[] = []; // Requests to run

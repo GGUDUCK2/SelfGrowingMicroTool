@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { categories, type CategoryDefinition } from '$lib/utils/unit-verse/definitions';
-  import { Ruler, Scale, Box, Mountain, Thermometer, Clock, Monitor, Gauge, Activity, Zap, Radio, ZapOff } from 'lucide-svelte';
+  import { Ruler, Scale, Box, Mountain, Thermometer, Clock, Monitor, Gauge, Activity, Zap, Radio, ZapOff } from '@lucide/svelte';
 
   export let selectedCategory: string;
   export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any

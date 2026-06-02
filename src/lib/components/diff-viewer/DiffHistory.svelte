@@ -2,7 +2,7 @@
   import { liveQuery } from 'dexie';
   import { db, type DiffHistory } from '$lib/db';
   import { slide } from 'svelte/transition';
-  import { Trash2, RotateCcw, Star, Calendar } from 'lucide-svelte';
+  import { Trash2, RotateCcw, Star, Calendar } from '@lucide/svelte';
 
   // Explicitly define the translation type
   type DiffHistoryTranslations = {

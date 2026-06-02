@@ -3,7 +3,7 @@
   import { matrixStore } from '$lib/utils/decision-forge/store';
   import { liveQuery } from 'dexie';
   import { formatDistanceToNow } from 'date-fns';
-  import { Trash2, Star, Save, FolderOpen } from 'lucide-svelte';
+  import { Trash2, Star, Save, FolderOpen } from '@lucide/svelte';
   import { fade, slide } from 'svelte/transition';
 
   let savedMatrices = liveQuery(() => db.decisionForgeMatrices.orderBy('createdAt').reverse().toArray());

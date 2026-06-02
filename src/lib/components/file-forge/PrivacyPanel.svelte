@@ -1,6 +1,6 @@
 <script lang="ts">
   import { slide, fade } from 'svelte/transition';
-  import { Shield, ShieldAlert, ShieldCheck, Download, RefreshCw, AlertCircle } from 'lucide-svelte';
+  import { Shield, ShieldAlert, ShieldCheck, Download, RefreshCw, AlertCircle } from '@lucide/svelte';
   import { stripImageMetadata, stripPdfMetadata } from '$lib/utils/file-forge/sanitize';
   import { onDestroy } from 'svelte';
   import { dictionaries } from '$lib/dictionaries';

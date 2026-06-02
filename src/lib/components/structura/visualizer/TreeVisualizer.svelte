@@ -1,6 +1,6 @@
 <script lang="ts">
   import TreeNode from './TreeNode.svelte';
-  import { Search, Expand, Minimize2 } from 'lucide-svelte';
+  import { Search, Expand, Minimize2 } from '@lucide/svelte';
 
   export let data: any;
 

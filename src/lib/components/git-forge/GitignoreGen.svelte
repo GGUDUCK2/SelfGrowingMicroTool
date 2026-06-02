@@ -3,7 +3,7 @@
   import { TEMPLATES } from '$lib/utils/git-forge/templates';
   import type { GitignoreTemplate } from '$lib/utils/git-forge/types';
   import type { GitForgeDictionary } from './types';
-  import { Download, Copy, Search, X, Check, Save } from 'lucide-svelte';
+  import { Download, Copy, Search, X, Check, Save } from '@lucide/svelte';
 
   export let dictionary: GitForgeDictionary;
 

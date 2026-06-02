@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Upload, FileText } from 'lucide-svelte';
+  import { Upload, FileText } from '@lucide/svelte';
   import type { PdfForgeDictionary } from '$lib/types/pdf-forge';
 
   export let dict: PdfForgeDictionary;

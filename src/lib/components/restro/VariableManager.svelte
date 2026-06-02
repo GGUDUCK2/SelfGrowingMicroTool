@@ -1,7 +1,7 @@
 <script lang="ts">
   import { db, type RestroVariable } from '$lib/db/restro';
   import { liveQuery } from 'dexie';
-  import { Plus, Trash2, Save, X } from 'lucide-svelte';
+  import { Plus, Trash2, Save, X } from '@lucide/svelte';
   import { onMount } from 'svelte';
 
   export let onClose: () => void;

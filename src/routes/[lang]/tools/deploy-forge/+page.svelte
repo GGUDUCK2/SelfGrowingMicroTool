@@ -6,7 +6,7 @@
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
-  import { MoveLeft, Download, Save, History, Share2, FileCode, Layers, FileJson, FileText } from 'lucide-svelte';
+  import { MoveLeft, Download, Save, History, Share2, FileCode, Layers, FileJson, FileText } from '@lucide/svelte';
   import JSZip from 'jszip';
 
   import StackSelector from './components/StackSelector.svelte';

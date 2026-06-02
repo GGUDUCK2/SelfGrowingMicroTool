@@ -2,7 +2,7 @@
 
   import yaml from 'js-yaml';
   import { saveToHistory, type YamlForgeHistoryItem } from '$lib/db/yaml-forge';
-  import { Copy, Download, Trash2, ArrowRightLeft, Check, AlertCircle } from 'lucide-svelte';
+  import { Copy, Download, Trash2, ArrowRightLeft, Check, AlertCircle } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
 
   export let dict: Record<string, unknown>;

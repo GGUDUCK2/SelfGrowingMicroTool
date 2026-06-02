@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import JSZip from 'jszip';
-  import { Download, Trash2, Settings, Plus, Archive, History, Sliders, Type } from 'lucide-svelte';
+  import { Download, Trash2, Settings, Plus, Archive, History, Sliders, Type } from '@lucide/svelte';
   import DropZone from './DropZone.svelte';
   import ImageCard from './ImageCard.svelte';
   import HistoryList from './HistoryList.svelte';

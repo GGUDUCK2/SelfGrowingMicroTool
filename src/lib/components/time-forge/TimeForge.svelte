@@ -6,7 +6,7 @@
   import TeamManager from './TeamManager.svelte';
   import MeetingSuggestions from './MeetingSuggestions.svelte';
   import ShortcutsModal from './ShortcutsModal.svelte';
-  import { RotateCcw, Share2, Users, Briefcase, Calendar, Sparkles, HelpCircle } from 'lucide-svelte';
+  import { RotateCcw, Share2, Users, Briefcase, Calendar, Sparkles, HelpCircle } from '@lucide/svelte';
   import { format } from 'date-fns';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';

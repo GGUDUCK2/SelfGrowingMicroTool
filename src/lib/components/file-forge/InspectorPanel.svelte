@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { FileSearch, Activity, AlertTriangle, ScanEye, FileArchive, FileText, Binary, Edit2, Save, RotateCcw, Download, TextSelect } from 'lucide-svelte';
+  import { FileSearch, Activity, AlertTriangle, ScanEye, FileArchive, FileText, Binary, Edit2, Save, RotateCcw, Download, TextSelect } from '@lucide/svelte';
   import { detectFileType } from '$lib/utils/file-forge/signatures';
   import { calculateEntropy, calculateEntropyMap } from '$lib/utils/file-forge/analysis';
   import { calculateRiskScore, type RiskAnalysis } from '$lib/utils/file-forge/risk';

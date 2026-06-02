@@ -1,6 +1,6 @@
 <script lang="ts">
   import { convertImage } from '$lib/utils/file-forge/image';
-  import { Download, RefreshCw, AlertCircle } from 'lucide-svelte';
+  import { Download, RefreshCw, AlertCircle } from '@lucide/svelte';
 
 
   export let file: File;

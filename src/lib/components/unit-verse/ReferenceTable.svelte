@@ -1,7 +1,7 @@
 <script lang="ts">
   import { categories, type UnitDefinition } from '$lib/utils/unit-verse/definitions';
   import { unitEngine } from '$lib/utils/unit-verse/engine';
-  import { Copy, Check } from 'lucide-svelte';
+  import { Copy, Check } from '@lucide/svelte';
   import { slide } from 'svelte/transition';
 
   export let selectedCategory: string;
