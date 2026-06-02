@@ -1,7 +1,7 @@
 <script lang="ts">
   import { liveQuery } from 'dexie';
   import { db, type RhythmForgePlaylist } from '$lib/db';
-  import { Plus, Play, Trash2, ListMusic, Save, MoreVertical, ChevronUp, ChevronDown } from 'lucide-svelte';
+  import { Plus, Play, Trash2, ListMusic, Save, MoreVertical, ChevronUp, ChevronDown } from '@lucide/svelte';
   import { createEventDispatcher } from 'svelte';
   import type { RhythmSettings, RhythmForgeDictionary } from '$lib/utils/rhythm-forge/types';
 

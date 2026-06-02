@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Layers, Plus, Eye, EyeOff, Trash2, Box, Maximize, History, Star, RotateCcw, Clipboard } from 'lucide-svelte';
+  import { Layers, Plus, Eye, EyeOff, Trash2, Box, Maximize, History, Star, RotateCcw, Clipboard } from '@lucide/svelte';
   import StatsPanel from './StatsPanel.svelte';
   import type { Layer } from '$lib/utils/geo-forge/types';
   import { detectAndParse } from '$lib/utils/geo-forge/parser';

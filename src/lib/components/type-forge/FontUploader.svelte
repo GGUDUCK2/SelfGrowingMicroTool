@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Upload, Type } from 'lucide-svelte';
+  import { Upload, Type } from '@lucide/svelte';
   import { loadFont } from '$lib/utils/type-forge/loader';
 
   export let dict: any;

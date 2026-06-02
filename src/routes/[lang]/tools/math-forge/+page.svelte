@@ -15,7 +15,7 @@
   import HistoryPanel from '$lib/components/math-forge/HistoryPanel.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
-  import { Calculator as CalcIcon, LineChart, Grid3X3, BarChart, History, ChevronLeft } from 'lucide-svelte';
+  import { Calculator as CalcIcon, LineChart, Grid3X3, BarChart, History, ChevronLeft } from '@lucide/svelte';
 
   $: lang = $page.params.lang || 'en';
   // Use fallback if dictionary is missing to avoid crash

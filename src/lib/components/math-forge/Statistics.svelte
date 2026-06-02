@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Statistics } from '$lib/utils/math-forge/engine';
-  import { Calculator, BarChart3, List } from 'lucide-svelte';
+  import { Calculator, BarChart3, List } from '@lucide/svelte';
 
   export let dict: any;
 

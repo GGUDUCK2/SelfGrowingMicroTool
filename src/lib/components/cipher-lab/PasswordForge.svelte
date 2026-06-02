@@ -2,7 +2,7 @@
   import { createEventDispatcher, onMount } from 'svelte';
   import { slide } from 'svelte/transition';
   import { generatePassword, calculateEntropy, estimateCrackTime, type PasswordOptions } from '$lib/utils/cipher/password';
-  import { Copy, Save, RefreshCw } from 'lucide-svelte';
+  import { Copy, Save, RefreshCw } from '@lucide/svelte';
   import type { CipherDictionary } from '$lib/types/cipher';
 
   export let dict: CipherDictionary;

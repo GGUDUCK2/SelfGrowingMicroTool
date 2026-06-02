@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { Monitor, Smartphone, Cpu, Wifi } from 'lucide-svelte';
+  import { Monitor, Smartphone, Cpu, Wifi } from '@lucide/svelte';
 
   export let dict: any;
 

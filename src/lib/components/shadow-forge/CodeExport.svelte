@@ -1,6 +1,6 @@
 <script lang="ts">
   import { shadowStore, generateShadowCSS, getNeumorphismBackground } from '$lib/utils/shadow-forge/store';
-  import { Copy, Save, Check } from 'lucide-svelte';
+  import { Copy, Save, Check } from '@lucide/svelte';
   import { createEventDispatcher } from 'svelte';
 
   export let dict: any;

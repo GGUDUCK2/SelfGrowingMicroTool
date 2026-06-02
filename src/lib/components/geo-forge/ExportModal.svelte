@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { X, Download, Copy, Check } from 'lucide-svelte';
+  import { X, Download, Copy, Check } from '@lucide/svelte';
   import { fade, fly } from 'svelte/transition';
   import { toWKT, toCSV, toKML, toGPX } from '$lib/utils/geo-forge';
   import type { GeoJSON } from '$lib/utils/geo-forge/types';

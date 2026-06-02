@@ -3,7 +3,7 @@
   import { liveQuery } from 'dexie';
   import { db } from '$lib/db';
   import { formatDistanceToNow } from 'date-fns';
-  import { FileSpreadsheet, Trash2, Clock, Star } from 'lucide-svelte';
+  import { FileSpreadsheet, Trash2, Clock, Star } from '@lucide/svelte';
   import type { CsvForgeHistory } from '$lib/db';
 
   export let dict: any;

@@ -2,7 +2,7 @@
   import { liveQuery } from 'dexie';
   import { db } from '$lib/db';
   import { resumeStore } from '$lib/utils/resume-forge/store';
-  import { Trash2, FolderOpen, Clock } from 'lucide-svelte';
+  import { Trash2, FolderOpen, Clock } from '@lucide/svelte';
   import { formatDistanceToNow } from 'date-fns';
 
   export let dict: any;

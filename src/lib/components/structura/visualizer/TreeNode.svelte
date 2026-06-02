@@ -1,6 +1,6 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
-  import { ChevronRight, ChevronDown, Braces, Brackets, Hash, Type, FileJson } from 'lucide-svelte';
+  import { ChevronRight, ChevronDown, Braces, Brackets, Hash, Type, FileJson } from '@lucide/svelte';
 
   export let key: string | null = null;
   export let value: any;

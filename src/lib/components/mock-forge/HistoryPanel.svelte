@@ -1,7 +1,7 @@
 <script lang="ts">
   import { liveQuery } from 'dexie';
   import { db, type MockForgeSchema } from '$lib/db';
-  import { Trash2, FolderOpen, Star, Clock } from 'lucide-svelte';
+  import { Trash2, FolderOpen, Star, Clock } from '@lucide/svelte';
   import { slide } from 'svelte/transition';
   import { browser } from '$app/environment';
 

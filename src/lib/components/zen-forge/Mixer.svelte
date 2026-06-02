@@ -3,7 +3,7 @@
     import { engine, type SoundId } from '$lib/utils/zen-forge/engine';
     import type { ZenForgeDictionary } from '$lib/types/zen-forge';
     import SoundCard from './SoundCard.svelte';
-    import { CloudRain, Wind, Waves, Brain, Activity, Zap, Fan, Disc, Sparkles, CloudLightning, Bird, Bell, Bug, Flame } from 'lucide-svelte';
+    import { CloudRain, Wind, Waves, Brain, Activity, Zap, Fan, Disc, Sparkles, CloudLightning, Bird, Bell, Bug, Flame } from '@lucide/svelte';
 
     export let dict: ZenForgeDictionary;
 

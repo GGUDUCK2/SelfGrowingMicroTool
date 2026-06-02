@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { History, Trash2, ArrowRight, Star } from 'lucide-svelte';
+  import { History, Trash2, ArrowRight, Star } from '@lucide/svelte';
   import { workspace, type ToolHistoryItem, clearHistory, deleteHistoryItem, toggleStar } from '$lib/db/workspace';
   import { liveQuery } from 'dexie';
 

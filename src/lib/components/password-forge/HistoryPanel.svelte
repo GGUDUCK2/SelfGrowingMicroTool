@@ -2,7 +2,7 @@
   import { db } from '$lib/db';
   import { liveQuery } from 'dexie';
   import type { PasswordForgeHistory } from '$lib/types/password-forge';
-  import { Copy, Trash2, Shield, Hash, Star, Download, AlertTriangle } from 'lucide-svelte';
+  import { Copy, Trash2, Shield, Hash, Star, Download, AlertTriangle } from '@lucide/svelte';
 
   export let dictionary: Record<string, any>;
 

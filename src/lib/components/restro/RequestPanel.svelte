@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Play, Save, Loader2 } from 'lucide-svelte';
+  import { Play, Save, Loader2 } from '@lucide/svelte';
   import type { RestroDictionary } from '$lib/types/restro';
 
   export let method: string;

@@ -8,7 +8,7 @@
     Search, Plus, Trash2, RotateCcw,
     Smartphone, Monitor, Download, Moon,
     History, FileCode, Wand2
-  } from 'lucide-svelte';
+  } from '@lucide/svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
   export let dict: GridMasterDictionary;

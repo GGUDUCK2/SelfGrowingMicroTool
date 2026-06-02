@@ -12,7 +12,7 @@
   import HistorySidebar from '$lib/components/diagram-forge/HistorySidebar.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
-  import { Menu, X } from 'lucide-svelte';
+  import { Menu, X } from '@lucide/svelte';
   import type { DiagramTemplate } from '$lib/utils/diagram-forge/types';
   import { templates } from '$lib/utils/diagram-forge/templates';
 

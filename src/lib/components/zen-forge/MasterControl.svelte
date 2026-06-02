@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Play, Pause, RefreshCw, Mic, Square, Share2, Maximize2, Headphones } from 'lucide-svelte';
+    import { Play, Pause, RefreshCw, Mic, Square, Share2, Maximize2, Headphones } from '@lucide/svelte';
     import { engine } from '$lib/utils/zen-forge/engine';
     import { zenStore } from '$lib/stores/zen-forge';
     import { createEventDispatcher } from 'svelte';

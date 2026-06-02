@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Download, Trash2, Filter } from 'lucide-svelte';
+  import { Download, Trash2, Filter } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
 
   export let dict: any;

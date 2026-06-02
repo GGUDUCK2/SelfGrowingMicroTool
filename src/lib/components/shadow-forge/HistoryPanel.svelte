@@ -3,7 +3,7 @@
   import { shadowStore, type ShadowConfig } from '$lib/utils/shadow-forge/store';
   import { getHistoryObservable } from '$lib/db/workspace';
   import { workspace } from '$lib/db/workspace';
-  import { Trash2, Clock, X } from 'lucide-svelte';
+  import { Trash2, Clock, X } from '@lucide/svelte';
   import { fade, fly } from 'svelte/transition';
 
   export let dict: any;

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { liveQuery } from 'dexie';
   import { db, type RhythmForgePreset, type RhythmForgeHistory } from '$lib/db';
-  import { Save, Trash2, Play, Star, Bookmark, History, Clock, Library } from 'lucide-svelte';
+  import { Save, Trash2, Play, Star, Bookmark, History, Clock, Library } from '@lucide/svelte';
   import { createEventDispatcher } from 'svelte';
   import type { RhythmSettings, RhythmForgeDictionary } from '$lib/utils/rhythm-forge/types';
   import { BUILT_IN_PRESETS, type RhythmPreset } from '$lib/utils/rhythm-forge/presets';

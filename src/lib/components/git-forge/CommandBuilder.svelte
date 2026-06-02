@@ -3,7 +3,7 @@
   import { COMMANDS, generateCommand } from '$lib/utils/git-forge/commands';
   import type { CommandDefinition } from '$lib/utils/git-forge/types';
   import type { GitForgeDictionary } from './types';
-  import { Copy, Terminal, Save, HelpCircle, Zap, Code } from 'lucide-svelte';
+  import { Copy, Terminal, Save, HelpCircle, Zap, Code } from '@lucide/svelte';
 
   export let dictionary: GitForgeDictionary;
 

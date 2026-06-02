@@ -1,6 +1,6 @@
 <script lang="ts">
   import { calculateHash } from '$lib/utils/file-forge/hash';
-  import { FileDiff, CheckCircle, XCircle, UploadCloud, Binary, GitCompare, Image as ImageIcon } from 'lucide-svelte';
+  import { FileDiff, CheckCircle, XCircle, UploadCloud, Binary, GitCompare, Image as ImageIcon } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
   import { onDestroy } from 'svelte';
 

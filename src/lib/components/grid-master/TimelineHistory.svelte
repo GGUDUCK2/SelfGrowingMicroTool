@@ -1,7 +1,7 @@
 <script lang="ts">
   import { gridStore } from '$lib/utils/grid-master/store';
   import { slide } from 'svelte/transition';
-  import { Clock, ChevronRight } from 'lucide-svelte';
+  import { Clock, ChevronRight } from '@lucide/svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
   export let dict: GridMasterDictionary;

@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import type { City } from '$lib/utils/time-forge/cities';
   import { format, getHours } from 'date-fns';
-  import { X, Home, Clock, AlertCircle } from 'lucide-svelte';
+  import { X, Home, Clock, AlertCircle } from '@lucide/svelte';
   import { timeStore } from '$lib/utils/time-forge/store';
   import { getSlotStatus } from '$lib/utils/time-forge/meeting-scheduler';
   import TimelineBar from './TimelineBar.svelte';

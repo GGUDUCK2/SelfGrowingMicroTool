@@ -1,7 +1,7 @@
 <script lang="ts">
   import { liveQuery } from 'dexie';
   import { db, type DiagramForgeHistory } from '$lib/db';
-  import { Star, Trash2, Clock } from 'lucide-svelte';
+  import { Star, Trash2, Clock } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
 
   export let dict: any;

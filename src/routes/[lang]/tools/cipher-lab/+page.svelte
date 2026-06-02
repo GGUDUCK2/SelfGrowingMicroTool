@@ -16,7 +16,7 @@
   import KeyGenerator from '$lib/components/cipher-lab/KeyGenerator.svelte';
   import SecureVault from '$lib/components/cipher-lab/SecureVault.svelte';
   import HistoryPanel from '$lib/components/cipher-lab/HistoryPanel.svelte';
-  import { Shield, Hash, Code, Key, Lock, Check, Star, KeyRound, Vault } from 'lucide-svelte';
+  import { Shield, Hash, Code, Key, Lock, Check, Star, KeyRound, Vault } from '@lucide/svelte';
   import { onMount, onDestroy } from 'svelte';
 
   $: lang = $page.params.lang || 'en';

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Settings, FileText, Type, Hash, Binary } from 'lucide-svelte';
+  import { Settings, FileText, Type, Hash, Binary } from '@lucide/svelte';
   import type { DictionaryType, TargetType, FormatType } from '$lib/utils/lorem-forge/generator';
 
   export let dict: any; // Translation dictionary

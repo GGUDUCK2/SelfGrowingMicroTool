@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Save, Folder, Trash2, Star, Sparkles } from 'lucide-svelte';
+    import { Save, Folder, Trash2, Star, Sparkles } from '@lucide/svelte';
     import type { ZenForgeDictionary } from '$lib/types/zen-forge';
     import { getMixes, deleteMix, toggleStar } from '$lib/db/zen-forge';
     import { zenStore } from '$lib/stores/zen-forge';

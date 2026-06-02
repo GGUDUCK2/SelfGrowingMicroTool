@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { Check, Copy } from 'lucide-svelte';
+  import { Check, Copy } from '@lucide/svelte';
 
   export let code: string;
   export let language: string = 'docker';

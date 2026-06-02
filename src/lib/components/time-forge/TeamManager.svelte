@@ -3,7 +3,7 @@
   import { timeStore } from '$lib/utils/time-forge/store';
   import { type City, POPULAR_CITIES } from '$lib/utils/time-forge/cities';
   import { getTeams, saveTeam, deleteTeam, type TimeForgeTeam } from '$lib/utils/time-forge/db';
-  import { Save, Trash2, FolderOpen } from 'lucide-svelte';
+  import { Save, Trash2, FolderOpen } from '@lucide/svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';
 

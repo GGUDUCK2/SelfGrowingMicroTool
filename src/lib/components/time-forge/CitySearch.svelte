@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { POPULAR_CITIES, type City } from '$lib/utils/time-forge/cities';
-  import { Search, MapPin, Plus } from 'lucide-svelte';
+  import { Search, MapPin, Plus } from '@lucide/svelte';
 
   const dispatch = createEventDispatcher<{
     add: City;

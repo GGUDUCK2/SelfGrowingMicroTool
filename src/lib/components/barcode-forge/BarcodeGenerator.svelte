@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { slide } from 'svelte/transition';
-  import { Download, Save, History as HistoryIcon, Copy, FileText, Settings, X, Plus } from 'lucide-svelte';
+  import { Download, Save, History as HistoryIcon, Copy, FileText, Settings, X, Plus } from '@lucide/svelte';
   import { dictionaries } from '$lib/dictionaries';
   import BarcodePreview from './BarcodePreview.svelte';
   import BarcodeHistory from './BarcodeHistory.svelte';

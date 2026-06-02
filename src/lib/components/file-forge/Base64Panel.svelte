@@ -1,6 +1,6 @@
 <script lang="ts">
 
-  import { Copy, Check, Download } from 'lucide-svelte';
+  import { Copy, Check, Download } from '@lucide/svelte';
 
   export let file: File;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

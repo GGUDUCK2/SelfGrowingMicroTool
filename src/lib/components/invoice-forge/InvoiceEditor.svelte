@@ -1,6 +1,6 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
-  import { Plus, Trash2, Upload, X } from 'lucide-svelte';
+  import { Plus, Trash2, Upload, X } from '@lucide/svelte';
   import type { Invoice, InvoiceClient } from '$lib/utils/invoice-forge/types';
   import { v4 as uuidv4 } from 'uuid';
 

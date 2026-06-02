@@ -9,7 +9,7 @@
   import { fade } from 'svelte/transition';
   import { KeyForgeEngine } from '$lib/utils/key-forge/engine';
   import type { GameConfig } from '$lib/utils/key-forge/types';
-  import { Keyboard, RotateCcw, Settings, ChevronLeft, Zap } from 'lucide-svelte';
+  import { Keyboard, RotateCcw, Settings, ChevronLeft, Zap } from '@lucide/svelte';
 
   import TypingArea from '$lib/components/key-forge/TypingArea.svelte';
   import StatsDisplay from '$lib/components/key-forge/StatsDisplay.svelte';

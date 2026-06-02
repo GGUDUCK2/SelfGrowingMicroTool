@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { LoadedFont, VariableAxis } from '$lib/utils/type-forge/types';
-  import { Copy, Check } from 'lucide-svelte';
+  import { Copy, Check } from '@lucide/svelte';
 
   export let font: LoadedFont;
   export let axes: VariableAxis[];

@@ -16,7 +16,7 @@
   import HistoryPanel from '$lib/components/mock-forge/HistoryPanel.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
-  import { Save, RefreshCw, Check } from 'lucide-svelte';
+  import { Save, RefreshCw, Check } from '@lucide/svelte';
 
   // Dictionary
   $: lang = $page.params.lang || 'en';

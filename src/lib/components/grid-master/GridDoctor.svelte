@@ -3,7 +3,7 @@
   import { slide } from 'svelte/transition';
   import { gridStore } from '$lib/utils/grid-master/store';
   import { analyzeGrid } from '$lib/utils/grid-master/doctor';
-  import { X, AlertTriangle, AlertCircle, Info, CheckCircle, Activity } from 'lucide-svelte';
+  import { X, AlertTriangle, AlertCircle, Info, CheckCircle, Activity } from '@lucide/svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
   export let dict: GridMasterDictionary;

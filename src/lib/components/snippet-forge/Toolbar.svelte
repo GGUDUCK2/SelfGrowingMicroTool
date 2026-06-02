@@ -1,7 +1,7 @@
 <script lang="ts">
   import { toPng } from 'html-to-image';
   import { createEventDispatcher } from 'svelte';
-  import { Download, Copy, Save, Check } from 'lucide-svelte';
+  import { Download, Copy, Save, Check } from '@lucide/svelte';
 
   export let dict: any;
 

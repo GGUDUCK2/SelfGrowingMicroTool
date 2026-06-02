@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import { RotateCcw, Keyboard as KeyboardIcon, Activity } from 'lucide-svelte';
+  import { RotateCcw, Keyboard as KeyboardIcon, Activity } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
 
   export let dict: any;

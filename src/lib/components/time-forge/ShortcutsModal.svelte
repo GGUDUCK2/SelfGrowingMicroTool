@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { X, Keyboard } from 'lucide-svelte';
+  import { X, Keyboard } from '@lucide/svelte';
   import { createEventDispatcher, onMount } from 'svelte';
   import { getDictionary } from '$lib/dictionaries';
   import { page } from '$app/stores';

@@ -2,7 +2,7 @@
     import { createEventDispatcher } from 'svelte';
     import type { TimeSlot } from '$lib/utils/chrono-shift/time-engine';
     import { TimeEngine } from '$lib/utils/chrono-shift/time-engine';
-    import { X, Clock, Sun, Moon, Sunrise, Sunset } from 'lucide-svelte';
+    import { X, Clock, Sun, Moon, Sunrise, Sunset } from '@lucide/svelte';
     import type { TimeZoneLocation } from '$lib/db/chrono-shift';
 
     export let location: TimeZoneLocation;

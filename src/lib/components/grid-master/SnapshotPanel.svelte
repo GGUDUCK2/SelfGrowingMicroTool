@@ -1,6 +1,6 @@
 <script lang="ts">
   import { gridStore, snapshotStore, type Snapshot } from '$lib/utils/grid-master/store';
-  import { Camera, Trash2, RotateCcw } from 'lucide-svelte';
+  import { Camera, Trash2, RotateCcw } from '@lucide/svelte';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 
   export let dict: GridMasterDictionary;

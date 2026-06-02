@@ -2,7 +2,7 @@
   import { dictionaries } from '$lib/dictionaries';
   import JSZip from 'jszip';
   import JsBarcode from 'jsbarcode';
-  import { Download } from 'lucide-svelte';
+  import { Download } from '@lucide/svelte';
   import { slide } from 'svelte/transition';
 
   export let lang: string = 'en';

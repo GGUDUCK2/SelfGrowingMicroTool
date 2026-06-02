@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Upload, X, FileJson, FileSpreadsheet } from 'lucide-svelte';
+  import { Upload, X, FileJson, FileSpreadsheet } from '@lucide/svelte';
   import Papa from 'papaparse';
 
   export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any

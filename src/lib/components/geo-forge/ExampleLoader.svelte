@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Map } from 'lucide-svelte';
+  import { Map } from '@lucide/svelte';
 
   export let dict: Record<string, unknown> = {};
   const dispatch = createEventDispatcher();

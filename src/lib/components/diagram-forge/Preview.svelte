@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { initMermaid, renderDiagram } from '$lib/utils/diagram-forge/renderer';
-  import { Loader2, AlertCircle } from 'lucide-svelte';
+  import { Loader2, AlertCircle } from '@lucide/svelte';
 
   export let code: string;
   export let theme: string = 'default';

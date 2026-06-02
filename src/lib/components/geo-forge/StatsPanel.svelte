@@ -1,7 +1,7 @@
 <script lang="ts">
   import { calculateArea, calculateLength, getCentroid } from '$lib/utils/geo-forge';
   import type { GeoJSON } from '$lib/utils/geo-forge';
-  import { Ruler, BoxSelect, MapPin, Hash } from 'lucide-svelte';
+  import { Ruler, BoxSelect, MapPin, Hash } from '@lucide/svelte';
 
   export let geo: GeoJSON | null = null;
   export let dict: Record<string, string> = {};

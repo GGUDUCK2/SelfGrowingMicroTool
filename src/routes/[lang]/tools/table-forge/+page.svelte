@@ -14,7 +14,7 @@
   import HistoryDrawer from '$lib/components/table-forge/HistoryDrawer.svelte';
   import InputModal from '$lib/components/table-forge/InputModal.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
-  import { FileText, History as HistoryIcon, Wand2 } from 'lucide-svelte';
+  import { FileText, History as HistoryIcon, Wand2 } from '@lucide/svelte';
   import { fade, slide } from 'svelte/transition';
 
   $: lang = $page.params.lang || 'en';

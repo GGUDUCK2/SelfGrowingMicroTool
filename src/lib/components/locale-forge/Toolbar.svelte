@@ -2,7 +2,7 @@
   import { projectStore } from '$lib/utils/locale-forge/store';
   import { unflatten } from '$lib/utils/locale-forge/flattener';
   import JSZip from 'jszip';
-  import { Download, Wand2, Trash2 } from 'lucide-svelte';
+  import { Download, Wand2, Trash2 } from '@lucide/svelte';
 
   function autoFill() {
       const languages = $projectStore.languages;

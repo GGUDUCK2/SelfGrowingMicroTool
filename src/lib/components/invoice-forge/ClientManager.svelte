@@ -1,7 +1,7 @@
 <script lang="ts">
   import { db, type InvoiceClient } from '$lib/db';
   import { liveQuery } from 'dexie';
-  import { Plus, Trash2, User } from 'lucide-svelte';
+  import { Plus, Trash2, User } from '@lucide/svelte';
 
   export let dictionary: Record<string, any>;
 

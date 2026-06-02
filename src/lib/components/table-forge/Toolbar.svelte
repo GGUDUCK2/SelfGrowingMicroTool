@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { FileUp, Save, Copy, Download, ArrowRightLeft, AlignLeft, Grid } from 'lucide-svelte';
+  import { FileUp, Save, Copy, Download, ArrowRightLeft, AlignLeft, Grid } from '@lucide/svelte';
   import type { OutputFormat } from '$lib/utils/table-forge/engine';
 
   export let dict: any;

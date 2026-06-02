@@ -1,7 +1,7 @@
 <script lang="ts">
   import { selectedPages, isProcessing, pages, undo, redo, past, future, files } from '$lib/utils/pdf-forge/store';
   import { mergeAndDownload, rotateSelectedPages, deleteSelectedPages, clearAll, loadPDFs, extractSelectedPages, saveSession, zipperMerge, exportImages, sortPages } from '$lib/utils/pdf-forge/engine';
-  import { RotateCw, Trash2, Download, RefreshCw, Plus, FileOutput, History, Save, Undo, Redo, Shuffle, Image as ImageIcon, ArrowDownAZ, Stamp } from 'lucide-svelte';
+  import { RotateCw, Trash2, Download, RefreshCw, Plus, FileOutput, History, Save, Undo, Redo, Shuffle, Image as ImageIcon, ArrowDownAZ, Stamp } from '@lucide/svelte';
   import type { PdfForgeDictionary } from '$lib/types/pdf-forge';
   import HistoryModal from './HistoryModal.svelte';
   import WatermarkModal from './WatermarkModal.svelte';

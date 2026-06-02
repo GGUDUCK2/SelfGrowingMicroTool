@@ -1,7 +1,7 @@
 <script lang="ts">
   import { db, type ScreenForgeHistory } from '$lib/db';
   import { liveQuery } from 'dexie';
-  import { Play, Trash2, Download, Calendar, Clock, Film } from 'lucide-svelte';
+  import { Play, Trash2, Download, Calendar, Clock, Film } from '@lucide/svelte';
 
   export let t: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   export let onPlay: (blob: Blob) => void;

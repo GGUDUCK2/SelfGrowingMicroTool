@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Scissors, Download, FileAudio, Music, Plus, FolderOpen, Save } from 'lucide-svelte';
+  import { Scissors, Download, FileAudio, Music, Plus, FolderOpen, Save } from '@lucide/svelte';
 
   export let hasSelection = false;
   export let hasAudio = false;

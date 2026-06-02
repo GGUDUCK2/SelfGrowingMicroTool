@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FileText, AlignLeft, AlertCircle } from 'lucide-svelte';
+  import { FileText, AlignLeft, AlertCircle } from '@lucide/svelte';
 
   export let data: any[][] = [];
   export let dict: any;

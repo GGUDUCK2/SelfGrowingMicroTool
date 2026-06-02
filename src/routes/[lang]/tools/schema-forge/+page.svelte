@@ -19,7 +19,7 @@
   import { TEMPLATES } from '$lib/utils/schema-forge/templates';
   import { parseSQL } from '$lib/utils/schema-forge/sql-parser';
   import { generateMockData } from '$lib/utils/schema-forge/mock-generator';
-  import { Save, FolderOpen, Plus, Trash2, Layout, Database, Code, FileCode, Wand2, Upload, History, Share2, Table as TableIcon, RefreshCw, Copy, Download, X } from 'lucide-svelte';
+  import { Save, FolderOpen, Plus, Trash2, Layout, Database, Code, FileCode, Wand2, Upload, History, Share2, Table as TableIcon, RefreshCw, Copy, Download, X } from '@lucide/svelte';
 
   $: lang = $page.params.lang || 'en';
   $: t = getDictionary(lang).tools?.schemaForge || getDictionary('en').tools.schemaForge;

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, afterUpdate } from 'svelte';
-  import { Copy, Download, Check } from 'lucide-svelte';
+  import { Copy, Download, Check } from '@lucide/svelte';
   import { browser } from '$app/environment';
 
   export let code = '';

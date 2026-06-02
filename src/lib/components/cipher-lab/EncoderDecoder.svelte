@@ -8,7 +8,7 @@
     toBinary, fromBinary,
     toHtmlEntity, fromHtmlEntity
   } from '$lib/utils/cipher/encoding';
-  import { Copy, Save, ArrowLeftRight } from 'lucide-svelte';
+  import { Copy, Save, ArrowLeftRight } from '@lucide/svelte';
   import type { CipherDictionary } from '$lib/types/cipher';
 
   export let dict: CipherDictionary;

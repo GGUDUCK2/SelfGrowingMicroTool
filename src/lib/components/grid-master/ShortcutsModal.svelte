@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { X, Command, Save, Eye, Undo2, Redo2 } from 'lucide-svelte';
+  import { X, Command, Save, Eye, Undo2, Redo2 } from '@lucide/svelte';
   import { fade, scale } from 'svelte/transition';
   import type { GridMasterDictionary } from '$lib/utils/grid-master/types';
 

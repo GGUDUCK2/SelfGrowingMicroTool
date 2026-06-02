@@ -12,7 +12,7 @@
   import FAQSection from '$lib/components/FAQSection.svelte';
   import { db } from '$lib/db';
   import { onMount, onDestroy } from 'svelte';
-  import { Menu, X, FileText, Split, Smartphone } from 'lucide-svelte';
+  import { Menu, X, FileText, Split, Smartphone } from '@lucide/svelte';
   import { browser } from '$app/environment';
 
   $: lang = $page.params.lang || 'en';

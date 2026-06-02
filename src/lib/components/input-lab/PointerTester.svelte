@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { Eraser, PenTool, MousePointer2 } from 'lucide-svelte';
+  import { Eraser, PenTool, MousePointer2 } from '@lucide/svelte';
 
   export let dict: any;
   export let onLog: (event: any) => void;

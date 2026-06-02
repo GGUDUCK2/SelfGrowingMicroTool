@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { X, Copy, Check } from 'lucide-svelte';
+  import { X, Copy, Check } from '@lucide/svelte';
   import { generateCurl, generatePython, generateNode, generateLangChain, generateTestSuiteJson, generateTestSuitePython } from '$lib/utils/prompt-forge/generators';
   import type { PromptExport, TestSuiteExport } from '$lib/utils/prompt-forge/parser';
   import { scale } from 'svelte/transition';

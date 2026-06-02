@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { UploadCloud, File, AlertCircle, Copy, Check, Download, CheckCircle2, XCircle, Target } from 'lucide-svelte';
+  import { UploadCloud, File, AlertCircle, Copy, Check, Download, CheckCircle2, XCircle, Target } from '@lucide/svelte';
   import { hashFileChunked, ALGORITHMS, type HashAlgorithm } from '$lib/utils/hash-forge/crypto';
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';

@@ -2,7 +2,7 @@
   import { policyStore } from '$lib/stores/policy-forge';
   import { generatePrivacy, generateTerms } from '$lib/utils/policy-forge/templates';
   import { marked } from 'marked';
-  import { Copy, Download, RotateCcw, Save, FolderOpen } from 'lucide-svelte';
+  import { Copy, Download, RotateCcw, Save, FolderOpen } from '@lucide/svelte';
 
   export let dict: any;
   export let lang: string = 'en';

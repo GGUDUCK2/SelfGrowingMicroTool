@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Copy, Check, Terminal } from 'lucide-svelte';
+  import { Copy, Check, Terminal } from '@lucide/svelte';
   import { IconProcessor, type IconConfig } from '$lib/utils/icon-forge/processor';
   import type { IconForgeDictionary } from '$lib/types/icon-forge';
 

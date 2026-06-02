@@ -12,7 +12,7 @@
   import { generateInsightReport } from '$lib/utils/log-prism/report';
   import type { LogEntry } from '$lib/utils/log-prism/types';
   import { logPrismDB, pruneHistory } from '$lib/db/log-prism';
-  import { Download, Upload, AlertTriangle, Activity, Trash2, FileJson, List, LayoutGrid, X, FileText, ChevronLeft } from 'lucide-svelte';
+  import { Download, Upload, AlertTriangle, Activity, Trash2, FileJson, List, LayoutGrid, X, FileText, ChevronLeft } from '@lucide/svelte';
 
   import LogUploader from '$lib/components/log-prism/LogUploader.svelte';
   import LogViewer from '$lib/components/log-prism/LogViewer.svelte';
@@ -21,7 +21,7 @@
   import LogDetail from '$lib/components/log-prism/LogDetail.svelte';
   import HistorySidebar from '$lib/components/log-prism/HistorySidebar.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
-  import { History } from 'lucide-svelte';
+  import { History } from '@lucide/svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang).tools.logPrism;

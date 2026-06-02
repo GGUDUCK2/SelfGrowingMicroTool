@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { TableData } from '$lib/utils/table-forge/engine';
-  import { Plus, Trash2 } from 'lucide-svelte';
+  import { Plus, Trash2 } from '@lucide/svelte';
 
   export let data: TableData = [['']];
 

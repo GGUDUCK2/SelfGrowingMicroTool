@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { X, Download, Shield } from 'lucide-svelte';
+  import { X, Download, Shield } from '@lucide/svelte';
   import { fade, scale } from 'svelte/transition';
 
   export let show = false;

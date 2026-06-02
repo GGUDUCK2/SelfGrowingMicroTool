@@ -6,7 +6,7 @@
   import { marked } from 'marked';
   import { fade, slide } from 'svelte/transition';
   import { page } from '$app/stores';
-  import { ArrowLeft, History, X, Trash2, Check } from 'lucide-svelte';
+  import { ArrowLeft, History, X, Trash2, Check } from '@lucide/svelte';
   import Head from '$lib/components/Head.svelte';
   import { getDictionary } from '$lib/dictionaries';
   import MarkdownEditor from '$lib/components/markdown-studio/MarkdownEditor.svelte';

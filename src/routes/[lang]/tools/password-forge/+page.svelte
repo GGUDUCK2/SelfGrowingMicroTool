@@ -6,7 +6,7 @@
   import Head from '$lib/components/Head.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
   import GuideSection from '$lib/components/GuideSection.svelte';
-  import { Shield, KeyRound, Copy, RotateCw, Download, Share2 } from 'lucide-svelte';
+  import { Shield, KeyRound, Copy, RotateCw, Download, Share2 } from '@lucide/svelte';
   import { onMount } from 'svelte';
   import { db } from '$lib/db';
 

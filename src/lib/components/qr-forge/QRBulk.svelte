@@ -2,7 +2,7 @@
   import type { QRState } from '$lib/utils/qr-forge/types';
   import QRCode from 'qrcode';
   import JSZip from 'jszip';
-  import { Download, Loader2 } from 'lucide-svelte';
+  import { Download, Loader2 } from '@lucide/svelte';
   import { dictionaries } from '$lib/dictionaries';
 
   export let state: QRState;

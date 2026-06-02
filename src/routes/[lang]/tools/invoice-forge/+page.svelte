@@ -16,7 +16,7 @@
   import { calculateTotal } from '$lib/utils/invoice-forge/calculations';
   import { db } from '$lib/db';
   import { liveQuery } from 'dexie';
-  import { Printer, Download, Save, RefreshCw, Menu, ArrowLeft, Image as ImageIcon, Users, FileText, Edit3 } from 'lucide-svelte';
+  import { Printer, Download, Save, RefreshCw, Menu, ArrowLeft, Image as ImageIcon, Users, FileText, Edit3 } from '@lucide/svelte';
   import { slide, fade } from 'svelte/transition';
   import { toPng } from 'html-to-image';
 

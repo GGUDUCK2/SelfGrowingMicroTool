@@ -3,7 +3,7 @@
   import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import Head from '$lib/components/Head.svelte';
-  import { FileImage, Zap, Lock, Smartphone } from 'lucide-svelte';
+  import { FileImage, Zap, Lock, Smartphone } from '@lucide/svelte';
   import Workspace from '$lib/components/pixel-forge/Workspace.svelte';
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
