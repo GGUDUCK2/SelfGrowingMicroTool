@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Resume } from '$lib/utils/resume-forge/types';
-  import { MapPin, Mail, Phone, Globe, Linkedin, Github, Twitter } from '@lucide/svelte';
+  import { MapPin, Mail, Phone, Globe } from '@lucide/svelte';
 
   export let resume: Resume;
 
@@ -8,8 +8,8 @@
 
   function getIcon(network: string) {
       const n = network.toLowerCase();
-      if (n.includes('linkedin')) return Linkedin;
-      if (n.includes('github')) return Github;
+      if (n.includes('linkedin')) return Github;
+      if (n.includes('github')) return Globe;
       if (n.includes('twitter') || n.includes('x')) return Twitter;
       return Globe;
   }
