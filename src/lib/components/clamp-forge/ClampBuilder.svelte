@@ -28,6 +28,11 @@
 
   let activeTab: 'builder' | 'scale' | 'preview' | 'history' = 'builder';
 
+  let copiedCss = false;
+  let copiedTw = false;
+  let copiedVars = false;
+
+  import { fade } from 'svelte/transition';
 
   // Advanced Exports
   let exportFormat: 'css' | 'tailwind' | 'scss' = 'css';
@@ -95,7 +100,7 @@
       }
       if ((e.ctrlKey || e.metaKey) && e.key === 's') {
         e.preventDefault();
-        saveResult();
+        saveScale();
       }
       if (e.key === 'Escape') {
         e.preventDefault();
@@ -214,6 +219,19 @@
   })();
 
   $: scaleVariablesText = `:root {\n${generatedScale.map(s => `  --text-${s.name}: ${s.clamp};`).join('\n')}\n}`;
+
+  const downloadFile = (content: string, filename: string) => {
+    if (!browser) return;
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   const copyToClipboard = async (text: string, type: 'css' | 'tw' | 'vars') => {
     if (browser) {
@@ -493,11 +511,23 @@ ${calculatedClamp}`,
                         <label for="scaleRatio" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
                             {d.scaleRatio || 'Scale Ratio'}
                         </label>
-                        <select id="scaleRatio" bind:value={scaleRatio} class="w-full min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-4 focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-white">
+                        <select id="scaleRatio" bind:value={scaleRatio} class="w-full min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-4 focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-white mb-2">
                             {#each scaleRatios as ratio (ratio.value)}
                                 <option value={ratio.value}>{ratio.name}</option>
                             {/each}
                         </select>
+
+                        <div class="flex gap-2 mt-2 flex-wrap">
+                            <button on:click={() => scaleRatio = 1.250} class="min-h-[36px] px-2 py-1 text-xs font-medium rounded-md bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800 transition-colors">
+                                Major Third (1.250)
+                            </button>
+                            <button on:click={() => scaleRatio = 1.333} class="min-h-[36px] px-2 py-1 text-xs font-medium rounded-md bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800 transition-colors">
+                                Perfect Fourth (1.333)
+                            </button>
+                            <button on:click={() => scaleRatio = 1.618} class="min-h-[36px] px-2 py-1 text-xs font-medium rounded-md bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800 transition-colors">
+                                Golden Ratio (1.618)
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -521,18 +551,36 @@ ${calculatedClamp}`,
                          <h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wide">
                             {d.generatedVariables || 'Generated Variables'}
                          </h3>
-                         <button
-                          on:click={() => copyToClipboard(formattedExportText, 'vars')}
-                          class="min-h-[44px] px-4 flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm transition-colors font-medium text-sm"
-                        >
-                          {#if copiedVars}
-                            <Check size={16} />
-                            <span>Copied!</span>
-                          {:else}
-                            <Copy size={16} />
-                            <span>{d.copyVariables || 'Copy All'}</span>
-                          {/if}
-                        </button>
+                         <div class="flex items-center space-x-2 flex-wrap sm:flex-nowrap gap-2 sm:gap-0">
+                            <button
+                                on:click={() => copyToClipboard(formattedExportText, 'vars')}
+                                class="min-h-[44px] px-4 flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm transition-colors font-medium text-sm"
+                            >
+                                {#if copiedVars}
+                                <Check size={16} />
+                                <span>Copied!</span>
+                                {:else}
+                                <Copy size={16} />
+                                <span>{d.copyVariables || 'Copy All'}</span>
+                                {/if}
+                            </button>
+
+                            {#if exportFormat === 'css'}
+                                <button
+                                    on:click={() => downloadFile(formattedExportText, 'fluid-scale.css')}
+                                    class="min-h-[44px] px-4 flex items-center justify-center space-x-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg shadow-sm transition-colors font-medium text-sm"
+                                >
+                                    <span>Download .css</span>
+                                </button>
+                            {:else if exportFormat === 'tailwind'}
+                                <button
+                                    on:click={() => downloadFile(formattedExportText, 'tailwind.fluid.js')}
+                                    class="min-h-[44px] px-4 flex items-center justify-center space-x-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg shadow-sm transition-colors font-medium text-sm"
+                                >
+                                    <span>Download .js</span>
+                                </button>
+                            {/if}
+                        </div>
                     </div>
 
                                         <div class="flex items-center space-x-2 mb-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg inline-flex">
@@ -753,7 +801,7 @@ ${calculatedClamp}`,
             </div>
 
             <div class="flex space-x-2 mb-4 overflow-x-auto pb-1">
-              {#each [{bp: 320, name: 'Mobile'}, {bp: 768, name: 'Tablet'}, {bp: 1024, name: 'Desktop'}, {bp: 1440, name: 'Wide'}] as target}
+              {#each [{bp: 320, name: 'Mobile'}, {bp: 768, name: 'Tablet'}, {bp: 1024, name: 'Desktop'}, {bp: 1440, name: 'Wide'}] as target (target.bp)}
                 <button
                   on:click={() => simulatorWidth = target.bp}
                   class="flex-1 min-h-[36px] min-w-[50px] text-xs font-medium rounded transition-colors whitespace-nowrap flex flex-col items-center justify-center {simulatorWidth === target.bp ? 'bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 ring-1 ring-indigo-500' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300'}"
