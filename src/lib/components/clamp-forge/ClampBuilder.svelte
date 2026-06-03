@@ -16,6 +16,7 @@
 
 
   // State
+  let mode: 'typography' | 'spacing' = 'typography';
   let minWidth = 320;
   let maxWidth = 1200;
   let minSize = 1; // 1rem or 16px
@@ -141,6 +142,7 @@
   type Preset = 'h1' | 'h2' | 'body' | 'spacing';
 
   const applyPreset = (preset: Preset) => {
+    mode = preset === 'spacing' ? 'spacing' : 'typography';
     unit = 'rem';
     minWidth = 320;
     maxWidth = 1200;
@@ -374,41 +376,24 @@ ${calculatedClamp}`,
       <div class="p-6 sm:p-8">
         {#if activeTab === 'builder'}
           <div class="space-y-8" in:fade>
-            <!-- Presets Section -->
-            <div class="pb-6 border-b border-slate-200 dark:border-slate-700">
-              <h3 class="text-sm font-medium text-slate-500 uppercase tracking-wide mb-3">{d.presetsTitle}</h3>
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <button
-                  on:click={() => applyPreset('h1')}
-                  class="min-h-[44px] px-3 py-2 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg transition-colors text-center"
-                  title={d.presetH1}
-                >
-                  H1
-                </button>
-                <button
-                  on:click={() => applyPreset('h2')}
-                  class="min-h-[44px] px-3 py-2 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg transition-colors text-center"
-                  title={d.presetH2}
-                >
-                  H2
-                </button>
-                <button
-                  on:click={() => applyPreset('body')}
-                  class="min-h-[44px] px-3 py-2 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg transition-colors text-center"
-                  title={d.presetBody}
-                >
-                  Body
-                </button>
-                <button
-                  on:click={() => applyPreset('spacing')}
-                  class="min-h-[44px] px-3 py-2 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg transition-colors text-center"
-                  title={d.presetSpacing}
-                >
-                  Spacing
-                </button>
-              </div>
-            </div>
 
+
+
+      <!-- Mode Toggle -->
+      <div class="mb-6 flex space-x-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg w-full max-w-sm">
+        <button
+          class="flex-1 min-h-[44px] text-sm font-medium rounded-md transition-colors {mode === 'typography' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+          on:click={() => mode = 'typography'}
+        >
+          Typography
+        </button>
+        <button
+          class="flex-1 min-h-[44px] text-sm font-medium rounded-md transition-colors {mode === 'spacing' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+          on:click={() => mode = 'spacing'}
+        >
+          Spacing
+        </button>
+      </div>
 
       <!-- Smart Presets -->
       <div class="mb-8">
@@ -777,15 +762,24 @@ ${calculatedClamp}`,
         <div class="mt-12">
           <p class="text-sm text-center text-slate-600 dark:text-slate-400 mb-4">{d.livePreview || 'Live Preview'}</p>
           <div class="flex flex-col items-center">
-              <input
-                type="text"
-                id="previewTextInput"
-                bind:value={customPreviewText}
-                class="font-bold text-center text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900 p-4 rounded-lg w-full border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
-                style="font-size: {calculatedClamp}; line-height: 1.2; min-height: 44px;"
-                aria-label={d.customPreviewText || 'Custom Preview Text'}
-              />
-              <p class="text-xs text-slate-400 mt-2">{d.editPreviewHint || 'Try typing your own text above'}</p>
+              {#if mode === 'typography'}
+                <input
+                  type="text"
+                  id="previewTextInput"
+                  bind:value={customPreviewText}
+                  class="font-bold text-center text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900 p-4 rounded-lg w-full border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all min-h-[44px]"
+                  style="font-size: {calculatedClamp}; line-height: 1.2;"
+                  aria-label={d.customPreviewText || 'Custom Preview Text'}
+                />
+                <p class="text-xs text-slate-400 mt-2">{d.editPreviewHint || 'Try typing your own text above'}</p>
+              {:else}
+                <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-300 dark:border-slate-600 flex items-center justify-center overflow-hidden" style="min-height: 150px;">
+                    <div class="bg-indigo-500 rounded text-white flex items-center justify-center font-mono text-sm shadow-inner transition-all duration-300" style="padding: {calculatedClamp};">
+                       Content Box
+                    </div>
+                </div>
+                <p class="text-xs text-slate-400 mt-2">Visualizing padding/margin spacing</p>
+              {/if}
           </div>
         </div>
 
