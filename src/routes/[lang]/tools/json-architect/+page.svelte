@@ -242,8 +242,9 @@
 <Head
   title={t.title}
   description={t.description}
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/json-architect"}
+  image="https://selfgrowingmicrotool.com/og/default.png"
 />
-
 
 <svelte:head>
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
@@ -254,7 +255,7 @@
   {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</scr' + 'ipt>'}
 </svelte:head>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
   <div class="mb-8">
     <h1 class="text-3xl font-bold text-slate-900 dark:text-slate-100 sm:text-4xl">{t.title}</h1>
     <p class="mt-2 text-lg text-slate-600 dark:text-slate-400">{t.description}</p>

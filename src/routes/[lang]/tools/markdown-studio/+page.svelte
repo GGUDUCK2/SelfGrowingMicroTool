@@ -241,8 +241,8 @@
 <Head
   title={dict.title}
   description={dict.description}
-  image="https://selfgrowingmicrotool.com/og-image.jpg"
-  url={$page.url.href}
+  image="https://selfgrowingmicrotool.com/og/default.png"
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/markdown-studio"}
   keywords="markdown editor, online markdown editor, github flavored markdown, markdown preview, markdown to html"
 />
 

@@ -144,58 +144,24 @@
 <Head
   title={t.title}
   description={t.description}
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/qr-forge"}
+  image="https://selfgrowingmicrotool.com/og/default.png"
   keywords="qr code generator, wifi qr code, vcard qr code, crypto qr code, free qr generator, no expiry qr code"
 />
 
-
 <svelte:head>
-                  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</scr' + 'ipt>'}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumb) + '</scr' + 'ipt>'}
-
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": t?.q1 || "",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t?.a1 || ""
-        }
-      },
-      {
-        "@type": "Question",
-        "name": t?.q2 || "",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t?.a2 || ""
-        }
-      },
-      {
-        "@type": "Question",
-        "name": t?.q3 || "",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t?.a3 || ""
-        }
-      }
-    ]
-  }
-  </script>`}
-
+  {@html '<script type="application/ld+json">' + JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":t?.q1||"","acceptedAnswer":{"@type":"Answer","text":t?.a1||""}},{"@type":"Question","name":t?.q2||"","acceptedAnswer":{"@type":"Answer","text":t?.a2||""}},{"@type":"Question","name":t?.q3||"","acceptedAnswer":{"@type":"Answer","text":t?.a3||""}}]}) + '</scr' + 'ipt>'}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-900 text-slate-50 pb-20">
   <!-- Hero -->
   <div class="bg-gradient-to-r from-indigo-900 via-slate-900 to-slate-900 border-b border-slate-800 pb-12 pt-12 px-4">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 mb-4 tracking-tight">
         {t.title}
       </h1>
@@ -205,7 +171,7 @@
     </div>
   </div>
 
-  <div class="max-w-6xl mx-auto px-4 -mt-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 -mt-8">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
 
       <!-- Left: Config -->
