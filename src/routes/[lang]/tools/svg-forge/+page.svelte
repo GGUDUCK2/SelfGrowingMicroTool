@@ -166,6 +166,8 @@
 <Head
   title={t?.title || "SVG Forge"}
   description={t?.description}
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/svg-forge"}
+  image="https://selfgrowingmicrotool.com/og/default.png"
 />
 
 <svelte:head>
