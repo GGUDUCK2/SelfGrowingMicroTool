@@ -143,7 +143,7 @@
   </section>
 
   <!-- Documentation -->
-  <article class="prose prose-invert prose-slate max-w-none pt-12 border-t border-slate-800">
+  <article class="prose prose-invert prose-slate max-w-none pt-12 border-t border-slate-800 min-h-[44px] min-w-[44px]">
     <h2>{toolDict.guide.title}</h2>
     <p>
       {toolDict.guide.intro}

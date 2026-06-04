@@ -246,7 +246,7 @@
     <!-- SEO Content -->
     <section class="bg-white dark:bg-slate-900 py-16 lg:py-24 border-t border-slate-200 dark:border-slate-800">
         <div class="max-w-4xl mx-auto px-6 space-y-16">
-            <article class="prose dark:prose-invert max-w-none">
+            <article class="prose dark:prose-invert max-w-none min-h-[44px] min-w-[44px]">
                <h2 class="text-3xl font-bold mb-6 text-slate-900 dark:text-white">
                    {dict.guide.title}
                </h2>

@@ -175,7 +175,7 @@
     <!-- Header -->
     <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 h-16 flex items-center justify-between px-4 flex-shrink-0 z-20 print:hidden">
         <div class="flex items-center gap-3">
-             <button class="md:hidden p-2 text-slate-500" on:click={() => showHistory = !showHistory}>
+             <button class="md:hidden p-2 text-slate-500 min-h-[44px] min-w-[44px]" on:click={() => showHistory = !showHistory}>
                  <Menu size={20} />
              </button>
              <div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400">

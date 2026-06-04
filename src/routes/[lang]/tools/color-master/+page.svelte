@@ -336,7 +336,7 @@
         class="fixed inset-0 z-50 flex items-center justify-center"
     >
         <button
-            class="absolute inset-0 w-full h-full bg-black/50 backdrop-blur-sm border-none cursor-default"
+            class="absolute inset-0 w-full h-full bg-black/50 backdrop-blur-sm border-none cursor-default min-h-[44px] min-w-[44px]"
             on:click={closeShortcuts}
             on:keydown={(e) => e.key === 'Escape' && closeShortcuts()}
             aria-label="Close shortcuts"
@@ -366,7 +366,7 @@
                     <kbd class="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded text-sm font-mono border dark:border-slate-600">Esc</kbd>
                 </li>
             </ul>
-             <Button class="mt-6 w-full justify-center" variant="primary" on:click={closeShortcuts}>Close</Button>
+             <Button class="mt-6 w-full justify-center min-h-[44px] min-w-[44px]" variant="primary" on:click={closeShortcuts}>Close</Button>
         </div>
     </div>
   {/if}
@@ -378,7 +378,7 @@
       <div class="relative">
           <ColorWheel color={baseColor} {t} on:change={handleColorChange} />
           <Button
-            class="absolute top-2 right-2 !rounded-full !px-3 !py-3 hover:scale-110 shadow-md text-indigo-500 border-indigo-100 dark:border-indigo-900"
+            class="absolute top-2 right-2 !rounded-full !px-3 !py-3 hover:scale-110 shadow-md text-indigo-500 border-indigo-100 dark:border-indigo-900 min-h-[44px] min-w-[44px]"
             on:click={randomize}
             title={t.inspire}
             ariaLabel={t.inspire}
@@ -393,7 +393,7 @@
         <div class="grid grid-cols-2 gap-3">
           {#each HARMONY_TYPES as type}
             <Button
-              class="justify-center {harmonyType === type ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-500 dark:text-indigo-300' : ''}"
+              class="justify-center {harmonyType === type ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-500 dark:text-indigo-300' : ''} min-h-[44px] min-w-[44px]"
               on:click={() => handleTypeChange(type)}
             >
               {t.harmonies[type]}
@@ -457,7 +457,7 @@
   </div>
 
   <!-- Documentation -->
-  <article class="prose prose-indigo dark:prose-invert max-w-none bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+  <article class="prose prose-indigo dark:prose-invert max-w-none bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700 min-h-[44px] min-w-[44px]">
     <section class="mb-12">
       <h2 class="text-3xl font-bold mb-6">{t.guide.title}</h2>
       <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-300">

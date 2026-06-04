@@ -463,7 +463,7 @@
                                 {#each projects as p}
                                     <div class="flex items-center group rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50">
                                         <button
-                                            class="flex-1 text-left px-3 py-2 text-sm truncate min-h-[44px]"
+                                            class="flex-1 text-left px-3 py-2 text-sm truncate min-h-[44px] min-w-[44px]"
                                             on:click={() => loadProject(p.id || 0)}
                                         >
                                             {p.name}
@@ -508,7 +508,7 @@
                         {#if showHistory}
                              <div class="absolute top-full right-0 mt-2 w-72 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50" transition:slide>
                                 <button
-                                    class="w-full flex items-center gap-2 px-3 py-2 mb-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-lg text-sm font-medium hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors min-h-[44px]"
+                                    class="w-full flex items-center gap-2 px-3 py-2 mb-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-lg text-sm font-medium hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors min-h-[44px] min-w-[44px]"
                                     on:click={takeSnapshot}
                                 >
                                     <Plus size={14} />
@@ -519,7 +519,7 @@
                                     {#if activeProject.snapshots && activeProject.snapshots.length > 0}
                                         {#each activeProject.snapshots as snap}
                                             <button
-                                                class="w-full text-left px-3 py-2 rounded hover:bg-slate-50 dark:hover:bg-slate-700/50 group min-h-[44px]"
+                                                class="w-full text-left px-3 py-2 rounded hover:bg-slate-50 dark:hover:bg-slate-700/50 group min-h-[44px] min-w-[44px]"
                                                 on:click={() => restoreSnapshot(snap)}
                                             >
                                                 <div class="flex justify-between items-center">
@@ -562,7 +562,7 @@
                                 <div class="space-y-1">
                                     {#each TEMPLATES as tmpl}
                                         <button
-                                            class="w-full text-left px-3 py-2 rounded hover:bg-slate-50 dark:hover:bg-slate-700/50 min-h-[44px]"
+                                            class="w-full text-left px-3 py-2 rounded hover:bg-slate-50 dark:hover:bg-slate-700/50 min-h-[44px] min-w-[44px]"
                                             on:click={() => loadTemplate(tmpl.id)}
                                         >
                                             <div class="text-sm font-medium text-slate-900 dark:text-white">{tmpl.name}</div>
@@ -741,7 +741,7 @@
     </div>
 
     <!-- Documentation -->
-    <article class="prose dark:prose-invert max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <article class="prose dark:prose-invert max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 min-h-[44px] min-w-[44px]">
         <h2>{t?.guide?.title}</h2>
         <p>{t?.guide?.intro}</p>
 

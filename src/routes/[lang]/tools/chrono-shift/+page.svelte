@@ -391,7 +391,7 @@
                             <div class="absolute bottom-full left-0 right-0 mb-1 bg-white dark:bg-slate-800 rounded-md shadow-xl border border-slate-200 dark:border-slate-700 max-h-48 overflow-y-auto z-50">
                                 {#each filteredZones as zone}
                                     <button
-                                        class="w-full text-left px-3 py-2 text-xs hover:bg-indigo-50 dark:hover:bg-indigo-900/30 truncate min-h-[44px]"
+                                        class="w-full text-left px-3 py-2 text-xs hover:bg-indigo-50 dark:hover:bg-indigo-900/30 truncate min-h-[44px] min-w-[44px]"
                                         on:click={() => addLocation(zone)}
                                     >
                                         {zone}

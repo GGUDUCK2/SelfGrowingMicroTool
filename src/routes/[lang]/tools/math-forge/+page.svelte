@@ -247,18 +247,18 @@
           <!-- Sidebar (Mobile Overlay) -->
           {#if showHistory}
               <button
-                class="fixed inset-0 z-40 bg-black/50 lg:hidden w-full h-full cursor-default"
+                class="fixed inset-0 z-40 bg-black/50 lg:hidden w-full h-full cursor-default min-h-[44px] min-w-[44px]"
                 on:click={() => showHistory = false}
                 aria-label="Close History"
               ></button>
               <!-- svelte-ignore a11y-no-noninteractive-element-to-interactive-role -->
-              <aside class="fixed inset-y-0 right-0 z-50 w-80 bg-white dark:bg-slate-900 shadow-2xl transform transition-transform duration-300 lg:hidden" class:translate-x-0={showHistory} class:translate-x-full={!showHistory} aria-modal="true" role="dialog" aria-label="History">
+              <aside class="fixed inset-y-0 right-0 z-50 w-80 bg-white dark:bg-slate-900 shadow-2xl transform transition-transform duration-300 lg:hidden min-h-[44px] min-w-[44px]" class:translate-x-0={showHistory} class:translate-x-full={!showHistory} aria-modal="true" role="dialog" aria-label="History">
                   <HistoryPanel {dict} onSelect={(expr) => { loadFromHistory(expr); showHistory = false; }} />
               </aside>
           {/if}
 
           <!-- Sidebar (Desktop) -->
-          <aside class="hidden lg:block lg:col-span-3">
+          <aside class="hidden lg:block lg:col-span-3 min-h-[44px] min-w-[44px]">
               <div class="sticky top-24 bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 h-[calc(100vh-8rem)] overflow-hidden">
                   <HistoryPanel {dict} onSelect={loadFromHistory} />
               </div>

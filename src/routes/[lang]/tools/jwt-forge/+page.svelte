@@ -225,7 +225,7 @@
 
   <!-- Documentation -->
   <div class="max-w-4xl mx-auto px-4 mt-12">
-    <article class="prose dark:prose-invert max-w-none">
+    <article class="prose dark:prose-invert max-w-none min-h-[44px] min-w-[44px]">
        <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 mb-6">
         {t.guide.title}
       </h2>

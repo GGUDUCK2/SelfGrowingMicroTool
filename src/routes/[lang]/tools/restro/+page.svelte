@@ -349,7 +349,7 @@
   {#if showSidebar}
     <button
         type="button"
-        class="fixed inset-0 bg-black/50 z-40 md:hidden cursor-default w-full h-full border-none"
+        class="fixed inset-0 bg-black/50 z-40 md:hidden cursor-default w-full h-full border-none min-h-[44px] min-w-[44px]"
         on:click={() => showSidebar = false}
         aria-label="Close Sidebar"
         on:keydown={(e) => e.key === 'Escape' && (showSidebar = false)}

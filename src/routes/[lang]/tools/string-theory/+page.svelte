@@ -333,7 +333,7 @@
     </section>
 
     <!-- Toolbar -->
-    <aside class="lg:col-span-1" aria-label="Tools">
+    <aside class="lg:col-span-1 min-h-[44px] min-w-[44px]" aria-label="Tools">
       <div class="sticky top-8 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 max-h-[calc(100vh-4rem)] overflow-y-auto custom-scrollbar">
         <Toolbar on:action={handleAction} on:generate={handleGenerate} />
       </div>

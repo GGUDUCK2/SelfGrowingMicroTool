@@ -145,7 +145,7 @@
 
   <!-- Features -->
   <section class="grid grid-cols-1 md:grid-cols-3 gap-8">
-     <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+     <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm min-h-[44px] min-w-[44px]">
         <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center mb-4 text-indigo-600 dark:text-indigo-400">
             <Layers class="w-6 h-6" />
         </div>
@@ -154,7 +154,7 @@
             {@html renderMarkdown(toolDict.guide.f1)}
         </div>
      </article>
-     <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+     <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm min-h-[44px] min-w-[44px]">
         <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center mb-4 text-indigo-600 dark:text-indigo-400">
             <Zap class="w-6 h-6" />
         </div>
@@ -163,7 +163,7 @@
             {@html renderMarkdown(toolDict.guide.f2)}
         </div>
      </article>
-     <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+     <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm min-h-[44px] min-w-[44px]">
         <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center mb-4 text-indigo-600 dark:text-indigo-400">
             <Shield class="w-6 h-6" />
         </div>
@@ -176,7 +176,7 @@
 
   <!-- Guide & FAQ -->
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-12 border-t border-slate-200 dark:border-slate-800">
-      <article class="lg:col-span-7 prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-400">
+      <article class="lg:col-span-7 prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 min-h-[44px] min-w-[44px]">
           <h2 class="text-slate-900 dark:text-white">{toolDict.guide.title}</h2>
           <p class="lead">{toolDict.guide.intro}</p>
 

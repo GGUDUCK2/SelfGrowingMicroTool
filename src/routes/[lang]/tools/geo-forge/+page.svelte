@@ -428,7 +428,7 @@
      <div class="flex items-center gap-3 w-full md:w-auto">
          <!-- Mobile Menu Toggle -->
          <button
-            class="lg:hidden p-2 -ml-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            class="lg:hidden p-2 -ml-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
             on:click={() => showMobileMenu = true}
             aria-label="Open Menu"
          >
@@ -596,7 +596,7 @@
                   <div class="px-2 py-1 mb-2 border-b border-slate-100 dark:border-slate-700 text-xs font-bold text-slate-500 uppercase">Recent Projects</div>
                   {#if $historyItems && $historyItems.length > 0}
                       {#each $historyItems as item}
-                          <button class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-sm flex gap-3 items-center min-h-[44px]" on:click={() => handleLoadProject(item)}>
+                          <button class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-sm flex gap-3 items-center min-h-[44px] min-w-[44px]" on:click={() => handleLoadProject(item)}>
                               {#if item.preview}
                                   <img src={item.preview} alt="Preview" class="w-10 h-10 object-cover rounded bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-600" />
                               {:else}
