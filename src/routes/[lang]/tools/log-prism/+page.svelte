@@ -518,7 +518,7 @@
                 {/if}
             </div>
         {/if}
-      <div class="mt-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 mt-12">
     <RelatedTools {lang} currentSlug="log-prism" currentCategory="dev" />
   </div>
 </main>

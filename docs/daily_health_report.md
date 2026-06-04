@@ -62,7 +62,7 @@ export default {}
 - 모바일 사용성 개선 (모바일 화면에서의 탭 오클릭 방지, 접근성 표준 준수).
 - 모바일 친화성(Mobile-Friendly) 점수 증가를 통한 Google 모바일 검색 랭킹(SEO) 향상 기대.
 
-[Project Health Report - $(date +%Y-%m-%d)]
+[Project Health Report - 2026-06-04]
 ## Repository Hygiene
 - Maintained clean root directory. No unnecessary files generated.
 
@@ -75,7 +75,7 @@ export default {}
 ## Tech Debt
 - No issues today.
 
-### [Daily Improvement Report - $(date +%Y-%m-%d)]
+### [Daily Improvement Report - 2026-06-04]
 #### 1. Identified Issues (발견된 문제)
 - 터치 타겟 점검, SEO 메타데이터 유지보수 등 SvelteKit 앱 내 반응성, 모바일 환경 접근성 개선 검토.
 
@@ -108,3 +108,17 @@ export default {}
 
 #### 3. Performance Impact (기대 효과)
 - Google AdSense 정책 및 모바일 친화성 가이드라인 지속 충족 확인. 무분별한 DOM 조작에 따른 레이아웃 파괴 방지.
+
+### [Daily Improvement Report - 2026-06-04]
+#### 1. Identified Issues (발견된 문제)
+- `GuideSection` 파라미터 매핑 오류: `curl-forge` 툴에서 `dict` prop 사용 (컴포넌트 스펙 위반).
+- 모바일 반응형 UI 일관성 부족: `log-prism`, `logic-forge`, `pixel-forge`, `prompt-forge` 도구 페이지의 메인 레이아웃 컨테이너가 `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12` 표준과 다르게 적용되어 모바일/데스크탑 환경에서 디자인 불일치 발생.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/curl-forge/+page.svelte` - `<GuideSection dict={dict?.guide || {}} />`를 `<GuideSection {...dict?.guide} />` 형태의 spread 연산자로 맵핑되도록 수정.
+- **Code**: `src/routes/[lang]/tools/log-prism/+page.svelte`, `logic-forge`, `pixel-forge`, `prompt-forge` 4개 파일에서 메인 래퍼 `<div class="...">`를 표준형인 `<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">`로 일괄 교체.
+- **SEO/AEO**: `GuideSection`의 정상 동작 확보로 시맨틱 텍스트 구조 정상화 완료.
+
+#### 3. Performance Impact (기대 효과)
+- `log-prism`, `logic-forge`, `pixel-forge`, `prompt-forge` 페이지들의 모바일 기기에서의 반응형 UI 일관성 획득.
+- React/Svelte 컴포넌트 prop 매핑 오류를 사전 방지하여 SvelteKit 컴파일 안정성 강화.
