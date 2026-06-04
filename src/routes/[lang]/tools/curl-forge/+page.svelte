@@ -166,7 +166,7 @@
   </div>
 
   <div class="mt-16 space-y-12 border-t border-slate-200 dark:border-slate-800 pt-16">
-    <GuideSection dict={dict?.guide || {}} />
+    <GuideSection {...dict?.guide} />
     <AdPlaceholder />
   <FAQSection title={dict?.faqTitle || 'FAQ'} items={dict?.faq || []} />
     <RelatedTools {lang} currentSlug="curl-forge" currentCategory="dev" />

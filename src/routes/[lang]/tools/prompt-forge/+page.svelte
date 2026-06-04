@@ -327,7 +327,7 @@
 
         <!-- Documentation & SEO Content -->
         <div class="mt-20 w-full pb-20 px-4">
-            <div class="max-w-6xl mx-auto">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
                 <GuideSection
                     title={dict.guide.title}
                     intro={dict.guide.intro}

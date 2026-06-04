@@ -86,7 +86,7 @@
   {@html '<script type="application/ld+json">' + jsonLd + '</scr' + 'ipt>'}
 </svelte:head>
 
-<div class="max-w-5xl mx-auto px-4 py-8 md:py-12 space-y-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
 
   <!-- Header -->
   <header class="text-center space-y-4">
