@@ -32,7 +32,7 @@
         type="text"
         bind:value={field.name}
         placeholder="Field Name"
-        class="w-full bg-transparent border-b border-transparent focus:border-indigo-500 outline-none text-sm font-medium px-1 py-1 transition-colors"
+        class="w-full bg-transparent border-b border-transparent focus:border-indigo-500 outline-none text-sm font-medium px-1 py-1 transition-colors min-h-[44px]"
       />
     </div>
 
@@ -40,7 +40,7 @@
     <div class="flex-1 min-w-[140px] basis-[calc(50%-1rem)] sm:basis-auto">
       <select
         bind:value={field.type}
-        class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-sm outline-none focus:ring-1 focus:ring-indigo-500"
+        class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-sm outline-none focus:ring-1 focus:ring-indigo-500 min-h-[44px]"
       >
         {#each types as t}
           <option value={t}>{dictionary.types[t]}</option>
@@ -78,15 +78,15 @@
       {#if field.type === 'number'}
         <label class="flex flex-col gap-1">
           <span class="text-slate-500">Min</span>
-          <input type="number" bind:value={field.options.min} class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1" />
+          <input type="number" bind:value={field.options.min} class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 min-h-[44px]" />
         </label>
         <label class="flex flex-col gap-1">
           <span class="text-slate-500">Max</span>
-          <input type="number" bind:value={field.options.max} class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1" />
+          <input type="number" bind:value={field.options.max} class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 min-h-[44px]" />
         </label>
         <label class="flex flex-col gap-1 sm:col-span-2">
           <span class="text-slate-500">Format</span>
-          <select bind:value={field.options.format} class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1">
+          <select bind:value={field.options.format} class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 min-h-[44px]">
             <option value="int">Integer</option>
             <option value="float">Float (2 decimals)</option>
           </select>
@@ -96,25 +96,25 @@
       {#if field.type === 'date'}
         <label class="flex flex-col gap-1">
           <span class="text-slate-500">Start Date</span>
-          <input type="date" bind:value={field.options.min} class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1" />
+          <input type="date" bind:value={field.options.min} class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 min-h-[44px]" />
         </label>
         <label class="flex flex-col gap-1">
           <span class="text-slate-500">End Date</span>
-          <input type="date" bind:value={field.options.max} class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1" />
+          <input type="date" bind:value={field.options.max} class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 min-h-[44px]" />
         </label>
       {/if}
 
       {#if field.type === 'select'}
         <label class="flex flex-col gap-1 sm:col-span-2">
           <span class="text-slate-500">Choices (Comma Separated)</span>
-          <input type="text" bind:value={field.options.choices} placeholder="A, B, C" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1" />
+          <input type="text" bind:value={field.options.choices} placeholder="A, B, C" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 min-h-[44px]" />
         </label>
       {/if}
 
       {#if field.type === 'id'}
         <label class="flex flex-col gap-1 sm:col-span-2">
           <span class="text-slate-500">Format</span>
-          <select bind:value={field.options.format} class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1">
+          <select bind:value={field.options.format} class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 min-h-[44px]">
             <option value="uuid">UUID v4</option>
             <option value="sequence">Sequential Integer</option>
           </select>
