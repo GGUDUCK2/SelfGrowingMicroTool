@@ -41,7 +41,7 @@
         {#each $history as item (item.id)}
           <div
             transition:slide|local
-            class="group flex items-center justify-between p-3 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-lg hover:border-indigo-300 dark:hover:border-indigo-700 transition-all cursor-pointer"
+            class="group flex items-center justify-between p-3 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-lg hover:border-indigo-300 dark:hover:border-indigo-700 transition-all cursor-pointer min-h-[44px]"
             on:click={() => onLoad(item)}
             role="button"
             tabindex="0"
@@ -60,7 +60,7 @@
 
             <button
               on:click|stopPropagation={() => deleteItem(item.id)}
-              class="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded opacity-0 group-hover:opacity-100 transition-all"
+              class="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded opacity-0 group-hover:opacity-100 transition-all min-h-[44px] min-w-[44px] flex items-center justify-center"
               title="Delete"
             >
               <Trash2 size={14} />

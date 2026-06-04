@@ -208,26 +208,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict?.q1,
+        "name": t.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict?.a1
+          "text": t.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict?.q2,
+        "name": t.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict?.a2
+          "text": t.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict?.q3,
+        "name": t.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict?.a3
+          "text": t.a3
         }
       }
     ]
@@ -286,7 +286,7 @@
     </div>
   </div>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
       <!-- Left Column: Schema Builder -->
@@ -319,16 +319,14 @@
     </div>
 
     <!-- Guide & FAQ -->
-    <div class="mt-24 max-w-4xl mx-auto space-y-20">
+    <div class="max-w-4xl mx-auto space-y-20">
       <GuideSection {...t.guide} />
       <AdPlaceholder />
-  <FAQSection title={t.faqTitle} items={faqItems} />
+      <FAQSection title={t.faqTitle} items={faqItems} />
     </div>
 
-  <div class="mt-12 mb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <RelatedTools {lang} currentSlug="mock-forge" currentCategory="dev" />
-  </div>
-</main>
+  </main>
 
   {#if showToast}
     <div transition:fade class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-3 rounded-full shadow-lg flex items-center gap-2 font-medium text-sm">
