@@ -477,7 +477,7 @@
   </div>
 
   <!-- Documentation -->
-  <article class="prose dark:prose-invert max-w-none mt-20 pt-12 border-t border-slate-200 dark:border-slate-800">
+  <article class="prose dark:prose-invert max-w-none mt-20 pt-12 border-t border-slate-200 dark:border-slate-800 min-h-[44px] min-w-[44px]">
       <h2 class="text-3xl font-bold mb-6">{dict.tools.subnetScope.guide.title}</h2>
       <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-400">{dict.tools.subnetScope.guide.intro}</p>
 

@@ -523,7 +523,7 @@
             <!-- Namespaces section -->
             <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
                 <button
-                    class="flex items-center justify-between w-full text-left font-medium text-sm text-gray-700 dark:text-gray-300 min-h-[44px]"
+                    class="flex items-center justify-between w-full text-left font-medium text-sm text-gray-700 dark:text-gray-300 min-h-[44px] min-w-[44px]"
                     on:click={() => isNamespacesExpanded = !isNamespacesExpanded}
                 >
                     <span class="flex items-center gap-2">
@@ -567,7 +567,7 @@
                             </div>
                         {/each}
                         <button
-                            class="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-700 dark:hover:text-indigo-300 min-h-[44px]"
+                            class="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-700 dark:hover:text-indigo-300 min-h-[44px] min-w-[44px]"
                             on:click={addNamespace}
                         >
                             <span class="text-lg leading-none">+</span> {t?.namespaces?.add || 'Add Namespace'}
@@ -587,13 +587,13 @@
                             </h3>
                             <div class="flex bg-gray-200 dark:bg-gray-700 p-0.5 rounded-lg">
                                 <button
-                                    class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors min-h-[32px] {editorMode === 'raw' ? 'bg-white dark:bg-gray-600 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+                                    class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors min-h-[32px] {editorMode === 'raw' ? 'bg-white dark:bg-gray-600 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'} min-h-[44px] min-w-[44px]"
                                     on:click={() => editorMode = 'raw'}
                                 >
                                     {t?.editor?.raw || 'Raw'}
                                 </button>
                                 <button
-                                    class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors min-h-[32px] {editorMode === 'tree' ? 'bg-white dark:bg-gray-600 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+                                    class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors min-h-[32px] {editorMode === 'tree' ? 'bg-white dark:bg-gray-600 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'} min-h-[44px] min-w-[44px]"
                                     on:click={() => editorMode = 'tree'}
                                 >
                                     {t?.editor?.tree || 'Tree Viewer'}
@@ -735,13 +735,13 @@
                             </h3>
                             <div class="flex bg-gray-200 dark:bg-gray-700 p-0.5 rounded-lg">
                                 <button
-                                    class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors min-h-[32px] {resultsMode === 'nodes' ? 'bg-white dark:bg-gray-600 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+                                    class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors min-h-[32px] {resultsMode === 'nodes' ? 'bg-white dark:bg-gray-600 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'} min-h-[44px] min-w-[44px]"
                                     on:click={() => resultsMode = 'nodes'}
                                 >
                                     {t?.results?.nodes || 'Nodes'}
                                 </button>
                                 <button
-                                    class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors min-h-[32px] {resultsMode === 'code' ? 'bg-white dark:bg-gray-600 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+                                    class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors min-h-[32px] {resultsMode === 'code' ? 'bg-white dark:bg-gray-600 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'} min-h-[44px] min-w-[44px]"
                                     on:click={() => resultsMode = 'code'}
                                 >
                                     {t?.results?.code || 'Code'}
@@ -946,7 +946,7 @@ nodes = tree.xpath('{xpathExpression}')</pre>
     </div>
 
     <!-- Documentation & Guide -->
-    <article class="prose dark:prose-invert max-w-none mt-16 p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+    <article class="prose dark:prose-invert max-w-none mt-16 p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 min-h-[44px] min-w-[44px]">
         <h2>{t?.guide?.title}</h2>
         <p>{t?.guide?.intro}</p>
 

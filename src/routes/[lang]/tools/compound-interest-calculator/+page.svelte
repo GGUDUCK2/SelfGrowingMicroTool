@@ -635,7 +635,7 @@
 
         <button
           on:click={downloadCSV}
-          class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors font-medium text-base touch-manipulation min-h-[44px]"
+          class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors font-medium text-base touch-manipulation min-h-[44px] min-w-[44px]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

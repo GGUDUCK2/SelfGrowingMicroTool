@@ -330,7 +330,7 @@
                             <div class="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-1 hidden group-hover:block z-20">
                                 {#each structuraExamples as ex (ex.name)}
                                     <button
-                                        class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors min-h-[44px]"
+                                        class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors min-h-[44px] min-w-[44px]"
                                         on:click={() => loadExample(ex)}
                                     >
                                         <span class="font-bold text-xs bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded mr-2">{ex.format}</span>
@@ -586,7 +586,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <button class="w-full text-left min-h-[44px]" on:click={() => restoreHistory(item)}>
+                                <button class="w-full text-left min-h-[44px] min-w-[44px]" on:click={() => restoreHistory(item)}>
                                     <p class="text-xs text-gray-500 mb-2">{new Date(item.createdAt).toLocaleString()}</p>
                                     <p class="text-sm font-mono text-gray-700 dark:text-gray-300 line-clamp-3 bg-white dark:bg-gray-800 p-2 rounded border border-gray-100 dark:border-gray-700">
                                         {item.inputPreview}
@@ -607,7 +607,7 @@
   </div>
 
   <!-- Documentation & Guides -->
-  <article class="prose dark:prose-invert max-w-none mt-20 p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+  <article class="prose dark:prose-invert max-w-none mt-20 p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 min-h-[44px] min-w-[44px]">
     <h2>{t.guide.title}</h2>
     <p>
       {t.guide.intro}

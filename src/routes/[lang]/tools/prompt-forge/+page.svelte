@@ -255,7 +255,7 @@
   <!-- Backdrop -->
   {#if showSidebar}
     <button
-        class="fixed inset-0 bg-black/50 z-40 md:hidden cursor-default w-full h-full border-none"
+        class="fixed inset-0 bg-black/50 z-40 md:hidden cursor-default w-full h-full border-none min-h-[44px] min-w-[44px]"
         on:click={() => showSidebar = false}
         aria-label="Close Sidebar"
     ></button>
@@ -267,7 +267,7 @@
      <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-4 flex items-center justify-between shrink-0">
         <div class="flex items-center gap-3">
             <button
-                class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"
+                class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg min-h-[44px] min-w-[44px]"
                 on:click={() => showSidebar = true}
                 aria-label="Open sidebar"
             >

@@ -239,7 +239,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     <div class="flex justify-center">
         <button
           on:click={copyLink}
-          class="inline-flex items-center justify-center w-full sm:w-auto gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors touch-manipulation min-h-[44px]"
+          class="inline-flex items-center justify-center w-full sm:w-auto gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors touch-manipulation min-h-[44px] min-w-[44px]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -462,7 +462,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {#each $history as item (item.id)}
                     <div class="group relative bg-gray-50 rounded-xl p-4 border border-gray-200 hover:shadow-md transition-all touch-manipulation">
-                        <button class="w-full text-left min-h-[44px]" on:click={() => restoreHistory(item)}>
+                        <button class="w-full text-left min-h-[44px] min-w-[44px]" on:click={() => restoreHistory(item)}>
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-4 h-4 rounded-full border border-gray-300" style="background: {item.color}; opacity: {item.transparency}"></div>
                                 <span class="text-xs text-gray-500">{new Date(item.createdAt).toLocaleString()}</span>

@@ -407,7 +407,7 @@
            </div>
 
            <button
-             class="p-2 ml-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors hidden sm:flex"
+             class="p-2 ml-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors hidden sm:flex min-h-[44px] min-w-[44px]"
              on:click={() => showResponsiveCheck = true}
              title={dict.responsiveCheck || "Responsive Check"}
              aria-label={dict.responsiveCheck || "Responsive Check"}
@@ -419,7 +419,7 @@
 
            {#if canRestoreSession}
                <button
-                 class="hidden sm:flex items-center gap-1 px-3 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg text-xs font-medium hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
+                 class="hidden sm:flex items-center gap-1 px-3 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg text-xs font-medium hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors min-h-[44px] min-w-[44px]"
                  on:click={restoreSession}
                  transition:slide={{ axis: 'x' }}
                >
@@ -449,7 +449,7 @@
            </div>
 
            <button
-             class="p-2 ml-1 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors hidden sm:flex {showTimeline ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : ''}"
+             class="p-2 ml-1 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-lg transition-colors hidden sm:flex {showTimeline ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : ''} min-h-[44px] min-w-[44px]"
              on:click={() => showTimeline = !showTimeline}
              aria-label={dict.timeMachine || 'Time Machine'}
              title={dict.timeMachine || 'Time Machine'}
