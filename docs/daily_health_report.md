@@ -122,3 +122,13 @@ export default {}
 #### 3. Performance Impact (기대 효과)
 - `log-prism`, `logic-forge`, `pixel-forge`, `prompt-forge` 페이지들의 모바일 기기에서의 반응형 UI 일관성 획득.
 - React/Svelte 컴포넌트 prop 매핑 오류를 사전 방지하여 SvelteKit 컴파일 안정성 강화.
+
+### [Daily Improvement Report - 2025-06-05]
+#### 1. Identified Issues (발견된 문제)
+- Svelte 컴파일 시 `src/routes/[lang]/tools/snippet-forge/+page.svelte`에서 "Parsing error: Unterminated string constant" 빌드 오류 발생 (`eslint svelte/no-at-html-tags` 관련)
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/snippet-forge/+page.svelte` - JSON-LD 삽입 시 문자열 연결(`+`) 대신 템플릿 리터럴(Template Literals)을 사용하여 파싱 오류 해결
+
+#### 3. Performance Impact (기대 효과)
+- 파싱 오류가 해결되어 빌드 안정성 개선 및 lint 통과
