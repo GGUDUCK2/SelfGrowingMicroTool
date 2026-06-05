@@ -141,12 +141,12 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<div class="bg-slate-800 rounded-2xl p-6 shadow-xl border border-slate-700">
+<div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-slate-700">
   <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-6 items-center">
 
     <!-- Input Section -->
     <div class="space-y-4 w-full">
-      <label for="input-value" class="block text-sm font-medium text-slate-400">{t.from}</label>
+      <label for="input-value" class="block text-sm font-medium text-gray-500 dark:text-slate-400">{t.from}</label>
 
       <div class="flex space-x-2">
         <input
@@ -154,14 +154,14 @@
           type="number"
           inputmode="decimal"
           bind:value={inputValue}
-          class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-2xl font-mono text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all min-h-[44px]"
+          class="flex-1 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-lg px-4 py-3 text-2xl font-mono text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all min-h-[44px]"
           placeholder="0"
         />
       </div>
 
       <select
         bind:value={fromUnitId}
-        class="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]"
+        class="w-full bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]"
         aria-label="{t.from} unit"
       >
         {#each units as unit}
@@ -183,12 +183,12 @@
 
     <!-- Output Section -->
     <div class="space-y-4 w-full">
-      <label for="output-result" class="block text-sm font-medium text-slate-400">{t.to}</label>
+      <label for="output-result" class="block text-sm font-medium text-gray-500 dark:text-slate-400">{t.to}</label>
 
       <div class="flex space-x-2 relative group">
         <div
           id="output-result"
-          class="flex-1 bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 text-2xl font-mono text-indigo-300 break-all min-h-[60px] flex items-center"
+          class="flex-1 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-lg px-4 py-3 text-2xl font-mono text-indigo-600 dark:text-indigo-300 break-all min-h-[60px] flex items-center"
           role="status"
           aria-live="polite"
         >
@@ -197,12 +197,12 @@
 
         <button
             on:click={copyResult}
-            class="absolute right-2 top-2 p-2 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+            class="absolute right-2 top-2 p-2 text-gray-400 hover:text-gray-600 dark:text-slate-400 dark:hover:text-white bg-white hover:bg-gray-100 dark:bg-slate-800 dark:hover:bg-slate-700 border border-gray-200 dark:border-transparent rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
             title={t.copy}
             aria-label={t.copy}
         >
             {#if copied}
-                <Check size={18} class="text-green-400" />
+                <Check size={18} class="text-green-500 dark:text-green-400" />
             {:else}
                 <Copy size={18} />
             {/if}
@@ -211,7 +211,7 @@
 
       <select
         bind:value={toUnitId}
-        class="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]"
+        class="w-full bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]"
         aria-label="{t.to} unit"
       >
         {#each units as unit}
@@ -223,7 +223,7 @@
   </div>
 
   <!-- Formula & Precision -->
-  <div class="mt-8 pt-6 border-t border-slate-700">
+  <div class="mt-8 pt-6 border-t border-gray-200 dark:border-slate-700">
 
       {#if formula && inputValue !== null}
         <FormulaView
@@ -244,11 +244,11 @@
       {/if}
 
       <div class="flex items-center justify-end mt-6" role="group" aria-labelledby="precision-label">
-          <span id="precision-label" class="text-sm text-slate-400 whitespace-nowrap mr-3">{t.precision}:</span>
-          <div class="flex bg-slate-900 rounded-lg p-1 border border-slate-700">
+          <span id="precision-label" class="text-sm text-gray-500 dark:text-slate-400 whitespace-nowrap mr-3">{t.precision}:</span>
+          <div class="flex bg-gray-100 dark:bg-slate-900 rounded-lg p-1 border border-gray-200 dark:border-slate-700">
              {#each [2, 4, 6, 10] as p}
                  <button
-                    class="px-3 py-2 text-sm rounded-md transition-colors min-h-[44px] min-w-[44px] {precision === p ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}"
+                    class="px-3 py-2 text-sm rounded-md transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center {precision === p ? 'bg-indigo-600 text-white' : 'text-gray-500 hover:text-gray-900 dark:text-slate-400 dark:hover:text-white'}"
                     on:click={() => precision = p}
                     aria-label="{t.precision} {p}"
                     aria-pressed={precision === p}
