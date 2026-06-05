@@ -26,7 +26,7 @@
             value: res.formatted,
             raw: res.value
             };
-        } catch (e) {
+        } catch {
             return null;
         }
       }).filter(item => item !== null) as { unit: UnitDefinition, value: string, raw: number }[]
@@ -63,28 +63,28 @@
 </script>
 
 {#if inputValue !== null && referenceData.length > 0}
-  <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700 shadow-lg" transition:slide>
-    <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
-      <span class="bg-indigo-500/20 text-indigo-300 p-1.5 rounded-lg mr-2 text-sm">Reference</span>
+  <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-200 dark:border-slate-700 shadow-lg" transition:slide>
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+      <span class="bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300 p-1.5 rounded-lg mr-2 text-sm">Reference</span>
       {t.referenceTable || "Quick Reference"}
     </h3>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
       {#each referenceData as item}
-        <button class="min-h-[44px] min-w-[44px] flex items-center justify-between bg-slate-900/50 hover:bg-slate-700 border border-slate-700/50 rounded-lg p-3 transition-all group text-left min-h-[44px]"
+        <button class="w-full flex items-center justify-between bg-gray-50 hover:bg-gray-100 dark:bg-slate-900/50 dark:hover:bg-slate-700 border border-gray-200 dark:border-slate-700/50 rounded-lg p-3 transition-all group text-left min-h-[44px]"
           on:click={() => copyToClipboard(item.value, item.unit.id)}
           aria-label="Copy {item.value} {item.unit.name.en}"
         >
           <div class="overflow-hidden">
-             <div class="text-xs text-slate-500 mb-0.5">{item.unit.name.en}</div>
-             <div class="text-slate-200 font-mono font-medium truncate" title={item.value}>
-               {item.value} <span class="text-slate-500 text-xs">{item.unit.symbol}</span>
+             <div class="text-xs text-gray-500 dark:text-slate-500 mb-0.5">{item.unit.name.en}</div>
+             <div class="text-gray-900 dark:text-slate-200 font-mono font-medium truncate" title={item.value}>
+               {item.value} <span class="text-gray-400 dark:text-slate-500 text-xs">{item.unit.symbol}</span>
              </div>
           </div>
 
-          <div class="text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">
+          <div class="text-gray-400 dark:text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">
             {#if copiedId === item.unit.id}
-               <Check size={14} class="text-green-400" />
+               <Check size={14} class="text-green-500 dark:text-green-400" />
             {:else}
                <Copy size={14} />
             {/if}

@@ -50,10 +50,10 @@
   }
 </script>
 
-<div class="bg-slate-800 rounded-2xl shadow-xl border border-slate-700 overflow-hidden flex flex-col h-full">
-  <div class="p-4 border-b border-slate-700 flex justify-between items-center bg-slate-800/50">
-    <h3 class="text-lg font-semibold text-white flex items-center">
-      <RotateCcw size={18} class="mr-2 text-indigo-400" />
+<div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-200 dark:border-slate-700 overflow-hidden flex flex-col h-full">
+  <div class="p-4 border-b border-gray-200 dark:border-slate-700 flex justify-between items-center bg-gray-50 dark:bg-slate-800/50">
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+      <RotateCcw size={18} class="mr-2 text-indigo-600 dark:text-indigo-400" />
       {t.history}
     </h3>
 
@@ -61,7 +61,7 @@
         {#if $history && $history.length > 0}
             <button
                 on:click={exportHistory}
-                class="p-1.5 text-slate-400 hover:text-indigo-400 hover:bg-slate-700 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                class="p-1.5 text-gray-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 hover:bg-gray-200 dark:hover:bg-slate-700 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                 title={t.export || "Export CSV"}
                 aria-label={t.export || "Export CSV"}
             >
@@ -70,7 +70,7 @@
         {/if}
         <button
           on:click={clearHistory}
-          class="text-xs text-red-400 hover:text-red-300 transition-colors flex items-center justify-center px-2 py-1 rounded hover:bg-red-900/20 min-h-[44px] min-w-[44px]"
+          class="text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 transition-colors flex items-center justify-center px-2 py-1 rounded hover:bg-red-100 dark:hover:bg-red-900/20 min-h-[44px] min-w-[44px]"
           aria-label={t.clear}
         >
           <Trash2 size={12} class="mr-1" />
@@ -84,33 +84,33 @@
       {#each $history as item (item.id)}
         <div
           transition:slide|local={{ duration: 200 }}
-          class="bg-slate-900/50 hover:bg-slate-700 border border-slate-700/50 hover:border-indigo-500/50 rounded-lg p-3 transition-all group relative"
+          class="bg-gray-50 dark:bg-slate-900/50 hover:bg-gray-100 dark:hover:bg-slate-700 border border-gray-200 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-500/50 rounded-lg p-3 transition-all group relative"
         >
           <div class="flex justify-between items-start mb-1">
-             <span class="text-xs uppercase font-bold text-slate-500 tracking-wider">
+             <span class="text-xs uppercase font-bold text-gray-500 dark:text-slate-500 tracking-wider">
                  {item.categoryId}
              </span>
-             <button class="min-h-[44px] min-w-[44px] text-slate-600 hover:text-yellow-400 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={() => toggleFavorite(item.id!)}
+             <button class="min-h-[44px] min-w-[44px] text-gray-400 hover:text-yellow-500 dark:text-slate-600 dark:hover:text-yellow-400 transition-colors flex items-center justify-center" on:click={() => toggleFavorite(item.id!)}
                 aria-label="Toggle Favorite"
              >
-                <Star size={14} fill={item.isFavorite ? "currentColor" : "none"} class={item.isFavorite ? "text-yellow-400" : ""} />
+                <Star size={14} fill={item.isFavorite ? "currentColor" : "none"} class={item.isFavorite ? "text-yellow-500 dark:text-yellow-400" : ""} />
              </button>
           </div>
 
-          <button class="min-h-[44px] min-w-[44px] w-full text-left min-h-[44px] flex items-center"
+          <button class="w-full text-left min-h-[44px] flex items-center"
             on:click={() => restore(item)}
             aria-label="Restore conversion"
           >
               <div class="flex items-center space-x-2 text-sm">
-                  <span class="text-white font-mono">{formatValue(item.fromValue)} {item.fromUnitId}</span>
-                  <span class="text-slate-500">→</span>
-                  <span class="text-indigo-300 font-mono font-bold">{formatValue(item.resultValue)} {item.toUnitId}</span>
+                  <span class="text-gray-900 dark:text-white font-mono">{formatValue(item.fromValue)} {item.fromUnitId}</span>
+                  <span class="text-gray-400 dark:text-slate-500">→</span>
+                  <span class="text-indigo-600 dark:text-indigo-300 font-mono font-bold">{formatValue(item.resultValue)} {item.toUnitId}</span>
               </div>
           </button>
         </div>
       {/each}
     {:else}
-      <div class="text-center py-10 text-slate-500 text-sm">
+      <div class="text-center py-10 text-gray-500 dark:text-slate-500 text-sm">
         {t.guide.noHistory || "No recent history"}
       </div>
     {/if}

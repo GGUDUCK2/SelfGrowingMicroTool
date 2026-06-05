@@ -30,10 +30,10 @@
 
 <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-6" role="tablist">
   {#each categories as category}
-    <button class="min-h-[44px] min-w-[44px] flex flex-col items-center justify-center p-4 min-h-[88px] rounded-xl transition-all duration-200 border
+    <button class="min-w-[44px] flex flex-col items-center justify-center p-4 min-h-[88px] rounded-xl transition-all duration-200 border
         {selectedCategory === category.id
           ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg scale-105 z-10'
-          : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700 hover:border-slate-600 hover:text-slate-200'}"
+          : 'bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-500 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 hover:border-gray-300 dark:hover:border-slate-600 hover:text-gray-900 dark:hover:text-slate-200'}"
       role="tab"
       aria-selected={selectedCategory === category.id}
       on:click={() => selectCategory(category.id)}
@@ -42,7 +42,7 @@
       <svelte:component
         this={icons[category.id] || Box}
         size={24}
-        class="mb-2 {selectedCategory === category.id ? 'text-white' : 'text-slate-400'}"
+        class="mb-2 {selectedCategory === category.id ? 'text-white' : 'text-gray-500 dark:text-slate-400'}"
       />
       <span class="text-sm font-medium text-center leading-tight">
         {t.categories[category.id] || category.name.en}

@@ -76,19 +76,19 @@
 </script>
 
 {#if comparisons.length > 0}
-  <div class="mt-6 bg-indigo-900/20 border border-indigo-500/30 rounded-xl p-4">
-      <div class="flex items-center gap-2 mb-3 text-indigo-300 font-semibold text-sm">
+  <div class="mt-6 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-500/30 rounded-xl p-4">
+      <div class="flex items-center gap-2 mb-3 text-indigo-700 dark:text-indigo-300 font-semibold text-sm">
           <Lightbulb size={16} />
           <span>{t.context || 'Did you know?'}</span>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {#each comparisons as comp}
-              <div class="flex items-center gap-3 bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
+              <div class="flex items-center gap-3 bg-white dark:bg-slate-900/50 p-3 rounded-lg border border-gray-200 dark:border-slate-700/50">
                   <div class="text-2xl">{comp.item.icon}</div>
                   <div class="flex-1 min-w-0">
-                      <div class="text-xs text-slate-400 truncate">{comp.item.label[lang === 'ko' ? 'ko' : 'en']}</div>
-                      <div class="text-sm font-medium text-white">{comp.text}</div>
+                      <div class="text-xs text-gray-500 dark:text-slate-400 truncate">{comp.item.label[lang === 'ko' ? 'ko' : 'en']}</div>
+                      <div class="text-sm font-medium text-gray-900 dark:text-white">{comp.text}</div>
                   </div>
               </div>
           {/each}

@@ -95,6 +95,8 @@
 <Head
   title={`${t.title} | ${dict.home.title}`}
   description={t.description}
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/unit-verse"}
+  image="https://selfgrowingmicrotool.com/og/unit-verse.png"
   keywords={t.keywords}
 />
 
@@ -104,26 +106,24 @@
   {@html `<script type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(schemaObj2)}</scr` + `ipt>`}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [ { "@type": "Question", "name": dict?.q1 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.a1 || "" } }, { "@type": "Question", "name": dict?.q2 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.a2 || "" } }, { "@type": "Question", "name": dict?.q3 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.a3 || "" } } ] })}</scr` + `ipt>`}
 </svelte:head>
 
-<div class="min-h-screen bg-slate-900 text-slate-100 pb-20">
+<div class="min-h-screen bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-slate-100 pb-20">
   <!-- Header -->
-  <header class="bg-slate-800/50 backdrop-blur-md border-b border-slate-700/50 sticky top-0 z-30">
+  <header class="bg-white/50 dark:bg-slate-800/50 backdrop-blur-md border-b border-gray-200 dark:border-slate-700/50 sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-4">
-        <a href="/{lang}" class="p-2 hover:bg-slate-700 rounded-full transition-colors group min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={dict.common.back}>
-          <MoveLeft size={20} class="text-slate-400 group-hover:text-white" />
+        <a href="/{lang}" class="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-full transition-colors group min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={dict.common.back}>
+          <MoveLeft size={20} class="text-gray-500 dark:text-slate-400 group-hover:text-gray-900 dark:group-hover:text-white" />
         </a>
-        <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-violet-400">
+        <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">
           {t.title}
         </h1>
       </div>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
       <!-- Left Column: Converter (2/3 width) -->
@@ -164,13 +164,13 @@
           <History {t} on:restore={handleRestore} />
 
           <!-- Promo / Cross-link -->
-          <div class="bg-gradient-to-br from-indigo-900/50 to-violet-900/50 border border-indigo-500/30 rounded-2xl p-6">
-              <h3 class="font-semibold text-white mb-2">{t.promoTitle}</h3>
-              <p class="text-sm text-indigo-200 mb-4">
+          <div class="bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-900/50 dark:to-violet-900/50 border border-indigo-100 dark:border-indigo-500/30 rounded-2xl p-6">
+              <h3 class="font-semibold text-indigo-900 dark:text-white mb-2">{t.promoTitle}</h3>
+              <p class="text-sm text-indigo-700 dark:text-indigo-200 mb-4">
                   {t.promoText}
               </p>
               <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-              <a href="/{lang}/tools/compound-interest-calculator" class="block w-full text-center py-2 min-h-[44px] min-w-[44px] bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors text-sm font-medium">
+              <a href="/{lang}/tools/compound-interest-calculator" class="block w-full text-center py-2 min-h-[44px] min-w-[44px] flex items-center justify-center bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors text-sm font-medium">
                   {t.promoAction}
               </a>
           </div>
@@ -178,7 +178,7 @@
 
     </div>
 
-  <div class="mt-12 mb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="mt-12 mb-20">
     <RelatedTools {lang} currentSlug="unit-verse" currentCategory="dev" />
   </div>
 </main>

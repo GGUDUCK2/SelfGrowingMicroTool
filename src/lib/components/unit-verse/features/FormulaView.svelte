@@ -27,27 +27,27 @@
   }
 </script>
 
-<div class="mt-4 bg-slate-900/80 rounded-xl border border-slate-700 p-4 space-y-3">
-    <div class="flex items-center gap-2 text-slate-400 text-xs uppercase font-bold tracking-wider mb-2">
+<div class="mt-4 bg-gray-50 dark:bg-slate-900/80 rounded-xl border border-gray-200 dark:border-slate-700 p-4 space-y-3">
+    <div class="flex items-center gap-2 text-gray-500 dark:text-slate-400 text-xs uppercase font-bold tracking-wider mb-2">
         <Calculator size={14} />
         {t.howItWorks || 'How it works'}
     </div>
 
     <div class="flex flex-col md:flex-row md:items-center gap-4 text-sm font-mono">
          <div class="flex-1">
-             <div class="text-slate-500 mb-1 text-xs">{t.formula || 'Formula'}</div>
-             <div class="text-slate-200 bg-slate-800 px-3 py-2 rounded border border-slate-700/50">
+             <div class="text-gray-500 dark:text-slate-500 mb-1 text-xs">{t.formula || 'Formula'}</div>
+             <div class="text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-800 px-3 py-2 rounded border border-gray-200 dark:border-slate-700/50">
                  {@html steps[0].val}
              </div>
          </div>
 
-         <ArrowRight size={20} class="hidden md:block text-slate-600" />
+         <ArrowRight size={20} class="hidden md:block text-gray-400 dark:text-slate-600" />
 
          <div class="flex-1">
-             <div class="text-slate-500 mb-1 text-xs">{t.result || 'Result'}</div>
-              <div class="text-emerald-300 bg-slate-800 px-3 py-2 rounded border border-slate-700/50 flex justify-between">
-                  <span>{inputValue} {fromUnitSymbol}</span>
-                  <span>=</span>
+             <div class="text-gray-500 dark:text-slate-500 mb-1 text-xs">{t.result || 'Result'}</div>
+              <div class="text-emerald-600 dark:text-emerald-300 bg-white dark:bg-slate-800 px-3 py-2 rounded border border-gray-200 dark:border-slate-700/50 flex justify-between">
+                  <span class="text-gray-700 dark:text-slate-300">{inputValue} {fromUnitSymbol}</span>
+                  <span class="text-gray-500 dark:text-slate-500">=</span>
                   <span class="font-bold">{parseFloat(resultValue.toFixed(6))} {toUnitSymbol}</span>
               </div>
          </div>

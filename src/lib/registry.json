@@ -1245,15 +1245,18 @@
       "ko": "Unit Verse"
     },
     "description": {
-      "en": "Tool for Unit Verse",
-      "ko": "Unit Verse 도구"
+      "en": "The definitive converter for length, mass, digital, energy, and more. Includes formula views and smart precision.",
+      "ko": "길이, 질량, 디지털, 에너지 등을 위한 완벽한 변환기입니다. 공식 보기와 스마트 정밀도를 포함합니다."
     },
     "category": "dev",
     "tags": [
       "unit",
-      "tool"
+      "converter",
+      "math",
+      "physics",
+      "engineering"
     ],
-    "createdAt": "2026-05-17"
+    "createdAt": "2024-05-20"
   },
   {
     "id": "url-forge",
