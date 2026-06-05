@@ -419,7 +419,7 @@
     }
   </script>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="h-[calc(100vh-64px)] flex flex-col bg-slate-50 dark:bg-slate-900 overflow-hidden">

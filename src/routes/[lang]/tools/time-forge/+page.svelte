@@ -77,9 +77,9 @@
 
 <svelte:head>
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [ { "@type": "Question", "name": dict?.tools?.timeForge?.q1 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.tools?.timeForge?.a1 || "" } }, { "@type": "Question", "name": dict?.tools?.timeForge?.q2 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.tools?.timeForge?.a2 || "" } }, { "@type": "Question", "name": dict?.tools?.timeForge?.q3 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.tools?.timeForge?.a3 || "" } } ] }) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [ { "@type": "Question", "name": dict?.tools?.timeForge?.q1 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.tools?.timeForge?.a1 || "" } }, { "@type": "Question", "name": dict?.tools?.timeForge?.q2 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.tools?.timeForge?.a2 || "" } }, { "@type": "Question", "name": dict?.tools?.timeForge?.q3 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.tools?.timeForge?.a3 || "" } } ] })}</scr` + `ipt>`}
 </svelte:head>
 
 <Head

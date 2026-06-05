@@ -164,7 +164,7 @@
     }
   </script>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumb) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumb)}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -204,7 +204,7 @@
 
 </svelte:head>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" in:fade={{ duration: 300 }}>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12" in:fade={{ duration: 300 }}>
   <div class="text-center mb-12">
     <div class="inline-flex items-center justify-center p-3 bg-indigo-500/10 rounded-xl mb-4 shrink-0">
       <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

@@ -83,7 +83,7 @@
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/pixel-forge" />
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + jsonLd + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${jsonLd}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">

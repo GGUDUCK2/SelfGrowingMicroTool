@@ -171,11 +171,11 @@
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/cipher-lab" />
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(softwareSchema) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">

@@ -388,13 +388,13 @@
 
 <svelte:head>
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(softwareSchema) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(howToSchema) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(howToSchema)}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</scr` + `ipt>`}
 </svelte:head>
 
 <svelte:window on:keydown={handleKeydown} />

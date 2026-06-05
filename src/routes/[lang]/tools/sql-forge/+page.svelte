@@ -125,7 +125,7 @@
 
 <svelte:head>
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(schemas) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(schemas)}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="h-[calc(100vh-4rem)] flex flex-col bg-gray-50 dark:bg-gray-900">
