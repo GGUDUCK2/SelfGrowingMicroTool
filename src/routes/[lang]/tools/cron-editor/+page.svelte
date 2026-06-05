@@ -223,11 +223,11 @@
 
   <!-- JSON-LD -->
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd2) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd2)}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(jsonLd3) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd3)}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">

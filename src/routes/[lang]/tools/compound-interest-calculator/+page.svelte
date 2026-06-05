@@ -388,7 +388,7 @@
 
 <svelte:head>
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(schemaData) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(schemaData)}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="max-w-6xl mx-auto py-12 space-y-12 px-4">

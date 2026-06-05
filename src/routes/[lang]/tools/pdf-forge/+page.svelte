@@ -79,9 +79,9 @@
 
 <svelte:head>
                     <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(schema) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</scr' + 'ipt>'}
+  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
