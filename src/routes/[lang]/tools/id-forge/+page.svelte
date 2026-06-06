@@ -210,6 +210,7 @@
   };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/id-forge"}
   title={dict.title}
   description={dict.description}
   keywords="uuid generator, ulid generator, nanoid generator, guid, uuid v7, collision calculator, id generator"

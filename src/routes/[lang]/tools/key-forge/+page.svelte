@@ -139,6 +139,7 @@
   };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/key-forge"}
   title={dict.title}
   description={dict.description}
   keywords="typing test, wpm test, code typing practice, mechanical keyboard sound, typing speed test, developer typing"

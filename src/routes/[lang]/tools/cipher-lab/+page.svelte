@@ -154,6 +154,7 @@
   }
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/cipher-lab"}
   title={dict.title}
   description={dict.description}
   keywords="hash generator, hmac calculator, jwt debugger, password generator, aes encryption, web crypto api, sha-256, sha-512, md5, base64 encoder"

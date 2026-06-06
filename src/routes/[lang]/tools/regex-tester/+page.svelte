@@ -138,6 +138,7 @@
     };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/regex-tester"}
   title={t.title}
   description={t.description}
   keywords="regex, regex tester, regular expression, debug regex, regex visualizer"
@@ -150,7 +151,7 @@
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">
     ${JSON.stringify(schemaObj1)}
-  </script>`}
+  </scr` + `ipt>`}
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
@@ -185,7 +186,7 @@
       }
     ]
   }
-  </script>`}
+  </scr` + `ipt>`}
 
 </svelte:head>
 

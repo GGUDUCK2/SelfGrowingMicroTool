@@ -122,6 +122,7 @@
   }
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/icon-forge"}
   title={`${t.title} - ${t.category || 'Design'}`}
   description={t.description}
   keywords="favicon generator, pwa icon, maskable icon, app icon generator, ios icon generator, android icon generator, svg to ico"
@@ -162,7 +163,7 @@
         "Client-side processing (Privacy First)"
       ]
     }
-  </script>`}
+  </scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumb)}</scr` + `ipt>`}
 
@@ -200,7 +201,7 @@
       }
     ]
   }
-  </script>`}
+  </scr` + `ipt>`}
 
 </svelte:head>
 

@@ -68,6 +68,7 @@
   const renderMarkdown = (text: string) => marked.parse(text);
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/pixel-forge"}
   title={title}
   description={description}
   keywords="image optimizer, webp converter, watermark images, extract color palette, strip exif metadata, image compressor, resize image, privacy focused, client side, pixel forge"

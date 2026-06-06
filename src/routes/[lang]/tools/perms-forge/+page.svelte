@@ -76,6 +76,7 @@
     };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/perms-forge"}
   title={dict.title}
   description={dict.description}
   keywords="chmod calculator, linux permissions, rwxr-xr-x, 755, 777, chmod generator, symbolic to octal"
@@ -120,7 +121,7 @@
       }
     ]
   }
-  </script>`}
+  </scr` + `ipt>`}
 
 </svelte:head>
 

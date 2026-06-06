@@ -109,6 +109,7 @@
   }
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/file-forge"}
   title={dict.title}
   description={dict.description}
   keywords="file hash, hex viewer, entropy analysis, magic number, md5, sha256, base64 converter, image converter, resize image, metadata viewer, file analysis, privacy first, steganography, zip analysis, risk assessment, pdf metadata, entropy map, metadata stripper, hex editor, exif remover, magic lens, file compare, smart history"

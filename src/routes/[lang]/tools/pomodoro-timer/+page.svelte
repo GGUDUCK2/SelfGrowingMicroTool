@@ -206,6 +206,7 @@
   $: schemaList = [appSchema, breadcrumbSchema, faqSchema];
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/pomodoro-timer"}
   title={dict.title}
   description={dict.description}
 />

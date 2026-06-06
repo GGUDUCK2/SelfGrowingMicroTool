@@ -288,6 +288,7 @@
     }
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/chrono-shift"}
   title={t.title}
   description={t.description}
   keywords="time zone converter, world clock, meeting planner, overlap scheduler, time zone map, global meeting, team scheduler, golden hour, dst calculator, international meeting"

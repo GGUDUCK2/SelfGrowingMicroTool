@@ -93,6 +93,7 @@
 </script>
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/clamp-forge"}
   title={title}
   description={description}
   openGraph={{

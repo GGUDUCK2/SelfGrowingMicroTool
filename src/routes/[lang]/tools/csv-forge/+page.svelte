@@ -188,6 +188,7 @@
 </svelte:head>
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/csv-forge"}
   title={dict?.title || ''}
   description={dict?.description || ''}
   keywords="csv editor, csv to json, csv to sql, csv analyzer, local csv tool"

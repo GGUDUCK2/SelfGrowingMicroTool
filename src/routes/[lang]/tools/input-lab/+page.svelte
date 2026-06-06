@@ -92,6 +92,7 @@
   }
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/input-lab"}
   title={dict.title}
   description={dict.description}
   keywords="keyboard tester, gamepad tester, input lag test, ghosting check, pointer events, touch test, device info, keycode checker"
@@ -142,7 +143,7 @@
       }
     ]
   }
-  </script>`}
+  </scr` + `ipt>`}
 
 </svelte:head>
 

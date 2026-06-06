@@ -381,6 +381,7 @@
   };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/geo-forge"}
   title={dict.title}
   description={dict.description}
   keywords="geojson, wkt, csv, map, converter, geospatial, gis tools, visualization, coordinates"
@@ -417,7 +418,7 @@
         "Interactive Drawing"
       ]
     }
-  </script>`}
+  </scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</scr` + `ipt>`}
 </svelte:head>

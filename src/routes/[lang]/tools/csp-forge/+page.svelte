@@ -143,6 +143,7 @@
 </script>
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/csp-forge"}
   title={dict?.title}
   description={dict?.description}
 />

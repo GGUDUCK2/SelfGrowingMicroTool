@@ -133,6 +133,7 @@
   };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/motion-master"}
   title={dict.title}
   description={dict.description}
   keywords="css animation, keyframes generator, animation tool, web motion design, tailwind animation"

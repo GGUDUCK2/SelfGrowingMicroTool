@@ -72,6 +72,7 @@
   };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/banner-forge"}
   title={title}
   description={description}
   keywords="og image generator, social media banner, youtube thumbnail maker, twitch banner, linkedin header, design tool, open graph maker"
@@ -120,7 +121,7 @@
       }
     ]
   }
-  </script>`}
+  </scr` + `ipt>`}
 
 </svelte:head>
 

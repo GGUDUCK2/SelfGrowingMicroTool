@@ -181,6 +181,7 @@
 </script>
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/subnet-scope"}
   title={dict.tools.subnetScope.title}
   description={dict.tools.subnetScope.description}
 />

@@ -462,6 +462,7 @@
 {/if}
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/xpath-forge"}
   title={t?.title}
   description={t?.description}
 />

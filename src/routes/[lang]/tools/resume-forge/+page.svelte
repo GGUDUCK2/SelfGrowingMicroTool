@@ -158,6 +158,7 @@
   });
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/resume-forge"}
   title={toolDict.title}
   description={toolDict.description}
   keywords="resume builder, cv maker, json resume, free resume template, ats friendly resume, pdf resume"

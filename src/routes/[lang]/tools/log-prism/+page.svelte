@@ -252,6 +252,7 @@
 
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/log-prism"}
   title={dict.title}
   description={dict.description}
   keywords="log viewer, log analyzer, nginx log parser, syslog viewer, json log viewer, error log analysis, automated insights, smart log generation"
@@ -288,7 +289,7 @@
         "Automated Insight Reports"
       ]
     }
-  </script>`}
+  </scr` + `ipt>`}
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -324,7 +325,7 @@
       }
     ]
   }
-  </script>`}
+  </scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
 

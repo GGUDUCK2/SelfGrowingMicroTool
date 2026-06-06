@@ -400,6 +400,7 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/diff-viewer"}
   title={t.title}
   description={t.description}
   image="https://selfgrowingmicrotool.com/og/diff-viewer.png"

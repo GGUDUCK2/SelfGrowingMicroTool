@@ -109,6 +109,7 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/zen-forge"}
     title={dict.title}
     description={dict.description}
     image="https://micro-factory.vercel.app/og/zen-forge.png"

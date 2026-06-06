@@ -135,6 +135,7 @@
 </script>
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/curl-forge"}
   {title}
   {description}
 />

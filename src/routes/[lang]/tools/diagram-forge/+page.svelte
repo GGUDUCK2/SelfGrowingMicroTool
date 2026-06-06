@@ -196,6 +196,7 @@
   $: jsonLdScript = `<script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}<\/script>`;
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/diagram-forge"}
   title={t.title}
   description={t.description}
 />
@@ -237,7 +238,7 @@
       }
     ]
   }
-  </script>`}
+  </scr` + `ipt>`}
 
 </svelte:head>
 

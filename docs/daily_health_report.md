@@ -168,3 +168,8 @@ export default {}
 - 일관된 테마(라이트/다크 모드) 지원으로 사용자 경험 및 접근성 향상.
 - 시맨틱한 SEO 메타 태그 최적화 및 중복 스키마 제거를 통한 검색 엔진의 명확한 데이터 파싱 지원.
 - 필수 라우팅 파일 추가로 SvelteKit 네비게이션 오류 사전 방지.
+[Project Health Report - 2025-01-31]
+## SEO & AEO Enhancements
+- Identified and fixed missing `url` property on the `<Head>` component across all 60 tool pages (e.g., `/en/tools/qr-forge`, `/ko/tools/audio-forge`, etc.).
+- Improved the dynamic URL prop construction to be: `url={"https://selfgrowingmicrotool.com/" + lang + "/tools/tool-name"}` preventing index overlapping issues and supporting canonical discovery.
+- Addressed `svelte:head` parsing issues: Re-formatted JSON-LD injection blocks by adopting backtick wrappers (`</scr` + `ipt>`) across 14 target tools (e.g., `qr-forge`, `snippet-forge`) to address Unterminated template and XSS warnings, ensuring structured data is properly indexed and executed.

@@ -96,6 +96,7 @@
 </script>
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/yaml-forge"}
   title={dict.title}
   description={dict.description}
 />

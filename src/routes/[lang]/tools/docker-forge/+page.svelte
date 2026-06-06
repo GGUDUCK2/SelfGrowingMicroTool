@@ -105,6 +105,7 @@
 </script>
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/docker-forge"}
   title={title}
   description={description}
   keywords="docker, dockerfile, generator, visual builder, docker compose, multi-stage build, container, devops"

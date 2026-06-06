@@ -104,6 +104,7 @@
   };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/locale-forge"}
   title={dict.title}
   description={dict.description}
   keywords="translation manager, i18n tool, locale editor, json translation, localization forge"

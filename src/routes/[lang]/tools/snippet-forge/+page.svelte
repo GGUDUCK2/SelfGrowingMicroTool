@@ -112,6 +112,7 @@
   };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/snippet-forge"}
   title={dict.title}
   description={dict.description}
   keywords="code screenshots, snippet image, carbon alternative, code to image, syntax highlighting image, developer tools"

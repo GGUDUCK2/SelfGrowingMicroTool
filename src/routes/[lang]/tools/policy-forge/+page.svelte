@@ -128,6 +128,7 @@
   $: jsonLd = JSON.stringify(schemaData);
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/policy-forge"}
   title={toolDict.title}
   description={toolDict.description}
   keywords="privacy policy generator, terms of service generator, gdpr, ccpa, legal documents, free policy maker"

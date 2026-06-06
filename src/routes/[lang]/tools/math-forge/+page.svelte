@@ -108,6 +108,7 @@
   }
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/math-forge"}
   title={dict.title}
   description={dict.description}
 />
@@ -140,7 +141,7 @@
       },
       "featureList": ${JSON.stringify(featureList)}
     }
-  </script>`}
+  </scr` + `ipt>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">

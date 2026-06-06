@@ -119,6 +119,7 @@
   }
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/deploy-forge"}
   title={`${dict.tools.deployForge.title} | ${dict.home.title}`}
   description={dict.tools.deployForge.description}
   keywords="dockerfile generator, docker compose builder, container architect, devops tool"

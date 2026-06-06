@@ -130,6 +130,7 @@
 </script>
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/demographics-forge"}
     title={t.title}
     description={t.description}
     keywords="population pyramid, demographic transition, global demographics, median age, dependency ratio, visualization"

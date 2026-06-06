@@ -251,6 +251,7 @@
   };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/logic-forge"}
   title={`${expression ? expression + ' - ' : ''}${dict.title}`}
   description={dict.description}
   keywords="logic gates, truth table generator, boolean algebra, logic circuit simulator, online tool, digital logic design, karnaugh map, boolean simplifier"

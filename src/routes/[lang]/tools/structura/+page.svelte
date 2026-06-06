@@ -245,6 +245,7 @@
     };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/structura"}
   title={`${t.title} | Web Factory`}
   description={t.description}
 />

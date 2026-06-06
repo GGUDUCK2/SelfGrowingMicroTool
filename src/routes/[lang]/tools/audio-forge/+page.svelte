@@ -92,6 +92,7 @@
   };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/audio-forge"}
   title={toolDict.title}
   description={toolDict.description}
   keywords="audio editor, waveform editor, sound recorder, tone generator, wav editor, online audio tool"

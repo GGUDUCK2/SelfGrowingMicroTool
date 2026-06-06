@@ -92,6 +92,7 @@
 </script>
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/barcode-forge"}
   title={title}
   description={description}
 />

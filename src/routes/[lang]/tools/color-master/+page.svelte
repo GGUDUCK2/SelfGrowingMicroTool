@@ -298,6 +298,7 @@
 </svelte:head>
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/color-master"}
   title={t.title}
   description={t.description}
   keywords={t.keywords}

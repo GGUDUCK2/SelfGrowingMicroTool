@@ -96,6 +96,7 @@
     };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/invoice-forge"}
   title={invoiceDict.title}
   description={invoiceDict.description}
   keywords="invoice generator, free invoice maker, pdf invoice, bill generator, receipt maker"
@@ -107,7 +108,7 @@
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
         {@html `<script type="application/ld+json">
     ${JSON.stringify(schemaObj1)}
-  </script>`}
+  </scr` + `ipt>`}
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
@@ -142,7 +143,7 @@
       }
     ]
   }
-  </script>`}
+  </scr` + `ipt>`}
 
 </svelte:head>
 

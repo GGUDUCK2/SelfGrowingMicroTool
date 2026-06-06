@@ -361,6 +361,7 @@
   });
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/seo-forge"}
   title={`${tags.title ? `${tags.title} | ` : ''}${dict.title}`}
   description={dict.description}
   keywords="seo, meta tags, open graph, json-ld, preview, social media, metadata, generator"

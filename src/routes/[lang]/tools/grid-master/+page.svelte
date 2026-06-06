@@ -302,6 +302,7 @@
     };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/grid-master"}
   title={dict.title}
   description={dict.description}
   keywords="CSS Grid, Grid Layout, Tailwind Grid, Web Design, Layout Builder, CSS Generator, Grid Generator, Responsive Design, Semantic Grid, StackBlitz Export, Mobile Grid Generator, Session Snapshots, Text to Grid, Visual Grid Editor, Mock Content, Wireframing, Content Presets, Layout Gallery, Smart History, Wireframe Builder, Grid Wizard, Bento Grid, SaaS Dashboard, React Grid Layout, Vue Grid, Svelte Grid, Kanban Layout, Video Player Layout, Command Palette, React Export, Vue Export, Svelte Export, Tailwind Config, Grid Doctor, Layout Audit"
@@ -319,12 +320,12 @@
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">
     ${JSON.stringify(schemaObj1)}
-  </script>`}
+  </scr` + `ipt>`}
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">
     ${JSON.stringify(schemaObj2)}
-  </script>`}
+  </scr` + `ipt>`}
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
@@ -359,7 +360,7 @@
       }
     ]
   }
-  </script>`}
+  </scr` + `ipt>`}
 
 </svelte:head>
 

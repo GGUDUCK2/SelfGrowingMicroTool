@@ -83,6 +83,7 @@
 </svelte:head>
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/time-forge"}
   title="{t.title} - {t.description}"
   description={t.description}
   image="https://microfactory.dev/og/time-forge.png"

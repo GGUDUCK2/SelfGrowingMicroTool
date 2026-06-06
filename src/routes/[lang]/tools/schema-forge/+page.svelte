@@ -368,6 +368,7 @@
   };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/schema-forge"}
   title={t?.title}
   description={t?.description}
   keywords="database schema, sql generator, prisma schema, db diagram, entity relationship diagram, mysql, postgres, sqlite"

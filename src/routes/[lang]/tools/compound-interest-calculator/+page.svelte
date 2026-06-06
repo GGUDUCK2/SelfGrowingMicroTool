@@ -381,6 +381,7 @@
   ];
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/compound-interest-calculator"}
   title={dict.title}
   description={dict.description}
 />

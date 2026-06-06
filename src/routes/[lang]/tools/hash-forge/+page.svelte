@@ -98,6 +98,7 @@
 
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/hash-forge"}
   title={dict.title}
   description={dict.description}
   openGraph={{

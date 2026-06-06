@@ -80,6 +80,7 @@
   };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/screen-forge"}
   title={t.title}
   description={t.description}
   keywords="screen recorder, screen capture, video recorder, webm recorder, browser screen recording, no watermark"

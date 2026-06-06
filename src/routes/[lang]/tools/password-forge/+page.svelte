@@ -349,6 +349,7 @@
 </script>
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/password-forge"}
   title={t.title}
   description={t.description}
 />

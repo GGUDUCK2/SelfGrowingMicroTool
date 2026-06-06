@@ -73,6 +73,7 @@
 </script>
 
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/shadow-forge"}
   title={dict.title}
   description={dict.description}
   keywords="css box shadow generator, smooth shadow generator, neumorphism generator, multiple box shadows, tailwind shadow generator"

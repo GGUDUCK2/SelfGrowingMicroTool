@@ -66,6 +66,7 @@
   }
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/type-forge"}
   title={dict.title}
   description={dict.description}
   keywords="font inspector, variable fonts, glyph viewer, web font tester, woff2 viewer, opentype.js, css font generator"

@@ -152,6 +152,7 @@
   };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/jwt-forge"}
   title={t.title}
   description={t.description}
 />

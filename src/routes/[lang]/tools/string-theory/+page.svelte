@@ -244,6 +244,7 @@
   const canonicalUrl = `https://selfgrowingmicrotool.com/${$page.params.lang}/tools/string-theory`;
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/string-theory"}
   title={dict.title}
   description={dict.description}
   keywords="string manipulation, text converter, case converter, slugify, base64, url encode, text analysis, ulid generator, nanoid generator"

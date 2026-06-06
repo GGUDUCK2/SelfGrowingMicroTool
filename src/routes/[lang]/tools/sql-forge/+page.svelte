@@ -118,6 +118,7 @@
   ];
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/sql-forge"}
   title={t.title}
   description={t.description}
 />

@@ -220,6 +220,7 @@
   };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/prompt-forge"}
   title={dict.title}
   description={dict.description}
   keywords="prompt engineering, ai prompt generator, llm prompt testing, prompt variables, openai prompt optimization, prompt management"

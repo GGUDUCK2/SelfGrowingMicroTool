@@ -209,6 +209,7 @@
     };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/cron-editor"}
   title={`${lang === "ko"
       ? `Cronos: 전문가용 Cron 에디터 - ${parseResult.isValid ? parseResult.description : "스케줄러"}`
       : `Cronos: Professional Cron Editor - ${parseResult.isValid ? parseResult.description : "Scheduler"}`}`}

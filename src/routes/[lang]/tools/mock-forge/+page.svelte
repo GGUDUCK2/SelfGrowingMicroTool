@@ -234,6 +234,7 @@
   };
 </script>
 <Head
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/mock-forge"}
   title={t.title}
   description={t.description}
   keywords="mock data generator, fake data, json generator, csv generator, sql insert generator, test data, developer tools"
