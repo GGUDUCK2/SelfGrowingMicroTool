@@ -250,7 +250,7 @@
     <!-- Tabs -->
     <div class="flex p-1 space-x-1 bg-slate-100 dark:bg-slate-800 rounded-2xl mb-6">
         {#each ['generate', 'analyze', 'collision'] as tab}
-            <button class="min-h-[44px] min-w-[44px] flex-1 py-3 text-sm font-bold rounded-xl transition-all {activeTab === tab ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}" on:click={() => handleTabChange(tab)}
+            <button class="min-h-[44px] min-w-[44px] flex-1 py-3 text-sm font-bold rounded-xl transition-all {activeTab === tab ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'} min-h-[44px] min-w-[44px]" on:click={() => handleTabChange(tab)}
             >
                 {dict.tabs[tab] || tab}
             </button>

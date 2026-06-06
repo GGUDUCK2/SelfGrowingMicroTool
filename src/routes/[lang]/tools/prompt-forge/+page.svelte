@@ -245,7 +245,7 @@
   <!-- Sidebar -->
   <div class="fixed inset-y-0 left-0 z-50 w-80 bg-white dark:bg-slate-800 shadow-xl transform transition-transform duration-300 md:relative md:translate-x-0 md:shadow-none border-r border-slate-200 dark:border-slate-700 {showSidebar ? 'translate-x-0' : '-translate-x-full'}">
       <div class="absolute top-4 right-4 md:hidden">
-        <button on:click={() => showSidebar = false} class="p-2 text-slate-500" aria-label="Close sidebar">
+        <button on:click={() => showSidebar = false} class="p-2 text-slate-500 min-h-[44px] min-w-[44px]" aria-label="Close sidebar">
             <X class="w-6 h-6" />
         </button>
       </div>
@@ -289,13 +289,13 @@
              <button on:click={handleClear} class="p-2 text-slate-500 hover:text-red-500 transition-colors min-h-[44px] min-w-[44px]" title={dict.toolbar.clear} aria-label={dict.toolbar.clear}>
                  <Trash2 class="w-5 h-5" />
              </button>
-             <button on:click={() => showTemplateModal = true} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors" title="Templates" aria-label="Templates">
+             <button on:click={() => showTemplateModal = true} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors min-h-[44px] min-w-[44px]" title="Templates" aria-label="Templates">
                  <BookTemplate class="w-5 h-5" />
              </button>
              <button on:click={handleExport} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors min-h-[44px] min-w-[44px]" title={dict.toolbar.export} aria-label={dict.toolbar.export}>
                  <Download class="w-5 h-5" />
              </button>
-             <button on:click={() => showCodeExport = true} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors" title="Export Code (Ctrl+E)" aria-label="Export Code">
+             <button on:click={() => showCodeExport = true} class="p-2 text-slate-500 hover:text-indigo-500 transition-colors min-h-[44px] min-w-[44px]" title="Export Code (Ctrl+E)" aria-label="Export Code">
                  <Code class="w-5 h-5" />
              </button>
              <button on:click={handleSave} class="flex items-center gap-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg font-medium text-sm transition-colors shadow-sm min-h-[44px] min-w-[44px]" aria-label={dict.toolbar.save} title="Save (Ctrl+S)">

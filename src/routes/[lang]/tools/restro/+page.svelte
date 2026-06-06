@@ -338,7 +338,7 @@
   <!-- Sidebar (Responsive) -->
   <div class="fixed inset-y-0 left-0 z-50 w-80 bg-white dark:bg-slate-800 shadow-xl transform transition-transform duration-300 md:relative md:translate-x-0 md:shadow-none border-r border-slate-200 dark:border-slate-700 {showSidebar ? 'translate-x-0' : '-translate-x-full'} pt-16 md:pt-0">
       <div class="absolute top-4 right-4 md:hidden">
-        <button on:click={() => showSidebar = false} class="p-2 text-slate-500">
+        <button on:click={() => showSidebar = false} class="p-2 text-slate-500 min-h-[44px] min-w-[44px]">
             <X class="w-6 h-6" />
         </button>
       </div>
@@ -435,7 +435,7 @@
     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden">
       <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
         <h3 class="font-bold text-lg text-slate-800 dark:text-white">Batch Collection Runner</h3>
-        <button on:click={() => showBatch = false} class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+        <button on:click={() => showBatch = false} class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 min-h-[44px] min-w-[44px]">
           <X class="w-5 h-5" />
         </button>
       </div>
@@ -461,7 +461,7 @@
     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden">
       <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
         <h3 class="font-bold text-lg text-slate-800 dark:text-white">{dict.generateCode}</h3>
-        <button on:click={() => showCodeModal = false} class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+        <button on:click={() => showCodeModal = false} class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 min-h-[44px] min-w-[44px]">
           <X class="w-5 h-5" />
         </button>
       </div>
@@ -470,7 +470,7 @@
         <div>
           <div class="flex items-center justify-between mb-2">
             <label for="curl-snippet" class="text-sm font-semibold text-slate-700 dark:text-slate-300">cURL</label>
-            <button on:click={() => copySnippet(snippetCurl)} aria-label="Copy cURL" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Copy</button>
+            <button on:click={() => copySnippet(snippetCurl)} aria-label="Copy cURL" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline min-h-[44px] min-w-[44px]">Copy</button>
           </div>
           <textarea id="curl-snippet" readonly class="w-full h-32 bg-slate-100 dark:bg-slate-900 p-4 rounded-lg text-xs font-mono overflow-x-auto text-slate-800 dark:text-slate-200 resize-none focus:outline-none" value={snippetCurl}></textarea>
         </div>
@@ -478,7 +478,7 @@
         <div>
            <div class="flex items-center justify-between mb-2">
             <label for="fetch-snippet" class="text-sm font-semibold text-slate-700 dark:text-slate-300">JavaScript (Fetch)</label>
-            <button on:click={() => copySnippet(snippetFetch)} aria-label="Copy Fetch" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Copy</button>
+            <button on:click={() => copySnippet(snippetFetch)} aria-label="Copy Fetch" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline min-h-[44px] min-w-[44px]">Copy</button>
           </div>
           <textarea id="fetch-snippet" readonly class="w-full h-32 bg-slate-100 dark:bg-slate-900 p-4 rounded-lg text-xs font-mono overflow-x-auto text-slate-800 dark:text-slate-200 resize-none focus:outline-none" value={snippetFetch}></textarea>
         </div>
@@ -486,7 +486,7 @@
         <div>
            <div class="flex items-center justify-between mb-2">
             <label for="docs-snippet" class="text-sm font-semibold text-slate-700 dark:text-slate-300">Markdown Docs</label>
-            <button on:click={() => copySnippet(snippetDocs)} aria-label="Copy Docs" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Copy</button>
+            <button on:click={() => copySnippet(snippetDocs)} aria-label="Copy Docs" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline min-h-[44px] min-w-[44px]">Copy</button>
           </div>
           <textarea id="docs-snippet" readonly class="w-full h-32 bg-slate-100 dark:bg-slate-900 p-4 rounded-lg text-xs font-mono overflow-x-auto text-slate-800 dark:text-slate-200 resize-none focus:outline-none whitespace-pre-wrap" value={snippetDocs}></textarea>
         </div>

@@ -662,7 +662,7 @@
   <!-- Help / FAQ Modal -->
   {#if showHelp}
       <div class="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true">
-          <button class="absolute inset-0 bg-black/50 backdrop-blur-sm cursor-default min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={() => showHelp = false} on:keydown={(e) => e.key === 'Escape' && (showHelp = false)} transition:fade aria-label="Close help"></button>
+          <button class="absolute inset-0 bg-black/50 backdrop-blur-sm cursor-default min-h-[44px] min-w-[44px] flex items-center justify-center min-h-[44px] min-w-[44px]" on:click={() => showHelp = false} on:keydown={(e) => e.key === 'Escape' && (showHelp = false)} transition:fade aria-label="Close help"></button>
           <div class="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto bg-white dark:bg-slate-900 rounded-2xl shadow-2xl z-10 pointer-events-auto" transition:fly={{y: 20}}>
                <button class="absolute top-4 right-4 p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full z-10 min-h-[44px] min-w-[44px]" on:click={() => showHelp = false} aria-label="Close Help">
                    <X class="w-6 h-6" />

@@ -473,7 +473,7 @@
     {@html '<scr' + 'ipt type="application/ld+json">' + JSON.stringify(faqSchema) + '</scr' + 'ipt>'}
 </svelte:head>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
     <!-- Header -->
     <div class="flex items-center gap-4 mb-8">
         <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
@@ -601,14 +601,14 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-1 overflow-x-auto scrollbar-hide whitespace-nowrap shrink-0">
-                            <button class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={t?.editor?.prettify || 'Prettify'} on:click={prettifyDocument}>
+                            <button class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center min-h-[44px] min-w-[44px]" aria-label={t?.editor?.prettify || 'Prettify'} on:click={prettifyDocument}>
                                 <Code class="w-4 h-4" />
                             </button>
                             <label class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg cursor-pointer text-gray-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={t?.editor?.upload}>
                                 <input type="file" class="hidden" accept=".xml,.html,.txt" on:change={handleFileUpload} />
                                 <Download class="w-4 h-4" />
                             </label>
-                            <button class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={t?.editor?.clear} on:click={clearEditor}>
+                            <button class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center min-h-[44px] min-w-[44px]" aria-label={t?.editor?.clear} on:click={clearEditor}>
                                 <Trash2 class="w-4 h-4" />
                             </button>
                         </div>

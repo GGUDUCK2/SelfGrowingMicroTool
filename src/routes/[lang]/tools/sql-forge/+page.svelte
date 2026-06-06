@@ -132,7 +132,7 @@
     <!-- Toolbar -->
     <header class="h-14 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-4 shrink-0 z-20">
         <div class="flex items-center gap-3">
-            <button class="md:hidden p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-600 dark:text-gray-400" on:click={() => isSidebarOpen = !isSidebarOpen} aria-label="Toggle Menu">
+            <button class="md:hidden p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-600 dark:text-gray-400 min-h-[44px] min-w-[44px]" on:click={() => isSidebarOpen = !isSidebarOpen} aria-label="Toggle Menu">
                 {#if isSidebarOpen}
                     <X size={20} />
                 {:else}

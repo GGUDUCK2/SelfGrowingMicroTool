@@ -189,7 +189,7 @@
 
                 <div class="h-6 w-px bg-slate-200 dark:bg-slate-600 mx-2 hidden sm:block"></div>
 
-                <button on:click={() => $isPlaying = !$isPlaying} class="p-2 rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-100 dark:bg-indigo-900/20 dark:text-indigo-400 transition-colors" title={dict.play}>
+                <button on:click={() => $isPlaying = !$isPlaying} class="p-2 rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-100 dark:bg-indigo-900/20 dark:text-indigo-400 transition-colors min-h-[44px] min-w-[44px]" title={dict.play}>
                     {#if $isPlaying}
                         <Pause class="w-5 h-5" />
                     {:else}
@@ -217,9 +217,9 @@
 
                    <!-- Preview Controls -->
                    <div class="absolute bottom-4 left-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur p-2 rounded-lg shadow border border-slate-200 dark:border-slate-600 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                       <button on:click={() => $previewStore.type = 'box'} class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded" title="Box"><div class="w-4 h-4 bg-indigo-500 rounded"></div></button>
-                       <button on:click={() => $previewStore.type = 'circle'} class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded" title="Circle"><div class="w-4 h-4 bg-indigo-500 rounded-full"></div></button>
-                       <button on:click={() => $previewStore.type = 'text'} class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded font-bold text-xs flex items-center justify-center w-6 h-6" title="Text">T</button>
+                       <button on:click={() => $previewStore.type = 'box'} class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded min-h-[44px] min-w-[44px]" title="Box"><div class="w-4 h-4 bg-indigo-500 rounded min-h-[44px] min-w-[44px]"></div></button>
+                       <button on:click={() => $previewStore.type = 'circle'} class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded min-h-[44px] min-w-[44px]" title="Circle"><div class="w-4 h-4 bg-indigo-500 rounded-full min-h-[44px] min-w-[44px]"></div></button>
+                       <button on:click={() => $previewStore.type = 'text'} class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded font-bold text-xs flex items-center justify-center w-6 h-6 min-h-[44px] min-w-[44px]" title="Text">T</button>
                    </div>
                </div>
 
@@ -249,7 +249,7 @@
         <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-2xl flex flex-col max-h-[90vh]" transition:fly={{ y: 20 }}>
             <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
                 <h3 class="font-bold text-lg text-slate-800 dark:text-white">{dict.export}</h3>
-                <button on:click={() => showCodeModal = false}><X class="w-5 h-5 text-slate-500" /></button>
+                <button on:click={() => showCodeModal = false}><X class="w-5 h-5 text-slate-500 min-h-[44px] min-w-[44px]" /></button>
             </div>
             <div class="flex border-b border-slate-200 dark:border-slate-700">
                 <button class="flex-1 py-3 text-sm font-medium {codeMode === 'css' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'} min-h-[44px] min-w-[44px]" on:click={() => switchCodeMode('css')}>CSS</button>

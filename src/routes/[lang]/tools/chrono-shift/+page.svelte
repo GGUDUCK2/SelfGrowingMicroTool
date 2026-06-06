@@ -323,13 +323,13 @@
         <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex flex-wrap gap-4 items-center justify-between bg-slate-50 dark:bg-slate-800/50">
             <div class="flex items-center gap-4">
                 <div class="flex items-center bg-white dark:bg-slate-900 rounded-lg border border-slate-300 dark:border-slate-600 p-1">
-                    <button class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md" on:click={() => shiftDay(-1)} aria-label="Previous Day">
+                    <button class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md min-h-[44px] min-w-[44px]" on:click={() => shiftDay(-1)} aria-label="Previous Day">
                         <ArrowLeft size={18} />
                     </button>
                     <div class="px-4 font-mono font-medium min-w-[140px] text-center">
                         {format(selectedDate, 'yyyy-MM-dd')}
                     </div>
-                    <button class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md" on:click={() => shiftDay(1)} aria-label="Next Day">
+                    <button class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md min-h-[44px] min-w-[44px]" on:click={() => shiftDay(1)} aria-label="Next Day">
                         <ArrowRight size={18} />
                     </button>
                 </div>

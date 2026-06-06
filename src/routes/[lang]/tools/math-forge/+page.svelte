@@ -166,7 +166,7 @@
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div class="lg:col-span-9 space-y-8">
               <!-- Tabs -->

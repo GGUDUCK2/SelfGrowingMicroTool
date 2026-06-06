@@ -377,7 +377,7 @@
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 pb-20 font-sans text-slate-900 dark:text-white transition-colors duration-300">
   <div class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       <div class="flex items-center gap-4">
         <div class="p-3 bg-indigo-500 rounded-2xl text-white shadow-lg shadow-indigo-500/30">
           <KeyRound size={28} />
@@ -392,7 +392,7 @@
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
       <!-- Left Column: Generator -->
