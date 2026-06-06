@@ -401,7 +401,7 @@
         <div class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col border border-slate-200 dark:border-slate-800">
             <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
                 <h3 class="font-bold text-lg">{t.messages.importTitle}</h3>
-                <button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={() => showImport = false} aria-label="Close">
+                <button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded min-h-[44px] min-w-[44px] flex items-center justify-center min-h-[44px] min-w-[44px]" on:click={() => showImport = false} aria-label="Close">
                      <X size={20} />
                 </button>
             </div>

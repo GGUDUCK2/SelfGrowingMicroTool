@@ -185,7 +185,7 @@
                      <div class="absolute inset-y-0 left-0 w-80 bg-white dark:bg-slate-900 shadow-2xl flex flex-col" transition:slide={{axis: 'x'}}>
                          <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-800">
                              <h3 class="font-bold">Settings</h3>
-                             <button on:click={() => showMobileControls = false} class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"><X size={20} /></button>
+                             <button on:click={() => showMobileControls = false} class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg min-h-[44px] min-w-[44px]"><X size={20} /></button>
                          </div>
                          <Controls {dict} />
                      </div>

@@ -339,8 +339,8 @@
                  </button>
              {/each}
              <!-- Extra Operators -->
-             <button class="px-3 py-2 min-h-[44px] min-w-[44px] bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors" aria-label="Insert Implies" on:click={() => expression += ' -> '}>→</button>
-             <button class="px-3 py-2 min-h-[44px] min-w-[44px] bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors" aria-label="Insert Equivalent" on:click={() => expression += ' <-> '}>↔</button>
+             <button class="px-3 py-2 min-h-[44px] min-w-[44px] bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors min-h-[44px] min-w-[44px]" aria-label="Insert Implies" on:click={() => expression += ' -> '}>→</button>
+             <button class="px-3 py-2 min-h-[44px] min-w-[44px] bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors min-h-[44px] min-w-[44px]" aria-label="Insert Equivalent" on:click={() => expression += ' <-> '}>↔</button>
           </div>
           {/if}
        </div>

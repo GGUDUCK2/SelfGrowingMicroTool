@@ -245,7 +245,7 @@
     <!-- Sidebar -->
     <div class="fixed inset-y-0 left-0 z-50 h-full bg-white dark:bg-slate-800 shadow-xl transform transition-transform duration-300 md:relative md:translate-x-0 md:shadow-none border-r border-slate-200 dark:border-slate-700 {showSidebar ? 'translate-x-0' : '-translate-x-full'} pt-16 md:pt-0 w-80">
         <div class="absolute top-4 right-4 md:hidden">
-            <button class="min-h-[44px] min-w-[44px] p-2 text-slate-500" on:click={() => showSidebar = false}>
+            <button class="min-h-[44px] min-w-[44px] p-2 text-slate-500 min-h-[44px] min-w-[44px]" on:click={() => showSidebar = false}>
                 <X class="w-6 h-6" />
             </button>
         </div>
@@ -253,13 +253,13 @@
     </div>
 
     {#if showSidebar}
-        <button class="min-h-[44px] min-w-[44px] fixed inset-0 bg-black/50 z-40 md:hidden" on:click={() => showSidebar = false} aria-label="Close Sidebar"></button>
+        <button class="min-h-[44px] min-w-[44px] fixed inset-0 bg-black/50 z-40 md:hidden min-h-[44px] min-w-[44px]" on:click={() => showSidebar = false} aria-label="Close Sidebar"></button>
     {/if}
 
     <div class="flex-1 flex flex-col min-w-0 h-full">
         <!-- Mobile Header -->
         <div class="md:hidden flex items-center p-4 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
-            <button class="min-h-[44px] min-w-[44px] mr-4 text-slate-500" on:click={() => showSidebar = true}>
+            <button class="min-h-[44px] min-w-[44px] mr-4 text-slate-500 min-h-[44px] min-w-[44px]" on:click={() => showSidebar = true}>
                 <Menu size={24} />
             </button>
             <h1 class="font-bold text-slate-800 dark:text-white">Diagram Forge</h1>

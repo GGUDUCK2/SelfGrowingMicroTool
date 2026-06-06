@@ -428,7 +428,7 @@
   <!-- History Drawer -->
   {#if showHistory}
     <div class="fixed inset-0 z-50 flex justify-end" transition:fade={{ duration: 200 }}>
-      <button class="absolute inset-0 bg-black/20 backdrop-blur-sm min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={() => showHistory = false} aria-label="Close history"></button>
+      <button class="absolute inset-0 bg-black/20 backdrop-blur-sm min-h-[44px] min-w-[44px] flex items-center justify-center min-h-[44px] min-w-[44px]" on:click={() => showHistory = false} aria-label="Close history"></button>
       <div class="relative w-full max-w-sm bg-white dark:bg-slate-900 shadow-2xl h-full overflow-y-auto" transition:slide={{ axis: 'x', duration: 300 }}>
         <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
           <h3 class="font-semibold text-slate-900 dark:text-white">{dict.history}</h3>

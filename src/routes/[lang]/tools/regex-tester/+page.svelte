@@ -263,7 +263,7 @@
           <div class="space-y-2">
             {#each $history as item}
               <div class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 group">
-                <button class="flex-grow min-w-0 mr-3 text-left focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded p-1 min-h-[44px]" on:click={() => loadHistory(item)}>
+                <button class="flex-grow min-w-0 mr-3 text-left focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded p-1 min-h-[44px] min-h-[44px] min-w-[44px]" on:click={() => loadHistory(item)}>
                   <div class="text-sm font-mono font-medium text-slate-700 dark:text-slate-200 truncate">
                     /{item.pattern}/{item.flags}
                   </div>

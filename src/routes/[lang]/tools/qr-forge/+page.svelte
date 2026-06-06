@@ -161,7 +161,7 @@
 <div class="min-h-screen bg-slate-900 text-slate-50 pb-20">
   <!-- Hero -->
   <div class="bg-gradient-to-r from-indigo-900 via-slate-900 to-slate-900 border-b border-slate-800 pb-12 pt-12 px-4">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 mb-4 tracking-tight">
         {t.title}
       </h1>
@@ -171,7 +171,7 @@
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 -mt-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 -mt-8">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
 
       <!-- Left: Config -->

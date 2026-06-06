@@ -286,9 +286,9 @@
         <div class="flex items-center gap-4">
             <!-- Smart Examples -->
             <div class="flex gap-2 text-xs">
-                <button on:click={() => loadExample('messy')} class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-medium">Messy</button>
-                <button on:click={() => loadExample('json')} class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-medium">JSON</button>
-                <button on:click={() => loadExample('log')} class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-medium">Log</button>
+                <button on:click={() => loadExample('messy')} class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-medium min-h-[44px] min-w-[44px]">Messy</button>
+                <button on:click={() => loadExample('json')} class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-medium min-h-[44px] min-w-[44px]">JSON</button>
+                <button on:click={() => loadExample('log')} class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-medium min-h-[44px] min-w-[44px]">Log</button>
             </div>
 
              <div class="h-4 w-px bg-slate-300 dark:bg-slate-700"></div>
