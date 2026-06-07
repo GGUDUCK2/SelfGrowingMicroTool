@@ -11,7 +11,7 @@
   <title>About Us | MicroFactory</title>
   <meta name="description" content="Learn more about MicroFactory, a comprehensive suite of powerful, client-side web tools designed for modern workflows." />
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html '<script type="application/ld+json">' + JSON.stringify({"@context":"https://schema.org","@type":"WebPage","@id":"https://selfgrowingmicrotool.com/" + lang + "/about","name":"About Us","description":"Learn more about MicroFactory"}) + '</script>'}
+  {@html `<script type="application/ld+json">${JSON.stringify({"@context":"https://schema.org","@type":"WebPage","@id":"https://selfgrowingmicrotool.com/" + lang + "/about","name":"About Us","description":"Learn more about MicroFactory"})}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8 prose prose-slate dark:prose-invert">
