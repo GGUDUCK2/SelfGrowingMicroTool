@@ -121,7 +121,7 @@
 
 </svelte:head>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16 font-sans">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 font-sans">
   <!-- Hero -->
   <header class="text-center space-y-6">
     <div class="inline-flex items-center justify-center p-4 bg-indigo-500/10 dark:bg-indigo-500/20 rounded-3xl mb-4">
