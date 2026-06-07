@@ -137,7 +137,7 @@
 
     <!-- Documentation -->
     <div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-        <div class="max-w-5xl mx-auto px-4 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
             {#if toolDict.guide.title}
                 <GuideSection
                     title={toolDict.guide.title}
