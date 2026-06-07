@@ -268,6 +268,8 @@ ${calculatedClamp}`,
     }
   };
 
+  let showSaveToast = false;
+
   const saveScale = async () => {
     if (browser) {
       await clampForgeWorkspace.save({
@@ -278,7 +280,9 @@ ${calculatedClamp}`,
         unit,
         result: calculatedClamp
       });
-      activeTab = 'history';
+      showSaveToast = true;
+      setTimeout(() => showSaveToast = false, 2000);
+      // Removed automatic redirection to 'history' for better builder UX flow
     }
   };
 
@@ -382,13 +386,15 @@ ${calculatedClamp}`,
       <!-- Mode Toggle -->
       <div class="mb-6 flex space-x-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg w-full max-w-sm">
         <button
-          class="flex-1 min-h-[44px] text-sm font-medium rounded-md transition-colors {mode === 'typography' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+          aria-label="Typography Mode"
+          class="flex-1 min-h-[44px] text-sm font-medium rounded-md transition-colors {mode === 'typography' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 focus:ring-2 focus:ring-indigo-500'}"
           on:click={() => mode = 'typography'}
         >
           Typography
         </button>
         <button
-          class="flex-1 min-h-[44px] text-sm font-medium rounded-md transition-colors {mode === 'spacing' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+          aria-label="Spacing Mode"
+          class="flex-1 min-h-[44px] text-sm font-medium rounded-md transition-colors {mode === 'spacing' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 focus:ring-2 focus:ring-indigo-500'}"
           on:click={() => mode = 'spacing'}
         >
           Spacing
@@ -446,13 +452,15 @@ ${calculatedClamp}`,
 
                 <div class="flex items-center space-x-2 bg-slate-100 dark:bg-slate-900 p-1 rounded-lg">
                   <button
-                    class="px-3 py-1.5 min-h-[44px] min-w-[44px] text-sm font-medium rounded-md transition-colors {unit === 'rem' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+                    aria-label="Unit Rem"
+                    class="px-3 py-1.5 min-h-[44px] min-w-[44px] text-sm font-medium rounded-md transition-colors {unit === 'rem' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 focus:ring-2 focus:ring-indigo-500'}"
                     on:click={() => unit = 'rem'}
                   >
                     {d.rems}
                   </button>
                   <button
-                    class="px-3 py-1.5 min-h-[44px] min-w-[44px] text-sm font-medium rounded-md transition-colors {unit === 'px' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+                    aria-label="Unit Px"
+                    class="px-3 py-1.5 min-h-[44px] min-w-[44px] text-sm font-medium rounded-md transition-colors {unit === 'px' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 focus:ring-2 focus:ring-indigo-500'}"
                     on:click={() => unit = 'px'}
                   >
                     {d.pixels}
@@ -503,13 +511,13 @@ ${calculatedClamp}`,
                         </select>
 
                         <div class="flex gap-2 mt-2 flex-wrap">
-                            <button on:click={() => scaleRatio = 1.250} class="min-h-[36px] px-2 py-1 text-xs font-medium rounded-md bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800 transition-colors">
+                            <button aria-label="Set Scale Ratio to Major Third" on:click={() => scaleRatio = 1.250} class="min-h-[44px] px-3 py-1 text-xs font-medium rounded-md bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800 transition-colors focus:ring-2 focus:ring-indigo-500">
                                 Major Third (1.250)
                             </button>
-                            <button on:click={() => scaleRatio = 1.333} class="min-h-[36px] px-2 py-1 text-xs font-medium rounded-md bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800 transition-colors">
+                            <button aria-label="Set Scale Ratio to Perfect Fourth" on:click={() => scaleRatio = 1.333} class="min-h-[44px] px-3 py-1 text-xs font-medium rounded-md bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800 transition-colors focus:ring-2 focus:ring-indigo-500">
                                 Perfect Fourth (1.333)
                             </button>
-                            <button on:click={() => scaleRatio = 1.618} class="min-h-[36px] px-2 py-1 text-xs font-medium rounded-md bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800 transition-colors">
+                            <button aria-label="Set Scale Ratio to Golden Ratio" on:click={() => scaleRatio = 1.618} class="min-h-[44px] px-3 py-1 text-xs font-medium rounded-md bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800 transition-colors focus:ring-2 focus:ring-indigo-500">
                                 Golden Ratio (1.618)
                             </button>
                         </div>
@@ -570,19 +578,22 @@ ${calculatedClamp}`,
 
                                         <div class="flex items-center space-x-2 mb-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg inline-flex">
                         <button
-                            class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors {exportFormat === 'css' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+                            aria-label="Export CSS Variables"
+                            class="px-3 py-1.5 min-h-[44px] text-xs font-medium rounded-md transition-colors {exportFormat === 'css' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 focus:ring-2 focus:ring-indigo-500'}"
                             on:click={() => exportFormat = 'css'}
                         >
                             CSS Variables
                         </button>
                         <button
-                            class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors {exportFormat === 'tailwind' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+                            aria-label="Export Tailwind Config"
+                            class="px-3 py-1.5 min-h-[44px] text-xs font-medium rounded-md transition-colors {exportFormat === 'tailwind' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 focus:ring-2 focus:ring-indigo-500'}"
                             on:click={() => exportFormat = 'tailwind'}
                         >
                             Tailwind Config
                         </button>
                         <button
-                            class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors {exportFormat === 'scss' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+                            aria-label="Export SCSS"
+                            class="px-3 py-1.5 min-h-[44px] text-xs font-medium rounded-md transition-colors {exportFormat === 'scss' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 focus:ring-2 focus:ring-indigo-500'}"
                             on:click={() => exportFormat = 'scss'}
                         >
                             SCSS
@@ -699,8 +710,13 @@ ${calculatedClamp}`,
           on:click={saveScale}
           class="min-h-[44px] flex items-center justify-center space-x-2 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700 rounded-lg shadow-sm transition-colors font-medium text-sm"
         >
-          <Save size={18} />
-          <span>{d.saveScale}</span>
+          {#if showSaveToast}
+            <Check size={18} />
+            <span>Saved!</span>
+          {:else}
+            <Save size={18} />
+            <span>{d.saveScale}</span>
+          {/if}
         </button>
 
         <button
@@ -746,6 +762,14 @@ ${calculatedClamp}`,
             <!-- Flat at max -->
             <line x1="80" y1="20" x2="100" y2="20" stroke="currentColor" class="text-indigo-500" stroke-width="3" />
 
+            <!-- Interactive Simulator Line -->
+            {#if simulatorWidth >= minWidth && simulatorWidth <= maxWidth}
+              {@const dynamicX = 20 + ((simulatorWidth - minWidth) / (maxWidth - minWidth)) * 60}
+              {@const dynamicY = 80 - ((simulatorWidth - minWidth) / (maxWidth - minWidth)) * 60}
+              <line x1="{dynamicX}" y1="0" x2="{dynamicX}" y2="100" stroke="currentColor" stroke-dasharray="2" class="text-rose-400 dark:text-rose-500" stroke-width="1.5" />
+              <circle cx="{dynamicX}" cy="{dynamicY}" r="5" fill="currentColor" class="text-rose-500" />
+            {/if}
+
             <!-- Points -->
             <circle cx="20" cy="80" r="4" fill="currentColor" class="text-indigo-600 dark:text-indigo-400" />
             <circle cx="80" cy="20" r="4" fill="currentColor" class="text-indigo-600 dark:text-indigo-400" />
@@ -773,12 +797,15 @@ ${calculatedClamp}`,
                 />
                 <p class="text-xs text-slate-400 mt-2">{d.editPreviewHint || 'Try typing your own text above'}</p>
               {:else}
-                <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-300 dark:border-slate-600 flex items-center justify-center overflow-hidden" style="min-height: 150px;">
-                    <div class="bg-indigo-500 rounded text-white flex items-center justify-center font-mono text-sm shadow-inner transition-all duration-300" style="padding: {calculatedClamp};">
-                       Content Box
+                <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-300 dark:border-slate-600 flex items-center justify-center overflow-hidden" style="min-height: 150px; padding: 20px;">
+                    <div class="relative bg-indigo-100 dark:bg-indigo-900/40 border border-indigo-300 dark:border-indigo-700 rounded-md shadow-inner transition-all duration-300 flex items-center justify-center" style="padding: {simulatedSize}px;">
+                       <div class="absolute inset-0 pointer-events-none" style="background-image: repeating-linear-gradient(45deg, rgba(99, 102, 241, 0.1) 0, rgba(99, 102, 241, 0.1) 1px, transparent 1px, transparent 10px);"></div>
+                       <div class="bg-indigo-500 rounded text-white px-4 py-2 font-mono text-sm shadow relative z-10">
+                          Content Box
+                       </div>
                     </div>
                 </div>
-                <p class="text-xs text-slate-400 mt-2">Visualizing padding/margin spacing</p>
+                <p class="text-xs text-slate-400 mt-2">Visualizing padding at {simulatedSize}px ({Math.round(Number(simulatedSize)/baseRem * 100) / 100}rem)</p>
               {/if}
           </div>
         </div>
