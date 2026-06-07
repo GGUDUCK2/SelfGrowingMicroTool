@@ -49,7 +49,7 @@
       "name": dict.home.title,
       "url": "https://selfgrowingmicrotool.com/" + lang,
       "description": dict.home.description
-    })}</script>`}
+    })}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="space-y-12">

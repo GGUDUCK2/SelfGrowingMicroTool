@@ -203,3 +203,13 @@ export default {}
 #### 3. Performance Impact (기대 효과)
 - Google Core Web Vitals (모바일 친화성) 점수 향상 기대: 터치 대상 사이 간격 최적화 및 타겟 크기 확보.
 - 전체적인 도구 페이지의 시각적 여백 일관성(space-y-12) 확보.
+
+### [Project Health Report - 2024-06-07]
+#### 1. Identified Issues (발견된 문제)
+- `FAQSection`, `about/+page.svelte`, and `+page.svelte` components contained unescaped `</script>` tags within JSON-LD template literals, risking Svelte parser and ESLint "Unterminated string constant" errors.
+#### 2. Key Changes (주요 수정 사항)
+- Code: `src/lib/components/FAQSection.svelte` - Applied broken closing script tag formatting (`</scr` + `ipt>`) for JSON-LD.
+- Code: `src/routes/[lang]/about/+page.svelte` - Fixed JSON-LD script tag escaping.
+- Code: `src/routes/[lang]/+page.svelte` - Fixed JSON-LD script tag escaping.
+#### 3. Performance Impact (기대 효과)
+- Prevents compilation errors during Svelte builds and ensures strictly compliant and robust schema structure rendering across the project.
