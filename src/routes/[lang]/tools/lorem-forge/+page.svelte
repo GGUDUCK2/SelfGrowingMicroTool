@@ -67,7 +67,7 @@
     $: schema = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "@id": `https://selfgrowingmicrotool.com/${lang}/tools/lorem-forge`,
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/lorem-forge",
         "name": d?.title || "Lorem Forge",
         "description": d?.description || "Professional Dummy Text Generator",
         "applicationCategory": "DeveloperApplication",
@@ -83,7 +83,7 @@
 <Head
     title={d?.title || "Lorem Forge - Professional Dummy Text Generator"}
     description={d?.description || "Generate dummy text with custom dictionaries."}
-    url={`https://selfgrowingmicrotool.com/${lang}/tools/lorem-forge`}
+    url={"https://selfgrowingmicrotool.com/" + lang + "/tools/lorem-forge"}
 />
 
 <svelte:head>

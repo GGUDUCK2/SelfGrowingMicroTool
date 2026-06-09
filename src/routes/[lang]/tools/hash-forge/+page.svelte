@@ -100,12 +100,8 @@
 <Head
   title={dict.title}
   description={dict.description}
-  openGraph={{
-    title: dict.title,
-    description: dict.description,
-    url: `https://selfgrowingmicrotool.com/${lang}/tools/hash-forge`
-  }}
-  twitter={{ card: 'summary_large_image', title: dict.title, description: dict.description }}
+
+
 />
 
 

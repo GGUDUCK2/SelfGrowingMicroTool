@@ -117,7 +117,7 @@
 <Head
   title={title}
   description={description}
-  url={`https://selfgrowingmicrotool.com/${lang}/tools/env-forge`}
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/env-forge"}
   keywords="env, environment variables, dotenv, config, kubernetes configmap, docker env file, yaml, json, format env"
   image="https://selfgrowingmicrotool.com/og-image.png"
 />
