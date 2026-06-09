@@ -191,7 +191,7 @@
   description={dict?.description || 'Git tools'}
   keywords="git command generator, gitignore builder, conventional commits, git tools, developer tools, git doctor, undo git commit"
   image="https://selfgrowingmicrotool.com/og/git-forge.png"
-  url={`https://selfgrowingmicrotool.com/${lang}/tools/git-forge`}
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/git-forge"}
 />
 
 <svelte:head>
