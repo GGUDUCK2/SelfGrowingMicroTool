@@ -16,7 +16,7 @@
         bind:value={$snippetStore.language}
         class="w-full appearance-none bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-shadow dark:text-white"
       >
-        {#each LANGUAGES as lang}
+        {#each LANGUAGES as lang (lang.id)}
           <option value={lang.id}>{lang.name}</option>
         {/each}
       </select>
@@ -30,7 +30,7 @@
   <div class="space-y-3">
     <span class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider">{dict.theme}</span>
     <div class="grid grid-cols-2 gap-3">
-       {#each THEMES as theme}
+       {#each THEMES as theme (theme.id)}
           <button
              class="flex items-center gap-3 p-2.5 rounded-xl border text-xs font-medium transition-all text-left
              {$snippetStore.theme === theme.id ? 'border-indigo-500 ring-1 ring-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 dark:text-white' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'}"
@@ -47,7 +47,7 @@
   <div class="space-y-3">
     <span class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider">{dict.background}</span>
     <div class="grid grid-cols-4 gap-2">
-       {#each BACKGROUNDS as bg}
+       {#each BACKGROUNDS as bg (bg.id)}
           <button
              class="w-full aspect-square rounded-lg border transition-all relative overflow-hidden group hover:scale-105
              {$snippetStore.background === bg.id ? 'border-indigo-500 ring-2 ring-indigo-500 ring-offset-1 dark:ring-offset-slate-900' : 'border-slate-200 dark:border-slate-700 hover:border-slate-400'}"
@@ -73,7 +73,7 @@
 
         <!-- Controls Type -->
         <div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
-           {#each WINDOW_CONTROLS as wc}
+           {#each WINDOW_CONTROLS as wc (wc.id)}
               <button
                  class="flex-1 py-1.5 text-xs font-medium rounded-lg transition-all
                  {$snippetStore.windowControls === wc.id ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"

@@ -229,3 +229,35 @@ export default {}
 #### 3. Performance Impact (기대 효과)
 - 각 도구 페이지의 특성(문서형 vs 풀스크린 앱형)을 보존하면서 표준을 적용하여 모바일 환경 접근성 및 반응형 UI 일관성을 안정적으로 확보함.
 - 디자인 의도를 파괴하지 않는 선에서 여백 표준을 적용해 유지보수성을 극대화함.
+### [Daily Improvement Report - 2024-05-01]
+#### 1. Identified Issues (발견된 문제)
+- 모바일 접근성을 위해 추가된 `min-w-[44px]` 유틸리티 클래스가 `w-full`, `flex-col`, `text-left` 와 함께 쓰이면서 의도치 않은 CSS 비대화 및 레이아웃 충돌 (가로 폭 비정상적 확대, 정렬 틀어짐 등) 유발 가능성 발견.
+- Git 머지 과정에서 생성된 병합 충돌 아티팩트(`.orig` 파일)가 리포지토리에 방치되어 있음.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/lib/components/` 및 `src/routes/[lang]/tools/` 내 다수 파일 (약 25개 파일) - `<button>`, `<a>`, `<label>` 태그 등에서 `w-full`, `flex-col`, `text-left` 와 병용된 `min-w-[44px]` 클래스를 일괄 제거하여 레이아웃 최적화.
+- **Code**: `src/lib/components/docker-forge/DockerBuilder.svelte.orig` 파일 삭제.
+- **SEO/AEO**: 해당 사항 없음. (레이아웃 최적화에 집중)
+
+#### 3. Performance Impact (기대 효과)
+- 불필요한 Tailwind CSS 클래스를 제거하여 DOM 요소의 클래스 선언 간소화 및 브라우저 렌더링 성능 최적화.
+- 모바일 및 웹 화면에서 의도치 않은 가로 스크롤이나 버튼 확대 버그를 예방하여 UI 레이아웃의 안정성 개선.
+### [Daily Improvement Report - 2026-04-30]
+#### 1. Identified Issues (발견된 문제)
+- SEO/AEO 누락: `git-forge`, `decision-forge`, `barcode-forge`, `docker-forge` 페이지의 `SoftwareApplication` JSON-LD 스키마에 명시적인 `@id` 속성이 누락되어 검색 엔진 크롤러가 해당 도구의 정확한 URL을 식별하는 데 불리함 (AEO 저하).
+- 모바일 접근성 저하: `logic-forge`와 `json-architect` 내의 일부 `<button>` 및 `<a>` 요소에 모바일 터치 타겟 크기(min-w-[44px], min-h-[44px]) CSS 클래스가 누락되어 터치 기기에서 사용자 경험 저하.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/logic-forge/+page.svelte` - 분석기/설계기 전환 버튼, Quick Insert 버튼, 탭 버튼 등에 `min-h-[44px] min-w-[44px]` 적용.
+- **Code**: `src/routes/[lang]/tools/json-architect/+page.svelte` - Related Tools 섹션의 Diff Viewer 및 Schema Forge 링크(`<a>`)에 `inline-flex items-center justify-center min-h-[44px] min-w-[44px]` 적용.
+- **SEO/AEO**: `git-forge`, `decision-forge`, `barcode-forge`, `docker-forge`의 `SoftwareApplication` 스키마 내부에 `@id` 속성을 추가하여 Canonical URL(`https://selfgrowingmicrotool.com/[lang]/tools/[tool-name]`)과 명시적으로 연결.
+
+#### 3. Performance Impact (기대 효과)
+- 모바일 환경에서의 터치 타겟 접근성(A11y) 점수 개선 및 모바일 사용자 이탈률 감소 기대.
+- 검색 엔진과 AI 크롤러가 도구 페이지를 명확히 식별할 수 있어, 리치 스니펫 및 AI 검색 결과(AEO) 노출 확률 증가.
+### [Project Health Report - 2024-06-09]
+## Repository Hygiene
+- Cleaned up temp files. Merged `docs/daily_health_report_2024_05_01.md` and `docs/daily_report_2026_04_30.md` into `docs/daily_health_report.md` to avoid clutter and removed the old separated report files.
+
+## Tech Debt
+- `src/lib/components/snippet-forge/Controls.svelte`: Added `(item.id)` to `{#each}` loops rendering variables like `LANGUAGES`, `THEMES`, `BACKGROUNDS`, and `WINDOW_CONTROLS` to satisfy `svelte/require-each-key` ESLint warnings and optimize virtual DOM performance.
