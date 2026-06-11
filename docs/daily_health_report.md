@@ -261,3 +261,18 @@ export default {}
 
 ## Tech Debt
 - `src/lib/components/snippet-forge/Controls.svelte`: Added `(item.id)` to `{#each}` loops rendering variables like `LANGUAGES`, `THEMES`, `BACKGROUNDS`, and `WINDOW_CONTROLS` to satisfy `svelte/require-each-key` ESLint warnings and optimize virtual DOM performance.
+
+### [Daily Improvement Report - 2026-06-11]
+#### 1. Identified Issues (발견된 문제)
+- `schema-forge` 페이지의 UI 레이아웃이 표준 구조(max-w-7xl)를 벗어나 `<main>` 내부에 문서와 FAQ 영역이 포함되어 잘리거나 스크롤이 비정상적으로 동작하는 문제 발견.
+- `schema-forge`의 JSON-LD 스키마와 FAQ 영역이 중복되거나 하드코딩된 `<article>` 태그로 렌더링되어 코드베이스 컨벤션 위반.
+- `xpath-forge` 페이지에서 JSON-LD를 삽입할 때 `+` 연산자로 문자열을 조합하여 `<script>` 태그를 삽입하고 있어 파서 오류 가능성 존재 (메모리 컨벤션 불일치).
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/schema-forge/+page.svelte` - `<main>` 요소 밖에 표준 레이아웃인 `<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">`를 적용하고 `GuideSection`, `AdPlaceholder`, `FAQSection`, `RelatedTools` 컴포넌트들을 정상적인 위치로 이동. 중복된 `article` 영역 제거.
+- **Code**: `src/routes/[lang]/tools/xpath-forge/+page.svelte` - `svelte:head`의 JSON-LD 인젝션을 백틱 템플릿 리터럴과 변수 보간(`{@html \`<script type="application/ld+json">${JSON.stringify(schema)}</scr\` + \`ipt>\`}`)으로 변경.
+- **SEO/AEO**: `schema-forge`와 `xpath-forge`의 올바른 JSON-LD 파싱 및 Semantic Structure 확보.
+
+#### 3. Performance Impact (기대 효과)
+- `schema-forge` 페이지의 모바일 및 데스크탑 레이아웃 정상화 및 일관성 강화.
+- Svelte 파싱 에러 방지 및 AI 검색 엔진 크롤링 최적화를 통한 검색 노출률 및 SEO 신뢰도 상승.

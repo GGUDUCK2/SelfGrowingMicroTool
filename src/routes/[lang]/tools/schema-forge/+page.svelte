@@ -723,58 +723,26 @@
                  {:else if activeTab === 'typescript'}
                     <CodePreview code={tsCode} language="typescript" />
                  {/if}
-              <div class="mt-12">
-    <GuideSection {...t?.guide} />
-  <AdPlaceholder />
-  <FAQSection
-      title={t?.faqTitle}
-      items={[
-        { q: t?.q1, a: t?.a1 },
-        { q: t?.q2, a: t?.a2 },
-        { q: t?.q3, a: t?.a3 }
-      ]}
-    />
-  <RelatedTools {lang} currentSlug="schema-forge" currentCategory="dev" />
-  </div>
-</main>
+            </main>
         </div>
     </div>
 
     <!-- Documentation -->
-    <article class="prose dark:prose-invert max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 min-h-[44px] min-w-[44px]">
-        <h2>{t?.guide?.title}</h2>
-        <p>{t?.guide?.intro}</p>
-
-        <h3>{t?.guide?.featuresTitle}</h3>
-        <ul>
-          <li><span class="markdown-body">{@html (t?.guide?.f1 || '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html (t?.guide?.f2 || '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html (t?.guide?.f3 || '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html (t?.guide?.f4 || '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-        </ul>
-
-        <h3>{t?.guide?.tipsTitle}</h3>
-        <ul>
-          <li><span class="markdown-body">{@html (t?.guide?.tip1 || '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html (t?.guide?.tip2 || '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html (t?.guide?.tip3 || '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-          <li><span class="markdown-body">{@html (t?.guide?.tip4 || '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-        </ul>
-
-        <h3>{t?.faqTitle}</h3>
-        <div class="space-y-4">
-          <div>
-            <h4 class="font-bold">{t?.q1}</h4>
-            <p>{t?.a1}</p>
-          </div>
-          <div>
-            <h4 class="font-bold">{t?.q2}</h4>
-            <p>{t?.a2}</p>
-          </div>
-           <div>
-            <h4 class="font-bold">{t?.q3}</h4>
-            <p>{t?.a3}</p>
-          </div>
+    <div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+            <GuideSection {...t?.guide} />
+            <div class="mt-12">
+                <AdPlaceholder />
+                <FAQSection
+                    title={t?.faqTitle}
+                    items={[
+                        { q: t?.q1, a: t?.a1 },
+                        { q: t?.q2, a: t?.a2 },
+                        { q: t?.q3, a: t?.a3 }
+                    ]}
+                />
+                <RelatedTools {lang} currentSlug="schema-forge" currentCategory="dev" />
+            </div>
         </div>
-    </article>
+    </div>
 </div>
