@@ -6,7 +6,7 @@
     import { page } from '$app/stores';
     import { onMount } from 'svelte';
         import FAQSection from '$lib/components/FAQSection.svelte';
-    import { Play, Copy, Download, Trash2, Code, ChevronRight, History, Star, Maximize2, Link as LinkIcon } from '@lucide/svelte';
+    import { Play, Copy, Download, Trash2, Code, ChevronRight, History, Star, Maximize2, Link as LinkIcon, Search as SearchIcon } from '@lucide/svelte';
     import { workspace, type ToolHistoryItem } from '$lib/db/workspace';
 
     import { getDictionary } from '$lib/dictionaries';
@@ -980,9 +980,6 @@ nodes = tree.xpath('{xpathExpression}')</pre>
     </article>
 </div>
 
-<script lang="ts" context="module">
-    import { Search as SearchIcon } from '@lucide/svelte';
-</script>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
     <RelatedTools {lang} currentSlug="xpath-forge" currentCategory="dev" />
   </div>
