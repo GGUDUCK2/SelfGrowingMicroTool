@@ -32,7 +32,14 @@
           "@type": "Offer",
           "price": "0",
           "priceCurrency": "USD"
-        }
+        },
+        "featureList": [
+          "Fluid Typography Generation",
+          "Reverse Clamp Engineering",
+          "Tailwind Config Export",
+          "CSS Variables Export",
+          "Visual Scale Simulator"
+        ]
       },
       {
         "@type": "FAQPage",
@@ -95,6 +102,7 @@
 <Head
   title={title}
   description={description}
+  keywords="CSS clamp, fluid typography, responsive typography, font scaling, reverse clamp, CSS variables, tailwind config, frontend developer tools"
   openGraph={{
     title: title,
     description: description,

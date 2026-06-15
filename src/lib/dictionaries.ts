@@ -84,6 +84,11 @@ export const dictionaries = {
       },
 
       clampForge: {
+                reverseTab: "Reverse",
+        reverseTitle: "Reverse Clamp Engine",
+        reverseDesc: "Paste an existing CSS clamp() function, and we will reverse-engineer the minimum and maximum viewport widths used to generate it!",
+        pasteClamp: "Paste Clamp Function",
+        reverseBtn: "Reverse Engineer Viewports",
         title: "Clamp Forge: Fluid Typography",
         description: "Generate precise CSS clamp() functions for fluid typography and spacing. Set your min/max viewport and sizes, and grab the perfect scaling formula instantly.",
         minViewport: "Min Viewport Width",
@@ -4770,6 +4775,11 @@ export const dictionaries = {
       },
 
       clampForge: {
+                reverseTab: "역추적",
+        reverseTitle: "클램프 역추적 엔진",
+        reverseDesc: "기존의 CSS clamp() 함수를 붙여넣으세요. 이를 생성하는 데 사용된 최소 및 최대 뷰포트 너비를 역으로 계산해 드립니다!",
+        pasteClamp: "Clamp 함수 붙여넣기",
+        reverseBtn: "뷰포트 역추적하기",
         title: "클램프 포지: 유동적 타이포그래피",
         description: "반응형 웹을 위한 정밀한 CSS clamp() 함수를 생성합니다. 최소/최대 뷰포트와 폰트 크기를 설정하고 완벽한 스케일링 공식을 즉시 얻으세요.",
         minViewport: "최소 뷰포트 너비",
