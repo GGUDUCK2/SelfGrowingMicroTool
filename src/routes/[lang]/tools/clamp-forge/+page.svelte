@@ -7,10 +7,13 @@
   import FAQSection from '$lib/components/FAQSection.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import ClampBuilder from '$lib/components/clamp-forge/ClampBuilder.svelte';
+  let t: any;
+
 
   $: lang = $page.params.lang || 'en';
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
   $: d = dict?.tools?.clampForge || dictionaries.en.tools.clampForge;
+  $: t = d as any;
 
   // SEO
   $: title = d?.title || "Clamp Forge";
@@ -103,15 +106,7 @@
   title={title}
   description={description}
   keywords="CSS clamp, fluid typography, responsive typography, font scaling, reverse clamp, CSS variables, tailwind config, frontend developer tools"
-  openGraph={{
-    title: title,
-    description: description,
-    url: "https://selfgrowingmicrotool.com/" + lang + "/tools/clamp-forge"
-  }}
-  twitter={{
-    title: title,
-    description: description
-  }}
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/clamp-forge"}
 />
 
 <svelte:head>
@@ -132,7 +127,7 @@
   <ClampBuilder {lang} />
 
   <div class="mt-24 space-y-24">
-    <GuideSection {...d.guide} />
+    <GuideSection {...t?.guide} />
     <AdPlaceholder />
     <FAQSection
       title={d.faqTitle}
@@ -146,5 +141,5 @@
 </div>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-  <RelatedTools {lang} currentSlug="clamp-forge" currentCategory="dev" />
+  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="clamp-forge" currentCategory="dev" />
 </div>

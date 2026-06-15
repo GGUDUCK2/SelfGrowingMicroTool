@@ -5,7 +5,7 @@
   import type { ClampForgeHistory } from '$lib/db';
   import { clampForgeWorkspace } from '$lib/db/workspace';
   import { browser } from '$app/environment';
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import ClampHistory from './ClampHistory.svelte';
 
   export let lang: string = 'en';
@@ -63,7 +63,7 @@
     maxWidth = Math.round(maxWidthRem * baseRem);
     minSize = rUnit === 'px' ? rMinSize * baseRem : rMinSize;
     maxSize = rUnit === 'px' ? rMaxSize * baseRem : rMaxSize;
-    unit = rUnit;
+    unit = rUnit as "px" | "rem";
     activeTab = 'builder';
   };
 
@@ -133,30 +133,35 @@
   })();
 
 
+
+  const handleKeydown = (e: KeyboardEvent) => {
+    // Don't hijack if user is typing in an input
+    if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+    if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+      e.preventDefault();
+      copyToClipboard(calculatedClamp, 'css');
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      e.preventDefault();
+      saveScale();
+    }
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      resetToDefault();
+    }
+  };
+
   onMount(() => {
-    const handleKeydown = (e: KeyboardEvent) => {
-      // Don't hijack if user is typing in an input
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-
-      if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
-        e.preventDefault();
-        copyToClipboard(calculatedClamp, 'css');
-      }
-      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-        e.preventDefault();
-        saveScale();
-      }
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        resetToDefault();
-      }
-    };
-
     window.addEventListener('keydown', handleKeydown);
-    return () => window.removeEventListener('keydown', handleKeydown);
   });
 
-  // Interactive Preview
+  onDestroy(() => {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('keydown', handleKeydown);
+    }
+  });
+// Interactive Preview
   let customPreviewText = 'Fluid Typography';
 
 
@@ -338,50 +343,10 @@ ${calculatedClamp}`,
     activeTab = 'builder';
   };
 
-  const handleKeydown = (e: KeyboardEvent) => {
-    if (e.ctrlKey || e.metaKey) {
-      if (e.key === 'c' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
-        // Prevent default copy if not in input, copy CSS
-        e.preventDefault();
-        copyToClipboard(calculatedClamp, 'css');
-      } else if (e.key === 's') {
-        e.preventDefault();
-        // Trigger Dexie Workspace save
-        if (browser) {
-          clampForgeWorkspace.save({
-            minWidth,
-            maxWidth,
-            minSize,
-            maxSize,
-            unit,
-            result: calculatedClamp
-          });
-          // Also show a toast/visual indicator if possible, but copying logic usually has one
-          // We could reuse copiedCss but let's just trigger saveScale which might log it as well
-        }
-      } else if (e.key === 'Enter') {
-        e.preventDefault();
-        // Automatically copy the CSS value instead of focusing the preview input
-        copyToClipboard(calculatedClamp, 'css');
-      } else if (e.key === 'k') {
-        e.preventDefault();
-        minWidth = 320;
-        maxWidth = 1200;
-        minSize = 1;
-        maxSize = 2.5;
-        unit = 'rem';
-      }
-    } else if (e.key === 'Escape') {
-        minWidth = 320;
-        maxWidth = 1200;
-        minSize = 1;
-        maxSize = 2.5;
-        unit = 'rem';
-    }
-  };
+
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
   <div class="lg:col-span-2 space-y-6">

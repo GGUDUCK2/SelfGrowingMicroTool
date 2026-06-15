@@ -46,3 +46,4 @@ test-results/
 patch_*.cjs
 patch_*.sh
 scripts/
+scripts/*.cjs
