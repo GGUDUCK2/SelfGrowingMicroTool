@@ -1,12 +1,7 @@
 <script lang="ts">
-  import GuideSection from '$lib/components/GuideSection.svelte';
-  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
-  import RelatedTools from '$lib/components/RelatedTools.svelte';
-  import Head from '$lib/components/Head.svelte';
-    import { page } from '$app/stores';
+            import { page } from '$app/stores';
     import { onMount } from 'svelte';
-        import FAQSection from '$lib/components/FAQSection.svelte';
-    import { Play, Copy, Download, Trash2, Code, ChevronRight, History, Star, Maximize2, Link as LinkIcon, Search as SearchIcon } from '@lucide/svelte';
+            import { Play, Copy, Download, Trash2, Code, History, Star, Maximize2, Link as LinkIcon, Search as SearchIcon } from '@lucide/svelte';
     import { workspace, type ToolHistoryItem } from '$lib/db/workspace';
 
     import { getDictionary } from '$lib/dictionaries';
@@ -72,45 +67,6 @@
         xpath: string;
         expanded: boolean;
     }
-
-    // JSON-LD Schema
-    $: schema = {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/xpath-forge",
-        "name": t?.title || "XPath Forge",
-        "description": t?.description || "XPath testing tool",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "Any",
-        "isAccessibleForFree": true,
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        }
-    };
-
-    $: faqSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": t?.q1,
-                "acceptedAnswer": { "@type": "Answer", "text": t?.a1 }
-            },
-            {
-                "@type": "Question",
-                "name": t?.q2,
-                "acceptedAnswer": { "@type": "Answer", "text": t?.a2 }
-            },
-            {
-                "@type": "Question",
-                "name": t?.q3,
-                "acceptedAnswer": { "@type": "Answer", "text": t?.a3 }
-            }
-        ]
-    };
 
     $: faqItems = [
         { q: t?.q1 || '', a: t?.a1 || '' },
@@ -179,7 +135,7 @@
 
             try {
                 // Custom namespace resolver
-                const nsResolver = (prefix: string) => {
+                const nsResolver = (prefix: string | null) => {
                     const ns = namespaces.find(n => n.prefix === prefix);
                     if (ns) return ns.uri;
                     // Fallback to default resolver
@@ -349,7 +305,7 @@
             });
             sourceDocument = formatted.trim();
         } catch {
-            showToast(t?.editor?.formatError || 'Failed to format', 'error');
+            showToast((t?.editor as any)?.formatError || 'Failed to format', 'error');
         }
     }
 
@@ -461,36 +417,8 @@
     </div>
 {/if}
 
-<Head
-  title={t?.title}
-  description={t?.description}
-/>
-
-<svelte:head>
-    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-    <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-    {@html `<script type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
-    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-    <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-    {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</scr` + `ipt>`}
-</svelte:head>
-
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <!-- Header -->
-    <div class="flex items-center gap-4 mb-8">
-        <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-        <a href="/{lang}" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors flex items-center justify-center min-w-[44px] min-h-[44px]" aria-label={dict?.common?.back}>
-            <ChevronRight class="w-5 h-5 rotate-180" />
-        </a>
-        <div>
-            <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
-                {t?.title}
-            </h1>
-            <p class="text-gray-500 dark:text-gray-400 mt-1">{t?.description}</p>
-        </div>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Main Column -->
         <div class="lg:col-span-2 space-y-6">
             <!-- XPath Input -->
@@ -603,7 +531,7 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-1 overflow-x-auto scrollbar-hide whitespace-nowrap shrink-0">
-                            <button class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center min-h-[44px] min-w-[44px]" aria-label={t?.editor?.prettify || 'Prettify'} on:click={prettifyDocument}>
+                            <button class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center min-h-[44px] min-w-[44px]" aria-label={(t?.editor as any)?.prettify || 'Prettify'} on:click={prettifyDocument}>
                                 <Code class="w-4 h-4" />
                             </button>
                             <label class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg cursor-pointer text-gray-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={t?.editor?.upload}>
@@ -947,39 +875,6 @@ nodes = tree.xpath('{xpathExpression}')</pre>
         </div>
     </div>
 
-    <!-- Documentation & Guide -->
-    <article class="prose dark:prose-invert max-w-none mt-16 p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 min-h-[44px] min-w-[44px]">
-        <h2>{t?.guide?.title}</h2>
-        <p>{t?.guide?.intro}</p>
 
-        <h3>{t?.guide?.featuresTitle}</h3>
-        <ul>
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            <li><span class="markdown-body">{@html t?.guide?.f1?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            <li><span class="markdown-body">{@html t?.guide?.f2?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            <li><span class="markdown-body">{@html t?.guide?.f3?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            <li><span class="markdown-body">{@html t?.guide?.f4?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-        </ul>
 
-        <h3>{t?.guide?.tipsTitle}</h3>
-        <ul>
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            <li><span class="markdown-body">{@html t?.guide?.tip1?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            <li><span class="markdown-body">{@html t?.guide?.tip2?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            <li><span class="markdown-body">{@html t?.guide?.tip3?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-        </ul>
-
-        <GuideSection {...t?.guide} />
-  <AdPlaceholder />
-  <FAQSection title={t?.faqTitle || 'FAQ'} items={faqItems} />
-    </article>
 </div>
-
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="xpath-forge" currentCategory="dev" />
-  </div>

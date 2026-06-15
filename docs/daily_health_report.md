@@ -298,3 +298,18 @@ export default {}
 #### 3. Performance Impact (기대 효과)
 - Google AI Overviews 및 기타 검색 엔진 크롤러에게 도구의 정확한 목적과 기능, 그리고 질문-답변 구조를 제공하여 검색 노출(Rich Snippets) 가능성 증대.
 - Svelte 컴포넌트 빌드 최적화 및 경고 제거를 통한 전반적인 앱 안전성 향상.
+
+### [Daily Improvement Report - 2024-06-15]
+#### 1. Identified Issues (발견된 문제)
+- \`xpath-forge\` 도구의 JSON-LD 스키마 정의가 \`+page.svelte\`와 \`XPathForge.svelte\` 컴포넌트 양쪽에 중복 정의되어 있었습니다 (\`SoftwareApplication\` 및 \`FAQPage\` 스키마 중복).
+- \`xpath-forge\`의 레이아웃 구조가 \`+page.svelte\`와 컴포넌트 내부에 이중으로 적용되어 있어 MicroFactory 표준 UI 패턴 (문서 컴포넌트를 \`+page.svelte\`에 배치하는 패턴)에 어긋났습니다.
+- \`barcode-forge\` 및 \`seo-forge\` 등 여러 도구 페이지에서 \`FAQSection\` 컴포넌트가 자동으로 처리하는 \`FAQPage\` 스키마 생성을 \`+page.svelte\`에서도 이중으로 삽입(\`faqJsonLd\`)하고 있었습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: \`src/lib/components/xpath-forge/XPathForge.svelte\` - 내부의 가이드, FAQ, 연관 도구 컴포넌트, 그리고 중복된 스키마 생성 로직을 모두 제거하고 순수 툴 기능만 남기도록 리팩토링.
+- **Code**: \`src/routes/[lang]/tools/xpath-forge/+page.svelte\` - 툴 컴포넌트 외부로 분리된 문서 및 FAQ 요소들을 페이지 레벨 레이아웃으로 이관하여 일관성을 확보.
+- **SEO/AEO**: \`xpath-forge\`, \`barcode-forge\`, \`seo-forge\`의 \`+page.svelte\`에서 중복된 \`faqJsonLd\` 변수 및 렌더링 스크립트를 제거하고, \`FAQSection\` 컴포넌트에 스키마 생성을 단일 위임함.
+
+#### 3. Performance Impact (기대 효과)
+- 도구 컴포넌트의 책임을 분리하여 유지보수성과 재사용성을 향상시킴.
+- JSON-LD 스키마의 중복 삽입을 방지함으로써 검색 엔진이 혼동 없이 명확하게 구조화된 데이터를 크롤링하고 리치 스니펫을 구성할 수 있도록 지원(AEO 강화).

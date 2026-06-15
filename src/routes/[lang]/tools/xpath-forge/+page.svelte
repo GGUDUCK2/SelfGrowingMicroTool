@@ -3,6 +3,10 @@
   import { page } from '$app/stores';
   import { getDictionary } from '$lib/dictionaries';
   import Head from '$lib/components/Head.svelte';
+  import GuideSection from '$lib/components/GuideSection.svelte';
+  import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
+  import FAQSection from '$lib/components/FAQSection.svelte';
+  import RelatedTools from '$lib/components/RelatedTools.svelte';
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
@@ -25,37 +29,6 @@
       "price": "0",
       "priceCurrency": "USD"
     }
-  });
-
-  $: faqJsonLd = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": t?.q1 || '',
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t?.a1 || ''
-        }
-      },
-      {
-        "@type": "Question",
-        "name": t?.q2 || '',
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t?.a2 || ''
-        }
-      },
-      {
-        "@type": "Question",
-        "name": t?.q3 || '',
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t?.a3 || ''
-        }
-      }
-    ]
   });
 
   $: breadcrumbJsonLd = JSON.stringify({
@@ -90,11 +63,35 @@
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${jsonLd}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">${faqJsonLd}</scr` + `ipt>`}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${breadcrumbJsonLd}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+  <div class="text-center mb-12">
+    <h1 class="text-4xl font-extrabold text-slate-900 dark:text-white sm:text-5xl sm:tracking-tight lg:text-6xl">
+      {title}
+    </h1>
+    <p class="mt-5 max-w-xl mx-auto text-xl text-slate-500 dark:text-slate-400">
+      {description}
+    </p>
+  </div>
+
   <XPathForge />
+
+  <div class="mt-24 space-y-24">
+    <GuideSection {...t?.guide} />
+    <AdPlaceholder />
+    <FAQSection
+      title={t?.faqTitle || 'FAQ'}
+      items={[
+        { q: t?.q1 || '', a: t?.a1 || '' },
+        { q: t?.q2 || '', a: t?.a2 || '' },
+        { q: t?.q3 || '', a: t?.a3 || '' }
+      ]}
+    />
+  </div>
+</div>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="xpath-forge" currentCategory="dev" />
 </div>

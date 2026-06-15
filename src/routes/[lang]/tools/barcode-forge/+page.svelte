@@ -34,37 +34,6 @@
     "featureList": "EAN-13, UPC-A, Code 128, ITF-14, Bulk Generator, Vector Export"
   });
 
-  $: faqJsonLd = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": d?.q1,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": d?.a1
-        }
-      },
-      {
-        "@type": "Question",
-        "name": d?.q2,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": d?.a2
-        }
-      },
-      {
-        "@type": "Question",
-        "name": d?.q3,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": d?.a3
-        }
-      }
-    ]
-  });
-
   $: breadcrumbJsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -99,8 +68,6 @@
 <svelte:head>
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${jsonLd}</scr` + `ipt>`}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">${faqJsonLd}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${breadcrumbJsonLd}</scr` + `ipt>`}
 </svelte:head>
