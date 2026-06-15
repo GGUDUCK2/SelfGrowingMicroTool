@@ -27,7 +27,45 @@
 
 
 
-  let activeTab: 'builder' | 'scale' | 'preview' | 'history' = 'builder';
+  let activeTab: 'builder' | 'scale' | 'preview' | 'history' | 'reverse' = 'builder';
+  let reverseInput = '';
+  let reverseError = '';
+  const handleReverse = () => {
+    reverseError = '';
+    if (!reverseInput.trim()) return;
+    const regex = /clamp\(\s*(-?[\d.]+)(rem|px)\s*,\s*(-?[\d.]+)(rem|px)\s*([+-])\s*([\d.]+)vw\s*,\s*(-?[\d.]+)(rem|px)\s*\)/;
+    const match = reverseInput.match(regex);
+    if (!match) {
+      reverseError = 'Invalid clamp function format.';
+      return;
+    }
+    let [ , minSizeStr, unit1, intersectionStr, unit2, sign, slopeVwStr, maxSizeStr, unit3 ] = match;
+    if (unit1 !== unit3) {
+      reverseError = 'Min and Max size units must match.';
+      return;
+    }
+    let rUnit = unit1;
+    let rMinSize = parseFloat(minSizeStr);
+    let rMaxSize = parseFloat(maxSizeStr);
+    let intersection = parseFloat(intersectionStr);
+    let slope = parseFloat(slopeVwStr) / 100;
+    if (sign === '-') slope = -slope;
+    if (rUnit === 'px') {
+      rMinSize /= baseRem;
+      rMaxSize /= baseRem;
+    }
+    if (unit2 === 'px') {
+      intersection /= baseRem;
+    }
+    let minWidthRem = (rMinSize - intersection) / slope;
+    let maxWidthRem = (rMaxSize - intersection) / slope;
+    minWidth = Math.round(minWidthRem * baseRem);
+    maxWidth = Math.round(maxWidthRem * baseRem);
+    minSize = rUnit === 'px' ? rMinSize * baseRem : rMinSize;
+    maxSize = rUnit === 'px' ? rMaxSize * baseRem : rMaxSize;
+    unit = rUnit;
+    activeTab = 'builder';
+  };
 
   let copiedCss = false;
   let copiedTw = false;
@@ -39,7 +77,12 @@
   let exportFormat: 'css' | 'tailwind' | 'scss' = 'css';
 
   $: formattedExportText = (() => {
-      if (exportFormat === 'css') return scaleVariablesText;
+      const prefix = mode === 'spacing' ? 'spacing' : 'font-size';
+
+      if (exportFormat === 'css') {
+          const lines = generatedScale.map(step => `  --${prefix}-${step.name}: ${step.clamp};`).join('\n');
+          return `:root {\n${lines}\n}`;
+      }
 
       if (exportFormat === 'tailwind') {
           let twObj = generatedScale.reduce((acc, step) => {
@@ -50,14 +93,14 @@
           return `module.exports = {
   theme: {
     extend: {
-      fontSize: ${JSON.stringify(twObj, null, 8).replace(/}$/, '      }')}
+      ${mode === 'spacing' ? 'spacing' : 'fontSize'}: ${JSON.stringify(twObj, null, 8).replace(/}$/, '      }')}
     }
   }
 }`;
       }
 
       if (exportFormat === 'scss') {
-          return generatedScale.map(step => `$font-size-${step.name}: ${step.clamp};`).join('\n');
+          return generatedScale.map(step => `${prefix}-${step.name}: ${step.clamp};`).join('\n');
       }
 
       return scaleVariablesText;
@@ -220,7 +263,7 @@
       return steps;
   })();
 
-  $: scaleVariablesText = `:root {\n${generatedScale.map(s => `  --text-${s.name}: ${s.clamp};`).join('\n')}\n}`;
+  $: scaleVariablesText = `:root {\n${generatedScale.map(s => `  --${mode === 'spacing' ? 'spacing' : 'text'}-${s.name}: ${s.clamp};`).join('\n')}\n}`;
 
   const downloadFile = (content: string, filename: string) => {
     if (!browser) return;
@@ -368,6 +411,12 @@ ${calculatedClamp}`,
         >
           {d.history || 'History'}
         </button>
+        <button
+          class="flex-1 py-4 px-2 whitespace-nowrap text-sm font-medium transition-colors {activeTab === 'reverse' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px]"
+          on:click={() => activeTab = 'reverse'}
+        >
+          {d.reverseTab || 'Reverse'}
+        </button>
       </div>
 
       <!-- Keyboard Shortcuts Help -->
@@ -378,7 +427,35 @@ ${calculatedClamp}`,
       </div>
 
       <div class="p-6 sm:p-8">
-        {#if activeTab === 'builder'}
+        {#if activeTab === 'reverse'}
+          <div class="space-y-8" in:fade>
+             <div>
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">{d.reverseTitle || 'Reverse Clamp Engine'}</h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">{d.reverseDesc || 'Paste an existing CSS clamp() function, and we will reverse-engineer the minimum and maximum viewport widths used to generate it!'}</p>
+
+                <div class="space-y-4">
+                  <label class="block">
+                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">{d.pasteClamp || 'Paste Clamp Function'}</span>
+                    <input
+                      type="text"
+                      bind:value={reverseInput}
+                      placeholder="e.g. clamp(1rem, 0.5rem + 2.5vw, 2.5rem)"
+                      class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white px-4 py-3 font-mono min-h-[44px]"
+                    />
+                  </label>
+                  {#if reverseError}
+                    <p class="text-sm text-rose-500 font-medium">{reverseError}</p>
+                  {/if}
+                  <button
+                    on:click={handleReverse}
+                    class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px]"
+                  >
+                    {d.reverseBtn || 'Reverse Engineer Viewports'}
+                  </button>
+                </div>
+             </div>
+          </div>
+        {:else if activeTab === 'builder'}
           <div class="space-y-8" in:fade>
 
 
