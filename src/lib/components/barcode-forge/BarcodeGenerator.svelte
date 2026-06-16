@@ -13,7 +13,7 @@
 
   // Load dictionary
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
-  $: d = dict.tools.barcodeForge;
+  $: d = (dict as any).tools.barcodeForge;
 
   // State
   let value = '123456789012';
@@ -147,17 +147,17 @@
     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
       <!-- Tabs -->
       <div class="flex border-b border-slate-200 dark:border-slate-700">
-        <button class="min-h-[44px] min-w-[44px] flex-1 py-3 min-h-[44px] min-w-[44px] text-sm font-medium focus:ring-2 focus:ring-indigo-500 transition-colors {activeTab === 'generator' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+        <button class="min-h-[44px] min-w-[44px] flex-1 py-3 text-sm font-medium focus:ring-2 focus:ring-indigo-500 transition-colors {activeTab === 'generator' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
           on:click={() => activeTab = 'generator'}
         >
           {d.generate}
         </button>
-        <button class="min-h-[44px] min-w-[44px] flex-1 py-3 min-h-[44px] min-w-[44px] text-sm font-medium focus:ring-2 focus:ring-indigo-500 transition-colors {activeTab === 'bulk' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+        <button class="min-h-[44px] min-w-[44px] flex-1 py-3 text-sm font-medium focus:ring-2 focus:ring-indigo-500 transition-colors {activeTab === 'bulk' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
           on:click={() => activeTab = 'bulk'}
         >
           {d.bulk}
         </button>
-        <button class="min-h-[44px] min-w-[44px] flex-1 py-3 min-h-[44px] min-w-[44px] text-sm font-medium focus:ring-2 focus:ring-indigo-500 transition-colors {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+        <button class="min-h-[44px] min-w-[44px] flex-1 py-3 text-sm font-medium focus:ring-2 focus:ring-indigo-500 transition-colors {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 bg-slate-50 dark:bg-slate-900/50' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
           on:click={() => activeTab = 'history'}
         >
           {d.history}
@@ -264,7 +264,7 @@
                 <button
                     disabled={!valid}
                     on:click={saveToHistory}
-                    class="p-2 min-h-[44px] min-w-[44px] rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 focus:ring-2 focus:ring-indigo-500 transition-colors disabled:opacity-50 flex items-center justify-center"
+                    class="p-2 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 focus:ring-2 focus:ring-indigo-500 transition-colors disabled:opacity-50 flex items-center justify-center"
                     title={d.save}
                 >
                     <Save size={20} />
@@ -273,7 +273,7 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <button class="min-h-[44px] min-w-[44px] flex items-center justify-center space-x-2 px-6 py-4 min-h-[44px] bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl focus:ring-2 focus:ring-indigo-500 shadow-md font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            <button class="w-full sm:w-auto min-h-[44px] min-w-[44px] flex items-center justify-center space-x-2 px-6 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl focus:ring-2 focus:ring-indigo-500 shadow-md font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={!valid}
                 on:click={() => download('svg')}
 
@@ -281,7 +281,7 @@
                 <Download size={20} />
                 <span>{d.downloadSvg}</span>
             </button>
-            <button class="min-h-[44px] min-w-[44px] flex items-center justify-center space-x-2 px-6 py-4 min-h-[44px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 focus:ring-2 focus:ring-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl shadow-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            <button class="w-full sm:w-auto min-h-[44px] min-w-[44px] flex items-center justify-center space-x-2 px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 focus:ring-2 focus:ring-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl shadow-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={!valid}
                 on:click={() => download('png')}
 
