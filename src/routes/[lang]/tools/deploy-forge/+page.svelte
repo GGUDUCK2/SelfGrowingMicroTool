@@ -124,6 +124,40 @@
   keywords="dockerfile generator, docker compose builder, container architect, devops tool"
 />
 
+<svelte:head>
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+    {@html '<script type="application/ld+json">' + JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/deploy-forge",
+      "isAccessibleForFree": true,
+      "name": "Deploy Forge",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": dict.tools.deployForge.description,
+      "featureList": "Dockerfile generation, Docker Compose builder, Multi-stage build optimization"
+    }) + '</script>'}
+
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+    {@html '<script type="application/ld+json">' + JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": f.a
+        }
+      }))
+    }) + '</script>'}
+</svelte:head>
+
 
 
 <div class="min-h-screen bg-slate-900 text-slate-100 pb-20">
@@ -139,7 +173,7 @@
         </h1>
       </div>
       <div class="flex items-center space-x-2">
-         <button on:click={saveToHistory} class="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center min-h-[44px] min-w-[44px]" aria-label={dict.tools.deployForge.save}>
+         <button on:click={saveToHistory} class="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={dict.tools.deployForge.save}>
             <Save size={20} />
          </button>
      <button on:click={downloadProject} class="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors text-sm min-h-[44px] min-w-[44px]">
@@ -224,39 +258,6 @@
     </div>
 
     <!-- Documentation -->
-    <!-- JSON-LD for SEO -->
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-    {@html '<script type="application/ld+json">' + JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/deploy-forge",
-      "isAccessibleForFree": true,
-      "name": "Deploy Forge",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Web",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "description": dict.tools.deployForge.description,
-      "featureList": "Dockerfile generation, Docker Compose builder, Multi-stage build optimization"
-    }) + '</script>'}
-
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-    {@html '<script type="application/ld+json">' + JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(f => ({
-        "@type": "Question",
-        "name": f.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": f.a
-        }
-      }))
-    }) + '</script>'}
-
     <div class="mt-20 border-t border-slate-800 pt-16">
         <div class="prose prose-invert max-w-none">
             <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400 mb-6">
