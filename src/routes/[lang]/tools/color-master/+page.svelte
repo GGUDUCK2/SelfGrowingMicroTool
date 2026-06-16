@@ -518,9 +518,12 @@
       </div>
     </section>
 
+  </article>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
     <GuideSection {...t?.guide} />
-  <AdPlaceholder />
-  <FAQSection
+    <AdPlaceholder />
+    <FAQSection
       title={t.faqTitle}
       items={[
         { q: dict?.q1, a: dict?.a1 },
@@ -528,9 +531,7 @@
         { q: dict?.q3, a: dict?.a3 }
       ]}
     />
-  </article>
-
-
+  </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
     <RelatedTools {lang} currentSlug="color-master" currentCategory="design" />
