@@ -9,7 +9,7 @@
   export let onRestore: (item: BarcodeForgeHistory) => void;
 
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
-  $: d = dict.tools.barcodeForge;
+  $: d = (dict as any).tools.barcodeForge;
 
   let history = liveQuery(() => {
     if (browser) {
@@ -48,12 +48,12 @@
             <p class="text-xs text-slate-500">{item.format} • {new Date(item.createdAt).toLocaleDateString()}</p>
           </div>
           <div class="flex items-center space-x-1 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
-            <button class="min-h-[44px] min-w-[44px] p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-md" on:click={() => onRestore(item)}
+            <button class="min-h-[44px] min-w-[44px] p-1.5 flex items-center justify-center text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-md" on:click={() => onRestore(item)}
               title={d.restore}
             >
               <RotateCcw size={16} />
             </button>
-            <button class="min-h-[44px] min-w-[44px] p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-md" on:click={() => deleteItem(item.id)}
+            <button class="min-h-[44px] min-w-[44px] p-1.5 flex items-center justify-center text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-md" on:click={() => deleteItem(item.id)}
               title={d.delete}
             >
               <Trash2 size={16} />
