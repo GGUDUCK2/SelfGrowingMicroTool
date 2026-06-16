@@ -313,3 +313,18 @@ export default {}
 #### 3. Performance Impact (기대 효과)
 - 도구 컴포넌트의 책임을 분리하여 유지보수성과 재사용성을 향상시킴.
 - JSON-LD 스키마의 중복 삽입을 방지함으로써 검색 엔진이 혼동 없이 명확하게 구조화된 데이터를 크롤링하고 리치 스니펫을 구성할 수 있도록 지원(AEO 강화).
+
+### [Daily Improvement Report - 2026-06-16]
+#### 1. Identified Issues (발견된 문제)
+- JSON-LD 스키마 인젝션 태그 오류: `demographics-forge` 및 `deploy-forge` 도구 페이지에서 `<script type="application/ld+json">` 코드가 `<svelte:head>` 외부에 위치하여 메타데이터 인젝션 및 SEO 최적화에 취약함.
+- 접근성 최적화 미비: `deploy-forge` 도구 페이지 내 저장(Save) 및 다운로드(Download) 버튼 등에 최소 터치 타겟 클래스(`min-h-[44px] min-w-[44px]`)가 중복 적용되어 있었음.
+- AEO 스키마 누락 이슈 확인 중 `xpath-forge` 도구 페이지는 올바르게 `WebApplication` 타입을 포함하고 있음을 검증함.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/demographics-forge/+page.svelte` - JSON-LD 스키마 블록(schema, faqSchema)을 `<svelte:head>` 래퍼 내부로 이동.
+- **Code**: `src/routes/[lang]/tools/deploy-forge/+page.svelte` - JSON-LD 스키마 블록을 `<svelte:head>` 래퍼 내부로 이동하고, 버튼 컴포넌트의 중복된 `min-h-[44px] min-w-[44px]` CSS 유틸리티를 하나로 정리.
+- **SEO/AEO**: 헤드(`head`) 내 올바른 위치에 JSON-LD 메타 태그가 삽입되어 검색엔진 크롤링 봇과 AI 오버뷰 시스템(AEO)이 도구 기능을 정확히 파싱할 수 있도록 보장함.
+
+#### 3. Performance Impact (기대 효과)
+- DOM 외부에 위치해야 할 메타데이터 스크립트를 올바른 위치로 정정하여 페이지 렌더링 성능 최적화 및 브라우저 호환성을 향상.
+- 버튼 접근성 클래스의 중복 적용을 제거하여 코드베이스의 유지보수성 및 CSS 렌더링 최적화를 강화함.
