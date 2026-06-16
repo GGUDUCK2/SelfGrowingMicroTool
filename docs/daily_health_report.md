@@ -313,3 +313,17 @@ export default {}
 #### 3. Performance Impact (기대 효과)
 - 도구 컴포넌트의 책임을 분리하여 유지보수성과 재사용성을 향상시킴.
 - JSON-LD 스키마의 중복 삽입을 방지함으로써 검색 엔진이 혼동 없이 명확하게 구조화된 데이터를 크롤링하고 리치 스니펫을 구성할 수 있도록 지원(AEO 강화).
+
+[Project Health Report - 2024-11-20]
+## Repository Hygiene
+- Cleaned up root directory by moving `patch_*.cjs` scripts to `scripts/` directory.
+- Ignored and deleted loose `*.log` files to keep the root directory clean.
+
+## Design Consistency
+- color-master: Extracted documentation components (`GuideSection`, `AdPlaceholder`, and `FAQSection`) from an `<article>` tag and placed them into a standard `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12` wrapper to maintain design consistency and mobile-friendly scrolling.
+
+## AdSense Readiness
+- AdSense readiness was confirmed for multiple tools through the verification of the presence of `AdPlaceholder`, `GuideSection`, and `FAQSection` within proper standard layout wrappers.
+
+## Tech Debt
+- Run `npm audit fix` addressing security vulnerabilities in outdated packages, resolving over 600 issues including updates to `vite`, `esbuild`, and `dompurify` down to more acceptable warning levels.
