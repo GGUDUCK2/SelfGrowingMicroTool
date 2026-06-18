@@ -308,7 +308,7 @@
       </div>
     </div>
 
-    <RelatedTools {lang} currentSlug="cipher-lab" currentCategory="security" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="cipher-lab" currentCategory="security" />
   </main>
 
   <!-- Toast -->

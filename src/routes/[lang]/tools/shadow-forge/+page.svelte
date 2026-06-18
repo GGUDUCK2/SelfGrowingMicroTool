@@ -127,7 +127,7 @@
 
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="shadow-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="shadow-forge" currentCategory="dev" />
   </div>
 </main>
 
@@ -192,9 +192,9 @@
   <FAQSection
                title={dict.faqTitle}
                items={[
-                   { question: dict?.q1, answer: dict?.a1 },
-                   { question: dict?.q2, answer: dict?.a2 },
-                   { question: dict?.q3, answer: dict?.a3 }
+                   { q: dict?.q1, a: dict?.a1 },
+                   { q: dict?.q2, a: dict?.a2 },
+                   { q: dict?.q3, a: dict?.a3 }
                ]}
            />
        </div>

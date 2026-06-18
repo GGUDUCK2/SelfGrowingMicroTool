@@ -355,7 +355,7 @@
             </div>
         </div>
        <div class="mt-12">
-    <RelatedTools {lang} currentSlug="prompt-forge" currentCategory="ai" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="prompt-forge" currentCategory="ai" />
   </div>
 </main>
   </div>

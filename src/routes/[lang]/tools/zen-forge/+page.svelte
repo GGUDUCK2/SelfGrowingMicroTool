@@ -207,6 +207,6 @@
         { q: dict?.q3, a: dict?.a3 }
       ]}
     />
-  <RelatedTools lang={$page.params.lang || 'en'} currentSlug="zen-forge" currentCategory="productivity" />
+  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="zen-forge" currentCategory="productivity" />
   </div>
 </div>

@@ -212,7 +212,7 @@
       </div>
     </div>
     <div class="mt-12">
-    <RelatedTools {lang} currentSlug="file-forge" currentCategory="util" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="file-forge" currentCategory="util" />
   </div>
 </main>
 </div>

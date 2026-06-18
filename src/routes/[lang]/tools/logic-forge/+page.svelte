@@ -396,7 +396,7 @@
        <HistoryPanel {lang} on:restore={handleRestore} />
     </div>
     <div class="mt-12">
-    <RelatedTools {lang} currentSlug="logic-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="logic-forge" currentCategory="dev" />
   </div>
 </main>
 

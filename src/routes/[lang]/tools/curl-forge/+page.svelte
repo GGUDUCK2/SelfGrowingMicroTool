@@ -169,6 +169,6 @@
     <GuideSection {...dict?.guide} />
     <AdPlaceholder />
   <FAQSection title={dict?.faqTitle || 'FAQ'} items={dict?.faq || []} />
-    <RelatedTools {lang} currentSlug="curl-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="curl-forge" currentCategory="dev" />
   </div>
 </div>

@@ -540,5 +540,5 @@
         { q: dict?.q3, a: dict?.a3 }
       ]}
     />
-  <RelatedTools {lang} currentSlug="subnet-scope" currentCategory="dev" />
+  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="subnet-scope" currentCategory="dev" />
   </div>

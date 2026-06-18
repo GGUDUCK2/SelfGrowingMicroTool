@@ -652,7 +652,7 @@
   <FAQSection title={t.faqTitle} items={faqItems} />
     </div>
     <div class="mt-12">
-    <RelatedTools {lang} currentSlug="diff-viewer" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="diff-viewer" currentCategory="dev" />
   </div>
 </main>
 </div>
