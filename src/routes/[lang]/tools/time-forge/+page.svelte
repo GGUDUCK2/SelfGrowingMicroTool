@@ -118,7 +118,7 @@
       </div>
     </div>
 
-    <GuideSection {...t?.guide} />
+    <GuideSection {...((t as any)?.guide || { title: '', intro: '', f1: '', f2: '', f3: '' })} />
   <AdPlaceholder />
   <FAQSection title={t.faqTitle} items={faqs} />
   </div>
@@ -126,6 +126,6 @@
 
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="time-forge" currentCategory="productivity" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="time-forge" currentCategory="productivity" />
   </div>
 </div>

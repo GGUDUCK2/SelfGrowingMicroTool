@@ -300,14 +300,14 @@
   <FAQSection
           title={invoiceDict.faqTitle}
           items={[
-              { q: invoiceDict?.q1, a: invoiceDict?.a1 },
-              { q: invoiceDict?.q2, a: invoiceDict?.a2 },
-              { q: invoiceDict?.q3, a: invoiceDict?.a3 }
+              { q: (invoiceDict as any)?.q1 || '', a: (invoiceDict as any)?.a1 || '' },
+              { q: (invoiceDict as any)?.q2 || '', a: (invoiceDict as any)?.a2 || '' },
+              { q: (invoiceDict as any)?.q3 || '', a: (invoiceDict as any)?.a3 || '' }
           ]}
       />
   </div>
 </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="invoice-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="invoice-forge" currentCategory="dev" />
   </div>

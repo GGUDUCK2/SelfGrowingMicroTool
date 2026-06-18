@@ -23,12 +23,12 @@
   import { liveQuery, type Subscription } from 'dexie';
 
 
-  $: t = getDictionary($page.params.lang || "en")?.tools.structura;
+  $: t = ((getDictionary($page.params.lang || 'en') as any).tools)?.structura;
 
   $: faqItems = [
-    { q: t?.q1, a: t?.a1 },
-    { q: t?.q2, a: t?.a2 },
-    { q: t?.q3, a: t?.a3 }
+    { q: (t as any)?.q1 || '', a: (t as any)?.a1 || '' },
+    { q: (t as any)?.q2 || '', a: (t as any)?.a2 || '' },
+    { q: (t as any)?.q3 || '', a: (t as any)?.a3 || '' }
   ];
 
   // Tabs
@@ -328,7 +328,7 @@
                                 {t.examples.label}
                             </button>
                             <div class="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-1 hidden group-hover:block z-20">
-                                {#each structuraExamples as ex (ex.name)}
+                                {#each structuraExamples as ex (ex.label)}
                                     <button
                                         class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors min-h-[44px] min-w-[44px]"
                                         on:click={() => loadExample(ex)}
@@ -650,5 +650,5 @@
 </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="structura" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="structura" currentCategory="dev" />
   </div>

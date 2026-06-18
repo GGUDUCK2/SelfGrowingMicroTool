@@ -325,7 +325,7 @@
       <FAQSection title={t.faqTitle} items={faqItems} />
     </div>
 
-    <RelatedTools {lang} currentSlug="mock-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="mock-forge" currentCategory="dev" />
   </main>
 
   {#if showToast}

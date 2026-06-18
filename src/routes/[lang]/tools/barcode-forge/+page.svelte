@@ -102,9 +102,9 @@
   <FAQSection
       title={d.faqTitle}
       items={[
-        { q: d?.q1, a: d?.a1 },
-        { q: d?.q2, a: d?.a2 },
-        { q: d?.q3, a: d?.a3 }
+        { q: (d as any)?.q1 || '', a: (d as any)?.a1 || '' },
+        { q: (d as any)?.q2 || '', a: (d as any)?.a2 || '' },
+        { q: (d as any)?.q3 || '', a: (d as any)?.a3 || '' }
       ]}
     />
   </div>

@@ -26,9 +26,9 @@
   $: translations = t; // For passing to components
 
   $: faqItems = [
-    { q: t?.q1, a: t?.a1 },
-    { q: t?.q2, a: t?.a2 },
-    { q: t?.q3, a: t?.a3 }
+    { q: (t as any)?.q1 || '', a: (t as any)?.a1 || '' },
+    { q: (t as any)?.q2 || '', a: (t as any)?.a2 || '' },
+    { q: (t as any)?.q3 || '', a: (t as any)?.a3 || '' }
   ];
 
   let original = '';
@@ -652,7 +652,7 @@
   <FAQSection title={t.faqTitle} items={faqItems} />
     </div>
     <div class="mt-12">
-    <RelatedTools {lang} currentSlug="diff-viewer" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="diff-viewer" currentCategory="dev" />
   </div>
 </main>
 </div>

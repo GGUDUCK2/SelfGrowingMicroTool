@@ -530,15 +530,15 @@
 </style>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <GuideSection {...dict?.guide} />
+    <GuideSection {...(dict as any)?.guide} />
   <AdPlaceholder />
   <FAQSection
-      title={dict?.faqTitle}
+      title={(dict as any)?.faqTitle}
       items={[
-        { q: dict?.q1, a: dict?.a1 },
-        { q: dict?.q2, a: dict?.a2 },
-        { q: dict?.q3, a: dict?.a3 }
+        { q: (dict as any)?.faq?.q1 || '', a: (dict as any)?.faq?.a1 || '' },
+        { q: (dict as any)?.faq?.q2 || '', a: (dict as any)?.faq?.a2 || '' },
+        { q: (dict as any)?.faq?.q3 || '', a: (dict as any)?.faq?.a3 || '' }
       ]}
     />
-  <RelatedTools {lang} currentSlug="subnet-scope" currentCategory="dev" />
+  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="subnet-scope" currentCategory="dev" />
   </div>

@@ -257,14 +257,14 @@
                 <GuideSection {...t?.guide} />
   <AdPlaceholder />
   <FAQSection title={t.faqTitle} items={[
-                    { question: t?.q1, answer: t?.a1 },
-                    { question: t?.q2, answer: t?.a2 },
-                    { question: t?.q3, answer: t?.a3 }
+                    { q: (t as any)?.q1 || '', a: (t as any)?.a1 || '' },
+                    { q: (t as any)?.q2 || '', a: (t as any)?.a2 || '' },
+                    { q: (t as any)?.q3 || '', a: (t as any)?.a3 || '' }
                 ]} />
             </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="sql-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="sql-forge" currentCategory="dev" />
   </div>
 </main>
     </div>

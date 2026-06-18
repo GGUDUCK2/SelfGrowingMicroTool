@@ -325,10 +325,10 @@
   <FAQSection
       title={dict?.faqTitle}
       items={[
-        { q: dict?.q1, a: dict?.a1 },
-        { q: dict?.q2, a: dict?.a2 },
-        { q: dict?.q3, a: dict?.a3 }
+        { q: (dict as any)?.q1 || '', a: (dict as any)?.a1 || '' },
+        { q: (dict as any)?.q2 || '', a: (dict as any)?.a2 || '' },
+        { q: (dict as any)?.q3 || '', a: (dict as any)?.a3 || '' }
       ]}
     />
-  <RelatedTools {lang} currentSlug="motion-master" currentCategory="dev" />
+  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="motion-master" currentCategory="dev" />
   </div>

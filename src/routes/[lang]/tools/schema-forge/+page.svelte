@@ -22,7 +22,7 @@
   import { Save, FolderOpen, Plus, Trash2, Layout, Database, Code, FileCode, Wand2, Upload, History, Share2, Table as TableIcon, RefreshCw, Copy, Download, X } from '@lucide/svelte';
 
   $: lang = $page.params.lang || 'en';
-  $: t = getDictionary(lang).tools?.schemaForge || getDictionary('en').tools.schemaForge;
+  $: t = (getDictionary(lang).tools as any)?.schemaForge || (getDictionary('en').tools as any).schemaForge;
 
   // State
   let activeProject: SchemaProject = {
@@ -736,12 +736,12 @@
                 <FAQSection
                     title={t?.faqTitle}
                     items={[
-                        { q: t?.q1, a: t?.a1 },
-                        { q: t?.q2, a: t?.a2 },
-                        { q: t?.q3, a: t?.a3 }
+                        { q: (t as any)?.q1 || '', a: (t as any)?.a1 || '' },
+                        { q: (t as any)?.q2 || '', a: (t as any)?.a2 || '' },
+                        { q: (t as any)?.q3 || '', a: (t as any)?.a3 || '' }
                     ]}
                 />
-                <RelatedTools {lang} currentSlug="schema-forge" currentCategory="dev" />
+                <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="schema-forge" currentCategory="dev" />
             </div>
         </div>
     </div>

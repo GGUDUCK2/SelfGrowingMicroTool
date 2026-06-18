@@ -302,9 +302,9 @@
   <FAQSection
                title={dict.faqTitle}
                items={[
-                   { question: dict?.q1, answer: dict?.a1 },
-                   { question: dict?.q2, answer: dict?.a2 },
-                   { question: dict?.q3, answer: dict?.a3 }
+                   { q: (dict as any)?.q1 || '', a: (dict as any)?.a1 || '' },
+                   { q: (dict as any)?.q2 || '', a: (dict as any)?.a2 || '' },
+                   { q: (dict as any)?.q3 || '', a: (dict as any)?.a3 || '' }
                ]}
            />
         </div>
@@ -321,5 +321,5 @@
 {/if}
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="table-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="table-forge" currentCategory="dev" />
   </div>

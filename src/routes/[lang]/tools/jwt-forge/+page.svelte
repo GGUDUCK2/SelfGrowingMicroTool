@@ -261,9 +261,9 @@
   <FAQSection
             title={t.faqTitle}
             items={[
-                { q: t?.q1, a: t?.a1 },
-                { q: t?.q2, a: t?.a2 },
-                { q: t?.q3, a: t?.a3 }
+                { q: (t as any)?.q1 || '', a: (t as any)?.a1 || '' },
+                { q: (t as any)?.q2 || '', a: (t as any)?.a2 || '' },
+                { q: (t as any)?.q3 || '', a: (t as any)?.a3 || '' }
             ]}
         />
     </div>
@@ -271,5 +271,5 @@
 </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="jwt-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="jwt-forge" currentCategory="dev" />
   </div>
