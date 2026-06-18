@@ -23,9 +23,9 @@
   let showHistory = false;
 
   $: faqItems = dict ? [
-    { q: dict?.q1, a: dict?.a1 },
-    { q: dict?.q2, a: dict?.a2 },
-    { q: dict?.q3, a: dict?.a3 }
+    { q: (dict as any)?.q1 || '', a: (dict as any)?.a1 || '' },
+    { q: (dict as any)?.q2 || '', a: (dict as any)?.a2 || '' },
+    { q: (dict as any)?.q3 || '', a: (dict as any)?.a3 || '' }
   ] : [];
 
   $: jsonLd = dict ? {
@@ -110,7 +110,7 @@
   function handleRestore(event: CustomEvent<{ data: Record<string, unknown> }>) {
     const detailData = event.detail.data as any;
     if (detailData.input && detailData.input.rawUrl) {
-      currentUrl = event.detail.data.input.rawUrl;
+      currentUrl = (event.detail.data as any).input.rawUrl;
     }
     showHistory = false;
   }
@@ -222,5 +222,5 @@
 </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="url-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="url-forge" currentCategory="dev" />
   </div>

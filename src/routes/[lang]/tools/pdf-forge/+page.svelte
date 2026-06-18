@@ -139,7 +139,7 @@
   <main class="bg-white dark:bg-slate-900 rounded-3xl shadow-xl dark:shadow-2xl dark:shadow-indigo-900/10 border border-slate-200 dark:border-slate-800 overflow-hidden min-h-[600px] relative z-10">
     <Workspace dict={toolDict} />
     <div class="mt-12">
-    <RelatedTools {lang} currentSlug="pdf-forge" currentCategory="productivity" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="pdf-forge" currentCategory="productivity" />
   </div>
 </main>
 

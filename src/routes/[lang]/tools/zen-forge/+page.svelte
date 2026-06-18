@@ -20,7 +20,7 @@
     import type { ZenForgeDictionary } from '$lib/types/zen-forge';
   $: lang = $page.params.lang || 'en';
 
-    $: dict = getDictionary($page.params.lang).tools.zenForge as ZenForgeDictionary;
+    $: dict = (getDictionary($page.params.lang || 'en') as any).tools.zenForge as ZenForgeDictionary;
 
     onMount(() => {
         const params = new URLSearchParams(window.location.search);
@@ -184,12 +184,12 @@
         {#if !$zenStore.isFocusMode}
             <div class="mt-16 bg-slate-900/90 backdrop-blur rounded-2xl border border-slate-800 p-8 shadow-xl" transition:slide>
                  <GuideSection
-                    guide={dict.guide}
+                    {...(dict as any).guide}
                     faqTitle={dict.faqTitle}
                     faqItems={[
-                        { q: dict?.q1, a: dict?.a1 },
-                        { q: dict?.q2, a: dict?.a2 },
-                        { q: dict?.q3, a: dict?.a3 }
+                        { q: (dict as any)?.q1 || '', a: (dict as any)?.a1 || '' },
+                        { q: (dict as any)?.q2 || '', a: (dict as any)?.a2 || '' },
+                        { q: (dict as any)?.q3 || '', a: (dict as any)?.a3 || '' }
                     ]}
                 />
             </div>
@@ -202,11 +202,11 @@
   <FAQSection
       title={dict?.faqTitle}
       items={[
-        { q: dict?.q1, a: dict?.a1 },
-        { q: dict?.q2, a: dict?.a2 },
-        { q: dict?.q3, a: dict?.a3 }
+        { q: (dict as any)?.q1 || '', a: (dict as any)?.a1 || '' },
+        { q: (dict as any)?.q2 || '', a: (dict as any)?.a2 || '' },
+        { q: (dict as any)?.q3 || '', a: (dict as any)?.a3 || '' }
       ]}
     />
-  <RelatedTools lang={$page.params.lang || 'en'} currentSlug="zen-forge" currentCategory="productivity" />
+  <RelatedTools lang={($page.params.lang || 'en') as 'en' | 'ko'} currentSlug="zen-forge" currentCategory="productivity" />
   </div>
 </div>

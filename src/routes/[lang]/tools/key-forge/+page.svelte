@@ -249,9 +249,9 @@
   <FAQSection
                           title={dict.faqTitle}
                           items={[
-                              { q: dict?.q1, a: dict?.a1 },
-                              { q: dict?.q2, a: dict?.a2 },
-                              { q: dict?.q3, a: dict?.a3 }
+                              { q: (dict as any)?.q1 || '', a: (dict as any)?.a1 || '' },
+                              { q: (dict as any)?.q2 || '', a: (dict as any)?.a2 || '' },
+                              { q: (dict as any)?.q3 || '', a: (dict as any)?.a3 || '' }
                           ]}
                       />
                   </div>
@@ -263,7 +263,7 @@
       {/if}
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="key-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="key-forge" currentCategory="dev" />
   </div>
 </main>
 </div>

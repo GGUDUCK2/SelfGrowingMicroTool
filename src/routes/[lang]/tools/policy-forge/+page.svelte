@@ -68,9 +68,9 @@
 
   // SEO Schema
   $: faqItems = [
-    { q: toolDict?.q1, a: toolDict?.a1 },
-    { q: toolDict?.q2, a: toolDict?.a2 },
-    { q: toolDict?.q3, a: toolDict?.a3 }
+    { q: (toolDict as any)?.q1 || '', a: (toolDict as any)?.a1 || '' },
+    { q: (toolDict as any)?.q2 || '', a: (toolDict as any)?.a2 || '' },
+    { q: (toolDict as any)?.q3 || '', a: (toolDict as any)?.a3 || '' }
   ];
 
   $: schemaData = {
@@ -200,7 +200,7 @@
             </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="policy-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="policy-forge" currentCategory="dev" />
   </div>
 </main>
     </div>

@@ -19,9 +19,9 @@
   $: description = toolDict.description;
 
   $: faqItems = [
-    { q: toolDict?.q1, a: toolDict?.a1 },
-    { q: toolDict?.q2, a: toolDict?.a2 },
-    { q: toolDict?.q3, a: toolDict?.a3 }
+    { q: (toolDict as any)?.q1 || '', a: (toolDict as any)?.a1 || '' },
+    { q: (toolDict as any)?.q2 || '', a: (toolDict as any)?.a2 || '' },
+    { q: (toolDict as any)?.q3 || '', a: (toolDict as any)?.a3 || '' }
   ];
 
   $: jsonLd = JSON.stringify({
@@ -105,7 +105,7 @@
   <main>
     <Workspace dict={toolDict} />
     <div class="mt-12">
-    <RelatedTools {lang} currentSlug="pixel-forge" currentCategory="design" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="pixel-forge" currentCategory="design" />
   </div>
 </main>
 

@@ -369,9 +369,9 @@
                       />
                   </div>
               {:else if mode === 'trainer'}
-                  <TrainerPanel {engine} bind:settings {dict} />
+                  <TrainerPanel {engine} bind:settings dict={dict as any} />
               {:else if mode === 'game'}
-                  <RhythmGame {engine} bind:settings {dict} />
+                  <RhythmGame {engine} bind:settings dict={dict as any} />
               {/if}
           </div>
 
@@ -396,9 +396,9 @@
               </div>
 
               {#if libraryMode === 'presets'}
-                  <PresetPanel {settings} {dict} on:load={handleLoadPreset} />
+                  <PresetPanel {settings} dict={dict as any} on:load={handleLoadPreset} />
               {:else}
-                  <PlaylistPanel {settings} {dict} on:load={handleLoadPreset} />
+                  <PlaylistPanel {settings} dict={dict as any} on:load={handleLoadPreset} />
               {/if}
           </div>
       </div>

@@ -80,9 +80,9 @@
   };
 
   $: faqItems = [
-    { q: dict?.q1, a: dict?.a1 },
-    { q: dict?.q2, a: dict?.a2 },
-    { q: dict?.q3, a: dict?.a3 }
+    { q: (dict as any)?.q1 || '', a: (dict as any)?.a1 || '' },
+    { q: (dict as any)?.q2 || '', a: (dict as any)?.a2 || '' },
+    { q: (dict as any)?.q3 || '', a: (dict as any)?.a3 || '' }
   ];
 
   $: faqSchema = {
@@ -212,7 +212,7 @@
       </div>
     </div>
     <div class="mt-12">
-    <RelatedTools {lang} currentSlug="file-forge" currentCategory="util" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="file-forge" currentCategory="util" />
   </div>
 </main>
 </div>

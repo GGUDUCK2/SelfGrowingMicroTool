@@ -226,7 +226,7 @@
            <ConfigPanel bind:config {t} />
         </div>
         <div class="h-[400px]">
-           <HistoryPanel bind:this={historyPanelRef} {t} onRestore={handleRestore} />
+           <HistoryPanel bind:this={historyPanelRef} {t} onRestore={handleRestore} onToast={(msg) => console.log(msg)} />
         </div>
       </div>
 
@@ -294,5 +294,5 @@
   </div>
 </div>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="svg-forge" currentCategory="design" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="svg-forge" currentCategory="design" />
   </div>

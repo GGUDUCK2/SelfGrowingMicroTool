@@ -18,7 +18,7 @@
   import GuideSection from '$lib/components/GuideSection.svelte';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.typeForge;
+  $: dict = (getDictionary(lang) as any).tools.typeForge;
   $: common = getDictionary(lang).common;
 
   let currentFont: LoadedFont | null = null;
@@ -31,7 +31,7 @@
       {
         "@type": "ListItem",
         "position": 1,
-        "name": common.home || "Home",
+        "name": (common as any).home || "Home",
         "item": `https://selfgrowingmicrotool.com/${lang}`
       },
       {
@@ -159,9 +159,9 @@
   <FAQSection
                           title={dict.faqTitle}
                           items={[
-                              { q: dict?.q1, a: dict?.a1 },
-                              { q: dict?.q2, a: dict?.a2 },
-                              { q: dict?.q3, a: dict?.a3 }
+                              { q: (dict as any)?.q1 || '', a: (dict as any)?.a1 || '' },
+                              { q: (dict as any)?.q2 || '', a: (dict as any)?.a2 || '' },
+                              { q: (dict as any)?.q3 || '', a: (dict as any)?.a3 || '' }
                           ]}
                       />
                   </div>
@@ -192,7 +192,7 @@
       </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="type-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="type-forge" currentCategory="dev" />
   </div>
 </main>
 </div>

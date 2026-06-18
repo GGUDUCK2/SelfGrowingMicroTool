@@ -324,7 +324,7 @@
           </div>
       </div>
     <div class="mt-12">
-    <RelatedTools {lang} currentSlug="git-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="git-forge" currentCategory="dev" />
   </div>
 </main>
 
