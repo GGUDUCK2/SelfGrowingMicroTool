@@ -153,7 +153,7 @@
       </section>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="screen-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="screen-forge" currentCategory="dev" />
   </div>
 </main>
 </div>

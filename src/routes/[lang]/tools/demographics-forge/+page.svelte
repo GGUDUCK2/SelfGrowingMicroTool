@@ -98,9 +98,9 @@
 
     // Dynamic FAQ logic for SEO
     $: faqItems = [
-        { question: t?.q1, answer: t?.a1 },
-        { question: t?.q2, answer: t?.a2 },
-        { question: t?.q3, answer: t?.a3 }
+        { q: t?.q1, a: t?.a1 },
+        { q: t?.q2, a: t?.a2 },
+        { q: t?.q3, a: t?.a3 }
     ];
 
     $: schema = {
@@ -215,6 +215,6 @@
 
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="demographics-forge" currentCategory="data" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="demographics-forge" currentCategory="data" />
   </div>
 </div>

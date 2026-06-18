@@ -641,7 +641,7 @@
         { q: dict?.q3, a: dict?.a3 }
       ]}
     />
-  <RelatedTools {lang} currentSlug="grid-master" currentCategory="dev" />
+  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="grid-master" currentCategory="dev" />
   </div>
 </main>
 

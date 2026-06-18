@@ -156,6 +156,6 @@
       ]}
     />
 
-    <RelatedTools {lang} currentSlug="docker-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="docker-forge" currentCategory="dev" />
   </div>
 </div>

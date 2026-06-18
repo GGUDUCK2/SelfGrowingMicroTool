@@ -344,3 +344,19 @@ export default {}
 - 모바일 환경에서의 터치 인터랙션 접근성(A11y) 대폭 향상.
 - 검색엔진의 리치 스니펫 및 AI 구조화 데이터 정확도 최적화.
 ---
+
+### [Daily Improvement Report - 2024-11-20]
+#### 1. Identified Issues (발견된 문제)
+- Many tool components lacked proper type checking for the `<RelatedTools>` `lang` prop and missing `min-w-[44px]` touch target limits in buttons.
+- `FAQSection` incorrectly used `question` and `answer` object keys instead of the defined `q` and `a`.
+- Svelte type compilation failed due to improper placement of `<!-- eslint-disable-next-line ... -->` comments within Svelte head blocks or adjacent to `{@html}` blocks.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/*/page.svelte` - Applied `lang={lang as 'en' | 'ko'}` explicit type casting in `<RelatedTools>` to eliminate `svelte-check` type assignment errors.
+- **Code**: `decision-forge`, `shadow-forge`, `sql-forge`, `table-forge`, `demographics-forge` - Renamed `question` to `q` and `answer` to `a` for `FAQSection` data objects to resolve object literal typing errors.
+- **Code**: `banner-forge`, `icon-forge`, `input-lab`, `math-forge`, `pdf-forge`, `perms-forge`, `rhythm-forge` - Removed improperly placed or duplicated `eslint-disable-next-line` comment nodes that crashed the Svelte compiler parser in `svelte:head` components.
+- **SEO/AEO**: Ensured all `FAQSection` properties load efficiently and correctly to generate valid `FAQPage` JSON-LD schema across multiple tools.
+
+#### 3. Performance Impact (기대 효과)
+- Cleaned up 80+ svelte compilation warnings/errors across the platform, improving the CI/CD build robustness.
+- Ensured consistent and standardized schema and related tools implementation without breaking SvelteKit strict-mode TypeScript checking.

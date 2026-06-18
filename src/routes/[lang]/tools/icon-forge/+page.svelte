@@ -135,9 +135,6 @@
   <!-- Twitter -->
 
 
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -163,12 +160,8 @@
       ]
     }
   </script>`}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumb)}</scr` + `ipt>`}
 
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -312,6 +305,6 @@
 
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools {lang} currentSlug="icon-forge" currentCategory="design" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="icon-forge" currentCategory="design" />
   </div>
 </div>

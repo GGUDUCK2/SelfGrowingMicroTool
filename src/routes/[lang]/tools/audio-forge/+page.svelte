@@ -165,7 +165,7 @@
                 />
             </div>
 
-            <RelatedTools {lang} currentSlug="audio-forge" currentCategory="productivity" />
+            <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="audio-forge" currentCategory="productivity" />
         </div>
     </div>
 </div>

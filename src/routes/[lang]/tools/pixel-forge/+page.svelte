@@ -105,7 +105,7 @@
   <main>
     <Workspace dict={toolDict} />
     <div class="mt-12">
-    <RelatedTools {lang} currentSlug="pixel-forge" currentCategory="design" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="pixel-forge" currentCategory="design" />
   </div>
 </main>
 

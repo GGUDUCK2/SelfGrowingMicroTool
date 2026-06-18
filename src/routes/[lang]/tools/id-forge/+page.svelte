@@ -362,6 +362,6 @@
         { q: dict?.q3, a: dict?.a3 }
       ]}
     />
-  <RelatedTools {lang} currentSlug="id-forge" currentCategory="dev" />
+  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="id-forge" currentCategory="dev" />
   </div>
 </div>

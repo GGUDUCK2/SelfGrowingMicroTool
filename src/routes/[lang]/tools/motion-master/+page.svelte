@@ -330,5 +330,5 @@
         { q: dict?.q3, a: dict?.a3 }
       ]}
     />
-  <RelatedTools {lang} currentSlug="motion-master" currentCategory="dev" />
+  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="motion-master" currentCategory="dev" />
   </div>

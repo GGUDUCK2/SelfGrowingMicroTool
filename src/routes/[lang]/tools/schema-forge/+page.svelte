@@ -741,7 +741,7 @@
                         { q: t?.q3, a: t?.a3 }
                     ]}
                 />
-                <RelatedTools {lang} currentSlug="schema-forge" currentCategory="dev" />
+                <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="schema-forge" currentCategory="dev" />
             </div>
         </div>
     </div>

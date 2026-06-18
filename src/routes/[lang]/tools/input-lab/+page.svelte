@@ -105,12 +105,8 @@
     <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/input-lab" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/input-lab" />
 
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
 
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -276,7 +272,7 @@
       { q: dict?.q3, a: dict?.a3 }
     ]} />
     <div class="mt-12">
-    <RelatedTools {lang} currentSlug="input-lab" currentCategory="util" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="input-lab" currentCategory="util" />
   </div>
 </main>
 

@@ -179,7 +179,7 @@
     </div>
 
   <div class="mt-12 mb-20">
-    <RelatedTools {lang} currentSlug="unit-verse" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="unit-verse" currentCategory="dev" />
   </div>
 </main>
 
