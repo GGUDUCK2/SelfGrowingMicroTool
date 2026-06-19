@@ -1,7 +1,7 @@
 <script lang="ts">
 
-  import { Copy, Save, Check, Monitor, Settings2, Share } from '@lucide/svelte';
-  import { dictionaries } from '$lib/dictionaries';
+  import { Copy, Save, Check, Monitor, Settings2, Share, FileCode, Download, Code2, Paintbrush } from '@lucide/svelte';
+    import { dictionaries } from '$lib/dictionaries';
   import type { ClampForgeHistory } from '$lib/db';
   import { clampForgeWorkspace } from '$lib/db/workspace';
   import { browser } from '$app/environment';
@@ -10,12 +10,45 @@
 
   export let lang: string = 'en';
 
+  const onKeydown = (e: KeyboardEvent) => {
+     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+         e.preventDefault();
+         copyToClipboard();
+     }
+     if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+         e.preventDefault();
+         handleSave();
+     }
+  };
+
+  onMount(() => {
+    if (browser) window.addEventListener('keydown', onKeydown);
+  });
+
+  onDestroy(() => {
+    if (browser) window.removeEventListener('keydown', onKeydown);
+  });
+
+
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
   $: d = dict.tools.clampForge;
 
 
 
   // State
+  let exportType: 'css' | 'tailwind' | 'scss' = 'css';
+  let showToast = false;
+  let toastMessage = '';
+  let toastType: 'success' | 'error' = 'success';
+  let historyUpdateTrigger = 0;
+
+  function triggerToast(message: string, type: 'success' | 'error' = 'success') {
+    toastMessage = message;
+    toastType = type;
+    showToast = true;
+    setTimeout(() => showToast = false, 3000);
+  }
+
   let mode: 'typography' | 'spacing' = 'typography';
   let minWidth = 320;
   let maxWidth = 1200;
@@ -30,6 +63,72 @@
   let activeTab: 'builder' | 'scale' | 'preview' | 'history' | 'reverse' = 'builder';
   let reverseInput = '';
   let reverseError = '';
+
+  $: tailwindConfig = `module.exports = {\n  theme: {\n    extend: {\n      fontSize: {\n        'fluid-text': '${calculatedClamp}',\n      },\n      spacing: {\n        'fluid-space': '${calculatedClamp}',\n      }\n    }\n  }\n}`;
+
+  $: scssMixin = `@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {\n  $u1: unit($min-vw);\n  $u2: unit($max-vw);\n  $u3: unit($min-font-size);\n  $u4: unit($max-font-size);\n\n  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {\n    & {\n      font-size: ${calculatedClamp};\n    }\n  }\n}`;
+
+  $: cssVariables = `:root {\n  --fluid-min-width: ${minWidth};\n  --fluid-max-width: ${maxWidth};\n  \n  --fluid-screen: 100vw;\n  --fluid-bp: calc((var(--fluid-screen) - var(--fluid-min-width) / 16 * 1rem) / (var(--fluid-max-width) - var(--fluid-min-width)));\n}\n\n@media screen and (min-width: ${maxWidth}px) {\n  :root {\n    --fluid-screen: calc(var(--fluid-max-width) * 1px);\n  }\n}\n\n.fluid-element {\n  /* Using clamp */\n  font-size: ${calculatedClamp};\n}`;
+
+  const getExportCode = () => {
+    if (exportType === 'tailwind') return tailwindConfig;
+    if (exportType === 'scss') return scssMixin;
+    return cssVariables;
+  };
+
+  const copyExportCode = async () => {
+    if (browser) {
+      try {
+        await navigator.clipboard.writeText(getExportCode());
+        triggerToast(d.copied || 'Copied to clipboard!');
+      } catch (err) {
+        triggerToast('Failed to copy', 'error');
+      }
+    }
+  };
+
+  const downloadExportCode = () => {
+    if (browser) {
+      const blob = new Blob([getExportCode()], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `fluid-clamp-${exportType}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+      triggerToast(d.downloaded || 'Downloaded successfully!');
+    }
+  };
+
+  const handleSave = async () => {
+    if (browser) {
+       await clampForgeWorkspace.save({
+         mode,
+         minWidth,
+         maxWidth,
+         minSize,
+         maxSize,
+         unit,
+         baseRem,
+         result: calculatedClamp
+       });
+       triggerToast(d.savedToHistory || 'Saved to history!');
+       historyUpdateTrigger++;
+    }
+  };
+
+  const handleRestore = (item: any) => {
+     mode = item.mode || 'typography';
+     minWidth = item.minWidth;
+     maxWidth = item.maxWidth;
+     minSize = item.minSize;
+     maxSize = item.maxSize;
+     unit = item.unit;
+     baseRem = item.baseRem || 16;
+     activeTab = 'builder';
+     triggerToast(d.restored || 'Restored from history!');
+  };
+
   const handleReverse = () => {
     reverseError = '';
     if (!reverseInput.trim()) return;
@@ -334,14 +433,6 @@ ${calculatedClamp}`,
     }
   };
 
-  const handleRestore = (item: ClampForgeHistory) => {
-    minWidth = item.minWidth;
-    maxWidth = item.maxWidth;
-    minSize = item.minSize;
-    maxSize = item.maxSize;
-    unit = item.unit as 'rem' | 'px';
-    activeTab = 'builder';
-  };
 
 
 </script>
@@ -392,6 +483,31 @@ ${calculatedClamp}`,
       </div>
 
       <div class="p-6 sm:p-8">
+        {#if activeTab === 'export'}
+          <!-- Code Export Tab -->
+          <div class="space-y-6">
+             <div class="flex justify-between items-center">
+                <h3 class="text-lg font-medium text-slate-900 dark:text-white">Advanced Export</h3>
+                <div class="flex space-x-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+                   <button class="px-3 py-1.5 text-sm font-medium rounded-md min-h-[44px] min-w-[44px] transition-colors {exportType === 'css' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-indigo-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}" on:click={() => exportType = 'css'}>CSS Vars</button>
+                   <button class="px-3 py-1.5 text-sm font-medium rounded-md min-h-[44px] min-w-[44px] transition-colors {exportType === 'tailwind' ? 'bg-white dark:bg-slate-700 shadow text-sky-500' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}" on:click={() => exportType = 'tailwind'}>Tailwind</button>
+                   <button class="px-3 py-1.5 text-sm font-medium rounded-md min-h-[44px] min-w-[44px] transition-colors {exportType === 'scss' ? 'bg-white dark:bg-slate-700 shadow text-pink-500' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}" on:click={() => exportType = 'scss'}>SCSS</button>
+                </div>
+             </div>
+             <div class="relative bg-slate-900 rounded-lg p-4 font-mono text-sm text-slate-300 overflow-x-auto">
+                 <pre><code>{getExportCode()}</code></pre>
+                 <div class="absolute top-2 right-2 flex space-x-2">
+                    <button class="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded min-h-[44px] min-w-[44px] transition-colors" on:click={copyExportCode} aria-label="Copy Export Code" title="Copy">
+                       <Copy size={16} />
+                    </button>
+                    <button class="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded min-h-[44px] min-w-[44px] transition-colors" on:click={downloadExportCode} aria-label="Download Export Code" title="Download">
+                       <Download size={16} />
+                    </button>
+                 </div>
+             </div>
+             <p class="text-xs text-slate-500">Copy and paste these configurations directly into your project.</p>
+          </div>
+        {/if}
         {#if activeTab === 'reverse'}
           <div class="space-y-8" in:fade>
              <div>
@@ -954,3 +1070,9 @@ ${calculatedClamp}`,
     </div>
   </div>
 </div>
+
+{#if showToast}
+  <div class="fixed bottom-4 right-4 px-4 py-2 rounded shadow text-white text-sm z-50 transition-opacity {toastType === 'error' ? 'bg-red-500' : 'bg-green-500'}">
+    {toastMessage}
+  </div>
+{/if}
