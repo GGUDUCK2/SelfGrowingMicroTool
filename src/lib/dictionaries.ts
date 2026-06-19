@@ -89,6 +89,10 @@ export const dictionaries = {
         reverseDesc: "Paste an existing CSS clamp() function, and we will reverse-engineer the minimum and maximum viewport widths used to generate it!",
         pasteClamp: "Paste Clamp Function",
         reverseBtn: "Reverse Engineer Viewports",
+        savedToHistory: "Saved to history!",
+        restored: "Restored from history!",
+        downloaded: "Downloaded successfully!",
+        copied: "Copied to clipboard!",
         title: "Clamp Forge: Fluid Typography",
         description: "Generate precise CSS clamp() functions for fluid typography and spacing. Set your min/max viewport and sizes, and grab the perfect scaling formula instantly.",
         minViewport: "Min Viewport Width",
@@ -4780,6 +4784,14 @@ export const dictionaries = {
         reverseDesc: "기존의 CSS clamp() 함수를 붙여넣으세요. 이를 생성하는 데 사용된 최소 및 최대 뷰포트 너비를 역으로 계산해 드립니다!",
         pasteClamp: "Clamp 함수 붙여넣기",
         reverseBtn: "뷰포트 역추적하기",
+        savedToHistory: "기록에 저장되었습니다!",
+        restored: "기록에서 복원되었습니다!",
+        downloaded: "성공적으로 다운로드되었습니다!",
+        copied: "클립보드에 복사되었습니다!",
+        history: "작업 기록",
+        clear: "모두 지우기",
+
+
         title: "클램프 포지: 유동적 타이포그래피",
         description: "반응형 웹을 위한 정밀한 CSS clamp() 함수를 생성합니다. 최소/최대 뷰포트와 폰트 크기를 설정하고 완벽한 스케일링 공식을 즉시 얻으세요.",
         minViewport: "최소 뷰포트 너비",
@@ -4799,7 +4811,7 @@ export const dictionaries = {
         copyTailwind: "Tailwind 클래스 복사",
         copyCss: "CSS 복사",
         visualizerTitle: "유동적 스케일링 시각화",
-        history: "저장된 스케일",
+
         saveScale: "스케일 저장",
         scaleTitle: "스케일 모드",
         shortcutCopy: "Clamp 복사",
@@ -4816,14 +4828,14 @@ export const dictionaries = {
         livePreview: "실시간 미리보기",
         customPreviewText: "사용자 지정 미리보기 텍스트",
         editPreviewHint: "여기에 텍스트를 입력하여 미리 확인하세요",
-        clear: "전체 삭제",
+
         presetsTitle: "프리셋",
         presetH1: "H1 제목 (모바일: 2rem, 데스크탑: 4rem)",
         presetH2: "H2 제목 (모바일: 1.5rem, 데스크탑: 2.5rem)",
         presetBody: "본문 텍스트 (모바일: 1rem, 데스크탑: 1.125rem)",
         presetSpacing: "섹션 여백 (모바일: 2rem, 데스크탑: 5rem)",
-        restore: "복원",
-        delete: "삭제",
+
+
         shortcutsHint: "단축키: Ctrl+C (복사), Ctrl+S (저장), Esc (초기화)",
         simulatorLabel: "뷰포트 너비 시뮬레이터",
         computedSizeLabel: "계산된 크기",
@@ -5428,7 +5440,7 @@ export const dictionaries = {
         history: "계산 기록",
         historyEmpty: "저장된 계산 기록이 없습니다.",
         save: "결과 저장",
-        delete: "삭제",
+
         share: "결과 공유",
         copyLink: "링크 복사",
         linkCopied: "링크가 복사되었습니다!",
@@ -5524,7 +5536,7 @@ export const dictionaries = {
         downloadIcs: ".ics 다운로드",
         savedGroups: "저장된 그룹",
         loadGroup: "그룹 불러오기",
-        delete: "삭제",
+
         noGroups: "저장된 그룹이 없습니다.",
         teams: {
             title: "팀 프리셋",
@@ -5605,8 +5617,8 @@ export const dictionaries = {
         a3: "대부분의 최신 브라우저는 `backdrop-filter`를 지원합니다. 하지만 일부 구형 브라우저나 특정 버전(Firefox 등)을 위해 벤더 접두사나 대체 스타일이 필요할 수 있습니다.",
         history: "히스토리",
         save: "히스토리에 저장",
-        restore: "복원",
-        delete: "삭제",
+
+
         shareLink: "링크 공유",
         linkCopied: "링크 복사됨!",
         clearHistory: "히스토리 초기화",
@@ -5747,9 +5759,9 @@ export const dictionaries = {
         range: "범위",
         history: "히스토리",
         save: "저장",
-        restore: "복원",
-        delete: "삭제",
-        clear: "전체 삭제",
+
+
+
         exportCSV: "CSV 내보내기",
         exportJSON: "JSON 내보내기",
         downloaded: "다운로드됨!",
@@ -6055,7 +6067,7 @@ export const dictionaries = {
         html: "HTML",
         textToGrid: "텍스트 그리드 변환",
         star: "즐겨찾기",
-        delete: "삭제",
+
         openInStackBlitz: "StackBlitz에서 열기",
         openInCodePen: "CodePen에서 열기",
         browseGallery: "레이아웃 갤러리",
@@ -6276,8 +6288,8 @@ export const dictionaries = {
         export: "코드 내보내기",
         history: "히스토리",
         save: "저장",
-        restore: "복원",
-        delete: "삭제",
+
+
         clear: "초기화",
         presets: "프리셋",
         preview: "미리보기 요소",
@@ -6948,8 +6960,8 @@ export const dictionaries = {
       history: {
         title: "히스토리",
         save: "설정 저장",
-        restore: "복원",
-        delete: "삭제",
+
+
         empty: "저장된 설정이 없습니다."
       },
       guide: {
@@ -7048,7 +7060,7 @@ export const dictionaries = {
       duration: "길이",
       size: "크기",
       date: "날짜",
-      delete: "삭제",
+
       play: "재생",
       guide: {
         title: "왜 스크린 포지인가요?",
@@ -7097,8 +7109,8 @@ export const dictionaries = {
         history: {
             title: "히스토리",
             save: "디자인 저장",
-            restore: "복원",
-            delete: "삭제",
+
+
             empty: "저장된 디자인이 없습니다.",
             saved: "디자인이 저장되었습니다!"
         },
@@ -7141,7 +7153,7 @@ export const dictionaries = {
         merge: "모두 병합",
         split: "분할",
         rotate: "회전",
-        delete: "삭제",
+
         save: "PDF 저장",
         reset: "초기화",
           add: "파일 추가",
@@ -7170,8 +7182,8 @@ export const dictionaries = {
       history: {
           title: "세션 히스토리",
           empty: "저장된 세션이 없습니다.",
-          restore: "복원",
-          delete: "삭제",
+
+
           restoreConfirm: "이 세션을 복원하시겠습니까? 현재 작업이 대체됩니다.",
           savePrompt: "세션 이름을 입력하세요:",
           saved: "세션이 저장되었습니다!"
@@ -7222,7 +7234,7 @@ export const dictionaries = {
         shareCopied: "링크가 복사되었습니다!",
       save: "프리셋 저장",
       load: "불러오기",
-      delete: "삭제",
+
       history: "히스토리",
       sounds: {
           click: "디지털 클릭",
@@ -7323,8 +7335,8 @@ export const dictionaries = {
         result: "결과",
         history: "히스토리",
         save: "저장",
-        restore: "복원",
-        delete: "삭제",
+
+
         clear: "초기화",
         copy: "복사",
         copied: "복사됨!",
@@ -7879,8 +7891,8 @@ export const dictionaries = {
         downloadPng: "PNG 다운로드",
         history: "히스토리",
         save: "저장",
-        restore: "복원",
-        delete: "삭제",
+
+
         clear: "초기화",
         bulk: "대량 모드",
         bulkPlaceholder: "한 줄에 하나씩 입력하세요...",
@@ -8070,8 +8082,8 @@ export const dictionaries = {
         preview: "미리보기",
         history: "기록",
         save: "작업 공간에 저장",
-        restore: "복원",
-        delete: "삭제",
+
+
         clear: "모두 지우기",
         architectureVisualizer: "서비스 아키텍처",
         noServicesAdded: "연결된 추가 서비스 없음",
@@ -8162,7 +8174,7 @@ export const dictionaries = {
         noHistory: "저장된 비밀번호가 없습니다.",
         clearHistory: "지우기",
         star: "즐겨찾기 추가 / 해제",
-        delete: "삭제",
+
         strength: "강도",
         entropy: "엔트로피",
         timeToCrack: "오프라인 크래킹 예상 시간",
@@ -8455,7 +8467,7 @@ export const dictionaries = {
         history: "히스토리",
         noHistory: "저장된 정책이 없습니다.",
         clearHistory: "히스토리 지우기",
-        delete: "삭제",
+
         guideTitle: "왜 CSP 포지인가요?",
         guideIntro: "콘텐츠 보안 정책(CSP)은 크로스 사이트 스크립팅(XSS)과 같은 공격을 탐지하고 완화하는 데 도움이 되는 중요한 보안 계층입니다. CSP 포지는 구문 오류 없이 복잡한 정책을 구축하고 검증할 수 있는 시각적 인터페이스를 제공합니다.",
         guideFeaturesTitle: "주요 기능",
@@ -8488,8 +8500,8 @@ export const dictionaries = {
         dependencyTooltip: "생산가능인구(15-64세) 대비 유소년(0-14세) 및 노년(65세 이상) 인구의 비율입니다. 비율이 낮을수록 생산적인 노동력이 많음을 의미합니다.",
         workingAge: "생산가능인구",
         historyTitle: "저장된 스냅샷",
-        clear: "전체 삭제",
-        delete: "삭제",
+
+
         emptyHistory: "저장된 스냅샷이 없습니다. 별 버튼을 클릭하여 저장하세요.",
         saveSnapshot: "스냅샷 저장",
         faqTitle: "데모그래픽스 포지 FAQ",
