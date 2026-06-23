@@ -291,36 +291,7 @@
     ]
   };
 
-  $: faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": t?.faq?.q1 || t?.q1 || '',
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t?.faq?.a1 || t?.a1 || ''
-        }
-      },
-      {
-        "@type": "Question",
-        "name": t?.faq?.q2 || t?.q2 || '',
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t?.faq?.a2 || t?.a2 || ''
-        }
-      },
-      {
-        "@type": "Question",
-        "name": t?.faq?.q3 || t?.q3 || '',
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t?.faq?.a3 || t?.a3 || ''
-        }
-      }
-    ]
-  };
+
 
   $: breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -359,7 +330,7 @@
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">` + JSON.stringify(softwareSchema) + `${'</scr' + 'ipt>'}`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">` + JSON.stringify(faqSchema) + `${'</scr' + 'ipt>'}`}
+
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">` + JSON.stringify(breadcrumbSchema) + `${'</scr' + 'ipt>'}`}
   <!-- eslint-enable @typescript-eslint/no-unused-expressions -->

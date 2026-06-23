@@ -22,7 +22,7 @@
   import { copyToClipboard } from '$lib/utils';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.logicForge;
+  $: dict = getDictionary(lang).tools.logicForge as any;
 
   $: faqItems = [
     { q: dict?.q1, a: dict?.a1 },
@@ -219,36 +219,7 @@
     }
   ];
 
-  $: faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": dict?.q1,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": dict?.a1
-        }
-      },
-      {
-        "@type": "Question",
-        "name": dict?.q2,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": dict?.a2
-        }
-      },
-      {
-        "@type": "Question",
-        "name": dict?.q3,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": dict?.a3
-        }
-      }
-    ]
-  };
+
 </script>
 <Head
   title={`${expression ? expression + ' - ' : ''}${dict.title}`}
@@ -264,7 +235,7 @@
   {@html `<script type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</scr` + `ipt>`}
+
 
 </svelte:head>
 

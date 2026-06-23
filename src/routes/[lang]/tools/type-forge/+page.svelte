@@ -18,7 +18,7 @@
   import GuideSection from '$lib/components/GuideSection.svelte';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.typeForge;
+  $: dict = getDictionary(lang).tools.typeForge as any;
   $: common = getDictionary(lang).common;
 
   let currentFont: LoadedFont | null = null;
