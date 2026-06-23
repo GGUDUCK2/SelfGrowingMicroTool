@@ -20,7 +20,7 @@
   import { onMount, onDestroy } from 'svelte';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.cipherLab;
+  $: dict = getDictionary(lang).tools.cipherLab as any;
   $: common = getDictionary(lang).common;
 
   $: breadcrumbSchema = {
@@ -67,18 +67,7 @@
     { q: dict?.q3, a: dict?.a3 }
   ];
 
-  $: faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqItems.map(item => ({
-      "@type": "Question",
-      "name": item.q,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": item.a
-      }
-    }))
-  };
+
 
   let activeTab: 'hash' | 'encoders' | 'jwt' | 'password' | 'keygen' | 'vault' = 'hash';
   let showToast = false;
@@ -175,7 +164,7 @@
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</scr` + `ipt>`}
+
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">

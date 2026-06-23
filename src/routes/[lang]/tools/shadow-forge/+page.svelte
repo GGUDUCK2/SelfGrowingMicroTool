@@ -61,15 +61,7 @@
     ]
   };
 
-  $: faqSchema = dict ? {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": dict?.q1, "acceptedAnswer": { "@type": "Answer", "text": dict?.a1 } },
-      { "@type": "Question", "name": dict?.q2, "acceptedAnswer": { "@type": "Answer", "text": dict?.a2 } },
-      { "@type": "Question", "name": dict?.q3, "acceptedAnswer": { "@type": "Answer", "text": dict?.a3 } }
-    ]
-  } : {};
+
 </script>
 
 <Head
@@ -85,7 +77,7 @@
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</scr` + `ipt>`}
+
   {/if}
 </svelte:head>
 

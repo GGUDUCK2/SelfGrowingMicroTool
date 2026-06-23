@@ -183,15 +183,7 @@
         <!-- Guide Section -->
         {#if !$zenStore.isFocusMode}
             <div class="mt-16 bg-slate-900/90 backdrop-blur rounded-2xl border border-slate-800 p-8 shadow-xl" transition:slide>
-                 <GuideSection
-                    guide={dict.guide}
-                    faqTitle={dict.faqTitle}
-                    faqItems={[
-                        { q: dict?.q1, a: dict?.a1 },
-                        { q: dict?.q2, a: dict?.a2 },
-                        { q: dict?.q3, a: dict?.a3 }
-                    ]}
-                />
+                 <GuideSection {...(dict?.guide as any)} />
             </div>
         {/if}
     </div>

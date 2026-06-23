@@ -148,36 +148,7 @@
       ]
     };
 
-  $: faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": dict?.tools?.subnetScope?.q1 || "",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": dict?.tools?.subnetScope?.a1 || ""
-        }
-      },
-      {
-        "@type": "Question",
-        "name": dict?.tools?.subnetScope?.q2 || "",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": dict?.tools?.subnetScope?.a2 || ""
-        }
-      },
-      {
-        "@type": "Question",
-        "name": dict?.tools?.subnetScope?.q3 || "",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": dict?.tools?.subnetScope?.a3 || ""
-        }
-      }
-    ]
-  };
+
 </script>
 
 <Head
@@ -191,7 +162,7 @@
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</scr` + `ipt>`}
+
 </svelte:head>
 
 <!-- Toast -->

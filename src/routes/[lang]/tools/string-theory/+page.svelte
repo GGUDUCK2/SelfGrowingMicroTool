@@ -23,7 +23,7 @@
   import { page } from '$app/stores';
   $: lang = $page.params.lang || 'en';
 
-  $: dict = getDictionary($page.params.lang || 'en').tools.stringTheory;
+  $: dict = getDictionary($page.params.lang || 'en').tools.stringTheory as any;
 
   let text = '';
   let stats: TextStats = TextAnalyzer.analyze('');
@@ -210,36 +210,7 @@
     ]
   } : null;
 
-  $: faqSchema = dict ? {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": dict?.q1,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": dict?.a1
-        }
-      },
-      {
-        "@type": "Question",
-        "name": dict?.q2,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": dict?.a2
-        }
-      },
-      {
-        "@type": "Question",
-        "name": dict?.q3,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": dict?.a3
-        }
-      }
-    ]
-  } : null;
+
 
   const canonicalUrl = `https://selfgrowingmicrotool.com/${$page.params.lang}/tools/string-theory`;
 </script>
@@ -264,10 +235,6 @@
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   {/if}
 
-  {#if faqSchema}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</scr` + `ipt>`}
-  {/if}
 
 </svelte:head>
 

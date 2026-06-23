@@ -246,18 +246,7 @@
       }]
     };
 
-    $: faqSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": faqItems.map(item => ({
-            "@type": "Question",
-            "name": item.q,
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": item.a
-            }
-        }))
-    };
+
 
     // ics generation (simplified)
     function downloadIcs() {
@@ -303,7 +292,7 @@
     <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
     <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</scr` + `ipt>`}
+
 </svelte:head>
 
 <div class="max-w-6xl mx-auto space-y-8 pb-20 px-4 sm:px-6">

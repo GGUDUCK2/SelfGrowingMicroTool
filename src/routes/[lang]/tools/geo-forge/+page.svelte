@@ -367,18 +367,7 @@
       { q: dict?.q3 || "Can I use this offline?", a: dict?.a3 || "Yes! Geo Forge runs entirely on your device." }
   ];
 
-  $: faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqItems.map(item => ({
-      "@type": "Question",
-      "name": item.q,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": item.a
-      }
-    }))
-  };
+
 </script>
 <Head
   title={dict.title}
@@ -419,7 +408,7 @@
     }
   </script>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</scr` + `ipt>`}
+
 </svelte:head>
 
 <div class="h-[calc(100vh-64px)] flex flex-col bg-slate-50 dark:bg-slate-900 overflow-hidden">

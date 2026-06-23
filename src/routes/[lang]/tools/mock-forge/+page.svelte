@@ -202,36 +202,7 @@
     ]
   };
 
-  $: faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": t.q1,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t.a1
-        }
-      },
-      {
-        "@type": "Question",
-        "name": t.q2,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t.a2
-        }
-      },
-      {
-        "@type": "Question",
-        "name": t.q3,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t.a3
-        }
-      }
-    ]
-  };
+
 </script>
 <Head
   title={t.title}
@@ -248,7 +219,7 @@
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(schemaOrg)}</scr` + `ipt>`}
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">${JSON.stringify(faqSchema)}</scr` + `ipt>`}
+
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black pb-20">

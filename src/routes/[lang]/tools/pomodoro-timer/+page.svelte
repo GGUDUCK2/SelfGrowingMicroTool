@@ -172,38 +172,9 @@
     }]
   };
 
-    $: faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": dict?.q1,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": dict?.a1
-        }
-      },
-      {
-        "@type": "Question",
-        "name": dict?.q2,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": dict?.a2
-        }
-      },
-      {
-        "@type": "Question",
-        "name": dict?.q3,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": dict?.a3
-        }
-      }
-    ]
-  };
 
-  $: schemaList = [appSchema, breadcrumbSchema, faqSchema];
+
+  $: schemaList = [appSchema, breadcrumbSchema];
 </script>
 <Head
   title={dict.title}
