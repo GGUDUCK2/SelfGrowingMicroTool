@@ -77,9 +77,6 @@
   {@html `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "SoftwareApplication", "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/type-forge", "isAccessibleForFree": true, "name": dict.title, "description": dict.description, "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "featureList": [ "Variable Font Axis Control", "Glyph Inspection", "CSS @font-face Generator", "Local Processing" ] })}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [ { "@type": "Question", "name": dict?.q1 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.a1 || "" } }, { "@type": "Question", "name": dict?.q2 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.a2 || "" } }, { "@type": "Question", "name": dict?.q3 || "", "acceptedAnswer": { "@type": "Answer", "text": dict?.a3 || "" } } ] })}</scr` + `ipt>`}
-
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
 </svelte:head>
 

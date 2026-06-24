@@ -9,7 +9,7 @@ export class TextAnalyzer {
     const paragraphs = text.replace(/\n$/gm, '').split(/\n\s*\n/).filter(p => p.trim().length > 0).length;
 
     // Bytes calculation (UTF-8)
-    const bytes = new Blob([text]).size;
+    const bytes = new TextEncoder().encode(text).length;
 
     // Reading time: Average 200 words per minute
     // Speaking time: Average 130 words per minute

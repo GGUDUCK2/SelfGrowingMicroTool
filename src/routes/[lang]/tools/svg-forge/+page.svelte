@@ -36,7 +36,7 @@
   // --- Logic ---
   $: {
     if (rawSvg.trim()) {
-      originalSize = new Blob([rawSvg]).size;
+      originalSize = new TextEncoder().encode(rawSvg).length;
       const result = optimizeSvg(rawSvg, config);
       if (result.error) {
         optimizationError = result.error;
@@ -45,7 +45,7 @@
       } else {
         optimizationError = undefined;
         optimizedSvg = result.data;
-        optimizedSize = new Blob([optimizedSvg]).size;
+        optimizedSize = new TextEncoder().encode(optimizedSvg).length;
       }
     } else {
       optimizedSvg = '';

@@ -360,3 +360,19 @@ export default {}
 #### 3. Performance Impact (기대 효과)
 - Cleaned up 80+ svelte compilation warnings/errors across the platform, improving the CI/CD build robustness.
 - Ensured consistent and standardized schema and related tools implementation without breaking SvelteKit strict-mode TypeScript checking.
+
+### [Daily Improvement Report - 2026-06-24]
+#### 1. Identified Issues (발견된 문제)
+- `new Blob().size` 사용으로 인한 메모리 비대화 문제 발견: `string-theory`와 `svg-forge` 등에서 `TextEncoder.encode().length` 대신 `Blob` 객체를 생성하여 바이트 크기를 계산하고 있어 성능 저하(메모리 누수) 가능성이 있었습니다.
+- `type-forge`의 `<svelte:head>`에 `FAQPage` JSON-LD 스키마가 하드코딩되어 삽입됨으로써 `FAQSection`에서 제공하는 자동 스키마와 중복되는 현상이 발견되었습니다.
+- `qr-forge`와 `color-master` 페이지에서 가이드 문서를 비롯한 컨텐츠 영역이 플랫폼 표준 레이아웃인 `<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">`를 완전히 따르지 않고 일부가 `<article>` 내부에 중첩되거나 툴 컴포넌트 내부 DOM에 고립되어 있었습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/lib/utils/string-theory/analyzer.ts`, `src/routes/[lang]/tools/svg-forge/+page.svelte` - `new Blob([text]).size` 코드를 Svelte 메모리 최적화 컨벤션에 맞춰 `new TextEncoder().encode(text).length`로 교체하였습니다.
+- **Code**: `src/routes/[lang]/tools/type-forge/+page.svelte` - 중복된 하드코딩 `FAQPage` JSON-LD 스크립트 블록을 완전히 삭제하여 `FAQSection`이 단일하게 책임을 지도록 리팩토링했습니다.
+- **Code**: `src/routes/[lang]/tools/qr-forge/+page.svelte`, `src/routes/[lang]/tools/color-master/+page.svelte` - 레이아웃 구조를 재조정하여 `GuideSection`, `AdPlaceholder`, `FAQSection`, `RelatedTools`가 Svelte 페이지 최하단의 분리된 `max-w-7xl` 컨테이너에 배치되도록 수정했습니다. `color-master`의 `article` 태그에 잘못 사용된 `min-h-[44px] min-w-[44px]` 도 함께 제거했습니다.
+- **SEO/AEO**: 중복 `FAQPage` 스키마 오류를 해결하여 검색 엔진의 혼동을 막고, 구조화된 데이터를 명확하게 전달합니다.
+
+#### 3. Performance Impact (기대 효과)
+- 텍스트 입력 및 SVG 처리 작업에서 메모리 할당 빈도를 낮추어 체감 성능 및 렌더링 최적화를 달성했습니다.
+- 도구 컴포넌트 외부로 분리된 문서 및 FAQ 요소들을 페이지 레벨 레이아웃으로 이관하여 디자인 일관성과 모바일 가독성을 크게 확보했습니다.
