@@ -246,14 +246,6 @@
 
             <h3>{t.guide?.historyTitle || 'Persistent Local Workspace (IndexedDB)'}</h3>
             <p>{t.guide?.historyDesc || 'QR Forge is designed for productivity. We utilize Dexie.js, a robust wrapper around the browser native IndexedDB, to provide a persistent local workspace. Every time you generate a complex QR code—perhaps a meticulously styled WiFi credential or a detailed VCard—you can save it to your history. This log is stored securely on your device, allowing you to reload previous configurations instantly, rename projects for organization, and maintain a seamless workflow without ever needing to create an account or log in to a remote server.'}</p>
-
-                        <hr class="border-slate-700 my-8"/>
-
-            <div class="not-prose mt-8">
-              <GuideSection {...t?.guide} />
-              <AdPlaceholder />
-              <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
-            </div>
         </div>
       </div>
 
@@ -287,6 +279,9 @@
   </div>
 </div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="qr-forge" currentCategory="dev" />
-  </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+  <GuideSection {...t?.guide} />
+  <AdPlaceholder />
+  <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
+  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="qr-forge" currentCategory="dev" />
+</div>
