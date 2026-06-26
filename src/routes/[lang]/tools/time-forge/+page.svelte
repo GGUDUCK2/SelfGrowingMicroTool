@@ -118,7 +118,7 @@
       </div>
     </div>
 
-    <GuideSection {...t?.guide} />
+    <GuideSection {...(t as any)?.guide} />
   <AdPlaceholder />
   <FAQSection title={t.faqTitle} items={faqs} />
   </div>
