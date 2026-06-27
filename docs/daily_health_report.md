@@ -392,3 +392,14 @@ export default {}
 #### 3. Performance Impact (기대 효과)
 - 국제화(i18n) 기능 정상화, Svelte `check` 오류 해결, 그리고 컴파일 및 빌드 안정성 완벽 확보.
 ---
+
+---
+### [Daily Improvement Report - 2024-06-27]
+#### 1. Identified Issues (발견된 문제)
+- 일부 도구 페이지(`demographics-forge`, `deploy-forge`)에서 JSON-LD 스키마가 `<svelte:head>` 외부에 배치되어 렌더링 또는 파싱 문제가 발생할 수 있는 구조적 결함.
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/demographics-forge/+page.svelte`, `src/routes/[lang]/tools/deploy-forge/+page.svelte` - JSON-LD `<script>` 태그를 `<svelte:head>` 블록 안으로 이동.
+- **SEO/AEO**: `SoftwareApplication` / `WebApplication` 스키마가 `<head>` 영역에 올바르게 삽입되도록 구조 개선.
+#### 3. Performance Impact (기대 효과)
+- 검색 엔진과 AI 크롤러가 구조화된 데이터를 더 빠르고 정확하게 분석할 수 있어 검색 가시성(AEO/SEO) 향상 기대.
+---

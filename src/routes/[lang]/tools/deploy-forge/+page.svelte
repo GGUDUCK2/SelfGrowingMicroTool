@@ -124,7 +124,38 @@
   keywords="dockerfile generator, docker compose builder, container architect, devops tool"
 />
 
-
+<svelte:head>
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html '<script type="application/ld+json">' + JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/deploy-forge",
+    "isAccessibleForFree": true,
+    "name": "Deploy Forge",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": dict.tools.deployForge.description,
+    "featureList": "Dockerfile generation, Docker Compose builder, Multi-stage build optimization"
+  }) + '</script>'}
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+    {@html '<script type="application/ld+json">' + JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": f.a
+        }
+      }))
+    }) + '</script>'}
+</svelte:head>
 
 <div class="min-h-screen bg-slate-900 text-slate-100 pb-20">
   <!-- Header -->
@@ -221,41 +252,14 @@
             </div>
         </div>
 
-    </div>
-
     <!-- Documentation -->
     <!-- JSON-LD for SEO -->
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-    {@html '<script type="application/ld+json">' + JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/deploy-forge",
-      "isAccessibleForFree": true,
-      "name": "Deploy Forge",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Web",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "description": dict.tools.deployForge.description,
-      "featureList": "Dockerfile generation, Docker Compose builder, Multi-stage build optimization"
-    }) + '</script>'}
 
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-    {@html '<script type="application/ld+json">' + JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(f => ({
-        "@type": "Question",
-        "name": f.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": f.a
-        }
-      }))
-    }) + '</script>'}
+
+
+
+
+    </div>
 
     <div class="mt-20 border-t border-slate-800 pt-16">
         <div class="prose prose-invert max-w-none">
