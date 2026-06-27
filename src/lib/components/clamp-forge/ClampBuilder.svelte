@@ -33,8 +33,6 @@
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
   $: d = dict.tools.clampForge;
 
-
-
   // State
   let exportType: 'css' | 'tailwind' | 'scss' = 'css';
   let showToast = false;
@@ -56,8 +54,6 @@
   let maxSize = 2.5; // 2.5rem or 40px
   let unit: 'rem' | 'px' = 'rem';
   let baseRem = 16;
-
-
 
 
   let activeTab: 'builder' | 'scale' | 'preview' | 'history' | 'reverse' = 'builder';
@@ -231,8 +227,6 @@
     return (valRem * baseRem).toFixed(1);
   })();
 
-
-
   const handleKeydown = (e: KeyboardEvent) => {
     // Don't hijack if user is typing in an input
     if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
@@ -273,6 +267,7 @@
   let scaleRatio = 1.25; // Major Third by default
   let scaleStepsDown = 2; // xs, sm
   let scaleStepsUp = 5; // lg, xl, 2xl, 3xl, 4xl
+  let useContainerQueries = false;
 
   // Common Scale Ratios
   const scaleRatios = [
@@ -287,6 +282,31 @@
   ];
 
   type Preset = 'h1' | 'h2' | 'body' | 'spacing';
+
+  // Advanced Presets
+  const applyAdvancedPreset = (preset: 'marketing' | 'saas' | 'blog') => {
+      if (preset === 'marketing') {
+          minWidth = 375;
+          maxWidth = 1440;
+          minSize = 18;
+          maxSize = 22;
+          scaleRatio = 1.333; // Perfect Fourth
+      } else if (preset === 'saas') {
+          minWidth = 320;
+          maxWidth = 1200;
+          minSize = 14;
+          maxSize = 16;
+          scaleRatio = 1.250; // Major Third
+      } else if (preset === 'blog') {
+          minWidth = 320;
+          maxWidth = 1024;
+          minSize = 16;
+          maxSize = 20;
+          scaleRatio = 1.414; // Augmented Fourth
+      }
+      unit = 'px';
+  };
+
 
   const applyPreset = (preset: Preset) => {
     mode = preset === 'spacing' ? 'spacing' : 'typography';
@@ -330,7 +350,7 @@
   $: intersectionRem = +intersection.toFixed(4);
 
   // clamp(MIN, VAL, MAX)
-  $: calculatedClamp = `clamp(${+(minSizeVal).toFixed(4)}rem, ${intersectionRem}rem + ${slopeVw}vw, ${+(maxSizeVal).toFixed(4)}rem)`;
+  $: calculatedClamp = `clamp(${+(minSizeVal).toFixed(4)}rem, ${intersectionRem}rem + ${slopeVw}${useContainerQueries ? "cqi" : "vw"}, ${+(maxSizeVal).toFixed(4)}rem)`;
   $: tailwindClass = `text-[${calculatedClamp}]`;
 
   // Calculate Scale Array
@@ -433,11 +453,7 @@ ${calculatedClamp}`,
     }
   };
 
-
-
 </script>
-
-
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
   <div class="lg:col-span-2 space-y-6">
@@ -539,8 +555,6 @@ ${calculatedClamp}`,
         {:else if activeTab === 'builder'}
           <div class="space-y-8" in:fade>
 
-
-
       <!-- Mode Toggle -->
       <div class="mb-6 flex space-x-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg w-full max-w-sm">
         <button
@@ -558,6 +572,30 @@ ${calculatedClamp}`,
           Spacing
         </button>
       </div>
+
+
+    <div class="mb-4 flex items-center bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+      <input type="checkbox" id="useContainerQueries" bind:checked={useContainerQueries} class="h-5 w-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 bg-white dark:bg-slate-800 dark:border-slate-600" />
+      <label for="useContainerQueries" class="ml-3 block text-sm font-medium text-slate-700 dark:text-slate-300">
+        {d.useContainerQueries || 'Use Container Queries (cqi instead of vw)'}
+      </label>
+    </div>
+
+    <div class="mb-8 p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700">
+      <h3 class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">{d.presetsLabel || 'Quick Project Presets'}</h3>
+      <div class="flex flex-wrap gap-2">
+        <button on:click={() => applyAdvancedPreset('marketing')} class="min-h-[44px] px-4 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-sm font-medium">
+          {d.presetMarketing || 'Marketing Site'}
+        </button>
+        <button on:click={() => applyAdvancedPreset('saas')} class="min-h-[44px] px-4 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-sm font-medium">
+          {d.presetSaas || 'SaaS App'}
+        </button>
+        <button on:click={() => applyAdvancedPreset('blog')} class="min-h-[44px] px-4 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-sm font-medium">
+          {d.presetBlog || 'Modern Blog'}
+        </button>
+      </div>
+    </div>
+
 
       <!-- Smart Presets -->
       <div class="mb-8">
@@ -1034,7 +1072,7 @@ ${calculatedClamp}`,
                     <span>320px</span>
                 </div>
                 <div class="w-full max-w-[320px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm p-4 overflow-hidden">
-                    <p class="font-bold text-slate-900 dark:text-white whitespace-nowrap overflow-hidden text-ellipsis" style="font-size: clamp({minSize}{unit}, {intersection}{unit} + {slope * 100}vw, {maxSize}{unit}); line-height: 1.2;">
+                    <p class="font-bold text-slate-900 dark:text-white whitespace-nowrap overflow-hidden text-ellipsis" style="font-size: clamp({minSize}{unit}, {intersection}{unit} + {slope * 100}${useContainerQueries ? "cqi" : "vw"}, {maxSize}{unit}); line-height: 1.2;">
                         {customPreviewText || 'Fluid Typography'}
                     </p>
                 </div>
@@ -1047,7 +1085,7 @@ ${calculatedClamp}`,
                     <span>768px</span>
                 </div>
                 <div class="w-full max-w-[768px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm p-4 overflow-hidden">
-                    <p class="font-bold text-slate-900 dark:text-white whitespace-nowrap overflow-hidden text-ellipsis" style="font-size: clamp({minSize}{unit}, {intersection}{unit} + {slope * 100}vw, {maxSize}{unit}); line-height: 1.2;">
+                    <p class="font-bold text-slate-900 dark:text-white whitespace-nowrap overflow-hidden text-ellipsis" style="font-size: clamp({minSize}{unit}, {intersection}{unit} + {slope * 100}${useContainerQueries ? "cqi" : "vw"}, {maxSize}{unit}); line-height: 1.2;">
                         {customPreviewText || 'Fluid Typography'}
                     </p>
                 </div>
@@ -1060,7 +1098,7 @@ ${calculatedClamp}`,
                     <span>1024px</span>
                 </div>
                 <div class="w-full max-w-[1024px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm p-4 overflow-hidden">
-                    <p class="font-bold text-slate-900 dark:text-white whitespace-nowrap overflow-hidden text-ellipsis" style="font-size: clamp({minSize}{unit}, {intersection}{unit} + {slope * 100}vw, {maxSize}{unit}); line-height: 1.2;">
+                    <p class="font-bold text-slate-900 dark:text-white whitespace-nowrap overflow-hidden text-ellipsis" style="font-size: clamp({minSize}{unit}, {intersection}{unit} + {slope * 100}${useContainerQueries ? "cqi" : "vw"}, {maxSize}{unit}); line-height: 1.2;">
                         {customPreviewText || 'Fluid Typography'}
                     </p>
                 </div>
