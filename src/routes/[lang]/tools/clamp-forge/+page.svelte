@@ -41,7 +41,9 @@
           "Reverse Clamp Engineering",
           "Tailwind Config Export",
           "CSS Variables Export",
-          "Visual Scale Simulator"
+          "Visual Scale Simulator",
+          "Container Queries (cqi) Support",
+          "Smart Presets"
         ]
       },
       {
