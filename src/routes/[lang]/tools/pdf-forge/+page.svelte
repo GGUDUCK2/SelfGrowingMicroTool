@@ -116,7 +116,7 @@
 
 </svelte:head>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 font-sans">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
   <!-- Hero -->
   <header class="text-center space-y-6">
     <div class="inline-flex items-center justify-center p-4 bg-indigo-500/10 dark:bg-indigo-500/20 rounded-3xl mb-4">
@@ -133,9 +133,6 @@
   <!-- Workspace -->
   <main class="bg-white dark:bg-slate-900 rounded-3xl shadow-xl dark:shadow-2xl dark:shadow-indigo-900/10 border border-slate-200 dark:border-slate-800 overflow-hidden min-h-[600px] relative z-10">
     <Workspace dict={toolDict} />
-    <div class="mt-12">
-    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="pdf-forge" currentCategory="productivity" />
-  </div>
 </main>
 
   <!-- Features -->
@@ -169,31 +166,15 @@
      </article>
   </section>
 
-  <!-- Guide & FAQ -->
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-12 border-t border-slate-200 dark:border-slate-800">
-      <article class="lg:col-span-7 prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 min-h-[44px] min-w-[44px]">
-          <h2 class="text-slate-900 dark:text-white">{toolDict.guide.title}</h2>
-          <p class="lead">{toolDict.guide.intro}</p>
-
-          <h3 class="text-slate-900 dark:text-white">{toolDict.guide.tipsTitle}</h3>
-          <ul>
-              <li>{@html renderMarkdown(toolDict.guide.tip1)}</li>
-              <li>{@html renderMarkdown(toolDict.guide.tip2)}</li>
-              <li>{@html renderMarkdown(toolDict.guide.tip3)}</li>
-          </ul>
-      </article>
-
-      <div class="lg:col-span-5 space-y-8">
-          <GuideSection {...toolDict?.guide} />
+  <GuideSection {...toolDict?.guide} />
   <AdPlaceholder />
   <FAQSection
-              title={toolDict.faqTitle}
-              items={[
-                  { q: toolDict.q1, a: toolDict.a1 },
-                  { q: toolDict.q2, a: toolDict.a2 },
-                  { q: toolDict.q3, a: toolDict.a3 }
-              ]}
-          />
-      </div>
-  </div>
+      title={toolDict.faqTitle}
+      items={[
+          { q: toolDict.q1, a: toolDict.a1 },
+          { q: toolDict.q2, a: toolDict.a2 },
+          { q: toolDict.q3, a: toolDict.a3 }
+      ]}
+  />
+  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="pdf-forge" currentCategory="productivity" />
 </div>
