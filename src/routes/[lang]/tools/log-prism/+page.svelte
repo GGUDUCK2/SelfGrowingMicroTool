@@ -518,49 +518,19 @@
                 {/if}
             </div>
         {/if}
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 mt-12">
-    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="log-prism" currentCategory="dev" />
-  </div>
 </main>
 
-    <!-- Documentation -->
-    <section class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12">
-        <div class="max-w-4xl mx-auto px-6">
-            <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">{dict.guide.title}</h2>
-            <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
-                {dict.guide.intro}
-            </p>
-
-            <div class="grid md:grid-cols-3 gap-6 mb-12">
-                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-                    <h3 class="font-bold text-indigo-600 dark:text-indigo-400 mb-2">{dict.guide.featuresTitle}</h3>
-                    <ul class="text-sm space-y-2 text-slate-600 dark:text-slate-400">
-                        <li>{@html dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-                        <li>{@html dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-                        <li>{@html dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-                    </ul>
-                </div>
-
-                 <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 md:col-span-2">
-                    <h3 class="font-bold text-amber-600 dark:text-amber-400 mb-2">{dict.guide.tipsTitle}</h3>
-                    <ul class="text-sm space-y-2 text-slate-600 dark:text-slate-400 grid md:grid-cols-2 gap-4">
-                        <li>{@html dict.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-                        <li>{@html dict.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-                        <li>{@html dict.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>
-                    </ul>
-                </div>
-            </div>
-
-            <GuideSection {...dict?.guide} />
-  <AdPlaceholder />
-  <FAQSection
-                title={dict.faqTitle}
-                items={[
-                    { q: dict?.q1, a: dict?.a1 },
-                    { q: dict?.q2, a: dict?.a2 },
-                    { q: dict?.q3, a: dict?.a3 }
-                ]}
-            />
-        </div>
-    </section>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <GuideSection {...dict?.guide} />
+    <AdPlaceholder />
+    <FAQSection
+        title={dict.faqTitle}
+        items={[
+            { q: dict?.q1, a: dict?.a1 },
+            { q: dict?.q2, a: dict?.a2 },
+            { q: dict?.q3, a: dict?.a3 }
+        ]}
+    />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="log-prism" currentCategory="dev" />
+</div>
 </div>

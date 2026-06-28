@@ -403,3 +403,19 @@ export default {}
 #### 3. Performance Impact (기대 효과)
 - 검색 엔진과 AI 크롤러가 구조화된 데이터를 더 빠르고 정확하게 분석할 수 있어 검색 가시성(AEO/SEO) 향상 기대.
 ---
+
+---
+### [Daily Improvement Report - 2024-11-21]
+#### 1. Identified Issues (발견된 문제)
+- `diff-viewer`, `log-prism`, `pdf-forge` 등 특정 도구 페이지들의 하단 문서 영역(GuideSection, FAQSection, RelatedTools)의 HTML 레이아웃이 표준 규격(`<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">`)을 엄격히 준수하지 않고 혼재되어 있었습니다.
+- 툴 별로 관련 도구(`RelatedTools`) 컴포넌트가 문서 블록과 분리되어 메인 앱 영역 안에 고립되거나, 불필요한 중첩 레이아웃(CSS Grid 등)을 사용하여 UI 일관성이 저하되었습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/diff-viewer/+page.svelte` - `<main>` 태그에 잘못 결합된 `relative` 클래스 명을 제거하여 완벽한 문자열 일치를 달성.
+- **Code**: `src/routes/[lang]/tools/log-prism/+page.svelte` - 하단에 중첩된 복잡한 문서 구조(커스텀 HTML 및 section 태그)를 제거하고, 오직 `GuideSection`, `FAQSection`, `AdPlaceholder`, `RelatedTools`만을 포함하는 단일 표준 레이아웃 래퍼로 교체.
+- **Code**: `src/routes/[lang]/tools/pdf-forge/+page.svelte` - `<main>` 태그 내부에 존재하던 `RelatedTools`를 외부 하단으로 추출하고, 기존의 2단 그리드 기반 커스텀 문서 레이아웃을 제거한 뒤 표준 단일 구조로 통합.
+- **SEO/AEO**: Semantic HTML 구조의 단순화 및 단일화를 통해 스크린 리더 및 검색 엔진 크롤러의 컨텐츠 접근성(A11y) 향상.
+
+#### 3. Performance Impact (기대 효과)
+- 모든 도구 페이지가 완벽하게 일치하는 하단 문서 구조를 공유하게 되어 플랫폼 디자인 컨벤션 유지 및 향후 유지보수가 크게 단순화됨.
+---
