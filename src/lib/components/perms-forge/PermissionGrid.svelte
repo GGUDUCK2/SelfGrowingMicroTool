@@ -112,6 +112,7 @@
 
 <style lang="postcss">
     .grid-btn {
+        @apply min-h-[44px] min-w-[44px];
         @apply h-14 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-400 bg-slate-50 dark:bg-slate-800 transition-all duration-200 flex items-center justify-center hover:border-slate-300 dark:hover:border-slate-600;
     }
     .grid-btn.active {
