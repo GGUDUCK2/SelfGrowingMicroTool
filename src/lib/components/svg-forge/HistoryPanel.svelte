@@ -76,7 +76,7 @@
       {t.history.title}
     </h2>
     {#if historyItems.length > 0}
-      <Button variant="danger" size="sm" onclick={clearHistory} class="min-h-[44px]">
+      <Button variant="danger" size="sm" onclick={clearHistory} class="min-w-[44px] min-h-[44px]">
         {t.history.clearAll}
       </Button>
     {/if}

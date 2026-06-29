@@ -237,7 +237,6 @@
                     onSave={handleSave}
                     onReset={handleReset}
                     onExportJson={handleExportJson}
-                    onImportJson={handleImportJson}
                  />
             </div>
 

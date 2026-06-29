@@ -22,7 +22,7 @@
   import { Save, FolderOpen, Plus, Trash2, Layout, Database, Code, FileCode, Wand2, Upload, History, Share2, Table as TableIcon, RefreshCw, Copy, Download, X } from '@lucide/svelte';
 
   $: lang = $page.params.lang || 'en';
-  $: t = getDictionary(lang).tools?.schemaForge || getDictionary('en').tools.schemaForge;
+  $: t = (getDictionary(lang) as any).tools?.schemaForge || (getDictionary('en') as any).tools.schemaForge;
 
   // State
   let activeProject: SchemaProject = {

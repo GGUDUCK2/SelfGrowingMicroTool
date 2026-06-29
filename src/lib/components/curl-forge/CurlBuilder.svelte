@@ -409,7 +409,7 @@
         <h2 class="text-xl font-bold text-slate-900 dark:text-white">{dict?.builder?.title || 'Request Builder'}</h2>
         <div class="flex flex-wrap items-center gap-2">
           <div class="relative group">
-            <Button variant="outline" class="min-h-[44px] px-3">
+            <Button variant="outline" class="min-w-[44px] min-h-[44px] px-3">
               {dict?.export?.examples || 'Examples'}
             </Button>
             <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
@@ -465,7 +465,7 @@
             placeholder="curl -X POST https://api..."></textarea>
           <div class="flex justify-end space-x-2">
             <Button variant="secondary" on:click={() => showImport = false} class="min-h-[44px]">Cancel</Button>
-            <Button variant="primary" on:click={handleImport} class="min-h-[44px]">Import</Button>
+            <Button variant="primary" on:click={handleImport} class="min-w-[44px] min-h-[44px]">Import</Button>
           </div>
         </div>
       {/if}
@@ -497,7 +497,7 @@
                   placeholder="https://api.example.com"
                   class="flex-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-900 dark:text-white min-h-[44px] focus:ring-2 focus:ring-blue-500"
                 />
-                <Button variant="primary" on:click={handleSend} disabled={isSending || !data.url} class="min-h-[44px] px-4 whitespace-nowrap">
+                <Button variant="primary" on:click={handleSend} disabled={isSending || !data.url} class="min-w-[44px] min-h-[44px] px-4 whitespace-nowrap">
                     {#if isSending}
                        ...
                     {:else}
@@ -604,7 +604,7 @@
 
                 <div class="flex justify-end space-x-2">
                     <Button variant="secondary" on:click={() => showAuth = false} class="min-h-[44px] text-sm py-1 px-3">Cancel</Button>
-                    <Button variant="primary" on:click={applyAuth} class="min-h-[44px] text-sm py-1 px-3 bg-indigo-600 hover:bg-indigo-700">Add to Headers</Button>
+                    <Button variant="primary" on:click={applyAuth} class="min-w-[44px] min-h-[44px] text-sm py-1 px-3 bg-indigo-600 hover:bg-indigo-700">Add to Headers</Button>
                 </div>
             </div>
           {/if}
@@ -641,7 +641,7 @@
           </div>
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-sm font-medium text-slate-700 dark:text-slate-300">Query Parameters</h3>
-            <Button variant="secondary" on:click={addParam} class="min-h-[44px] text-sm py-1 px-3">
+            <Button variant="secondary" on:click={addParam} class="min-w-[44px] min-h-[44px] text-sm py-1 px-3">
               <Plus class="w-4 h-4 mr-2" />
               Add Param
             </Button>

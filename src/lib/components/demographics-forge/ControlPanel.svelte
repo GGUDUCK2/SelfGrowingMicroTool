@@ -81,13 +81,13 @@
             </div>
 
             <div class="flex items-center gap-2 justify-center flex-1 sm:flex-none">
-                <Button variant="secondary" class="h-11 w-11 p-0 rounded-full flex items-center justify-center" on:click={() => year = minYear} aria-label="Go to start">
+                <Button variant="secondary" class="min-h-[44px] min-w-[44px] h-11 w-11 p-0 rounded-full flex items-center justify-center" on:click={() => year = minYear} aria-label="Go to start">
                     <SkipBack class="h-4 w-4" />
                 </Button>
 
                 <Button
                     variant="primary"
-                    class="h-12 w-12 sm:h-14 sm:w-14 p-0 rounded-full shadow-md flex items-center justify-center"
+                    class="min-h-[44px] min-w-[44px] h-12 w-12 sm:h-14 sm:w-14 p-0 rounded-full shadow-md flex items-center justify-center"
                     on:click={() => isPlaying = !isPlaying}
                     aria-label={isPlaying ? "Pause" : "Play"}
                 >
@@ -98,7 +98,7 @@
                     {/if}
                 </Button>
 
-                <Button variant="secondary" class="h-11 w-11 p-0 rounded-full flex items-center justify-center" on:click={() => year = maxYear} aria-label="Go to end">
+                <Button variant="secondary" class="min-h-[44px] min-w-[44px] h-11 w-11 p-0 rounded-full flex items-center justify-center" on:click={() => year = maxYear} aria-label="Go to end">
                     <SkipForward class="h-4 w-4" />
                 </Button>
             </div>
