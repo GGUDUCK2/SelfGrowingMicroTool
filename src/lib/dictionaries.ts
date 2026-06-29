@@ -103,7 +103,15 @@ export const dictionaries = {
         presetMarketing: "Marketing Site",
         presetSaas: "SaaS App",
         presetBlog: "Modern Blog",
+
         smartPresets: "Smart Presets",
+        fluidLineHeightTitle: "Fluid Line-Height",
+        minLineHeight: "Min Line-Height (Small text)",
+        maxLineHeight: "Max Line-Height (Large text)",
+        lineHeightDesc: "Tightens line-height as text scales up",
+        fluidPaddingTitle: "Fluid Padding / Aspect Ratio",
+        aspectRatioMode: "Aspect Ratio Mode",
+
         h1Title: "H1 Title",
         h2Subtitle: "H2 Subtitle",
         bodyText: "Body Text",
@@ -4807,7 +4815,15 @@ export const dictionaries = {
         presetMarketing: "마케팅 사이트",
         presetSaas: "SaaS 앱",
         presetBlog: "모던 블로그",
+
         smartPresets: "스마트 프리셋",
+        fluidLineHeightTitle: "유동적 줄 높이 (Line-Height)",
+        minLineHeight: "최소 줄 높이 (작은 텍스트)",
+        maxLineHeight: "최대 줄 높이 (큰 텍스트)",
+        lineHeightDesc: "텍스트가 커질수록 줄 높이를 조여줍니다.",
+        fluidPaddingTitle: "유동적 여백 / 비율",
+        aspectRatioMode: "비율 모드",
+
         h1Title: "H1 제목",
         h2Subtitle: "H2 부제목",
         bodyText: "본문 텍스트",

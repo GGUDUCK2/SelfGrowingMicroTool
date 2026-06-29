@@ -13,7 +13,7 @@
   const onKeydown = (e: KeyboardEvent) => {
      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
          e.preventDefault();
-         copyToClipboard();
+         copyToClipboard(calculatedClamp, 'css');
      }
      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
          e.preventDefault();
@@ -54,17 +54,24 @@
   let maxSize = 2.5; // 2.5rem or 40px
   let unit: 'rem' | 'px' = 'rem';
   let baseRem = 16;
+  let enableFluidLineHeight = false;
+  let minLineHeight = 1.5;
+  let maxLineHeight = 1.1;
+  let minPaddingY = 1;
+  let maxPaddingY = 2;
+  let minPaddingX = 0.5;
+  let maxPaddingX = 1;
 
 
   let activeTab: 'builder' | 'scale' | 'preview' | 'history' | 'reverse' = 'builder';
   let reverseInput = '';
   let reverseError = '';
 
-  $: tailwindConfig = `module.exports = {\n  theme: {\n    extend: {\n      fontSize: {\n        'fluid-text': '${calculatedClamp}',\n      },\n      spacing: {\n        'fluid-space': '${calculatedClamp}',\n      }\n    }\n  }\n}`;
+  $: tailwindConfig = `module.exports = {\n  theme: {\n    extend: {\n      fontSize: {\n        'fluid-text': ['${calculatedClamp}', ${enableFluidLineHeight ? `'${calculatedLineHeight}'` : '1.5'}],\n      },\n      spacing: {\n        'fluid-space': '${calculatedClamp}',\n      }\n    }\n  }\n}`;
 
   $: scssMixin = `@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {\n  $u1: unit($min-vw);\n  $u2: unit($max-vw);\n  $u3: unit($min-font-size);\n  $u4: unit($max-font-size);\n\n  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {\n    & {\n      font-size: ${calculatedClamp};\n    }\n  }\n}`;
 
-  $: cssVariables = `:root {\n  --fluid-min-width: ${minWidth};\n  --fluid-max-width: ${maxWidth};\n  \n  --fluid-screen: 100vw;\n  --fluid-bp: calc((var(--fluid-screen) - var(--fluid-min-width) / 16 * 1rem) / (var(--fluid-max-width) - var(--fluid-min-width)));\n}\n\n@media screen and (min-width: ${maxWidth}px) {\n  :root {\n    --fluid-screen: calc(var(--fluid-max-width) * 1px);\n  }\n}\n\n.fluid-element {\n  /* Using clamp */\n  font-size: ${calculatedClamp};\n}`;
+  $: cssVariables = `:root {\n  --fluid-min-width: ${minWidth};\n  --fluid-max-width: ${maxWidth};\n  \n  --fluid-screen: 100vw;\n  --fluid-bp: calc((var(--fluid-screen) - var(--fluid-min-width) / 16 * 1rem) / (var(--fluid-max-width) - var(--fluid-min-width)));\n}\n\n@media screen and (min-width: ${maxWidth}px) {\n  :root {\n    --fluid-screen: calc(var(--fluid-max-width) * 1px);\n  }\n}\n\n.fluid-element {\n  /* Using clamp */\n  font-size: ${calculatedClamp};${enableFluidLineHeight ? `\n  line-height: ${calculatedLineHeight};` : ''}${mode === 'spacing' ? `\n  padding: ${calculatedPaddingY} ${calculatedPaddingX};` : ''}\n}`;
 
   const getExportCode = () => {
     if (exportType === 'tailwind') return tailwindConfig;
@@ -113,7 +120,7 @@
     }
   };
 
-  const handleRestore = (item: any) => {
+  const handleRestore = (item: import('$lib/db').ClampForgeHistory) => {
      mode = item.mode || 'typography';
      minWidth = item.minWidth;
      maxWidth = item.maxWidth;
@@ -350,7 +357,11 @@
   $: intersectionRem = +intersection.toFixed(4);
 
   // clamp(MIN, VAL, MAX)
-  $: calculatedClamp = `clamp(${+(minSizeVal).toFixed(4)}rem, ${intersectionRem}rem + ${slopeVw}${useContainerQueries ? "cqi" : "vw"}, ${+(maxSizeVal).toFixed(4)}rem)`;
+  $: calculatedLineHeight = `clamp(${Math.min(minLineHeight, maxLineHeight)}, ${minLineHeight} + ((100vw - ${minWidth}px) * ${(maxLineHeight - minLineHeight) / (maxWidth - minWidth)}), ${Math.max(minLineHeight, maxLineHeight)})`;
+  $: calculatedPaddingY = `clamp(${+(minPaddingY).toFixed(4)}rem, ${((minPaddingY * baseRem - (maxPaddingY - minPaddingY) / (maxWidth - minWidth) * minWidth) / baseRem).toFixed(4)}rem + ${((maxPaddingY - minPaddingY) / (maxWidth - minWidth) * 100).toFixed(4)}${useContainerQueries ? 'cqi' : 'vw'}, ${+(maxPaddingY).toFixed(4)}rem)`;
+  $: calculatedPaddingX = `clamp(${+(minPaddingX).toFixed(4)}rem, ${((minPaddingX * baseRem - (maxPaddingX - minPaddingX) / (maxWidth - minWidth) * minWidth) / baseRem).toFixed(4)}rem + ${((maxPaddingX - minPaddingX) / (maxWidth - minWidth) * 100).toFixed(4)}${useContainerQueries ? 'cqi' : 'vw'}, ${+(maxPaddingX).toFixed(4)}rem)`;
+
+  $: calculatedClamp = `clamp(${+(minSizeVal).toFixed(4)}rem, ${intersectionRem}rem + ${slopeVw}${useContainerQueries ? 'cqi' : 'vw'}, ${+(maxSizeVal).toFixed(4)}rem)`;
   $: tailwindClass = `text-[${calculatedClamp}]`;
 
   // Calculate Scale Array
@@ -1007,7 +1018,35 @@ ${calculatedClamp}`,
         </div>
 
           <!-- Simulator Slider -->
-          <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+
+        {#if mode === 'typography'}
+        <div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
+          <div class="flex items-center justify-between mb-4">
+             <div class="flex items-center space-x-2">
+                 <input type="checkbox" id="enableFluidLineHeight" bind:checked={enableFluidLineHeight} class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded" />
+                 <label for="enableFluidLineHeight" class="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    {d.fluidLineHeightTitle || 'Fluid Line-Height'}
+                 </label>
+             </div>
+             <span class="text-xs text-slate-400">{d.lineHeightDesc || 'Tightens line-height as text scales up'}</span>
+          </div>
+
+          {#if enableFluidLineHeight}
+          <div class="grid grid-cols-2 gap-4">
+              <div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
+                <label for="minLineHeight" class="block text-xs font-medium text-slate-500 mb-1">{d.minLineHeight || 'Min Line-Height (Small text)'}</label>
+                <input id="minLineHeight" type="number" step="0.1" bind:value={minLineHeight} class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded px-2 py-1 focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-white min-h-[36px]" />
+              </div>
+              <div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
+                <label for="maxLineHeight" class="block text-xs font-medium text-slate-500 mb-1">{d.maxLineHeight || 'Max Line-Height (Large text)'}</label>
+                <input id="maxLineHeight" type="number" step="0.1" bind:value={maxLineHeight} class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded px-2 py-1 focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-white min-h-[36px]" />
+              </div>
+          </div>
+          {/if}
+        </div>
+        {/if}
+
+        <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
             <div class="flex justify-between items-center mb-2">
               <label for="simulatorRange" class="text-xs font-medium text-slate-600 dark:text-slate-400">
                 {d.simulatorLabel || 'Viewport Width Simulator'}

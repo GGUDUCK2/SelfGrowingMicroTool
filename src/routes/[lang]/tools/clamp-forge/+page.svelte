@@ -47,36 +47,6 @@
         ]
       },
       {
-        "@type": "FAQPage",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/clamp-forge#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": d?.q1 || '',
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": d?.a1 || ''
-            }
-          },
-          {
-            "@type": "Question",
-            "name": d?.q2 || '',
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": d?.a2 || ''
-            }
-          },
-          {
-            "@type": "Question",
-            "name": d?.q3 || '',
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": d?.a3 || ''
-            }
-          }
-        ]
-      },
-      {
         "@type": "BreadcrumbList",
         "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/clamp-forge#breadcrumb",
         "itemListElement": [
@@ -111,7 +81,13 @@
   url={"https://selfgrowingmicrotool.com/" + lang + "/tools/clamp-forge"}
 />
 
+
 <svelte:head>
+  <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}/tools/clamp-forge" />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/clamp-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/clamp-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/clamp-forge" />
+
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">${JSON.stringify(schemaObj)}</scr` + `ipt>`}
 </svelte:head>
