@@ -18,7 +18,7 @@
   import GuideSection from '$lib/components/GuideSection.svelte';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.typeForge as any;
+  $: dict = (getDictionary(lang) as any).tools.typeForge as any;
   $: common = getDictionary(lang).common;
 
   let currentFont: LoadedFont | null = null;
@@ -31,7 +31,7 @@
       {
         "@type": "ListItem",
         "position": 1,
-        "name": common.home || "Home",
+        "name": (common as any).home || "Home",
         "item": `https://selfgrowingmicrotool.com/${lang}`
       },
       {

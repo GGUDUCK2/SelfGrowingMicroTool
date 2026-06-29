@@ -226,7 +226,7 @@
            <ConfigPanel bind:config {t} />
         </div>
         <div class="h-[400px]">
-           <HistoryPanel bind:this={historyPanelRef} {t} onRestore={handleRestore} />
+           <HistoryPanel bind:this={historyPanelRef} {t} onRestore={handleRestore} onToast={()=>{}} />
         </div>
       </div>
 

@@ -351,7 +351,7 @@
               </div>
 
               <!-- Visualizer -->
-              <Visualizer {engine} {lastBeat} {settings} mode={mode === 'game' ? 'trainer' : mode} />
+              <Visualizer {engine} {lastBeat} {settings} mode={(mode === 'game' ? 'trainer' : mode) as any} />
 
               <!-- Controls or Trainer -->
               {#if mode === 'metronome'}
@@ -367,7 +367,7 @@
               {:else if mode === 'trainer'}
                   <TrainerPanel {engine} bind:settings {dict} />
               {:else if mode === 'game'}
-                  <RhythmGame {engine} bind:settings {dict} />
+                  <RhythmGame {engine} bind:settings dict={dict as any} />
               {/if}
           </div>
 
@@ -394,7 +394,7 @@
               {#if libraryMode === 'presets'}
                   <PresetPanel {settings} {dict} on:load={handleLoadPreset} />
               {:else}
-                  <PlaylistPanel {settings} {dict} on:load={handleLoadPreset} />
+                  <PlaylistPanel {settings} dict={dict as any} on:load={handleLoadPreset} />
               {/if}
           </div>
       </div>

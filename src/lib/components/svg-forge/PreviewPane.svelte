@@ -70,14 +70,14 @@
         </button>
       </div>
 
-      <Button variant="secondary" size="sm" onclick={copyCode} disabled={!optimizedSvg || !!error} class="min-h-[44px]">
+      <Button variant="secondary" size="sm" onclick={copyCode} disabled={!optimizedSvg || !!error} class="min-w-[44px] min-h-[44px]">
         {t.preview.copy}
       </Button>
-      <Button variant="secondary" size="sm" onclick={copyDataUri} disabled={!optimizedSvg || !!error} class="min-h-[44px]" title={t.preview.copyDataUriTitle || 'Copy as Data URI'}>
+      <Button variant="secondary" size="sm" onclick={copyDataUri} disabled={!optimizedSvg || !!error} class="min-w-[44px] min-h-[44px]" title={t.preview.copyDataUriTitle || 'Copy as Data URI'}>
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
         Data URI
       </Button>
-      <Button variant="primary" size="sm" onclick={downloadSvg} disabled={!optimizedSvg || !!error} class="min-h-[44px]">
+      <Button variant="primary" size="sm" onclick={downloadSvg} disabled={!optimizedSvg || !!error} class="min-w-[44px] min-h-[44px]">
         {t.preview.download}
       </Button>
     </div>

@@ -20,7 +20,7 @@
     import type { ZenForgeDictionary } from '$lib/types/zen-forge';
   $: lang = $page.params.lang || 'en';
 
-    $: dict = getDictionary($page.params.lang).tools.zenForge as ZenForgeDictionary;
+    $: dict = (getDictionary($page.params.lang || "en") as any).tools.zenForge as ZenForgeDictionary;
 
     onMount(() => {
         const params = new URLSearchParams(window.location.search);

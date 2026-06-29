@@ -471,8 +471,8 @@
                             placeholder={`<<<<<<< HEAD\nvar x = 1;\n=======\nvar x = 2;\n>>>>>>> feature/new-x`}
                         ></textarea>
                          <div class="flex justify-end gap-2 mt-4">
-                            <Button variant="secondary" on:click={cancelConflict}>Cancel</Button>
-                            <Button variant="primary" on:click={startResolving}>Start Resolving</Button>
+                            <Button variant="secondary" on:click={cancelConflict} class="min-h-[44px] min-w-[44px]">Cancel</Button>
+                            <Button variant="primary" on:click={startResolving} class="min-h-[44px] min-w-[44px]">Start Resolving</Button>
                         </div>
                      </div>
                  {:else}
@@ -558,24 +558,24 @@
                 <GitMerge class="w-4 h-4 text-orange-500" />
                 <span class="hidden md:inline">{t.mergeConflict}</span>
             </Button>
-             <Button variant="secondary" on:click={downloadReport} title={t.downloadReport}>
+             <Button variant="secondary" on:click={downloadReport} title={t.downloadReport} class="min-h-[44px] min-w-[44px]">
                 <Download class="w-4 h-4 text-blue-500" />
                 <span class="hidden md:inline">Report</span>
             </Button>
-            <Button variant="secondary" on:click={downloadPatch} title="Download Patch (.patch)">
+            <Button variant="secondary" on:click={downloadPatch} title="Download Patch (.patch)" class="min-h-[44px] min-w-[44px]">
                 <FileUp class="w-4 h-4 text-green-500" />
                 <span class="hidden md:inline">Patch</span>
             </Button>
             <div class="w-px h-8 bg-gray-200 dark:bg-gray-700 mx-1 hidden sm:block"></div>
-            <Button variant="secondary" on:click={swapSides} title={t.swap}>
+            <Button variant="secondary" on:click={swapSides} title={t.swap} class="min-h-[44px] min-w-[44px]">
                 <ArrowLeftRight class="w-4 h-4" />
                 <span class="hidden sm:inline">{t.swap}</span>
             </Button>
-            <Button variant="danger" on:click={clearAll} title={t.clear + ' (Cmd+K)'}>
+            <Button variant="danger" on:click={clearAll} title={t.clear + ' (Cmd+K)'} class="min-h-[44px] min-w-[44px]">
                 <Trash2 class="w-4 h-4" />
                 <span class="hidden sm:inline">{t.clear}</span>
             </Button>
-            <Button variant="primary" on:click={saveToHistory} title={t.save}>
+            <Button variant="primary" on:click={saveToHistory} title={t.save} class="min-h-[44px] min-w-[44px]">
                 {#if showSaveNotification}
                     <Check class="w-4 h-4" />
                     <span>Saved</span>

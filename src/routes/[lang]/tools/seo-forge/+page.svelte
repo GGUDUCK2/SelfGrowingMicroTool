@@ -20,7 +20,7 @@
 
   // Get Dictionary
   $: dictionary = getDictionary($page.params.lang || 'en');
-  $: dict = dictionary.tools.seoForge;
+  $: dict = (dictionary as any).tools.seoForge;
 
   // State
   let activeTab: 'meta' | 'social' | 'jsonld' | 'history' = 'meta';

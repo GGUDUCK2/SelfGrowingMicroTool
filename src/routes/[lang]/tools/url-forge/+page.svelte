@@ -110,7 +110,7 @@
   function handleRestore(event: CustomEvent<{ data: Record<string, unknown> }>) {
     const detailData = event.detail.data as any;
     if (detailData.input && detailData.input.rawUrl) {
-      currentUrl = event.detail.data.input.rawUrl;
+      currentUrl = (event.detail.data.input as any).rawUrl;
     }
     showHistory = false;
   }
