@@ -432,11 +432,13 @@ export interface BarcodeForgeHistory {
 
 export interface ClampForgeHistory {
   id?: number;
+  mode?: string;
   minWidth: number;
   maxWidth: number;
   minSize: number;
   maxSize: number;
   unit: string;
+  baseRem?: number;
   result: string;
   createdAt: Date;
   starred: number;
