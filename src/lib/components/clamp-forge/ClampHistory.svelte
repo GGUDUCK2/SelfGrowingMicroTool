@@ -10,7 +10,7 @@
   export let onRestore: (item: ClampForgeHistory) => void;
 
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
-  $: d = dict.tools.clampForge;
+  $: d = (dict as any).tools?.clampForge || dictionaries.en.tools.clampForge;
 
   let history = liveQuery(() => {
     if (browser) {

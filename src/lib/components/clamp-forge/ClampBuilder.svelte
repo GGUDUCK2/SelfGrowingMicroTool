@@ -6,9 +6,16 @@
   import { clampForgeWorkspace } from '$lib/db/workspace';
   import { browser } from '$app/environment';
   import { onMount, onDestroy } from 'svelte';
+  import { page } from '$app/stores';
+  import { goto } from '$app/navigation';
   import ClampHistory from './ClampHistory.svelte';
 
   export let lang: string = 'en';
+
+  // Using an explicit type for the generic fallback dict
+  interface ClampForgeDict {
+    [key: string]: any;
+  }
 
   const onKeydown = (e: KeyboardEvent) => {
      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
@@ -23,7 +30,35 @@
 
   onMount(() => {
     if (browser) window.addEventListener('keydown', onKeydown);
+
+    // URL State Sync load
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      try {
+        const params = new URLSearchParams(hash);
+        if (params.has('minW')) minWidth = Number(params.get('minW'));
+        if (params.has('maxW')) maxWidth = Number(params.get('maxW'));
+        if (params.has('minS')) minSize = Number(params.get('minS'));
+        if (params.has('maxS')) maxSize = Number(params.get('maxS'));
+        if (params.has('u')) unit = params.get('u') as 'rem' | 'px';
+        if (params.has('m')) mode = params.get('m') as 'typography' | 'spacing';
+      } catch(e) {}
+    }
   });
+
+  $: if (browser) {
+    const params = new URLSearchParams();
+    params.set('minW', minWidth.toString());
+    params.set('maxW', maxWidth.toString());
+    params.set('minS', minSize.toString());
+    params.set('maxS', maxSize.toString());
+    params.set('u', unit);
+    params.set('m', mode);
+    const newHash = `#${params.toString()}`;
+    if (window.location.hash !== newHash) {
+      goto(newHash, { replaceState: true, keepFocus: true });
+    }
+  }
 
   onDestroy(() => {
     if (browser) window.removeEventListener('keydown', onKeydown);
@@ -31,7 +66,7 @@
 
 
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
-  $: d = dict.tools.clampForge;
+  $: d = (dict as unknown as any).tools?.clampForge || dictionaries.en.tools.clampForge;
 
   // State
   let exportType: 'css' | 'tailwind' | 'scss' = 'css';
@@ -66,6 +101,7 @@
   let activeTab: 'builder' | 'scale' | 'preview' | 'history' | 'reverse' = 'builder';
   let reverseInput = '';
   let reverseError = '';
+  let batchReverseResults: Array<{ original: string, minW: number, maxW: number, minS: number, maxS: number, unit: string }> = [];
 
   $: tailwindConfig = `module.exports = {\n  theme: {\n    extend: {\n      fontSize: {\n        'fluid-text': ['${calculatedClamp}', ${enableFluidLineHeight ? `'${calculatedLineHeight}'` : '1.5'}],\n      },\n      spacing: {\n        'fluid-space': '${calculatedClamp}',\n      }\n    }\n  }\n}`;
 
@@ -121,18 +157,81 @@
   };
 
   const handleRestore = (item: import('$lib/db').ClampForgeHistory) => {
-     mode = item.mode || 'typography';
+     mode = (item.mode as unknown as any) || 'typography';
      minWidth = item.minWidth;
      maxWidth = item.maxWidth;
      minSize = item.minSize;
      maxSize = item.maxSize;
-     unit = item.unit;
+     unit = item.unit as 'rem' | 'px';
      baseRem = item.baseRem || 16;
      activeTab = 'builder';
      triggerToast(d.restored || 'Restored from history!');
   };
 
   const handleReverse = () => {
+    reverseError = '';
+    batchReverseResults = [];
+    if (!reverseInput.trim()) return;
+
+    // Batch Scanning
+    const regexGlobal = /clamp\(\s*(-?[\d.]+)(rem|px)\s*,\s*(-?[\d.]+)(rem|px)\s*([+-])\s*([\d.]+)vw\s*,\s*(-?[\d.]+)(rem|px)\s*\)/g;
+    const matches = [...reverseInput.matchAll(regexGlobal)];
+
+    if (matches.length === 0) {
+      reverseError = 'No valid clamp functions found. E.g. clamp(1rem, 0.5rem + 2.5vw, 2.5rem)';
+      return;
+    }
+
+    for (const match of matches) {
+      let [ full, minSizeStr, unit1, intersectionStr, unit2, sign, slopeVwStr, maxSizeStr, unit3 ] = match;
+      if (unit1 !== unit3) continue;
+
+      let rUnit = unit1;
+      let rMinSize = parseFloat(minSizeStr);
+      let rMaxSize = parseFloat(maxSizeStr);
+      let intersection = parseFloat(intersectionStr);
+      let slope = parseFloat(slopeVwStr) / 100;
+      if (sign === '-') slope = -slope;
+
+      if (rUnit === 'px') {
+        rMinSize /= baseRem;
+        rMaxSize /= baseRem;
+      }
+      if (unit2 === 'px') {
+        intersection /= baseRem;
+      }
+
+      let minWidthRem = (rMinSize - intersection) / slope;
+      let maxWidthRem = (rMaxSize - intersection) / slope;
+
+      batchReverseResults.push({
+        original: full,
+        minW: Math.round(minWidthRem * baseRem),
+        maxW: Math.round(maxWidthRem * baseRem),
+        minS: rUnit === 'px' ? rMinSize * baseRem : rMinSize,
+        maxS: rUnit === 'px' ? rMaxSize * baseRem : rMaxSize,
+        unit: rUnit
+      });
+    }
+
+    if (batchReverseResults.length === 1) {
+       loadReverseResult(batchReverseResults[0]);
+    } else if (batchReverseResults.length === 0) {
+       reverseError = 'Found clamp functions, but units were mismatched or invalid.';
+    }
+  };
+
+  const loadReverseResult = (res: typeof batchReverseResults[0]) => {
+     minWidth = res.minW;
+     maxWidth = res.maxW;
+     minSize = res.minS;
+     maxSize = res.maxS;
+     unit = res.unit as 'rem' | 'px';
+     activeTab = 'builder';
+     triggerToast('Reverse engineered successfully!');
+  };
+
+  const oldHandleReverse = () => {
     reverseError = '';
     if (!reverseInput.trim()) return;
     const regex = /clamp\(\s*(-?[\d.]+)(rem|px)\s*,\s*(-?[\d.]+)(rem|px)\s*([+-])\s*([\d.]+)vw\s*,\s*(-?[\d.]+)(rem|px)\s*\)/;
@@ -356,6 +455,24 @@
   $: slopeVw = +(slope * 100).toFixed(4);
   $: intersectionRem = +intersection.toFixed(4);
 
+  // WCAG Analyzer
+  $: wcagWarnings = (() => {
+    let warnings = [];
+    if (mode === 'typography') {
+      const minSizePx = unit === 'rem' ? minSize * baseRem : minSize;
+      if (minSizePx < 12) {
+        warnings.push('Minimum size is below 12px, which may reduce readability (WCAG AA).');
+      }
+      if (slopeVw > 5) {
+        warnings.push('Slope is very steep (>5vw). Text may scale too abruptly on resize.');
+      }
+      if (minWidthRem >= maxWidthRem) {
+        warnings.push('Min viewport width must be smaller than Max viewport width.');
+      }
+    }
+    return warnings;
+  })();
+
   // clamp(MIN, VAL, MAX)
   $: calculatedLineHeight = `clamp(${Math.min(minLineHeight, maxLineHeight)}, ${minLineHeight} + ((100vw - ${minWidth}px) * ${(maxLineHeight - minLineHeight) / (maxWidth - minWidth)}), ${Math.max(minLineHeight, maxLineHeight)})`;
   $: calculatedPaddingY = `clamp(${+(minPaddingY).toFixed(4)}rem, ${((minPaddingY * baseRem - (maxPaddingY - minPaddingY) / (maxWidth - minWidth) * minWidth) / baseRem).toFixed(4)}rem + ${((maxPaddingY - minPaddingY) / (maxWidth - minWidth) * 100).toFixed(4)}${useContainerQueries ? 'cqi' : 'vw'}, ${+(maxPaddingY).toFixed(4)}rem)`;
@@ -510,7 +627,7 @@ ${calculatedClamp}`,
       </div>
 
       <div class="p-6 sm:p-8">
-        {#if activeTab === 'export'}
+        {#if activeTab === 'export' as unknown as any}
           <!-- Code Export Tab -->
           <div class="space-y-6">
              <div class="flex justify-between items-center">
@@ -544,12 +661,12 @@ ${calculatedClamp}`,
                 <div class="space-y-4">
                   <label class="block">
                     <span class="text-sm font-medium text-slate-700 dark:text-slate-300">{d.pasteClamp || 'Paste Clamp Function'}</span>
-                    <input
-                      type="text"
+                    <textarea
+                      rows="4"
                       bind:value={reverseInput}
                       placeholder="e.g. clamp(1rem, 0.5rem + 2.5vw, 2.5rem)"
                       class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white px-4 py-3 font-mono min-h-[44px]"
-                    />
+                    ></textarea>
                   </label>
                   {#if reverseError}
                     <p class="text-sm text-rose-500 font-medium">{reverseError}</p>
@@ -558,8 +675,29 @@ ${calculatedClamp}`,
                     on:click={handleReverse}
                     class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px]"
                   >
-                    {d.reverseBtn || 'Reverse Engineer Viewports'}
+                    {d.reverseBtn || 'Scan & Reverse Engineer'}
                   </button>
+
+                  {#if batchReverseResults.length > 1}
+                     <div class="mt-6">
+                        <h4 class="text-sm font-semibold text-slate-900 dark:text-white mb-3">Found {batchReverseResults.length} Clamp Functions</h4>
+                        <div class="space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                           {#each batchReverseResults as res (res.original)}
+                              <div class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-lg flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                                 <div class="flex-1 min-w-0">
+                                    <p class="text-xs font-mono text-slate-800 dark:text-slate-300 truncate mb-1" title={res.original}>{res.original}</p>
+                                    <p class="text-xs text-slate-500">
+                                       <span class="font-semibold text-indigo-500">{res.minS}{res.unit}</span> @ {res.minW}px → <span class="font-semibold text-indigo-500">{res.maxS}{res.unit}</span> @ {res.maxW}px
+                                    </p>
+                                 </div>
+                                 <button on:click={() => loadReverseResult(res)} class="min-h-[36px] px-3 py-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-sm font-medium text-slate-700 dark:text-slate-200 rounded hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors whitespace-nowrap">
+                                    Load in Builder
+                                 </button>
+                              </div>
+                           {/each}
+                        </div>
+                     </div>
+                  {/if}
                 </div>
              </div>
           </div>
@@ -697,6 +835,20 @@ ${calculatedClamp}`,
                 <input id="baseRem" type="number" bind:value={baseRem} class="w-full sm:w-1/2 min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-4 focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-white" />
               </div>
             </div>
+
+            {#if wcagWarnings.length > 0}
+              <div class="mt-6 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 p-4 rounded-lg">
+                <h4 class="text-sm font-semibold text-amber-800 dark:text-amber-400 mb-2 flex items-center">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                   Accessibility Warnings
+                </h4>
+                <ul class="list-disc pl-5 space-y-1">
+                  {#each wcagWarnings as warning}
+                    <li class="text-xs text-amber-700 dark:text-amber-300">{warning}</li>
+                  {/each}
+                </ul>
+              </div>
+            {/if}
 
           </div>
         {:else if activeTab === 'scale'}
