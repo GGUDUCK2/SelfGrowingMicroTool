@@ -7,19 +7,32 @@
   import FAQSection from '$lib/components/FAQSection.svelte';
   import RelatedTools from '$lib/components/RelatedTools.svelte';
   import ClampBuilder from '$lib/components/clamp-forge/ClampBuilder.svelte';
-  let t: any;
-
-
   $: lang = $page.params.lang || 'en';
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
-  $: d = dict?.tools?.clampForge || dictionaries.en.tools.clampForge;
-  $: t = d as any;
+  $: d = (dict as any)?.tools?.clampForge || dictionaries.en.tools.clampForge;
+  $: t = d;
 
   // SEO
   $: title = d?.title || "Clamp Forge";
   $: description = d?.description || "Fluid Typography & CSS Clamp Generator";
 
   // JSON-LD
+  // i18n
+  $: i18nKeys = {
+    copy: d?.buttons?.copy || "Copy",
+    download: d?.buttons?.download || "Download",
+    share: d?.buttons?.share || "Share",
+    example_1: d?.buttons?.example_1 || "Example 1",
+    star: d?.buttons?.star || "Star",
+    delete: d?.buttons?.delete || "Delete",
+    copied: d?.feedback?.copied || "Copied to clipboard!",
+    processing: d?.feedback?.processing || "Processing...",
+    saved: d?.feedback?.saved || "Saved to history!",
+    historyTitle: d?.history?.title || "History",
+    historyEmpty: d?.history?.empty_state || "No history yet.",
+    help: d?.shortcuts?.help || "Keyboard Shortcuts",
+  };
+
   $: schemaObj = {
     "@context": "https://schema.org",
     "@graph": [
