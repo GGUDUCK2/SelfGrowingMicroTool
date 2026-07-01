@@ -13,7 +13,7 @@
 
   type Language = "en" | "ko";
   $: lang = ($page.params.lang || "en") as Language;
-  $: dict = dictionaries[lang]?.tools?.pomodoroTimer || dictionaries.en.tools.pomodoroTimer;
+  $: dict = (dictionaries as any)[lang]?.tools?.pomodoroTimer || dictionaries.en.tools.pomodoroTimer;
 
   // Timer State
   let timeLeft = 25 * 60;

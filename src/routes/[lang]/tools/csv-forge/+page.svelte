@@ -19,7 +19,7 @@
   import Head from '$lib/components/Head.svelte';
 
   $: lang = $page.params.lang as 'en' | 'ko';
-  $: dict = dictionaries[lang].tools.csvForge;
+  $: dict = (dictionaries as any)[lang].tools.csvForge;
   $: common = dictionaries[lang].common;
 
   let rawCsv = '';

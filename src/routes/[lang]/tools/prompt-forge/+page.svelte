@@ -23,7 +23,7 @@
   // Locale
   $: lang = $page.params.lang || 'en';
   $: dictionary = getDictionary(lang);
-  $: dict = dictionary.tools.promptForge;
+  $: dict = (dictionary as any)?.tools.promptForge;
 
   // State
   let systemPrompt = "";

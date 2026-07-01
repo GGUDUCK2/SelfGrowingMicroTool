@@ -17,7 +17,7 @@
   import { saveToHistory } from '$lib/db/workspace';
 
   $: lang = $page.params.lang as 'en' | 'ko';
-  $: dict = dictionaries[lang].tools.urlForge;
+  $: dict = (dictionaries as any)[lang].tools.urlForge;
 
   let currentUrl = "";
   let showHistory = false;
