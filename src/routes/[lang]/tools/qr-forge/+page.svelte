@@ -17,7 +17,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dictionary = getDictionary(lang);
-  $: t = dictionary.tools.qrForge || {
+  $: t = (dictionary as any)?.tools?.qrForge || {
       title: "QR Forge: Pro Code Generator",
       description: "The definitive tool to generate, analyze, and customize QR codes."
   };
