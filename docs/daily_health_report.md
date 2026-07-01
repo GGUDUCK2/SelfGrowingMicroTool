@@ -491,3 +491,34 @@ export default {}
 
 #### 3. Performance Impact (기대 효과)
 - 끊어진 라우트(Broken routes)나 잘못된 `lang` 파라미터 접근 시 애플리케이션 충돌을 방지하고, 사용자를 안전하게 홈으로 리다이렉트함으로써 플랫폼 전체의 네비게이션 무결성을 크게 향상시켰습니다.
+
+[Project Health Report - 2024-07-01]
+## Repository Hygiene
+- Deleted multiple redundant `+page.server.ts` files that merely duplicated routing parameter redirects. SvelteKit already handles `lang` parameters via `src/params/lang.ts`, making these files unnecessary and reducing repository bloat.
+- Deleted redundant `+layout.svelte` files inside specific tool directories (e.g., `structura`, `qr-forge`, `string-theory`, `unit-verse`, `lorem-forge`) that broke the global layout structure.
+
+## Design Consistency
+- Checked and removed redundant `<section class="mt-12 mb-8">Related Tools</section>` in `json-architect` and `markdown-studio` pages. These pages now correctly use the standard `RelatedTools.svelte` component placed inside the common bottom layout container (`max-w-7xl`).
+
+## AdSense Readiness
+- Validated AdSense readiness (existence of `AdPlaceholder`, `GuideSection`, `FAQSection`, and `RelatedTools` inside tool components).
+
+## Tech Debt
+- Removed unneeded boilerplate routing and layout components, allowing tools to fall back to the platform's global `src/routes/[lang]/+layout.svelte`.
+
+---
+### [Daily Improvement Report - 2024-07-01]
+#### 1. Identified Issues (발견된 문제)
+- `+page.server.ts` 파일 중복: 라우팅 파라미터(`lang`) 유효성 검사를 위해 중복으로 생성된 불필요한 `+page.server.ts` 파일들이 다수 존재하여 유지보수성(Tech Debt)을 저하시켰습니다.
+- 불필요한 커스텀 레이아웃 파일: 몇몇 도구들(`structura`, `qr-forge`, `string-theory` 등) 내부에 고유한 `+layout.svelte` 파일이 존재하여 플랫폼 전역의 디자인 일관성(상단 네비게이션, 푸터, 레이아웃 컨테이너)이 깨지는 현상이 발견되었습니다.
+- 관련 도구 영역 중복: `json-architect`와 `markdown-studio` 도구 하단에 하드코딩된 'Related Tools' 마크업과 컴포넌트 호출이 중복 존재하여 UI 혼란을 초래했습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/*/+page.server.ts` - 20개 이상의 도구에서 불필요한 서버사이드 라우팅 스크립트를 일괄 삭제.
+- **Code**: `src/routes/[lang]/tools/*/+layout.svelte` - 도구 스코프에 잘못 생성된 개별 레이아웃 파일들을 삭제하여 글로벌 `+layout.svelte`가 적용되도록 복원.
+- **Code**: `json-architect`, `markdown-studio`의 `+page.svelte` 하단에서 중복된 커스텀 `Related Tools` `<section>`을 찾아 완전히 제거.
+- **UI/UX**: 모든 도구가 단일한 네비게이션/푸터 프레임과 문서 레이아웃 구조를 상속받게 되어 플랫폼 내비게이션 완결성 향상.
+
+#### 3. Performance Impact (기대 효과)
+- 서버 사이드 렌더링(SSR) 시 불필요한 라우트 리다이렉션 로직이 제거되어 라우팅 속도가 최적화되고 코드 베이스가 대폭 간소화되었습니다.
+- 페이지별로 파편화되던 디자인 시스템을 강제 통합함으로써 향후 UI 개편이나 애드센스 광고 위치 추가 시의 유연성이 크게 증가했습니다.
