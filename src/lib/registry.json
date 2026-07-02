@@ -1338,5 +1338,27 @@
       "relax"
     ],
     "createdAt": "2024-09-01"
+  },
+  {
+    "id": "a11y-forge",
+    "slug": "a11y-forge",
+    "title": {
+      "en": "A11y Forge",
+      "ko": "접근성 포지"
+    },
+    "description": {
+      "en": "The definitive accessibility toolkit: WCAG Color Contrast Checker, Vision Simulator, and ARIA Role Explorer.",
+      "ko": "완벽한 웹 접근성 도구 모음: WCAG 색상 대비 검사기, 시력 시뮬레이터 및 ARIA 역할 탐색기."
+    },
+    "category": "design",
+    "tags": [
+      "accessibility",
+      "a11y",
+      "wcag",
+      "contrast",
+      "aria",
+      "color-blindness"
+    ],
+    "createdAt": "2026-07-02"
   }
 ]

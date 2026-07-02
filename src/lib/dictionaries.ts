@@ -10,6 +10,79 @@ export const dictionaries = {
       actions: "Actions",
     },
     tools: {
+
+      a11yForge: {
+        title: "A11y Forge: Accessibility Toolkit",
+        description: "Professional toolkit for web accessibility. Check WCAG color contrast, simulate color blindness, and explore ARIA roles.",
+        tabs: {
+          contrast: "Contrast Checker",
+          simulator: "Vision Simulator",
+          aria: "ARIA Explorer",
+          history: "History"
+        },
+        contrast: {
+          fgColor: "Foreground Color",
+          bgColor: "Background Color",
+          ratio: "Contrast Ratio",
+          normalText: "Normal Text",
+          largeText: "Large Text",
+          uiComponents: "UI Components",
+          pass: "Pass",
+          fail: "Fail",
+          swapColors: "Swap Colors",
+          livePreview: "Live Preview",
+          previewText: "The quick brown fox jumps over the lazy dog.",
+          smartSuggest: "Smart Suggestion",
+          applySuggest: "Apply Fix"
+        },
+        simulator: {
+          title: "Color Blindness Simulation",
+          normal: "Normal Vision",
+          protanomaly: "Protanomaly (Red-weak)",
+          protanopia: "Protanopia (Red-blind)",
+          deuteranomaly: "Deuteranomaly (Green-weak)",
+          deuteranopia: "Deuteranopia (Green-blind)",
+          tritanomaly: "Tritanomaly (Blue-weak)",
+          tritanopia: "Tritanopia (Blue-blind)",
+          achromatopsia: "Achromatopsia (Monochromacy)",
+          achromatomaly: "Achromatomaly (Partial color blindness)"
+        },
+        aria: {
+          searchPlaceholder: "Search ARIA roles (e.g., button, dialog)...",
+          categories: "Categories",
+          attributes: "Supported Attributes",
+          requiredAttributes: "Required Attributes",
+          codeSnippet: "HTML Snippet",
+          copyCode: "Copy Code",
+          copied: "Copied!",
+          noRolesFound: "No roles found matching your search.",
+          selectRole: "Select a role to view details."
+        },
+        history: {
+          title: "Recent Checks",
+          noHistory: "No history found. Start checking colors to see them here.",
+          clearHistory: "Clear History"
+        },
+
+        guide: {
+          title: "The Ultimate Guide to Web Accessibility (A11y) & A11y Forge",
+          intro: "Welcome to A11y Forge, the definitive professional-grade toolkit designed to ensure your digital products are universally accessible. Web Accessibility (A11y) is not merely a compliance checklist; it is a fundamental pillar of modern web development that guarantees equal access and equal opportunity to people with diverse abilities. This comprehensive guide will walk you through the core principles of WCAG 2.1, advanced techniques for color contrast management, the physiological realities of color blindness, and the strategic implementation of WAI-ARIA roles to build robust, inclusive web applications.",
+          f1: "1. Mastering Color Contrast for Readability",
+          f1d: "Color contrast is critical for users with low vision, aging populations, and anyone viewing screens under suboptimal lighting conditions (like glaring sunlight). The Web Content Accessibility Guidelines (WCAG) dictate specific contrast ratios to ensure text is legible against its background.\n\n• **WCAG AA Standard (The Baseline):** Requires a contrast ratio of at least 4.5:1 for normal text (typically below 18pt or 14pt bold). For 'Large Text' (18pt and larger, or 14pt bold and larger), the requirement relaxes to 3.0:1. UI Components and graphical objects must also meet a 3.0:1 ratio.\n• **WCAG AAA Standard (The Gold Standard):** Requires a stricter 7.0:1 ratio for normal text and 4.5:1 for large text. Achieving AAA is recommended for specialized applications but can be restrictive for general brand design.\n\n**Pro Tip:** Use the A11y Forge Contrast Checker to instantly validate your brand colors. If a combination fails, our 'Smart Suggestion' algorithm will mathematically calculate the nearest accessible shade by adjusting luminance while preserving the original hue as much as possible.",
+          f2: "2. Understanding and Simulating Color Vision Deficiency (CVD)",
+          f2d: "Color Vision Deficiency, commonly known as color blindness, affects approximately 1 in 12 men and 1 in 200 women globally. Relying solely on color to convey meaning (e.g., a green button for 'Go' and a red button for 'Stop' without text labels) creates impossible barriers for these users.\n\nA11y Forge includes a rigorous Vision Simulator that applies mathematically accurate transformation matrices to your selected colors, allowing you to experience your UI through the eyes of users with various conditions:\n\n• **Protanopia (Red-Blind):** The complete absence of red retinal photoreceptors. Reds appear dark, and distinguishing between red/green and blue/green becomes difficult.\n• **Deuteranopia (Green-Blind):** The complete absence of green photoreceptors. Similar to Protanopia, this causes red-green confusion, which is the most common form of CVD.\n• **Tritanopia (Blue-Blind):** A rarer condition involving the absence of blue photoreceptors, making it hard to distinguish blue/yellow and red/purple.\n• **Achromatopsia (Total Color Blindness):** Extremely rare. Users see the world entirely in shades of gray. Contrast becomes the *only* differentiator.\n\n**Pro Tip:** Always supplement color-coded information with secondary visual cues such as icons, patterns, underlines, or explicit text labels.",
+          f3: "3. Strategic WAI-ARIA Implementation",
+          f3d: "WAI-ARIA (Web Accessibility Initiative – Accessible Rich Internet Applications) provides a vocabulary to define the semantics, state, and properties of complex UI components that native HTML cannot adequately describe. Screen readers and assistive technologies rely heavily on these attributes to interpret dynamic web applications.\n\nHowever, the first rule of ARIA is: **No ARIA is better than bad ARIA.** Always use native HTML elements (like `<button>`, `<nav>`, `<main>`) when they exist. Only use ARIA when you are building custom, non-standard interactive widgets (like a custom tab panel, a complex tree view, or a modal dialog).\n\nUsing the A11y Forge ARIA Explorer, you can:\n• **Discover Roles:** Search the complete ARIA specification to find the exact role for your custom widget.\n• **Identify Required Attributes:** Avoid critical accessibility failures by ensuring you include mandatory state properties (e.g., a `slider` *must* have `aria-valuenow`, `aria-valuemin`, and `aria-valuemax`).\n• **Generate Snippets:** Instantly copy pre-formatted, compliant HTML boilerplate to jumpstart your component development.\n\n**Pro Tip:** When building custom interactive elements, remember that adding `role='button'` does not make a `<div>` keyboard accessible. You must also manually implement `tabindex='0'` and JavaScript event listeners for the `Enter` and `Space` keys.",
+          f4: "4. The Persistent Local Workspace (IndexedDB)",
+          f4d: "Accessibility auditing is rarely a one-off task. As you iterate through design systems and theme configurations, keeping track of tested color combinations is essential. A11y Forge features a persistent local workspace powered by IndexedDB (via Dexie.js). Every color contrast check you perform is automatically logged in your local browser history.\n\nThis zero-configuration workspace ensures absolute privacy—your data never leaves your device. You can browse your recent checks, instantly restore previous color pairs to the active editor for further tweaking, and clear your history when starting a new project. This creates a seamless, professional workflow tailored for senior designers and engineers."
+        },
+        faqTitle: "Accessibility Frequently Asked Questions",
+        faqs: [
+          { q: "What is WCAG?", a: "WCAG (Web Content Accessibility Guidelines) is an internationally recognized set of recommendations for making web content more accessible to people with disabilities." },
+          { q: "What is the difference between AA and AAA?", a: "AA is the standard level of accessibility required by most regulations, demanding a 4.5:1 contrast for normal text. AAA is the highest level, demanding a 7.0:1 contrast for normal text." },
+          { q: "When should I use ARIA roles?", a: "ARIA roles should be used when native HTML elements cannot adequately describe the semantics or behavior of an element to assistive technologies like screen readers. Always prefer native HTML (like <button>) over ARIA (like role='button') when possible." }
+        ]
+      },
       loremForge: {
         title: "Lorem Forge: Professional Dummy Text Generator",
         description: "Generate dummy text with custom dictionaries, precise targeting, and rich formatting. Perfect for mockups, prototypes, and UI testing.",
@@ -4718,6 +4791,79 @@ export const dictionaries = {
       actions: "작업",
     },
     tools: {
+
+      a11yForge: {
+        title: "A11y Forge: 웹 접근성 툴킷",
+        description: "전문적인 웹 접근성 도구 모음입니다. WCAG 색상 대비를 검사하고, 색약/색맹을 시뮬레이션하며, ARIA 역할을 탐색하세요.",
+        tabs: {
+          contrast: "대비 검사기",
+          simulator: "시력 시뮬레이터",
+          aria: "ARIA 탐색기",
+          history: "히스토리"
+        },
+        contrast: {
+          fgColor: "전경색 (텍스트)",
+          bgColor: "배경색",
+          ratio: "대비 비율",
+          normalText: "일반 텍스트",
+          largeText: "큰 텍스트",
+          uiComponents: "UI 컴포넌트",
+          pass: "통과",
+          fail: "실패",
+          swapColors: "색상 반전",
+          livePreview: "실시간 미리보기",
+          previewText: "다람쥐 헌 쳇바퀴에 타고파.",
+          smartSuggest: "스마트 추천",
+          applySuggest: "수정 적용"
+        },
+        simulator: {
+          title: "색각 이상 시뮬레이션",
+          normal: "정상 시력",
+          protanomaly: "적색약 (Protanomaly)",
+          protanopia: "적색맹 (Protanopia)",
+          deuteranomaly: "녹색약 (Deuteranomaly)",
+          deuteranopia: "녹색맹 (Deuteranopia)",
+          tritanomaly: "청색약 (Tritanomaly)",
+          tritanopia: "청색맹 (Tritanopia)",
+          achromatopsia: "완전 색맹 (Achromatopsia)",
+          achromatomaly: "불완전 색맹 (Achromatomaly)"
+        },
+        aria: {
+          searchPlaceholder: "ARIA 역할 검색 (예: button, dialog)...",
+          categories: "카테고리",
+          attributes: "지원 속성",
+          requiredAttributes: "필수 속성",
+          codeSnippet: "HTML 스니펫",
+          copyCode: "코드 복사",
+          copied: "복사됨!",
+          noRolesFound: "검색어와 일치하는 역할이 없습니다.",
+          selectRole: "자세히 보려면 역할을 선택하세요."
+        },
+        history: {
+          title: "최근 검사 기록",
+          noHistory: "기록이 없습니다. 색상을 검사하면 여기에 표시됩니다.",
+          clearHistory: "기록 지우기"
+        },
+
+        guide: {
+          title: "웹 접근성(A11y) 및 A11y Forge 완벽 가이드",
+          intro: "A11y Forge에 오신 것을 환영합니다. 이 도구는 디지털 제품이 모든 사용자에게 보편적으로 접근 가능하도록 보장하기 위해 설계된 최고급 전문가용 툴킷입니다. 웹 접근성(A11y)은 단순한 규정 준수 체크리스트가 아니라, 다양한 능력을 가진 사람들에게 동등한 접근성과 기회를 보장하는 현대 웹 개발의 핵심 기둥입니다. 이 포괄적인 가이드는 WCAG 2.1의 핵심 원칙, 색상 대비 관리를 위한 고급 기술, 색각 이상의 생리적 현실, 그리고 견고하고 포용적인 웹 애플리케이션을 구축하기 위한 WAI-ARIA 역할의 전략적 구현을 안내할 것입니다.",
+          f1: "1. 가독성을 위한 색상 대비 마스터하기",
+          f1d: "색상 대비는 저시력자, 고령층, 그리고 눈부신 햇빛 아래와 같이 최적화되지 않은 조명 환경에서 화면을 보는 모든 사용자에게 매우 중요합니다. 웹 콘텐츠 접근성 지침(WCAG)은 텍스트가 배경과 구별되어 읽힐 수 있도록 특정한 대비 비율을 요구합니다.\n\n• **WCAG AA 표준 (기본 기준):** 일반 텍스트(일반적으로 18pt 미만 또는 14pt 굵은 글꼴)의 경우 최소 4.5:1의 대비 비율이 필요합니다. '큰 텍스트'(18pt 이상, 또는 14pt 굵은 글꼴 이상)의 경우 요구 사항이 3.0:1로 완화됩니다. UI 구성 요소 및 그래픽 객체도 3.0:1 비율을 충족해야 합니다.\n• **WCAG AAA 표준 (골드 표준):** 일반 텍스트의 경우 7.0:1, 큰 텍스트의 경우 4.5:1이라는 더 엄격한 비율을 요구합니다. AAA 달성은 특수한 애플리케이션에 권장되지만, 일반적인 브랜드 디자인에는 제한적일 수 있습니다.\n\n**전문가 팁:** A11y Forge 색상 대비 검사기를 사용하여 브랜드 색상을 즉시 검증하세요. 조합이 실패할 경우, '스마트 추천' 알고리즘이 원래의 색조를 최대한 유지하면서 명도를 조정하여 수학적으로 가장 가까운 접근 가능한 색상을 계산해 냅니다.",
+          f2: "2. 색각 이상(CVD)의 이해와 시뮬레이션",
+          f2d: "흔히 색맹으로 알려진 색각 이상(Color Vision Deficiency)은 전 세계적으로 남성 12명 중 1명, 여성 200명 중 1명에게 영향을 미칩니다. 의미를 전달하기 위해 색상에만 의존하는 것(예: 텍스트 레이블 없이 '진행'을 위해 녹색 버튼을, '정지'를 위해 적색 버튼을 사용하는 것)은 이 사용자들에게 불가능한 장벽을 만듭니다.\n\nA11y Forge에는 선택한 색상에 수학적으로 정확한 변환 매트릭스를 적용하는 엄격한 시력 시뮬레이터가 포함되어 있어, 다양한 상태의 사용자 눈을 통해 UI를 경험할 수 있습니다:\n\n• **적색맹 (Protanopia):** 망막의 적색 광수용체가 완전히 없는 상태입니다. 붉은색이 어둡게 보이며 적색/녹색 및 청색/녹색을 구별하기 어렵습니다.\n• **녹색맹 (Deuteranopia):** 녹색 광수용체가 완전히 없는 상태입니다. 적색맹과 유사하게 적록 혼란을 일으키며, 가장 흔한 형태의 CVD입니다.\n• **청색맹 (Tritanopia):** 청색 광수용체가 없는 드문 상태로, 청색/황색 및 적색/자색을 구별하기 어렵습니다.\n• **완전 색맹 (Achromatopsia):** 매우 드뭅니다. 사용자는 세상을 전적으로 회색조로 봅니다. 명도 대비가 유일한 구별 수단이 됩니다.\n\n**전문가 팁:** 아이콘, 패턴, 밑줄 또는 명시적인 텍스트 레이블과 같은 2차 시각적 단서로 항상 색상으로 구분된 정보를 보완하세요.",
+          f3: "3. 전략적 WAI-ARIA 구현",
+          f3d: "WAI-ARIA(웹 접근성 이니셔티브 – 접근성 있는 리치 인터넷 애플리케이션)는 기본 HTML이 적절하게 설명할 수 없는 복잡한 UI 구성 요소의 의미, 상태 및 속성을 정의하는 어휘를 제공합니다. 화면 판독기 및 보조 기술은 동적 웹 애플리케이션을 해석하기 위해 이러한 속성에 크게 의존합니다.\n\n그러나 ARIA의 첫 번째 규칙은 다음과 같습니다: **잘못된 ARIA보다 ARIA가 없는 것이 낫다.** 존재하는 경우 항상 기본 HTML 요소(`<button>`, `<nav>`, `<main>` 등)를 사용하세요. ARIA는 사용자 지정 탭 패널, 복잡한 트리 뷰 또는 모달 대화 상자와 같은 비표준 대화형 위젯을 구축할 때만 사용해야 합니다.\n\nA11y Forge ARIA 탐색기를 사용하여 다음을 수행할 수 있습니다:\n• **역할 검색:** 전체 ARIA 사양을 검색하여 사용자 지정 위젯에 대한 정확한 역할을 찾습니다.\n• **필수 속성 식별:** 필수 상태 속성을 포함하여 치명적인 접근성 실패를 방지합니다(예: `slider`에는 `aria-valuenow`, `aria-valuemin`, `aria-valuemax`가 반드시 있어야 함).\n• **스니펫 생성:** 사전 포맷되고 규정을 준수하는 HTML 보일러플레이트를 즉시 복사하여 구성 요소 개발을 시작합니다.\n\n**전문가 팁:** 사용자 지정 대화형 요소를 구축할 때 `role='button'`을 추가한다고 해서 `<div>`가 키보드로 접근 가능해지지는 않는다는 점을 기억하세요. 또한 `tabindex='0'`과 `Enter` 및 `Space` 키에 대한 JavaScript 이벤트 리스너를 수동으로 구현해야 합니다.",
+          f4: "4. 영구적인 로컬 작업 공간 (IndexedDB)",
+          f4d: "접근성 감사는 단발성 작업으로 끝나는 경우가 드뭅니다. 디자인 시스템과 테마 구성을 반복하면서 테스트한 색상 조합을 추적하는 것이 필수적입니다. A11y Forge는 IndexedDB(Dexie.js를 통해)로 구동되는 영구적인 로컬 작업 공간을 제공합니다. 수행하는 모든 색상 대비 검사는 로컬 브라우저 기록에 자동으로 기록됩니다.\n\n이 무설정 작업 공간은 완벽한 개인정보 보호를 보장합니다. 데이터는 기기를 절대 벗어나지 않습니다. 최근 검사 기록을 찾아보고, 추가 수정을 위해 활성 편집기로 이전 색상 쌍을 즉시 복원하고, 새 프로젝트를 시작할 때 기록을 지울 수 있습니다. 이는 시니어 디자이너와 엔지니어에게 맞춰진 매끄럽고 전문적인 워크플로우를 만듭니다."
+        },
+        faqTitle: "접근성 자주 묻는 질문",
+        faqs: [
+          { q: "WCAG란 무엇인가요?", a: "WCAG(웹 콘텐츠 접근성 지침)는 장애가 있는 사람들이 웹 콘텐츠에 더 쉽게 접근할 수 있도록 하기 위해 국제적으로 인정된 권장 사항 세트입니다." },
+          { q: "AA와 AAA의 차이점은 무엇인가요?", a: "AA는 대부분의 규정에서 요구하는 표준 접근성 수준으로, 일반 텍스트에 대해 4.5:1의 대비를 요구합니다. AAA는 가장 높은 수준으로, 일반 텍스트에 대해 7.0:1의 대비를 요구합니다." },
+          { q: "ARIA 역할은 언제 사용해야 하나요?", a: "ARIA 역할은 기본 HTML 요소가 화면 판독기와 같은 보조 기술에 요소의 의미나 동작을 적절하게 설명할 수 없을 때 사용해야 합니다. 가능하면 ARIA(role='button')보다 기본 HTML(<button>)을 사용하는 것이 좋습니다." }
+        ]
+      },
       loremForge: {
         title: "로렘 포지: 전문가용 더미 텍스트 생성기",
         description: "사용자 정의 사전, 정밀한 타겟팅 및 풍부한 서식으로 더미 텍스트를 생성하세요. 목업, 프로토타입 및 UI 테스트에 완벽합니다.",
