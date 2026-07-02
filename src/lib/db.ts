@@ -266,6 +266,17 @@ export interface DiagramForgeHistory {
   starred?: number;
 }
 
+
+export interface A11yForgeHistory {
+  id?: number;
+  type: 'contrast' | 'aria';
+  fgColor?: string;
+  bgColor?: string;
+  ratio?: number;
+  role?: string;
+  timestamp: number;
+}
+
 export interface TableForgeHistory {
   id?: number;
   name?: string;
@@ -520,6 +531,7 @@ class MySubClassedDexie extends Dexie {
   barcodeForgeHistory!: DexieTable<BarcodeForgeHistory>;
   gitForgeHistory!: DexieTable<GitForgeHistory>;
   clampForgeHistory!: DexieTable<ClampForgeHistory>;
+  a11yForgeHistory!: DexieTable<A11yForgeHistory>;
   cspForgeHistory!: DexieTable<CspForgeHistory>;
 
   constructor() {
@@ -1894,7 +1906,8 @@ class MySubClassedDexie extends Dexie {
       gitForgeHistory: '++id, type, createdAt, starred',
       dockerForgeHistory: '++id, createdAt, starred',
       cspForgeHistory: '++id, createdAt, starred',
-      clampForgeHistory: '++id, createdAt, starred'
+      clampForgeHistory: '++id, createdAt, starred',
+      a11yForgeHistory: '++id, type, fgColor, bgColor, ratio, role, timestamp',
     });
   }
 }
