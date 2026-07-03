@@ -6,11 +6,13 @@
   import Droplet from '@lucide/svelte/icons/droplet';
   import Eye from '@lucide/svelte/icons/eye';
   import Sparkles from '@lucide/svelte/icons/sparkles';
+  import Copy from '@lucide/svelte/icons/copy';
+  import Share2 from '@lucide/svelte/icons/share-2';
   import HistoryList from '$lib/components/HistoryList.svelte';
   import { db } from '$lib/db';
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
 
-  export let dict: any;
+  export let dict: Record<string, any>;
 
   let fgColor = '#FFFFFF';
   let bgColor = '#1E40AF';
@@ -52,6 +54,20 @@
   }
 
   // History implementation
+  const presets = [
+    { label: 'Standard Text', fg: '#334155', bg: '#F8FAFC' },
+    { label: 'Dark Mode Accent', fg: '#818CF8', bg: '#0F172A' },
+    { label: 'Alert Error', fg: '#FFFFFF', bg: '#EF4444' },
+    { label: 'Accessible Primary', fg: '#FFFFFF', bg: '#2563EB' }
+  ];
+
+  async function loadPreset(preset: typeof presets[0]) {
+    fgColor = preset.fg;
+    bgColor = preset.bg;
+    await tick();
+    saveToHistory();
+  }
+
   let historyItems: any[] = [];
 
   async function loadHistory() {
@@ -114,8 +130,65 @@
       }, 1000);
   }
 
+  async function handleKeydown(event: KeyboardEvent) {
+    if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+      event.preventDefault();
+      copyReport();
+    } else if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+      event.preventDefault();
+      fgColor = '#FFFFFF';
+      bgColor = '#1E40AF';
+      await tick();
+      saveToHistory();
+    } else if (event.key === 'Escape') {
+      clearHistory();
+    }
+  }
+
+  async function copyReport() {
+    const report = `Accessibility Contrast Report
+Foreground: ${fgColor}
+Background: ${bgColor}
+Contrast Ratio: ${ratio.toFixed(2)}:1
+Normal Text (4.5:1): ${wcag.normal}
+Large Text (3.0:1): ${wcag.large}
+UI Components (3.0:1): ${wcag.ui}
+
+Generated via A11y Forge`;
+    try {
+      await navigator.clipboard.writeText(report);
+      copied = true;
+      setTimeout(() => copied = false, 2000);
+    } catch(err) {
+      console.error(err);
+    }
+  }
+
+  async function shareReport() {
+    const text = `Contrast Ratio: ${ratio.toFixed(2)}:1 (${fgColor} on ${bgColor})`;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'A11y Forge Contrast Report',
+          text: text,
+          url: window.location.href
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      copyReport();
+    }
+  }
+
+  let copied = false;
+
   onMount(() => {
       loadHistory();
+      window.addEventListener('keydown', handleKeydown);
+      return () => {
+        window.removeEventListener('keydown', handleKeydown);
+      };
   });
 
 </script>
@@ -184,6 +257,22 @@
       </div>
     </div>
 
+    <!-- Smart Examples / Presets -->
+    <div class="pt-2">
+      <div class="flex flex-wrap gap-2 items-center">
+        <span class="text-xs font-medium text-slate-500 uppercase tracking-wider">{t.presets || 'Presets'}:</span>
+        {#each presets as preset}
+          <button
+            on:click={() => loadPreset(preset)}
+            class="px-3 py-1.5 min-h-[44px] text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-400 bg-white dark:bg-slate-900 transition-colors"
+            style="color: {preset.fg}; background-color: {preset.bg}; border-color: {preset.bg};"
+          >
+            {preset.label}
+          </button>
+        {/each}
+      </div>
+    </div>
+
     <!-- Results Panel -->
     <div class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -220,8 +309,8 @@
         </div>
       </div>
 
-      {#if wcag.normal === 'Fail'}
-      <div class="mt-6 flex justify-center md:justify-end">
+      <div class="mt-6 flex flex-wrap justify-center md:justify-end gap-3">
+        {#if wcag.normal === 'Fail'}
         <button
           on:click={applySmartSuggestion}
           class="flex items-center gap-2 px-4 py-2 min-h-[44px] text-sm font-medium text-indigo-700 bg-indigo-100 rounded-lg hover:bg-indigo-200 transition-colors dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-900/50"
@@ -229,8 +318,29 @@
           <Sparkles size={16} />
           {c.smartSuggest || 'Smart Suggestion'}
         </button>
+        {/if}
+
+        <button
+          on:click={copyReport}
+          class="flex items-center gap-2 px-4 py-2 min-h-[44px] text-sm font-medium text-slate-700 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+        >
+          {#if copied}
+            <CheckCircle2 size={16} class="text-emerald-500" />
+            <span class="text-emerald-600 dark:text-emerald-400">{c.copied || 'Copied!'}</span>
+          {:else}
+            <Copy size={16} />
+            {c.copyReport || 'Copy Report'}
+          {/if}
+        </button>
+
+        <button
+          on:click={shareReport}
+          class="flex items-center gap-2 px-4 py-2 min-h-[44px] text-sm font-medium text-slate-700 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+        >
+          <Share2 size={16} />
+          {c.share || 'Share'}
+        </button>
       </div>
-      {/if}
     </div>
 
     <!-- Live Preview -->
@@ -294,7 +404,7 @@
         <h3 class="font-medium text-slate-900 dark:text-white">{h.title || 'Recent Checks'}</h3>
         <button
           on:click={clearHistory}
-          class="text-xs text-rose-500 hover:text-rose-600 font-medium"
+          class="text-xs text-rose-500 hover:text-rose-600 font-medium min-h-[44px] min-w-[44px] p-2 rounded-md hover:bg-rose-50 dark:hover:bg-rose-900/20"
         >
           {h.clearHistory || 'Clear'}
         </button>
@@ -318,7 +428,8 @@
             </button>
             <button
               on:click={() => deleteItem(item.id)}
-              class="p-1.5 text-slate-400 hover:text-rose-500 rounded-md hover:bg-rose-50 dark:hover:bg-rose-900/20"
+              class="p-1.5 min-h-[44px] min-w-[44px] text-slate-400 hover:text-rose-500 rounded-md hover:bg-rose-50 dark:hover:bg-rose-900/20 flex items-center justify-center"
+              aria-label="Delete history item"
             >
               <XCircle size={14} />
             </button>

@@ -6,7 +6,7 @@ import Copy from '@lucide/svelte/icons/copy';
 import Tag from '@lucide/svelte/icons/tag';
 import Info from '@lucide/svelte/icons/info';
 
-  export let dict: any;
+  export let dict: Record<string, any>;
 
   $: t = dict?.tools?.a11yForge?.aria || {};
 
