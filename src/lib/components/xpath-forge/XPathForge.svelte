@@ -1,7 +1,7 @@
 <script lang="ts">
             import { page } from '$app/stores';
     import { onMount } from 'svelte';
-            import { Play, Copy, Download, Trash2, Code, History, Star, Maximize2, Link as LinkIcon, Search as SearchIcon } from '@lucide/svelte';
+            import { Play, Copy, Download, Trash2, Code, History, Star, Maximize2, Search as SearchIcon } from '@lucide/svelte';
     import { workspace, type ToolHistoryItem } from '$lib/db/workspace';
 
     import { getDictionary } from '$lib/dictionaries';

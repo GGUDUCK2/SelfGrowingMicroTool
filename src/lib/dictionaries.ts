@@ -60,7 +60,10 @@ export const dictionaries = {
           copyCode: "Copy Code",
           copied: "Copied!",
           noRolesFound: "No roles found matching your search.",
-          selectRole: "Select a role to view details."
+          selectRole: "Select a role to view details.",
+          interactivePreview: "Interactive Preview",
+          recentRoles: "Recent Roles",
+          noRecentRoles: "No recent roles viewed yet."
         },
         history: {
           title: "Recent Checks",
@@ -4845,7 +4848,10 @@ export const dictionaries = {
           copyCode: "코드 복사",
           copied: "복사됨!",
           noRolesFound: "검색어와 일치하는 역할이 없습니다.",
-          selectRole: "자세히 보려면 역할을 선택하세요."
+          selectRole: "자세히 보려면 역할을 선택하세요.",
+          interactivePreview: "인터랙티브 미리보기",
+          recentRoles: "최근 본 역할",
+          noRecentRoles: "최근에 본 역할이 없습니다."
         },
         history: {
           title: "최근 검사 기록",
