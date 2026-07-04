@@ -29,6 +29,12 @@ import Contrast from '@lucide/svelte/icons/contrast';
       "price": "0",
       "priceCurrency": "USD"
     },
+    "featureList": [
+      "WCAG 2.1 Color Contrast Checker",
+      "Color Palette Contrast Matrix Generator",
+      "Color Blindness Vision Simulator",
+      "Interactive ARIA Role Explorer"
+    ],
     "url": "https://selfgrowingmicrotool.com/" + lang + "/tools/a11y-forge"
   };
 </script>

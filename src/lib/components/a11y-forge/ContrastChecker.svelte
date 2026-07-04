@@ -1,6 +1,8 @@
 <script lang="ts">
   import { getContrastRatio, getWCAGStatus, simulateColorBlindness, type ColorBlindnessType, hexToRgb, getLuminance } from '$lib/utils/a11y-forge';
   import CheckCircle2 from '@lucide/svelte/icons/check-circle-2';
+  import Palette from '@lucide/svelte/icons/palette';
+  import Layers from '@lucide/svelte/icons/layers';
   import XCircle from '@lucide/svelte/icons/x-circle';
   import ArrowLeftRight from '@lucide/svelte/icons/arrow-left-right';
   import Droplet from '@lucide/svelte/icons/droplet';
@@ -13,6 +15,13 @@
   import { onMount, tick } from 'svelte';
 
   export let dict: Record<string, any>;
+
+
+  // Palette Matrix State
+  let mode: 'pair' | 'palette' = 'pair';
+  let paletteInput = '#ffffff, #000000, #3b82f6, #ef4444, #10b981, #f59e0b';
+  let paletteColors: string[] = [];
+  $: paletteColors = paletteInput.split(',').map(c => c.trim()).filter(c => /^#[0-9A-F]{6}$/i.test(c) || /^#[0-9A-F]{3}$/i.test(c));
 
   let fgColor = '#FFFFFF';
   let bgColor = '#1E40AF';
@@ -275,6 +284,29 @@ Generated via A11y Forge`;
 <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
   <div class="lg:col-span-3 space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
 
+    <!-- Mode Toggle -->
+    <div class="flex border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 rounded-2xl overflow-hidden mb-6" role="tablist">
+      <button
+        class="flex-1 py-3 flex items-center justify-center gap-2 text-sm font-medium transition-colors border-b-2 min-h-[44px] {mode === 'pair' ? 'text-indigo-600 border-indigo-600 dark:text-indigo-400 dark:border-indigo-400 bg-white dark:bg-slate-900' : 'text-slate-500 border-transparent hover:text-slate-700 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800'}"
+        on:click={() => mode = 'pair'}
+        role="tab" aria-selected={mode === 'pair'}
+      >
+        <Layers size={16} />
+        {c.pairMode || 'Pair Contrast'}
+      </button>
+      <button
+        class="flex-1 py-3 flex items-center justify-center gap-2 text-sm font-medium transition-colors border-b-2 min-h-[44px] {mode === 'palette' ? 'text-indigo-600 border-indigo-600 dark:text-indigo-400 dark:border-indigo-400 bg-white dark:bg-slate-900' : 'text-slate-500 border-transparent hover:text-slate-700 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800'}"
+        on:click={() => mode = 'palette'}
+        role="tab" aria-selected={mode === 'palette'}
+      >
+        <Palette size={16} />
+        {c.paletteMode || 'Palette Matrix'}
+      </button>
+    </div>
+
+    {#if mode === 'pair'}
+
+
     <!-- Color Inputs -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
 
@@ -446,6 +478,85 @@ Generated via A11y Forge`;
         </div>
       </div>
     </div>
+
+
+    {:else}
+      <!-- Palette Matrix Mode -->
+      <div class="space-y-6">
+        <div class="space-y-3">
+          <label for="palette-input" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+            {c.paletteInputLabel || 'Enter colors (hex codes, comma separated)'}
+          </label>
+          <textarea
+            id="palette-input"
+            bind:value={paletteInput}
+            placeholder="#ffffff, #000000, #3b82f6"
+            class="w-full h-24 px-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-slate-900 dark:text-white font-mono text-sm"
+          ></textarea>
+          <p class="text-xs text-slate-500 dark:text-slate-400">
+            {c.paletteHelper || 'Valid hex codes will automatically populate the contrast matrix.'} ({paletteColors.length} {c.colorsDetected || 'colors detected'})
+          </p>
+        </div>
+
+        {#if paletteColors.length > 1}
+          <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700 custom-scrollbar">
+            <table class="w-full text-sm text-left">
+              <thead class="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-slate-800/50">
+                <tr>
+                  <th scope="col" class="px-4 py-3 font-medium text-center border-b border-r border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800">{c.bgVsFg || 'BG \\ FG'}</th>
+                  {#each paletteColors as fg}
+                    <th scope="col" class="px-4 py-3 text-center border-b border-slate-200 dark:border-slate-700">
+                      <div class="flex flex-col items-center gap-1.5">
+                        <div class="w-6 h-6 rounded-md shadow-sm border border-slate-200 dark:border-slate-700" style="background-color: {fg};"></div>
+                        <span class="font-mono text-[10px]">{fg}</span>
+                      </div>
+                    </th>
+                  {/each}
+                </tr>
+              </thead>
+              <tbody>
+                {#each paletteColors as bg, i}
+                  <tr class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 last:border-0">
+                    <th scope="row" class="px-4 py-3 font-medium text-center border-r border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/30">
+                      <div class="flex flex-col items-center gap-1.5">
+                        <div class="w-6 h-6 rounded-md shadow-sm border border-slate-200 dark:border-slate-700" style="background-color: {bg};"></div>
+                        <span class="font-mono text-[10px] text-slate-600 dark:text-slate-400">{bg}</span>
+                      </div>
+                    </th>
+                    {#each paletteColors as fg, j}
+                      {@const r = getContrastRatio(bg, fg)}
+                      {@const wcagN = r >= 4.5 ? 'AA' : (r >= 3.0 ? 'Large' : 'Fail')}
+                      <td class="px-4 py-3 text-center border-r border-slate-200 dark:border-slate-700 last:border-0 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                        {#if i === j}
+                          <span class="text-slate-300 dark:text-slate-600">-</span>
+                        {:else}
+                          <button
+                            class="flex flex-col items-center justify-center w-full h-full gap-1 p-1 rounded-md min-h-[44px]"
+                            on:click={() => { fgColor = fg; bgColor = bg; mode = 'pair'; saveToHistory(); }}
+                            aria-label="Set pair: BG {bg}, FG {fg}"
+                          >
+                            <span class="font-mono text-xs font-bold" style="color: {r >= 4.5 ? '#10b981' : (r >= 3.0 ? '#f59e0b' : '#ef4444')}">{r.toFixed(2)}</span>
+                            <span class="text-[10px] px-1.5 py-0.5 rounded-sm font-semibold {r >= 4.5 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : (r >= 3.0 ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' : 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400')}">
+                              {wcagN}
+                            </span>
+                          </button>
+                        {/if}
+                      </td>
+                    {/each}
+                  </tr>
+                {/each}
+              </tbody>
+            </table>
+          </div>
+        {:else}
+          <div class="p-8 text-center text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/30 rounded-xl border border-dashed border-slate-300 dark:border-slate-700">
+            <Palette size={32} class="mx-auto mb-3 opacity-50" />
+            <p>{c.enterMoreColors || 'Enter at least two valid hex colors to generate the matrix.'}</p>
+          </div>
+        {/if}
+      </div>
+    {/if}
+
 
     <!-- Vision Simulator -->
     <div class="space-y-4 pt-6 border-t border-slate-200 dark:border-slate-800">
