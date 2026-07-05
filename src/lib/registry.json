@@ -768,6 +768,27 @@
     "createdAt": "2026-05-17"
   },
   {
+    "id": "pattern-forge",
+    "slug": "pattern-forge",
+    "title": {
+      "en": "Pattern Forge",
+      "ko": "Pattern Forge"
+    },
+    "description": {
+      "en": "The Definitive CSS and SVG Pattern Generator. Create highly customizable, seamless background patterns (Grid, Dots, Waves, Polygons) with an interactive preview, real-time code export, and a persistent Dexie.js workspace.",
+      "ko": "가장 완벽한 CSS 및 SVG 패턴 생성기. 인터랙티브 미리보기, 실시간 코드 내보내기 및 영구 Dexie.js 작업 공간을 통해 사용자 지정이 가능한 매끄러운 배경 패턴(격자, 점, 물결, 다각형)을 만드세요."
+    },
+    "category": "productivity",
+    "tags": [
+      "pattern",
+      "generator",
+      "css",
+      "svg",
+      "background"
+    ],
+    "createdAt": "2024-11-20"
+  },
+  {
     "id": "password-forge",
     "slug": "password-forge",
     "title": {

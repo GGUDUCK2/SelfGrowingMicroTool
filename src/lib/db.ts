@@ -267,6 +267,15 @@ export interface DiagramForgeHistory {
 }
 
 
+export interface PatternForgeHistory {
+  id?: number;
+  name: string;
+  type: string;
+  config: any;
+  createdAt: Date;
+  starred?: number;
+}
+
 export interface A11yForgeHistory {
   id?: number;
   type: 'contrast' | 'aria';
@@ -534,6 +543,7 @@ class MySubClassedDexie extends Dexie {
   clampForgeHistory!: DexieTable<ClampForgeHistory>;
   a11yForgeHistory!: DexieTable<A11yForgeHistory>;
   cspForgeHistory!: DexieTable<CspForgeHistory>;
+  patternForgeHistory!: DexieTable<PatternForgeHistory>;
 
   constructor() {
     super('webFactoryDB');
@@ -1957,6 +1967,55 @@ class MySubClassedDexie extends Dexie {
       cspForgeHistory: '++id, createdAt, starred',
       clampForgeHistory: '++id, createdAt, starred',
       a11yForgeHistory: '++id, type, fgColor, bgColor, ratio, role, timestamp, starred',
+    });
+    this.version(56).stores({
+      passwordForgeHistory: '++id, createdAt, starred',
+      compoundInterestConfig: '++id, updatedAt',
+      compoundInterestHistory: '++id, createdAt',
+      glassmorphismHistory: '++id, createdAt',
+      jsonHistory: '++id, createdAt',
+      cronHistory: '++id, createdAt',
+      regexHistory: '++id, createdAt',
+      colorHistory: '++id, createdAt, starred',
+      urlHistory: '++id, createdAt',
+      svgHistory: '++id, createdAt, starred',
+      jwtHistory: '++id, createdAt, starred',
+      diffHistory: '++id, createdAt, starred',
+      subnetScopeHistory: '++id, createdAt, starred',
+      restroSession: '++id, activeAt',
+      restroHistory: '++id, timestamp',
+      structuraHistory: '++id, createdAt, starred',
+      csvHistory: '++id, createdAt, starred',
+      geoForgeHistory: '++id, createdAt, starred',
+      diagramHistory: '++id, createdAt, starred',
+      diagramConfig: '++id, updatedAt',
+      tableForgeConfig: '++id, updatedAt',
+      tableForgeHistory: '++id, createdAt, starred',
+      timeForgeConfig: '++id',
+      timeForgeHistory: '++id, createdAt',
+      invoiceForgeHistory: '++id, createdAt, starred, status',
+      resumeForgeHistory: '++id, createdAt, starred, jobTitle',
+      sqlForgeHistory: '++id, createdAt, starred',
+      typeForgeHistory: '++id, createdAt, starred',
+      snippetForgeHistory: '++id, title, language, createdAt, starred',
+      snippetForgeCategories: '++id, name',
+      audioForgeHistory: '++id, createdAt, starred',
+      screenForgeHistory: '++id, createdAt, starred',
+      bannerForgeHistory: '++id, createdAt, starred',
+      rhythmForgePlaylists: '++id, createdAt, starred',
+      logicForgeHistory: '++id, createdAt, starred',
+      keyForgeHistory: '++id, wpm, mode, language, timestamp, starred',
+      zenForgeMixes: '++id, createdAt, starred',
+      mathForgeHistory: '++id, createdAt, starred',
+      fileForgeHistory: '++id, createdAt, starred, hash',
+      policyForgeHistory: '++id, companyName, createdAt, starred',
+      barcodeForgeHistory: '++id, createdAt, starred',
+      gitForgeHistory: '++id, type, createdAt, starred',
+      dockerForgeHistory: '++id, createdAt, starred',
+      cspForgeHistory: '++id, createdAt, starred',
+      clampForgeHistory: '++id, createdAt, starred',
+      a11yForgeHistory: '++id, type, fgColor, bgColor, ratio, role, timestamp, starred',
+      patternForgeHistory: '++id, createdAt, starred',
     });
   }
 }
