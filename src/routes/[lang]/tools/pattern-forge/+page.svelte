@@ -14,10 +14,27 @@
 
   // Safe cast for strict TS compiler validation in SvelteKit
   $: faqs = Array.isArray(t.faqs) ? t.faqs : [];
+
+  $: jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": t.title || "Pattern Forge",
+    "description": t.desc || "Create beautiful, customizable CSS and SVG background patterns.",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "url": "https://selfgrowingmicrotool.com/" + lang + "/tools/pattern-forge"
+  };
 </script>
 
 <svelte:head>
-  <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}/tools/pattern-forge" />
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/pattern-forge"} />
   <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/pattern-forge" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/pattern-forge" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/pattern-forge" />
