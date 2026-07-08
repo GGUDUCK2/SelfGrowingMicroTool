@@ -24,6 +24,7 @@ import Contrast from '@lucide/svelte/icons/contrast';
     "description": t.description,
     "applicationCategory": "DesignApplication",
     "operatingSystem": "Any",
+    "isAccessibleForFree": true,
     "offers": {
       "@type": "Offer",
       "price": "0",
