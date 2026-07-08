@@ -3,6 +3,7 @@
   import Search from '@lucide/svelte/icons/search';
 import CheckCircle2 from '@lucide/svelte/icons/check-circle-2';
 import Copy from '@lucide/svelte/icons/copy';
+import Download from '@lucide/svelte/icons/download';
 import Tag from '@lucide/svelte/icons/tag';
 import Info from '@lucide/svelte/icons/info';
 import History from '@lucide/svelte/icons/history';
@@ -51,7 +52,21 @@ import { onMount } from 'svelte';
         role: roleStr,
         timestamp: Date.now()
       });
+
       await loadRecentRoles();
+
+      const count = await db.a11yForgeHistory.where('type').equals('aria').count();
+      if (count > 100) {
+        const oldest = await db.a11yForgeHistory
+          .where('type').equals('aria')
+          .limit(count - 100)
+          .toArray();
+        if(oldest.length > 0) {
+             const toDelete = oldest.map(i => i.id!);
+             await db.a11yForgeHistory.bulkDelete(toDelete);
+             await loadRecentRoles();
+        }
+      }
     } catch (e) {
       console.error(e);
     }
@@ -88,6 +103,20 @@ import { onMount } from 'svelte';
 
   $: codeSnippet = selectedRole ?
     `<div role="${selectedRole.role}"${selectedRole.required.map(attr => `\n  ${attr}="..."`).join('')}>\n  <!-- Content -->\n</div>` : '';
+
+
+  async function downloadCode() {
+    if (!codeSnippet) return;
+    const blob = new Blob([codeSnippet], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `aria-${selectedRole?.role || 'role'}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
 
   async function copyCode() {
     if (!codeSnippet) return;
@@ -256,6 +285,12 @@ import { onMount } from 'svelte';
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <h4 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider">{t.codeSnippet || 'HTML Snippet'}</h4>
+              <button
+                on:click={downloadCode}
+                class="flex items-center gap-1.5 px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium rounded-md transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+              >
+                <Download size={14} /> Download
+              </button>
               <button
                 on:click={copyCode}
                 class="flex items-center gap-1.5 px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium rounded-md transition-colors {copied ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-400' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'}"

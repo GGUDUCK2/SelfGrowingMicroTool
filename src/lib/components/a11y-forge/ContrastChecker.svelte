@@ -160,7 +160,42 @@
     }
   }
 
-  async function saveToHistory() {
+
+  function adjustColorForContrast(bgHex: string, currentFgHex: string, targetRatio: number): string {
+    // Basic HSL adjustment logic (simplified for demonstration, converting to HSL and adjusting L)
+    // Actually, simple brute force approach works well enough for simple auto-fix.
+    // Let's use a simple strategy: lighten or darken the foreground until it passes.
+    let r = parseInt(currentFgHex.slice(1, 3), 16);
+    let g = parseInt(currentFgHex.slice(3, 5), 16);
+    let b = parseInt(currentFgHex.slice(5, 7), 16);
+
+    let isLightBg = getLuminance(bgHex) > 0.5;
+
+    for(let i=0; i<50; i++) {
+        let currentRatio = getContrastRatio(bgHex, `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`);
+        if(currentRatio >= targetRatio) {
+            return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+        }
+
+        if (isLightBg) {
+             r = Math.max(0, r - 5);
+             g = Math.max(0, g - 5);
+             b = Math.max(0, b - 5);
+        } else {
+             r = Math.min(255, r + 5);
+             g = Math.min(255, g + 5);
+             b = Math.min(255, b + 5);
+        }
+    }
+    return isLightBg ? '#000000' : '#ffffff';
+  }
+
+  function applyAutoFix() {
+    fgColor = adjustColorForContrast(bgColor, fgColor, 4.5);
+    saveToHistory();
+  }
+
+async function saveToHistory() {
     try {
       await db.a11yForgeHistory.add({
         type: 'contrast',
@@ -169,14 +204,29 @@
         ratio,
         timestamp: Date.now()
       });
+
       await loadHistory();
+
+      const count = await db.a11yForgeHistory.where('type').equals('contrast').count();
+      if (count > 100) {
+        const oldest = await db.a11yForgeHistory
+          .where('type').equals('contrast')
+          .filter(item => !item.starred)
+          .limit(count - 100)
+          .toArray();
+        if(oldest.length > 0) {
+             const toDelete = oldest.map(i => i.id!);
+             await db.a11yForgeHistory.bulkDelete(toDelete);
+             await loadHistory();
+        }
+      }
     } catch (e) {
       console.error(e);
     }
   }
 
 
-  async function toggleStarred(item: any) {
+  async function toggleStarred(item: import("$lib/db").A11yForgeHistory) {
     try {
       await db.a11yForgeHistory.update(item.id, { starred: !item.starred });
       await loadHistory();
@@ -194,7 +244,7 @@
     }
   }
 
-  async function restoreItem(item: any) {
+  async function restoreItem(item: import("$lib/db").A11yForgeHistory) {
     if (item.fgColor && item.bgColor) {
         fgColor = item.fgColor;
         bgColor = item.bgColor;
@@ -204,7 +254,22 @@
   async function deleteItem(id: number) {
     try {
       await db.a11yForgeHistory.delete(id);
+
       await loadHistory();
+
+      const count = await db.a11yForgeHistory.where('type').equals('contrast').count();
+      if (count > 100) {
+        const oldest = await db.a11yForgeHistory
+          .where('type').equals('contrast')
+          .filter(item => !item.starred)
+          .limit(count - 100)
+          .toArray();
+        if(oldest.length > 0) {
+             const toDelete = oldest.map(i => i.id!);
+             await db.a11yForgeHistory.bulkDelete(toDelete);
+             await loadHistory();
+        }
+      }
     } catch (e) {
         console.error(e);
     }
@@ -366,6 +431,30 @@ Generated via A11y Forge`;
           />
         </div>
       </div>
+
+      <div class="flex items-center gap-4 mt-6 p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+        <div class="flex-1">
+          <h4 class="font-medium text-slate-900 dark:text-white flex items-center gap-2">
+            <span class={wcagAA ? 'text-emerald-500' : 'text-rose-500'}>
+              {wcagAA ? 'Passes WCAG AA' : 'Fails WCAG AA'}
+            </span>
+          </h4>
+          {#if !wcagAA}
+            <p class="text-sm text-slate-500 mt-1">
+              Click Auto-Fix to find the nearest passing contrast ratio.
+            </p>
+          {/if}
+        </div>
+        {#if !wcagAA}
+          <button
+            on:click={applyAutoFix}
+            class="px-4 py-2 min-h-[44px] bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors"
+          >
+            Auto-Fix Color
+          </button>
+        {/if}
+      </div>
+
     </div>
 
     <!-- Smart Examples / Presets -->
@@ -477,6 +566,9 @@ Generated via A11y Forge`;
           </button>
         </div>
       </div>
+
+
+
     </div>
 
 
