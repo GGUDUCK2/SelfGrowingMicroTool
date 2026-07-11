@@ -32,7 +32,6 @@
 </script>
 
 <svelte:head>
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/pattern-forge"} />
   <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/pattern-forge" />

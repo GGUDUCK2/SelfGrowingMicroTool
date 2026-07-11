@@ -102,9 +102,7 @@
 
 
 <svelte:head>
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(schemaObj2)}</scr` + `ipt>`}
 </svelte:head>
 
@@ -169,7 +167,7 @@
               <p class="text-sm text-indigo-700 dark:text-indigo-200 mb-4">
                   {t.promoText}
               </p>
-              <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+
               <a href="/{lang}/tools/compound-interest-calculator" class="block w-full text-center py-2 min-h-[44px] min-w-[44px] flex items-center justify-center bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors text-sm font-medium">
                   {t.promoAction}
               </a>

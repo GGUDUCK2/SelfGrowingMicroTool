@@ -140,15 +140,14 @@
 />
 
 <svelte:head>
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+
+
   {@html `<script type="application/ld+json">${JSON.stringify(schemaObj)}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
   <div class="mb-8">
-    <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+
     <a aria-label="Back to home" href={`/${lang || 'en'}`} data-sveltekit-preload-data="hover" class="inline-flex items-center text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white mb-6 transition-colors min-h-[44px] min-w-[44px]">
       <span class="mr-2">&larr;</span> {getDictionary(lang).common?.back || 'Back to Home'}
     </a>

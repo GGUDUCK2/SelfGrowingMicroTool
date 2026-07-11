@@ -251,9 +251,8 @@
 
 
 <svelte:head>
-      <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-      <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+
+
   {@html `<script type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
 </svelte:head>
 
@@ -615,23 +614,23 @@
 
     <h3>{t.guide.featuresTitle}</h3>
     <ul>
-      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+
       <li><span class="markdown-body">{@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+
       <li><span class="markdown-body">{@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+
       <li><span class="markdown-body">{@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+
       <li><span class="markdown-body">{@html t.guide.f4.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
     </ul>
 
     <h3>{t.guide.tipsTitle}</h3>
     <ul>
-      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+
       <li><span class="markdown-body">{@html t.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+
       <li><span class="markdown-body">{@html t.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
-      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+
       <li><span class="markdown-body">{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
     </ul>
 

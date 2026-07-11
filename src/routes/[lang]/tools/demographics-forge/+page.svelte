@@ -124,11 +124,11 @@
     keywords="population pyramid, demographic transition, global demographics, median age, dependency ratio, visualization"
 />
 
-<!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+
 <svelte:head>
   {@html `<script type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
 </svelte:head>
-<!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+
 
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">

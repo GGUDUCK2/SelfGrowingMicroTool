@@ -161,9 +161,8 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+
 
 </svelte:head>
 
@@ -487,7 +486,7 @@
   </article>
 </div>
 
-<style>
+<style lang="postcss">
     .card {
         @apply bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm transition-all hover:shadow-md;
     }

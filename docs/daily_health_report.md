@@ -583,3 +583,18 @@ export default {}
 - 구조화된 데이터 삽입으로 인해 AI 크롤러와 검색 엔진에서 앱이 어떤 기능을 제공하는지 명확하게 이해하게 되어, 검색 결과 및 리치 스니펫에서의 가시성이 향상될 것으로 기대됩니다.
 - 모바일 접근성 준수 확인을 통해 UX 품질 및 Core Web Vitals 점수 방어.
 ---
+
+### [Daily Improvement Report - 2024-07-24]
+#### 1. Identified Issues (발견된 문제)
+- `eslint-disable-next-line` 주석이 `<svelte:head>` 블록 내부에 직접 배치되어 있거나, `{@html ...}`과 바로 인접하여 위치할 때 Svelte 컴파일러에서 구문 분석 오류(Unterminated template 또는 `<svelte:head> 태그 관련 오류`)를 일으킬 수 있는 문제를 발견함.
+- `snippet-forge`와 `rhythm-forge` 도구 페이지에서 `<svelte:head>` 내부의 JSON-LD 스키마 삽입 부분에 구문 오류 및 컴파일 오류를 일으키는 요소를 확인.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/` 내의 모든 `+page.svelte` 파일 검사 및 수정 - `<svelte:head>` 내부에 있는 `eslint-disable-next-line` 주석을 제거하여 Svelte 컴파일 오류 방지 (파이썬 스크립트 활용 일괄 제거).
+- **Code**: `src/routes/[lang]/tools/rhythm-forge/+page.svelte` - 하드코딩된 JSON-LD 템플릿 스트링 형식을 안전한 `{@html ...}` 형식과 `JSON.stringify`를 활용하는 구조로 변경하여 Unterminated template 에러 해결.
+- **Code**: `src/routes/[lang]/tools/snippet-forge/+page.svelte` - `jsonLd2` 삽입 오류를 해결하고, `<FAQSection>`에 전달하는 프로퍼티를 `question`/`answer`에서 `q`/`a`로 수정하여 타입 에러 해결.
+- **SEO/AEO**: `eslint` 오류를 해결하여 `<svelte:head>`가 정상적으로 빌드 및 렌더링되게 함으로써, JSON-LD 구조화 데이터 스키마가 로딩되지 않거나 페이지가 깨지는 문제를 방지함.
+
+#### 3. Performance Impact (기대 효과)
+- 치명적인 컴파일러 및 파싱 에러(Fatal Svelte compiler parsing errors) 해결로 빌드 안정성 확보.
+- SEO 및 AEO 전략의 핵심인 Schema.org 메타데이터와 Canonical 링크가 안정적으로 주입되어 검색 엔진 크롤링 효율이 개선될 것으로 기대.

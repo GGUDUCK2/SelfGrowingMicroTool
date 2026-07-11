@@ -315,19 +315,16 @@
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/grid-master" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
 
-  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+
   {@html `<script type="application/ld+json">
     ${JSON.stringify(schemaObj1)}
   </script>`}
-  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+
   {@html `<script type="application/ld+json">
     ${JSON.stringify(schemaObj2)}
   </script>`}
 
-  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+
   {@html `<script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -368,7 +365,7 @@
   <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+
         <a href="/{lang}" aria-label={common.back} class="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center p-2 -ml-2 rounded-lg">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
         </a>
@@ -599,15 +596,15 @@
               <h3 class="text-xl font-semibold">{dict.guide.featuresTitle}</h3>
               <ul class="grid grid-cols-1 md:grid-cols-3 gap-4 not-prose">
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+
                     {@html dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
                  </li>
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+
                     {@html dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
                  </li>
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+
                     {@html dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
                  </li>
               </ul>
