@@ -271,7 +271,7 @@
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
 
   {@html `<script type="application/ld+json">
-  {
+  ${JSON.stringify({
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
@@ -300,8 +300,7 @@
         }
       }
     ]
-  }
-  </script>`}
+  })}</scr` + `ipt>`}
 
 </svelte:head>
 

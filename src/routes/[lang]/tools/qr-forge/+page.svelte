@@ -150,11 +150,8 @@
 />
 
 <svelte:head>
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumb)}</scr` + `ipt>`}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":t?.q1||"","acceptedAnswer":{"@type":"Answer","text":t?.a1||""}},{"@type":"Question","name":t?.q2||"","acceptedAnswer":{"@type":"Answer","text":t?.a2||""}},{"@type":"Question","name":t?.q3||"","acceptedAnswer":{"@type":"Answer","text":t?.a3||""}}]})}</scr` + `ipt>`}
 </svelte:head>
 

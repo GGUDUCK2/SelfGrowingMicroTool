@@ -261,9 +261,9 @@
   <FAQSection
                title={dict.faqTitle}
                items={[
-                   { question: dict?.q1, answer: dict?.a1 },
-                   { question: dict?.q2, answer: dict?.a2 },
-                   { question: dict?.q3, answer: dict?.a3 }
+                   { q: dict?.q1, a: dict?.a1 },
+                   { q: dict?.q2, a: dict?.a2 },
+                   { q: dict?.q3, a: dict?.a3 }
                ]}
            />
        </div>

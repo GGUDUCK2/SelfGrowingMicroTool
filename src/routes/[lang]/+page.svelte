@@ -41,7 +41,6 @@
   <meta property="og:site_name" content="MicroFactory" />
 
   <!-- JSON-LD -->
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",

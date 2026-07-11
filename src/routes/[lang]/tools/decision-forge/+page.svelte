@@ -90,11 +90,9 @@
 />
 
 <svelte:head>
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbLd)}</scr` + `ipt>`}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+
 
 </svelte:head>
 

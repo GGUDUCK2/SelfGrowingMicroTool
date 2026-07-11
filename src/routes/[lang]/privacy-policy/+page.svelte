@@ -10,7 +10,6 @@
 <svelte:head>
   <title>Privacy Policy | MicroFactory</title>
   <meta name="robots" content="noindex" />
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html '<script type="application/ld+json">' + JSON.stringify({"@context":"https://schema.org","@type":"WebPage","@id":"https://selfgrowingmicrotool.com/" + lang + "/privacy-policy","name":"Privacy Policy","description":"Privacy Policy for MicroFactory"}) + '</script>'}
 </svelte:head>
 

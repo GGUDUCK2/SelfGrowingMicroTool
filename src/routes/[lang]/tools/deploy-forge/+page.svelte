@@ -125,7 +125,6 @@
 />
 
 <svelte:head>
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html '<script type="application/ld+json">' + JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -142,8 +141,7 @@
     "description": dict.tools.deployForge.description,
     "featureList": "Dockerfile generation, Docker Compose builder, Multi-stage build optimization"
   }) + '</script>'}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-    {@html '<script type="application/ld+json">' + JSON.stringify({
+  {@html '<script type="application/ld+json">' + JSON.stringify({
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": faqItems.map(f => ({

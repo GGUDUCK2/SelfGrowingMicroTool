@@ -87,8 +87,7 @@
 />
 
 <svelte:head>
-    <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
-    {@html `<script type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">

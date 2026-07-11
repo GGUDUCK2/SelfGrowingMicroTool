@@ -231,7 +231,6 @@
 
 
   {#if jsonLd}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   {/if}
 
@@ -365,7 +364,7 @@
   {/if}
 </div>
 
-<style>
+<style lang="postcss">
   /* Custom Scrollbar for Toolbar */
   .custom-scrollbar::-webkit-scrollbar {
     width: 4px;

@@ -165,9 +165,6 @@
 
 
 <svelte:head>
-
-
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${jsonLd}</scr` + `ipt>`}
 </svelte:head>
 

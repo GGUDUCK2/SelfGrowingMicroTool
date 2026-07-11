@@ -138,11 +138,9 @@
 
 <svelte:head>
   <!-- eslint-disable svelte/no-at-html-tags -->
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+
 
 </svelte:head>
 

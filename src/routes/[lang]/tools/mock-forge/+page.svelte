@@ -215,10 +215,8 @@
   <link rel="alternate" hreflang="en" href="{baseUrl}/en/tools/mock-forge" />
   <link rel="alternate" hreflang="ko" href="{baseUrl}/ko/tools/mock-forge" />
   <link rel="alternate" hreflang="x-default" href="{baseUrl}/en/tools/mock-forge" />
-
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">${JSON.stringify(schemaOrg)}</scr` + `ipt>`}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-expressions -->
+
 
 </svelte:head>
 
