@@ -22,7 +22,7 @@
 
   <div class="mt-8 p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700">
     <h3 class="mt-0">GitHub Issues and Feature Tracking</h3>
-    <p>Please do not hesitate to open a detailed issue on our <a href="https://github.com/microfactory/issues" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 font-medium">GitHub repository</a>.</p>
+    <p>Please do not hesitate to open a detailed issue on our <a href="https://github.com/microfactory/issues" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 font-medium min-h-[44px] min-w-[44px] inline-flex items-center">GitHub repository</a>.</p>
     <ul>
       <li><strong>Bug Reports:</strong> When reporting a bug, please strive to provide a comprehensive description of the issue. Include explicit steps to reproduce the bug, the expected behavior versus the actual behavior, and any relevant system information (such as your specific browser version and operating system). This greatly accelerates our debugging process.</li>
       <li><strong>Feature Requests:</strong> If you have an exciting idea for a brand new tool or a substantial improvement to an existing one, please let us know! Be as detailed as possible about the specific use case, the problem it solves, and your expected behavior or workflow.</li>
