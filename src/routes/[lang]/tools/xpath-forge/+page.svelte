@@ -17,7 +17,7 @@
 
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "SoftwareApplication",
     "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/xpath-forge",
     "isAccessibleForFree": true,
     "name": title,
