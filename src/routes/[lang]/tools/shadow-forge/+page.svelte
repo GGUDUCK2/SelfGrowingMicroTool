@@ -71,6 +71,10 @@
 />
 
 <svelte:head>
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/shadow-forge"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/shadow-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/shadow-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/shadow-forge" />
   {#if dict}
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}

@@ -311,7 +311,11 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-                    <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
+                    <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/grid-master"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/grid-master" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/grid-master" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
 

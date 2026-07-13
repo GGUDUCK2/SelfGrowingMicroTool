@@ -231,6 +231,10 @@
 <svelte:window on:keydown={handleGlobalKeydown} />
 
 <svelte:head>
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/logic-forge"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/logic-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/logic-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/logic-forge" />
   {@html `<script type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
 
 

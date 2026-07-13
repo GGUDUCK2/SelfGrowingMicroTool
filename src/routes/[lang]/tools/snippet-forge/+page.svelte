@@ -122,6 +122,10 @@
 <svelte:head>
 
 
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/snippet-forge"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/snippet-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/snippet-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/snippet-forge" />
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
 
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd2)}</script>`}

@@ -153,6 +153,10 @@
 
 <svelte:head>
 
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/cipher-lab"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/cipher-lab" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/cipher-lab" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/cipher-lab" />
   <!-- Twitter -->
 
     <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/cipher-lab" />

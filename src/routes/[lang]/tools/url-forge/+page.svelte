@@ -143,6 +143,10 @@
 
 <svelte:head>
 
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/url-forge"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/url-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/url-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/url-forge" />
   {#if jsonLd}
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   {/if}

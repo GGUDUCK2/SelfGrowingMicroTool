@@ -102,6 +102,10 @@
 
 
 <svelte:head>
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/unit-verse"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/unit-verse" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/unit-verse" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/unit-verse" />
   {@html `<script type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
   {@html `<script type="application/ld+json">${JSON.stringify(schemaObj2)}</scr` + `ipt>`}
 </svelte:head>

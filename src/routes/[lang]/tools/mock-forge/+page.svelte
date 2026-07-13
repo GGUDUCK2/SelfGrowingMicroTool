@@ -212,6 +212,10 @@
 
 
 <svelte:head>
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/mock-forge"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/mock-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/mock-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/mock-forge" />
   <link rel="alternate" hreflang="en" href="{baseUrl}/en/tools/mock-forge" />
   <link rel="alternate" hreflang="ko" href="{baseUrl}/ko/tools/mock-forge" />
   <link rel="alternate" hreflang="x-default" href="{baseUrl}/en/tools/mock-forge" />

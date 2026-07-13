@@ -126,6 +126,10 @@
 
 
 <svelte:head>
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/demographics-forge"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/demographics-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/demographics-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/demographics-forge" />
   {@html `<script type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
 </svelte:head>
 

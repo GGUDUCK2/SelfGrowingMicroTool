@@ -325,6 +325,10 @@
 />
 
 <svelte:head>
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/password-forge"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/password-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/password-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/password-forge" />
   <!-- eslint-disable svelte/no-at-html-tags -->
   <!-- eslint-disable @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">` + JSON.stringify(softwareSchema) + `${'</scr' + 'ipt>'}`}
