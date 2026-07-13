@@ -487,7 +487,7 @@
   <FAQSection title={t.faqTitle} items={faqItems} />
 </div>
 
-<style>
+<style lang="postcss">
     .btn-primary {
         @apply min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-4 py-3 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
     }

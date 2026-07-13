@@ -125,7 +125,7 @@
   {/if}
 </div>
 
-<style>
+<style lang="postcss">
   .custom-scrollbar::-webkit-scrollbar {
     width: 8px;
     height: 8px;

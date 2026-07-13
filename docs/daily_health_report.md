@@ -622,3 +622,41 @@ export default {}
 #### 3. Performance Impact (기대 효과)
 - Contact 페이지의 링크 클릭 편의성 향상 (모바일 UX/접근성 최적화).
 - 검색 엔진이 도구를 소프트웨어 애플리케이션으로 명확하게 인식하여 리치 스니펫 노출 및 AEO 랭킹 기대 향상.
+
+[Project Health Report - 2026-07-13]
+## Repository Hygiene
+- Cleaned up root directory by moving `*.py`, `*.log`, `*.png`, `patch_*.cjs`, `patch_*.sh` to `scripts/` folder.
+
+## Design Consistency
+- Checked for consistent standard layout and tool components (`GuideSection`, `FAQSection`, `AdPlaceholder`, `RelatedTools`) across all 74 tool pages. No missing components found.
+- Fixed `Unknown word` PostCSS compilation errors related to `@apply` directives in `<style>` blocks by changing them to `<style lang="postcss">` across 8 files: `chrono-shift`, `restro/ResponsePanel`, `restro/HistorySidebar`, `diff-viewer/MergeConflictResolver`, `string-theory/Toolbar`, `audio-forge/Toolbar`, `shadow-forge/LayerControl`, `shadow-forge/HistoryPanel`, `url-forge/UrlParser`, `url-forge/HistorySidebar`, `shadow-forge/CodeExport`.
+
+## AdSense Readiness
+- Audited JSON-LD injections. Resolved Svelte parsing errors (`Unterminated template`) in `snippet-forge` caused by string manipulation of JSON-LD scripts next to `@html` rendering.
+
+## Tech Debt
+- Replaced missing imports in `xpath-forge` (Lucide icons `LinkIcon`, `ChevronRight`) that were causing `svelte-check` strict mode failures.
+- Ensured `npm run build` succeeds without `cross-env` failure by installing `cross-env` locally and resolving memory heap issues.
+- Ran `npm audit` which reported 0 vulnerabilities.
+
+---
+### [Daily Improvement Report - 2026-07-13]
+#### 1. Identified Issues (발견된 문제)
+- 루트 디렉토리에 불필요한 스크립트 및 작업 파일 산재
+- Tailwind `@apply` 지시어를 사용하는 `<style>` 태그에 `lang="postcss"`가 누락되어 PostCSS 파싱 에러 발생 (Vite 빌드 경고).
+- `snippet-forge` 툴의 JSON-LD 파싱 방식이 Svelte의 `{@html}` 문법과 충돌하여 Unterminated template 에러 발생.
+- `xpath-forge` 컴포넌트 내 일부 아이콘(Lucide `LinkIcon`, `ChevronRight`)의 import 구문 누락으로 인한 `svelte-check` 오류.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**:
+  - `patch_*.cjs` 등 임시 파일을 `scripts/` 로 모두 이동하여 레포지토리 위생 개선.
+  - `src/lib/components/` 및 `src/routes/[lang]/tools/` 내 다수의 컴포넌트(`<style>`)를 `<style lang="postcss">`로 마이그레이션.
+  - `src/routes/[lang]/tools/snippet-forge/+page.svelte` 내 JSON-LD 삽입 로직 안전하게 수정.
+  - `src/lib/components/xpath-forge/XPathForge.svelte` 아이콘 임포트 누락 추가.
+- **SEO/AEO**:
+  - `snippet-forge`의 JSON-LD가 SSR 과정에서 안전하게 렌더링되도록 수정.
+
+#### 3. Performance Impact (기대 효과)
+- 레포지토리 클린업을 통한 유지보수성 향상.
+- 빌드 경고 및 에러(`svelte-check`) 대폭 감소로 CI/CD 안정성 증대.
+- JSON-LD 파싱 개선으로 검색엔진 크롤러가 구조화된 데이터를 100% 정상 인식 가능.
