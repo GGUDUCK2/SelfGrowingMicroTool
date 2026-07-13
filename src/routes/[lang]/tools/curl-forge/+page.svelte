@@ -142,6 +142,10 @@
 <svelte:head>
 
 
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/curl-forge"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/curl-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/curl-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/curl-forge" />
   {@html `<script type="application/ld+json">${JSON.stringify(schemaObj)}</scr` + `ipt>`}
 </svelte:head>
 

@@ -253,6 +253,10 @@
 <svelte:head>
 
 
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/structura"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/structura" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/structura" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/structura" />
   {@html `<script type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
 </svelte:head>
 

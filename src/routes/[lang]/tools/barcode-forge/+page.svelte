@@ -78,6 +78,10 @@
 />
 
 <svelte:head>
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/barcode-forge"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/barcode-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/barcode-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/barcode-forge" />
   {@html `<script type="application/ld+json">${jsonLd}</scr` + `ipt>`}
   {@html `<script type="application/ld+json">${breadcrumbJsonLd}</scr` + `ipt>`}
 </svelte:head>

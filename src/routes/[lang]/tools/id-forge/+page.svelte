@@ -222,6 +222,10 @@
 
 
 
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/id-forge"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/id-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/id-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/id-forge" />
   <!-- JSON-LD for SoftwareApplication -->
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd2)}</scr` + `ipt>`}

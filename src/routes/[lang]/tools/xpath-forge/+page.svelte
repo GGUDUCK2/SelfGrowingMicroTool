@@ -60,6 +60,10 @@
 <Head {title} {description} url={"https://selfgrowingmicrotool.com/" + lang + "/tools/xpath-forge"} />
 
 <svelte:head>
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/xpath-forge"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/xpath-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/xpath-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/xpath-forge" />
   {@html `<script type="application/ld+json">${jsonLd}</scr` + `ipt>`}
   {@html `<script type="application/ld+json">${breadcrumbJsonLd}</scr` + `ipt>`}
 </svelte:head>

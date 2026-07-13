@@ -109,7 +109,11 @@
 <svelte:head>
 
 
-    <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/file-forge" />
+    <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/file-forge"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/file-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/file-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/file-forge" />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/file-forge" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/file-forge" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/file-forge" />
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}

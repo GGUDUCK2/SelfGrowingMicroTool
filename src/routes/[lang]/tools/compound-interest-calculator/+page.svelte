@@ -387,6 +387,10 @@
 
 
 <svelte:head>
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/compound-interest-calculator"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/compound-interest-calculator" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/compound-interest-calculator" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/compound-interest-calculator" />
   {@html `<script type="application/ld+json">${JSON.stringify(schemaData)}</scr` + `ipt>`}
 </svelte:head>
 

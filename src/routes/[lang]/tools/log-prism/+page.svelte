@@ -265,6 +265,10 @@
 
 
 
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/log-prism"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/log-prism" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/log-prism" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/log-prism" />
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",

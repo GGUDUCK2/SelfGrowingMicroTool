@@ -125,6 +125,10 @@
 />
 
 <svelte:head>
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/deploy-forge"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/deploy-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/deploy-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/deploy-forge" />
   {@html '<script type="application/ld+json">' + JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

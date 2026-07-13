@@ -104,6 +104,10 @@
 
 <svelte:head>
 
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/invoice-forge"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/invoice-forge" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/invoice-forge" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/invoice-forge" />
   {@html `<script type="application/ld+json">
     ${JSON.stringify(schemaObj1)}
   </script>`}

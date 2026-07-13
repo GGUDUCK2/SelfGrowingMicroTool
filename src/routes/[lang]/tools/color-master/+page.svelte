@@ -261,6 +261,10 @@
 <svelte:head>
 
 
+  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/color-master"} />
+  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/color-master" />
+  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/color-master" />
+  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/color-master" />
   {@html `<script type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
 
 
