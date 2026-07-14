@@ -119,41 +119,11 @@
         "Secure Client-Side Processing"
     ]
   };
-
-  $: jsonLd2 = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": t?.q1,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t?.a1
-        }
-      },
-      {
-        "@type": "Question",
-        "name": t?.q2,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t?.a2
-        }
-      },
-      {
-        "@type": "Question",
-        "name": t?.q3,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t?.a3
-        }
-      }
-    ]
-  };
 </script>
 <Head
   title={t.title}
   description={t.description}
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/jwt-forge"}
 />
 
 
@@ -163,8 +133,6 @@
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/jwt-forge" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/jwt-forge" />
   {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd2)}</scr` + `ipt>`}
-
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 pb-20">
@@ -225,37 +193,7 @@
 
   <!-- Documentation -->
   <div class="max-w-4xl mx-auto px-4 mt-12">
-    <article class="prose dark:prose-invert max-w-none min-h-[44px] min-w-[44px]">
-       <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 mb-6">
-        {t.guide.title}
-      </h2>
-
-      <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">
-        {t.guide.intro}
-      </p>
-
-      <div class="grid md:grid-cols-2 gap-8 mb-12">
-        <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
-          <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{t.guide.featuresTitle}</h3>
-          <ul class="space-y-2 text-slate-600 dark:text-slate-400 list-disc pl-5">
-            <li>{@html t.guide.f1}</li>
-            <li>{@html t.guide.f2}</li>
-            <li>{@html t.guide.f3}</li>
-          </ul>
-        </div>
-
-        <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
-           <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-slate-100">{t.guide.tipsTitle}</h3>
-           <ul class="space-y-2 text-slate-600 dark:text-slate-400 list-disc pl-5">
-             <li>{@html t.guide.tip1}</li>
-             <li>{@html t.guide.tip2}</li>
-             <li>{@html t.guide.tip3}</li>
-           </ul>
-        </div>
-      </div>
-    </article>
-
-    <div class="mt-12">
+    <div class="mt-12 space-y-12">
         <GuideSection {...t?.guide} />
   <AdPlaceholder />
   <FAQSection
