@@ -692,3 +692,20 @@ export default {}
 #### 3. Performance Impact (기대 효과)
 - **SEO 최적화**: hreflang 및 canonical 태그 설정으로 다국어(ko/en) SEO 점수가 크게 상승하며 구글 검색 결과에서 적합한 페이지 노출 확률이 높아집니다.
 - **UX 및 접근성 향상**: 터치 영역 확장(44px)으로 모바일 환경에서의 오클릭을 방지하고 구글 Lighthouse Accessibility 점수 상승을 기대할 수 있습니다.
+
+---
+### [Daily Improvement Report - 2024-07-14]
+#### 1. Identified Issues (발견된 문제)
+- `jwt-forge` 페이지에 `FAQPage` JSON-LD가 중복으로 주입되는 문제 확인 (컴포넌트 및 페이지 레벨 동시 주입).
+- `url-forge` 페이지의 `@graph` 배열에 중복된 `FAQPage` 스키마가 포함되어 구조화 데이터 충돌 우려.
+- `yaml-forge`와 `jwt-forge`의 `<Head>` 컴포넌트에서 SEO용 `url` 속성이 누락되어 올바른 Canonical URL이 생성되지 않는 문제 확인.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/jwt-forge/+page.svelte` - 중복 정의된 `jsonLd2` 스키마 객체 삭제 및 하드코딩된 `<article>` 가이드 복제본 제거. `<Head>` 컴포넌트에 동적 `url` prop 추가.
+- **Code**: `src/routes/[lang]/tools/url-forge/+page.svelte` - `jsonLd`의 `@graph` 배열에서 `FAQPage` 스키마 항목 제거 (컴포넌트 자동 주입으로 통일).
+- **Code**: `src/routes/[lang]/tools/yaml-forge/+page.svelte` - `<Head>` 컴포넌트에 올바른 캐노니컬 URL을 위해 `url` prop 명시적 추가.
+- **SEO/AEO**: `<FAQSection>`을 통한 단일한 `FAQPage` 스키마 주입 보장 및, 모든 도구의 `<Head>`에 정확한 URL 메타데이터를 주입하여 소셜 쉐어 및 크롤러 최적화.
+
+#### 3. Performance Impact (기대 효과)
+- Google 검색 콘솔의 '구조화된 데이터 중복/충돌' 오류 방지.
+- 소셜 미디어 공유 및 SEO 검색 엔진 크롤러 대상 메타데이터 일관성 강화.

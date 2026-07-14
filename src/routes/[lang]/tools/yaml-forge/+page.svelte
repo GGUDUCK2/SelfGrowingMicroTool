@@ -87,6 +87,7 @@
 <Head
   title={dict.title}
   description={dict.description}
+  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/yaml-forge"}
 />
 
 <svelte:head>
