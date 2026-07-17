@@ -74,7 +74,7 @@
     {#if !isHome}
         <button
             on:click={onRemove}
-            class="absolute -top-3 -right-3 h-8 w-8 flex items-center justify-center bg-red-500 text-white rounded-full shadow-lg hover:bg-red-600 transition-colors focus:outline-none focus:ring-2 focus:ring-red-400 z-10"
+            class="absolute -top-3 -right-3 h-11 w-11 flex items-center justify-center bg-red-500 text-white rounded-full shadow-lg hover:bg-red-600 transition-colors focus:outline-none focus:ring-2 focus:ring-red-400 z-10"
             aria-label="Remove location"
         >
             <X size={16} />
