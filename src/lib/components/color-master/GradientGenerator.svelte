@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
-  import type { ColorData } from './color-utils';
+
   import type { ColorMasterDictionary } from '$lib/types/color-master';
 
   export let baseColor: string;

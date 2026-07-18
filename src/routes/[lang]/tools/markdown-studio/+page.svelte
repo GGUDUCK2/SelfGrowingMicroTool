@@ -26,7 +26,7 @@
 
   // Reactivity
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.markFlow;
+  $: dict = (getDictionary(lang) as any)?.tools?.markdownStudio;
   $: commonDict = getDictionary(lang).common;
 
   // Stats

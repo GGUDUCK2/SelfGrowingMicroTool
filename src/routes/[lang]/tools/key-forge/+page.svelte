@@ -20,7 +20,7 @@
   import GuideSection from '$lib/components/GuideSection.svelte';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.keyForge;
+  $: dict = (getDictionary(lang) as any)?.tools?.keyForge;
   $: common = getDictionary(lang).common;
 
   let config: GameConfig = {

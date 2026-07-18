@@ -17,8 +17,8 @@
     import { Check, Shield, Save } from '@lucide/svelte';
 
     $: lang = $page.params.lang || 'en';
-    $: dict = getDictionary(lang).tools.permsForge;
-    $: common = getDictionary(lang).common;
+    $: dict = (getDictionary(lang) as any)?.tools?.permsForge || {};
+    $: common = (getDictionary(lang) as any)?.common || {};
 
     // Core Logic State
     let permission = new Permission(0o755);
@@ -120,7 +120,7 @@
       }
     ]
   }
-  </script>`}
+  </scr` + `ipt>`}
 
 </svelte:head>
 

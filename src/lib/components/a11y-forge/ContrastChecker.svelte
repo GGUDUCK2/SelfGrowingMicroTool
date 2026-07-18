@@ -50,12 +50,12 @@
 
 
   // Smart suggestion: Adjust fgColor lightness until it passes AA
-  function hslToRgb(h, s, l) {
+  function hslToRgb(h: number, s: number, l: number) {
     let r, g, b;
     if (s === 0) {
       r = g = b = l;
     } else {
-      const hue2rgb = (p, q, t) => {
+      const hue2rgb = (p: number, q: number, t: number) => {
         if (t < 0) t += 1;
         if (t > 1) t -= 1;
         if (t < 1/6) return p + (q - p) * 6 * t;
@@ -72,10 +72,10 @@
     return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
   }
 
-  function rgbToHsl(r, g, b) {
+  function rgbToHsl(r: number, g: number, b: number) {
     r /= 255; g /= 255; b /= 255;
     const max = Math.max(r, g, b), min = Math.min(r, g, b);
-    let h, s, l = (max + min) / 2;
+    let h: number = 0, s: number = 0, l: number = (max + min) / 2;
     if (max === min) {
       h = s = 0;
     } else {
@@ -91,7 +91,7 @@
     return { h, s, l };
   }
 
-  function rgbToHexStr(r, g, b) {
+  function rgbToHexStr(r: number, g: number, b: number) {
     return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1).toUpperCase();
   }
 
@@ -169,7 +169,7 @@
     let g = parseInt(currentFgHex.slice(3, 5), 16);
     let b = parseInt(currentFgHex.slice(5, 7), 16);
 
-    let isLightBg = getLuminance(bgHex) > 0.5;
+    let isLightBg = getLuminance(hexToRgb(bgHex)?.r || 255, hexToRgb(bgHex)?.g || 255, hexToRgb(bgHex)?.b || 255) > 0.5;
 
     for(let i=0; i<50; i++) {
         let currentRatio = getContrastRatio(bgHex, `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`);
@@ -435,17 +435,17 @@ Generated via A11y Forge`;
       <div class="flex items-center gap-4 mt-6 p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
         <div class="flex-1">
           <h4 class="font-medium text-slate-900 dark:text-white flex items-center gap-2">
-            <span class={wcagAA ? 'text-emerald-500' : 'text-rose-500'}>
-              {wcagAA ? 'Passes WCAG AA' : 'Fails WCAG AA'}
+            <span class={(wcag.normal !== 'Fail') ? 'text-emerald-500' : 'text-rose-500'}>
+              {(wcag.normal !== 'Fail') ? 'Passes WCAG AA' : 'Fails WCAG AA'}
             </span>
           </h4>
-          {#if !wcagAA}
+          {#if !(wcag.normal !== 'Fail')}
             <p class="text-sm text-slate-500 mt-1">
               Click Auto-Fix to find the nearest passing contrast ratio.
             </p>
           {/if}
         </div>
-        {#if !wcagAA}
+        {#if !(wcag.normal !== 'Fail')}
           <button
             on:click={applyAutoFix}
             class="px-4 py-2 min-h-[44px] bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors"

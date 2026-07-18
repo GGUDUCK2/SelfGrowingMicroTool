@@ -57,9 +57,9 @@
                  : 'plaintext';
 
   $: faqItems = [
-    { q: dict.tools.deployForge.q1, a: dict.tools.deployForge.a1 },
-    { q: dict.tools.deployForge.q2, a: dict.tools.deployForge.a2 },
-    { q: dict.tools.deployForge.q3, a: dict.tools.deployForge.a3 }
+    { q: ((dict as any)?.tools?.deployForge || {}).q1, a: ((dict as any)?.tools?.deployForge || {}).a1 },
+    { q: ((dict as any)?.tools?.deployForge || {}).q2, a: ((dict as any)?.tools?.deployForge || {}).a2 },
+    { q: ((dict as any)?.tools?.deployForge || {}).q3, a: ((dict as any)?.tools?.deployForge || {}).a3 }
   ];
 
   // --- Actions ---
@@ -115,12 +115,12 @@
           updatedAt: Date.now()
       });
       // Show toast or feedback?
-      alert(dict.tools.deployForge.saved);
+      alert(((dict as any)?.tools?.deployForge || {}).saved);
   }
 </script>
 <Head
-  title={`${dict.tools.deployForge.title} | ${dict.home.title}`}
-  description={dict.tools.deployForge.description}
+  title={`${((dict as any)?.tools?.deployForge || {}).title} | ${dict.home.title}`}
+  description={((dict as any)?.tools?.deployForge || {}).description}
   keywords="dockerfile generator, docker compose builder, container architect, devops tool"
 />
 
@@ -142,7 +142,7 @@
       "price": "0",
       "priceCurrency": "USD"
     },
-    "description": dict.tools.deployForge.description,
+    "description": ((dict as any)?.tools?.deployForge || {}).description,
     "featureList": "Dockerfile generation, Docker Compose builder, Multi-stage build optimization"
   }) + '</script>'}
   {@html '<script type="application/ld+json">' + JSON.stringify({
@@ -168,16 +168,16 @@
           <MoveLeft size={20} class="text-slate-400 group-hover:text-white" />
         </a>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
-          {dict.tools.deployForge.title}
+          {((dict as any)?.tools?.deployForge || {}).title}
         </h1>
       </div>
       <div class="flex items-center space-x-2">
-         <button on:click={saveToHistory} class="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center min-h-[44px] min-w-[44px]" aria-label={dict.tools.deployForge.save}>
+         <button on:click={saveToHistory} class="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center min-h-[44px] min-w-[44px]" aria-label={((dict as any)?.tools?.deployForge || {}).save}>
             <Save size={20} />
          </button>
      <button on:click={downloadProject} class="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors text-sm min-h-[44px] min-w-[44px]">
             <Download size={18} />
-        <span class="hidden sm:inline">{dict.tools.deployForge.download}</span>
+        <span class="hidden sm:inline">{((dict as any)?.tools?.deployForge || {}).download}</span>
          </button>
       </div>
     </div>
@@ -189,7 +189,7 @@
         <!-- Left Column: Config (5 cols) -->
         <div class="lg:col-span-5 space-y-8">
             <section>
-                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">{dict.tools.deployForge.selectStack}</h2>
+                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">{((dict as any)?.tools?.deployForge || {}).selectStack}</h2>
                 <StackSelector
                     selectedStackId={currentStackId}
                     on:select={handleStackSelect}
@@ -204,7 +204,7 @@
             </section>
 
             <section>
-                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">{dict.tools.deployForge.addServices}</h2>
+                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">{((dict as any)?.tools?.deployForge || {}).addServices}</h2>
                 <DatabaseSelector
                     selectedDatabases={config.databases}
                     on:change={handleDbChange}
@@ -266,30 +266,30 @@
     <div class="mt-20 border-t border-slate-800 pt-16">
         <div class="prose prose-invert max-w-none">
             <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400 mb-6">
-                {dict.tools.deployForge.guide.title}
+                {((dict as any)?.tools?.deployForge || {}).guide.title}
             </h2>
             <div class="grid md:grid-cols-2 gap-12 text-slate-300 leading-relaxed">
                 <div>
-                    <h3 class="text-xl font-semibold text-white mb-4">{dict.tools.deployForge.guide.introTitle}</h3>
+                    <h3 class="text-xl font-semibold text-white mb-4">{((dict as any)?.tools?.deployForge || {}).guide.introTitle}</h3>
                     <p class="mb-4">
-                        {dict.tools.deployForge.guide.intro}
+                        {((dict as any)?.tools?.deployForge || {}).guide.intro}
                     </p>
                 </div>
                 <div>
-                    <h3 class="text-xl font-semibold text-white mb-4">{dict.tools.deployForge.guide.featuresTitle}</h3>
+                    <h3 class="text-xl font-semibold text-white mb-4">{((dict as any)?.tools?.deployForge || {}).guide.featuresTitle}</h3>
                     <div class="space-y-3 markdown-content">
                         <!-- We render these as markdown-like lists -->
                         <div class="flex items-start gap-2">
                             <span class="text-indigo-400 mt-1">•</span>
-                            <span>{@html dict.tools.deployForge.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+                            <span>{@html ((dict as any)?.tools?.deployForge || {}).guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                         </div>
                         <div class="flex items-start gap-2">
                             <span class="text-indigo-400 mt-1">•</span>
-                            <span>{@html dict.tools.deployForge.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+                            <span>{@html ((dict as any)?.tools?.deployForge || {}).guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                         </div>
                         <div class="flex items-start gap-2">
                             <span class="text-indigo-400 mt-1">•</span>
-                            <span>{@html dict.tools.deployForge.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+                            <span>{@html ((dict as any)?.tools?.deployForge || {}).guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                         </div>
                     </div>
                 </div>
@@ -299,7 +299,7 @@
                 <GuideSection {...dict?.guide} />
   <AdPlaceholder />
   <FAQSection
-                    title={dict.tools.deployForge.faqTitle}
+                    title={((dict as any)?.tools?.deployForge || {}).faqTitle}
                     items={faqItems}
                 />
             </div>

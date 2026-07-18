@@ -246,7 +246,7 @@
         </button>
       </div>
 
-      <MatchViewer {testString} {matches} {error} dictionary={t} on:change={handleTestStringChange} />
+      <MatchViewer testString={testString as any} matches={matches as any} error={error as any} dictionary={t as any} on:change={handleTestStringChange} />
     </div>
 
     <!-- Right Column: Sidebar (4 cols) -->
@@ -275,7 +275,7 @@
                 </button>
                 <button
                   class="text-slate-400 hover:text-red-500 transition-colors p-1 min-h-[44px] min-w-[44px]"
-                  on:click={() => deleteHistory(item.id)}
+                  on:click={() => deleteHistory(item.id as any)}
                   title={t.delete}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">

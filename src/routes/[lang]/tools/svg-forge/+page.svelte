@@ -20,7 +20,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.svgForge;
+  $: t = ((dict as any)?.tools?.svgForge || {});
 
   // --- State ---
   let rawSvg = '';

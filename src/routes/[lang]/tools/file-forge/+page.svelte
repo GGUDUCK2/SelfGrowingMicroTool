@@ -15,7 +15,7 @@
   import type { AnalysisData } from '$lib/utils/file-forge/report';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.fileForge as any;
+  $: dict = ((getDictionary(lang) as any)?.tools?.fileForge || {}) as any;
   $: common = getDictionary(lang).common;
 
   let currentFile: File | null = null;

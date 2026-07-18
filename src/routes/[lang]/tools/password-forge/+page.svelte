@@ -24,10 +24,10 @@
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
   $: t = {
-      ...dict.tools.passwordForge,
-      modePronounceable: dict.tools.passwordForge.modePronounceable || 'Pronounceable',
-      modeAnalyzer: dict.tools.passwordForge.modeAnalyzer || 'Analyzer',
-      analyzer: dict.tools.passwordForge.analyzer || {}
+      ...((dict as any)?.tools?.passwordForge || {}),
+      modePronounceable: ((dict as any)?.tools?.passwordForge?.modePronounceable) || 'Pronounceable',
+      modeAnalyzer: ((dict as any)?.tools?.passwordForge?.modeAnalyzer) || 'Analyzer',
+      analyzer: ((dict as any)?.tools?.passwordForge?.analyzer) || {}
   };
 
   let mode: 'password' | 'passphrase' | 'pronounceable' | 'analyzer' = 'password';
@@ -81,20 +81,20 @@
           if (mode === 'password') {
               const res = generatePassword(pwdConfig);
               pwd = res.password;
-              ent = res.entropy;
+              ent = (res as any).entropy;
           } else if (mode === 'passphrase') {
               const res = generatePassphrase(phraseConfig);
-              pwd = res.passphrase;
-              ent = res.entropy;
+              pwd = (res as any).passphrase;
+              ent = (res as any).entropy;
           } else if (mode === 'pronounceable') {
               const res = generatePronounceable(pronounceConfig);
               pwd = res.password;
-              ent = res.entropy;
+              ent = (res as any).entropy;
           } else {
               // Analyzer mode, fallback to standard password
               const res = generatePassword(pwdConfig);
               pwd = res.password;
-              ent = res.entropy;
+              ent = (res as any).entropy;
           }
           const strength = getStrength(ent).label;
           // Escape quotes for CSV
@@ -411,7 +411,7 @@
                         >
                             {#if copied}
                                 <span class="absolute inset-0 bg-green-500 flex items-center justify-center text-white font-bold transition-transform transform scale-100">
-                                    {dict.common.copied}
+                                    {(dict as any)?.common?.copied || ""}
                                 </span>
                             {:else}
                                 <Copy size={24} />

@@ -21,7 +21,7 @@
   // Dynamic dictionary loading
   $: lang = $page.params.lang || "en";
   $: dict = getDictionary(lang);
-  $: t = dict.tools.iconForge;
+  $: t = ((dict as any)?.tools?.iconForge || {});
 
   $: faqItems = [
     { q: t?.q1, a: t?.a1 },

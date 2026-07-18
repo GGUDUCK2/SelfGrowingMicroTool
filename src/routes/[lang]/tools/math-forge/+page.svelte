@@ -19,7 +19,7 @@
 
   $: lang = $page.params.lang || 'en';
   // Use fallback if dictionary is missing to avoid crash
-  $: dict = getDictionary(lang)?.tools?.mathForge || getDictionary('en').tools.mathForge;
+  $: dict = (getDictionary(lang) as any)?.tools?.mathForge || (getDictionary('en') as any)?.tools?.mathForge;
   $: common = getDictionary(lang)?.common || getDictionary('en').common;
 
   $: clean = (text: string) => text.replace(/\*\*/g, '');
@@ -119,7 +119,7 @@
       },
       "featureList": ${JSON.stringify(featureList)}
     }
-  </script>`}
+  </scr` + `ipt>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">

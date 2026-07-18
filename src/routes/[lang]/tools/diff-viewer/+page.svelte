@@ -22,7 +22,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.diffViewer;
+  $: t = ((dict as any)?.tools?.diffViewer || {});
   $: translations = t; // For passing to components
 
   $: faqItems = [

@@ -24,7 +24,7 @@
   import { History } from '@lucide/svelte';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.logPrism;
+  $: dict = ((getDictionary(lang) as any)?.tools?.logPrism || {});
 
   // State
   let entries: LogEntry[] = [];
