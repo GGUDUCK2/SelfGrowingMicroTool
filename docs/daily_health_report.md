@@ -783,3 +783,30 @@ export default {}
 #### 3. Performance Impact (기대 효과)
 - AdSense 승인율 및 수익화(Monetization) 준비도 향상.
 - 빌드 시스템(`svelte-check`)의 안전성 강화 및 향후 CI 파이프라인 무중단 대응 가능성 증대.
+
+[Project Health Report - 2024-07-25]
+## Repository Hygiene
+- Removed unneeded `scripts/` directory to maintain root directory cleanliness.
+## Design Consistency
+- Checked for and patched missing touch targets across various `perms-forge` components manually to ensure consistent mobile accessibility.
+## AdSense Readiness
+- Validated SEO schemas across tool pages and removed duplicated attributes such as `min-h-[44px] min-h-[44px]`.
+## Tech Debt
+- Corrected and ensured all JSON-LD `@type` defaults to `SoftwareApplication` instead of `WebApplication` for unified representation.
+
+---
+### [Daily Improvement Report - 2024-07-25]
+#### 1. Identified Issues (발견된 문제)
+- 일부 컴포넌트(`perms-forge/HistoryPanel`, `perms-forge/CommandBuilder`)의 버튼 요소에서 모바일 터치 타겟(최소 44px)이 누락됨.
+- 일부 툴 페이지(예: `jwt-forge` 등)에서 구조화 데이터(JSON-LD)에 `@type: WebApplication` 이 산재해 있어 AEO 일관성이 떨어짐.
+- 루트 경로에 임시 탐색용 파일/디렉토리(`scripts/`)가 남아 위생 훼손.
+
+#### 2. Key Key Changes (주요 수정 사항)
+- **Code**: `src/lib/components/perms-forge/HistoryPanel.svelte`, `src/lib/components/perms-forge/CommandBuilder.svelte` - 버튼에 `min-h-[44px] min-w-[44px]` 클래스 추가하여 모바일 접근성 개선.
+- **Code**: 임시 스크립트 디렉토리 `scripts/` 삭제.
+- **SEO/AEO**: `src/routes/[lang]/tools/*` 일괄적으로 JSON-LD 스키마 `@type`을 `SoftwareApplication`으로 통합 적용.
+
+#### 3. Performance Impact (기대 효과)
+- `perms-forge` 페이지 모바일 기기에서의 터치 오류 최소화 및 사용 편의성 증대.
+- 모든 도구가 검색 엔진 및 AEO 봇에 의해 단일한 `SoftwareApplication`으로 인덱싱되어 리치 스니펫 일관성 및 노출 증대.
+- 레포지토리 관리 위생 회복.
