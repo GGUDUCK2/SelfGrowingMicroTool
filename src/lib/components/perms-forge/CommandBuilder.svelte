@@ -51,7 +51,7 @@
 
         <button
             on:click={copy}
-            class="absolute right-4 top-1/2 -translate-y-1/2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-all flex items-center gap-2"
+            class="absolute right-4 top-1/2 -translate-y-1/2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-all flex items-center gap-2 min-h-[44px] min-w-[44px]"
         >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
             Copy
