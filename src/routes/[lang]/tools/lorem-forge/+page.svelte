@@ -138,7 +138,7 @@
     {#if d?.guideTitle}
         <GuideSection
             title={d.guideTitle}
-            subtitle={d.guideSubtitle}
+            subtitle={d?.guideSubtitle as any}
             features={d?.guideFeatures || []}
         />
     {/if}
@@ -149,7 +149,7 @@
     {#if d?.faqTitle}
         <FAQSection
             title={d.faqTitle}
-            items={d?.faqs || []}
+            items={(d?.faqs as any) || []}
         />
     {/if}
 

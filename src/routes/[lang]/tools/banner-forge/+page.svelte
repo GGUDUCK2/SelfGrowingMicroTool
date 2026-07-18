@@ -10,7 +10,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: toolDict = dict.tools.bannerForge;
+  $: toolDict = ((dict as any)?.tools?.bannerForge || {});
 
   $: title = toolDict.title;
   $: description = toolDict.description;

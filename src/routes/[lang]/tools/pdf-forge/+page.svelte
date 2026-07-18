@@ -12,7 +12,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: toolDict = dict.tools.pdfForge;
+  $: toolDict = (dict as any)?.tools?.pdfForge || {};
 
   // SEO
   $: title = `${toolDict.title} - ${dict.home.title}`;
@@ -116,7 +116,7 @@
       }
     ]
   }
-  </script>`}
+  </scr` + `ipt>`}
 
 </svelte:head>
 

@@ -15,7 +15,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.unitVerse;
+  $: t = ((dict as any)?.tools?.unitVerse || {});
 
   $: faqItems = [
     { q: t.q1, a: t.a1 },

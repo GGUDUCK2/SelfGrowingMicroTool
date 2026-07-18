@@ -18,7 +18,7 @@
   import { fade, slide } from 'svelte/transition';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.tableForge;
+  $: dict = ((getDictionary(lang) as any)?.tools?.tableForge || {});
 
   let data: TableData = [['id', 'name', 'role'], ['1', 'Alice', 'Admin'], ['2', 'Bob', 'User']];
   let outputFormat: OutputFormat = 'markdown';

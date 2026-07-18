@@ -201,12 +201,12 @@
 
              {#if showHistory}
                 <div transition:fade class="p-4 border-b border-slate-700 bg-slate-800/80">
-                    <QRHistory {dictionary} onLoad={loadState} />
+                    <QRHistory dictionary={dictionary as any} onLoad={loadState} />
                 </div>
              {/if}
 
              <div class="p-6">
-                <QRConfig bind:state {dictionary} />
+                <QRConfig bind:state dictionary={dictionary as any} />
              </div>
         </div>
 
@@ -252,7 +252,7 @@
 
       <!-- Right: Preview -->
       <div class="lg:col-span-1 lg:sticky lg:top-8">
-         <QRPreview {state} {dictionary} />
+         <QRPreview {state} dictionary={dictionary as any} />
 
          <div class="mt-6 bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 text-sm text-slate-400">
             <h4 class="font-semibold text-slate-300 mb-2">Technical Specs</h4>

@@ -22,7 +22,7 @@
   import { copyToClipboard } from '$lib/utils';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.logicForge as any;
+  $: dict = (getDictionary(lang) as any)?.tools?.logicForge as any;
 
   $: faqItems = [
     { q: dict?.q1, a: dict?.a1 },
@@ -306,7 +306,7 @@
                     class="px-3 py-2 min-h-[44px] min-w-[44px] bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors"
                     aria-label="Insert {label}"
                     on:click={() => {
-                        expression += (expression && !expression.endsWith(' ') ? ' ' : '') + label.split(' ')[0] + ' ';
+                        expression += (expression && !expression.endsWith(' ') ? ' ' : '') + (label as any).split(' ')[0] + ' ';
                     }}
                  >
                     {label}

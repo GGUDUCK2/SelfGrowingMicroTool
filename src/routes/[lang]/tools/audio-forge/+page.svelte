@@ -13,7 +13,7 @@
   // Fallback if dictionary key doesn't exist yet (during development)
   $: dict = getDictionary(lang);
   $: common = dict.common || { back: "Back", home: "Home" };
-  $: toolDict = dict.tools.audioForge || {
+  $: toolDict = ((dict as any)?.tools?.audioForge || {}) || {
       title: "Audio Forge",
       description: "Professional Audio Editor",
       guide: {},

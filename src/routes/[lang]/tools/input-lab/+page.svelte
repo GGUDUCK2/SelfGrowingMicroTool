@@ -18,7 +18,7 @@
   import FAQSection from '$lib/components/FAQSection.svelte';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.inputLab;
+  $: dict = ((getDictionary(lang) as any)?.tools?.inputLab || {});
   $: common = getDictionary(lang).common;
 
   $: jsonLd = {

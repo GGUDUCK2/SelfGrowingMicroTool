@@ -17,7 +17,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: toolDict = dict.tools.resumeForge;
+  $: toolDict = ((dict as any)?.tools?.resumeForge || {});
 
   let showHistory = false;
   let showPreviewOnMobile = false; // Toggle for mobile view

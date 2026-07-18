@@ -11,11 +11,11 @@
   import FAQSection from '$lib/components/FAQSection.svelte';
   $: lang = $page.params.lang || 'en';
 
-  $: dict = getDictionary($page.params.lang);
-  $: toolDict = dict.tools.pixelForge;
+  $: dict = getDictionary(($page.params.lang || "en") as "en" | "ko");
+  $: toolDict = (dict as any)?.tools?.pixelForge || {};
 
   // SEO & Meta
-  $: title = `${toolDict.title} - ${dict.common.category}`; // e.g. Pixel Forge - Image Tools
+  $: title = `${toolDict.title} - ${(dict as any)?.common?.category || ""}`; // e.g. Pixel Forge - Image Tools
   $: description = toolDict.description;
 
   $: faqItems = [

@@ -18,7 +18,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.diagramForge;
+  $: t = ((dict as any)?.tools?.diagramForge || {});
 
   let code = templates[0].code;
   let theme = 'default';

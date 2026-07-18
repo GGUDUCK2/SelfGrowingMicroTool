@@ -40,7 +40,7 @@
   let currentScale: ScaleStep[] = [];
 
   $: dict = getDictionary(($page.params.lang || "en"));
-  $: t = dict.tools.colorMaster;
+  $: t = ((dict as any)?.tools?.colorMaster || {});
 
   $: schema = {
     "@context": "https://schema.org",

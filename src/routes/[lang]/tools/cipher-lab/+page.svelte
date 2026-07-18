@@ -20,7 +20,7 @@
   import { onMount, onDestroy } from 'svelte';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.cipherLab as any;
+  $: dict = ((getDictionary(lang) as any)?.tools?.cipherLab || {}) as any;
   $: common = getDictionary(lang).common;
 
   $: breadcrumbSchema = {

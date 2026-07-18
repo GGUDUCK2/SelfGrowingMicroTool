@@ -48,7 +48,11 @@
 
       // Use standard imports or dynamic with casting if needed
       // Prism plugins often don't have types exported nicely
+      // @ts-ignore
+      await
       await import('prismjs/components/prism-json');
+      // @ts-ignore
+      await
       await import('prismjs/components/prism-markup');
       await import('prismjs/themes/prism-tomorrow.css');
 

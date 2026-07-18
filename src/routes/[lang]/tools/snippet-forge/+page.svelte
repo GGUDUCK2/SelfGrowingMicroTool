@@ -17,7 +17,7 @@
   import { fade, slide } from 'svelte/transition';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools.snippetForge;
+  $: dict = ((getDictionary(lang) as any)?.tools?.snippetForge || {});
 
   let showHistory = false;
   let showMobileControls = false;

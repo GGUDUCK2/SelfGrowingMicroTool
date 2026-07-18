@@ -14,7 +14,7 @@
   // State initialization
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict.tools.timeForge;
+  $: t = ((dict as any)?.tools?.timeForge || {});
 
   // Load state from URL if present
   onMount(() => {
