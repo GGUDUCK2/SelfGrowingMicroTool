@@ -445,6 +445,26 @@
     "createdAt": "2026-05-17"
   },
   {
+    "id": "gradient-forge",
+    "slug": "gradient-forge",
+    "title": {
+      "en": "Gradient Forge",
+      "ko": "Gradient Forge"
+    },
+    "description": {
+      "en": "Advanced CSS Gradient Generator",
+      "ko": "고급 CSS 그라디언트 생성기"
+    },
+    "category": "design",
+    "tags": [
+      "css",
+      "gradient",
+      "generator",
+      "design"
+    ],
+    "createdAt": "2024-02-15"
+  },
+  {
     "id": "grid-master",
     "slug": "grid-master",
     "title": {
