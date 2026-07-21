@@ -48,7 +48,7 @@
               <div class="flex-1 flex flex-col gap-2 overflow-y-auto max-h-[300px] custom-scrollbar">
                   {#each col.tasks as task, j (task.id)}
                       <button
-                        class="bg-white dark:bg-slate-800 p-2.5 rounded shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md hover:-translate-y-0.5 transition-all text-left group"
+                        class="bg-white dark:bg-slate-800 p-2.5 rounded shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md hover:-translate-y-0.5 transition-all text-left group min-h-[44px] min-w-[44px]"
                         on:click={() => moveTask(i, j)}
                         aria-label={`Move task ${task.title}`}
                       >
@@ -59,7 +59,7 @@
                           </div>
                       </button>
                   {/each}
-                  <button class="w-full py-1.5 border border-dashed border-slate-300 dark:border-slate-600 rounded text-[10px] text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700/50 hover:text-indigo-500 transition-colors flex items-center justify-center gap-1">
+                  <button class="w-full py-1.5 border border-dashed border-slate-300 dark:border-slate-600 rounded text-[10px] text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700/50 hover:text-indigo-500 transition-colors flex items-center justify-center gap-1 min-h-[44px] min-w-[44px]">
                       <span>+ Add Task</span>
                   </button>
               </div>

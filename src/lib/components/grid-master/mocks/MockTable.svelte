@@ -19,10 +19,10 @@
   <div class="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/30">
       <h3 class="font-bold text-sm text-slate-700 dark:text-slate-200">{name}</h3>
       <div class="flex gap-2">
-          <button class="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-700 rounded text-slate-500 transition-colors" aria-label="Search">
+          <button class="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-700 rounded text-slate-500 transition-colors min-h-[44px] min-w-[44px]" aria-label="Search">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
           </button>
-          <button class="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-700 rounded text-slate-500 transition-colors" aria-label="Settings">
+          <button class="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-700 rounded text-slate-500 transition-colors min-h-[44px] min-w-[44px]" aria-label="Settings">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9-9 9-9-1.8-9-9 1.8-9 9-9z"/><circle cx="12" cy="12" r="3"/></svg>
           </button>
       </div>
@@ -49,7 +49,7 @@
                           <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide {row.statusColor}">{row.status}</span>
                       </td>
                       <td class="px-4 py-3 text-center">
-                          <button class="opacity-0 group-hover:opacity-100 p-1 hover:text-indigo-600 transition-all" aria-label="Row Options">
+                          <button class="opacity-0 group-hover:opacity-100 p-1 hover:text-indigo-600 transition-all min-h-[44px] min-w-[44px]" aria-label="Row Options">
                               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
                           </button>
                       </td>
@@ -62,8 +62,8 @@
   <div class="p-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex justify-between items-center text-[10px] text-slate-500">
       <span>Showing 1-5 of 24</span>
       <div class="flex gap-1">
-          <button class="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 transition-colors">Prev</button>
-          <button class="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 transition-colors">Next</button>
+          <button class="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 transition-colors min-h-[44px] min-w-[44px]">Prev</button>
+          <button class="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 transition-colors min-h-[44px] min-w-[44px]">Next</button>
       </div>
   </div>
 </div>

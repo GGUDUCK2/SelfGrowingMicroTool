@@ -28,7 +28,7 @@
 
   <div class="flex gap-2 mb-6">
       {#each ['dribbble', 'twitter', 'linkedin'] as social}
-          <button class="p-2 rounded-full bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all" aria-label={social}>
+          <button class="p-2 rounded-full bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all min-h-[44px] min-w-[44px]" aria-label={social}>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="12" cy="12" r="10"/></svg>
           </button>
       {/each}
@@ -45,12 +45,12 @@
 
   <div class="flex gap-3 w-full">
       <button
-        class="flex-1 py-2 rounded-lg font-bold text-sm transition-all shadow-sm hover:shadow {following ? 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300' : 'bg-indigo-600 text-white hover:bg-indigo-700'}"
+        class="flex-1 py-2 rounded-lg font-bold text-sm transition-all shadow-sm hover:shadow {following ? 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300' : 'bg-indigo-600 text-white hover:bg-indigo-700'} min-h-[44px] min-w-[44px]"
         on:click={() => following = !following}
       >
           {following ? 'Following' : 'Follow'}
       </button>
-      <button class="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 hover:text-indigo-500 transition-colors text-slate-500" aria-label="Message">
+      <button class="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 hover:text-indigo-500 transition-colors text-slate-500 min-h-[44px] min-w-[44px]" aria-label="Message">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       </button>
   </div>

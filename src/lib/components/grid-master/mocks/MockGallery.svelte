@@ -18,10 +18,10 @@
   <div class="flex justify-between items-center mb-4">
       <h3 class="font-bold text-sm">{name}</h3>
       <div class="flex gap-2">
-          <button class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded {layout === 'grid' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/30' : 'text-slate-400'}" on:click={() => layout = 'grid'} aria-label="Grid View">
+          <button class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded {layout === 'grid' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/30' : 'text-slate-400'} min-h-[44px] min-w-[44px]" on:click={() => layout = 'grid'} aria-label="Grid View">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
           </button>
-          <button class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded {layout === 'masonry' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/30' : 'text-slate-400'}" on:click={() => layout = 'masonry'} aria-label="Masonry View">
+          <button class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded {layout === 'masonry' ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/30' : 'text-slate-400'} min-h-[44px] min-w-[44px]" on:click={() => layout = 'masonry'} aria-label="Masonry View">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7v7H3z"/><path d="M14 3h7v13h-7z"/><path d="M14 21h7v-1h-7z"/><path d="M3 14h7v7H3z"/></svg>
           </button>
       </div>

@@ -25,7 +25,7 @@
     {#each presets as p}
         <button
             on:click={() => apply(p.value)}
-            class="flex flex-col items-start p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-indigo-500 hover:shadow-md transition-all text-left group"
+            class="flex flex-col items-start p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-indigo-500 hover:shadow-md transition-all text-left group min-h-[44px] min-w-[44px]"
         >
             <div class="text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">{p.label}</div>
             <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">{p.desc}</div>

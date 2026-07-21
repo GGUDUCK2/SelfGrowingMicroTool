@@ -19,10 +19,10 @@
   <div class="flex justify-between items-center mb-4">
       <h3 class="font-bold text-sm text-slate-800 dark:text-slate-200">{month}</h3>
       <div class="flex gap-1">
-          <button aria-label="Previous Month" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-400 hover:text-indigo-500 transition-colors">
+          <button aria-label="Previous Month" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-400 hover:text-indigo-500 transition-colors min-h-[44px] min-w-[44px]">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
           </button>
-          <button aria-label="Next Month" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-400 hover:text-indigo-500 transition-colors">
+          <button aria-label="Next Month" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-400 hover:text-indigo-500 transition-colors min-h-[44px] min-w-[44px]">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
           </button>
       </div>
@@ -41,7 +41,7 @@
       {#each dates as d (d.date)}
           <button
             class="aspect-square flex flex-col items-center justify-center rounded-lg text-xs font-medium transition-all relative group
-            {selectedDate === d.date ? 'bg-indigo-600 text-white shadow-md scale-105' : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'}"
+            {selectedDate === d.date ? 'bg-indigo-600 text-white shadow-md scale-105' : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'} min-h-[44px] min-w-[44px]"
             on:click={() => selectedDate = d.date}
           >
               {d.date}

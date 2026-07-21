@@ -19,21 +19,21 @@
     </div>
     <div class="flex gap-1">
         <button
-          class="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 {type === 'bar' ? 'text-indigo-500' : 'opacity-40'}"
+          class="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 {type === 'bar' ? 'text-indigo-500' : 'opacity-40'} min-h-[44px] min-w-[44px]"
           on:click={() => type = 'bar'}
           aria-label="Bar Chart"
         >
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
         </button>
         <button
-          class="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 {type === 'line' ? 'text-indigo-500' : 'opacity-40'}"
+          class="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 {type === 'line' ? 'text-indigo-500' : 'opacity-40'} min-h-[44px] min-w-[44px]"
           on:click={() => type = 'line'}
           aria-label="Line Chart"
         >
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </button>
         <button
-          class="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 opacity-40 hover:text-indigo-500"
+          class="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 opacity-40 hover:text-indigo-500 min-h-[44px] min-w-[44px]"
           on:click={randomize}
           aria-label="Refresh Data"
         >
