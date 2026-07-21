@@ -45,7 +45,7 @@
   <!-- Big Play Button -->
   {#if !isPlaying}
       <button
-         class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center pl-1 hover:scale-110 hover:bg-white/20 transition-all z-10 shadow-2xl"
+         class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center pl-1 hover:scale-110 hover:bg-white/20 transition-all z-10 shadow-2xl min-h-[44px] min-w-[44px]"
          on:click={togglePlay}
          aria-label="Play Video"
       >
@@ -63,7 +63,7 @@
 
       <div class="flex justify-between items-center text-xs font-mono">
           <div class="flex items-center gap-3">
-              <button on:click={togglePlay} class="hover:text-indigo-400 transition-colors">
+              <button on:click={togglePlay} class="hover:text-indigo-400 transition-colors min-h-[44px] min-w-[44px]">
                   {#if isPlaying}
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
                   {:else}
@@ -80,7 +80,7 @@
                       <div class="h-full bg-white" style="width: {volume}%"></div>
                   </div>
               </div>
-              <button aria-label="Fullscreen">
+              <button aria-label="Fullscreen" class="min-h-[44px] min-w-[44px]">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
               </button>
           </div>

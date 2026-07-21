@@ -56,7 +56,7 @@
           <button
             role="tab"
             aria-selected={activeTab === 'tailwind'}
-            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'tailwind' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
+            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'tailwind' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'} min-h-[44px] min-w-[44px]"
             on:click={() => activeTab = 'tailwind'}
           >
              <Code size={14} />
@@ -65,7 +65,7 @@
           <button
             role="tab"
             aria-selected={activeTab === 'config'}
-            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'config' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
+            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'config' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'} min-h-[44px] min-w-[44px]"
             on:click={() => activeTab = 'config'}
           >
              <FileJson size={14} />
@@ -74,7 +74,7 @@
           <button
             role="tab"
             aria-selected={activeTab === 'css'}
-            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'css' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
+            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'css' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'} min-h-[44px] min-w-[44px]"
             on:click={() => activeTab = 'css'}
           >
              <FileCode size={14} />
@@ -83,7 +83,7 @@
           <button
             role="tab"
             aria-selected={activeTab === 'react'}
-            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'react' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
+            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'react' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'} min-h-[44px] min-w-[44px]"
             on:click={() => activeTab = 'react'}
           >
              <Boxes size={14} />
@@ -92,7 +92,7 @@
           <button
             role="tab"
             aria-selected={activeTab === 'vue'}
-            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'vue' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
+            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'vue' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'} min-h-[44px] min-w-[44px]"
             on:click={() => activeTab = 'vue'}
           >
              <Box size={14} />
@@ -101,7 +101,7 @@
           <button
             role="tab"
             aria-selected={activeTab === 'svelte'}
-            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'svelte' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
+            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'svelte' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'} min-h-[44px] min-w-[44px]"
             on:click={() => activeTab = 'svelte'}
           >
              <Box size={14} />
@@ -110,7 +110,7 @@
           <button
             role="tab"
             aria-selected={activeTab === 'html'}
-            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'html' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
+            class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 {activeTab === 'html' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'} min-h-[44px] min-w-[44px]"
             on:click={() => activeTab = 'html'}
           >
              <FileType size={14} />
@@ -120,7 +120,7 @@
 
       <div class="flex items-center gap-2 ml-auto">
           <button
-            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-amber-400 hover:bg-amber-900/20 hover:text-amber-300"
+            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-amber-400 hover:bg-amber-900/20 hover:text-amber-300 min-h-[44px] min-w-[44px]"
             on:click={() => openInStackBlitz(generateHTML($gridStore))}
             aria-label="Open in StackBlitz"
             title="Open in StackBlitz"
@@ -129,7 +129,7 @@
              <span class="hidden sm:inline">StackBlitz</span>
           </button>
           <button
-            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-slate-400 hover:bg-slate-800 hover:text-white"
+            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-slate-400 hover:bg-slate-800 hover:text-white min-h-[44px] min-w-[44px]"
             on:click={() => downloadPNG($gridStore, theme)}
             aria-label={dict.downloadPng || 'Download PNG'}
             title="Export Grid Image (PNG)"
@@ -138,7 +138,7 @@
              <span class="hidden sm:inline">PNG</span>
           </button>
           <button
-            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-slate-400 hover:bg-slate-800 hover:text-white"
+            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-slate-400 hover:bg-slate-800 hover:text-white min-h-[44px] min-w-[44px]"
             on:click={() => downloadSVG($gridStore, theme)}
             aria-label={dict.downloadSvg || 'Download SVG'}
             title="Export Grid as SVG"
@@ -147,7 +147,7 @@
              <span class="hidden sm:inline">SVG</span>
           </button>
           <button
-            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-slate-400 hover:bg-slate-800 hover:text-white"
+            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-slate-400 hover:bg-slate-800 hover:text-white min-h-[44px] min-w-[44px]"
             on:click={downloadHTML}
             aria-label={dict.downloadHtml || 'Download HTML'}
             title="Download Single HTML File"
@@ -156,7 +156,7 @@
              <span class="hidden sm:inline">HTML</span>
           </button>
           <button
-            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors bg-indigo-600/10 text-indigo-400 hover:bg-indigo-600 hover:text-white"
+            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors bg-indigo-600/10 text-indigo-400 hover:bg-indigo-600 hover:text-white min-h-[44px] min-w-[44px]"
             on:click={() => downloadProjectZip($gridStore)}
             aria-label={dict.exportProject || 'Export Project'}
             title="Download Project ZIP"
@@ -165,7 +165,7 @@
              <span class="hidden sm:inline">ZIP</span>
           </button>
           <button
-            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors {copied ? 'bg-green-500/20 text-green-400' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}"
+            class="text-xs font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors {copied ? 'bg-green-500/20 text-green-400' : 'text-slate-400 hover:bg-slate-800 hover:text-white'} min-h-[44px] min-w-[44px]"
             on:click={copyCode}
             aria-label={dict.copy}
           >
