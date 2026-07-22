@@ -67,14 +67,14 @@
 
 <div class="space-y-4">
   <div class="flex items-center justify-between">
-    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">{t.stops}</label>
+    <div class="block text-sm font-medium text-slate-700 dark:text-slate-300">{t.stops}</div>
   </div>
 
   <!-- Slider Track -->
   <div
     bind:this={sliderRef}
     class="relative h-10 rounded-xl cursor-crosshair border border-slate-200 dark:border-slate-700 shadow-sm"
-    style="background: {cssGradient}; background-image: {cssGradient}, url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\"><rect width=\"10\" height=\"10\" fill=\"%23ddd\"/><rect x=\"10\" width=\"10\" height=\"10\" fill=\"%23fff\"/><rect y=\"10\" width=\"10\" height=\"10\" fill=\"%23fff\"/><rect x=\"10\" y=\"10\" width=\"10\" height=\"10\" fill=\"%23ddd\"/></svg>'); background-blend-mode: normal;"
+    style="background: {cssGradient}; background-image: {cssGradient}, url('data:image/svg+xml;utf8,<svg xmlns=%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width=%2220%22 height=%2220%22><rect width=%2210%22 height=%2210%22 fill=%22%23ddd%22/><rect x=%2210%22 width=%2210%22 height=%2210%22 fill=%22%23fff%22/><rect y=%2210%22 width=%2210%22 height=%2210%22 fill=%22%23fff%22/><rect x=%2210%22 y=%2210%22 width=%2210%22 height=%2210%22 fill=%22%23ddd%22/></svg>'); background-blend-mode: normal;"
     on:click={handleTrackClick}
     role="slider"
     aria-label="Gradient color stops"

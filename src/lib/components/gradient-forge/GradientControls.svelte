@@ -27,7 +27,7 @@
 <div class="space-y-6">
   <!-- Type Selector -->
   <div>
-    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t.type}</label>
+    <div class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t.type}</div>
     <div class="grid grid-cols-3 gap-2">
       {#each ['linear', 'radial', 'conic'] as tType}
         <button
@@ -43,8 +43,9 @@
   {#if type === 'linear' || type === 'conic'}
     <!-- Angle Dial -->
     <div>
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t.angle}: {angle}°</label>
+      <label for="angle-slider" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t.angle}: {angle}°</label>
       <input
+        id="angle-slider"
         type="range"
         min="0"
         max="360"
@@ -58,8 +59,9 @@
   {#if type === 'radial' || type === 'conic'}
     <!-- Position Selector -->
     <div>
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t.position}</label>
+      <label for="position-select" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t.position}</label>
       <select
+        id="position-select"
         bind:value={position}
         on:change={update}
         class="w-full p-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none min-h-[44px]"
