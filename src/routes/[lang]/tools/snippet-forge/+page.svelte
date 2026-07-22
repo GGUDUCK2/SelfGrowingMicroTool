@@ -80,36 +80,7 @@
       ]
     };
 
-  $: jsonLd2 = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": dict?.q1,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": dict?.a1
-        }
-      },
-      {
-        "@type": "Question",
-        "name": dict?.q2,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": dict?.a2
-        }
-      },
-      {
-        "@type": "Question",
-        "name": dict?.q3,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": dict?.a3
-        }
-      }
-    ]
-  };
+
 </script>
 <Head
   title={dict.title}
@@ -126,9 +97,9 @@
   <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/snippet-forge" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/snippet-forge" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/snippet-forge" />
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
+  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
 
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd2)}</script>`}
+
 
 </svelte:head>
 

@@ -673,19 +673,19 @@
   {/if}
 
   {#if showResponsiveCheck}
-      <ResponsiveModal {dict} {theme} on:close={() => showResponsiveCheck = false} />
+      <ResponsiveModal dict={dict as any} {theme} on:close={() => showResponsiveCheck = false} />
   {/if}
 
   {#if showDoctor}
-      <GridDoctor {dict} on:close={() => showDoctor = false} />
+      <GridDoctor dict={dict as any} on:close={() => showDoctor = false} />
   {/if}
 
   {#if showWizard}
-      <WizardModal {dict} on:close={() => showWizard = false} />
+      <WizardModal dict={dict as any} on:close={() => showWizard = false} />
   {/if}
 
   {#if showTimeline}
-      <TimelineHistory {dict} close={() => showTimeline = false} />
+      <TimelineHistory dict={dict as any} close={() => showTimeline = false} />
   {/if}
 
   {#if showConfirmReset}

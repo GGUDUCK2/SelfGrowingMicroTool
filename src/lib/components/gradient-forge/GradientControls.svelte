@@ -27,7 +27,7 @@
 <div class="space-y-6">
   <!-- Type Selector -->
   <div>
-    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t.type}</label>
+    <div class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t.type}</div>
     <div class="grid grid-cols-3 gap-2">
       {#each ['linear', 'radial', 'conic'] as tType}
         <button
@@ -43,7 +43,7 @@
   {#if type === 'linear' || type === 'conic'}
     <!-- Angle Dial -->
     <div>
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t.angle}: {angle}°</label>
+      <div class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t.angle}: {angle}°</div>
       <input
         type="range"
         min="0"
@@ -58,7 +58,7 @@
   {#if type === 'radial' || type === 'conic'}
     <!-- Position Selector -->
     <div>
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t.position}</label>
+      <div class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t.position}</div>
       <select
         bind:value={position}
         on:change={update}

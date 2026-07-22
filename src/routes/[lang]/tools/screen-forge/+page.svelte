@@ -115,15 +115,15 @@
       <!-- Workspace -->
       <section class="min-h-[600px]">
           {#if view === 'record'}
-              <Recorder {t} onRecordingComplete={handleRecordingComplete} />
+              <Recorder t={t as any} onRecordingComplete={handleRecordingComplete} />
           {:else if view === 'preview' && currentBlob}
-              <Preview {t} blob={currentBlob} onDiscard={handleDiscard} />
+              <Preview t={t as any} blob={currentBlob} onDiscard={handleDiscard} />
           {/if}
       </section>
 
       <!-- History -->
       <section class="border-t border-slate-200 dark:border-slate-800 pt-12">
-          <History {t} onPlay={handlePlayFromHistory} />
+          <History t={t as any} onPlay={handlePlayFromHistory} />
       </section>
 
       <!-- Guide & FAQ -->
