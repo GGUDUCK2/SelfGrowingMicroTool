@@ -52,7 +52,7 @@ import Contrast from '@lucide/svelte/icons/contrast';
   title={t.title || "A11y Forge - Web Accessibility Toolkit"}
   description={t.description || "Professional web accessibility toolkit. WCAG color contrast checker and ARIA role explorer."}
   url={"https://selfgrowingmicrotool.com/" + lang + "/tools/a11y-forge"}
-  keywords={["accessibility", "a11y", "wcag", "contrast", "color blindness", "aria"]}
+  keywords="accessibility, a11y, wcag, contrast, color blindness, aria"
 />
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">

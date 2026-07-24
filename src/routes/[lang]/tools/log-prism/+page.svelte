@@ -291,7 +291,7 @@
         "Automated Insight Reports"
       ]
     }
-  </script>`}
+  </scr` + `ipt>`}
 
 
 
@@ -326,7 +326,7 @@
       }
     ]
   }
-  </script>`}
+  </scr` + `ipt>`}
   {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
 
 </svelte:head>

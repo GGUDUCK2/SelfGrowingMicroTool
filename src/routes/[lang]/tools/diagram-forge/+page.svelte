@@ -240,7 +240,7 @@
       }
     ]
   }
-  </script>`}
+  </scr` + `ipt>`}
 
 </svelte:head>
 

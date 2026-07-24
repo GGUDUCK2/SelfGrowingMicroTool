@@ -732,7 +732,7 @@
             {history}
             {lang}
             title={dict.history}
-            deleteLabel={dict.delete}
+            deleteLabel={(dict as any).delete}
             {restoreHistory}
             {deleteHistory}
           />

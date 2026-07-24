@@ -452,7 +452,7 @@
                                         <button class="p-1 hover:text-indigo-500 min-h-[44px] min-w-[44px]" on:click={() => loadTeam(team)} title={t.loadGroup}>
                                             <RotateCcw size={14} />
                                         </button>
-                                        <button class="p-1 hover:text-red-500 min-h-[44px] min-w-[44px]" on:click={() => deleteTeam(team.id!)} title={t.delete}>
+                                        <button class="p-1 hover:text-red-500 min-h-[44px] min-w-[44px]" on:click={() => deleteTeam(team.id!)} title={(t as any).delete}>
                                             <Trash2 size={14} />
                                         </button>
                                     </div>

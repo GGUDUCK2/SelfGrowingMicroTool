@@ -409,7 +409,7 @@
         "Interactive Drawing"
       ]
     }
-  </script>`}
+  </scr` + `ipt>`}
 
 
 </svelte:head>
