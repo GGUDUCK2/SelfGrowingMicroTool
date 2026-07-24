@@ -399,7 +399,7 @@
       <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in-up">
         <div class="bg-indigo-600 text-white px-4 py-2 rounded-full shadow-lg flex items-center text-sm font-medium">
           <span class="mr-2">🪄</span>
-          {dict?.builder?.magicPasteSuccess || 'Magic Paste: cURL command parsed!'}
+          {dict?.builder?.title || 'Magic Paste: cURL command parsed!'}
         </div>
       </div>
     {/if}

@@ -4,7 +4,7 @@
   import type { ColorMasterDictionary } from '$lib/types/color-master';
 
   export let baseColor: string;
-  export let colors: ColorData[];
+  export let colors: any[];
   export let t: ColorMasterDictionary;
 
   let gradientType: 'linear' | 'radial' | 'conic' = 'linear';
@@ -46,8 +46,8 @@
         <div class="flex gap-2" role="group" aria-label={t.gradientGenerator?.type || 'Gradient Type'}>
           {#each ['linear', 'radial', 'conic'] as type}
             <button
-              class="px-3 py-1 text-sm rounded-lg border transition-all {gradientType === type ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-500 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700'}"
-              on:click={() => gradientType = type}
+              class="px-3 py-1 text-sm rounded-lg border transition-all {gradientType === (type as any) ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-500 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700'}"
+              on:click={() => gradientType = (type as "linear" | "radial" | "conic")}
             >
               {type.charAt(0).toUpperCase() + type.slice(1)}
             </button>

@@ -4,15 +4,15 @@
   import { db } from '$lib/db';
   import { formatDistanceToNow } from 'date-fns';
   import { FileSpreadsheet, Trash2, Clock, Star } from '@lucide/svelte';
-  import type { CsvForgeHistory } from '$lib/db';
+  import type { CspForgeHistory } from '$lib/db';
 
   export let dict: any;
 
   const dispatch = createEventDispatcher();
-  let historyItems: CsvForgeHistory[] = [];
+  let historyItems: CspForgeHistory[] = [];
 
   $: historyObservable = liveQuery(() =>
-    db.csvForgeHistory.orderBy('createdAt').reverse().limit(50).toArray()
+    db.cspForgeHistory.orderBy('createdAt').reverse().limit(50).toArray()
   );
 
   $: if ($historyObservable) {
@@ -21,19 +21,19 @@
 
   async function deleteItem(id: number | undefined) {
     if (id) {
-      await db.csvForgeHistory.delete(id);
+      await db.cspForgeHistory.delete(id);
     }
   }
 
-  async function toggleStar(item: CsvForgeHistory) {
+  async function toggleStar(item: CspForgeHistory) {
     if (item.id) {
-      await db.csvForgeHistory.update(item.id, {
+      await db.cspForgeHistory.update(item.id, {
         starred: item.starred ? 0 : 1
       });
     }
   }
 
-  function restoreItem(item: CsvForgeHistory) {
+  function restoreItem(item: CspForgeHistory) {
     dispatch('restore', item);
   }
 </script>

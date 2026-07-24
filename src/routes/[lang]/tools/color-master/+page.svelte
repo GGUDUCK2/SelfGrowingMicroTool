@@ -39,8 +39,8 @@
   let showShortcuts = false;
   let currentScale: ScaleStep[] = [];
 
-  $: dict = getDictionary(($page.params.lang || "en"));
-  $: t = ((dict as any)?.tools?.colorMaster || {});
+  $: dict = getDictionary(($page.params.lang || "en") as "en" | "ko");
+  $: t = (dict as any)?.tools?.colorMaster || {};
 
   $: schema = {
     "@context": "https://schema.org",
@@ -122,10 +122,10 @@
   $: harmonies = getHarmonies(baseColor, harmonyType);
   $: displayedHarmonies = visionType === 'none'
       ? harmonies
-      : harmonies.map(c => getColorData(simulateVision(c.hex, visionType)));
+      : harmonies.map(c => getColorData(simulateVision(c.hex, visionType as any)));
   $: displayedBaseColor = visionType === 'none'
       ? baseColor
-      : simulateVision(baseColor, visionType);
+      : simulateVision(baseColor, visionType as any);
 
   // --- Effects ---
 
@@ -204,7 +204,7 @@
       const count = await db.colorHistory.where('starred').equals(0).count();
       if (count > 100) {
         // Delete oldest non-starred items
-        const oldest = await db.colorHistory.where('starred').equals(0).orderBy('createdAt').limit(count - 100).keys();
+        const oldest = await db.colorHistory.where('starred').equals(0).limit(count - 100).keys();
         await db.colorHistory.bulkDelete(oldest as number[]);
       }
 
@@ -506,9 +506,9 @@
     <FAQSection
       title={t.faqTitle}
       items={[
-        { q: dict?.q1, a: dict?.a1 },
-        { q: dict?.q2, a: dict?.a2 },
-        { q: dict?.q3, a: dict?.a3 }
+        { q: t?.q1, a: t?.a1 },
+        { q: t?.q2, a: t?.a2 },
+        { q: t?.q3, a: t?.a3 }
       ]}
     />
     <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="color-master" currentCategory="design" />

@@ -322,11 +322,11 @@
 
   {@html `<script type="application/ld+json">
     ${JSON.stringify(schemaObj1)}
-  </script>`}
+  </scr` + `ipt>`}
 
   {@html `<script type="application/ld+json">
     ${JSON.stringify(schemaObj2)}
-  </script>`}
+  </scr` + `ipt>`}
 
 
   {@html `<script type="application/ld+json">
@@ -360,7 +360,7 @@
       }
     ]
   }
-  </script>`}
+  </scr` + `ipt>`}
 
 </svelte:head>
 
