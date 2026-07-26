@@ -327,7 +327,7 @@
     ]
   }
   </scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
 
 </svelte:head>
 

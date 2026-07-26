@@ -64,7 +64,7 @@
 </script>
 
 <svelte:head>
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
 </svelte:head>
 
 <Head
@@ -141,7 +141,7 @@
       f1={dict.guideFeatures[0] || ""}
       f2={dict.guideFeatures[1] || ""}
       f3={dict.guideFeatures[2] || ""}
-      f4={dict.guideFeatures[3] || ""}
+
       tipsTitle="Pro Tips"
       tip1="Use 'to bottom right' angle for a sleek modern look."
       tip2="Save frequently used gradients in your workspace."

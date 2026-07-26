@@ -89,7 +89,7 @@
 <Head
   title={dict.title}
   description={dict.description}
-  openGraph={{
+  openGraph={{...(dict as any)?.openGraph,
     title: dict.title,
     description: dict.description,
     url: `https://selfgrowingmicrotool.com/${lang}/tools/hash-forge`
@@ -104,8 +104,8 @@
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/hash-forge" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/hash-forge" />
   <!-- eslint-disable svelte/no-at-html-tags -->
-  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
 
 
 </svelte:head>

@@ -272,7 +272,7 @@
   <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/rhythm-forge" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/rhythm-forge" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/rhythm-forge" />
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
 
   {@html `<script type="application/ld+json">
   ${JSON.stringify({
@@ -361,14 +361,14 @@
                   <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800">
                       <Controls
                           bind:settings
-                          {dict}
+                          {...(dict as any)}
                           on:play={handlePlay}
                           on:stop={handleStop}
                           on:tap={handleTap}
                       />
                   </div>
               {:else if mode === 'trainer'}
-                  <TrainerPanel {engine} bind:settings {dict} />
+                  <TrainerPanel {engine} bind:settings {...(dict as any)} />
               {:else if mode === 'game'}
                   <RhythmGame engine={engine as any} bind:settings dict={dict as any} />
               {/if}
@@ -376,8 +376,8 @@
 
           <!-- Right Column: Settings & Presets -->
           <div class="lg:col-span-5 space-y-8">
-              <SessionStats {dict} />
-              <SettingsPanel bind:settings {dict} />
+              <SessionStats {...(dict as any)} />
+              <SettingsPanel bind:settings {...(dict as any)} />
 
               <div class="bg-slate-200 dark:bg-slate-800 p-1 rounded-2xl flex">
                   <button
@@ -395,7 +395,7 @@
               </div>
 
               {#if libraryMode === 'presets'}
-                  <PresetPanel {settings} {dict} on:load={handleLoadPreset} />
+                  <PresetPanel {settings} {...(dict as any)} on:load={handleLoadPreset} />
               {:else}
                   <PlaylistPanel settings={settings as any} dict={dict as any} on:load={handleLoadPreset} />
               {/if}

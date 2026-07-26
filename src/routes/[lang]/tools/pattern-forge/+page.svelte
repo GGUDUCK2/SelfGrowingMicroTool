@@ -32,7 +32,7 @@
 </script>
 
 <svelte:head>
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/pattern-forge"} />
   <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/pattern-forge" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/pattern-forge" />

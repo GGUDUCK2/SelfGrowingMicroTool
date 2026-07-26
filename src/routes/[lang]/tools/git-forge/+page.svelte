@@ -19,7 +19,7 @@
   import type { GitForgeDictionary } from '$lib/components/git-forge/types';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang)?.tools?.gitForge as GitForgeDictionary;
+  $: dict = (getDictionary(lang) as any)?.tools?.gitForge as GitForgeDictionary;
   $: common = getDictionary(lang)?.common;
 
   let activeTab: 'command' | 'ignore' | 'commit' | 'doctor' = 'command';
@@ -179,9 +179,9 @@
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/git-forge" />
   <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/git-forge" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/git-forge" />
-  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(howToSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema)}</scr` + `ipt>`}
 
 
 </svelte:head>

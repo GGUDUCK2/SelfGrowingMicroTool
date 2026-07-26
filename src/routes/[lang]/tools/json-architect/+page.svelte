@@ -19,7 +19,7 @@
   import { browser } from '$app/environment';
 
   $: lang = $page.params.lang || 'en';
-  $: t = (getDictionary(lang) || getDictionary('en')).tools?.jsonArchitect || getDictionary('en').tools.jsonArchitect;
+  $: t = ((getDictionary(lang) as any) || getDictionary('en')).tools?.jsonArchitect || (getDictionary('en') as any).tools?.jsonArchitect;
 
   let input = '';
   $: isTooLarge = input.length > 50000;
@@ -231,8 +231,8 @@
   <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/json-architect" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/json-architect" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/json-architect" />
-  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
 
 
 </svelte:head>

@@ -14,7 +14,7 @@
 
   $: lang = $page.params.lang || 'en';
   // Use optional chaining or fallback as the dictionary entry might not be typed yet
-  $: dict = getDictionary(lang).tools?.localeForge || {
+  $: dict = (getDictionary(lang) as any).tools?.localeForge || {
       title: "Locale Forge",
       description: "Manage translation files.",
       guide: { title: "Guide", intro: "", featuresTitle: "", f1: "", f2: "", f3: "", tipsTitle: "", tip1: "", tip2: "", tip3: ""},
@@ -104,9 +104,9 @@
   <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/locale-forge" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/locale-forge" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/locale-forge" />
-  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(howToSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema)}</scr` + `ipt>`}
 
 
 

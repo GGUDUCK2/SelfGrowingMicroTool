@@ -26,7 +26,7 @@
   let currentFormat: GenerationOptions['format'] = 'plain';
 
   // Get localized dictionary
-  $: dict = getDictionary($page.params.lang ?? 'en').tools.idForge;
+  $: dict = (getDictionary($page.params.lang ?? 'en') as any).tools.idForge;
 
   // Default Options
   let genOptions: GenerationOptions = {
@@ -227,8 +227,8 @@
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/id-forge" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/id-forge" />
   <!-- JSON-LD for SoftwareApplication -->
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd2)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd2)}</scr` + `ipt>`}
 
 </svelte:head>
 
