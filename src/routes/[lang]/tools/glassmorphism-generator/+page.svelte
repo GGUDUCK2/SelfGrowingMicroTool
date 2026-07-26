@@ -224,9 +224,9 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
   <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/glassmorphism-generator" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/glassmorphism-generator" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/glassmorphism-generator" />
-  {@html `<script type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(schemaObj2)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(schemaObj3)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj2)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj3)}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="max-w-6xl mx-auto py-12 space-y-12 px-4">

@@ -226,9 +226,9 @@
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/cron-editor" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/cron-editor" />
   <!-- JSON-LD -->
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd2)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd3)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd2)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd3)}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">

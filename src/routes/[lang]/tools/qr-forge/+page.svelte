@@ -154,8 +154,8 @@
   <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/qr-forge" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/qr-forge" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/qr-forge" />
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumb)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb)}</scr` + `ipt>`}
   {@html `<script type="application/ld+json">${JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":t?.q1||"","acceptedAnswer":{"@type":"Answer","text":t?.a1||""}},{"@type":"Question","name":t?.q2||"","acceptedAnswer":{"@type":"Answer","text":t?.a2||""}},{"@type":"Question","name":t?.q3||"","acceptedAnswer":{"@type":"Answer","text":t?.a3||""}}]})}</scr` + `ipt>`}
 </svelte:head>
 

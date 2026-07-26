@@ -251,8 +251,8 @@
   <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/markdown-studio" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/markdown-studio" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/markdown-studio" />
-  {@html `<script type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900 font-sans">

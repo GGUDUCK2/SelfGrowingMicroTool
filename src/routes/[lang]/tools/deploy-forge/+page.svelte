@@ -129,7 +129,7 @@
   <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/deploy-forge" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/deploy-forge" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/deploy-forge" />
-  {@html '<script type="application/ld+json">' + JSON.stringify({
+  {@html `<scr` + `ipt type="application/ld+json">` + JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/deploy-forge",
@@ -144,7 +144,7 @@
     },
     "description": ((dict as any)?.tools?.deployForge || {}).description,
     "featureList": "Dockerfile generation, Docker Compose builder, Multi-stage build optimization"
-  }) + '</script>'}
+  }) + `</scr` + `ipt>`}
   {@html '<script type="application/ld+json">' + JSON.stringify({
       "@context": "https://schema.org",
       "@type": "FAQPage",

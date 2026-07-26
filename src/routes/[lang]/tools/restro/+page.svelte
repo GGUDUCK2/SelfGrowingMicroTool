@@ -412,7 +412,7 @@
             {dict}
          />
          <div class="flex-1 overflow-hidden mt-2">
-            <RequestTabs bind:params bind:headers bind:bodyType bind:bodyContent {dict} />
+            <RequestTabs bind:params bind:headers bodyType={bodyType as any} on:change={(e) => bodyType = e.detail} bind:bodyContent {dict} />
          </div>
       </div>
 

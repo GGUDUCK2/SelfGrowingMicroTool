@@ -290,8 +290,8 @@
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/chrono-shift" />
   <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/chrono-shift" />
   <!-- Twitter -->
-  {@html `<script type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
 
 
 </svelte:head>

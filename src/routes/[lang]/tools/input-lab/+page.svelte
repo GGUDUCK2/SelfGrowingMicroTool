@@ -109,7 +109,7 @@
     <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/input-lab" />
   <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/input-lab" />
 
-  {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
 
   {@html `<script type="application/ld+json">
   {

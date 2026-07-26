@@ -23,6 +23,7 @@
   import GridDoctor from '$lib/components/grid-master/GridDoctor.svelte';
   import TimelineHistory from '$lib/components/grid-master/TimelineHistory.svelte';
   import { LayoutGrid, Save, RotateCcw, Check, Smartphone, Monitor, Undo2, Redo2, Eye, EyeOff, Share2, HelpCircle, History, Download, Command, ScanEye, Activity, Camera, Code, Clock } from '@lucide/svelte';
+  import WizardModal from '$lib/components/grid-master/WizardModal.svelte';
   import { fade, slide } from 'svelte/transition';
   import type { GridState } from '$lib/utils/grid-master/types';
 
@@ -124,7 +125,7 @@
   async function handleSave() {
       if (!projectName.trim()) return;
 
-      await gridMasterWorkspace.save({
+      await gridMasterWorkspace.save({createdAt: new Date(), updatedAt: new Date(),
           name: projectName,
           ...$gridStore
       });
@@ -154,7 +155,8 @@
       setTimeout(() => showToast = false, 2000);
   }
 
-  onMount(async () => {
+  onMount(() => {
+    (async () => {
       // Check Hash for shared project
       if (window.location.hash.includes('project=')) {
           try {
@@ -220,7 +222,8 @@
           }, 5000);
       });
 
-      return () => {
+          })();
+    return () => {
           unsub();
           clearTimeout(sessionTimeout);
           clearTimeout(historyTimeout);
@@ -565,11 +568,11 @@
       <!-- Left Sidebar (Controls) -->
       <div class="lg:col-span-3 space-y-8 order-2 lg:order-1">
           <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-5">
-              <Sidebar {dict} bind:theme />
+              <Sidebar {...(dict as any)} bind:theme />
           </div>
 
           <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-5">
-              <ProjectList {dict} />
+              <ProjectList {...(dict as any)} />
           </div>
       </div>
 
@@ -583,13 +586,13 @@
                  class="transition-all duration-500 ease-in-out bg-white dark:bg-slate-900 shadow-2xl rounded-xl overflow-hidden ring-1 ring-slate-900/5 dark:ring-white/10"
                  style="width: {viewMode === 'desktop' ? '100%' : '375px'}; height: {viewMode === 'desktop' ? '500px' : '667px'};"
                >
-                   <GridCanvas {previewMode} {viewMode} {theme} {dict} />
+                   <GridCanvas {previewMode} {viewMode} {theme} {...(dict as any)} />
                </div>
           </div>
 
           <!-- Output Code -->
           <div class="h-64">
-              <CodePanel {dict} {theme} />
+              <CodePanel {...(dict as any)} {theme} />
           </div>
 
           <!-- Documentation -->
@@ -616,16 +619,16 @@
               <h3 class="text-xl font-semibold mt-8">{dict.faqTitle}</h3>
               <div class="grid gap-4 not-prose">
                  <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <h4 class="font-semibold text-lg mb-2">{dict?.q1}</h4>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict?.a1}</p>
+                    <h4 class="font-semibold text-lg mb-2">{(dict as any)?.q1}</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{(dict as any)?.a1}</p>
                  </div>
                  <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <h4 class="font-semibold text-lg mb-2">{dict?.q2}</h4>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict?.a2}</p>
+                    <h4 class="font-semibold text-lg mb-2">{(dict as any)?.q2}</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{(dict as any)?.a2}</p>
                  </div>
                  <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <h4 class="font-semibold text-lg mb-2">{dict?.q3}</h4>
-                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{dict?.a3}</p>
+                    <h4 class="font-semibold text-lg mb-2">{(dict as any)?.q3}</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{(dict as any)?.a3}</p>
                  </div>
               </div>
           </div>
@@ -635,7 +638,7 @@
     <GuideSection {...dict?.guide} />
   <AdPlaceholder />
   <FAQSection
-      title={dict?.faqTitle}
+      title={(dict as any)?.faqTitle}
       items={[
         { q: dict?.q1, a: dict?.a1 },
         { q: dict?.q2, a: dict?.a2 },
@@ -658,7 +661,7 @@
 
   {#if showCommandPalette}
       <CommandPalette
-        {dict}
+        {...(dict as any)}
         {theme}
         on:close={() => showCommandPalette = false}
         on:reset={handleReset}
@@ -669,23 +672,23 @@
   {/if}
 
   {#if showShortcuts}
-      <ShortcutsModal {dict} close={() => showShortcuts = false} />
+      <ShortcutsModal {...(dict as any)} close={() => showShortcuts = false} />
   {/if}
 
   {#if showResponsiveCheck}
-      <ResponsiveModal {dict} {theme} on:close={() => showResponsiveCheck = false} />
+      <ResponsiveModal {...(dict as any)} {theme} on:close={() => showResponsiveCheck = false} />
   {/if}
 
   {#if showDoctor}
-      <GridDoctor {dict} on:close={() => showDoctor = false} />
+      <GridDoctor {...(dict as any)} on:close={() => showDoctor = false} />
   {/if}
 
   {#if showWizard}
-      <WizardModal {dict} on:close={() => showWizard = false} />
+      <WizardModal {...(dict as any)} on:close={() => showWizard = false} />
   {/if}
 
   {#if showTimeline}
-      <TimelineHistory {dict} close={() => showTimeline = false} />
+      <TimelineHistory {...(dict as any)} close={() => showTimeline = false} />
   {/if}
 
   {#if showConfirmReset}

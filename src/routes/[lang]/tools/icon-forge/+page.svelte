@@ -164,7 +164,7 @@
       ]
     }
   </scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify(breadcrumb)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb)}</scr` + `ipt>`}
 
   {@html `<script type="application/ld+json">
   {

@@ -19,7 +19,7 @@
 
 <svelte:head>
   {#if injectSchema}
-    {@html `<script type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
+    {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
   {/if}
 </svelte:head>
 
