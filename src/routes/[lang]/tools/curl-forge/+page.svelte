@@ -13,10 +13,10 @@
 
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang).tools?.curlForge || getDictionary('en').tools.curlForge;
+  $: dict = (getDictionary(lang) as any)?.tools?.curlForge || getDictionary('en').tools.curlForge;
 
-  $: title = dict?.title || "Curl Forge";
-  $: description = dict?.description || "cURL command builder and exporter.";
+  $: title = (dict as any)?.title || "Curl Forge";
+  $: description = (dict as any)?.description || "cURL command builder and exporter.";
 
 
   import { onMount, onDestroy } from 'svelte';
@@ -104,7 +104,7 @@
       },
       {
         "@type": "FAQPage",
-        "mainEntity": (dict?.faq || []).map((item: Record<string, string>) => ({
+        "mainEntity": ((dict as any)?.faq || []).map((item: Record<string, string>) => ({
           "@type": "Question",
           "name": item?.q || '',
           "acceptedAnswer": {
@@ -169,9 +169,9 @@
   </div>
 
   <div class="mt-16 space-y-12 border-t border-slate-200 dark:border-slate-800 pt-16">
-    <GuideSection {...dict?.guide} />
+    <GuideSection {...(dict as any)?.guide} />
     <AdPlaceholder />
-  <FAQSection title={dict?.faqTitle || 'FAQ'} items={dict?.faq || []} />
+  <FAQSection title={(dict as any)?.faqTitle || 'FAQ'} items={(dict as any)?.faq || []} />
     <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="curl-forge" currentCategory="dev" />
   </div>
 </div>

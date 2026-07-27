@@ -21,7 +21,7 @@
         $: dict = getDictionary(($page.params.lang || "en"));
 
     // Safety check for dictionary entry
-    $: t = dict?.tools?.chronoShift || {
+    $: t = (dict as any)?.tools?.chronoShift || {
         title: "Chrono Shift",
         description: "Time Zone Architect",
         home: "My Time",

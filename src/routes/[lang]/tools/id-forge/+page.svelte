@@ -184,26 +184,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict?.q1,
+        "name": (dict as any)?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict?.a1
+          "text": (dict as any)?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict?.q2,
+        "name": (dict as any)?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict?.a2
+          "text": (dict as any)?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict?.q3,
+        "name": (dict as any)?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict?.a3
+          "text": (dict as any)?.a3
         }
       }
     ]
@@ -315,37 +315,37 @@
     <div class="space-y-6 not-prose">
         <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <summary class="flex items-center justify-between p-6 cursor-pointer font-medium">
-                <span>{dict?.q1}</span>
+                <span>{(dict as any)?.q1}</span>
                 <span class="transition-transform group-open:rotate-180">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
             </summary>
             <div class="px-6 pb-6 text-slate-600 dark:text-slate-300">
-                {dict?.a1}
+                {(dict as any)?.a1}
             </div>
         </details>
 
         <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <summary class="flex items-center justify-between p-6 cursor-pointer font-medium">
-                <span>{dict?.q2}</span>
+                <span>{(dict as any)?.q2}</span>
                 <span class="transition-transform group-open:rotate-180">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
             </summary>
             <div class="px-6 pb-6 text-slate-600 dark:text-slate-300">
-                {dict?.a2}
+                {(dict as any)?.a2}
             </div>
         </details>
 
         <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <summary class="flex items-center justify-between p-6 cursor-pointer font-medium">
-                <span>{dict?.q3}</span>
+                <span>{(dict as any)?.q3}</span>
                 <span class="transition-transform group-open:rotate-180">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
             </summary>
             <div class="px-6 pb-6 text-slate-600 dark:text-slate-300">
-                {dict?.a3}
+                {(dict as any)?.a3}
             </div>
         </details>
     </div>
@@ -353,14 +353,14 @@
 
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <GuideSection {...dict?.guide} />
+    <GuideSection {...(dict as any)?.guide} />
   <AdPlaceholder />
   <FAQSection
-      title={dict?.faqTitle}
+      title={(dict as any)?.faqTitle}
       items={[
-        { q: dict?.q1, a: dict?.a1 },
-        { q: dict?.q2, a: dict?.a2 },
-        { q: dict?.q3, a: dict?.a3 }
+        { q: (dict as any)?.q1, a: (dict as any)?.a1 },
+        { q: (dict as any)?.q2, a: (dict as any)?.a2 },
+        { q: (dict as any)?.q3, a: (dict as any)?.a3 }
       ]}
     />
   <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="id-forge" currentCategory="dev" />

@@ -72,26 +72,26 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": dict?.q1,
+          "name": (dict as any)?.q1,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": dict?.a1
+            "text": (dict as any)?.a1
           }
         },
         {
           "@type": "Question",
-          "name": dict?.q2,
+          "name": (dict as any)?.q2,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": dict?.a2
+            "text": (dict as any)?.a2
           }
         },
         {
           "@type": "Question",
-          "name": dict?.q3,
+          "name": (dict as any)?.q3,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": dict?.a3
+            "text": (dict as any)?.a3
           }
         }
       ]
@@ -404,14 +404,14 @@
       </div>
     </div>
 
-    <GuideSection {...dict?.guide} />
+    <GuideSection {...(dict as any)?.guide} />
   <AdPlaceholder />
   <FAQSection
       title={dict.faqTitle}
       items={[
-        { q: dict?.q1, a: dict?.a1 },
-        { q: dict?.q2, a: dict?.a2 },
-        { q: dict?.q3, a: dict?.a3 }
+        { q: (dict as any)?.q1, a: (dict as any)?.a1 },
+        { q: (dict as any)?.q2, a: (dict as any)?.a2 },
+        { q: (dict as any)?.q3, a: (dict as any)?.a3 }
       ]}
     />
 

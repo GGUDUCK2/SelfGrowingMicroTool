@@ -27,7 +27,7 @@
 
 <div class="h-full flex flex-col bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 w-full md:w-80">
     <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
-        <h2 class="font-bold text-lg text-slate-800 dark:text-white">{dict?.history ?? 'History'}</h2>
+        <h2 class="font-bold text-lg text-slate-800 dark:text-white">{(dict as any)?.history ?? 'History'}</h2>
         <button on:click={onClose} class="md:hidden text-slate-500">
              <span class="sr-only">Close</span>
              <X class="w-6 h-6" />
@@ -37,7 +37,7 @@
     <div class="flex-1 overflow-y-auto p-2 space-y-2">
         {#if $history$?.length === 0}
             <div class="text-center py-10 text-slate-400">
-                <p>{dict?.noHistory ?? 'No animations saved yet.'}</p>
+                <p>{(dict as any)?.noHistory ?? 'No animations saved yet.'}</p>
             </div>
         {/if}
 
@@ -63,7 +63,7 @@
                         on:click|stopPropagation={() => deleteItem(item.id!)}
                         class="text-xs text-red-400 hover:text-red-600 flex items-center gap-1"
                      >
-                        <Trash2 class="w-3 h-3" /> {dict?.delete ?? 'Delete'}
+                        <Trash2 class="w-3 h-3" /> {(dict as any)?.delete ?? 'Delete'}
                      </button>
                 </div>
             </div>

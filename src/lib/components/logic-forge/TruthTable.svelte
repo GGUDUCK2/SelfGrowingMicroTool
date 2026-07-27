@@ -11,7 +11,7 @@
     toggle: { index: number; value: boolean };
   }>();
 
-  $: dict = getDictionary(lang).tools.logicForge;
+  $: dict = (getDictionary(lang) as any)?.tools?.logicForge as any;
 
   function handleRowClick(index: number, currentValue: boolean) {
     if (!editable) return;

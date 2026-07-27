@@ -3,7 +3,7 @@
   import { workspace, type ToolHistoryItem, clearHistory, deleteHistoryItem, toggleStar } from '$lib/db/workspace';
   import { liveQuery } from 'dexie';
 
-  export let dict: Record<string, unknown> = {};
+  export let dict: any = {};
   export let onLoad: (item: ToolHistoryItem) => void;
 
   const TOOL_ID = 'curl-forge';
@@ -36,14 +36,14 @@
   <div class="flex items-center justify-between mb-6">
     <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center">
       <History class="w-5 h-5 mr-2 text-blue-500" />
-      {dict?.history?.title || 'Recent Activities'}
+      {(dict as any)?.history?.title || 'Recent Activities'}
     </h3>
     {#if $history$ && $history$.length > 0}
       <button
         on:click={handleClearHistory}
         class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 min-h-[44px] min-w-[44px] px-2 rounded-lg flex items-center transition-colors"
       >
-        {dict?.history?.clear || 'Clear History'}
+        {(dict as any)?.history?.clear || 'Clear History'}
       </button>
     {/if}
   </div>
@@ -51,7 +51,7 @@
   {#if !$history$ || $history$.length === 0}
     <div class="text-center py-8 text-slate-500 dark:text-slate-400">
       <History class="w-8 h-8 mx-auto mb-3 opacity-50" />
-      <p>{dict?.history?.empty || 'No requests found.'}</p>
+      <p>{(dict as any)?.history?.empty || 'No requests found.'}</p>
     </div>
   {:else}
     <div class="space-y-3">

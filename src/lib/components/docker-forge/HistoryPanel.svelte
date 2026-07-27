@@ -9,7 +9,7 @@
   export let onRestore: (item: ToolHistoryItem) => void;
 
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
-  $: d = dict?.tools?.dockerForge || dictionaries.en.tools.dockerForge;
+  $: d = (dict as any)?.tools?.dockerForge || dictionaries.en.tools.dockerForge;
   $: hp = d?.historyPanel || { title: "Workspace History", empty_state: "No history yet.", clear: "Clear All", restore: "Restore" };
   $: b = d?.buttons || { delete: "Delete", star: "Star" };
 

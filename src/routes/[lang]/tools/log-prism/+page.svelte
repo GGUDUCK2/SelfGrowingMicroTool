@@ -275,8 +275,8 @@
       "@type": "SoftwareApplication",
         "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/log-prism",
         "isAccessibleForFree": true,
-      "name": dict?.title || "",
-      "description": dict?.description || "",
+      "name": (dict as any)?.title || "",
+      "description": (dict as any)?.description || "",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
       "featureList": [
@@ -302,26 +302,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict?.q1 || "",
+        "name": (dict as any)?.q1 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict?.a1 || ""
+          "text": (dict as any)?.a1 || ""
         }
       },
       {
         "@type": "Question",
-        "name": dict?.q2 || "",
+        "name": (dict as any)?.q2 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict?.a2 || ""
+          "text": (dict as any)?.a2 || ""
         }
       },
       {
         "@type": "Question",
-        "name": dict?.q3 || "",
+        "name": (dict as any)?.q3 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict?.a3 || ""
+          "text": (dict as any)?.a3 || ""
         }
       }
     ]
@@ -522,14 +522,14 @@
 </main>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <GuideSection {...dict?.guide} />
+    <GuideSection {...(dict as any)?.guide} />
     <AdPlaceholder />
     <FAQSection
         title={dict.faqTitle}
         items={[
-            { q: dict?.q1, a: dict?.a1 },
-            { q: dict?.q2, a: dict?.a2 },
-            { q: dict?.q3, a: dict?.a3 }
+            { q: (dict as any)?.q1, a: (dict as any)?.a1 },
+            { q: (dict as any)?.q2, a: (dict as any)?.a2 },
+            { q: (dict as any)?.q3, a: (dict as any)?.a3 }
         ]}
     />
     <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="log-prism" currentCategory="dev" />

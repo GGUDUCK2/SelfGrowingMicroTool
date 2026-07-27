@@ -177,13 +177,13 @@
         class="px-4 py-2 rounded-lg text-sm font-medium transition-colors {comparisonType === 'file' && !diffMode ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
         on:click={() => { comparisonType = 'file'; diffMode = false; match = null; }}
         >
-        {dict?.compare?.tabFile || 'Compare with File'}
+        {(dict as any)?.compare?.tabFile || 'Compare with File'}
         </button>
         <button
         class="px-4 py-2 rounded-lg text-sm font-medium transition-colors {comparisonType === 'hash' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
         on:click={() => { comparisonType = 'hash'; diffMode = false; match = null; }}
         >
-        {dict?.compare?.tabHash || 'Compare with Hash'}
+        {(dict as any)?.compare?.tabHash || 'Compare with Hash'}
         </button>
     </div>
 
@@ -192,14 +192,14 @@
         on:click={() => { diffMode = !diffMode; comparisonType = 'file'; match = null; }}
     >
         <Binary size={16} />
-        {dict?.compare?.binaryDiff || 'Binary Diff Mode'}
+        {(dict as any)?.compare?.binaryDiff || 'Binary Diff Mode'}
     </button>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
     <!-- Primary File Info -->
     <div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
-      <h3 class="text-xs font-bold text-slate-500 uppercase mb-2">{dict?.compare?.primary || 'Primary File'}</h3>
+      <h3 class="text-xs font-bold text-slate-500 uppercase mb-2">{(dict as any)?.compare?.primary || 'Primary File'}</h3>
       <div class="font-medium text-slate-900 dark:text-white truncate" title={file.name}>{file.name}</div>
       <div class="text-xs text-slate-400 mt-1">{(file.size / 1024).toFixed(2)} KB</div>
       {#if primaryHash && !diffMode}
@@ -214,7 +214,7 @@
 
     <!-- Secondary Input -->
     <div class="space-y-4">
-      <h3 class="text-xs font-bold text-slate-500 uppercase mb-2">{dict?.compare?.secondary || 'Secondary Source'}</h3>
+      <h3 class="text-xs font-bold text-slate-500 uppercase mb-2">{(dict as any)?.compare?.secondary || 'Secondary Source'}</h3>
 
       {#if comparisonType === 'file' || diffMode}
         <div
@@ -239,7 +239,7 @@
             </button>
           {:else}
             <UploadCloud size={32} class="text-slate-400 mb-2" />
-            <div class="text-sm font-medium text-slate-600 dark:text-slate-300">{dict?.compare?.drop || 'Drop file to compare'}</div>
+            <div class="text-sm font-medium text-slate-600 dark:text-slate-300">{(dict as any)?.compare?.drop || 'Drop file to compare'}</div>
             <div class="text-xs text-slate-400 mt-1">or click to browse</div>
           {/if}
         </div>
@@ -249,7 +249,7 @@
             bind:value={hashInput}
             on:input={handleCompare}
             class="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-xs h-[160px] resize-none"
-            placeholder={dict?.compare?.pastePlaceholder || "Paste SHA-256 Hash here..."}
+            placeholder={(dict as any)?.compare?.pastePlaceholder || "Paste SHA-256 Hash here..."}
           ></textarea>
         </div>
       {/if}
@@ -298,8 +298,8 @@
               </div>
           </div>
           <div class="flex justify-between text-xs font-bold uppercase tracking-wider text-slate-500">
-              <span>{dict?.compare?.secondary || 'Secondary Source'}</span>
-              <span>{dict?.compare?.primary || 'Primary File'}</span>
+              <span>{(dict as any)?.compare?.secondary || 'Secondary Source'}</span>
+              <span>{(dict as any)?.compare?.primary || 'Primary File'}</span>
           </div>
       </div>
   {:else if diffMode && diffLines.length > 0}
@@ -367,16 +367,16 @@
            <CheckCircle size={32} />
         </div>
         <div>
-          <h3 class="font-bold text-emerald-800 dark:text-emerald-300 text-lg">{dict?.compare?.matchTitle || 'Match Confirmed'}</h3>
-          <p class="text-emerald-600 dark:text-emerald-400 text-sm">{dict?.compare?.matchDesc || 'The files are identical (SHA-256).'}</p>
+          <h3 class="font-bold text-emerald-800 dark:text-emerald-300 text-lg">{(dict as any)?.compare?.matchTitle || 'Match Confirmed'}</h3>
+          <p class="text-emerald-600 dark:text-emerald-400 text-sm">{(dict as any)?.compare?.matchDesc || 'The files are identical (SHA-256).'}</p>
         </div>
       {:else}
         <div class="p-3 rounded-full bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-400">
            <XCircle size={32} />
         </div>
         <div>
-          <h3 class="font-bold text-red-800 dark:text-red-300 text-lg">{dict?.compare?.mismatchTitle || 'Mismatch Detected'}</h3>
-          <p class="text-red-600 dark:text-red-400 text-sm">{dict?.compare?.mismatchDesc || 'The hashes do not match.'}</p>
+          <h3 class="font-bold text-red-800 dark:text-red-300 text-lg">{(dict as any)?.compare?.mismatchTitle || 'Mismatch Detected'}</h3>
+          <p class="text-red-600 dark:text-red-400 text-sm">{(dict as any)?.compare?.mismatchDesc || 'The hashes do not match.'}</p>
         </div>
       {/if}
     </div>

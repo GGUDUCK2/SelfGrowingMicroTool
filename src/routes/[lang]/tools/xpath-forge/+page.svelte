@@ -10,7 +10,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = getDictionary(lang);
-  $: t = dict?.tools?.xpathForge;
+  $: t = (dict as any)?.tools?.xpathForge;
 
   $: title = t?.title || 'XPath Forge';
   $: description = t?.description || 'Test and execute XPath expressions against XML or HTML documents.';

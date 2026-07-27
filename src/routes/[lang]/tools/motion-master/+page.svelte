@@ -107,26 +107,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict?.q1,
+        "name": (dict as any)?.q1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict?.a1
+          "text": (dict as any)?.a1
         }
       },
       {
         "@type": "Question",
-        "name": dict?.q2,
+        "name": (dict as any)?.q2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict?.a2
+          "text": (dict as any)?.a2
         }
       },
       {
         "@type": "Question",
-        "name": dict?.q3,
+        "name": (dict as any)?.q3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict?.a3
+          "text": (dict as any)?.a3
         }
       }
     ]
@@ -300,16 +300,16 @@
           <h3 class="text-2xl font-bold mb-6 text-slate-800 dark:text-white">{dict.faqTitle}</h3>
           <div class="space-y-6">
               <div>
-                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{dict?.q1}</h4>
-                  <p class="text-slate-600 dark:text-slate-400">{dict?.a1}</p>
+                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{(dict as any)?.q1}</h4>
+                  <p class="text-slate-600 dark:text-slate-400">{(dict as any)?.a1}</p>
               </div>
               <div>
-                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{dict?.q2}</h4>
-                  <p class="text-slate-600 dark:text-slate-400">{dict?.a2}</p>
+                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{(dict as any)?.q2}</h4>
+                  <p class="text-slate-600 dark:text-slate-400">{(dict as any)?.a2}</p>
               </div>
               <div>
-                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{dict?.q3}</h4>
-                  <p class="text-slate-600 dark:text-slate-400">{dict?.a3}</p>
+                  <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">{(dict as any)?.q3}</h4>
+                  <p class="text-slate-600 dark:text-slate-400">{(dict as any)?.a3}</p>
               </div>
           </div>
       </div>
@@ -319,14 +319,14 @@
 </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <GuideSection {...dict?.guide} />
+    <GuideSection {...(dict as any)?.guide} />
   <AdPlaceholder />
   <FAQSection
-      title={dict?.faqTitle}
+      title={(dict as any)?.faqTitle}
       items={[
-        { q: dict?.q1, a: dict?.a1 },
-        { q: dict?.q2, a: dict?.a2 },
-        { q: dict?.q3, a: dict?.a3 }
+        { q: (dict as any)?.q1, a: (dict as any)?.a1 },
+        { q: (dict as any)?.q2, a: (dict as any)?.a2 },
+        { q: (dict as any)?.q3, a: (dict as any)?.a3 }
       ]}
     />
   <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="motion-master" currentCategory="dev" />

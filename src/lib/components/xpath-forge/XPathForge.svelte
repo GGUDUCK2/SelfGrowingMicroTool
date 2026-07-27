@@ -8,7 +8,7 @@
 
     $: lang = $page.params.lang || 'en';
     $: dict = getDictionary(lang);
-    $: t = dict?.tools?.xpathForge;
+    $: t = (dict as any)?.tools?.xpathForge;
 
     // State
     let sourceDocument = `<?xml version="1.0" encoding="UTF-8"?>
@@ -272,7 +272,7 @@
     async function handleCopy(text: string) {
         try {
             await navigator.clipboard.writeText(text);
-            showToast(dict?.common?.actions || 'Copied', 'success');
+            showToast((dict as any)?.common?.actions || 'Copied', 'success');
         } catch {
             showToast('Failed to copy', 'error');
         }

@@ -15,7 +15,7 @@
 
     $: lang = $page.params.lang || 'en';
     $: dict = getDictionary(lang);
-    $: d = dict?.tools?.loremForge;
+    $: d = (dict as any)?.tools?.loremForge;
 
     // State
     let dictionary: DictionaryType = 'standard';

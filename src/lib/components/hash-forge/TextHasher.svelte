@@ -5,7 +5,7 @@
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
 
-  export let dict: Record<string, unknown>;
+  export let dict: any;
   export let onNewHistory: () => void;
   export let restoredData: HashForgeHistoryItem | null = null;
 
@@ -206,17 +206,17 @@
     <button
       class="px-4 py-2 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {matrixMode ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 dark:shadow-indigo-900/20' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'} ml-auto flex items-center gap-2"
       on:click={() => { matrixMode = !matrixMode; handleInput(); }}
-      aria-label={dict?.hashForge?.matrixMode || "Matrix Mode"}
+      aria-label={(dict as any)?.hashForge?.matrixMode || "Matrix Mode"}
     >
       <Sparkles size={16} />
-      {dict?.hashForge?.matrixMode || "Matrix Mode"}
+      {(dict as any)?.hashForge?.matrixMode || "Matrix Mode"}
     </button>
   </div>
 
   <!-- Smart Examples -->
   <div class="flex flex-wrap items-center gap-2">
     <span class="text-xs font-medium text-slate-500 dark:text-slate-400 flex items-center gap-1">
-      <Sparkles size={14} /> {dict?.common?.examples || "Examples"}:
+      <Sparkles size={14} /> {(dict as any)?.common?.examples || "Examples"}:
     </span>
     {#each EXAMPLES as example (example.label)}
       <button
@@ -234,7 +234,7 @@
     <div class="flex items-center gap-2 mb-2">
       <label class="flex items-center gap-2 cursor-pointer text-sm font-medium text-slate-700 dark:text-slate-300">
         <input type="checkbox" bind:checked={isSaltEnabled} class="rounded border-slate-300 dark:border-slate-600 text-indigo-600 focus:ring-indigo-500 dark:bg-slate-800" />
-        {dict?.textHash?.enableSalt || "Add Salt"}
+        {(dict as any)?.textHash?.enableSalt || "Add Salt"}
       </label>
     </div>
 
@@ -244,25 +244,25 @@
           <button
             class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors min-h-[44px] {saltPosition === 'prepend' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
             on:click={() => saltPosition = 'prepend'}
-            aria-label={dict?.textHash?.prependSalt || "Prepend Salt"}
+            aria-label={(dict as any)?.textHash?.prependSalt || "Prepend Salt"}
           >
-            {dict?.textHash?.prependSalt || "Prepend"}
+            {(dict as any)?.textHash?.prependSalt || "Prepend"}
           </button>
           <button
             class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors min-h-[44px] {saltPosition === 'append' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
             on:click={() => saltPosition = 'append'}
-            aria-label={dict?.textHash?.appendSalt || "Append Salt"}
+            aria-label={(dict as any)?.textHash?.appendSalt || "Append Salt"}
           >
-            {dict?.textHash?.appendSalt || "Append"}
+            {(dict as any)?.textHash?.appendSalt || "Append"}
           </button>
         </div>
         <input
           type="text"
           bind:value={salt}
           on:input={handleInput}
-          placeholder={dict?.textHash?.saltPlaceholder || "Enter salt string..."}
+          placeholder={(dict as any)?.textHash?.saltPlaceholder || "Enter salt string..."}
           class="flex-1 px-3 py-2 min-h-[44px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-slate-800 dark:text-slate-200 placeholder-slate-400 font-mono text-sm"
-          aria-label={dict?.textHash?.saltPlaceholder || "Salt"}
+          aria-label={(dict as any)?.textHash?.saltPlaceholder || "Salt"}
         />
       </div>
     {/if}
@@ -280,7 +280,7 @@
                 on:click={() => { inputFormat = format as InputFormat; }}
                 aria-label={`Input format ${format}`}
               >
-                {dict?.common?.[format] || format.toUpperCase()}
+                {(dict as any)?.common?.[format] || format.toUpperCase()}
               </button>
             {/each}
           </div>
@@ -299,7 +299,7 @@
       {#if analyzedHashType}
         <div class="mt-2 flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 px-3 py-2 rounded-lg border border-indigo-100 dark:border-indigo-800 animate-in fade-in slide-in-from-top-1">
           <Search size={16} />
-          <span>{dict?.textHash?.looksLikeHash?.replace('{algo}', analyzedHashType) || `Looks like a ${analyzedHashType} hash`}</span>
+          <span>{(dict as any)?.textHash?.looksLikeHash?.replace('{algo}', analyzedHashType) || `Looks like a ${analyzedHashType} hash`}</span>
         </div>
       {/if}
     </div>
@@ -314,7 +314,7 @@
           aria-label="Download Matrix JSON"
         >
           <Download size={14} />
-          {dict?.common?.downloadJson || "Download JSON"}
+          {(dict as any)?.common?.downloadJson || "Download JSON"}
         </button>
         <button
           on:click={copyMatrixJson}
@@ -322,9 +322,9 @@
           aria-label="Copy Matrix JSON"
         >
           {#if copiedJson}
-            <Check size={14} /> {dict?.common?.copied || "Copied!"}
+            <Check size={14} /> {(dict as any)?.common?.copied || "Copied!"}
           {:else}
-            <Copy size={14} /> {dict?.common?.copyJson || "Copy JSON"}
+            <Copy size={14} /> {(dict as any)?.common?.copyJson || "Copy JSON"}
           {/if}
         </button>
       </div>

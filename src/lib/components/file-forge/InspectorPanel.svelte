@@ -221,7 +221,7 @@
         a.click();
         URL.revokeObjectURL(url);
     } catch (e) {
-        alert((dict?.inspector?.patchError || 'Failed to patch file') + ': ' + (e instanceof Error ? e.message : e));
+        alert(((dict as any)?.inspector?.patchError || 'Failed to patch file') + ': ' + (e instanceof Error ? e.message : e));
     }
   }
 
@@ -314,7 +314,7 @@
   {#if loading}
     <div class="flex flex-col items-center justify-center p-20 text-slate-400 bg-white/50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 backdrop-blur-sm">
       <Activity class="animate-pulse mb-4 text-indigo-500" size={32} />
-      <span class="font-medium animate-pulse">{dict?.inspector?.analyzing || 'Running Deep Scan...'}</span>
+      <span class="font-medium animate-pulse">{(dict as any)?.inspector?.analyzing || 'Running Deep Scan...'}</span>
     </div>
   {:else}
     <!-- 1. Risk Assessment Panel -->
@@ -325,7 +325,7 @@
         <div class="flex justify-between items-center mb-4">
             <div>
                 <h4 class="text-sm font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wide flex items-center gap-2">
-                    <Activity size={16} class="text-indigo-500" /> {entropyMode === 'entropy' ? (dict?.inspector?.entropyMap || 'Entropy DNA') : (dict?.inspector?.byteClass || 'Byte Class Map')}
+                    <Activity size={16} class="text-indigo-500" /> {entropyMode === 'entropy' ? ((dict as any)?.inspector?.entropyMap || 'Entropy DNA') : ((dict as any)?.inspector?.byteClass || 'Byte Class Map')}
                 </h4>
                 <p class="text-xs text-slate-500 mt-1">Visualizes data randomness. Uniform blocks usually indicate encryption or compression.</p>
             </div>
@@ -359,7 +359,7 @@
         <!-- Magic & Type -->
         <div class="bg-indigo-50 dark:bg-indigo-900/10 p-6 rounded-2xl border border-indigo-100 dark:border-indigo-800/50">
             <h4 class="text-xs font-bold text-indigo-800 dark:text-indigo-300 uppercase tracking-wide mb-3 flex items-center gap-2">
-            <FileSearch size={14} /> {dict?.inspector?.detectedType || 'File Signature'}
+            <FileSearch size={14} /> {(dict as any)?.inspector?.detectedType || 'File Signature'}
             </h4>
             <div class="text-xl font-mono font-bold text-indigo-900 dark:text-indigo-100 break-words mb-2">
             {magicInfo.description}
@@ -370,7 +370,7 @@
                     <span class="font-mono text-indigo-900 dark:text-indigo-200">{magicInfo.type}</span>
                 </div>
                 <div class="flex justify-between text-sm pt-1">
-                    <span class="text-indigo-600 dark:text-indigo-400">{dict?.inspector?.matchExtension || 'Extension Match'}</span>
+                    <span class="text-indigo-600 dark:text-indigo-400">{(dict as any)?.inspector?.matchExtension || 'Extension Match'}</span>
                     {#if magicInfo.matches}
                         <span class="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
                             Verified
@@ -387,7 +387,7 @@
         <!-- Archive / PDF / Metadata -->
         <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
             <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3 flex items-center gap-2">
-                <ScanEye size={14} /> {dict?.inspector?.metadata || 'Deep Inspection'}
+                <ScanEye size={14} /> {(dict as any)?.inspector?.metadata || 'Deep Inspection'}
             </h4>
 
             <div class="space-y-3 text-sm">
@@ -501,24 +501,24 @@
     <div class="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 font-mono text-xs shadow-lg transition-all {editMode ? 'ring-2 ring-indigo-500' : ''}">
       <div class="bg-slate-950/50 px-4 py-3 border-b border-slate-800 text-slate-400 flex justify-between items-center flex-wrap gap-2">
         <div class="flex items-center gap-4">
-            <span class="font-bold flex items-center gap-2"><Binary size={14}/> {dict?.inspector?.hexView || 'Hex Viewer'}</span>
+            <span class="font-bold flex items-center gap-2"><Binary size={14}/> {(dict as any)?.inspector?.hexView || 'Hex Viewer'}</span>
             <span class="bg-slate-800 px-2 py-0.5 rounded text-[10px]">First 512 Bytes</span>
         </div>
         {#if !restoredData}
             <div class="flex items-center gap-2">
                 {#if editMode}
                     <button class="flex items-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded text-[10px] font-bold transition-colors" on:click={downloadPatched}>
-                        <Download size={12} /> {dict?.inspector?.downloadPatched || 'Download Patched'}
+                        <Download size={12} /> {(dict as any)?.inspector?.downloadPatched || 'Download Patched'}
                     </button>
                     <button class="flex items-center gap-1 bg-slate-700 hover:bg-slate-600 text-white px-3 py-1 rounded text-[10px] font-bold transition-colors" on:click={resetChanges}>
                         <RotateCcw size={12} />
                     </button>
                     <button class="flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-[10px] font-bold transition-colors" on:click={() => editMode = false}>
-                        <Save size={12} /> {dict?.inspector?.done || 'Done'}
+                        <Save size={12} /> {(dict as any)?.inspector?.done || 'Done'}
                     </button>
                 {:else}
                     <button class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1 rounded text-[10px] font-bold transition-colors" on:click={() => editMode = true}>
-                        <Edit2 size={12} /> {dict?.inspector?.editMode || 'Edit Mode'}
+                        <Edit2 size={12} /> {(dict as any)?.inspector?.editMode || 'Edit Mode'}
                     </button>
                 {/if}
             </div>
@@ -565,11 +565,11 @@
   {#if hoveredByte}
     <div class="fixed bottom-8 right-8 z-50 bg-slate-900/90 border border-indigo-500/50 backdrop-blur-md p-4 rounded-xl shadow-2xl text-xs font-mono text-indigo-300 w-64 animate-in fade-in slide-in-from-bottom-2 pointer-events-none">
         <h5 class="font-bold text-white mb-2 flex items-center gap-2 border-b border-white/10 pb-1">
-            <ScanEye size={14} /> {dict?.magicLens?.title || 'Magic Lens'}
+            <ScanEye size={14} /> {(dict as any)?.magicLens?.title || 'Magic Lens'}
         </h5>
         <div class="space-y-1.5">
             <div class="flex justify-between">
-                <span class="text-slate-400">{dict?.inspector?.offset || 'Offset'}</span>
+                <span class="text-slate-400">{(dict as any)?.inspector?.offset || 'Offset'}</span>
                 <span class="text-white">0x{hoveredByte.offset.toString(16).toUpperCase()}</span>
             </div>
             {#if hoveredByte.val !== undefined}

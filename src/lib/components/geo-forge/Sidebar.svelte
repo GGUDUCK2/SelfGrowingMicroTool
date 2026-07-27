@@ -37,7 +37,7 @@
                });
           }
       } catch (e) {
-          alert(dict?.pasteError || 'Failed to paste: ' + e);
+          alert((dict as any)?.pasteError || 'Failed to paste: ' + e);
       }
   }
 
@@ -60,13 +60,13 @@
          class="flex-1 py-3 text-sm font-medium flex items-center justify-center gap-2 transition-colors {activeTab === 'layers' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
          on:click={() => activeTab = 'layers'}
        >
-         <Layers class="w-4 h-4"/> {dict?.layer?.add || 'Layers'}
+         <Layers class="w-4 h-4"/> {(dict as any)?.layer?.add || 'Layers'}
        </button>
        <button
          class="flex-1 py-3 text-sm font-medium flex items-center justify-center gap-2 transition-colors {activeTab === 'history' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
          on:click={() => activeTab = 'history'}
        >
-         <History class="w-4 h-4"/> {dict?.history || 'History'}
+         <History class="w-4 h-4"/> {(dict as any)?.history || 'History'}
        </button>
    </div>
 
@@ -75,14 +75,14 @@
       <div class="p-4 border-b border-slate-200 dark:border-slate-700">
           <div class="flex justify-between items-center mb-3">
               <h3 class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                  <Layers class="w-4 h-4" /> {dict?.layer?.list || 'Layer List'}
+                  <Layers class="w-4 h-4" /> {(dict as any)?.layer?.list || 'Layer List'}
               </h3>
               <div class="flex gap-1">
                   <button
                     class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
                     on:click={handleSmartPaste}
-                    aria-label={dict?.smartPaste || "Smart Paste Layer"}
-                    title={dict?.smartPaste || "Smart Paste Layer"}
+                    aria-label={(dict as any)?.smartPaste || "Smart Paste Layer"}
+                    title={(dict as any)?.smartPaste || "Smart Paste Layer"}
                   >
                       <Clipboard class="w-4 h-4" />
                   </button>
@@ -129,11 +129,11 @@
       <div class="p-4 border-b border-slate-200 dark:border-slate-700 grid grid-cols-2 gap-2">
            <button class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 transition-all gap-1" on:click={() => dispatch('convexHull')} title="Create Convex Hull from active layer" aria-label="Create Convex Hull">
                <Box class="w-5 h-5" />
-               <span class="text-xs font-medium">{dict?.convexHull || 'Convex Hull'}</span>
+               <span class="text-xs font-medium">{(dict as any)?.convexHull || 'Convex Hull'}</span>
            </button>
            <button class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 transition-all gap-1" on:click={() => dispatch('bbox')} title="Get Bounding Box" aria-label="Get Bounding Box">
                <Maximize class="w-5 h-5" />
-               <span class="text-xs font-medium">{dict?.bounds || 'Bounds'}</span>
+               <span class="text-xs font-medium">{(dict as any)?.bounds || 'Bounds'}</span>
            </button>
       </div>
 
@@ -185,7 +185,7 @@
              {/each}
              {#if $history.length === 0}
                  <div class="text-center text-slate-400 text-sm py-8">
-                     {dict?.historyEmpty || 'No history yet.'}
+                     {(dict as any)?.historyEmpty || 'No history yet.'}
                  </div>
              {/if}
           {/if}

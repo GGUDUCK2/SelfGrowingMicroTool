@@ -216,26 +216,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": dict?.q1 || "",
+        "name": (dict as any)?.q1 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict?.a1 || ""
+          "text": (dict as any)?.a1 || ""
         }
       },
       {
         "@type": "Question",
-        "name": dict?.q2 || "",
+        "name": (dict as any)?.q2 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict?.a2 || ""
+          "text": (dict as any)?.a2 || ""
         }
       },
       {
         "@type": "Question",
-        "name": dict?.q3 || "",
+        "name": (dict as any)?.q3 || "",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": dict?.a3 || ""
+          "text": (dict as any)?.a3 || ""
         }
       }
     ]

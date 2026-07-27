@@ -67,9 +67,9 @@
     <div class="bg-indigo-50 dark:bg-indigo-900/20 p-5 rounded-2xl border border-indigo-100 dark:border-indigo-800 flex items-start gap-4">
         <Shield size={32} class="text-indigo-600 dark:text-indigo-400 shrink-0 mt-1" />
         <div>
-            <h3 class="font-bold text-indigo-900 dark:text-indigo-100 text-lg mb-1">{dict?.privacy?.title || 'Metadata Wiper'}</h3>
+            <h3 class="font-bold text-indigo-900 dark:text-indigo-100 text-lg mb-1">{(dict as any)?.privacy?.title || 'Metadata Wiper'}</h3>
             <p class="text-sm text-indigo-700 dark:text-indigo-300 leading-relaxed">
-                {dict?.privacy?.desc || 'Remove hidden metadata (EXIF, GPS, Author) from your files before sharing them. This process creates a clean copy of your file.'}
+                {(dict as any)?.privacy?.desc || 'Remove hidden metadata (EXIF, GPS, Author) from your files before sharing them. This process creates a clean copy of your file.'}
             </p>
         </div>
     </div>
@@ -78,14 +78,14 @@
         <div class="flex flex-col items-center justify-center p-12 bg-white dark:bg-slate-900 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800">
             {#if processing}
                 <RefreshCw class="animate-spin text-indigo-500 mb-4" size={48} />
-                <p class="text-slate-500 font-medium">{dict?.privacy?.processing || 'Scrubbing metadata...'}</p>
+                <p class="text-slate-500 font-medium">{(dict as any)?.privacy?.processing || 'Scrubbing metadata...'}</p>
             {:else}
                 <ShieldAlert class="text-slate-400 mb-4" size={48} />
                 <p class="text-slate-500 mb-6 text-center max-w-md">
                     {#if file.type.startsWith('image/') || file.type === 'application/pdf'}
-                        {dict?.privacy?.ready || 'Ready to sanitize. This will strip all metadata tags and recreate the file structure.'}
+                        {(dict as any)?.privacy?.ready || 'Ready to sanitize. This will strip all metadata tags and recreate the file structure.'}
                     {:else}
-                        {dict?.privacy?.unsupported || 'Sanitization is currently only supported for Images and PDF files.'}
+                        {(dict as any)?.privacy?.unsupported || 'Sanitization is currently only supported for Images and PDF files.'}
                     {/if}
                 </p>
                 <button
@@ -94,7 +94,7 @@
                     class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
                 >
                     <ShieldCheck size={20} />
-                    {dict?.privacy?.sanitize || 'Sanitize File'}
+                    {(dict as any)?.privacy?.sanitize || 'Sanitize File'}
                 </button>
             {/if}
         </div>
@@ -104,7 +104,7 @@
                 <ShieldCheck size={40} />
             </div>
             <h3 class="text-xl font-bold text-emerald-900 dark:text-emerald-100 mb-2">
-                {dict?.privacy?.success || 'Sanitization Complete'}
+                {(dict as any)?.privacy?.success || 'Sanitization Complete'}
             </h3>
             <p class="text-emerald-700 dark:text-emerald-300 mb-6">
                 Metadata stripped successfully.
@@ -118,7 +118,7 @@
                 class="px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-600/20 transition-all flex items-center gap-2 mx-auto"
             >
                 <Download size={20} />
-                {dict?.privacy?.download || 'Download Clean File'}
+                {(dict as any)?.privacy?.download || 'Download Clean File'}
             </button>
         </div>
     {/if}

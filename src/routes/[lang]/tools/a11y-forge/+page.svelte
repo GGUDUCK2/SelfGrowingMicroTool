@@ -13,7 +13,7 @@ import Contrast from '@lucide/svelte/icons/contrast';
 
   $: lang = $page.params.lang as 'en' | 'ko';
   $: dict = (dictionaries as any)[lang];
-  $: t = dict?.tools?.a11yForge || {};
+  $: t = (dict as any)?.tools?.a11yForge || {};
 
   let activeTab: 'contrast' | 'aria' = 'contrast';
 

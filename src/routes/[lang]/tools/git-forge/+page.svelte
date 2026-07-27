@@ -112,7 +112,7 @@
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": `https://selfgrowingmicrotool.com/${lang}` },
       { "@type": "ListItem", "position": 2, "name": "Tools", "item": `https://selfgrowingmicrotool.com/${lang}#tools` },
-      { "@type": "ListItem", "position": 3, "name": dict?.title || 'Git Forge', "item": `https://selfgrowingmicrotool.com/${lang}/tools/git-forge` }
+      { "@type": "ListItem", "position": 3, "name": (dict as any)?.title || 'Git Forge', "item": `https://selfgrowingmicrotool.com/${lang}/tools/git-forge` }
     ]
   };
 
@@ -121,8 +121,8 @@
     "@type": "SoftwareApplication",
     "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/git-forge",
         "isAccessibleForFree": true,
-    "name": dict?.title || 'Git Forge',
-    "description": dict?.description || 'Git tools',
+    "name": (dict as any)?.title || 'Git Forge',
+    "description": (dict as any)?.description || 'Git tools',
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "Version Control System Tool",
     "operatingSystem": "Any",
@@ -140,7 +140,7 @@
   $: howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": `How to use ${dict?.title || 'Git Forge'}`,
+    "name": `How to use ${(dict as any)?.title || 'Git Forge'}`,
     "step": [
       {
         "@type": "HowToStep",
@@ -167,8 +167,8 @@
 </script>
 
 <Head
-  title={dict?.title || 'Git Forge'}
-  description={dict?.description || 'Git tools'}
+  title={(dict as any)?.title || 'Git Forge'}
+  description={(dict as any)?.description || 'Git tools'}
   keywords="git command generator, gitignore builder, conventional commits, git tools, developer tools, git doctor, undo git commit"
   image="https://selfgrowingmicrotool.com/og/git-forge.png"
   url={`https://selfgrowingmicrotool.com/${lang}/tools/git-forge`}
@@ -199,7 +199,7 @@
              <GitBranch size={20} />
           </div>
           <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-red-600 dark:from-orange-400 dark:to-red-400">
-            {dict?.title || 'Git Forge'}
+            {(dict as any)?.title || 'Git Forge'}
           </h1>
         </div>
       </div>
@@ -218,28 +218,28 @@
                       class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'command' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
                   >
                       <Terminal size={16} />
-                      <span class="hidden sm:inline">{dict?.tabs?.command || 'Command Builder'}</span>
+                      <span class="hidden sm:inline">{(dict as any)?.tabs?.command || 'Command Builder'}</span>
                   </button>
                   <button
                       on:click={() => activeTab = 'ignore'}
                       class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'ignore' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
                   >
                       <FileCode size={16} />
-                      <span class="hidden sm:inline">{dict?.tabs?.ignore || '.gitignore'}</span>
+                      <span class="hidden sm:inline">{(dict as any)?.tabs?.ignore || '.gitignore'}</span>
                   </button>
                   <button
                       on:click={() => activeTab = 'commit'}
                       class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'commit' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
                   >
                       <MessageSquare size={16} />
-                      <span class="hidden sm:inline">{dict?.tabs?.commit || 'Commit Builder'}</span>
+                      <span class="hidden sm:inline">{(dict as any)?.tabs?.commit || 'Commit Builder'}</span>
                   </button>
                   <button
                       on:click={() => activeTab = 'doctor'}
                       class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'doctor' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
                   >
                       <Stethoscope size={16} />
-                      <span class="hidden sm:inline">{dict?.tabs?.doctor || 'Git Doctor'}</span>
+                      <span class="hidden sm:inline">{(dict as any)?.tabs?.doctor || 'Git Doctor'}</span>
                   </button>
               </div>
 
@@ -265,7 +265,7 @@
               </div>
 
               <!-- Docs -->
-              {#if dict?.guide}
+              {#if (dict as any)?.guide}
               <div class="mt-12 space-y-8">
                   <GuideSection
                       title={dict.guide.title}

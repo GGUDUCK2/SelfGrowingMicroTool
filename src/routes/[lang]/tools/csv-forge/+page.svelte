@@ -142,7 +142,7 @@
       {
         "@type": "ListItem",
         "position": 2,
-        "name": dict?.title || '',
+        "name": (dict as any)?.title || '',
         "item": `https://selfgrowingmicrotool.com/${lang}/tools/csv-forge`
       }
     ]
@@ -153,8 +153,8 @@
     "@type": "SoftwareApplication",
         "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/csv-forge",
         "isAccessibleForFree": true,
-    "name": dict?.title || '',
-    "description": dict?.description || '',
+    "name": (dict as any)?.title || '',
+    "description": (dict as any)?.description || '',
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "CSV Utility",
     "operatingSystem": "Any",
@@ -179,8 +179,8 @@
 </svelte:head>
 
 <Head
-  title={dict?.title || ''}
-  description={dict?.description || ''}
+  title={(dict as any)?.title || ''}
+  description={(dict as any)?.description || ''}
   keywords="csv editor, csv to json, csv to sql, csv analyzer, local csv tool"
 />
 
@@ -196,7 +196,7 @@
              <FileSpreadsheet size={20} />
           </div>
           <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-            {dict?.title || ''}
+            {(dict as any)?.title || ''}
           </h1>
         </div>
       </div>

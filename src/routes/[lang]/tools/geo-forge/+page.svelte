@@ -213,7 +213,7 @@
 
   function handleSimplify() {
       if (!activeLayer || !activeLayer.data) return;
-      const toleranceStr = prompt(dict?.prompt_tolerance || "Enter simplification tolerance (degrees, e.g. 0.001):", "0.001");
+      const toleranceStr = prompt((dict as any)?.prompt_tolerance || "Enter simplification tolerance (degrees, e.g. 0.001):", "0.001");
       if (!toleranceStr) return;
       const tolerance = parseFloat(toleranceStr);
       if (isNaN(tolerance)) return;
@@ -242,7 +242,7 @@
           }
       }
 
-      const distStr = prompt(dict?.prompt_buffer || "Enter buffer radius in meters:", "1000");
+      const distStr = prompt((dict as any)?.prompt_buffer || "Enter buffer radius in meters:", "1000");
       if (!distStr) return;
       const dist = parseFloat(distStr);
       if (isNaN(dist)) return;
@@ -362,9 +362,9 @@
 
   // FAQ
   $: faqItems = [
-      { q: dict?.q1 || "What is WKT?", a: dict?.a1 || "Well-Known Text (WKT) is a text markup language for representing vector geometry objects." },
-      { q: dict?.q2 || "How is area calculated?", a: dict?.a2 || "We use the Shoelace formula adapted for spherical coordinates (Geodesic area)." },
-      { q: dict?.q3 || "Can I use this offline?", a: dict?.a3 || "Yes! Geo Forge runs entirely on your device." }
+      { q: (dict as any)?.q1 || "What is WKT?", a: (dict as any)?.a1 || "Well-Known Text (WKT) is a text markup language for representing vector geometry objects." },
+      { q: (dict as any)?.q2 || "How is area calculated?", a: (dict as any)?.a2 || "We use the Shoelace formula adapted for spherical coordinates (Geodesic area)." },
+      { q: (dict as any)?.q3 || "Can I use this offline?", a: (dict as any)?.a3 || "Yes! Geo Forge runs entirely on your device." }
   ];
 
 
@@ -391,8 +391,8 @@
       "@type": "SoftwareApplication",
         "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/geo-forge",
         "isAccessibleForFree": true,
-      "name": dict?.title || "",
-      "description": dict?.description || "",
+      "name": (dict as any)?.title || "",
+      "description": (dict as any)?.description || "",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
       "offers": {

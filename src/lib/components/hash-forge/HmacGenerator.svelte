@@ -5,7 +5,7 @@
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
 
-  export let dict: Record<string, unknown>;
+  export let dict: any;
   export let onNewHistory: () => void;
   export let restoredData: HashForgeHistoryItem | null = null;
 
@@ -140,7 +140,7 @@
   <!-- Smart Examples -->
   <div class="flex flex-wrap items-center gap-2">
     <span class="text-xs font-medium text-slate-500 dark:text-slate-400 flex items-center gap-1">
-      <Sparkles size={14} /> {dict?.common?.examples || "Examples"}:
+      <Sparkles size={14} /> {(dict as any)?.common?.examples || "Examples"}:
     </span>
     {#each EXAMPLES as example (example.label)}
       <button
@@ -170,7 +170,7 @@
                 on:click={() => { secretFormat = format as InputFormat; }}
                 aria-label={`Secret format ${format}`}
               >
-                {dict?.common?.[format] || format.toUpperCase()}
+                {(dict as any)?.common?.[format] || format.toUpperCase()}
               </button>
             {/each}
           </div>
@@ -179,7 +179,7 @@
             class="text-xs flex items-center gap-1 text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors min-h-[44px] min-w-[44px]"
           >
             <RefreshCw size={14} />
-            <span class="hidden sm:inline">{dict?.hmac?.generateKey || "Generate Secure Key"}</span>
+            <span class="hidden sm:inline">{(dict as any)?.hmac?.generateKey || "Generate Secure Key"}</span>
           </button>
         </div>
       </div>
@@ -208,7 +208,7 @@
                 on:click={() => { inputFormat = format as InputFormat; }}
                 aria-label={`Input format ${format}`}
               >
-                {dict?.common?.[format] || format.toUpperCase()}
+                {(dict as any)?.common?.[format] || format.toUpperCase()}
               </button>
             {/each}
           </div>

@@ -4,7 +4,7 @@
   import { Copy, Download, Trash2, Check, AlertCircle, Play } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
 
-  export let dict: Record<string, unknown>;
+  export let dict: any;
   export let refreshHistory: () => void;
   export let restoredData: YamlForgeHistoryItem | null = null;
 

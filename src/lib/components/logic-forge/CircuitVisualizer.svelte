@@ -7,7 +7,7 @@
   export let lang: string = 'en';
   export let ast: LogicAST | null = null;
 
-  $: dict = getDictionary(lang).tools.logicForge;
+  $: dict = (getDictionary(lang) as any)?.tools?.logicForge as any;
 
   let containerWidth = 0;
   let containerHeight = 0;

@@ -4,7 +4,7 @@
   import { Ruler, BoxSelect, MapPin, Hash } from '@lucide/svelte';
 
   export let geo: GeoJSON | null = null;
-  export let dict: Record<string, string> = {};
+  export let dict: any = {};
   export let columns = 2;
 
   $: area = geo ? calculateArea(geo) : 0;
@@ -33,7 +33,7 @@
       <BoxSelect class="w-5 h-5" />
     </div>
     <div>
-      <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">{dict?.area || 'Area'}</div>
+      <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">{(dict as any)?.area || 'Area'}</div>
       <div class="text-lg font-bold text-slate-900 dark:text-white tabular-nums">{formatMetric(area)}</div>
     </div>
   </div>
@@ -43,7 +43,7 @@
       <Ruler class="w-5 h-5" />
     </div>
     <div>
-      <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">{dict?.length || 'Length'}</div>
+      <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">{(dict as any)?.length || 'Length'}</div>
       <div class="text-lg font-bold text-slate-900 dark:text-white tabular-nums">{formatDist(length)}</div>
     </div>
   </div>
@@ -53,7 +53,7 @@
       <MapPin class="w-5 h-5" />
     </div>
     <div>
-      <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">{dict?.center || 'Center'}</div>
+      <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">{(dict as any)?.center || 'Center'}</div>
       <div class="text-sm font-bold text-slate-900 dark:text-white tabular-nums">
         {formatCoord(center[1])}, {formatCoord(center[0])}
       </div>
@@ -65,7 +65,7 @@
       <Hash class="w-5 h-5" />
     </div>
     <div>
-      <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">{dict?.type || 'Type'}</div>
+      <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">{(dict as any)?.type || 'Type'}</div>
       <div class="text-lg font-bold text-slate-900 dark:text-white truncate">
         {geo?.type || '-'}
       </div>

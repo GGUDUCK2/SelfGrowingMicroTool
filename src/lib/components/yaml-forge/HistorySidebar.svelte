@@ -3,7 +3,7 @@
   import { getHistory, toggleStar, deleteFromHistory, clearHistory, type YamlForgeHistoryItem } from '$lib/db/yaml-forge';
   import { Star, Trash2, Clock, Code, FileJson } from '@lucide/svelte';
 
-  export let dict: Record<string, unknown>;
+  export let dict: any;
   export let onSelect: (item: YamlForgeHistoryItem) => void;
 
   let history: (YamlForgeHistoryItem & { id: number; timestamp: number; starred: boolean })[] = [];

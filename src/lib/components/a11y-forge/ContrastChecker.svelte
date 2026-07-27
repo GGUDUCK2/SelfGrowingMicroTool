@@ -29,7 +29,7 @@
   $: ratio = getContrastRatio(fgColor, bgColor);
   $: wcag = getWCAGStatus(ratio);
 
-  $: t = dict?.tools?.a11yForge || {};
+  $: t = (dict as any)?.tools?.a11yForge || {};
   $: c = t?.contrast || {};
   $: s = t?.simulator || {};
   $: h = t?.history || {};

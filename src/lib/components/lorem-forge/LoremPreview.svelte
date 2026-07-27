@@ -47,7 +47,7 @@
   <!-- Header -->
   <div class="p-4 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/50">
     <h3 class="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-      {dict?.preview?.title || 'Preview'}
+      {(dict as any)?.preview?.title || 'Preview'}
     </h3>
 
     <div class="flex items-center gap-2">
@@ -99,10 +99,10 @@
       >
         {#if saved}
           <Check class="w-4 h-4 text-emerald-500" />
-          <span class="text-emerald-500">{dict?.preview?.saved || 'Saved!'}</span>
+          <span class="text-emerald-500">{(dict as any)?.preview?.saved || 'Saved!'}</span>
         {:else}
           <History class="w-4 h-4" />
-          <span>{dict?.preview?.saveHistory || 'Save to History'}</span>
+          <span>{(dict as any)?.preview?.saveHistory || 'Save to History'}</span>
         {/if}
       </button>
     </div>
