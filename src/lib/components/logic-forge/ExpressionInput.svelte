@@ -7,7 +7,7 @@
   export let error: string | null = null;
   export let label: string = 'Boolean Expression';
 
-  $: dict = getDictionary(lang).tools.logicForge;
+  $: dict = (getDictionary(lang) as any)?.tools?.logicForge as any;
   const dispatch = createEventDispatcher();
 
   function handleInput(e: Event) {

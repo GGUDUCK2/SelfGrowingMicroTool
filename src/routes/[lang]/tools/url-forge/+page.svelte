@@ -23,9 +23,9 @@
   let showHistory = false;
 
   $: faqItems = dict ? [
-    { q: dict?.q1, a: dict?.a1 },
-    { q: dict?.q2, a: dict?.a2 },
-    { q: dict?.q3, a: dict?.a3 }
+    { q: (dict as any)?.q1, a: (dict as any)?.a1 },
+    { q: (dict as any)?.q2, a: (dict as any)?.a2 },
+    { q: (dict as any)?.q3, a: (dict as any)?.a3 }
   ] : [];
 
   $: jsonLd = dict ? {
@@ -43,7 +43,7 @@
           "price": "0",
           "priceCurrency": "USD"
         },
-        "description": dict?.description,
+        "description": (dict as any)?.description,
         "featureList": [
             "URL Parsing",
             "Query Parameter Editor",
@@ -75,7 +75,7 @@
           {
             "@type": "ListItem",
             "position": 3,
-            "name": dict?.title,
+            "name": (dict as any)?.title,
             "item": `https://selfgrowingmicrotool.com/${lang}/tools/url-forge`
           }
         ]
@@ -120,8 +120,8 @@
   }
 </script>
 <Head
-  title={dict?.title}
-  description={dict?.description}
+  title={(dict as any)?.title}
+  description={(dict as any)?.description}
   url={canonicalUrl}
   keywords="url parser, query string editor, utm builder, url encode, url decode"
 />

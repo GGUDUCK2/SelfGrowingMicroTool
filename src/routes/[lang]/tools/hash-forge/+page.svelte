@@ -17,7 +17,7 @@
 
   $: lang = $page.params.lang || 'en';
   // Use fallback if somehow dict gets undefined, but normally it shouldn't
-  $: dict = getDictionary(lang)?.tools?.hashForge || getDictionary('en').tools.hashForge;
+  $: dict = (getDictionary(lang) as any)?.tools?.hashForge || getDictionary('en').tools.hashForge;
 
   type Tab = 'text' | 'file' | 'hmac' | 'history';
   let activeTab: Tab = 'text';
@@ -35,9 +35,9 @@
   }
 
   $: faqItems = [
-    { q: dict?.faqQ1 || '', a: dict?.faqA1 || '' },
-    { q: dict?.faqQ2 || '', a: dict?.faqA2 || '' },
-    { q: dict?.faqQ3 || '', a: dict?.faqA3 || '' }
+    { q: (dict as any)?.faqQ1 || '', a: (dict as any)?.faqA1 || '' },
+    { q: (dict as any)?.faqQ2 || '', a: (dict as any)?.faqA2 || '' },
+    { q: (dict as any)?.faqQ3 || '', a: (dict as any)?.faqA3 || '' }
   ];
 
   $: schema = {
@@ -45,12 +45,12 @@
     "@type": "SoftwareApplication",
     "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/hash-forge",
     "isAccessibleForFree": true,
-    "name": dict?.title || '',
+    "name": (dict as any)?.title || '',
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "Cryptography Tool",
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript. HTML5. Web Crypto API.",
-    "description": dict?.description || '',
+    "description": (dict as any)?.description || '',
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -77,7 +77,7 @@
       {
         "@type": "ListItem",
         "position": 3,
-        "name": dict?.title || '',
+        "name": (dict as any)?.title || '',
         "item": `https://selfgrowingmicrotool.com/${lang}/tools/hash-forge`
       }
     ]

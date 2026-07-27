@@ -107,8 +107,8 @@
       "@type": "SoftwareApplication",
         "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/math-forge",
         "isAccessibleForFree": true,
-      "name": dict?.title || "",
-      "description": dict?.description || "",
+      "name": (dict as any)?.title || "",
+      "description": (dict as any)?.description || "",
       "applicationCategory": "EducationalApplication",
       "applicationSubCategory": "Calculator Application",
       "operatingSystem": "Any",
@@ -215,9 +215,9 @@
   <FAQSection
                       title={dict.faqTitle}
                       items={[
-                          { q: dict?.q1, a: dict?.a1 },
-                          { q: dict?.q2, a: dict?.a2 },
-                          { q: dict?.q3, a: dict?.a3 }
+                          { q: (dict as any)?.q1, a: (dict as any)?.a1 },
+                          { q: (dict as any)?.q2, a: (dict as any)?.a2 },
+                          { q: (dict as any)?.q3, a: (dict as any)?.a3 }
                       ]}
                   />
               </div>

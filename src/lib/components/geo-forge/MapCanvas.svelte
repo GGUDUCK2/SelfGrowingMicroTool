@@ -7,7 +7,7 @@
   export let layers: Layer[] = [];
   export let activeLayerId: string | null = null;
   export let mode: 'view' | 'draw_point' | 'draw_line' | 'draw_poly' | 'draw_ruler' = 'view';
-  export let dict: Record<string, string> = {};
+  export let dict: any = {};
 
   const dispatch = createEventDispatcher();
 
@@ -394,7 +394,7 @@
     <!-- Empty State -->
     {#if layers.length === 0 && mode === 'view'}
         <div class="absolute inset-0 flex items-center justify-center text-slate-400 pointer-events-none">
-          <p>{dict?.empty || 'Load geometry to visualize'}</p>
+          <p>{(dict as any)?.empty || 'Load geometry to visualize'}</p>
         </div>
     {/if}
 

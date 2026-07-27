@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import { Map } from '@lucide/svelte';
 
-  export let dict: Record<string, unknown> = {};
+  export let dict: any = {};
   const dispatch = createEventDispatcher();
 
   const examples = [
@@ -32,7 +32,7 @@
 <div class="relative group z-10">
   <button class="flex items-center gap-2 px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-sm font-medium text-slate-700 dark:text-slate-200">
     <Map class="w-4 h-4 text-indigo-500" />
-    <span>{(dict?.examples as any)?.label || 'Load Example'}</span>
+    <span>{((dict as any)?.examples as any)?.label || 'Load Example'}</span>
   </button>
 
   <div class="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 py-2 hidden group-hover:block">

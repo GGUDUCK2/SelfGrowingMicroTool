@@ -4,7 +4,7 @@
   import HashOutput from './HashOutput.svelte';
   import { saveToHistory, type HashForgeHistoryItem } from '$lib/db/hash-forge';
 
-  export let dict: Record<string, unknown>;
+  export let dict: any;
   export let onNewHistory: () => void;
   export let restoredData: HashForgeHistoryItem | null = null;
 
@@ -243,21 +243,21 @@
   <div class="space-y-2">
     <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
       <Target size={16} class="text-indigo-500" />
-      {dict?.fileHash?.expectedHashInput || "Expected Checksum (Optional)"}
+      {(dict as any)?.fileHash?.expectedHashInput || "Expected Checksum (Optional)"}
     </label>
     <div class="relative">
       <input
         type="text"
         bind:value={expectedChecksumInput}
-        placeholder={dict?.fileHash?.expectedHashPlaceholder || "Paste expected hex hash here to auto-detect and verify..."}
+        placeholder={(dict as any)?.fileHash?.expectedHashPlaceholder || "Paste expected hex hash here to auto-detect and verify..."}
         class="w-full px-4 py-3 min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-slate-800 dark:text-slate-200 placeholder-slate-400 font-mono text-sm"
-        aria-label={dict?.fileHash?.expectedHashInput || "Expected Checksum"}
+        aria-label={(dict as any)?.fileHash?.expectedHashInput || "Expected Checksum"}
       />
       {#if expectedChecksumInput.trim()}
         <div class="absolute right-3 top-1/2 -translate-y-1/2">
           {#if expectedChecksumInput.trim().length === 32 || expectedChecksumInput.trim().length === 40 || expectedChecksumInput.trim().length === 64 || expectedChecksumInput.trim().length === 96 || expectedChecksumInput.trim().length === 128}
             <span class="text-xs font-medium px-2 py-1 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-400 rounded-md">
-              {dict?.fileHash?.autoDetectedAlgo?.replace('{algo}', selectedAlgorithm) || `Auto-detected ${selectedAlgorithm}`}
+              {(dict as any)?.fileHash?.autoDetectedAlgo?.replace('{algo}', selectedAlgorithm) || `Auto-detected ${selectedAlgorithm}`}
             </span>
           {/if}
         </div>
@@ -286,7 +286,7 @@
       {:else}
         <UploadCloud size={48} class="text-slate-400 group-hover:text-indigo-500 transition-colors" />
         <div class="text-center">
-          <p class="text-slate-600 dark:text-slate-400 font-medium">{dict?.fileHash?.batchTitle || "Drag & drop files here"}</p>
+          <p class="text-slate-600 dark:text-slate-400 font-medium">{(dict as any)?.fileHash?.batchTitle || "Drag & drop files here"}</p>
           <p class="text-sm text-slate-500 mt-1">or click to browse multiple files</p>
         </div>
       {/if}
@@ -321,7 +321,7 @@
              class="flex items-center gap-2 px-4 py-2 min-h-[44px] min-w-[44px] bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-900/50 rounded-lg text-sm font-medium transition-colors"
            >
              <Download size={16} />
-             {dict?.fileHash?.exportChecksums || "Export Checksums"}
+             {(dict as any)?.fileHash?.exportChecksums || "Export Checksums"}
            </button>
          {/if}
       </div>
@@ -355,12 +355,12 @@
                          {#if expectedHashes[item.file.name] === item.result.hex.toLowerCase()}
                            <div class="flex items-center gap-1 text-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded-md text-xs font-medium border border-emerald-200 dark:border-emerald-800 w-fit">
                              <CheckCircle2 size={14} />
-                             {dict?.common?.match || "Match"}
+                             {(dict as any)?.common?.match || "Match"}
                            </div>
                          {:else}
                            <div class="flex items-center gap-1 text-red-500 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded-md text-xs font-medium border border-red-200 dark:border-red-800 w-fit">
                              <XCircle size={14} />
-                             {dict?.common?.mismatch || "Mismatch"}
+                             {(dict as any)?.common?.mismatch || "Mismatch"}
                            </div>
                          {/if}
                        {/if}

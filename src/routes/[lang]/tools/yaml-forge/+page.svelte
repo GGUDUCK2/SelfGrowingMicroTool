@@ -16,7 +16,7 @@
   import type { YamlForgeHistoryItem } from '$lib/db/yaml-forge';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = getDictionary(lang)?.tools?.yamlForge || getDictionary('en').tools.yamlForge;
+  $: dict = (getDictionary(lang) as any)?.tools?.yamlForge || getDictionary('en').tools.yamlForge;
 
   type Tab = 'converter' | 'validator' | 'formatter' | 'history';
   let activeTab: Tab = 'converter';

@@ -96,7 +96,7 @@
       <div class="space-y-6">
         <div>
           <span class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-            {dict?.convert?.format || 'Format'}
+            {(dict as any)?.convert?.format || 'Format'}
           </span>
           <div class="flex gap-2" role="group" aria-label="Image Format Selection">
             {#each formats as f (f)}
@@ -117,7 +117,7 @@
         {#if format !== 'image/png'}
           <div>
             <label for="quality-slider" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 flex justify-between">
-              <span>{dict?.convert?.quality || 'Quality'}</span>
+              <span>{(dict as any)?.convert?.quality || 'Quality'}</span>
               <span>{Math.round(quality * 100)}%</span>
             </label>
             <input
@@ -135,7 +135,7 @@
         <div class="grid grid-cols-2 gap-4">
           <div>
             <label for="img-width" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-              {dict?.convert?.width || 'Width'} (px)
+              {(dict as any)?.convert?.width || 'Width'} (px)
             </label>
             <input
               id="img-width"
@@ -147,7 +147,7 @@
           </div>
           <div>
             <label for="img-height" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-              {dict?.convert?.height || 'Height'} (px)
+              {(dict as any)?.convert?.height || 'Height'} (px)
             </label>
             <input
               id="img-height"
@@ -167,7 +167,7 @@
             class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
           />
           <label for="aspect" class="text-sm text-slate-600 dark:text-slate-400">
-            {dict?.convert?.aspectRatio || 'Maintain Aspect Ratio'}
+            {(dict as any)?.convert?.aspectRatio || 'Maintain Aspect Ratio'}
           </label>
         </div>
 
@@ -204,7 +204,7 @@
               class="py-2 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg shadow-sm flex items-center gap-2 transition-colors"
             >
               <Download size={18} />
-              {dict?.convert?.download || 'Download'}
+              {(dict as any)?.convert?.download || 'Download'}
             </button>
           </div>
         {:else}

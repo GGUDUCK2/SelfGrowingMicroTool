@@ -121,7 +121,7 @@
     <link rel="alternate" hreflang="ko" href="https://micro-factory.vercel.app/ko/tools/zen-forge" />
     <link rel="alternate" hreflang="x-default" href="https://micro-factory.vercel.app/en/tools/zen-forge" />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": dict?.q1, "acceptedAnswer": {"@type": "Answer", "text": dict?.a1}}, {"@type": "Question", "name": dict?.q2, "acceptedAnswer": {"@type": "Answer", "text": dict?.a2}}, {"@type": "Question", "name": dict?.q3, "acceptedAnswer": {"@type": "Answer", "text": dict?.a3}}]})}</scr` + `ipt>`}
+  {@html `<script type="application/ld+json">${JSON.stringify({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": (dict as any)?.q1, "acceptedAnswer": {"@type": "Answer", "text": (dict as any)?.a1}}, {"@type": "Question", "name": (dict as any)?.q2, "acceptedAnswer": {"@type": "Answer", "text": (dict as any)?.a2}}, {"@type": "Question", "name": (dict as any)?.q3, "acceptedAnswer": {"@type": "Answer", "text": (dict as any)?.a3}}]})}</scr` + `ipt>`}
 
 </svelte:head>
 
@@ -181,7 +181,7 @@
         <!-- Guide Section -->
         {#if !$zenStore.isFocusMode}
             <div class="mt-16 bg-slate-900/90 backdrop-blur rounded-2xl border border-slate-800 p-8 shadow-xl" transition:slide>
-                 <GuideSection {...(dict?.guide as any)} />
+                 <GuideSection {...((dict as any)?.guide as any)} />
             </div>
         {/if}
     </div>
@@ -190,11 +190,11 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
     <AdPlaceholder />
   <FAQSection
-      title={dict?.faqTitle}
+      title={(dict as any)?.faqTitle}
       items={[
-        { q: dict?.q1, a: dict?.a1 },
-        { q: dict?.q2, a: dict?.a2 },
-        { q: dict?.q3, a: dict?.a3 }
+        { q: (dict as any)?.q1, a: (dict as any)?.a1 },
+        { q: (dict as any)?.q2, a: (dict as any)?.a2 },
+        { q: (dict as any)?.q3, a: (dict as any)?.a3 }
       ]}
     />
   <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="zen-forge" currentCategory="productivity" />

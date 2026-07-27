@@ -10,7 +10,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dict = dictionaries[lang as keyof typeof dictionaries] || dictionaries.en;
-  $: d = dict?.tools?.dockerForge || dictionaries.en.tools.dockerForge;
+  $: d = (dict as any)?.tools?.dockerForge || dictionaries.en.tools.dockerForge;
 
   // SEO
   $: title = d?.title || "Docker Forge";

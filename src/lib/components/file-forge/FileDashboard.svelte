@@ -93,7 +93,7 @@
       } catch (e) { console.error(e); }
     } else {
       navigator.clipboard.writeText(window.location.href);
-      triggerToast(dict?.shareCopied || 'Link copied!');
+      triggerToast((dict as any)?.shareCopied || 'Link copied!');
     }
   }
 
@@ -266,8 +266,8 @@
         <button
             on:click={handleShare}
             class="pointer-events-auto p-3 min-h-[44px] min-w-[44px] mr-2 text-slate-400 hover:text-indigo-500 transition-colors focus:ring-2 focus:ring-indigo-500 rounded-lg outline-none"
-            title={dict?.share || 'Share'}
-            aria-label={dict?.share || 'Share'}
+            title={(dict as any)?.share || 'Share'}
+            aria-label={(dict as any)?.share || 'Share'}
         >
             <Share2 size={18} />
         </button>
@@ -275,8 +275,8 @@
             <button
                 on:click={toggleStar}
                 class="pointer-events-auto p-3 min-h-[44px] min-w-[44px] mr-2 text-slate-400 hover:text-yellow-400 transition-colors focus:ring-2 focus:ring-yellow-400 rounded-lg outline-none {starred ? 'text-yellow-400' : ''}"
-                title={dict?.star || 'Star this analysis'}
-                aria-label={dict?.star || 'Star this analysis'}
+                title={(dict as any)?.star || 'Star this analysis'}
+                aria-label={(dict as any)?.star || 'Star this analysis'}
             >
                 <Star size={18} fill={starred ? "currentColor" : "none"} />
             </button>
@@ -284,11 +284,11 @@
         <button
             on:click={downloadReport}
             class="pointer-events-auto flex items-center gap-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-4 min-h-[44px] min-w-[44px] py-2 rounded-lg transition-colors whitespace-nowrap shadow-sm focus:ring-2 focus:ring-indigo-500 outline-none"
-            title={dict?.downloadReport || 'Download Report'}
-            aria-label={dict?.downloadReport || 'Download Report'}
+            title={(dict as any)?.downloadReport || 'Download Report'}
+            aria-label={(dict as any)?.downloadReport || 'Download Report'}
         >
             <Download size={14} />
-            <span class="hidden sm:inline">{dict?.downloadReport || 'Report'}</span>
+            <span class="hidden sm:inline">{(dict as any)?.downloadReport || 'Report'}</span>
         </button>
     </div>
   </div>
@@ -296,7 +296,7 @@
   {#if isRestored}
       <div class="bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-200 px-6 py-2 text-xs font-medium flex items-center gap-2 border-b border-amber-100 dark:border-amber-800/50">
           <AlertCircle size={14} />
-          {dict?.restoredMode || 'Viewing history record. Original file access is restricted.'}
+          {(dict as any)?.restoredMode || 'Viewing history record. Original file access is restricted.'}
       </div>
   {/if}
 

@@ -4,7 +4,7 @@
   export let result: { hex: string, base64: string } | null = null;
   export let label: string = 'Hash Result';
   export let uppercase: boolean = false;
-  export let dict: Record<string, unknown>;
+  export let dict: any;
 
   let expectedHash = '';
   let copiedHex = false;
@@ -80,14 +80,14 @@
   <!-- Expected Hash Input -->
   <div>
     <label for="expected-hash-input" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-      {dict?.common?.expectedHash || "Expected Hash"}
+      {(dict as any)?.common?.expectedHash || "Expected Hash"}
     </label>
     <div class="relative">
       <input
         id="expected-hash-input"
         type="text"
         bind:value={expectedHash}
-        placeholder={dict?.common?.expectedHashPlaceholder || "Paste expected hex or base64 to verify..."}
+        placeholder={(dict as any)?.common?.expectedHashPlaceholder || "Paste expected hex or base64 to verify..."}
         class="w-full px-4 py-3 min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-slate-800 dark:text-slate-200 placeholder-slate-400 font-mono pr-12"
         aria-label="Expected Hash"
       />
@@ -96,12 +96,12 @@
           {#if isMatch}
             <div class="flex items-center gap-1 text-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded-md text-xs font-medium border border-emerald-200 dark:border-emerald-800">
               <CheckCircle2 size={14} />
-              {dict?.common?.match || "Match"}
+              {(dict as any)?.common?.match || "Match"}
             </div>
           {:else}
             <div class="flex items-center gap-1 text-red-500 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded-md text-xs font-medium border border-red-200 dark:border-red-800">
               <XCircle size={14} />
-              {dict?.common?.mismatch || "Mismatch"}
+              {(dict as any)?.common?.mismatch || "Mismatch"}
             </div>
           {/if}
         </div>
@@ -116,7 +116,7 @@
       <div class="flex items-center gap-2">
         <label class="flex items-center gap-2 text-xs text-slate-500 min-h-[44px] min-w-[44px] dark:text-slate-400 cursor-pointer">
           <input type="checkbox" bind:checked={uppercase} class="rounded border-slate-300 dark:border-slate-600 text-indigo-600 focus:ring-indigo-500 dark:bg-slate-800" />
-          {dict?.common?.uppercase || "UPPERCASE"}
+          {(dict as any)?.common?.uppercase || "UPPERCASE"}
         </label>
         {#if canShare}
           <button
@@ -126,7 +126,7 @@
             aria-label="Share hex hash"
             title="Share"
           >
-            <Share2 size={14} /> <span class="hidden sm:inline">{sharedHex ? (dict?.common?.shared || "Shared!") : (dict?.common?.share || "Share")}</span>
+            <Share2 size={14} /> <span class="hidden sm:inline">{sharedHex ? ((dict as any)?.common?.shared || "Shared!") : ((dict as any)?.common?.share || "Share")}</span>
           </button>
         {/if}
         <button
@@ -136,7 +136,7 @@
           aria-label="Download hex hash"
           title="Download"
         >
-          {dict?.common?.download || "Download"}
+          {(dict as any)?.common?.download || "Download"}
         </button>
         <button
           on:click={() => copyToClipboard(displayHexValue, 'hex')}
@@ -146,9 +146,9 @@
           title="Copy"
         >
           {#if copiedHex}
-            <Check size={14} /> {dict?.common?.copied || "Copied!"}
+            <Check size={14} /> {(dict as any)?.common?.copied || "Copied!"}
           {:else}
-            <Copy size={14} /> {dict?.common?.copy || "Copy"}
+            <Copy size={14} /> {(dict as any)?.common?.copy || "Copy"}
           {/if}
         </button>
       </div>
@@ -180,7 +180,7 @@
             aria-label="Share base64 hash"
             title="Share"
           >
-            <Share2 size={14} /> <span class="hidden sm:inline">{sharedBase64 ? (dict?.common?.shared || "Shared!") : (dict?.common?.share || "Share")}</span>
+            <Share2 size={14} /> <span class="hidden sm:inline">{sharedBase64 ? ((dict as any)?.common?.shared || "Shared!") : ((dict as any)?.common?.share || "Share")}</span>
           </button>
         {/if}
         <button
@@ -190,7 +190,7 @@
           aria-label="Download base64 hash"
           title="Download"
         >
-          {dict?.common?.download || "Download"}
+          {(dict as any)?.common?.download || "Download"}
         </button>
         <button
           on:click={() => copyToClipboard(result?.base64 || '', 'base64')}
@@ -200,9 +200,9 @@
           title="Copy"
         >
           {#if copiedBase64}
-            <Check size={14} /> {dict?.common?.copied || "Copied!"}
+            <Check size={14} /> {(dict as any)?.common?.copied || "Copied!"}
           {:else}
-            <Copy size={14} /> {dict?.common?.copy || "Copy"}
+            <Copy size={14} /> {(dict as any)?.common?.copy || "Copy"}
           {/if}
         </button>
         </div>

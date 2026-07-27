@@ -13,7 +13,7 @@ import { onMount } from 'svelte';
 
   export let dict: Record<string, any>;
 
-  $: t = dict?.tools?.a11yForge?.aria || {};
+  $: t = (dict as any)?.tools?.a11yForge?.aria || {};
 
   let searchQuery = '';
   let selectedRole: typeof ariaRoles[0] | null = null;

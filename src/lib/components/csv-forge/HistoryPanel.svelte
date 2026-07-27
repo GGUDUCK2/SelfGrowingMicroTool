@@ -4,15 +4,15 @@
   import { db } from '$lib/db';
   import { formatDistanceToNow } from 'date-fns';
   import { FileSpreadsheet, Trash2, Clock, Star } from '@lucide/svelte';
-  import type { CspForgeHistory } from '$lib/db';
+  import type { CsvForgeHistory } from '$lib/db';
 
   export let dict: any;
 
   const dispatch = createEventDispatcher();
-  let historyItems: CspForgeHistory[] = [];
+  let historyItems: CsvForgeHistory[] = [];
 
   $: historyObservable = liveQuery(() =>
-    db.cspForgeHistory.orderBy('createdAt').reverse().limit(50).toArray()
+    db.csvForgeHistory.orderBy('createdAt').reverse().limit(50).toArray()
   );
 
   $: if ($historyObservable) {
@@ -21,19 +21,19 @@
 
   async function deleteItem(id: number | undefined) {
     if (id) {
-      await db.cspForgeHistory.delete(id);
+      await db.csvForgeHistory.delete(id);
     }
   }
 
-  async function toggleStar(item: CspForgeHistory) {
+  async function toggleStar(item: CsvForgeHistory) {
     if (item.id) {
-      await db.cspForgeHistory.update(item.id, {
-        starred: item.starred ? 0 : 1
+      await db.csvForgeHistory.update(item.id, {
+        isStarred: !item.isStarred
       });
     }
   }
 
-  function restoreItem(item: CspForgeHistory) {
+  function restoreItem(item: CsvForgeHistory) {
     dispatch('restore', item);
   }
 </script>
@@ -74,7 +74,7 @@
                   <span>•</span>
                   <span>{item.columnCount} cols</span>
                   <span>•</span>
-                  <span title={new Date(item.createdAt).toLocaleString()}>{formatDistanceToNow(new Date(item.createdAt))} ago</span>
+                  <span title={new Date(item.timestamp).toLocaleString()}>{formatDistanceToNow(new Date(item.timestamp))} ago</span>
                 </div>
               </div>
             </div>
@@ -86,7 +86,7 @@
                 title="Toggle Star"
                 aria-label="Toggle Star"
               >
-                <Star size={14} class={item.starred ? 'fill-amber-500 text-amber-500' : ''} />
+                <Star size={14} class={item.isStarred ? 'fill-amber-500 text-amber-500' : ''} />
               </button>
               <button
                 class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors rounded-md hover:bg-slate-100 dark:hover:bg-slate-700"

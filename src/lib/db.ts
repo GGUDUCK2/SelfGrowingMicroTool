@@ -477,6 +477,16 @@ export interface ClampForgeHistory {
   starred: number;
 }
 
+export interface CsvForgeHistory {
+  id?: number;
+  filename: string;
+  rowCount: number;
+  columnCount: number;
+  timestamp: number;
+  isStarred: boolean;
+  data: string;
+}
+
 export interface CspForgeHistory {
   id?: number;
   policy: string;
@@ -562,6 +572,7 @@ class MySubClassedDexie extends Dexie {
   policyForgeHistory!: DexieTable<PolicyForgeHistory>;
   barcodeForgeHistory!: DexieTable<BarcodeForgeHistory>;
   gitForgeHistory!: DexieTable<GitForgeHistory>;
+  csvForgeHistory!: DexieTable<CsvForgeHistory>;
   clampForgeHistory!: DexieTable<ClampForgeHistory>;
   a11yForgeHistory!: DexieTable<A11yForgeHistory>;
   cspForgeHistory!: DexieTable<CspForgeHistory>;

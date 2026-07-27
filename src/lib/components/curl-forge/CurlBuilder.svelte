@@ -4,7 +4,7 @@
   import { Copy, Trash2, Plus, ArrowDownToLine, Check } from '@lucide/svelte';
   import Button from '$lib/components/Button.svelte';
 
-  export let dict: Record<string, unknown> = {};
+  export let dict: any = {};
   export let data = {
     method: 'GET',
     url: 'https://api.example.com/data',
@@ -399,18 +399,18 @@
       <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in-up">
         <div class="bg-indigo-600 text-white px-4 py-2 rounded-full shadow-lg flex items-center text-sm font-medium">
           <span class="mr-2">🪄</span>
-          {dict?.builder?.title || 'Magic Paste: cURL command parsed!'}
+          {(dict as any)?.builder?.title || 'Magic Paste: cURL command parsed!'}
         </div>
       </div>
     {/if}
 
     <div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
       <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
-        <h2 class="text-xl font-bold text-slate-900 dark:text-white">{dict?.builder?.title || 'Request Builder'}</h2>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white">{(dict as any)?.builder?.title || 'Request Builder'}</h2>
         <div class="flex flex-wrap items-center gap-2">
           <div class="relative group">
-            <Button variant="outline" class="min-w-[44px] min-h-[44px] px-3">
-              {dict?.export?.examples || 'Examples'}
+            <Button variant="secondary" class="min-w-[44px] min-h-[44px] px-3">
+              {(dict as any)?.export?.examples || 'Examples'}
             </Button>
             <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
               <div class="py-1">
@@ -425,9 +425,9 @@
               </div>
             </div>
           </div>
-          <Button variant="outline" on:click={() => showImport = !showImport} class="min-h-[44px] min-w-[44px] px-3">
+          <Button variant="secondary" on:click={() => showImport = !showImport} class="min-h-[44px] min-w-[44px] px-3">
             <ArrowDownToLine class="w-4 h-4 mr-2" />
-            <span class="hidden sm:inline">{dict?.builder?.import || 'Import'}</span>
+            <span class="hidden sm:inline">{(dict as any)?.builder?.import || 'Import'}</span>
           </Button>
 
 
@@ -449,7 +449,7 @@
           </Button>
           <Button variant="danger" on:click={handleClear} class="min-h-[44px] min-w-[44px] flex items-center justify-center">
             <Trash2 class="w-4 h-4" />
-            <span class="sr-only">{dict?.builder?.clear || 'Clear All'}</span>
+            <span class="sr-only">{(dict as any)?.builder?.clear || 'Clear All'}</span>
           </Button>
         </div>
       </div>
@@ -474,7 +474,7 @@
         <!-- Method and URL -->
         <div class="flex flex-col sm:flex-row gap-4">
           <div class="w-full sm:w-1/3">
-            <label for="method-select" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dict?.builder?.method || 'Method'}</label>
+            <label for="method-select" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{(dict as any)?.builder?.method || 'Method'}</label>
             <select
               id="method-select"
               bind:value={data.method}
@@ -487,7 +487,7 @@
             </select>
           </div>
           <div class="w-full sm:w-2/3">
-            <label for="url-input" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dict?.builder?.url || 'URL'}</label>
+            <label for="url-input" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{(dict as any)?.builder?.url || 'URL'}</label>
             <div class="flex gap-2">
                 <input
                   id="url-input"
@@ -553,14 +553,14 @@
         <!-- Headers -->
         <div class="pt-4 border-t border-slate-200 dark:border-slate-800">
           <div class="flex justify-between items-center mb-2">
-            <span class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict?.builder?.headers || 'Headers'}</span>
+            <span class="block text-sm font-medium text-slate-700 dark:text-slate-300">{(dict as any)?.builder?.headers || 'Headers'}</span>
             <div class="flex space-x-2">
                 <button on:click={() => showAuth = !showAuth} class="text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center text-sm min-h-[44px] px-2 rounded-lg transition-colors font-medium">
                   Auth Quick-Add
                 </button>
                 <button on:click={addHeader} class="text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 flex items-center text-sm min-h-[44px] min-w-[44px] px-2 rounded-lg transition-colors">
                   <Plus class="w-4 h-4 mr-1" />
-                  {dict?.builder?.addHeader || 'Add'}
+                  {(dict as any)?.builder?.addHeader || 'Add'}
                 </button>
             </div>
           </div>
@@ -617,17 +617,17 @@
                   type="text"
                   bind:value={headerKeys[i]}
                   on:input={updateHeaders}
-                  placeholder={dict?.builder?.headerKey || 'Key'}
+                  placeholder={(dict as any)?.builder?.headerKey || 'Key'}
                   class="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-sm min-h-[44px]"
-                  aria-label={dict?.builder?.headerKey || 'Key'}
+                  aria-label={(dict as any)?.builder?.headerKey || 'Key'}
                 />
                 <input
                   type="text"
                   bind:value={headerValues[i]}
                   on:input={updateHeaders}
-                  placeholder={dict?.builder?.headerValue || 'Value'}
+                  placeholder={(dict as any)?.builder?.headerValue || 'Value'}
                   class="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-sm min-h-[44px]"
-                  aria-label={dict?.builder?.headerValue || 'Value'}
+                  aria-label={(dict as any)?.builder?.headerValue || 'Value'}
                 />
                 <button
                   on:click={() => removeHeader(i)}
@@ -683,17 +683,17 @@
         <!-- Body -->
         <div class="pt-4 border-t border-slate-200 dark:border-slate-800 relative">
           <div class="flex justify-between items-center mb-2">
-            <label for="body-input" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict?.builder?.body || 'Body'}</label>
+            <label for="body-input" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{(dict as any)?.builder?.body || 'Body'}</label>
             <div class="flex items-center space-x-2">
               <span class="text-xs text-slate-500 hidden sm:inline-block">Magic variables: {`{{$uuid}}`}, {`{{$timestamp}}`}, {`{{$randomInt}}`}</span>
               {#if invalidJson}
-                <span class="text-xs text-red-500 animate-pulse">{dict?.export?.invalidJson || 'Invalid JSON'}</span>
+                <span class="text-xs text-red-500 animate-pulse">{(dict as any)?.export?.invalidJson || 'Invalid JSON'}</span>
               {/if}
               <button
                 on:click={formatBodyJson}
                 class="text-xs text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 font-medium px-2 min-h-[32px] flex items-center bg-blue-50 dark:bg-blue-900/20 rounded-md transition-colors"
               >
-                {dict?.export?.formatJson || 'Format JSON'}
+                {(dict as any)?.export?.formatJson || 'Format JSON'}
               </button>
             </div>
           </div>
@@ -717,13 +717,13 @@
       <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 px-2 overflow-x-auto">
         <div class="flex space-x-1 min-h-[44px]">
           {#each [
-            { id: 'curl', label: dict?.export?.curl || 'cURL', code: curlCode },
-            { id: 'fetch', label: dict?.export?.fetch || 'Fetch (JS)', code: fetchCode },
-            { id: 'python', label: dict?.export?.python || 'Python', code: pyCode },
-            { id: 'axios', label: dict?.export?.node || 'Axios', code: axiosCode },
-            { id: 'playwright', label: dict?.export?.playwright || 'Playwright', code: playwrightCode },
-            { id: 'cypress', label: dict?.export?.cypress || 'Cypress', code: cypressCode },
-            { id: 'typescript', label: dict?.export?.typescript || 'TypeScript', code: tsCode }
+            { id: 'curl', label: (dict as any)?.export?.curl || 'cURL', code: curlCode },
+            { id: 'fetch', label: (dict as any)?.export?.fetch || 'Fetch (JS)', code: fetchCode },
+            { id: 'python', label: (dict as any)?.export?.python || 'Python', code: pyCode },
+            { id: 'axios', label: (dict as any)?.export?.node || 'Axios', code: axiosCode },
+            { id: 'playwright', label: (dict as any)?.export?.playwright || 'Playwright', code: playwrightCode },
+            { id: 'cypress', label: (dict as any)?.export?.cypress || 'Cypress', code: cypressCode },
+            { id: 'typescript', label: (dict as any)?.export?.typescript || 'TypeScript', code: tsCode }
           ] as tab (tab.id)}
             <button
               on:click={() => activeTab = tab.id}
@@ -782,7 +782,7 @@
                     <button
                         on:click={() => copyToClipboard(responseData, 'response')}
                         class="p-2 text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded min-h-[32px] min-w-[32px] flex items-center justify-center transition-colors"
-                        title={dict?.export?.copyResponse || 'Copy Response'}
+                        title={(dict as any)?.export?.copyResponse || 'Copy Response'}
                     >
                         {#if copiedStates['response']}
                             <Check class="w-4 h-4 text-green-500" />
@@ -803,7 +803,7 @@
                             URL.revokeObjectURL(url);
                         }}
                         class="p-2 text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded min-h-[32px] min-w-[32px] flex items-center justify-center transition-colors"
-                        title={dict?.export?.downloadResponse || 'Download JSON'}
+                        title={(dict as any)?.export?.downloadResponse || 'Download JSON'}
                     >
                         <ArrowDownToLine class="w-4 h-4" />
                     </button>

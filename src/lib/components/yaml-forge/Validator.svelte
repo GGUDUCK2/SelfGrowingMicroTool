@@ -3,7 +3,7 @@
   import { CheckCircle2, XCircle, Trash2 } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
 
-  export let dict: Record<string, unknown>;
+  export let dict: any;
 
   let input = '';
   let isValid: boolean | null = null;

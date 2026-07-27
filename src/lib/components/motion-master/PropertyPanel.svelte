@@ -69,11 +69,11 @@
         <div class="animate-fade-in">
             <h3 class="font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
                 <div class="w-1 h-4 bg-indigo-500 rounded-full"></div>
-                {dict?.title?.split(':')[0] ?? 'Motion Master'}
+                {(dict as any)?.title?.split(':')[0] ?? 'Motion Master'}
             </h3>
             <div class="space-y-4">
                 <div>
-                    <label for="duration-slider" class="block text-xs font-semibold text-slate-500 uppercase mb-1">{dict?.duration ?? 'Duration'}</label>
+                    <label for="duration-slider" class="block text-xs font-semibold text-slate-500 uppercase mb-1">{(dict as any)?.duration ?? 'Duration'}</label>
                     <div class="flex items-center gap-2">
                          <input id="duration-slider" type="range" min="100" max="5000" step="100" bind:value={$animationStore.duration} class="flex-1 accent-indigo-500" />
                          <label for="duration-input" class="sr-only">Duration Value</label>
@@ -87,9 +87,9 @@
                 </div>
 
                  <div>
-                    <label for="iterations-select" class="block text-xs font-semibold text-slate-500 uppercase mb-1">{dict?.iterations ?? 'Iterations'}</label>
+                    <label for="iterations-select" class="block text-xs font-semibold text-slate-500 uppercase mb-1">{(dict as any)?.iterations ?? 'Iterations'}</label>
                     <select id="iterations-select" bind:value={$animationStore.iterations} class="w-full bg-slate-100 dark:bg-slate-700 border-none rounded p-2 text-sm text-slate-800 dark:text-slate-200">
-                        <option value="infinite">{dict?.infinite ?? 'Infinite'}</option>
+                        <option value="infinite">{(dict as any)?.infinite ?? 'Infinite'}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -99,7 +99,7 @@
                 </div>
 
                  <div>
-                    <label for="easing-select" class="block text-xs font-semibold text-slate-500 uppercase mb-1">{dict?.easing ?? 'Easing'}</label>
+                    <label for="easing-select" class="block text-xs font-semibold text-slate-500 uppercase mb-1">{(dict as any)?.easing ?? 'Easing'}</label>
                      <select id="easing-select" bind:value={$animationStore.timingFunction} class="w-full bg-slate-100 dark:bg-slate-700 border-none rounded p-2 text-sm text-slate-800 dark:text-slate-200">
                         <option value="linear">linear</option>
                         <option value="ease">ease</option>
@@ -162,7 +162,7 @@
 
              <div class="pt-2 space-y-3">
                  <div>
-                     <label for="new-prop-select" class="block text-xs font-semibold text-slate-500 uppercase mb-2">{dict?.addProperty ?? 'Add Property'}</label>
+                     <label for="new-prop-select" class="block text-xs font-semibold text-slate-500 uppercase mb-2">{(dict as any)?.addProperty ?? 'Add Property'}</label>
                      <div class="flex gap-2">
                          <select id="new-prop-select" bind:value={newPropName} class="flex-1 bg-slate-100 dark:bg-slate-700 border-none rounded-lg p-2 text-sm text-slate-800 dark:text-slate-200">
                              {#each commonProps as p}
@@ -179,7 +179,7 @@
                     on:click={deleteKeyframe}
                     class="w-full py-2 text-red-500 text-xs font-semibold hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors mt-6"
                  >
-                    {dict?.delete ?? 'Delete Keyframe'}
+                    {(dict as any)?.delete ?? 'Delete Keyframe'}
                  </button>
              </div>
         </div>
