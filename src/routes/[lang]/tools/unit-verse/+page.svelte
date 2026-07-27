@@ -9,7 +9,6 @@
   import Converter from '$lib/components/unit-verse/Converter.svelte';
   import ReferenceTable from '$lib/components/unit-verse/ReferenceTable.svelte';
   import History from '$lib/components/unit-verse/History.svelte';
-  import Guide from '$lib/components/unit-verse/Guide.svelte';
   import FAQSection from '$lib/components/FAQSection.svelte';
   import { MoveLeft } from '@lucide/svelte';
 
@@ -150,15 +149,6 @@
             {fromUnitId}
             {t}
         />
-
-        <!-- Documentation / Guide -->
-        <Guide t={t.guide}>
-           <div class="mt-8">
-             <GuideSection {...t?.guide} />
-  <AdPlaceholder />
-  <FAQSection title={t.faqTitle} items={faqItems} />
-           </div>
-        </Guide>
       </div>
 
       <!-- Right Column: History & Stats (1/3 width) -->
@@ -180,7 +170,10 @@
 
     </div>
 
-  <div class="mt-12 mb-20">
+  <div class="mt-12 mb-20 space-y-12">
+    <GuideSection {...t?.guide} />
+    <AdPlaceholder />
+    <FAQSection title={t.faqTitle} items={faqItems} />
     <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="unit-verse" currentCategory="dev" />
   </div>
 </main>
