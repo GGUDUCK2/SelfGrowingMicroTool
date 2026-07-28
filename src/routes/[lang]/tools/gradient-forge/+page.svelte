@@ -65,12 +65,16 @@
 
 <svelte:head>
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+  <link rel="canonical" href={$page.url.origin + `/${lang}/tools/gradient-forge`} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/gradient-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/gradient-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/gradient-forge"} />
 </svelte:head>
 
 <Head
   title={dict.title}
   description={dict.description}
-  url={`https://selfgrowingmicrotool.com/${lang}/tools/gradient-forge`}
+  url={$page.url.origin + `/${lang}/tools/gradient-forge`}
 />
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
