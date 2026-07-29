@@ -1401,5 +1401,26 @@
       "color-blindness"
     ],
     "createdAt": "2026-07-02"
+  },
+  {
+    "id": "vcard-forge",
+    "slug": "vcard-forge",
+    "title": {
+      "en": "vCard Forge",
+      "ko": "vCard Forge"
+    },
+    "description": {
+      "en": "Digital Business Card Generator",
+      "ko": "디지털 명함 생성기"
+    },
+    "category": "productivity",
+    "tags": [
+      "vcard",
+      "business",
+      "qr",
+      "contact",
+      "vcf"
+    ],
+    "createdAt": "2026-07-29"
   }
 ]
