@@ -110,7 +110,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/resume-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/resume-forge",
         "isAccessibleForFree": true,
         "name": toolDict.title,
         "description": toolDict.description,
@@ -144,7 +144,7 @@
             "@type": "ListItem",
             "position": 1,
             "name": dict.home.title,
-            "item": `https://selfgrowingmicrotool.com/${lang}`
+            "item": `${$page.url.origin}/${lang}`
           },
           {
             "@type": "ListItem",
@@ -165,10 +165,10 @@
 
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/resume-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/resume-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/resume-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/resume-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/resume-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/resume-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/resume-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/resume-forge"} />
   {@html `<script type="application/ld+json">${jsonLd}</scr` + `ipt>`}
 </svelte:head>
 

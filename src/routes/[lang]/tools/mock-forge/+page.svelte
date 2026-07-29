@@ -165,7 +165,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/mock-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/mock-forge",
         "isAccessibleForFree": true,
         "name": t.title,
         "description": t.description,
@@ -212,10 +212,10 @@
 
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/mock-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/mock-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/mock-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/mock-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/mock-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/mock-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/mock-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/mock-forge"} />
   <link rel="alternate" hreflang="en" href="{baseUrl}/en/tools/mock-forge" />
   <link rel="alternate" hreflang="ko" href="{baseUrl}/ko/tools/mock-forge" />
   <link rel="alternate" hreflang="x-default" href="{baseUrl}/en/tools/mock-forge" />

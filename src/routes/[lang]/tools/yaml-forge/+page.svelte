@@ -41,7 +41,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/yaml-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/yaml-forge",
     "isAccessibleForFree": true,
     "name": dict.title,
     "applicationCategory": "DeveloperApplication",
@@ -64,19 +64,19 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://selfgrowingmicrotool.com/${lang}`
+        "item": `${$page.url.origin}/${lang}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": `https://selfgrowingmicrotool.com/${lang}/tools`
+        "item": `${$page.url.origin}/${lang}/tools`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": dict.title,
-        "item": `https://selfgrowingmicrotool.com/${lang}/tools/yaml-forge`
+        "item": `${$page.url.origin}/${lang}/tools/yaml-forge`
       }
     ]
   };
@@ -87,14 +87,14 @@
 <Head
   title={dict.title}
   description={dict.description}
-  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/yaml-forge"}
+  url={$page.url.origin + "/" + lang + "/tools/yaml-forge"}
 />
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/yaml-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/yaml-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/yaml-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/yaml-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/yaml-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/yaml-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/yaml-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/yaml-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
 

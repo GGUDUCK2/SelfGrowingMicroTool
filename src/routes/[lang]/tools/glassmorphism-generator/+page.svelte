@@ -156,7 +156,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
   $: schemaObj1 = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/glassmorphism-generator",
+        "@id": $page.url.origin + "/" + lang + "/tools/glassmorphism-generator",
         "isAccessibleForFree": true,
     "name": dict.title,
     "description": dict.description,
@@ -196,7 +196,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
       "@type": "ListItem",
       "position": 3,
       "name": dict.title,
-      "item": `https://selfgrowingmicrotool.com/${lang}/tools/glassmorphism-generator`
+      "item": `${$page.url.origin}/${lang}/tools/glassmorphism-generator`
     }]
   };
 
@@ -220,10 +220,10 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/glassmorphism-generator"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/glassmorphism-generator" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/glassmorphism-generator" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/glassmorphism-generator" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/glassmorphism-generator"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/glassmorphism-generator"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/glassmorphism-generator"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/glassmorphism-generator"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj2)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj3)}</scr` + `ipt>`}

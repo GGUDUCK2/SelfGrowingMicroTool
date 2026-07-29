@@ -81,7 +81,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/curl-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/curl-forge",
         "name": title,
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web",
@@ -120,13 +120,13 @@
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": `https://selfgrowingmicrotool.com/${lang}`
+            "item": `${$page.url.origin}/${lang}`
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": title,
-            "item": `https://selfgrowingmicrotool.com/${lang}/tools/curl-forge`
+            "item": `${$page.url.origin}/${lang}/tools/curl-forge`
           }
         ]
       }
@@ -142,10 +142,10 @@
 <svelte:head>
 
 
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/curl-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/curl-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/curl-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/curl-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/curl-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/curl-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/curl-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/curl-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj)}</scr` + `ipt>`}
 </svelte:head>
 

@@ -125,14 +125,14 @@
 />
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/deploy-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/deploy-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/deploy-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/deploy-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/deploy-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/deploy-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/deploy-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/deploy-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">` + JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/deploy-forge",
+    "@id": $page.url.origin + "/" + lang + "/tools/deploy-forge",
     "isAccessibleForFree": true,
     "name": "Deploy Forge",
     "applicationCategory": "DeveloperApplication",

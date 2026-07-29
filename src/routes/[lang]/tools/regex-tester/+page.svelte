@@ -123,7 +123,7 @@
   $: schemaObj1 = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/regex-tester",
+        "@id": $page.url.origin + "/" + lang + "/tools/regex-tester",
         "isAccessibleForFree": true,
       "name": "Regex Pro",
       "applicationCategory": "DeveloperApplication",
@@ -147,10 +147,10 @@
 <svelte:head>
 
 
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/regex-tester"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/regex-tester" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/regex-tester" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/regex-tester" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/regex-tester"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/regex-tester"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/regex-tester"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/regex-tester"} />
   {@html `<script type="application/ld+json">
     ${JSON.stringify(schemaObj1)}
   </scr` + `ipt>`}

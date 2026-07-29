@@ -101,7 +101,7 @@
   $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/table-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/table-forge",
         "isAccessibleForFree": true,
       "name": dict.title,
       "description": dict.description,
@@ -159,10 +159,10 @@
 
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/table-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/table-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/table-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/table-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/table-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/table-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/table-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/table-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd2)}</scr` + `ipt>`}
 

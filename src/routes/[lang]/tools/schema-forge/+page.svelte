@@ -288,7 +288,7 @@
   $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/schema-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/schema-forge",
         "isAccessibleForFree": true,
       "name": t?.title,
       "description": t?.description,
@@ -376,10 +376,10 @@
 
 <svelte:head>
 
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/schema-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/schema-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/schema-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/schema-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/schema-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/schema-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/schema-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/schema-forge"} />
   <!-- Twitter -->
 
   <!-- JSON-LD -->

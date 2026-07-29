@@ -17,12 +17,12 @@
   // SEO
   $: title = `${toolDict.title} - ${dict.home.title}`;
   $: description = toolDict.description;
-  $: canonical = `https://selfgrowingmicrotool.com/${lang}/tools/pdf-forge`;
+  $: canonical = `${$page.url.origin}/${lang}/tools/pdf-forge`;
 
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/pdf-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/pdf-forge",
         "isAccessibleForFree": true,
     "name": "PDF Forge",
     "headline": toolDict.title,
@@ -78,10 +78,10 @@
 
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/pdf-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/pdf-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/pdf-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/pdf-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/pdf-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/pdf-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/pdf-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/pdf-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
 

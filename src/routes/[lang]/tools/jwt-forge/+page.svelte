@@ -100,7 +100,7 @@
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/jwt-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/jwt-forge",
         "isAccessibleForFree": true,
     "name": t.title,
     "description": t.description,
@@ -123,15 +123,15 @@
 <Head
   title={t.title}
   description={t.description}
-  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/jwt-forge"}
+  url={$page.url.origin + "/" + lang + "/tools/jwt-forge"}
 />
 
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/jwt-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/jwt-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/jwt-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/jwt-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/jwt-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/jwt-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/jwt-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/jwt-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
 </svelte:head>
 

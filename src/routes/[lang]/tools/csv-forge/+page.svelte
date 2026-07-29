@@ -137,13 +137,13 @@
         "@type": "ListItem",
         "position": 1,
         "name": dictionaries[lang].home.title,
-        "item": `https://selfgrowingmicrotool.com/${lang}`
+        "item": `${$page.url.origin}/${lang}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": (dict as any)?.title || '',
-        "item": `https://selfgrowingmicrotool.com/${lang}/tools/csv-forge`
+        "item": `${$page.url.origin}/${lang}/tools/csv-forge`
       }
     ]
   };
@@ -151,7 +151,7 @@
   $: softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/csv-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/csv-forge",
         "isAccessibleForFree": true,
     "name": (dict as any)?.title || '',
     "description": (dict as any)?.description || '',
@@ -168,10 +168,10 @@
 </script>
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/csv-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/csv-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/csv-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/csv-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/csv-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/csv-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/csv-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/csv-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
 

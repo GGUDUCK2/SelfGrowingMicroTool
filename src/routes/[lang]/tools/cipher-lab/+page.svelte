@@ -30,24 +30,24 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": `https://selfgrowingmicrotool.com/${lang}`
+      "item": `${$page.url.origin}/${lang}`
     },{
       "@type": "ListItem",
       "position": 2,
       "name": "Tools",
-      "item": `https://selfgrowingmicrotool.com/${lang}#tools`
+      "item": `${$page.url.origin}/${lang}#tools`
     },{
       "@type": "ListItem",
       "position": 3,
       "name": dict.title,
-      "item": `https://selfgrowingmicrotool.com/${lang}/tools/cipher-lab`
+      "item": `${$page.url.origin}/${lang}/tools/cipher-lab`
     }]
   };
 
   $: softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/cipher-lab",
+        "@id": $page.url.origin + "/" + lang + "/tools/cipher-lab",
         "isAccessibleForFree": true,
     "name": dict.title,
     "description": dict.description,
@@ -153,15 +153,15 @@
 
 <svelte:head>
 
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/cipher-lab"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/cipher-lab" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/cipher-lab" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/cipher-lab" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/cipher-lab"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/cipher-lab"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/cipher-lab"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/cipher-lab"} />
   <!-- Twitter -->
 
-    <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/cipher-lab" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/cipher-lab" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/cipher-lab" />
+    <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/cipher-lab"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/cipher-lab"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/cipher-lab"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
 

@@ -49,10 +49,10 @@
   $: schemaObj1 = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/unit-verse",
+        "@id": $page.url.origin + "/" + lang + "/tools/unit-verse",
         "isAccessibleForFree": true,
       "name": "Unit Verse",
-      "url": `https://selfgrowingmicrotool.com/${lang}/tools/unit-verse`,
+      "url": `${$page.url.origin}/${lang}/tools/unit-verse`,
       "applicationCategory": "UtilityApplication",
       "applicationSubCategory": "Unit Converter",
       "operatingSystem": "Web, iOS, Android, Linux, Windows, macOS",
@@ -74,19 +74,19 @@
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": `https://selfgrowingmicrotool.com/${lang}`
+          "item": `${$page.url.origin}/${lang}`
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Tools",
-          "item": `https://selfgrowingmicrotool.com/${lang}/tools`
+          "item": `${$page.url.origin}/${lang}/tools`
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Unit Verse",
-          "item": `https://selfgrowingmicrotool.com/${lang}/tools/unit-verse`
+          "item": `${$page.url.origin}/${lang}/tools/unit-verse`
         }
       ]
     };
@@ -94,17 +94,17 @@
 <Head
   title={`${t.title} | ${dict.home.title}`}
   description={t.description}
-  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/unit-verse"}
+  url={$page.url.origin + "/" + lang + "/tools/unit-verse"}
   image="https://selfgrowingmicrotool.com/og/unit-verse.png"
   keywords={t.keywords}
 />
 
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/unit-verse"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/unit-verse" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/unit-verse" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/unit-verse" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/unit-verse"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/unit-verse"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/unit-verse"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/unit-verse"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj2)}</scr` + `ipt>`}
 </svelte:head>

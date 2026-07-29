@@ -18,7 +18,7 @@
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/xpath-forge",
+    "@id": $page.url.origin + "/" + lang + "/tools/xpath-forge",
     "isAccessibleForFree": true,
     "name": title,
     "applicationCategory": "DeveloperApplication",
@@ -39,7 +39,7 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://selfgrowingmicrotool.com"
+        "item": $page.url.origin
       },
       {
         "@type": "ListItem",
@@ -51,19 +51,19 @@
         "@type": "ListItem",
         "position": 3,
         "name": title,
-        "item": `https://selfgrowingmicrotool.com/${lang}/tools/xpath-forge`
+        "item": `${$page.url.origin}/${lang}/tools/xpath-forge`
       }
     ]
   });
 </script>
 
-<Head {title} {description} url={"https://selfgrowingmicrotool.com/" + lang + "/tools/xpath-forge"} />
+<Head {title} {description} url={$page.url.origin + "/" + lang + "/tools/xpath-forge"} />
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/xpath-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/xpath-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/xpath-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/xpath-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/xpath-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/xpath-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/xpath-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/xpath-forge"} />
   {@html `<script type="application/ld+json">${jsonLd}</scr` + `ipt>`}
   {@html `<script type="application/ld+json">${breadcrumbJsonLd}</scr` + `ipt>`}
 </svelte:head>

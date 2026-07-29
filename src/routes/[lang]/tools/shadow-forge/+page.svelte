@@ -38,7 +38,7 @@
   $: jsonLd = dict ? {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/shadow-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/shadow-forge",
     "name": "Shadow Forge",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
@@ -56,8 +56,8 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Tools", "item": `https://selfgrowingmicrotool.com/${lang}/tools` },
-      { "@type": "ListItem", "position": 2, "name": "Shadow Forge", "item": `https://selfgrowingmicrotool.com/${lang}/tools/shadow-forge` }
+      { "@type": "ListItem", "position": 1, "name": "Tools", "item": `${$page.url.origin}/${lang}/tools` },
+      { "@type": "ListItem", "position": 2, "name": "Shadow Forge", "item": `${$page.url.origin}/${lang}/tools/shadow-forge` }
     ]
   };
 
@@ -71,10 +71,10 @@
 />
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/shadow-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/shadow-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/shadow-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/shadow-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/shadow-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/shadow-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/shadow-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/shadow-forge"} />
   {#if dict}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}

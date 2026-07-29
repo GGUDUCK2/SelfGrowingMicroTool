@@ -252,7 +252,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/restro",
+        "@id": $page.url.origin + "/" + lang + "/tools/restro",
         "isAccessibleForFree": true,
         "name": (dict as any)?.title ?? 'Restro',
         "description": (dict as any)?.description ?? 'API Client',
@@ -291,10 +291,10 @@
 
 
 
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/restro"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/restro" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/restro" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/restro" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/restro"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/restro"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/restro"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/restro"} />
   {@html `<script type="application/ld+json">
   ${JSON.stringify(schemaObj1)}
   </scr` + `ipt>`}

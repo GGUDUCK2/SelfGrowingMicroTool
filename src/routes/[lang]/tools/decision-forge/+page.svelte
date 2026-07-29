@@ -29,7 +29,7 @@
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/decision-forge",
+    "@id": $page.url.origin + "/" + lang + "/tools/decision-forge",
         "isAccessibleForFree": true,
     "name": t.title,
     "description": t.description,
@@ -56,19 +56,19 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://selfgrowingmicrotool.com/${lang}`
+        "item": `${$page.url.origin}/${lang}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": `https://selfgrowingmicrotool.com/${lang}/tools`
+        "item": `${$page.url.origin}/${lang}/tools`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": t.title,
-        "item": `https://selfgrowingmicrotool.com/${lang}/tools/decision-forge`
+        "item": `${$page.url.origin}/${lang}/tools/decision-forge`
       }
     ]
   };
@@ -90,10 +90,10 @@
 />
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/decision-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/decision-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/decision-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/decision-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/decision-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/decision-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/decision-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/decision-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbLd)}</scr` + `ipt>`}
 

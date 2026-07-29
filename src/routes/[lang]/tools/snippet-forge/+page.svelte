@@ -64,7 +64,7 @@
   $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/snippet-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/snippet-forge",
         "isAccessibleForFree": true,
       "name": dict.title,
       "description": dict.description,
@@ -122,10 +122,10 @@
 <svelte:head>
 
 
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/snippet-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/snippet-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/snippet-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/snippet-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/snippet-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/snippet-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/snippet-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/snippet-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
 
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd2)}</scr` + `ipt>`}

@@ -22,7 +22,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/docker-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/docker-forge",
         "name": d?.title || "Docker Forge",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web",
@@ -83,19 +83,19 @@
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": `https://selfgrowingmicrotool.com/${lang}`
+            "item": `${$page.url.origin}/${lang}`
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Tools",
-            "item": `https://selfgrowingmicrotool.com/${lang}/tools`
+            "item": `${$page.url.origin}/${lang}/tools`
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": d?.title || "Docker Forge",
-            "item": `https://selfgrowingmicrotool.com/${lang}/tools/docker-forge`
+            "item": `${$page.url.origin}/${lang}/tools/docker-forge`
           }
         ]
       }
@@ -109,7 +109,7 @@
   description={description}
   keywords="docker, dockerfile, generator, visual builder, docker compose, multi-stage build, container, devops"
   ogImage="https://selfgrowingmicrotool.com/og-image.png"
-  ogUrl={`https://selfgrowingmicrotool.com/${lang}/tools/docker-forge`}
+  ogUrl={`${$page.url.origin}/${lang}/tools/docker-forge`}
 />
 
 <svelte:head>
@@ -118,15 +118,15 @@
   <meta name="keywords" content="docker, dockerfile, generator, visual builder, docker compose, multi-stage build, container, devops" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:url" content={`https://selfgrowingmicrotool.com/${lang}/tools/docker-forge`} />
+  <meta property="og:url" content={`${$page.url.origin}/${lang}/tools/docker-forge`} />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <link rel="canonical" href={`https://selfgrowingmicrotool.com/${lang}/tools/docker-forge`} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/docker-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/docker-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/docker-forge" />
+  <link rel="canonical" href={`${$page.url.origin}/${lang}/tools/docker-forge`} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/docker-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/docker-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/docker-forge"} />
 
   {@html `<script type="application/ld+json">${jsonLd}</scr` + `ipt>`}
 </svelte:head>

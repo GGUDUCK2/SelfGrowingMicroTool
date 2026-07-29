@@ -146,7 +146,7 @@
   $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/cron-editor",
+        "@id": $page.url.origin + "/" + lang + "/tools/cron-editor",
         "isAccessibleForFree": true,
       "name": "Cronos: Professional Cron Editor",
       "applicationCategory": "DeveloperApplication",
@@ -221,10 +221,10 @@
 
 <svelte:head>
 
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/cron-editor"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/cron-editor" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/cron-editor" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/cron-editor" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/cron-editor"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/cron-editor"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/cron-editor"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/cron-editor"} />
   <!-- JSON-LD -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd2)}</scr` + `ipt>`}
