@@ -59,7 +59,7 @@
     "description": dict.description,
     "applicationCategory": "DesignApplication",
     "operatingSystem": "All",
-    "url": `https://selfgrowingmicrotool.com/${lang}/tools/gradient-forge`
+    "url": `${$page.url.origin}/${lang}/tools/gradient-forge`
   };
 </script>
 

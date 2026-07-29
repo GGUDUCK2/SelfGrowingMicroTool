@@ -67,7 +67,7 @@
     $: schema = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "@id": `https://selfgrowingmicrotool.com/${lang}/tools/lorem-forge`,
+        "@id": `${$page.url.origin}/${lang}/tools/lorem-forge`,
         "name": d?.title || "Lorem Forge",
         "description": d?.description || "Professional Dummy Text Generator",
         "applicationCategory": "DeveloperApplication",
@@ -83,14 +83,14 @@
 <Head
     title={d?.title || "Lorem Forge - Professional Dummy Text Generator"}
     description={d?.description || "Generate dummy text with custom dictionaries."}
-    url={`https://selfgrowingmicrotool.com/${lang}/tools/lorem-forge`}
+    url={`${$page.url.origin}/${lang}/tools/lorem-forge`}
 />
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/lorem-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/lorem-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/lorem-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/lorem-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/lorem-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/lorem-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/lorem-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/lorem-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
 </svelte:head>
 

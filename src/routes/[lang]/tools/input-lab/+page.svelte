@@ -26,7 +26,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/input-lab",
+        "@id": $page.url.origin + "/" + lang + "/tools/input-lab",
         "isAccessibleForFree": true,
         "name": dict.title,
         "description": dict.description,
@@ -100,14 +100,14 @@
 
 <svelte:head>
 
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/input-lab"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/input-lab" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/input-lab" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/input-lab" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/input-lab"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/input-lab"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/input-lab"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/input-lab"} />
   <!-- Twitter -->
 
-    <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/input-lab" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/input-lab" />
+    <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/input-lab"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/input-lab"} />
 
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
 

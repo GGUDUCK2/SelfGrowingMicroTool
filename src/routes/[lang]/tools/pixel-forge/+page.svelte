@@ -29,7 +29,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/pixel-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/pixel-forge",
         "isAccessibleForFree": true,
         "name": "Pixel Forge",
         "description": description,
@@ -78,13 +78,13 @@
 
 
 
-    <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/pixel-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/pixel-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/pixel-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/pixel-forge" />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/pixel-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/pixel-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/pixel-forge" />
+    <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/pixel-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/pixel-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/pixel-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/pixel-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/pixel-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/pixel-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/pixel-forge"} />
   {@html `<script type="application/ld+json">${jsonLd}</scr` + `ipt>`}
 </svelte:head>
 

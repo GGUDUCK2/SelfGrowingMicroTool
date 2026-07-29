@@ -31,7 +31,7 @@
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/qr-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/qr-forge",
         "isAccessibleForFree": true,
     "name": "QR Forge",
     "applicationCategory": "UtilitiesApplication",
@@ -54,13 +54,13 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://selfgrowingmicrotool.com/${lang}`
+        "item": `${$page.url.origin}/${lang}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": `https://selfgrowingmicrotool.com/${lang}/tools`
+        "item": `${$page.url.origin}/${lang}/tools`
       },
       {
         "@type": "ListItem",
@@ -144,16 +144,16 @@
 <Head
   title={t.title}
   description={t.description}
-  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/qr-forge"}
+  url={$page.url.origin + "/" + lang + "/tools/qr-forge"}
   image="https://selfgrowingmicrotool.com/og/default.png"
   keywords="qr code generator, wifi qr code, vcard qr code, crypto qr code, free qr generator, no expiry qr code"
 />
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/qr-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/qr-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/qr-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/qr-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/qr-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/qr-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/qr-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/qr-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb)}</scr` + `ipt>`}
   {@html `<script type="application/ld+json">${JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":t?.q1||"","acceptedAnswer":{"@type":"Answer","text":t?.a1||""}},{"@type":"Question","name":t?.q2||"","acceptedAnswer":{"@type":"Answer","text":t?.a2||""}},{"@type":"Question","name":t?.q3||"","acceptedAnswer":{"@type":"Answer","text":t?.a3||""}}]})}</scr` + `ipt>`}

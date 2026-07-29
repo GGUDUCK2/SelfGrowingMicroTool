@@ -110,16 +110,16 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": `https://selfgrowingmicrotool.com/${lang}` },
-      { "@type": "ListItem", "position": 2, "name": "Tools", "item": `https://selfgrowingmicrotool.com/${lang}#tools` },
-      { "@type": "ListItem", "position": 3, "name": (dict as any)?.title || 'Git Forge', "item": `https://selfgrowingmicrotool.com/${lang}/tools/git-forge` }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": `${$page.url.origin}/${lang}` },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": `${$page.url.origin}/${lang}#tools` },
+      { "@type": "ListItem", "position": 3, "name": (dict as any)?.title || 'Git Forge', "item": `${$page.url.origin}/${lang}/tools/git-forge` }
     ]
   };
 
   $: softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/git-forge",
+    "@id": $page.url.origin + "/" + lang + "/tools/git-forge",
         "isAccessibleForFree": true,
     "name": (dict as any)?.title || 'Git Forge',
     "description": (dict as any)?.description || 'Git tools',
@@ -171,14 +171,14 @@
   description={(dict as any)?.description || 'Git tools'}
   keywords="git command generator, gitignore builder, conventional commits, git tools, developer tools, git doctor, undo git commit"
   image="https://selfgrowingmicrotool.com/og/git-forge.png"
-  url={`https://selfgrowingmicrotool.com/${lang}/tools/git-forge`}
+  url={`${$page.url.origin}/${lang}/tools/git-forge`}
 />
 
 <svelte:head>
-  <link rel="canonical" href="https://selfgrowingmicrotool.com/en/tools/git-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/git-forge" />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/git-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/git-forge" />
+  <link rel="canonical" href={$page.url.origin + "/en/tools/git-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/git-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/git-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/git-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema)}</scr` + `ipt>`}

@@ -173,7 +173,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/json-architect",
+        "@id": $page.url.origin + "/" + lang + "/tools/json-architect",
         "isAccessibleForFree": true,
     "name": t.title,
     "description": t.description,
@@ -212,7 +212,7 @@
       "@type": "ListItem",
       "position": 3,
       "name": t.title,
-      "item": `https://selfgrowingmicrotool.com/${lang}/tools/json-architect`
+      "item": `${$page.url.origin}/${lang}/tools/json-architect`
     }]
   };
 
@@ -222,15 +222,15 @@
 <Head
   title={t.title}
   description={t.description}
-  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/json-architect"}
+  url={$page.url.origin + "/" + lang + "/tools/json-architect"}
   image="https://selfgrowingmicrotool.com/og/default.png"
 />
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/json-architect"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/json-architect" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/json-architect" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/json-architect" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/json-architect"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/json-architect"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/json-architect"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/json-architect"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
 

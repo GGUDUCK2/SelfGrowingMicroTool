@@ -106,7 +106,7 @@
     $: schema = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/demographics-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/demographics-forge",
         "isAccessibleForFree": true,
         "name": t.title,
         "description": t.description,
@@ -126,10 +126,10 @@
 
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/demographics-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/demographics-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/demographics-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/demographics-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/demographics-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/demographics-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/demographics-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/demographics-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
 </svelte:head>
 

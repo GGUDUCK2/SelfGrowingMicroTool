@@ -21,7 +21,7 @@
   $: appSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/pomodoro-timer",
+    "@id": $page.url.origin + "/" + lang + "/tools/pomodoro-timer",
     "isAccessibleForFree": true,
     "name": dict.title,
     "description": dict.description,
@@ -54,7 +54,7 @@
       "@type": "ListItem",
       "position": 3,
       "name": dict.title,
-      "item": `https://selfgrowingmicrotool.com/${lang}/tools/pomodoro-timer`
+      "item": `${$page.url.origin}/${lang}/tools/pomodoro-timer`
     }]
   };
 
@@ -67,10 +67,10 @@
 />
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/pomodoro-timer"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/pomodoro-timer" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/pomodoro-timer" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/pomodoro-timer" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/pomodoro-timer"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/pomodoro-timer"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/pomodoro-timer"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/pomodoro-timer"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaList)}</scr` + `ipt>`}
 </svelte:head>
 

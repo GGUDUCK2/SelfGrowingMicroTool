@@ -269,7 +269,7 @@
   $: softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/password-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/password-forge",
         "isAccessibleForFree": true,
     "name": t.title,
     "description": t.description,
@@ -325,10 +325,10 @@
 />
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/password-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/password-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/password-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/password-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/password-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/password-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/password-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/password-forge"} />
   <!-- eslint-disable svelte/no-at-html-tags -->
   <!-- eslint-disable @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">` + JSON.stringify(softwareSchema) + `${'</scr' + 'ipt>'}`}

@@ -38,7 +38,7 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/markdown-studio",
+        "@id": $page.url.origin + "/" + lang + "/tools/markdown-studio",
         "isAccessibleForFree": true,
       "name": "MarkFlow",
       "headline": dict.title,
@@ -115,7 +115,7 @@
       "@type": "ListItem",
       "position": 3,
       "name": dict.title,
-      "item": `https://selfgrowingmicrotool.com/${lang}/tools/markdown-studio`
+      "item": `${$page.url.origin}/${lang}/tools/markdown-studio`
     }]
   };
 
@@ -242,15 +242,15 @@
   title={dict.title}
   description={dict.description}
   image="https://selfgrowingmicrotool.com/og/default.png"
-  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/markdown-studio"}
+  url={$page.url.origin + "/" + lang + "/tools/markdown-studio"}
   keywords="markdown editor, online markdown editor, github flavored markdown, markdown preview, markdown to html"
 />
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/markdown-studio"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/markdown-studio" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/markdown-studio" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/markdown-studio" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/markdown-studio"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/markdown-studio"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/markdown-studio"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/markdown-studio"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
 </svelte:head>

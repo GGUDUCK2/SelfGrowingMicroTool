@@ -45,7 +45,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/color-master",
+        "@id": $page.url.origin + "/" + lang + "/tools/color-master",
         "isAccessibleForFree": true,
     "name": t.title,
     "description": t.description,
@@ -101,19 +101,19 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://selfgrowingmicrotool.com/${($page.params.lang || "en")}`
+        "item": `${$page.url.origin}/${($page.params.lang || "en")}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": `https://selfgrowingmicrotool.com/${($page.params.lang || "en")}#tools`
+        "item": `${$page.url.origin}/${($page.params.lang || "en")}#tools`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": t.title,
-        "item": `https://selfgrowingmicrotool.com/${($page.params.lang || "en")}/tools/color-master`
+        "item": `${$page.url.origin}/${($page.params.lang || "en")}/tools/color-master`
       }
     ]
   };
@@ -261,10 +261,10 @@
 <svelte:head>
 
 
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/color-master"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/color-master" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/color-master" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/color-master" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/color-master"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/color-master"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/color-master"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/color-master"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
 
 

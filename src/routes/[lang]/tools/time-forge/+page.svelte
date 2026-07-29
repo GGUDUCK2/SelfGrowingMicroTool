@@ -54,7 +54,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/time-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/time-forge",
         "isAccessibleForFree": true,
     "name": t.title,
     "applicationCategory": "ProductivityApplication",
@@ -76,10 +76,10 @@
 </script>
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/time-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/time-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/time-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/time-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/time-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/time-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/time-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/time-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
   {@html `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [ { "@type": "Question", "name": (dict as any)?.tools?.timeForge?.q1 || "", "acceptedAnswer": { "@type": "Answer", "text": (dict as any)?.tools?.timeForge?.a1 || "" } }, { "@type": "Question", "name": (dict as any)?.tools?.timeForge?.q2 || "", "acceptedAnswer": { "@type": "Answer", "text": (dict as any)?.tools?.timeForge?.a2 || "" } }, { "@type": "Question", "name": (dict as any)?.tools?.timeForge?.q3 || "", "acceptedAnswer": { "@type": "Answer", "text": (dict as any)?.tools?.timeForge?.a3 || "" } } ] })}</scr` + `ipt>`}
 </svelte:head>

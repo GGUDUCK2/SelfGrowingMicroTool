@@ -182,7 +182,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/string-theory",
+        "@id": $page.url.origin + "/" + lang + "/tools/string-theory",
         "name": "String Theory",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
@@ -212,7 +212,7 @@
 
 
 
-  const canonicalUrl = `https://selfgrowingmicrotool.com/${$page.params.lang}/tools/string-theory`;
+  const canonicalUrl = `${$page.url.origin}/${$page.params.lang}/tools/string-theory`;
 </script>
 <Head
   title={dict.title}
@@ -225,9 +225,9 @@
 
 <svelte:head>
   <link rel="canonical" href={canonicalUrl} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/string-theory" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/string-theory" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/string-theory" />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/string-theory"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/string-theory"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/string-theory"} />
 
 
   {#if jsonLd}

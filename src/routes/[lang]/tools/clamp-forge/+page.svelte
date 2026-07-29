@@ -38,7 +38,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/clamp-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/clamp-forge",
         "name": d?.title || "Clamp Forge",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web",
@@ -61,25 +61,25 @@
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/clamp-forge#breadcrumb",
+        "@id": $page.url.origin + "/" + lang + "/tools/clamp-forge#breadcrumb",
         "itemListElement": [
           {
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://selfgrowingmicrotool.com/" + lang
+            "item": $page.url.origin + "/" + lang
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Tools",
-            "item": "https://selfgrowingmicrotool.com/" + lang + "/tools"
+            "item": $page.url.origin + "/" + lang + "/tools"
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": d?.title || "Clamp Forge",
-            "item": "https://selfgrowingmicrotool.com/" + lang + "/tools/clamp-forge"
+            "item": $page.url.origin + "/" + lang + "/tools/clamp-forge"
           }
         ]
       }
@@ -91,15 +91,15 @@
   title={title}
   description={description}
   keywords="CSS clamp, fluid typography, responsive typography, font scaling, reverse clamp, CSS variables, tailwind config, frontend developer tools"
-  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/clamp-forge"}
+  url={$page.url.origin + "/" + lang + "/tools/clamp-forge"}
 />
 
 
 <svelte:head>
-  <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}/tools/clamp-forge" />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/clamp-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/clamp-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/clamp-forge" />
+  <link rel="canonical" href={`${$page.url.origin}/${lang}/tools/clamp-forge`} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/clamp-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/clamp-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/clamp-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj)}</scr` + `ipt>`}
 </svelte:head>
 

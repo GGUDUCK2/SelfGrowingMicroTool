@@ -27,22 +27,22 @@
       "price": "0",
       "priceCurrency": "USD"
     },
-    "url": "https://selfgrowingmicrotool.com/" + lang + "/tools/pattern-forge"
+    "url": $page.url.origin + "/" + lang + "/tools/pattern-forge"
   };
 </script>
 
 <svelte:head>
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/pattern-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/pattern-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/pattern-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/pattern-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/pattern-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/pattern-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/pattern-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/pattern-forge"} />
 </svelte:head>
 
 <Head
   title={t.title || 'Pattern Forge'}
   description={t.desc || 'Create beautiful, customizable CSS and SVG background patterns.'}
-  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/pattern-forge"}
+  url={$page.url.origin + "/" + lang + "/tools/pattern-forge"}
 />
 
 <PatternForge t={t} />

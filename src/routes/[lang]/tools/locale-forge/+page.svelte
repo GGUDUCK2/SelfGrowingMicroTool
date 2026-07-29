@@ -34,9 +34,9 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": `https://selfgrowingmicrotool.com/${lang}` },
-      { "@type": "ListItem", "position": 2, "name": "Tools", "item": `https://selfgrowingmicrotool.com/${lang}#tools` },
-      { "@type": "ListItem", "position": 3, "name": dict.title, "item": `https://selfgrowingmicrotool.com/${lang}/tools/locale-forge` }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": `${$page.url.origin}/${lang}` },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": `${$page.url.origin}/${lang}#tools` },
+      { "@type": "ListItem", "position": 3, "name": dict.title, "item": `${$page.url.origin}/${lang}/tools/locale-forge` }
     ]
   };
 
@@ -50,7 +50,7 @@
   $: softwareSchema = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/locale-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/locale-forge",
         "isAccessibleForFree": true,
       "name": dict.title,
       "description": dict.description,
@@ -100,10 +100,10 @@
 
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/locale-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/locale-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/locale-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/locale-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/locale-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/locale-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/locale-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/locale-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema)}</scr` + `ipt>`}

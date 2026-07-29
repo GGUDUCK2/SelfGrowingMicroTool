@@ -43,7 +43,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/hash-forge",
+    "@id": $page.url.origin + "/" + lang + "/tools/hash-forge",
     "isAccessibleForFree": true,
     "name": (dict as any)?.title || '',
     "applicationCategory": "DeveloperApplication",
@@ -66,19 +66,19 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://selfgrowingmicrotool.com/${lang}`
+        "item": `${$page.url.origin}/${lang}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": `https://selfgrowingmicrotool.com/${lang}/tools`
+        "item": `${$page.url.origin}/${lang}/tools`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": (dict as any)?.title || '',
-        "item": `https://selfgrowingmicrotool.com/${lang}/tools/hash-forge`
+        "item": `${$page.url.origin}/${lang}/tools/hash-forge`
       }
     ]
   };
@@ -92,17 +92,17 @@
   openGraph={{...(dict as any)?.openGraph,
     title: dict.title,
     description: dict.description,
-    url: `https://selfgrowingmicrotool.com/${lang}/tools/hash-forge`
+    url: `${$page.url.origin}/${lang}/tools/hash-forge`
   }}
   twitter={{ card: 'summary_large_image', title: dict.title, description: dict.description }}
 />
 
 
 <svelte:head>
-      <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/hash-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/hash-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/hash-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/hash-forge" />
+      <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/hash-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/hash-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/hash-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/hash-forge"} />
   <!-- eslint-disable svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}

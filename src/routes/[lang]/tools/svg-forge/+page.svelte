@@ -111,7 +111,7 @@
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/svg-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/svg-forge",
     "name": t?.title || "SVG Forge",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
@@ -166,16 +166,16 @@
 <Head
   title={t?.title || "SVG Forge"}
   description={t?.description}
-  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/svg-forge"}
+  url={$page.url.origin + "/" + lang + "/tools/svg-forge"}
   image="https://selfgrowingmicrotool.com/og/default.png"
 />
 
 <svelte:head>
 
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/svg-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/svg-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/svg-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/svg-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/svg-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/svg-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/svg-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/svg-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
 
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(faqLd)}</scr` + `ipt>`}

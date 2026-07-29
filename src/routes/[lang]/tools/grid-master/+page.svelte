@@ -233,7 +233,7 @@
   $: schemaObj1 = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/grid-master",
+        "@id": $page.url.origin + "/" + lang + "/tools/grid-master",
       "name": "Grid Master",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Web, iOS, Android, Linux, Windows, macOS",
@@ -314,13 +314,13 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-                    <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/grid-master"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/grid-master" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/grid-master" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/grid-master" />
+                    <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/grid-master"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/grid-master"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/grid-master"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/grid-master"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/grid-master"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/grid-master"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/grid-master"} />
 
 
   {@html `<script type="application/ld+json">

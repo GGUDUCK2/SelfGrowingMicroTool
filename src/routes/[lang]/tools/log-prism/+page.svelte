@@ -239,13 +239,13 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://selfgrowingmicrotool.com/${lang}`
+        "item": `${$page.url.origin}/${lang}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": dict.title,
-        "item": `https://selfgrowingmicrotool.com/${lang}/tools/log-prism`
+        "item": `${$page.url.origin}/${lang}/tools/log-prism`
       }
     ]
   };
@@ -265,15 +265,15 @@
 
 
 
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/log-prism"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/log-prism" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/log-prism" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/log-prism" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/log-prism"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/log-prism"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/log-prism"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/log-prism"} />
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/log-prism",
+        "@id": $page.url.origin + "/" + lang + "/tools/log-prism",
         "isAccessibleForFree": true,
       "name": (dict as any)?.title || "",
       "description": (dict as any)?.description || "",

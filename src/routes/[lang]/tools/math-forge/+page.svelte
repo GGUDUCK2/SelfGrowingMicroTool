@@ -28,15 +28,15 @@
     clean(dict.guide.f2),
     clean(dict.guide.f3)
   ];
-  $: canonicalUrl = `https://selfgrowingmicrotool.com/${lang}/tools/math-forge`;
+  $: canonicalUrl = `${$page.url.origin}/${lang}/tools/math-forge`;
 
   $: breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": `https://selfgrowingmicrotool.com/${lang}` },
-      { "@type": "ListItem", "position": 2, "name": "Tools", "item": `https://selfgrowingmicrotool.com/${lang}#tools` },
-      { "@type": "ListItem", "position": 3, "name": dict.title, "item": `https://selfgrowingmicrotool.com/${lang}/tools/math-forge` }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": `${$page.url.origin}/${lang}` },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": `${$page.url.origin}/${lang}#tools` },
+      { "@type": "ListItem", "position": 3, "name": dict.title, "item": `${$page.url.origin}/${lang}/tools/math-forge` }
     ]
   };
 
@@ -95,17 +95,17 @@
 
 <svelte:head>
 
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/math-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/math-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/math-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/math-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/math-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/math-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/math-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/math-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
 
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/math-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/math-forge",
         "isAccessibleForFree": true,
       "name": (dict as any)?.title || "",
       "description": (dict as any)?.description || "",

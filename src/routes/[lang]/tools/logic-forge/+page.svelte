@@ -173,7 +173,7 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/logic-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/logic-forge",
         "isAccessibleForFree": true,
       "name": dict.title,
       "url": "https://microfactory.app/tools/logic-forge",
@@ -231,10 +231,10 @@
 <svelte:window on:keydown={handleGlobalKeydown} />
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/logic-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/logic-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/logic-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/logic-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/logic-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/logic-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/logic-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/logic-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
 
 

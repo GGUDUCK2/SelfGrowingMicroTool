@@ -291,7 +291,7 @@
   $: softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/diff-viewer",
+        "@id": $page.url.origin + "/" + lang + "/tools/diff-viewer",
         "isAccessibleForFree": true,
     "name": t.title,
     "operatingSystem": "Any",
@@ -304,7 +304,7 @@
       "priceCurrency": "USD"
     },
     "description": t.description,
-    "url": `https://selfgrowingmicrotool.com/${lang}/tools/diff-viewer`,
+    "url": `${$page.url.origin}/${lang}/tools/diff-viewer`,
     "image": "https://selfgrowingmicrotool.com/og/diff-viewer.png",
     "featureList": [t.guide.f1, t.guide.f2, t.guide.f3].map(s => s.replace(/\*\*/g, '')),
     "author": {
@@ -321,19 +321,19 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://selfgrowingmicrotool.com/${lang}`
+        "item": `${$page.url.origin}/${lang}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": `https://selfgrowingmicrotool.com/${lang}#tools`
+        "item": `${$page.url.origin}/${lang}#tools`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": t.title,
-        "item": `https://selfgrowingmicrotool.com/${lang}/tools/diff-viewer`
+        "item": `${$page.url.origin}/${lang}/tools/diff-viewer`
       }
     ]
   };
@@ -376,10 +376,10 @@
 </script>
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/diff-viewer"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/diff-viewer" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/diff-viewer" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/diff-viewer" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/diff-viewer"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/diff-viewer"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/diff-viewer"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/diff-viewer"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema)}</scr` + `ipt>`}

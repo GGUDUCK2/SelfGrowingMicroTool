@@ -66,7 +66,7 @@
     $: softwareSchema = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/perms-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/perms-forge",
         "isAccessibleForFree": true,
         "name": dict.title,
         "description": dict.description,
@@ -83,10 +83,10 @@
 
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/perms-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/perms-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/perms-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/perms-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/perms-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/perms-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/perms-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/perms-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
 
   {@html `<script type="application/ld+json">

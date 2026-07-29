@@ -150,13 +150,13 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/diagram-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/diagram-forge",
         "isAccessibleForFree": true,
         "name": "Diagram Forge",
         "description": t.description,
         "applicationCategory": "DesignApplication",
         "operatingSystem": "Any",
-        "url": `https://selfgrowingmicrotool.com/${lang}/tools/diagram-forge`,
+        "url": `${$page.url.origin}/${lang}/tools/diagram-forge`,
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -180,13 +180,13 @@
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": `https://selfgrowingmicrotool.com/${lang}`
+            "item": `${$page.url.origin}/${lang}`
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Diagram Forge",
-            "item": `https://selfgrowingmicrotool.com/${lang}/tools/diagram-forge`
+            "item": `${$page.url.origin}/${lang}/tools/diagram-forge`
           }
         ]
       }
@@ -202,10 +202,10 @@
 
 
 <svelte:head>
-                        <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/diagram-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/diagram-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/diagram-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/diagram-forge" />
+                        <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/diagram-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/diagram-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/diagram-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/diagram-forge"} />
   {@html jsonLdScript}
 
 

@@ -22,7 +22,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/env-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/env-forge",
         "name": d?.title || "Env Forge",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web",
@@ -79,19 +79,19 @@
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": `https://selfgrowingmicrotool.com/${lang}`
+            "item": `${$page.url.origin}/${lang}`
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Tools",
-            "item": `https://selfgrowingmicrotool.com/${lang}/tools`
+            "item": `${$page.url.origin}/${lang}/tools`
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": d?.title || "Env Forge",
-            "item": `https://selfgrowingmicrotool.com/${lang}/tools/env-forge`
+            "item": `${$page.url.origin}/${lang}/tools/env-forge`
           }
         ]
       }
@@ -117,16 +117,16 @@
 <Head
   title={title}
   description={description}
-  url={`https://selfgrowingmicrotool.com/${lang}/tools/env-forge`}
+  url={`${$page.url.origin}/${lang}/tools/env-forge`}
   keywords="env, environment variables, dotenv, config, kubernetes configmap, docker env file, yaml, json, format env"
   image="https://selfgrowingmicrotool.com/og-image.png"
 />
 
 <svelte:head>
-  <link rel="canonical" href={`https://selfgrowingmicrotool.com/${lang}/tools/env-forge`} />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/env-forge" />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/env-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/env-forge" />
+  <link rel="canonical" href={`${$page.url.origin}/${lang}/tools/env-forge`} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/env-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/env-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/env-forge"} />
 
 
   {@html `<script type="application/ld+json">` + jsonLd + `</` + `script>`}

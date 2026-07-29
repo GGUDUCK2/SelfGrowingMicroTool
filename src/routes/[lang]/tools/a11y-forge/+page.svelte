@@ -36,22 +36,22 @@ import Contrast from '@lucide/svelte/icons/contrast';
       "Color Blindness Vision Simulator",
       "Interactive ARIA Role Explorer"
     ],
-    "url": "https://selfgrowingmicrotool.com/" + lang + "/tools/a11y-forge"
+    "url": $page.url.origin + "/" + lang + "/tools/a11y-forge"
   };
 </script>
 
 <svelte:head>
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/a11y-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/a11y-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/a11y-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/a11y-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/a11y-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/a11y-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/a11y-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/a11y-forge"} />
 </svelte:head>
 
 <Head
   title={t.title || "A11y Forge - Web Accessibility Toolkit"}
   description={t.description || "Professional web accessibility toolkit. WCAG color contrast checker and ARIA role explorer."}
-  url={"https://selfgrowingmicrotool.com/" + lang + "/tools/a11y-forge"}
+  url={$page.url.origin + "/" + lang + "/tools/a11y-forge"}
   keywords="accessibility, a11y, wcag, contrast, color blindness, aria"
 />
 

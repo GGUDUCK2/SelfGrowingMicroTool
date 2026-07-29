@@ -87,7 +87,7 @@
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/csp-forge",
+    "@id": $page.url.origin + "/" + lang + "/tools/csp-forge",
     "isAccessibleForFree": true,
     "name": (dict as any)?.title,
     "applicationCategory": "DeveloperApplication",
@@ -110,19 +110,19 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://selfgrowingmicrotool.com/${lang}`
+        "item": `${$page.url.origin}/${lang}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": `https://selfgrowingmicrotool.com/${lang}/tools`
+        "item": `${$page.url.origin}/${lang}/tools`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": (dict as any)?.title,
-        "item": `https://selfgrowingmicrotool.com/${lang}/tools/csp-forge`
+        "item": `${$page.url.origin}/${lang}/tools/csp-forge`
       }
     ]
   };
@@ -137,10 +137,10 @@
 />
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/csp-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/csp-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/csp-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/csp-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/csp-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/csp-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/csp-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/csp-forge"} />
   <!-- eslint-disable svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}

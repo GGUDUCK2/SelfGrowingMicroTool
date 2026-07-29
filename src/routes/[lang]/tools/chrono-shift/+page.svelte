@@ -204,7 +204,7 @@
     $: softwareSchema = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/chrono-shift",
+        "@id": $page.url.origin + "/" + lang + "/tools/chrono-shift",
         "isAccessibleForFree": true,
         "name": t.title,
         "description": t.description,
@@ -232,17 +232,17 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://selfgrowingmicrotool.com/${($page.params.lang || "en")}`
+        "item": `${$page.url.origin}/${($page.params.lang || "en")}`
       },{
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": `https://selfgrowingmicrotool.com/${($page.params.lang || "en")}#tools`
+        "item": `${$page.url.origin}/${($page.params.lang || "en")}#tools`
       },{
         "@type": "ListItem",
         "position": 3,
         "name": "Chrono Shift",
-        "item": `https://selfgrowingmicrotool.com/${($page.params.lang || "en")}/tools/chrono-shift`
+        "item": `${$page.url.origin}/${($page.params.lang || "en")}/tools/chrono-shift`
       }]
     };
 
@@ -285,10 +285,10 @@
 
 <svelte:head>
 
-    <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/chrono-shift"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/chrono-shift" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/chrono-shift" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/chrono-shift" />
+    <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/chrono-shift"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/chrono-shift"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/chrono-shift"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/chrono-shift"} />
   <!-- Twitter -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}

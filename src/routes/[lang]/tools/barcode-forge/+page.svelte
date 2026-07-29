@@ -22,7 +22,7 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "@id": "https://selfgrowingmicrotool.com/" + lang + "/tools/barcode-forge",
+        "@id": $page.url.origin + "/" + lang + "/tools/barcode-forge",
         "name": d?.title || "Barcode Forge",
         "applicationCategory": "BusinessApplication, UtilitiesApplication",
         "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
@@ -54,19 +54,19 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://selfgrowingmicrotool.com"
+        "item": $page.url.origin
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": "https://selfgrowingmicrotool.com/" + lang + "/tools"
+        "item": $page.url.origin + "/" + lang + "/tools"
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": d.title,
-        "item": "https://selfgrowingmicrotool.com/" + lang + "/tools/barcode-forge"
+        "item": $page.url.origin + "/" + lang + "/tools/barcode-forge"
       }
     ]
   });
@@ -78,10 +78,10 @@
 />
 
 <svelte:head>
-  <link rel="canonical" href={"https://selfgrowingmicrotool.com/" + lang + "/tools/barcode-forge"} />
-  <link rel="alternate" hreflang="en" href="https://selfgrowingmicrotool.com/en/tools/barcode-forge" />
-  <link rel="alternate" hreflang="ko" href="https://selfgrowingmicrotool.com/ko/tools/barcode-forge" />
-  <link rel="alternate" hreflang="x-default" href="https://selfgrowingmicrotool.com/en/tools/barcode-forge" />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/barcode-forge"} />
+  <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/barcode-forge"} />
+  <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/barcode-forge"} />
+  <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/barcode-forge"} />
   {@html `<script type="application/ld+json">${jsonLd}</scr` + `ipt>`}
   {@html `<script type="application/ld+json">${breadcrumbJsonLd}</scr` + `ipt>`}
 </svelte:head>
