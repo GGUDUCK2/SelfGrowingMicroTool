@@ -14,8 +14,7 @@
   import {
     parseCronExpression,
     COMMON_PRESETS,
-    COMMON_PRESETS_KO,
-  } from "$lib/utils/cron";
+    COMMON_PRESETS_KO} from "$lib/utils/cron";
   import FAQSection from "$lib/components/FAQSection.svelte";
   import { db } from "$lib/db";
   // import { getDictionary } from "$lib/dictionaries";
@@ -40,8 +39,7 @@
     restore: "Restore",
     delete: "Delete",
     buttons: { copy: "Copy", share: "Share", download: "Download" },
-    feedback: { copied: "Copied!", downloadStarted: "Download Started" },
-  };
+    feedback: { copied: "Copied!", downloadStarted: "Download Started" }};
   const commonDict = dict;
 
   let cronExpression = "* * * * *";
@@ -97,8 +95,7 @@
       await db.cronHistory.add({
         expression: expr,
         description: desc,
-        createdAt: new Date(),
-      });
+        createdAt: new Date()});
     }, 2000);
   }
 
@@ -123,19 +120,14 @@
       question: { en: "What is Cron?", ko: "Cron이란 무엇인가요?" },
       answer: {
         en: "Cron is a time-based job scheduler in Unix-like computer operating systems.",
-        ko: "Cron은 유닉스 계열 컴퓨터 운영 체제의 시간 기반 작업 스케줄러입니다.",
-      },
-    },
+        ko: "Cron은 유닉스 계열 컴퓨터 운영 체제의 시간 기반 작업 스케줄러입니다."}},
     {
       question: {
         en: "How do I use this tool?",
-        ko: "이 도구는 어떻게 사용하나요?",
-      },
+        ko: "이 도구는 어떻게 사용하나요?"},
       answer: {
         en: "Use the visual builder to select your schedule, or type directly into the input field.",
-        ko: "비주얼 빌더를 사용하여 스케줄을 선택하거나 입력 필드에 직접 입력하세요.",
-      },
-    },
+        ko: "비주얼 빌더를 사용하여 스케줄을 선택하거나 입력 필드에 직접 입력하세요."}},
   ];
 
   $: faqItems = faqs.map(f => ({

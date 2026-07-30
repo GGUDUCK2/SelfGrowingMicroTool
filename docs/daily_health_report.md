@@ -61,3 +61,18 @@
 - **SEO/AEO**: `decision-forge`의 SEO 및 JSON-LD 스키마가 적절히 주입되어 있는지 확인했습니다.
 #### 3. Performance Impact (기대 효과)
 - 모바일 디바이스에서 사용자가 버튼을 더 쉽고 정확하게 터치할 수 있게 되어 전반적인 사용자 경험(UX) 및 모바일 접근성이 향상되었습니다.
+[Project Health Report - 2025-02-12]
+## Tech Debt
+- Removed duplicate `FAQPage` schema declarations.
+
+---
+### [Daily Improvement Report - 2025-02-12]
+#### 1. Identified Issues (발견된 문제)
+- Many tool pages included duplicated `FAQPage` JSON-LD schemas because `FAQSection` automatically injects it, but the parent components also had manual `@graph` objects or `FAQPage` scripts injected. This can confuse search engines and bloat the HTML.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/*/+page.svelte` (Multiple files) - Removed manual `FAQPage` schemas that were being included in `@graph` definitions or `{@html}` tags in pages that utilize `FAQSection.svelte`.
+- **SEO/AEO**: Removed redundant JSON-LD schemas, ensuring each page has exactly one `FAQPage` schema generated correctly via `FAQSection`.
+
+#### 3. Performance Impact (기대 효과)
+- Cleaner output HTML, reduction in page load payload size, and more concise schema graphs for better search engine readability.

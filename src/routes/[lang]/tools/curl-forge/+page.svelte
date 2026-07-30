@@ -103,17 +103,6 @@
         ]
       },
       {
-        "@type": "FAQPage",
-        "mainEntity": ((dict as any)?.faq || []).map((item: Record<string, string>) => ({
-          "@type": "Question",
-          "name": item?.q || '',
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": item?.a || ''
-          }
-        }))
-      },
-      {
         "@type": "BreadcrumbList",
         "itemListElement": [
           {

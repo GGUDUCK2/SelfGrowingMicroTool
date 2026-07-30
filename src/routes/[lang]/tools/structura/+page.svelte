@@ -101,8 +101,7 @@
           await structuraWorkspace.save({
             inputFormat,
             outputFormat,
-            inputPreview: input.substring(0, 150),
-          });
+            inputPreview: input.substring(0, 150)});
         }
       }
       isConverting = false;
@@ -230,19 +229,7 @@
         "priceCurrency": "USD"
       },
       "description": t.description,
-      "featureList": ["JSON Converter", "YAML Converter", "XML Converter", "CSV Converter", "Code Generator", "Tree Visualizer"],
-      "mainEntity": {
-        "@type": "FAQPage",
-        "mainEntity": faqItems.map(item => ({
-          "@type": "Question",
-          "name": item.q,
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": item.a
-          }
-        }))
-      }
-    };
+      "featureList": ["JSON Converter", "YAML Converter", "XML Converter", "CSV Converter", "Code Generator", "Tree Visualizer"]};
 </script>
 <Head
   title={`${t.title} | Web Factory`}

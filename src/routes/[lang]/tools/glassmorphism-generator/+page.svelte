@@ -122,8 +122,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
       color,
       outline,
       radius,
-      createdAt: new Date(),
-    });
+      createdAt: new Date()});
   }
 
   function restoreHistory(item: GlassmorphismHistory) {
@@ -166,19 +165,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
-    },
-    "mainEntity": {
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
-      }))
-    }
-  };
+    }};
   $: schemaObj2 = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",

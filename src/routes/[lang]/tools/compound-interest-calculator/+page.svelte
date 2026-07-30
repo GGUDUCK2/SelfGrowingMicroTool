@@ -85,8 +85,7 @@
         inflationRate,
         compoundFrequency,
         taxRate,
-        updatedAt: new Date(),
-      });
+        updatedAt: new Date()});
     } catch (error) {
       console.error("Failed to save config to IndexedDB:", error);
     }
@@ -316,8 +315,7 @@
       "offers": {
         "@type": "Offer",
         "price": "0",
-        "priceCurrency": "USD",
-      },
+        "priceCurrency": "USD"},
       "featureList": [
           "Compound Interest Calculation",
           "Inflation Adjustment",
