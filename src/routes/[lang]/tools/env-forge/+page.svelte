@@ -44,35 +44,6 @@
         ]
       },
       {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": d?.q1 || "Are my secrets safe?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": d?.a1 || "Yes! Env Forge is entirely a client-side tool."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": d?.q2 || "What formats does the exporter support?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": d?.a2 || "You can export your .env data to JSON, YAML, Docker --env-file format, and Kubernetes ConfigMap format."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": d?.q3 || "How does the validator work?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": d?.a3 || "The validator checks for common issues such as keys containing spaces or invalid characters."
-            }
-          }
-        ]
-      },
-      {
         "@type": "BreadcrumbList",
         "itemListElement": [
           {

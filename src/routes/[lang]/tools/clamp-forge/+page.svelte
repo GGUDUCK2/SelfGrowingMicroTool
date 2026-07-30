@@ -30,8 +30,7 @@
     saved: d?.feedback?.saved || "Saved to history!",
     historyTitle: d?.history?.title || "History",
     historyEmpty: d?.history?.empty_state || "No history yet.",
-    help: d?.shortcuts?.help || "Keyboard Shortcuts",
-  };
+    help: d?.shortcuts?.help || "Keyboard Shortcuts"};
 
   $: schemaObj = {
     "@context": "https://schema.org",

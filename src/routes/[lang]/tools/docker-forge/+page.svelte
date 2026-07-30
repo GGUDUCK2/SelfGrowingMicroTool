@@ -48,35 +48,6 @@
         ]
       },
       {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": d?.q1 || "What is Docker Forge?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": d?.a1 || "Docker Forge is a visual tool to easily create Dockerfiles, Docker Compose files, and CI/CD pipelines without writing code manually."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": d?.q2 || "Can I convert an existing Dockerfile?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": d?.a2 || "Yes! You can use the Smart Paste feature to drop in an existing Dockerfile, and it will be parsed into the visual editor."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": d?.q3 || "Is it free and offline?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": d?.a3 || "Yes, Docker Forge is entirely free and works locally in your browser. It uses IndexedDB to save your workspace history securely."
-            }
-          }
-        ]
-      },
-      {
         "@type": "BreadcrumbList",
         "itemListElement": [
           {

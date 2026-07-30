@@ -55,26 +55,6 @@
            t.guide.f2.replace(/\*\*(.*?)\*\*/g, '$1'),
            t.guide.f3.replace(/\*\*(.*?)\*\*/g, '$1')
         ]
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": t?.q1,
-            "acceptedAnswer": { "@type": "Answer", "text": t?.a1 }
-          },
-          {
-            "@type": "Question",
-            "name": t?.q2,
-            "acceptedAnswer": { "@type": "Answer", "text": t?.a2 }
-          },
-          {
-            "@type": "Question",
-            "name": t?.q3,
-            "acceptedAnswer": { "@type": "Answer", "text": t?.a3 }
-          }
-        ]
       }
     ]
   };

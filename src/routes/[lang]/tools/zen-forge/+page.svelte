@@ -121,7 +121,6 @@
     <link rel="alternate" hreflang="ko" href="https://micro-factory.vercel.app/ko/tools/zen-forge" />
     <link rel="alternate" hreflang="x-default" href="https://micro-factory.vercel.app/en/tools/zen-forge" />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${JSON.stringify({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": (dict as any)?.q1, "acceptedAnswer": {"@type": "Answer", "text": (dict as any)?.a1}}, {"@type": "Question", "name": (dict as any)?.q2, "acceptedAnswer": {"@type": "Answer", "text": (dict as any)?.a2}}, {"@type": "Question", "name": (dict as any)?.q3, "acceptedAnswer": {"@type": "Answer", "text": (dict as any)?.a3}}]})}</scr` + `ipt>`}
 
 </svelte:head>
 

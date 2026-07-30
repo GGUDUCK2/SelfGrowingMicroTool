@@ -67,26 +67,6 @@
             "item": $page.url.origin + "/" + lang + "/tools/audio-forge"
           }
         ]
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": toolDict?.q1,
-            "acceptedAnswer": { "@type": "Answer", "text": toolDict?.a1 }
-          },
-          {
-            "@type": "Question",
-            "name": toolDict?.q2,
-            "acceptedAnswer": { "@type": "Answer", "text": toolDict?.a2 }
-          },
-          {
-            "@type": "Question",
-            "name": toolDict?.q3,
-            "acceptedAnswer": { "@type": "Answer", "text": toolDict?.a3 }
-          }
-        ]
       }
     ]
   };

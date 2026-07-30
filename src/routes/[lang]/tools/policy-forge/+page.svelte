@@ -98,14 +98,6 @@
         ]
       },
       {
-        "@type": "FAQPage",
-        "mainEntity": faqItems.map(item => ({
-          "@type": "Question",
-          "name": item.q,
-          "acceptedAnswer": { "@type": "Answer", "text": item.a }
-        }))
-      },
-      {
         "@type": "BreadcrumbList",
         "itemListElement": [
           {
