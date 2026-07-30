@@ -16,7 +16,7 @@
     $: lang = $page.params.lang as 'en' | 'ko';
     $: dict = (dictionaries as any)[lang]?.tools?.vcardForge || {};
 
-    let currentData = {
+    const initialData = {
       name: '',
       title: '',
       company: '',
@@ -29,6 +29,8 @@
       twitter: '',
       github: ''
     };
+
+    let currentData = { ...initialData };
 
     let showHistory = false;
 
@@ -148,6 +150,26 @@
       showHistory = false;
     }
 
+    function handleClearForm() {
+      currentData = { ...initialData };
+    }
+
+    function loadExample() {
+      currentData = {
+        name: 'Alex Developer',
+        title: 'Senior SvelteKit Engineer',
+        company: 'MicroFactory Inc.',
+        email: 'alex@example.com',
+        phone: '+1 555-0198',
+        website: 'https://selfgrowingmicrotool.com',
+        address: '123 Innovation Way, Tech District\nSilicon Valley, CA 94025',
+        photoData: '',
+        linkedIn: 'https://linkedin.com/in/alexdev',
+        twitter: 'https://twitter.com/alexdev',
+        github: 'https://github.com/alexdev'
+      };
+    }
+
     // Keyboard shortcuts
     function handleGlobalKeydown(e: KeyboardEvent) {
         if ((e.ctrlKey || e.metaKey) && e.key === 's') {
@@ -157,6 +179,14 @@
         if ((e.ctrlKey || e.metaKey) && e.key === 'h') {
             e.preventDefault();
             showHistory = !showHistory;
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            handleClearForm();
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+            e.preventDefault();
+            loadExample();
         }
     }
   </script>
@@ -198,7 +228,17 @@
                </p>
            </div>
        </div>
-       <div class="flex gap-2 w-full sm:w-auto">
+       <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+           <button
+              on:click={loadExample}
+              class="flex-1 sm:flex-none px-4 py-2 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-900/20 dark:hover:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 touch-manipulation min-h-[44px]"
+              aria-label="Load Smart Example"
+           >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              <span class="hidden lg:inline">{dict?.example || 'Smart Example'}</span>
+           </button>
            <button
                 on:click={saveCurrentVCard}
                 disabled={!currentData.name}
@@ -226,7 +266,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
       <!-- Main Left Column -->
       <div class="lg:col-span-8 space-y-6">
-          <VCardEditor {dict} data={currentData} on:change={handleDataChange} />
+          <VCardEditor {dict} data={currentData} on:change={handleDataChange} on:clear={handleClearForm} />
       </div>
 
       <!-- Sidebar Right Column -->
