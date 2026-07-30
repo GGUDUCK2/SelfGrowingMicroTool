@@ -21,6 +21,7 @@
   let qrDataUrl = '';
   let vcardData = '';
   let downloadUrl = '';
+  let showCopiedToast = false;
 
   $: if (data) {
     generateVCard();
@@ -112,6 +113,38 @@
     document.body.removeChild(a);
   }
 
+  async function copyVcfToClipboard() {
+      if (!vcardData) return;
+      try {
+          await navigator.clipboard.writeText(vcardData);
+          showCopiedToast = true;
+          setTimeout(() => showCopiedToast = false, 2000);
+      } catch (err) {
+          // Intentionally swallow error
+      }
+  }
+
+  async function shareVCard() {
+      if (!vcardData || !data.name) return;
+      try {
+          const file = new File([vcardData], `${data.name.replace(/\s+/g, '_')}.vcf`, { type: 'text/vcard' });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+              await navigator.share({
+                  files: [file],
+                  title: `${data.name} Contact Info`,
+                  text: 'Here is my digital business card.'
+              });
+          } else {
+              // Fallback to copy
+              await copyVcfToClipboard();
+          }
+      } catch (err) {
+          if ((err as Error).name !== 'AbortError') {
+              await copyVcfToClipboard();
+          }
+      }
+  }
+
   onMount(() => {
       generateVCard();
   });
@@ -169,27 +202,58 @@
     </div>
 
     <!-- Actions -->
-    <div class="p-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex gap-3">
-        <button
-            on:click={downloadVcf}
-            disabled={!data.name}
-            class="flex-1 py-3 px-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 disabled:cursor-not-allowed text-white rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 min-h-[44px] shadow-sm"
-        >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-            {dict?.downloadVcf || 'Download .vcf'}
-        </button>
-        <button
-            on:click={downloadQr}
-            disabled={!data.name}
-            class="flex-1 py-3 px-4 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 disabled:bg-slate-100 disabled:dark:bg-slate-800/50 disabled:text-slate-400 disabled:cursor-not-allowed text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 min-h-[44px] shadow-sm"
-        >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-            </svg>
-            {dict?.downloadQr || 'Download QR'}
-        </button>
+    <div class="p-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex flex-col gap-3 relative">
+        {#if showCopiedToast}
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-sm px-3 py-1.5 rounded-lg shadow-lg pointer-events-none transition-opacity">
+                {dict?.copied || 'Copied to clipboard!'}
+            </div>
+        {/if}
+        <div class="flex gap-3">
+            <button
+                on:click={downloadVcf}
+                disabled={!data.name}
+                class="flex-1 py-3 px-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 disabled:cursor-not-allowed text-white rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 min-h-[44px] shadow-sm"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+                <span class="hidden sm:inline">{dict?.downloadVcf || 'Download .vcf'}</span>
+                <span class="sm:hidden">.vcf</span>
+            </button>
+            <button
+                on:click={downloadQr}
+                disabled={!data.name}
+                class="flex-1 py-3 px-4 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 disabled:bg-slate-100 disabled:dark:bg-slate-800/50 disabled:text-slate-400 disabled:cursor-not-allowed text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 min-h-[44px] shadow-sm"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                <span class="hidden sm:inline">{dict?.downloadQr || 'Download QR'}</span>
+                <span class="sm:hidden">QR</span>
+            </button>
+        </div>
+        <div class="flex gap-3">
+            <button
+                on:click={copyVcfToClipboard}
+                disabled={!data.name}
+                class="flex-1 py-2 px-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-slate-700 dark:text-slate-200 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 min-h-[44px]"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                {dict?.copyVcf || 'Copy VCF'}
+            </button>
+            <button
+                on:click={shareVCard}
+                disabled={!data.name}
+                class="flex-1 py-2 px-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-slate-700 dark:text-slate-200 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 min-h-[44px]"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                </svg>
+                {dict?.share || 'Share'}
+            </button>
+        </div>
     </div>
 </div>
 
