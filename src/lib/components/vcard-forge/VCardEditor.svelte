@@ -19,6 +19,56 @@
   const dispatch = createEventDispatcher();
 
   let fileInput: HTMLInputElement;
+  let importVcfInput: HTMLInputElement;
+
+  function parseVcf(vcfText: string) {
+    const lines = vcfText.split(/\r?\n/);
+    const parsed = { ...data };
+
+    for (let line of lines) {
+      if (line.startsWith('FN:')) parsed.name = line.substring(3);
+      else if (line.startsWith('TITLE:')) parsed.title = line.substring(6);
+      else if (line.startsWith('ORG:')) parsed.company = line.substring(4);
+      else if (line.startsWith('EMAIL') && line.includes(':')) parsed.email = line.split(':')[1];
+      else if (line.startsWith('TEL') && line.includes(':')) parsed.phone = line.split(':')[1];
+      else if (line.startsWith('URL') && line.includes(':')) {
+        const url = line.split(':')[1];
+        if (url.includes('linkedin.com')) parsed.linkedIn = url;
+        else if (url.includes('twitter.com')) parsed.twitter = url;
+        else if (url.includes('github.com')) parsed.github = url;
+        else parsed.website = url;
+      }
+      else if (line.startsWith('ADR') && line.includes(':')) {
+        const adrParts = line.split(':')[1].split(';');
+        parsed.address = adrParts.filter(Boolean).join(', ');
+      }
+      else if (line.startsWith('PHOTO') && line.includes(';ENCODING=b:')) {
+        const base64Data = line.split(';ENCODING=b:')[1];
+        const typeMatch = line.match(/TYPE=([^;]+)/i);
+        const type = typeMatch ? typeMatch[1].toLowerCase() : 'jpeg';
+        parsed.photoData = `data:image/${type};base64,${base64Data}`;
+      }
+    }
+
+    data = parsed;
+    dispatch('change', data);
+  }
+
+  function handleVcfImport(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+      const file = target.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target?.result) {
+          parseVcf(e.target.result as string);
+        }
+        // Reset input so the same file can be imported again if needed
+        if (importVcfInput) importVcfInput.value = '';
+      };
+      reader.readAsText(file);
+    }
+  }
 
   function handlePhotoUpload(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -34,6 +84,30 @@
   }
 
   function handleInput() {
+    // Smart auto-completion from email/website if company is empty
+    if (!data.company) {
+      let domain = '';
+      if (data.email && data.email.includes('@')) {
+        const parts = data.email.split('@');
+        if (parts.length === 2 && parts[1]) {
+          domain = parts[1].split('.')[0];
+        }
+      } else if (data.website) {
+        try {
+           const url = new URL(data.website.startsWith('http') ? data.website : `https://${data.website}`);
+           const hostnameParts = url.hostname.replace(/^www\./, '').split('.');
+           if (hostnameParts.length > 0) {
+             domain = hostnameParts[0];
+           }
+        } catch(e) {
+            // Invalid URL, ignore
+        }
+      }
+
+      if (domain && domain.length > 2 && !['gmail', 'yahoo', 'hotmail', 'outlook', 'icloud', 'me', 'mac'].includes(domain.toLowerCase())) {
+         data.company = domain.charAt(0).toUpperCase() + domain.slice(1);
+      }
+    }
     dispatch('change', data);
   }
 </script>
@@ -46,16 +120,31 @@
       </svg>
       {dict?.detailsTitle || 'Contact Details'}
     </h2>
-    <button
-      on:click={() => dispatch('clear')}
-      class="text-sm px-3 py-1.5 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg transition-colors flex items-center gap-1 min-h-[44px]"
-      aria-label="Clear Form"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-      </svg>
-      {dict?.clear || 'Clear Form'}
-    </button>
+    <div class="flex gap-2">
+      <button
+        type="button"
+        on:click={() => importVcfInput.click()}
+        class="text-sm px-3 py-1.5 text-emerald-600 hover:bg-emerald-50 dark:text-emerald-400 dark:hover:bg-emerald-900/20 rounded-lg transition-colors flex items-center gap-1 min-h-[44px]"
+        aria-label="Import .vcf"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+        </svg>
+        {dict?.importVcf || 'Import .vcf'}
+      </button>
+      <input type="file" accept=".vcf" class="hidden" bind:this={importVcfInput} on:change={handleVcfImport} />
+
+      <button
+        on:click={() => dispatch('clear')}
+        class="text-sm px-3 py-1.5 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg transition-colors flex items-center gap-1 min-h-[44px]"
+        aria-label="Clear Form"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+        {dict?.clear || 'Clear Form'}
+      </button>
+    </div>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

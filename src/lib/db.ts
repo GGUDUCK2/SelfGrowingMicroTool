@@ -538,6 +538,7 @@ export interface DockerForgeHistory {
 }
 
 class MySubClassedDexie extends Dexie {
+  vcardForgeHistory!: DexieTable<VCardForgeHistory>;
   gradientForgeHistory!: DexieTable<GradientForgeHistory>;
   pomodoroHistory!: DexieTable<PomodoroHistory>;
   dockerForgeHistory!: DexieTable<DockerForgeHistory>;
