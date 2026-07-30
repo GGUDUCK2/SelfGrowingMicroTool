@@ -28,7 +28,7 @@
                   class="bg-transparent font-semibold text-gray-700 dark:text-gray-200 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 rounded px-1 w-full"
                 />
                 <button
-                  class="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                  class="min-h-[44px] min-w-[44px] text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
                   on:click={() => matrixStore.removeCriterion(criterion.id)}
                   aria-label="Remove criterion"
                 >
@@ -45,7 +45,7 @@
         {/each}
         <th class="p-4 w-[50px] border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 align-middle">
           <button
-            class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-500 hover:bg-indigo-100 hover:text-indigo-600 transition-colors"
+            class="flex items-center justify-center w-[44px] h-[44px] rounded-full bg-gray-200 dark:bg-gray-700 text-gray-500 hover:bg-indigo-100 hover:text-indigo-600 transition-colors"
             on:click={matrixStore.addCriterion}
             title="Add Criterion"
           >
@@ -84,7 +84,7 @@
           {/each}
           <td class="p-4 text-center border-b border-gray-100 dark:border-gray-800">
             <button
-              class="text-gray-300 hover:text-red-500 transition-colors"
+              class="min-h-[44px] min-w-[44px] text-gray-300 hover:text-red-500 transition-colors"
               on:click={() => matrixStore.removeOption(option.id)}
               aria-label="Remove option"
             >
@@ -96,7 +96,7 @@
       <tr>
         <td class="p-4 sticky left-0 bg-white dark:bg-gray-900 z-10">
           <button
-            class="flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 py-2 px-3 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors"
+            class="min-h-[44px] min-w-[44px] flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 py-2 px-3 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors"
             on:click={matrixStore.addOption}
           >
             <Plus size={16} />
