@@ -100,3 +100,29 @@
 #### 3. Performance Impact (기대 효과)
 - 프로젝트 루트 디렉토리의 위생 및 파일 구조가 개선되었습니다.
 - 패키지 의존성에 대한 잠재적 보안 위협이 제거되어 안정성이 확보되었습니다.
+
+[Project Health Report - 2026-08-02]
+## Repository Hygiene
+- No redundant scripts found in root.
+## Design Consistency
+- No visual inconsistencies found during this pass.
+## AdSense Readiness
+- AdPlaceholders are consistently placed.
+## Tech Debt
+- Removed hardcoded URLs and replaced them with `$page.url.origin` to improve SEO across environments.
+- Added `cross-env` package to fix local build errors.
+
+---
+### [Daily Improvement Report - 2026-08-02]
+#### 1. Identified Issues (발견된 문제)
+- 일부 라우트 파일(`src/routes/[lang]/+page.svelte` 등)에서 URL(`https://selfgrowingmicrotool.com`)이 하드코딩되어 있어 개발/스테이징 환경에서 메타데이터 테스트 및 올바른 SEO가 어려웠습니다.
+- `npm run build` 실행 시 `cross-env`가 설치되지 않아 빌드에 실패하는 현상을 발견했습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: 파이썬 스크립트(`scripts/fix_hardcoded_urls.py` 등)를 사용하여 Svelte 파일에 하드코딩된 도메인 주소를 `$page.url.origin`으로 변경했습니다.
+- **Tech Debt**: 패키지 매니저에 `cross-env`를 설치하여 크로스 플랫폼 빌드 문제를 해결했습니다.
+- **SEO/AEO**: `canonical`, `og:url`, `JSON-LD` 등의 메타데이터 주소가 런타임에 동적으로 올바르게 렌더링되도록 수정했습니다.
+
+#### 3. Performance Impact (기대 효과)
+- 빌드 시스템의 안정성이 향상되었습니다.
+- 다양한 배포 환경에서 메타데이터 및 SEO가 동적으로 올바르게 구성됩니다.

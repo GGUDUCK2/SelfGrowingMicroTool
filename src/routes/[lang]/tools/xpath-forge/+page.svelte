@@ -45,7 +45,7 @@
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": "https://selfgrowingmicrotool.com/en/tools"
+        "item": `${$page.url.origin}/en/tools`
       },
       {
         "@type": "ListItem",

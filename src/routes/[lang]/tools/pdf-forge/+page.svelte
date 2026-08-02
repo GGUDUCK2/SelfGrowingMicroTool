@@ -42,7 +42,7 @@
         "@type": "Organization",
         "name": "MicroFactory"
     },
-    "screenshot": "https://selfgrowingmicrotool.com/og/pdf-forge.png",
+    "screenshot": `${$page.url.origin}/og/pdf-forge.png`,
     "datePublished": "2023-10-20",
     "dateModified": new Date().toISOString()
   };
@@ -54,12 +54,12 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://selfgrowingmicrotool.com/"
+      "item": `${$page.url.origin}/`
     }, {
       "@type": "ListItem",
       "position": 2,
       "name": "Tools",
-      "item": "https://selfgrowingmicrotool.com/tools"
+      "item": `${$page.url.origin}/tools`
     }, {
       "@type": "ListItem",
       "position": 3,

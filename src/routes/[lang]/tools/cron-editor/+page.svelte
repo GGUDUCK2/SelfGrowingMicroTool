@@ -155,7 +155,7 @@
         "Next run time preview",
         "History & Favorites"
       ],
-      "screenshot": "https://selfgrowingmicrotool.com/og/cron-editor.png",
+      "screenshot": `${$page.url.origin}/og/cron-editor.png`,
       "author": {
         "@type": "Organization",
         "name": "MicroFactory"
@@ -183,19 +183,19 @@
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://selfgrowingmicrotool.com/lang"
+          "item": `${$page.url.origin}/${lang}`
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Tools",
-          "item": "https://selfgrowingmicrotool.com/lang#tools"
+          "item": `${$page.url.origin}/${lang}#tools`
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Cronos",
-          "item": "https://selfgrowingmicrotool.com/lang/tools/cron-editor"
+          "item": `${$page.url.origin}/${lang}/tools/cron-editor`
         }
       ]
     };

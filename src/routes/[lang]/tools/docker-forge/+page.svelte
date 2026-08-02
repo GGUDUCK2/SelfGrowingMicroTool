@@ -79,7 +79,7 @@
   title={title}
   description={description}
   keywords="docker, dockerfile, generator, visual builder, docker compose, multi-stage build, container, devops"
-  ogImage="https://selfgrowingmicrotool.com/og-image.png"
+  ogImage="{$page.url.origin}/og-image.png"
   ogUrl={`${$page.url.origin}/${lang}/tools/docker-forge`}
 />
 

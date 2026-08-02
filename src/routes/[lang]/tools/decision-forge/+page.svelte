@@ -85,8 +85,8 @@
 <Head
   title="{t.title} - MicroFactory"
   description={t.description}
-  url="https://selfgrowingmicrotool.com/{lang}/tools/decision-forge"
-  imageUrl="https://selfgrowingmicrotool.com/og/decision-forge.png"
+  url="{$page.url.origin}/{lang}/tools/decision-forge"
+  imageUrl="{$page.url.origin}/og/decision-forge.png"
 />
 
 <svelte:head>

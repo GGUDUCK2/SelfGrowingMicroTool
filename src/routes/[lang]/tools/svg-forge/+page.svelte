@@ -167,7 +167,7 @@
   title={t?.title || "SVG Forge"}
   description={t?.description}
   url={$page.url.origin + "/" + lang + "/tools/svg-forge"}
-  image="https://selfgrowingmicrotool.com/og/default.png"
+  image="{$page.url.origin}/og/default.png"
 />
 
 <svelte:head>

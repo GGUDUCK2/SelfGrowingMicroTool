@@ -170,7 +170,7 @@
           "Offline Capable",
           "SVG Export"
         ],
-        "screenshot": "https://selfgrowingmicrotool.com/assets/og/diagram-forge.png",
+        "screenshot": `${$page.url.origin}/assets/og/diagram-forge.png`,
         "softwareRequirements": "Modern Web Browser"
       },
       {

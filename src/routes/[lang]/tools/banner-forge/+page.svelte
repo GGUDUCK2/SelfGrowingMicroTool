@@ -33,7 +33,7 @@
             "name": "MicroTools Factory"
         },
         "softwareRequirements": "Modern Web Browser (Chrome, Firefox, Safari, Edge)",
-        "screenshot": "https://selfgrowingmicrotool.com/assets/screenshots/banner-forge.png",
+        "screenshot": `${$page.url.origin}/assets/screenshots/banner-forge.png`,
         "offers": {
           "@type": "Offer",
           "price": "0",
