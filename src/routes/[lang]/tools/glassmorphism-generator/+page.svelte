@@ -173,12 +173,12 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
       "@type": "ListItem",
       "position": 1,
       "name": homeName,
-      "item": "https://selfgrowingmicrotool.com/"
+      "item": `${$page.url.origin}/`
     }, {
       "@type": "ListItem",
       "position": 2,
       "name": toolsName,
-      "item": "https://selfgrowingmicrotool.com/tools"
+      "item": `${$page.url.origin}/tools`
     }, {
       "@type": "ListItem",
       "position": 3,

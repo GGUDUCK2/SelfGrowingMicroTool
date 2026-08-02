@@ -145,7 +145,7 @@
   title={t.title}
   description={t.description}
   url={$page.url.origin + "/" + lang + "/tools/qr-forge"}
-  image="https://selfgrowingmicrotool.com/og/default.png"
+  image="{$page.url.origin}/og/default.png"
   keywords="qr code generator, wifi qr code, vcard qr code, crypto qr code, free qr generator, no expiry qr code"
 />
 

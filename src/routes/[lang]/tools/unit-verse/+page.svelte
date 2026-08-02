@@ -64,7 +64,7 @@
       },
       "description": t.description,
       "featureList": t.featureList,
-      "screenshot": "https://selfgrowingmicrotool.com/og/unit-verse.png"
+      "screenshot": `${$page.url.origin}/og/unit-verse.png`
     };
   $: schemaObj2 = {
       "@context": "https://schema.org",
@@ -95,7 +95,7 @@
   title={`${t.title} | ${dict.home.title}`}
   description={t.description}
   url={$page.url.origin + "/" + lang + "/tools/unit-verse"}
-  image="https://selfgrowingmicrotool.com/og/unit-verse.png"
+  image="{$page.url.origin}/og/unit-verse.png"
   keywords={t.keywords}
 />
 

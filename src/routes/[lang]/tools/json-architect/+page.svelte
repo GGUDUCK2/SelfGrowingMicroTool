@@ -188,7 +188,7 @@
       "priceCurrency": "USD"
     },
     "datePublished": "2023-10-15",
-    "screenshot": "https://selfgrowingmicrotool.com/og/json-architect.png",
+    "screenshot": `${$page.url.origin}/og/json-architect.png`,
     "author": {
         "@type": "Organization",
         "name": "MicroFactory"
@@ -202,12 +202,12 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://selfgrowingmicrotool.com/"
+      "item": `${$page.url.origin}/`
     }, {
       "@type": "ListItem",
       "position": 2,
       "name": "Tools",
-      "item": "https://selfgrowingmicrotool.com/tools"
+      "item": `${$page.url.origin}/tools`
     }, {
       "@type": "ListItem",
       "position": 3,
@@ -223,7 +223,7 @@
   title={t.title}
   description={t.description}
   url={$page.url.origin + "/" + lang + "/tools/json-architect"}
-  image="https://selfgrowingmicrotool.com/og/default.png"
+  image="{$page.url.origin}/og/default.png"
 />
 
 <svelte:head>

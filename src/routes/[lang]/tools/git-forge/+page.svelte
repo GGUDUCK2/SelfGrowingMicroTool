@@ -170,7 +170,7 @@
   title={(dict as any)?.title || 'Git Forge'}
   description={(dict as any)?.description || 'Git tools'}
   keywords="git command generator, gitignore builder, conventional commits, git tools, developer tools, git doctor, undo git commit"
-  image="https://selfgrowingmicrotool.com/og/git-forge.png"
+  image="{$page.url.origin}/og/git-forge.png"
   url={`${$page.url.origin}/${lang}/tools/git-forge`}
 />
 

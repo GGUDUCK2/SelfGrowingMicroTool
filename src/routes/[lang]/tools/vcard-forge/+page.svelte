@@ -161,7 +161,7 @@
         company: 'MicroFactory Inc.',
         email: 'alex@example.com',
         phone: '+1 555-0198',
-        website: 'https://selfgrowingmicrotool.com',
+        website: `${$page.url.origin}`,
         address: '123 Innovation Way, Tech District\nSilicon Valley, CA 94025',
         photoData: '',
         linkedIn: 'https://linkedin.com/in/alexdev',

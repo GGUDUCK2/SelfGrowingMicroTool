@@ -44,12 +44,12 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://selfgrowingmicrotool.com/"
+      "item": `${$page.url.origin}/`
     }, {
       "@type": "ListItem",
       "position": 2,
       "name": "Tools",
-      "item": "https://selfgrowingmicrotool.com/tools"
+      "item": `${$page.url.origin}/tools`
     }, {
       "@type": "ListItem",
       "position": 3,

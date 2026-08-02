@@ -59,7 +59,7 @@
         "Local History",
         "GitHub Flavored Markdown"
       ],
-      "screenshot": "https://selfgrowingmicrotool.com/og-image.jpg",
+      "screenshot": `${$page.url.origin}/og-image.jpg`,
       "url": $page.url.href,
       "author": {
           "@type": "Organization",
@@ -105,12 +105,12 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://selfgrowingmicrotool.com/"
+      "item": `${$page.url.origin}/`
     }, {
       "@type": "ListItem",
       "position": 2,
       "name": "Tools",
-      "item": "https://selfgrowingmicrotool.com/tools"
+      "item": `${$page.url.origin}/tools`
     }, {
       "@type": "ListItem",
       "position": 3,
@@ -241,7 +241,7 @@
 <Head
   title={dict.title}
   description={dict.description}
-  image="https://selfgrowingmicrotool.com/og/default.png"
+  image="{$page.url.origin}/og/default.png"
   url={$page.url.origin + "/" + lang + "/tools/markdown-studio"}
   keywords="markdown editor, online markdown editor, github flavored markdown, markdown preview, markdown to html"
 />

@@ -90,7 +90,7 @@
   description={description}
   url={`${$page.url.origin}/${lang}/tools/env-forge`}
   keywords="env, environment variables, dotenv, config, kubernetes configmap, docker env file, yaml, json, format env"
-  image="https://selfgrowingmicrotool.com/og-image.png"
+  image="{$page.url.origin}/og-image.png"
 />
 
 <svelte:head>

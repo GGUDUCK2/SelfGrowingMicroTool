@@ -31,22 +31,22 @@
 <svelte:head>
   <title>{dict.home.title}</title>
   <meta name="description" content={dict.home.description} />
-  <link rel="canonical" href="https://selfgrowingmicrotool.com/{lang}" />
+  <link rel="canonical" href="{ $page.url.origin }/{lang}" />
 
   <!-- Open Graph -->
   <meta property="og:title" content={dict.home.title} />
   <meta property="og:description" content={dict.home.description} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://selfgrowingmicrotool.com/{lang}" />
+  <meta property="og:url" content="{ $page.url.origin }/{lang}" />
   <meta property="og:site_name" content="MicroFactory" />
 
   <!-- JSON-LD -->
   {@html `<script type="application/ld+json">${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "@id": "https://selfgrowingmicrotool.com/" + lang,
+      "@id": $page.url.origin + "/" + lang,
       "name": dict.home.title,
-      "url": "https://selfgrowingmicrotool.com/" + lang,
+      "url": $page.url.origin + "/" + lang,
       "description": dict.home.description
     })}</scr` + `ipt>`}
 </svelte:head>
