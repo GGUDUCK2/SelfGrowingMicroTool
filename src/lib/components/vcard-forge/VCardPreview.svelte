@@ -15,6 +15,8 @@
     linkedIn: string;
     twitter: string;
     github: string;
+    qrFgColor: string;
+    qrBgColor: string;
   };
 
   let qrCanvas: HTMLCanvasElement;
@@ -22,6 +24,7 @@
   let vcardData = '';
   let downloadUrl = '';
   let showCopiedToast = false;
+  let showRaw = false;
 
   $: if (data) {
     generateVCard();
@@ -82,8 +85,8 @@
                 width: 256,
                 margin: 2,
                 color: {
-                    dark: '#0f172a', // slate-900
-                    light: '#ffffff'
+                    dark: data.qrFgColor || '#0f172a',
+                    light: data.qrBgColor || '#ffffff'
                 }
             });
             qrDataUrl = qrCanvas.toDataURL('image/png');
@@ -151,8 +154,9 @@
 </script>
 
 <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col h-full">
+
     <!-- Header -->
-    <div class="p-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
         <h2 class="text-lg font-semibold text-slate-800 dark:text-white flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -160,46 +164,63 @@
             </svg>
             {dict?.preview || 'Live Preview'}
         </h2>
+        <button
+            on:click={() => showRaw = !showRaw}
+            class="text-xs px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex items-center gap-2 font-medium min-h-[44px]"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+            {showRaw ? (dict?.viewVisual || 'Visual') : (dict?.viewRaw || 'Raw VCF')}
+        </button>
     </div>
 
-    <!-- Phone Simulator -->
+
+
+    <!-- Content Area -->
     <div class="flex-1 p-6 flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-900 relative overflow-hidden">
-
-        <div class="w-full max-w-[320px] bg-white dark:bg-slate-800 rounded-[2rem] shadow-xl border-4 border-slate-300 dark:border-slate-700 overflow-hidden flex flex-col">
-            <!-- Top Notch -->
-            <div class="h-6 w-full flex justify-center bg-slate-800 dark:bg-slate-950 pt-1">
-                <div class="w-20 h-4 bg-black rounded-b-xl"></div>
+        {#if showRaw}
+            <div class="w-full h-full bg-slate-900 text-emerald-400 p-4 rounded-xl font-mono text-xs overflow-auto shadow-inner whitespace-pre-wrap">
+                {vcardData}
             </div>
-
-            <!-- Card Content -->
-            <div class="flex-1 overflow-y-auto p-6 flex flex-col items-center space-y-4 no-scrollbar">
-
-                <!-- Avatar -->
-                <div class="w-24 h-24 rounded-full bg-slate-200 dark:bg-slate-700 border-4 border-white dark:border-slate-800 shadow-sm overflow-hidden flex-shrink-0 flex items-center justify-center">
-                    {#if data.photoData}
-                        <img src={data.photoData} alt="Avatar" class="w-full h-full object-cover" />
-                    {:else}
-                        <svg class="w-12 h-12 text-slate-400" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                    {/if}
+        {:else}
+            <div class="w-full max-w-[320px] bg-white dark:bg-slate-800 rounded-[2rem] shadow-xl border-4 border-slate-300 dark:border-slate-700 overflow-hidden flex flex-col">
+                <!-- Top Notch -->
+                <div class="h-6 w-full flex justify-center bg-slate-800 dark:bg-slate-950 pt-1">
+                    <div class="w-20 h-4 bg-black rounded-b-xl"></div>
                 </div>
 
-                <!-- Identity -->
-                <div class="text-center space-y-1 w-full">
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white truncate" title={data.name}>{data.name || 'Your Name'}</h3>
-                    <p class="text-sm font-medium text-indigo-500 truncate" title={data.title}>{data.title || 'Job Title'}</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 truncate" title={data.company}>{data.company || 'Company'}</p>
-                </div>
+                <!-- Card Content -->
+                <div class="flex-1 overflow-y-auto p-6 flex flex-col items-center space-y-4 no-scrollbar">
 
-                <!-- QR Code -->
-                <div class="mt-4 p-2 bg-white rounded-xl shadow-sm border border-slate-100 flex flex-col items-center gap-1">
-                    <canvas bind:this={qrCanvas} class="w-40 h-40"></canvas>
-                    <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">{dict?.scanMe || 'Scan Me'}</span>
+                    <!-- Avatar -->
+                    <div class="w-24 h-24 rounded-full bg-slate-200 dark:bg-slate-700 border-4 border-white dark:border-slate-800 shadow-sm overflow-hidden flex-shrink-0 flex items-center justify-center">
+                        {#if data.photoData}
+                            <img src={data.photoData} alt="Avatar" class="w-full h-full object-cover" />
+                        {:else}
+                            <svg class="w-12 h-12 text-slate-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        {/if}
+                    </div>
+
+                    <!-- Identity -->
+                    <div class="text-center space-y-1 w-full">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white truncate" title={data.name}>{data.name || 'Your Name'}</h3>
+                        <p class="text-sm font-medium text-indigo-500 truncate" title={data.title}>{data.title || 'Job Title'}</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 truncate" title={data.company}>{data.company || 'Company'}</p>
+                    </div>
+
+                    <!-- QR Code -->
+                    <div class="mt-4 p-2 rounded-xl shadow-sm border border-slate-100 flex flex-col items-center gap-1 transition-colors" style="background-color: {data.qrBgColor || '#ffffff'}">
+                        <canvas bind:this={qrCanvas} class="w-40 h-40" class:hidden={showRaw}></canvas>
+                        <span class="text-[10px] font-semibold uppercase tracking-wider" style="color: {data.qrFgColor || '#94a3b8'}">{dict?.scanMe || 'Scan Me'}</span>
+                    </div>
                 </div>
             </div>
-        </div>
+        {/if}
     </div>
+
 
     <!-- Actions -->
     <div class="p-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex flex-col gap-3 relative">

@@ -1,17 +1,18 @@
 <script lang="ts">
     import { createEventDispatcher, onMount } from 'svelte';
-    import { db, type VCardForgeHistory } from '$lib/db';
+    import { workspace, toggleStar as toggleStarWs, deleteHistoryItem as deleteItemWs, clearHistory as clearHistoryWs } from '$lib/db/workspace';
+    import type { ToolHistoryItem } from '$lib/db/workspace';
     import { liveQuery } from 'dexie';
 
     export let dict: any;
 
     const dispatch = createEventDispatcher();
 
-    let historyItems: VCardForgeHistory[] = [];
+    let historyItems: ToolHistoryItem<any, any>[] = [];
 
     // Reactive live query for history
     const historyObservable = liveQuery(
-      async () => await db.vcardForgeHistory.reverse().sortBy('createdAt')
+      async () => await workspace.history.where('toolId').equals('vcard-forge').reverse().sortBy('timestamp')
     );
 
     $: if ($historyObservable) {
@@ -35,7 +36,7 @@
       }
     }
 
-    function loadItem(item: VCardForgeHistory) {
+    function loadItem(item: ToolHistoryItem<any, any>) {
       dispatch('load', item);
     }
   </script>
@@ -84,8 +85,8 @@
             <div class="flex justify-between items-start mb-2">
               <div class="flex items-center gap-3 truncate">
                 <div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden flex-shrink-0 flex items-center justify-center">
-                    {#if item.photoData}
-                        <img src={item.photoData} alt="avatar" class="w-full h-full object-cover" />
+                    {#if item.input.photoData}
+                        <img src={item.input.photoData} alt="avatar" class="w-full h-full object-cover" />
                     {:else}
                         <svg class="w-5 h-5 text-slate-400" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -93,8 +94,8 @@
                     {/if}
                 </div>
                 <div class="truncate">
-                    <h3 class="font-medium text-slate-800 dark:text-white truncate" title={item.name}>{item.name}</h3>
-                    <p class="text-xs text-slate-500 truncate" title={item.company}>{item.company}</p>
+                    <h3 class="font-medium text-slate-800 dark:text-white truncate" title={item.input.name}>{item.input.name}</h3>
+                    <p class="text-xs text-slate-500 truncate" title={item.input.company}>{item.input.company}</p>
                 </div>
               </div>
               <div class="flex flex-col gap-1 items-end">
@@ -119,7 +120,7 @@
               </div>
             </div>
             <div class="text-[10px] text-slate-400 flex justify-between">
-                <span>{new Date(item.createdAt).toLocaleString()}</span>
+                <span>{new Date(item.timestamp).toLocaleString()}</span>
             </div>
           </div>
         {/each}
