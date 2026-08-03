@@ -311,6 +311,8 @@ export interface VCardForgeHistory {
   address: string;
   photoData: string;
   vcardData: string;
+  qrFgColor?: string;
+  qrBgColor?: string;
   createdAt: string;
   starred: number;
 }

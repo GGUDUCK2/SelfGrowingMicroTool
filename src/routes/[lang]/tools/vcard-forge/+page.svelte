@@ -7,7 +7,8 @@
     import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
     import RelatedTools from '$lib/components/RelatedTools.svelte';
     import { fade, fly } from 'svelte/transition';
-    import { db, type VCardForgeHistory } from '$lib/db';
+    import { db } from '$lib/db';
+    import { workspace, saveToHistory } from '$lib/db/workspace';
 
     import VCardEditor from '$lib/components/vcard-forge/VCardEditor.svelte';
     import VCardPreview from '$lib/components/vcard-forge/VCardPreview.svelte';
@@ -27,7 +28,9 @@
       photoData: '',
       linkedIn: '',
       twitter: '',
-      github: ''
+      github: '',
+      qrFgColor: '#0f172a',
+      qrBgColor: '#ffffff'
     };
 
     let currentData = { ...initialData };
@@ -45,6 +48,15 @@
       "@graph": [
         {
           "@type": "SoftwareApplication",
+          "name": "vCard Forge",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
+          "applicationSubCategory": "Contact Management Utility",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
           "@id": $page.url.origin + "/" + lang + "/tools/vcard-forge",
           "name": "vCard Forge",
           "applicationCategory": "BusinessApplication",
@@ -59,6 +71,13 @@
           "featureList": [
               "vCard 3.0 Generation",
               "QR Code Integration",
+              "Live Preview",
+              "Base64 Photo Support",
+              "Local History",
+              "vCard 3.0 Generation",
+              "QR Code Integration",
+              "Raw VCF Viewer",
+              "Custom QR Colors",
               "Live Preview",
               "Base64 Photo Support",
               "Local History"
@@ -97,43 +116,23 @@
 
     const canonicalUrl = `${$page.url.origin}/${$page.params.lang}/tools/vcard-forge`;
 
+    let saveTimeout: ReturnType<typeof setTimeout>;
+
     function handleDataChange(event: CustomEvent<typeof currentData>) {
       currentData = event.detail;
+      if (saveTimeout) clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(() => {
+          if (currentData.name) saveCurrentVCard();
+      }, 1500);
     }
 
     async function saveCurrentVCard() {
-      if (!currentData.name) return; // Prevent empty saves
-
-      // Simple debounce/deduplication based on name and exact match
-      const existing = await db.vcardForgeHistory
-          .where('name')
-          .equals(currentData.name)
-          .reverse()
-          .first();
-
-      // Basic heuristic to avoid spamming saves if data hasn't changed much
-      if (existing && existing.title === currentData.title && existing.company === currentData.company && existing.email === currentData.email) {
-          // You might choose to update instead, but let's just skip duplicate creation
-          return;
-      }
-
-      await db.vcardForgeHistory.add({
-          name: currentData.name,
-          title: currentData.title,
-          company: currentData.company,
-          email: currentData.email,
-          phone: currentData.phone,
-          website: currentData.website,
-          address: currentData.address,
-          photoData: currentData.photoData,
-          vcardData: '', // This could be stored if we wanted, but it's generated dynamically
-          createdAt: new Date().toISOString(),
-          starred: 0
-      });
+      if (!currentData.name) return;
+      await saveToHistory('vcard-forge', currentData, null);
     }
 
-    function handleLoad(event: CustomEvent<VCardForgeHistory>) {
-      const item = event.detail;
+    function handleLoad(event: CustomEvent<any>) {
+      const item = event.detail.input;
       currentData = {
           name: item.name || '',
           title: item.title || '',
@@ -143,9 +142,11 @@
           website: item.website || '',
           address: item.address || '',
           photoData: item.photoData || '',
-          linkedIn: '', // Assuming these weren't added to history schema previously, fallback to empty
-          twitter: '',
-          github: ''
+          linkedIn: item.linkedIn || '',
+          twitter: item.twitter || '',
+          github: item.github || '',
+          qrFgColor: item.qrFgColor || '#0f172a',
+          qrBgColor: item.qrBgColor || '#ffffff'
       };
       showHistory = false;
     }
@@ -154,20 +155,58 @@
       currentData = { ...initialData };
     }
 
-    function loadExample() {
-      currentData = {
-        name: 'Alex Developer',
-        title: 'Senior SvelteKit Engineer',
-        company: 'MicroFactory Inc.',
-        email: 'alex@example.com',
-        phone: '+1 555-0198',
-        website: `${$page.url.origin}`,
-        address: '123 Innovation Way, Tech District\nSilicon Valley, CA 94025',
-        photoData: '',
-        linkedIn: 'https://linkedin.com/in/alexdev',
-        twitter: 'https://twitter.com/alexdev',
-        github: 'https://github.com/alexdev'
-      };
+    const smartExamples = [
+        {
+            name: 'Alex Developer',
+            title: 'Senior SvelteKit Engineer',
+            company: 'MicroFactory Inc.',
+            email: 'alex@example.com',
+            phone: '+1 555-0198',
+            website: 'https://microfactory.io',
+            address: '123 Innovation Way\nSilicon Valley, CA',
+            photoData: '',
+            linkedIn: 'https://linkedin.com/in/alexdev',
+            twitter: 'https://twitter.com/alexdev',
+            github: 'https://github.com/alexdev',
+            qrFgColor: '#4f46e5',
+            qrBgColor: '#e0e7ff'
+        },
+        {
+            name: 'Sarah Designer',
+            title: 'UX/UI Lead',
+            company: 'Creative Studio',
+            email: 'sarah@design.co',
+            phone: '+44 20 7123 4567',
+            website: 'https://design.co',
+            address: '45 Creative Lane\nLondon, UK',
+            photoData: '',
+            linkedIn: 'https://linkedin.com/in/sarahdesign',
+            twitter: '',
+            github: '',
+            qrFgColor: '#db2777',
+            qrBgColor: '#fce7f3'
+        },
+        {
+            name: 'Michael Founder',
+            title: 'CEO',
+            company: 'StartupX',
+            email: 'michael@startupx.com',
+            phone: '+1 415-555-0000',
+            website: 'https://startupx.com',
+            address: '99 Startup Blvd\nSan Francisco, CA',
+            photoData: '',
+            linkedIn: 'https://linkedin.com/in/michaelfounder',
+            twitter: 'https://twitter.com/startupx',
+            github: '',
+            qrFgColor: '#0f172a',
+            qrBgColor: '#f8fafc'
+        }
+    ];
+
+    function loadExample(index = 0) {
+      currentData = { ...smartExamples[index] };
+      if (saveTimeout) clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(() => saveCurrentVCard(), 500);
     }
 
     // Keyboard shortcuts
@@ -201,6 +240,15 @@
   <svelte:window on:keydown={handleGlobalKeydown} />
 
   <svelte:head>
+
+    <meta property="og:title" content={(dict as any)?.title || 'vCard Forge'} />
+    <meta property="og:description" content={(dict as any)?.description || 'Create vCards'} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={(dict as any)?.title || 'vCard Forge'} />
+    <meta name="twitter:description" content={(dict as any)?.description || 'Create vCards'} />
+
     <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/vcard-forge"} />
     <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/vcard-forge"} />
     <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/vcard-forge"} />
@@ -229,16 +277,23 @@
            </div>
        </div>
        <div class="flex flex-wrap gap-2 w-full sm:w-auto">
-           <button
-              on:click={loadExample}
-              class="flex-1 sm:flex-none px-4 py-2 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-900/20 dark:hover:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 touch-manipulation min-h-[44px]"
-              aria-label="Load Smart Example"
-           >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-              <span class="hidden lg:inline">{dict?.example || 'Smart Example'}</span>
-           </button>
+           <div class="relative group flex-1 sm:flex-none">
+             <button
+                class="w-full px-4 py-2 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-900/20 dark:hover:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 touch-manipulation min-h-[44px]"
+                aria-label="Load Smart Example"
+             >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <span class="hidden lg:inline">{dict?.example || 'Smart Examples'}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+             </button>
+             <div class="absolute left-0 top-full mt-1 w-48 bg-white dark:bg-slate-800 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 overflow-hidden">
+                <button on:click={() => loadExample(0)} class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 min-h-[44px]">1. Tech Executive</button>
+                <button on:click={() => loadExample(1)} class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 min-h-[44px]">2. Creative Designer</button>
+                <button on:click={() => loadExample(2)} class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 min-h-[44px]">3. Startup Founder</button>
+             </div>
+           </div>
            <button
                 on:click={saveCurrentVCard}
                 disabled={!currentData.name}

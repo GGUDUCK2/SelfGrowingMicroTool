@@ -13,7 +13,9 @@
     photoData: '',
     linkedIn: '',
     twitter: '',
-    github: ''
+    github: '',
+    qrFgColor: '#0f172a',
+    qrBgColor: '#ffffff'
   };
 
   const dispatch = createEventDispatcher();
@@ -210,6 +212,26 @@
         {/if}
         <input type="file" accept="image/png, image/jpeg, image/webp" class="hidden" bind:this={fileInput} on:change={handlePhotoUpload} />
       </div>
+    </div>
+  </div>
+
+  <div class="border-t border-slate-200 dark:border-slate-700 pt-6 mt-6">
+    <h3 class="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-4">{dict?.qrColors || 'QR Code Colors'}</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-qr-fg">{dict?.qrFgColor || 'Foreground Color'}</label>
+          <div class="flex items-center gap-2">
+            <input type="color" id="vcard-qr-fg" bind:value={data.qrFgColor} on:input={handleInput} class="h-11 w-11 p-1 rounded bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 cursor-pointer" />
+            <input type="text" bind:value={data.qrFgColor} on:input={handleInput} class="flex-1 p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
+          </div>
+        </div>
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-qr-bg">{dict?.qrBgColor || 'Background Color'}</label>
+          <div class="flex items-center gap-2">
+            <input type="color" id="vcard-qr-bg" bind:value={data.qrBgColor} on:input={handleInput} class="h-11 w-11 p-1 rounded bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 cursor-pointer" />
+            <input type="text" bind:value={data.qrBgColor} on:input={handleInput} class="flex-1 p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
+          </div>
+        </div>
     </div>
   </div>
 
