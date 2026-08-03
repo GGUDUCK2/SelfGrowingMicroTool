@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from "$lib/components/AdPlaceholder.svelte";
   import Head from '$lib/components/Head.svelte';
   import { page } from "$app/stores";
     import { getDictionary } from "$lib/dictionaries";
@@ -347,3 +348,6 @@
         </div>
     </section>
 </div>
+
+
+<AdPlaceholder />

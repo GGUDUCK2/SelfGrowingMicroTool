@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from "$lib/components/AdPlaceholder.svelte";
   import Head from '$lib/components/Head.svelte';
   import { page } from "$app/stores";
   $: lang = $page.params.lang || "en";
@@ -35,3 +36,6 @@
   <h2>Community Driven and Open</h2>
   <p>MicroFactory is proudly built by developers, for developers. We actively encourage community feedback, contributions, and suggestions to make our tools even better. By building in public and closely listening to our user base, we continuously evolve, refine, and expand our tools to meet the ever-changing, real-world demands of modern digital workflows.</p>
 </div>
+
+
+<AdPlaceholder />

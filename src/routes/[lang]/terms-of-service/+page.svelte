@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from "$lib/components/AdPlaceholder.svelte";
   import Head from '$lib/components/Head.svelte';
   import { page } from "$app/stores";
   $: lang = $page.params.lang || "en";
@@ -59,3 +60,6 @@
   <h2>Contact Us</h2>
   <p>If you have any questions, inquiries, or require clarification about these Terms of Service, please contact us via our official support channels or GitHub repository.</p>
 </div>
+
+
+<AdPlaceholder />
