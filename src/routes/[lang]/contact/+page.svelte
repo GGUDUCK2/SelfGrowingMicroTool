@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from "$lib/components/AdPlaceholder.svelte";
   import Head from '$lib/components/Head.svelte';
   import { page } from "$app/stores";
   $: lang = $page.params.lang || "en";
@@ -32,3 +33,6 @@
   <h2>Other Business Inquiries</h2>
   <p>For official business inquiries, potential partnerships, sponsorship opportunities, or other sensitive communications that may not be well-suited for a public GitHub issue, please reach out to our core team directly. You can connect with us via our official direct messaging channels on various professional social platforms. We strive to respond to all serious business inquiries within 2-3 business days.</p>
 </div>
+
+
+<AdPlaceholder />

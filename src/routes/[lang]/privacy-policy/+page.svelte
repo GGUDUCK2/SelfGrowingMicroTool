@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AdPlaceholder from "$lib/components/AdPlaceholder.svelte";
   import Head from '$lib/components/Head.svelte';
   import { page } from "$app/stores";
   $: lang = $page.params.lang || "en";
@@ -75,3 +76,6 @@
   <h2>Contact Us</h2>
   <p>If you have any questions, concerns, or require further clarification about this Privacy Policy, please do not hesitate to contact us via our official GitHub repository, contact page, or designated support channels.</p>
 </div>
+
+
+<AdPlaceholder />

@@ -80,5 +80,5 @@
   <GuideSection {...dict.guide} />
   <AdPlaceholder />
   <FAQSection title={dict.faqTitle} items={faqItems} />
-  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="pomodoro-timer" currentCategory="productivity" />
+  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="pomodoro-timer" currentCategory="dev" />
 </div>
