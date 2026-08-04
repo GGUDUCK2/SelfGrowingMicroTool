@@ -128,7 +128,7 @@
     <Workspace dict={toolDict} />
 
     <!-- Guide & FAQ -->
-    <div class="max-w-5xl mx-auto px-4 py-16 space-y-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
         <section class="prose dark:prose-invert max-w-none">
             <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6">{toolDict.guide.title}</h2>
             <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">

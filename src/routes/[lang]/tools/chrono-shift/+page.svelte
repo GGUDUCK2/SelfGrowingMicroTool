@@ -296,7 +296,7 @@
 
 </svelte:head>
 
-<div class="max-w-6xl mx-auto space-y-8 pb-20 px-4 sm:px-6">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 pb-20">
     <!-- Header -->
     <div class="text-center space-y-4 pt-8">
         <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl">

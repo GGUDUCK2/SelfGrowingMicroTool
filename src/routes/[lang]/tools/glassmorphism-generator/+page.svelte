@@ -216,7 +216,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj3)}</scr` + `ipt>`}
 </svelte:head>
 
-<div class="max-w-6xl mx-auto py-12 space-y-12 px-4">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
   <div class="text-center space-y-4">
     <h1 class="text-4xl font-bold text-gray-900">
       {dict.title}

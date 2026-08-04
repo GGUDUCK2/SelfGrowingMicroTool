@@ -251,7 +251,7 @@
   </div>
 
   <!-- Guide & FAQ -->
-  <div class="max-w-4xl mx-auto px-4 py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="prose prose-slate dark:prose-invert max-w-none">
       <h2 class="text-2xl font-bold mb-6">{t?.guide?.title}</h2>
       <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">{t?.guide?.intro}</p>

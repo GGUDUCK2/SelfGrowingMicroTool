@@ -499,7 +499,7 @@
 
 <!-- Documentation Section -->
 <div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-  <div class="max-w-6xl mx-auto px-4 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <GuideSection {...dict.guide} />
     <AdPlaceholder />
   <FAQSection title={dict.faqTitle} items={faqItems} />

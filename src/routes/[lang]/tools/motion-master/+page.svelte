@@ -266,7 +266,7 @@
 
 <!-- Documentation Section -->
 <div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-  <div class="max-w-4xl mx-auto px-4 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <article class="prose dark:prose-invert max-w-none min-h-[44px] min-w-[44px]">
       <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 mb-6">
         {dict.guide.title}

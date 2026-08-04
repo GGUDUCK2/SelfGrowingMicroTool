@@ -232,7 +232,7 @@
 
 </svelte:head>
 
-<div class="max-w-6xl mx-auto px-4 py-12 space-y-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
   <!-- Header -->
   <div class="text-center space-y-4">
     <div class="inline-flex items-center justify-center p-3 bg-indigo-100 dark:bg-indigo-900/30 rounded-2xl mb-4">

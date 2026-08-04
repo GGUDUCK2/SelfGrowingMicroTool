@@ -89,7 +89,7 @@
   image="https://microfactory.dev/og/time-forge.png"
 />
 
-<div class="max-w-4xl mx-auto px-4 py-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
   <div class="mb-10 text-center">
     <h1 class="text-4xl font-extrabold text-white mb-4 tracking-tight">{t.title}</h1>
