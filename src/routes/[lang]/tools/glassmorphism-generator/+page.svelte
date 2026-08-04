@@ -187,18 +187,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     }]
   };
 
-  $: schemaObj3 = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqItems.map(item => ({
-      "@type": "Question",
-      "name": item.q,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": item.a
-      }
-    }))
-  };
+
 </script>
 <Head
   title={dict.title}

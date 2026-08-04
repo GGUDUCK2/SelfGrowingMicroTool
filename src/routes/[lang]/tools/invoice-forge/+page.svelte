@@ -114,36 +114,7 @@
 
 
   {@html `<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": invoiceDict?.q1 || "",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": invoiceDict?.a1 || ""
-        }
-      },
-      {
-        "@type": "Question",
-        "name": invoiceDict?.q2 || "",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": invoiceDict?.a2 || ""
-        }
-      },
-      {
-        "@type": "Question",
-        "name": invoiceDict?.q3 || "",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": invoiceDict?.a3 || ""
-        }
-      }
-    ]
-  }
+
   </scr` + `ipt>`}
 
 </svelte:head>

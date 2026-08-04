@@ -145,18 +145,7 @@
     "description": ((dict as any)?.tools?.deployForge || {}).description,
     "featureList": "Dockerfile generation, Docker Compose builder, Multi-stage build optimization"
   }) + `</scr` + `ipt>`}
-  {@html '<script type="application/ld+json">' + JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(f => ({
-        "@type": "Question",
-        "name": f.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": f.a
-        }
-      }))
-    }) + '</script>'}
+  {@html '<script type="application/ld+json">' + JSON.stringify() + '</script>'}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-900 text-slate-100 pb-20">
