@@ -152,3 +152,27 @@
 #### 3. Performance Impact (기대 효과)
 - 도구 사용 흐름을 방해하지 않으면서 일관된 광고 레이아웃 패턴을 구축했습니다.
 - 카테고리 설정 오류 수정으로 사용자에게 더 관련성 높은 추천 도구를 보여줌으로써 탐색 여정(User Journey)을 개선했습니다.
+
+[Project Health Report - 2026-08-04]
+## Repository Hygiene
+- No redundant scripts found in root.
+## Design Consistency
+- Checked main layout containers across all tools in `src/routes/[lang]/tools/*/+page.svelte`.
+- Found 16 tools using inconsistent max-widths (e.g., `max-w-4xl`, `max-w-5xl`, `max-w-6xl`).
+- Standardized all 16 tools main layout containers to use `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12` (or similar standard preserving spacing) according to the MicroFactory design guidelines.
+## AdSense Readiness
+- AdPlaceholders are consistently placed.
+## Tech Debt
+- N/A
+
+---
+### [Daily Improvement Report - 2026-08-04]
+#### 1. Identified Issues (발견된 문제)
+- 일부 도구 페이지(예: diagram-forge, id-forge, invoice-forge 등 16개)에서 메인 레이아웃 컨테이너가 `max-w-4xl`, `max-w-5xl`, `max-w-6xl` 등 다양한 너비를 사용하여 프로젝트 전체의 시각적 일관성(Design Consistency)이 깨져있었습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/*/+page.svelte` (16개 파일) - 모든 도구 페이지의 메인 레이아웃 컨테이너에 대해 표준 Tailwind 클래스인 `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8`를 적용하도록 파이썬 스크립트를 통해 일괄 수정했습니다.
+- 타겟 컨테이너의 클래스들만 조작하여 의도적인 내부 레이아웃(e.g., -mt-8) 이 망가지지 않도록 세심하게 수정했습니다.
+
+#### 3. Performance Impact (기대 효과)
+- 모든 도구 페이지가 일관된 레이아웃 폭을 가지게 되어 전반적인 사용자 경험과 UI 일관성이 향상되었습니다.

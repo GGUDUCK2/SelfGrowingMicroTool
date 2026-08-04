@@ -177,7 +177,7 @@
 </div>
 {/if}
 
-<div class="max-w-6xl mx-auto px-4 py-12 space-y-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
   <!-- Header -->
   <div class="text-center space-y-4" in:fade={{ duration: 600 }}>
     <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
