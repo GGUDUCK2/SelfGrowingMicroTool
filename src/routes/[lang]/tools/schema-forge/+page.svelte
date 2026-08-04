@@ -336,37 +336,7 @@
     ]
   };
 
-  $: jsonLd2 = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": t?.q1,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t?.a1
-        }
-      },
-      {
-        "@type": "Question",
-        "name": t?.q2,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t?.a2
-        }
-      },
-      {
-        "@type": "Question",
-        "name": t?.q3,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t?.a3
-        }
-      }
-    ]
-  };
-</script>
+  </script>
 <Head
   title={t?.title}
   description={t?.description}
@@ -385,9 +355,7 @@
   <!-- JSON-LD -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd2)}</scr` + `ipt>`}
-
-</svelte:head>
+  </svelte:head>
 
 <!-- Toast -->
 {#if showToast}

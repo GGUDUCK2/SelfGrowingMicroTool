@@ -162,19 +162,6 @@
       }
     };
 
-  $: jsonLd3 = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(f => ({
-        "@type": "Question",
-        "name": f.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": f.a
-        }
-      }))
-    };
-
   $: jsonLd2 = {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -220,8 +207,7 @@
   <!-- JSON-LD -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd2)}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd3)}</scr` + `ipt>`}
-</svelte:head>
+  </svelte:head>
 
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <div

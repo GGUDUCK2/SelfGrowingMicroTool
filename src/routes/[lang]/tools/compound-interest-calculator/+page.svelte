@@ -328,36 +328,6 @@
     },
     {
       "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": (dict as any)?.q1,
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": (dict as any)?.a1
-          }
-        },
-        {
-          "@type": "Question",
-          "name": (dict as any)?.q2,
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": (dict as any)?.a2
-          }
-        },
-        {
-          "@type": "Question",
-          "name": (dict as any)?.q3,
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": (dict as any)?.a3
-          }
-        }
-      ]
-    },
-    {
-      "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [{
         "@type": "ListItem",

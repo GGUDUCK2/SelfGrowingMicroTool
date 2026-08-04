@@ -188,37 +188,7 @@
       ]
     };
 
-  $: jsonLd2 = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": (dict as any)?.q1,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": (dict as any)?.a1
-        }
-      },
-      {
-        "@type": "Question",
-        "name": (dict as any)?.q2,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": (dict as any)?.a2
-        }
-      },
-      {
-        "@type": "Question",
-        "name": (dict as any)?.q3,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": (dict as any)?.a3
-        }
-      }
-    ]
-  };
-</script>
+  </script>
 <Head
   title={dict.title}
   description={dict.description}
@@ -237,9 +207,7 @@
 
   <!-- JSON-LD -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd2)}</scr` + `ipt>`}
-
-</svelte:head>
+  </svelte:head>
 
 <div class="flex h-[100dvh] overflow-hidden bg-slate-50 dark:bg-slate-900">
 
