@@ -45,7 +45,7 @@
         "@type": "ListItem",
         "position": 2,
         "name": "Tools",
-        "item": `${$page.url.origin}/en/tools`
+        "item": `${$page.url.origin}/${lang}/tools`
       },
       {
         "@type": "ListItem",

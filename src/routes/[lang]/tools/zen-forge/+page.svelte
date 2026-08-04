@@ -111,15 +111,15 @@
 <Head
     title={dict.title}
     description={dict.description}
-    image="https://micro-factory.vercel.app/og/zen-forge.png"
+    image={$page.url.origin + "/og/zen-forge.png"}
     keywords="ambient, noise, focus, relax, generator, binaural, soundscape, recording, thunder, rain, meditation"
 />
 
 <svelte:head>
-    <link rel="canonical" href={`https://micro-factory.vercel.app/${$page.params.lang}/tools/zen-forge`} />
-    <link rel="alternate" hreflang="en" href="https://micro-factory.vercel.app/en/tools/zen-forge" />
-    <link rel="alternate" hreflang="ko" href="https://micro-factory.vercel.app/ko/tools/zen-forge" />
-    <link rel="alternate" hreflang="x-default" href="https://micro-factory.vercel.app/en/tools/zen-forge" />
+    <link rel="canonical" href={$page.url.origin + `/${$page.params.lang}/tools/zen-forge`} />
+    <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/zen-forge"} />
+    <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/zen-forge"} />
+    <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/zen-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
 
 </svelte:head>

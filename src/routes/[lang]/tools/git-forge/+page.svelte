@@ -175,7 +175,7 @@
 />
 
 <svelte:head>
-  <link rel="canonical" href={$page.url.origin + "/en/tools/git-forge"} />
+  <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/git-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/git-forge"} />
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/git-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/git-forge"} />

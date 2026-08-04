@@ -176,3 +176,16 @@
 
 #### 3. Performance Impact (기대 효과)
 - 모든 도구 페이지가 일관된 레이아웃 폭을 가지게 되어 전반적인 사용자 경험과 UI 일관성이 향상되었습니다.
+
+---
+
+### [Daily Improvement Report - 2024-08-04]
+#### 1. Identified Issues (발견된 문제)
+- SEO/AEO 상태 분석 결과, 많은 도구 페이지(`src/routes/[lang]/tools/*/+page.svelte`) 내의 Breadcrumb JSON-LD 스키마 및 `href` 경로에서 `en/tools` 또는 `/en/tools`와 같이 하드코딩된 언어 경로가 존재했습니다. 이로 인해 다국어 라우팅 시 적절한 지역화 링크를 제공하지 못해 검색 가시성이 저하될 가능성이 있었습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/*/+page.svelte` - Breadcrumb JSON-LD 객체와 관련된 경로에서 하드코딩된 `en`을 `${lang}` (문자열 리터럴 시) 또는 `" + lang + "` 로 동적으로 렌더링되도록 모두 수정했습니다.
+- **SEO/AEO**: Breadcrumb 스키마 및 기타 동적 URL 처리 과정에서 `lang` 변수를 참조하도록 개선하여, 다양한 언어 환경에서도 정확한 SEO 메타 데이터 및 구조화 데이터를 유지하도록 조치했습니다.
+
+#### 3. Performance Impact (기대 효과)
+- 다국어 지원에 맞는 정확한 라우팅 URL(Breadcrumb)을 제공함으로써 크롤링 효율이 상승하며, 지역별 사용자에게 보다 정확한 사이트 구조(구조화 데이터)를 검색 결과에 노출할 수 있습니다.
