@@ -329,7 +329,7 @@
 </main>
 
   <!-- Content for SEO/Landing below the tool -->
-  <section class="max-w-4xl mx-auto px-6 py-12 space-y-12 print:hidden">
+  <section class="max-w-7xl mx-auto px-6 py-12 space-y-12 print:hidden">
     <div class="bg-indigo-50 dark:bg-indigo-900/10 rounded-2xl p-8 border border-indigo-100 dark:border-indigo-900/30">
       <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{dict.guide.title}</h2>
       <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">

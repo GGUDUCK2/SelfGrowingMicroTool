@@ -307,7 +307,7 @@
   </div>
 
   <!-- Documentation Section -->
-  <section class="mt-20 prose dark:prose-invert max-w-4xl mx-auto">
+  <section class="mt-20 prose dark:prose-invert max-w-7xl mx-auto">
     <h2 class="text-3xl font-bold text-slate-900 dark:text-white">{dict.guide.title}</h2>
     <p class="text-lg text-slate-600 dark:text-slate-400">{dict.guide.intro}</p>
 

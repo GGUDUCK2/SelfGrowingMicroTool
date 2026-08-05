@@ -266,7 +266,7 @@
   </div>
 
   <!-- Documentation & FAQ -->
-  <div class="max-w-4xl mx-auto">
+  <div class="max-w-7xl mx-auto">
     <GuideSection {...t?.guide} />
   <AdPlaceholder />
   <FAQSection title={t.faqTitle} items={faqItems} />

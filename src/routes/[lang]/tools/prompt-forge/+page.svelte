@@ -311,7 +311,7 @@
                 />
             </div>
 
-            <div class="max-w-4xl mx-auto mt-12">
+            <div class="max-w-7xl mx-auto mt-12">
                 <AdPlaceholder />
   <FAQSection
                     title={dict.faqTitle}

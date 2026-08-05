@@ -174,7 +174,7 @@
 
    <!-- SEO Content (Below Fold) -->
    <section class="bg-white dark:bg-slate-900 py-16 lg:py-24">
-       <div class="max-w-4xl mx-auto px-6 space-y-16">
+       <div class="max-w-7xl mx-auto px-6 space-y-16">
            <!-- Guide -->
            <article class="prose dark:prose-invert max-w-none min-h-[44px] min-w-[44px]">
                <h2 class="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">

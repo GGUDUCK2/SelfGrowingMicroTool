@@ -192,7 +192,7 @@
       tip2={dict.guide.tip2}
       tip3={dict.guide.tip3}
     />
-    <div class="mt-12 max-w-4xl mx-auto">
+    <div class="mt-12 max-w-7xl mx-auto">
         <AdPlaceholder />
   <FAQSection title={dict.faqTitle} items={faqItems} />
     </div>
