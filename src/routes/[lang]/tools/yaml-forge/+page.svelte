@@ -166,11 +166,11 @@
           <Formatter {dict} {refreshHistory} bind:restoredData />
         </div>
       {:else if activeTab === 'validator'}
-        <div in:fade={{ duration: 200 }} class="w-full h-full max-w-4xl mx-auto">
+        <div in:fade={{ duration: 200 }} class="w-full h-full max-w-7xl mx-auto">
           <Validator {dict} />
         </div>
       {:else if activeTab === 'history'}
-        <div in:fade={{ duration: 200 }} class="h-full max-w-4xl mx-auto w-full">
+        <div in:fade={{ duration: 200 }} class="h-full max-w-7xl mx-auto w-full">
           {#key historyKey}
             <HistorySidebar
               {dict}

@@ -354,7 +354,7 @@
 
   <!-- Header -->
   <div class="bg-indigo-600 text-white py-12 px-4 shadow-lg">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-7xl mx-auto">
       <h1 class="text-3xl md:text-4xl font-bold mb-4">{dict.title}</h1>
       <p class="text-indigo-100 text-lg max-w-2xl">{dict.description}</p>
     </div>
@@ -601,7 +601,7 @@
   </div>
 
   <!-- FAQ / Guide Section -->
-   <div class="max-w-6xl mx-auto px-4 mt-24">
+   <div class="max-w-7xl mx-auto px-4 mt-24">
       <GuideSection
         title={dict.guide.title}
         intro={dict.guide.intro}
@@ -615,7 +615,7 @@
         tip3={dict.guide.tip3}
       />
 
-      <div class="max-w-4xl mx-auto mt-12">
+      <div class="max-w-7xl mx-auto mt-12">
         <AdPlaceholder />
   <FAQSection
             title={dict.faqTitle}

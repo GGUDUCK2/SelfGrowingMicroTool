@@ -165,7 +165,7 @@
 
       {#if state}
           {#if !state.isRunning || !config.zen}
-            <div class="w-full max-w-4xl" transition:fade>
+            <div class="w-full max-w-7xl" transition:fade>
                 <SettingsPanel {config} {dict} on:change={handleConfigChange} />
             </div>
           {/if}
@@ -183,7 +183,7 @@
               on:focus={() => focused = true}
           />
 
-          <div class="mt-8 w-full max-w-4xl flex justify-center gap-4">
+          <div class="mt-8 w-full max-w-7xl flex justify-center gap-4">
               <button
                   on:click={restart}
                   class="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-all transform hover:scale-105 shadow-lg shadow-indigo-500/30 outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 min-h-[44px] min-w-[44px]"
@@ -194,7 +194,7 @@
           </div>
 
           {#if showKeyboard && (!config.zen || !state.isRunning)}
-              <div class="mt-12 w-full max-w-4xl hidden md:block" transition:fade>
+              <div class="mt-12 w-full max-w-7xl hidden md:block" transition:fade>
                   <VirtualKeyboard activeKey={state.content[state.cursor] || ''} />
               </div>
           {/if}

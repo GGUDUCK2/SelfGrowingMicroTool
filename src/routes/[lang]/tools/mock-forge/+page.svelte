@@ -289,7 +289,7 @@
     </div>
 
     <!-- Guide & FAQ -->
-    <div class="max-w-4xl mx-auto space-y-20">
+    <div class="max-w-7xl mx-auto space-y-20">
       <GuideSection {...t.guide} />
       <AdPlaceholder />
       <FAQSection title={t.faqTitle} items={faqItems} />

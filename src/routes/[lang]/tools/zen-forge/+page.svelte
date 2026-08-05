@@ -140,7 +140,7 @@
         <!-- Main Workspace -->
         <div class="grid lg:grid-cols-4 gap-6 flex-1 transition-all duration-500">
             <!-- Sidebar Area -->
-            <div class="lg:col-span-1 space-y-6 flex flex-col transition-all duration-500 {$zenStore.isFocusMode ? 'lg:col-span-4 lg:max-w-4xl lg:mx-auto justify-center' : ''}">
+            <div class="lg:col-span-1 space-y-6 flex flex-col transition-all duration-500 {$zenStore.isFocusMode ? 'lg:col-span-4 lg:max-w-7xl lg:mx-auto justify-center' : ''}">
 
                 <!-- Top Modules (Timer & Breathing) -->
                 <div class="grid gap-6 transition-all duration-500 {$zenStore.isFocusMode ? 'md:grid-cols-2 items-stretch h-full' : ''}">
