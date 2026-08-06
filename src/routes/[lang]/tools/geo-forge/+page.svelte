@@ -90,7 +90,7 @@
 
   // Derived state for Editor
   $: activeLayer = layers.find(l => l.id === activeLayerId);
-  $: input = activeLayer && activeLayer.data ? toWKT(activeLayer.data) : ''; // Default to WKT for view
+  $: input = activeLayer && activeLayer.data ? toWKT(activeLayer.data as any) : ''; // Default to WKT for view
   $: format = activeLayer?.format || 'wkt';
   $: geo = activeLayer?.data || null;
 
@@ -114,7 +114,7 @@
           if (mapCanvas) {
               preview = await mapCanvas.getSnapshot();
           }
-          saveProject(activeLayer!.name || 'AutoSave', toWKT(activeLayer!.data!), 'wkt', preview);
+          saveProject(activeLayer!.name || 'AutoSave', toWKT(activeLayer!.data! as any), 'wkt', preview);
       }, 5000);
   }
 
@@ -166,8 +166,8 @@
   $: if (activeLayerId !== lastActiveId) {
       if (activeLayer) {
           try {
-             if (activeLayer.format === 'wkt') editorValue = activeLayer.data ? toWKT(activeLayer.data) : '';
-             else if (activeLayer.format === 'csv') editorValue = activeLayer.data ? toCSV(activeLayer.data) : '';
+             if (activeLayer.format === 'wkt') editorValue = activeLayer.data ? toWKT(activeLayer.data as any) : '';
+             else if (activeLayer.format === 'csv') editorValue = activeLayer.data ? toCSV(activeLayer.data as any) : '';
              else editorValue = activeLayer.data ? JSON.stringify(activeLayer.data, null, 2) : '';
              editorFormat = activeLayer.format;
           } catch(e) { console.error(e); }
@@ -181,14 +181,14 @@
   $: if (activeLayer && activeLayer.data !== lastData) {
       lastData = activeLayer.data;
       try {
-         if (editorFormat === 'wkt') editorValue = activeLayer.data ? toWKT(activeLayer.data) : '';
-         else if (editorFormat === 'csv') editorValue = activeLayer.data ? toCSV(activeLayer.data) : '';
+         if (editorFormat === 'wkt') editorValue = activeLayer.data ? toWKT(activeLayer.data as any) : '';
+         else if (editorFormat === 'csv') editorValue = activeLayer.data ? toCSV(activeLayer.data as any) : '';
          else editorValue = activeLayer.data ? JSON.stringify(activeLayer.data, null, 2) : '';
       } catch(e) {}
   }
 
   $: {
-      if (activeLayerId && (editorValue !== (lastData ? (editorFormat === 'wkt' ? toWKT(lastData) : JSON.stringify(lastData)) : ''))) {
+      if (activeLayerId && (editorValue !== (lastData ? (editorFormat === 'wkt' ? toWKT(lastData as any) : JSON.stringify(lastData)) : ''))) {
           updateActiveLayerData(editorValue, editorFormat);
       }
   }
@@ -201,8 +201,8 @@
       if (!activeLayer || !activeLayer.data) return;
       try {
           editorFormat = target;
-          if (target === 'wkt') editorValue = toWKT(activeLayer.data);
-          else if (target === 'csv') editorValue = toCSV(activeLayer.data);
+          if (target === 'wkt') editorValue = toWKT(activeLayer.data as any);
+          else if (target === 'csv') editorValue = toCSV(activeLayer.data as any);
           else editorValue = JSON.stringify(activeLayer.data, null, 2);
 
           layers = layers.map(l => l.id === activeLayerId ? { ...l, format: target } : l);
@@ -233,7 +233,7 @@
 
       const type = activeLayer.data.type;
       const isSupported = type === 'Point' || type === 'MultiPoint' ||
-                          (type === 'Feature' && activeLayer.data.geometry.type === 'Point') ||
+                          (type === 'Feature' && (activeLayer.data as any).geometry.type === 'Point') ||
                           type === 'FeatureCollection';
 
       if (!isSupported) {
@@ -318,7 +318,7 @@
          if (mapCanvas) {
              preview = await mapCanvas.getSnapshot();
          }
-         saveProject(name, toWKT(activeLayer.data), 'wkt', preview);
+         saveProject(name, toWKT(activeLayer.data as any), 'wkt', preview);
      }
   }
 
