@@ -85,6 +85,64 @@
     }
   }
 
+  let showMagicImport = false;
+  let magicImportText = '';
+
+  function processMagicImport() {
+      if (!magicImportText.trim()) return;
+
+      const emailRegex = /[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}/;
+      const phoneRegex = /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/i;
+      const urlRegex = /https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)/gi;
+
+      const emailMatch = magicImportText.match(emailRegex);
+      if (emailMatch && !data.email) data.email = emailMatch[0];
+
+      const phoneMatch = magicImportText.match(phoneRegex);
+      if (phoneMatch && !data.phone) data.phone = phoneMatch[0];
+
+      const urlMatches = magicImportText.match(urlRegex);
+      if (urlMatches) {
+          urlMatches.forEach(url => {
+              const lowerUrl = url.toLowerCase();
+              if (lowerUrl.includes('linkedin.com') && !data.linkedIn) data.linkedIn = url;
+              else if (lowerUrl.includes('twitter.com') || lowerUrl.includes('x.com')) {
+                  if(!data.twitter) data.twitter = url;
+              }
+              else if (lowerUrl.includes('github.com') && !data.github) data.github = url;
+              else if (!data.website) data.website = url;
+          });
+      }
+
+      // Very naive extraction for Name, Title, Company based on typical signature line order
+      const lines = magicImportText.split('\n').map(l => l.trim()).filter(l => l && !l.match(emailRegex) && !l.match(phoneRegex) && !l.match(urlRegex));
+
+      if (lines.length > 0 && !data.name) {
+          // Assume first valid line is name if it's short
+          if (lines[0].length < 40) {
+             data.name = lines[0].replace(/^(?:Best,|Regards,|Sincerely,|Thanks,)\s*/i, '').trim();
+             lines.shift();
+          }
+      }
+
+      if (lines.length > 0 && !data.title) {
+          if (lines[0].length < 60) {
+              data.title = lines[0];
+              lines.shift();
+          }
+      }
+
+      if (lines.length > 0 && !data.company) {
+          if (lines[0].length < 60) {
+              data.company = lines[0];
+          }
+      }
+
+      showMagicImport = false;
+      magicImportText = '';
+      dispatch('change', data);
+  }
+
   function handleInput() {
     // Smart auto-completion from email/website if company is empty
     if (!data.company) {
@@ -122,7 +180,24 @@
       </svg>
       {dict?.detailsTitle || 'Contact Details'}
     </h2>
-    <div class="flex gap-2">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center bg-slate-100 dark:bg-slate-900 rounded-lg p-1">
+          <button
+              on:click={() => { data.format = '3.0'; handleInput(); }}
+              class="px-3 py-1.5 text-sm font-medium rounded-md transition-colors {data.format === '3.0' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+              aria-label="vCard 3.0 Format"
+          >
+              vCard 3.0
+          </button>
+          <button
+              on:click={() => { data.format = '4.0'; handleInput(); }}
+              class="px-3 py-1.5 text-sm font-medium rounded-md transition-colors {data.format === '4.0' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+              aria-label="vCard 4.0 Format"
+          >
+              vCard 4.0
+          </button>
+      </div>
+      <div class="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-1 hidden sm:block"></div>
       <button
         type="button"
         on:click={() => importVcfInput.click()}
@@ -137,9 +212,21 @@
       <input type="file" accept=".vcf" class="hidden" bind:this={importVcfInput} on:change={handleVcfImport} />
 
       <button
+          type="button"
+          on:click={() => showMagicImport = !showMagicImport}
+          class="text-sm px-3 py-1.5 text-indigo-600 hover:bg-indigo-50 dark:text-indigo-400 dark:hover:bg-indigo-900/20 rounded-lg transition-colors flex items-center gap-1 min-h-[44px]"
+          aria-label={dict?.magicImport || 'Magic Import'}
+      >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+          </svg>
+          {dict?.magicImport || 'Magic Import'}
+      </button>
+
+      <button
         on:click={() => dispatch('clear')}
         class="text-sm px-3 py-1.5 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg transition-colors flex items-center gap-1 min-h-[44px]"
-        aria-label="Clear Form"
+        aria-label={dict?.clear || 'Clear Form'}
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -148,6 +235,37 @@
       </button>
     </div>
   </div>
+
+  {#if showMagicImport}
+      <div class="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl border border-indigo-100 dark:border-indigo-800/50 space-y-3">
+          <label class="block text-sm font-medium text-indigo-900 dark:text-indigo-200" for="magic-import-textarea">
+              {dict?.magicTitle || 'Paste Email Signature'}
+          </label>
+          <textarea
+              id="magic-import-textarea"
+              bind:value={magicImportText}
+              placeholder={dict?.magicPlaceholder || "John Doe\nSoftware Engineer\nAcme Corp\njohn@example.com\n+1 555-0198"}
+              class="w-full p-3 bg-white dark:bg-slate-900 border border-indigo-200 dark:border-indigo-700 rounded-lg text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[120px]"
+          ></textarea>
+          <div class="flex justify-end gap-2">
+              <button
+                  on:click={() => showMagicImport = false}
+                  class="px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-colors min-h-[44px]"
+              >
+                  {dict?.cancel || 'Cancel'}
+              </button>
+              <button
+                  on:click={processMagicImport}
+                  class="px-4 py-2 text-sm bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors flex items-center gap-2 min-h-[44px]"
+              >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  {dict?.extractInfo || 'Extract Info'}
+              </button>
+          </div>
+      </div>
+  {/if}
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div class="space-y-2">

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher, onMount } from 'svelte';
-    import { workspace, toggleStar as toggleStarWs, deleteHistoryItem as deleteItemWs, clearHistory as clearHistoryWs } from '$lib/db/workspace';
+    import { workspace, toggleStar, deleteHistoryItem, clearHistory } from '$lib/db/workspace';
     import type { ToolHistoryItem } from '$lib/db/workspace';
     import { liveQuery } from 'dexie';
 
@@ -19,21 +19,18 @@
       historyItems = $historyObservable;
     }
 
-    async function toggleStar(item: VCardForgeHistory) {
+    async function toggleStarStatus(item: ToolHistoryItem<any, any>) {
       if (item.id === undefined) return;
-      await db.vcardForgeHistory.update(item.id, { starred: item.starred ? 0 : 1 });
+      await toggleStar(item.id);
     }
 
     async function deleteItem(id: number | undefined) {
       if (id === undefined) return;
-      await db.vcardForgeHistory.delete(id);
+      await deleteHistoryItem(id);
     }
 
     async function clearAll() {
-      const nonStarred = historyItems.filter(item => !item.starred).map(item => item.id!);
-      if (nonStarred.length > 0) {
-        await db.vcardForgeHistory.bulkDelete(nonStarred);
-      }
+      await clearHistory('vcard-forge');
     }
 
     function loadItem(item: ToolHistoryItem<any, any>) {
@@ -100,7 +97,7 @@
               </div>
               <div class="flex flex-col gap-1 items-end">
                 <button
-                  on:click|stopPropagation={() => toggleStar(item)}
+                  on:click|stopPropagation={() => toggleStarStatus(item)}
                   class="text-slate-400 hover:text-amber-500 transition-colors min-h-[32px] min-w-[32px] flex items-center justify-center"
                   aria-label="Toggle Star"
                 >
