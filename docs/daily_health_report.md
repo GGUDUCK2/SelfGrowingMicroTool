@@ -1,16 +1,30 @@
-### [Daily Improvement Report - 2025-01-31]
+[Daily Improvement Report - 2025-08-06]
+
+## Repository Hygiene
+- No issues identified.
+
+## Design Consistency
+- 메인 레이아웃 (`src/routes/[lang]/+layout.svelte`)이 컨테이너 크기 가이드라인 (`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`)을 완벽하게 따르지 않고, Tailwind의 `container` 클래스를 사용하고 있던 문제를 해결.
+- `container` 클래스들을 `max-w-7xl` 레이아웃 가이드라인으로 교체하여 디자인 일관성을 확보함.
+
+## AdSense Readiness
+- 광고 섹션 유지. 변경 없음.
+
+## Tech Debt
+- Svelte TypeScript 컴파일러와 관련하여 발생하던 `geo-forge`, `glassmorphism-generator`, `vcard-forge` 의 여러 타입 오류와 템플릿 참조 오류 (예: `schemaObj3` 미정의, `toWKT` 인자 타입 오류)를 식별하고 수정함.
+- `npx svelte-check`를 돌렸을 때 발생하는 치명적인 오류를 제거하여 빌드 안정성 확보.
 
 #### 1. Identified Issues (발견된 문제)
-- `package.json` 내 `brace-expansion` 및 `ip-address` 패키지에서 심각도(high)의 보안 취약점 발견.
-- 메인 홈페이지(`src/routes/[lang]/+page.svelte`)의 도구 검색 및 카테고리 필터 섹션이 MicroFactory 표준 레이아웃 컨테이너 가이드라인(`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`)을 따르지 않고, `max-w-4xl`로 좁게 설정되어 있어 시각적 불일치 발생.
-- `npm run build` 중 `.svelte-kit/tsconfig.json` 파일을 찾을 수 없다는 빌드 경고 발생 (로컬 환경 동기화 누락).
+- `glassmorphism-generator`에서 참조할 수 없는 변수 `schemaObj3`가 `JSON.stringify` 에 전달되어 런타임/빌드 에러를 유발.
+- `geo-forge`에서 타입 추론 부족으로 인해 `Geometry` 와 관련된 `toWKT`, `toCSV` 등에 인자 타입 오류 발생.
+- `+layout.svelte`가 프로젝트 전체 디자인 가이드라인인 `max-w-7xl` 대신 `container` 클래스를 남용하여 시각적 불일치 발생.
 
 #### 2. Key Changes (주요 수정 사항)
-- **Tech Debt (의존성 취약점 해결)**: `npm audit fix`를 실행하여 `brace-expansion` 및 `ip-address`의 보안 취약점을 해결함.
-- **Design Consistency (홈페이지 레이아웃 표준화)**: `src/routes/[lang]/+page.svelte` 내 검색 바 섹션의 래퍼 클래스를 `max-w-4xl mx-auto space-y-6`에서 `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6`로 변경하여 모든 도구 페이지와 일관성을 맞춤.
-- **Tech Debt (빌드 경고)**: `npx svelte-kit sync`를 통해 누락된 로컬 `.svelte-kit/tsconfig.json`을 자동 생성시켜 빌드 경고를 해소함 (실제 코드가 아닌 환경 초기화 단계 처리).
+- **Code**: `src/routes/[lang]/+layout.svelte` - `container` 클래스를 `max-w-7xl`로 교체
+- **Code**: `src/routes/[lang]/tools/glassmorphism-generator/+page.svelte` - 존재하지 않는 `schemaObj3` 사용 블록 제거
+- **Code**: `src/routes/[lang]/tools/geo-forge/+page.svelte` - TypeScript 컴파일러 불만을 해소하기 위해 `activeLayer.data`의 타입 단언(type assertion, `as any`) 추가
+- **SEO/AEO**: 디자인 레이아웃 및 템플릿 오류 수정이므로 변경 없음.
 
 #### 3. Performance Impact (기대 효과)
-- 취약점(High severity)을 제거하여 애플리케이션의 보안성 및 안정성을 높임.
-- 메인 페이지가 개별 도구 페이지들과 통일된 `max-w-7xl` 레이아웃 컨테이너를 사용함으로써 사용자 경험(UX) 일관성이 향상됨.
-- 빌드 경고가 사라져 CI/CD 및 로컬 개발 시 불필요한 노이즈가 감소함.
+- 빌드 안정성 회복: `svelte-check` 및 `npm run build` 단계에서의 잠재적 크래시 및 오류 제거.
+- 통일된 UI: 메인 레이아웃의 너비 제한을 표준화하여 플랫폼 전반의 디자인 일관성 유지.

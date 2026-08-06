@@ -13,7 +13,7 @@
     class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl transition-colors"
   >
     <div
-      class="container mx-auto px-3 sm:px-4 h-14 sm:h-16 flex items-center justify-between gap-2"
+      class="max-w-7xl mx-auto px-3 sm:px-4 h-14 sm:h-16 flex items-center justify-between gap-2"
     >
       <!-- svelte-ignore svelte/no-navigation-without-resolve -->
       <a
@@ -94,7 +94,7 @@
     </div>
   </header>
 
-  <main class="flex-1 container mx-auto px-4 py-8 md:py-12">
+  <main class="flex-1 max-w-7xl mx-auto px-4 py-8 md:py-12">
     <slot />
 
     <!-- Global AdSense Placeholder -->
@@ -102,7 +102,7 @@
   </main>
 
   <footer class="border-t border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12 transition-colors">
-    <div class="container mx-auto px-4">
+    <div class="max-w-7xl mx-auto px-4">
       <div class="flex justify-center flex-wrap gap-2 sm:gap-6 mb-8 text-sm">
         <a href="/{lang}/about" class="text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2">About</a>
         <a href="/{lang}/privacy-policy" class="text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center px-2">Privacy Policy</a>

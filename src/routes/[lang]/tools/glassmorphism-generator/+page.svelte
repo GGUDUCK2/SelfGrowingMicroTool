@@ -202,7 +202,6 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/glassmorphism-generator"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj2)}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj3)}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
