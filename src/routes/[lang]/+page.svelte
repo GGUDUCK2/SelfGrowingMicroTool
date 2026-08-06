@@ -71,7 +71,7 @@
     </p>
   </section>
 
-  <section class="max-w-4xl mx-auto space-y-6">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
     <!-- Search Bar -->
     <div class="relative">
       <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
