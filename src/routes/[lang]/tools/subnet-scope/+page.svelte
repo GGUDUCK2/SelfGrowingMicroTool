@@ -191,7 +191,7 @@
   </div>
 
   <!-- Cloud & Common Presets -->
-  <div class="space-y-3 max-w-2xl mx-auto">
+  <div class="space-y-3 max-w-7xl mx-auto">
       <div class="text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">{t.presets.title}</div>
       <div class="flex flex-wrap justify-center gap-2">
           <button on:click={() => loadExample('10.0.0.0/16')} class="px-3 py-1 text-xs min-h-[44px] min-w-[44px] font-medium bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-100 dark:border-orange-800 rounded-full hover:bg-orange-100 dark:hover:bg-orange-900/40 transition-colors">
@@ -216,7 +216,7 @@
   </div>
 
   <!-- Main Input -->
-  <div class="max-w-3xl mx-auto bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-2 md:p-4 border border-slate-100 dark:border-slate-700">
+  <div class="max-w-7xl mx-auto bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-2 md:p-4 border border-slate-100 dark:border-slate-700">
       <div class="flex flex-col md:flex-row gap-4 p-4">
           <input
             type="text"

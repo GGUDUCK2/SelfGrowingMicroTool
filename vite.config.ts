@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
     plugins: [sveltekit()],
     build: {
+        target: 'esnext',
         rollupOptions: {
             external: ['stream', 'encoding', 'react-native-fetch-blob']
         }
