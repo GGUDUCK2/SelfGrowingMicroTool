@@ -128,7 +128,7 @@
     <!-- Visualizer Background -->
     <Visualizer />
 
-    <div class="container mx-auto px-4 py-8 relative z-10 flex-1 flex flex-col">
+    <div class="max-w-7xl mx-auto px-4 py-8 relative z-10 flex-1 flex flex-col">
         <!-- Header -->
         <div class="mb-8 text-center transition-all duration-500 {$zenStore.isFocusMode ? 'opacity-0 h-0 overflow-hidden mb-0' : 'opacity-100'}">
             <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 mb-2 drop-shadow-lg">

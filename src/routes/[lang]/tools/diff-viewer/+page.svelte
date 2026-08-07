@@ -184,7 +184,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="max-w-7xl mx-auto">
         <div class="header">
             <h1>${escapeHtml(t.title)} - Comparison Report</h1>
             <p>Generated on ${new Date().toLocaleString()}</p>
@@ -452,7 +452,7 @@
                 on:click={() => showConflictModal = false}
                 on:keydown={(e) => e.key === 'Escape' && (showConflictModal = false)}
             ></button>
-            <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl p-0 overflow-hidden flex flex-col max-h-[90vh]" role="dialog" tabindex="-1" aria-modal="true">
+            <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-7xl p-0 overflow-hidden flex flex-col max-h-[90vh]" role="dialog" tabindex="-1" aria-modal="true">
                  {#if !isResolving}
                     <!-- Input State -->
                      <div class="p-6 flex flex-col h-full">
