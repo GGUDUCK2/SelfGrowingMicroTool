@@ -7,8 +7,7 @@
     import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
     import RelatedTools from '$lib/components/RelatedTools.svelte';
     import { fade, fly } from 'svelte/transition';
-    import { db } from '$lib/db';
-    import { workspace, saveToHistory } from '$lib/db/workspace';
+    import { saveToHistory } from '$lib/db/workspace';
 
     import VCardEditor from '$lib/components/vcard-forge/VCardEditor.svelte';
     import VCardPreview from '$lib/components/vcard-forge/VCardPreview.svelte';
@@ -17,7 +16,7 @@
     $: lang = $page.params.lang as 'en' | 'ko';
     $: dict = (dictionaries as any)[lang]?.tools?.vcardForge || {};
 
-    const initialData = {
+    const initialData: VCardForgeData = {
       name: '',
       title: '',
       company: '',
@@ -30,10 +29,28 @@
       twitter: '',
       github: '',
       qrFgColor: '#0f172a',
-      qrBgColor: '#ffffff'
+      qrBgColor: '#ffffff',
+      format: '3.0'
     };
 
-    let currentData = { ...initialData };
+    interface VCardForgeData {
+      name: string;
+      title: string;
+      company: string;
+      email: string;
+      phone: string;
+      website: string;
+      address: string;
+      photoData: string;
+      linkedIn: string;
+      twitter: string;
+      github: string;
+      qrFgColor: string;
+      qrBgColor: string;
+      format: string;
+    }
+
+    let currentData: VCardForgeData = { ...initialData };
 
     let showHistory = false;
 
@@ -58,24 +75,11 @@
             "priceCurrency": "USD"
           },
           "@id": $page.url.origin + "/" + lang + "/tools/vcard-forge",
-          "name": "vCard Forge",
-          "applicationCategory": "BusinessApplication",
-          "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
-          "applicationSubCategory": "Contact Management Utility",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-          },
           "description": (dict as any)?.description,
           "featureList": [
-              "vCard 3.0 Generation",
+              "vCard 3.0 & 4.0 Generation",
               "QR Code Integration",
-              "Live Preview",
-              "Base64 Photo Support",
-              "Local History",
-              "vCard 3.0 Generation",
-              "QR Code Integration",
+              "Smart Signature Auto-Extractor",
               "Raw VCF Viewer",
               "Custom QR Colors",
               "Live Preview",
@@ -146,7 +150,8 @@
           twitter: item.twitter || '',
           github: item.github || '',
           qrFgColor: item.qrFgColor || '#0f172a',
-          qrBgColor: item.qrBgColor || '#ffffff'
+          qrBgColor: item.qrBgColor || '#ffffff',
+          format: item.format || '3.0'
       };
       showHistory = false;
     }
@@ -169,7 +174,8 @@
             twitter: 'https://twitter.com/alexdev',
             github: 'https://github.com/alexdev',
             qrFgColor: '#4f46e5',
-            qrBgColor: '#e0e7ff'
+            qrBgColor: '#e0e7ff',
+            format: '3.0'
         },
         {
             name: 'Sarah Designer',
@@ -184,7 +190,8 @@
             twitter: '',
             github: '',
             qrFgColor: '#db2777',
-            qrBgColor: '#fce7f3'
+            qrBgColor: '#fce7f3',
+            format: '3.0'
         },
         {
             name: 'Michael Founder',
@@ -199,7 +206,8 @@
             twitter: 'https://twitter.com/startupx',
             github: '',
             qrFgColor: '#0f172a',
-            qrBgColor: '#f8fafc'
+            qrBgColor: '#f8fafc',
+            format: '3.0'
         }
     ];
 

@@ -17,10 +17,12 @@
     github: string;
     qrFgColor: string;
     qrBgColor: string;
+    format: string;
   };
 
   let qrCanvas: HTMLCanvasElement;
   let qrDataUrl = '';
+  let qrSvgString = '';
   let vcardData = '';
   let downloadUrl = '';
   let showCopiedToast = false;
@@ -31,7 +33,8 @@
   }
 
   function generateVCard() {
-    let vcf = `BEGIN:VCARD\nVERSION:3.0\n`;
+    const isV4 = data.format === '4.0';
+    let vcf = `BEGIN:VCARD\nVERSION:${isV4 ? '4.0' : '3.0'}\n`;
 
     if (data.name) {
       vcf += `FN:${data.name}\n`;
@@ -39,14 +42,27 @@
     }
     if (data.company) vcf += `ORG:${data.company}\n`;
     if (data.title) vcf += `TITLE:${data.title}\n`;
-    if (data.phone) vcf += `TEL;TYPE=CELL:${data.phone}\n`;
-    if (data.email) vcf += `EMAIL;TYPE=WORK,INTERNET:${data.email}\n`;
+
+    if (data.phone) {
+        vcf += isV4 ? `TEL;TYPE=cell,voice;VALUE=uri:tel:${data.phone.replace(/[\s-]/g, '')}\n` : `TEL;TYPE=CELL:${data.phone}\n`;
+    }
+
+    if (data.email) {
+        vcf += isV4 ? `EMAIL;TYPE=work:${data.email}\n` : `EMAIL;TYPE=WORK,INTERNET:${data.email}\n`;
+    }
+
     if (data.website) vcf += `URL:${data.website}\n`;
     if (data.address) vcf += `ADR;TYPE=WORK:;;${data.address.replace(/\n/g, ';')}\n`;
 
-    if (data.linkedIn) vcf += `URL;type=LinkedIn:${data.linkedIn}\n`;
-    if (data.twitter) vcf += `URL;type=Twitter:${data.twitter}\n`;
-    if (data.github) vcf += `URL;type=GitHub:${data.github}\n`;
+    if (data.linkedIn) {
+        vcf += isV4 ? `URL;TYPE=LinkedIn:${data.linkedIn}\n` : `URL;type=LinkedIn:${data.linkedIn}\n`;
+    }
+    if (data.twitter) {
+        vcf += isV4 ? `URL;TYPE=Twitter:${data.twitter}\n` : `URL;type=Twitter:${data.twitter}\n`;
+    }
+    if (data.github) {
+        vcf += isV4 ? `URL;TYPE=GitHub:${data.github}\n` : `URL;type=GitHub:${data.github}\n`;
+    }
 
     if (data.photoData) {
       // Extract base64 without data type prefix
@@ -57,16 +73,20 @@
     }
 
 
-    let vcardForQr = vcf + `END:VCARD`;
+    let vcardForQr = vcf + `END:VCARD\n`;
 
     if (data.photoData) {
       const b64 = data.photoData.split(',')[1];
       if (b64) {
-          vcf += `PHOTO;ENCODING=b;TYPE=JPEG:${b64}\n`;
+          if (isV4) {
+              vcf += `PHOTO:data:image/jpeg;base64,${b64}\n`;
+          } else {
+              vcf += `PHOTO;ENCODING=b;TYPE=JPEG:${b64}\n`;
+          }
       }
     }
 
-    vcf += `END:VCARD`;
+    vcf += `END:VCARD\n`;
     vcardData = vcf;
 
     const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8' });
@@ -90,6 +110,15 @@
                 }
             });
             qrDataUrl = qrCanvas.toDataURL('image/png');
+
+            qrSvgString = await QRCode.toString(vcardPayload, {
+                type: 'svg',
+                margin: 2,
+                color: {
+                    dark: data.qrFgColor || '#0f172a',
+                    light: data.qrBgColor || '#ffffff'
+                }
+            });
         } catch (err) {
             // Intentionally swallow error to meet no console log constraint
         }
@@ -106,14 +135,27 @@
     document.body.removeChild(a);
   }
 
-  function downloadQr() {
-    if (!qrDataUrl) return;
-    const a = document.createElement('a');
-    a.href = qrDataUrl;
-    a.download = `${data.name ? data.name.replace(/\s+/g, '_') : 'contact'}_qr.png`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+  function downloadQr(type: 'png' | 'svg' = 'png') {
+    if (type === 'png') {
+        if (!qrDataUrl) return;
+        const a = document.createElement('a');
+        a.href = qrDataUrl;
+        a.download = `${data.name ? data.name.replace(/\s+/g, '_') : 'contact'}_qr.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    } else {
+        if (!qrSvgString) return;
+        const blob = new Blob([qrSvgString], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${data.name ? data.name.replace(/\s+/g, '_') : 'contact'}_qr.svg`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
   }
 
   async function copyVcfToClipboard() {
@@ -229,31 +271,41 @@
                 {dict?.copied || 'Copied to clipboard!'}
             </div>
         {/if}
-        <div class="flex gap-3">
+        <div class="grid grid-cols-2 gap-3">
             <button
                 on:click={downloadVcf}
                 disabled={!data.name}
-                class="flex-1 py-3 px-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 disabled:cursor-not-allowed text-white rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 min-h-[44px] shadow-sm"
+                class="col-span-2 py-3 px-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 disabled:cursor-not-allowed text-white rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 min-h-[44px] shadow-sm"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
-                <span class="hidden sm:inline">{dict?.downloadVcf || 'Download .vcf'}</span>
-                <span class="sm:hidden">.vcf</span>
+                {dict?.downloadVcf || 'Download .vcf'}
             </button>
             <button
-                on:click={downloadQr}
+                on:click={() => downloadQr('png')}
                 disabled={!data.name}
-                class="flex-1 py-3 px-4 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 disabled:bg-slate-100 disabled:dark:bg-slate-800/50 disabled:text-slate-400 disabled:cursor-not-allowed text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 min-h-[44px] shadow-sm"
+                class="py-3 px-4 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 disabled:bg-slate-100 disabled:dark:bg-slate-800/50 disabled:text-slate-400 disabled:cursor-not-allowed text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 min-h-[44px] shadow-sm"
+                aria-label={dict?.downloadQrPng || 'QR PNG'}
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
-                <span class="hidden sm:inline">{dict?.downloadQr || 'Download QR'}</span>
-                <span class="sm:hidden">QR</span>
+                <span class="hidden sm:inline">PNG</span>
+            </button>
+            <button
+                on:click={() => downloadQr('svg')}
+                disabled={!data.name}
+                class="py-3 px-4 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 disabled:bg-slate-100 disabled:dark:bg-slate-800/50 disabled:text-slate-400 disabled:cursor-not-allowed text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 min-h-[44px] shadow-sm"
+                aria-label={dict?.downloadSvg || 'QR SVG'}
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+                <span class="hidden sm:inline">SVG</span>
             </button>
         </div>
-        <div class="flex gap-3">
+        <div class="grid grid-cols-2 gap-3">
             <button
                 on:click={copyVcfToClipboard}
                 disabled={!data.name}
