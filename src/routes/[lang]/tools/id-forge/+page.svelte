@@ -246,11 +246,11 @@
                 </div>
             </div>
         {:else if activeTab === 'analyze'}
-            <div in:fade class="max-w-2xl mx-auto">
+            <div in:fade class="max-w-7xl mx-auto">
                 <Analyzer />
             </div>
         {:else if activeTab === 'collision'}
-            <div in:fade class="max-w-3xl mx-auto">
+            <div in:fade class="max-w-7xl mx-auto">
                 <Collision />
             </div>
         {/if}

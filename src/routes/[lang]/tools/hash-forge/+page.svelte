@@ -169,15 +169,15 @@
     <!-- Active Area -->
     <div class="flex-1 p-6 md:p-8 flex flex-col min-h-0 relative bg-white dark:bg-slate-900 w-full overflow-y-auto">
       {#if activeTab === 'text'}
-        <div in:fade={{ duration: 200 }} class="max-w-3xl mx-auto w-full">
+        <div in:fade={{ duration: 200 }} class="max-w-7xl mx-auto w-full">
           <TextHasher {dict} onNewHistory={refreshHistory} bind:restoredData />
         </div>
       {:else if activeTab === 'file'}
-        <div in:fade={{ duration: 200 }} class="max-w-3xl mx-auto w-full">
+        <div in:fade={{ duration: 200 }} class="max-w-7xl mx-auto w-full">
           <FileHasher {dict} onNewHistory={refreshHistory} bind:restoredData />
         </div>
       {:else if activeTab === 'hmac'}
-        <div in:fade={{ duration: 200 }} class="max-w-3xl mx-auto w-full">
+        <div in:fade={{ duration: 200 }} class="max-w-7xl mx-auto w-full">
           <HmacGenerator {dict} onNewHistory={refreshHistory} bind:restoredData />
         </div>
       {:else if activeTab === 'history'}
