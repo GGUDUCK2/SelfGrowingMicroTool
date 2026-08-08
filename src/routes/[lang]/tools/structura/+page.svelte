@@ -262,8 +262,7 @@
   <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
       <!-- Tabs -->
       <div class="flex border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
-          <button
-            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'convert' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+          <button class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'convert' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => activeTab = 'convert'}
           >
               <Zap size={18} />
@@ -272,8 +271,7 @@
                 <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400" transition:slide={{ axis: 'x' }}></div>
               {/if}
           </button>
-          <button
-            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'codegen' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+          <button class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'codegen' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => { activeTab = 'codegen'; runCodeGen(); }}
           >
               <Code size={18} />
@@ -282,8 +280,7 @@
                 <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400" transition:slide={{ axis: 'x' }}></div>
               {/if}
           </button>
-          <button
-            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'visualizer' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+          <button class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'visualizer' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => { activeTab = 'visualizer'; runVisualizer(); }}
           >
               <Network size={18} />
@@ -292,8 +289,7 @@
                 <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400" transition:slide={{ axis: 'x' }}></div>
               {/if}
           </button>
-          <button
-            class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
+          <button class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}"
             on:click={() => activeTab = 'history'}
           >
               <History size={18} />
@@ -319,8 +315,7 @@
                             </button>
                             <div class="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-1 hidden group-hover:block z-20">
                                 {#each structuraExamples as ex (ex.label)}
-                                    <button
-                                        class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors min-h-[44px] min-w-[44px]"
+                                    <button class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors min-h-[44px] min-w-[44px]"
                                         on:click={() => loadExample(ex)}
                                     >
                                         <span class="font-bold text-xs bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded mr-2">{ex.format}</span>
@@ -358,8 +353,7 @@
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <button
-                            class="flex items-center gap-2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px] min-w-[44px]"
+                        <button class="flex items-center gap-2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px] min-w-[44px]"
                             on:click={runConversion}
                         >
                             <span>{t.convert}</span>
@@ -367,8 +361,7 @@
                                 <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                             {/if}
                         </button>
-                        <button
-                            class="p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                        <button class="p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                             on:click={() => showSettings = !showSettings}
                             aria-label={t.settings}
                         >
@@ -467,8 +460,7 @@
                         </div>
                     </div>
                     <div class="self-end">
-                        <button
-                            class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors min-h-[44px] min-w-[44px]"
+                        <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors min-h-[44px] min-w-[44px]"
                             on:click={runCodeGen}
                         >
                             {t.codegen.generate}
@@ -560,15 +552,13 @@
                                         <span class="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 px-2 py-1 rounded shadow-sm">{item.outputFormat}</span>
                                     </div>
                                     <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <button
-                                            class="p-1.5 hover:bg-white dark:hover:bg-gray-600 rounded-lg text-gray-400 hover:text-yellow-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                                        <button class="p-1.5 hover:bg-white dark:hover:bg-gray-600 rounded-lg text-gray-400 hover:text-yellow-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                                             on:click|stopPropagation={() => structuraWorkspace.toggleStar(item.id || 0)}
                                             aria-label={t.star || "Star"}
                                         >
                                             <Star size={16} fill={item.starred ? "currentColor" : "none"} class={item.starred ? "text-yellow-500" : ""} />
                                         </button>
-                                        <button
-                                            class="p-1.5 hover:bg-white dark:hover:bg-gray-600 rounded-lg text-gray-400 hover:text-red-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                                        <button class="p-1.5 hover:bg-white dark:hover:bg-gray-600 rounded-lg text-gray-400 hover:text-red-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                                             on:click|stopPropagation={() => structuraWorkspace.delete(item.id || 0)}
                                             aria-label={t.delete || "Delete"}
                                         >

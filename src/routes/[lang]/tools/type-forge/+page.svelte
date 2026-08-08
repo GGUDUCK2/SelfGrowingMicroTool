@@ -100,8 +100,7 @@
       </div>
 
       <div class="flex items-center gap-2">
-          <button
-              on:click={() => showHistory = !showHistory}
+          <button on:click={() => showHistory = !showHistory}
               class="p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg"
               title={dict.history.title}
           >

@@ -150,32 +150,28 @@
           <div class="lg:col-span-9 space-y-8">
               <!-- Tabs -->
               <div class="flex p-1 space-x-1 bg-slate-100 dark:bg-slate-900 rounded-xl overflow-x-auto" role="tablist">
-                  <button
-                    role="tab"
+                  <button role="tab"
                     aria-selected={activeTab === 'calculator'}
                     aria-controls="calculator-panel"
                     class="flex-1 min-w-[100px] min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'calculator' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
                     on:click={() => activeTab = 'calculator'}>
                       <CalcIcon size={16} /> {dict.tabs.calculator}
                   </button>
-                  <button
-                    role="tab"
+                  <button role="tab"
                     aria-selected={activeTab === 'grapher'}
                     aria-controls="grapher-panel"
                     class="flex-1 min-w-[100px] min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'grapher' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
                     on:click={() => activeTab = 'grapher'}>
                       <LineChart size={16} /> {dict.tabs.grapher}
                   </button>
-                  <button
-                    role="tab"
+                  <button role="tab"
                     aria-selected={activeTab === 'matrix'}
                     aria-controls="matrix-panel"
                     class="flex-1 min-w-[100px] min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'matrix' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
                     on:click={() => activeTab = 'matrix'}>
                       <Grid3X3 size={16} /> {dict.tabs.matrix}
                   </button>
-                  <button
-                    role="tab"
+                  <button role="tab"
                     aria-selected={activeTab === 'statistics'}
                     aria-controls="statistics-panel"
                     class="flex-1 min-w-[100px] min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-all {activeTab === 'statistics' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
@@ -225,8 +221,7 @@
 
           <!-- Sidebar (Mobile Overlay) -->
           {#if showHistory}
-              <button
-                class="fixed inset-0 z-40 bg-black/50 lg:hidden w-full h-full cursor-default min-h-[44px] min-w-[44px]"
+              <button class="fixed inset-0 z-40 bg-black/50 lg:hidden w-full h-full cursor-default min-h-[44px] min-w-[44px]"
                 on:click={() => showHistory = false}
                 aria-label="Close History"
               ></button>

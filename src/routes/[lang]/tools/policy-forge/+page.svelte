@@ -147,8 +147,7 @@
         </div>
 
         <div class="flex items-center gap-2 md:hidden">
-             <button
-                class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 min-h-[44px] min-w-[44px] flex items-center justify-center"
+             <button class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 min-h-[44px] min-w-[44px] flex items-center justify-center"
                 on:click={() => showPreviewOnMobile = !showPreviewOnMobile}
              >
                 {#if showPreviewOnMobile}

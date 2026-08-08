@@ -81,8 +81,7 @@
               <td class="px-4 py-3 font-mono text-indigo-600 dark:text-indigo-400">{subnet.network}</td>
               <td class="px-4 py-3 font-mono text-slate-600 dark:text-slate-300">{subnet.range}</td>
               <td class="px-4 py-3 text-right">
-                <button
-                  class="text-xs font-medium text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px]"
+                <button class="text-xs font-medium text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px]"
                   on:click={() => copy(subnet.network)}
                 >
                   Copy

@@ -226,15 +226,13 @@
             class="flex-1 px-5 py-4 text-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all dark:text-white font-mono"
             aria-label="IP Address or CIDR Input"
           />
-          <button
-            on:click={analyze}
+          <button on:click={analyze}
             class="px-8 py-4 min-h-[44px] min-w-[44px] bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/30 transition-all active:scale-95"
             aria-label="Analyze IP"
           >
             {t.analyze}
           </button>
-          <button
-             on:click={share}
+          <button on:click={share}
              class="px-4 py-4 min-h-[44px] min-w-[44px] flex items-center justify-center bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 font-bold rounded-xl transition-colors"
              aria-label="Share Configuration"
           >
@@ -246,26 +244,22 @@
   <!-- Navigation -->
   <div class="flex justify-center border-b border-slate-200 dark:border-slate-800">
       <nav class="flex gap-8 px-4 overflow-x-auto scrollbar-hide whitespace-nowrap">
-          <button
-              class="pb-4 min-h-[44px] min-w-[44px] text-sm font-medium transition-colors border-b-2 {activeTab === 'analyze' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+          <button class="pb-4 min-h-[44px] min-w-[44px] text-sm font-medium transition-colors border-b-2 {activeTab === 'analyze' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
               on:click={() => activeTab = 'analyze'}
           >
               Overview & Binary
           </button>
-          <button
-              class="pb-4 min-h-[44px] min-w-[44px] text-sm font-medium transition-colors border-b-2 {activeTab === 'subnetting' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+          <button class="pb-4 min-h-[44px] min-w-[44px] text-sm font-medium transition-colors border-b-2 {activeTab === 'subnetting' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
               on:click={() => activeTab = 'subnetting'}
           >
               {t.subnetting}
           </button>
-          <button
-              class="pb-4 min-h-[44px] min-w-[44px] text-sm font-medium transition-colors border-b-2 {activeTab === 'planner' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+          <button class="pb-4 min-h-[44px] min-w-[44px] text-sm font-medium transition-colors border-b-2 {activeTab === 'planner' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
               on:click={() => activeTab = 'planner'}
           >
               Network Planner
           </button>
-          <button
-              class="pb-4 min-h-[44px] min-w-[44px] text-sm font-medium transition-colors border-b-2 {activeTab === 'history' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
+          <button class="pb-4 min-h-[44px] min-w-[44px] text-sm font-medium transition-colors border-b-2 {activeTab === 'history' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'}"
               on:click={() => activeTab = 'history'}
           >
               {t.history}
@@ -373,8 +367,7 @@
                                     />
                                 </label>
                             </div>
-                            <button
-                                on:click={generateSubnets}
+                            <button on:click={generateSubnets}
                                 class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition-colors min-h-[44px] min-w-[44px]"
                             >
                                 {t.generate}
@@ -402,9 +395,8 @@
         <div class="space-y-4" in:fade>
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-bold text-slate-900 dark:text-white">Recent Calculations</h3>
-                <button
-                    on:click={() => clearHistory('subnet-scope')}
-                    class="text-sm text-red-500 hover:text-red-600 font-medium"
+                <button on:click={() => clearHistory('subnet-scope')}
+                    class="text-sm text-red-500 hover:text-red-600 font-medium min-h-[44px] min-w-[44px]"
                 >
                     {t.clear}
                 </button>
@@ -419,21 +411,18 @@
                                 <div class="text-xs text-slate-400">{new Date(item.timestamp).toLocaleString()}</div>
                             </div>
                             <div class="flex gap-2">
-                                <button
-                                    on:click={() => toggleStar(item.id!)}
+                                <button on:click={() => toggleStar(item.id!)}
                                     class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors {item.starred ? 'text-yellow-400' : 'text-slate-300 hover:text-yellow-400'}"
                                     aria-label="Toggle Star"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill={item.starred ? "currentColor" : "none"} stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                                 </button>
-                                <button
-                                    on:click={() => restore(item)}
+                                <button on:click={() => restore(item)}
                                     class="px-3 py-1.5 min-h-[44px] text-sm bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50"
                                 >
                                     {t.restore}
                                 </button>
-                                <button
-                                    on:click={() => deleteHistoryItem(item.id!)}
+                                <button on:click={() => deleteHistoryItem(item.id!)}
                                     aria-label="Delete"
                                     class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors"
                                 >

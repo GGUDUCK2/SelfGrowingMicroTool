@@ -88,8 +88,7 @@
     <!-- Category Filter -->
     <div class="flex flex-wrap gap-2 justify-center pb-8">
       {#each categories as category}
-        <button
-          on:click={() => selectedCategory = category}
+        <button on:click={() => selectedCategory = category}
           class="px-4 py-2 min-h-[44px] rounded-full text-sm font-medium transition-all capitalize
             {selectedCategory === category
               ? 'bg-indigo-600 text-white shadow-md'

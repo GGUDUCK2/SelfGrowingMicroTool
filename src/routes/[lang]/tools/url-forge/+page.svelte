@@ -151,8 +151,7 @@
          {dict.title}
      </h1>
      <div class="flex gap-2">
-         <button
-            on:click={() => showHistory = !showHistory}
+         <button on:click={() => showHistory = !showHistory}
             class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-lg font-medium transition-colors flex items-center gap-2 touch-manipulation min-h-[44px]"
             aria-label="Toggle History"
          >
@@ -200,8 +199,7 @@
 
   <!-- History Sidebar -->
   {#if showHistory}
-    <button
-      transition:fade={{ duration: 200 }}
+    <button transition:fade={{ duration: 200 }}
       class="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 w-full h-full cursor-default min-h-[44px]"
       on:click={() => showHistory = false}
       on:keydown={(e) => e.key === 'Escape' && (showHistory = false)}

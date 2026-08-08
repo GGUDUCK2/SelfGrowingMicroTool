@@ -96,8 +96,7 @@
                             bind:value={env.value}
                             class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[44px]"
                         />
-                        <button
-                            class="p-2 text-slate-500 hover:text-red-400 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                        <button class="p-2 text-slate-500 hover:text-red-400 min-h-[44px] min-w-[44px] flex items-center justify-center"
                             on:click={() => removeEnv(env.id)}
                             aria-label="Remove environment variable"
                         >

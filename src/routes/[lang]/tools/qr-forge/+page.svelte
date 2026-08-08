@@ -180,16 +180,14 @@
              <div class="p-4 border-b border-slate-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-slate-800/50">
                 <h2 class="font-semibold text-slate-200">Configuration</h2>
                 <div class="flex space-x-2 w-full sm:w-auto">
-                    <button
-                        on:click={saveToHistory}
+                    <button on:click={saveToHistory}
                         class="flex-1 sm:flex-none flex items-center justify-center space-x-1 px-4 py-2 bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600/30 rounded-lg text-sm transition-colors border border-indigo-500/30 min-h-[44px] min-w-[44px]"
                         title="Save to History (Ctrl+S)"
                     >
                         <Save size={16} />
                         <span>{saveStatus || (t.save || 'Save')}</span>
                     </button>
-                    <button
-                        on:click={() => showHistory = !showHistory}
+                    <button on:click={() => showHistory = !showHistory}
                         class="flex-1 sm:flex-none flex items-center justify-center space-x-1 px-4 py-2 bg-slate-700 text-slate-300 hover:bg-slate-600 rounded-lg text-sm transition-colors border border-slate-600 min-h-[44px]"
                     >
                         <History size={16} />

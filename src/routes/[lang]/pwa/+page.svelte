@@ -201,9 +201,8 @@
                     {dict.pwa.androidInstructions}
                 </h2>
                 {#if showInstallButton}
-                    <button
-                        on:click={handleInstall}
-                        class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:scale-105 active:scale-95 transition-all "
+                    <button on:click={handleInstall}
+                        class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:scale-105 active:scale-95 transition-all  min-h-[44px] min-w-[44px]"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

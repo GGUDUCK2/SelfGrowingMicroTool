@@ -142,17 +142,15 @@
       </div>
 
       <div class="flex items-center gap-2">
-          <button
-              on:click={() => config = { ...config, zen: !config.zen }}
-              class="p-2 transition-colors rounded-lg flex items-center gap-1 font-medium text-sm {config.zen ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'text-slate-500'}"
+          <button on:click={() => config = { ...config, zen: !config.zen }}
+              class="p-2 transition-colors rounded-lg flex items-center gap-1 font-medium text-sm {config.zen ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'text-slate-500'} min-h-[44px] min-w-[44px]"
               title={dict.zen}
           >
               <Zap size={16} />
               <span class="hidden md:inline">Zen</span>
           </button>
-          <button
-              on:click={() => showKeyboard = !showKeyboard}
-              class="p-2 transition-colors rounded-lg {showKeyboard ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'text-slate-500'}"
+          <button on:click={() => showKeyboard = !showKeyboard}
+              class="p-2 transition-colors rounded-lg {showKeyboard ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'text-slate-500'} min-h-[44px] min-w-[44px]"
               title={dict.keyboard}
           >
               <Keyboard size={20} />
@@ -184,8 +182,7 @@
           />
 
           <div class="mt-8 w-full max-w-7xl flex justify-center gap-4">
-              <button
-                  on:click={restart}
+              <button on:click={restart}
                   class="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-all transform hover:scale-105 shadow-lg shadow-indigo-500/30 outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 min-h-[44px] min-w-[44px]"
               >
                   <RotateCcw size={18} />

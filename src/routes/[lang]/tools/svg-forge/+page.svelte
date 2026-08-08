@@ -176,8 +176,7 @@
           </p>
         </div>
         <div class="flex gap-2">
-           <button
-             onclick={handleSave}
+           <button onclick={handleSave}
              disabled={!rawSvg || !!optimizationError}
              class="px-4 py-2 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-lg font-medium hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] min-w-[44px] flex items-center gap-2"
            >

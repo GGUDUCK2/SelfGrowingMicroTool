@@ -129,24 +129,21 @@
 
     <!-- Left Navigation Sidebar (Desktop) / Top Tabs (Mobile) -->
     <div class="w-full md:w-64 bg-slate-50 dark:bg-slate-800/50 border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-800 p-4 md:flex md:flex-col gap-2 shrink-0 flex overflow-x-auto overflow-y-hidden">
-      <button
-        class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'text' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
+      <button class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'text' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
         on:click={() => selectTab('text')}
         aria-label={dict.tabs.text}
       >
         <FileText size={18} />
         {dict.tabs.text}
       </button>
-      <button
-        class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'file' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
+      <button class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'file' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
         on:click={() => selectTab('file')}
         aria-label={dict.tabs.file}
       >
         <Shield size={18} />
         {dict.tabs.file}
       </button>
-      <button
-        class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'hmac' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
+      <button class="flex items-center gap-3 px-4 py-3 min-h-[44px] min-w-[44px] rounded-xl text-sm font-medium transition-all shrink-0 {activeTab === 'hmac' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'}"
         on:click={() => selectTab('hmac')}
         aria-label={dict.tabs.hmac}
       >
@@ -155,8 +152,7 @@
       </button>
 
       <div class="md:mt-auto">
-        <button
-          class="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl text-sm font-medium transition-all w-full shrink-0 {activeTab === 'history' ? 'bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'} min-w-[44px]"
+        <button class="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl text-sm font-medium transition-all w-full shrink-0 {activeTab === 'history' ? 'bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white' : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'} min-w-[44px]"
           on:click={() => selectTab('history')}
           aria-label={dict.tabs.history}
         >

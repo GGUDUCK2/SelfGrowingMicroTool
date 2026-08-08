@@ -251,8 +251,7 @@
            {/each}
          </select>
 
-         <button
-           class="p-2 text-slate-500 hover:text-indigo-600 relative hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
+         <button class="p-2 text-slate-500 hover:text-indigo-600 relative hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
            on:click={() => showHistory = !showHistory}
            title={dict.history}
          >
@@ -272,14 +271,12 @@
 
     <!-- Mobile Tabs -->
     <div class="sm:hidden flex border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 print:hidden">
-      <button
-        class="flex-1 py-2 min-h-[44px] min-w-[44px] text-sm font-medium {activeTab === 'editor' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
+      <button class="flex-1 py-2 min-h-[44px] min-w-[44px] text-sm font-medium {activeTab === 'editor' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
         on:click={() => activeTab = 'editor'}
       >
         {dict.input}
       </button>
-      <button
-        class="flex-1 py-2 min-h-[44px] min-w-[44px] text-sm font-medium {activeTab === 'preview' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
+      <button class="flex-1 py-2 min-h-[44px] min-w-[44px] text-sm font-medium {activeTab === 'preview' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
         on:click={() => activeTab = 'preview'}
       >
         {dict.preview}
@@ -413,8 +410,7 @@
                    <div class="text-sm text-slate-700 dark:text-slate-300 line-clamp-2 font-mono text-xs">
                      {item.content || '(Empty)'}
                    </div>
-                   <button
-                     class="absolute top-2 right-2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity min-h-[44px] min-w-[44px]"
+                   <button class="absolute top-2 right-2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity min-h-[44px] min-w-[44px]"
                      on:click|stopPropagation={() => deleteHistoryItem(item.id)}
                    >
                      <Trash2 size={14} />
@@ -426,8 +422,7 @@
                {/if}
              </div>
              {#if $history.length > 0}
-                <button
-                  class="w-full mt-4 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
+                <button class="w-full mt-4 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
                   on:click={clearHistory}
                 >
                   {dict.clear}

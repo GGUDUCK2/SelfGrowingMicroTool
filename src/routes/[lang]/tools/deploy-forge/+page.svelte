@@ -205,29 +205,25 @@
             <div class="bg-slate-800 rounded-2xl border border-slate-700 shadow-xl overflow-hidden sticky top-24">
                 <!-- Tabs -->
                 <div class="flex items-center border-b border-slate-700 bg-slate-900/50 overflow-x-auto">
-                    <button
-                        class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap
+                    <button class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap
                         {activeTab === 'dockerfile' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'} min-h-[44px] min-w-[44px]"
                         on:click={() => activeTab = 'dockerfile'}
                     >
                         <FileCode size={16} /> Dockerfile
                     </button>
-                    <button
-                        class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap
+                    <button class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap
                         {activeTab === 'compose' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'} min-h-[44px] min-w-[44px]"
                         on:click={() => activeTab = 'compose'}
                     >
                         <Layers size={16} /> docker-compose.yml
                     </button>
-                    <button
-                        class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap
+                    <button class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap
                         {activeTab === 'env' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'} min-h-[44px] min-w-[44px]"
                         on:click={() => activeTab = 'env'}
                     >
                         <FileText size={16} /> .env
                     </button>
-                    <button
-                        class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap
+                    <button class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap
                         {activeTab === 'ignore' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'} min-h-[44px] min-w-[44px]"
                         on:click={() => activeTab = 'ignore'}
                     >
