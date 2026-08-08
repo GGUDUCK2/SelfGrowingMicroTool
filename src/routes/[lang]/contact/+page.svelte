@@ -14,7 +14,7 @@
   {@html '<script type="application/ld+json">' + JSON.stringify({"@context":"https://schema.org","@type":"WebPage","@id":$page.url.origin + "/" + lang + "/contact","name":"Contact Us","description":"Get in touch with the MicroFactory team"}) + '</script>'}
 </svelte:head>
 
-<div class="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8 prose prose-slate dark:prose-invert">
+<div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 prose prose-slate dark:prose-invert">
   <h1>Contact Us</h1>
   <p>We genuinely love hearing from our community! Whether you have an innovative feature request, have discovered a frustrating bug, require assistance with a specific tool, or simply want to say hi, your feedback is incredibly invaluable to us and directly shapes the future of MicroFactory.</p>
 

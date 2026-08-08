@@ -14,7 +14,7 @@
   {@html '<script type="application/ld+json">' + JSON.stringify({"@context":"https://schema.org","@type":"WebPage","@id":$page.url.origin + "/" + lang + "/terms-of-service","name":"Terms of Service","description":"Terms of Service for MicroFactory"}) + '</script>'}
 </svelte:head>
 
-<div class="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8 prose prose-slate dark:prose-invert">
+<div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 prose prose-slate dark:prose-invert">
   <h1>Terms of Service</h1>
   <p>Last updated: {new Date().toLocaleDateString()}</p>
   <p>Please thoroughly read these Terms of Service ("Terms", "Terms of Service") carefully before accessing or using the MicroFactory website (the "Service") operated by MicroFactory ("us", "we", or "our").</p>
