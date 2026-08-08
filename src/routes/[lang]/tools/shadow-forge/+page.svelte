@@ -117,11 +117,6 @@
        <div class="w-full lg:w-96 bg-white dark:bg-slate-900 h-full flex flex-col shrink-0 overflow-hidden relative z-20 shadow-[-4px_0_24px_-12px_rgba(0,0,0,0.1)]">
            <LayerControl {dict} />
        </div>
-
-
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="shadow-forge" currentCategory="dev" />
-  </div>
 </main>
 
    <!-- Documentation Section (Below Fold, requires scroll on main window) -->
@@ -181,8 +176,8 @@
 
            <!-- FAQ -->
            <GuideSection {...(dict as any)?.guide} />
-  <AdPlaceholder />
-  <FAQSection
+           <AdPlaceholder />
+           <FAQSection
                title={dict.faqTitle}
                items={[
                    { q: (dict as any)?.q1, a: (dict as any)?.a1 },
@@ -190,6 +185,7 @@
                    { q: (dict as any)?.q3, a: (dict as any)?.a3 }
                ]}
            />
+           <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="shadow-forge" currentCategory="dev" />
        </div>
    </section>
 </div>
