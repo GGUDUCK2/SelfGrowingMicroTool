@@ -319,8 +319,7 @@
         </div>
 
         <div class="flex items-center gap-3">
-            <button
-                class="p-2 text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+            <button class="p-2 text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                 on:click={() => showHistory = !showHistory}
                 title="History"
                 aria-label="Toggle History"
@@ -336,8 +335,7 @@
                     {/if}
                 </div>
 
-                <button
-                    class="p-2 text-slate-500 hover:text-indigo-600 transition-colors relative min-h-[44px] min-w-[44px] flex items-center justify-center"
+                <button class="p-2 text-slate-500 hover:text-indigo-600 transition-colors relative min-h-[44px] min-w-[44px] flex items-center justify-center"
                     on:click={handleReport}
                     title={dict.report?.title || "Insight Report"}
                     aria-label="Generate Insight Report"
@@ -350,8 +348,7 @@
                     {/if}
                 </button>
 
-                <button
-                    class="p-2 text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                <button class="p-2 text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                     on:click={exportJson}
                     title={dict.export}
                     aria-label={dict.export}
@@ -359,8 +356,7 @@
                     <Download size={20} />
                 </button>
 
-                 <button
-                    class="p-2 text-slate-500 hover:text-red-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                 <button class="p-2 text-slate-500 hover:text-red-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                     on:click={clear}
                     title={dict.clear}
                     aria-label={dict.clear}
@@ -426,16 +422,14 @@
                 <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pr-2">
                     <LogFilter bind:searchTerm bind:selectedLevels {dict} />
                     <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1 mr-2 gap-1">
-                         <button
-                            class="p-2 rounded-md transition-colors {viewMode === 'list' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-indigo-600'} min-h-[44px] min-w-[44px] flex items-center justify-center"
+                         <button class="p-2 rounded-md transition-colors {viewMode === 'list' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-indigo-600'} min-h-[44px] min-w-[44px] flex items-center justify-center"
                             on:click={() => viewMode = 'list'}
                             title="List View"
                             aria-label="Switch to List View"
                          >
                             <List size={18} />
                          </button>
-                         <button
-                            class="p-2 rounded-md transition-colors {viewMode === 'cluster' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-indigo-600'} min-h-[44px] min-w-[44px] flex items-center justify-center"
+                         <button class="p-2 rounded-md transition-colors {viewMode === 'cluster' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-indigo-600'} min-h-[44px] min-w-[44px] flex items-center justify-center"
                             on:click={() => viewMode = 'cluster'}
                             title="Cluster View"
                             aria-label="Switch to Cluster View"
@@ -456,8 +450,7 @@
                     <div class="h-16 relative w-full border-t border-slate-200 dark:border-slate-800">
                         <LogTimeline entries={filteredEntries} {timeRange} onSelectTime={handleTimeSelect} />
                         {#if timeRange}
-                            <button
-                                class="absolute top-1 right-1 px-3 py-1.5 bg-slate-800 text-white text-xs rounded opacity-80 hover:opacity-100 shadow-md z-30 min-h-[44px] min-w-[44px]"
+                            <button class="absolute top-1 right-1 px-3 py-1.5 bg-slate-800 text-white text-xs rounded opacity-80 hover:opacity-100 shadow-md z-30 min-h-[44px] min-w-[44px]"
                                 on:click={clearTimeFilter}
                                 aria-label="Clear Time Zoom"
                             >

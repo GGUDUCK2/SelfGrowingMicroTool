@@ -279,9 +279,8 @@
 
              <div class="h-4 w-px bg-slate-300 dark:bg-slate-700"></div>
 
-            <button
-              on:click={() => showHistory = !showHistory}
-              class="text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 flex items-center gap-1"
+            <button on:click={() => showHistory = !showHistory}
+              class="text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 flex items-center gap-1 min-h-[44px] min-w-[44px]"
               aria-label="Toggle History Sidebar"
             >
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -338,8 +337,7 @@
 
   <!-- History Sidebar Overlay -->
   {#if showHistory}
-    <button
-      transition:fade={{ duration: 200 }}
+    <button transition:fade={{ duration: 200 }}
       class="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 w-full h-full cursor-default min-h-[44px]"
       on:click={() => showHistory = false}
       on:keydown={(e) => e.key === 'Escape' && (showHistory = false)}

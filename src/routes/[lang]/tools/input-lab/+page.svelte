@@ -136,8 +136,7 @@
       </div>
 
       <div class="flex items-center space-x-2">
-           <button
-             class="h-9 px-4 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors font-medium text-sm flex items-center gap-2 min-h-[44px] min-w-[44px]"
+           <button class="h-9 px-4 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors font-medium text-sm flex items-center gap-2 min-h-[44px] min-w-[44px]"
              on:click={saveSession}
            >
               <Save size={16} />
@@ -154,8 +153,7 @@
       <div class="lg:col-span-8 space-y-6">
          <!-- Tabs -->
          <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-1.5 flex flex-nowrap overflow-x-auto gap-1 hide-scrollbar" role="tablist">
-             <button
-                 role="tab"
+             <button role="tab"
                  aria-selected={activeTab === 'keyboard'}
                  class="flex-none whitespace-nowrap flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'keyboard' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'} min-h-[44px] min-w-[44px]"
                  on:click={() => activeTab = 'keyboard'}
@@ -163,8 +161,7 @@
                  <Keyboard size={16} />
                  <span>{dict.tabs.keyboard}</span>
              </button>
-             <button
-                 role="tab"
+             <button role="tab"
                  aria-selected={activeTab === 'gamepad'}
                  class="flex-none whitespace-nowrap flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'gamepad' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'} min-h-[44px] min-w-[44px]"
                  on:click={() => activeTab = 'gamepad'}
@@ -172,8 +169,7 @@
                  <Gamepad2 size={16} />
                  <span>{dict.tabs.gamepad}</span>
              </button>
-             <button
-                 role="tab"
+             <button role="tab"
                  aria-selected={activeTab === 'pointer'}
                  class="flex-none whitespace-nowrap flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'pointer' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'} min-h-[44px] min-w-[44px]"
                  on:click={() => activeTab = 'pointer'}
@@ -181,8 +177,7 @@
                  <MousePointer2 size={16} />
                  <span>{dict.tabs.pointer}</span>
              </button>
-             <button
-                 role="tab"
+             <button role="tab"
                  aria-selected={activeTab === 'screen'}
                  class="flex-none whitespace-nowrap flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'screen' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'} min-h-[44px] min-w-[44px]"
                  on:click={() => activeTab = 'screen'}
@@ -190,8 +185,7 @@
                  <Monitor size={16} />
                  <span>{dict.tabs.screen}</span>
              </button>
-             <button
-                 role="tab"
+             <button role="tab"
                  aria-selected={activeTab === 'history'}
                  class="flex-none whitespace-nowrap flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'history' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'} min-h-[44px] min-w-[44px]"
                  on:click={() => activeTab = 'history'}

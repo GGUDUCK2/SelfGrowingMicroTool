@@ -147,16 +147,14 @@
         </div>
 
         <div class="flex items-center gap-2">
-            <button
-                class="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors min-h-[44px] min-w-[44px]"
+            <button class="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors min-h-[44px] min-w-[44px]"
                 on:click={() => showInput = true}
             >
                 <Wand2 size={16} />
                 <span class="hidden sm:inline">{dict.smartPaste}</span>
             </button>
             <div class="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1"></div>
-            <button
-                class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors relative min-h-[44px] min-w-[44px] flex items-center justify-center"
+            <button class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors relative min-h-[44px] min-w-[44px] flex items-center justify-center"
                 on:click={() => showHistory = !showHistory}
                 title={dict.history}
             >

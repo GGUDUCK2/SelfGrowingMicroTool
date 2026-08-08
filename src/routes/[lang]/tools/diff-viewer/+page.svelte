@@ -417,16 +417,14 @@
             <button class="text-sm px-3 py-2 min-h-[44px] min-w-[44px] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors shrink-0 min-h-[44px] min-w-[44px]" aria-label="Load Text Example" on:click={() => loadExample('text')}>Text</button>
          </div>
 
-        <button
-          class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors relative"
+        <button class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors relative"
           on:click={() => isHistoryOpen = !isHistoryOpen}
           title={t.history + ' (Cmd+/)'}
           aria-label={t.history}
         >
           <History class="w-5 h-5" />
         </button>
-        <button
-          class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors"
+        <button class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors"
           on:click={copyShareLink}
           title={t.share}
           aria-label={t.share}
@@ -446,8 +444,7 @@
     <!-- Conflict Modal -->
     {#if showConflictModal}
         <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <button
-                class="absolute inset-0 bg-black/50 backdrop-blur-sm border-none w-full h-full cursor-default min-h-[44px]"
+            <button class="absolute inset-0 bg-black/50 backdrop-blur-sm border-none w-full h-full cursor-default min-h-[44px]"
                 aria-label="Close Modal"
                 on:click={() => showConflictModal = false}
                 on:keydown={(e) => e.key === 'Escape' && (showConflictModal = false)}
@@ -494,8 +491,7 @@
         <div class="fixed inset-y-0 right-0 z-50 w-80 shadow-2xl bg-white dark:bg-gray-800" transition:fly={{ x: 300, duration: 300 }}>
             <DiffHistory {translations} onSelect={loadHistoryItem} />
              <!-- Backdrop -->
-             <button
-                class="absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 min-h-[44px] min-w-[44px]"
+             <button class="absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 min-h-[44px] min-w-[44px]"
                 on:click={() => isHistoryOpen = false}
                 aria-label="Close"
              >
@@ -503,8 +499,7 @@
              </button>
         </div>
         <!-- Overlay -->
-        <button
-            class="fixed inset-0 bg-black/20 z-40 cursor-default w-full h-full border-none min-h-[44px]"
+        <button class="fixed inset-0 bg-black/20 z-40 cursor-default w-full h-full border-none min-h-[44px]"
             aria-label="Close History Overlay"
             on:click={() => isHistoryOpen = false}
             on:keydown={(e) => e.key === 'Escape' && (isHistoryOpen = false)}
@@ -529,14 +524,12 @@
 
             <!-- View Mode -->
             <div class="flex bg-gray-100 dark:bg-gray-900 rounded-lg p-1">
-                <button
-                    class="px-3 py-1.5 min-h-[44px] min-w-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'split' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
+                <button class="px-3 py-1.5 min-h-[44px] min-w-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'split' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
                     on:click={() => viewMode = 'split'}
                 >
                     <Columns class="w-4 h-4 inline mr-1" /> {t.split}
                 </button>
-                <button
-                    class="px-3 py-1.5 min-h-[44px] min-w-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'unified' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
+                <button class="px-3 py-1.5 min-h-[44px] min-w-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'unified' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
                     on:click={() => viewMode = 'unified'}
                 >
                     <AlignLeft class="w-4 h-4 inline mr-1" /> {t.unified}

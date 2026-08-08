@@ -379,32 +379,28 @@
                         <FormattedPassword {password} ariaLabel={t.generatedPassword} />
                     </div>
                     <div class="flex gap-2">
-                        <button
-                            on:click={generate}
+                        <button on:click={generate}
                             class="flex-1 md:flex-none p-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2"
                             title={t.regenerate}
                             aria-label={t.regenerate}
                         >
                             <RotateCw size={24} />
                         </button>
-                        <button
-                            on:click={downloadPassword}
+                        <button on:click={downloadPassword}
                             class="flex-1 md:flex-none p-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2"
                             title={t.download}
                             aria-label={t.download}
                         >
                             <Download size={24} />
                         </button>
-                        <button
-                            on:click={sharePassword}
+                        <button on:click={sharePassword}
                             class="flex-1 md:flex-none p-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2"
                             title={t.share}
                             aria-label={t.share}
                         >
                             <Share2 size={24} />
                         </button>
-                        <button
-                            on:click={copyToClipboard}
+                        <button on:click={copyToClipboard}
                             class="flex-1 md:flex-none p-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 relative overflow-hidden"
                             title={t.copy}
                             aria-label={t.copy}
@@ -422,8 +418,7 @@
 
                 <!-- Extra Actions (Phonetic Aid & Bulk Generate) -->
                 <div class="flex justify-between items-center mb-4 relative z-10">
-                    <button
-                        class="text-sm font-medium flex items-center gap-2 px-3 py-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/30"
+                    <button class="text-sm font-medium flex items-center gap-2 px-3 py-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/30"
                         on:click={() => showBulkModal = true}
                         title={t.bulkGenerate || 'Bulk Generate'}
                     >
@@ -431,8 +426,7 @@
                         <span class="hidden sm:inline">{t.bulkGenerate || 'Bulk Generate'}</span>
                     </button>
 
-                    <button
-                        class="text-sm font-medium flex items-center gap-2 px-3 py-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] {showPhonetics ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
+                    <button class="text-sm font-medium flex items-center gap-2 px-3 py-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] {showPhonetics ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"
                         on:click={() => showPhonetics = !showPhonetics}
                         aria-pressed={showPhonetics}
                     >
@@ -464,26 +458,22 @@
         <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-slate-700">
             <!-- Tabs -->
             <div class="flex p-1 mb-8 bg-slate-100 dark:bg-slate-900/50 rounded-xl overflow-x-auto">
-                <button
-                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] min-w-[44px] {mode === 'password' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                <button class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] min-w-[44px] {mode === 'password' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                     on:click={() => { mode = 'password'; generate(); }}
                 >
                     {t.modePassword}
                 </button>
-                <button
-                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] min-w-[44px] {mode === 'passphrase' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                <button class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] min-w-[44px] {mode === 'passphrase' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                     on:click={() => { mode = 'passphrase'; generate(); }}
                 >
                     {t.modePassphrase}
                 </button>
-                <button
-                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] min-w-[44px] {mode === 'pronounceable' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                <button class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] min-w-[44px] {mode === 'pronounceable' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                     on:click={() => { mode = 'pronounceable'; generate(); }}
                 >
                     {t.modePronounceable || 'Pronounceable'}
                 </button>
-                <button
-                    class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] min-w-[44px] {mode === 'analyzer' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                <button class="flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all whitespace-nowrap min-h-[44px] min-w-[44px] {mode === 'analyzer' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                     on:click={() => { mode = 'analyzer'; }}
                 >
                     {t.modeAnalyzer || 'Analyzer'}

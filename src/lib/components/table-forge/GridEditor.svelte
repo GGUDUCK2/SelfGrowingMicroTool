@@ -57,7 +57,7 @@
                     <td class="p-1 bg-slate-100 dark:bg-slate-900 border-r border-b border-slate-200 dark:border-slate-700 text-center sticky left-0 z-10 w-10">
                         <div class="flex flex-col items-center justify-center h-full min-h-[44px]">
                             <span class="text-xs text-slate-400 mb-1">{rowIndex + 1}</span>
-                            <button class="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 p-0.5 rounded transition-opacity min-h-[30px] min-w-[30px] flex items-center justify-center" on:click={() => removeRow(rowIndex)} title="Remove Row">
+                            <button class="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 p-0.5 rounded transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center" on:click={() => removeRow(rowIndex)} title="Remove Row">
                                 <Trash2 size={10} />
                             </button>
                         </div>

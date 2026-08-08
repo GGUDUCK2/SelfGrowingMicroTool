@@ -383,14 +383,12 @@
                 ></textarea>
             </div>
             <div class="p-4 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-2">
-                <button
-                    class="px-4 py-2 rounded-lg text-sm font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors min-h-[44px] min-w-[44px]"
+                <button class="px-4 py-2 rounded-lg text-sm font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors min-h-[44px] min-w-[44px]"
                     on:click={() => showImport = false}
                 >
                     {t.messages.cancel}
                 </button>
-                <button
-                    class="px-4 py-2 rounded-lg text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white transition-colors min-h-[44px] min-w-[44px]"
+                <button class="px-4 py-2 rounded-lg text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white transition-colors min-h-[44px] min-w-[44px]"
                     on:click={importSQL}
                 >
                     {t.messages.import}
@@ -407,8 +405,7 @@
              <!-- Left: Project Selector -->
              <div class="flex items-center gap-4">
                 <div class="relative">
-                    <button
-                        class="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-sm font-medium min-h-[44px] min-w-[44px]"
+                    <button class="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-sm font-medium min-h-[44px] min-w-[44px]"
                         on:click={() => showProjects = !showProjects}
                         aria-label={t?.toolbar?.select}
                     >
@@ -420,8 +417,7 @@
                         <div class="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50" transition:slide>
                             <div class="flex justify-between items-center mb-2 px-2">
                                  <span class="text-xs font-bold text-slate-500 uppercase">{t?.toolbar?.myProjects}</span>
-                                 <button
-                                  class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded min-h-[44px] min-w-[44px] flex items-center justify-center"
+                                 <button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded min-h-[44px] min-w-[44px] flex items-center justify-center"
                                   on:click={createProject}
                                   aria-label={t?.toolbar?.newProject}
                                  >
@@ -431,14 +427,12 @@
                             <div class="max-h-60 overflow-y-auto space-y-1">
                                 {#each projects as p}
                                     <div class="flex items-center group rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50">
-                                        <button
-                                            class="flex-1 text-left px-3 py-2 text-sm truncate min-h-[44px] min-w-[44px]"
+                                        <button class="flex-1 text-left px-3 py-2 text-sm truncate min-h-[44px] min-w-[44px]"
                                             on:click={() => loadProject(p.id || 0)}
                                         >
                                             {p.name}
                                         </button>
-                                        <button
-                                            class="p-2 opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center"
+                                        <button class="p-2 opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center"
                                             on:click={(e) => deleteProject(p.id || 0, e)}
                                             aria-label={t?.toolbar?.delete}
                                         >
@@ -466,8 +460,7 @@
                 <!-- Utilities -->
                 <div class="flex items-center gap-2 mr-2">
                      <div class="relative">
-                        <button
-                            class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold flex items-center gap-2 transition-colors min-h-[44px] min-w-[44px]"
+                        <button class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold flex items-center gap-2 transition-colors min-h-[44px] min-w-[44px]"
                             on:click={() => showHistory = !showHistory}
                             aria-label={t?.toolbar?.history}
                         >
@@ -476,8 +469,7 @@
                         </button>
                         {#if showHistory}
                              <div class="absolute top-full right-0 mt-2 w-72 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50" transition:slide>
-                                <button
-                                    class="w-full flex items-center gap-2 px-3 py-2 mb-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-lg text-sm font-medium hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors min-h-[44px] min-w-[44px]"
+                                <button class="w-full flex items-center gap-2 px-3 py-2 mb-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-lg text-sm font-medium hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors min-h-[44px] min-w-[44px]"
                                     on:click={takeSnapshot}
                                 >
                                     <Plus size={14} />
@@ -487,8 +479,7 @@
                                 <div class="space-y-1 max-h-60 overflow-y-auto">
                                     {#if activeProject.snapshots && activeProject.snapshots.length > 0}
                                         {#each activeProject.snapshots as snap}
-                                            <button
-                                                class="w-full text-left px-3 py-2 rounded hover:bg-slate-50 dark:hover:bg-slate-700/50 group min-h-[44px] min-w-[44px]"
+                                            <button class="w-full text-left px-3 py-2 rounded hover:bg-slate-50 dark:hover:bg-slate-700/50 group min-h-[44px] min-w-[44px]"
                                                 on:click={() => restoreSnapshot(snap)}
                                             >
                                                 <div class="flex justify-between items-center">
@@ -505,8 +496,7 @@
                         {/if}
                     </div>
 
-                    <button
-                        class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold flex items-center gap-2 transition-colors min-h-[44px] min-w-[44px]"
+                    <button class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold flex items-center gap-2 transition-colors min-h-[44px] min-w-[44px]"
                         on:click={shareProject}
                         aria-label={t?.toolbar?.share}
                     >
@@ -517,8 +507,7 @@
                     <div class="w-px h-6 bg-slate-300 dark:bg-slate-700 mx-1"></div>
 
                     <div class="relative">
-                        <button
-                            class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold flex items-center gap-2 transition-colors min-h-[44px] min-w-[44px]"
+                        <button class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold flex items-center gap-2 transition-colors min-h-[44px] min-w-[44px]"
                             on:click={() => showTemplates = !showTemplates}
                             aria-label={t?.toolbar?.templates}
                         >
@@ -530,8 +519,7 @@
                                 <div class="text-xs font-bold text-slate-500 uppercase px-2 mb-2">Start with...</div>
                                 <div class="space-y-1">
                                     {#each TEMPLATES as tmpl}
-                                        <button
-                                            class="w-full text-left px-3 py-2 rounded hover:bg-slate-50 dark:hover:bg-slate-700/50 min-h-[44px] min-w-[44px]"
+                                        <button class="w-full text-left px-3 py-2 rounded hover:bg-slate-50 dark:hover:bg-slate-700/50 min-h-[44px] min-w-[44px]"
                                             on:click={() => loadTemplate(tmpl.id)}
                                         >
                                             <div class="text-sm font-medium text-slate-900 dark:text-white">{tmpl.name}</div>
@@ -543,8 +531,7 @@
                         {/if}
                     </div>
 
-                    <button
-                        class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold flex items-center gap-2 transition-colors min-h-[44px] min-w-[44px]"
+                    <button class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold flex items-center gap-2 transition-colors min-h-[44px] min-w-[44px]"
                         on:click={() => showImport = true}
                         aria-label={t?.toolbar?.import}
                     >
@@ -555,24 +542,21 @@
 
                 <!-- Tabs -->
                 <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1 mr-4">
-                    <button
-                        class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'design' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
+                    <button class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'design' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
                         on:click={() => activeTab = 'design'}
                         aria-label={t?.tabs?.design}
                     >
                         <Layout size={14} />
                         {t?.tabs?.design}
                     </button>
-                    <button
-                        class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'diagram' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
+                    <button class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'diagram' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
                         on:click={() => activeTab = 'diagram'}
                         aria-label={t?.tabs?.diagram}
                     >
                         <Database size={14} />
                         {t?.tabs?.diagram}
                     </button>
-                    <button
-                        class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'data' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
+                    <button class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'data' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
                         on:click={() => activeTab = 'data'}
                         aria-label={t?.tabs?.data}
                     >
@@ -580,24 +564,21 @@
                         {t?.tabs?.data}
                     </button>
                     <div class="w-px bg-slate-300 dark:bg-slate-700 mx-1 my-1"></div>
-                    <button
-                        class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'sql' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
+                    <button class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'sql' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
                         on:click={() => activeTab = 'sql'}
                         aria-label={t?.tabs?.sql}
                     >
                         <Code size={14} />
                         {t?.tabs?.sql}
                     </button>
-                    <button
-                        class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'prisma' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
+                    <button class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'prisma' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
                         on:click={() => activeTab = 'prisma'}
                         aria-label={t?.tabs?.prisma}
                     >
                         <FileCode size={14} />
                         {t?.tabs?.prisma}
                     </button>
-                    <button
-                        class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'typescript' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
+                    <button class="px-3 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition-all {activeTab === 'typescript' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
                         on:click={() => activeTab = 'typescript'}
                         aria-label={t?.tabs?.typescript}
                     >
@@ -606,8 +587,7 @@
                     </button>
                 </div>
 
-                <button
-                    class="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50 min-h-[44px] min-w-[44px]"
+                <button class="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50 min-h-[44px] min-w-[44px]"
                     on:click={save}
                     disabled={isSaving}
                     aria-label={t?.toolbar?.save}

@@ -213,29 +213,25 @@
 
               <!-- Tabs -->
               <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-1.5 flex overflow-x-auto overflow-y-hidden gap-1">
-                  <button
-                      on:click={() => activeTab = 'command'}
+                  <button on:click={() => activeTab = 'command'}
                       class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'command' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
                   >
                       <Terminal size={16} />
                       <span class="hidden sm:inline">{(dict as any)?.tabs?.command || 'Command Builder'}</span>
                   </button>
-                  <button
-                      on:click={() => activeTab = 'ignore'}
+                  <button on:click={() => activeTab = 'ignore'}
                       class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'ignore' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
                   >
                       <FileCode size={16} />
                       <span class="hidden sm:inline">{(dict as any)?.tabs?.ignore || '.gitignore'}</span>
                   </button>
-                  <button
-                      on:click={() => activeTab = 'commit'}
+                  <button on:click={() => activeTab = 'commit'}
                       class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'commit' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
                   >
                       <MessageSquare size={16} />
                       <span class="hidden sm:inline">{(dict as any)?.tabs?.commit || 'Commit Builder'}</span>
                   </button>
-                  <button
-                      on:click={() => activeTab = 'doctor'}
+                  <button on:click={() => activeTab = 'doctor'}
                       class="flex-1 flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'doctor' ? 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}"
                   >
                       <Stethoscope size={16} />

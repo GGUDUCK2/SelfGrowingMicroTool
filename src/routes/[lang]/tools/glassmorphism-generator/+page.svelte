@@ -213,8 +213,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
       {dict.description}
     </p>
     <div class="flex justify-center">
-        <button
-          on:click={copyLink}
+        <button on:click={copyLink}
           class="inline-flex items-center justify-center w-full sm:w-auto gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors touch-manipulation min-h-[44px] min-w-[44px]"
         >
           <svg
@@ -275,8 +274,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
             </svg>
             {dict.config}
         </h2>
-        <button
-            on:click={saveToHistory}
+        <button on:click={saveToHistory}
             class="text-sm bg-indigo-50 px-3 py-1.5 rounded-lg text-indigo-600 hover:text-indigo-800 font-medium touch-manipulation transition-colors min-h-[44px] min-w-[44px]"
         >
             {dict.save}
@@ -407,8 +405,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
         <pre
           class="text-green-400 font-mono text-sm overflow-x-auto whitespace-pre-wrap">{cssCode}</pre>
 
-        <button
-          on:click={copyToClipboard}
+        <button on:click={copyToClipboard}
           class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white px-4 py-2 sm:px-3 sm:py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 backdrop-blur-sm touch-manipulation min-h-[44px] min-w-[44px]"
         >
           {#if copied}
@@ -427,8 +424,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-history text-indigo-600"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12"/><path d="M3 3v9h9"/><path d="M12 7v5l4 2"/></svg>
                     {dict.history}
                 </h3>
-                <button
-                    on:click={clearHistory}
+                <button on:click={clearHistory}
                     class="text-sm text-red-500 hover:text-red-700 font-medium touch-manipulation min-h-[44px] min-w-[44px]"
                 >
                     {dict.clearHistory}
@@ -454,8 +450,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                                 </div>
                             </div>
                         </button>
-                         <button
-                            on:click|stopPropagation={() => item.id && deleteHistory(item.id)}
+                         <button on:click|stopPropagation={() => item.id && deleteHistory(item.id)}
                             class="absolute top-2 right-2 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg opacity-0 group-hover:opacity-100 transition-all touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
                             aria-label={dict.delete}
                         >

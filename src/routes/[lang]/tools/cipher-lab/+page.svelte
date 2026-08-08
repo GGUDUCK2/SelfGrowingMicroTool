@@ -195,8 +195,7 @@
 
         <!-- Navigation Tabs -->
         <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-1.5 flex overflow-x-auto gap-1" role="tablist">
-           <button
-             role="tab"
+           <button role="tab"
              aria-selected={activeTab === 'hash'}
              class="flex-1 min-w-[100px] min-h-[44px] min-w-[44px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'hash' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'hash'}
@@ -204,8 +203,7 @@
              <Hash size={16} />
              <span>{dict.tabs.hash}</span>
            </button>
-           <button
-             role="tab"
+           <button role="tab"
              aria-selected={activeTab === 'encoders'}
              class="flex-1 min-w-[100px] min-h-[44px] min-w-[44px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'encoders' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'encoders'}
@@ -213,8 +211,7 @@
              <Code size={16} />
              <span>{dict.tabs.encoders}</span>
            </button>
-           <button
-             role="tab"
+           <button role="tab"
              aria-selected={activeTab === 'jwt'}
              class="flex-1 min-w-[100px] min-h-[44px] min-w-[44px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'jwt' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'jwt'}
@@ -222,8 +219,7 @@
              <Key size={16} />
              <span>{dict.tabs.jwt}</span>
            </button>
-           <button
-             role="tab"
+           <button role="tab"
              aria-selected={activeTab === 'password'}
              class="flex-1 min-w-[100px] min-h-[44px] min-w-[44px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'password' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'password'}
@@ -231,8 +227,7 @@
              <Lock size={16} />
              <span>{dict.tabs.password}</span>
            </button>
-           <button
-             role="tab"
+           <button role="tab"
              aria-selected={activeTab === 'keygen'}
              class="flex-1 min-w-[100px] min-h-[44px] min-w-[44px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'keygen' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'keygen'}
@@ -240,8 +235,7 @@
              <KeyRound size={16} />
              <span>{dict.tabs.keygen}</span>
            </button>
-           <button
-             role="tab"
+           <button role="tab"
              aria-selected={activeTab === 'vault'}
              class="flex-1 min-w-[100px] min-h-[44px] min-w-[44px] flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all {activeTab === 'vault' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800'}"
              on:click={() => activeTab = 'vault'}

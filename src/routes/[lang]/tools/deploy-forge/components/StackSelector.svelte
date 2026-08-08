@@ -21,8 +21,7 @@
 
 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
   {#each STACKS as stack (stack.id)}
-    <button
-      type="button"
+    <button type="button"
       class="flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all gap-3 h-32 min-h-[44px]
       {selectedStackId === stack.id ? 'border-indigo-500 bg-indigo-500/10 text-indigo-400 shadow-lg shadow-indigo-500/20' : 'border-slate-700 bg-slate-800/50 hover:bg-slate-800 hover:border-slate-600 text-slate-400'}"
       on:click={() => dispatch('select', stack.id)}

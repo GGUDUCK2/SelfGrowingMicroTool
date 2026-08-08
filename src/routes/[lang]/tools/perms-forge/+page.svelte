@@ -114,8 +114,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-2">
-                <button
-                    on:click={handleSave}
+                <button on:click={handleSave}
                     class="flex items-center gap-2 px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-medium text-sm hover:opacity-90 transition-opacity min-h-[44px] min-w-[44px]"
                 >
                     <Save size={16} />

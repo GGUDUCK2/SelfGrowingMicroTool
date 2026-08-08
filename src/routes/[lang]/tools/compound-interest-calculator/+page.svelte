@@ -415,8 +415,7 @@
             >
             {dict.config}
         </h2>
-        <button
-            on:click={saveToHistory}
+        <button on:click={saveToHistory}
             class="text-sm text-indigo-600 hover:text-indigo-800 font-medium min-h-[44px] min-w-[44px]"
             title={lang === "ko" ? "현재 설정을 기록에 저장" : "Save current configuration to history"}
         >
@@ -604,8 +603,7 @@
             </p>{/if}
         </div>
 
-        <button
-          on:click={downloadCSV}
+        <button on:click={downloadCSV}
           class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors font-medium text-base touch-manipulation min-h-[44px] min-w-[44px]"
         >
           <svg

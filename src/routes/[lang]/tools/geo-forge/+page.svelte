@@ -419,8 +419,7 @@
   <div class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-4 flex flex-col md:flex-row gap-4 items-center justify-between shrink-0 z-20 shadow-sm">
      <div class="flex items-center gap-3 w-full md:w-auto">
          <!-- Mobile Menu Toggle -->
-         <button
-            class="lg:hidden p-2 -ml-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
+         <button class="lg:hidden p-2 -ml-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
             on:click={() => showMobileMenu = true}
             aria-label="Open Menu"
          >
@@ -439,16 +438,14 @@
      </div>
 
      <div class="flex items-center gap-3 w-full md:w-auto overflow-x-auto no-scrollbar">
-         <button
-            class="flex items-center gap-2 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors text-sm font-medium min-h-[44px] min-w-[44px]"
+         <button class="flex items-center gap-2 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors text-sm font-medium min-h-[44px] min-w-[44px]"
             on:click={() => showHistory = !showHistory}
             aria-label="Toggle history"
          >
             <Clock class="w-4 h-4" />
             <span class="hidden sm:inline">Recent</span>
          </button>
-         <button
-            class="flex items-center gap-2 px-3 py-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 rounded-lg transition-colors text-sm font-medium min-h-[44px] min-w-[44px]"
+         <button class="flex items-center gap-2 px-3 py-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 rounded-lg transition-colors text-sm font-medium min-h-[44px] min-w-[44px]"
             on:click={handleSaveManual}
             aria-label="Save project"
          >
@@ -463,15 +460,13 @@
          <div class="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-2"></div>
 
          <div class="flex bg-slate-100 dark:bg-slate-700/50 p-1 rounded-lg">
-             <button
-                class="px-3 py-1.5 rounded-md text-sm font-medium transition-all {activeTab === 'map' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900'} min-h-[44px] min-w-[44px]"
+             <button class="px-3 py-1.5 rounded-md text-sm font-medium transition-all {activeTab === 'map' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'map'}
                 aria-label="Switch to map view"
              >
                 Map View
              </button>
-             <button
-                class="px-3 py-1.5 rounded-md text-sm font-medium transition-all {activeTab === 'data' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900'} min-h-[44px] min-w-[44px]"
+             <button class="px-3 py-1.5 rounded-md text-sm font-medium transition-all {activeTab === 'data' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'data'}
                 aria-label="Switch to data editor"
              >
@@ -480,8 +475,7 @@
          </div>
 
          <!-- Help Button -->
-         <button
-            class="ml-2 p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors min-h-[44px] min-w-[44px]"
+         <button class="ml-2 p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors min-h-[44px] min-w-[44px]"
             on:click={() => showHelp = true}
             aria-label="Help & FAQ"
          >
@@ -519,8 +513,7 @@
       <!-- Mobile Sidebar Drawer -->
       {#if showMobileMenu}
         <div class="fixed inset-0 z-50 flex lg:hidden" role="dialog" aria-modal="true">
-            <button
-              class="absolute inset-0 bg-black/50 backdrop-blur-sm cursor-default min-h-[44px] min-w-[44px] flex items-center justify-center"
+            <button class="absolute inset-0 bg-black/50 backdrop-blur-sm cursor-default min-h-[44px] min-w-[44px] flex items-center justify-center"
               on:click={() => showMobileMenu = false}
               on:keydown={(e) => e.key === 'Escape' && (showMobileMenu = false)}
               transition:fade

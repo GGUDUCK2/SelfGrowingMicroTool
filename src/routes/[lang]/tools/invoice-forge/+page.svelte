@@ -161,22 +161,19 @@
     <div class="w-full lg:w-[450px] shrink-0 flex flex-col h-full bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden print:hidden">
         <!-- Tabs -->
         <div class="flex border-b border-gray-200 dark:border-gray-700">
-            <button
-                class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'editor' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px] min-w-[44px]"
+            <button class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'editor' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'editor'}
             >
                 <Edit3 size={16} />
                 Editor
             </button>
-            <button
-                class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'clients' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px] min-w-[44px]"
+            <button class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'clients' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'clients'}
             >
                 <Users size={16} />
                 Clients
             </button>
-            <button
-                class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'history' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px] min-w-[44px]"
+            <button class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'history' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'history'}
             >
                 <FileText size={16} />

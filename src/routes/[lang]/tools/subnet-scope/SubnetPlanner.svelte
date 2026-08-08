@@ -89,8 +89,7 @@
                 placeholder="CIDR (e.g. 10.0.1.0/24)"
                 class="flex-1 w-full px-4 py-2 min-h-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg font-mono"
             />
-            <button
-                on:click={addItem}
+            <button on:click={addItem}
                 class="px-6 py-2 min-h-[44px] min-w-[44px] bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition-colors"
             >
                 Add
@@ -113,8 +112,7 @@
                      <div class="text-right text-xs text-slate-400 mr-4">
                         {item.info.totalHosts} hosts
                     </div>
-                    <button
-                        on:click={() => removeItem(item.id)}
+                    <button on:click={() => removeItem(item.id)}
                         class="text-slate-400 min-h-[44px] min-w-[44px] flex items-center justify-center hover:text-red-500 transition-colors"
                         aria-label="Remove"
                     >

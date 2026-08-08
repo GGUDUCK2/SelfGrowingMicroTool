@@ -105,8 +105,7 @@
   <header class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-4">
-        <button
-          on:click={toggleSidebar}
+        <button on:click={toggleSidebar}
           class="lg:hidden p-2 text-gray-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
           aria-label={showSidebar ? 'Close Sidebar' : 'Open Sidebar'}
         >
@@ -144,15 +143,13 @@
             </button>
             <!-- Dropdown -->
             <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right z-50">
-                <button
-                    on:click={() => exportToCsv($matrixStore)}
+                <button on:click={() => exportToCsv($matrixStore)}
                     class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 min-h-[44px]"
                 >
                     <FileSpreadsheet size={16} class="text-green-600" />
                     <span>{t.downloadCsv}</span>
                 </button>
-                <button
-                    on:click={() => exportToJson($matrixStore)}
+                <button on:click={() => exportToJson($matrixStore)}
                     class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 min-h-[44px]"
                 >
                     <FileJson size={16} class="text-yellow-600" />
@@ -161,8 +158,7 @@
             </div>
         </div>
 
-        <button
-            on:click={() => matrixStore.reset()}
+        <button on:click={() => matrixStore.reset()}
             class="p-2 text-gray-400 hover:text-red-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
             title={t.reset}
         >
@@ -189,8 +185,7 @@
 
       <!-- Overlay for mobile sidebar -->
       {#if showSidebar}
-        <button
-            class="fixed inset-0 bg-black/50 z-30 lg:hidden w-full h-full border-0 cursor-default min-h-[44px] min-w-[44px]"
+        <button class="fixed inset-0 bg-black/50 z-30 lg:hidden w-full h-full border-0 cursor-default min-h-[44px] min-w-[44px]"
             transition:fade
             on:click={toggleSidebar}
             on:keydown={(e) => e.key === 'Escape' && toggleSidebar()}

@@ -316,8 +316,7 @@
         transition:fade
         class="fixed inset-0 z-50 flex items-center justify-center"
     >
-        <button
-            class="absolute inset-0 w-full h-full bg-black/50 backdrop-blur-sm border-none cursor-default min-h-[44px] min-w-[44px]"
+        <button class="absolute inset-0 w-full h-full bg-black/50 backdrop-blur-sm border-none cursor-default min-h-[44px] min-w-[44px]"
             on:click={closeShortcuts}
             on:keydown={(e) => e.key === 'Escape' && closeShortcuts()}
             aria-label="Close shortcuts"
