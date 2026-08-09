@@ -358,7 +358,7 @@
           <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
             {t.title}
           </h1>
-          <p class="mt-1 text-slate-600 dark:text-slate-400 max-w-2xl">{t.description}</p>
+          <p class="mt-1 text-slate-600 dark:text-slate-400 max-w-7xl mx-auto">{t.description}</p>
         </div>
       </div>
     </div>

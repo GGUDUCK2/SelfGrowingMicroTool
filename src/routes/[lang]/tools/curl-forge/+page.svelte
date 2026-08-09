@@ -147,7 +147,7 @@
     <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
       {title}
     </h1>
-    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl">
+    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-7xl mx-auto">
       {description}
     </p>
   </div>

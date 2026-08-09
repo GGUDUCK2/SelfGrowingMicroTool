@@ -302,7 +302,7 @@
         <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
             {t.title}
         </h1>
-        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-7xl mx-auto">
             {t.description}
         </p>
     </div>

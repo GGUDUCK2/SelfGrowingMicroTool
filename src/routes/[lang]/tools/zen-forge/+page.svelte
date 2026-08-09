@@ -134,7 +134,7 @@
             <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 mb-2 drop-shadow-lg">
                 {dict.title}
             </h1>
-            <p class="text-slate-300 max-w-2xl mx-auto">{dict.description}</p>
+            <p class="text-slate-300 max-w-7xl mx-auto">{dict.description}</p>
         </div>
 
         <!-- Main Workspace -->

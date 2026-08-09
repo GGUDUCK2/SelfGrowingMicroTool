@@ -93,7 +93,7 @@
 
   <div class="mb-10 text-center">
     <h1 class="text-4xl font-extrabold text-white mb-4 tracking-tight">{t.title}</h1>
-    <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+    <p class="text-lg text-slate-400 max-w-7xl mx-auto">
       {t.description}
     </p>
   </div>

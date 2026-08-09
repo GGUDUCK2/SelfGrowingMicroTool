@@ -145,7 +145,7 @@
         </div>
         {t.title}
       </h1>
-      <p class="mt-2 text-slate-600 dark:text-slate-400 max-w-2xl">
+      <p class="mt-2 text-slate-600 dark:text-slate-400 max-w-7xl mx-auto">
         {t.description}
       </p>
     </div>

@@ -211,7 +211,7 @@
       <!-- Guide Section -->
       <section class="mb-16">
           <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">{invoiceDict.guide.title}</h2>
-          <p class="text-lg text-gray-600 dark:text-gray-300 mb-10 text-center leading-relaxed max-w-2xl mx-auto">
+          <p class="text-lg text-gray-600 dark:text-gray-300 mb-10 text-center leading-relaxed max-w-7xl mx-auto">
               {invoiceDict.guide.intro}
           </p>
 

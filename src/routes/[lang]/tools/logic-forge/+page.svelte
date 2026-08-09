@@ -248,7 +248,7 @@
     <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 tracking-tight">
       {dict.title.split(':')[0]}
     </h1>
-    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+    <p class="text-lg text-gray-600 max-w-7xl mx-auto">
       {dict.description}
     </p>
   </div>

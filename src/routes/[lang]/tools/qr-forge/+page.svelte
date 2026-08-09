@@ -165,7 +165,7 @@
       <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 mb-4 tracking-tight">
         {t.title}
       </h1>
-      <p class="text-xl text-slate-400 max-w-2xl leading-relaxed">
+      <p class="text-xl text-slate-400 max-w-7xl mx-auto leading-relaxed">
         {t.description}
       </p>
     </div>

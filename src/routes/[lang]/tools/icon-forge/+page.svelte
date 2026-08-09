@@ -180,7 +180,7 @@
       </svg>
     </div>
     <h1 class="text-3xl font-bold text-slate-50 sm:text-4xl mb-4">{t.title}</h1>
-    <p class="text-lg text-slate-400 max-w-2xl mx-auto">{t.description}</p>
+    <p class="text-lg text-slate-400 max-w-7xl mx-auto">{t.description}</p>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">

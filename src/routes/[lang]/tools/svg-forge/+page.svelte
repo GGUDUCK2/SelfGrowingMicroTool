@@ -171,7 +171,7 @@
             </div>
             {t?.title}
           </h1>
-          <p class="text-slate-500 dark:text-slate-400 mt-2 max-w-2xl text-sm lg:text-base">
+          <p class="text-slate-500 dark:text-slate-400 mt-2 max-w-7xl mx-auto text-sm lg:text-base">
             {t?.description}
           </p>
         </div>

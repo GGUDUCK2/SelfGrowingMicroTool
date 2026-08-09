@@ -209,7 +209,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     <h1 class="text-4xl font-bold text-gray-900">
       {dict.title}
     </h1>
-    <p class="text-gray-500 max-w-2xl mx-auto">
+    <p class="text-gray-500 max-w-7xl mx-auto">
       {dict.description}
     </p>
     <div class="flex justify-center">

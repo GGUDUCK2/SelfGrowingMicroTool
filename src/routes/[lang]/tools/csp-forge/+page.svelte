@@ -157,7 +157,7 @@
     <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
       {(dict as any)?.title}
     </h1>
-    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-7xl mx-auto">
       {(dict as any)?.description}
     </p>
   </div>
