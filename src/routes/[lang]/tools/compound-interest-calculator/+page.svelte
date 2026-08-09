@@ -367,7 +367,7 @@
     <h1 class="text-4xl font-bold text-gray-900">
       {lang === "ko" ? "복리 계산기" : "Compound Interest Calculator"}
     </h1>
-    <p class="text-gray-500 max-w-2xl mx-auto">
+    <p class="text-gray-500 max-w-7xl mx-auto">
       {lang === "ko"
         ? "시간이 지남에 따라 자산이 어떻게 성장하는지 확인하세요. 인플레이션과 세금까지 고려한 복리의 마법을 경험해보세요."
         : "Visualize how your investment grows over time with the power of compound interest, adjusted for inflation and taxes."}

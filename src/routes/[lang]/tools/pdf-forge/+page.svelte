@@ -100,7 +100,7 @@
     <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight">
       PDF <span class="text-indigo-600 dark:text-indigo-400">Forge</span>
     </h1>
-    <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+    <p class="text-xl text-slate-600 dark:text-slate-400 max-w-7xl mx-auto leading-relaxed">
       {description}
     </p>
   </header>

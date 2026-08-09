@@ -356,7 +356,7 @@
   <div class="bg-indigo-600 text-white py-12 px-4 shadow-lg">
     <div class="max-w-7xl mx-auto">
       <h1 class="text-3xl md:text-4xl font-bold mb-4">{dict.title}</h1>
-      <p class="text-indigo-100 text-lg max-w-2xl">{dict.description}</p>
+      <p class="text-indigo-100 text-lg max-w-7xl mx-auto">{dict.description}</p>
     </div>
   </div>
 

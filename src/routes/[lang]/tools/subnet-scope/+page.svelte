@@ -185,7 +185,7 @@
         {t.title}
       </span>
     </h1>
-    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-7xl mx-auto">
       {t.description}
     </p>
   </div>

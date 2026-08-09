@@ -87,7 +87,7 @@
     <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
       Pixel <span class="text-indigo-500">Forge</span>
     </h1>
-    <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+    <p class="text-lg text-slate-400 max-w-7xl mx-auto">
       {description}
     </p>
   </header>
