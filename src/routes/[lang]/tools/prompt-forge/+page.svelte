@@ -206,7 +206,7 @@
 
 
   <!-- JSON-LD -->
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
   </svelte:head>
 
 <div class="flex h-[100dvh] overflow-hidden bg-slate-50 dark:bg-slate-900">

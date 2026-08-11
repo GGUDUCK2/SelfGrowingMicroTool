@@ -165,7 +165,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/subnet-scope"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/subnet-scope"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/subnet-scope"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
 
 </svelte:head>

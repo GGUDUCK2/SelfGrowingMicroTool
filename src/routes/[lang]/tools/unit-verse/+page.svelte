@@ -105,8 +105,8 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/unit-verse"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/unit-verse"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/unit-verse"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj2)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj2).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="min-h-screen bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-slate-100 pb-20">

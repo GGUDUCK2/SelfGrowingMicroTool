@@ -91,7 +91,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/lorem-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/lorem-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/lorem-forge"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">

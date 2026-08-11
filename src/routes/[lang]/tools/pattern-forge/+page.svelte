@@ -32,7 +32,7 @@
 </script>
 
 <svelte:head>
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
   <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/pattern-forge"} />
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/pattern-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/pattern-forge"} />

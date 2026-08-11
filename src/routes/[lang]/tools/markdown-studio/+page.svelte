@@ -221,8 +221,8 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/markdown-studio"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/markdown-studio"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/markdown-studio"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900 font-sans">

@@ -154,8 +154,8 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/qr-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/qr-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/qr-forge"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-900 text-slate-50 pb-20">

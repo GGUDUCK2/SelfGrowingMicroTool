@@ -76,8 +76,8 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/shadow-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/shadow-forge"} />
   {#if dict}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
 
   {/if}

@@ -71,7 +71,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/pomodoro-timer"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/pomodoro-timer"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/pomodoro-timer"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaList)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaList).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <PomodoroTimer {dict} />
