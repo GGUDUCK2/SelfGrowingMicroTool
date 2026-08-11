@@ -100,6 +100,66 @@
     </div>
   </section>
 
+  {#if searchQuery === "" && selectedCategory === "all"}
+
+    <section class="space-y-6">
+
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles text-amber-500"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+
+        {lang === "ko" ? "추천 도구" : "Featured Tools"}
+
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        {#each tools.slice(0, 3) as tool, i (tool.id)}
+
+          <a
+
+            href="/{lang}/tools/{tool.slug}"
+
+            in:fly={{ y: 20, duration: 800, delay: i * 100 }}
+
+            class="group relative bg-indigo-50 dark:bg-indigo-900/10 rounded-2xl p-8 shadow-sm hover:shadow-xl dark:hover:shadow-indigo-500/20 hover:-translate-y-1 transition-all duration-300 border border-indigo-100 dark:border-indigo-500/20 overflow-hidden"
+
+          >
+
+            <div class="absolute inset-0 bg-gradient-to-br from-indigo-100/50 to-purple-100/50 dark:from-indigo-800/20 dark:to-purple-800/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+            <div class="relative z-10">
+
+              <div class="mb-6 inline-flex p-3 rounded-xl bg-indigo-600 text-white shadow-md">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+
+              </div>
+
+              <h3 class="text-2xl font-bold text-indigo-900 dark:text-indigo-300 mb-3 ml-1 group-hover:text-indigo-700 dark:group-hover:text-indigo-200 transition-colors">
+
+                {tool.title[lang]}
+
+              </h3>
+
+              <p class="text-indigo-700/80 dark:text-indigo-300/80 leading-relaxed group-hover:text-indigo-900 dark:group-hover:text-indigo-100 transition-colors line-clamp-2">
+
+                {tool.description[lang]}
+
+              </p>
+
+            </div>
+
+          </a>
+
+        {/each}
+
+      </div>
+
+    </section>
+
+  {/if}
+
   {#if filteredTools.length === 0}
     <div class="text-center py-12">
       <p class="text-gray-500 dark:text-slate-400 text-lg">{lang === 'ko' ? "검색 결과가 없습니다." : "No tools found matching your criteria."}</p>
