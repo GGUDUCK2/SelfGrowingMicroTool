@@ -82,8 +82,8 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/pdf-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/pdf-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/pdf-forge"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   {@html `<script type="application/ld+json">
 

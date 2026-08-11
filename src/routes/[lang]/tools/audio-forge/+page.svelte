@@ -83,7 +83,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/audio-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/audio-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/audio-forge"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="flex flex-col min-h-screen">

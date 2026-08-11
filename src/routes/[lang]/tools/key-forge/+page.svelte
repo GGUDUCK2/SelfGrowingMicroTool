@@ -120,7 +120,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/key-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/key-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/key-forge"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
   </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20 transition-colors duration-300">

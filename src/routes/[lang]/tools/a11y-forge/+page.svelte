@@ -41,7 +41,7 @@ import Contrast from '@lucide/svelte/icons/contrast';
 </script>
 
 <svelte:head>
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
   <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/a11y-forge"} />
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/a11y-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/a11y-forge"} />

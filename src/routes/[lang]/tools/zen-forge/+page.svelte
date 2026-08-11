@@ -120,7 +120,7 @@
     <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/zen-forge"} />
     <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/zen-forge"} />
     <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/zen-forge"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
 </svelte:head>
 

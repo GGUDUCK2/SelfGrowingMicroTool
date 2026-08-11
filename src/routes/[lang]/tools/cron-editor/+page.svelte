@@ -205,8 +205,8 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/cron-editor"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/cron-editor"} />
   <!-- JSON-LD -->
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd2)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd2).replace(/</g, '\\u003c')}</scr` + `ipt>`}
   </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

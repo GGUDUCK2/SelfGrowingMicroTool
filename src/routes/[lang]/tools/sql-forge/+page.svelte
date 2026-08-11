@@ -119,7 +119,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/sql-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/sql-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/sql-forge"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemas)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemas).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="h-[calc(100vh-4rem)] flex flex-col bg-gray-50 dark:bg-gray-900">

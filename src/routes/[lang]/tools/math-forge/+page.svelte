@@ -99,7 +99,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/math-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/math-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/math-forge"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   {@html `<script type="application/ld+json">
     {
@@ -117,7 +117,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "featureList": ${JSON.stringify(featureList)}
+      "featureList": ${JSON.stringify(featureList).replace(/</g, '\\u003c')}
     }
   </scr` + `ipt>`}
 </svelte:head>

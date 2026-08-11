@@ -324,11 +324,11 @@
 
 
   {@html `<script type="application/ld+json">
-    ${JSON.stringify(schemaObj1)}
+    ${JSON.stringify(schemaObj1).replace(/</g, '\\u003c')}
   </scr` + `ipt>`}
 
   {@html `<script type="application/ld+json">
-    ${JSON.stringify(schemaObj2)}
+    ${JSON.stringify(schemaObj2).replace(/</g, '\\u003c')}
   </scr` + `ipt>`}
 
 

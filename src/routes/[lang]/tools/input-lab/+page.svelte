@@ -109,7 +109,7 @@
     <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/input-lab"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/input-lab"} />
 
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   {@html `<script type="application/ld+json">
 

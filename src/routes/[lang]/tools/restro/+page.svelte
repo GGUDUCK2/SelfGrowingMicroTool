@@ -296,7 +296,7 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/restro"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/restro"} />
   {@html `<script type="application/ld+json">
-  ${JSON.stringify(schemaObj1)}
+  ${JSON.stringify(schemaObj1).replace(/</g, '\\u003c')}
   </scr` + `ipt>`}
 
 
