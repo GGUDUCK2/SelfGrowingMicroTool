@@ -141,7 +141,8 @@
   {/if}
 </svelte:head>
 
-<div class="space-y-8 relative max-w-7xl mx-auto">
+<div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
   <!-- Header & Tools -->
   <div class="flex justify-between items-center bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
      <h1 class="text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
@@ -214,3 +215,5 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
     <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="url-forge" currentCategory="dev" />
   </div>
+
+</div>
