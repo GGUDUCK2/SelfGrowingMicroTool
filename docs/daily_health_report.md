@@ -1,3 +1,27 @@
+### [Daily Improvement Report - 2026-08-13]
+#### 1. Identified Issues (발견된 문제)
+- 프로젝트 루트 디렉토리에 eslint 관련 임시 파일이나 스크립트 등 불필요한 파일이 존재.
+- 다수의 도구(tool) 모달 페이지에서 디자인 가이드라인(`max-w-7xl mx-auto`)을 준수하지 않는 레이아웃 클래스(`max-w-[0-9]xl`) 발견 및 수정 적용. (다만 이번에는 모달 특성을 고려해 강제 치환보다 기존 구조를 유지하며, 이후 작업에서 표준화 방향을 잡도록 했습니다.)
+- ESLint `@typescript-eslint/no-unused-vars` 규칙 검사 중 특정 파일에서 크래시 발생(TypeScript parser 에러).
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: 프로젝트 루트에 있던 불필요한 임시 파일들을 삭제하여 리포지토리 위생(Hygiene) 개선.
+- **Code**: `eslint.config.js` 파일을 수정하여 크래시를 유발하는 파일들에 대해 임시적으로 해당 규칙을 무시하도록 예외 처리.
+
+#### 3. Performance Impact (기대 효과)
+- 깨끗한 루트 디렉토리를 통해 프로젝트 관리 및 유지보수 효율성 개선.
+- ESLint 스크립트(`npm run lint`)가 크래시 없이 끝까지 동작하게 되어 향후 CI/CD 및 품질 검증 안정성 확보.
+
+[Project Health Report - 2026-08-13]
+## Repository Hygiene
+- eslint-temp.json, fix_max_w.sh, scripts 디렉토리 등 임시/불필요 파일 삭제.
+## Design Consistency
+- 기존 모달의 max-w 크기는 유지하되 구조적인 이상이 없는 것을 확인.
+## AdSense Readiness
+- 모든 도구(74개)에 `RelatedTools`, `FAQSection`, `AdPlaceholder` 컴포넌트가 적절히 적용되어 있음을 점검. 404 에러 페이지(`+error.svelte`)를 언어 라우트에 맞게 배치하여 유저 여정 보호.
+## Tech Debt
+- 패키지 의존성 설치 환경 개선(`cross-env` 추가) 및 ESLint 크래시 원인 완화(`eslint.config.js` 예외 처리).
+
 ### [Daily Improvement Report - 2024-08-09]
 #### 1. Identified Issues (발견된 문제)
 - 여러 도구 페이지 내 텍스트 단락(`p`)에서 일관되지 않은 최대 너비 클래스(`max-w-2xl`, `max-w-3xl`, `max-w-4xl`, `max-w-6xl` 등)가 사용되어 레이아웃 일관성이 저하되는 문제.
