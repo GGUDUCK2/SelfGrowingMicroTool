@@ -20,7 +20,7 @@
       yaml.load(input);
       isValid = true;
       errorMsg = '';
-    } catch (err: Error) {
+    } catch (err: any) {
       isValid = false;
       errorMsg = err.message || dict.validator.invalid;
     }
