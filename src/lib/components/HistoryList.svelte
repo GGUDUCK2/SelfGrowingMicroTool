@@ -35,7 +35,7 @@
         class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
       >
         <button
-          class="text-left cursor-pointer flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1"
+          class="text-left cursor-pointer flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1 min-h-[44px] min-w-[44px]"
           on:click={() => restoreHistory(item)}
         >
           <div class="font-medium text-gray-900">
@@ -51,8 +51,7 @@
             {item.createdAt.toLocaleString()}
           </div>
         </button>
-        <button
-          on:click={() => item.id && deleteHistory(item.id)}
+        <button on:click={() => item.id && deleteHistory(item.id)}
           class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-gray-400 hover:text-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 rounded-full"
           aria-label={deleteLabel}
         >
