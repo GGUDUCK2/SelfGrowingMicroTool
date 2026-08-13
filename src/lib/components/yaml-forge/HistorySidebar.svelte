@@ -6,10 +6,11 @@
   export let dict: any;
   export let onSelect: (item: YamlForgeHistoryItem) => void;
 
-  let history: (YamlForgeHistoryItem & { id: number; timestamp: number; starred: boolean })[] = [];
+  let history: any[] = [];
 
   const loadHistory = async () => {
-    history = (await getHistory()) as typeof history;
+    const rawHistory = await getHistory();
+    history = rawHistory.map((item: any) => ({ ...item.input, id: item.id, timestamp: item.timestamp, starred: item.starred }));
   };
 
   onMount(() => {

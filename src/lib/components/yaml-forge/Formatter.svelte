@@ -40,7 +40,7 @@
         refreshHistory();
       });
 
-    } catch (err: Error) {
+    } catch (err: any) {
       errorMsg = err.message || dict.converter.errorInvalidInput;
       output = '';
     }
