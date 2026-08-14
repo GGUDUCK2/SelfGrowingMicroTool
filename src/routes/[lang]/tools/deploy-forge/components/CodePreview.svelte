@@ -20,8 +20,11 @@
           (window as any).Prism = Prism;
       }
 
+      //@ts-ignore
       await import('prismjs/components/prism-docker');
+      //@ts-ignore
       await import('prismjs/components/prism-yaml');
+      //@ts-ignore
       await import('prismjs/components/prism-bash');
 
       highlight();

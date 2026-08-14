@@ -86,7 +86,7 @@
   title="{t.title} - MicroFactory"
   description={t.description}
   url="{$page.url.origin}/{lang}/tools/decision-forge"
-  imageUrl="{$page.url.origin}/og/decision-forge.png"
+  image="{$page.url.origin}/og/decision-forge.png"
 />
 
 <svelte:head>
@@ -215,7 +215,7 @@
         </section>
 
         <!-- Documentation -->
-        <GuideSection guide={t.guide} />
+        <GuideSection {...t.guide} />
 
         <!-- FAQ -->
         <AdPlaceholder />

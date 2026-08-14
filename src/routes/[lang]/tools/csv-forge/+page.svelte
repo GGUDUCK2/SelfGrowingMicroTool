@@ -80,7 +80,7 @@
           content: rawCsv,
           rowCount: data.length > 0 ? data.length - 1 : 0,
           columnCount: data.length > 0 ? data[0].length : 0,
-          updatedAt: new Date()
+          timestamp: new Date()
         });
       } else {
         currentId = await db.csvForgeHistory.add({
@@ -88,7 +88,7 @@
         content: rawCsv,
         rowCount: data.length > 0 ? data.length - 1 : 0,
         columnCount: data.length > 0 ? data[0].length : 0,
-        createdAt: new Date(),
+        timestamp: new Date(),
         starred: 0
       });
       }

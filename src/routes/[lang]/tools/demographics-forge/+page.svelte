@@ -16,7 +16,7 @@
     import { saveToHistory } from '$lib/db/workspace';
     import { max } from 'd3-array';
 
-    $: lang = $page.params.lang;
+    $: lang = $page.params.lang || "en";
     $: dict = getDictionary(lang);
     $: t = { ...((dict as any)?.tools?.demographicsForge || {}), lang };
 
@@ -198,9 +198,9 @@
                 title={t.guide.title}
                 intro={t.guide.intro}
                 featuresTitle={t.guide.featuresTitle}
-                features={[t.guide.f1, t.guide.f2, t.guide.f3]}
+                f1={t.guide.f1} f2={t.guide.f2} f3={t.guide.f3}
                 tipsTitle={t.guide.tipsTitle}
-                tips={[t.guide.tip1, t.guide.tip2, t.guide.tip3]}
+                tip1={t.guide.tip1} tip2={t.guide.tip2} tip3={t.guide.tip3}
             />
 
             <AdPlaceholder />

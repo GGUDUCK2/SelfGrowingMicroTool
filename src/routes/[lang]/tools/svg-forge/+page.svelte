@@ -149,7 +149,7 @@
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/svg-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(faqLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 pb-20">
