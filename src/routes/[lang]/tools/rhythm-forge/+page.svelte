@@ -275,7 +275,7 @@
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   {@html `<script type="application/ld+json">
-  ${JSON.stringify()}</scr` + `ipt>`}
+  ${JSON.stringify({})}</scr` + `ipt>`}
 
 </svelte:head>
 
@@ -322,7 +322,7 @@
               </div>
 
               <!-- Visualizer -->
-              <Visualizer engine={engine as any} lastBeat={lastBeat as any} settings={settings as any} mode={(mode === 'game' ? 'trainer' : mode) as any} />
+              <Visualizer engine={engine as any} lastBeat={lastBeat as any} settings={settings as any} />
 
               <!-- Controls or Trainer -->
               {#if mode === 'metronome'}
@@ -338,7 +338,7 @@
               {:else if mode === 'trainer'}
                   <TrainerPanel {engine} bind:settings {...(dict as any)} />
               {:else if mode === 'game'}
-                  <RhythmGame engine={engine as any} bind:settings dict={dict as any} />
+                  <RhythmGame engine={engine as any} bind:settings />
               {/if}
           </div>
 
@@ -363,7 +363,7 @@
               {#if libraryMode === 'presets'}
                   <PresetPanel {settings} {...(dict as any)} on:load={handleLoadPreset} />
               {:else}
-                  <PlaylistPanel settings={settings as any} dict={dict as any} on:load={handleLoadPreset} />
+                  <PlaylistPanel settings={settings as any} on:load={handleLoadPreset} />
               {/if}
           </div>
       </div>

@@ -501,6 +501,7 @@ export interface CsvForgeHistory {
   rowCount: number;
   columnCount: number;
   timestamp: number;
+  content: string;
   isStarred: boolean;
   data: string;
 }

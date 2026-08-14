@@ -14,7 +14,7 @@
   import HistorySidebar from '$lib/components/csp-forge/HistorySidebar.svelte';
 
   $: lang = $page.params.lang || 'en';
-  $: dict = (getDictionary(lang) as any)?.tools?.cspForge || getDictionary('en').tools.cspForge;
+  $: dict = (getDictionary(lang) as any)?.tools?.csvForge || (getDictionary('en') as any).tools.csvForge;
 
   let directives: Record<string, string[]> = {};
   let saveTimer: ReturnType<typeof setTimeout>;

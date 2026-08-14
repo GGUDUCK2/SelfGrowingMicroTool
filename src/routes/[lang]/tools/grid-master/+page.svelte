@@ -222,13 +222,13 @@
           }, 5000);
       });
 
-          })();
-    return () => {
+          return () => {
           unsub();
           clearTimeout(sessionTimeout);
           clearTimeout(historyTimeout);
       };
-  });
+  })();
+});
 
   $: schemaObj1 = {
       "@context": "https://schema.org",

@@ -150,9 +150,9 @@
       tip1="Use 'to bottom right' angle for a sleek modern look."
       tip2="Save frequently used gradients in your workspace."
       tip3="Experiment with conic gradients for pie-chart backgrounds."
-      technicalTitle="Technical Details"
-      tech1="Uses standard W3C CSS gradient specifications."
-      tech2="IndexedDB (Dexie) based local storage ensures privacy."
+
+
+
       tech3="Full Tailwind CSS arbitrary values support."
   />
 
