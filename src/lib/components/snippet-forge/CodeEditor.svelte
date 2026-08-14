@@ -90,7 +90,7 @@
     spellcheck="false"
     autocapitalize="off"
     autocomplete="off"
-    autocorrect="off"
+
     style="color: transparent; background: transparent;"
   ></textarea>
 </div>

@@ -32,13 +32,13 @@
 
     <div class="flex justify-end gap-3">
       <button
-        class="px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg font-medium transition-colors"
+        class="min-h-[44px] min-w-[44px] px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg font-medium transition-colors"
         on:click={onCancel}
       >
         {cancelText}
       </button>
       <button
-        class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium shadow-lg shadow-indigo-500/20 transition-colors"
+        class="min-h-[44px] min-w-[44px] px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium shadow-lg shadow-indigo-500/20 transition-colors"
         on:click={onConfirm}
       >
         {confirmText}
