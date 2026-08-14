@@ -39,7 +39,7 @@
       class="w-full bg-transparent border-none focus:ring-0 text-lg font-mono text-gray-800 placeholder-gray-400 h-12 min-h-[44px] outline-none"
       spellcheck="false"
       autocomplete="off"
-      autocorrect="off"
+
       autocapitalize="off"
     />
     <button

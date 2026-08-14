@@ -89,12 +89,8 @@
 <Head
   title={dict.title}
   description={dict.description}
-  openGraph={{...(dict as any)?.openGraph,
-    title: dict.title,
-    description: dict.description,
-    url: `${$page.url.origin}/${lang}/tools/hash-forge`
-  }}
-  twitter={{ card: 'summary_large_image', title: dict.title, description: dict.description }}
+  url={`${$page.url.origin}/${lang}/tools/hash-forge`}
+
 />
 
 
