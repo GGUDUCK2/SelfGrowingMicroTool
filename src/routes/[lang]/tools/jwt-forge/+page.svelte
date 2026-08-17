@@ -119,6 +119,31 @@
         "Secure Client-Side Processing"
     ]
   };
+
+  $: breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `${$page.url.origin}/${lang}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": `${$page.url.origin}/${lang}/tools`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Jwt Forge",
+        "item": $page.url.href
+      }
+    ]
+  };
 </script>
 <Head
   title={t.title}
@@ -133,6 +158,7 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/jwt-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/jwt-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 pb-20">

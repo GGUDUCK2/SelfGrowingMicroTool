@@ -29,6 +29,31 @@
     },
     "url": $page.url.origin + "/" + lang + "/tools/pattern-forge"
   };
+
+  $: breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `${$page.url.origin}/${lang}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": `${$page.url.origin}/${lang}/tools`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Pattern Forge",
+        "item": $page.url.href
+      }
+    ]
+  };
 </script>
 
 <svelte:head>
@@ -37,6 +62,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/pattern-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/pattern-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/pattern-forge"} />
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <Head
