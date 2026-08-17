@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
 
   export let dict: any;
-  export let data = {
+  export let data: any = {
     name: '',
     title: '',
     company: '',
@@ -15,7 +15,8 @@
     twitter: '',
     github: '',
     qrFgColor: '#0f172a',
-    qrBgColor: '#ffffff'
+    qrBgColor: '#ffffff',
+    format: '3.0'
   };
 
   const dispatch = createEventDispatcher();

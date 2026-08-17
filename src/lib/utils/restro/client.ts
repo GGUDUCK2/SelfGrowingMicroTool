@@ -18,7 +18,7 @@ export async function executeRequest(
   bodyType: 'none' | 'json' | 'text' | 'form-data',
   bodyContent: string
 ): Promise<HttpResponse> {
-  console.log('Executing Request:', method, url);
+
   const start = performance.now();
 
   const finalHeaders: Record<string, string> = {};
@@ -51,7 +51,7 @@ export async function executeRequest(
     const res = await fetch(url, options);
     const end = performance.now();
     const time = Math.round(end - start);
-    console.log('Fetch success:', res.status);
+
 
     const blob = await res.blob();
     const text = await blob.text();
