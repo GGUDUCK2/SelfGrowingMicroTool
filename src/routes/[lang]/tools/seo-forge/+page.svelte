@@ -225,7 +225,7 @@
               triggerToast('Shared successfully!');
           } catch (err) {
               // Fallback if user cancels or fails
-              console.log('Share canceled or failed', err);
+
               navigator.clipboard.writeText(shareUrl);
               triggerToast(dict.actions.share);
           }
