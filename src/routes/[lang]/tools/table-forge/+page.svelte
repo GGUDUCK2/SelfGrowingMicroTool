@@ -121,7 +121,32 @@
       ]
     };
 
-  </script>
+
+  $: breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `${$page.url.origin}/${lang}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": `${$page.url.origin}/${lang}/tools`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Table Forge",
+        "item": $page.url.href
+      }
+    ]
+  };
+</script>
 <Head
   title={dict.title}
   description={dict.description}
@@ -134,7 +159,8 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/table-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/table-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
-  </svelte:head>
+    {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+</svelte:head>
 
 <div class="min-h-screen flex flex-col bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white">
     <!-- Header -->

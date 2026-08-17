@@ -368,6 +368,31 @@
   ];
 
 
+
+  $: breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `${$page.url.origin}/${lang}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": `${$page.url.origin}/${lang}/tools`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Geo Forge",
+        "item": $page.url.href
+      }
+    ]
+  };
 </script>
 <Head
   title={dict.title}
@@ -412,6 +437,7 @@
   </scr` + `ipt>`}
 
 
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="h-[calc(100vh-64px)] flex flex-col bg-slate-50 dark:bg-slate-900 overflow-hidden">

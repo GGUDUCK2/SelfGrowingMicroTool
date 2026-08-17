@@ -107,6 +107,31 @@
       ]
     }
   ];
+
+  $: breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `${$page.url.origin}/${lang}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": `${$page.url.origin}/${lang}/tools`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Sql Forge",
+        "item": $page.url.href
+      }
+    ]
+  };
 </script>
 <Head
   title={t.title}
@@ -120,6 +145,7 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/sql-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/sql-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemas).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="h-[calc(100vh-4rem)] flex flex-col bg-gray-50 dark:bg-gray-900">
