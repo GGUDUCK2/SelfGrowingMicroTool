@@ -1,3 +1,27 @@
+
+### [Daily Improvement Report - 2026-08-18]
+#### 1. Identified Issues (발견된 문제)
+- Svelte 파일 내에서 JSON-LD 데이터를 `{@html}`을 통해 렌더링할 때 `<` 문자가 제대로 이스케이프되지 않아 발생할 수 있는 크로스 사이트 스크립팅(XSS) 취약점 및 HTML 구조 파괴 위험을 발견했습니다. 이전 패치에서는 단일 백슬래시 오기입과 잘못된 객체 치환이 있었습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: 다수의 `src/routes/[lang]/tools/*/+page.svelte` 파일. JSON-LD 렌더링 변수 및 객체에 `.replace(/</g, '\\u003c')`를 올바르게 삽입하여 문자열 이스케이프를 적용했습니다.
+- **SEO/AEO**: 구조화 데이터 삽입의 안정성을 확보하여 크롤러 및 AI 검색 엔진이 도구의 기능을 명확히 이해할 수 있도록 스키마 렌더링 안정화.
+
+#### 3. Performance Impact (기대 효과)
+- HTML 파싱 오류 방지로 인한 검색 엔진 인덱싱 안정성 증가 및 XSS 공격 방어.
+
+
+### [Daily Improvement Report - 2026-08-18]
+#### 1. Identified Issues (발견된 문제)
+- Svelte 파일 내에서 JSON-LD 데이터를 `{@html}`을 통해 렌더링할 때 `<` 문자가 이스케이프되지 않아 발생할 수 있는 크로스 사이트 스크립팅(XSS) 취약점 및 HTML 구조 파괴 위험을 발견했습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: 다수의 `src/routes/[lang]/tools/*/+page.svelte` 파일 - JSON-LD 데이터 렌더링 부분에 `.replace(/</g, '\u003c')`를 적용하여 안전하게 이스케이프 처리.
+- **SEO/AEO**: 구조화 데이터 삽입의 안정성을 확보하여 크롤러 및 AI 검색 엔진이 도구의 기능을 명확히 이해할 수 있도록 스키마 렌더링 안정화.
+
+#### 3. Performance Impact (기대 효과)
+- HTML 파싱 오류 방지로 인한 검색 엔진 인덱싱 안정성 증가 및 XSS 공격 방어.
+
 ### [Daily Improvement Report - 2026-08-17]
 #### 1. Identified Issues (발견된 문제)
 - `seo-forge` 페이지와 `restro` 유틸리티 클라이언트에 디버깅용 `console.log`가 존재하여 프로덕션 환경의 로그 청결도를 저해함.

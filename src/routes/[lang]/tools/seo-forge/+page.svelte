@@ -634,6 +634,6 @@
   <!-- Twitter -->
 
   <!-- Canonical -->
-  {@html `<script type="application/ld+json">${jsonLd}</scr` + `ipt>`}
+  {@html `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
 </svelte:head>

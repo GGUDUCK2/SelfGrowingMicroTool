@@ -331,9 +331,9 @@
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/password-forge"} />
   <!-- eslint-disable svelte/no-at-html-tags -->
   <!-- eslint-disable @typescript-eslint/no-unused-expressions -->
-  {@html `<script type="application/ld+json">` + JSON.stringify(softwareSchema) + `${'</scr' + 'ipt>'}`}
+  {@html `<script type="application/ld+json">` + JSON.stringify(softwareSchema).replace(/</g, '\\u003c') + `${'</scr' + 'ipt>'}`}
 
-  {@html `<script type="application/ld+json">` + JSON.stringify(breadcrumbSchema) + `${'</scr' + 'ipt>'}`}
+  {@html `<script type="application/ld+json">` + JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c') + `${'</scr' + 'ipt>'}`}
   <!-- eslint-enable @typescript-eslint/no-unused-expressions -->
   <!-- eslint-enable svelte/no-at-html-tags -->
 </svelte:head>
