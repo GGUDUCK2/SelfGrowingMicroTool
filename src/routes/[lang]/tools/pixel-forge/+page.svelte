@@ -99,7 +99,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/pixel-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/pixel-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/pixel-forge"} />
-  {@html `<script type="application/ld+json">${jsonLd}</scr` + `ipt>`}
+  {@html `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}</scr` + `ipt>`}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 

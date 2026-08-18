@@ -64,8 +64,8 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/xpath-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/xpath-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/xpath-forge"} />
-  {@html `<script type="application/ld+json">${jsonLd}</scr` + `ipt>`}
-  {@html `<script type="application/ld+json">${breadcrumbJsonLd}</scr` + `ipt>`}
+  {@html `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}</scr` + `ipt>`}
+  {@html `<script type="application/ld+json">${breadcrumbJsonLd.replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">

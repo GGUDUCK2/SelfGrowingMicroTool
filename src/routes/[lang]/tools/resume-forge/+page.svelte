@@ -161,7 +161,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/resume-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/resume-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/resume-forge"} />
-  {@html `<script type="application/ld+json">${jsonLd}</scr` + `ipt>`}
+  {@html `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="h-screen flex flex-col bg-slate-50 dark:bg-slate-900 overflow-hidden">
