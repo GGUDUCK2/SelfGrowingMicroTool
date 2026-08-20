@@ -1,4 +1,15 @@
 
+### [Daily Improvement Report - 2026-08-20]
+#### 1. Identified Issues (발견된 문제)
+- `npm run build` 중 `alasql` 패키지의 트랜지티브 의존성(`react-native-fs`) 관련하여 "Cannot find base config file" 및 크기 경고 등의 빌드 관련 노이즈가 발생하고 있음.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Tech Debt**: `package.json` 파일에 `overrides` 설정을 추가하여 `alasql`의 `react-native-fs` 의존성을 `empty-npm-package`로 우회(stub) 처리함.
+
+#### 3. Performance Impact (기대 효과)
+- 빌드 프로세스가 깔끔해지고, 프로덕션 환경에 불필요한 번들 경고가 발생하지 않아 개발 및 배포 안정성이 증가함.
+
+
 ### [Daily Improvement Report - 2026-08-18]
 #### 1. Identified Issues (발견된 문제)
 - Svelte 파일 내에서 JSON-LD 데이터를 `{@html}`을 통해 렌더링할 때 `<` 문자가 제대로 이스케이프되지 않아 발생할 수 있는 크로스 사이트 스크립팅(XSS) 취약점 및 HTML 구조 파괴 위험을 발견했습니다. 이전 패치에서는 단일 백슬래시 오기입과 잘못된 객체 치환이 있었습니다.
