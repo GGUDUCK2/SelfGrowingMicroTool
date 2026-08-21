@@ -14,6 +14,8 @@
     import VCardHistory from '$lib/components/vcard-forge/VCardHistory.svelte';
 
     $: lang = $page.params.lang as 'en' | 'ko';
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     $: dict = (dictionaries as any)[lang]?.tools?.vcardForge || {};
 
     const initialData: VCardForgeData = {
@@ -55,9 +57,9 @@
     let showHistory = false;
 
     $: faqItems = dict ? [
-      { q: (dict as any)?.q1, a: (dict as any)?.a1 },
-      { q: (dict as any)?.q2, a: (dict as any)?.a2 },
-      { q: (dict as any)?.q3, a: (dict as any)?.a3 }
+      { q: dict?.q1, a: dict?.a1 },
+      { q: dict?.q2, a: dict?.a2 },
+      { q: dict?.q3, a: dict?.a3 }
     ] : [];
 
     $: jsonLd = dict ? {
@@ -75,7 +77,7 @@
             "priceCurrency": "USD"
           },
           "@id": $page.url.origin + "/" + lang + "/tools/vcard-forge",
-          "description": (dict as any)?.description,
+          "description": dict?.description,
           "featureList": [
               "vCard 3.0 & 4.0 Generation",
               "QR Code Integration",
@@ -110,7 +112,7 @@
             {
               "@type": "ListItem",
               "position": 3,
-              "name": (dict as any)?.title || 'vCard Forge',
+              "name": dict?.title || 'vCard Forge',
               "item": `${$page.url.origin}/${lang}/tools/vcard-forge`
             }
           ]
@@ -135,6 +137,8 @@
       await saveToHistory('vcard-forge', currentData, null);
     }
 
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function handleLoad(event: CustomEvent<any>) {
       const item = event.detail.input;
       currentData = {
@@ -239,8 +243,8 @@
   </script>
 
   <Head
-    title={(dict as any)?.title || 'vCard Forge'}
-    description={(dict as any)?.description || 'Create vCards'}
+    title={dict?.title || 'vCard Forge'}
+    description={dict?.description || 'Create vCards'}
     url={canonicalUrl}
     keywords="vcard generator, qr code contact, digital business card, vcf creator"
   />
@@ -249,19 +253,20 @@
 
   <svelte:head>
 
-    <meta property="og:title" content={(dict as any)?.title || 'vCard Forge'} />
-    <meta property="og:description" content={(dict as any)?.description || 'Create vCards'} />
+    <meta property="og:title" content={dict?.title || 'vCard Forge'} />
+    <meta property="og:description" content={dict?.description || 'Create vCards'} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={(dict as any)?.title || 'vCard Forge'} />
-    <meta name="twitter:description" content={(dict as any)?.description || 'Create vCards'} />
+    <meta name="twitter:title" content={dict?.title || 'vCard Forge'} />
+    <meta name="twitter:description" content={dict?.description || 'Create vCards'} />
 
     <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/vcard-forge"} />
     <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/vcard-forge"} />
     <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/vcard-forge"} />
     <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/vcard-forge"} />
     {#if jsonLd}
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
     {/if}
   </svelte:head>

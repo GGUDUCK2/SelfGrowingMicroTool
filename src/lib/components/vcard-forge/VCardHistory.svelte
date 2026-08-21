@@ -4,11 +4,11 @@
     import type { ToolHistoryItem } from '$lib/db/workspace';
     import { liveQuery } from 'dexie';
 
-    export let dict: any;
+    export let dict: Record<string, string> = {};
 
     const dispatch = createEventDispatcher();
 
-    let historyItems: ToolHistoryItem<any, any>[] = [];
+    let historyItems: ToolHistoryItem<Record<string, string>, unknown>[] = [];
 
     // Reactive live query for history
     const historyObservable = liveQuery(
@@ -19,7 +19,7 @@
       historyItems = $historyObservable;
     }
 
-    async function toggleStarStatus(item: ToolHistoryItem<any, any>) {
+    async function toggleStarStatus(item: ToolHistoryItem<Record<string, string>, unknown>) {
       if (item.id === undefined) return;
       await toggleStar(item.id);
     }
@@ -33,7 +33,7 @@
       await clearHistory('vcard-forge');
     }
 
-    function loadItem(item: ToolHistoryItem<any, any>) {
+    function loadItem(item: ToolHistoryItem<Record<string, string>, unknown>) {
       dispatch('load', item);
     }
   </script>

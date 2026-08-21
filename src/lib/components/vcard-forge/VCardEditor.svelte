@@ -1,8 +1,8 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
 
-  export let dict: any;
-  export let data: any = {
+  export let dict: Record<string, string>;
+  export let data: Record<string, string> = {
     name: '',
     title: '',
     company: '',
@@ -94,7 +94,8 @@
 
       const emailRegex = /[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}/;
       const phoneRegex = /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/i;
-      const urlRegex = /https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)/gi;
+      // eslint-disable-next-line no-useless-escape
+      const urlRegex = /https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&\/=]*)/gi;
 
       const emailMatch = magicImportText.match(emailRegex);
       if (emailMatch && !data.email) data.email = emailMatch[0];
@@ -280,8 +281,13 @@
     </div>
 
     <div class="space-y-2">
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-phone">{dict?.phone}</label>
-      <input type="tel" id="vcard-phone" bind:value={data.phone} on:input={handleInput} placeholder="e.g. +1 234 567 890" class="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
+      <div class="flex items-center justify-between">
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-phone">{dict?.phone}</label>
+        {#if data.phone && !/^\+?[\d\s\-()]+$/.test(data.phone)}
+            <span class="text-xs text-rose-500 font-medium">Invalid format</span>
+        {/if}
+      </div>
+      <input type="tel" id="vcard-phone" bind:value={data.phone} on:input={handleInput} placeholder="e.g. +1 234 567 890" class="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]" class:border-rose-300={data.phone && !/^\+?[\d\s\-()]+$/.test(data.phone)} />
     </div>
 
     <div class="space-y-2">
@@ -300,7 +306,10 @@
     </div>
 
     <div class="space-y-2 md:col-span-2">
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-address">{dict?.address}</label>
+      <div class="flex items-center justify-between">
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-address">{dict?.address}</label>
+          <button type="button" on:click={() => { if(data.address) data.address = data.address.trim().replace(/\n+/g, ', '); handleInput(); }} class="text-xs text-indigo-500 hover:text-indigo-600 font-medium">Auto-format (One Line)</button>
+      </div>
       <textarea id="vcard-address" bind:value={data.address} on:input={handleInput} placeholder="e.g. 123 Main St, City, Country" class="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[80px]"></textarea>
     </div>
 
