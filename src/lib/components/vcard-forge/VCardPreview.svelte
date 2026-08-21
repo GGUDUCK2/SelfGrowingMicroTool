@@ -2,7 +2,7 @@
   import { onMount, tick } from 'svelte';
   import QRCode from 'qrcode';
 
-  export let dict: any;
+  export let dict: Record<string, string> = {};
   export let data: {
     name: string;
     title: string;
@@ -27,6 +27,19 @@
   let downloadUrl = '';
   let showCopiedToast = false;
   let showRaw = false;
+  let completionPercentage = 0;
+  $: {
+      let score = 0;
+      if (data.name) score += 20;
+      if (data.title) score += 15;
+      if (data.company) score += 15;
+      if (data.email) score += 15;
+      if (data.phone) score += 15;
+      if (data.photoData) score += 10;
+      if (data.website || data.linkedIn || data.twitter || data.github) score += 10;
+      completionPercentage = score;
+  }
+
 
   $: if (data) {
     generateVCard();
@@ -197,28 +210,34 @@
 
 <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col h-full">
 
+
     <!-- Header -->
-    <div class="p-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
-        <h2 class="text-lg font-semibold text-slate-800 dark:text-white flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-            </svg>
-            {dict?.preview || 'Live Preview'}
-        </h2>
-        <button
-            on:click={() => showRaw = !showRaw}
-            class="text-xs px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex items-center gap-2 font-medium min-h-[44px]"
-        >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-            </svg>
-            {showRaw ? (dict?.viewVisual || 'Visual') : (dict?.viewRaw || 'Raw VCF')}
-        </button>
+    <div class="p-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex flex-col gap-2">
+        <div class="flex justify-between items-center">
+            <h2 class="text-lg font-semibold text-slate-800 dark:text-white flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                {dict?.preview || 'Live Preview'}
+            </h2>
+            <button
+                on:click={() => showRaw = !showRaw}
+                class="text-xs px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex items-center gap-2 font-medium min-h-[44px]"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+                {showRaw ? (dict?.viewVisual || 'Visual') : (dict?.viewRaw || 'Raw VCF')}
+            </button>
+        </div>
+        <div class="flex items-center gap-3 w-full mt-1">
+            <div class="flex-1 h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden flex">
+                <div class="h-full bg-indigo-500 transition-all duration-500" style="width: {completionPercentage}%"></div>
+            </div>
+            <span class="text-xs font-semibold text-slate-500 min-w-[2.5rem] text-right">{completionPercentage}%</span>
+        </div>
     </div>
-
-
-
     <!-- Content Area -->
     <div class="flex-1 p-6 flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-900 relative overflow-hidden">
         {#if showRaw}
