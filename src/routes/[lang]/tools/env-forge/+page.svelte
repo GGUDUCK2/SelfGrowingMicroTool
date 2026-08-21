@@ -68,7 +68,7 @@
       }
     ]
   };
-  $: jsonLd = JSON.stringify(schemaObj);
+  $: jsonLd = JSON.stringify(schemaObj).replace(/</g, '\\u003c');
 
   // Toast System
   let toastMsg = '';
