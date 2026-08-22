@@ -28,6 +28,22 @@
   let showCopiedToast = false;
   let showRaw = false;
   let completionPercentage = 0;
+
+  let nextSteps: string[] = [];
+  $: {
+      let suggestions: string[] = [];
+      if (!data.name) suggestions.push(dict?.addName || 'Add your full name');
+      else {
+          if (!data.title) suggestions.push(dict?.addTitle || 'Add a job title');
+          if (!data.company) suggestions.push(dict?.addCompany || 'Add your company');
+          if (!data.email) suggestions.push(dict?.addEmail || 'Add an email address');
+          if (!data.phone) suggestions.push(dict?.addPhone || 'Add a phone number');
+          if (!data.photoData) suggestions.push(dict?.addPhoto || 'Upload a profile photo');
+          if (!data.website && !data.linkedIn && !data.twitter && !data.github) suggestions.push(dict?.addSocial || 'Add a website or social link');
+      }
+      nextSteps = suggestions;
+  }
+
   $: {
       let score = 0;
       if (data.name) score += 20;
@@ -237,6 +253,17 @@
             </div>
             <span class="text-xs font-semibold text-slate-500 min-w-[2.5rem] text-right">{completionPercentage}%</span>
         </div>
+        {#if nextSteps.length > 0}
+            <div class="w-full mt-3 p-3 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800 rounded-lg">
+                <p class="text-xs font-semibold text-indigo-700 dark:text-indigo-400 mb-1 flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    {dict?.nextStep || 'Next Step to Boost Profile'}:
+                </p>
+                <p class="text-xs text-indigo-600 dark:text-indigo-300 ml-4.5">{nextSteps[0]}</p>
+            </div>
+        {/if}
     </div>
     <!-- Content Area -->
     <div class="flex-1 p-6 flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-900 relative overflow-hidden">
@@ -245,7 +272,8 @@
                 {vcardData}
             </div>
         {:else}
-            <div class="w-full max-w-[320px] bg-white dark:bg-slate-800 rounded-[2rem] shadow-xl border-4 border-slate-300 dark:border-slate-700 overflow-hidden flex flex-col">
+            <div class="w-full max-w-[320px] rounded-[2rem] shadow-xl border-4 overflow-hidden flex flex-col"
+                 style="background-color: {data.qrBgColor || '#ffffff'}; border-color: {data.qrFgColor || '#94a3b8'};">
                 <!-- Top Notch -->
                 <div class="h-6 w-full flex justify-center bg-slate-800 dark:bg-slate-950 pt-1">
                     <div class="w-20 h-4 bg-black rounded-b-xl"></div>
@@ -255,7 +283,8 @@
                 <div class="flex-1 overflow-y-auto p-6 flex flex-col items-center space-y-4 no-scrollbar">
 
                     <!-- Avatar -->
-                    <div class="w-24 h-24 rounded-full bg-slate-200 dark:bg-slate-700 border-4 border-white dark:border-slate-800 shadow-sm overflow-hidden flex-shrink-0 flex items-center justify-center">
+                    <div class="w-24 h-24 rounded-full bg-slate-200 dark:bg-slate-700 border-4 shadow-sm overflow-hidden flex-shrink-0 flex items-center justify-center"
+                         style="border-color: {data.qrFgColor || '#ffffff'};">
                         {#if data.photoData}
                             <img src={data.photoData} alt="Avatar" class="w-full h-full object-cover" />
                         {:else}
@@ -267,7 +296,7 @@
 
                     <!-- Identity -->
                     <div class="text-center space-y-1 w-full">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white truncate" title={data.name}>{data.name || 'Your Name'}</h3>
+                        <h3 class="text-xl font-bold truncate" title={data.name} style="color: {data.qrFgColor || '#0f172a'}">{data.name || 'Your Name'}</h3>
                         <p class="text-sm font-medium text-indigo-500 truncate" title={data.title}>{data.title || 'Job Title'}</p>
                         <p class="text-xs text-slate-500 dark:text-slate-400 truncate" title={data.company}>{data.company || 'Company'}</p>
                     </div>

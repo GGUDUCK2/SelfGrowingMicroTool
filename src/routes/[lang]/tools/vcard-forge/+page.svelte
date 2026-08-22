@@ -86,7 +86,9 @@
               "Custom QR Colors",
               "Live Preview",
               "Base64 Photo Support",
-              "Local History"
+              "Local History",
+              "Actionable Profile Next Steps",
+              "1-Click Visual Themes"
           ],
           "isAccessibleForFree": true,
           "author": {
