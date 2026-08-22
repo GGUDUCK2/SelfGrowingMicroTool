@@ -89,6 +89,20 @@
   let showMagicImport = false;
   let magicImportText = '';
 
+  const themes = [
+      { name: dict?.themeCorporate || 'Corporate Blue', fg: '#0f172a', bg: '#ffffff' },
+      { name: dict?.themeCyberpunk || 'Neon Cyberpunk', fg: '#ec4899', bg: '#171717' },
+      { name: dict?.themeNature || 'Nature Green', fg: '#166534', bg: '#f0fdf4' },
+      { name: dict?.themeSunset || 'Sunset Orange', fg: '#c2410c', bg: '#fff7ed' }
+  ];
+
+  function applyTheme(theme: { fg: string, bg: string }) {
+      data.qrFgColor = theme.fg;
+      data.qrBgColor = theme.bg;
+      handleInput();
+  }
+
+
   function processMagicImport() {
       if (!magicImportText.trim()) return;
 
@@ -344,7 +358,21 @@
   </div>
 
   <div class="border-t border-slate-200 dark:border-slate-700 pt-6 mt-6">
-    <h3 class="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-4">{dict?.qrColors || 'QR Code Colors'}</h3>
+    <div class="flex items-center justify-between mb-4">
+        <h3 class="text-sm font-semibold text-slate-600 dark:text-slate-400">{dict?.qrColors || 'QR Code Colors'}</h3>
+        <div class="flex items-center gap-2">
+            {#each themes as theme}
+                <button
+                    type="button"
+                    on:click={() => applyTheme(theme)}
+                    class="w-6 h-6 rounded-full border-2 border-slate-200 dark:border-slate-700 shadow-sm transition-transform hover:scale-110"
+                    style="background: linear-gradient(135deg, {theme.fg} 50%, {theme.bg} 50%);"
+                    title={theme.name}
+                    aria-label={`Apply ${theme.name} theme`}
+                ></button>
+            {/each}
+        </div>
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div class="space-y-2">
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-qr-fg">{dict?.qrFgColor || 'Foreground Color'}</label>
