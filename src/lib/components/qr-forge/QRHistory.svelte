@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { db } from '$lib/db/qr-forge';
+  import { workspace } from '$lib/db/workspace';
   import type { QRState } from '$lib/utils/qr-forge/types';
   import { liveQuery } from 'dexie';
   import { Trash2, RotateCcw, Star, Clock } from '@lucide/svelte';
@@ -8,25 +8,28 @@
   export let onLoad: (state: QRState) => void;
   export let dictionary: Record<string, any>;
 
-  let history = liveQuery(() => db.history.orderBy('createdAt').reverse().limit(50).toArray());
+  let history = liveQuery(async () => {
+    const items = await workspace.history.where('toolId').equals('qr-forge').sortBy('timestamp');
+    return items.reverse().slice(0, 50);
+  });
 
-  const restore = (item: QRState) => {
-     // Create a copy without ID to treat as new draft, or keep logic simple
-     const { id, ...rest } = item;
-     onLoad(JSON.parse(JSON.stringify(rest)) as QRState);
+  const restore = (item: any) => {
+     if (item.input) {
+         onLoad(JSON.parse(JSON.stringify(item.input)));
+     }
   };
 
   const remove = (id?: number) => {
-      if (id) db.history.delete(id);
+      if (id) workspace.history.delete(id);
   };
 
-  const toggleStar = (item: QRState) => {
-      if (item.id) db.history.update(item.id, { starred: !item.starred });
+  const toggleStar = (item: any) => {
+      if (item.id) workspace.history.update(item.id, { starred: !item.starred });
   };
 
   const clearAll = () => {
       if (confirm('Clear all history?')) {
-          db.history.clear();
+          workspace.history.where('toolId').equals('qr-forge').delete();
       }
   };
 
@@ -51,25 +54,25 @@
         </div>
     {:else}
         <div class="space-y-2 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-            {#each $history as item (item.id)}
+            {#each $history || [] as item (item.id)}
                 <div transition:slide class="bg-slate-800 border border-slate-700 rounded-lg p-3 flex items-center justify-between group hover:border-indigo-500/50 transition-colors">
                     <div class="flex-1 min-w-0 mr-4">
                         <div class="flex items-center space-x-2 mb-1">
                             <span class="text-xs font-bold px-2 py-0.5 rounded bg-slate-700 text-indigo-300 uppercase tracking-wider">
-                                {item.type}
+                                {item.input?.type}
                             </span>
                             <span class="text-xs text-slate-500">
-                                {new Date(item.createdAt).toLocaleDateString()}
+                                {new Date(item.timestamp).toLocaleDateString()}
                             </span>
                         </div>
                         <p class="text-sm text-slate-300 truncate">
-                            {#if item.type === 'url'}{item.url}
-                            {:else if item.type === 'wifi'}{item.wifi?.ssid}
-                            {:else if item.type === 'email'}{item.email?.to}
-                            {:else if item.type === 'text'}{item.text}
-                            {:else if item.type === 'vcard'}{item.vcard?.firstName} {item.vcard?.lastName}
-                            {:else if item.type === 'sms'}{item.sms?.phone}
-                            {:else if item.type === 'crypto'}{item.crypto?.currency}
+                            {#if item.input?.type === 'url'}{item.input?.url}
+                            {:else if item.input?.type === 'wifi'}{item.input?.wifi?.ssid}
+                            {:else if item.input?.type === 'email'}{item.input?.email?.to}
+                            {:else if item.input?.type === 'text'}{item.input?.text}
+                            {:else if item.input?.type === 'vcard'}{item.input?.vcard?.firstName} {item.input?.vcard?.lastName}
+                            {:else if item.input?.type === 'sms'}{item.input?.sms?.phone}
+                            {:else if item.input?.type === 'crypto'}{item.input?.crypto?.currency}
                             {/if}
                         </p>
                     </div>
