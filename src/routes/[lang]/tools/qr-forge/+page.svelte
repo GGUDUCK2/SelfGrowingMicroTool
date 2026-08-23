@@ -9,7 +9,7 @@
   import QRPreview from '$lib/components/qr-forge/QRPreview.svelte';
   import QRHistory from '$lib/components/qr-forge/QRHistory.svelte';
   import type { QRState } from '$lib/utils/qr-forge/types';
-  import { db } from '$lib/db/qr-forge';
+  import { smartSaveToHistory } from '$lib/db/workspace';
   import FAQSection from '$lib/components/FAQSection.svelte';
   import { Save, History } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
@@ -27,6 +27,48 @@
     { q: t.q2 || 'Is it safe for WiFi passwords?', a: t.a2 || 'Yes. The generation happens locally on your device. Your WiFi password is never transmitted over the internet.' },
     { q: t.q3 || 'What is Error Correction?', a: t.a3 || 'Error correction allows the QR code to be readable even if part of it is damaged or covered. Level H allows up to 30% damage recovery, but makes the code denser.' }
   ];
+
+
+    let state: QRState = {
+      type: 'url',
+      url: 'https://example.com',
+      design: {
+          colorDark: '#0f172a',
+          colorLight: '#ffffff',
+          errorCorrectionLevel: 'H',
+          margin: 4,
+          scale: 8,
+          logoSize: 0.2,
+          frame: 'none'
+      },
+      createdAt: Date.now()
+  };
+
+  const TOOL_ID = 'qr-forge';
+  let isMounted = false;
+  let saveTimeout: ReturnType<typeof setTimeout>;
+
+  onMount(() => {
+    isMounted = true;
+    return () => {
+       clearTimeout(saveTimeout);
+    };
+  });
+
+  const triggerSave = (currentState: QRState) => {
+       clearTimeout(saveTimeout);
+       saveTimeout = setTimeout(() => {
+           smartSaveToHistory(
+               TOOL_ID,
+               JSON.parse(JSON.stringify(currentState)),
+               { preview: currentState.type }
+           );
+       }, 2000);
+  };
+
+  $: if (isMounted && state.type && (state.text || state.url || state.wifi?.ssid || state.vcard?.firstName || state.email?.to || state.sms?.phone || state.crypto?.address || state.bulk?.items)) {
+       triggerSave(state);
+  }
 
   $: jsonLd = {
     "@context": "https://schema.org",
@@ -71,20 +113,6 @@
     ]
   };
 
-  let state: QRState = {
-    type: 'url',
-    url: '',
-    design: {
-        colorDark: '#000000',
-        colorLight: '#ffffff',
-        errorCorrectionLevel: 'M',
-        margin: 4,
-        scale: 4,
-        logoSize: 0.2,
-        frame: 'none'
-    },
-    createdAt: Date.now()
-  };
 
   let showHistory = false;
   let saveStatus = '';
