@@ -120,7 +120,7 @@
     <h1 class="text-4xl font-extrabold text-slate-900 dark:text-white sm:text-5xl sm:tracking-tight lg:text-6xl">
       {d?.title}
     </h1>
-    <p class="mt-5 max-w-xl mx-auto text-xl text-slate-500 dark:text-slate-400">
+    <p class="mt-5 max-w-7xl mx-auto text-xl text-slate-500 dark:text-slate-400">
       {d?.description}
     </p>
   </div>
