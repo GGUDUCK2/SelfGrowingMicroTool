@@ -100,14 +100,14 @@ import Contrast from '@lucide/svelte/icons/contrast';
 
     <!-- Tab Navigation -->
     <div class="flex border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50" role="tablist">
-      <button class="flex-1 py-4 flex items-center justify-center gap-2 font-medium transition-colors border-b-2 min-h-[44px] {activeTab === 'contrast' ? 'text-indigo-600 border-indigo-600 dark:text-indigo-400 dark:border-indigo-400 bg-white dark:bg-slate-900' : 'text-slate-500 border-transparent hover:text-slate-700 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800'}"
+      <button class="flex-1 py-4 flex items-center justify-center gap-2 font-medium transition-colors border-b-2 min-h-[44px] {activeTab === 'contrast' ? 'text-indigo-600 border-indigo-600 dark:text-indigo-400 dark:border-indigo-400 bg-white dark:bg-slate-900' : 'text-slate-500 border-transparent hover:text-slate-700 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800'} min-w-[44px]"
         on:click={() => activeTab = 'contrast'}
         role="tab" aria-selected={activeTab === 'contrast'}
       >
         <Contrast size={18} />
         {t.tabs?.contrast || 'Contrast & Vision'}
       </button>
-      <button class="flex-1 py-4 flex items-center justify-center gap-2 font-medium transition-colors border-b-2 min-h-[44px] {activeTab === 'aria' ? 'text-indigo-600 border-indigo-600 dark:text-indigo-400 dark:border-indigo-400 bg-white dark:bg-slate-900' : 'text-slate-500 border-transparent hover:text-slate-700 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800'}"
+      <button class="flex-1 py-4 flex items-center justify-center gap-2 font-medium transition-colors border-b-2 min-h-[44px] {activeTab === 'aria' ? 'text-indigo-600 border-indigo-600 dark:text-indigo-400 dark:border-indigo-400 bg-white dark:bg-slate-900' : 'text-slate-500 border-transparent hover:text-slate-700 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800'} min-w-[44px]"
         on:click={() => activeTab = 'aria'}
         role="tab" aria-selected={activeTab === 'aria'}
       >
