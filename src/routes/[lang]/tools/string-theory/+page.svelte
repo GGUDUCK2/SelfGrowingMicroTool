@@ -364,7 +364,7 @@
   <!-- History Sidebar Overlay -->
   {#if showHistory}
     <button transition:fade={{ duration: 200 }}
-      class="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 w-full h-full cursor-default min-h-[44px]"
+      class="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 w-full h-full cursor-default min-h-[44px] min-w-[44px]"
       on:click={() => showHistory = false}
       on:keydown={(e) => e.key === 'Escape' && (showHistory = false)}
       aria-label="Close History Overlay"

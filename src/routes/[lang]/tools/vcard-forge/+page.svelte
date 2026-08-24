@@ -293,7 +293,7 @@
        </div>
        <div class="flex flex-wrap gap-2 w-full sm:w-auto">
            <div class="relative group flex-1 sm:flex-none">
-             <button class="w-full px-4 py-2 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-900/20 dark:hover:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 touch-manipulation min-h-[44px]"
+             <button class="w-full px-4 py-2 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-900/20 dark:hover:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 touch-manipulation min-h-[44px] min-w-[44px]"
                 aria-label="Load Smart Example"
              >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -310,7 +310,7 @@
            </div>
            <button on:click={saveCurrentVCard}
                 disabled={!currentData.name}
-                class="flex-1 sm:flex-none px-4 py-2 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/20 dark:hover:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg font-medium transition-colors flex items-center justify-center gap-2 min-h-[44px]"
+                class="flex-1 sm:flex-none px-4 py-2 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/20 dark:hover:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg font-medium transition-colors flex items-center justify-center gap-2 min-h-[44px] min-w-[44px]"
                 aria-label="Save vCard"
              >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -365,7 +365,7 @@
     <!-- History Sidebar -->
     {#if showHistory}
       <button transition:fade={{ duration: 200 }}
-        class="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 w-full h-full cursor-default min-h-[44px]"
+        class="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 w-full h-full cursor-default min-h-[44px] min-w-[44px]"
         on:click={() => showHistory = false}
         on:keydown={(e) => e.key === 'Escape' && (showHistory = false)}
         aria-label="Close History Overlay"

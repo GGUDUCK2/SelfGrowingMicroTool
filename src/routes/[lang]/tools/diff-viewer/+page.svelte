@@ -444,7 +444,7 @@
     <!-- Conflict Modal -->
     {#if showConflictModal}
         <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <button class="absolute inset-0 bg-black/50 backdrop-blur-sm border-none w-full h-full cursor-default min-h-[44px]"
+            <button class="absolute inset-0 bg-black/50 backdrop-blur-sm border-none w-full h-full cursor-default min-h-[44px] min-w-[44px]"
                 aria-label="Close Modal"
                 on:click={() => showConflictModal = false}
                 on:keydown={(e) => e.key === 'Escape' && (showConflictModal = false)}
@@ -499,7 +499,7 @@
              </button>
         </div>
         <!-- Overlay -->
-        <button class="fixed inset-0 bg-black/20 z-40 cursor-default w-full h-full border-none min-h-[44px]"
+        <button class="fixed inset-0 bg-black/20 z-40 cursor-default w-full h-full border-none min-h-[44px] min-w-[44px]"
             aria-label="Close History Overlay"
             on:click={() => isHistoryOpen = false}
             on:keydown={(e) => e.key === 'Escape' && (isHistoryOpen = false)}
