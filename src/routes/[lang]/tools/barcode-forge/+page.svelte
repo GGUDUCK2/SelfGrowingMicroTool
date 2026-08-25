@@ -169,27 +169,7 @@
 
     <AdPlaceholder />
 
-    <!-- Ultimate Documentation -->
-    <div class="prose prose-slate dark:prose-invert max-w-none bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800">
-         <h2>The Definitive Guide to Professional Barcodes</h2>
-         <p>Barcode Forge is an enterprise-grade linear barcode generator designed for developers, inventory managers, and retail operations. It processes data entirely within your browser, ensuring absolute security and sub-millisecond rendering performance.</p>
-
-         <h3>Understanding Barcode Formats</h3>
-         <p>Choosing the correct symbology is critical for your use case. Here is a breakdown of the most common formats supported:</p>
-         <ul>
-             <li><strong>Code 128:</strong> The most versatile and robust high-density alphanumeric barcode. Use this for internal tracking, shipping labels, and general asset management. The engine automatically selects the optimal subset (A, B, or C) to minimize the footprint.</li>
-             <li><strong>EAN-13 / UPC-A:</strong> The global standards for retail point-of-sale. EAN-13 is used worldwide, while UPC-A is predominantly used in North America. These formats strictly require 12 or 13 numeric digits.</li>
-             <li><strong>ITF-14 (Interleaved 2 of 5):</strong> Ideal for printing on corrugated cardboard boxes and packaging materials. It only accepts numeric data in pairs and requires a 14-digit length.</li>
-         </ul>
-
-         <h3>Advanced Pro Tips</h3>
-         <p>To ensure 100% first-pass read rates with industrial scanners, follow these design principles:</p>
-         <ul>
-             <li><strong>Contrast Ratio:</strong> Maintain a minimum 80% contrast ratio between the bars (line color) and the background. Solid black on pure white `#ffffff` is the industry standard. Avoid red backgrounds or red bars, as laser scanners utilize red light and will fail to detect them.</li>
-             <li><strong>Quiet Zones:</strong> The margin property defines the "Quiet Zone" (the blank space on the left and right of the barcode). Never set this to 0. A minimum margin of 10x the width of the narrowest bar is required for reliable scanning.</li>
-             <li><strong>Vector Export:</strong> For print production (packaging, high-res labels), always export as SVG. SVGs are infinitely scalable and will not suffer from anti-aliasing artifacts that can ruin scan reliability on low-dpi printers.</li>
-         </ul>
-    </div>
+    <GuideSection {...t.guide} />
 
     <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
 
