@@ -346,19 +346,19 @@
 
        <div class="flex items-center gap-2">
          <button on:click={() => showBatch = true}
-            class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors min-h-[44px]"
+            class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
             title="Batch Runner"
          >
              <PlayCircle class="w-4 h-4" /> <span class="hidden sm:inline">Runner</span>
          </button>
          <button on:click={() => showVariables = true}
-            class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors min-h-[44px]"
+            class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
             title="Variables"
          >
              <Settings2 class="w-4 h-4" /> <span class="hidden sm:inline">Env</span>
          </button>
          <button on:click={() => showCodeModal = true}
-           class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors min-h-[44px]"
+           class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
          >
            <Code class="w-4 h-4" /> <span class="hidden sm:inline">Code</span>
          </button>

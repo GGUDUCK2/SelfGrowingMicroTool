@@ -144,13 +144,13 @@
             <!-- Dropdown -->
             <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right z-50">
                 <button on:click={() => exportToCsv($matrixStore)}
-                    class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 min-h-[44px]"
+                    class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 min-h-[44px] min-w-[44px]"
                 >
                     <FileSpreadsheet size={16} class="text-green-600" />
                     <span>{t.downloadCsv}</span>
                 </button>
                 <button on:click={() => exportToJson($matrixStore)}
-                    class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 min-h-[44px]"
+                    class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 min-h-[44px] min-w-[44px]"
                 >
                     <FileJson size={16} class="text-yellow-600" />
                     <span>{t.downloadJson}</span>

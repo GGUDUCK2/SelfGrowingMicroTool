@@ -242,7 +242,7 @@
         <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-2xl flex flex-col max-h-[90vh]" transition:fly={{ y: 20 }}>
             <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
                 <h3 class="font-bold text-lg text-slate-800 dark:text-white">{dict.export}</h3>
-                <button on:click={() => showCodeModal = false}><X class="w-5 h-5 text-slate-500 min-h-[44px] min-w-[44px]" /></button>
+                <button class="min-h-[44px] min-w-[44px]" on:click={() => showCodeModal = false}><X class="w-5 h-5 text-slate-500 min-h-[44px] min-w-[44px]" /></button>
             </div>
             <div class="flex border-b border-slate-200 dark:border-slate-700">
                 <button class="flex-1 py-3 text-sm font-medium {codeMode === 'css' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'} min-h-[44px] min-w-[44px]" on:click={() => switchCodeMode('css')}>CSS</button>
