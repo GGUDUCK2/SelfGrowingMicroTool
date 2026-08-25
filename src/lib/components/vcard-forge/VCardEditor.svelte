@@ -361,7 +361,7 @@
     <div class="flex items-center justify-between mb-4">
         <h3 class="text-sm font-semibold text-slate-600 dark:text-slate-400">{dict?.qrColors || 'QR Code Colors'}</h3>
         <div class="flex items-center gap-2">
-            {#each themes as theme}
+            {#each themes as theme (theme.name)}
                 <button
                     type="button"
                     on:click={() => applyTheme(theme)}
