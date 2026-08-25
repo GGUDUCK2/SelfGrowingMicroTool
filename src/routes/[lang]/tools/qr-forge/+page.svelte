@@ -216,7 +216,7 @@
                         <span>{saveStatus || (t.save || 'Save')}</span>
                     </button>
                     <button on:click={() => showHistory = !showHistory}
-                        class="flex-1 sm:flex-none flex items-center justify-center space-x-1 px-4 py-2 bg-slate-700 text-slate-300 hover:bg-slate-600 rounded-lg text-sm transition-colors border border-slate-600 min-h-[44px]"
+                        class="flex-1 sm:flex-none flex items-center justify-center space-x-1 px-4 py-2 bg-slate-700 text-slate-300 hover:bg-slate-600 rounded-lg text-sm transition-colors border border-slate-600 min-h-[44px] min-w-[44px]"
                     >
                         <History size={16} />
                         <span>{t.history || 'History'}</span>

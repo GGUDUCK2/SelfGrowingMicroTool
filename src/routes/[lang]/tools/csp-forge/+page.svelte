@@ -170,9 +170,9 @@
             <h2 class="text-xl font-bold text-slate-900 dark:text-white">{(dict as any)?.directives}</h2>
             <div class="flex flex-wrap gap-2">
                <span class="text-sm text-slate-500 self-center mr-2">{(dict as any)?.presets}:</span>
-               <button on:click={() => applyPreset('basic')} class="px-3 py-1.5 min-h-[44px] text-sm font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-lg transition-colors">{(dict as any)?.presetBasic}</button>
-               <button on:click={() => applyPreset('strict')} class="px-3 py-1.5 min-h-[44px] text-sm font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-lg transition-colors">{(dict as any)?.presetStrict}</button>
-               <button on:click={() => applyPreset('none')} class="px-3 py-1.5 min-h-[44px] text-sm font-medium bg-red-50 hover:bg-red-100 dark:bg-red-900/30 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 rounded-lg transition-colors">{(dict as any)?.presetNone}</button>
+               <button on:click={() => applyPreset('basic')} class="px-3 py-1.5 min-h-[44px] text-sm font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-lg transition-colors min-w-[44px]">{(dict as any)?.presetBasic}</button>
+               <button on:click={() => applyPreset('strict')} class="px-3 py-1.5 min-h-[44px] text-sm font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-lg transition-colors min-w-[44px]">{(dict as any)?.presetStrict}</button>
+               <button on:click={() => applyPreset('none')} class="px-3 py-1.5 min-h-[44px] text-sm font-medium bg-red-50 hover:bg-red-100 dark:bg-red-900/30 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 rounded-lg transition-colors min-w-[44px]">{(dict as any)?.presetNone}</button>
             </div>
          </div>
 

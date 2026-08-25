@@ -410,10 +410,10 @@
                          {dict.templates.title}
                      </button>
                      <div class="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-100 dark:border-slate-700 hidden group-hover:block z-10">
-                         <button on:click={() => applyTemplate('blog')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict.templates.blog}</button>
-                         <button on:click={() => applyTemplate('product')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict.templates.product}</button>
-                         <button on:click={() => applyTemplate('portfolio')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict.templates.portfolio}</button>
-                         <button on:click={() => applyTemplate('landing')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600">{dict.templates.landing}</button>
+                         <button on:click={() => applyTemplate('blog')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 min-w-[44px]">{dict.templates.blog}</button>
+                         <button on:click={() => applyTemplate('product')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 min-w-[44px]">{dict.templates.product}</button>
+                         <button on:click={() => applyTemplate('portfolio')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 min-w-[44px]">{dict.templates.portfolio}</button>
+                         <button on:click={() => applyTemplate('landing')} class="min-h-[44px] block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 min-w-[44px]">{dict.templates.landing}</button>
                      </div>
                  </div>
 
@@ -559,7 +559,7 @@
                     <button on:click={() => copyToClipboard(activeTab === 'jsonld' ? generatedJsonLd : generatedHtml)}
                       aria-label="Copy Code"
                       type="button"
-                      class="min-h-[44px] px-4 py-2 text-indigo-600 hover:text-indigo-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors"
+                      class="min-h-[44px] px-4 py-2 text-indigo-600 hover:text-indigo-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors min-w-[44px]"
                     >
                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
                        {dict.actions.copyHtml}
