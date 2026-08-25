@@ -16,7 +16,7 @@
     $: lang = $page.params.lang as 'en' | 'ko';
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    $: dict = (dictionaries as any)[lang]?.tools?.vcardForge || {};
+    $: dict = (dictionaries as unknown as Record<string, any>)[lang]?.tools?.vcardForge || {};
 
     const initialData: VCardForgeData = {
       name: '',
@@ -36,6 +36,7 @@
     };
 
     interface VCardForgeData {
+      [key: string]: string;
       name: string;
       title: string;
       company: string;
