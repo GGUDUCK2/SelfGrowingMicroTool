@@ -1,5 +1,25 @@
 ### [Daily Improvement Report - 2026-08-26]
 #### 1. Identified Issues (발견된 문제)
+- `barcode-forge` 도구 페이지에서 기술 가이드를 표시하는 부분에 공통 컴포넌트인 `GuideSection`이 사용되지 않고 하드코딩된 HTML 템플릿이 남아있어 유지보수성 및 코드 일관성을 저해하는 문제를 발견했습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/barcode-forge/+page.svelte` 파일 내의 하드코딩된 가이드 섹션을 모듈화된 `<GuideSection {...t.guide} />` 컴포넌트로 교체하여 코드 중복을 제거하고 디자인 일관성을 확보했습니다.
+
+#### 3. Performance Impact (기대 효과)
+- 공통 컴포넌트 재사용으로 번들 크기가 감소하고 향후 가이드 섹션 디자인 변경 시 일괄 적용이 가능해져 유지보수성이 크게 향상됩니다.
+
+### [Daily Improvement Report - 2026-08-26]
+#### 1. Identified Issues (발견된 문제)
+- `barcode-forge` 도구 페이지에서 기술 가이드를 표시하는 부분에 공통 컴포넌트인 `GuideSection`이 사용되지 않고 하드코딩된 HTML 템플릿이 남아있어 유지보수성 및 코드 일관성을 저해하는 문제를 발견했습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/barcode-forge/+page.svelte` 파일 내의 하드코딩된 가이드 섹션을 모듈화된 `<GuideSection {...t.guide} />` 컴포넌트로 교체하여 코드 중복을 제거하고 디자인 일관성을 확보했습니다.
+
+#### 3. Performance Impact (기대 효과)
+- 공통 컴포넌트 재사용으로 번들 크기가 감소하고 향후 가이드 섹션 디자인 변경 시 일괄 적용이 가능해져 유지보수성이 크게 향상됩니다.
+
+### [Daily Improvement Report - 2026-08-26]
+#### 1. Identified Issues (발견된 문제)
 - 모바일 환경에서의 사용자 접근성(A11y) 향상을 위해 아직 적용되지 않은 도구들의 버튼(`button`)과 링크(`a`) 요소에 최소 터치 타겟 크기(`min-h-[44px] min-w-[44px]`) 클래스가 누락된 문제를 추가 발견했습니다.
 - `schema-forge` 페이지의 텍스트 컨테이너 일부에서 비표준 클래스가 남아 디자인 일관성(Layout width)을 저해할 가능성이 있었습니다.
 
