@@ -18,7 +18,7 @@
 
   async function loadProject(p: GridMasterProject) {
       // Create a clean state object excluding DB fields
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
       const { id, createdAt, updatedAt, starred, ...state } = p;
       gridStore.load(state);
   }

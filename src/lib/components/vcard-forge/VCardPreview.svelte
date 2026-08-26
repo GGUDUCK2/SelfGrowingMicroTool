@@ -81,7 +81,10 @@
     }
 
     if (data.website) vcf += `URL:${data.website}\n`;
-    if (data.address) vcf += `ADR;TYPE=WORK:;;${data.address.replace(/\n/g, ';')}\n`;
+    if (data.address) {
+        vcf += `ADR;TYPE=WORK:;;${data.address.replace(/\n/g, ';')}\n`;
+        vcf += isV4 ? `URL;TYPE=Map:https://maps.google.com/?q=${encodeURIComponent(data.address)}\n` : `URL;type=Map:https://maps.google.com/?q=${encodeURIComponent(data.address)}\n`;
+    }
 
     if (data.linkedIn) {
         vcf += isV4 ? `URL;TYPE=LinkedIn:${data.linkedIn}\n` : `URL;type=LinkedIn:${data.linkedIn}\n`;
@@ -139,6 +142,39 @@
                 }
             });
             qrDataUrl = qrCanvas.toDataURL('image/png');
+            if (data.photoData) {
+                const img = new Image();
+                img.src = data.photoData;
+                await new Promise((resolve) => {
+                    img.onload = () => {
+                        const ctx = qrCanvas.getContext('2d');
+                        if (ctx) {
+                            const size = qrCanvas.width;
+                            const logoSize = size * 0.25; // 25% of QR code size
+                            const center = size / 2;
+
+                            // Draw white circle background
+                            ctx.fillStyle = '#ffffff';
+                            ctx.beginPath();
+                            ctx.arc(center, center, logoSize / 2 + 4, 0, Math.PI * 2);
+                            ctx.fill();
+
+                            // Draw circular image
+                            ctx.save();
+                            ctx.beginPath();
+                            ctx.arc(center, center, logoSize / 2, 0, Math.PI * 2);
+                            ctx.clip();
+                            ctx.drawImage(img, center - logoSize / 2, center - logoSize / 2, logoSize, logoSize);
+                            ctx.restore();
+
+                            qrDataUrl = qrCanvas.toDataURL('image/png');
+                        }
+                        resolve(null);
+                    };
+                    img.onerror = () => resolve(null);
+                });
+            }
+
 
             qrSvgString = await QRCode.toString(vcardPayload, {
                 type: 'svg',
