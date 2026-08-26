@@ -192,3 +192,17 @@
 
 ## AdSense Readiness
 - 모든 74개 도구에 RelatedTools 컴포넌트가 정상적으로 존재하여 콘텐츠 연결성(Internal linking) 확보 확인.
+
+### [Daily Improvement Report - 2024-08-26]
+#### 1. Identified Issues (발견된 문제)
+- SEO/AEO 중복 문제: `BreadcrumbList` 스키마가 개별 툴 페이지마다 불필요하게 선언되어 있어 DRY 원칙에 위배되고 유지보수가 어려움.
+- 툴 페이지에 여러 중복된 Schema Injection 코드가 있어 HTML 구조 및 유지보수성에 영향을 줌.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/lib/components/Head.svelte` - 동적인 경로 기반 `BreadcrumbList` 스키마를 렌더링하도록 일원화 및 컴포넌트 내부에서 URL 동적으로 계산하도록 로직 추가.
+- **Code**: `src/routes/[lang]/tools/*/+page.svelte` (약 73개 파일) - 개별 페이지 내 존재하는 불필요한 `BreadcrumbList` 및 관련 `jsonLd2`, `breadcrumbSchema` 선언과 XSS 렌더링 블록 제거.
+- **SEO/AEO**: 공통 `Head` 컴포넌트에서 전체 도구 페이지의 `BreadcrumbList` 스키마 데이터를 효율적이고 일관되게 제공하여 AI/검색엔진 가시성 안정화.
+
+#### 3. Performance Impact (기대 효과)
+- 공통 레이아웃에서의 중앙 집중형 관리로 인해 빌드 크기 소폭 감소 및 중복 코드 렌더링 부하 완화.
+- 향후 SEO(특히 구조화된 데이터) 수정 시 `Head.svelte` 단일 파일 수정으로 70여 개 이상의 도구 페이지 일괄 반영 가능. 기대 SEO 유지보수 비용 극적 감소.

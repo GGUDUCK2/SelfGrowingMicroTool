@@ -162,31 +162,7 @@
       }
     };
 
-  $: jsonLd2 = {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": `${$page.url.origin}/${lang}`
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Tools",
-          "item": `${$page.url.origin}/${lang}#tools`
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Cronos",
-          "item": `${$page.url.origin}/${lang}/tools/cron-editor`
-        }
-      ]
-    };
-</script>
+  </script>
 <Head
   title={`${lang === "ko"
       ? `Cronos: 전문가용 Cron 에디터 - ${parseResult.isValid ? parseResult.description : "스케줄러"}`
@@ -206,7 +182,7 @@
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/cron-editor"} />
   <!-- JSON-LD -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd2).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
   </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

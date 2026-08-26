@@ -93,32 +93,7 @@
 
 
 
-  $: breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${$page.url.origin}/${($page.params.lang || "en")}`
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Tools",
-        "item": `${$page.url.origin}/${($page.params.lang || "en")}#tools`
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": t.title,
-        "item": `${$page.url.origin}/${($page.params.lang || "en")}/tools/color-master`
-      }
-    ]
-  };
-
-  // --- Derived State ---
+    // --- Derived State ---
   $: harmonies = getHarmonies(baseColor, harmonyType);
   $: displayedHarmonies = visionType === 'none'
       ? harmonies
@@ -275,7 +250,7 @@
 
 
 
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
 </svelte:head>
 
 <Head

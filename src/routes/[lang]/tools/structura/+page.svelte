@@ -231,31 +231,7 @@
       "description": t.description,
       "featureList": ["JSON Converter", "YAML Converter", "XML Converter", "CSV Converter", "Code Generator", "Tree Visualizer"]};
 
-  $: breadcrumb = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${$page.url.origin}/${lang}`
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Tools",
-        "item": `${$page.url.origin}/${lang}/tools`
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Structura",
-        "item": $page.url.href
-      }
-    ]
-  };
-</script>
+  </script>
 <Head
   title={`${t.title} | Web Factory`}
   description={t.description}
@@ -270,7 +246,7 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/structura"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/structura"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1).replace(/</g, '\\u003c')}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">

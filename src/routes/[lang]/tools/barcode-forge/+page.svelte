@@ -71,31 +71,7 @@
       { q: t.q3 || "Can I generate barcodes for my store inventory?", a: t.a3 || "Yes. You can use the Bulk Mode to paste a list of SKUs and download them all as a ZIP file instantly." }
   ];
 
-  $: breadcrumb = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${$page.url.origin}/${lang}`
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Tools",
-        "item": `${$page.url.origin}/${lang}/tools`
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Barcode Forge",
-        "item": $page.url.href
-      }
-    ]
-  };
-</script>
+  </script>
 
 <svelte:head>
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
@@ -103,7 +79,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/barcode-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/barcode-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/barcode-forge"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
 </svelte:head>
 
 <Head

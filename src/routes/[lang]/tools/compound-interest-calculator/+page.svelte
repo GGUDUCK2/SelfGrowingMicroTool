@@ -325,26 +325,6 @@
           "CSV Export",
           "Offline History"
       ]
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": $page.url.origin + "/" + lang
-      },{
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Tools",
-        "item": $page.url.origin + "/" + lang + "/tools"
-      },{
-        "@type": "ListItem",
-        "position": 3,
-        "name": dict.title,
-        "item": $page.url.origin + "/" + lang + "/tools/compound-interest-calculator"
-      }]
     }
   ];
 </script>

@@ -42,29 +42,6 @@
           "Smart Drag and Drop",
           "Value Obfuscation for secure sharing"
         ]
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": `${$page.url.origin}/${lang}`
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Tools",
-            "item": `${$page.url.origin}/${lang}/tools`
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": d?.title || "Env Forge",
-            "item": `${$page.url.origin}/${lang}/tools/env-forge`
-          }
-        ]
       }
     ]
   };

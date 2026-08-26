@@ -129,26 +129,7 @@
 
 
 
-  $: breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": dictionaries[lang].home.title,
-        "item": `${$page.url.origin}/${lang}`
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": (dict as any)?.title || '',
-        "item": `${$page.url.origin}/${lang}/tools/csv-forge`
-      }
-    ]
-  };
-
-  $: softwareSchema = {
+    $: softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "@id": $page.url.origin + "/" + lang + "/tools/csv-forge",
@@ -172,7 +153,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/csv-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/csv-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/csv-forge"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
 

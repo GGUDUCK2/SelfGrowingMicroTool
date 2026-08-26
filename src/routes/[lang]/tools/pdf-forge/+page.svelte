@@ -47,28 +47,7 @@
     "dateModified": new Date().toISOString()
   };
 
-  $: breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [{
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": `${$page.url.origin}/`
-    }, {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Tools",
-      "item": `${$page.url.origin}/tools`
-    }, {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "PDF Forge",
-      "item": canonical
-    }]
-  };
-
-  const renderMarkdown = (text: string) => marked.parse(text);
+    const renderMarkdown = (text: string) => marked.parse(text);
 </script>
 <Head
   title={title}
@@ -83,7 +62,7 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/pdf-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/pdf-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
 
   {@html `<script type="application/ld+json">
 

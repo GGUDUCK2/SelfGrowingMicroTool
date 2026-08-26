@@ -225,30 +225,7 @@
         ]
     };
 
-    $: breadcrumbSchema = {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${$page.url.origin}/${($page.params.lang || "en")}`
-      },{
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Tools",
-        "item": `${$page.url.origin}/${($page.params.lang || "en")}#tools`
-      },{
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Chrono Shift",
-        "item": `${$page.url.origin}/${($page.params.lang || "en")}/tools/chrono-shift`
-      }]
-    };
-
-
-
-    // ics generation (simplified)
+        // ics generation (simplified)
     function downloadIcs() {
         const formatICSDate = (date: Date) => date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
         const start = formatICSDate(selectedDate);
@@ -291,7 +268,7 @@
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/chrono-shift"} />
   <!-- Twitter -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
 
 
 </svelte:head>

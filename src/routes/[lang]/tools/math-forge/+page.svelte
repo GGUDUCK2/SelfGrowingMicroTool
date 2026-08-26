@@ -30,19 +30,7 @@
   ];
   $: canonicalUrl = `${$page.url.origin}/${lang}/tools/math-forge`;
 
-  $: breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": `${$page.url.origin}/${lang}` },
-      { "@type": "ListItem", "position": 2, "name": "Tools", "item": `${$page.url.origin}/${lang}#tools` },
-      { "@type": "ListItem", "position": 3, "name": dict.title, "item": `${$page.url.origin}/${lang}/tools/math-forge` }
-    ]
-  };
-
-
-
-  let activeTab: 'calculator' | 'grapher' | 'matrix' | 'statistics' = 'calculator';
+    let activeTab: 'calculator' | 'grapher' | 'matrix' | 'statistics' = 'calculator';
   let showHistory = false;
 
   // Shared state for calculator
@@ -99,7 +87,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/math-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/math-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/math-forge"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
 
   {@html `<script type="application/ld+json">
     {

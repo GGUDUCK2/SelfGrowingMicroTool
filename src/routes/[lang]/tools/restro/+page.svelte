@@ -35,32 +35,7 @@
     { q: (dict as any)?.q3, a: (dict as any)?.a3 }
   ];
 
-  $: breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://microfactory.app/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Tools",
-        "item": "https://microfactory.app/tools/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Restro",
-        "item": $page.url.href
-      }
-    ]
-  };
-
-  let method = 'GET';
+    let method = 'GET';
   let url = '';
   let params: { key: string; value: string; enabled: boolean }[] = [];
   let headers: { key: string; value: string; enabled: boolean }[] = [];
@@ -272,8 +247,7 @@
           "Batch Runner",
           "Environment Variables"
         ]
-      },
-      breadcrumbSchema
+      }
     ]
   };
 </script>

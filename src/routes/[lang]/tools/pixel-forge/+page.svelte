@@ -56,31 +56,7 @@
   // Helper to render markdown safely
   const renderMarkdown = (text: string) => marked.parse(text);
 
-  $: breadcrumb = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${$page.url.origin}/${lang}`
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Tools",
-        "item": `${$page.url.origin}/${lang}/tools`
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Pixel Forge",
-        "item": $page.url.href
-      }
-    ]
-  };
-</script>
+  </script>
 <Head
   title={title}
   description={description}
@@ -100,7 +76,7 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/pixel-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/pixel-forge"} />
   {@html `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
