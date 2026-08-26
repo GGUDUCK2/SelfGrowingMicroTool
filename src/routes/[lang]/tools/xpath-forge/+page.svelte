@@ -54,7 +54,7 @@
     </p>
   </div>
 
-  <XPathForge />
+  <XPathForge lang={lang as "en" | "ko"} dictionary={dict} />
 
   <div class="mt-24 space-y-24">
     <GuideSection {...t?.guide} />

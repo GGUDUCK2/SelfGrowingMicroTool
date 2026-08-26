@@ -1,14 +1,14 @@
 <script lang="ts">
-            import { page } from '$app/stores';
+
     import { onMount } from 'svelte';
             import { Play, Copy, Download, Trash2, Code, History, Star, Maximize2, Search as SearchIcon, Link as LinkIcon, ChevronRight } from '@lucide/svelte';
-    import { workspace, type ToolHistoryItem } from '$lib/db/workspace';
+    import { workspace, type ToolHistoryItem, smartSaveToHistory } from '$lib/db/workspace';
 
-    import { getDictionary } from '$lib/dictionaries';
 
-    $: lang = $page.params.lang || 'en';
-    $: dict = getDictionary(lang);
-    $: t = (dict as any)?.tools?.xpathForge;
+
+    export let lang: 'en' | 'ko' = 'en';
+    export let dictionary: any = {};
+    $: t = dictionary?.tools?.xpathForge || {};
 
     // State
     let sourceDocument = `<?xml version="1.0" encoding="UTF-8"?>
@@ -445,7 +445,7 @@
                 <input
                     type="text"
                     bind:value={xpathExpression}
-                    placeholder={t?.xpath?.placeholder}
+                    placeholder={t?.placeholder || "e.g. //book[price>35]"}
                     class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-mono text-sm"
                 />
             </div>
