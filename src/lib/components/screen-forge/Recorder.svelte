@@ -45,7 +45,7 @@
           }
           isRecording = true;
           startTimer();
-      } catch (e) {
+      } catch (e: any) {
           console.error("Failed to start recording", e);
           // Only alert if it's not a user cancellation (which usually throws NotAllowedError)
           if (e.name !== 'NotAllowedError') {

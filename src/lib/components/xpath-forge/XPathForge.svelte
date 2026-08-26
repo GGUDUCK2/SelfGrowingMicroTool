@@ -272,7 +272,7 @@
     async function handleCopy(text: string) {
         try {
             await navigator.clipboard.writeText(text);
-            showToast((dict as any)?.common?.actions || 'Copied', 'success');
+            showToast((dictionary)?.common?.actions || 'Copied', 'success');
         } catch {
             showToast('Failed to copy', 'error');
         }

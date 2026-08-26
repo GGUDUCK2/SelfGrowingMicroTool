@@ -129,7 +129,7 @@
                 <div class="w-full max-w-[375px] font-sans text-left">
                     <div class="flex items-center gap-2 mb-2">
                          <div class="bg-slate-200 rounded-full w-7 h-7 flex items-center justify-center overflow-hidden">
-                             <img src={`https://www.google.com/s2/favicons?domain=${displayDomain}`} alt="favicon" class="w-4 h-4" on:error={(e) => e.currentTarget.style.display = 'none'} />
+                             <img src={`https://www.google.com/s2/favicons?domain=${displayDomain}`} alt="favicon" class="w-4 h-4" on:error={(e: Event & { currentTarget: HTMLImageElement }) => e.currentTarget.style.display = 'none'} />
                          </div>
                          <div class="flex flex-col text-sm leading-tight">
                              <span class="{isDarkMode ? 'text-[#dadce0]' : 'text-[#202124]'} font-medium">{displayDomain}</span>
@@ -146,7 +146,7 @@
                 <div class="w-full max-w-[600px] font-sans text-left">
                     <div class="flex items-center gap-2 mb-1">
                          <div class="bg-slate-200 rounded-full w-7 h-7 flex items-center justify-center overflow-hidden">
-                             <img src={`https://www.google.com/s2/favicons?domain=${displayDomain}`} alt="favicon" class="w-4 h-4" on:error={(e) => e.currentTarget.style.display = 'none'} />
+                             <img src={`https://www.google.com/s2/favicons?domain=${displayDomain}`} alt="favicon" class="w-4 h-4" on:error={(e: Event & { currentTarget: HTMLImageElement }) => e.currentTarget.style.display = 'none'} />
                          </div>
                          <div class="flex flex-col text-sm">
                              <span class="{isDarkMode ? 'text-slate-300' : 'text-[#202124]'}">{displayDomain}</span>
