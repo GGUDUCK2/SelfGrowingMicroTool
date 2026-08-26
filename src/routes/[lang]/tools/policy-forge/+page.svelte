@@ -96,23 +96,6 @@
            "CCPA Ready",
            "Multi-Language Support"
         ]
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": dict.home.title,
-            "item": `${$page.url.origin}/${lang}`
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": toolDict.title,
-            "item": $page.url.href
-          }
-        ]
       }
     ]
   };

@@ -311,32 +311,7 @@
       ]
     };
 
-  $: breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `https://microfactory.site/${lang}`
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Tools",
-        "item": `https://microfactory.site/${lang}/tools`
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": t?.title,
-        "item": `https://microfactory.site/${lang}/tools/schema-forge`
-      }
-    ]
-  };
-
-  </script>
+    </script>
 <Head
   title={t?.title}
   description={t?.description}
@@ -354,7 +329,7 @@
 
   <!-- JSON-LD -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
   </svelte:head>
 
 <!-- Toast -->

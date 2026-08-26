@@ -52,17 +52,7 @@
     ]
   } : {};
 
-  $: breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Tools", "item": `${$page.url.origin}/${lang}/tools` },
-      { "@type": "ListItem", "position": 2, "name": "Shadow Forge", "item": `${$page.url.origin}/${lang}/tools/shadow-forge` }
-    ]
-  };
-
-
-</script>
+  </script>
 
 <Head
   title={dict.title}
@@ -77,7 +67,7 @@
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/shadow-forge"} />
   {#if dict}
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
 
 
   {/if}

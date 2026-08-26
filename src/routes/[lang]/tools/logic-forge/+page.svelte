@@ -192,30 +192,6 @@
       },
       "featureList": "Truth Table Generator, Logic Circuit Visualizer, Boolean Algebra Simplifier, Karnaugh Map Solver, Interactive Logic Simulation, Reverse Boolean Engineering, Logic Circuit Designer",
       "screenshot": "https://microfactory.app/screenshots/logic-forge.png"
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://microfactory.app"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Tools",
-          "item": "https://microfactory.app/tools"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": dict.title,
-          "item": "https://microfactory.app/tools/logic-forge"
-        }
-      ]
     }
   ];
 

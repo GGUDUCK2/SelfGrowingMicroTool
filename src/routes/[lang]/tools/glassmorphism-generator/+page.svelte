@@ -166,29 +166,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
       "price": "0",
       "priceCurrency": "USD"
     }};
-  $: schemaObj2 = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [{
-      "@type": "ListItem",
-      "position": 1,
-      "name": homeName,
-      "item": `${$page.url.origin}/`
-    }, {
-      "@type": "ListItem",
-      "position": 2,
-      "name": toolsName,
-      "item": `${$page.url.origin}/tools`
-    }, {
-      "@type": "ListItem",
-      "position": 3,
-      "name": dict.title,
-      "item": `${$page.url.origin}/${lang}/tools/glassmorphism-generator`
-    }]
-  };
-
-
-</script>
+  </script>
 <Head
   title={dict.title}
   description={dict.description}
@@ -201,7 +179,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/glassmorphism-generator"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/glassmorphism-generator"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1).replace(/</g, '\\u003c')}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj2).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">

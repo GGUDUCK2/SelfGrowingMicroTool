@@ -181,23 +181,6 @@
           t.guide.f2.replace(/\*\*/g, ''),
           t.guide.f3.replace(/\*\*/g, '')
         ]
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": `${baseUrl}/${lang}`
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": t.title,
-            "item": canonical
-          }
-        ]
       }
     ]
   };

@@ -24,26 +24,7 @@
   let currentFont: LoadedFont | null = null;
   let showHistory = false;
 
-  $: breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": (common as any).home || "Home",
-        "item": `${$page.url.origin}/${lang}`
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": dict.title,
-        "item": `${$page.url.origin}/${lang}/tools/type-forge`
-      }
-    ]
-  };
-
-  async function handleLoad(event: CustomEvent<LoadedFont>) {
+    async function handleLoad(event: CustomEvent<LoadedFont>) {
       currentFont = event.detail;
       // Save to history
       await db.typeForgeHistory.add({
@@ -78,7 +59,7 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/type-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/type-forge"} />
   {@html `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "SoftwareApplication", "@id": $page.url.origin + "/" + lang + "/tools/type-forge", "isAccessibleForFree": true, "name": dict.title, "description": dict.description, "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "featureList": [ "Variable Font Axis Control", "Glyph Inspection", "CSS @font-face Generator", "Local Processing" ] }).replace(/</g, '\\u003c')}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">

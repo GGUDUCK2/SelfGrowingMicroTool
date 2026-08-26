@@ -105,31 +105,7 @@
         ]
     };
 
-  $: breadcrumb = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${$page.url.origin}/${lang}`
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Tools",
-        "item": `${$page.url.origin}/${lang}/tools`
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Zen Forge",
-        "item": $page.url.href
-      }
-    ]
-  };
-</script>
+  </script>
 
 <svelte:window on:keydown={handleKeydown} />
 
@@ -147,7 +123,7 @@
     <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/zen-forge"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
 </svelte:head>
 
 <div class="min-h-screen bg-slate-900 text-slate-100 font-sans relative overflow-hidden flex flex-col transition-all">

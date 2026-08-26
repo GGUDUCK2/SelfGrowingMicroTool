@@ -101,23 +101,6 @@
           "Response Actions (Copy/Download JSON)",
           "Auto TypeScript Interface Generation"
         ]
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": `${$page.url.origin}/${lang}`
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": title,
-            "item": `${$page.url.origin}/${lang}/tools/curl-forge`
-          }
-        ]
       }
     ]
   };

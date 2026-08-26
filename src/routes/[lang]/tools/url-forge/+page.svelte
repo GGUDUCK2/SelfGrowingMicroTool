@@ -56,29 +56,6 @@
             "@type": "Organization",
             "name": "MicroFactory"
         }
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": `${$page.url.origin}/${lang}`
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Tools",
-            "item": `${$page.url.origin}/${lang}#tools`
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": (dict as any)?.title,
-            "item": `${$page.url.origin}/${lang}/tools/url-forge`
-          }
-        ]
       }
     ]
   } : null;

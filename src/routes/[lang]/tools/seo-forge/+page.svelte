@@ -308,29 +308,6 @@
           "Meta Tag Analysis",
           "Smart Templates"
         ]
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": `${$page.url.origin}/${$page.params.lang}`
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Tools",
-            "item": `${$page.url.origin}/${$page.params.lang}/tools`
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": dict.title,
-            "item": `${$page.url.origin}/${$page.params.lang}/tools/seo-forge`
-          }
-        ]
       }
     ]
   });

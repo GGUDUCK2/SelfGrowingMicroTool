@@ -23,28 +23,7 @@
   $: dict = ((getDictionary(lang) as any)?.tools?.cipherLab || {}) as any;
   $: common = getDictionary(lang).common;
 
-  $: breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [{
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": `${$page.url.origin}/${lang}`
-    },{
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Tools",
-      "item": `${$page.url.origin}/${lang}#tools`
-    },{
-      "@type": "ListItem",
-      "position": 3,
-      "name": dict.title,
-      "item": `${$page.url.origin}/${lang}/tools/cipher-lab`
-    }]
-  };
-
-  $: softwareSchema = {
+    $: softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "@id": $page.url.origin + "/" + lang + "/tools/cipher-lab",
@@ -162,7 +141,7 @@
     <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/cipher-lab"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/cipher-lab"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/cipher-lab"} />
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
 

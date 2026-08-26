@@ -231,26 +231,7 @@
       { keys: ['?'], desc: 'Shortcuts' }
   ];
 
-  $: breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${$page.url.origin}/${lang}`
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": dict.title,
-        "item": `${$page.url.origin}/${lang}/tools/log-prism`
-      }
-    ]
-  };
-
-</script>
+  </script>
 <Head
   title={dict.title}
   description={dict.description}
@@ -298,7 +279,7 @@
   {@html `<script type="application/ld+json">
 
   </scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
 
 </svelte:head>
 

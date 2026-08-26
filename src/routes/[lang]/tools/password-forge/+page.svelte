@@ -293,31 +293,7 @@
 
 
 
-  $: breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `https://microtools.app/${lang === 'en' ? '' : lang + '/'}`
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Tools",
-        "item": `https://microtools.app/${lang === 'en' ? '' : lang + '/'}tools`
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": t.title,
-        "item": `https://microtools.app/${lang === 'en' ? '' : lang + '/'}tools/password-forge`
-      }
-    ]
-  };
-</script>
+  </script>
 
 <Head
   title={t.title}
@@ -333,7 +309,6 @@
   <!-- eslint-disable @typescript-eslint/no-unused-expressions -->
   {@html `<script type="application/ld+json">` + JSON.stringify(softwareSchema).replace(/</g, '\\u003c') + `${'</scr' + 'ipt>'}`}
 
-  {@html `<script type="application/ld+json">` + JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c') + `${'</scr' + 'ipt>'}`}
   <!-- eslint-enable @typescript-eslint/no-unused-expressions -->
   <!-- eslint-enable svelte/no-at-html-tags -->
 </svelte:head>

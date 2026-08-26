@@ -57,30 +57,6 @@
           "Container Queries (cqi) Support",
           "Smart Presets"
         ]
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": $page.url.origin + "/" + lang + "/tools/clamp-forge#breadcrumb",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": $page.url.origin + "/" + lang
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Tools",
-            "item": $page.url.origin + "/" + lang + "/tools"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": d?.title || "Clamp Forge",
-            "item": $page.url.origin + "/" + lang + "/tools/clamp-forge"
-          }
-        ]
       }
     ]
   };

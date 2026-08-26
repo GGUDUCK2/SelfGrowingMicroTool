@@ -37,28 +37,7 @@
     "featureList": "Customizable Timer Intervals, Focus Mode, Audio Notifications, Responsive Design"
   };
 
-  $: breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [{
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": `${$page.url.origin}/`
-    }, {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Tools",
-      "item": `${$page.url.origin}/tools`
-    }, {
-      "@type": "ListItem",
-      "position": 3,
-      "name": dict.title,
-      "item": `${$page.url.origin}/${lang}/tools/pomodoro-timer`
-    }]
-  };
-
-  $: schemaList = [appSchema, breadcrumbSchema];
+    $: schemaList = [appSchema];
 </script>
 
 <Head

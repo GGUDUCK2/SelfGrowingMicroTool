@@ -118,31 +118,7 @@
       alert(((dict as any)?.tools?.deployForge || {}).saved);
   }
 
-  $: breadcrumb = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${$page.url.origin}/${lang}`
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Tools",
-        "item": `${$page.url.origin}/${lang}/tools`
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Deploy Forge",
-        "item": $page.url.href
-      }
-    ]
-  };
-</script>
+  </script>
 <Head
   title={`${((dict as any)?.tools?.deployForge || {}).title} | ${dict.home.title}`}
   description={((dict as any)?.tools?.deployForge || {}).description}
@@ -170,7 +146,7 @@
     "description": ((dict as any)?.tools?.deployForge || {}).description,
     "featureList": "Dockerfile generation, Docker Compose builder, Multi-stage build optimization"
   }) + `</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumb).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
 </svelte:head>
 
 <div class="min-h-screen bg-slate-900 text-slate-100 pb-20">

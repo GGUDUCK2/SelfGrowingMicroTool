@@ -68,28 +68,7 @@
     }
   ];
 
-  $: breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [{
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": `${$page.url.origin}/`
-    }, {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Tools",
-      "item": `${$page.url.origin}/tools`
-    }, {
-      "@type": "ListItem",
-      "position": 3,
-      "name": dict.title,
-      "item": `${$page.url.origin}/${lang}/tools/markdown-studio`
-    }]
-  };
-
-  // History observable
+    // History observable
   $: history = liveQuery(() => db.markFlowHistory?.orderBy('createdAt').reverse().toArray() || []);
 
   onMount(() => {
@@ -222,7 +201,7 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/markdown-studio"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/markdown-studio"} />
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+
 </svelte:head>
 
 <div class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900 font-sans">
