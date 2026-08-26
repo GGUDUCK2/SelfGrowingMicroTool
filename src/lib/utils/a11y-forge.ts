@@ -56,9 +56,9 @@ export function simulateColorBlindness(hex: string, type: ColorBlindnessType): s
   const rgb = hexToRgb(hex);
   if (!rgb || type === 'normal') return hex;
 
-  let r = rgb.r;
-  let g = rgb.g;
-  let b = rgb.b;
+  const r = rgb.r;
+  const g = rgb.g;
+  const b = rgb.b;
 
   const applyMatrix = (matrix: number[]) => {
       return {

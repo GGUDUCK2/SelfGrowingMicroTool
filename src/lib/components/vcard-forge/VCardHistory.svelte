@@ -8,15 +8,18 @@
 
     const dispatch = createEventDispatcher();
 
-    let historyItems: any[] = [];
+    let historyItems: ToolHistoryItem<Record<string, string>, unknown>[] = [];
 
     // Reactive live query for history
     const historyObservable = liveQuery(
-      async () => await workspace.history.where('toolId').equals('vcard-forge').reverse().sortBy('timestamp')
+      async () => {
+        const items = await workspace.history.where('toolId').equals('vcard-forge').sortBy('timestamp');
+        return items.reverse();
+      }
     );
 
     $: if ($historyObservable) {
-      historyItems = $historyObservable;
+      historyItems = $historyObservable as ToolHistoryItem<Record<string, string>, unknown>[];
     }
 
     async function toggleStarStatus(item: ToolHistoryItem<Record<string, string>, unknown>) {

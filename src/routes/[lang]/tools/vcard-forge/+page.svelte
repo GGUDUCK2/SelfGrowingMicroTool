@@ -270,7 +270,8 @@
     <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/vcard-forge"} />
     {#if jsonLd}
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-      {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+{@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
     {/if}
   </svelte:head>
 

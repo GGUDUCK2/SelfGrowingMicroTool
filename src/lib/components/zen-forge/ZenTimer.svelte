@@ -64,7 +64,7 @@
             // Smart Fade: Last 30 seconds if duration > 1 min
             if (timeLeft === 30 && fadeOut && initialTime > 60 && engine.masterGain && engine.context) {
                  const now = engine.context.currentTime;
-                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
                  const currentVol = $zenStore.masterVolume;
                  engine.masterGain.gain.cancelScheduledValues(now);
                  engine.masterGain.gain.setValueAtTime(engine.masterGain.gain.value, now);
