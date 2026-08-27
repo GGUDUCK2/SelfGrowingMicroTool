@@ -92,7 +92,7 @@
   >
     {#each stops as stop, index (stop.color + "_" + index)}
       <button
-        class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-8 bg-white border-2 border-slate-300 rounded shadow-md cursor-grab active:cursor-grabbing hover:scale-110 transition-transform focus:outline-none focus:ring-2 focus:ring-indigo-500 z-10"
+        class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-8 bg-white border-2 border-slate-300 rounded shadow-md cursor-grab active:cursor-grabbing hover:scale-110 transition-transform focus:outline-none focus:ring-2 focus:ring-indigo-500 z-10 min-h-[44px]"
         style="left: {stop.position}%; background-color: {stop.color};"
         on:mousedown={(e) => startDrag(index, e)}
         on:touchstart|passive={(e) => startDrag(index, e)}

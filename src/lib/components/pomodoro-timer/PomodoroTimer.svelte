@@ -361,7 +361,7 @@
                 class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
                 >
                 <button
-                    class="text-left cursor-pointer flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1"
+                    class="text-left cursor-pointer flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1 min-h-[44px]"
                     on:click={() => restoreHistory(item)}
                 >
                     <div class="font-medium text-gray-900 capitalize">

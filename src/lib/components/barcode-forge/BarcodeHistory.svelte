@@ -42,7 +42,7 @@
               {#each $historyObservable as item (item.id)}
                   <div class="flex items-center justify-between p-4 bg-slate-800/50 rounded-xl hover:bg-slate-700/50 transition-colors border border-slate-700/50">
                       <button
-                          class="text-left cursor-pointer flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1"
+                          class="text-left cursor-pointer flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1 min-h-[44px]"
                           on:click={() => handleLoad(item)}
                       >
                           <div class="font-medium text-slate-200">

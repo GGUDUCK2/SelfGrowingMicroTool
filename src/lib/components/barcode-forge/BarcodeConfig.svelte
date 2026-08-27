@@ -39,13 +39,13 @@
             <span class="block text-sm font-medium text-slate-300">{t.format || 'Format'}</span>
             <div class="flex bg-slate-800 rounded-lg p-1">
                 <button
-                    class="px-3 py-1 text-xs font-medium rounded-md transition-colors min-h-[32px] {state.type === 'single' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'}"
+                    class="px-3 py-1 text-xs min-h-[44px] font-medium rounded-md transition-colors min-h-[32px] {state.type === 'single' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'}"
                     on:click={() => state.type = 'single'}
                 >
                     Single
                 </button>
                 <button
-                    class="px-3 py-1 text-xs font-medium rounded-md transition-colors min-h-[32px] {state.type === 'bulk' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'}"
+                    class="px-3 py-1 text-xs min-h-[44px] font-medium rounded-md transition-colors min-h-[32px] {state.type === 'bulk' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'}"
                     on:click={() => state.type = 'bulk'}
                 >
                     {t.bulk || 'Bulk Mode'}

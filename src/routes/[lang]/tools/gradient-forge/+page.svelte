@@ -155,7 +155,7 @@
 
 
 
-      tech3="Full Tailwind CSS arbitrary values support."
+
   />
 
   <AdPlaceholder />

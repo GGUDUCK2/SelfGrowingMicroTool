@@ -114,7 +114,7 @@
   {#if dictionary === 'standard'}
     <div class="flex items-center space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700">
       <button
-        class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800 {startWithLorem ? 'bg-indigo-600' : 'bg-slate-200 dark:bg-slate-700'}"
+        class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800 {startWithLorem ? 'bg-indigo-600' : 'bg-slate-200 dark:bg-slate-700'} min-h-[44px]"
         on:click={() => startWithLorem = !startWithLorem}
         aria-label="Toggle Start with Lorem"
       >
