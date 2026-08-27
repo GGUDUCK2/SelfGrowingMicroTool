@@ -203,7 +203,6 @@
       <CronActions
         {cronExpression}
         description={parseResult.description}
-        {lang}
         {dict}
       />
     </div>

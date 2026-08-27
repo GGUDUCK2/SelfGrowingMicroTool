@@ -21,13 +21,13 @@
     <h3 class="text-sm font-semibold text-slate-900 dark:text-white">{t.export}</h3>
     <div class="flex bg-slate-100 dark:bg-slate-700/50 p-1 rounded-lg">
       <button
-        class="px-3 py-1 text-xs font-medium rounded-md transition-all {exportType === 'css' ? 'bg-white dark:bg-slate-600 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+        class="px-3 py-1 text-xs font-medium rounded-md transition-all {exportType === 'css' ? 'bg-white dark:bg-slate-600 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'} min-h-[44px]"
         on:click={() => exportType = 'css'}
       >
         CSS
       </button>
       <button
-        class="px-3 py-1 text-xs font-medium rounded-md transition-all {exportType === 'tailwind' ? 'bg-white dark:bg-slate-600 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+        class="px-3 py-1 text-xs font-medium rounded-md transition-all {exportType === 'tailwind' ? 'bg-white dark:bg-slate-600 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'} min-h-[44px]"
         on:click={() => exportType = 'tailwind'}
       >
         Tailwind

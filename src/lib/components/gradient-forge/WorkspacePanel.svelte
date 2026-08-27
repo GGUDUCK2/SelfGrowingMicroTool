@@ -88,7 +88,7 @@
       </Button>
       {#if history.length > 0}
         <button
-          class="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded min-h-[36px] min-w-[36px] flex items-center justify-center transition-colors"
+          class="p-1.5 text-slate-400 min-h-[44px] hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded min-h-[36px] min-w-[36px] flex items-center justify-center transition-colors"
           on:click={clearHistory}
           title={t.clearHistory}
           aria-label={t.clearHistory}
@@ -131,7 +131,7 @@
           </div>
 
           <button
-            class="absolute top-2 right-2 p-1.5 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors opacity-0 group-hover:opacity-100 min-h-[36px] min-w-[36px] flex items-center justify-center"
+            class="absolute top-2 right-2 p-1.5 min-h-[44px] rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors opacity-0 group-hover:opacity-100 min-h-[36px] min-w-[36px] flex items-center justify-center"
             class:!opacity-100={item.starred}
             on:click|stopPropagation={() => toggleStar(item.id, item.starred)}
             aria-label="Toggle Star"

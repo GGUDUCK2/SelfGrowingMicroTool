@@ -96,7 +96,7 @@
           // Clone and remove ID to ensure new entry
           const { id, ...rest } = state;
           const entry = { ...rest, createdAt: Date.now() };
-          await db.history.add(entry);
+          await smartSaveToHistory("qr-forge", entry);
           saveStatus = t.feedback?.saved || 'Saved!';
           setTimeout(() => saveStatus = '', 2000);
       } catch (e) {
