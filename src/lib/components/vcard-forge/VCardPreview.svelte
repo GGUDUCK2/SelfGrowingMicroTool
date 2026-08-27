@@ -31,29 +31,34 @@
 
   let nextSteps: string[] = [];
   $: {
-      let suggestions: string[] = [];
-      if (!data.name) suggestions.push(dict?.addName || 'Add your full name');
-      else {
-          if (!data.title) suggestions.push(dict?.addTitle || 'Add a job title');
-          if (!data.company) suggestions.push(dict?.addCompany || 'Add your company');
-          if (!data.email) suggestions.push(dict?.addEmail || 'Add an email address');
-          if (!data.phone) suggestions.push(dict?.addPhone || 'Add a phone number');
-          if (!data.photoData) suggestions.push(dict?.addPhoto || 'Upload a profile photo');
-          if (!data.website && !data.linkedIn && !data.twitter && !data.github) suggestions.push(dict?.addSocial || 'Add a website or social link');
-      }
-      nextSteps = suggestions;
-  }
+    let score = 0;
+    let total = 0;
+    let suggestions: string[] = [];
 
-  $: {
-      let score = 0;
-      if (data.name) score += 20;
-      if (data.title) score += 15;
-      if (data.company) score += 15;
-      if (data.email) score += 15;
-      if (data.phone) score += 15;
-      if (data.photoData) score += 10;
-      if (data.website || data.linkedIn || data.twitter || data.github) score += 10;
-      completionPercentage = score;
+    const weights = [
+        { field: data.name, weight: 20, missingTip: dict?.addName || "Add your full name to start your profile." },
+        { field: data.phone, weight: 15, missingTip: dict?.addPhone || "Add a phone number to make contacting you easy." },
+        { field: data.email, weight: 15, missingTip: dict?.addEmail || "Add an email address for professional inquiries." },
+        { field: data.title, weight: 10, missingTip: dict?.addTitle || "Add your job title to establish your role." },
+        { field: data.company, weight: 10, missingTip: dict?.addCompany || "Add your company name to build trust." },
+        { field: data.photoData, weight: 15, missingTip: dict?.profileTipPhoto || "Add a profile photo to boost engagement by 40%." },
+        { field: data.website, weight: 5, missingTip: dict?.profileTipWebsite || "Add your website link for better conversion." },
+        { field: data.linkedIn || data.twitter || data.github, weight: 10, missingTip: dict?.addSocial || "Add at least one social link (LinkedIn recommended)." }
+    ];
+
+    weights.forEach(w => {
+        total += w.weight;
+        if (w.field && typeof w.field === 'string' && w.field.trim().length > 0) {
+            score += w.weight;
+        } else if (w.field && typeof w.field !== 'string') {
+            score += w.weight;
+        } else {
+            suggestions.push(w.missingTip);
+        }
+    });
+
+    completionPercentage = Math.round((score / total) * 100);
+    nextSteps = suggestions;
   }
 
 
