@@ -4,7 +4,7 @@
   import type { BarcodeState } from './types';
   import Trash2 from '@lucide/svelte/icons/trash-2';
 
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
   export let onLoad: (state: BarcodeState) => void;
 
   const TOOL_ID = 'barcode-forge';

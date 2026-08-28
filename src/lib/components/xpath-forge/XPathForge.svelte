@@ -6,8 +6,8 @@
 
 
 
-    export let lang: 'en' | 'ko' = 'en';
-    export let dictionary: any = {};
+
+    export let dictionary: Record<string, any> = {};
     $: t = dictionary?.tools?.xpathForge || {};
 
     // State

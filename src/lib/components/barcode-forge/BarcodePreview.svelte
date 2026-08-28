@@ -7,7 +7,7 @@
   import AlertCircle from '@lucide/svelte/icons/alert-circle';
 
   export let state: BarcodeState;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   let svgElement: SVGSVGElement;
   let canvasElement: HTMLCanvasElement;
