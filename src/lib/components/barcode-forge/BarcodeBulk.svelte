@@ -6,7 +6,7 @@
   import FileArchive from '@lucide/svelte/icons/file-archive';
 
   export let state: BarcodeState;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   $: t = dictionary?.tools?.barcodeForge || {};
   let isGeneratingZip = false;

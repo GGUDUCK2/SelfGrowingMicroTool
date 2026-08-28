@@ -7,7 +7,7 @@
   import BarcodeBulk from './BarcodeBulk.svelte';
 
   export let state: BarcodeState;
-  export let dictionary: any;
+  export let dictionary: Record<string, any>;
 
   $: t = dictionary?.tools?.barcodeForge || {};
 
