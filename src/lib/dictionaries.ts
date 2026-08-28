@@ -37,7 +37,7 @@ export const dictionaries = {
         copied: "Copied to clipboard!",
         example: "Smart Example",
         clear: "Clear Form",
-        importVcf: "Import .vcf",
+
         magicImport: "Magic Import",
         magicTitle: "Paste Email Signature",
         magicPlaceholder: "John Doe\nSoftware Engineer\nAcme Corp\njohn@example.com\n+1 555-0198",
@@ -65,7 +65,15 @@ export const dictionaries = {
           tipsTitle: "Advanced Pro Tips",
           tip1: "Use high-contrast square images for best QR code center-logo results (if supported by your scanner).",
           tip2: "Fill in all fields for a rich contact entry on iOS and Android devices.",
-          tip3: "Press Ctrl+S to quickly save your current vCard to the local workspace."
+          tip3: "Press Ctrl+S to quickly save your current vCard to the local workspace.",
+        magicImport: "Magic Import",
+        magicTitle: "Paste Email Signature",
+        magicPlaceholder: "John Doe\nSoftware Engineer\nAcme Corp\njohn@example.com\n+1 555-0198",
+        importVcf: "Import .vcf",
+        dropVcfHere: "Drop .vcf file here",
+        profileTipPhoto: "Add a profile photo to boost engagement by 40%.",
+        profileTipWebsite: "Add your website link for better conversion.",
+
         },
         faqTitle: "Frequently Asked Questions",
         q1: "What is a vCard (.vcf) file?",
@@ -4994,7 +5002,7 @@ export const dictionaries = {
         copied: "클립보드에 복사되었습니다!",
         example: "스마트 예제",
         clear: "양식 지우기",
-        importVcf: ".vcf 가져오기",
+
         clearAll: "전체 지우기",
         generate: "vCard 생성",
         downloadVcf: ".vcf 다운로드",
@@ -5027,7 +5035,15 @@ export const dictionaries = {
           tipsTitle: "고급 프로 팁",
           tip1: "스캐너가 지원하는 경우 고대비 정사각형 이미지를 사용하여 최적의 QR 코드 중앙 로고 결과를 얻으세요.",
           tip2: "모든 필드를 입력하여 iOS 및 Android 기기에서 풍부한 연락처 정보를 제공하세요.",
-          tip3: "Ctrl+S를 눌러 현재 vCard를 로컬 워크스페이스에 빠르게 저장하세요."
+          tip3: "Ctrl+S를 눌러 현재 vCard를 로컬 워크스페이스에 빠르게 저장하세요.",
+        magicImport: "매직 임포트",
+        magicTitle: "이메일 서명 붙여넣기",
+        magicPlaceholder: "홍길동\n소프트웨어 엔지니어\nAcme Corp\nhong@example.com\n010-1234-5678",
+        importVcf: ".vcf 가져오기",
+        dropVcfHere: "여기에 .vcf 파일을 놓으세요",
+        profileTipPhoto: "프로필 사진을 추가하면 참여도를 40% 높일 수 있습니다.",
+        profileTipWebsite: "더 나은 전환을 위해 웹사이트 링크를 추가하세요.",
+
         },
         faqTitle: "자주 묻는 질문",
         q1: "vCard (.vcf) 파일이란 무엇인가요?",

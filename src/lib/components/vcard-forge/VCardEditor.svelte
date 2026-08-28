@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
 
-  export let dict: Record<string, string>;
+  export let dict: Record<string, string> = {};;
   export let data: Record<string, string> = {
     name: '',
     title: '',
@@ -22,6 +22,47 @@
   const dispatch = createEventDispatcher();
 
   let fileInput: HTMLInputElement;
+
+  let isDragging = false;
+
+  function handleDragEnter(e: DragEvent) {
+      e.preventDefault();
+      e.stopPropagation();
+      isDragging = true;
+  }
+
+  function handleDragLeave(e: DragEvent) {
+      e.preventDefault();
+      e.stopPropagation();
+      isDragging = false;
+  }
+
+  function handleDragOver(e: DragEvent) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!isDragging) isDragging = true;
+  }
+
+  function handleDrop(e: DragEvent) {
+      e.preventDefault();
+      e.stopPropagation();
+      isDragging = false;
+
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) {
+          const file = files[0];
+          if (file.name.toLowerCase().endsWith('.vcf')) {
+               const reader = new FileReader();
+               reader.onload = (e) => {
+                   if (e.target?.result) {
+                       parseVcf(e.target.result as string);
+                   }
+               };
+               reader.readAsText(file);
+          }
+      }
+  }
+
   let importVcfInput: HTMLInputElement;
 
   function parseVcf(vcfText: string) {
@@ -283,7 +324,30 @@
       </div>
   {/if}
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+<div
+  class="relative"
+  on:dragenter={handleDragEnter}
+  on:dragleave={handleDragLeave}
+  on:dragover={handleDragOver}
+  on:drop={handleDrop}
+  role="region"
+  aria-label="Drag and Drop Area"
+>
+  {#if isDragging}
+    <div class="absolute inset-0 z-50 bg-indigo-500/10 dark:bg-indigo-500/20 backdrop-blur-sm border-2 border-dashed border-indigo-500 rounded-xl flex items-center justify-center pointer-events-none transition-all duration-200">
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-2xl flex flex-col items-center transform scale-110">
+            <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900/50 rounded-full flex items-center justify-center mb-4 animate-bounce">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+            </div>
+            <p class="text-lg font-bold text-slate-800 dark:text-white">{dict?.dropVcfHere || 'Drop .vcf file here'}</p>
+        </div>
+    </div>
+  {/if}
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div class="space-y-2">
       <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-name">{dict?.name}</label>
       <input type="text" id="vcard-name" bind:value={data.name} on:input={handleInput} placeholder="e.g. Tech Innovator" class="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
@@ -408,5 +472,7 @@
         </div>
     </div>
   </div>
+
+</div>
 
 </div>
