@@ -23,7 +23,39 @@
 
   let fileInput: HTMLInputElement;
 
+
+  // Keyboard shortcuts and drag state
   let isDragging = false;
+
+  // 1. Profile strength analyzer
+  $: profileStrength = calculateStrength(data);
+  $: strengthColor = profileStrength < 40 ? 'bg-rose-500' : profileStrength < 80 ? 'bg-amber-500' : 'bg-emerald-500';
+  $: strengthText = profileStrength < 40 ? 'Basic' : profileStrength < 80 ? 'Good' : 'Strong';
+
+  function calculateStrength(d: Record<string, string>) {
+    let score = 0;
+    if (d.name) score += 25;
+    if (d.email) score += 20;
+    if (d.phone) score += 20;
+    if (d.company || d.title) score += 15;
+    if (d.photoData) score += 10;
+    if (d.website || d.linkedIn || d.twitter || d.github) score += 10;
+    return Math.min(score, 100);
+  }
+
+  // 2. Phone formatter
+  function formatPhone(phone: string): string {
+    const cleaned = phone.replace(/\D/g, '');
+    let formatted = phone;
+
+    // basic US format, if starts with 1 or length is 10
+    if (cleaned.length === 10) {
+      formatted = `(${cleaned.substring(0, 3)}) ${cleaned.substring(3, 6)}-${cleaned.substring(6)}`;
+    } else if (cleaned.length === 11 && cleaned.startsWith('1')) {
+      formatted = `+1 (${cleaned.substring(1, 4)}) ${cleaned.substring(4, 7)}-${cleaned.substring(7)}`;
+    }
+    return formatted;
+  }
 
   function handleDragEnter(e: DragEvent) {
       e.preventDefault();
@@ -201,6 +233,9 @@
   }
 
   function handleInput() {
+    if (data.phone) {
+      data.phone = formatPhone(data.phone);
+    }
     // Smart auto-completion from email/website if company is empty
     if (!data.company) {
       let domain = '';
@@ -230,6 +265,17 @@
 </script>
 
 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 space-y-6 relative">
+  <!-- Profile Strength Analyzer -->
+  <div class="mb-6 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+      <div class="flex justify-between items-center mb-2">
+          <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Profile Strength: {strengthText}</span>
+          <span class="text-sm font-bold text-slate-900 dark:text-white">{profileStrength}%</span>
+      </div>
+      <div class="h-2 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+          <div class="h-full transition-all duration-500 ease-out {strengthColor}" style="width: {profileStrength}%"></div>
+      </div>
+  </div>
+
   <div class="flex justify-between items-center">
     <h2 class="text-lg font-semibold text-slate-800 dark:text-white flex items-center gap-2">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -457,7 +503,8 @@
 
   <div class="border-t border-slate-200 dark:border-slate-700 pt-6 mt-6">
     <h3 class="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-4">{dict?.socialLabel || 'Social Links'}</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
         <div class="space-y-2">
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-linkedin">{dict?.linkedIn}</label>
           <input type="url" id="vcard-linkedin" bind:value={data.linkedIn} on:input={handleInput} placeholder="e.g. https://linkedin.com/in/username" class="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
