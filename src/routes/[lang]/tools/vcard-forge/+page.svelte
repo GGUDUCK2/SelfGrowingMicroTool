@@ -103,7 +103,7 @@
 
     let saveTimeout: ReturnType<typeof setTimeout>;
 
-    function handleDataChange(event: CustomEvent<typeof currentData>) {
+    function handleDataChange(event: CustomEvent<Record<string, string>>) {
       currentData = event.detail;
       if (saveTimeout) clearTimeout(saveTimeout);
       saveTimeout = setTimeout(() => {
@@ -117,8 +117,7 @@
     }
 
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    function handleLoad(event: CustomEvent<any>) {
+    function handleLoad(event: CustomEvent<Record<string, string>>) {
       const item = event.detail.input;
       currentData = {
           name: item.name || '',
