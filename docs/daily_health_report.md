@@ -90,3 +90,15 @@
 #### 3. Performance Impact (기대 효과)
 - 일관성 있는 레이아웃과 터치 접근성 보장으로 장기적 UX 및 웹 바이탈 최상위권 유지.
 - 코드 훼손 없이 정확한 스캔만으로 일일 점검 완료, 무결점 프로덕션 빌드 유지.
+
+### [Daily Improvement Report - 2026-08-29]
+#### 1. Identified Issues (발견된 문제)
+- SEO 중복 최적화: `vcard-forge` 페이지에 렌더링되던 BreadcrumbList 스키마가 전역 `<Head>` 레이아웃과 중복으로 적용되어 있어 삭제 필요.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/vcard-forge/+page.svelte` - 불필요하게 직접 삽입된 BreadcrumbList JSON-LD 객체 제거.
+- **SEO/AEO**: 중복된 스키마를 제거함으로써 명확하고 일관된 단일 Breadcrumb 구조 제공 및 스크립트 오류 방지.
+
+#### 3. Performance Impact (기대 효과)
+- 검색엔진 크롤러가 중복 데이터로 혼동을 일으키는 것을 막아 SEO 신뢰도 유지.
+- 불필요한 직렬화 데이터 전송량을 줄여 페이지 로드 타임 미세 감소.
