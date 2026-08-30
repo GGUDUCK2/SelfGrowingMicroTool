@@ -15,7 +15,7 @@
 
     $: lang = $page.params.lang as 'en' | 'ko';
 
-    $: dict = (dictionaries as unknown as Record<string, Record<string, string>>)[lang]?.tools?.vcardForge || {};
+    $: dict = (dictionaries as unknown as Record<string, any>)[lang]?.tools?.vcardForge || {};
 
     const initialData: VCardForgeData = {
       name: '',
@@ -103,7 +103,7 @@
 
     let saveTimeout: ReturnType<typeof setTimeout>;
 
-    function handleDataChange(event: CustomEvent<Record<string, string>>) {
+    function handleDataChange(event: CustomEvent<VCardForgeData>) {
       currentData = event.detail;
       if (saveTimeout) clearTimeout(saveTimeout);
       saveTimeout = setTimeout(() => {
@@ -117,7 +117,7 @@
     }
 
 
-    function handleLoad(event: CustomEvent<Record<string, string>>) {
+    function handleLoad(event: CustomEvent<{ input: Record<string, string> }>) {
       const item = event.detail.input;
       currentData = {
           name: item.name || '',

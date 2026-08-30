@@ -37,6 +37,11 @@ export const dictionaries = {
         copied: "Copied to clipboard!",
         example: "Smart Example",
         clear: "Clear Form",
+        geoNotSupported: "Geolocation is not supported by your browser",
+        detectLocation: "Detect Location",
+        detectLocationError: "Unable to retrieve your location",
+        autoFormatAddress: "Auto-format (One Line)",
+        autoFormatBtn: "Auto-Format",
 
         magicImport: "Magic Import",
         magicTitle: "Paste Email Signature",
@@ -5002,6 +5007,11 @@ export const dictionaries = {
         copied: "클립보드에 복사되었습니다!",
         example: "스마트 예제",
         clear: "양식 지우기",
+        geoNotSupported: "브라우저에서 위치 추적을 지원하지 않습니다",
+        detectLocation: "위치 감지",
+        detectLocationError: "위치를 가져올 수 없습니다",
+        autoFormatAddress: "자동 포맷 (한 줄)",
+        autoFormatBtn: "자동 포맷",
 
         clearAll: "전체 지우기",
         generate: "vCard 생성",

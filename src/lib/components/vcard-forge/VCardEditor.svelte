@@ -232,6 +232,66 @@
       dispatch('change', data);
   }
 
+
+  let isLocating = false;
+  async function detectLocation() {
+      if (!navigator.geolocation) {
+          alert(dict?.geoNotSupported || 'Geolocation is not supported by your browser');
+          return;
+      }
+      isLocating = true;
+      navigator.geolocation.getCurrentPosition(async (position) => {
+          try {
+              const { latitude, longitude } = position.coords;
+              const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`, {
+                  headers: { 'Accept-Language': 'en-US,en;q=0.9' }
+              });
+              if (res.ok) {
+                  const geoData = await res.json();
+                  const addressParts = [];
+                  if (geoData.address) {
+                      const addr = geoData.address;
+                      if (addr.house_number && addr.road) addressParts.push(`${addr.house_number} ${addr.road}`);
+                      else if (addr.road) addressParts.push(addr.road);
+                      if (addr.city || addr.town || addr.village) addressParts.push(addr.city || addr.town || addr.village);
+                      if (addr.state) addressParts.push(addr.state);
+                      if (addr.country) addressParts.push(addr.country);
+                  }
+                  if (addressParts.length > 0) {
+                      data.address = addressParts.join(', ');
+                      handleInput();
+                  }
+              }
+          } catch (e) {
+              // Ignore
+          } finally {
+              isLocating = false;
+          }
+      }, () => {
+          isLocating = false;
+          alert(dict?.detectLocationError || 'Unable to retrieve your location');
+      });
+  }
+
+  function smartFormat() {
+      if (data.name) {
+          data.name = data.name.replace(/\b\w/g, l => l.toUpperCase());
+      }
+      if (data.website && !data.website.startsWith('http')) {
+          data.website = `https://${data.website}`;
+      }
+      if (data.linkedIn && !data.linkedIn.startsWith('http')) {
+          data.linkedIn = `https://${data.linkedIn}`;
+      }
+      if (data.twitter && !data.twitter.startsWith('http')) {
+          data.twitter = `https://${data.twitter}`;
+      }
+      if (data.github && !data.github.startsWith('http')) {
+          data.github = `https://${data.github}`;
+      }
+      handleInput();
+  }
+
   function handleInput() {
     if (data.phone) {
       data.phone = formatPhone(data.phone);
@@ -277,12 +337,18 @@
   </div>
 
   <div class="flex justify-between items-center">
-    <h2 class="text-lg font-semibold text-slate-800 dark:text-white flex items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-      </svg>
-      {dict?.detailsTitle || 'Contact Details'}
-    </h2>
+    <div class="flex items-center gap-3">
+        <h2 class="text-lg font-semibold text-slate-800 dark:text-white flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          {dict?.detailsTitle || 'Contact Details'}
+        </h2>
+        <button on:click={smartFormat} class="text-xs px-2 py-1 bg-amber-100 text-amber-700 hover:bg-amber-200 dark:bg-amber-900/30 dark:text-amber-400 rounded-md font-medium transition-colors flex items-center gap-1 shadow-sm" aria-label="Smart Format">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            {dict?.autoFormatBtn || 'Auto-Format'}
+        </button>
+    </div>
     <div class="flex items-center gap-4">
       <div class="flex items-center bg-slate-100 dark:bg-slate-900 rounded-lg p-1">
           <button
@@ -432,7 +498,17 @@
     <div class="space-y-2 md:col-span-2">
       <div class="flex items-center justify-between">
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-address">{dict?.address}</label>
-          <button type="button" on:click={() => { if(data.address) data.address = data.address.trim().replace(/\n+/g, ', '); handleInput(); }} class="text-xs text-indigo-500 hover:text-indigo-600 font-medium">Auto-format (One Line)</button>
+          <div class="flex gap-3">
+              <button type="button" on:click={detectLocation} disabled={isLocating} class="text-xs text-emerald-500 hover:text-emerald-600 font-medium flex items-center gap-1">
+                  {#if isLocating}
+                    <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                  {:else}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                  {/if}
+                  {dict?.detectLocation || 'Detect Location'}
+              </button>
+              <button type="button" on:click={() => { if(data.address) data.address = data.address.trim().replace(/\n+/g, ', '); handleInput(); }} class="text-xs text-indigo-500 hover:text-indigo-600 font-medium">{dict?.autoFormatAddress || 'Auto-format (One Line)'}</button>
+          </div>
       </div>
       <textarea id="vcard-address" bind:value={data.address} on:input={handleInput} placeholder="e.g. 123 Main St, City, Country" class="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[80px]"></textarea>
     </div>

@@ -19,7 +19,7 @@
     );
 
     $: if ($historyObservable) {
-      historyItems = $historyObservable as ToolHistoryItem<Record<string, string>, unknown>[];
+      historyItems = $historyObservable as unknown as ToolHistoryItem<Record<string, string>, unknown>[];
     }
 
     async function toggleStarStatus(item: ToolHistoryItem<Record<string, string>, unknown>) {
@@ -37,7 +37,7 @@
     }
 
     function loadItem(item: ToolHistoryItem<Record<string, string>, unknown>) {
-      dispatch('load', item);
+      dispatch('load', { input: item.input });
     }
   </script>
 
