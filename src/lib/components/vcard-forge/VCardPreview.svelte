@@ -101,15 +101,6 @@
         vcf += isV4 ? `URL;TYPE=GitHub:${data.github}\n` : `URL;type=GitHub:${data.github}\n`;
     }
 
-    if (data.photoData) {
-      // Extract base64 without data type prefix
-      const b64 = data.photoData.split(',')[1];
-      if (b64) {
-          vcf += `PHOTO;ENCODING=b;TYPE=JPEG:${b64}\n`;
-      }
-    }
-
-
     let vcardForQr = vcf + `END:VCARD\n`;
 
     if (data.photoData) {
