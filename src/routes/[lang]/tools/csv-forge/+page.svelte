@@ -129,7 +129,26 @@
 
 
 
-    $: softwareSchema = {
+
+  $: howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": (dict as any)?.guide?.title || 'How to use CSV Forge',
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Input Data",
+        "text": "Paste or type your CSV data into the input field."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Process",
+        "text": "Use the Editor, Converter, or Analyzer tabs to process your CSV."
+      }
+    ]
+  };
+
+  $: softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
         "@id": $page.url.origin + "/" + lang + "/tools/csv-forge",
@@ -154,7 +173,8 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/csv-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/csv-forge"} />
 
-  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type=\"application/ld+json\">${JSON.stringify(softwareSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+  {@html `<scr` + `ipt type=\"application/ld+json\">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
 
 </svelte:head>
