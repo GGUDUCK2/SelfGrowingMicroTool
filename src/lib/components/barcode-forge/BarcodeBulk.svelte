@@ -71,19 +71,19 @@
 
 <div class="space-y-4">
     <label class="block">
-        <span class="block text-sm font-medium text-slate-300 mb-2">
+        <span class="block text-sm font-medium text-slate-900 dark:text-slate-300 mb-2">
             {t.bulkPlaceholder || 'Enter one value per line...'}
         </span>
         <textarea
             bind:value={state.bulk.values}
             rows="8"
-            class="w-full bg-slate-900 border border-slate-600 rounded-xl px-4 py-3 text-slate-50 focus:ring-2 focus:ring-indigo-500 font-mono min-h-[120px]"
+            class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl px-4 py-3 text-slate-900 dark:text-slate-50 focus:ring-2 focus:ring-indigo-500 font-mono min-h-[120px]"
             placeholder="1234567890&#10;0987654321&#10;..."
         ></textarea>
     </label>
 
     <div class="flex items-center justify-between">
-        <span class="text-sm text-slate-400">
+        <span class="text-sm text-slate-600 dark:text-slate-400">
             {validLinesCount} items detected
         </span>
         <button

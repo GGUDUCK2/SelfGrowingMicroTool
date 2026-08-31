@@ -40,16 +40,19 @@
     "slug": "barcode-forge",
     "title": {
       "en": "Barcode Forge",
-      "ko": "Barcode Forge"
+      "ko": "바코드 포지"
     },
     "description": {
-      "en": "Tool for Barcode Forge",
-      "ko": "Barcode Forge 도구"
+      "en": "The definitive tool to generate linear barcodes. Supports EAN, UPC, Code 128, ITF, and more.",
+      "ko": "선형 바코드를 생성하는 완벽한 도구입니다. EAN, UPC, Code 128, ITF 등을 지원합니다."
     },
     "category": "dev",
     "tags": [
       "barcode",
-      "tool"
+      "generator",
+      "ean",
+      "upc",
+      "code128"
     ],
     "createdAt": "2026-05-17"
   },

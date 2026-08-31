@@ -112,24 +112,24 @@
   });
 </script>
 
-<div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700/50" bind:this={containerRef}>
+<div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700/50" bind:this={containerRef}>
   <div class="flex items-center justify-between mb-4">
-      <h2 class="text-lg font-semibold text-slate-200">Preview</h2>
+      <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-200">Preview</h2>
       {#if validationError}
         <div class="flex items-center gap-2 text-red-400 text-sm bg-red-400/10 px-3 py-1 rounded-full">
             <AlertCircle size={14} />
             <span>{validationError}</span>
         </div>
       {:else if isGenerating}
-         <div class="text-sm text-slate-400">{t.validation?.calculating || 'Calculating...'}</div>
+         <div class="text-sm text-slate-600 dark:text-slate-400">{t.validation?.calculating || 'Calculating...'}</div>
       {:else}
          <div class="text-sm text-emerald-400 bg-emerald-400/10 px-3 py-1 rounded-full">{t.validation?.valid || 'Valid'}</div>
       {/if}
   </div>
 
-  <div class="bg-slate-900 rounded-xl p-8 flex items-center justify-center min-h-[300px] overflow-x-auto relative">
+  <div class="bg-white dark:bg-slate-900 rounded-xl p-8 flex items-center justify-center min-h-[300px] overflow-x-auto relative">
       {#if state.type === 'bulk'}
-         <div class="text-slate-500 flex flex-col items-center">
+         <div class="text-slate-500 dark:text-slate-500 flex flex-col items-center">
              <Code size={48} class="mb-4 opacity-50" />
              <p>Bulk Mode Active</p>
          </div>
@@ -154,7 +154,7 @@
       <button
           on:click={downloadPNG}
            disabled={!!validationError || isGenerating}
-          class="flex items-center justify-center gap-2 bg-slate-700 hover:bg-slate-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-xl transition-colors min-h-[44px]"
+          class="flex items-center justify-center gap-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 disabled:opacity-50 disabled:cursor-not-allowed text-slate-900 dark:text-white font-medium py-3 px-4 rounded-xl transition-colors min-h-[44px]"
       >
           <Download size={18} />
           <span>{t.downloadPng || 'Download PNG'}</span>
