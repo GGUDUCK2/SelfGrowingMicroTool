@@ -53,7 +53,7 @@
         {#if historyItems.some(i => !i.starred)}
         <button
           on:click={clearAll}
-          class="text-xs px-2 py-1 text-slate-500 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded transition-colors min-h-[44px]"
+          class="text-xs px-2 py-1 text-slate-500 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded transition-colors min-h-[44px] min-w-[44px]"
           aria-label="Clear all unstarred history"
         >
           {dict?.clearAll || 'Clear All'}
@@ -101,7 +101,7 @@
               <div class="flex flex-col gap-1 items-end">
                 <button
                   on:click|stopPropagation={() => toggleStarStatus(item)}
-                  class="text-slate-400 hover:text-amber-500 transition-colors min-h-[32px] min-w-[32px] flex items-center justify-center"
+                  class="text-slate-400 hover:text-amber-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                   aria-label="Toggle Star"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 {item.starred ? 'text-amber-500 fill-current' : 'fill-none'}" viewBox="0 0 24 24" stroke="currentColor">
@@ -110,7 +110,7 @@
                 </button>
                 <button
                     on:click|stopPropagation={() => deleteItem(item.id)}
-                    class="text-slate-400 hover:text-rose-500 transition-colors min-h-[32px] min-w-[32px] flex items-center justify-center opacity-0 group-hover:opacity-100"
+                    class="text-slate-400 hover:text-rose-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center opacity-0 group-hover:opacity-100"
                     aria-label="Delete History"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
