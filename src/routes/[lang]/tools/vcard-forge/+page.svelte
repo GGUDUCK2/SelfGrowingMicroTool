@@ -15,6 +15,7 @@
 
     $: lang = $page.params.lang as 'en' | 'ko';
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     $: dict = (dictionaries as unknown as Record<string, any>)[lang]?.tools?.vcardForge || {};
 
     const initialData: VCardForgeData = {
@@ -98,6 +99,31 @@
         }
       ]
     } : null;
+
+
+    const howToSchema = {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to generate a vCard",
+      "description": "Step-by-step guide to generating a professional vCard with a QR code.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Enter Details",
+          "text": "Fill out the contact details in the editor form, including name, email, and phone number."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Preview and Style",
+          "text": "Review the generated business card in the preview panel and customize the QR code colors."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Export",
+          "text": "Download the .vcf file, save the QR code as PNG or SVG, or copy the vCard data to your clipboard."
+        }
+      ]
+    };
 
     const canonicalUrl = `${$page.url.origin}/${$page.params.lang}/tools/vcard-forge`;
 
@@ -248,6 +274,10 @@
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
 {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
     {/if}
+  {#if howToSchema}
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+      {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+    {/if}
   </svelte:head>
 
   <div class="space-y-8 relative max-w-7xl mx-auto">
@@ -276,7 +306,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
-                <span class="hidden lg:inline">{dict?.example || 'Smart Examples'}</span>
+                <span class="hidden lg:inline">{dict?.example || 'Smart Example'}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-70" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
              </button>
              <div class="absolute left-0 top-full mt-1 w-48 bg-white dark:bg-slate-800 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 overflow-hidden">

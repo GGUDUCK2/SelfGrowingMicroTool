@@ -344,7 +344,7 @@
           </svg>
           {dict?.detailsTitle || 'Contact Details'}
         </h2>
-        <button on:click={smartFormat} class="text-xs px-2 py-1 bg-amber-100 text-amber-700 hover:bg-amber-200 dark:bg-amber-900/30 dark:text-amber-400 rounded-md font-medium transition-colors flex items-center gap-1 shadow-sm" aria-label="Smart Format">
+        <button on:click={smartFormat} class="min-h-[44px] min-w-[44px] text-xs px-2 py-1 bg-amber-100 text-amber-700 hover:bg-amber-200 dark:bg-amber-900/30 dark:text-amber-400 rounded-md font-medium transition-colors flex items-center gap-1 shadow-sm" aria-label="Smart Format">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
             {dict?.autoFormatBtn || 'Auto-Format'}
         </button>
@@ -353,14 +353,14 @@
       <div class="flex items-center bg-slate-100 dark:bg-slate-900 rounded-lg p-1">
           <button
               on:click={() => { data.format = '3.0'; handleInput(); }}
-              class="px-3 py-1.5 text-sm font-medium rounded-md transition-colors {data.format === '3.0' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+              class="min-h-[44px] px-3 py-1.5 text-sm font-medium rounded-md transition-colors {data.format === '3.0' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
               aria-label="vCard 3.0 Format"
           >
               vCard 3.0
           </button>
           <button
               on:click={() => { data.format = '4.0'; handleInput(); }}
-              class="px-3 py-1.5 text-sm font-medium rounded-md transition-colors {data.format === '4.0' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+              class="min-h-[44px] px-3 py-1.5 text-sm font-medium rounded-md transition-colors {data.format === '4.0' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
               aria-label="vCard 4.0 Format"
           >
               vCard 4.0
