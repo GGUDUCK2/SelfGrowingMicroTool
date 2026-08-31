@@ -33,28 +33,28 @@
 
 <div class="h-full">
   <div class="flex items-center justify-between mb-4">
-      <h3 class="text-sm font-medium text-slate-300 uppercase tracking-wider">{t.history || 'Recent Activity'}</h3>
+      <h3 class="text-sm font-medium text-slate-900 dark:text-slate-300 uppercase tracking-wider">{t.history || 'Recent Activity'}</h3>
   </div>
 
   <div class="h-[calc(100vh-24rem)] lg:h-[400px] overflow-y-auto pr-2 custom-scrollbar">
       {#if $historyObservable && $historyObservable.length > 0}
           <div class="space-y-3">
               {#each $historyObservable as item (item.id)}
-                  <div class="flex items-center justify-between p-4 bg-slate-800/50 rounded-xl hover:bg-slate-700/50 transition-colors border border-slate-700/50">
+                  <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors border border-slate-200 dark:border-slate-700/50">
                       <button
                           class="text-left cursor-pointer flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1 min-h-[44px]"
                           on:click={() => handleLoad(item)}
                       >
-                          <div class="font-medium text-slate-200">
+                          <div class="font-medium text-slate-900 dark:text-slate-200">
                               {item.result?.preview || 'Barcode'}
                           </div>
-                          <div class="text-xs text-slate-400 mt-1">
+                          <div class="text-xs text-slate-600 dark:text-slate-400 mt-1">
                               {new Date(item.timestamp).toLocaleString()}
                           </div>
                       </button>
                       <button
                           on:click={() => item.id && handleDelete(item.id)}
-                          class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-slate-400 hover:text-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 rounded-full"
+                          class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-slate-600 dark:text-slate-400 hover:text-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 rounded-full"
                           aria-label="Delete"
                       >
                           <Trash2 size={16} />
@@ -63,7 +63,7 @@
               {/each}
           </div>
       {:else}
-          <div class="text-center text-slate-500 text-sm py-8 bg-slate-800/30 rounded-xl border border-slate-700/30 border-dashed">
+          <div class="text-center text-slate-500 dark:text-slate-500 text-sm py-8 bg-slate-50 dark:bg-slate-800/30 rounded-xl border border-slate-200 dark:border-slate-700/30 border-dashed">
               No history yet.
           </div>
       {/if}
