@@ -75,7 +75,34 @@
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
     };
 
-  </script>
+
+  $: howToSchema = {
+    "@context": "https://schema.org",
+
+    "@type": "HowTo",
+    "name": "How to use Perms Forge",
+    "description": "Step-by-step guide to using the Perms Forge tool.",
+    "step": [
+        {
+            "@type": "HowToStep",
+            "name": "Configure Tool",
+            "text": "Adjust the settings or input your data according to your requirements."
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Process Data",
+            "text": "Review the live preview or click the generate/process button."
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Export Result",
+            "text": "Copy or download the final output."
+        }
+    ]
+
+  };
+
+</script>
 <Head
   title={dict.title}
   description={dict.description}
@@ -95,6 +122,8 @@
   </scr` + `ipt>`}
 
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20 transition-colors duration-300">

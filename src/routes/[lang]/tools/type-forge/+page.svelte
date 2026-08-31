@@ -45,6 +45,33 @@
       // Let's just show a message.
       alert("Note: History currently only tracks metadata. To restore a session, please re-upload the font file.");
   }
+
+  $: howToSchema = {
+    "@context": "https://schema.org",
+
+    "@type": "HowTo",
+    "name": "How to use Type Forge",
+    "description": "Step-by-step guide to using the Type Forge tool.",
+    "step": [
+        {
+            "@type": "HowToStep",
+            "name": "Configure Tool",
+            "text": "Adjust the settings or input your data according to your requirements."
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Process Data",
+            "text": "Review the live preview or click the generate/process button."
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Export Result",
+            "text": "Copy or download the final output."
+        }
+    ]
+
+  };
+
 </script>
 <Head
   title={dict.title}
@@ -60,6 +87,8 @@
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/type-forge"} />
   {@html `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "SoftwareApplication", "@id": $page.url.origin + "/" + lang + "/tools/type-forge", "isAccessibleForFree": true, "name": dict.title, "description": dict.description, "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "featureList": [ "Variable Font Axis Control", "Glyph Inspection", "CSS @font-face Generator", "Local Processing" ] }).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-900 dark:text-white pb-20">
