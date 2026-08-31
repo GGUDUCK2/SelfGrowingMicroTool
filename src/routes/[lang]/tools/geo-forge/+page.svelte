@@ -369,7 +369,34 @@
 
 
 
-  </script>
+
+  $: howToSchema = {
+    "@context": "https://schema.org",
+
+    "@type": "HowTo",
+    "name": "How to use Geo Forge",
+    "description": "Step-by-step guide to using the Geo Forge tool.",
+    "step": [
+        {
+            "@type": "HowToStep",
+            "name": "Configure Tool",
+            "text": "Adjust the settings or input your data according to your requirements."
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Process Data",
+            "text": "Review the live preview or click the generate/process button."
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Export Result",
+            "text": "Copy or download the final output."
+        }
+    ]
+
+  };
+
+</script>
 <Head
   title={dict.title}
   description={dict.description}
@@ -414,6 +441,8 @@
 
 
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="h-[calc(100vh-64px)] flex flex-col bg-slate-50 dark:bg-slate-900 overflow-hidden">

@@ -195,7 +195,34 @@
     }
   };
 
-  </script>
+
+  $: howToSchema = {
+    "@context": "https://schema.org",
+
+    "@type": "HowTo",
+    "name": "How to use Json Architect",
+    "description": "Step-by-step guide to using the Json Architect tool.",
+    "step": [
+        {
+            "@type": "HowToStep",
+            "name": "Configure Tool",
+            "text": "Adjust the settings or input your data according to your requirements."
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Process Data",
+            "text": "Review the live preview or click the generate/process button."
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Export Result",
+            "text": "Copy or download the final output."
+        }
+    ]
+
+  };
+
+</script>
 <Head
   title={t.title}
   description={t.description}
@@ -212,6 +239,8 @@
 
 
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">

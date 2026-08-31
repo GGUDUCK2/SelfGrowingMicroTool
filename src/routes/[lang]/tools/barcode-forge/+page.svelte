@@ -71,7 +71,34 @@
       { q: t.q3 || "Can I generate barcodes for my store inventory?", a: t.a3 || "Yes. You can use the Bulk Mode to paste a list of SKUs and download them all as a ZIP file instantly." }
   ];
 
-  </script>
+
+  $: howToSchema = {
+    "@context": "https://schema.org",
+
+    "@type": "HowTo",
+    "name": "How to use Barcode Forge",
+    "description": "Step-by-step guide to using the Barcode Forge tool.",
+    "step": [
+        {
+            "@type": "HowToStep",
+            "name": "Configure Tool",
+            "text": "Adjust the settings or input your data according to your requirements."
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Process Data",
+            "text": "Review the live preview or click the generate/process button."
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Export Result",
+            "text": "Copy or download the final output."
+        }
+    ]
+
+  };
+
+</script>
 
 <svelte:head>
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
@@ -80,6 +107,8 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/barcode-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/barcode-forge"} />
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <Head

@@ -39,7 +39,34 @@ import Contrast from '@lucide/svelte/icons/contrast';
     "url": $page.url.origin + "/" + lang + "/tools/a11y-forge"
   };
 
-  </script>
+
+  $: howToSchema = {
+    "@context": "https://schema.org",
+
+    "@type": "HowTo",
+    "name": "How to use A11Y Forge",
+    "description": "Step-by-step guide to using the A11Y Forge tool.",
+    "step": [
+        {
+            "@type": "HowToStep",
+            "name": "Configure Tool",
+            "text": "Adjust the settings or input your data according to your requirements."
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Process Data",
+            "text": "Review the live preview or click the generate/process button."
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Export Result",
+            "text": "Copy or download the final output."
+        }
+    ]
+
+  };
+
+</script>
 
 <svelte:head>
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
@@ -48,6 +75,8 @@ import Contrast from '@lucide/svelte/icons/contrast';
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/a11y-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/a11y-forge"} />
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <Head

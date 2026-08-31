@@ -101,6 +101,33 @@
   };
 
   $: jsonLd = JSON.stringify(schemaData);
+
+  $: howToSchema = {
+    "@context": "https://schema.org",
+
+    "@type": "HowTo",
+    "name": "How to use Policy Forge",
+    "description": "Step-by-step guide to using the Policy Forge tool.",
+    "step": [
+        {
+            "@type": "HowToStep",
+            "name": "Configure Tool",
+            "text": "Adjust the settings or input your data according to your requirements."
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Process Data",
+            "text": "Review the live preview or click the generate/process button."
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Export Result",
+            "text": "Copy or download the final output."
+        }
+    ]
+
+  };
+
 </script>
 <Head
   title={toolDict.title}
@@ -114,6 +141,8 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/policy-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/policy-forge"} />
   {@html `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}</scr` + `ipt>`}
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="h-screen flex flex-col bg-slate-50 dark:bg-slate-900 overflow-hidden">
