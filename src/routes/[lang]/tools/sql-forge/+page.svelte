@@ -246,7 +246,7 @@
                 <h2>{t.guide.title}</h2>
                 <p>{t.guide.intro}</p>
 
-                <div class="grid md:grid-cols-3 gap-6 not-prose my-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 not-prose my-8">
                     <div class="p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
                         <h3 class="font-bold mb-2 flex items-center gap-2">
                             <Clock size={18} class="text-indigo-500" />
