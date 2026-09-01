@@ -1425,5 +1425,26 @@
       "vcf"
     ],
     "createdAt": "2026-07-29"
+  },
+  {
+    "id": "base64-forge",
+    "slug": "base64-forge",
+    "title": {
+      "en": "Base64 Forge",
+      "ko": "Base64 포지"
+    },
+    "description": {
+      "en": "The definitive Base64 toolkit. Encode, decode, and manipulate text, files, and images with pro-grade details and local history.",
+      "ko": "완벽한 Base64 툴킷입니다. 텍스트, 파일 및 이미지를 전문가 수준의 세부 설정과 로컬 히스토리로 인코딩, 디코딩 및 조작하세요."
+    },
+    "category": "dev",
+    "tags": [
+      "base64",
+      "encoder",
+      "decoder",
+      "converter",
+      "data"
+    ],
+    "createdAt": "2024-05-24"
   }
 ]
