@@ -322,6 +322,41 @@
     }
     dispatch('change', data);
   }
+
+  function handleMagicPaste(e: ClipboardEvent) {
+    const text = e.clipboardData?.getData('text');
+    if (!text) return;
+
+    // Very basic heuristic extraction
+    let parsedData = { ...data };
+
+    // Email extraction
+    const emailMatch = text.match(/[\w.-]+@[\w.-]+\.\w+/);
+    if (emailMatch && !parsedData.email) parsedData.email = emailMatch[0];
+
+    // Phone extraction
+    const phoneMatch = text.match(/(\+\d{1,2}\s?)?1?-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/);
+    if (phoneMatch && !parsedData.phone) parsedData.phone = phoneMatch[0];
+
+    // URL extraction
+    const urlMatch = text.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/);
+    if (urlMatch && !parsedData.website) parsedData.website = urlMatch[0];
+
+    // Try to find Name (first line usually)
+    const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+    if (lines.length > 0 && !parsedData.name && !lines[0].includes('@') && !lines[0].includes('http')) {
+        // Assume first line is name, possibly separated by | or - with title
+        const parts = lines[0].split(/\||-|,/);
+        parsedData.name = parts[0].trim();
+        if (parts.length > 1 && !parsedData.title) {
+            parsedData.title = parts[1].trim();
+        }
+    }
+
+    data = parsedData;
+    dispatch('change', data);
+  }
+
 </script>
 
 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 space-y-6 relative">
