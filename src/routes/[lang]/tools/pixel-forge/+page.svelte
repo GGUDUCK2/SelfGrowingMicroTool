@@ -132,7 +132,7 @@
 </main>
 
   <!-- Features Grid -->
-  <section class="grid md:grid-cols-3 gap-8 pt-12 border-t border-slate-800">
+  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 pt-12 border-t border-slate-800">
      <div class="space-y-3">
         <div class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center">
             <Zap class="w-5 h-5 text-indigo-400" />

@@ -17,13 +17,13 @@
 
 <div class="flex flex-wrap items-center gap-2 p-2 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
   <div class="flex items-center gap-1">
-    <button on:click={onNew} class="btn-tool" title={dict.actions.new}>
+    <button on:click={onNew} class="btn-tool min-h-[44px] min-w-[44px]" title={dict.actions.new}>
       <Plus class="w-4 h-4" /> <span class="hidden sm:inline">{dict.actions.new}</span>
     </button>
-    <button on:click={onOpen} class="btn-tool" title={dict.actions.open}>
+    <button on:click={onOpen} class="btn-tool min-h-[44px] min-w-[44px]" title={dict.actions.open}>
       <FolderOpen class="w-4 h-4" /> <span class="hidden sm:inline">{dict.actions.open}</span>
     </button>
-     <button on:click={onSave} class="btn-tool" title={dict.actions.save} disabled={!hasAudio}>
+     <button on:click={onSave} class="btn-tool min-h-[44px] min-w-[44px]" title={dict.actions.save} disabled={!hasAudio}>
       <Save class="w-4 h-4" /> <span class="hidden sm:inline">{dict.actions.save}</span>
     </button>
   </div>
@@ -31,10 +31,10 @@
   <div class="w-px h-6 bg-slate-300 dark:bg-slate-700 mx-1"></div>
 
   <div class="flex items-center gap-1">
-    <button on:click={onTrim} class="btn-tool" disabled={!hasSelection} title={dict.actions.trim}>
+    <button on:click={onTrim} class="btn-tool min-h-[44px] min-w-[44px]" disabled={!hasSelection} title={dict.actions.trim}>
       <Scissors class="w-4 h-4" /> <span class="hidden sm:inline">{dict.actions.trim}</span>
     </button>
-    <button on:click={onGenerate} class="btn-tool" title={dict.actions.generate}>
+    <button on:click={onGenerate} class="btn-tool min-h-[44px] min-w-[44px]" title={dict.actions.generate}>
       <Music class="w-4 h-4" /> <span class="hidden sm:inline">{dict.actions.generate}</span>
     </button>
   </div>
@@ -42,10 +42,10 @@
   <div class="w-px h-6 bg-slate-300 dark:bg-slate-700 mx-1"></div>
 
   <div class="flex items-center gap-1">
-    <button on:click={onExportWav} class="btn-tool" disabled={!hasAudio} title={dict.actions.exportWav}>
+    <button on:click={onExportWav} class="btn-tool min-h-[44px] min-w-[44px]" disabled={!hasAudio} title={dict.actions.exportWav}>
       <FileAudio class="w-4 h-4" /> <span class="hidden sm:inline">WAV</span>
     </button>
-     <button on:click={onExportWebM} class="btn-tool" disabled={!hasAudio} title={dict.actions.exportWebM}>
+     <button on:click={onExportWebM} class="btn-tool min-h-[44px] min-w-[44px]" disabled={!hasAudio} title={dict.actions.exportWebM}>
       <Download class="w-4 h-4" /> <span class="hidden sm:inline">WebM</span>
     </button>
   </div>
