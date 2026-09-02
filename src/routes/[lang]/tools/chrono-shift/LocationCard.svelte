@@ -30,7 +30,7 @@
 </script>
 
 <div class="relative group p-4 rounded-xl border transition-all duration-300 {getBgColor(slot.dayNight)} {slot.isBusinessHour ? 'ring-1 ring-green-500/50' : ''}">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
         <div class="flex items-center gap-3">
             <div class="p-2 rounded-full bg-white/50 dark:bg-black/20 text-slate-700 dark:text-slate-300">
                 {#if slot.dayNight === 'day'}
