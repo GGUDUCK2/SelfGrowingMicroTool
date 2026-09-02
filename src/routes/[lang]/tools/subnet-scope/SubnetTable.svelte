@@ -55,7 +55,7 @@
 
 {#if subnets.length > 0}
   <div class="space-y-4" transition:slide>
-    <div class="flex justify-end gap-2">
+    <div class="flex flex-col sm:flex-row justify-end gap-2">
         <button on:click={downloadCSV} aria-label="Export CSV" class="px-3 py-1.5 min-h-[44px] min-w-[44px] text-sm font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
             {dict.exportCSV || 'Export CSV'}
         </button>
