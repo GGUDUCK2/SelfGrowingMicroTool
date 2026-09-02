@@ -238,7 +238,7 @@
         </div>
 
         <!-- Input Box -->
-        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col h-64" on:drop={handleDrop} on:dragover={handleDragOver}>
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col h-64" role="region" aria-label="Dropzone" tabindex="-1" on:drop={handleDrop} on:dragover={handleDragOver}>
              <div class="bg-slate-50 dark:bg-slate-900 px-4 py-2 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
                  <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">{dict.inputText}</span>
                  <div class="flex gap-2">
