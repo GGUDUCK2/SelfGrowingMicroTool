@@ -8,7 +8,7 @@
 
     const dispatch = createEventDispatcher();
 
-    let historyItems: ToolHistoryItem<Record<string, string>, unknown>[] = [];
+    let historyItems: ToolHistoryItem<Record<string, unknown>, unknown>[] = [];
 
     // Reactive live query for history
     const historyObservable = liveQuery(
@@ -19,10 +19,10 @@
     );
 
     $: if ($historyObservable) {
-      historyItems = $historyObservable as unknown as ToolHistoryItem<Record<string, string>, unknown>[];
+      historyItems = $historyObservable as unknown as ToolHistoryItem<Record<string, unknown>, unknown>[];
     }
 
-    async function toggleStarStatus(item: ToolHistoryItem<Record<string, string>, unknown>) {
+    async function toggleStarStatus(item: ToolHistoryItem<Record<string, unknown>, unknown>) {
       if (item.id === undefined) return;
       await toggleStar(item.id);
     }
@@ -36,7 +36,7 @@
       await clearHistory('vcard-forge');
     }
 
-    function loadItem(item: ToolHistoryItem<Record<string, string>, unknown>) {
+    function loadItem(item: ToolHistoryItem<Record<string, unknown>, unknown>) {
       dispatch('load', { input: item.input });
     }
   </script>

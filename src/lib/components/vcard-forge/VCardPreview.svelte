@@ -219,6 +219,19 @@
     }
   }
 
+
+  async function copyShareableLink() {
+      try {
+          const dataStr = btoa(encodeURIComponent(JSON.stringify(data)));
+          const shareUrl = `${window.location.origin}${window.location.pathname}?data=${dataStr}`;
+          await navigator.clipboard.writeText(shareUrl);
+          showCopiedToast = true;
+          setTimeout(() => showCopiedToast = false, 2000);
+      } catch (err) {
+          console.error('Failed to copy shareable link:', err);
+      }
+  }
+
   async function copyVcfToClipboard() {
       if (!vcardData) return;
       try {
@@ -385,7 +398,19 @@
                 <span class="hidden sm:inline">SVG</span>
             </button>
         </div>
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-3 gap-3">
+
+            <button
+                on:click={copyShareableLink}
+                disabled={!data.name}
+                class="flex-1 py-2 px-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-slate-700 dark:text-slate-200 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 min-h-[44px] min-w-[44px]"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                </svg>
+                {dict?.copyLink || 'Copy Link'}
+            </button>
+
             <button
                 on:click={copyVcfToClipboard}
                 disabled={!data.name}
