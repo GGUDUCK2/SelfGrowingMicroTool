@@ -1,5 +1,6 @@
 <script lang="ts">
     import { page } from '$app/stores';
+    import { onMount } from 'svelte';
     import { dictionaries } from '$lib/dictionaries';
     import Head from '$lib/components/Head.svelte';
     import GuideSection from '$lib/components/GuideSection.svelte';
@@ -15,8 +16,7 @@
 
     $: lang = $page.params.lang as 'en' | 'ko';
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    $: dict = (dictionaries as unknown as Record<string, Record<string, any>>)[lang]?.tools?.vcardForge || {};
+    $: dict = (dictionaries as unknown as Record<string, Record<string, Record<string, string>>>)[lang]?.tools?.vcardForge || {};
 
     const initialData: VCardForgeData = {
       name: '',
@@ -143,7 +143,7 @@
     }
 
 
-    function handleLoad(event: CustomEvent<{ input: Record<string, string> }>) {
+    function handleLoad(event: CustomEvent<{ input: VCardForgeData }>) {
       const item = event.detail.input;
       currentData = {
           name: item.name || '',
@@ -219,6 +219,19 @@
         }
     ];
 
+
+    onMount(() => {
+        const dataParam = $page.url.searchParams.get('data');
+        if (dataParam) {
+            try {
+                const decoded = JSON.parse(decodeURIComponent(atob(dataParam)));
+                currentData = { ...initialData, ...decoded };
+            } catch (e) {
+                console.error('Failed to parse vCard data from URL', e);
+            }
+        }
+    });
+
     function loadExample(index = 0) {
       currentData = { ...smartExamples[index] };
       if (saveTimeout) clearTimeout(saveTimeout);
@@ -272,9 +285,11 @@
     {#if jsonLd}
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-{@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+      {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
     {/if}
   {#if howToSchema}
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
     {/if}
