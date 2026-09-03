@@ -568,7 +568,7 @@
            <button
             type="button"
             on:click={() => { data.photoData = ''; handleInput(); }}
-            class="px-4 py-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg font-medium transition-colors text-sm min-h-[44px]"
+            aria-label="Remove Photo" class="px-4 py-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg font-medium transition-colors text-sm min-h-[44px]"
           >
             Remove
           </button>
