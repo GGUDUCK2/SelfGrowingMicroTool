@@ -1,5 +1,25 @@
 [
   {
+    "id": "xml-forge",
+    "slug": "xml-forge",
+    "title": {
+      "en": "XML Forge",
+      "ko": "XML Forge"
+    },
+    "description": {
+      "en": "Format, validate, and convert XML seamlessly.",
+      "ko": "XML\uc744 \uc27d\uac8c \ud3ec\ub9f7\ud305\ud558\uace0 \uc720\ud6a8\uc131 \uac80\uc0ac \ubc0f \ubcc0\ud658\ud558\uc138\uc694."
+    },
+    "category": "dev",
+    "tags": [
+      "xml",
+      "formatter",
+      "converter",
+      "validator"
+    ],
+    "createdAt": "2024-03-10"
+  },
+  {
     "id": "audio-forge",
     "slug": "audio-forge",
     "title": {
@@ -8,7 +28,7 @@
     },
     "description": {
       "en": "Tool for Audio Forge",
-      "ko": "Audio Forge 도구"
+      "ko": "Audio Forge \ub3c4\uad6c"
     },
     "category": "productivity",
     "tags": [
@@ -26,7 +46,7 @@
     },
     "description": {
       "en": "Tool for Banner Forge",
-      "ko": "Banner Forge 도구"
+      "ko": "Banner Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -40,11 +60,11 @@
     "slug": "barcode-forge",
     "title": {
       "en": "Barcode Forge",
-      "ko": "바코드 포지"
+      "ko": "\ubc14\ucf54\ub4dc \ud3ec\uc9c0"
     },
     "description": {
       "en": "The definitive tool to generate linear barcodes. Supports EAN, UPC, Code 128, ITF, and more.",
-      "ko": "선형 바코드를 생성하는 완벽한 도구입니다. EAN, UPC, Code 128, ITF 등을 지원합니다."
+      "ko": "\uc120\ud615 \ubc14\ucf54\ub4dc\ub97c \uc0dd\uc131\ud558\ub294 \uc644\ubcbd\ud55c \ub3c4\uad6c\uc785\ub2c8\ub2e4. EAN, UPC, Code 128, ITF \ub4f1\uc744 \uc9c0\uc6d0\ud569\ub2c8\ub2e4."
     },
     "category": "dev",
     "tags": [
@@ -65,7 +85,7 @@
     },
     "description": {
       "en": "Tool for Chrono Shift",
-      "ko": "Chrono Shift 도구"
+      "ko": "Chrono Shift \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -83,7 +103,7 @@
     },
     "description": {
       "en": "Tool for Cipher Lab",
-      "ko": "Cipher Lab 도구"
+      "ko": "Cipher Lab \ub3c4\uad6c"
     },
     "category": "security",
     "tags": [
@@ -101,7 +121,7 @@
     },
     "description": {
       "en": "Fluid Typography & CSS Clamp Generator",
-      "ko": "유동적 타이포그래피 & CSS Clamp 생성기"
+      "ko": "\uc720\ub3d9\uc801 \ud0c0\uc774\ud3ec\uadf8\ub798\ud53c & CSS Clamp \uc0dd\uc131\uae30"
     },
     "category": "dev",
     "tags": [
@@ -118,11 +138,11 @@
     "slug": "color-master",
     "title": {
       "en": "Color Master",
-      "ko": "컬러 마스터"
+      "ko": "\uceec\ub7ec \ub9c8\uc2a4\ud130"
     },
     "description": {
       "en": "Advanced color picker and palette generator.",
-      "ko": "고급 색상 선택기 및 팔레트 생성기입니다."
+      "ko": "\uace0\uae09 \uc0c9\uc0c1 \uc120\ud0dd\uae30 \ubc0f \ud314\ub808\ud2b8 \uc0dd\uc131\uae30\uc785\ub2c8\ub2e4."
     },
     "category": "design",
     "tags": [
@@ -141,7 +161,7 @@
     },
     "description": {
       "en": "Tool for Compound Interest Calculator",
-      "ko": "Compound Interest Calculator 도구"
+      "ko": "Compound Interest Calculator \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -155,11 +175,11 @@
     "slug": "cron-editor",
     "title": {
       "en": "Cron Editor",
-      "ko": "Cron 에디터"
+      "ko": "Cron \uc5d0\ub514\ud130"
     },
     "description": {
       "en": "Edit and validate cron expressions with ease.",
-      "ko": "Cron 표현식을 쉽게 편집하고 검증하세요."
+      "ko": "Cron \ud45c\ud604\uc2dd\uc744 \uc27d\uac8c \ud3b8\uc9d1\ud558\uace0 \uac80\uc99d\ud558\uc138\uc694."
     },
     "category": "dev",
     "tags": [
@@ -174,11 +194,11 @@
     "slug": "csp-forge",
     "title": {
       "en": "CSP Forge",
-      "ko": "CSP 포지"
+      "ko": "CSP \ud3ec\uc9c0"
     },
     "description": {
       "en": "The definitive Content Security Policy (CSP) builder. Visually construct, evaluate, and export secure policies.",
-      "ko": "완벽한 콘텐츠 보안 정책(CSP) 빌더입니다. 안전한 정책을 시각적으로 구성, 평가 및 내보내세요."
+      "ko": "\uc644\ubcbd\ud55c \ucf58\ud150\uce20 \ubcf4\uc548 \uc815\ucc45(CSP) \ube4c\ub354\uc785\ub2c8\ub2e4. \uc548\uc804\ud55c \uc815\ucc45\uc744 \uc2dc\uac01\uc801\uc73c\ub85c \uad6c\uc131, \ud3c9\uac00 \ubc0f \ub0b4\ubcf4\ub0b4\uc138\uc694."
     },
     "category": "dev",
     "tags": [
@@ -198,7 +218,7 @@
     },
     "description": {
       "en": "Tool for Csv Forge",
-      "ko": "Csv Forge 도구"
+      "ko": "Csv Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -212,11 +232,11 @@
     "slug": "curl-forge",
     "title": {
       "en": "Curl Forge",
-      "ko": "Curl 포지"
+      "ko": "Curl \ud3ec\uc9c0"
     },
     "description": {
       "en": "The definitive cURL builder and command converter. Visually construct requests and export to fetch, Python, and more.",
-      "ko": "결정적인 cURL 빌더 및 명령 변환기입니다. 시각적으로 요청을 구성하고 fetch, Python 등으로 내보냅니다."
+      "ko": "\uacb0\uc815\uc801\uc778 cURL \ube4c\ub354 \ubc0f \uba85\ub839 \ubcc0\ud658\uae30\uc785\ub2c8\ub2e4. \uc2dc\uac01\uc801\uc73c\ub85c \uc694\uccad\uc744 \uad6c\uc131\ud558\uace0 fetch, Python \ub4f1\uc73c\ub85c \ub0b4\ubcf4\ub0c5\ub2c8\ub2e4."
     },
     "category": "dev",
     "tags": [
@@ -238,7 +258,7 @@
     },
     "description": {
       "en": "Tool for Decision Forge",
-      "ko": "Decision Forge 도구"
+      "ko": "Decision Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -252,11 +272,11 @@
     "slug": "demographics-forge",
     "title": {
       "en": "Demographics Forge",
-      "ko": "데모그래픽스 포지"
+      "ko": "\ub370\ubaa8\uadf8\ub798\ud53d\uc2a4 \ud3ec\uc9c0"
     },
     "description": {
       "en": "Visualize global population pyramids and demographic transitions.",
-      "ko": "글로벌 인구 피라미드와 인구 통계학적 전환을 시각화하세요."
+      "ko": "\uae00\ub85c\ubc8c \uc778\uad6c \ud53c\ub77c\ubbf8\ub4dc\uc640 \uc778\uad6c \ud1b5\uacc4\ud559\uc801 \uc804\ud658\uc744 \uc2dc\uac01\ud654\ud558\uc138\uc694."
     },
     "category": "data",
     "tags": [
@@ -278,7 +298,7 @@
     },
     "description": {
       "en": "Tool for Deploy Forge",
-      "ko": "Deploy Forge 도구"
+      "ko": "Deploy Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -296,7 +316,7 @@
     },
     "description": {
       "en": "Tool for Diagram Forge",
-      "ko": "Diagram Forge 도구"
+      "ko": "Diagram Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -310,11 +330,11 @@
     "slug": "diff-viewer",
     "title": {
       "en": "Diff Viewer",
-      "ko": "Diff 뷰어"
+      "ko": "Diff \ubdf0\uc5b4"
     },
     "description": {
       "en": "Compare text files and see differences.",
-      "ko": "텍스트 파일을 비교하고 차이점을 확인하세요."
+      "ko": "\ud14d\uc2a4\ud2b8 \ud30c\uc77c\uc744 \ube44\uad50\ud558\uace0 \ucc28\uc774\uc810\uc744 \ud655\uc778\ud558\uc138\uc694."
     },
     "category": "dev",
     "tags": [
@@ -329,11 +349,11 @@
     "slug": "docker-forge",
     "title": {
       "en": "Docker Forge",
-      "ko": "도커 포지"
+      "ko": "\ub3c4\ucee4 \ud3ec\uc9c0"
     },
     "description": {
       "en": "Visual Dockerfile builder. Generate Docker configurations with a clean, intuitive interface.",
-      "ko": "시각적 Dockerfile 빌더입니다. 깔끔하고 직관적인 인터페이스로 Docker 구성을 생성하세요."
+      "ko": "\uc2dc\uac01\uc801 Dockerfile \ube4c\ub354\uc785\ub2c8\ub2e4. \uae54\ub054\ud558\uace0 \uc9c1\uad00\uc801\uc778 \uc778\ud130\ud398\uc774\uc2a4\ub85c Docker \uad6c\uc131\uc744 \uc0dd\uc131\ud558\uc138\uc694."
     },
     "category": "dev",
     "tags": [
@@ -350,11 +370,11 @@
     "slug": "env-forge",
     "title": {
       "en": "Env Forge",
-      "ko": "Env 포지"
+      "ko": "Env \ud3ec\uc9c0"
     },
     "description": {
       "en": "Advanced environment variables manager and formatter.",
-      "ko": "고급 환경 변수 관리자 및 포맷터입니다."
+      "ko": "\uace0\uae09 \ud658\uacbd \ubcc0\uc218 \uad00\ub9ac\uc790 \ubc0f \ud3ec\ub9f7\ud130\uc785\ub2c8\ub2e4."
     },
     "category": "dev",
     "tags": [
@@ -372,11 +392,11 @@
     "slug": "file-forge",
     "title": {
       "en": "File Forge",
-      "ko": "파일 포지"
+      "ko": "\ud30c\uc77c \ud3ec\uc9c0"
     },
     "description": {
       "en": "The definitive file analysis and conversion tool. Inspect metadata, calculate hashes, and convert images locally.",
-      "ko": "완벽한 파일 분석 및 변환 도구입니다. 메타데이터 검사, 해시 계산, 이미지 변환을 로컬에서 수행하세요."
+      "ko": "\uc644\ubcbd\ud55c \ud30c\uc77c \ubd84\uc11d \ubc0f \ubcc0\ud658 \ub3c4\uad6c\uc785\ub2c8\ub2e4. \uba54\ud0c0\ub370\uc774\ud130 \uac80\uc0ac, \ud574\uc2dc \uacc4\uc0b0, \uc774\ubbf8\uc9c0 \ubcc0\ud658\uc744 \ub85c\uceec\uc5d0\uc11c \uc218\ud589\ud558\uc138\uc694."
     },
     "category": "util",
     "tags": [
@@ -393,11 +413,11 @@
     "slug": "geo-forge",
     "title": {
       "en": "Geo Forge",
-      "ko": "지오 포지"
+      "ko": "\uc9c0\uc624 \ud3ec\uc9c0"
     },
     "description": {
       "en": "The definitive geospatial toolkit. Convert, analyze, and visualize WKT/GeoJSON/CSV.",
-      "ko": "결정적인 지리 공간 툴킷입니다. WKT/GeoJSON/CSV를 변환, 분석 및 시각화하세요."
+      "ko": "\uacb0\uc815\uc801\uc778 \uc9c0\ub9ac \uacf5\uac04 \ud234\ud0b7\uc785\ub2c8\ub2e4. WKT/GeoJSON/CSV\ub97c \ubcc0\ud658, \ubd84\uc11d \ubc0f \uc2dc\uac01\ud654\ud558\uc138\uc694."
     },
     "category": "util",
     "tags": [
@@ -413,11 +433,11 @@
     "slug": "git-forge",
     "title": {
       "en": "Git Forge",
-      "ko": "깃 포지"
+      "ko": "\uae43 \ud3ec\uc9c0"
     },
     "description": {
       "en": "The definitive Git companion. Build complex commands, generate .gitignore files, and construct conventional commits visually.",
-      "ko": "완벽한 Git 동반자입니다. 복잡한 명령어를 빌드하고, .gitignore 파일을 생성하고, 컨벤셔널 커밋을 시각적으로 작성하세요."
+      "ko": "\uc644\ubcbd\ud55c Git \ub3d9\ubc18\uc790\uc785\ub2c8\ub2e4. \ubcf5\uc7a1\ud55c \uba85\ub839\uc5b4\ub97c \ube4c\ub4dc\ud558\uace0, .gitignore \ud30c\uc77c\uc744 \uc0dd\uc131\ud558\uace0, \ucee8\ubca4\uc154\ub110 \ucee4\ubc0b\uc744 \uc2dc\uac01\uc801\uc73c\ub85c \uc791\uc131\ud558\uc138\uc694."
     },
     "category": "dev",
     "tags": [
@@ -438,7 +458,7 @@
     },
     "description": {
       "en": "Tool for Glassmorphism Generator",
-      "ko": "Glassmorphism Generator 도구"
+      "ko": "Glassmorphism Generator \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -456,7 +476,7 @@
     },
     "description": {
       "en": "Advanced CSS Gradient Generator",
-      "ko": "고급 CSS 그라디언트 생성기"
+      "ko": "\uace0\uae09 CSS \uadf8\ub77c\ub514\uc5b8\ud2b8 \uc0dd\uc131\uae30"
     },
     "category": "design",
     "tags": [
@@ -472,11 +492,11 @@
     "slug": "grid-master",
     "title": {
       "en": "Grid Master",
-      "ko": "그리드 마스터"
+      "ko": "\uadf8\ub9ac\ub4dc \ub9c8\uc2a4\ud130"
     },
     "description": {
       "en": "Visual CSS Grid layout builder and code generator.",
-      "ko": "시각적 CSS 그리드 레이아웃 빌더 및 코드 생성기입니다."
+      "ko": "\uc2dc\uac01\uc801 CSS \uadf8\ub9ac\ub4dc \ub808\uc774\uc544\uc6c3 \ube4c\ub354 \ubc0f \ucf54\ub4dc \uc0dd\uc131\uae30\uc785\ub2c8\ub2e4."
     },
     "category": "dev",
     "tags": [
@@ -492,11 +512,11 @@
     "slug": "hash-forge",
     "title": {
       "en": "Hash Forge",
-      "ko": "해시 포지"
+      "ko": "\ud574\uc2dc \ud3ec\uc9c0"
     },
     "description": {
       "en": "The definitive tool for generating hashes, HMACs, and verifying file checksums locally.",
-      "ko": "해시, HMAC 및 파일 체크섬을 브라우저에서 안전하고 빠르게 생성 및 검증하는 최고의 도구입니다."
+      "ko": "\ud574\uc2dc, HMAC \ubc0f \ud30c\uc77c \uccb4\ud06c\uc12c\uc744 \ube0c\ub77c\uc6b0\uc800\uc5d0\uc11c \uc548\uc804\ud558\uace0 \ube60\ub974\uac8c \uc0dd\uc131 \ubc0f \uac80\uc99d\ud558\ub294 \ucd5c\uace0\uc758 \ub3c4\uad6c\uc785\ub2c8\ub2e4."
     },
     "category": "dev",
     "tags": [
@@ -513,11 +533,11 @@
     "slug": "icon-forge",
     "title": {
       "en": "Icon Forge",
-      "ko": "아이콘 포지"
+      "ko": "\uc544\uc774\ucf58 \ud3ec\uc9c0"
     },
     "description": {
       "en": "Generate app icons and favicons.",
-      "ko": "앱 아이콘과 파비콘을 생성하세요."
+      "ko": "\uc571 \uc544\uc774\ucf58\uacfc \ud30c\ube44\ucf58\uc744 \uc0dd\uc131\ud558\uc138\uc694."
     },
     "category": "design",
     "tags": [
@@ -532,11 +552,11 @@
     "slug": "id-forge",
     "title": {
       "en": "ID Forge",
-      "ko": "ID 포지"
+      "ko": "ID \ud3ec\uc9c0"
     },
     "description": {
       "en": "Generate UUIDs, CUIDs, NanoIDs, and more.",
-      "ko": "UUID, CUID, NanoID 등을 생성하세요."
+      "ko": "UUID, CUID, NanoID \ub4f1\uc744 \uc0dd\uc131\ud558\uc138\uc694."
     },
     "category": "dev",
     "tags": [
@@ -551,11 +571,11 @@
     "slug": "input-lab",
     "title": {
       "en": "Input Lab",
-      "ko": "인풋 랩"
+      "ko": "\uc778\ud48b \ub7a9"
     },
     "description": {
       "en": "Test keyboards, mice, and gamepads.",
-      "ko": "키보드, 마우스, 게임패드를 테스트하세요."
+      "ko": "\ud0a4\ubcf4\ub4dc, \ub9c8\uc6b0\uc2a4, \uac8c\uc784\ud328\ub4dc\ub97c \ud14c\uc2a4\ud2b8\ud558\uc138\uc694."
     },
     "category": "util",
     "tags": [
@@ -574,7 +594,7 @@
     },
     "description": {
       "en": "Tool for Invoice Forge",
-      "ko": "Invoice Forge 도구"
+      "ko": "Invoice Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -588,11 +608,11 @@
     "slug": "json-architect",
     "title": {
       "en": "JSON Architect",
-      "ko": "JSON 아키텍트"
+      "ko": "JSON \uc544\ud0a4\ud14d\ud2b8"
     },
     "description": {
       "en": "Visualize, edit, and format JSON data.",
-      "ko": "JSON 데이터를 시각화, 편집 및 포맷팅하세요."
+      "ko": "JSON \ub370\uc774\ud130\ub97c \uc2dc\uac01\ud654, \ud3b8\uc9d1 \ubc0f \ud3ec\ub9f7\ud305\ud558\uc138\uc694."
     },
     "category": "dev",
     "tags": [
@@ -611,7 +631,7 @@
     },
     "description": {
       "en": "Tool for Jwt Forge",
-      "ko": "Jwt Forge 도구"
+      "ko": "Jwt Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -629,7 +649,7 @@
     },
     "description": {
       "en": "Tool for Key Forge",
-      "ko": "Key Forge 도구"
+      "ko": "Key Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -647,7 +667,7 @@
     },
     "description": {
       "en": "Tool for Locale Forge",
-      "ko": "Locale Forge 도구"
+      "ko": "Locale Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -661,11 +681,11 @@
     "slug": "log-prism",
     "title": {
       "en": "Log Prism",
-      "ko": "로그 프리즘"
+      "ko": "\ub85c\uadf8 \ud504\ub9ac\uc998"
     },
     "description": {
       "en": "Analyze, filter, and visualize server logs locally.",
-      "ko": "서버 로그를 로컬에서 분석, 필터링 및 시각화하세요."
+      "ko": "\uc11c\ubc84 \ub85c\uadf8\ub97c \ub85c\uceec\uc5d0\uc11c \ubd84\uc11d, \ud544\ud130\ub9c1 \ubc0f \uc2dc\uac01\ud654\ud558\uc138\uc694."
     },
     "category": "dev",
     "tags": [
@@ -681,11 +701,11 @@
     "slug": "logic-forge",
     "title": {
       "en": "Logic Forge",
-      "ko": "로직 포지"
+      "ko": "\ub85c\uc9c1 \ud3ec\uc9c0"
     },
     "description": {
       "en": "The definitive boolean algebra tool. Truth tables, circuit visualization, and simplification.",
-      "ko": "완벽한 불 대수 도구입니다. 진리표, 회로 시각화 및 단순화 기능을 제공합니다."
+      "ko": "\uc644\ubcbd\ud55c \ubd88 \ub300\uc218 \ub3c4\uad6c\uc785\ub2c8\ub2e4. \uc9c4\ub9ac\ud45c, \ud68c\ub85c \uc2dc\uac01\ud654 \ubc0f \ub2e8\uc21c\ud654 \uae30\ub2a5\uc744 \uc81c\uacf5\ud569\ub2c8\ub2e4."
     },
     "category": "dev",
     "tags": [
@@ -702,11 +722,11 @@
     "slug": "lorem-forge",
     "title": {
       "en": "Lorem Forge",
-      "ko": "로렘 포지"
+      "ko": "\ub85c\ub818 \ud3ec\uc9c0"
     },
     "description": {
       "en": "Generate professional dummy text with custom dictionaries, precise targeting, and rich formatting.",
-      "ko": "사용자 정의 사전, 정밀한 타겟팅 및 풍부한 서식으로 전문적인 더미 텍스트를 생성하세요."
+      "ko": "\uc0ac\uc6a9\uc790 \uc815\uc758 \uc0ac\uc804, \uc815\ubc00\ud55c \ud0c0\uac9f\ud305 \ubc0f \ud48d\ubd80\ud55c \uc11c\uc2dd\uc73c\ub85c \uc804\ubb38\uc801\uc778 \ub354\ubbf8 \ud14d\uc2a4\ud2b8\ub97c \uc0dd\uc131\ud558\uc138\uc694."
     },
     "category": "design",
     "tags": [
@@ -727,7 +747,7 @@
     },
     "description": {
       "en": "Tool for Markdown Studio",
-      "ko": "Markdown Studio 도구"
+      "ko": "Markdown Studio \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -745,7 +765,7 @@
     },
     "description": {
       "en": "Tool for Math Forge",
-      "ko": "Math Forge 도구"
+      "ko": "Math Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -763,7 +783,7 @@
     },
     "description": {
       "en": "Tool for Mock Forge",
-      "ko": "Mock Forge 도구"
+      "ko": "Mock Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -781,7 +801,7 @@
     },
     "description": {
       "en": "Tool for Motion Master",
-      "ko": "Motion Master 도구"
+      "ko": "Motion Master \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -799,7 +819,7 @@
     },
     "description": {
       "en": "The Definitive CSS and SVG Pattern Generator. Create highly customizable, seamless background patterns (Grid, Dots, Waves, Polygons) with an interactive preview, real-time code export, and a persistent Dexie.js workspace.",
-      "ko": "가장 완벽한 CSS 및 SVG 패턴 생성기. 인터랙티브 미리보기, 실시간 코드 내보내기 및 영구 Dexie.js 작업 공간을 통해 사용자 지정이 가능한 매끄러운 배경 패턴(격자, 점, 물결, 다각형)을 만드세요."
+      "ko": "\uac00\uc7a5 \uc644\ubcbd\ud55c CSS \ubc0f SVG \ud328\ud134 \uc0dd\uc131\uae30. \uc778\ud130\ub799\ud2f0\ube0c \ubbf8\ub9ac\ubcf4\uae30, \uc2e4\uc2dc\uac04 \ucf54\ub4dc \ub0b4\ubcf4\ub0b4\uae30 \ubc0f \uc601\uad6c Dexie.js \uc791\uc5c5 \uacf5\uac04\uc744 \ud1b5\ud574 \uc0ac\uc6a9\uc790 \uc9c0\uc815\uc774 \uac00\ub2a5\ud55c \ub9e4\ub044\ub7ec\uc6b4 \ubc30\uacbd \ud328\ud134(\uaca9\uc790, \uc810, \ubb3c\uacb0, \ub2e4\uac01\ud615)\uc744 \ub9cc\ub4dc\uc138\uc694."
     },
     "category": "productivity",
     "tags": [
@@ -816,11 +836,11 @@
     "slug": "password-forge",
     "title": {
       "en": "Password Forge",
-      "ko": "패스워드 포지"
+      "ko": "\ud328\uc2a4\uc6cc\ub4dc \ud3ec\uc9c0"
     },
     "description": {
       "en": "Create cryptographically secure passwords and passphrases with deep customization and strength analysis.",
-      "ko": "심층적인 사용자 지정 및 강도 분석을 통해 암호학적으로 안전한 비밀번호와 패스프레이즈를 생성하세요."
+      "ko": "\uc2ec\uce35\uc801\uc778 \uc0ac\uc6a9\uc790 \uc9c0\uc815 \ubc0f \uac15\ub3c4 \ubd84\uc11d\uc744 \ud1b5\ud574 \uc554\ud638\ud559\uc801\uc73c\ub85c \uc548\uc804\ud55c \ube44\ubc00\ubc88\ud638\uc640 \ud328\uc2a4\ud504\ub808\uc774\uc988\ub97c \uc0dd\uc131\ud558\uc138\uc694."
     },
     "category": "util",
     "tags": [
@@ -838,11 +858,11 @@
     "slug": "pdf-forge",
     "title": {
       "en": "PDF Forge",
-      "ko": "PDF 포지"
+      "ko": "PDF \ud3ec\uc9c0"
     },
     "description": {
       "en": "Merge, split, rotate, and organize PDF pages securely in your browser.",
-      "ko": "브라우저에서 안전하게 PDF 페이지를 병합, 분할, 회전 및 정리하세요."
+      "ko": "\ube0c\ub77c\uc6b0\uc800\uc5d0\uc11c \uc548\uc804\ud558\uac8c PDF \ud398\uc774\uc9c0\ub97c \ubcd1\ud569, \ubd84\ud560, \ud68c\uc804 \ubc0f \uc815\ub9ac\ud558\uc138\uc694."
     },
     "category": "productivity",
     "tags": [
@@ -862,7 +882,7 @@
     },
     "description": {
       "en": "Tool for Perms Forge",
-      "ko": "Perms Forge 도구"
+      "ko": "Perms Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -876,11 +896,11 @@
     "slug": "pixel-forge",
     "title": {
       "en": "Pixel Forge",
-      "ko": "픽셀 포지"
+      "ko": "\ud53d\uc140 \ud3ec\uc9c0"
     },
     "description": {
       "en": "Optimize, resize, and convert images locally.",
-      "ko": "이미지를 로컬에서 최적화, 크기 조정 및 변환하세요."
+      "ko": "\uc774\ubbf8\uc9c0\ub97c \ub85c\uceec\uc5d0\uc11c \ucd5c\uc801\ud654, \ud06c\uae30 \uc870\uc815 \ubc0f \ubcc0\ud658\ud558\uc138\uc694."
     },
     "category": "design",
     "tags": [
@@ -899,7 +919,7 @@
     },
     "description": {
       "en": "Tool for Policy Forge",
-      "ko": "Policy Forge 도구"
+      "ko": "Policy Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -917,7 +937,7 @@
     },
     "description": {
       "en": "Tool for Pomodoro Timer",
-      "ko": "Pomodoro Timer 도구"
+      "ko": "Pomodoro Timer \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -931,11 +951,11 @@
     "slug": "prompt-forge",
     "title": {
       "en": "Prompt Forge",
-      "ko": "프롬프트 포지"
+      "ko": "\ud504\ub86c\ud504\ud2b8 \ud3ec\uc9c0"
     },
     "description": {
       "en": "Craft and manage AI prompts effectively.",
-      "ko": "AI 프롬프트를 효과적으로 작성하고 관리하세요."
+      "ko": "AI \ud504\ub86c\ud504\ud2b8\ub97c \ud6a8\uacfc\uc801\uc73c\ub85c \uc791\uc131\ud558\uace0 \uad00\ub9ac\ud558\uc138\uc694."
     },
     "category": "ai",
     "tags": [
@@ -954,7 +974,7 @@
     },
     "description": {
       "en": "Tool for Qr Forge",
-      "ko": "Qr Forge 도구"
+      "ko": "Qr Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -968,11 +988,11 @@
     "slug": "regex-tester",
     "title": {
       "en": "Regex Tester",
-      "ko": "정규식 테스터"
+      "ko": "\uc815\uaddc\uc2dd \ud14c\uc2a4\ud130"
     },
     "description": {
       "en": "Test and debug regular expressions.",
-      "ko": "정규 표현식을 테스트하고 디버깅하세요."
+      "ko": "\uc815\uaddc \ud45c\ud604\uc2dd\uc744 \ud14c\uc2a4\ud2b8\ud558\uace0 \ub514\ubc84\uae45\ud558\uc138\uc694."
     },
     "category": "dev",
     "tags": [
@@ -991,7 +1011,7 @@
     },
     "description": {
       "en": "Tool for Restro",
-      "ko": "Restro 도구"
+      "ko": "Restro \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -1009,7 +1029,7 @@
     },
     "description": {
       "en": "Tool for Resume Forge",
-      "ko": "Resume Forge 도구"
+      "ko": "Resume Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -1023,11 +1043,11 @@
     "slug": "rhythm-forge",
     "title": {
       "en": "Rhythm Forge",
-      "ko": "리듬 포지"
+      "ko": "\ub9ac\ub4ec \ud3ec\uc9c0"
     },
     "description": {
       "en": "The definitive polyrhythm metronome. Master complex timing.",
-      "ko": "완벽한 폴리리듬 메트로놈입니다. 복잡한 타이밍을 마스터하세요."
+      "ko": "\uc644\ubcbd\ud55c \ud3f4\ub9ac\ub9ac\ub4ec \uba54\ud2b8\ub85c\ub188\uc785\ub2c8\ub2e4. \ubcf5\uc7a1\ud55c \ud0c0\uc774\ubc0d\uc744 \ub9c8\uc2a4\ud130\ud558\uc138\uc694."
     },
     "category": "music",
     "tags": [
@@ -1044,11 +1064,11 @@
     "slug": "schema-forge",
     "title": {
       "en": "Schema Forge",
-      "ko": "스키마 포지"
+      "ko": "\uc2a4\ud0a4\ub9c8 \ud3ec\uc9c0"
     },
     "description": {
       "en": "Design database schemas and export SQL.",
-      "ko": "데이터베이스 스키마를 설계하고 SQL을 내보내세요."
+      "ko": "\ub370\uc774\ud130\ubca0\uc774\uc2a4 \uc2a4\ud0a4\ub9c8\ub97c \uc124\uacc4\ud558\uace0 SQL\uc744 \ub0b4\ubcf4\ub0b4\uc138\uc694."
     },
     "category": "dev",
     "tags": [
@@ -1067,7 +1087,7 @@
     },
     "description": {
       "en": "Tool for Screen Forge",
-      "ko": "Screen Forge 도구"
+      "ko": "Screen Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -1081,11 +1101,11 @@
     "slug": "seo-forge",
     "title": {
       "en": "SEO Forge",
-      "ko": "SEO 포지"
+      "ko": "SEO \ud3ec\uc9c0"
     },
     "description": {
       "en": "Analyze and optimize your meta tags.",
-      "ko": "메타 태그를 분석하고 최적화하세요."
+      "ko": "\uba54\ud0c0 \ud0dc\uadf8\ub97c \ubd84\uc11d\ud558\uace0 \ucd5c\uc801\ud654\ud558\uc138\uc694."
     },
     "category": "marketing",
     "tags": [
@@ -1104,7 +1124,7 @@
     },
     "description": {
       "en": "Tool for Shadow Forge",
-      "ko": "Shadow Forge 도구"
+      "ko": "Shadow Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -1122,7 +1142,7 @@
     },
     "description": {
       "en": "Tool for Snippet Forge",
-      "ko": "Snippet Forge 도구"
+      "ko": "Snippet Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -1140,7 +1160,7 @@
     },
     "description": {
       "en": "Tool for Sql Forge",
-      "ko": "Sql Forge 도구"
+      "ko": "Sql Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -1158,7 +1178,7 @@
     },
     "description": {
       "en": "Tool for String Theory",
-      "ko": "String Theory 도구"
+      "ko": "String Theory \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -1176,7 +1196,7 @@
     },
     "description": {
       "en": "Tool for Structura",
-      "ko": "Structura 도구"
+      "ko": "Structura \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -1194,7 +1214,7 @@
     },
     "description": {
       "en": "Tool for Subnet Scope",
-      "ko": "Subnet Scope 도구"
+      "ko": "Subnet Scope \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -1208,11 +1228,11 @@
     "slug": "svg-forge",
     "title": {
       "en": "SVG Forge",
-      "ko": "SVG 포지"
+      "ko": "SVG \ud3ec\uc9c0"
     },
     "description": {
       "en": "Analyze, format, and hyper-optimize SVG markup in your browser without sacrificing visual quality.",
-      "ko": "시각적 품질 저하 없이 브라우저 내에서 SVG 마크업을 분석, 형식화, 초고도 최적화하세요."
+      "ko": "\uc2dc\uac01\uc801 \ud488\uc9c8 \uc800\ud558 \uc5c6\uc774 \ube0c\ub77c\uc6b0\uc800 \ub0b4\uc5d0\uc11c SVG \ub9c8\ud06c\uc5c5\uc744 \ubd84\uc11d, \ud615\uc2dd\ud654, \ucd08\uace0\ub3c4 \ucd5c\uc801\ud654\ud558\uc138\uc694."
     },
     "category": "design",
     "tags": [
@@ -1233,7 +1253,7 @@
     },
     "description": {
       "en": "Tool for Table Forge",
-      "ko": "Table Forge 도구"
+      "ko": "Table Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -1247,11 +1267,11 @@
     "slug": "time-forge",
     "title": {
       "en": "Time Forge",
-      "ko": "타임 포지"
+      "ko": "\ud0c0\uc784 \ud3ec\uc9c0"
     },
     "description": {
       "en": "Professional world clock and meeting scheduler for distributed teams.",
-      "ko": "분산된 팀을 위한 전문 세계 시계 및 회의 일정 스케줄러입니다."
+      "ko": "\ubd84\uc0b0\ub41c \ud300\uc744 \uc704\ud55c \uc804\ubb38 \uc138\uacc4 \uc2dc\uacc4 \ubc0f \ud68c\uc758 \uc77c\uc815 \uc2a4\ucf00\uc904\ub7ec\uc785\ub2c8\ub2e4."
     },
     "category": "productivity",
     "tags": [
@@ -1272,7 +1292,7 @@
     },
     "description": {
       "en": "Tool for Type Forge",
-      "ko": "Type Forge 도구"
+      "ko": "Type Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -1290,7 +1310,7 @@
     },
     "description": {
       "en": "The definitive converter for length, mass, digital, energy, and more. Includes formula views and smart precision.",
-      "ko": "길이, 질량, 디지털, 에너지 등을 위한 완벽한 변환기입니다. 공식 보기와 스마트 정밀도를 포함합니다."
+      "ko": "\uae38\uc774, \uc9c8\ub7c9, \ub514\uc9c0\ud138, \uc5d0\ub108\uc9c0 \ub4f1\uc744 \uc704\ud55c \uc644\ubcbd\ud55c \ubcc0\ud658\uae30\uc785\ub2c8\ub2e4. \uacf5\uc2dd \ubcf4\uae30\uc640 \uc2a4\ub9c8\ud2b8 \uc815\ubc00\ub3c4\ub97c \ud3ec\ud568\ud569\ub2c8\ub2e4."
     },
     "category": "dev",
     "tags": [
@@ -1307,11 +1327,11 @@
     "slug": "url-forge",
     "title": {
       "en": "URL Forge",
-      "ko": "URL 포지"
+      "ko": "URL \ud3ec\uc9c0"
     },
     "description": {
       "en": "The definitive URL toolkit. Parse complex URLs, manipulate query parameters, generate UTM tags, and encode/decode instantly.",
-      "ko": "가장 완벽한 URL 툴킷입니다. 복잡한 URL을 분석하고, 쿼리 매개변수를 조작하며, UTM 태그를 생성하고 즉시 인코딩/디코딩하세요."
+      "ko": "\uac00\uc7a5 \uc644\ubcbd\ud55c URL \ud234\ud0b7\uc785\ub2c8\ub2e4. \ubcf5\uc7a1\ud55c URL\uc744 \ubd84\uc11d\ud558\uace0, \ucffc\ub9ac \ub9e4\uac1c\ubcc0\uc218\ub97c \uc870\uc791\ud558\uba70, UTM \ud0dc\uadf8\ub97c \uc0dd\uc131\ud558\uace0 \uc989\uc2dc \uc778\ucf54\ub529/\ub514\ucf54\ub529\ud558\uc138\uc694."
     },
     "category": "dev",
     "tags": [
@@ -1332,7 +1352,7 @@
     },
     "description": {
       "en": "Tool for Xpath Forge",
-      "ko": "Xpath Forge 도구"
+      "ko": "Xpath Forge \ub3c4\uad6c"
     },
     "category": "dev",
     "tags": [
@@ -1346,11 +1366,11 @@
     "slug": "yaml-forge",
     "title": {
       "en": "YAML Forge",
-      "ko": "YAML 포지"
+      "ko": "YAML \ud3ec\uc9c0"
     },
     "description": {
       "en": "The definitive YAML toolkit. Convert JSON to YAML, format YAML, and validate syntax instantly.",
-      "ko": "완벽한 YAML 툴킷입니다. JSON을 YAML로 변환하고, YAML을 포맷팅하며, 구문을 즉시 유효성 검사하세요."
+      "ko": "\uc644\ubcbd\ud55c YAML \ud234\ud0b7\uc785\ub2c8\ub2e4. JSON\uc744 YAML\ub85c \ubcc0\ud658\ud558\uace0, YAML\uc744 \ud3ec\ub9f7\ud305\ud558\uba70, \uad6c\ubb38\uc744 \uc989\uc2dc \uc720\ud6a8\uc131 \uac80\uc0ac\ud558\uc138\uc694."
     },
     "category": "dev",
     "tags": [
@@ -1367,11 +1387,11 @@
     "slug": "zen-forge",
     "title": {
       "en": "Zen Forge",
-      "ko": "젠 포지"
+      "ko": "\uc820 \ud3ec\uc9c0"
     },
     "description": {
       "en": "Ambient soundscape mixer for focus and relaxation.",
-      "ko": "집중과 휴식을 위한 앰비언트 사운드스케이프 믹서입니다."
+      "ko": "\uc9d1\uc911\uacfc \ud734\uc2dd\uc744 \uc704\ud55c \uc570\ube44\uc5b8\ud2b8 \uc0ac\uc6b4\ub4dc\uc2a4\ucf00\uc774\ud504 \ubbf9\uc11c\uc785\ub2c8\ub2e4."
     },
     "category": "productivity",
     "tags": [
@@ -1388,11 +1408,11 @@
     "slug": "a11y-forge",
     "title": {
       "en": "A11y Forge",
-      "ko": "접근성 포지"
+      "ko": "\uc811\uadfc\uc131 \ud3ec\uc9c0"
     },
     "description": {
       "en": "The definitive accessibility toolkit: WCAG Color Contrast Checker, Vision Simulator, and ARIA Role Explorer.",
-      "ko": "완벽한 웹 접근성 도구 모음: WCAG 색상 대비 검사기, 시력 시뮬레이터 및 ARIA 역할 탐색기."
+      "ko": "\uc644\ubcbd\ud55c \uc6f9 \uc811\uadfc\uc131 \ub3c4\uad6c \ubaa8\uc74c: WCAG \uc0c9\uc0c1 \ub300\ube44 \uac80\uc0ac\uae30, \uc2dc\ub825 \uc2dc\ubbac\ub808\uc774\ud130 \ubc0f ARIA \uc5ed\ud560 \ud0d0\uc0c9\uae30."
     },
     "category": "design",
     "tags": [
@@ -1414,7 +1434,7 @@
     },
     "description": {
       "en": "Digital Business Card Generator",
-      "ko": "디지털 명함 생성기"
+      "ko": "\ub514\uc9c0\ud138 \uba85\ud568 \uc0dd\uc131\uae30"
     },
     "category": "productivity",
     "tags": [
@@ -1431,11 +1451,11 @@
     "slug": "base64-forge",
     "title": {
       "en": "Base64 Forge",
-      "ko": "Base64 포지"
+      "ko": "Base64 \ud3ec\uc9c0"
     },
     "description": {
       "en": "The definitive Base64 toolkit. Encode, decode, and manipulate text, files, and images with pro-grade details and local history.",
-      "ko": "완벽한 Base64 툴킷입니다. 텍스트, 파일 및 이미지를 전문가 수준의 세부 설정과 로컬 히스토리로 인코딩, 디코딩 및 조작하세요."
+      "ko": "\uc644\ubcbd\ud55c Base64 \ud234\ud0b7\uc785\ub2c8\ub2e4. \ud14d\uc2a4\ud2b8, \ud30c\uc77c \ubc0f \uc774\ubbf8\uc9c0\ub97c \uc804\ubb38\uac00 \uc218\uc900\uc758 \uc138\ubd80 \uc124\uc815\uacfc \ub85c\uceec \ud788\uc2a4\ud1a0\ub9ac\ub85c \uc778\ucf54\ub529, \ub514\ucf54\ub529 \ubc0f \uc870\uc791\ud558\uc138\uc694."
     },
     "category": "dev",
     "tags": [
