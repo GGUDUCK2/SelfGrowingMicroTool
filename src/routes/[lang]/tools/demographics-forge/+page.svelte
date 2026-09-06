@@ -223,7 +223,7 @@
     </div>
 
     <!-- Documentation & SEO Section -->
-    <div class="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
+    <div class="mt-16 grid lg:grid-cols-3 gap-12">
         <div class="lg:col-span-2 space-y-12">
             <GuideSection
                 title={t.guide.title}

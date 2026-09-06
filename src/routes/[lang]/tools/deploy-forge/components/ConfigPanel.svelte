@@ -22,7 +22,7 @@
     <div class="space-y-4">
         <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider">Configuration</h3>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid md:grid-cols-2 gap-4">
             <div>
                 <label class="block text-sm font-medium text-slate-400 mb-1" for="port">Port</label>
                 <input
@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid md:grid-cols-2 gap-4">
             <div>
                 <label class="block text-sm font-medium text-slate-400 mb-1" for="buildCmd">Build Command</label>
                 <input

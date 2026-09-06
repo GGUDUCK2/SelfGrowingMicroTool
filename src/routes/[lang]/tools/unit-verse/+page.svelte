@@ -130,7 +130,7 @@
   </header>
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="grid lg:grid-cols-3 gap-8">
 
       <!-- Left Column: Converter (2/3 width) -->
       <div class="lg:col-span-2 space-y-6">

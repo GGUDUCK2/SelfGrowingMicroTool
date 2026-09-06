@@ -45,5 +45,3 @@ test-results/
 !src/**/*.png
 patch_*.cjs
 patch_*.sh
-scripts/
-scripts/*.cjs

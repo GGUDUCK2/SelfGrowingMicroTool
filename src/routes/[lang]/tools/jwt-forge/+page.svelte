@@ -182,7 +182,7 @@
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+  <div class="max-w-7xl mx-auto px-4 py-8 grid lg:grid-cols-2 gap-8">
     <!-- Left Column: Input -->
     <div class="space-y-6">
       <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">

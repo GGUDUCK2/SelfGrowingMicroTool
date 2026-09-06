@@ -516,7 +516,7 @@
   </header>
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="grid lg:grid-cols-12 gap-8">
 
       <!-- Left Sidebar (Controls) -->
       <div class="lg:col-span-3 space-y-8 order-2 lg:order-1">
@@ -554,7 +554,7 @@
               <p>{dict.guide.intro}</p>
 
               <h3 class="text-xl font-semibold">{dict.guide.featuresTitle}</h3>
-              <ul class="grid grid-cols-1 md:grid-cols-3 gap-4 not-prose">
+              <ul class="grid md:grid-cols-3 gap-4 not-prose">
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
 
                     {@html dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}

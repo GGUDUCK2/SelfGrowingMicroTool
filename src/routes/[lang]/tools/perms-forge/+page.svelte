@@ -156,14 +156,14 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="grid lg:grid-cols-12 gap-8">
 
             <!-- Main Workspace (8 cols) -->
             <div class="lg:col-span-8 space-y-8">
 
                 <!-- Visualization & Inputs -->
                 <div class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                    <div class="grid md:grid-cols-2 gap-6 items-start">
                         <!-- Grid Editor -->
                         <div in:fade={{ duration: 300, delay: 100 }}>
                             <div class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">{dict.grid}</div>

@@ -237,7 +237,7 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <div class="grid lg:grid-cols-3 gap-8">
     <!-- Left Column: Editor -->
     <div class="lg:col-span-2 space-y-6">
       <!-- Input Area -->

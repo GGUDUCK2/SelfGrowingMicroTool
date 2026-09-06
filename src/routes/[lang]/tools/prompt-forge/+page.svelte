@@ -305,7 +305,7 @@
 
      <!-- Workspace -->
      <main class="flex-1 overflow-y-auto p-4 md:p-6 scroll-smooth">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full min-h-[800px]">
+        <div class="grid lg:grid-cols-12 gap-6 h-full min-h-[800px]">
 
             <!-- Column 1: Editor (5/12) -->
             <div class="lg:col-span-5 flex flex-col h-full min-h-[400px]">

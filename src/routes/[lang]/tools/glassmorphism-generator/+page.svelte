@@ -250,7 +250,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     </div>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <div class="grid lg:grid-cols-3 gap-8">
     <!-- Controls -->
     <div
       class="lg:col-span-1 bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 self-start sticky top-6 space-y-6"
@@ -438,7 +438,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                 </button>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {#each $history as item (item.id)}
                     <div class="group relative bg-gray-50 rounded-xl p-4 border border-gray-200 hover:shadow-md transition-all touch-manipulation">
                         <button class="w-full text-left min-h-[44px] min-w-[44px]" on:click={() => restoreHistory(item)}>

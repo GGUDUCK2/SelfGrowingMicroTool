@@ -260,7 +260,7 @@
     <!-- Content Area -->
     <div class="p-4 md:p-8 min-h-[400px]">
         {#if activeTab === 'generate'}
-            <div in:fade class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div in:fade class="grid lg:grid-cols-2 gap-8">
                 <div class="space-y-6">
                     <Generator bind:options={genOptions} on:generate={handleGenerate} />
 
@@ -295,7 +295,7 @@
       {dict.guide.intro}
     </p>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 not-prose my-8">
+    <div class="grid md:grid-cols-2 gap-8 not-prose my-8">
         <div class="p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
             <h3 class="text-lg font-bold mb-2">UUID v7</h3>
             <p class="text-slate-600 dark:text-slate-300 text-sm">

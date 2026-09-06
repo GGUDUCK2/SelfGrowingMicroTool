@@ -203,7 +203,7 @@
   </header>
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="grid lg:grid-cols-12 gap-8">
 
         <!-- Left Column: Config (5 cols) -->
         <div class="lg:col-span-5 space-y-8">

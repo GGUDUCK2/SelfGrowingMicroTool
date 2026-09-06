@@ -187,7 +187,7 @@
     <p class="text-lg text-slate-400 max-w-7xl mx-auto">{t.description}</p>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  <div class="grid lg:grid-cols-12 gap-8">
     <!-- Main Workspace -->
     <div class="lg:col-span-8 space-y-8">
 
@@ -214,7 +214,7 @@
             <h2 class="text-2xl font-bold text-slate-50 mb-6">{t.guide.title}</h2>
             <p class="text-slate-400 leading-relaxed mb-8">{t.guide.intro}</p>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
               {#each [t.guide.f1, t.guide.f2, t.guide.f3] as f}
                 {@const feature = parseFeature(f)}
                 <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-700/50">

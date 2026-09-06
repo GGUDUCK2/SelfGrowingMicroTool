@@ -383,7 +383,7 @@
     </p>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <div class="grid lg:grid-cols-3 gap-8">
     <!-- Input Form -->
     <div
       class="lg:col-span-1 bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 h-fit space-y-6"
@@ -638,7 +638,7 @@
     <!-- Results Display -->
     <div class="lg:col-span-2 space-y-8">
       <!-- Summary Cards -->
-      <section aria-label="Results Summary" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <section aria-label="Results Summary" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-indigo-50 rounded-2xl p-5 border border-indigo-100">
           <div
             class="text-indigo-600 text-xs font-semibold mb-1 uppercase tracking-wide"

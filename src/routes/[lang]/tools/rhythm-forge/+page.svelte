@@ -329,7 +329,7 @@
       </div>
 
       <!-- Tool Interface -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="grid lg:grid-cols-12 gap-8 items-start">
 
           <!-- Left Column: Visualizer & Controls -->
           <div class="lg:col-span-7 space-y-8">

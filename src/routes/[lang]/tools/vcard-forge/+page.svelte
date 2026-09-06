@@ -352,7 +352,7 @@
        </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <div class="grid lg:grid-cols-12 gap-6">
       <!-- Main Left Column -->
       <div class="lg:col-span-8 space-y-6">
           <VCardEditor {dict} data={currentData} on:change={handleDataChange} on:clear={handleClearForm} />
