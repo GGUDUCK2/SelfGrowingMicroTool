@@ -232,6 +232,58 @@
         }
     });
 
+
+    let showImportToast = false;
+    let importMessage = '';
+
+    function handleMagicImport() {
+        navigator.clipboard.readText().then(text => {
+            if (!text) return;
+
+            let extracted = false;
+
+            // Basic extraction logic
+                        const emailMatch = text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/);
+            if (emailMatch) {
+                currentData.email = emailMatch[1];
+                extracted = true;
+            }
+
+                        const phoneMatch = text.match(/(\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9})/);
+            if (phoneMatch) {
+                currentData.phone = phoneMatch[1].trim();
+                extracted = true;
+            }
+
+            // URL extraction
+                        const urlMatch = text.match(/(https?:\/\/[^\s]+)/);
+            if (urlMatch) {
+                currentData.website = urlMatch[1];
+                extracted = true;
+            }
+
+            // Naive name extraction (first line)
+            const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            if (lines.length > 0 && !currentData.name) {
+                currentData.name = lines[0];
+                extracted = true;
+            }
+
+            if (extracted) {
+                importMessage = dict?.importSuccess || 'Extracted successfully!';
+                showImportToast = true;
+                setTimeout(() => showImportToast = false, 3000);
+                saveCurrentVCard();
+            } else {
+                importMessage = dict?.importFailed || 'Could not extract.';
+                showImportToast = true;
+                setTimeout(() => showImportToast = false, 3000);
+            }
+        }).catch(err => {
+            console.error('Failed to read clipboard', err);
+        });
+    }
+
     function loadExample(index = 0) {
       currentData = { ...smartExamples[index] };
       if (saveTimeout) clearTimeout(saveTimeout);
@@ -296,6 +348,14 @@
   </svelte:head>
 
   <div class="space-y-8 relative max-w-7xl mx-auto">
+
+    {#if showImportToast}
+      <div class="fixed top-24 left-1/2 -translate-x-1/2 bg-purple-600 text-white px-4 py-2 rounded-lg shadow-xl z-50 transition-all font-medium text-sm flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+        {importMessage}
+      </div>
+    {/if}
+
     <!-- Header & Tools -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 gap-4">
        <div class="flex items-center gap-3">
@@ -330,6 +390,16 @@
                 <button on:click={() => loadExample(2)} class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 min-h-[44px] min-w-[44px]">3. Startup Founder</button>
              </div>
            </div>
+
+           <button on:click={handleMagicImport} class="flex-1 sm:flex-none px-4 py-2 bg-purple-50 hover:bg-purple-100 dark:bg-purple-900/20 dark:hover:bg-purple-900/40 text-purple-600 dark:text-purple-400 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 touch-manipulation min-h-[44px] min-w-[44px]"
+                aria-label="Magic Import"
+             >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+                <span class="hidden lg:inline">{dict?.magicImport || 'Magic Import'}</span>
+             </button>
+
            <button on:click={saveCurrentVCard}
                 disabled={!currentData.name}
                 class="flex-1 sm:flex-none px-4 py-2 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/20 dark:hover:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg font-medium transition-colors flex items-center justify-center gap-2 min-h-[44px] min-w-[44px]"
