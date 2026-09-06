@@ -246,7 +246,7 @@
               {invoiceDict.guide.intro}
           </p>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div class="grid md:grid-cols-3 gap-8 mb-12">
               <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
                   <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
                       <Download class="text-blue-500" size={20} />

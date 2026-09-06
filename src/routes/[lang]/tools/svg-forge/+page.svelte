@@ -221,7 +221,7 @@
 
   <!-- Workspace -->
   <div class="max-w-7xl mx-auto px-4 py-8">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <div class="grid lg:grid-cols-12 gap-6">
 
       <!-- Left Column: Config & History -->
       <div class="lg:col-span-3 flex flex-col gap-6">
@@ -235,7 +235,7 @@
 
       <!-- Right Column: Editor & Preview -->
       <div class="lg:col-span-9 flex flex-col gap-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-grow min-h-[600px]">
+        <div class="grid md:grid-cols-2 gap-6 flex-grow min-h-[600px]">
           <EditorPane bind:rawSvg {t} />
           <PreviewPane
             {optimizedSvg}
@@ -257,7 +257,7 @@
       <h2 class="text-2xl font-bold mb-6">{t?.guide?.title}</h2>
       <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">{t?.guide?.intro}</p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+      <div class="grid md:grid-cols-2 gap-8 mb-12">
         <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
           <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>

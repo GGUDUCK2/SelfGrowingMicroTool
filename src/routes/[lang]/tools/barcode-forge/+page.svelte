@@ -130,7 +130,7 @@
     </div>
 
     <!-- Main Workspace Area -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="grid lg:grid-cols-12 gap-8">
 
         <!-- Left Column: Controls & History -->
         <div class="lg:col-span-8 flex flex-col gap-6">

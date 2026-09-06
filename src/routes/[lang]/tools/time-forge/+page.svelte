@@ -135,7 +135,7 @@
 
   <div class="prose prose-invert max-w-none">
     <h2 class="text-2xl font-bold text-white mb-6">{t.features.title}</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+    <div class="grid md:grid-cols-3 gap-8 mb-12">
       <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-700/50">
         <h3 class="text-lg font-semibold text-indigo-400 mb-2">{t.features.visualPlanning.title}</h3>
         <p class="text-slate-400 text-sm">{t.features.visualPlanning.desc}</p>

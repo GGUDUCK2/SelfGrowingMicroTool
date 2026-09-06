@@ -227,7 +227,7 @@
               </div>
           {/if}
 
-          <div class="mt-20 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div class="mt-20 w-full grid lg:grid-cols-12 gap-8">
               <div class="lg:col-span-8 space-y-8">
                   <GuideSection
                       title={dict.guide.title}

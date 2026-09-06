@@ -416,7 +416,7 @@
                     </div>
                 {/if}
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[500px]">
+                <div class="grid lg:grid-cols-2 gap-6 h-[500px]">
                     <div class="flex flex-col gap-2 h-full">
                         <div class="flex justify-between items-center px-1">
                             <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.input}</span>
@@ -499,7 +499,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[500px]">
+                <div class="grid lg:grid-cols-2 gap-6 h-[500px]">
                      <div class="flex flex-col gap-2 h-full">
                          <div class="flex justify-between items-center px-1">
                              <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t.input}</span>
@@ -573,7 +573,7 @@
         {:else if activeTab === 'history'}
              <div transition:fade={{ duration: 200 }}>
                  {#if history && history.length > 0}
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {#each history as item (item.id)}
                             <div class="group relative bg-gray-50 dark:bg-gray-700/30 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all">
                                 <div class="flex justify-between items-start mb-3">

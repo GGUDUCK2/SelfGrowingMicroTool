@@ -122,7 +122,7 @@
     </p>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  <div class="grid lg:grid-cols-12 gap-8">
 
     <!-- Left Column: Controls & History -->
     <div class="lg:col-span-4 flex flex-col gap-6">

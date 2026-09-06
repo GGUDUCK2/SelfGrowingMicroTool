@@ -327,7 +327,7 @@
     </div>
   {/if}
 
-  <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+  <div class="grid md:grid-cols-12 gap-8">
 
     <!-- Left Column: Controls -->
     <div class="md:col-span-5 lg:col-span-4 space-y-8">
@@ -346,7 +346,7 @@
       <!-- Harmony Selector -->
       <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
         <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t.harmony}</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="grid sm:grid-cols-2 gap-3">
           {#each HARMONY_TYPES as type}
             <Button
               class="justify-center {harmonyType === type ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-500 dark:text-indigo-300' : ''} min-h-[44px] min-w-[44px]"

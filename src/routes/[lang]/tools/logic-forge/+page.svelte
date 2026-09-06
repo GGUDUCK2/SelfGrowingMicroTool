@@ -259,7 +259,7 @@
   </div>
 
   <!-- Main Workspace -->
-  <main class="grid grid-cols-1 lg:grid-cols-4 gap-6 flex-grow">
+  <main class="grid lg:grid-cols-4 gap-6 flex-grow">
     <!-- Left: History -->
     <div class="lg:col-span-1 hidden lg:block">
        <HistoryPanel {lang} on:restore={handleRestore} />

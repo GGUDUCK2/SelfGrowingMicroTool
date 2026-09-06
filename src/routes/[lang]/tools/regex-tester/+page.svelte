@@ -213,7 +213,7 @@
   </div>
 
   <!-- Main Tool -->
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16">
+  <div class="grid lg:grid-cols-12 gap-6 mb-16">
     <!-- Left Column: Editor & Viewer (8 cols) -->
     <div class="lg:col-span-8 space-y-6">
       <RegexEditor {pattern} {flags} dictionary={t} on:change={handleEditorChange} />
