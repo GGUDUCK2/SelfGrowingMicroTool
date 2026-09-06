@@ -494,7 +494,7 @@
     </div>
   {/if}
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="grid md:grid-cols-2 gap-6">
     <div class="space-y-2">
       <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-name">{dict?.name}</label>
       <input type="text" id="vcard-name" bind:value={data.name} on:input={handleInput} placeholder="e.g. Tech Innovator" class="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
@@ -594,7 +594,7 @@
             {/each}
         </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div class="grid md:grid-cols-2 gap-6 mb-6">
         <div class="space-y-2">
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-qr-fg">{dict?.qrFgColor || 'Foreground Color'}</label>
           <div class="flex items-center gap-2">
@@ -614,7 +614,7 @@
 
   <div class="border-t border-slate-200 dark:border-slate-700 pt-6 mt-6">
     <h3 class="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-4">{dict?.socialLabel || 'Social Links'}</h3>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="grid md:grid-cols-2 gap-6">
 
         <div class="space-y-2">
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-linkedin">{dict?.linkedIn}</label>

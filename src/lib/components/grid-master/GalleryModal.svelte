@@ -119,7 +119,7 @@
 
       <!-- Content -->
       <div class="flex-1 overflow-y-auto p-6">
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {#each galleryItems as item (item.id)}
                   <button
                     class="group relative flex flex-col text-left p-6 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all hover:shadow-md bg-white dark:bg-slate-800/50"

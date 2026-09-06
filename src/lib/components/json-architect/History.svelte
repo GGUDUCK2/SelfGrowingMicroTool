@@ -21,7 +21,7 @@
 <div class="mt-8 border-t border-gray-200 dark:border-gray-700 pt-6">
   <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">{t.history}</h3>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+  <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
     {#if $history}
       {#each $history as item (item.id)}
         <div class="group relative p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">

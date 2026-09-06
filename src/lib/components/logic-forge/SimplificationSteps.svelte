@@ -6,7 +6,7 @@
 
 <div class="space-y-6 p-4">
   <!-- Canonical Forms -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="grid md:grid-cols-2 gap-4">
     <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
       <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Sum of Products (SOP)</h3>
       <div class="font-mono text-sm bg-gray-50 p-3 rounded-lg overflow-x-auto whitespace-nowrap text-indigo-700">

@@ -79,7 +79,7 @@
   </div>
 
   {#if publicKey}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" transition:slide>
+    <div class="grid md:grid-cols-2 gap-6" transition:slide>
       <!-- Public Key -->
       <div class="space-y-2">
         <div class="flex items-center justify-between">

@@ -82,7 +82,7 @@
           <span>{t.context || 'Did you know?'}</span>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {#each comparisons as comp}
               <div class="flex items-center gap-3 bg-white dark:bg-slate-900/50 p-3 rounded-lg border border-gray-200 dark:border-slate-700/50">
                   <div class="text-2xl">{comp.item.icon}</div>

@@ -28,7 +28,7 @@
 <div class="bg-white/50 dark:bg-slate-800/50 backdrop-blur-md rounded-xl p-4 border border-indigo-100 dark:border-indigo-900 shadow-sm h-full overflow-hidden flex flex-col">
   <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-4 px-2">{dictionary.cheatsheet}</h3>
   <div class="flex-grow overflow-y-auto pr-2 custom-scrollbar">
-    <div class="grid grid-cols-1 gap-2">
+    <div class="grid gap-2">
       {#each cheatSheetItems as item}
         <div class="flex items-center justify-between p-2 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition-colors group">
           <span class="text-sm text-slate-600 dark:text-slate-300">{item.label}</span>

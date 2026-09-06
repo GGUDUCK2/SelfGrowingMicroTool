@@ -34,7 +34,7 @@
     <div class="flex flex-col gap-6">
 
         <!-- Top Row: Selectors -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid sm:grid-cols-2 gap-4">
             <!-- Main Region -->
             <div class="flex flex-col gap-1.5">
                 <label for="mainRegion" class="text-sm font-medium">{t.primaryRegion}</label>

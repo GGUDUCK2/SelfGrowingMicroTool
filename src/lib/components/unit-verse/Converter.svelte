@@ -142,7 +142,7 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-slate-700">
-  <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-6 items-center">
+  <div class="grid md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-6 items-center">
 
     <!-- Input Section -->
     <div class="space-y-4 w-full">

@@ -53,7 +53,7 @@
 
             <!-- List -->
             <div class="flex-1 overflow-y-auto p-6 bg-slate-50/50 dark:bg-slate-800/50">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid md:grid-cols-2 gap-4">
                     {#each filtered as template (template.id)}
                         <button
                             class="text-left group flex flex-col p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-indigo-500 hover:shadow-md transition-all h-full"

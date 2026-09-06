@@ -101,7 +101,7 @@
   {#if resume.projects.length > 0}
   <section class="mb-6">
       <h2 class="text-sm font-bold uppercase tracking-widest border-b border-slate-300 mb-4 pb-1">Projects</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="grid md:grid-cols-2 gap-6">
           {#each resume.projects as project}
           <article>
               <div class="flex justify-between items-baseline mb-1">

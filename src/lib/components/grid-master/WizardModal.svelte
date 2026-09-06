@@ -175,7 +175,7 @@
       <div class="flex-1 overflow-y-auto p-6">
           {#if step === 0}
               <h3 class="text-lg font-semibold mb-6 text-center">{dict.wizard?.title || 'How do you want to start?'}</h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div class="grid sm:grid-cols-2 gap-6">
                   <button
                     class="p-6 rounded-2xl border-2 transition-all text-center flex flex-col items-center gap-4 group {mode === 'wizard' ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300'}"
                     on:click={() => { mode = 'wizard'; step = 1; }}
@@ -230,7 +230,7 @@
 
           {:else if step === 1}
               <h3 class="text-lg font-semibold mb-4">{dict.wizard?.step1 || 'Choose a Layout Type'}</h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="grid sm:grid-cols-2 gap-4">
                   <button
                     class="p-4 rounded-xl border-2 transition-all text-left flex items-start gap-4 {layoutType === 'dashboard' ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300'}"
                     on:click={() => layoutType = 'dashboard'}
@@ -326,7 +326,7 @@
           {:else if step === 3}
               <h3 class="text-lg font-semibold mb-4">Content Strategy</h3>
               <div class="space-y-4">
-                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div class="grid sm:grid-cols-3 gap-4">
                       <button
                         class="p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 text-center {strategy === 'visual' ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300'}"
                         on:click={() => strategy = 'visual'}

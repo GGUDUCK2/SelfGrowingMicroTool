@@ -583,7 +583,7 @@ ${calculatedClamp}`,
 
 </script>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="grid lg:grid-cols-3 gap-8">
   <div class="lg:col-span-2 space-y-6">
     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
       <div class="flex border-b border-slate-200 dark:border-slate-700 overflow-x-auto">
@@ -771,7 +771,7 @@ ${calculatedClamp}`,
                 <Monitor class="mr-2 h-5 w-5 text-indigo-500" />
                 Viewport
               </h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div class="grid sm:grid-cols-2 gap-6">
                 <div class="space-y-2">
                   <label for="minWidth" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
                     {d.minViewport} (px)
@@ -813,7 +813,7 @@ ${calculatedClamp}`,
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+              <div class="grid sm:grid-cols-2 gap-6 mb-6">
                 <div class="space-y-2">
                   <label for="minSize" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
                     {d.minSize} ({unit})
@@ -858,7 +858,7 @@ ${calculatedClamp}`,
                     {d.scaleDesc || 'Generate a full fluid typography scale based on a ratio.'}
                 </p>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="grid sm:grid-cols-2 gap-6">
                     <div class="space-y-2">
                         <label for="scaleRatio" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
                             {d.scaleRatio || 'Scale Ratio'}
@@ -883,7 +883,7 @@ ${calculatedClamp}`,
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="grid sm:grid-cols-2 gap-6">
                     <div class="space-y-2">
                         <label for="scaleStepsDown" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
                             {d.stepsDown || 'Steps Down (Smaller)'}
@@ -1038,7 +1038,7 @@ ${calculatedClamp}`,
         </code>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+      <div class="grid sm:grid-cols-3 gap-3 mb-4">
         <button
           on:click={() => copyToClipboard(calculatedClamp, 'css')}
           class="min-h-[44px] flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm transition-colors font-medium text-sm"
@@ -1255,7 +1255,7 @@ ${calculatedClamp}`,
     </div>
 
     <div class="p-6 bg-slate-50 dark:bg-slate-900/50">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+        <div class="grid md:grid-cols-3 gap-6 items-end">
             <!-- Mobile -->
             <div class="flex flex-col items-center space-y-3">
                 <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider flex justify-between w-full max-w-[320px] px-2">

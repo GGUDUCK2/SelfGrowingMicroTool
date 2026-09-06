@@ -91,7 +91,7 @@
       <p class="mt-2 text-sm">The selected file is not an image. Only image files (PNG, JPG, WebP, etc.) can be converted.</p>
     </div>
   {:else}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid md:grid-cols-2 gap-8">
       <!-- Settings -->
       <div class="space-y-6">
         <div>

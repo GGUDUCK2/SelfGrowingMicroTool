@@ -355,7 +355,7 @@
     </div>
 
     <!-- 3. Specialized Inspectors -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="grid lg:grid-cols-2 gap-6">
         <!-- Magic & Type -->
         <div class="bg-indigo-50 dark:bg-indigo-900/10 p-6 rounded-2xl border border-indigo-100 dark:border-indigo-800/50">
             <h4 class="text-xs font-bold text-indigo-800 dark:text-indigo-300 uppercase tracking-wide mb-3 flex items-center gap-2">

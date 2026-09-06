@@ -102,7 +102,7 @@
         </label>
       </div>
     {:else if state.type === 'wifi' && state.wifi}
-      <div transition:slide class="grid grid-cols-1 gap-4">
+      <div transition:slide class="grid gap-4">
         <label class="block">
           <span class="block text-sm font-medium text-slate-300 mb-1">SSID (Network Name)</span>
           <input type="text" bind:value={state.wifi.ssid} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent min-h-[44px]" />
@@ -155,7 +155,7 @@
         </label>
       </div>
     {:else if state.type === 'vcard' && state.vcard}
-      <div transition:slide class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div transition:slide class="grid sm:grid-cols-2 gap-4">
         <label class="block col-span-1">
           <span class="block text-sm font-medium text-slate-300 mb-1">First Name</span>
           <input type="text" bind:value={state.vcard.firstName} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
@@ -213,7 +213,7 @@
   <!-- Branding -->
   <div>
     <h3 class="text-lg font-semibold text-slate-200 mb-3">{d.branding || 'Branding & Style'}</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+    <div class="grid md:grid-cols-2 gap-4 mb-4">
         <!-- Logo Upload -->
         <div>
              <span class="block text-sm font-medium text-slate-300 mb-2">{d.logo || 'Center Logo'}</span>

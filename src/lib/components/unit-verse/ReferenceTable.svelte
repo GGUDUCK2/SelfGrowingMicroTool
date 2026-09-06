@@ -69,7 +69,7 @@
       {t.referenceTable || "Quick Reference"}
     </h3>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
       {#each referenceData as item}
         <button class="w-full flex items-center justify-between bg-gray-50 hover:bg-gray-100 dark:bg-slate-900/50 dark:hover:bg-slate-700 border border-gray-200 dark:border-slate-700/50 rounded-lg p-3 transition-all group text-left min-h-[44px]"
           on:click={() => copyToClipboard(item.value, item.unit.id)}

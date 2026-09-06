@@ -66,7 +66,7 @@
   <div class="space-y-4">
     <div role="group" aria-labelledby="templateLabel">
       <p id="templateLabel" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{dictionary.template || 'Template (Optional)'}</p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+      <div class="grid sm:grid-cols-2 gap-2">
         <input
           type="text"
           bind:value={config.template}

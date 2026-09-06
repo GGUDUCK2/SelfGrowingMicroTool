@@ -24,7 +24,7 @@
   </div>
 
   <!-- Settings Grid -->
-  <div class="grid grid-cols-1 gap-6">
+  <div class="grid gap-6">
 
     <!-- Dictionary Selection -->
     <div class="space-y-2">

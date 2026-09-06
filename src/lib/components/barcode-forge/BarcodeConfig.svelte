@@ -87,7 +87,7 @@
             {t.options || 'Visual Options'}
         </h3>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid sm:grid-cols-2 gap-4">
             <label class="block">
                 <span class="block text-sm font-medium text-slate-900 dark:text-slate-300 mb-1">{t.width || 'Bar Width'} ({state.design.width}px)</span>
                 <input type="range" min="1" max="5" step="1" bind:value={state.design.width} class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500 min-h-[24px]" />
@@ -119,7 +119,7 @@
         </div>
 
         {#if state.design.displayValue}
-        <div transition:slide class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div transition:slide class="grid sm:grid-cols-2 gap-4">
             <label class="block">
                 <span class="block text-sm font-medium text-slate-900 dark:text-slate-300 mb-1">{t.font || 'Font'}</span>
                 <select bind:value={state.design.font} class="w-full bg-slate-100 dark:bg-slate-700 border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 text-slate-900 dark:text-slate-50 min-h-[44px]">
@@ -152,7 +152,7 @@
             <Settings2 size={18} />
             Colors
         </h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid sm:grid-cols-2 gap-4">
             <label class="block">
                 <span class="block text-sm font-medium text-slate-900 dark:text-slate-300 mb-1">{t.background || 'Background'}</span>
                 <div class="flex items-center space-x-2">

@@ -64,7 +64,7 @@
 </script>
 
 <div class="space-y-8">
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <div class="grid md:grid-cols-3 gap-6">
     <div class="bg-indigo-50 dark:bg-indigo-900/20 rounded-xl p-6 border border-indigo-100 dark:border-indigo-800/50 flex flex-col items-center justify-center text-center">
       <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4">
         <AlignLeft size={24} />

@@ -29,7 +29,7 @@
 <div class="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm space-y-4">
   <h3 class="text-sm font-semibold text-gray-900 dark:text-white">{labels.title}</h3>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="grid md:grid-cols-2 gap-4">
     <div>
       <label for="indent" class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
         {labels.indent}
