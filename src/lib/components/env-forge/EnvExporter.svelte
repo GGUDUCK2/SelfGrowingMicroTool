@@ -114,7 +114,7 @@
       {t.export.title}
   </h3>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  <div class="grid sm:grid-cols-2 gap-4">
       <button class="min-h-[44px] min-w-[44px] px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2" on:click={exportJSON}>
           <span class="text-indigo-500 font-bold font-mono">{"{ }"}</span>
           {t.export.json}

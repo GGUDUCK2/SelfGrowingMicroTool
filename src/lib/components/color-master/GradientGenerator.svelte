@@ -34,7 +34,7 @@
 <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
   <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t.gradientGenerator?.title || 'Gradient Generator'}</h3>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="grid md:grid-cols-2 gap-6">
     <div
       class="h-48 rounded-xl shadow-inner border border-slate-200 dark:border-slate-700 transition-all"
       style="background: {cssGradient}"

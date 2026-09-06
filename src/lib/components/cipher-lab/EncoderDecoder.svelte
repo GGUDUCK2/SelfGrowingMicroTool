@@ -89,7 +89,7 @@
 </script>
 
 <div class="space-y-6" in:slide>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="grid md:grid-cols-2 gap-4">
     <!-- Method Selection -->
     <div class="space-y-2">
       <label for="method" class="block text-sm font-medium text-slate-700 dark:text-slate-300">

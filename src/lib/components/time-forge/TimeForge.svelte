@@ -210,7 +210,7 @@
   <TeamManager />
 
   <!-- City Grid -->
-  <div class="grid grid-cols-1 gap-4">
+  <div class="grid gap-4">
     {#each $cityTimes as { city, time } (city.id)}
         <div class="animate-in fade-in slide-in-from-bottom-2 duration-300">
             <TimeCard

@@ -53,7 +53,7 @@
   }
 </script>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-[500px]">
+<div class="grid md:grid-cols-2 gap-6 h-[500px]">
   <!-- Input Area -->
   <div class="flex flex-col h-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-md rounded-xl border border-indigo-100 dark:border-indigo-900 shadow-sm overflow-hidden">
     <div class="px-4 py-3 border-b border-indigo-50 dark:border-indigo-900/50 bg-indigo-50/50 dark:bg-indigo-900/20">

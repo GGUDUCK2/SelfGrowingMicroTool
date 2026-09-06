@@ -146,7 +146,7 @@
       <!-- Converter -->
       <div class="p-4 flex-1">
           <h3 class="font-bold text-slate-800 dark:text-white mb-4">Converter</h3>
-          <div class="grid grid-cols-1 gap-2">
+          <div class="grid gap-2">
               <button class="w-full py-2 px-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded text-left text-sm font-medium transition-colors {editorFormat === 'wkt' ? 'ring-2 ring-indigo-500' : ''}" on:click={() => dispatch('convert', 'wkt')}>
                   To WKT
               </button>

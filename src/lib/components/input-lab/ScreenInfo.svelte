@@ -69,7 +69,7 @@
   });
 </script>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
     {#each info as item}
         <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-start space-x-4">
              <div class="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl {item.color}">

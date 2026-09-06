@@ -92,7 +92,7 @@
       </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="grid md:grid-cols-2 gap-6">
     <!-- Type Selection -->
     <div class="space-y-3">
       <label for="type-select" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
@@ -146,7 +146,7 @@
   {#if selectedType === 'nanoid'}
     <div transition:slide class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl space-y-4 border border-slate-100 dark:border-slate-700/50">
       <h3 class="text-sm font-semibold text-slate-900 dark:text-slate-100">NanoID Options</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="grid md:grid-cols-2 gap-4">
         <div class="space-y-2">
             <label for="nano-length" class="text-xs font-medium text-slate-500 uppercase">Length</label>
             <input id="nano-length" type="number" bind:value={nanoidLength} on:change={updateOptions} class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm" />
@@ -162,7 +162,7 @@
   {#if selectedType === 'uuid-v3' || selectedType === 'uuid-v5'}
     <div transition:slide class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl space-y-4 border border-slate-100 dark:border-slate-700/50">
       <h3 class="text-sm font-semibold text-slate-900 dark:text-slate-100">Namespace Options</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="grid md:grid-cols-2 gap-4">
         <div class="space-y-2">
             <label for="ns-name" class="text-xs font-medium text-slate-500 uppercase">Name</label>
             <input id="ns-name" type="text" bind:value={name} on:change={updateOptions} placeholder="example.com" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm" />

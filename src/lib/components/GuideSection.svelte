@@ -26,7 +26,7 @@
     </p>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+  <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
     <!-- Key Features -->
     <div class="bg-indigo-50 dark:bg-slate-800/50 rounded-2xl p-8 space-y-6 border border-indigo-100 dark:border-slate-700">
       <h3 class="text-xl font-bold text-indigo-900 dark:text-indigo-200 flex items-center gap-2">

@@ -73,7 +73,7 @@
 
   <!-- Extended Options -->
   {#if showOptions}
-    <div transition:slide class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+    <div transition:slide class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700 grid sm:grid-cols-2 gap-3 text-xs">
 
       {#if field.type === 'number'}
         <label class="flex flex-col gap-1">

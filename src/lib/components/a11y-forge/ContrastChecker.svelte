@@ -346,7 +346,7 @@ Generated via A11y Forge`;
 
 </script>
 
-<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+<div class="grid lg:grid-cols-4 gap-8">
   <div class="lg:col-span-3 space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
 
     <!-- Mode Toggle -->
@@ -373,7 +373,7 @@ Generated via A11y Forge`;
 
 
     <!-- Color Inputs -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+    <div class="grid md:grid-cols-2 gap-6 relative">
 
       <div class="space-y-2">
         <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
@@ -657,7 +657,7 @@ Generated via A11y Forge`;
         {s.title || 'Color Blindness Simulation'}
       </h3>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="grid sm:grid-cols-2 gap-4">
         {#each simulations as sim}
           <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <div class="p-3 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/30">

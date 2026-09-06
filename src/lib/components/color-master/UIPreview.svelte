@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+  <div class="grid md:grid-cols-2 gap-8">
     <!-- Buttons & Inputs -->
     <div class="space-y-6">
       <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 space-y-4">

@@ -123,7 +123,7 @@
           {#if resume.projects.length > 0}
           <section>
               <h2 class="text-xs font-black uppercase tracking-widest mb-6 text-slate-400 border-b border-slate-100 pb-2">Projects</h2>
-              <div class="grid grid-cols-1 gap-6">
+              <div class="grid gap-6">
                   {#each resume.projects as project}
                   <article>
                       <div class="flex justify-between items-baseline mb-1">

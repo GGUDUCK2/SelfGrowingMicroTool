@@ -211,7 +211,7 @@
 
 </script>
 
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 min-h-[44px] min-w-[44px]">
+<div class="grid lg:grid-cols-12 gap-8 min-h-[44px] min-w-[44px]">
     <!-- Main Workspace -->
     <div class="lg:col-span-8 space-y-6">
 

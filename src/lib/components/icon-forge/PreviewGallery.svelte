@@ -49,7 +49,7 @@
       </button>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="grid md:grid-cols-2 gap-6">
 
     <!-- Maskable Icon (Android) -->
     <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">

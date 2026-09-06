@@ -68,7 +68,7 @@
 
   {#if result}
     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
-        <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 grid md:grid-cols-2 gap-6">
             <div>
                 <h3 class="text-sm font-semibold text-slate-500 uppercase mb-1">{dict.type}</h3>
                 <div class="flex items-center space-x-2">
@@ -108,7 +108,7 @@
             {#if conversions.length > 0}
                 <div class="md:col-span-2 border-t border-slate-100 dark:border-slate-700 pt-6">
                     <h3 class="text-sm font-semibold text-slate-500 uppercase mb-3">{dict.conversions}</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid sm:grid-cols-2 gap-4">
                         {#each conversions as conv}
                             <div class="flex flex-col bg-slate-50 dark:bg-slate-900/50 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
                                 <span class="text-xs text-slate-500 uppercase mb-1">{conv.label}</span>

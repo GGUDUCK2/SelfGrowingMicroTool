@@ -94,7 +94,7 @@
   <div class="flex-1 overflow-y-auto p-6 space-y-6">
     {#if activeTab === 'basics'}
       <div class="space-y-4" transition:slide>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid md:grid-cols-2 gap-4">
           <label class="block">
             <span class="text-sm font-medium text-slate-700 dark:text-slate-300">{d.basicsFields.name}</span>
             <input type="text" class="mt-1 block w-full rounded-md border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2" bind:value={$resumeStore.basics.name} />
