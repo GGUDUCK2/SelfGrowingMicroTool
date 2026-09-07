@@ -253,7 +253,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <!-- Controls -->
     <div
-      class="lg:col-span-1 bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 self-start sticky top-6 space-y-6"
+      class="lg:col-span-1 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-800 self-start sticky top-6 space-y-6"
     >
       <div class="flex justify-between items-center">
         <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
@@ -425,7 +425,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
       <!-- History Section -->
       {#if $history && $history.length > 0}
-        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+        <div class="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-800">
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-xl font-bold text-gray-900 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-history text-indigo-600"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12"/><path d="M3 3v9h9"/><path d="M12 7v5l4 2"/></svg>

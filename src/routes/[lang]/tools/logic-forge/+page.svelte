@@ -268,15 +268,15 @@
     <!-- Center: Editor & Visualizer -->
     <div class="lg:col-span-3 space-y-6">
        <!-- Input Area -->
-       <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4 relative overflow-visible z-20">
+       <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-800 space-y-4 relative overflow-visible z-20">
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
              <div class="flex items-center bg-gray-100 p-1 rounded-lg w-full sm:w-auto">
-                <button class="flex-1 sm:flex-none px-4 py-2 min-h-[44px] min-w-[44px] text-sm font-medium rounded-md transition-colors {mode === 'analyzer' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}"
+                <button class="flex-1 sm:flex-none px-4 py-2 min-h-[44px] min-w-[44px] text-sm font-medium rounded-md transition-colors {mode === 'analyzer' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200'}"
                    on:click={() => mode = 'analyzer'}
                 >
                    {dict.analyzer}
                 </button>
-                <button class="flex-1 sm:flex-none px-4 py-2 min-h-[44px] min-w-[44px] text-sm font-medium rounded-md transition-colors {mode === 'designer' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}"
+                <button class="flex-1 sm:flex-none px-4 py-2 min-h-[44px] min-w-[44px] text-sm font-medium rounded-md transition-colors {mode === 'designer' ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200'}"
                    on:click={toggleMode}
                 >
                    {dict.designer}

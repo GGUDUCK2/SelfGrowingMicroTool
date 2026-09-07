@@ -9,8 +9,8 @@
   export let deleteHistory: (id: number) => void;
 </script>
 
-<div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
-  <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+<div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-800">
+  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="20"
@@ -32,16 +32,16 @@
   <div class="space-y-3">
     {#each history as item (item.id)}
       <div
-        class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+        class="flex items-center justify-between p-4 bg-gray-50 dark:bg-slate-800 rounded-xl hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
       >
         <button
           class="text-left cursor-pointer flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1 min-h-[44px] min-w-[44px]"
           on:click={() => restoreHistory(item)}
         >
-          <div class="font-medium text-gray-900">
+          <div class="font-medium text-gray-900 dark:text-white">
             {formatMoney(item.data.finalBalance, lang)}
           </div>
-          <div class="text-sm text-gray-500">
+          <div class="text-sm text-gray-500 dark:text-slate-400">
             {formatMoney(item.data.principal, lang)} + {formatMoney(
               item.data.contribution,
               lang
