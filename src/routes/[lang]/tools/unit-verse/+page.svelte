@@ -167,7 +167,7 @@
                   {t.promoText}
               </p>
 
-              <a href="/{lang}/tools/compound-interest-calculator" class="block w-full text-center py-2 min-h-[44px] min-w-[44px] flex items-center justify-center bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors text-sm font-medium">
+              <a href="/{lang}/tools/compound-interest-calculator" aria-label="Compound Interest Calculator" class="block w-full text-center py-2 min-h-[44px] min-w-[44px] flex items-center justify-center bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors text-sm font-medium">
                   {t.promoAction}
               </a>
           </div>
