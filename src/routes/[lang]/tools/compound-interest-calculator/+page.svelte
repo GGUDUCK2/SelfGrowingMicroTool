@@ -386,7 +386,7 @@
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <!-- Input Form -->
     <div
-      class="lg:col-span-1 bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 h-fit space-y-6"
+      class="lg:col-span-1 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-800 h-fit space-y-6"
     >
       <div class="flex justify-between items-center">
         <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
@@ -566,7 +566,7 @@
             {lang === "ko" ? "복리 주기" : "Compound Frequency"}
             <select
               bind:value={compoundFrequency}
-              class="w-full px-4 py-3 text-base mt-1 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none bg-white"
+              class="w-full px-4 py-3 text-base mt-1 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none bg-white dark:bg-slate-900"
             >
               <option value={12}
                 >{lang === "ko" ? "매월 (12회/년)" : "Monthly (12/yr)"}</option
@@ -662,7 +662,7 @@
             )}
           </div>
         </div>
-        <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-gray-100 dark:border-slate-800 shadow-sm">
           <div
             class="text-purple-600 text-xs font-semibold mb-1 uppercase tracking-wide"
           >
@@ -675,7 +675,7 @@
             {formatMoney(realValue, lang)}
           </div>
         </div>
-        <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-gray-100 dark:border-slate-800 shadow-sm">
           <div
             class="text-gray-500 text-xs font-semibold mb-1 uppercase tracking-wide"
           >
@@ -685,7 +685,7 @@
             {formatMoney(totalInvested, lang)}
           </div>
         </div>
-        <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-gray-100 dark:border-slate-800 shadow-sm">
           <div
             class="text-emerald-600 text-xs font-semibold mb-1 uppercase tracking-wide"
           >
