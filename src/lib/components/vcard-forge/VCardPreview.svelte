@@ -264,6 +264,33 @@
       }
   }
 
+  let nfcStatus = '';
+  let isWritingNFC = false;
+
+  async function writeToNFC() {
+      if (!vcardData) return;
+      if (!('NDEFReader' in window)) {
+          alert(dict?.nfcNotSupported || 'Web NFC is not supported on this device/browser. Try Chrome on Android.');
+          return;
+      }
+      try {
+          isWritingNFC = true;
+          nfcStatus = dict?.nfcTap || 'Tap NFC tag to write...';
+          const ndef = new (window as any).NDEFReader();
+          await ndef.write({
+              records: [{ recordType: "mime", mediaType: "text/vcard", data: new TextEncoder().encode(vcardData) }]
+          });
+          nfcStatus = dict?.nfcSuccess || 'NFC Write Success!';
+          setTimeout(() => nfcStatus = '', 3000);
+      } catch (error) {
+          nfcStatus = dict?.nfcError || 'NFC Write Failed';
+          // Intentionally swallow error
+          setTimeout(() => nfcStatus = '', 3000);
+      } finally {
+          isWritingNFC = false;
+      }
+  }
+
   onMount(() => {
       generateVCard();
   });
@@ -430,6 +457,16 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                 </svg>
                 {dict?.share || 'Share'}
+            </button>
+            <button
+                on:click={writeToNFC}
+                disabled={!data.name || isWritingNFC}
+                class="flex-1 py-2 px-4 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-900/20 dark:hover:bg-emerald-900/40 disabled:opacity-50 disabled:cursor-not-allowed text-emerald-600 dark:text-emerald-400 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 min-h-[44px] min-w-[44px]"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                </svg>
+                {nfcStatus || dict?.writeNfc || 'Write to NFC'}
             </button>
         </div>
     </div>
