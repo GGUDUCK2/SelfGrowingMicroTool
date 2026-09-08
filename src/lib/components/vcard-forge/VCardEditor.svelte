@@ -26,6 +26,34 @@
 
   // Keyboard shortcuts and drag state
   let isDragging = false;
+  function handleGlobalKeydown(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      e.preventDefault();
+      smartFormat();
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      data = {
+        name: '',
+        title: '',
+        company: '',
+        email: '',
+        phone: '',
+        website: '',
+        address: '',
+        photoData: '',
+        linkedIn: '',
+        twitter: '',
+        github: '',
+        qrFgColor: '#0f172a',
+        qrBgColor: '#ffffff',
+        format: '3.0'
+      };
+      dispatch('change', data);
+      dispatch('clear');
+    }
+  }
+
 
   // 1. Profile strength analyzer
   $: profileStrength = calculateStrength(data);
@@ -359,6 +387,7 @@
 
 </script>
 
+<svelte:window on:keydown={handleGlobalKeydown} />
 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 space-y-6 relative">
   <!-- Profile Strength Analyzer -->
   <div class="mb-6 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">

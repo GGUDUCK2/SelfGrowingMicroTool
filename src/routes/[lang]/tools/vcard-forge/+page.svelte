@@ -242,31 +242,52 @@
 
             let extracted = false;
 
-            // Basic extraction logic
-                        const emailMatch = text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/);
+            // Email extraction
+            const emailMatch = text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/);
             if (emailMatch) {
                 currentData.email = emailMatch[1];
                 extracted = true;
             }
 
-                        const phoneMatch = text.match(/(\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9})/);
+            // Phone extraction
+            const phoneMatch = text.match(/(\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9})/);
             if (phoneMatch) {
                 currentData.phone = phoneMatch[1].trim();
                 extracted = true;
             }
 
             // URL extraction
-                        const urlMatch = text.match(/(https?:\/\/[^\s]+)/);
+            const urlMatch = text.match(/(https?:\/\/[^\s]+)/);
             if (urlMatch) {
                 currentData.website = urlMatch[1];
                 extracted = true;
             }
 
-            // Naive name extraction (first line)
+            // Advanced signature parsing (Naive heuristics)
             const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+
+            // Name: usually the first non-empty line
             if (lines.length > 0 && !currentData.name) {
-                currentData.name = lines[0];
-                extracted = true;
+                // If it looks like a name (no @, no http, no numbers)
+                if (!lines[0].includes('@') && !lines[0].includes('http') && !/\d/.test(lines[0])) {
+                    currentData.name = lines[0];
+                    extracted = true;
+                }
+            }
+
+            // Title and Company heuristics (often line 2 or 3)
+            for (let i = 1; i < Math.min(lines.length, 4); i++) {
+                const line = lines[i];
+                if (!line.includes('@') && !line.includes('http') && !/\d/.test(line)) {
+                    const lowerLine = line.toLowerCase();
+                    if (!currentData.title && (lowerLine.includes('manager') || lowerLine.includes('director') || lowerLine.includes('engineer') || lowerLine.includes('ceo') || lowerLine.includes('designer') || lowerLine.includes('developer') || lowerLine.includes('lead') || lowerLine.includes('head') || lowerLine.includes('founder') || lowerLine.includes('executive'))) {
+                        currentData.title = line;
+                        extracted = true;
+                    } else if (!currentData.company && line.length > 2) {
+                        currentData.company = line;
+                        extracted = true;
+                    }
+                }
             }
 
             if (extracted) {
@@ -279,8 +300,10 @@
                 showImportToast = true;
                 setTimeout(() => showImportToast = false, 3000);
             }
-        }).catch(err => {
-            console.error('Failed to read clipboard', err);
+        }).catch(() => {
+            importMessage = 'Clipboard access denied.';
+            showImportToast = true;
+            setTimeout(() => showImportToast = false, 3000);
         });
     }
 
