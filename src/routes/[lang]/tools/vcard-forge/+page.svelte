@@ -66,6 +66,7 @@
       { q: dict?.q3, a: dict?.a3 }
     ] : [];
 
+
         $: jsonLd = dict ? {
       "@context": "https://schema.org",
       "@graph": [
@@ -73,35 +74,24 @@
           "@type": "SoftwareApplication",
           "name": "vCard Forge",
           "applicationCategory": "BusinessApplication",
-          "operatingSystem": "Web, iOS, Android, macOS, Windows, Linux",
-          "applicationSubCategory": "Contact Management Utility",
+          "operatingSystem": "Any",
           "offers": {
             "@type": "Offer",
             "price": "0",
             "priceCurrency": "USD"
           },
-          "@id": $page.url.origin + "/" + lang + "/tools/vcard-forge",
-          "description": dict?.description,
+          "@id": `${$page.url.origin}/${lang}/tools/vcard-forge`,
+          "description": dict?.description || "Digital Business Card Generator",
           "featureList": [
               "vCard 3.0 & 4.0 Generation",
               "QR Code Integration",
               "Smart Signature Auto-Extractor",
-              "Raw VCF Viewer",
-              "Custom QR Colors",
-              "Live Preview",
-              "Base64 Photo Support",
-              "Local History",
-              "Actionable Profile Next Steps",
-              "1-Click Visual Themes"
-          ],
-          "isAccessibleForFree": true,
-          "author": {
-              "@type": "Organization",
-              "name": "MicroFactory"
-          }
+              "Dexie.js Persistent History"
+          ]
         }
       ]
     } : null;
+
 
 
     const howToSchema = {
@@ -138,6 +128,25 @@
       saveTimeout = setTimeout(() => {
           if (currentData.name) saveCurrentVCard();
       }, 1500);
+    }
+
+    function handleKeydown(e: KeyboardEvent) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            e.preventDefault();
+            saveCurrentVCard();
+        } else if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+            e.preventDefault();
+            saveCurrentVCard();
+        } else if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            handleClearForm();
+        } else if (e.key === 'Escape') {
+            if (showHistory) {
+                showHistory = false;
+            } else {
+                handleClearForm();
+            }
+        }
     }
 
     async function saveCurrentVCard() {
@@ -344,7 +353,7 @@
     keywords="vcard generator, qr code contact, digital business card, vcf creator"
   />
 
-  <svelte:window on:keydown={handleGlobalKeydown} />
+  <svelte:window on:keydown={(e) => { handleGlobalKeydown(e); handleKeydown(e); }} />
 
   <svelte:head>
 
