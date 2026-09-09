@@ -88,5 +88,5 @@
 
   <AdPlaceholder />
 
-  <RelatedTools lang={lang} currentSlug="pattern-forge" currentCategory="productivity" />
+  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="pattern-forge" currentCategory="productivity" />
 </div>

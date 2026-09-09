@@ -178,5 +178,5 @@
 
     <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
 
-    <RelatedTools lang={lang} currentSlug="barcode-forge" currentCategory="dev" />
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="barcode-forge" currentCategory="dev" />
 </div>

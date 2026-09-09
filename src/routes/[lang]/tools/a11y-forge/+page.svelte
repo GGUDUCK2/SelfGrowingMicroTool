@@ -137,6 +137,6 @@ import Contrast from '@lucide/svelte/icons/contrast';
 
   <FAQSection title={t.faqTitle} items={t.faqs || []} />
 
-  <RelatedTools lang={lang} currentSlug="a11y-forge" currentCategory="design" />
+  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="a11y-forge" currentCategory="design" />
 
 </div>
