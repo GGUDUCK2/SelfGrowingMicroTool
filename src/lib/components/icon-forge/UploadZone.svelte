@@ -85,10 +85,7 @@
   />
 
   <div
-    class="relative h-64 w-full rounded-xl border-2 border-dashed transition-all duration-200 flex flex-col items-center justify-center p-6
-    {isDragging
-      ? 'border-indigo-500 bg-indigo-500/10 scale-[1.01]'
-      : 'border-slate-700 hover:border-indigo-500/50 hover:bg-slate-800/50 bg-slate-800/30'}"
+    class="relative h-64 w-full rounded-xl border-2 border-dashed transition-all duration-200 flex flex-col items-center justify-center p-6 {isDragging ? 'border-indigo-500 bg-indigo-500/10 scale-[1.01]' : 'border-slate-700 hover:border-indigo-500/50 hover:bg-slate-800/50 bg-slate-800/30'}"
   >
     <div class="mb-4 p-4 rounded-full bg-slate-800 ring-1 ring-slate-700 group-hover:scale-110 transition-transform duration-200">
       <Upload class="w-8 h-8 text-indigo-400" />

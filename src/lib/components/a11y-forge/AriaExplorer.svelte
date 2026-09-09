@@ -144,7 +144,7 @@ import { onMount } from 'svelte';
     />
   </div>
 
-  <div class="grid lg:grid-cols-3 gap-6">
+  <div class="grid gap-6 lg:grid-cols-3">
 
     <!-- Roles List -->
     <div class="lg:col-span-1 flex flex-col gap-6 h-[774px]">

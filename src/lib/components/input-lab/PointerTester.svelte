@@ -101,7 +101,7 @@
 
 <div class="space-y-6">
     <!-- Stats Bar -->
-    <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-6">
         <div class="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800 text-center">
             <div class="text-[10px] uppercase text-slate-500 font-bold mb-1">{dict.pointer.pressure}</div>
             <div class="font-mono text-xl font-bold text-indigo-600 dark:text-indigo-400">{currentInfo.pressure.toFixed(3)}</div>

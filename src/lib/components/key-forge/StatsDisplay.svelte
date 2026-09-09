@@ -28,7 +28,7 @@
   }
 </script>
 
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl mb-8">
+<div class="grid gap-4 w-full max-w-4xl mb-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
     <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col items-center transform hover:scale-105 transition-transform duration-200">
         <span class="text-sm text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">WPM</span>
         <span class="text-4xl font-black text-indigo-600 dark:text-indigo-400 tabular-nums">{state.wpm}</span>

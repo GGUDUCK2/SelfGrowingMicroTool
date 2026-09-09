@@ -41,7 +41,7 @@
     <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100">{dictionary.presets.title}</h3>
   </div>
 
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+  <div class="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
     {#each presets as preset}
       <button
         class="py-3 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 hover:bg-indigo-50 hover:border-indigo-200 dark:hover:bg-indigo-900/30 dark:hover:border-indigo-800 transition-colors text-sm font-medium text-slate-700 dark:text-slate-300 text-left flex flex-col justify-center min-h-[44px]"

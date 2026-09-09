@@ -64,12 +64,7 @@
                                 {event.time.toLocaleTimeString()} <span class="text-[10px] opacity-70">.{event.time.getMilliseconds().toString().padStart(3, '0')}</span>
                             </td>
                             <td class="px-4 py-2">
-                                <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider
-                                    {event.type === 'keydown' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400' :
-                                     event.type === 'keyup' ? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400' :
-                                     event.type === 'pointer' ? 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400' :
-                                     event.type === 'gamepad' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : ''
-                                    }"
+                                <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider {event.type === 'keydown' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400' : event.type === 'keyup' ? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400' : event.type === 'pointer' ? 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400' : event.type === 'gamepad' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : '' }"
                                 >
                                     {event.type}
                                 </span>

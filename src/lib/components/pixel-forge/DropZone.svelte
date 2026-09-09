@@ -45,8 +45,7 @@
 </script>
 
 <div
-  class="relative w-full overflow-hidden rounded-2xl border-2 border-dashed transition-all duration-200 ease-out group cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-900
-  {isDragging ? 'border-indigo-500 bg-indigo-500/10' : 'border-slate-700 bg-slate-800/50 hover:border-indigo-500/50 hover:bg-slate-800'}"
+  class="relative w-full overflow-hidden rounded-2xl border-2 border-dashed transition-all duration-200 ease-out group cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-900 {isDragging ? 'border-indigo-500 bg-indigo-500/10' : 'border-slate-700 bg-slate-800/50 hover:border-indigo-500/50 hover:bg-slate-800'}"
   role="button"
   tabindex="0"
   aria-label={dict.dropZone?.title || "Drop images here"}

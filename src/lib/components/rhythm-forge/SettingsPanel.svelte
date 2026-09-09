@@ -21,7 +21,7 @@
             <Music size={16} />
             {dict.sound || 'Sound'}
         </h3>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             {#each sounds as sound}
                 <button
                     class="py-3 px-4 rounded-xl text-sm font-bold transition-all border-2 {settings.soundPack === sound.id ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400' : 'border-slate-200 dark:border-slate-700 text-slate-500 hover:border-slate-300 dark:hover:border-slate-600'}"
@@ -36,7 +36,7 @@
     <div class="h-px bg-slate-100 dark:bg-slate-800"></div>
 
     <!-- Time Signature -->
-    <div class="grid md:grid-cols-2 gap-8">
+    <div class="grid gap-8 md:grid-cols-2">
         <div class="space-y-4">
             <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
                 <Clock size={16} />
@@ -119,7 +119,7 @@
             </label>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 {settings.trainer.enabled ? 'opacity-100' : 'opacity-40 pointer-events-none'} transition-opacity">
+        <div class="grid gap-4 {settings.trainer.enabled ? 'opacity-100' : 'opacity-40 pointer-events-none'} transition-opacity grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             <div class="space-y-1">
                 <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{(dict.trainer as any)?.inc || 'Increment'}</span>
                 <input
@@ -163,7 +163,7 @@
             </label>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 {settings.ghost.enabled ? 'opacity-100' : 'opacity-40 pointer-events-none'} transition-opacity">
+        <div class="grid gap-4 {settings.ghost.enabled ? 'opacity-100' : 'opacity-40 pointer-events-none'} transition-opacity grid-cols-1 sm:grid-cols-2">
             <div class="space-y-1">
                 <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{(dict.ghost as any)?.play || 'Play Bars'}</span>
                 <input

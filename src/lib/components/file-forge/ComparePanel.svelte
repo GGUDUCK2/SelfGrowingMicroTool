@@ -196,7 +196,7 @@
     </button>
   </div>
 
-  <div class="grid md:grid-cols-2 gap-8 items-start">
+  <div class="grid gap-8 items-start md:grid-cols-2">
     <!-- Primary File Info -->
     <div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
       <h3 class="text-xs font-bold text-slate-500 uppercase mb-2">{(dict as any)?.compare?.primary || 'Primary File'}</h3>

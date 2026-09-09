@@ -14,7 +14,7 @@
 
 <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 overflow-hidden">
     <!-- Main Grid -->
-    <div class="grid grid-cols-4 gap-4 text-center">
+    <div class="grid gap-4 text-center grid-cols-4">
         <!-- Headers -->
         <div class="font-bold text-slate-400 text-sm uppercase tracking-wider self-end pb-2">Scope</div>
         <div class="font-bold text-slate-800 dark:text-slate-200 text-sm uppercase tracking-wider bg-slate-100 dark:bg-slate-700/50 py-2 rounded-lg">Read (4)</div>
@@ -74,7 +74,7 @@
     </div>
 
     <!-- Special Bits -->
-    <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-700 grid grid-cols-3 gap-4">
+    <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-700 grid gap-4 grid-cols-3">
         <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 cursor-pointer transition-colors group">
             <div class="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" class="sr-only peer" checked={permission.suid} on:change={() => toggle('suid')}>

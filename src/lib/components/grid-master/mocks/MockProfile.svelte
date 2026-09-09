@@ -34,7 +34,7 @@
       {/each}
   </div>
 
-  <div class="grid grid-cols-3 divide-x divide-slate-100 dark:divide-slate-800 w-full mb-6">
+  <div class="grid divide-y sm:divide-y-0 sm:divide-x divide-slate-100 dark:divide-slate-800 w-full mb-6 grid-cols-1 sm:grid-cols-3">
       {#each stats as stat}
           <div class="flex flex-col items-center px-2 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded transition-colors cursor-pointer py-2">
               <span class="font-bold text-slate-900 dark:text-white">{stat.value}</span>

@@ -27,7 +27,7 @@
     </div>
 
     <!-- Configuration -->
-    <div class="p-4 grid md:grid-cols-2 gap-4 border-b border-slate-800/50">
+    <div class="p-4 grid gap-4 border-b border-slate-800/50 md:grid-cols-2">
         <div class="flex items-center gap-4">
             <input
                 type="text"

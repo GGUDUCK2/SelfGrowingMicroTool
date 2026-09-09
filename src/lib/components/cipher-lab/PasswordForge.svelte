@@ -80,11 +80,7 @@
       readonly
       value={password}
       aria-label="Generated Password"
-      class="w-full text-center text-2xl font-mono py-4 rounded-xl border-2 bg-slate-50 dark:bg-slate-900 dark:text-white outline-none transition-colors
-      {strength === 'weak' ? 'border-red-200 dark:border-red-900' :
-       strength === 'fair' ? 'border-yellow-200 dark:border-yellow-900' :
-       strength === 'good' ? 'border-blue-200 dark:border-blue-900' :
-       'border-green-200 dark:border-green-900'}"
+      class="w-full text-center text-2xl font-mono py-4 rounded-xl border-2 bg-slate-50 dark:bg-slate-900 dark:text-white outline-none transition-colors {strength === 'weak' ? 'border-red-200 dark:border-red-900' : strength === 'fair' ? 'border-yellow-200 dark:border-yellow-900' : strength === 'good' ? 'border-blue-200 dark:border-blue-900' : 'border-green-200 dark:border-green-900'}"
     />
     <div class="absolute inset-y-0 right-0 pr-2 flex items-center space-x-1">
       <button
@@ -127,7 +123,7 @@
   </div>
 
   <!-- Metrics -->
-  <div class="grid grid-cols-2 gap-4 text-center">
+  <div class="grid gap-4 text-center grid-cols-1 sm:grid-cols-2">
     <div class="p-3 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800">
       <span class="block text-xs text-slate-500 uppercase tracking-wide">{dict.entropy}</span>
       <span class="text-lg font-bold text-slate-800 dark:text-slate-200">{entropy} bits</span>
@@ -161,7 +157,7 @@
          </div>
        </div>
 
-       <div class="grid grid-cols-2 gap-2">
+       <div class="grid gap-2 grid-cols-1 sm:grid-cols-2">
          <label class="flex items-center space-x-2 text-sm text-slate-700 dark:text-slate-300 min-h-[44px] min-w-[44px]">
            <input type="checkbox" bind:checked={options.uppercase} on:change={generate} class="rounded text-indigo-600 focus:ring-indigo-500 dark:bg-slate-800 dark:border-slate-600" />
            <span>{dict.password.uppercase}</span>

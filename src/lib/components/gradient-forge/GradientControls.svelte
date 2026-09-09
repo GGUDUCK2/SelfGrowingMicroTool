@@ -28,7 +28,7 @@
   <!-- Type Selector -->
   <div>
     <div class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t.type}</div>
-    <div class="grid grid-cols-3 gap-2">
+    <div class="grid gap-2 grid-cols-1 sm:grid-cols-3">
       {#each ['linear', 'radial', 'conic'] as tType}
         <button
           class="py-2 px-3 text-sm font-medium rounded-lg border transition-all min-h-[44px] {type === tType ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-500 dark:text-indigo-300 shadow-sm' : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'}"

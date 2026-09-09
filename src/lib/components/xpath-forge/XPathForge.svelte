@@ -418,7 +418,7 @@
 {/if}
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-<div class="grid lg:grid-cols-3 gap-6">
+<div class="grid gap-6 lg:grid-cols-3">
         <!-- Main Column -->
         <div class="lg:col-span-2 space-y-6">
             <!-- XPath Input -->
@@ -506,7 +506,7 @@
                 {/if}
             </div>
 
-            <div class="grid xl:grid-cols-2 gap-6 h-[500px]">
+            <div class="grid gap-6 h-[500px] xl:grid-cols-2">
                 <!-- Document Editor -->
                 <div class="flex flex-col h-full bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
                     <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-800/50">
@@ -531,14 +531,14 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-1 overflow-x-auto scrollbar-hide whitespace-nowrap shrink-0">
-                            <button class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center " aria-label={(t?.editor as any)?.prettify || 'Prettify'} on:click={prettifyDocument}>
+                            <button class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={(t?.editor as any)?.prettify || 'Prettify'} on:click={prettifyDocument}>
                                 <Code class="w-4 h-4" />
                             </button>
                             <label class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg cursor-pointer text-gray-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={t?.editor?.upload}>
                                 <input type="file" class="hidden" accept=".xml,.html,.txt" on:change={handleFileUpload} />
                                 <Download class="w-4 h-4" />
                             </label>
-                            <button class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center " aria-label={t?.editor?.clear} on:click={clearEditor}>
+                            <button class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label={t?.editor?.clear} on:click={clearEditor}>
                                 <Trash2 class="w-4 h-4" />
                             </button>
                         </div>

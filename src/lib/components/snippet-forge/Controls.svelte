@@ -29,11 +29,10 @@
   <!-- Theme -->
   <div class="space-y-3">
     <span class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider">{dict.theme}</span>
-    <div class="grid grid-cols-2 gap-3">
+    <div class="grid gap-3 grid-cols-1 sm:grid-cols-2">
        {#each THEMES as theme (theme.id)}
           <button
-             class="flex items-center gap-3 p-2.5 rounded-xl border text-xs font-medium transition-all text-left
-             {$snippetStore.theme === theme.id ? 'border-indigo-500 ring-1 ring-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 dark:text-white' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'}"
+             class="flex items-center gap-3 p-2.5 rounded-xl border text-xs font-medium transition-all text-left {$snippetStore.theme === theme.id ? 'border-indigo-500 ring-1 ring-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 dark:text-white' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'}"
              on:click={() => $snippetStore.theme = theme.id}
           >
              <div class="w-6 h-6 rounded-full border border-black/10 shrink-0 shadow-sm" style="background: {theme.bg}"></div>
@@ -46,11 +45,10 @@
   <!-- Background -->
   <div class="space-y-3">
     <span class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider">{dict.background}</span>
-    <div class="grid grid-cols-4 gap-2">
+    <div class="grid gap-2 grid-cols-1 sm:grid-cols-4">
        {#each BACKGROUNDS as bg (bg.id)}
           <button
-             class="w-full aspect-square rounded-lg border transition-all relative overflow-hidden group hover:scale-105
-             {$snippetStore.background === bg.id ? 'border-indigo-500 ring-2 ring-indigo-500 ring-offset-1 dark:ring-offset-slate-900' : 'border-slate-200 dark:border-slate-700 hover:border-slate-400'}"
+             class="w-full aspect-square rounded-lg border transition-all relative overflow-hidden group hover:scale-105 {$snippetStore.background === bg.id ? 'border-indigo-500 ring-2 ring-indigo-500 ring-offset-1 dark:ring-offset-slate-900' : 'border-slate-200 dark:border-slate-700 hover:border-slate-400'}"
              style="background: {bg.value}"
              on:click={() => $snippetStore.background = bg.id}
              title={bg.name}
@@ -75,8 +73,7 @@
         <div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
            {#each WINDOW_CONTROLS as wc (wc.id)}
               <button
-                 class="flex-1 py-1.5 text-xs font-medium rounded-lg transition-all
-                 {$snippetStore.windowControls === wc.id ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
+                 class="flex-1 py-1.5 text-xs font-medium rounded-lg transition-all {$snippetStore.windowControls === wc.id ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}"
                  on:click={() => $snippetStore.windowControls = wc.id}
               >
                  {wc.name}

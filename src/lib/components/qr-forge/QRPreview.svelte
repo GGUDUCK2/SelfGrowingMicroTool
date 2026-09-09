@@ -189,7 +189,7 @@
       {/if}
   </div>
 
-  <div class="grid grid-cols-2 gap-3 w-full">
+  <div class="grid gap-3 w-full grid-cols-1 sm:grid-cols-2">
     <button
         on:click={downloadPNG}
         class="flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg transition-colors min-h-[44px] min-w-[44px]"

@@ -8,7 +8,7 @@
 </script>
 
 <div class="space-y-4">
-  <div class="grid grid-cols-2 gap-4">
+  <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
     <div class="space-y-1">
       <label for="rows-select" class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{dictionary.rows}</label>
       <select id="rows-select" bind:value={options.rows} class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none min-h-[44px]">
@@ -32,7 +32,7 @@
 
   <div class="space-y-2 pt-2">
     <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{dictionary.export}</h4>
-    <div class="grid grid-cols-2 gap-2">
+    <div class="grid gap-2 grid-cols-1 sm:grid-cols-2">
       <button
         on:click={() => onExport('json')}
         class="flex items-center justify-center gap-2 px-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all text-sm font-medium min-h-[44px] min-w-[44px]"

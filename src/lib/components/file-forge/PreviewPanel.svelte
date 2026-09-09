@@ -147,7 +147,7 @@
 
 <div class="space-y-6">
   <!-- Info Grid -->
-  <div class="grid grid-cols-2 gap-4">
+  <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
       <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
           <span class="text-xs text-slate-500 block mb-1">{dict.info.name}</span>
           <div class="flex items-center gap-2">
@@ -247,7 +247,7 @@
                   <ImageIcon size={16} />
                   {dict.tabs.convert}
               </h4>
-              <div class="grid sm:grid-cols-2 gap-4 items-end">
+              <div class="grid gap-4 items-end sm:grid-cols-2">
                   <div>
                       <label for="format_select" class="block text-xs font-medium mb-1">{dict.convert.format}</label>
                       <select id="format_select" bind:value={convertFormat} class="w-full text-sm bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg p-2">
@@ -262,7 +262,7 @@
                   </div>
 
                   <!-- Resize Controls -->
-                  <div class="sm:col-span-2 grid grid-cols-2 gap-4 bg-slate-50 dark:bg-slate-800 p-3 rounded-lg border border-slate-100 dark:border-slate-700">
+                  <div class="sm:col-span-2 grid gap-4 bg-slate-50 dark:bg-slate-800 p-3 rounded-lg border border-slate-100 dark:border-slate-700 grid-cols-1 sm:grid-cols-2">
                     <div>
                       <label for="width_input" class="block text-xs font-medium mb-1 text-slate-500">{dict.convert.width || 'Width'}</label>
                       <input

@@ -68,7 +68,7 @@
     {#if parsedUrl}
         <div class="mt-8">
             <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">{dict.urlParts}</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
 
                 <div class="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-xl border border-indigo-100 dark:border-indigo-800/50 group relative overflow-hidden">
                     <span class="text-xs text-indigo-500 dark:text-indigo-400 font-bold block mb-1">{dict.protocol}</span>

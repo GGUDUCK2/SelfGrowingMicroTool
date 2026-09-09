@@ -10,7 +10,7 @@
     }
 </script>
 
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+<div class="grid gap-4 w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
     <!-- Total Population -->
     <div class="bg-surface border border-border/50 rounded-xl p-4 flex flex-col justify-between shadow-sm">
         <h3 class="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">{t.totalPopulation}</h3>

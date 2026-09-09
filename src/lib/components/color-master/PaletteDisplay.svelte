@@ -17,7 +17,7 @@
 
 <div class="space-y-3">
   <h3 class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">{title}</h3>
-  <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+  <div class="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
     {#each colors as color, i}
       <button
         class="group relative h-24 rounded-xl shadow-sm border border-black/5 dark:border-white/5 overflow-hidden transition-transform hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"

@@ -113,8 +113,7 @@
   <div class="flex overflow-x-auto border-b border-gray-200 dark:border-white/10">
     {#each TABS as tab, i}
       <button
-        class="flex-1 px-4 py-3 text-sm font-medium transition-colors hover:bg-gray-50 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-inset whitespace-nowrap
-        {activeTab === i ? 'bg-indigo-50 dark:bg-white/10 text-indigo-700 dark:text-indigo-400 border-b-2 border-indigo-500 dark:border-indigo-400' : 'text-gray-500 dark:text-slate-400'}"
+        class="flex-1 px-4 py-3 text-sm font-medium transition-colors hover:bg-gray-50 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-inset whitespace-nowrap {activeTab === i ? 'bg-indigo-50 dark:bg-white/10 text-indigo-700 dark:text-indigo-400 border-b-2 border-indigo-500 dark:border-indigo-400' : 'text-gray-500 dark:text-slate-400'}"
         on:click={() => activeTab = i}
       >
         {lang === 'ko' ? tab.label.ko : tab.label.en}
@@ -144,11 +143,10 @@
 
     <!-- Specific Grid -->
     {#if activeTab === 0}
-       <div class="grid grid-cols-10 gap-2">
+       <div class="grid gap-2 grid-cols-10">
          {#each OPTIONS.minutes as m}
            <button
-             class="rounded p-1 text-xs font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900
-             {isSelected(0, m) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
+             class="rounded p-1 text-xs font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900 {isSelected(0, m) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
              on:click={() => toggleSpecific(0, m)}
            >
              {m}
@@ -156,11 +154,10 @@
          {/each}
        </div>
     {:else if activeTab === 1}
-        <div class="grid grid-cols-6 gap-2">
+        <div class="grid gap-2 grid-cols-6">
          {#each OPTIONS.hours as h}
            <button
-             class="rounded p-2 text-sm font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900
-             {isSelected(1, h) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
+             class="rounded p-2 text-sm font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900 {isSelected(1, h) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
              on:click={() => toggleSpecific(1, h)}
            >
              {String(h).padStart(2, '0')}:00
@@ -168,11 +165,10 @@
          {/each}
        </div>
     {:else if activeTab === 2}
-        <div class="grid grid-cols-7 gap-2">
+        <div class="grid gap-2 grid-cols-7">
          {#each OPTIONS.days as d}
            <button
-             class="rounded p-2 text-sm font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900
-             {isSelected(2, d) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
+             class="rounded p-2 text-sm font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900 {isSelected(2, d) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
              on:click={() => toggleSpecific(2, d)}
            >
              {d}
@@ -180,11 +176,10 @@
          {/each}
        </div>
     {:else if activeTab === 3}
-        <div class="grid grid-cols-4 gap-2">
+        <div class="grid gap-2 grid-cols-4">
          {#each OPTIONS.months as m}
            <button
-             class="rounded p-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900
-             {isSelected(3, m.val) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
+             class="rounded p-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900 {isSelected(3, m.val) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
              on:click={() => toggleSpecific(3, m.val)}
            >
              {lang === 'ko' ? m.label.ko : m.label.en}
@@ -192,11 +187,10 @@
          {/each}
        </div>
     {:else if activeTab === 4}
-        <div class="grid grid-cols-4 gap-2">
+        <div class="grid gap-2 grid-cols-4">
          {#each OPTIONS.weekdays as d}
            <button
-             class="rounded p-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900
-             {isSelected(4, d.val) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
+             class="rounded p-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900 {isSelected(4, d.val) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
              on:click={() => toggleSpecific(4, d.val)}
            >
              {lang === 'ko' ? d.label.ko : d.label.en}

@@ -101,7 +101,7 @@
   </div>
 
   {#if optimizedSvg && !error}
-    <div class="p-4 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 grid grid-cols-3 gap-4 text-center">
+    <div class="p-4 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 grid gap-4 text-center grid-cols-1 sm:grid-cols-3">
       <div>
         <div class="text-xs text-slate-500 dark:text-slate-400 mb-1">{t.preview.original}</div>
         <div class="text-sm font-medium text-slate-800 dark:text-slate-200">{formatBytes(originalSize)}</div>

@@ -138,7 +138,7 @@
                          {/if}
                     </div>
 
-                    <div class="grid grid-cols-2 divide-x divide-gray-200 dark:divide-gray-700">
+                    <div class="grid divide-y sm:divide-y-0 sm:divide-x divide-gray-200 dark:divide-gray-700 grid-cols-1 sm:grid-cols-2">
                         <!-- Original (Left) -->
                         <div class="flex flex-col">
                             <div class="p-1.5 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 text-[10px] text-gray-500 font-mono text-center min-h-[44px] flex items-center justify-center">
@@ -148,8 +148,7 @@
                                 {block.original}
                             </div>
                             <button
-                                class="p-2 min-h-[44px] text-xs font-medium text-center hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors border-t border-gray-200 dark:border-gray-700
-                                {block.resolved === 'original' ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300' : 'text-gray-600 dark:text-gray-400'}"
+                                class="p-2 min-h-[44px] text-xs font-medium text-center hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors border-t border-gray-200 dark:border-gray-700 {block.resolved === 'original' ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300' : 'text-gray-600 dark:text-gray-400'}"
                                 on:click={() => resolveBlock(block.id, 'original')}
                             >
                                 {translations?.acceptCurrent || 'Accept Current'}
@@ -165,8 +164,7 @@
                                 {block.modified}
                             </div>
                             <button
-                                class="p-2 min-h-[44px] text-xs font-medium text-center hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors border-t border-gray-200 dark:border-gray-700
-                                {block.resolved === 'modified' ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-400'}"
+                                class="p-2 min-h-[44px] text-xs font-medium text-center hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors border-t border-gray-200 dark:border-gray-700 {block.resolved === 'modified' ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-400'}"
                                 on:click={() => resolveBlock(block.id, 'modified')}
                             >
                                 {translations?.acceptIncoming || 'Accept Incoming'}
@@ -175,8 +173,7 @@
                     </div>
 
                     <button
-                        class="w-full p-2 min-h-[44px] text-xs font-medium text-center border-t border-gray-200 dark:border-gray-700 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors
-                        {block.resolved === 'both' ? 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300' : 'text-gray-500 dark:text-gray-400'}"
+                        class="w-full p-2 min-h-[44px] text-xs font-medium text-center border-t border-gray-200 dark:border-gray-700 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors {block.resolved === 'both' ? 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300' : 'text-gray-500 dark:text-gray-400'}"
                         on:click={() => resolveBlock(block.id, 'both')}
                     >
                         {translations?.keepBoth || 'Keep Both (Current then Incoming)'}

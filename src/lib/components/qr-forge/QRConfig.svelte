@@ -63,7 +63,7 @@
   <!-- Type Selector -->
   <div>
     <span class="block text-sm font-medium text-slate-300 mb-2">{d.type || 'Content Type'}</span>
-    <div class="grid grid-cols-3 sm:grid-cols-4 gap-2">
+    <div class="grid gap-2 grid-cols-1 sm:grid-cols-3 md:grid-cols-4">
       {#each types as type}
         <button
           class="px-3 py-2 text-sm rounded-lg border transition-all duration-200 min-h-[44px] min-w-[44px] {state.type === type ? 'bg-indigo-600 border-indigo-500 text-white font-medium shadow-md ring-2 ring-indigo-500/20' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600 hover:border-slate-500'}"
@@ -111,7 +111,7 @@
           <span class="block text-sm font-medium text-slate-300 mb-1">Password</span>
           <input type="text" bind:value={state.wifi.password} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent min-h-[44px]" />
         </label>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
           <label class="block">
             <span class="block text-sm font-medium text-slate-300 mb-1">Encryption</span>
             <select bind:value={state.wifi.encryption} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent min-h-[44px]">
@@ -155,7 +155,7 @@
         </label>
       </div>
     {:else if state.type === 'vcard' && state.vcard}
-      <div transition:slide class="grid sm:grid-cols-2 gap-4">
+      <div transition:slide class="grid gap-4 sm:grid-cols-2">
         <label class="block col-span-1">
           <span class="block text-sm font-medium text-slate-300 mb-1">First Name</span>
           <input type="text" bind:value={state.vcard.firstName} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
@@ -213,7 +213,7 @@
   <!-- Branding -->
   <div>
     <h3 class="text-lg font-semibold text-slate-200 mb-3">{d.branding || 'Branding & Style'}</h3>
-    <div class="grid md:grid-cols-2 gap-4 mb-4">
+    <div class="grid gap-4 mb-4 md:grid-cols-2">
         <!-- Logo Upload -->
         <div>
              <span class="block text-sm font-medium text-slate-300 mb-2">{d.logo || 'Center Logo'}</span>
@@ -277,7 +277,7 @@
   <!-- Design -->
   <div>
     <h3 class="text-lg font-semibold text-slate-200 mb-3">{d.design || 'Design'}</h3>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
       <label class="block">
         <span class="block text-sm font-medium text-slate-300 mb-1">{d.colors?.dark || 'Foreground Color'}</span>
         <div class="flex items-center space-x-2">

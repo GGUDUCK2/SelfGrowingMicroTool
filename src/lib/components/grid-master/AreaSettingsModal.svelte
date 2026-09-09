@@ -98,13 +98,10 @@
               <!-- Content Type (Visual Grid) -->
               <div>
                   <span class="block text-sm font-medium mb-2 opacity-70">{dict.contentType}</span>
-                  <div class="grid grid-cols-4 gap-2">
+                  <div class="grid gap-2 grid-cols-1 sm:grid-cols-4">
                       {#each contentTypes as t (t.val)}
                           <button
-                            class="flex flex-col items-center justify-center p-2 rounded border transition-all text-center gap-1 aspect-square
-                            {contentType === t.val
-                                ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
-                                : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-slate-500'}"
+                            class="flex flex-col items-center justify-center p-2 rounded border transition-all text-center gap-1 aspect-square {contentType === t.val ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-slate-500'}"
                             on:click={() => contentType = t.val}
                             type="button"
                           >

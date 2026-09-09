@@ -169,8 +169,7 @@
 </script>
 
 <div
-  class="relative w-full h-full min-h-[400px] rounded-xl overflow-hidden shadow-inner border touch-none select-none transition-colors duration-300
-  {theme === 'cyber' ? 'bg-black border-green-900' : (theme === 'blueprint' ? 'bg-blue-50 border-blue-200' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800')}"
+  class="relative w-full h-full min-h-[400px] rounded-xl overflow-hidden shadow-inner border touch-none select-none transition-colors duration-300 {theme === 'cyber' ? 'bg-black border-green-900' : (theme === 'blueprint' ? 'bg-blue-50 border-blue-200' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800')}"
   on:mouseup={handleMouseUp}
   on:mouseleave={handleMouseLeave}
   role="presentation"
@@ -231,10 +230,7 @@
                   <button
                       id={`grid-cell-${r}-${c}`}
                       role="gridcell"
-                      class="border border-dashed transition-colors z-10
-                      {theme === 'cyber' ? 'border-green-900/30 hover:bg-green-900/20' :
-                       (theme === 'blueprint' ? 'border-blue-200 hover:bg-blue-100' :
-                       'border-slate-200 dark:border-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/10')}"
+                      class="border border-dashed transition-colors z-10 {theme === 'cyber' ? 'border-green-900/30 hover:bg-green-900/20' : (theme === 'blueprint' ? 'border-blue-200 hover:bg-blue-100' : 'border-slate-200 dark:border-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/10')}"
                       on:mousedown={() => handleMouseDown(r, c)}
                       on:mouseover={() => handleMouseOver(r, c)}
                       on:focus={() => handleMouseOver(r, c)}

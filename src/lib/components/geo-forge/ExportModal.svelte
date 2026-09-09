@@ -66,7 +66,7 @@
         <div class="space-y-4">
             <div role="group" aria-labelledby="formatLabel">
                 <p id="formatLabel" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Format</p>
-                <div class="grid grid-cols-3 gap-2">
+                <div class="grid gap-2 grid-cols-1 sm:grid-cols-3">
                     {#each ['wkt', 'geojson', 'csv', 'kml', 'gpx'] as fmt}
                         <button
                             class="px-3 py-2 rounded-lg text-sm font-medium border transition-colors {format === fmt ? 'bg-indigo-50 dark:bg-indigo-900/20 border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'}"

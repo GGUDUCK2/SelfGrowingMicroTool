@@ -105,7 +105,7 @@
             labelOriginal={dict.card?.original || "Original"}
             labelOptimized={dict.card?.optimized || "Optimized"}
         />
-        <button class="min-h-[44px] min-w-[44px] absolute top-2 right-2  flex items-center justify-center p-1.5 bg-slate-800/80 hover:bg-slate-700 text-slate-300 rounded-lg z-30 transition-colors" on:click={() => showDiff = false}
+        <button class="min-h-[44px] min-w-[44px] absolute top-2 right-2 flex items-center justify-center p-1.5 bg-slate-800/80 hover:bg-slate-700 text-slate-300 rounded-lg z-30 transition-colors" on:click={() => showDiff = false}
             title="Close Diff View"
             aria-label="Close Diff View"
         >
@@ -114,7 +114,7 @@
     {:else}
         <img src={job.previewUrl} alt="Preview" class="w-full h-full object-contain" />
         {#if job.status === 'done' && job.result}
-            <button class="min-h-[44px] min-w-[44px] absolute top-2 right-2  flex items-center justify-center p-1.5 bg-indigo-600/90 hover:bg-indigo-500 text-white rounded-lg md:opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-lg" on:click={() => showDiff = true}
+            <button class="min-h-[44px] min-w-[44px] absolute top-2 right-2 flex items-center justify-center p-1.5 bg-indigo-600/90 hover:bg-indigo-500 text-white rounded-lg md:opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-lg" on:click={() => showDiff = true}
                 title="Compare"
                 aria-label="Compare Original and Optimized"
             >
@@ -149,7 +149,7 @@
             {/if}
         </div>
       </div>
-      <button class="min-h-[44px] min-w-[44px] text-slate-500 hover:text-red-400 transition-colors p-1  flex items-center justify-center" on:click={() => onRemove(job.id)}
+      <button class="min-h-[44px] min-w-[44px] text-slate-500 hover:text-red-400 transition-colors p-1 flex items-center justify-center" on:click={() => onRemove(job.id)}
         aria-label="Remove image"
       >
         <Trash2 class="w-5 h-5" />
@@ -157,7 +157,7 @@
     </div>
 
     <!-- Quick Settings -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+    <div class="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <label class="block">
             <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">{dict.controls?.format || "Format"}</span>
             <select

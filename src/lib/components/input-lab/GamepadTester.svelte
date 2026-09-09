@@ -74,11 +74,11 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid gap-8 grid-cols-1 md:grid-cols-2">
                 <!-- Axes -->
                 <div class="space-y-4">
                     <h4 class="text-sm font-medium text-slate-500 uppercase tracking-wider">{dict.gamepad.axes}</h4>
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid gap-4 grid-cols-2">
                         {#each gamepad.axes as axis, axisIndex}
                             <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
                                 <div class="flex justify-between text-xs text-slate-500 mb-2">
@@ -99,7 +99,7 @@
                 <!-- Buttons -->
                 <div class="space-y-4">
                     <h4 class="text-sm font-medium text-slate-500 uppercase tracking-wider">{dict.gamepad.buttons}</h4>
-                    <div class="grid grid-cols-4 sm:grid-cols-6 gap-3">
+                    <div class="grid gap-3 grid-cols-4 sm:grid-cols-6">
                         {#each gamepad.buttons as button, btnIndex}
                             <div
                                 class="aspect-square rounded-xl border-2 flex flex-col items-center justify-center transition-all duration-75 relative overflow-hidden"

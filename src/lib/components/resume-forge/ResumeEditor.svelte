@@ -78,10 +78,7 @@
       { id: 'awards', icon: Award, label: d.awards }
     ] as tab}
       <button
-        class="flex-none px-4 py-3 flex items-center space-x-2 text-sm font-medium transition-colors border-b-2
-        {activeTab === tab.id
-          ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/10'
-          : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800'}"
+        class="flex-none px-4 py-3 flex items-center space-x-2 text-sm font-medium transition-colors border-b-2 {activeTab === tab.id ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/10' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800'}"
         on:click={() => activeTab = tab.id}
       >
         <svelte:component this={tab.icon} size={16} />
@@ -94,7 +91,7 @@
   <div class="flex-1 overflow-y-auto p-6 space-y-6">
     {#if activeTab === 'basics'}
       <div class="space-y-4" transition:slide>
-        <div class="grid md:grid-cols-2 gap-4">
+        <div class="grid gap-4 md:grid-cols-2">
           <label class="block">
             <span class="text-sm font-medium text-slate-700 dark:text-slate-300">{d.basicsFields.name}</span>
             <input type="text" class="mt-1 block w-full rounded-md border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2" bind:value={$resumeStore.basics.name} />
@@ -136,7 +133,7 @@
              <div class="space-y-3">
                 {#each $resumeStore.basics.profiles as profile (profile.id)}
                    <div class="flex gap-2 items-start group">
-                      <div class="grid grid-cols-3 gap-2 flex-1">
+                      <div class="grid gap-2 flex-1 grid-cols-1 sm:grid-cols-3">
                           <input type="text" placeholder="Network (LinkedIn)" class="rounded border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs px-2 py-1.5" bind:value={profile.network} />
                           <input type="text" placeholder="Username" class="rounded border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs px-2 py-1.5" bind:value={profile.username} />
                           <input type="text" placeholder="URL" class="rounded border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs px-2 py-1.5" bind:value={profile.url} />
@@ -171,7 +168,7 @@
 
             {#if expanded[item.id]}
               <div class="p-4 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-b-lg space-y-4">
-                 <div class="grid grid-cols-2 gap-4">
+                 <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
                     <input type="text" placeholder={d.workFields.company} class="input-sm" bind:value={item.name} />
                     <input type="text" placeholder={d.workFields.position} class="input-sm" bind:value={item.position} />
                     <input type="text" placeholder={d.workFields.startDate} class="input-sm" bind:value={item.startDate} />
@@ -218,7 +215,7 @@
 
             {#if expanded[item.id]}
               <div class="p-4 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-b-lg space-y-4">
-                 <div class="grid grid-cols-2 gap-4">
+                 <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
                     <input type="text" placeholder={d.eduFields.institution} class="input-sm" bind:value={item.institution} />
                     <input type="text" placeholder={d.eduFields.area} class="input-sm" bind:value={item.area} />
                     <input type="text" placeholder={d.eduFields.studyType} class="input-sm" bind:value={item.studyType} />
@@ -271,7 +268,7 @@
 
             {#if expanded[item.id]}
               <div class="p-4 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-b-lg space-y-4">
-                 <div class="grid grid-cols-2 gap-4">
+                 <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
                     <input type="text" placeholder="Project Name" class="input-sm" bind:value={item.name} />
                     <input type="url" placeholder="URL" class="input-sm" bind:value={item.url} />
                     <input type="text" placeholder="Start Date" class="input-sm" bind:value={item.startDate} />

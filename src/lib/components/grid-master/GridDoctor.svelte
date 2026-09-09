@@ -54,10 +54,7 @@
         {/if}
 
         {#each diagnosis.issues as issue (issue.id)}
-            <div class="p-3 rounded-lg border text-sm flex gap-3 shadow-sm
-                {issue.type === 'error' ? 'bg-red-50 dark:bg-red-900/10 border-red-200 dark:border-red-900/30 text-red-800 dark:text-red-200' :
-                (issue.type === 'warning' ? 'bg-amber-50 dark:bg-amber-900/10 border-amber-200 dark:border-amber-900/30 text-amber-800 dark:text-amber-200' :
-                'bg-blue-50 dark:bg-blue-900/10 border-blue-200 dark:border-blue-900/30 text-blue-800 dark:text-blue-200')}"
+            <div class="p-3 rounded-lg border text-sm flex gap-3 shadow-sm {issue.type === 'error' ? 'bg-red-50 dark:bg-red-900/10 border-red-200 dark:border-red-900/30 text-red-800 dark:text-red-200' : (issue.type === 'warning' ? 'bg-amber-50 dark:bg-amber-900/10 border-amber-200 dark:border-amber-900/30 text-amber-800 dark:text-amber-200' : 'bg-blue-50 dark:bg-blue-900/10 border-blue-200 dark:border-blue-900/30 text-blue-800 dark:text-blue-200')}"
             >
                 <div class="shrink-0 mt-0.5">
                     {#if issue.type === 'error'}

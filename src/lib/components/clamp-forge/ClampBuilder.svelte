@@ -583,7 +583,7 @@ ${calculatedClamp}`,
 
 </script>
 
-<div class="grid lg:grid-cols-3 gap-8">
+<div class="grid gap-8 lg:grid-cols-3">
   <div class="lg:col-span-2 space-y-6">
     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
       <div class="flex border-b border-slate-200 dark:border-slate-700 overflow-x-auto">
@@ -749,7 +749,7 @@ ${calculatedClamp}`,
       <!-- Smart Presets -->
       <div class="mb-8">
         <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">{d.smartPresets || 'Smart Presets'}</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
            <button on:click={() => applyPreset('h1')} class="py-2 px-3 text-xs font-medium rounded-lg bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 transition-colors min-h-[44px] flex flex-col items-center justify-center border border-indigo-100 dark:border-indigo-800">
              <span class="block">{d.h1Title || 'H1 Title'}</span>
            </button>
@@ -771,7 +771,7 @@ ${calculatedClamp}`,
                 <Monitor class="mr-2 h-5 w-5 text-indigo-500" />
                 Viewport
               </h3>
-              <div class="grid sm:grid-cols-2 gap-6">
+              <div class="grid gap-6 sm:grid-cols-2">
                 <div class="space-y-2">
                   <label for="minWidth" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
                     {d.minViewport} (px)
@@ -813,7 +813,7 @@ ${calculatedClamp}`,
                 </div>
               </div>
 
-              <div class="grid sm:grid-cols-2 gap-6 mb-6">
+              <div class="grid gap-6 mb-6 sm:grid-cols-2">
                 <div class="space-y-2">
                   <label for="minSize" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
                     {d.minSize} ({unit})
@@ -858,7 +858,7 @@ ${calculatedClamp}`,
                     {d.scaleDesc || 'Generate a full fluid typography scale based on a ratio.'}
                 </p>
 
-                <div class="grid sm:grid-cols-2 gap-6">
+                <div class="grid gap-6 sm:grid-cols-2">
                     <div class="space-y-2">
                         <label for="scaleRatio" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
                             {d.scaleRatio || 'Scale Ratio'}
@@ -883,7 +883,7 @@ ${calculatedClamp}`,
                     </div>
                 </div>
 
-                <div class="grid sm:grid-cols-2 gap-6">
+                <div class="grid gap-6 sm:grid-cols-2">
                     <div class="space-y-2">
                         <label for="scaleStepsDown" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
                             {d.stepsDown || 'Steps Down (Smaller)'}
@@ -1038,7 +1038,7 @@ ${calculatedClamp}`,
         </code>
       </div>
 
-      <div class="grid sm:grid-cols-3 gap-3 mb-4">
+      <div class="grid gap-3 mb-4 sm:grid-cols-3">
         <button
           on:click={() => copyToClipboard(calculatedClamp, 'css')}
           class="min-h-[44px] flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm transition-colors font-medium text-sm"
@@ -1184,7 +1184,7 @@ ${calculatedClamp}`,
           </div>
 
           {#if enableFluidLineHeight}
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
               <div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
                 <label for="minLineHeight" class="block text-xs font-medium text-slate-500 mb-1">{d.minLineHeight || 'Min Line-Height (Small text)'}</label>
                 <input id="minLineHeight" type="number" step="0.1" bind:value={minLineHeight} class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded px-2 py-1 focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-white min-h-[36px]" />
@@ -1255,7 +1255,7 @@ ${calculatedClamp}`,
     </div>
 
     <div class="p-6 bg-slate-50 dark:bg-slate-900/50">
-        <div class="grid md:grid-cols-3 gap-6 items-end">
+        <div class="grid gap-6 items-end md:grid-cols-3">
             <!-- Mobile -->
             <div class="flex flex-col items-center space-y-3">
                 <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider flex justify-between w-full max-w-[320px] px-2">

@@ -58,7 +58,7 @@
   }
 </script>
 
-<div class="grid grid-cols-3 gap-4">
+<div class="grid gap-4 grid-cols-1 sm:grid-cols-3">
     <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center text-center">
         <div class="text-indigo-500 mb-2">
             <Clock size={24} />

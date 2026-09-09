@@ -137,7 +137,7 @@
     {/if}
 
     <!-- Advanced Grid -->
-    <div class="grid grid-cols-2 gap-4 pt-2">
+    <div class="grid gap-4 pt-2 grid-cols-1 sm:grid-cols-2">
         <div class="space-y-1">
             <label for="author" class="text-sm font-medium text-slate-700 dark:text-slate-300">
                 {dictionary.meta.author}

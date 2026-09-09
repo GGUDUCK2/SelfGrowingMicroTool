@@ -229,7 +229,7 @@
                 <div class="text-indigo-400 font-bold">New High Score!</div> <!-- Placeholder logic -->
             </div>
 
-            <div class="grid grid-cols-2 gap-4 w-full max-w-sm">
+            <div class="grid gap-4 w-full max-w-sm grid-cols-1 sm:grid-cols-2">
                 <div class="bg-slate-800/50 p-4 rounded-xl text-center border border-slate-700">
                     <div class="text-emerald-400 font-black text-xl">{stats.perfect}</div>
                     <div class="text-xs text-slate-500 uppercase">Perfect</div>

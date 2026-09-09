@@ -111,7 +111,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<div class="grid md:grid-cols-2 gap-8 h-full">
+<div class="grid gap-8 h-full md:grid-cols-2">
     <!-- Form -->
     <div class="space-y-4 overflow-y-auto pr-2">
         <!-- Smart Examples -->
@@ -124,7 +124,7 @@
             </button>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
             <div>
                 <label for="commit-type" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{dictionary.commit.type}</label>
                 <select id="commit-type" aria-label={dictionary.commit.type} bind:value={data.type} class="min-h-[44px] w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500">

@@ -170,7 +170,7 @@
             </button>
 
             <!-- Stats Grid -->
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid gap-4 grid-cols-1 sm:grid-cols-3">
                 <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl text-center">
                     <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Accuracy</div>
                     <div class="text-2xl font-black text-slate-800 dark:text-white">
@@ -193,7 +193,7 @@
         </div>
     {:else}
         <!-- Dashboard / History Summary -->
-        <div class="grid md:grid-cols-2 gap-4">
+        <div class="grid gap-4 md:grid-cols-2">
              <div class="p-4 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/20">
                  <div class="flex items-center gap-2 mb-2 opacity-80">
                      <Trophy size={18} />

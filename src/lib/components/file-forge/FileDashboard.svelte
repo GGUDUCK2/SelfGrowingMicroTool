@@ -186,8 +186,7 @@
   <!-- Tabs -->
   <div class="flex border-b border-slate-200 dark:border-slate-800 overflow-x-auto scrollbar-hide pr-20 relative">
     <button
-      class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800
-      {activeTab === 'info' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
+      class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800 {activeTab === 'info' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
       on:click={() => activeTab = 'info'}
       aria-label={dict.tabs.info}
     >
@@ -195,8 +194,7 @@
       {dict.tabs.info}
     </button>
     <button
-      class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800
-      {activeTab === 'inspector' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
+      class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800 {activeTab === 'inspector' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
       on:click={() => activeTab = 'inspector'}
       aria-label={dict.tabs.inspector || 'Inspector'}
     >
@@ -204,8 +202,7 @@
       {dict.tabs.inspector || 'Inspector'}
     </button>
     <button
-      class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800
-      {activeTab === 'hash' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
+      class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800 {activeTab === 'hash' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
       on:click={() => activeTab = 'hash'}
       aria-label={dict.tabs.hash}
     >
@@ -214,8 +211,7 @@
     </button>
     {#if file && (isImage || file.type === 'application/pdf')}
       <button
-        class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800
-        {activeTab === 'privacy' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
+        class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800 {activeTab === 'privacy' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
         on:click={() => activeTab = 'privacy'}
         aria-label={dict.tabs.privacy || 'Privacy'}
       >
@@ -225,8 +221,7 @@
     {/if}
     {#if isImage}
       <button
-        class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800
-        {activeTab === 'convert' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
+        class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800 {activeTab === 'convert' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
         on:click={() => activeTab = 'convert'}
         aria-label={dict.tabs.convert || 'Convert'}
       >
@@ -234,8 +229,7 @@
         {dict.tabs.convert || 'Convert'}
       </button>
       <button
-        class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800
-        {activeTab === 'stego' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
+        class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800 {activeTab === 'stego' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
         on:click={() => activeTab = 'stego'}
         aria-label="Secret Forge"
       >
@@ -244,8 +238,7 @@
       </button>
     {/if}
     <button
-      class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800
-      {activeTab === 'compare' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
+      class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800 {activeTab === 'compare' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
       on:click={() => activeTab = 'compare'}
       aria-label={dict.tabs.compare || 'Compare'}
     >
@@ -253,8 +246,7 @@
       {dict.tabs.compare || 'Compare'}
     </button>
     <button
-      class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800
-      {activeTab === 'base64' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
+      class="flex-1 min-w-[100px] py-4 px-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors whitespace-nowrap outline-none focus:bg-slate-50 dark:focus:bg-slate-800 {activeTab === 'base64' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/10' : 'text-slate-500 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'}"
       on:click={() => activeTab = 'base64'}
       aria-label={dict.tabs.base64}
     >

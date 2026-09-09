@@ -47,8 +47,7 @@
 </script>
 
 <div
-  class="relative border-2 border-dashed rounded-xl p-8 transition-all text-center flex flex-col items-center justify-center min-h-[300px] bg-slate-50 dark:bg-slate-800/50
-  {dragOver ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-300 dark:border-slate-700'}"
+  class="relative border-2 border-dashed rounded-xl p-8 transition-all text-center flex flex-col items-center justify-center min-h-[300px] bg-slate-50 dark:bg-slate-800/50 {dragOver ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-300 dark:border-slate-700'}"
   on:dragover|preventDefault={() => dragOver = true}
   on:dragleave={() => dragOver = false}
   on:drop={handleDrop}
@@ -77,7 +76,7 @@
 
     <div class="border-t border-slate-200 dark:border-slate-700 pt-6 w-full max-w-md">
         <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">{dict.examples?.label || 'Or try an example'}</p>
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid gap-3 grid-cols-1 sm:grid-cols-3">
              <button
                 class="flex flex-col items-center gap-2 p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all text-sm font-medium text-slate-600 dark:text-slate-300"
                 on:click={() => loadExample('nginx')}

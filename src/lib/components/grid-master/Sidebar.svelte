@@ -134,7 +134,7 @@
 
   {#if activeTab === 'build'}
     <div role="tabpanel" id="tab-panel-build" aria-labelledby="tab-build" class="space-y-6">
-      <div class="grid grid-cols-2 gap-3">
+      <div class="grid gap-3 grid-cols-1 sm:grid-cols-2">
           <!-- Responsive Mode -->
           <div class="flex items-center justify-between p-2 px-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-100 dark:border-indigo-800">
               <div class="flex items-center gap-2">
@@ -215,7 +215,7 @@
 
       <div class="space-y-4">
           <h3 class="font-bold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">{dict.gap}</h3>
-          <div class="grid grid-cols-2 gap-3">
+          <div class="grid gap-3 grid-cols-1 sm:grid-cols-2">
               <div>
                   <label for="row-gap" class="text-xs text-slate-500 block mb-1">{dict.rowGap}</label>
                   <input
@@ -257,7 +257,7 @@
 
       <div class="space-y-4">
           <h3 class="font-bold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">{dict.alignment || 'Alignment'}</h3>
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
               <div>
                   <label for="justify-items" class="text-xs text-slate-500 block mb-2">{dict.justifyItems || 'Justify Items'}</label>
                   <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
@@ -530,7 +530,7 @@
              </p>
           </div>
 
-          <div class="grid grid-cols-2 gap-3">
+          <div class="grid gap-3 grid-cols-1 sm:grid-cols-2">
               {#each Object.entries(templates) as [key, state] (key)}
                   <button
                       class="p-2 text-left bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-indigo-500 dark:hover:border-indigo-500 transition-all group"
