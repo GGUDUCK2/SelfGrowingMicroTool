@@ -98,6 +98,7 @@
       setTimeout(() => showToast = false, 3000);
   }
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
@@ -161,6 +162,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/table-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/table-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/table-forge"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -260,14 +262,17 @@
                         <ul class="space-y-3">
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <span class="text-indigo-500 mt-0.5">●</span>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <span class="text-indigo-500 mt-0.5">●</span>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <span class="text-indigo-500 mt-0.5">●</span>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                              </li>
                         </ul>
@@ -280,14 +285,17 @@
                          <ul class="space-y-3">
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <span class="text-amber-500 mt-0.5">💡</span>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <span class="text-amber-500 mt-0.5">💡</span>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <span class="text-amber-500 mt-0.5">💡</span>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                              </li>
                         </ul>

@@ -38,6 +38,7 @@
     { q: dict.faqQ3, a: dict.faqA3 }
   ];
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

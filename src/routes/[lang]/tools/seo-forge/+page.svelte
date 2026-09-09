@@ -286,6 +286,7 @@
       }
   }
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@graph": [
@@ -571,6 +572,7 @@
                 </div>
              </div>
              <div class="p-4 bg-slate-900 overflow-x-auto">
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                  <pre class="text-xs font-mono text-white whitespace-pre-wrap">{@html highlightedCode}</pre>
              </div>
         </div>
@@ -638,6 +640,7 @@
   <!-- Twitter -->
 
   <!-- Canonical -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->

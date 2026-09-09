@@ -165,6 +165,7 @@
       showNotification('Template loaded!');
   }
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
@@ -234,6 +235,7 @@
 
 
   <!-- JSON-LD -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->

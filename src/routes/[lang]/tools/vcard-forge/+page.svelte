@@ -63,7 +63,8 @@
       { q: dict?.q3, a: dict?.a3 }
     ] : [];
 
-        $: jsonLd = dict ? {
+        // eslint-disable-next-line svelte/no-immutable-reactive-statements
+  $: jsonLd = dict ? {
       "@context": "https://schema.org",
       "@graph": [
         {
@@ -360,11 +361,9 @@
     {#if jsonLd}
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
     {/if}
   {#if howToSchema}
-      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
     {/if}

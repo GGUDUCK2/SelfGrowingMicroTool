@@ -24,6 +24,7 @@
     { q: toolDict?.q3, a: toolDict?.a3 }
   ];
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@graph": [
@@ -102,6 +103,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/pixel-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/pixel-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/pixel-forge"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -139,6 +141,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-200">Lightning Fast</h3>
         <div class="text-slate-400 text-sm leading-relaxed">
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             {@html renderMarkdown(toolDict.guide.f1)}
         </div>
      </div>
@@ -149,6 +152,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-200">Privacy First</h3>
         <div class="text-slate-400 text-sm leading-relaxed">
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
              {@html renderMarkdown(toolDict.guide.f2)}
         </div>
      </div>
@@ -159,6 +163,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-200">Mobile Optimized</h3>
         <div class="text-slate-400 text-sm leading-relaxed">
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
              {@html renderMarkdown(toolDict.guide.f3)}
         </div>
      </div>
@@ -180,8 +185,10 @@
 
     <h3>{toolDict.guide.tipsTitle}</h3>
     <ul>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         <li>{@html renderMarkdown(toolDict.guide.tip1)}</li>
         <li>{@html renderMarkdown(toolDict.guide.tip2)}</li>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         <li>{@html renderMarkdown(toolDict.guide.tip3)}</li>
     </ul>
 

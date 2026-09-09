@@ -19,6 +19,7 @@
   $: description = toolDict.description;
   $: canonical = `${$page.url.origin}/${lang}/tools/pdf-forge`;
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -49,6 +50,7 @@
 
     const renderMarkdown = (text: string) => marked.parse(text);
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -88,9 +90,11 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/pdf-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/pdf-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/pdf-forge"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
 
   </scr` + `ipt>`}
@@ -126,6 +130,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Organize with Ease</h3>
         <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed prose prose-sm dark:prose-invert">
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             {@html renderMarkdown(toolDict.guide.f1)}
         </div>
      </article>
@@ -135,6 +140,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Visual Editor</h3>
         <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed prose prose-sm dark:prose-invert">
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             {@html renderMarkdown(toolDict.guide.f2)}
         </div>
      </article>
@@ -144,6 +150,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Privacy First</h3>
         <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed prose prose-sm dark:prose-invert">
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             {@html renderMarkdown(toolDict.guide.f3)}
         </div>
      </article>

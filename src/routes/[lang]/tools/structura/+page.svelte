@@ -232,6 +232,7 @@
       "featureList": ["JSON Converter", "YAML Converter", "XML Converter", "CSV Converter", "Code Generator", "Tree Visualizer"]};
 
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -272,6 +273,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/structura"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/structura"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/structura"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -627,22 +629,29 @@
     <h3>{t.guide.featuresTitle}</h3>
     <ul>
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <li><span class="markdown-body">{@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <li><span class="markdown-body">{@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <li><span class="markdown-body">{@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <li><span class="markdown-body">{@html t.guide.f4.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
     </ul>
 
     <h3>{t.guide.tipsTitle}</h3>
     <ul>
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <li><span class="markdown-body">{@html t.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <li><span class="markdown-body">{@html t.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <li><span class="markdown-body">{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
     </ul>
 

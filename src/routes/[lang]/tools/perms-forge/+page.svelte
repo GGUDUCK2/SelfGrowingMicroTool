@@ -76,6 +76,7 @@
     };
 
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -115,8 +116,10 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/perms-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/perms-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/perms-forge"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
 
   </scr` + `ipt>`}
