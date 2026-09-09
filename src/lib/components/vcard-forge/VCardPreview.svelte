@@ -2,7 +2,8 @@
   import { onMount, tick } from 'svelte';
   import QRCode from 'qrcode';
 
-  export let dict: Record<string, string> = {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export let dict: Record<string, any> = {};
   export let data: {
     name: string;
     title: string;

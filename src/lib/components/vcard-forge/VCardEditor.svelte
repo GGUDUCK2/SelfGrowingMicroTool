@@ -1,8 +1,10 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
 
-  export let dict: Record<string, string> = {};;
-  export let data: Record<string, string> = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export let dict: Record<string, any> = {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export let data: Record<string, any> = {
     name: '',
     title: '',
     company: '',
@@ -26,7 +28,7 @@
 
   // Keyboard shortcuts and drag state
   let isDragging = false;
-  function handleGlobalKeydown(e) {
+  function handleGlobalKeydown(e: KeyboardEvent) {
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
       e.preventDefault();
       smartFormat();
@@ -303,7 +305,7 @@
 
   function smartFormat() {
       if (data.name) {
-          data.name = data.name.replace(/\b\w/g, l => l.toUpperCase());
+          data.name = String(data.name).replace(/\b\w/g, l => l.toUpperCase());
       }
       if (data.website && !data.website.startsWith('http')) {
           data.website = `https://${data.website}`;
