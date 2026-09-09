@@ -198,7 +198,7 @@
             <div class="flex-1 flex flex-col min-w-0 bg-slate-50 dark:bg-black h-full {showPreviewOnMobile ? 'flex' : 'hidden md:flex'}">
                  <Preview
                     dict={toolDict}
-                    lang={lang}
+                    lang={lang as 'en' | 'ko'}
                     onSave={handleSave}
                     onReset={handleReset}
                     onLoad={() => showHistory = true}

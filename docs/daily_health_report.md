@@ -13,3 +13,8 @@
 ## Tech Debt
 - 불필요하게 덧붙여진 패키지나 누락된 cross-env 디펜던시 추가로 빌드 안정성 확보.
 - 의존성 건강 스캔(npm audit)을 통한 취약점 없음 재확인.
+
+[Project Health Report - 2026-09-08]
+## Tech Debt
+- npm 의존성 취약점 점검 및 최신화(audit fix 수행).
+- tsconfig.json 오류가 해소됨. typescript 관련 엄격한 타입 에러 일부 수정(lang as 'en' | 'ko' 캐스팅).
