@@ -4,11 +4,12 @@
     import type { ToolHistoryItem } from '$lib/db/workspace';
     import { liveQuery } from 'dexie';
 
-    export let dict: Record<string, string> = {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    export let dict: Record<string, any> = {};
 
     const dispatch = createEventDispatcher();
 
-    let historyItems: ToolHistoryItem<Record<string, unknown>, unknown>[] = [];
+    let historyItems: ToolHistoryItem<any, any>[] = [];
 
     // Reactive live query for history
     const historyObservable = liveQuery(
@@ -19,10 +20,10 @@
     );
 
     $: if ($historyObservable) {
-      historyItems = $historyObservable as unknown as ToolHistoryItem<Record<string, unknown>, unknown>[];
+      historyItems = $historyObservable as unknown as ToolHistoryItem<any, any>[];
     }
 
-    async function toggleStarStatus(item: ToolHistoryItem<Record<string, unknown>, unknown>) {
+    async function toggleStarStatus(item: ToolHistoryItem<any, any>) {
       if (item.id === undefined) return;
       await toggleStar(item.id);
     }
@@ -36,7 +37,7 @@
       await clearHistory('vcard-forge');
     }
 
-    function loadItem(item: ToolHistoryItem<Record<string, unknown>, unknown>) {
+    function loadItem(item: ToolHistoryItem<any, any>) {
       dispatch('load', { input: item.input });
     }
   </script>
@@ -85,8 +86,8 @@
             <div class="flex justify-between items-start mb-2">
               <div class="flex items-center gap-3 truncate">
                 <div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden flex-shrink-0 flex items-center justify-center">
-                    {#if item.input?.photoData}
-                        <img src={item.input?.photoData} alt="avatar" class="w-full h-full object-cover" />
+                    {#if item.input?.photoData as string}
+                        <img src={item.input?.photoData as string} alt="avatar" class="w-full h-full object-cover" />
                     {:else}
                         <svg class="w-5 h-5 text-slate-400" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -94,8 +95,8 @@
                     {/if}
                 </div>
                 <div class="truncate">
-                    <h3 class="font-medium text-slate-800 dark:text-white truncate" title={item.input?.name}>{item.input?.name}</h3>
-                    <p class="text-xs text-slate-500 truncate" title={item.input?.company}>{item.input?.company}</p>
+                    <h3 class="font-medium text-slate-800 dark:text-white truncate" title={item.input?.name as string}>{item.input?.name as string}</h3>
+                    <p class="text-xs text-slate-500 truncate" title={item.input?.company as string}>{item.input?.company as string}</p>
                 </div>
               </div>
               <div class="flex flex-col gap-1 items-end">
