@@ -34,6 +34,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -99,6 +100,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/screen-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/screen-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/screen-forge"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->

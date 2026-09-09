@@ -28,6 +28,7 @@
     { q: (dict as any)?.q3, a: (dict as any)?.a3 }
   ] : [];
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = dict ? {
     "@context": "https://schema.org",
     "@graph": [
@@ -141,6 +142,7 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/url-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/url-forge"} />
   {#if jsonLd}
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
   {/if}
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->

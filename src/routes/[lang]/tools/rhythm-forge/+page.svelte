@@ -230,6 +230,7 @@
   }
 
   // SEO Schema
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -300,8 +301,10 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/rhythm-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/rhythm-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/rhythm-forge"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
   ${JSON.stringify({})}</scr` + `ipt>`}
 

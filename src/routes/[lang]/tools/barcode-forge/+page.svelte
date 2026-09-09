@@ -48,6 +48,7 @@
       state = JSON.parse(JSON.stringify(loadedState));
   }
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -101,6 +102,7 @@
 </script>
 
 <svelte:head>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
   <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/barcode-forge"} />
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/barcode-forge"} />

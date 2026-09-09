@@ -15,6 +15,7 @@
   $: title = t?.title || 'XPath Forge';
   $: description = t?.description || 'Test and execute XPath expressions against XML or HTML documents.';
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -67,6 +68,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/xpath-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/xpath-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/xpath-forge"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->

@@ -17,6 +17,7 @@ import Contrast from '@lucide/svelte/icons/contrast';
 
   let activeTab: 'contrast' | 'aria' = 'contrast';
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -69,6 +70,7 @@ import Contrast from '@lucide/svelte/icons/contrast';
 </script>
 
 <svelte:head>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
   <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/a11y-forge"} />
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/a11y-forge"} />

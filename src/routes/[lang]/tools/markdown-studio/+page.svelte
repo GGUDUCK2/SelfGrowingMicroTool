@@ -34,6 +34,7 @@
   $: charCount = content ? content.length : 0;
   $: readingTime = Math.ceil(wordCount / 200);
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: schema = [
     {
       "@context": "https://schema.org",
@@ -186,6 +187,7 @@
   }
 
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -227,6 +229,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/markdown-studio"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/markdown-studio"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/markdown-studio"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -347,14 +350,17 @@
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
             <li class="flex items-start gap-2">
               <span class="text-indigo-500 mt-1">✓</span>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <span>{@html marked.parseInline(dict.guide.f1)}</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-indigo-500 mt-1">✓</span>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <span>{@html marked.parseInline(dict.guide.f2)}</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-indigo-500 mt-1">✓</span>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <span>{@html marked.parseInline(dict.guide.f3)}</span>
             </li>
           </ul>
@@ -364,14 +370,17 @@
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
              <li class="flex items-start gap-2">
               <span class="text-amber-500 mt-1">💡</span>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <span>{@html marked.parseInline(dict.guide.tip1)}</span>
             </li>
              <li class="flex items-start gap-2">
               <span class="text-amber-500 mt-1">💡</span>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <span>{@html marked.parseInline(dict.guide.tip2)}</span>
             </li>
              <li class="flex items-start gap-2">
               <span class="text-amber-500 mt-1">💡</span>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <span>{@html marked.parseInline(dict.guide.tip3)}</span>
             </li>
           </ul>

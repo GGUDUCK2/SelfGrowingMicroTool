@@ -100,6 +100,7 @@
     ]
   };
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = JSON.stringify(schemaData);
 
   $: howToSchema = {
@@ -140,6 +141,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/policy-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/policy-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/policy-forge"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}</scr` + `ipt>`}
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}

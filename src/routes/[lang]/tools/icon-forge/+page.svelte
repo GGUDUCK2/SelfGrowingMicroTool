@@ -96,6 +96,7 @@
     return { title: text.replace(/\*\*/g, ''), desc: '' };
   }
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -141,6 +142,7 @@
   <!-- Twitter -->
 
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -168,6 +170,7 @@
   </scr` + `ipt>`}
 
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
 
   </scr` + `ipt>`}
@@ -230,8 +233,10 @@
 
             <h3 class="text-xl font-bold text-slate-50 mb-4">{t.guide.tipsTitle}</h3>
             <ul class="space-y-3 mb-12 list-disc list-inside text-slate-400">
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                <li>{@html t.guide.tip1}</li>
                <li>{@html t.guide.tip2}</li>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                <li>{@html t.guide.tip3}</li>
             </ul>
 
