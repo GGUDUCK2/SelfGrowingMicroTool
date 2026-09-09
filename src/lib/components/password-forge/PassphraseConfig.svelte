@@ -66,7 +66,7 @@
   <div class="space-y-4">
     <div role="group" aria-labelledby="templateLabel">
       <p id="templateLabel" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{dictionary.template || 'Template (Optional)'}</p>
-      <div class="grid sm:grid-cols-2 gap-2">
+      <div class="grid gap-2 sm:grid-cols-2">
         <input
           type="text"
           bind:value={config.template}
@@ -93,7 +93,7 @@
 
     <div role="group" aria-labelledby="separatorLabel">
       <p id="separatorLabel" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{dictionary.separator}</p>
-      <div class="grid grid-cols-4 gap-2">
+      <div class="grid gap-2 grid-cols-1 sm:grid-cols-4">
         {#each [{val: '-', label: 'Hyphen (-)'}, {val: ' ', label: 'Space'}, {val: '.', label: 'Period'}, {val: ',', label: 'Comma'}] as sep}
         <button
           class="py-2 px-3 border rounded-lg text-sm text-center font-medium min-h-[44px] min-w-[44px] {config.separator === sep.val ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 dark:border-indigo-500' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700'}"
@@ -107,7 +107,7 @@
 
     <div role="group" aria-labelledby="capitalizeLabel">
       <p id="capitalizeLabel" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{dictionary.capitalize}</p>
-      <div class="grid grid-cols-3 gap-2">
+      <div class="grid gap-2 grid-cols-1 sm:grid-cols-3">
         {#each ['none', 'first', 'all'] as cap}
         <button
           class="py-2 px-3 border rounded-lg text-sm font-medium capitalize min-h-[44px] min-w-[44px] {config.capitalize === cap ? 'bg-indigo-50 border-indigo-500 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 dark:border-indigo-500' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700'}"

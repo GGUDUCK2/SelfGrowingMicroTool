@@ -70,8 +70,7 @@
   <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t.imageExtraction.title || 'Extract from Image'}</h3>
 
   <div
-    class="relative border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer
-    {dragging ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-300 dark:border-slate-600 hover:border-indigo-400 dark:hover:border-indigo-500'}"
+    class="relative border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer {dragging ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20' : 'border-slate-300 dark:border-slate-600 hover:border-indigo-400 dark:hover:border-indigo-500'}"
     on:dragover={handleDragOver}
     on:dragleave={handleDragLeave}
     on:drop={handleDrop}

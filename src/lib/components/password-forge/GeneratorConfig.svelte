@@ -68,7 +68,7 @@
     />
   </div>
 
-  <div class="grid grid-cols-2 gap-4">
+  <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
     <label class="flex items-center space-x-3 cursor-pointer min-h-[44px] min-w-[44px]">
       <input type="checkbox" bind:checked={config.uppercase} on:change={() => onGenerate()} class="w-5 h-5 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500" />
       <span class="text-sm text-slate-700 dark:text-slate-300">{dictionary.uppercase} (A-Z)</span>

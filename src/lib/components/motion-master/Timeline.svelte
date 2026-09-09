@@ -111,8 +111,7 @@
       {#each $animationStore.keyframes as keyframe (keyframe.id)}
          <!-- svelte-ignore a11y-no-static-element-interactions -->
          <div
-            class="absolute top-1/2 -mt-3 -ml-3 w-6 h-6 rounded-full border-2 cursor-grab active:cursor-grabbing shadow-sm flex items-center justify-center transition-transform hover:scale-110
-            {$selectedKeyframeId === keyframe.id ? 'bg-indigo-500 border-white z-20 scale-110 ring-2 ring-indigo-300' : 'bg-white border-indigo-500 z-10'}"
+            class="absolute top-1/2 -mt-3 -ml-3 w-6 h-6 rounded-full border-2 cursor-grab active:cursor-grabbing shadow-sm flex items-center justify-center transition-transform hover:scale-110 {$selectedKeyframeId === keyframe.id ? 'bg-indigo-500 border-white z-20 scale-110 ring-2 ring-indigo-300' : 'bg-white border-indigo-500 z-10'}"
             style="left: {keyframe.percentage}%"
             on:mousedown={(e) => handleMouseDown(keyframe.id, e)}
             on:touchstart={(e) => handleTouchStart(keyframe.id, e)}

@@ -166,8 +166,7 @@
     {#each state.layers as layer (layer.id)}
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div
-            class="absolute flex items-center justify-center cursor-move group hover:ring-1 hover:ring-indigo-300 transition-shadow select-none
-                   {state.selectedLayerId === layer.id ? 'ring-2 ring-indigo-500 z-[100]' : ''}"
+            class="absolute flex items-center justify-center cursor-move group hover:ring-1 hover:ring-indigo-300 transition-shadow select-none {state.selectedLayerId === layer.id ? 'ring-2 ring-indigo-500 z-[100]' : ''}"
             style="
                 left: {layer.x}px;
                 top: {layer.y}px;

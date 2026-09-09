@@ -59,7 +59,7 @@
   }
 </script>
 
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 p-4 pb-20">
+<div class="grid gap-6 p-4 pb-20 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
   {#each $pages as page, index (page.id)}
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
@@ -71,9 +71,7 @@
       on:dragover={handleDragOver}
       on:drop={(e) => handleDrop(e, index)}
       on:dragend={handleDragEnd}
-      class="relative rounded-xl transition-all duration-200
-        {draggingIndex === index ? 'opacity-20 scale-90' : 'opacity-100'}
-        {dragOverIndex === index ? 'scale-105 z-10' : ''}"
+      class="relative rounded-xl transition-all duration-200 {draggingIndex === index ? 'opacity-20 scale-90' : 'opacity-100'} {dragOverIndex === index ? 'scale-105 z-10' : ''}"
     >
       <!-- Drop Indicator Line -->
       {#if dragOverIndex === index && draggingIndex !== null}

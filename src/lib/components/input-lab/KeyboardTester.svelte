@@ -114,7 +114,7 @@
 
 <div class="space-y-6">
   <!-- Info Panel -->
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+  <div class="grid gap-4 grid-cols-1 md:grid-cols-4">
     <div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
        <span class="text-xs font-medium text-slate-500 uppercase">{dict.keyboard.lastPress}</span>
        <div class="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mt-2 truncate">
@@ -235,7 +235,7 @@
          </div>
 
          <!-- Arrows -->
-         <div class="mt-4 grid grid-cols-3 gap-1.5">
+         <div class="mt-4 grid gap-1.5 grid-cols-3">
              <div class="col-start-2">
                  <div class="w-12 h-12 rounded-lg border-b-4 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 flex items-center justify-center transition-all duration-75"
                   class:bg-indigo-500={activeKeys.has(navBlock[3][0].code)}

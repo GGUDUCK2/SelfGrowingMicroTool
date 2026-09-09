@@ -234,10 +234,7 @@
         {@const modeKey = m as keyof typeof MODES}
         <button
           on:click={() => setMode(modeKey)}
-          class="min-h-[44px] min-w-[44px] px-4 py-2 sm:px-6 sm:py-2 rounded-lg text-sm font-medium transition-all {mode ===
-          modeKey
-            ? 'bg-white text-gray-900 shadow-sm ring-2 ring-indigo-500 ring-offset-1'
-            : 'text-gray-500 hover:text-gray-900'}"
+          class="min-h-[44px] min-w-[44px] px-4 py-2 sm:px-6 sm:py-2 rounded-lg text-sm font-medium transition-all {mode === modeKey ? 'bg-white text-gray-900 shadow-sm ring-2 ring-indigo-500 ring-offset-1' : 'text-gray-500 hover:text-gray-900'}"
         >
           {dict[MODES[modeKey].key]}
         </button>
@@ -247,9 +244,7 @@
     <!-- Timer Display -->
     <div class="relative" aria-label="Time remaining">
       <div
-        class="text-6xl sm:text-8xl md:text-9xl font-mono font-bold tracking-tighter tabular-nums {MODES[
-          mode
-        ].color} transition-colors duration-500"
+        class="text-6xl sm:text-8xl md:text-9xl font-mono font-bold tracking-tighter tabular-nums {MODES[ mode ].color} transition-colors duration-500"
       >
         {formatTime(timeLeft)}
       </div>

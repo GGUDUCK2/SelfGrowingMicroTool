@@ -8,7 +8,7 @@
   };
 </script>
 
-<div class="grid grid-cols-3 gap-4 mb-4">
+<div class="grid gap-4 mb-4 grid-cols-1 sm:grid-cols-3">
     <div class="bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm flex items-center gap-3">
         <div class="p-2 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
             <Plus class="w-5 h-5" />

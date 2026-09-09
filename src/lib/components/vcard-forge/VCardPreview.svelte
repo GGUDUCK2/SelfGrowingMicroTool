@@ -392,7 +392,7 @@
                 {dict?.copied || 'Copied to clipboard!'}
             </div>
         {/if}
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid gap-3 grid-cols-1 sm:grid-cols-2">
             <button
                 on:click={downloadVcf}
                 disabled={!data.name}
@@ -426,7 +426,7 @@
                 <span class="hidden sm:inline">SVG</span>
             </button>
         </div>
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid gap-3 grid-cols-1 sm:grid-cols-3">
 
             <button
                 on:click={copyShareableLink}

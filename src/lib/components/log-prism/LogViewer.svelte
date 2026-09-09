@@ -90,10 +90,7 @@
             {#each clusteredEntries as cluster (cluster.id)}
                  <div class="p-3 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex gap-3 items-start group">
                     <div class="shrink-0 pt-0.5">
-                       <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase
-                          {cluster.level === 'error' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
-                           cluster.level === 'warn' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
-                           'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'}">
+                       <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase {cluster.level === 'error' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' : cluster.level === 'warn' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'}">
                            {cluster.level}
                        </span>
                     </div>

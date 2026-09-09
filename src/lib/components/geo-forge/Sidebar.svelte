@@ -126,7 +126,7 @@
       </div>
 
       <!-- Tools Panel -->
-      <div class="p-4 border-b border-slate-200 dark:border-slate-700 grid grid-cols-2 gap-2">
+      <div class="p-4 border-b border-slate-200 dark:border-slate-700 grid gap-2 grid-cols-1 sm:grid-cols-2">
            <button class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 transition-all gap-1" on:click={() => dispatch('convexHull')} title="Create Convex Hull from active layer" aria-label="Create Convex Hull">
                <Box class="w-5 h-5" />
                <span class="text-xs font-medium">{(dict as any)?.convexHull || 'Convex Hull'}</span>

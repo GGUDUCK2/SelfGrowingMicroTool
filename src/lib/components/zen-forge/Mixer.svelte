@@ -103,7 +103,7 @@
     {/if}
 
     <!-- Static Sounds -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {#each sounds as sound (sound.id)}
             <SoundCard
                 id={sound.id}
@@ -120,7 +120,7 @@
     <!-- Living Atmosphere -->
     <div class="space-y-4 pt-4 border-t border-slate-800">
         <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider px-2">{dict.events.title}</h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
             {#each events as event (event.id)}
                 <SoundCard
                     id={event.id}

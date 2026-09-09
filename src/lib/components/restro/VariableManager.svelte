@@ -85,7 +85,7 @@
                             class="rounded text-indigo-600 focus:ring-indigo-500"
                             aria-label={`Toggle variable ${v.key}`}
                         />
-                        <div class="flex-1 min-w-0 grid grid-cols-2 gap-2">
+                        <div class="flex-1 min-w-0 grid gap-2 grid-cols-1 sm:grid-cols-2">
                             <div class="font-mono text-xs font-bold truncate text-indigo-600 dark:text-indigo-400" title={v.key}>{v.key}</div>
                             <div class="font-mono text-xs truncate text-slate-600 dark:text-slate-400" title={v.value}>{v.value}</div>
                         </div>

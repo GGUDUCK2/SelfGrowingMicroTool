@@ -113,7 +113,7 @@
         </div>
     {:else}
         <div class="space-y-3">
-            <div class="hidden sm:grid sm:grid-cols-12 gap-3 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider px-2">
+            <div class="hidden sm:grid gap-3 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider px-2 sm:grid-cols-12">
                 <div class="col-span-1 text-center">✓</div>
                 <div class="col-span-4">{dict.key}</div>
                 <div class="col-span-6">{dict.value}</div>
@@ -121,7 +121,7 @@
             </div>
 
             {#each params as param (param.id)}
-                <div class="flex flex-col sm:grid sm:grid-cols-12 gap-3 sm:items-center group p-4 sm:p-0 bg-slate-50 dark:bg-slate-900/50 sm:bg-transparent rounded-xl sm:rounded-none border border-slate-100 dark:border-slate-800 sm:border-transparent">
+                <div class="flex flex-col sm:grid gap-3 sm:items-center group p-4 sm:p-0 bg-slate-50 dark:bg-slate-900/50 sm:bg-transparent rounded-xl sm:rounded-none border border-slate-100 dark:border-slate-800 sm:border-transparent sm:grid-cols-12">
                     <div class="flex items-center justify-between sm:col-span-1 sm:justify-center">
                         <label class="flex items-center justify-center min-h-[44px] min-w-[44px] cursor-pointer">
                             <input type="checkbox" checked={param.active} on:change={() => toggleParam(param.id)} class="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-700 cursor-pointer" aria-label="Toggle parameter" />

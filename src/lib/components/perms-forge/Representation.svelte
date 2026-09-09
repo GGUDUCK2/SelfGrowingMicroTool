@@ -30,7 +30,7 @@
     }
 </script>
 
-<div class="grid md:grid-cols-3 gap-6">
+<div class="grid gap-6 md:grid-cols-3">
     <!-- Octal -->
     <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 relative group">
         <label for="perms-octal" class="block text-sm font-medium text-slate-500 mb-2">Octal</label>
@@ -63,7 +63,7 @@
 </div>
 
 <!-- Binary & Decimal (Smaller) -->
-<div class="grid grid-cols-2 gap-6 mt-6">
+<div class="grid gap-6 mt-6 grid-cols-1 sm:grid-cols-2">
     <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
         <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Binary</div>
         <div class="font-mono text-lg text-slate-700 dark:text-slate-300 break-all">{permission.binary}</div>

@@ -208,8 +208,7 @@ background-position: 0 0, 0 0, ${fullSize/2}px ${fullSize}px, ${fullSize/2}px ${
   <!-- Tabs -->
   <div class="flex space-x-1 rounded-xl bg-slate-100 dark:bg-slate-800 p-1 mb-6">
     <button
-      class="flex-1 flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium leading-5 transition-colors focus:outline-none min-h-[44px] min-w-[44px]
-        {activeTab === 'designer' ? 'bg-white dark:bg-slate-700 text-indigo-700 dark:text-indigo-300 shadow' : 'text-slate-600 dark:text-slate-400 hover:bg-white/[0.12] hover:text-indigo-600 dark:hover:text-indigo-300'}"
+      class="flex-1 flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium leading-5 transition-colors focus:outline-none min-h-[44px] min-w-[44px] {activeTab === 'designer' ? 'bg-white dark:bg-slate-700 text-indigo-700 dark:text-indigo-300 shadow' : 'text-slate-600 dark:text-slate-400 hover:bg-white/[0.12] hover:text-indigo-600 dark:hover:text-indigo-300'}"
       on:click={() => activeTab = 'designer'}
       role="tab"
       aria-selected={activeTab === 'designer'}
@@ -218,8 +217,7 @@ background-position: 0 0, 0 0, ${fullSize/2}px ${fullSize}px, ${fullSize/2}px ${
       {t.designer || 'Designer'}
     </button>
     <button
-      class="flex-1 flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium leading-5 transition-colors focus:outline-none min-h-[44px] min-w-[44px]
-        {activeTab === 'history' ? 'bg-white dark:bg-slate-700 text-indigo-700 dark:text-indigo-300 shadow' : 'text-slate-600 dark:text-slate-400 hover:bg-white/[0.12] hover:text-indigo-600 dark:hover:text-indigo-300'}"
+      class="flex-1 flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium leading-5 transition-colors focus:outline-none min-h-[44px] min-w-[44px] {activeTab === 'history' ? 'bg-white dark:bg-slate-700 text-indigo-700 dark:text-indigo-300 shadow' : 'text-slate-600 dark:text-slate-400 hover:bg-white/[0.12] hover:text-indigo-600 dark:hover:text-indigo-300'}"
       on:click={() => activeTab = 'history'}
       role="tab"
       aria-selected={activeTab === 'history'}
@@ -230,18 +228,17 @@ background-position: 0 0, 0 0, ${fullSize/2}px ${fullSize}px, ${fullSize/2}px ${
   </div>
 
   {#if activeTab === 'designer'}
-    <div in:fade={{duration: 200}} class="grid lg:grid-cols-3 gap-8">
+    <div in:fade={{duration: 200}} class="grid gap-8 lg:grid-cols-3">
 
       <!-- Controls -->
       <div class="space-y-6 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
 
         <div>
           <div class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2" id="pattern-type-label">{t.patternType || 'Pattern Type'}</div>
-          <div class="grid grid-cols-2 gap-2" role="group" aria-labelledby="pattern-type-label">
+          <div class="grid gap-2 grid-cols-1 sm:grid-cols-2" role="group" aria-labelledby="pattern-type-label">
             {#each ['grid', 'dots', 'waves', 'polygons'] as type}
               <button
-                class="flex flex-col items-center justify-center p-3 border rounded-xl min-h-[44px] min-w-[44px] transition-all
-                  {patternType === type ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 ring-1 ring-indigo-500' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'}"
+                class="flex flex-col items-center justify-center p-3 border rounded-xl min-h-[44px] min-w-[44px] transition-all {patternType === type ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 ring-1 ring-indigo-500' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'}"
                 on:click={() => patternType = type as PatternType}
               >
                 {#if type === 'grid'} <Grid class="w-5 h-5 mb-1" />
@@ -255,7 +252,7 @@ background-position: 0 0, 0 0, ${fullSize/2}px ${fullSize}px, ${fullSize/2}px ${
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
           <div>
             <label for="primaryColor" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t.primaryColor || 'Primary'}</label>
             <input id="primaryColor" type="color" bind:value={primaryColor} class="w-full h-10 min-h-[44px] rounded-lg cursor-pointer border-0 bg-transparent p-0" />
@@ -308,7 +305,7 @@ background-position: 0 0, 0 0, ${fullSize/2}px ${fullSize}px, ${fullSize/2}px ${
           <div class="absolute inset-0 ring-1 ring-inset ring-black/10 dark:ring-white/10 rounded-2xl pointer-events-none"></div>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-4">
+        <div class="grid gap-4 md:grid-cols-2">
           <div class="bg-slate-900 rounded-2xl overflow-hidden relative group flex flex-col">
             <div class="flex items-center justify-between px-4 py-2 bg-slate-800 border-b border-slate-700">
               <span class="text-xs font-mono text-slate-400">CSS</span>
@@ -341,7 +338,7 @@ background-position: 0 0, 0 0, ${fullSize/2}px ${fullSize}px, ${fullSize/2}px ${
           <p>{t.noHistory || 'No history'}</p>
         </div>
       {:else}
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {#each history as item (item.id)}
             <div class="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden flex flex-col bg-slate-50 dark:bg-slate-900/50" transition:slide>
               <!-- Mini Preview -->

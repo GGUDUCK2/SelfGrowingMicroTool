@@ -40,8 +40,7 @@
   <!-- Toolbar -->
   <div class="flex items-center justify-end mb-4">
       <button
-        class="flex items-center space-x-2 text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors
-        {showSafeZone ? 'bg-indigo-500/10 border-indigo-500/50 text-indigo-400' : 'bg-slate-800 border-slate-700 text-slate-400 hover:text-slate-200'}"
+        class="flex items-center space-x-2 text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors {showSafeZone ? 'bg-indigo-500/10 border-indigo-500/50 text-indigo-400' : 'bg-slate-800 border-slate-700 text-slate-400 hover:text-slate-200'}"
         on:click={() => showSafeZone = !showSafeZone}
       >
         <Circle class="w-3.5 h-3.5" />
@@ -49,7 +48,7 @@
       </button>
   </div>
 
-  <div class="grid md:grid-cols-2 gap-6">
+  <div class="grid gap-6 md:grid-cols-2">
 
     <!-- Maskable Icon (Android) -->
     <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">

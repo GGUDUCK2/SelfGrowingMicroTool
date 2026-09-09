@@ -11,15 +11,13 @@
   role="button"
   tabindex="0"
   aria-pressed={selected}
-  class="relative group cursor-pointer transition-all duration-200 select-none outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-xl
-  {selected ? 'ring-2 ring-indigo-500 scale-[0.98]' : 'hover:scale-[1.02] hover:shadow-lg'}"
+  class="relative group cursor-pointer transition-all duration-200 select-none outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-xl {selected ? 'ring-2 ring-indigo-500 scale-[0.98]' : 'hover:scale-[1.02] hover:shadow-lg'}"
   on:click
   on:keydown
 >
   <!-- Selection Checkbox -->
   <div class="absolute top-2 left-2 z-10">
-    <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors shadow-sm
-      {selected ? 'bg-indigo-500 border-indigo-500' : 'bg-white/90 border-slate-300 dark:border-slate-600 group-hover:border-indigo-400'}">
+    <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors shadow-sm {selected ? 'bg-indigo-500 border-indigo-500' : 'bg-white/90 border-slate-300 dark:border-slate-600 group-hover:border-indigo-400'}">
       {#if selected}
         <Check class="w-3.5 h-3.5 text-white" />
       {/if}

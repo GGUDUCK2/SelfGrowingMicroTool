@@ -89,7 +89,7 @@
     </div>
 
     {#if !config.transparent}
-      <div class="grid grid-cols-8 gap-2">
+      <div class="grid gap-2 grid-cols-1 sm:grid-cols-8">
         {#each presets as color}
           <button
             type="button"
@@ -214,7 +214,7 @@
           </label>
       </div>
 
-      <div class="grid grid-cols-2 gap-3">
+      <div class="grid gap-3 grid-cols-1 sm:grid-cols-2">
           <div class="space-y-1">
                <label class="text-xs text-slate-400" for="startUrl">Start URL</label>
                <input

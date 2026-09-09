@@ -139,7 +139,7 @@
 
 <svelte:window on:keydown={handleSaveShortcut} />
 
-<div class="grid lg:grid-cols-12 gap-8">
+<div class="grid gap-8 lg:grid-cols-12">
   <!-- Left Column: Editor -->
   <div class="lg:col-span-7 flex flex-col space-y-4">
       <div class="flex items-center justify-between">

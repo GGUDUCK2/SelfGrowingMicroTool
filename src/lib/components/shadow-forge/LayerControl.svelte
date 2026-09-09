@@ -132,7 +132,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4" class:opacity-50={!layer.enabled} class:pointer-events-none={!layer.enabled}>
+                <div class="grid gap-4 grid-cols-1 sm:grid-cols-2" class:opacity-50={!layer.enabled} class:pointer-events-none={!layer.enabled}>
                     <!-- X / Y -->
                     <div class="space-y-1">
                         <div class="flex justify-between">

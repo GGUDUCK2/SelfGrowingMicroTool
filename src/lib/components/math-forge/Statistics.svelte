@@ -28,7 +28,7 @@
   }
 </script>
 
-<div class="grid lg:grid-cols-2 gap-8">
+<div class="grid gap-8 lg:grid-cols-2">
   <div class="space-y-4">
       <label for="stats-input" class="block text-sm font-bold text-slate-700 dark:text-slate-300">
           {dict.data}
@@ -50,7 +50,7 @@
 
   <div class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
       {#if stats}
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
               <div class="p-4 bg-white dark:bg-slate-900 rounded-lg shadow-sm">
                   <div class="text-xs text-slate-500 uppercase font-bold">{dict.count}</div>
                   <div class="text-2xl font-mono text-slate-800 dark:text-white">{stats.count}</div>

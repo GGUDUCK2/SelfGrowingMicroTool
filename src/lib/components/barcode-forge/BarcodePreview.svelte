@@ -142,7 +142,7 @@
   </div>
 
   {#if state.type !== 'bulk'}
-  <div class="grid grid-cols-2 gap-4 mt-6">
+  <div class="grid gap-4 mt-6 grid-cols-1 sm:grid-cols-2">
       <button
           on:click={downloadSVG}
           disabled={!!validationError || isGenerating}

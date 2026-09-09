@@ -81,7 +81,7 @@
   </div>
 
   <!-- From / To -->
-  <div class="grid md:grid-cols-2 gap-6">
+  <div class="grid gap-6 md:grid-cols-2">
     <!-- Sender -->
     <div class="space-y-3">
       <label for="invoiceSenderName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wide text-xs">{dictionary.editor.from}</label>
@@ -123,7 +123,7 @@
   </div>
 
   <!-- Meta -->
-  <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+  <div class="grid gap-4 bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
      <div class="space-y-1">
         <label for="invoiceNumber" class="text-xs font-medium text-gray-500 dark:text-gray-400">{dictionary.editor.number}</label>
         <input id="invoiceNumber" type="text" bind:value={invoice.meta.number} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none font-mono" />
@@ -174,7 +174,7 @@
   </div>
 
   <!-- Totals & Notes -->
-  <div class="grid md:grid-cols-2 gap-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+  <div class="grid gap-6 pt-4 border-t border-gray-200 dark:border-gray-700 md:grid-cols-2">
      <div class="space-y-2">
         <label for="invoiceNotes" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{dictionary.editor.notes}</label>
         <textarea id="invoiceNotes" bind:value={invoice.meta.notes} rows="4" class="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-transparent resize-none"></textarea>

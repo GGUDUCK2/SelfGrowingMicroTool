@@ -355,7 +355,7 @@
     </div>
 
     <!-- 3. Specialized Inspectors -->
-    <div class="grid lg:grid-cols-2 gap-6">
+    <div class="grid gap-6 lg:grid-cols-2">
         <!-- Magic & Type -->
         <div class="bg-indigo-50 dark:bg-indigo-900/10 p-6 rounded-2xl border border-indigo-100 dark:border-indigo-800/50">
             <h4 class="text-xs font-bold text-indigo-800 dark:text-indigo-300 uppercase tracking-wide mb-3 flex items-center gap-2">
@@ -396,7 +396,7 @@
                     <div class="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-medium pb-2 border-b border-slate-200 dark:border-slate-700">
                         <FileArchive size={16} /> Archive Analysis
                     </div>
-                    <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="grid gap-2 text-xs grid-cols-1 sm:grid-cols-2">
                         <div class="text-slate-500">File Count</div>
                         <div class="font-mono text-right">{archiveInfo.fileCount}</div>
                         <div class="text-slate-500">Compression Ratio</div>

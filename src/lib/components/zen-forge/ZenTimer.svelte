@@ -177,7 +177,7 @@
             </label>
 
             {#if journeyMode}
-                <div class="grid grid-cols-2 gap-2 text-[10px]">
+                <div class="grid gap-2 text-[10px] grid-cols-1 sm:grid-cols-2">
                     <div>
                         <span class="text-slate-500 block mb-1">{dict.timerDict?.startFreq || 'Start Hz'}</span>
                         <input type="number" bind:value={startHz} min="1" max="40" class="w-full bg-slate-800 border border-slate-600 rounded px-1 py-0.5 text-center text-slate-200 focus:border-indigo-500 focus:outline-none" />

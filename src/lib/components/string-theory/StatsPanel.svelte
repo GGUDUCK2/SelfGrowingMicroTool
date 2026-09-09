@@ -20,7 +20,7 @@
   }
 </script>
 
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4" in:fade>
+<div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" in:fade>
   <div class="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
     <div class="text-sm text-slate-500 dark:text-slate-400">{dict.words}</div>
     <div class="text-2xl font-bold text-slate-800 dark:text-white">{formatNumber(stats.words)}</div>

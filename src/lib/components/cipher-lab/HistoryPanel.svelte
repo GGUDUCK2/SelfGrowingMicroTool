@@ -56,11 +56,7 @@
         <div class="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-3 shadow-sm hover:shadow-md transition-shadow relative group">
           <div class="flex justify-between items-start mb-1">
             <div class="flex items-center space-x-2">
-              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider
-                {item.type === 'hash' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300' :
-                 item.type === 'jwt' ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300' :
-                 item.type === 'password' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' :
-                 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300'}">
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider {item.type === 'hash' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300' : item.type === 'jwt' ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300' : item.type === 'password' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' : 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300'}">
                 {item.type}
               </span>
               {#if item.details}

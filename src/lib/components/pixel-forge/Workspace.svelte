@@ -228,7 +228,7 @@
             </div>
 
             <!-- Watermark Toggle -->
-             <button class="min-h-[44px] min-w-[44px] mt-4 p-2 rounded-lg  flex items-center justify-center transition-colors {showWatermarkSettings ? 'bg-indigo-500/20 text-indigo-400' : 'text-slate-400 hover:text-indigo-400 hover:bg-slate-700'}" on:click={() => showWatermarkSettings = !showWatermarkSettings}
+             <button class="min-h-[44px] min-w-[44px] mt-4 p-2 rounded-lg flex items-center justify-center transition-colors {showWatermarkSettings ? 'bg-indigo-500/20 text-indigo-400' : 'text-slate-400 hover:text-indigo-400 hover:bg-slate-700'}" on:click={() => showWatermarkSettings = !showWatermarkSettings}
                 title={dict.controls?.watermark || "Watermark Settings"}
                 aria-label={dict.controls?.watermark || "Watermark Settings"}
              >
@@ -244,13 +244,13 @@
         <!-- Action Buttons -->
         <div class="flex items-center gap-3 w-full md:w-auto justify-end">
             {#if jobs.some(j => j.status === 'done')}
-                <button class="min-h-[44px] min-w-[44px] flex items-center justify-center gap-2  px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors shadow-lg shadow-indigo-900/20" on:click={downloadAll}>
+                <button class="min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors shadow-lg shadow-indigo-900/20" on:click={downloadAll}>
                     <Archive class="w-4 h-4" />
                     <span>{dict.controls?.downloadAll || "Download All"}</span>
                 </button>
             {/if}
             {#if jobs.length > 0}
-                <button class="min-h-[44px] min-w-[44px] flex items-center justify-center gap-2  px-4 py-2 bg-slate-700 hover:bg-red-900/30 hover:text-red-400 text-slate-300 rounded-lg font-medium transition-colors" on:click={clearAll}>
+                <button class="min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 px-4 py-2 bg-slate-700 hover:bg-red-900/30 hover:text-red-400 text-slate-300 rounded-lg font-medium transition-colors" on:click={clearAll}>
                     <Trash2 class="w-4 h-4" />
                     <span>{dict.controls?.clear || "Clear All"}</span>
                 </button>
@@ -260,7 +260,7 @@
 
      <!-- Watermark Settings Panel -->
      {#if showWatermarkSettings && globalOptions.watermark}
-        <div class="pt-4 border-t border-slate-700 grid md:grid-cols-4 gap-4 animate-in slide-in-from-top-2 duration-200">
+        <div class="pt-4 border-t border-slate-700 grid gap-4 animate-in slide-in-from-top-2 duration-200 md:grid-cols-4">
             <label class="block col-span-2">
                  <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">Watermark Text</span>
                  <input type="text" bind:value={globalOptions.watermark.text} placeholder="e.g. © 2025 My Brand" class="w-full bg-slate-700 border border-slate-600 text-sm text-slate-200 min-h-[44px] rounded px-3 py-2 focus:border-indigo-500 focus:outline-none" />

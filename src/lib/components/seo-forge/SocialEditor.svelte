@@ -93,7 +93,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
         <div class="space-y-1">
             <label for="ogType" class="text-sm font-medium text-slate-700 dark:text-slate-300">
                 {dictionary.social.ogType}

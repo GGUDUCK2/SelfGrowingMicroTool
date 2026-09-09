@@ -22,7 +22,7 @@
   <!-- Generators -->
   <div>
       <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">{mainDict.generators.title}</h3>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+      <div class="grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <button on:click={() => emitGenerate('lorem')} class="btn-secondary text-indigo-600 dark:text-indigo-400" aria-label="{mainDict.generators.lorem}">{mainDict.generators.lorem}</button>
           <button on:click={() => emitGenerate('uuid')} class="btn-secondary text-indigo-600 dark:text-indigo-400" aria-label="{mainDict.generators.uuid}">{mainDict.generators.uuid}</button>
           <button on:click={() => emitGenerate('ulid')} class="btn-secondary text-indigo-600 dark:text-indigo-400" aria-label="{mainDict.generators.ulid}">{mainDict.generators.ulid}</button>
@@ -34,7 +34,7 @@
   <!-- Transformation -->
   <div>
     <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">{mainDict.transform}</h3>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+    <div class="grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <button on:click={() => emit('transform', 'uppercase')} class="btn-secondary" aria-label="{dict.uppercase}">{dict.uppercase}</button>
       <button on:click={() => emit('transform', 'lowercase')} class="btn-secondary" aria-label="{dict.lowercase}">{dict.lowercase}</button>
       <button on:click={() => emit('transform', 'capitalize')} class="btn-secondary" aria-label="{dict.capitalize}">{dict.capitalize}</button>
@@ -60,7 +60,7 @@
   <!-- Cleaning -->
   <div>
     <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">{mainDict.clean}</h3>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+    <div class="grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <button on:click={() => emit('clean', 'trim')} class="btn-secondary" aria-label="{dict.trim}">{dict.trim}</button>
       <button on:click={() => emit('clean', 'trimLines')} class="btn-secondary" aria-label="{dict.trimLines}">{dict.trimLines}</button>
       <button on:click={() => emit('clean', 'removeEmptyLines')} class="btn-secondary" aria-label="{dict.removeEmpty}">{dict.removeEmpty}</button>
@@ -73,7 +73,7 @@
   <!-- Security -->
   <div>
     <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">{mainDict.security}</h3>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+    <div class="grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <button on:click={() => emit('security', 'redactEmail')} class="btn-secondary text-amber-600 dark:text-amber-400" aria-label="{dict.redactEmail}">{dict.redactEmail}</button>
       <button on:click={() => emit('security', 'redactPhone')} class="btn-secondary text-amber-600 dark:text-amber-400" aria-label="{dict.redactPhone}">{dict.redactPhone}</button>
       <button on:click={() => emit('security', 'redactIp')} class="btn-secondary text-amber-600 dark:text-amber-400" aria-label="{dict.redactIp}">{dict.redactIp}</button>
@@ -84,7 +84,7 @@
   <!-- Encoding -->
   <div>
     <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">{mainDict.encode}</h3>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+    <div class="grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <button on:click={() => emit('encode', 'base64Encode')} class="btn-secondary" aria-label="{dict.base64Enc}">{dict.base64Enc}</button>
       <button on:click={() => emit('encode', 'base64Decode')} class="btn-secondary" aria-label="{dict.base64Dec}">{dict.base64Dec}</button>
       <button on:click={() => emit('encode', 'urlEncode')} class="btn-secondary" aria-label="{dict.urlEnc}">{dict.urlEnc}</button>

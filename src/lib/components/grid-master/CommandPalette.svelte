@@ -151,8 +151,7 @@
           {:else}
               {#each filteredCommands as cmd, i (cmd.id)}
                   <button
-                      class="w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-3 transition-colors
-                      {i === selectedIndex ? 'bg-indigo-600 text-white' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}"
+                      class="w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-3 transition-colors {i === selectedIndex ? 'bg-indigo-600 text-white' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}"
                       on:click={() => execute(cmd)}
                       on:mouseenter={() => selectedIndex = i}
                   >

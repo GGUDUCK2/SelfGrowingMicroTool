@@ -171,7 +171,7 @@ ${palette.map((c, i) => `$color-harmony-${i + 1}: ${c.hex};`).join('\n')}`;
 <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
   <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t.export}</h3>
 
-  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+  <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
     <button
       class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[44px]"
       on:click={() => copyCode(generateCSS, 'CSS')}

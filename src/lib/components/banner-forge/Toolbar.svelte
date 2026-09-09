@@ -91,10 +91,9 @@
     <!-- Dimensions -->
     <div class="space-y-2">
         <h3 class="text-xs font-semibold uppercase text-slate-500 tracking-wider">{dict.dimensions}</h3>
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid gap-2 grid-cols-1 sm:grid-cols-2">
             {#each sizes as size}
-                <button class="min-h-[44px] min-w-[44px] px-2 py-2 text-xs border rounded hover:bg-indigo-50 hover:border-indigo-200 truncate transition-colors text-left
-                           {state.width === size.width && state.height === size.height ? 'bg-indigo-100 border-indigo-500 text-indigo-700' : 'bg-white border-slate-200 text-slate-600'}"
+                <button class="min-h-[44px] min-w-[44px] px-2 py-2 text-xs border rounded hover:bg-indigo-50 hover:border-indigo-200 truncate transition-colors text-left {state.width === size.width && state.height === size.height ? 'bg-indigo-100 border-indigo-500 text-indigo-700' : 'bg-white border-slate-200 text-slate-600'}"
                     on:click={() => handleResize(size)}
                     title="{size.width}x{size.height}"
                 >
@@ -122,7 +121,7 @@
                 <input type="text" value={state.background.value} on:input={(e) => handleBackground('color', e.currentTarget.value)} class="flex-1 px-3 py-2 text-sm border rounded bg-slate-50" />
             </div>
         {:else if state.background.type === 'gradient'}
-            <div class="grid grid-cols-4 gap-2">
+            <div class="grid gap-2 grid-cols-1 sm:grid-cols-4">
                 {#each gradients as grad}
                     <button
                         class="w-full h-8 rounded border border-slate-200 ring-2 ring-transparent hover:ring-indigo-300 transition-all min-h-[44px] min-w-[44px]"  style="background: {grad}"
@@ -132,7 +131,7 @@
                 {/each}
             </div>
         {:else if state.background.type === 'pattern'}
-             <div class="grid grid-cols-3 gap-2">
+             <div class="grid gap-2 grid-cols-1 sm:grid-cols-3">
                 {#each patterns as pat}
                     <button class="min-h-[44px] min-w-[44px] w-full py-2 rounded border border-slate-200 text-[10px] uppercase font-bold text-slate-500 hover:bg-slate-50 hover:text-indigo-600"
                         on:click={() => handleBackground('pattern', pat)}
@@ -157,7 +156,7 @@
             </div>
 
             <!-- Position & Size -->
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid gap-3 grid-cols-1 sm:grid-cols-2">
                 <div>
                     <label class="text-xs font-medium text-slate-600" for="layer-x">{dict.layers.position} (X, Y)</label>
                     <div class="flex gap-2">
@@ -195,7 +194,7 @@
                     ></textarea>
                 </div>
 
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid gap-3 grid-cols-1 sm:grid-cols-2">
                      <div>
                         <label class="text-xs font-medium text-slate-600" for="layer-font-size">{dict.layers.size}</label>
                         <div class="relative">

@@ -36,10 +36,7 @@
   <div class="timeline-container flex-1 overflow-x-auto p-4 flex gap-4 items-center custom-scrollbar scroll-smooth">
       {#each $history as state, i (i)}
           <button
-              class="relative shrink-0 w-24 h-24 rounded-lg border-2 transition-all duration-200 group flex flex-col overflow-hidden bg-slate-100 dark:bg-slate-800
-              {i === $currentIndex ? 'active-step border-indigo-500 ring-2 ring-indigo-500/20 shadow-lg scale-105 z-10' :
-               i > $currentIndex ? 'border-slate-200 dark:border-slate-700 opacity-50 grayscale hover:grayscale-0' :
-               'border-slate-200 dark:border-slate-700 hover:border-indigo-300'}"
+              class="relative shrink-0 w-24 h-24 rounded-lg border-2 transition-all duration-200 group flex flex-col overflow-hidden bg-slate-100 dark:bg-slate-800 {i === $currentIndex ? 'active-step border-indigo-500 ring-2 ring-indigo-500/20 shadow-lg scale-105 z-10' : i > $currentIndex ? 'border-slate-200 dark:border-slate-700 opacity-50 grayscale hover:grayscale-0' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300'}"
               on:click={() => gridStore.jumpTo(i)}
               aria-label={`Jump to state ${i}`}
           >

@@ -91,7 +91,7 @@
       <p class="mt-2 text-sm">The selected file is not an image. Only image files (PNG, JPG, WebP, etc.) can be converted.</p>
     </div>
   {:else}
-    <div class="grid md:grid-cols-2 gap-8">
+    <div class="grid gap-8 md:grid-cols-2">
       <!-- Settings -->
       <div class="space-y-6">
         <div>
@@ -101,10 +101,7 @@
           <div class="flex gap-2" role="group" aria-label="Image Format Selection">
             {#each formats as f (f)}
               <button
-                class="px-4 py-2 rounded-lg text-sm font-medium transition-colors border
-                {format === f
-                  ? 'bg-indigo-600 text-white border-indigo-600'
-                  : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-indigo-300'}"
+                class="px-4 py-2 rounded-lg text-sm font-medium transition-colors border {format === f ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-indigo-300'}"
                 on:click={() => format = f}
                 aria-pressed={format === f}
               >
@@ -132,7 +129,7 @@
           </div>
         {/if}
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
           <div>
             <label for="img-width" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
               {(dict as any)?.convert?.width || 'Width'} (px)

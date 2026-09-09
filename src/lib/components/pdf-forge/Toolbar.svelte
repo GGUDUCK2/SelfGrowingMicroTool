@@ -92,8 +92,7 @@
 <HistoryModal isOpen={showHistory} {dict} on:close={() => showHistory = false} />
 <WatermarkModal isOpen={showWatermark} {dict} on:close={() => showWatermark = false} />
 
-<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) overflow-x-auto max-w-[95vw] no-scrollbar
-  {hasPages ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-20 opacity-0 scale-90 pointer-events-none'}">
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) overflow-x-auto max-w-[95vw] no-scrollbar {hasPages ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-20 opacity-0 scale-90 pointer-events-none'}">
 
   <!-- Undo/Redo -->
   <div class="flex items-center gap-1">
@@ -195,10 +194,7 @@
   {/if}
 
   <!-- Rotation -->
-  <button class="min-h-[44px] min-w-[44px] flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all
-    {hasSelection
-      ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700'
-      : 'text-slate-300 dark:text-slate-700 cursor-not-allowed'}"
+  <button class="min-h-[44px] min-w-[44px] flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all {hasSelection ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700' : 'text-slate-300 dark:text-slate-700 cursor-not-allowed'}"
     disabled={!hasSelection}
     on:click={() => rotateSelectedPages(90)}
     title={dict.actions.rotate}
@@ -208,10 +204,7 @@
   </button>
 
   <!-- Delete -->
-  <button class="min-h-[44px] min-w-[44px] flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all
-    {hasSelection
-      ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40'
-      : 'text-slate-300 dark:text-slate-700 cursor-not-allowed'}"
+  <button class="min-h-[44px] min-w-[44px] flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all {hasSelection ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40' : 'text-slate-300 dark:text-slate-700 cursor-not-allowed'}"
     disabled={!hasSelection}
     on:click={deleteSelectedPages}
     title={dict.actions.delete}
@@ -232,8 +225,7 @@
   </button>
 
   <!-- Merge (Primary) -->
-  <button class="min-h-[44px] min-w-[44px] flex items-center gap-2 pl-4 pr-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold shadow-lg shadow-indigo-500/20 active:scale-95 transition-all
-    {$isProcessing ? 'opacity-75 cursor-wait' : ''}"
+  <button class="min-h-[44px] min-w-[44px] flex items-center gap-2 pl-4 pr-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold shadow-lg shadow-indigo-500/20 active:scale-95 transition-all {$isProcessing ? 'opacity-75 cursor-wait' : ''}"
     disabled={!hasPages || $isProcessing}
     on:click={() => mergeAndDownload()}
     title={dict.actions.merge || "Merge PDF"}

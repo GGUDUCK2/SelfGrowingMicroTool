@@ -28,20 +28,19 @@
       </div>
   </div>
 
-  <div class="grid grid-cols-7 gap-1 text-center mb-2">
+  <div class="grid gap-1 text-center mb-2 grid-cols-1 sm:grid-cols-7">
       {#each days as day}
           <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">{day}</div>
       {/each}
   </div>
 
-  <div class="grid grid-cols-7 gap-1 text-center flex-1 content-start">
+  <div class="grid gap-1 text-center flex-1 content-start grid-cols-1 sm:grid-cols-7">
       {#each [0,0,0] as empty}
            <div></div>
       {/each}
       {#each dates as d (d.date)}
           <button
-            class="aspect-square flex flex-col items-center justify-center rounded-lg text-xs font-medium transition-all relative group
-            {selectedDate === d.date ? 'bg-indigo-600 text-white shadow-md scale-105' : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'} min-h-[44px] min-w-[44px]"
+            class="aspect-square flex flex-col items-center justify-center rounded-lg text-xs font-medium transition-all relative group {selectedDate === d.date ? 'bg-indigo-600 text-white shadow-md scale-105' : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'} min-h-[44px] min-w-[44px]"
             on:click={() => selectedDate = d.date}
           >
               {d.date}
