@@ -150,7 +150,7 @@
                    {dict.guide.intro}
                </p>
 
-               <div class="grid md:grid-cols-2 gap-8 not-prose">
+               <div class="grid grid-cols-1 md:grid-cols-2 gap-8 not-prose">
                     <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-700">
                         <h3 class="text-xl font-bold mb-4 text-slate-800 dark:text-white flex items-center gap-2">
                              <span class="text-indigo-500">✨</span> {dict.guide.featuresTitle}

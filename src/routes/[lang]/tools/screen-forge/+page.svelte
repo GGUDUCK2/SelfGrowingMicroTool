@@ -138,7 +138,7 @@
       </section>
 
       <!-- Guide & FAQ -->
-      <section class="grid md:grid-cols-2 gap-12 border-t border-slate-200 dark:border-slate-800 pt-12">
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-slate-200 dark:border-slate-800 pt-12">
            <GuideSection
                title={t.guide.title}
                intro={t.guide.intro}

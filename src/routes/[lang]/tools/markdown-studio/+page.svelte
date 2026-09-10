@@ -341,7 +341,7 @@
         {dict.guide.intro}
       </p>
 
-      <div class="grid md:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <h3 class="font-semibold text-slate-900 dark:text-white mb-2">{dict.guide.featuresTitle}</h3>
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
