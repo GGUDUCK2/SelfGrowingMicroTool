@@ -50,3 +50,12 @@
 
 #### 3. Performance Impact (기대 효과)
 - 모바일 뷰어에서의 그리드 넘침 버그 및 가로 스크롤 이슈를 방지하고 모바일 우선 (Mobile-First) 디자인 원칙을 확고히 하여 UX가 향상됩니다. 불필요한 CSS 클래스 제거를 통해 코드 일관성 및 가독성이 개선되었습니다.
+[Project Health Report - 2026-09-10]
+## Repository Hygiene
+- Fixed missing exports in `src/lib/components/base64-forge/HistoryPanel.svelte`.
+
+## Design Consistency
+- Improved consistency of event handlers and dispatch logic for restoring history.
+
+## Tech Debt
+- Removed deprecated click handlers inside `HistoryPanel` for Base64 Forge, and migrated them to event dispatching model for better component modularity.

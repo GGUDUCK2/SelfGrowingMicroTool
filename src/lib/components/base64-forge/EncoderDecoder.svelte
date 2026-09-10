@@ -4,6 +4,7 @@
   import { Copy, Trash2, Download, Upload, Image as ImageIcon, FileText, ArrowRightLeft, Settings } from '@lucide/svelte';
   import { workspace, smartSaveToHistory } from '$lib/db/workspace';
   import HistoryPanel from './HistoryPanel.svelte';
+  import type { ToolHistoryItem } from '$lib/db/workspace';
 
   export let dict: any;
 
@@ -21,6 +22,17 @@
   let showHistory = false;
 
   const TOOL_ID = 'base64-forge';
+
+  function handleRestore(e: CustomEvent<ToolHistoryItem>) {
+      const item = e.detail;
+      const inputData = item.input as any;
+      if (inputData) {
+          mode = inputData.mode || 'encode';
+          input = inputData.input || '';
+          urlSafe = inputData.urlSafe || false;
+          strictMode = inputData.strictMode || false;
+      }
+  }
 
   $: if (input || mode || urlSafe || strictMode) {
     clearTimeout(debounceTimer);
@@ -312,7 +324,7 @@
 
     <!-- Sidebar -->
     <div class="lg:col-span-4 space-y-6">
-        <HistoryPanel {dict} />
+        <HistoryPanel {dict} on:restore={handleRestore} />
     </div>
 </div>
 
