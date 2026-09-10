@@ -18,7 +18,10 @@
     github: '',
     qrFgColor: '#0f172a',
     qrBgColor: '#ffffff',
-    format: '3.0'
+      format: '3.0',
+      gender: '',
+      anniversary: '',
+      role: ''
   };
 
   const dispatch = createEventDispatcher();
@@ -65,11 +68,12 @@
   function calculateStrength(d: Record<string, string>) {
     let score = 0;
     if (d.name) score += 25;
-    if (d.email) score += 20;
-    if (d.phone) score += 20;
-    if (d.company || d.title) score += 15;
+    if (d.email) score += 15;
+    if (d.phone) score += 15;
+    if (d.company || d.title || d.role) score += 15;
     if (d.photoData) score += 10;
     if (d.website || d.linkedIn || d.twitter || d.github) score += 10;
+    if (d.gender || d.anniversary) score += 10;
     return Math.min(score, 100);
   }
 
@@ -557,9 +561,25 @@
     </div>
 
     <div class="space-y-2">
+      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-role">{dict?.role || 'Department / Role'}</label>
+      <input type="text" id="vcard-role" bind:value={data.role} on:input={handleInput} placeholder="e.g. Engineering / Lead" class="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
+    </div>
+
+    <div class="space-y-2">
       <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-website">{dict?.website}</label>
       <input type="url" id="vcard-website" bind:value={data.website} on:input={handleInput} placeholder="e.g. https://example.com" class="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
     </div>
+
+    {#if data.format === '4.0'}
+      <div class="space-y-2">
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-gender">{dict?.gender || 'Gender / Pronouns'}</label>
+        <input type="text" id="vcard-gender" bind:value={data.gender} on:input={handleInput} placeholder="e.g. F;She/Her" class="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
+      </div>
+      <div class="space-y-2">
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="vcard-anniversary">{dict?.anniversary || 'Anniversary (YYYYMMDD)'}</label>
+        <input type="text" id="vcard-anniversary" bind:value={data.anniversary} on:input={handleInput} placeholder="e.g. 20241031" class="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
+      </div>
+    {/if}
 
     <div class="space-y-2 md:col-span-2">
       <div class="flex items-center justify-between">
