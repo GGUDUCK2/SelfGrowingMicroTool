@@ -561,7 +561,7 @@
     <DiffStats stats={diffResult.stats} />
 
     <!-- Editors Area -->
-    <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4 mb-6 h-auto lg:h-[600px]">
+    <div class="flex flex-col grid-cols-1 lg:grid lg:grid-cols-2 gap-4 mb-6 h-auto lg:h-[600px]">
         <div class="h-64 sm:h-80 lg:h-full">
             <DiffEditor
                 bind:this={originalEditor}
