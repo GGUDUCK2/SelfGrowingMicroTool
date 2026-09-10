@@ -1,10 +1,12 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { fade } from 'svelte/transition';
+    import { createEventDispatcher } from 'svelte';
     import { History, Star, Trash2 } from '@lucide/svelte';
     import { workspace, type ToolHistoryItem } from '$lib/db/workspace';
 
     export let dict: any;
+    const dispatch = createEventDispatcher();
     const TOOL_ID = 'base64-forge';
 
     let historyItems: ToolHistoryItem[] = [];
@@ -63,17 +65,19 @@
             </div>
         {:else}
             {#each historyItems as item (item.id)}
-                <div transition:fade class="group bg-slate-50 dark:bg-slate-900/50 rounded-xl p-3 border border-slate-100 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors">
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
+                <!-- svelte-ignore a11y-no-static-element-interactions -->
+                <div transition:fade class="group bg-slate-50 cursor-pointer dark:bg-slate-900/50 rounded-xl p-3 border border-slate-100 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors" on:click={() => dispatch('restore', item)}>
                     <div class="flex justify-between items-start mb-2">
                         <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/50 px-2 py-0.5 rounded">
                             {(item.input as any)?.mode || 'convert'}
                         </span>
 
                         <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button on:click={() => toggleStar(item.id)} class="text-slate-400 hover:text-yellow-500 transition-colors p-1 rounded-md min-h-[32px] min-w-[32px] flex items-center justify-center">
+                            <button on:click|stopPropagation={() => toggleStar(item.id)} class="text-slate-400 hover:text-yellow-500 transition-colors p-1 rounded-md min-h-[32px] min-w-[32px] flex items-center justify-center">
                                 <Star size={14} fill={item.starred ? "currentColor" : "none"} class={item.starred ? "text-yellow-500" : ""} />
                             </button>
-                            <button on:click={() => deleteItem(item.id)} class="text-slate-400 hover:text-red-500 transition-colors p-1 rounded-md min-h-[32px] min-w-[32px] flex items-center justify-center">
+                            <button on:click|stopPropagation={() => deleteItem(item.id)} class="text-slate-400 hover:text-red-500 transition-colors p-1 rounded-md min-h-[32px] min-w-[32px] flex items-center justify-center">
                                 <Trash2 size={14} />
                             </button>
                         </div>
