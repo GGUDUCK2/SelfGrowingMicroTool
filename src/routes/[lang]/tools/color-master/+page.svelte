@@ -422,7 +422,7 @@
         </p>
       </section>
 
-      <div class="grid md:grid-cols-2 gap-12 mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
         <section>
           <h3 class="flex items-center gap-2 text-xl font-bold text-slate-900 dark:text-white mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
@@ -459,7 +459,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
           {t.guide.tipsTitle}
         </h3>
-        <div class="grid md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-indigo-100 dark:border-slate-600">
             <p class="text-indigo-800 dark:text-indigo-200 font-medium mb-2">Pro Tip</p>
             <p class="text-slate-600 dark:text-slate-300 text-sm">{t.guide.tip1}</p>

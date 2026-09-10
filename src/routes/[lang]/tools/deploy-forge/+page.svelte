@@ -279,7 +279,7 @@
             <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400 mb-6">
                 {((dict as any)?.tools?.deployForge || {}).guide.title}
             </h2>
-            <div class="grid md:grid-cols-2 gap-12 text-slate-300 leading-relaxed">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-slate-300 leading-relaxed">
                 <div>
                     <h3 class="text-xl font-semibold text-white mb-4">{((dict as any)?.tools?.deployForge || {}).guide.introTitle}</h3>
                     <p class="mb-4">

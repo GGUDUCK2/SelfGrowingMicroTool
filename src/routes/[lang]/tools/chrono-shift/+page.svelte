@@ -356,7 +356,7 @@
         </div>
 
         <!-- Locations Grid -->
-        <div class="p-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div class="p-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {#each locations as loc (loc.id)}
                 <div transition:slide|local>
                     <LocationCard
