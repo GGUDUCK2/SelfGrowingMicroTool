@@ -77,6 +77,12 @@
     }
     if (data.company) vcf += `ORG:${data.company}\n`;
     if (data.title) vcf += `TITLE:${data.title}\n`;
+    if (data.role) vcf += `ROLE:${data.role}\n`;
+
+    if (isV4) {
+        if (data.gender) vcf += `GENDER:${data.gender}\n`;
+        if (data.anniversary) vcf += `ANNIVERSARY:${data.anniversary}\n`;
+    }
 
     if (data.phone) {
         vcf += isV4 ? `TEL;TYPE=cell,voice;VALUE=uri:tel:${data.phone.replace(/[\s-]/g, '')}\n` : `TEL;TYPE=CELL:${data.phone}\n`;
@@ -277,7 +283,7 @@
       try {
           isWritingNFC = true;
           nfcStatus = dict?.nfcTap || 'Tap NFC tag to write...';
-          const ndef = new (window as any).NDEFReader();
+          const ndef = new (window as unknown as { NDEFReader: new () => { write: (data: unknown) => Promise<void> } }).NDEFReader();
           await ndef.write({
               records: [{ recordType: "mime", mediaType: "text/vcard", data: new TextEncoder().encode(vcardData) }]
           });

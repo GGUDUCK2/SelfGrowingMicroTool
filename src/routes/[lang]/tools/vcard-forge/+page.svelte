@@ -35,11 +35,14 @@
       github: '',
       qrFgColor: '#0f172a',
       qrBgColor: '#ffffff',
-      format: '3.0'
+      format: '3.0',
+      gender: '',
+      anniversary: '',
+      role: ''
     };
 
     interface VCardForgeData {
-      [key: string]: string;
+      [key: string]: string | undefined;
       name: string;
       title: string;
       company: string;
@@ -54,6 +57,9 @@
       qrFgColor: string;
       qrBgColor: string;
       format: string;
+      gender?: string;
+      anniversary?: string;
+      role?: string;
     }
 
     let currentData: VCardForgeData = { ...initialData };
@@ -171,7 +177,10 @@
           github: item.github || '',
           qrFgColor: item.qrFgColor || '#0f172a',
           qrBgColor: item.qrBgColor || '#ffffff',
-          format: item.format || '3.0'
+          format: item.format || '3.0',
+          gender: item.gender || '',
+          anniversary: item.anniversary || '',
+          role: item.role || ''
       };
       showHistory = false;
     }
