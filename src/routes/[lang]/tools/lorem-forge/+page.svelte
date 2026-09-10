@@ -137,7 +137,7 @@
     </div>
 
     <!-- Main Tool Interface -->
-    <div class="grid lg:grid-cols-12 gap-8 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <!-- Configuration Panel -->
         <div class="lg:col-span-5 xl:col-span-4 sticky top-6">
             <LoremConfig

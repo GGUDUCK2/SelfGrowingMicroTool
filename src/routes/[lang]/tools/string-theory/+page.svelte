@@ -341,7 +341,7 @@
     <h2 class="text-3xl font-bold text-slate-900 dark:text-white">{dict.guide.title}</h2>
     <p class="text-lg text-slate-600 dark:text-slate-400">{dict.guide.intro}</p>
 
-    <div class="grid md:grid-cols-3 gap-8 my-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 my-12">
       <div class="bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-2xl border border-indigo-100 dark:border-indigo-900/50">
         <h3 class="text-indigo-900 dark:text-indigo-300 font-bold mb-3">{dict.guide.featuresTitle}</h3>
         <ul class="space-y-2 text-indigo-800 dark:text-indigo-200 text-sm">

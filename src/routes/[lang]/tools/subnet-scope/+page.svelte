@@ -477,7 +477,7 @@
       <h2 class="text-3xl font-bold mb-6">{t.guide.title}</h2>
       <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-400">{t.guide.intro}</p>
 
-      <div class="grid md:grid-cols-3 gap-8 my-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 my-12">
           <div class="bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-2xl">
               <h3 class="text-xl font-bold text-indigo-900 dark:text-indigo-300 mb-3">IPv4 & IPv6</h3>
               <p class="text-indigo-800 dark:text-indigo-200">Full dual-stack support. Analyze classic 32-bit addresses or modern 128-bit IPv6 addresses with equal ease.</p>
