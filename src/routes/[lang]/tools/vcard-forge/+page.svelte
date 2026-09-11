@@ -73,6 +73,7 @@
     ] : [];
 
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
         $: jsonLd = dict ? {
       "@context": "https://schema.org",
       "@graph": [

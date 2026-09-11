@@ -106,6 +106,7 @@
     };
 
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -148,6 +149,7 @@
     <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/zen-forge"} />
     <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/zen-forge"} />
     <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/zen-forge"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
 

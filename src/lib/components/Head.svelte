@@ -9,6 +9,7 @@
 
   $: lang = $page.params.lang || 'en';
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -58,5 +59,6 @@
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={image} />
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>

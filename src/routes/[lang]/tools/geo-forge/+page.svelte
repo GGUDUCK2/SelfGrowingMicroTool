@@ -370,6 +370,7 @@
 
 
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -413,6 +414,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/geo-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/geo-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/geo-forge"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",

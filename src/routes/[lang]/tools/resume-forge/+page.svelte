@@ -105,6 +105,7 @@
     { q: toolDict?.q3, a: toolDict?.a3 }
   ];
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@graph": [
@@ -132,6 +133,7 @@
     ]
   });
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -171,6 +173,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/resume-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/resume-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/resume-forge"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">${jsonLd.replace(/</g, '\\u003c')}</scr` + `ipt>`}
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}

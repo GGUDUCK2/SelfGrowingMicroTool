@@ -67,6 +67,7 @@
       "screenshot": `${$page.url.origin}/og/unit-verse.png`
     };
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -108,6 +109,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/unit-verse"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/unit-verse"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/unit-verse"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->

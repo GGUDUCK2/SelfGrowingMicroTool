@@ -21,6 +21,7 @@
   $: dict = ((getDictionary(lang) as any)?.tools?.inputLab || {});
   $: common = getDictionary(lang).common;
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -92,6 +93,7 @@
   }
 
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -137,8 +139,10 @@
     <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/input-lab"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/input-lab"} />
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
 
   </scr` + `ipt>`}

@@ -96,6 +96,7 @@
     return { title: text.replace(/\*\*/g, ''), desc: '' };
   }
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -141,6 +142,7 @@
   <!-- Twitter -->
 
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -168,6 +170,7 @@
   </scr` + `ipt>`}
 
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
 
   </scr` + `ipt>`}

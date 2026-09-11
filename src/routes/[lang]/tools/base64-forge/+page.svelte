@@ -14,6 +14,7 @@
   $: title = dict.title || 'Base64 Forge';
   $: description = dict.description || 'Encode and decode Base64 strings, files, and images.';
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -30,6 +31,7 @@
     }
   });
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",

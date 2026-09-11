@@ -167,6 +167,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
       "priceCurrency": "USD"
     }};
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -205,6 +206,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/glassmorphism-generator"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/glassmorphism-generator"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/glassmorphism-generator"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schemaObj1).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->

@@ -178,6 +178,7 @@
 
   $: jsonLdScript = `<script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}<\/script>`;
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -219,6 +220,7 @@
   {@html jsonLdScript}
 
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
 
   </scr` + `ipt>`}

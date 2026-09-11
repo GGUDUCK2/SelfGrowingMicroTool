@@ -46,6 +46,7 @@
       alert("Note: History currently only tracks metadata. To restore a session, please re-upload the font file.");
   }
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -85,6 +86,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/type-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/type-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/type-forge"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "SoftwareApplication", "@id": $page.url.origin + "/" + lang + "/tools/type-forge", "isAccessibleForFree": true, "name": dict.title, "description": dict.description, "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "featureList": [ "Variable Font Axis Control", "Glyph Inspection", "CSS @font-face Generator", "Local Processing" ] }).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
