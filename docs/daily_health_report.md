@@ -59,3 +59,18 @@
 
 ## Tech Debt
 - Removed deprecated click handlers inside `HistoryPanel` for Base64 Forge, and migrated them to event dispatching model for better component modularity.
+
+
+### [Daily Improvement Report - 2026-09-11]
+#### 1. Identified Issues (발견된 문제)
+- `deploy-forge` 도구 내의 `DatabaseSelector.svelte`와 `StackSelector.svelte` 컴포넌트에서 모바일(기본) 뷰에 대한 반응형 grid 클래스 적용 시, 명시적인 `grid-cols-1` 속성이 적용되지 않고 잘못된 `grid-cols-2`가 모바일 기본값으로 남아있어 모바일 환경에서 레이아웃 넘침 현상이 발견되었습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**:
+  - `src/routes/[lang]/tools/deploy-forge/components/DatabaseSelector.svelte`
+  - `src/routes/[lang]/tools/deploy-forge/components/StackSelector.svelte`
+  - 모바일 뷰에 해당하는 기본 클래스를 `grid-cols-2`에서 `grid-cols-1`로 수정하여 모바일 크기에서 1열 레이아웃이 적용되고, `sm:` 크기부터 확장되도록 변경했습니다.
+- **SEO/AEO**: 기존에 적용되어 있는 메타데이터와 구조화 데이터는 변경 없이 유지되었습니다.
+
+#### 3. Performance Impact (기대 효과)
+- `deploy-forge` 도구 페이지의 모바일 뷰어에서의 그리드 넘침 버그 및 가로 스크롤 이슈를 방지하고, 모바일 우선 (Mobile-First) 디자인 원칙을 확고히 하여 UX가 향상됩니다.
