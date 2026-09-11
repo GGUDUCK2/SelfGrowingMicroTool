@@ -177,6 +177,7 @@
   ] : [];
 
   // Wait for dict to be ready
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = dict ? {
     "@context": "https://schema.org",
     "@graph": [
@@ -215,6 +216,7 @@
   const canonicalUrl = `${$page.url.origin}/${$page.params.lang}/tools/string-theory`;
 
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -259,6 +261,7 @@
 
 
   {#if jsonLd}
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
   {/if}
 

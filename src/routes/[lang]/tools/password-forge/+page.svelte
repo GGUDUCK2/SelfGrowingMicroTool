@@ -294,6 +294,7 @@
 
 
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -334,6 +335,7 @@
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/password-forge"} />
   <!-- eslint-disable svelte/no-at-html-tags -->
   <!-- eslint-disable @typescript-eslint/no-unused-expressions -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">` + JSON.stringify(softwareSchema).replace(/</g, '\\u003c') + `${'</scr' + 'ipt>'}`}
 
   <!-- eslint-enable @typescript-eslint/no-unused-expressions -->

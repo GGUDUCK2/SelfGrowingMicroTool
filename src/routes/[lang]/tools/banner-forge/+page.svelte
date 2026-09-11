@@ -16,6 +16,7 @@
   $: description = toolDict.description;
   $: canonical = $page.url.origin + "/" + lang + "/tools/banner-forge";
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -52,6 +53,7 @@
     ]
   };
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -95,8 +97,10 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/banner-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/banner-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/banner-forge"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">
 
   </scr` + `ipt>`}

@@ -135,6 +135,7 @@
     a: lang === 'ko' ? f.answer.ko : f.answer.en
   }));
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
@@ -163,6 +164,7 @@
     };
 
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -208,6 +210,7 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/cron-editor"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/cron-editor"} />
   <!-- JSON-LD -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->

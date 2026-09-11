@@ -26,6 +26,7 @@
       downloadJson: "Download JSON"
   };
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -56,6 +57,7 @@
 
 
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -96,6 +98,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/decision-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/decision-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/decision-forge"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
 

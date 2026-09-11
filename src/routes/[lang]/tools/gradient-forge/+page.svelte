@@ -52,6 +52,7 @@
 
   $: currentGradientObj = { type, angle, position, stops, css: cssGradient };
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -63,6 +64,7 @@
   };
 
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -92,6 +94,7 @@
 </script>
 
 <svelte:head>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
   <link rel="canonical" href={$page.url.origin + `/${lang}/tools/gradient-forge`} />
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/gradient-forge"} />

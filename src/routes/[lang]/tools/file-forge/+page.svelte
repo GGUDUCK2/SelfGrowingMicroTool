@@ -76,6 +76,7 @@
     }
   }
 
+  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: howToSchema = {
     "@context": "https://schema.org",
 
@@ -123,6 +124,7 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/file-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/file-forge"} />
 
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(softwareSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
 
