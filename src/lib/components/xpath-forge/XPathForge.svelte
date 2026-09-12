@@ -418,7 +418,7 @@
 {/if}
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-<div class="grid gap-6 lg:grid-cols-3">
+<div class="grid gap-6 lg:grid-cols-3 grid-cols-1">
         <!-- Main Column -->
         <div class="lg:col-span-2 space-y-6">
             <!-- XPath Input -->
@@ -506,7 +506,7 @@
                 {/if}
             </div>
 
-            <div class="grid gap-6 h-[500px] xl:grid-cols-2">
+            <div class="grid gap-6 h-[500px] xl:grid-cols-2 grid-cols-1">
                 <!-- Document Editor -->
                 <div class="flex flex-col h-full bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
                     <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-800/50">

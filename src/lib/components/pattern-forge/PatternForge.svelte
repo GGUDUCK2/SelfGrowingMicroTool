@@ -228,7 +228,7 @@ background-position: 0 0, 0 0, ${fullSize/2}px ${fullSize}px, ${fullSize/2}px ${
   </div>
 
   {#if activeTab === 'designer'}
-    <div in:fade={{duration: 200}} class="grid gap-8 lg:grid-cols-3">
+    <div in:fade={{duration: 200}} class="grid gap-8 lg:grid-cols-3 grid-cols-1">
 
       <!-- Controls -->
       <div class="space-y-6 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
@@ -305,7 +305,7 @@ background-position: 0 0, 0 0, ${fullSize/2}px ${fullSize}px, ${fullSize/2}px ${
           <div class="absolute inset-0 ring-1 ring-inset ring-black/10 dark:ring-white/10 rounded-2xl pointer-events-none"></div>
         </div>
 
-        <div class="grid gap-4 md:grid-cols-2">
+        <div class="grid gap-4 md:grid-cols-2 grid-cols-1">
           <div class="bg-slate-900 rounded-2xl overflow-hidden relative group flex flex-col">
             <div class="flex items-center justify-between px-4 py-2 bg-slate-800 border-b border-slate-700">
               <span class="text-xs font-mono text-slate-400">CSS</span>
@@ -338,7 +338,7 @@ background-position: 0 0, 0 0, ${fullSize/2}px ${fullSize}px, ${fullSize/2}px ${
           <p>{t.noHistory || 'No history'}</p>
         </div>
       {:else}
-        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 grid-cols-1">
           {#each history as item (item.id)}
             <div class="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden flex flex-col bg-slate-50 dark:bg-slate-900/50" transition:slide>
               <!-- Mini Preview -->

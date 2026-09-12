@@ -53,7 +53,7 @@
                 <p class="text-slate-500">{t.noHistory}</p>
             </div>
         {:else}
-            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 grid-cols-1">
                 {#each $history$ as item (item.id)}
                     <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow group">
                         <div class="flex items-start justify-between mb-2">

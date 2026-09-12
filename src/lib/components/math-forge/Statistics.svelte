@@ -28,7 +28,7 @@
   }
 </script>
 
-<div class="grid gap-8 lg:grid-cols-2">
+<div class="grid gap-8 lg:grid-cols-2 grid-cols-1">
   <div class="space-y-4">
       <label for="stats-input" class="block text-sm font-bold text-slate-700 dark:text-slate-300">
           {dict.data}

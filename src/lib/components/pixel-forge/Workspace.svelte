@@ -260,7 +260,7 @@
 
      <!-- Watermark Settings Panel -->
      {#if showWatermarkSettings && globalOptions.watermark}
-        <div class="pt-4 border-t border-slate-700 grid gap-4 animate-in slide-in-from-top-2 duration-200 md:grid-cols-4">
+        <div class="pt-4 border-t border-slate-700 grid gap-4 animate-in slide-in-from-top-2 duration-200 md:grid-cols-4 grid-cols-1">
             <label class="block col-span-2">
                  <span class="text-[10px] uppercase text-slate-500 font-bold tracking-wider mb-1 block">Watermark Text</span>
                  <input type="text" bind:value={globalOptions.watermark.text} placeholder="e.g. © 2025 My Brand" class="w-full bg-slate-700 border border-slate-600 text-sm text-slate-200 min-h-[44px] rounded px-3 py-2 focus:border-indigo-500 focus:outline-none" />

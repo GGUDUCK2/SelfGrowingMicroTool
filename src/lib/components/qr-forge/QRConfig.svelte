@@ -155,7 +155,7 @@
         </label>
       </div>
     {:else if state.type === 'vcard' && state.vcard}
-      <div transition:slide class="grid gap-4 sm:grid-cols-2">
+      <div transition:slide class="grid gap-4 sm:grid-cols-2 grid-cols-1">
         <label class="block col-span-1">
           <span class="block text-sm font-medium text-slate-300 mb-1">First Name</span>
           <input type="text" bind:value={state.vcard.firstName} class="w-full bg-slate-700 border-slate-600 rounded-lg px-4 py-2 text-slate-50 focus:ring-2 focus:ring-indigo-500 min-h-[44px]" />
@@ -213,7 +213,7 @@
   <!-- Branding -->
   <div>
     <h3 class="text-lg font-semibold text-slate-200 mb-3">{d.branding || 'Branding & Style'}</h3>
-    <div class="grid gap-4 mb-4 md:grid-cols-2">
+    <div class="grid gap-4 mb-4 md:grid-cols-2 grid-cols-1">
         <!-- Logo Upload -->
         <div>
              <span class="block text-sm font-medium text-slate-300 mb-2">{d.logo || 'Center Logo'}</span>

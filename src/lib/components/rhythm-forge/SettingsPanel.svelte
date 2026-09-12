@@ -36,7 +36,7 @@
     <div class="h-px bg-slate-100 dark:bg-slate-800"></div>
 
     <!-- Time Signature -->
-    <div class="grid gap-8 md:grid-cols-2">
+    <div class="grid gap-8 md:grid-cols-2 grid-cols-1">
         <div class="space-y-4">
             <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
                 <Clock size={16} />

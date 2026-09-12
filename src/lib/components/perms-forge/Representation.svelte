@@ -30,7 +30,7 @@
     }
 </script>
 
-<div class="grid gap-6 md:grid-cols-3">
+<div class="grid gap-6 md:grid-cols-3 grid-cols-1">
     <!-- Octal -->
     <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 relative group">
         <label for="perms-octal" class="block text-sm font-medium text-slate-500 mb-2">Octal</label>

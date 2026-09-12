@@ -193,7 +193,7 @@
         </div>
     {:else}
         <!-- Dashboard / History Summary -->
-        <div class="grid gap-4 md:grid-cols-2">
+        <div class="grid gap-4 md:grid-cols-2 grid-cols-1">
              <div class="p-4 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/20">
                  <div class="flex items-center gap-2 mb-2 opacity-80">
                      <Trophy size={18} />

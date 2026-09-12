@@ -247,7 +247,7 @@
                   <ImageIcon size={16} />
                   {dict.tabs.convert}
               </h4>
-              <div class="grid gap-4 items-end sm:grid-cols-2">
+              <div class="grid gap-4 items-end sm:grid-cols-2 grid-cols-1">
                   <div>
                       <label for="format_select" class="block text-xs font-medium mb-1">{dict.convert.format}</label>
                       <select id="format_select" bind:value={convertFormat} class="w-full text-sm bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg p-2">

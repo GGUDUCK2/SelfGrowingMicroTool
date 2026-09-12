@@ -87,7 +87,7 @@
   </div>
 
   {#if parsed}
-    <div class="grid gap-6 md:grid-cols-2" transition:slide>
+    <div class="grid gap-6 md:grid-cols-2 grid-cols-1" transition:slide>
       <!-- Header -->
       <div class="space-y-2">
         <div class="flex items-center justify-between">
