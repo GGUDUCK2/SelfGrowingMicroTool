@@ -28,7 +28,7 @@
       </span>
     </div>
 
-    <div class="p-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div class="p-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3 grid-cols-1">
       {#each extractions as item}
         <div class="space-y-2">
           <div class="flex justify-between items-center">

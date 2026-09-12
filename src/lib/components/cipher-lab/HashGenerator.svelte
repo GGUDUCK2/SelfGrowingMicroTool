@@ -214,7 +214,7 @@
 
   <!-- Top Controls -->
   <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
-    <div class="grid gap-4 flex-1 sm:grid-cols-2">
+    <div class="grid gap-4 flex-1 sm:grid-cols-2 grid-cols-1">
       <!-- Mode Selection -->
       <div class="space-y-2">
         <div class="flex justify-between items-center">

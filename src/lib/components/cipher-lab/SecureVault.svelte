@@ -72,7 +72,7 @@
     </button>
   </div>
 
-  <div class="grid gap-6 md:grid-cols-2">
+  <div class="grid gap-6 md:grid-cols-2 grid-cols-1">
     <!-- Input Section -->
     <div class="space-y-4">
       <div class="space-y-2">

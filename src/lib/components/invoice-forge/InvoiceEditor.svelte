@@ -81,7 +81,7 @@
   </div>
 
   <!-- From / To -->
-  <div class="grid gap-6 md:grid-cols-2">
+  <div class="grid gap-6 md:grid-cols-2 grid-cols-1">
     <!-- Sender -->
     <div class="space-y-3">
       <label for="invoiceSenderName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wide text-xs">{dictionary.editor.from}</label>
@@ -174,7 +174,7 @@
   </div>
 
   <!-- Totals & Notes -->
-  <div class="grid gap-6 pt-4 border-t border-gray-200 dark:border-gray-700 md:grid-cols-2">
+  <div class="grid gap-6 pt-4 border-t border-gray-200 dark:border-gray-700 md:grid-cols-2 grid-cols-1">
      <div class="space-y-2">
         <label for="invoiceNotes" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{dictionary.editor.notes}</label>
         <textarea id="invoiceNotes" bind:value={invoice.meta.notes} rows="4" class="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-transparent resize-none"></textarea>

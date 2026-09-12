@@ -18,7 +18,7 @@
   $: blackSuggestion = blackOnColor.level === 'Fail' ? suggestPassingColor('#000000', color) : null;
 </script>
 
-<div class="grid gap-6 md:grid-cols-2">
+<div class="grid gap-6 md:grid-cols-2 grid-cols-1">
   <!-- Check Text ON Backgrounds -->
   <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
     <h3 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">{t.asTextColor}</h3>

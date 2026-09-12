@@ -111,7 +111,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<div class="grid gap-8 h-full md:grid-cols-2">
+<div class="grid gap-8 h-full md:grid-cols-2 grid-cols-1">
     <!-- Form -->
     <div class="space-y-4 overflow-y-auto pr-2">
         <!-- Smart Examples -->

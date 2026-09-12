@@ -128,7 +128,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<div class="grid gap-6 h-full md:grid-cols-12">
+<div class="grid gap-6 h-full md:grid-cols-12 grid-cols-1">
     <!-- Sidebar: Categories & Commands -->
     <div class="md:col-span-4 lg:col-span-3 space-y-6 border-r border-slate-200 dark:border-slate-700 pr-4">
         <div>
@@ -199,7 +199,7 @@
                 </div>
             </div>
 
-            <div class="grid gap-4 sm:grid-cols-2">
+            <div class="grid gap-4 sm:grid-cols-2 grid-cols-1">
                 {#each activeCommand.options as opt (opt.id)}
                     <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
                         {#if opt.type === 'boolean'}

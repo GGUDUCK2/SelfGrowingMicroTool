@@ -392,7 +392,7 @@
 
 <svelte:window on:paste={handleGlobalPaste} />
 
-<div class="grid gap-6 lg:grid-cols-2">
+<div class="grid gap-6 lg:grid-cols-2 grid-cols-1">
   <!-- Left Side: Builder -->
   <div class="space-y-6">
     {#if magicPasteToast}

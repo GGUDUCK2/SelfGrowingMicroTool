@@ -33,7 +33,7 @@
         <h3 class="text-sm font-semibold text-slate-300">{t.suggestions.title}</h3>
     </div>
 
-    <div class="grid gap-3 sm:grid-cols-3">
+    <div class="grid gap-3 sm:grid-cols-3 grid-cols-1">
         {#each suggestions as slot}
             <button class="min-h-[44px] min-w-[44px] flex flex-col items-start p-3 rounded-lg bg-slate-700/40 hover:bg-slate-700 border border-transparent hover:border-emerald-500/30 transition-all group text-left"
                 on:click={() => jumpTo(slot.start)}

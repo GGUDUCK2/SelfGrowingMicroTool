@@ -81,7 +81,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<div class="grid gap-8 h-full lg:grid-cols-2">
+<div class="grid gap-8 h-full lg:grid-cols-2 grid-cols-1">
     <!-- Selection Area -->
     <div class="flex flex-col h-full space-y-4">
         <div class="relative">

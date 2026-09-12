@@ -15,7 +15,7 @@
     <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">
       {lang === 'ko' ? '관련 도구 추천' : 'Related Tools'}
     </h3>
-    <div class="grid gap-6 md:grid-cols-3">
+    <div class="grid gap-6 md:grid-cols-3 grid-cols-1">
       {#each relatedTools as tool (tool.id)}
         <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
         <a
