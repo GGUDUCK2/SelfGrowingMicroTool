@@ -176,10 +176,9 @@
         />
     {/if}
 
-    <AdPlaceholder />
-
     <!-- FAQ -->
     {#if d?.faqTitle}
+        <AdPlaceholder />
         <FAQSection
             title={d.faqTitle}
             items={(d?.faqs as any) || []}
