@@ -159,7 +159,7 @@
 
       <div class="absolute top-2 right-2 flex gap-2">
         <button
-          class="p-2 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 rounded-lg transition-colors bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 min-h-[44px] min-w-[44px] flex items-center justify-center"
+          class="p-2 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 rounded-lg transition-colors bg-white dark:bg-slate-900 dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 min-h-[44px] min-w-[44px] flex items-center justify-center"
           on:click={copyToClipboard}
           title={dict.converter.copy}
           aria-label={dict.converter.copy}
@@ -172,7 +172,7 @@
           {/if}
         </button>
         <button
-          class="p-2 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 rounded-lg transition-colors bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 min-h-[44px] min-w-[44px] flex items-center justify-center"
+          class="p-2 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 rounded-lg transition-colors bg-white dark:bg-slate-900 dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 min-h-[44px] min-w-[44px] flex items-center justify-center"
           on:click={downloadFile}
           title={dict.converter.download}
           aria-label={dict.converter.download}

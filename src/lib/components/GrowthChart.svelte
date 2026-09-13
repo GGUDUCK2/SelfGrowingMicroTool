@@ -8,20 +8,20 @@
 </script>
 
 <div
-  class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 min-h-[350px] relative"
+  class="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-800 min-h-[350px] relative"
   role="img"
   aria-label={lang === "ko"
     ? "시간 경과에 따른 복리 성장 그래프"
     : "Compound interest growth chart over time"}
 >
-  <h3 class="text-lg font-semibold text-gray-900 mb-6">
+  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">
     {lang === "ko" ? "성장 그래프" : "Growth Chart"}
   </h3>
 
   <div class="h-[250px] w-full relative">
     <!-- Y-axis labels (Fixed) -->
     <div
-      class="absolute left-0 top-0 bottom-6 w-10 flex flex-col justify-between text-[10px] text-gray-400 z-10 bg-white/90"
+      class="absolute left-0 top-0 bottom-6 w-10 flex flex-col justify-between text-[10px] text-gray-400 z-10 bg-white/90 dark:bg-slate-900/90"
       aria-hidden="true"
     >
       <span>{formatMoney(maxBalance, lang)}</span>
@@ -83,7 +83,7 @@
   </div>
 
   <div class="flex justify-center gap-6 mt-6">
-    <div class="flex items-center gap-2 text-xs text-gray-600">
+    <div class="flex items-center gap-2 text-xs text-gray-600 dark:text-slate-300">
       <div class="w-3 h-3 bg-indigo-600 rounded-sm"></div>
       {lang === "ko" ? "실질 가치" : "Real Value"}
     </div>

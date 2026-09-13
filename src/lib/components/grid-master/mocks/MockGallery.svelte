@@ -28,7 +28,7 @@
   </div>
 
   <div class="flex-1 overflow-y-auto custom-scrollbar pr-1">
-      <div class="grid {layout === 'grid' ? 'grid-cols-2 sm:grid-cols-3' : 'columns-2 gap-3 space-y-3'} gap-3">
+      <div class="grid {layout === 'grid' ? 'grid-cols-1 sm:grid-cols-3' : 'columns-2 gap-3 space-y-3'} gap-3">
           {#each images as img, i (i)}
               <!-- svelte-ignore a11y-click-events-have-key-events -->
               <!-- svelte-ignore a11y-no-static-element-interactions -->
