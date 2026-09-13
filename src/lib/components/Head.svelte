@@ -9,7 +9,7 @@
 
   $: lang = $page.params.lang || 'en';
 
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
+
   $: breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",

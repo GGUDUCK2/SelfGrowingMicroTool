@@ -24,7 +24,7 @@
     { q: toolDict?.q3, a: toolDict?.a3 }
   ];
 
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
+
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@graph": [

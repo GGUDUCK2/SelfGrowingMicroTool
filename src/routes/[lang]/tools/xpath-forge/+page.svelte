@@ -15,7 +15,7 @@
   $: title = t?.title || 'XPath Forge';
   $: description = t?.description || 'Test and execute XPath expressions against XML or HTML documents.';
 
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
+
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

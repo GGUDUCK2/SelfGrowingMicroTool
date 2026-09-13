@@ -17,7 +17,7 @@ import Contrast from '@lucide/svelte/icons/contrast';
 
   let activeTab: 'contrast' | 'aria' = 'contrast';
 
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
+
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

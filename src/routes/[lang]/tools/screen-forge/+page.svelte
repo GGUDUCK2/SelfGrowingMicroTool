@@ -34,7 +34,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
+
   $: jsonLd = {
     "@context": "https://schema.org",
     "@graph": [

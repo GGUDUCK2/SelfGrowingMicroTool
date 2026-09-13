@@ -16,7 +16,7 @@
   $: description = toolDict.description;
   $: canonical = $page.url.origin + "/" + lang + "/tools/banner-forge";
 
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
+
   $: jsonLd = {
     "@context": "https://schema.org",
     "@graph": [

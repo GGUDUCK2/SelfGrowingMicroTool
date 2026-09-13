@@ -7,6 +7,7 @@
   import BarcodeBulk from './BarcodeBulk.svelte';
 
   export let state: BarcodeState;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export let dictionary: Record<string, any>;
 
   $: t = dictionary?.tools?.barcodeForge || {};
@@ -53,7 +54,7 @@
             </div>
         </div>
         <select bind:value={state.format} class="w-full bg-slate-100 dark:bg-slate-700 border-slate-200 dark:border-slate-600 rounded-xl px-4 py-3 text-slate-900 dark:text-slate-50 focus:ring-2 focus:ring-indigo-500 font-medium min-h-[44px]">
-            {#each formats as fmt}
+            {#each formats as fmt (fmt.value)}
                 <option value={fmt.value}>{t.formats?.[fmt.value] || fmt.label}</option>
             {/each}
         </select>

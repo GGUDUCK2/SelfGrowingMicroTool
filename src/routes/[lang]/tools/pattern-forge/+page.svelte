@@ -15,7 +15,7 @@
   // Safe cast for strict TS compiler validation in SvelteKit
   $: faqs = Array.isArray(t.faqs) ? t.faqs : [];
 
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
+
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

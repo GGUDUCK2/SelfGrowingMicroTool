@@ -16,6 +16,7 @@
   import BarcodeHistory from '$lib/components/barcode-forge/BarcodeHistory.svelte';
 
   $: lang = $page.params.lang as 'en' | 'ko';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   $: dict = (dictionaries as any)[lang];
   $: t = dict?.tools?.barcodeForge || {};
   $: d = dict || {};
@@ -48,7 +49,6 @@
       state = JSON.parse(JSON.stringify(loadedState));
   }
 
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

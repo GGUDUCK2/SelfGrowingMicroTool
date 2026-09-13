@@ -21,7 +21,7 @@
   $: dict = ((getDictionary(lang) as any)?.tools?.inputLab || {});
   $: common = getDictionary(lang).common;
 
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
+
   $: jsonLd = {
     "@context": "https://schema.org",
     "@graph": [

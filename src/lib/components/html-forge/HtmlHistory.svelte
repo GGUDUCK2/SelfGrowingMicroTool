@@ -1,15 +1,16 @@
 <script lang="ts">
+  import { createEventDispatcher, tick } from 'svelte';
   import { liveQuery } from 'dexie';
-  import { workspace, toggleStar, deleteHistoryItem } from '$lib/db/workspace';
-  import type { BarcodeState } from './types';
+  import { workspace, deleteHistoryItem } from '$lib/db/workspace';
+  import type { HtmlState } from './types';
   import Trash2 from '@lucide/svelte/icons/trash-2';
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export let dictionary: Record<string, any>;
-  export let onLoad: (state: BarcodeState) => void;
+  const dispatch = createEventDispatcher<{ load: HtmlState }>();
 
-  const TOOL_ID = 'barcode-forge';
-  $: t = dictionary?.tools?.barcodeForge || {};
+  const TOOL_ID = 'html-forge';
+  $: t = dictionary?.tools?.htmlForge || {};
 
   let historyObservable = liveQuery(async () => {
        return await workspace.history
@@ -22,7 +23,7 @@
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleLoad(item: any) {
       if (item.input) {
-          onLoad(item.input as BarcodeState);
+          dispatch('load', item.input as HtmlState);
       }
   }
 
@@ -47,16 +48,21 @@
                           class="text-left cursor-pointer flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1 min-h-[44px]"
                           on:click={() => handleLoad(item)}
                       >
-                          <div class="font-medium text-slate-900 dark:text-slate-200">
-                              {item.result?.preview || 'Barcode'}
+                          <div class="font-medium text-slate-900 dark:text-slate-200 line-clamp-1">
+                              {item.result?.preview || 'HTML Processing'}
                           </div>
-                          <div class="text-xs text-slate-600 dark:text-slate-400 mt-1">
-                              {new Date(item.timestamp).toLocaleString()}
+                          <div class="flex justify-between items-center mt-2">
+                             <div class="text-xs font-mono px-2 py-0.5 bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded">
+                                 {item.input?.action?.toUpperCase() || 'ACTION'}
+                             </div>
+                             <div class="text-xs text-slate-500 dark:text-slate-400">
+                                 {new Date(item.timestamp).toLocaleString()}
+                             </div>
                           </div>
                       </button>
                       <button
                           on:click={() => item.id && handleDelete(item.id)}
-                          class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-slate-600 dark:text-slate-400 hover:text-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 rounded-full"
+                          class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-slate-600 dark:text-slate-400 hover:text-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 rounded-full ml-2"
                           aria-label="Delete"
                       >
                           <Trash2 size={16} />

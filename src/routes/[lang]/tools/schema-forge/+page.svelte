@@ -285,7 +285,7 @@
   $: tsCode = generateCode(activeProject, 'typescript');
 
 
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
+
   $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
