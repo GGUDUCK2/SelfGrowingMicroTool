@@ -109,3 +109,15 @@
 
 #### 3. Performance Impact (기대 효과)
 - 도구 페이지의 AdSense 노출 위치 표준화를 달성하여 광고 정책 준수 및 레이아웃 일관성 확보.
+
+[Project Health Report - 2026-09-14]
+## Repository Hygiene
+- 점검용 임시 스크립트 작성 후 작업 완료 시 제거 예정.
+## Design Consistency
+- GrowthChart.svelte: 다크모드 배경색(`dark:bg-slate-900`) 및 텍스트 색상 누락 등 다크모드 지원 일관성 향상 적용.
+- XPathForge.svelte, yaml-forge/Converter.svelte, xml-forge/Converter.svelte: `bg-white` 클래스 뒤에 다크모드 대응 속성(예: `dark:bg-slate-900`)과 테두리 색상 누락 부분을 일괄 수정하여 시각적 디자인 일관성 확보.
+- GamepadTester.svelte, MockGallery.svelte: 모바일 기기의 레이아웃 안정을 위해 `grid`에 `grid-cols-1`을 추가하여 반응형 그리드 누락 문제 수정.
+## AdSense Readiness
+- 모든 페이지의 AdSense 위치 점검 스크립트 수행: 현재 `<AdPlaceholder />`의 위치와 존재 여부에 문제 없음 확인 완료.
+## Tech Debt
+- 디자인 일관성 점검 및 그리드 관련 부채 감소에 기여. 추가적인 모바일 우선(Mobile-First) 원칙이 준수되도록 수정 적용 완료.
