@@ -7,6 +7,7 @@
   import AlertCircle from '@lucide/svelte/icons/alert-circle';
 
   export let state: BarcodeState;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export let dictionary: Record<string, any>;
 
   let svgElement: SVGSVGElement;
@@ -73,6 +74,7 @@
                 lineColor: state.design.lineColor
             });
           }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
           validationError = err.message || t.validation?.invalid || "Invalid format";
       } finally {

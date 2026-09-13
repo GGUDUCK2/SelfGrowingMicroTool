@@ -135,7 +135,7 @@
     a: lang === 'ko' ? f.answer.ko : f.answer.en
   }));
 
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
+
   $: jsonLd = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",

@@ -28,7 +28,7 @@
     { q: (dict as any)?.q3, a: (dict as any)?.a3 }
   ] : [];
 
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
+
   $: jsonLd = dict ? {
     "@context": "https://schema.org",
     "@graph": [

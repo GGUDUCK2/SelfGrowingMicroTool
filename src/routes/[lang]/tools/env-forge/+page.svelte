@@ -45,7 +45,7 @@
       }
     ]
   };
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
+
   $: jsonLd = JSON.stringify(schemaObj).replace(/</g, '\\u003c');
 
   // Toast System

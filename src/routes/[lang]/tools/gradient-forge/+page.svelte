@@ -52,7 +52,7 @@
 
   $: currentGradientObj = { type, angle, position, stops, css: cssGradient };
 
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
+
   $: jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

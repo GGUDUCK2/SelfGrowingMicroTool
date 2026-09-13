@@ -286,7 +286,7 @@
       }
   }
 
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
+
   $: jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@graph": [

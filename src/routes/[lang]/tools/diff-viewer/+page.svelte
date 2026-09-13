@@ -313,7 +313,7 @@
     }
   };
 
-  // eslint-disable-next-line svelte/no-immutable-reactive-statements
+
     $: howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",

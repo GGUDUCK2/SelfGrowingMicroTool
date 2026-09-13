@@ -6,6 +6,7 @@
   import FileArchive from '@lucide/svelte/icons/file-archive';
 
   export let state: BarcodeState;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export let dictionary: Record<string, any>;
 
   $: t = dictionary?.tools?.barcodeForge || {};
