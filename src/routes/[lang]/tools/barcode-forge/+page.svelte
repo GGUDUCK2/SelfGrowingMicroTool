@@ -175,11 +175,10 @@
         </div>
     </div>
 
-    <AdPlaceholder />
-
     <GuideSection {...t.guide} />
 
-    <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
+    <AdPlaceholder />
+  <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
 
     <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="barcode-forge" currentCategory="dev" />
 </div>
