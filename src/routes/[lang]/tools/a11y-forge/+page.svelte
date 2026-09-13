@@ -101,8 +101,6 @@ import Contrast from '@lucide/svelte/icons/contrast';
     </p>
   </div>
 
-  <AdPlaceholder />
-
   <!-- Main Tool Container -->
   <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
 
@@ -134,10 +132,9 @@ import Contrast from '@lucide/svelte/icons/contrast';
     </div>
   </div>
 
-  <AdPlaceholder />
-
   <GuideSection {...t.guide} />
 
+  <AdPlaceholder />
   <FAQSection title={t.faqTitle} items={t.faqs || []} />
 
   <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="a11y-forge" currentCategory="design" />

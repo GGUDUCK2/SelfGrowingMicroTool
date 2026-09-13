@@ -165,8 +165,6 @@
         </div>
     </div>
 
-    <AdPlaceholder />
-
     <!-- Documentation & Guide -->
     {#if d?.guideTitle}
         <GuideSection
@@ -179,7 +177,7 @@
     <!-- FAQ -->
     {#if d?.faqTitle}
         <AdPlaceholder />
-        <FAQSection
+  <FAQSection
             title={d.faqTitle}
             items={(d?.faqs as any) || []}
         />
