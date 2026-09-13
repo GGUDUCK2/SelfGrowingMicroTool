@@ -83,13 +83,11 @@
 
 <!-- Standard Page Documentation -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-  <AdPlaceholder />
-
   <GuideSection {...t.guide} />
 
-  <FAQSection title="Frequently Asked Questions" items={faqs} />
-
   <AdPlaceholder />
+
+  <FAQSection title="Frequently Asked Questions" items={faqs} />
 
   <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="pattern-forge" currentCategory="productivity" />
 </div>

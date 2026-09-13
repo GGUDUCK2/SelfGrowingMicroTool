@@ -175,9 +175,9 @@
         </div>
     </div>
 
-    <AdPlaceholder />
-
     <GuideSection {...t.guide} />
+
+    <AdPlaceholder />
 
     <FAQSection title={t.faqTitle || 'Frequently Asked Questions'} items={faqItems} />
 
