@@ -9,11 +9,14 @@
   import Code from '@lucide/svelte/icons/code';
   import Minimize from '@lucide/svelte/icons/minimize';
   import ArrowRightLeft from '@lucide/svelte/icons/arrow-right-left';
+  import FileText from '@lucide/svelte/icons/file-text';
+  import Play from '@lucide/svelte/icons/play';
+  import Eye from '@lucide/svelte/icons/eye';
   import AlertCircle from '@lucide/svelte/icons/alert-circle';
 
   export let state: HtmlState;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  export let dictionary: Record<string, any>;
+  import type { Dictionary } from './types';
+  export let dictionary: Dictionary & { tools?: { htmlForge?: Record<string, string | unknown> } };
 
   const dispatch = createEventDispatcher<{ process: HtmlState }>();
 
@@ -21,13 +24,19 @@
 
   let isCopied = false;
   let errorMsg = '';
+  let isPreviewMode = false;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const actions: { value: HtmlAction, labelKey: string, icon: any }[] = [
+  function togglePreview() {
+      isPreviewMode = !isPreviewMode;
+  }
+
+  import type { ComponentType } from 'svelte';
+  const actions: { value: HtmlAction, labelKey: string, icon: ComponentType }[] = [
       { value: 'format', labelKey: 'format', icon: Code },
       { value: 'minify', labelKey: 'minify', icon: Minimize },
       { value: 'encode', labelKey: 'encode', icon: ArrowRightLeft },
-      { value: 'decode', labelKey: 'decode', icon: ArrowRightLeft }
+      { value: 'decode', labelKey: 'decode', icon: ArrowRightLeft },
+      { value: 'strip', labelKey: 'strip', icon: FileText }
   ];
 
   function processHtml() {
@@ -49,10 +58,11 @@
           } else if (state.action === 'decode') {
               // Decode HTML entities
               state.output = he.decode(state.input);
+          } else if (state.action === 'strip') {
+              state.output = state.input.replace(/<[^>]*>?/gm, '');
           }
           dispatch('process', state);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (err: any) {
+      } catch (err) {
           errorMsg = t.error || 'Processing error';
           state.output = '';
           console.error(err);
@@ -70,6 +80,36 @@
       errorMsg = '';
   }
 
+
+  function downloadResult() {
+      if (!state.output) return;
+      const blob = new Blob([state.output], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `html-forge-result-${new Date().getTime()}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+  }
+
+  async function shareResult() {
+      if (!state.output) return;
+      if (navigator.share) {
+          try {
+              await navigator.share({
+                  title: 'HTML Forge Result',
+                  text: state.output
+              });
+          } catch (err) {
+              console.error('Error sharing:', err);
+          }
+      } else {
+          copyToClipboard();
+      }
+  }
+
   async function copyToClipboard() {
       if (!state.output) return;
       try {
@@ -84,6 +124,14 @@
   function handleKeydown(event: KeyboardEvent) {
       if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
           processHtml();
+      } else if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+          event.preventDefault();
+          clear();
+      } else if ((event.metaKey || event.ctrlKey) && event.key === 's') {
+          event.preventDefault();
+          copyToClipboard();
+      } else if (event.key === 'Escape') {
+          clear();
       }
   }
 
@@ -138,10 +186,18 @@
 
     <!-- Output Section -->
     <div class="flex flex-col gap-4">
+        <div class="text-xs text-slate-500 mb-2">💡 Tip: Press Cmd/Ctrl + Enter to process, Cmd/Ctrl + K to clear, Cmd/Ctrl + S to copy. Esc to reset all.</div>
         <div class="flex items-center justify-between h-[44px]">
             <span class="text-sm font-medium text-slate-700 dark:text-slate-300">
                 Output
             </span>
+            <button
+                on:click={togglePreview}
+                class="ml-4 flex items-center gap-1.5 px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full text-xs font-medium transition-colors"
+            >
+                <Eye size={14} />
+                {isPreviewMode ? 'Code View' : 'Live Preview'}
+            </button>
             {#if errorMsg}
                 <span class="flex items-center gap-1 text-sm text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-500/10 px-3 py-1 rounded-full">
                     <AlertCircle size={14} />
@@ -151,6 +207,12 @@
         </div>
 
         <div class="relative flex-1">
+            {#if isPreviewMode && state.output}
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                <div class="w-full h-full min-h-[300px] lg:min-h-[500px] p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl overflow-auto">
+                    <iframe srcdoc={state.output} title="Live Preview" sandbox="allow-same-origin allow-scripts" class="w-full h-full border-none"></iframe>
+                </div>
+            {:else}
             <textarea
                 value={state.output}
                 readonly
@@ -158,8 +220,21 @@
                 class="w-full h-full min-h-[300px] lg:min-h-[500px] p-4 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none font-mono text-sm resize-none custom-scrollbar"
                 spellcheck="false"
             ></textarea>
+            {/if}
 
             {#if state.output}
+                <button
+                    on:click={downloadResult}
+                    class="absolute top-2 right-24 flex items-center gap-2 px-3 min-h-[44px] bg-white/90 dark:bg-slate-800/90 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg backdrop-blur-sm transition-colors border border-slate-200 dark:border-slate-700"
+                >
+                    <span class="text-sm font-medium">{t.download || 'Download'}</span>
+                </button>
+                <button
+                    on:click={shareResult}
+                    class="absolute top-2 right-48 flex items-center gap-2 px-3 min-h-[44px] bg-white/90 dark:bg-slate-800/90 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg backdrop-blur-sm transition-colors border border-slate-200 dark:border-slate-700"
+                >
+                    <span class="text-sm font-medium">{t.share || 'Share'}</span>
+                </button>
                 <button
                     on:click={copyToClipboard}
                     class="absolute top-2 right-2 flex items-center gap-2 px-3 min-h-[44px] bg-white/90 dark:bg-slate-800/90 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg backdrop-blur-sm transition-colors border border-slate-200 dark:border-slate-700"

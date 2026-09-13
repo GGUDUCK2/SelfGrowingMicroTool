@@ -5,8 +5,8 @@
   import type { HtmlState } from './types';
   import Trash2 from '@lucide/svelte/icons/trash-2';
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  export let dictionary: Record<string, any>;
+  import type { Dictionary } from './types';
+  export let dictionary: Dictionary;
   const dispatch = createEventDispatcher<{ load: HtmlState }>();
 
   const TOOL_ID = 'html-forge';
@@ -20,8 +20,7 @@
            .sortBy('timestamp');
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function handleLoad(item: any) {
+  function handleLoad(item: { input?: HtmlState, [key: string]: unknown }) {
       if (item.input) {
           dispatch('load', item.input as HtmlState);
       }

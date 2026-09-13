@@ -15,8 +15,8 @@
   import HtmlHistory from '$lib/components/html-forge/HtmlHistory.svelte';
 
   $: lang = $page.params.lang as 'en' | 'ko';
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  $: dict = (dictionaries as any)[lang];
+  import type { Dictionary } from '$lib/components/html-forge/types';
+  $: dict = (dictionaries as Dictionary)[lang];
   $: t = dict?.tools?.htmlForge || {};
 
   const TOOL_ID = 'html-forge';
@@ -38,6 +38,17 @@
                { preview: state.input.substring(0, 100) + (state.input.length > 100 ? '...' : '') }
            );
       }
+  }
+
+  function loadExample(num: number) {
+      if (num === 1) state.input = '<div>\n  <h1>Hello World</h1>\n  <p>This is a basic example.</p>\n</div>';
+      if (num === 2) state.input = '<div class="container"><ul><li>Item 1</li><li>Item 2</li></ul></div>';
+      if (num === 3) state.input = '<nav><a href="/">Home</a><a href="/about">About</a></nav>';
+      state.action = 'format';
+      // Trigger update manually or let the workspace do it via reactive statement (will happen in handleInput or process button click)
+      // Actually we should trigger an event to process it
+      // Since handleProcess processes, we'll just set it. The user can click format.
+      // But better yet, we can pass it down.
   }
 
   function handleLoad(event: CustomEvent<HtmlState>) {
@@ -129,7 +140,15 @@
         <!-- Left Column: Workspace (Span 3) -->
         <div class="xl:col-span-3 flex flex-col gap-6">
              <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800">
+
+                 <!-- Examples -->
+                 <div class="flex gap-2 mb-4 overflow-x-auto pb-2">
+                     <button class="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs rounded-full whitespace-nowrap" on:click={() => loadExample(1)}>{t.example1 || 'Basic HTML'}</button>
+                     <button class="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs rounded-full whitespace-nowrap" on:click={() => loadExample(2)}>{t.example2 || 'Nested Elements'}</button>
+                     <button class="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs rounded-full whitespace-nowrap" on:click={() => loadExample(3)}>{t.example3 || 'Minified HTML'}</button>
+                 </div>
                  <HtmlWorkspace bind:state dictionary={dict} on:process={handleProcess} />
+
              </div>
         </div>
 
@@ -141,7 +160,9 @@
         </div>
     </div>
 
-    <GuideSection {...t.guide} />
+
+    <!-- eslint-disable-next-line @typescript-eslint/no-explicit-any -->
+    <GuideSection {...(t.guide as any)} />
 
     <AdPlaceholder />
 
