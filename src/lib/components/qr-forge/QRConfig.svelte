@@ -219,7 +219,7 @@
              <span class="block text-sm font-medium text-slate-300 mb-2">{d.logo || 'Center Logo'}</span>
              <div class="flex items-center gap-3">
                 {#if state.design.logo}
-                    <div class="relative w-12 h-12 bg-white rounded-lg p-1 border border-slate-600">
+                    <div class="relative w-12 h-12 bg-white dark:bg-slate-800 rounded-lg p-1 border border-slate-600">
                         <img src={state.design.logo} alt="Logo" class="w-full h-full object-contain" />
                         <button on:click={clearLogo} class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-0.5 shadow-md hover:bg-red-600 min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Clear logo">
                             <X size={12} />

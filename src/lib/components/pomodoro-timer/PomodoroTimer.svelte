@@ -210,16 +210,16 @@
 
 <div class="max-w-2xl mx-auto text-center space-y-12 py-12 px-4">
   <div class="space-y-4">
-    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">
+    <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
       {dict.title}
     </h1>
-    <p class="text-gray-500">
+    <p class="text-slate-500 dark:text-slate-400">
       {dict.description}
     </p>
   </div>
 
   <div
-    class="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 md:p-12 space-y-12 relative overflow-hidden"
+    class="bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 p-6 md:p-12 space-y-12 relative overflow-hidden"
   >
     <!-- Background Decor -->
     <div
@@ -228,13 +228,13 @@
 
     <!-- Mode Selector -->
     <div
-      class="flex flex-wrap justify-center gap-2 p-1 bg-gray-100 rounded-xl w-fit mx-auto"
+      class="flex flex-wrap justify-center gap-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl w-fit mx-auto"
     >
       {#each Object.keys(MODES) as m}
         {@const modeKey = m as keyof typeof MODES}
         <button
           on:click={() => setMode(modeKey)}
-          class="min-h-[44px] min-w-[44px] px-4 py-2 sm:px-6 sm:py-2 rounded-lg text-sm font-medium transition-all {mode === modeKey ? 'bg-white text-gray-900 shadow-sm ring-2 ring-indigo-500 ring-offset-1' : 'text-gray-500 hover:text-gray-900'}"
+          class="min-h-[44px] min-w-[44px] px-4 py-2 sm:px-6 sm:py-2 rounded-lg text-sm font-medium transition-all {mode === modeKey ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm ring-2 ring-indigo-500 ring-offset-1 ring-offset-slate-100 dark:ring-offset-slate-800' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white'}"
         >
           {dict[MODES[modeKey].key]}
         </button>
@@ -249,7 +249,7 @@
         {formatTime(timeLeft)}
       </div>
       <div
-        class="text-xs sm:text-sm uppercase tracking-widest text-gray-400 font-semibold mt-4"
+        class="text-xs sm:text-sm uppercase tracking-widest text-slate-400 dark:text-slate-500 font-semibold mt-4"
       >
         {isRunning
           ? dict.running
@@ -302,7 +302,7 @@
 
       <button
         on:click={reset}
-        class="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-900 transition-colors min-h-[44px] min-w-[44px]"
+        class="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:text-white transition-colors min-h-[44px] min-w-[44px]"
         aria-label={dict.reset}
       >
         <svg
@@ -324,14 +324,14 @@
     </div>
   </div>
 
-  <div class="mt-8 text-sm text-gray-500 hidden md:block">
-      Pro Tip: Press <kbd class="px-2 py-1 bg-gray-100 rounded-md border text-xs">Space</kbd> to toggle, <kbd class="px-2 py-1 bg-gray-100 rounded-md border text-xs">R</kbd> to reset, <kbd class="px-2 py-1 bg-gray-100 rounded-md border text-xs">1-3</kbd> for modes.
+  <div class="mt-8 text-sm text-slate-500 dark:text-slate-400 hidden md:block">
+      Pro Tip: Press <kbd class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-md border text-xs">Space</kbd> to toggle, <kbd class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-md border text-xs">R</kbd> to reset, <kbd class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-md border text-xs">1-3</kbd> for modes.
   </div>
 
   {#if history.length > 0}
       <div transition:fade class="mt-12">
-        <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-800">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -353,22 +353,22 @@
             <div class="space-y-3">
             {#each history as item (item.id)}
                 <div
-                class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+                class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl hover:bg-slate-100 dark:bg-slate-800 transition-colors"
                 >
                 <button
                     class="text-left cursor-pointer flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1 min-h-[44px]"
                     on:click={() => restoreHistory(item)}
                 >
-                    <div class="font-medium text-gray-900 capitalize">
+                    <div class="font-medium text-slate-900 dark:text-white capitalize">
                       {dict[MODES[item.data.mode as keyof typeof MODES]?.key] || item.data.mode} - {item.data.duration} min
                     </div>
-                    <div class="text-xs text-gray-400 mt-1">
+                    <div class="text-xs text-slate-400 dark:text-slate-500 mt-1">
                       {item.createdAt.toLocaleString()}
                     </div>
                 </button>
                 <button
                     on:click={() => item.id && deleteHistory(item.id)}
-                    class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-gray-400 hover:text-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 rounded-full"
+                    class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-slate-400 dark:text-slate-500 hover:text-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 rounded-full"
                     aria-label="Delete"
                 >
                     <svg
