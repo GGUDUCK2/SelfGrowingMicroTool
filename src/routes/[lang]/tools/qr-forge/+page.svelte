@@ -192,14 +192,14 @@
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
-<div class="min-h-screen bg-slate-900 text-slate-50 pb-20">
+<div class="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-50 pb-20">
   <!-- Hero -->
-  <div class="bg-gradient-to-r from-indigo-900 via-slate-900 to-slate-900 border-b border-slate-800 pb-12 pt-12 px-4">
+  <div class="bg-gradient-to-r from-indigo-900 via-slate-900 to-slate-900 border-b border-slate-200 dark:border-slate-800 pb-12 pt-12 px-4">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 mb-4 tracking-tight">
         {t.title}
       </h1>
-      <p class="text-xl text-slate-400 max-w-7xl mx-auto leading-relaxed">
+      <p class="text-xl text-slate-600 dark:text-slate-400 max-w-7xl mx-auto leading-relaxed">
         {t.description}
       </p>
     </div>
@@ -210,9 +210,9 @@
 
       <!-- Left: Config -->
       <div class="lg:col-span-2 space-y-6">
-        <div class="bg-slate-800 rounded-xl border border-slate-700 shadow-xl overflow-hidden">
-             <div class="p-4 border-b border-slate-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-slate-800/50">
-                <h2 class="font-semibold text-slate-200">Configuration</h2>
+        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden">
+             <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-white dark:bg-slate-800/50">
+                <h2 class="font-semibold text-slate-800 dark:text-slate-200">Configuration</h2>
                 <div class="flex space-x-2 w-full sm:w-auto">
                     <button on:click={saveToHistory}
                         class="flex-1 sm:flex-none flex items-center justify-center space-x-1 px-4 py-2 bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600/30 rounded-lg text-sm transition-colors border border-indigo-500/30 min-h-[44px] min-w-[44px]"
@@ -222,7 +222,7 @@
                         <span>{saveStatus || (t.save || 'Save')}</span>
                     </button>
                     <button on:click={() => showHistory = !showHistory}
-                        class="flex-1 sm:flex-none flex items-center justify-center space-x-1 px-4 py-2 bg-slate-700 text-slate-300 hover:bg-slate-600 rounded-lg text-sm transition-colors border border-slate-600 min-h-[44px] min-w-[44px]"
+                        class="flex-1 sm:flex-none flex items-center justify-center space-x-1 px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-600 rounded-lg text-sm transition-colors border border-slate-300 dark:border-slate-600 min-h-[44px] min-w-[44px]"
                     >
                         <History size={16} />
                         <span>{t.history || 'History'}</span>
@@ -231,7 +231,7 @@
              </div>
 
              {#if showHistory}
-                <div transition:fade class="p-4 border-b border-slate-700 bg-slate-800/80">
+                <div transition:fade class="p-4 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80">
                     <QRHistory dictionary={dictionary as any} onLoad={loadState} />
                 </div>
              {/if}
@@ -243,7 +243,7 @@
 
 
         <!-- Documentation / Guide -->
-        <div class="prose prose-invert prose-slate max-w-none bg-slate-800/50 p-8 rounded-xl border border-slate-700/50">
+        <div class="prose dark:prose-invert prose-slate max-w-none bg-white dark:bg-slate-800/50 p-8 rounded-xl border border-slate-200 dark:border-slate-700/50">
             <h2>{t.guide?.title || 'Why QR Forge? The Definitive Guide to Professional QR Code Generation'}</h2>
             <p>{t.guide?.intro || 'QR Forge is the ultimate, professional-grade tool engineered for generating high-quality, permanent QR codes directly within your browser. In an era where digital connectivity is paramount, having a reliable, secure, and privacy-focused QR code generator is essential for businesses, marketers, and individuals alike. Unlike many online tools that track your data or redirect your links through third-party servers, QR Forge operates entirely on the client side. This means your data never leaves your device, ensuring absolute privacy and security. Furthermore, the QR codes generated here are static and permanent. They do not expire, they do not require a subscription, and they will continue to work flawlessly for as long as the underlying data remains valid.'}</p>
 
@@ -285,24 +285,24 @@
       <div class="lg:col-span-1 lg:sticky lg:top-8">
          <QRPreview {state} dictionary={dictionary as any} />
 
-         <div class="mt-6 bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 text-sm text-slate-400">
-            <h4 class="font-semibold text-slate-300 mb-2">Technical Specs</h4>
+         <div class="mt-6 bg-white dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700/50 text-sm text-slate-600 dark:text-slate-400">
+            <h4 class="font-semibold text-slate-700 dark:text-slate-300 mb-2">Technical Specs</h4>
             <ul class="space-y-2">
                 <li class="flex justify-between">
                     <span>Library</span>
-                    <span class="text-slate-200 font-mono">node-qrcode</span>
+                    <span class="text-slate-800 dark:text-slate-200 font-mono">node-qrcode</span>
                 </li>
                  <li class="flex justify-between">
                     <span>Render</span>
-                    <span class="text-slate-200 font-mono">HTML5 Canvas</span>
+                    <span class="text-slate-800 dark:text-slate-200 font-mono">HTML5 Canvas</span>
                 </li>
                  <li class="flex justify-between">
                     <span>Formats</span>
-                    <span class="text-slate-200 font-mono">PNG, SVG</span>
+                    <span class="text-slate-800 dark:text-slate-200 font-mono">PNG, SVG</span>
                 </li>
                  <li class="flex justify-between">
                     <span>Max Version</span>
-                    <span class="text-slate-200 font-mono">40 (auto)</span>
+                    <span class="text-slate-800 dark:text-slate-200 font-mono">40 (auto)</span>
                 </li>
             </ul>
          </div>

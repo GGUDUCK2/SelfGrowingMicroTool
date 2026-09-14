@@ -186,8 +186,8 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
       </svg>
     </div>
-    <h1 class="text-3xl font-bold text-slate-50 sm:text-4xl mb-4">{t.title}</h1>
-    <p class="text-lg text-slate-400 max-w-7xl mx-auto">{t.description}</p>
+    <h1 class="text-3xl font-bold text-slate-900 dark:text-slate-50 sm:text-4xl mb-4">{t.title}</h1>
+    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-7xl mx-auto">{t.description}</p>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -200,8 +200,8 @@
         {:else}
             <!-- Toolbar -->
             <div class="flex items-center justify-between">
-                <h3 class="text-lg font-medium text-slate-200">Preview</h3>
-                <button class="text-sm text-slate-400 hover:text-indigo-400 transition-colors min-h-[44px] min-w-[44px]"
+                <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200">Preview</h3>
+                <button class="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-400 transition-colors min-h-[44px] min-w-[44px]"
                     on:click={() => file = null}
                 >
                     {t.upload.reupload}
@@ -213,16 +213,16 @@
         {/if}
 
         <!-- Documentation -->
-        <div class="prose prose-invert max-w-none mt-16 pt-16 border-t border-slate-700/50">
-            <h2 class="text-2xl font-bold text-slate-50 mb-6">{t.guide.title}</h2>
-            <p class="text-slate-400 leading-relaxed mb-8">{t.guide.intro}</p>
+        <div class="prose dark:prose-invert max-w-none mt-16 pt-16 border-t border-slate-200 dark:border-slate-700/50">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-6">{t.guide.title}</h2>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">{t.guide.intro}</p>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               {#each [t.guide.f1, t.guide.f2, t.guide.f3] as f}
                 {@const feature = parseFeature(f)}
-                <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-700/50">
-                  <p class="text-sm text-slate-400">
-                      <span class="block text-lg font-semibold text-slate-200 mb-2">
+                <div class="bg-white dark:bg-slate-800/30 p-6 rounded-xl border border-slate-200 dark:border-slate-700/50">
+                  <p class="text-sm text-slate-600 dark:text-slate-400">
+                      <span class="block text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2">
                           {feature.title}
                       </span>
                       {feature.desc}
@@ -231,8 +231,8 @@
               {/each}
             </div>
 
-            <h3 class="text-xl font-bold text-slate-50 mb-4">{t.guide.tipsTitle}</h3>
-            <ul class="space-y-3 mb-12 list-disc list-inside text-slate-400">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-slate-50 mb-4">{t.guide.tipsTitle}</h3>
+            <ul class="space-y-3 mb-12 list-disc list-inside text-slate-600 dark:text-slate-400">
                <li>{@html t.guide.tip1}</li>
                <li>{@html t.guide.tip2}</li>
                <li>{@html t.guide.tip3}</li>
@@ -249,13 +249,13 @@
         {#if file}
             <div class="space-y-6">
                 <!-- Config -->
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6 shadow-lg">
+                <div class="bg-white dark:bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-slate-700/50 p-6 shadow-lg">
                     <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-lg font-medium text-slate-50 flex items-center">
+                        <h3 class="text-lg font-medium text-slate-900 dark:text-slate-50 flex items-center">
                             <svg class="w-5 h-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
                             {t.config.title}
                         </h3>
-                        <button class="p-2 rounded-lg transition-colors {justSaved ? 'bg-green-500/20 text-green-400' : 'bg-slate-700 hover:bg-indigo-500/20 text-slate-400 hover:text-indigo-400'} min-h-[44px] min-w-[44px]"
+                        <button class="p-2 rounded-lg transition-colors {justSaved ? 'bg-green-500/20 text-green-400' : 'bg-slate-100 dark:bg-slate-700 hover:bg-indigo-500/20 text-slate-600 dark:text-slate-400 hover:text-indigo-400'} min-h-[44px] min-w-[44px]"
                             title={t.history.save}
                             on:click={saveProject}
                             disabled={isSaving}

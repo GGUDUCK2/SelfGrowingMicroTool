@@ -157,7 +157,7 @@
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
-<div class="min-h-screen bg-slate-900 text-slate-100 font-sans relative overflow-hidden flex flex-col transition-all">
+<div class="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-sans relative overflow-hidden flex flex-col transition-all">
     <!-- Visualizer Background -->
     <Visualizer />
 
@@ -167,7 +167,7 @@
             <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 mb-2 drop-shadow-lg">
                 {dict.title}
             </h1>
-            <p class="text-slate-300 max-w-7xl mx-auto">{dict.description}</p>
+            <p class="text-slate-700 dark:text-slate-300 max-w-7xl mx-auto">{dict.description}</p>
         </div>
 
         <!-- Main Workspace -->
@@ -183,7 +183,7 @@
                     </div>
 
                     <!-- Breathing Exercise -->
-                    <div class="bg-slate-800/50 p-6 rounded-3xl border border-slate-700 flex flex-col items-center justify-center min-h-[250px] h-full">
+                    <div class="bg-white dark:bg-slate-800/50 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center min-h-[250px] h-full">
                         <BreathingCircle {dict} on:breath={handleBreath} />
                     </div>
                 </div>
@@ -204,7 +204,7 @@
 
             <!-- Mixer Board -->
             {#if !$zenStore.isFocusMode}
-                <div class="lg:col-span-3 bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-white/10 p-6 shadow-2xl overflow-y-auto" transition:fade|local>
+                <div class="lg:col-span-3 bg-slate-50 dark:bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-white/10 p-6 shadow-2xl overflow-y-auto" transition:fade|local>
                     <Mixer {dict} />
                 </div>
             {/if}
@@ -212,7 +212,7 @@
 
         <!-- Guide Section -->
         {#if !$zenStore.isFocusMode}
-            <div class="mt-16 bg-slate-900/90 backdrop-blur rounded-2xl border border-slate-800 p-8 shadow-xl" transition:slide>
+            <div class="mt-16 bg-slate-50 dark:bg-slate-900/90 backdrop-blur rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-xl" transition:slide>
                  <GuideSection {...((dict as any)?.guide as any)} />
             </div>
         {/if}

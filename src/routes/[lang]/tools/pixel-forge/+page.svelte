@@ -118,10 +118,10 @@
     <div class="inline-flex items-center justify-center p-3 bg-indigo-500/10 rounded-2xl mb-4">
       <FileImage class="w-8 h-8 text-indigo-400" />
     </div>
-    <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+    <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
       Pixel <span class="text-indigo-500">Forge</span>
     </h1>
-    <p class="text-lg text-slate-400 max-w-7xl mx-auto">
+    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-7xl mx-auto">
       {description}
     </p>
   </header>
@@ -135,40 +135,40 @@
 </main>
 
   <!-- Features Grid -->
-  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 pt-12 border-t border-slate-800">
+  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 pt-12 border-t border-slate-200 dark:border-slate-800">
      <div class="space-y-3">
-        <div class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center">
+        <div class="w-10 h-10 bg-white dark:bg-slate-800 rounded-lg flex items-center justify-center">
             <Zap class="w-5 h-5 text-indigo-400" />
         </div>
-        <h3 class="text-lg font-bold text-slate-200">Lightning Fast</h3>
-        <div class="text-slate-400 text-sm leading-relaxed">
+        <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200">Lightning Fast</h3>
+        <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
             {@html renderMarkdown(toolDict.guide.f1)}
         </div>
      </div>
 
      <div class="space-y-3">
-        <div class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center">
+        <div class="w-10 h-10 bg-white dark:bg-slate-800 rounded-lg flex items-center justify-center">
             <Lock class="w-5 h-5 text-indigo-400" />
         </div>
-        <h3 class="text-lg font-bold text-slate-200">Privacy First</h3>
-        <div class="text-slate-400 text-sm leading-relaxed">
+        <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200">Privacy First</h3>
+        <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
              {@html renderMarkdown(toolDict.guide.f2)}
         </div>
      </div>
 
      <div class="space-y-3">
-        <div class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center">
+        <div class="w-10 h-10 bg-white dark:bg-slate-800 rounded-lg flex items-center justify-center">
             <Smartphone class="w-5 h-5 text-indigo-400" />
         </div>
-        <h3 class="text-lg font-bold text-slate-200">Mobile Optimized</h3>
-        <div class="text-slate-400 text-sm leading-relaxed">
+        <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200">Mobile Optimized</h3>
+        <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
              {@html renderMarkdown(toolDict.guide.f3)}
         </div>
      </div>
   </section>
 
   <!-- Documentation -->
-  <article class="prose prose-invert prose-slate max-w-none pt-12 border-t border-slate-800 min-h-[44px] min-w-[44px]">
+  <article class="prose dark:prose-invert prose-slate max-w-none pt-12 border-t border-slate-200 dark:border-slate-800 min-h-[44px] min-w-[44px]">
     <h2>{toolDict.guide.title}</h2>
     <p>
       {toolDict.guide.intro}

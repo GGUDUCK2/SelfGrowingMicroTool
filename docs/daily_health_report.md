@@ -173,3 +173,17 @@
 - 타입 에러 방지 및 안정적인 런타임 환경 구성.
 - 사용자가 HTML 작성 즉시 결과를 브라우저 UI와 동일하게 미리보기 하여 극대화된 사용 경험 창출 ("와, 이것까지 되네?").
 - HTML 문자열 내 태그만 깔끔하게 제거하는 Strip 기능 제공으로 실용성 대폭 상승.
+
+
+[Project Health Report - 2026-09-14]
+## Repository Hygiene
+- 점검 특이사항 없음.
+
+## Design Consistency
+- qr-forge, time-forge, zen-forge, deploy-forge, pixel-forge, icon-forge 페이지에 다크모드 대응 클래스가 누락(또는 고정 다크모드 클래스 사용)된 것을 발견하여, Tailwind dark: 클래스 변형을 추가하여 라이트/다크모드가 정상 작동하도록 일관성 향상.
+
+## AdSense Readiness
+- AdPlaceholder가 누락된 도구가 없는지 점검 (모두 정상 적용 확인).
+
+## Tech Debt
+- diff-viewer에서 불필요한 grid-cols-1 클래스 점검.
