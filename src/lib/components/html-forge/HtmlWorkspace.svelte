@@ -10,17 +10,18 @@
   import Minimize from '@lucide/svelte/icons/minimize';
   import ArrowRightLeft from '@lucide/svelte/icons/arrow-right-left';
   import FileText from '@lucide/svelte/icons/file-text';
-  import Play from '@lucide/svelte/icons/play';
+  import Link from '@lucide/svelte/icons/link';
+  import BarChart from '@lucide/svelte/icons/bar-chart-2';
   import Eye from '@lucide/svelte/icons/eye';
   import AlertCircle from '@lucide/svelte/icons/alert-circle';
 
   export let state: HtmlState;
-  import type { Dictionary } from './types';
-  export let dictionary: Dictionary & { tools?: { htmlForge?: Record<string, string | unknown> } };
+  import type { Dictionary, HtmlDictionary } from './types';
+  export let dictionary: Dictionary & { tools?: { htmlForge?: HtmlDictionary } };
 
   const dispatch = createEventDispatcher<{ process: HtmlState }>();
 
-  $: t = dictionary?.tools?.htmlForge || {};
+  $: t = dictionary?.tools?.htmlForge as HtmlDictionary || {};
 
   let isCopied = false;
   let errorMsg = '';
@@ -31,40 +32,74 @@
   }
 
   import type { ComponentType } from 'svelte';
-  const actions: { value: HtmlAction, labelKey: string, icon: ComponentType }[] = [
+  const actions: { value: HtmlAction, labelKey: keyof HtmlDictionary, icon: ComponentType }[] = [
       { value: 'format', labelKey: 'format', icon: Code },
       { value: 'minify', labelKey: 'minify', icon: Minimize },
       { value: 'encode', labelKey: 'encode', icon: ArrowRightLeft },
       { value: 'decode', labelKey: 'decode', icon: ArrowRightLeft },
-      { value: 'strip', labelKey: 'strip', icon: FileText }
+      { value: 'strip', labelKey: 'strip', icon: FileText },
+      { value: 'extractLinks', labelKey: 'extractLinks', icon: Link },
+      { value: 'analyze', labelKey: 'analyze', icon: BarChart }
   ];
 
   function processHtml() {
       errorMsg = '';
       if (!state.input.trim()) {
           state.output = '';
+          state.stats = null;
           return;
       }
       try {
+          state.stats = null;
           if (state.action === 'format') {
-              // Using vkbeautify for HTML formatting
-              state.output = vkbeautify.xml(state.input.trim(), 2);
+              let indentString = '  '; // default 2 spaces
+              if (state.indentSize === 4) indentString = '    ';
+              else if (state.indentSize === 0) indentString = '\t';
+
+              state.output = vkbeautify.xml(state.input.trim(), indentString as unknown as number);
+              // Note: vkbeautify types might be loose, but it accepts a string as step for formatting.
           } else if (state.action === 'minify') {
-              // Using vkbeautify for HTML minification
               state.output = vkbeautify.xmlmin(state.input.trim());
           } else if (state.action === 'encode') {
-              // Encode HTML entities
               state.output = he.encode(state.input, { useNamedReferences: true });
           } else if (state.action === 'decode') {
-              // Decode HTML entities
               state.output = he.decode(state.input);
           } else if (state.action === 'strip') {
               state.output = state.input.replace(/<[^>]*>?/gm, '');
+          } else if (state.action === 'extractLinks') {
+              const regex = /href=(['"])(.*?)\1/gi;
+              let match;
+              const links: string[] = [];
+              while ((match = regex.exec(state.input)) !== null) {
+                  if (match[2] && match[2].trim() !== '') {
+                      links.push(match[2]);
+                  }
+              }
+              state.output = links.length > 0 ? links.join('\n') : (t.noLinks || 'No links found.');
+          } else if (state.action === 'analyze') {
+              const tagRegex = /<([a-z0-9]+)([^>]*)>/gi;
+              let tagCount = 0;
+              while (tagRegex.exec(state.input) !== null) {
+                  tagCount++;
+              }
+
+              const linkRegex = /href=(['"])(.*?)\1/gi;
+              let linkCount = 0;
+              while (linkRegex.exec(state.input) !== null) {
+                  linkCount++;
+              }
+
+              const charCount = state.input.length;
+              const fileSizeBytes = new Blob([state.input]).size;
+
+              state.stats = { tagCount, charCount, fileSizeBytes, linkCount };
+              state.output = `Tags: ${tagCount}\nLinks: ${linkCount}\nCharacters: ${charCount}\nSize: ${fileSizeBytes} bytes`;
           }
           dispatch('process', state);
       } catch (err) {
           errorMsg = t.error || 'Processing error';
           state.output = '';
+          state.stats = null;
           console.error(err);
       }
   }
@@ -77,6 +112,7 @@
   function clear() {
       state.input = '';
       state.output = '';
+      state.stats = null;
       errorMsg = '';
   }
 
@@ -158,10 +194,28 @@
                     class="flex-1 min-h-[44px] flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors border {state.action === action.value ? 'bg-indigo-600 text-white border-indigo-600 shadow-md' : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'}"
                 >
                     <svelte:component this={action.icon} size={16} />
-                    {t[action.labelKey] || action.labelKey}
+                    {t[action.labelKey as keyof HtmlDictionary] || action.labelKey}
                 </button>
             {/each}
         </div>
+
+        {#if state.action === 'format'}
+            <div class="flex items-center gap-4 text-sm bg-white dark:bg-slate-900 p-2 px-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                <span class="text-slate-700 dark:text-slate-300 font-medium">{t.indentSize || 'Indent Size'}:</span>
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" bind:group={state.indentSize} value={2} on:change={processHtml} class="text-indigo-600 focus:ring-indigo-500">
+                    <span class="text-slate-600 dark:text-slate-400">{t.indent2 || '2 Spaces'}</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" bind:group={state.indentSize} value={4} on:change={processHtml} class="text-indigo-600 focus:ring-indigo-500">
+                    <span class="text-slate-600 dark:text-slate-400">{t.indent4 || '4 Spaces'}</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" bind:group={state.indentSize} value={0} on:change={processHtml} class="text-indigo-600 focus:ring-indigo-500">
+                    <span class="text-slate-600 dark:text-slate-400">{t.indentTab || 'Tab'}</span>
+                </label>
+            </div>
+        {/if}
 
         <div class="relative flex-1">
             <textarea
@@ -207,7 +261,28 @@
         </div>
 
         <div class="relative flex-1">
-            {#if isPreviewMode && state.output}
+            {#if state.action === 'analyze' && state.stats}
+                <div class="w-full h-full min-h-[300px] lg:min-h-[500px] p-6 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl overflow-auto flex flex-col gap-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col items-center">
+                            <span class="text-sm text-slate-500 dark:text-slate-400">{t.tagCount || 'Tag Count'}</span>
+                            <span class="text-3xl font-bold text-indigo-600 dark:text-indigo-400">{state.stats.tagCount}</span>
+                        </div>
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col items-center">
+                            <span class="text-sm text-slate-500 dark:text-slate-400">{t.linksCount || 'Links Count'}</span>
+                            <span class="text-3xl font-bold text-blue-600 dark:text-blue-400">{state.stats.linkCount}</span>
+                        </div>
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col items-center">
+                            <span class="text-sm text-slate-500 dark:text-slate-400">{t.charCount || 'Character Count'}</span>
+                            <span class="text-3xl font-bold text-emerald-600 dark:text-emerald-400">{state.stats.charCount}</span>
+                        </div>
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col items-center">
+                            <span class="text-sm text-slate-500 dark:text-slate-400">{t.fileSize || 'File Size'}</span>
+                            <span class="text-3xl font-bold text-amber-600 dark:text-amber-400">{state.stats.fileSizeBytes} <span class="text-sm font-normal text-slate-400">bytes</span></span>
+                        </div>
+                    </div>
+                </div>
+            {:else if isPreviewMode && state.output}
                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 <div class="w-full h-full min-h-[300px] lg:min-h-[500px] p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl overflow-auto">
                     <iframe srcdoc={state.output} title="Live Preview" sandbox="allow-same-origin allow-scripts" class="w-full h-full border-none"></iframe>
@@ -222,7 +297,7 @@
             ></textarea>
             {/if}
 
-            {#if state.output}
+            {#if state.output && state.action !== 'analyze'}
                 <button
                     on:click={downloadResult}
                     class="absolute top-2 right-24 flex items-center gap-2 px-3 min-h-[44px] bg-white/90 dark:bg-slate-800/90 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg backdrop-blur-sm transition-colors border border-slate-200 dark:border-slate-700"

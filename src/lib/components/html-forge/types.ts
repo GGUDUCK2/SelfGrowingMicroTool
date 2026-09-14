@@ -1,18 +1,35 @@
-export type HtmlAction = 'format' | 'minify' | 'encode' | 'decode' | 'strip';
+export type HtmlAction = 'format' | 'minify' | 'encode' | 'decode' | 'strip' | 'extractLinks' | 'analyze';
 
 export interface HtmlState {
     input: string;
     action: HtmlAction;
     output: string;
+    indentSize?: number; // 2, 4, or 0 for tabs
+    stats?: {
+        tagCount: number;
+        charCount: number;
+        fileSizeBytes: number;
+        linkCount: number;
+    } | null;
 }
 
 export const defaultState: HtmlState = {
     input: '',
     action: 'format',
-    output: ''
+    output: '',
+    indentSize: 2,
+    stats: null
 };
 
-
+export interface GuideDictionary {
+    title?: string;
+    intro?: string;
+    f1?: string;
+    f2?: string;
+    f3?: string;
+    tip1?: string;
+    tip2?: string;
+}
 
 export interface HtmlDictionary {
     title?: string;
@@ -22,6 +39,17 @@ export interface HtmlDictionary {
     encode?: string;
     decode?: string;
     strip?: string;
+    extractLinks?: string;
+    analyze?: string;
+    tagCount?: string;
+    charCount?: string;
+    fileSize?: string;
+    linksCount?: string;
+    noLinks?: string;
+    indentSize?: string;
+    indent2?: string;
+    indent4?: string;
+    indentTab?: string;
     inputPlaceholder?: string;
     resultPlaceholder?: string;
     clear?: string;
@@ -43,8 +71,7 @@ export interface HtmlDictionary {
     example1?: string;
     example2?: string;
     example3?: string;
-    guide?: unknown;
-    [key: string]: unknown;
+    guide?: GuideDictionary;
 }
 
 export interface Dictionary {

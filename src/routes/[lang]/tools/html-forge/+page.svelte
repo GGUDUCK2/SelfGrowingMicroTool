@@ -15,9 +15,9 @@
   import HtmlHistory from '$lib/components/html-forge/HtmlHistory.svelte';
 
   $: lang = $page.params.lang as 'en' | 'ko';
-  import type { Dictionary } from '$lib/components/html-forge/types';
-  $: dict = (dictionaries as Dictionary)[lang];
-  $: t = dict?.tools?.htmlForge || {};
+  import type { Dictionary, HtmlDictionary } from '$lib/components/html-forge/types';
+  $: dict = dictionaries[lang] as Dictionary;
+  $: t = (dict?.tools?.htmlForge as HtmlDictionary) || {};
 
   const TOOL_ID = 'html-forge';
   let state: HtmlState = JSON.parse(JSON.stringify(defaultState));
@@ -69,6 +69,8 @@
       "HTML Minifier",
       "HTML Entity Encoder",
       "HTML Entity Decoder",
+      "HTML Link Extractor",
+      "HTML Statistics Analyzer",
       "Local History Workspace"
     ]
   };
@@ -94,7 +96,7 @@
         {
             "@type": "HowToStep",
             "name": "Select Action",
-            "text": "Choose whether to format, minify, encode, or decode the content."
+            "text": "Choose whether to format, minify, encode, decode, extract links, or analyze the content."
         },
         {
             "@type": "HowToStep",
@@ -113,6 +115,15 @@
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/html-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/html-forge"} />
 
+  <meta property="og:title" content={t.title || "HTML Forge - The Definitive HTML Toolkit"} />
+  <meta property="og:description" content={t.description || "Format, minify, and entity encode/decode HTML instantly. A professional tool for web developers."} />
+  <meta property="og:url" content={$page.url.origin + "/" + lang + "/tools/html-forge"} />
+  <meta property="og:type" content="website" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={t.title || "HTML Forge - The Definitive HTML Toolkit"} />
+  <meta name="twitter:description" content={t.description || "Format, minify, and entity encode/decode HTML instantly. A professional tool for web developers."} />
+
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
@@ -121,7 +132,7 @@
   title={t.title || "HTML Forge - The Definitive HTML Toolkit"}
   description={t.description || "Format, minify, and entity encode/decode HTML instantly. A professional tool for web developers."}
   url={$page.url.origin + "/" + lang + "/tools/html-forge"}
-  keywords="html formatter, html minifier, html beautifier, entity encoder, html entities"
+  keywords="html formatter, html minifier, html beautifier, entity encoder, html entities, extract links, analyze html"
 />
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
@@ -161,8 +172,10 @@
     </div>
 
 
-    <!-- eslint-disable-next-line @typescript-eslint/no-explicit-any -->
-    <GuideSection {...(t.guide as any)} />
+    {#if t.guide}
+        <!-- eslint-disable-next-line @typescript-eslint/no-explicit-any -->
+        <GuideSection {...(t.guide as any)} />
+    {/if}
 
     <AdPlaceholder />
 
