@@ -235,12 +235,12 @@
 </script>
 
 <div
-  class="w-full min-h-[400px] bg-slate-50 rounded-xl shadow-inner border border-gray-200 overflow-auto relative select-none touch-pan-x touch-pan-y"
+  class="w-full min-h-[400px] bg-slate-50 dark:bg-slate-800/50 rounded-xl shadow-inner border border-slate-200 dark:border-slate-700 overflow-auto relative select-none touch-pan-x touch-pan-y"
   bind:clientWidth={containerWidth}
   bind:clientHeight={containerHeight}
 >
   <div class="absolute top-4 left-4 z-10 flex flex-col gap-1">
-      <h3 class="font-semibold text-gray-800 flex items-center gap-2 bg-white/80 px-3 py-1.5 rounded-lg shadow-sm backdrop-blur border border-gray-100">
+      <h3 class="font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2 bg-white/80 px-3 py-1.5 rounded-lg shadow-sm backdrop-blur border border-slate-100 dark:border-slate-800">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-600"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>
           {dict.circuit}
       </h3>
@@ -249,14 +249,14 @@
 
   <div class="absolute top-4 right-4 z-10 flex gap-2">
       <button
-        class="p-1.5 bg-white hover:bg-gray-100 rounded-lg border border-gray-200 shadow-sm transition-colors text-gray-600 min-h-[44px] min-w-[44px]"
+        class="p-1.5 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm transition-colors text-slate-600 dark:text-slate-400 min-h-[44px] min-w-[44px]"
         title="Export PNG"
         on:click={() => exportImage('png')}
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
       </button>
       <button
-        class="p-1.5 bg-white hover:bg-gray-100 rounded-lg border border-gray-200 shadow-sm transition-colors text-gray-600 min-h-[44px] min-w-[44px]"
+        class="p-1.5 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm transition-colors text-slate-600 dark:text-slate-400 min-h-[44px] min-w-[44px]"
         title="Export SVG"
         on:click={() => exportImage('svg')}
       >
@@ -338,7 +338,7 @@
         {/each}
     </svg>
   {:else}
-    <div class="h-full flex flex-col items-center justify-center text-gray-400">
+    <div class="h-full flex flex-col items-center justify-center text-slate-400 dark:text-slate-500">
         <p>Circuit visualization will appear here</p>
     </div>
   {/if}
