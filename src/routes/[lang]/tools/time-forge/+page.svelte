@@ -125,30 +125,30 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
   <div class="mb-10 text-center">
-    <h1 class="text-4xl font-extrabold text-white mb-4 tracking-tight">{t.title}</h1>
-    <p class="text-lg text-slate-400 max-w-7xl mx-auto">
+    <h1 class="text-4xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">{t.title}</h1>
+    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-7xl mx-auto">
       {t.description}
     </p>
   </div>
 
-  <div class="bg-slate-900/50 rounded-2xl border border-slate-800 p-6 sm:p-8 shadow-2xl mb-16">
+  <div class="bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-2xl mb-16">
     <TimeForge />
   </div>
 
-  <div class="prose prose-invert max-w-none">
-    <h2 class="text-2xl font-bold text-white mb-6">{t.features.title}</h2>
+  <div class="prose dark:prose-invert max-w-none">
+    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">{t.features.title}</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-      <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-700/50">
+      <div class="bg-white dark:bg-slate-800/30 p-6 rounded-xl border border-slate-200 dark:border-slate-700/50">
         <h3 class="text-lg font-semibold text-indigo-400 mb-2">{t.features.visualPlanning.title}</h3>
-        <p class="text-slate-400 text-sm">{t.features.visualPlanning.desc}</p>
+        <p class="text-slate-600 dark:text-slate-400 text-sm">{t.features.visualPlanning.desc}</p>
       </div>
-      <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-700/50">
+      <div class="bg-white dark:bg-slate-800/30 p-6 rounded-xl border border-slate-200 dark:border-slate-700/50">
         <h3 class="text-lg font-semibold text-indigo-400 mb-2">{t.features.teamWorkspaces.title}</h3>
-        <p class="text-slate-400 text-sm">{t.features.teamWorkspaces.desc}</p>
+        <p class="text-slate-600 dark:text-slate-400 text-sm">{t.features.teamWorkspaces.desc}</p>
       </div>
-      <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-700/50">
+      <div class="bg-white dark:bg-slate-800/30 p-6 rounded-xl border border-slate-200 dark:border-slate-700/50">
         <h3 class="text-lg font-semibold text-indigo-400 mb-2">{t.features.smartSharing.title}</h3>
-        <p class="text-slate-400 text-sm">{t.features.smartSharing.desc}</p>
+        <p class="text-slate-600 dark:text-slate-400 text-sm">{t.features.smartSharing.desc}</p>
       </div>
     </div>
 

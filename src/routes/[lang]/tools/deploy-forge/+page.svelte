@@ -180,23 +180,23 @@
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
-<div class="min-h-screen bg-slate-900 text-slate-100 pb-20">
+<div class="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 pb-20">
   <!-- Header -->
-  <header class="bg-slate-800/50 backdrop-blur-md border-b border-slate-700/50 sticky top-0 z-30">
+  <header class="bg-white dark:bg-slate-800/50 backdrop-blur-md border-b border-slate-200 dark:border-slate-700/50 sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-4">
-        <a href="/{lang}" class="p-2 hover:bg-slate-700 rounded-full transition-colors group min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Back">
-          <MoveLeft size={20} class="text-slate-400 group-hover:text-white" />
+        <a href="/{lang}" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full transition-colors group min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Back">
+          <MoveLeft size={20} class="text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:text-white" />
         </a>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
           {((dict as any)?.tools?.deployForge || {}).title}
         </h1>
       </div>
       <div class="flex items-center space-x-2">
-         <button on:click={saveToHistory} class="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center min-h-[44px] min-w-[44px]" aria-label={((dict as any)?.tools?.deployForge || {}).save}>
+         <button on:click={saveToHistory} class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center min-h-[44px] min-w-[44px]" aria-label={((dict as any)?.tools?.deployForge || {}).save}>
             <Save size={20} />
          </button>
-     <button on:click={downloadProject} class="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors text-sm min-h-[44px] min-w-[44px]">
+     <button on:click={downloadProject} class="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-slate-900 dark:text-white rounded-lg font-medium transition-colors text-sm min-h-[44px] min-w-[44px]">
             <Download size={18} />
         <span class="hidden sm:inline">{((dict as any)?.tools?.deployForge || {}).download}</span>
          </button>
@@ -210,14 +210,14 @@
         <!-- Left Column: Config (5 cols) -->
         <div class="lg:col-span-5 space-y-8">
             <section>
-                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">{((dict as any)?.tools?.deployForge || {}).selectStack}</h2>
+                <h2 class="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-4">{((dict as any)?.tools?.deployForge || {}).selectStack}</h2>
                 <StackSelector
                     selectedStackId={currentStackId}
                     on:select={handleStackSelect}
                 />
             </section>
 
-            <section class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+            <section class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
                 <ConfigPanel
                     bind:config
                     stackId={currentStackId}
@@ -225,7 +225,7 @@
             </section>
 
             <section>
-                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">{((dict as any)?.tools?.deployForge || {}).addServices}</h2>
+                <h2 class="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-4">{((dict as any)?.tools?.deployForge || {}).addServices}</h2>
                 <DatabaseSelector
                     selectedDatabases={config.databases}
                     on:change={handleDbChange}
@@ -235,25 +235,25 @@
 
         <!-- Right Column: Preview (7 cols) -->
         <div class="lg:col-span-7">
-            <div class="bg-slate-800 rounded-2xl border border-slate-700 shadow-xl overflow-hidden sticky top-24">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden sticky top-24">
                 <!-- Tabs -->
-                <div class="flex items-center border-b border-slate-700 bg-slate-900/50 overflow-x-auto">
-                    <button class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap {activeTab === 'dockerfile' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'} min-h-[44px] min-w-[44px]"
+                <div class="flex items-center border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 overflow-x-auto">
+                    <button class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap {activeTab === 'dockerfile' ? 'border-indigo-500 text-slate-900 dark:text-white bg-white dark:bg-slate-800' : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800/50'} min-h-[44px] min-w-[44px]"
                         on:click={() => activeTab = 'dockerfile'}
                     >
                         <FileCode size={16} /> Dockerfile
                     </button>
-                    <button class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap {activeTab === 'compose' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'} min-h-[44px] min-w-[44px]"
+                    <button class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap {activeTab === 'compose' ? 'border-indigo-500 text-slate-900 dark:text-white bg-white dark:bg-slate-800' : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800/50'} min-h-[44px] min-w-[44px]"
                         on:click={() => activeTab = 'compose'}
                     >
                         <Layers size={16} /> docker-compose.yml
                     </button>
-                    <button class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap {activeTab === 'env' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'} min-h-[44px] min-w-[44px]"
+                    <button class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap {activeTab === 'env' ? 'border-indigo-500 text-slate-900 dark:text-white bg-white dark:bg-slate-800' : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800/50'} min-h-[44px] min-w-[44px]"
                         on:click={() => activeTab = 'env'}
                     >
                         <FileText size={16} /> .env
                     </button>
-                    <button class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap {activeTab === 'ignore' ? 'border-indigo-500 text-white bg-slate-800' : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'} min-h-[44px] min-w-[44px]"
+                    <button class="flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap {activeTab === 'ignore' ? 'border-indigo-500 text-slate-900 dark:text-white bg-white dark:bg-slate-800' : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800/50'} min-h-[44px] min-w-[44px]"
                         on:click={() => activeTab = 'ignore'}
                     >
                         <FileCode size={16} /> .dockerignore
@@ -276,20 +276,20 @@
 
     </div>
 
-    <div class="mt-20 border-t border-slate-800 pt-16">
-        <div class="prose prose-invert max-w-none">
+    <div class="mt-20 border-t border-slate-200 dark:border-slate-800 pt-16">
+        <div class="prose dark:prose-invert max-w-none">
             <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400 mb-6">
                 {((dict as any)?.tools?.deployForge || {}).guide.title}
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-slate-300 leading-relaxed">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-slate-700 dark:text-slate-300 leading-relaxed">
                 <div>
-                    <h3 class="text-xl font-semibold text-white mb-4">{((dict as any)?.tools?.deployForge || {}).guide.introTitle}</h3>
+                    <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-4">{((dict as any)?.tools?.deployForge || {}).guide.introTitle}</h3>
                     <p class="mb-4">
                         {((dict as any)?.tools?.deployForge || {}).guide.intro}
                     </p>
                 </div>
                 <div>
-                    <h3 class="text-xl font-semibold text-white mb-4">{((dict as any)?.tools?.deployForge || {}).guide.featuresTitle}</h3>
+                    <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-4">{((dict as any)?.tools?.deployForge || {}).guide.featuresTitle}</h3>
                     <div class="space-y-3 markdown-content">
                         <!-- We render these as markdown-like lists -->
                         <div class="flex items-start gap-2">
