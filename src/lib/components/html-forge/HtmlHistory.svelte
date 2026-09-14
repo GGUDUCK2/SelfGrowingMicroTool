@@ -5,12 +5,12 @@
   import type { HtmlState } from './types';
   import Trash2 from '@lucide/svelte/icons/trash-2';
 
-  import type { Dictionary } from './types';
+  import type { Dictionary, HtmlDictionary } from './types';
   export let dictionary: Dictionary;
   const dispatch = createEventDispatcher<{ load: HtmlState }>();
 
   const TOOL_ID = 'html-forge';
-  $: t = dictionary?.tools?.htmlForge || {};
+  $: t = (dictionary?.tools?.htmlForge as HtmlDictionary) || {};
 
   let historyObservable = liveQuery(async () => {
        return await workspace.history
@@ -20,7 +20,7 @@
            .sortBy('timestamp');
   });
 
-  function handleLoad(item: { input?: HtmlState, [key: string]: unknown }) {
+  function handleLoad(item: { input?: unknown, [key: string]: unknown }) {
       if (item.input) {
           dispatch('load', item.input as HtmlState);
       }
