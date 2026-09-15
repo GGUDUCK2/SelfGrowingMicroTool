@@ -30,7 +30,13 @@ export const dictionaries = {
         a3: "The tool will attempt to format it as best as it can, but it relies on basic CSS block structure. It is recommended to use valid CSS for best results.",
         example1: "Basic CSS",
         example2: "Nested Rules",
-        example3: "Minified CSS"
+        example3: "Minified CSS",
+        feedback: {
+            copied: "Copied to clipboard",
+            cleared: "Workspace cleared",
+            processed: "CSS processed",
+            autoFixed: "Auto-fix applied"
+        }
       },
       htmlForge: {
         title: "HTML Forge: The Definitive HTML Toolkit",
@@ -5113,7 +5119,13 @@ export const dictionaries = {
         a3: "도구가 가능한 한 포맷을 시도하지만 기본 CSS 블록 구조에 의존합니다. 최상의 결과를 위해 유효한 CSS를 사용하는 것이 좋습니다.",
         example1: "기본 CSS",
         example2: "중첩 규칙",
-        example3: "최소화된 CSS"
+        example3: "최소화된 CSS",
+        feedback: {
+            copied: "클립보드에 복사되었습니다",
+            cleared: "작업 공간이 초기화되었습니다",
+            processed: "CSS가 처리되었습니다",
+            autoFixed: "자동 수정이 적용되었습니다"
+        }
       },
       htmlForge: {
         title: "HTML 포지: 완벽한 HTML 툴킷",

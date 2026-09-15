@@ -31,6 +31,7 @@ export interface GuideSectionType {
     f4?: string;
 }
 
+
 export interface CssDictionary {
     title?: string;
     description?: string;
@@ -45,7 +46,14 @@ export interface CssDictionary {
     example1?: string;
     example2?: string;
     example3?: string;
+    feedback?: {
+        copied?: string;
+        cleared?: string;
+        processed?: string;
+        autoFixed?: string;
+    };
 }
+
 
 export interface Dictionary {
     tools?: {

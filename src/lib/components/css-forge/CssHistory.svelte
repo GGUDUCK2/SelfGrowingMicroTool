@@ -2,7 +2,7 @@
     import { onMount, createEventDispatcher } from 'svelte';
     import { History, Trash2, Clock, Play } from '@lucide/svelte';
     import { loadHistory, clearHistory } from '$lib/db/workspace';
-    import type { ToolWorkspace } from '$lib/db/workspace';
+    import type { ToolHistoryItem } from '$lib/db/workspace';
     import type { CssState, Dictionary } from './types';
     import { formatDistanceToNow } from 'date-fns';
     import { enUS, ko } from 'date-fns/locale';
@@ -14,7 +14,7 @@
     const dispatch = createEventDispatcher<{ load: CssState }>();
     const TOOL_ID = 'css-forge';
 
-    let history: ToolWorkspace[] = [];
+    let history: ToolHistoryItem[] = [];
     let isMounted = false;
 
     async function fetchHistory() {
@@ -37,9 +37,9 @@
         }
     }
 
-    function handleLoadItem(item: ToolWorkspace) {
-        if (item.state) {
-            dispatch('load', item.state as CssState);
+    function handleLoadItem(item: ToolHistoryItem) {
+        if (item.input) {
+            dispatch('load', item.input as CssState);
         }
     }
 
@@ -77,17 +77,17 @@
                     <div class="flex justify-between items-start mb-2">
                         <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                             <Clock size={12} />
-                            {formatDistanceToNow(item.updatedAt, { addSuffix: true, locale })}
+                            {formatDistanceToNow(item.timestamp, { addSuffix: true, locale })}
                         </div>
                         <div class="flex items-center gap-1">
                             <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 uppercase">
-                                {(item.state as CssState)?.action || 'unknown'}
+                                {(item.input as CssState)?.action || 'unknown'}
                             </span>
                         </div>
                     </div>
 
                     <div class="text-sm text-slate-700 dark:text-slate-300 font-mono truncate mb-3 bg-white dark:bg-slate-900 p-2 rounded border border-slate-100 dark:border-slate-800">
-                        {item.preview || 'No preview available'}
+                        {(item.result as {preview?: string})?.preview || 'No preview available'}
                     </div>
 
                     <button
