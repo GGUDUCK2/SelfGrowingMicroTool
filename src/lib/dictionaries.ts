@@ -10,6 +10,28 @@ export const dictionaries = {
       actions: "Actions",
     },
     tools: {
+      cssForge: {
+        title: "CSS Forge: The Definitive CSS Toolkit",
+        description: "Format, minify, and analyze CSS instantly. A professional tool for frontend developers.",
+        guide: {
+          title: "Why CSS Forge?",
+          intro: "CSS Forge provides a seamless workflow for manipulating CSS code. Whether you need to make minified code readable, compress code for production, or analyze CSS statistics, this tool has you covered.",
+          f1: "**Format & Minify:** Clean up messy CSS or compress it to save bandwidth.",
+          f2: "**CSS Analyzer:** Automatically count selectors, rules, declarations, and properties.",
+          f3: "**Smart Defaults:** Predicts processing logic based on your input structure.",
+          f4: "**Local Workspace:** Automatically saves your work locally without any server side storage."
+        },
+        faqTitle: "CSS Forge FAQ",
+        q1: "Does CSS Forge send my code to a server?",
+        a1: "No. All processing happens locally in your browser. Your code remains private and secure.",
+        q2: "Can I analyze CSS statistics?",
+        a2: "Yes. CSS Forge automatically analyzes your code to extract the number of selectors, rules, and declarations.",
+        q3: "What happens if my CSS is invalid?",
+        a3: "The tool will attempt to format it as best as it can, but it relies on basic CSS block structure. It is recommended to use valid CSS for best results.",
+        example1: "Basic CSS",
+        example2: "Nested Rules",
+        example3: "Minified CSS"
+      },
       htmlForge: {
         title: "HTML Forge: The Definitive HTML Toolkit",
         description: "Format, minify, and entity encode/decode HTML instantly. A professional tool for web developers.",
@@ -5071,6 +5093,28 @@ export const dictionaries = {
       actions: "작업",
     },
     tools: {
+      cssForge: {
+        title: "CSS Forge: 완벽한 CSS 툴킷",
+        description: "CSS를 즉시 포맷팅, 최소화 및 분석하세요. 프론트엔드 개발자를 위한 전문 도구입니다.",
+        guide: {
+          title: "왜 CSS Forge인가요?",
+          intro: "CSS Forge는 CSS 코드를 조작하기 위한 원활한 워크플로우를 제공합니다. 최소화된 코드를 읽기 쉽게 만들거나, 프로덕션용으로 코드를 압축하거나, CSS 통계를 분석해야 할 때 이 도구가 완벽한 해결책입니다.",
+          f1: "**포맷팅 및 최소화:** 지저분한 CSS를 정리하거나 압축하여 대역폭을 절약하세요.",
+          f2: "**CSS 분석기:** 선택자, 규칙, 선언 및 속성 수를 자동으로 계산합니다.",
+          f3: "**스마트 기본값:** 입력 구조를 기반으로 처리 로직을 예측합니다.",
+          f4: "**로컬 작업 공간:** 서버 저장소 없이 브라우저 로컬에 작업을 자동 저장합니다."
+        },
+        faqTitle: "CSS Forge FAQ",
+        q1: "CSS Forge는 제 코드를 서버로 전송하나요?",
+        a1: "아니요. 모든 처리는 브라우저에서 로컬로 진행됩니다. 귀하의 코드는 비공개로 안전하게 유지됩니다.",
+        q2: "CSS 통계를 분석할 수 있나요?",
+        a2: "네. CSS Forge는 코드를 자동으로 분석하여 선택자, 규칙 및 선언 수를 추출합니다.",
+        q3: "CSS가 유효하지 않으면 어떻게 되나요?",
+        a3: "도구가 가능한 한 포맷을 시도하지만 기본 CSS 블록 구조에 의존합니다. 최상의 결과를 위해 유효한 CSS를 사용하는 것이 좋습니다.",
+        example1: "기본 CSS",
+        example2: "중첩 규칙",
+        example3: "최소화된 CSS"
+      },
       htmlForge: {
         title: "HTML 포지: 완벽한 HTML 툴킷",
         description: "HTML을 즉시 포맷팅, 축소 및 엔티티 인코딩/디코딩하세요. 웹 개발자를 위한 전문 도구입니다.",
