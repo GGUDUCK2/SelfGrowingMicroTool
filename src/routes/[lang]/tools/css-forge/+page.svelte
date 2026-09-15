@@ -22,7 +22,8 @@
   const TOOL_ID = 'css-forge';
   let state: CssState = JSON.parse(JSON.stringify(defaultState));
   let isMounted = false;
-  let workspaceComponent: any;
+  import type { SvelteComponent } from 'svelte';
+  let workspaceComponent: SvelteComponent;
 
   onMount(() => {
     isMounted = true;
@@ -171,7 +172,7 @@
 
     {#if t.guide}
         <!-- eslint-disable-next-line @typescript-eslint/no-explicit-any -->
-        <GuideSection {...(t.guide as any)} />
+        <GuideSection {...(t.guide as Record<string, unknown>)} />
     {/if}
 
     <!-- AEO Semantic Section for AI Search Engines -->
