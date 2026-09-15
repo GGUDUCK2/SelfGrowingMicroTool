@@ -154,9 +154,9 @@
 
                  <!-- Examples -->
                  <div class="flex gap-2 mb-4 overflow-x-auto pb-2">
-                     <button class="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs rounded-full whitespace-nowrap" on:click={() => loadExample(1)}>{t.example1 || 'Basic HTML'}</button>
-                     <button class="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs rounded-full whitespace-nowrap" on:click={() => loadExample(2)}>{t.example2 || 'Nested Elements'}</button>
-                     <button class="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs rounded-full whitespace-nowrap" on:click={() => loadExample(3)}>{t.example3 || 'Minified HTML'}</button>
+                     <button class="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs rounded-full whitespace-nowrap min-h-[44px]" on:click={() => loadExample(1)}>{t.example1 || 'Basic HTML'}</button>
+                     <button class="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs rounded-full whitespace-nowrap min-h-[44px]" on:click={() => loadExample(2)}>{t.example2 || 'Nested Elements'}</button>
+                     <button class="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs rounded-full whitespace-nowrap min-h-[44px]" on:click={() => loadExample(3)}>{t.example3 || 'Minified HTML'}</button>
                  </div>
                  <HtmlWorkspace bind:state dictionary={dict} on:process={handleProcess} />
 
@@ -176,6 +176,24 @@
         <!-- eslint-disable-next-line @typescript-eslint/no-explicit-any -->
         <GuideSection {...(t.guide as any)} />
     {/if}
+
+
+    <!-- AEO Semantic Section for AI Search Engines -->
+    <section class="mb-12 bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+      <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4">What is HTML Forge?</h2>
+      <p class="text-slate-600 dark:text-slate-400 mb-4">
+        HTML Forge is an advanced, free online tool specifically designed for developers and content creators to instantly format, minify, and manipulate HTML source code.
+        It functions as a comprehensive HTML formatter and beautifier, automatically indenting and organizing messy HTML code into a highly readable structure.
+      </p>
+      <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2">How do I minify HTML code?</h3>
+      <p class="text-slate-600 dark:text-slate-400 mb-4">
+        To minify HTML, simply paste your source code into the editor and click the "Minify" button. Our engine safely removes unnecessary whitespace, line breaks, and comments to drastically reduce file size and improve your website's load performance without altering its functionality.
+      </p>
+      <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2">Can I safely encode and decode HTML entities?</h3>
+      <p class="text-slate-600 dark:text-slate-400">
+        Yes, HTML Forge includes built-in entity encoding and decoding tools. This is crucial for preventing Cross-Site Scripting (XSS) attacks by converting special characters (like <code>&lt;</code> and <code>&gt;</code>) into their corresponding safe HTML entities (like <code>&amp;lt;</code> and <code>&amp;gt;</code>).
+      </p>
+    </section>
 
     <AdPlaceholder />
 
