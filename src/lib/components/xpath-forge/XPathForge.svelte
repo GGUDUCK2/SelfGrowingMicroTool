@@ -506,7 +506,7 @@
                 {/if}
             </div>
 
-            <div class="grid gap-6 h-[500px] xl:grid-cols-2 grid-cols-1">
+            <div class="grid gap-6 h-[500px] grid-cols-1 xl:grid-cols-2">
                 <!-- Document Editor -->
                 <div class="flex flex-col h-full bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
                     <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-800/50">

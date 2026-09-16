@@ -220,3 +220,17 @@
 
 #### 3. Performance Impact (기대 효과)
 - 현재의 높은 코드 품질과 구조적 안정성을 재확인하여 기술 부채를 방지했습니다.
+
+### [Daily Improvement Report - 2026-09-16]
+#### 1. Identified Issues (발견된 문제)
+- `HtmlWorkspace.svelte` 컴포넌트와 `XPathForge.svelte` 컴포넌트에서 비반응형(hardcoded) `grid-cols-2` 클래스가 존재하여 모바일 환경에서 1열(`grid-cols-1`)로 축소되지 않아 레이아웃 넘침 현상이 발생할 수 있는 문제가 발견되었습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**:
+  - `src/lib/components/html-forge/HtmlWorkspace.svelte`
+  - `src/lib/components/xpath-forge/XPathForge.svelte`
+  - 비반응형 `grid-cols-2` 클래스를 `grid-cols-1 sm:grid-cols-2` 또는 `grid-cols-1 xl:grid-cols-2` 형태로 교체하여 모바일 우선(Mobile-first) 디자인 원칙이 적용되도록 개선했습니다.
+- **SEO/AEO**: 기존 구조화 데이터 및 `svelte:head` 메타데이터 유지 확인 완료.
+
+#### 3. Performance Impact (기대 효과)
+- 모바일 뷰어에서의 그리드 넘침 현상과 가로 스크롤 이슈를 미연에 방지하여 모바일 UX 및 접근성을 향상시켰습니다.
