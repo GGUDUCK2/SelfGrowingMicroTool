@@ -2,7 +2,7 @@
   import { page } from '$app/stores';
 </script>
 
-<div class="min-h-screen flex items-center justify-center bg-slate-900 text-slate-50 p-4">
+<div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-slate-50 p-4 transition-colors">
   <div class="text-center max-w-lg">
     <div class="mb-6 flex justify-center">
        <!-- Brand Icon -->
@@ -11,9 +11,9 @@
         </svg>
     </div>
     <h1 class="text-4xl font-bold mb-2">{$page.status} Error</h1>
-    <h2 class="text-2xl font-bold mb-4 text-slate-50">{$page.error?.message || 'Something went wrong'}</h2>
+    <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-slate-50">{$page.error?.message || 'Something went wrong'}</h2>
 
-    <p class="text-slate-400 mb-8 text-lg">
+    <p class="text-gray-500 dark:text-slate-400 mb-8 text-lg">
       <span class="text-sm opacity-80 mt-2 block">문제가 발생했습니다. 다시 시도해 주세요.</span>
     </p>
 
@@ -25,7 +25,7 @@
       >
         Go Home / 홈으로 돌아가기
       </a>
-      <button class="border border-slate-600 text-slate-300 px-6 py-3 rounded-lg hover:bg-slate-800 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+      <button class="border border-gray-300 dark:border-slate-600 text-gray-600 dark:text-slate-300 bg-white dark:bg-transparent px-6 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
          on:click={() => window.location.href = 'https://github.com/microfactory/issues'}
       >
         Report Issue / 문제 신고하기
