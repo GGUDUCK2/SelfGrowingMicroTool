@@ -93,7 +93,7 @@
         <h3 class="text-xs font-semibold uppercase text-slate-500 tracking-wider">{dict.dimensions}</h3>
         <div class="grid gap-2 grid-cols-1 sm:grid-cols-2">
             {#each sizes as size}
-                <button class="min-h-[44px] min-w-[44px] px-2 py-2 text-xs border rounded hover:bg-indigo-50 hover:border-indigo-200 truncate transition-colors text-left {state.width === size.width && state.height === size.height ? 'bg-indigo-100 border-indigo-500 text-indigo-700' : 'bg-white border-slate-200 text-slate-600'}"
+                <button class="min-h-[44px] min-w-[44px] px-2 py-2 text-xs border rounded hover:bg-indigo-50 hover:border-indigo-200 truncate transition-colors text-left {state.width === size.width && state.height === size.height ? 'bg-indigo-100 border-indigo-500 text-indigo-700' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:dark:bg-indigo-900'}"
                     on:click={() => handleResize(size)}
                     title="{size.width}x{size.height}"
                 >
@@ -246,12 +246,12 @@
         </div>
     {:else}
         <div class="pt-4 border-t border-slate-200 space-y-2">
-            <button class="min-h-[44px] min-w-[44px] w-full py-3 bg-white border-2 border-dashed border-indigo-300 text-indigo-600 rounded-xl hover:bg-indigo-50 hover:border-indigo-500 transition-all flex items-center justify-center gap-2 text-sm font-bold" on:click={addTextLayer}
+            <button class="min-h-[44px] min-w-[44px] w-full py-3 bg-white dark:bg-slate-800 border-2 border-dashed border-indigo-300 text-indigo-600 dark:text-indigo-400 rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-700 hover:border-indigo-500 transition-all flex items-center justify-center gap-2 text-sm font-bold" on:click={addTextLayer}
             >
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                 {dict.addText}
             </button>
-            <label class="w-full py-3 bg-white border-2 border-dashed border-indigo-300 text-indigo-600 rounded-xl hover:bg-indigo-50 hover:border-indigo-500 transition-all flex items-center justify-center gap-2 text-sm font-bold cursor-pointer">
+            <label class="w-full py-3 bg-white dark:bg-slate-800 border-2 border-dashed border-indigo-300 text-indigo-600 dark:text-indigo-400 rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-700 hover:border-indigo-500 transition-all flex items-center justify-center gap-2 text-sm font-bold cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                 {dict.upload}
                 <input type="file" accept="image/*" class="hidden" on:change={handleImageUpload} />
