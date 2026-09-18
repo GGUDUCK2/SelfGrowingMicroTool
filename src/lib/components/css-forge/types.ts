@@ -4,6 +4,7 @@ export interface CssStatistics {
     selectors: number;
     rules: number;
     declarations: number;
+    variables: Array<{name: string, value: string}>;
 }
 
 export interface CssState {
@@ -46,6 +47,10 @@ export interface CssDictionary {
     example1?: string;
     example2?: string;
     example3?: string;
+    extractedVariables?: string;
+    name?: string;
+    value?: string;
+    noVariables?: string;
     feedback?: {
         copied?: string;
         cleared?: string;

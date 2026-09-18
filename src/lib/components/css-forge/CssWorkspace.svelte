@@ -54,7 +54,17 @@
         }
     }
 
-    return { selectors, rules, declarations };
+
+    // Extract CSS variables (usually in :root or anywhere)
+    const variables: Array<{name: string, value: string}> = [];
+    const varRegex = /(--[\w-]+)\s*:\s*([^;]+);/g;
+    let match;
+    while ((match = varRegex.exec(noComments)) !== null) {
+        variables.push({ name: match[1], value: match[2].trim() });
+    }
+
+    return { selectors, rules, declarations, variables };
+
   }
 
 
@@ -238,7 +248,7 @@
         <div class="flex items-start gap-2 mt-2 p-3 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 text-xs rounded-lg border border-amber-200 dark:border-amber-800">
             <AlertTriangle size={16} class="shrink-0 mt-0.5" />
             <div class="flex flex-col gap-1">
-                {#each validationErrors as error}
+                {#each validationErrors as error, i (i)}
                     <span>{error}</span>
                 {/each}
             </div>
@@ -275,6 +285,29 @@
                           <h3 class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Declarations</h3>
                           <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">{state.statistics.declarations}</div>
                      </div>
+                </div>
+
+                <div class="mt-8">
+                     <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">{dictionary?.tools?.cssForge?.extractedVariables || 'Extracted Variables'}</h3>
+                     {#if state.statistics.variables.length > 0}
+                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                             {#each state.statistics.variables as v, i (i)}
+                                 <div class="flex items-center justify-between p-3 bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700">
+                                     <div class="flex flex-col overflow-hidden mr-2">
+                                         <span class="text-xs font-medium text-slate-500 dark:text-slate-400 truncate" title={v.name}>{v.name}</span>
+                                         <span class="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate" title={v.value}>{v.value}</span>
+                                     </div>
+                                     {#if v.value.match(/^(#|rgb|rgba|hsl|hsla)/i)}
+                                         <div class="w-8 h-8 rounded border border-slate-200 dark:border-slate-700 shadow-inner flex-shrink-0" style="background-color: {v.value};"></div>
+                                     {/if}
+                                 </div>
+                             {/each}
+                         </div>
+                     {:else}
+                         <div class="text-sm text-slate-500 dark:text-slate-400 p-4 bg-slate-100 dark:bg-slate-800/50 rounded-lg text-center border border-dashed border-slate-300 dark:border-slate-700">
+                             {dictionary?.tools?.cssForge?.noVariables || 'No variables found.'}
+                         </div>
+                     {/if}
                 </div>
             </div>
         {:else}

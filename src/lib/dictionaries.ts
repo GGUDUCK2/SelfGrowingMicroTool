@@ -31,6 +31,10 @@ export const dictionaries = {
         example1: "Basic CSS",
         example2: "Nested Rules",
         example3: "Minified CSS",
+        extractedVariables: "Extracted Variables",
+        name: "Name",
+        value: "Value",
+        noVariables: "No variables found.",
         feedback: {
             copied: "Copied to clipboard",
             cleared: "Workspace cleared",
@@ -5120,6 +5124,10 @@ export const dictionaries = {
         example1: "기본 CSS",
         example2: "중첩 규칙",
         example3: "최소화된 CSS",
+        extractedVariables: "추출된 변수",
+        name: "이름",
+        value: "값",
+        noVariables: "변수를 찾을 수 없습니다.",
         feedback: {
             copied: "클립보드에 복사되었습니다",
             cleared: "작업 공간이 초기화되었습니다",
