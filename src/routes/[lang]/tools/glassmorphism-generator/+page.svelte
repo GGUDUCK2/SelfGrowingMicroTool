@@ -215,7 +215,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
   <div class="text-center space-y-4">
-    <h1 class="text-4xl font-bold text-gray-900">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-white">
       {dict.title}
     </h1>
     <p class="text-gray-500 max-w-7xl mx-auto">
@@ -258,7 +258,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
       class="lg:col-span-1 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-800 self-start sticky top-6 space-y-6"
     >
       <div class="flex justify-between items-center">
-        <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
             <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -292,7 +292,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
       <div class="space-y-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">
+          <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
             {dict.blur} ({blur}px)
             <input
               type="range"
@@ -307,7 +307,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">
+          <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
             {dict.transparency} ({Math.round(transparency * 100)}%)
             <input
               type="range"
@@ -322,7 +322,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">
+          <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
             {dict.color}
             <div class="flex gap-2 mt-2">
               <input
@@ -342,7 +342,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">
+          <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
             {dict.outline} ({outline}px)
             <input
               type="range"
@@ -357,7 +357,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">
+          <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
             {dict.radius} ({radius}px)
             <input
               type="range"
@@ -429,7 +429,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
       {#if $history && $history.length > 0}
         <div class="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-800">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-history text-indigo-600"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12"/><path d="M3 3v9h9"/><path d="M12 7v5l4 2"/></svg>
                     {dict.history}
                 </h3>

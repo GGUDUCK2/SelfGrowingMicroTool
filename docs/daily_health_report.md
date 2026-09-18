@@ -287,3 +287,13 @@
 
 #### 3. Performance Impact (기대 효과)
 - 프론트엔드 개발자가 CSS 파일 내에 사용된 디자인 토큰(Design Tokens)과 색상 변수들을 한눈에 추출 및 시각화하여 확인할 수 있게 되어 도구의 실용성(Killer Feature)과 사용자 경험(UX)이 크게 향상되었습니다.
+### [Daily Improvement Report - 2026-09-19]
+#### 1. Identified Issues (발견된 문제)
+- 일부 도구 페이지(`compound-interest-calculator`, `glassmorphism-generator`, `logic-forge`)에서 텍스트 색상(`text-gray-900`, `text-slate-900`, `text-gray-700`)이 사용되었으나, 다크모드 대응 속성(예: `dark:text-white`, `dark:text-slate-300`)이 누락되어 다크모드 활성화 시 가독성이 저하되는 문제가 발견되었습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/compound-interest-calculator/+page.svelte`, `src/routes/[lang]/tools/glassmorphism-generator/+page.svelte`, `src/routes/[lang]/tools/logic-forge/+page.svelte` 파일 내에서 라이트모드 텍스트 색상을 사용하는 요소들에 `dark:text-white` 및 `dark:text-slate-300` 등 적절한 다크모드 대응 클래스를 추가하여 가독성을 보완했습니다.
+- **SEO/AEO**: 기존에 적용되어 있는 메타데이터와 구조화 데이터는 변경 없이 유지되었습니다.
+
+#### 3. Performance Impact (기대 효과)
+- 도구 페이지의 다크모드 UI 가독성을 향상시켜 시각적 일관성을 확보하고 사용자 경험(UX)을 개선했습니다.
