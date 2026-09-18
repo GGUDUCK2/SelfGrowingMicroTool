@@ -9,7 +9,8 @@ export default [
 		ignores: [
 			'build/',
 			'.svelte-kit/',
-			'dist/'
+			'dist/',
+			'.vercel/'
 		]
 	},
 	js.configs.recommended,
