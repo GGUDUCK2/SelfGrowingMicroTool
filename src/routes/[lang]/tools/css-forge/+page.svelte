@@ -69,6 +69,7 @@
       "CSS Formatter",
       "CSS Minifier",
       "CSS Statistics Analyzer",
+      "CSS Variables Extractor",
       "Local History Workspace"
     ]
   };
