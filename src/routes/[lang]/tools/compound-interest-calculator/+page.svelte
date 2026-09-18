@@ -375,7 +375,7 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
   <div class="text-center space-y-4">
-    <h1 class="text-4xl font-bold text-gray-900">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-white">
       {lang === "ko" ? "복리 계산기" : "Compound Interest Calculator"}
     </h1>
     <p class="text-gray-500 max-w-7xl mx-auto">
@@ -391,7 +391,7 @@
       class="lg:col-span-1 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-800 h-fit space-y-6"
     >
       <div class="flex justify-between items-center">
-        <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
             <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -436,7 +436,7 @@
 
       <div class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">
+          <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
             {lang === "ko" ? "초기 투자금" : "Initial Investment"}
             <div class="relative mt-1">
               <span
@@ -458,7 +458,7 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">
+          <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
             {lang === "ko" ? "월 적립금" : "Monthly Contribution"}
             <div class="relative mt-1">
               <span
@@ -480,7 +480,7 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">
+          <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
             {lang === "ko" ? "연 수익률 (%)" : "Interest Rate (%)"}
             <div class="relative mt-1">
               <input
@@ -514,7 +514,7 @@
         </div>
 
         <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">
+            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
               {lang === "ko"
                 ? "이자 소득세율 (%)"
                 : "Tax Rate on Interest (%)"}
@@ -539,7 +539,7 @@
           </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">
+          <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
             {lang === "ko"
               ? "물가 상승률 (인플레이션 %)"
               : "Inflation Rate (%)"}
@@ -564,7 +564,7 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">
+          <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
             {lang === "ko" ? "복리 주기" : "Compound Frequency"}
             <select
               bind:value={compoundFrequency}
@@ -591,7 +591,7 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">
+          <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
             {lang === "ko" ? "투자 기간 (년)" : "Years to Grow"}
             <div class="flex items-center gap-4 mt-1">
               <input
@@ -648,7 +648,7 @@
             {lang === "ko" ? "총 평가액" : "Future Balance"}
           </div>
           <div
-            class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 truncate"
+            class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white truncate"
             title={formatMoney(
               results.length > 0
                 ? results[results.length - 1].nominalBalance
@@ -671,7 +671,7 @@
             {lang === "ko" ? "실질 가치 (물가반영)" : "Real Value"}
           </div>
           <div
-            class="text-lg sm:text-xl font-bold text-gray-900 truncate"
+            class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white truncate"
             title={formatMoney(realValue, lang)}
           >
             {formatMoney(realValue, lang)}
@@ -683,7 +683,7 @@
           >
             {lang === "ko" ? "총 투자 원금" : "Total Invested"}
           </div>
-          <div class="text-lg sm:text-xl font-bold text-gray-900 truncate">
+          <div class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white truncate">
             {formatMoney(totalInvested, lang)}
           </div>
         </div>
