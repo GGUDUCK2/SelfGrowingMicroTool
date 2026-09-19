@@ -16,7 +16,7 @@
     </div>
   {:else}
     <div class="overflow-auto flex-1">
-      <table class="w-full text-left text-sm whitespace-nowrap">
+      <table class="w-full text-left text-sm whitespace-nowrap overflow-x-auto">
         <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 sticky top-0 z-10">
           <tr>
             <th class="px-4 py-3 font-semibold border-b border-slate-200 dark:border-slate-700 w-12 text-center">#</th>

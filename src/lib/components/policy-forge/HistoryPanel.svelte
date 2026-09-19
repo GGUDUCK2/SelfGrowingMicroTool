@@ -31,7 +31,7 @@
   }
 </script>
 
-<div class="w-full md:w-80 h-full flex flex-col bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800">
+<div class="w-full md:w-full max-w-sm h-full flex flex-col bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800">
     <div class="p-4 border-b border-slate-200 dark:border-slate-800">
         <h2 class="font-semibold text-slate-800 dark:text-white">{dict.history.title}</h2>
     </div>

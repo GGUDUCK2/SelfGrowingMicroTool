@@ -35,7 +35,7 @@
 {#if show}
     <button aria-label="Close history overlay" class="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm w-full h-full cursor-default" on:click={() => dispatch('close')} transition:fade></button>
 
-    <div class="fixed inset-y-0 right-0 z-50 w-80 bg-white dark:bg-slate-900 shadow-2xl border-l border-slate-200 dark:border-slate-800 flex flex-col" transition:slide={{ axis: 'x', duration: 300 }}>
+    <div class="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white dark:bg-slate-900 shadow-2xl border-l border-slate-200 dark:border-slate-800 flex flex-col" transition:slide={{ axis: 'x', duration: 300 }}>
         <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-800/50">
             <h3 class="font-bold text-lg text-slate-800 dark:text-white">{dict.history.title}</h3>
             <button aria-label="Close" on:click={() => dispatch('close')} class="min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">

@@ -49,7 +49,7 @@
                 <p>{dict.history.noEvents}</p>
             </div>
         {:else}
-            <table class="w-full text-sm text-left">
+            <table class="w-full text-sm text-left overflow-x-auto">
                 <thead class="bg-slate-50 dark:bg-slate-800 text-xs uppercase font-medium text-slate-500 sticky top-0">
                     <tr>
                         <th class="px-4 py-3 w-32">{dict.history.time}</th>

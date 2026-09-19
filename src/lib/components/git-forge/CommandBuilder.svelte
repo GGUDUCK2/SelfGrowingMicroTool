@@ -193,7 +193,7 @@
                 </h2>
                 <div class="group relative">
                     <HelpCircle size={16} class="text-slate-400 cursor-help" />
-                    <div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 w-64 p-2 bg-slate-800 text-white text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10">
+                    <div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 w-full max-w-xs p-2 bg-slate-800 text-white text-xs rounded shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10">
                         {activeCommand.description}
                     </div>
                 </div>

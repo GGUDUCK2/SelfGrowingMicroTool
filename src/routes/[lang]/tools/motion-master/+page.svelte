@@ -155,7 +155,7 @@
 
 <div class="flex h-[calc(100vh-64px)] overflow-hidden bg-slate-50 dark:bg-slate-900">
    <!-- Sidebar -->
-   <div class="fixed inset-y-0 left-0 z-50 w-80 bg-white dark:bg-slate-800 shadow-xl transform transition-transform duration-300 md:relative md:translate-x-0 md:shadow-none border-r border-slate-200 dark:border-slate-700 {showSidebar ? 'translate-x-0' : '-translate-x-full'} pt-16 md:pt-0">
+   <div class="fixed inset-y-0 left-0 z-50 w-full max-w-sm bg-white dark:bg-slate-800 shadow-xl transform transition-transform duration-300 md:relative md:translate-x-0 md:shadow-none border-r border-slate-200 dark:border-slate-700 {showSidebar ? 'translate-x-0' : '-translate-x-full'} pt-16 md:pt-0">
         <HistorySidebar {dict} onClose={() => showSidebar = false} />
    </div>
 
@@ -237,7 +237,7 @@
            </div>
 
            <!-- Right: Properties -->
-           <div class="w-full lg:w-80 bg-white dark:bg-slate-800 border-l border-slate-200 dark:border-slate-700 overflow-y-auto shrink-0">
+           <div class="w-full lg:w-full max-w-sm bg-white dark:bg-slate-800 border-l border-slate-200 dark:border-slate-700 overflow-y-auto shrink-0">
                <PropertyPanel {dict} />
            </div>
        </div>

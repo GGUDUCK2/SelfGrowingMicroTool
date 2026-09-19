@@ -29,7 +29,7 @@
   </div>
 
   <div class="flex-1 overflow-auto custom-scrollbar">
-      <table class="w-full text-left text-xs">
+      <table class="w-full text-left text-xs overflow-x-auto">
           <thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 font-medium sticky top-0 z-10">
               <tr>
                   <th class="px-4 py-3 cursor-pointer hover:text-indigo-600 transition-colors" on:click={() => sort('id')}>Invoice</th>

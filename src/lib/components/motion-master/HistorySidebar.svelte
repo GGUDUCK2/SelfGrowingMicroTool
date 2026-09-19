@@ -25,7 +25,7 @@
   }
 </script>
 
-<div class="h-full flex flex-col bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 w-full md:w-80">
+<div class="h-full flex flex-col bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 w-full md:w-full max-w-sm">
     <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
         <h2 class="font-bold text-lg text-slate-800 dark:text-white">{(dict as any)?.history ?? 'History'}</h2>
         <button on:click={onClose} class="md:hidden text-slate-500">

@@ -30,7 +30,7 @@
   }
 </script>
 
-<div class="flex flex-col h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 w-64 shrink-0">
+<div class="flex flex-col h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 w-full max-w-xs shrink-0">
     <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
         <h3 class="font-bold text-slate-700 dark:text-slate-200 text-sm uppercase tracking-wider">Tables</h3>
         <button

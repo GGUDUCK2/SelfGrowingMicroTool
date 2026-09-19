@@ -421,7 +421,7 @@
                     </button>
 
                     {#if showProjects}
-                        <div class="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50" transition:slide>
+                        <div class="absolute top-full left-0 mt-2 w-full max-w-xs bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50" transition:slide>
                             <div class="flex justify-between items-center mb-2 px-2">
                                  <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">{t?.toolbar?.myProjects}</span>
                                  <button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded min-h-[44px] min-w-[44px] flex items-center justify-center"
@@ -475,7 +475,7 @@
                             {t?.toolbar?.history}
                         </button>
                         {#if showHistory}
-                             <div class="absolute top-full right-0 mt-2 w-72 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50" transition:slide>
+                             <div class="absolute top-full right-0 mt-2 w-full max-w-[18rem] bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50" transition:slide>
                                 <button class="w-full flex items-center gap-2 px-3 py-2 mb-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-lg text-sm font-medium hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors min-h-[44px] min-w-[44px]"
                                     on:click={takeSnapshot}
                                 >
@@ -522,7 +522,7 @@
                             {t?.toolbar?.templates}
                         </button>
                         {#if showTemplates}
-                            <div class="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50" transition:slide>
+                            <div class="absolute top-full right-0 mt-2 w-full max-w-xs bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50" transition:slide>
                                 <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase px-2 mb-2">Start with...</div>
                                 <div class="space-y-1">
                                     {#each TEMPLATES as tmpl}
@@ -642,7 +642,7 @@
                             </div>
                             <div class="flex-1 overflow-auto p-4">
                                 <div class="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
-                                    <table class="w-full text-sm text-left">
+                                    <table class="w-full text-sm text-left overflow-x-auto">
                                         <thead class="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-slate-800">
                                             <tr>
                                                 {#each activeTable.columns as col}

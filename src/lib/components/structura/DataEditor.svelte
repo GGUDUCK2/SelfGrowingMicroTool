@@ -55,7 +55,7 @@
   ></textarea>
   <pre
     bind:this={pre}
-    class="absolute inset-0 w-full h-full p-4 m-0 pointer-events-none overflow-hidden font-mono leading-relaxed"
+    class="absolute inset-0 w-full h-full p-4 m-0 pointer-events-none overflow-hidden font-mono leading-relaxed overflow-x-auto"
     aria-hidden="true"><code class="language-{language}">{@html highlightedCode}</code></pre>
 </div>
 

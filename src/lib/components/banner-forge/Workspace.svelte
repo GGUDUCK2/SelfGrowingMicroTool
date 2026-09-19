@@ -92,7 +92,7 @@
 <div class="flex flex-col lg:flex-row h-[calc(100vh-4rem)] bg-slate-50 dark:bg-slate-950 overflow-hidden relative font-sans">
 
     <!-- Sidebar -->
-    <aside class="w-full lg:w-80 h-[40vh] lg:h-full order-2 lg:order-1 bg-white dark:bg-slate-900 border-t lg:border-t-0 lg:border-r border-slate-200 dark:border-slate-800 flex flex-col z-20 shadow-xl shrink-0">
+    <aside class="w-full lg:w-full max-w-sm h-[40vh] lg:h-full order-2 lg:order-1 bg-white dark:bg-slate-900 border-t lg:border-t-0 lg:border-r border-slate-200 dark:border-slate-800 flex flex-col z-20 shadow-xl shrink-0">
         <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900 sticky top-0 z-10">
             <h2 class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
                 <span class="text-indigo-600">❖</span> Editor

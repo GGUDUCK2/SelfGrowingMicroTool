@@ -183,7 +183,7 @@
       {#if finalDataUrl}
         <img src={finalDataUrl} alt="QR Code" class="max-w-full h-auto" style="min-width: 200px; min-height: 200px;" />
       {:else}
-        <div class="w-64 h-64 flex items-center justify-center">
+        <div class="w-full max-w-xs h-64 flex items-center justify-center">
             <span class="text-slate-500">Generating...</span>
         </div>
       {/if}

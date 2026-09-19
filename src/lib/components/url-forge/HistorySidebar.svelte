@@ -64,7 +64,7 @@
   }
 </script>
 
-<div class="w-80 bg-white dark:bg-slate-900 h-full flex flex-col border-l border-slate-200 dark:border-slate-800">
+<div class="w-full max-w-sm bg-white dark:bg-slate-900 h-full flex flex-col border-l border-slate-200 dark:border-slate-800">
     <!-- Header -->
     <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
         <h2 class="text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2">

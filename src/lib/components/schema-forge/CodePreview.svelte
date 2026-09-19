@@ -68,7 +68,7 @@
     </div>
 
     <div class="flex-1 overflow-auto p-4 custom-scrollbar">
-        <pre class="!bg-transparent !m-0 !p-0"><code bind:this={codeElement} class="language-{language}">{code}</code></pre>
+        <pre class="!bg-transparent !m-0 !p-0 overflow-x-auto"><code bind:this={codeElement} class="language-{language}">{code}</code></pre>
     </div>
 </div>
 

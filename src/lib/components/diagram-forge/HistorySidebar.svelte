@@ -26,7 +26,7 @@
   }
 </script>
 
-<div class="h-full flex flex-col bg-slate-50 dark:bg-slate-900 w-full md:w-80 border-r border-slate-200 dark:border-slate-700">
+<div class="h-full flex flex-col bg-slate-50 dark:bg-slate-900 w-full md:w-full max-w-sm border-r border-slate-200 dark:border-slate-700">
     <div class="p-4 border-b border-slate-200 dark:border-slate-700">
         <h2 class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
             <Clock size={18} />

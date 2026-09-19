@@ -30,7 +30,7 @@
   }
 </script>
 
-<div class="fixed inset-y-0 left-0 w-80 bg-white dark:bg-slate-900 shadow-2xl z-50 border-r border-slate-200 dark:border-slate-800 flex flex-col">
+<div class="fixed inset-y-0 left-0 w-full max-w-sm bg-white dark:bg-slate-900 shadow-2xl z-50 border-r border-slate-200 dark:border-slate-800 flex flex-col">
     <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-950">
         <h3 class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
             <Clock size={18} />

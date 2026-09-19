@@ -181,7 +181,7 @@
   </div>
 
   <div class="flex-1 overflow-auto p-4 relative group custom-scrollbar">
-      <pre class="font-mono text-sm text-blue-300 whitespace-pre-wrap break-all">{code}</pre>
+      <pre class="font-mono text-sm text-blue-300 whitespace-pre-wrap break-all overflow-x-auto">{code}</pre>
   </div>
 </div>
 

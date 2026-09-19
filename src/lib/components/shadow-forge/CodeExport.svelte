@@ -74,7 +74,7 @@ module.exports = {
     </div>
 
     <div class="flex-1 overflow-auto bg-slate-900 text-slate-300 p-4 font-mono text-sm leading-relaxed custom-scrollbar relative">
-        <pre><code><span class="text-indigo-400">.shadow-box</span> {'{'}
+        <pre class="overflow-x-auto"><code><span class="text-indigo-400">.shadow-box</span> {'{'}
   <span class="text-blue-300">width</span>: <span class="text-emerald-400">{config.canvas.width}px</span>;
   <span class="text-blue-300">height</span>: <span class="text-emerald-400">{config.canvas.height}px</span>;
   <span class="text-blue-300">border-radius</span>: <span class="text-emerald-400">{config.canvas.borderRadius}px</span>;

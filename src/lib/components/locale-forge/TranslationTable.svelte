@@ -46,7 +46,7 @@
     </div>
 
     <div class="flex-1 overflow-auto border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900">
-        <table class="w-full text-sm text-left border-collapse">
+        <table class="w-full text-sm text-left border-collapse overflow-x-auto">
             <thead class="bg-slate-50 dark:bg-slate-800 sticky top-0 z-10 text-xs uppercase text-slate-500 font-bold">
                 <tr>
                     <th class="p-3 border-b border-slate-200 dark:border-slate-700 w-1/4">Key</th>

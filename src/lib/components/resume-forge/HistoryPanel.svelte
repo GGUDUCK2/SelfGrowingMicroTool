@@ -23,7 +23,7 @@
   }
 </script>
 
-<div class="h-full flex flex-col bg-slate-50 dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 w-80">
+<div class="h-full flex flex-col bg-slate-50 dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 w-full max-w-sm">
     <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2 font-semibold text-slate-700 dark:text-slate-300">
         <Clock size={18} />
         {dict.history.title}

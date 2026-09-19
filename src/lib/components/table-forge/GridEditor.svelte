@@ -30,7 +30,7 @@
 <div class="h-full w-full overflow-auto bg-slate-50 dark:bg-slate-900/50 p-4 relative">
   <div class="inline-block min-w-full align-top">
     <div class="border border-slate-300 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800 shadow-sm inline-block min-w-[300px]">
-      <table class="border-collapse table-fixed">
+      <table class="border-collapse table-fixed overflow-x-auto">
         <thead>
             <tr>
                 <th class="p-1 w-10 bg-slate-100 dark:bg-slate-900 border-b border-r border-slate-200 dark:border-slate-700 sticky left-0 z-20"></th>

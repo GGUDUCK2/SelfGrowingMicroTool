@@ -42,7 +42,7 @@
     }
   </script>
 
-  <div class="h-full w-full sm:w-96 bg-white dark:bg-slate-800 flex flex-col shadow-2xl border-l border-slate-200 dark:border-slate-700">
+  <div class="h-full w-full sm:w-full max-w-md bg-white dark:bg-slate-800 flex flex-col shadow-2xl border-l border-slate-200 dark:border-slate-700">
     <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
       <h2 class="text-lg font-semibold text-slate-800 dark:text-white flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -246,7 +246,7 @@
 <div class="flex h-[100dvh] overflow-hidden bg-slate-50 dark:bg-slate-900">
 
   <!-- Sidebar -->
-  <div class="fixed inset-y-0 left-0 z-50 w-80 bg-white dark:bg-slate-800 shadow-xl transform transition-transform duration-300 md:relative md:translate-x-0 md:shadow-none border-r border-slate-200 dark:border-slate-700 {showSidebar ? 'translate-x-0' : '-translate-x-full'}">
+  <div class="fixed inset-y-0 left-0 z-50 w-full max-w-sm bg-white dark:bg-slate-800 shadow-xl transform transition-transform duration-300 md:relative md:translate-x-0 md:shadow-none border-r border-slate-200 dark:border-slate-700 {showSidebar ? 'translate-x-0' : '-translate-x-full'}">
       <div class="absolute top-4 right-4 md:hidden">
         <button on:click={() => showSidebar = false} class="p-2 text-slate-500 dark:text-slate-400 min-h-[44px] min-w-[44px]" aria-label="Close sidebar">
             <X class="w-6 h-6" />
