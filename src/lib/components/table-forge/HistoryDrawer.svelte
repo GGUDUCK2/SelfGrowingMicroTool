@@ -23,7 +23,7 @@
   }
 </script>
 
-<div class="w-80 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 h-full flex flex-col shadow-xl z-20 absolute right-0 top-0 bottom-0" transition:slide={{ axis: 'x', duration: 200 }}>
+<div class="w-full max-w-sm bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 h-full flex flex-col shadow-xl z-20 absolute right-0 top-0 bottom-0" transition:slide={{ axis: 'x', duration: 200 }}>
   <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
     <h3 class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
       <Clock size={18} />

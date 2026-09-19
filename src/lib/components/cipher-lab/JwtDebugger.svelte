@@ -96,7 +96,7 @@
              <Copy size={12}/>
           </button>
         </div>
-        <pre class="bg-slate-50 dark:bg-slate-900 p-3 rounded-lg text-xs overflow-auto max-h-40 border-l-4 border-red-500">
+        <pre class="bg-slate-50 dark:bg-slate-900 p-3 rounded-lg text-xs overflow-auto max-h-40 border-l-4 border-red-500 overflow-x-auto">
           {@html highlight(JSON.stringify(parsed.header, null, 2))}
         </pre>
       </div>
@@ -114,7 +114,7 @@
              </button>
           </div>
         </div>
-        <pre class="bg-slate-50 dark:bg-slate-900 p-3 rounded-lg text-xs overflow-auto max-h-60 border-l-4 border-purple-500">
+        <pre class="bg-slate-50 dark:bg-slate-900 p-3 rounded-lg text-xs overflow-auto max-h-60 border-l-4 border-purple-500 overflow-x-auto">
           {@html highlight(JSON.stringify(parsed.payload, null, 2))}
         </pre>
       </div>

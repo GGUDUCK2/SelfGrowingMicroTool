@@ -35,7 +35,7 @@
   }
 </script>
 
-<div class="h-full flex flex-col bg-white dark:bg-slate-800 border-l border-slate-200 dark:border-slate-700 w-80 fixed right-0 top-0 bottom-0 shadow-xl transform transition-transform duration-300 z-50 overflow-hidden">
+<div class="h-full flex flex-col bg-white dark:bg-slate-800 border-l border-slate-200 dark:border-slate-700 w-full max-w-sm fixed right-0 top-0 bottom-0 shadow-xl transform transition-transform duration-300 z-50 overflow-hidden">
   <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-800">
     <h2 class="font-semibold text-slate-800 dark:text-white">{dict.history}</h2>
     <div class="flex gap-2">

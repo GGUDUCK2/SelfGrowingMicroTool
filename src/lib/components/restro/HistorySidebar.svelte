@@ -56,7 +56,7 @@
   }
 </script>
 
-<div class="flex flex-col h-full bg-slate-50 dark:bg-slate-800/50 border-r border-slate-200 dark:border-slate-700 w-full md:w-80">
+<div class="flex flex-col h-full bg-slate-50 dark:bg-slate-800/50 border-r border-slate-200 dark:border-slate-700 w-full md:w-full max-w-sm">
   <div class="flex border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
     <button
       class="flex-1 px-4 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 min-h-[44px] min-w-[44px] {activeTab === 'history' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}"

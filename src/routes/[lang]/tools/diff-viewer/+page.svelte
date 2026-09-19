@@ -466,7 +466,7 @@
 
     <!-- History Sidebar -->
     {#if isHistoryOpen}
-        <div class="fixed inset-y-0 right-0 z-50 w-80 shadow-2xl bg-white dark:bg-gray-800" transition:fly={{ x: 300, duration: 300 }}>
+        <div class="fixed inset-y-0 right-0 z-50 w-full max-w-sm shadow-2xl bg-white dark:bg-gray-800" transition:fly={{ x: 300, duration: 300 }}>
             <DiffHistory {translations} onSelect={loadHistoryItem} />
              <!-- Backdrop -->
              <button class="absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 min-h-[44px] min-w-[44px]"

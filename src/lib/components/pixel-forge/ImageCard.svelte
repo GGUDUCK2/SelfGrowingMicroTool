@@ -97,7 +97,7 @@
 
 <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 flex flex-col md:flex-row gap-6 transition-all hover:border-slate-600">
   <!-- Preview -->
-  <div class="relative w-full md:w-64 aspect-video md:aspect-square bg-slate-900 rounded-lg overflow-hidden flex-shrink-0 border border-slate-700 group">
+  <div class="relative w-full md:w-full max-w-xs aspect-video md:aspect-square bg-slate-900 rounded-lg overflow-hidden flex-shrink-0 border border-slate-700 group">
     {#if showDiff && job.result}
         <DiffSlider
             originalUrl={job.previewUrl}

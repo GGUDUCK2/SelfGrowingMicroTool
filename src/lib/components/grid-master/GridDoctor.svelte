@@ -17,7 +17,7 @@
   }
 </script>
 
-<div class="fixed top-24 right-4 z-40 w-80 bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden" transition:slide={{ axis: 'x', duration: 300 }}>
+<div class="fixed top-24 right-4 z-40 w-full max-w-sm bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden" transition:slide={{ axis: 'x', duration: 300 }}>
     <!-- Header -->
     <div class="p-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
         <div class="flex items-center gap-2">

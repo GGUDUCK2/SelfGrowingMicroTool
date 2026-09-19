@@ -16,7 +16,7 @@
   };
 
   function getKeyWidth(key: string) {
-      if (key === 'Space') return 'w-64';
+      if (key === 'Space') return 'w-full max-w-xs';
       if (key === 'Backspace' || key === 'Tab' || key === 'Enter' || key === 'Shift' || key === 'Caps' || key === '\\') return 'w-20 flex-grow';
       return 'w-10 flex-grow';
   }

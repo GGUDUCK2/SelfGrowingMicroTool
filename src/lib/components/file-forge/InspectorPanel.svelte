@@ -533,7 +533,7 @@
             <span class="text-slate-500 w-12 select-none shrink-0 border-r border-slate-800 mr-3">{line.offsetDisplay}</span>
 
             <!-- Bytes Area -->
-            <div class="w-96 mr-4 min-w-[300px] shrink-0 tracking-wider flex flex-wrap">
+            <div class="w-full max-w-md mr-4 min-w-[300px] shrink-0 tracking-wider flex flex-wrap">
                 {#if line.bytes.length > 0}
                     {#each line.bytes as byte (byte.offset)}
                         <button
@@ -563,7 +563,7 @@
   {/if}
 
   {#if hoveredByte}
-    <div class="fixed bottom-8 right-8 z-50 bg-slate-900/90 border border-indigo-500/50 backdrop-blur-md p-4 rounded-xl shadow-2xl text-xs font-mono text-indigo-300 w-64 animate-in fade-in slide-in-from-bottom-2 pointer-events-none">
+    <div class="fixed bottom-8 right-8 z-50 bg-slate-900/90 border border-indigo-500/50 backdrop-blur-md p-4 rounded-xl shadow-2xl text-xs font-mono text-indigo-300 w-full max-w-xs animate-in fade-in slide-in-from-bottom-2 pointer-events-none">
         <h5 class="font-bold text-white mb-2 flex items-center gap-2 border-b border-white/10 pb-1">
             <ScanEye size={14} /> {(dict as any)?.magicLens?.title || 'Magic Lens'}
         </h5>

@@ -95,7 +95,7 @@
   </div>
 
   <div class="relative group">
-      <pre class="w-full h-48 bg-slate-900 rounded-lg p-4 text-xs font-mono text-slate-300 overflow-auto border border-slate-700/50 custom-scrollbar">
+      <pre class="w-full h-48 bg-slate-900 rounded-lg p-4 text-xs font-mono text-slate-300 overflow-auto border border-slate-700/50 custom-scrollbar overflow-x-auto">
 {#if activeTab === 'html'}
 {htmlSnippet}
 {:else if activeTab === 'manifest'}

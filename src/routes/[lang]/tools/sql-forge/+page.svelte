@@ -207,7 +207,7 @@
         {/if}
 
         <!-- Sidebar -->
-        <div class={`absolute md:static inset-y-0 left-0 z-30 w-64 transform transition-transform duration-300 md:transform-none bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div class={`absolute md:static inset-y-0 left-0 z-30 w-full max-w-xs transform transition-transform duration-300 md:transform-none bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
             <Sidebar
                 {tables}
                 {t}

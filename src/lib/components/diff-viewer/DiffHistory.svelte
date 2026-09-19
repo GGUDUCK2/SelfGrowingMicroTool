@@ -50,7 +50,7 @@
   }
 </script>
 
-<div class="h-full flex flex-col bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 w-80">
+<div class="h-full flex flex-col bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 w-full max-w-sm">
     <div class="p-4 border-b border-gray-200 dark:border-gray-700">
         <h3 class="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
             <Calendar class="w-4 h-4" />

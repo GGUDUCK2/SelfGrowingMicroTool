@@ -37,7 +37,7 @@
     {:else if result.error}
         <div class="h-full p-4 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/10 font-mono text-sm overflow-auto">
             <strong>{t.error}:</strong>
-            <pre class="mt-2 whitespace-pre-wrap">{result.error}</pre>
+            <pre class="mt-2 whitespace-pre-wrap overflow-x-auto">{result.error}</pre>
         </div>
     {:else if result.data.length === 0}
         <div class="h-full flex flex-col items-center justify-center text-gray-400 p-8">
@@ -54,7 +54,7 @@
             </button>
         </div>
         <div class="flex-1 overflow-auto">
-            <table class="w-full text-left text-sm whitespace-nowrap">
+            <table class="w-full text-left text-sm whitespace-nowrap overflow-x-auto">
                 <thead class="bg-gray-50 dark:bg-gray-700/50 sticky top-0 z-10">
                     <tr>
                         {#each result.columns as col}

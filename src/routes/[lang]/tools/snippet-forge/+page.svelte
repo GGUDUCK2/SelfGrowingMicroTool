@@ -168,7 +168,7 @@
        <!-- Main Workspace -->
        <div class="flex-1 flex overflow-hidden relative">
            <!-- Controls Sidebar (Desktop) -->
-           <div class="hidden lg:block w-80 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 h-full overflow-hidden z-10 shadow-[4px_0_24px_-12px_rgba(0,0,0,0.1)]">
+           <div class="hidden lg:block w-full max-w-sm bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 h-full overflow-hidden z-10 shadow-[4px_0_24px_-12px_rgba(0,0,0,0.1)]">
                <Controls {dict} />
            </div>
 
@@ -183,7 +183,7 @@
                      <!-- svelte-ignore a11y-click-events-have-key-events -->
                      <!-- svelte-ignore a11y-no-static-element-interactions -->
                      <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" on:click={() => showMobileControls = false}></div>
-                     <div class="absolute inset-y-0 left-0 w-80 bg-white dark:bg-slate-900 shadow-2xl flex flex-col" transition:slide={{axis: 'x'}}>
+                     <div class="absolute inset-y-0 left-0 w-full max-w-sm bg-white dark:bg-slate-900 shadow-2xl flex flex-col" transition:slide={{axis: 'x'}}>
                          <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-800">
                              <h3 class="font-bold">Settings</h3>
                              <button on:click={() => showMobileControls = false} class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg min-h-[44px] min-w-[44px]"><X size={20} /></button>

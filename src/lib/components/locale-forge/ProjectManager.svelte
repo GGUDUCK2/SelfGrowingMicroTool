@@ -64,7 +64,7 @@
         </button>
 
         {#if showList && browser}
-            <div class="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50">
+            <div class="absolute top-full left-0 mt-2 w-full max-w-xs bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50">
                 <div class="flex justify-between items-center mb-2 px-2">
                     <span class="text-xs font-bold text-slate-500 uppercase">Projects</span>
                     <button class="p-1 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 rounded" on:click={newProject}>

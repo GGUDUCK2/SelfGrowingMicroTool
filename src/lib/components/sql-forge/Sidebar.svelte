@@ -43,7 +43,7 @@
   }
 </script>
 
-<div class="h-full flex flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 w-full md:w-64">
+<div class="h-full flex flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 w-full md:w-full max-w-xs">
     <!-- Tabs -->
     <div class="flex border-b border-gray-200 dark:border-gray-700">
         <button

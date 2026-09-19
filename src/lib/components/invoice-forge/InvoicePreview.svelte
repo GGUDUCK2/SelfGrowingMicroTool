@@ -28,7 +28,7 @@
     </div>
     <div class="text-right">
         <h2 class="text-4xl font-light text-gray-300 mb-4">{dictionary.editor.title}</h2>
-        <table class="text-sm ml-auto">
+        <table class="text-sm ml-auto overflow-x-auto">
             <tbody>
                 <tr>
                     <td class="font-bold text-gray-600 pr-4 py-1">{dictionary.editor.number}:</td>
@@ -60,7 +60,7 @@
   </div>
 
   <!-- Items Table -->
-  <table class="w-full mb-8">
+  <table class="w-full mb-8 overflow-x-auto">
     <thead>
         <tr class="border-b-2 border-gray-100">
             <th class="text-left py-3 text-xs font-bold text-gray-400 uppercase tracking-wider w-1/2">{dictionary.editor.itemDesc}</th>

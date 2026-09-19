@@ -136,7 +136,7 @@
        </div>
 
        <!-- Right Side: Controls Sidebar -->
-       <div class="w-full lg:w-96 bg-white dark:bg-slate-900 h-full flex flex-col shrink-0 overflow-hidden relative z-20 shadow-[-4px_0_24px_-12px_rgba(0,0,0,0.1)]">
+       <div class="w-full lg:w-full max-w-md bg-white dark:bg-slate-900 h-full flex flex-col shrink-0 overflow-hidden relative z-20 shadow-[-4px_0_24px_-12px_rgba(0,0,0,0.1)]">
            <LayerControl {dict} />
        </div>
 </main>

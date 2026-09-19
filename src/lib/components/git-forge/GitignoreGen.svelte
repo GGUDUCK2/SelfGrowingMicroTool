@@ -154,7 +154,7 @@
         </div>
         <div class="flex-1 p-4 overflow-y-auto">
             {#if content}
-                <pre class="font-mono text-xs text-slate-300 whitespace-pre-wrap">{content}</pre>
+                <pre class="font-mono text-xs text-slate-300 whitespace-pre-wrap overflow-x-auto">{content}</pre>
             {:else}
                 <div class="h-full flex items-center justify-center text-slate-600 text-sm">
                     {dictionary.ignore.selected}

@@ -138,11 +138,11 @@
 
     <div class="relative flex-1 overflow-auto bg-slate-50 dark:bg-[#1e1e1e] flex flex-col md:flex-row">
         <div class="flex-1 relative overflow-auto">
-            <pre class="m-0 p-4 text-sm font-mono leading-relaxed min-h-full"><code bind:this={codeElement} class="language-{format === 'sql' ? 'sql' : format === 'json' ? 'json' : 'text'}">{output}</code></pre>
+            <pre class="m-0 p-4 text-sm font-mono leading-relaxed min-h-full overflow-x-auto"><code bind:this={codeElement} class="language-{format === 'sql' ? 'sql' : format === 'json' ? 'json' : 'text'}">{output}</code></pre>
         </div>
 
         {#if ids.length > 0}
-        <div class="w-full md:w-64 border-l border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 overflow-y-auto max-h-[500px]">
+        <div class="w-full md:w-full max-w-xs border-l border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 overflow-y-auto max-h-[500px]">
             <div class="p-2 space-y-1">
                 <div class="text-xs font-semibold text-slate-500 uppercase px-2 py-1">Generated IDs</div>
                 {#each ids as id}

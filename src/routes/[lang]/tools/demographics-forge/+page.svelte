@@ -215,7 +215,7 @@
         </div>
 
         <!-- Right: History Sidebar -->
-        <div class="w-full lg:w-80 shrink-0 h-[400px] lg:h-auto">
+        <div class="w-full lg:w-full max-w-sm shrink-0 h-[400px] lg:h-auto">
             <HistorySidebar
                 toolId="demographics-forge"
                 {t}

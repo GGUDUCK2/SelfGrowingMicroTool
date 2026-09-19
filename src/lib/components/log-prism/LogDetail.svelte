@@ -19,7 +19,7 @@
 </script>
 
 {#if entry}
-    <div class="h-full flex flex-col bg-slate-50 dark:bg-slate-950 border-l border-slate-200 dark:border-slate-800 shadow-xl w-full sm:w-96 absolute right-0 top-0 bottom-0 z-20">
+    <div class="h-full flex flex-col bg-slate-50 dark:bg-slate-950 border-l border-slate-200 dark:border-slate-800 shadow-xl w-full sm:w-full max-w-md absolute right-0 top-0 bottom-0 z-20">
         <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900">
             <h3 class="font-bold text-slate-800 dark:text-white">{dict.details}</h3>
             <div class="flex gap-2">

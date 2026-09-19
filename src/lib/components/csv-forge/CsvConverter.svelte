@@ -105,6 +105,6 @@
       </button>
     </div>
 
-    <pre class="w-full h-[500px] p-6 bg-slate-50 dark:bg-[#0d1117] text-slate-800 dark:text-slate-300 font-mono text-sm rounded-xl border border-slate-200 dark:border-slate-800 overflow-auto whitespace-pre leading-relaxed shadow-inner"><code class="block">{output}</code></pre>
+    <pre class="w-full h-[500px] p-6 bg-slate-50 dark:bg-[#0d1117] text-slate-800 dark:text-slate-300 font-mono text-sm rounded-xl border border-slate-200 dark:border-slate-800 overflow-auto whitespace-pre leading-relaxed shadow-inner overflow-x-auto"><code class="block">{output}</code></pre>
   </div>
 </div>

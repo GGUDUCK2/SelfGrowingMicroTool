@@ -520,7 +520,7 @@
   <!-- Main Workspace -->
   <div class="flex-1 flex overflow-hidden">
       <!-- Desktop Sidebar -->
-      <div class="hidden lg:block w-80 h-full">
+      <div class="hidden lg:block w-full max-w-sm h-full">
          <Sidebar
             {layers}
             {activeLayerId}
@@ -553,7 +553,7 @@
               aria-label="Close menu"
             ></button>
             <div
-              class="relative w-80 max-w-[85%] h-full bg-white dark:bg-slate-800 shadow-2xl flex flex-col pointer-events-auto"
+              class="relative w-full max-w-sm max-w-[85%] h-full bg-white dark:bg-slate-800 shadow-2xl flex flex-col pointer-events-auto"
               transition:fly={{x: -300, duration: 300}}
             >
                  <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
@@ -610,7 +610,7 @@
 
           <!-- History Overlay -->
           {#if showHistory}
-              <div class="absolute top-20 right-4 w-72 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 z-30 p-2" transition:slide>
+              <div class="absolute top-20 right-4 w-full max-w-[18rem] bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 z-30 p-2" transition:slide>
                   <div class="px-2 py-1 mb-2 border-b border-slate-100 dark:border-slate-700 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Recent Projects</div>
                   {#if $historyItems && $historyItems.length > 0}
                       {#each $historyItems as item}
