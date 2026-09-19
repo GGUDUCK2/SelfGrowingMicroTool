@@ -177,14 +177,14 @@
 
       <div class="flex items-center gap-2">
           <button on:click={() => config = { ...config, zen: !config.zen }}
-              class="p-2 transition-colors rounded-lg flex items-center gap-1 font-medium text-sm {config.zen ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'text-slate-500'} min-h-[44px] min-w-[44px]"
+              class="p-2 transition-colors rounded-lg flex items-center gap-1 font-medium text-sm {config.zen ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'text-slate-500 dark:text-slate-400'} min-h-[44px] min-w-[44px]"
               title={dict.zen}
           >
               <Zap size={16} />
               <span class="hidden md:inline">Zen</span>
           </button>
           <button on:click={() => showKeyboard = !showKeyboard}
-              class="p-2 transition-colors rounded-lg {showKeyboard ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'text-slate-500'} min-h-[44px] min-w-[44px]"
+              class="p-2 transition-colors rounded-lg {showKeyboard ? 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'text-slate-500 dark:text-slate-400'} min-h-[44px] min-w-[44px]"
               title={dict.keyboard}
           >
               <Keyboard size={20} />

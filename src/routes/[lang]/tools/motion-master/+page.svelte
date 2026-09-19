@@ -172,7 +172,7 @@
        <header class="h-16 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between px-4 z-20">
            <div class="flex items-center gap-3">
                <button class="md:hidden p-2 min-h-[44px] min-w-[44px]" on:click={() => showSidebar = true}>
-                   <Menu class="w-5 h-5 text-slate-500" />
+                   <Menu class="w-5 h-5 text-slate-500 dark:text-slate-400" />
                </button>
                <h1 class="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600 hidden sm:block">
                    {dict.title.split(':')[0]}
@@ -198,7 +198,7 @@
                     {/if}
                 </button>
 
-                <button on:click={save} class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors min-h-[44px] min-w-[44px]" title={dict.save}>
+                <button on:click={save} class="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors min-h-[44px] min-w-[44px]" title={dict.save}>
                     <Save class="w-5 h-5" />
                 </button>
 
@@ -226,9 +226,9 @@
 
                <!-- Timeline -->
                <div class="h-48 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col shrink-0">
-                   <div class="px-4 py-2 border-b border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-500 uppercase flex justify-between items-center">
+                   <div class="px-4 py-2 border-b border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase flex justify-between items-center">
                        <span>{dict.timeline}</span>
-                       <span class="text-[10px] text-slate-400 font-mono">{$animationStore.duration}ms</span>
+                       <span class="text-[10px] text-slate-400 dark:text-slate-500 font-mono">{$animationStore.duration}ms</span>
                    </div>
                    <div class="flex-1 p-2 relative">
                        <Timeline />
@@ -250,11 +250,11 @@
         <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-2xl flex flex-col max-h-[90vh]" transition:fly={{ y: 20 }}>
             <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
                 <h3 class="font-bold text-lg text-slate-800 dark:text-white">{dict.export}</h3>
-                <button class="min-h-[44px] min-w-[44px]" on:click={() => showCodeModal = false}><X class="w-5 h-5 text-slate-500 min-h-[44px] min-w-[44px]" /></button>
+                <button class="min-h-[44px] min-w-[44px]" on:click={() => showCodeModal = false}><X class="w-5 h-5 text-slate-500 dark:text-slate-400 min-h-[44px] min-w-[44px]" /></button>
             </div>
             <div class="flex border-b border-slate-200 dark:border-slate-700">
-                <button class="flex-1 py-3 text-sm font-medium {codeMode === 'css' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'} min-h-[44px] min-w-[44px]" on:click={() => switchCodeMode('css')}>CSS</button>
-                <button class="flex-1 py-3 text-sm font-medium {codeMode === 'tailwind' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'} min-h-[44px] min-w-[44px]" on:click={() => switchCodeMode('tailwind')}>Tailwind</button>
+                <button class="flex-1 py-3 text-sm font-medium {codeMode === 'css' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 dark:text-slate-400'} min-h-[44px] min-w-[44px]" on:click={() => switchCodeMode('css')}>CSS</button>
+                <button class="flex-1 py-3 text-sm font-medium {codeMode === 'tailwind' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 dark:text-slate-400'} min-h-[44px] min-w-[44px]" on:click={() => switchCodeMode('tailwind')}>Tailwind</button>
             </div>
             <div class="p-4 flex-1 overflow-hidden relative group">
                 <textarea readonly class="w-full h-64 bg-slate-50 dark:bg-slate-900 p-4 rounded-lg font-mono text-xs resize-none focus:outline-none text-slate-700 dark:text-slate-300" value={generatedCode}></textarea>

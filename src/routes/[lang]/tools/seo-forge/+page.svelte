@@ -462,7 +462,7 @@
                         aria-label="Raw HTML Input"
                     ></textarea>
                     <div class="flex justify-end gap-2">
-                        <button on:click={() => showMagicPaste = false} class="min-h-[44px] min-w-[44px] px-3 py-1 text-xs text-slate-500 hover:text-slate-700">Cancel</button>
+                        <button on:click={() => showMagicPaste = false} class="min-h-[44px] min-w-[44px] px-3 py-1 text-xs text-slate-500 hover:text-slate-700 dark:text-slate-200">Cancel</button>
                         <button on:click={handleMagicPaste} class="px-3 py-1 text-xs bg-indigo-600 text-white rounded hover:bg-indigo-700 min-h-[44px] min-w-[44px]">Import</button>
                     </div>
                 </div>
@@ -504,7 +504,7 @@
 
                          {#if $history}
                              {#if filteredHistory.length === 0}
-                                <div class="text-center text-slate-500 py-12">No history found.</div>
+                                <div class="text-center text-slate-500 dark:text-slate-400 py-12">No history found.</div>
                              {:else}
                                  {#each filteredHistory as item (item.id)}
                                      <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg border border-slate-100 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors group">
@@ -515,13 +515,13 @@
                                                     <span class="text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300">{item.projectName}</span>
                                                 {/if}
                                              </div>
-                                             <div class="text-xs text-slate-500 truncate">{item.url || 'No URL'}</div>
+                                             <div class="text-xs text-slate-500 dark:text-slate-400 truncate">{item.url || 'No URL'}</div>
                                          </div>
                                          <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                             <button aria-label={dict.actions.restore} on:click={() => restoreHistory(item)} class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 hover:bg-white dark:hover:bg-slate-600 rounded text-indigo-600" title={dict.actions.restore}>
+                                             <button aria-label={dict.actions.restore} on:click={() => restoreHistory(item)} class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 hover:bg-white dark:bg-slate-800 dark:hover:bg-slate-600 rounded text-indigo-600" title={dict.actions.restore}>
                                                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74-2.74L3 12"/><path d="M3 3v9h9"/></svg>
                                              </button>
-                                             <button aria-label={dict.actions.delete} on:click={() => deleteHistory(item.id)} class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 hover:bg-white dark:hover:bg-slate-600 rounded text-red-500" title={dict.actions.delete}>
+                                             <button aria-label={dict.actions.delete} on:click={() => deleteHistory(item.id)} class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 hover:bg-white dark:bg-slate-800 dark:hover:bg-slate-600 rounded text-red-500" title={dict.actions.delete}>
                                                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                                              </button>
                                          </div>
@@ -540,7 +540,7 @@
              <div class="p-4 border-b border-slate-200 dark:border-slate-700 font-semibold text-sm flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
                 <div class="flex items-center gap-4">
                     <span>Output Code</span>
-                    <span class="text-xs font-normal text-slate-500 hidden sm:inline-block">
+                    <span class="text-xs font-normal text-slate-500 dark:text-slate-400 hidden sm:inline-block">
                         <span class="bg-slate-200 dark:bg-slate-700 rounded px-1.5 py-0.5 text-[10px] mr-1">Ctrl+S</span> Save
                         <span class="bg-slate-200 dark:bg-slate-700 rounded px-1.5 py-0.5 text-[10px] mx-1">Ctrl+C</span> Copy
                     </span>

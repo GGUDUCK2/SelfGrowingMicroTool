@@ -159,7 +159,7 @@
   <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30 print:hidden">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <div class="flex items-center gap-4">
-            <a href="/{lang}" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full text-gray-500 min-h-[44px] min-w-[44px] flex items-center justify-center">
+            <a href="/{lang}" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full text-gray-500 dark:text-slate-400 min-h-[44px] min-w-[44px] flex items-center justify-center">
                 <ArrowLeft size={20} />
             </a>
             <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 hidden sm:block">
@@ -168,7 +168,7 @@
         </div>
 
         <div class="flex items-center gap-2">
-            <button on:click={resetInvoice} class="p-2 text-gray-500 hover:text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg min-h-[44px] min-w-[44px]" title={invoiceDict.actions.reset}>
+            <button on:click={resetInvoice} class="p-2 text-gray-500 dark:text-slate-400 hover:text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg min-h-[44px] min-w-[44px]" title={invoiceDict.actions.reset}>
                 <RefreshCw size={20} />
             </button>
             <div class="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1"></div>

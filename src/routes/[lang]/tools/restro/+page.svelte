@@ -317,7 +317,7 @@
   <!-- Sidebar (Responsive) -->
   <div class="fixed inset-y-0 left-0 z-50 w-80 bg-white dark:bg-slate-800 shadow-xl transform transition-transform duration-300 md:relative md:translate-x-0 md:shadow-none border-r border-slate-200 dark:border-slate-700 {showSidebar ? 'translate-x-0' : '-translate-x-full'} pt-16 md:pt-0">
       <div class="absolute top-4 right-4 md:hidden">
-        <button on:click={() => showSidebar = false} class="p-2 text-slate-500 min-h-[44px] min-w-[44px]">
+        <button on:click={() => showSidebar = false} class="p-2 text-slate-500 dark:text-slate-400 min-h-[44px] min-w-[44px]">
             <X class="w-6 h-6" />
         </button>
       </div>
@@ -339,7 +339,7 @@
     <!-- Toolbar -->
     <div class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-2 flex items-center gap-2 justify-between shrink-0">
        <div class="flex items-center gap-2">
-           <button class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center"
+           <button class="md:hidden p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center"
              on:click={() => showSidebar = true}
            >
              <Menu class="w-5 h-5" />
@@ -409,7 +409,7 @@
     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden">
       <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
         <h3 class="font-bold text-lg text-slate-800 dark:text-white">Batch Collection Runner</h3>
-        <button on:click={() => showBatch = false} class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 min-h-[44px] min-w-[44px]">
+        <button on:click={() => showBatch = false} class="text-slate-500 hover:text-slate-700 dark:text-slate-200 dark:hover:text-slate-300 min-h-[44px] min-w-[44px]">
           <X class="w-5 h-5" />
         </button>
       </div>
@@ -418,7 +418,7 @@
           {#if $savedRequests$ && $savedRequests$.length > 0}
             <BatchRunner requests={$savedRequests$} />
           {:else}
-            <div class="text-center py-8 text-slate-500">
+            <div class="text-center py-8 text-slate-500 dark:text-slate-400">
                 <p>No saved collections found.</p>
                 <p class="text-sm mt-2">Save requests to your collection to run them in batch.</p>
             </div>
@@ -435,7 +435,7 @@
     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden">
       <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
         <h3 class="font-bold text-lg text-slate-800 dark:text-white">{dict.generateCode}</h3>
-        <button on:click={() => showCodeModal = false} class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 min-h-[44px] min-w-[44px]">
+        <button on:click={() => showCodeModal = false} class="text-slate-500 hover:text-slate-700 dark:text-slate-200 dark:hover:text-slate-300 min-h-[44px] min-w-[44px]">
           <X class="w-5 h-5" />
         </button>
       </div>

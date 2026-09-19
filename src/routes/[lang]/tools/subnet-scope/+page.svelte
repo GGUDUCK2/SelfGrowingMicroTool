@@ -225,7 +225,7 @@
 
   <!-- Cloud & Common Presets -->
   <div class="space-y-3 max-w-7xl mx-auto">
-      <div class="text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">{t.presets.title}</div>
+      <div class="text-center text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t.presets.title}</div>
       <div class="flex flex-wrap justify-center gap-2">
           <button on:click={() => loadExample('10.0.0.0/16')} class="px-3 py-1 text-xs min-h-[44px] min-w-[44px] font-medium bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-100 dark:border-orange-800 rounded-full hover:bg-orange-100 dark:hover:bg-orange-900/40 transition-colors">
               {t.presets.aws}
@@ -441,7 +441,7 @@
                         <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex justify-between items-center hover:shadow-md transition-shadow">
                             <div>
                                 <div class="font-mono text-lg text-indigo-600 dark:text-indigo-400 font-medium">{item.input}</div>
-                                <div class="text-xs text-slate-400">{new Date(item.timestamp).toLocaleString()}</div>
+                                <div class="text-xs text-slate-400 dark:text-slate-500">{new Date(item.timestamp).toLocaleString()}</div>
                             </div>
                             <div class="flex gap-2">
                                 <button on:click={() => toggleStar(item.id!)}
@@ -457,7 +457,7 @@
                                 </button>
                                 <button on:click={() => deleteHistoryItem(item.id!)}
                                     aria-label="Delete"
-                                    class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors"
+                                    class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 dark:text-slate-500 hover:text-red-500 transition-colors"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                                 </button>
@@ -466,7 +466,7 @@
                     {/each}
                 </div>
             {:else}
-                <div class="text-center py-12 text-slate-500">
+                <div class="text-center py-12 text-slate-500 dark:text-slate-400">
                     No history yet. Start analyzing!
                 </div>
             {/if}

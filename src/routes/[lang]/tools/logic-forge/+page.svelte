@@ -255,7 +255,7 @@
     <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 tracking-tight">
       {dict.title.split(':')[0]}
     </h1>
-    <p class="text-lg text-gray-600 max-w-7xl mx-auto">
+    <p class="text-lg text-gray-600 dark:text-slate-300 max-w-7xl mx-auto">
       {dict.description}
     </p>
   </div>
@@ -305,7 +305,7 @@
 
           <!-- Quick Operators Helper -->
           {#if mode === 'analyzer'}
-          <div class="flex flex-wrap gap-2 text-xs text-gray-500 font-mono">
+          <div class="flex flex-wrap gap-2 text-xs text-gray-500 dark:text-slate-400 font-mono">
              {#each Object.values(dict.operators) as label (label)}
                  <button class="px-3 py-2 min-h-[44px] min-w-[44px] bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded border border-gray-200 transition-colors"
                     aria-label="Insert {label}"

@@ -223,11 +223,11 @@
             <!-- Editor Pane -->
             <div class="flex flex-col gap-2 min-h-[200px] flex-shrink-0">
                 <div class="flex items-center justify-between px-1">
-                    <label class="text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
+                    <label class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
                         <Terminal size={14} />
                         {t.input}
                     </label>
-                    <span class="text-xs text-gray-400">Ctrl + Enter to Run</span>
+                    <span class="text-xs text-gray-400 dark:text-slate-500">Ctrl + Enter to Run</span>
                 </div>
                 <SqlEditor bind:value={query} placeholder="SELECT * FROM ..." on:run={() => handleRun()} />
             </div>
@@ -235,7 +235,7 @@
             <!-- Results Pane -->
             <div class="flex-1 min-h-0 flex flex-col gap-2">
                 <div class="flex items-center justify-between px-1">
-                    <label class="text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
+                    <label class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
                         <Code size={14} />
                         {t.output}
                     </label>

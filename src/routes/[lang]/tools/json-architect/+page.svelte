@@ -278,7 +278,7 @@
              <label for="json-output" class="text-sm font-semibold text-slate-300">
                 {t.output}
                 {#if mode !== 'json'}
-                  <span class="ml-2 px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-xs text-slate-500">{mode.toUpperCase()}</span>
+                  <span class="ml-2 px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-xs text-slate-500 dark:text-slate-400">{mode.toUpperCase()}</span>
                 {/if}
              </label>
              <div class="flex gap-2">

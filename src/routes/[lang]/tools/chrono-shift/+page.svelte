@@ -338,7 +338,7 @@
 
             <div class="flex items-center gap-4">
                 <div class="flex flex-col items-end">
-                    <span class="text-xs text-slate-500 uppercase font-semibold tracking-wider">{t.overlap}</span>
+                    <span class="text-xs text-slate-500 dark:text-slate-400 uppercase font-semibold tracking-wider">{t.overlap}</span>
                     <div class="flex items-center gap-2">
                         <span class="text-2xl font-bold {overlapColor}">{overlapScore}%</span>
                         <span class="text-sm font-medium text-slate-600 dark:text-slate-400">({overlapLabel})</span>
@@ -350,7 +350,7 @@
         <!-- Interactive Timeline -->
         <div class="p-6 bg-slate-100 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-700">
              <Timeline value={selectedDate} onChange={handleDateChange} />
-             <div class="mt-2 flex justify-between text-xs text-slate-500">
+             <div class="mt-2 flex justify-between text-xs text-slate-500 dark:text-slate-400">
                  <span>00:00</span>
                  <span>12:00</span>
                  <span>23:59</span>
@@ -373,7 +373,7 @@
             <!-- Add New Card -->
             <div class="relative group min-h-[120px] rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600 flex flex-col items-center justify-center p-4 hover:border-indigo-500 transition-colors">
                 <div class="text-center w-full">
-                    <div class="mb-3 mx-auto w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 group-hover:text-indigo-500 transition-colors">
+                    <div class="mb-3 mx-auto w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-indigo-500 transition-colors">
                         <Plus size={24} />
                     </div>
                     <p class="text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">{t.addLocation}</p>
@@ -467,12 +467,12 @@
                             {/each}
                         </div>
                     {:else}
-                        <p class="text-sm text-slate-500 italic">{t.noGroups}</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 italic">{t.noGroups}</p>
                     {/if}
                 </div>
 
                 <div class="mt-6 text-right">
-                    <button class="text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 min-h-[44px] min-w-[44px]" on:click={() => showTeamModal = false}>
+                    <button class="text-sm text-slate-500 hover:text-slate-700 dark:text-slate-200 dark:hover:text-slate-300 min-h-[44px] min-w-[44px]" on:click={() => showTeamModal = false}>
                         Close
                     </button>
                 </div>

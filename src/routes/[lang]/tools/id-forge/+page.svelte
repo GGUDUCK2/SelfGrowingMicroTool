@@ -268,7 +268,7 @@
                     <Generator bind:options={genOptions} on:generate={handleGenerate} />
 
                     <!-- Shortcuts Helper -->
-                    <div class="text-xs text-slate-400 flex items-center justify-between px-2">
+                    <div class="text-xs text-slate-400 dark:text-slate-500 flex items-center justify-between px-2">
                         <span>{dict.shortcuts}: <kbd class="font-mono bg-slate-100 dark:bg-slate-800 px-1 rounded">Cmd/Ctrl + Enter</kbd> {dict.generate}</span>
                         <span><kbd class="font-mono bg-slate-100 dark:bg-slate-800 px-1 rounded">Cmd/Ctrl + K</kbd> {dict.buttons.delete || 'Clear'}</span>
                     </div>

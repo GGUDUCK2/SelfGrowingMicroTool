@@ -147,6 +147,6 @@
         </div>
 
         <!-- Bottom Knob -->
-        <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-2 border-red-500 rounded-full shadow-sm"></div>
+        <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-4 h-4 bg-white dark:bg-slate-800 border-2 border-red-500 rounded-full shadow-sm"></div>
     </div>
 </div>

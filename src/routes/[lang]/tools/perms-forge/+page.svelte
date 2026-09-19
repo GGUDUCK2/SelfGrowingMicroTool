@@ -169,14 +169,14 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
                         <!-- Grid Editor -->
                         <div in:fade={{ duration: 300, delay: 100 }}>
-                            <div class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">{dict.grid}</div>
+                            <div class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">{dict.grid}</div>
                             <PermissionGrid {permission} onUpdate={handleUpdate} />
                         </div>
 
                         <!-- Numeric/Text Representations -->
                         <div class="space-y-6" in:fade={{ duration: 300, delay: 200 }}>
                             <div>
-                                <div class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">{dict.presets}</div>
+                                <div class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">{dict.presets}</div>
                                 <Presets {permission} onUpdate={handleUpdate} />
                             </div>
                             <Representation {permission} onUpdate={handleUpdate} />
@@ -186,7 +186,7 @@
 
                 <!-- Command Generator -->
                 <div in:fade={{ duration: 300, delay: 300 }}>
-                    <div class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">{dict.command}</div>
+                    <div class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">{dict.command}</div>
                     <CommandBuilder {permission} />
                 </div>
 
