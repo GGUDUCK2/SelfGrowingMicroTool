@@ -413,7 +413,7 @@
                <h1 class="text-xl font-bold text-slate-800 dark:text-white">
                    {dict?.title?.split(':')[0] || 'vCard Forge'}
                </h1>
-               <p class="text-sm text-slate-500 hidden sm:block truncate max-w-md">
+               <p class="text-sm text-slate-500 dark:text-slate-400 hidden sm:block truncate max-w-md">
                    {dict?.description}
                </p>
            </div>

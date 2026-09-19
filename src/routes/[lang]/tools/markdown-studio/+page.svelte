@@ -241,7 +241,7 @@
   <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30 print:hidden">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <a href="/{lang}" class="text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center p-2 -ml-2 rounded-lg" aria-label={commonDict.back}>
+        <a href="/{lang}" class="text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center p-2 -ml-2 rounded-lg" aria-label={commonDict.back}>
           <ArrowLeft size={20} />
         </a>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">
@@ -261,7 +261,7 @@
            {/each}
          </select>
 
-         <button class="p-2 text-slate-500 hover:text-indigo-600 relative hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
+         <button class="p-2 text-slate-500 dark:text-slate-400 hover:text-indigo-600 relative hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
            on:click={() => showHistory = !showHistory}
            title={dict.history}
          >
@@ -281,12 +281,12 @@
 
     <!-- Mobile Tabs -->
     <div class="sm:hidden flex border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 print:hidden">
-      <button class="flex-1 py-2 min-h-[44px] min-w-[44px] text-sm font-medium {activeTab === 'editor' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
+      <button class="flex-1 py-2 min-h-[44px] min-w-[44px] text-sm font-medium {activeTab === 'editor' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 dark:text-slate-400'}"
         on:click={() => activeTab = 'editor'}
       >
         {dict.input}
       </button>
-      <button class="flex-1 py-2 min-h-[44px] min-w-[44px] text-sm font-medium {activeTab === 'preview' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500'}"
+      <button class="flex-1 py-2 min-h-[44px] min-w-[44px] text-sm font-medium {activeTab === 'preview' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 dark:text-slate-400'}"
         on:click={() => activeTab = 'preview'}
       >
         {dict.preview}
@@ -311,7 +311,7 @@
           />
         </div>
         <!-- Stats Bar -->
-        <div class="min-h-[2rem] py-1 flex-wrap bg-slate-100 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 flex items-center px-4 text-xs text-slate-500 gap-4 select-none print:hidden">
+        <div class="min-h-[2rem] py-1 flex-wrap bg-slate-100 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 flex items-center px-4 text-xs text-slate-500 dark:text-slate-400 gap-4 select-none print:hidden">
            <span>{wordCount} {dict.words}</span>
            <span>{charCount} {dict.chars}</span>
            <span>{readingTime} min read</span>
@@ -402,7 +402,7 @@
       <div class="relative w-full max-w-sm bg-white dark:bg-slate-900 shadow-2xl h-full overflow-y-auto" transition:slide={{ axis: 'x', duration: 300 }}>
         <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
           <h3 class="font-semibold text-slate-900 dark:text-white">{dict.history}</h3>
-          <button class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 min-h-[44px] min-w-[44px]" on:click={() => showHistory = false} aria-label="Close history">
+          <button class="text-slate-500 hover:text-slate-700 dark:text-slate-200 dark:hover:text-slate-300 min-h-[44px] min-w-[44px]" on:click={() => showHistory = false} aria-label="Close history">
             <X size={20} />
           </button>
         </div>
@@ -416,11 +416,11 @@
                       role="button"
                       tabindex="0"
                  >
-                   <div class="text-xs text-slate-400 mb-1">{item.createdAt.toLocaleString()}</div>
+                   <div class="text-xs text-slate-400 dark:text-slate-500 mb-1">{item.createdAt.toLocaleString()}</div>
                    <div class="text-sm text-slate-700 dark:text-slate-300 line-clamp-2 font-mono text-xs">
                      {item.content || '(Empty)'}
                    </div>
-                   <button class="absolute top-2 right-2 p-1.5 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity min-h-[44px] min-w-[44px]"
+                   <button class="absolute top-2 right-2 p-1.5 text-slate-400 dark:text-slate-500 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity min-h-[44px] min-w-[44px]"
                      on:click|stopPropagation={() => deleteHistoryItem(item.id)}
                    >
                      <Trash2 size={14} />
@@ -428,7 +428,7 @@
                  </div>
                {/each}
                {#if $history.length === 0}
-                 <p class="text-center text-slate-500 py-8">{dict.historyEmpty || "No history"}</p>
+                 <p class="text-center text-slate-500 dark:text-slate-400 py-8">{dict.historyEmpty || "No history"}</p>
                {/if}
              </div>
              {#if $history.length > 0}

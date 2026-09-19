@@ -188,7 +188,7 @@
                 <span class="hidden sm:inline">{dict.smartPaste}</span>
             </button>
             <div class="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1"></div>
-            <button class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors relative min-h-[44px] min-w-[44px] flex items-center justify-center"
+            <button class="p-2 text-slate-500 dark:text-slate-400 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors relative min-h-[44px] min-w-[44px] flex items-center justify-center"
                 on:click={() => showHistory = !showHistory}
                 title={dict.history}
             >
@@ -214,7 +214,7 @@
         <div class="flex-1 flex overflow-hidden relative flex-col md:flex-row">
             <!-- Grid Editor -->
             <div class="flex-1 min-h-[300px] border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden">
-                <div class="p-2 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-500 uppercase tracking-wider flex justify-between items-center">
+                <div class="p-2 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex justify-between items-center">
                     {dict.editor}
                     <span class="text-[10px] bg-slate-200 dark:bg-slate-700 px-1.5 rounded text-slate-600 dark:text-slate-300">Editable</span>
                 </div>
@@ -225,9 +225,9 @@
 
             <!-- Preview -->
             <div class="flex-1 min-h-[300px] flex flex-col overflow-hidden bg-[#2d2d2d]">
-                <div class="p-2 bg-[#252525] border-b border-[#333] text-xs font-bold text-slate-400 uppercase tracking-wider flex justify-between items-center">
+                <div class="p-2 bg-[#252525] border-b border-[#333] text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex justify-between items-center">
                     {dict.preview}
-                    <span class="text-[10px] bg-[#333] px-1.5 rounded text-slate-400">{outputFormat}</span>
+                    <span class="text-[10px] bg-[#333] px-1.5 rounded text-slate-400 dark:text-slate-500">{outputFormat}</span>
                 </div>
                 <div class="flex-1 overflow-hidden relative">
                     <CodePreview code={generatedCode} language={outputFormat} />

@@ -378,7 +378,7 @@
     <h1 class="text-4xl font-bold text-gray-900 dark:text-white">
       {lang === "ko" ? "복리 계산기" : "Compound Interest Calculator"}
     </h1>
-    <p class="text-gray-500 max-w-7xl mx-auto">
+    <p class="text-gray-500 dark:text-slate-400 max-w-7xl mx-auto">
       {lang === "ko"
         ? "시간이 지남에 따라 자산이 어떻게 성장하는지 확인하세요. 인플레이션과 세금까지 고려한 복리의 마법을 경험해보세요."
         : "Visualize how your investment grows over time with the power of compound interest, adjusted for inflation and taxes."}
@@ -440,7 +440,7 @@
             {lang === "ko" ? "초기 투자금" : "Initial Investment"}
             <div class="relative mt-1">
               <span
-                class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500"
                 >$</span
               >
               <input
@@ -462,7 +462,7 @@
             {lang === "ko" ? "월 적립금" : "Monthly Contribution"}
             <div class="relative mt-1">
               <span
-                class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500"
                 >$</span
               >
               <input
@@ -492,7 +492,7 @@
                 class:border-red-500={errors.rate}
               />
               <span
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500"
                 >%</span
               >
             </div>
@@ -528,7 +528,7 @@
                   class:border-red-500={errors.taxRate}
                 />
                 <span
-                  class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500"
                   >%</span
                 >
               </div>
@@ -553,7 +553,7 @@
                 class:border-red-500={errors.inflationRate}
               />
               <span
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500"
                 >%</span
               >
             </div>
@@ -679,7 +679,7 @@
         </div>
         <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-gray-100 dark:border-slate-800 shadow-sm">
           <div
-            class="text-gray-500 text-xs font-semibold mb-1 uppercase tracking-wide"
+            class="text-gray-500 dark:text-slate-400 text-xs font-semibold mb-1 uppercase tracking-wide"
           >
             {lang === "ko" ? "총 투자 원금" : "Total Invested"}
           </div>

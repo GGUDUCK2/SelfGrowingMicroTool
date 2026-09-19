@@ -24,7 +24,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-                <label class="block text-sm font-medium text-slate-400 mb-1" for="port">Port</label>
+                <label class="block text-sm font-medium text-slate-400 dark:text-slate-500 mb-1" for="port">Port</label>
                 <input
                     type="number"
                     id="port"
@@ -33,7 +33,7 @@
                 />
             </div>
             <div>
-                <label class="block text-sm font-medium text-slate-400 mb-1" for="baseImage">Base Image</label>
+                <label class="block text-sm font-medium text-slate-400 dark:text-slate-500 mb-1" for="baseImage">Base Image</label>
                 <input
                     type="text"
                     id="baseImage"
@@ -45,7 +45,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-                <label class="block text-sm font-medium text-slate-400 mb-1" for="buildCmd">Build Command</label>
+                <label class="block text-sm font-medium text-slate-400 dark:text-slate-500 mb-1" for="buildCmd">Build Command</label>
                 <input
                     type="text"
                     id="buildCmd"
@@ -55,7 +55,7 @@
                 />
             </div>
             <div>
-                <label class="block text-sm font-medium text-slate-400 mb-1" for="startCmd">Start Command</label>
+                <label class="block text-sm font-medium text-slate-400 dark:text-slate-500 mb-1" for="startCmd">Start Command</label>
                 <input
                     type="text"
                     id="startCmd"
@@ -77,7 +77,7 @@
         </div>
 
         {#if config.envVars.length === 0}
-            <div class="text-sm text-slate-500 italic">No environment variables defined.</div>
+            <div class="text-sm text-slate-500 dark:text-slate-400 italic">No environment variables defined.</div>
         {/if}
 
         <div class="space-y-3">
@@ -96,14 +96,14 @@
                             bind:value={env.value}
                             class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[44px]"
                         />
-                        <button class="p-2 text-slate-500 hover:text-red-400 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                        <button class="p-2 text-slate-500 dark:text-slate-400 hover:text-red-400 min-h-[44px] min-w-[44px] flex items-center justify-center"
                             on:click={() => removeEnv(env.id)}
                             aria-label="Remove environment variable"
                         >
                             <X size={16} />
                         </button>
                     </div>
-                    <label class="flex items-center gap-2 text-xs text-slate-400 cursor-pointer select-none min-h-[44px] min-w-[44px]">
+                    <label class="flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500 cursor-pointer select-none min-h-[44px] min-w-[44px]">
                         <input type="checkbox" bind:checked={env.isSecret} class="rounded bg-slate-800 border-slate-700 text-indigo-500 focus:ring-indigo-500 min-w-[20px] min-h-[20px]" />
                         Treat as Secret (exclude from Dockerfile, use .env)
                     </label>

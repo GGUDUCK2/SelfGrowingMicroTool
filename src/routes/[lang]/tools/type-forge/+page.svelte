@@ -133,7 +133,7 @@
                   <div class="flex justify-between items-center bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
                       <div>
                           <h2 class="text-xl font-bold text-slate-800 dark:text-white">{currentFont.meta.family} <span class="text-sm font-normal text-slate-500 dark:text-slate-400">({currentFont.meta.style})</span></h2>
-                          <div class="text-xs text-slate-400 mt-1 flex gap-4">
+                          <div class="text-xs text-slate-400 dark:text-slate-500 mt-1 flex gap-4">
                               <span>{currentFont.fileName}</span>
                               <span>{(currentFont.fileSize / 1024).toFixed(1)} KB</span>
                               <span>{currentFont.font.numGlyphs} Glyphs</span>

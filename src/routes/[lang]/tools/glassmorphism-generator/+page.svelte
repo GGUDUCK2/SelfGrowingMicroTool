@@ -218,7 +218,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
     <h1 class="text-4xl font-bold text-gray-900 dark:text-white">
       {dict.title}
     </h1>
-    <p class="text-gray-500 max-w-7xl mx-auto">
+    <p class="text-gray-500 dark:text-slate-400 max-w-7xl mx-auto">
       {dict.description}
     </p>
     <div class="flex justify-center">
@@ -408,14 +408,14 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
       <!-- CSS Code Output -->
       <div class="bg-slate-900 rounded-2xl p-6 shadow-lg relative group">
-        <h3 class="text-slate-400 text-xs font-semibold uppercase mb-4">
+        <h3 class="text-slate-400 dark:text-slate-500 text-xs font-semibold uppercase mb-4">
           {dict.cssCode}
         </h3>
         <pre
           class="text-green-400 font-mono text-sm overflow-x-auto whitespace-pre-wrap">{cssCode}</pre>
 
         <button on:click={copyToClipboard}
-          class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white px-4 py-2 sm:px-3 sm:py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 backdrop-blur-sm touch-manipulation min-h-[44px] min-w-[44px]"
+          class="absolute top-4 right-4 bg-white dark:bg-slate-800/10 hover:bg-white/20 text-white px-4 py-2 sm:px-3 sm:py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 backdrop-blur-sm touch-manipulation min-h-[44px] min-w-[44px]"
         >
           {#if copied}
             <span in:fly={{ y: 5 }} class="text-green-400">{dict.copied}</span>
@@ -446,9 +446,9 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                         <button class="w-full text-left min-h-[44px] min-w-[44px]" on:click={() => restoreHistory(item)}>
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-4 h-4 rounded-full border border-gray-300" style="background: {item.color}; opacity: {item.transparency}"></div>
-                                <span class="text-xs text-gray-500">{new Date(item.createdAt).toLocaleString()}</span>
+                                <span class="text-xs text-gray-500 dark:text-slate-400">{new Date(item.createdAt).toLocaleString()}</span>
                             </div>
-                            <div class="space-y-1 text-xs text-gray-600">
+                            <div class="space-y-1 text-xs text-gray-600 dark:text-slate-300">
                                 <div class="flex justify-between">
                                     <span>{dict.blur}:</span>
                                     <span class="font-medium">{item.blur}px</span>
@@ -460,7 +460,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                             </div>
                         </button>
                          <button on:click|stopPropagation={() => item.id && deleteHistory(item.id)}
-                            class="absolute top-2 right-2 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg opacity-0 group-hover:opacity-100 transition-all touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                            class="absolute top-2 right-2 p-2 text-gray-400 dark:text-slate-500 hover:text-red-500 hover:bg-red-50 rounded-lg opacity-0 group-hover:opacity-100 transition-all touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
                             aria-label={(dict as any)?.delete || "Delete"}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>

@@ -26,11 +26,11 @@
 <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
     {#each dbs as db (db.id)}
         <button type="button"
-            class="flex items-center p-3 rounded-lg border transition-all gap-3 text-left min-h-[44px] {selectedDatabases.includes(db.id) ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400' : 'border-slate-700 bg-slate-800/50 hover:bg-slate-800 hover:border-slate-600 text-slate-400'} min-w-[44px]"
+            class="flex items-center p-3 rounded-lg border transition-all gap-3 text-left min-h-[44px] {selectedDatabases.includes(db.id) ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400' : 'border-slate-700 bg-slate-800/50 hover:bg-slate-800 hover:border-slate-600 text-slate-400 dark:text-slate-500'} min-w-[44px]"
             on:click={() => toggle(db.id)}
             aria-label={`Toggle ${db.name} database`}
         >
-            <div class="{selectedDatabases.includes(db.id) ? 'text-emerald-500' : 'text-slate-500'}">
+            <div class="{selectedDatabases.includes(db.id) ? 'text-emerald-500' : 'text-slate-500 dark:text-slate-400'}">
                 <Database size={20} />
             </div>
             <div>

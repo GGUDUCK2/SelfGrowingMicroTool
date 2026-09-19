@@ -332,7 +332,7 @@
         </div>
 
         <div class="flex items-center gap-3">
-            <button class="p-2 text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+            <button class="p-2 text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                 on:click={() => showHistory = !showHistory}
                 title="History"
                 aria-label="Toggle History"
@@ -341,14 +341,14 @@
             </button>
 
             {#if entries.length > 0}
-                <div class="hidden sm:flex items-center gap-4 mr-4 text-xs font-mono text-slate-500 border-l border-slate-200 dark:border-slate-700 pl-4">
+                <div class="hidden sm:flex items-center gap-4 mr-4 text-xs font-mono text-slate-500 dark:text-slate-400 border-l border-slate-200 dark:border-slate-700 pl-4">
                     <span>{stats.filtered} / {stats.total} {dict.entries}</span>
                     {#if stats.errors > 0}
                         <span class="text-red-500 font-bold">{stats.errors} {dict.errors}</span>
                     {/if}
                 </div>
 
-                <button class="p-2 text-slate-500 hover:text-indigo-600 transition-colors relative min-h-[44px] min-w-[44px] flex items-center justify-center"
+                <button class="p-2 text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors relative min-h-[44px] min-w-[44px] flex items-center justify-center"
                     on:click={handleReport}
                     title={dict.report?.title || "Insight Report"}
                     aria-label="Generate Insight Report"
@@ -361,7 +361,7 @@
                     {/if}
                 </button>
 
-                <button class="p-2 text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                <button class="p-2 text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                     on:click={exportJson}
                     title={dict.export}
                     aria-label={dict.export}
@@ -369,7 +369,7 @@
                     <Download size={20} />
                 </button>
 
-                 <button class="p-2 text-slate-500 hover:text-red-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                 <button class="p-2 text-slate-500 dark:text-slate-400 hover:text-red-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                     on:click={clear}
                     title={dict.clear}
                     aria-label={dict.clear}
@@ -390,7 +390,7 @@
                 <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-6 w-full max-w-sm border border-slate-200 dark:border-slate-800 min-h-[44px] min-w-[44px]" on:click|stopPropagation role="document">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="font-bold text-lg text-slate-900 dark:text-white">Keyboard Shortcuts</h3>
-                        <button on:click={() => showShortcuts = false} class="text-slate-400 hover:text-slate-600 min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-lg">
+                        <button on:click={() => showShortcuts = false} class="text-slate-400 hover:text-slate-600 dark:text-slate-300 min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-lg">
                             <X size={20} />
                         </button>
                     </div>
@@ -422,7 +422,7 @@
                 <div class="w-full max-w-2xl">
                     <LogUploader {dict} on:load={handleLoad} />
                     {#if isParsing}
-                        <div class="mt-8 text-center text-slate-500">
+                        <div class="mt-8 text-center text-slate-500 dark:text-slate-400">
                             <div class="w-8 h-8 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mx-auto mb-2"></div>
                             <p>Parsing logs...</p>
                         </div>

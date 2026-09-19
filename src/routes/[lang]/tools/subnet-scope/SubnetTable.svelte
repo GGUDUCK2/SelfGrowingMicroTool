@@ -77,11 +77,11 @@
         <tbody class="divide-y divide-slate-100 dark:divide-slate-700 bg-white dark:bg-slate-900">
           {#each subnets as subnet, i}
             <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-              <td class="px-4 py-3 text-slate-500">{i + 1}</td>
+              <td class="px-4 py-3 text-slate-500 dark:text-slate-400">{i + 1}</td>
               <td class="px-4 py-3 font-mono text-indigo-600 dark:text-indigo-400">{subnet.network}</td>
               <td class="px-4 py-3 font-mono text-slate-600 dark:text-slate-300">{subnet.range}</td>
               <td class="px-4 py-3 text-right">
-                <button class="text-xs font-medium text-slate-500 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px]"
+                <button class="text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px]"
                   on:click={() => copy(subnet.network)}
                 >
                   Copy
@@ -94,7 +94,7 @@
     </div>
   </div>
 {:else}
-  <div class="p-8 text-center text-slate-500 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-dashed border-slate-300 dark:border-slate-700">
+  <div class="p-8 text-center text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-dashed border-slate-300 dark:border-slate-700">
     No subnets generated. Check the mask size.
   </div>
 {/if}

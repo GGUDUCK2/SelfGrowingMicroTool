@@ -297,3 +297,21 @@
 
 #### 3. Performance Impact (기대 효과)
 - 도구 페이지의 다크모드 UI 가독성을 향상시켜 시각적 일관성을 확보하고 사용자 경험(UX)을 개선했습니다.
+
+[Project Health Report - 2026-09-19]
+## Repository Hygiene
+- 프로젝트 루트 디렉토리 스캔 결과 이상 없음 (불필요한 로그, 스크립트 파일 없음).
+- 탐색 중 생성한 임시 스크립트 파일들 완전 삭제 완료.
+
+## Design Consistency
+- 다수의 도구 페이지(logic-forge, structura 등 44개 파일)에서 다크모드 대응(dark: 접두사)이 누락된 텍스트 색상(text-gray-500, text-slate-500 등) 식별.
+- 식별된 텍스트 클래스에 다크모드 대응 색상(dark:text-slate-400 등)을 추가하여 다크모드 시 가독성 및 대비 문제 해결.
+
+## AdSense Readiness
+- 모든 78개 도구 페이지에 `AdPlaceholder` 및 `FAQSection` 컴포넌트가 올바르게 존재함을 스크립트로 확인.
+- 내부 링크 강화를 위한 `RelatedTools` 컴포넌트가 모든 도구 페이지에 존재함을 확인.
+- About, Contact, Privacy Policy, Terms of Service 페이지 정상 존재 확인.
+
+## Tech Debt
+- `npm audit` 실행 후 `devalue` 패키지에 대한 moderate 취약점 1건 발견.
+- `npm audit fix`를 통해 의존성 취약점 해결 완료 (0 vulnerabilities).

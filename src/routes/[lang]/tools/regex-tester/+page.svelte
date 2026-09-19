@@ -271,11 +271,11 @@
                   <div class="text-sm font-mono font-medium text-slate-700 dark:text-slate-200 truncate">
                     /{item.pattern}/{item.flags}
                   </div>
-                  <div class="text-xs text-slate-400">
+                  <div class="text-xs text-slate-400 dark:text-slate-500">
                     {item.createdAt.toLocaleDateString()}
                   </div>
                 </button>
-                <button class="text-slate-400 hover:text-red-500 transition-colors p-1 min-h-[44px] min-w-[44px]"
+                <button class="text-slate-400 dark:text-slate-500 hover:text-red-500 transition-colors p-1 min-h-[44px] min-w-[44px]"
                   on:click={() => deleteHistory(item.id as any)}
                   title={t.delete}
                 >

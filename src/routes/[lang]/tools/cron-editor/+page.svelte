@@ -252,7 +252,7 @@
           class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex justify-between"
         >
           <span>{dict.expression}</span>
-          <span class="text-xs text-gray-500 font-normal">
+          <span class="text-xs text-gray-500 dark:text-slate-400 font-normal">
             {lang === "ko"
               ? `단축키: Ctrl+K (${dict.shortcuts.clear})`
               : `Shortcut: Ctrl+K (${dict.shortcuts.clear})`}
@@ -270,7 +270,7 @@
           <div
             class="absolute right-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
           >
-            <button class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center"
+            <button class="p-1 text-gray-400 hover:text-gray-600 dark:text-slate-300 dark:hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center"
               on:click={() => (cronExpression = "* * * * *")}
               title={dict.clear}
             >

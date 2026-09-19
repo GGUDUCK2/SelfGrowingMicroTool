@@ -42,7 +42,7 @@
         {/each}
     </div>
 
-    <div class="mt-4 flex gap-6 text-xs text-slate-400">
+    <div class="mt-4 flex gap-6 text-xs text-slate-400 dark:text-slate-500">
         <div class="flex items-center gap-2">
             <div class="w-3 h-3 bg-indigo-400 rounded-full"></div>
             <span>Network Bits ({maskLength})</span>
