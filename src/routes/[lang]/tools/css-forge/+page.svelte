@@ -174,8 +174,7 @@
 
 
     {#if t.guide}
-        <!-- eslint-disable-next-line @typescript-eslint/no-explicit-any -->
-        <GuideSection {...(t.guide as Record<string, unknown>)} />
+        <GuideSection {...t.guide} />
     {/if}
 
     <!-- AEO Semantic Section for AI Search Engines -->

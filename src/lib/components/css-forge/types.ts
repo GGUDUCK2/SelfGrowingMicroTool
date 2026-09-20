@@ -6,6 +6,8 @@ export interface CssStatistics {
     declarations: number;
     variables: Array<{name: string, value: string}>;
     topSelectors: Array<{selector: string, specificity: string}>;
+    colors: Array<{hex: string, count: number}>;
+    mediaQueries: Array<{query: string, count: number}>;
 }
 
 export interface CssState {
@@ -53,6 +55,10 @@ export interface CssDictionary {
     value?: string;
     noVariables?: string;
     topSpecificSelectors?: string;
+    extractedColors?: string;
+    noColors?: string;
+    mediaBreakpoints?: string;
+    noMediaQueries?: string;
     feedback?: {
         copied?: string;
         cleared?: string;
