@@ -254,6 +254,7 @@
                             <Clock size={18} class="text-indigo-500" />
                             Fast
                         </h3>
+                        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                         <p class="text-sm text-gray-600 dark:text-gray-400"><span class="markdown-body">{@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>
                     </div>
                     <div class="p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
@@ -261,6 +262,7 @@
                             <FolderOpen size={18} class="text-green-500 dark:text-green-400" />
                             Versatile
                         </h3>
+                        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                         <p class="text-sm text-gray-600 dark:text-gray-400"><span class="markdown-body">{@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>
                     </div>
                     <div class="p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
@@ -268,14 +270,18 @@
                             <Database size={18} class="text-purple-500" />
                             Private
                         </h3>
+                        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                         <p class="text-sm text-gray-600 dark:text-gray-400"><span class="markdown-body">{@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>
                     </div>
                 </div>
 
                 <h3>{t.guide.tipsTitle}</h3>
                 <ul>
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     <li><span class="markdown-body">{@html t.guide.tip1.replace(/`(.*?)`/g, '<code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">$1</code>')}</span></li>
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     <li><span class="markdown-body">{@html t.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     <li><span class="markdown-body">{@html t.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
                 </ul>
 

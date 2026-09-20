@@ -263,14 +263,17 @@
                         <ul class="space-y-3">
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <span class="text-indigo-500 mt-0.5">●</span>
+                                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <span class="text-indigo-500 mt-0.5">●</span>
+                                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <span class="text-indigo-500 mt-0.5">●</span>
+                                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                              </li>
                         </ul>
@@ -283,14 +286,17 @@
                          <ul class="space-y-3">
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <span class="text-amber-500 mt-0.5">💡</span>
+                                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.tip1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <span class="text-amber-500 mt-0.5">💡</span>
+                                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <span class="text-amber-500 mt-0.5">💡</span>
+                                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.tip3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                              </li>
                         </ul>

@@ -19,6 +19,7 @@
 <div class="w-full h-full flex items-center justify-center relative overflow-hidden transition-colors duration-300 rounded-xl border border-slate-200 dark:border-slate-700" style="background-color: {$previewStore.bgColor}">
 
   <!-- Injected Styles -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html styleTag}
 
   <!-- Grid Background -->

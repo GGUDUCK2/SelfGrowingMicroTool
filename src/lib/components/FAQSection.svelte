@@ -19,6 +19,7 @@
 
 <svelte:head>
   {#if injectSchema}
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(schema)}</scr` + `ipt>`}
   {/if}
 </svelte:head>

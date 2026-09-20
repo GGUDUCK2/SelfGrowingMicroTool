@@ -161,14 +161,17 @@
                         <ul class="space-y-3">
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <div class="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div>
+                                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.f1}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <div class="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div>
+                                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.f2}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <div class="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div>
+                                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.f3}</span>
                              </li>
                         </ul>
@@ -181,14 +184,17 @@
                          <ul class="space-y-3">
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <div class="mt-1 w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></div>
+                                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.tip1}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <div class="mt-1 w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></div>
+                                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.tip2}</span>
                              </li>
                              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
                                  <div class="mt-1 w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></div>
+                                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                  <span>{@html dict.guide.tip3}</span>
                              </li>
                         </ul>

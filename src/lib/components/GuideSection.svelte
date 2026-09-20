@@ -38,18 +38,21 @@
           <span class="mt-1 text-indigo-500 dark:text-indigo-400">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </span>
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           <span>{@html formatText(f1)}</span>
         </li>
         <li class="flex gap-3 text-indigo-800 dark:text-slate-300">
           <span class="mt-1 text-indigo-500 dark:text-indigo-400">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </span>
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           <span>{@html formatText(f2)}</span>
         </li>
         <li class="flex gap-3 text-indigo-800 dark:text-slate-300">
             <span class="mt-1 text-indigo-500 dark:text-indigo-400">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
             </span>
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             <span>{@html formatText(f3)}</span>
           </li>
       </ul>
@@ -66,18 +69,21 @@
           <span class="mt-1 text-emerald-500 dark:text-emerald-400">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
           </span>
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           <span>{@html formatText(tip1)}</span>
         </li>
         <li class="flex gap-3 text-emerald-800 dark:text-slate-300">
           <span class="mt-1 text-emerald-500 dark:text-emerald-400">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
           </span>
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           <span>{@html formatText(tip2)}</span>
         </li>
         <li class="flex gap-3 text-emerald-800 dark:text-slate-300">
             <span class="mt-1 text-emerald-500 dark:text-emerald-400">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
             </span>
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             <span>{@html formatText(tip3)}</span>
           </li>
       </ul>

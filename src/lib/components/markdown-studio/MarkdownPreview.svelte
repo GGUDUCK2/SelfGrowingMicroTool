@@ -49,6 +49,7 @@
 </script>
 
 <div class="prose prose-slate dark:prose-invert max-w-none p-6 md:p-8 bg-white dark:bg-slate-900 shadow-sm min-h-full">
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html html}
 </div>
 

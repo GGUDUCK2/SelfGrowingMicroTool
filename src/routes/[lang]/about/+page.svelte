@@ -11,6 +11,7 @@
 <svelte:head>
   <title>About Us | MicroFactory</title>
   <meta name="description" content="Learn more about MicroFactory, a comprehensive suite of powerful, client-side web tools designed for modern workflows." />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">${JSON.stringify({"@context":"https://schema.org","@type":"WebPage","@id":$page.url.origin + "/" + lang + "/about","name":"About Us","description":"Learn more about MicroFactory"})}</scr` + `ipt>`}
 </svelte:head>
 

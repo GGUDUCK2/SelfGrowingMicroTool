@@ -233,8 +233,11 @@
 
             <h3 class="text-xl font-bold text-slate-900 dark:text-slate-50 mb-4">{t.guide.tipsTitle}</h3>
             <ul class="space-y-3 mb-12 list-disc list-inside text-slate-600 dark:text-slate-400">
+               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                <li>{@html t.guide.tip1}</li>
+               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                <li>{@html t.guide.tip2}</li>
+               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                <li>{@html t.guide.tip3}</li>
             </ul>
 

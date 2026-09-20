@@ -84,6 +84,7 @@
     <!-- Preview Area -->
     <div class="flex-1 overflow-y-auto p-4 md:p-12">
         <div class="max-w-3xl mx-auto bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 rounded-xl p-8 md:p-12 min-h-[800px] prose dark:prose-invert prose-slate prose-sm md:prose-base focus:outline-none">
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             {@html activeHtml}
         </div>
     </div>

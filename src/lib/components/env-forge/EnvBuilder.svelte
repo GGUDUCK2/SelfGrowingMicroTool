@@ -200,6 +200,7 @@
                   on:click={() => activeTab = tab.id}
               >
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                       {@html tab.icon}
                   </svg>
                   {tab.label}

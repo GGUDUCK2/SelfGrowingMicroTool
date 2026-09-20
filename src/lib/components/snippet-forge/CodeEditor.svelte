@@ -78,8 +78,9 @@
   <pre
     bind:this={pre}
     class="block w-full h-full m-0 p-4 overflow-hidden whitespace-pre-wrap break-words pointer-events-none overflow-x-auto"
-    style="min-height: 100%; color: inherit; background: transparent;"
-  ><code class="language-{language}">{@html highlightedCode}</code></pre>
+    style="min-height: 100%; color: inherit; background: transparent;">
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+  <code class="language-{language}">{@html highlightedCode}</code></pre>
 
   <!-- Editable Area (Foreground) -->
   <textarea

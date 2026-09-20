@@ -37,6 +37,7 @@
          <div class="flex-1">
              <div class="text-gray-500 dark:text-slate-500 mb-1 text-xs">{t.formula || 'Formula'}</div>
              <div class="text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-800 px-3 py-2 rounded border border-gray-200 dark:border-slate-700/50">
+                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                  {@html steps[0].val}
              </div>
          </div>

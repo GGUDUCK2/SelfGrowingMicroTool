@@ -62,6 +62,7 @@
 
     {#if svgContent && !error}
         <div class="w-full h-full flex items-center justify-center overflow-auto mermaid-container">
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             {@html svgContent}
         </div>
     {:else if !code.trim()}

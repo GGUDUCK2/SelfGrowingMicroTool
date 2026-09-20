@@ -560,14 +560,17 @@
               <ul class="grid grid-cols-1 md:grid-cols-3 gap-4 not-prose">
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
 
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html dict.guide.f1.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
                  </li>
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
 
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html dict.guide.f2.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
                  </li>
                  <li class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
 
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html dict.guide.f3.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-indigo-600 dark:text-indigo-400">$1</span>')}
                  </li>
               </ul>

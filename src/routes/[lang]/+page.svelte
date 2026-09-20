@@ -41,6 +41,7 @@
   <meta property="og:site_name" content="MicroFactory" />
 
   <!-- JSON-LD -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html `<script type="application/ld+json">${JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",

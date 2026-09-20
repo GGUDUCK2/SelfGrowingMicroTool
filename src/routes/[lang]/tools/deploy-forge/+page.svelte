@@ -294,14 +294,17 @@
                         <!-- We render these as markdown-like lists -->
                         <div class="flex items-start gap-2">
                             <span class="text-indigo-400 mt-1">•</span>
+                            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                             <span>{@html ((dict as any)?.tools?.deployForge || {}).guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                         </div>
                         <div class="flex items-start gap-2">
                             <span class="text-indigo-400 mt-1">•</span>
+                            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                             <span>{@html ((dict as any)?.tools?.deployForge || {}).guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                         </div>
                         <div class="flex items-start gap-2">
                             <span class="text-indigo-400 mt-1">•</span>
+                            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                             <span>{@html ((dict as any)?.tools?.deployForge || {}).guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
                         </div>
                     </div>

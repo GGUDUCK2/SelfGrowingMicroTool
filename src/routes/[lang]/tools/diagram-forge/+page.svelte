@@ -217,6 +217,7 @@
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/diagram-forge"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/diagram-forge"} />
   <link rel="alternate" hreflang="x-default" href={$page.url.origin + "/en/tools/diagram-forge"} />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html jsonLdScript}
 
 

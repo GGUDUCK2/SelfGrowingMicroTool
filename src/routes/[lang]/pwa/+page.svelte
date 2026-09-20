@@ -60,6 +60,7 @@
 <Head title="MicroFactory" description="MicroFactory Tools" />
 
 <svelte:head>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html '<script type="application/ld+json">' + JSON.stringify({"@context":"https://schema.org","@type":"WebPage","@id":$page.url.origin + "/" + lang + "/pwa","name":"PWA Installation","description":"Install the PWA for MicroFactory"}) + '</script>'}
 
 

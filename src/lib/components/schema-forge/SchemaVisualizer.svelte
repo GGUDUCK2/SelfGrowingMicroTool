@@ -62,6 +62,7 @@
 <div class="w-full h-full overflow-auto bg-slate-50 dark:bg-slate-900 flex justify-center items-start relative" bind:this={container}>
     {#if svgContent}
         <div class="p-8 min-w-full min-h-full flex justify-center items-center">
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             {@html svgContent}
         </div>
     {:else if !schema.tables.length}
