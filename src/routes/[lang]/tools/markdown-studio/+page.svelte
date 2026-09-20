@@ -349,14 +349,17 @@
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
             <li class="flex items-start gap-2">
               <span class="text-indigo-500 mt-1">✓</span>
+              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <span>{@html marked.parseInline(dict.guide.f1)}</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-indigo-500 mt-1">✓</span>
+              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <span>{@html marked.parseInline(dict.guide.f2)}</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-indigo-500 mt-1">✓</span>
+              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <span>{@html marked.parseInline(dict.guide.f3)}</span>
             </li>
           </ul>
@@ -366,14 +369,17 @@
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
              <li class="flex items-start gap-2">
               <span class="text-amber-500 mt-1">💡</span>
+              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <span>{@html marked.parseInline(dict.guide.tip1)}</span>
             </li>
              <li class="flex items-start gap-2">
               <span class="text-amber-500 mt-1">💡</span>
+              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <span>{@html marked.parseInline(dict.guide.tip2)}</span>
             </li>
              <li class="flex items-start gap-2">
               <span class="text-amber-500 mt-1">💡</span>
+              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <span>{@html marked.parseInline(dict.guide.tip3)}</span>
             </li>
           </ul>

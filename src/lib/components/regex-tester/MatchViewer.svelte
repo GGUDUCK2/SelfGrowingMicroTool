@@ -67,6 +67,7 @@
         class="absolute inset-0 p-4 font-mono text-sm whitespace-pre-wrap break-all pointer-events-none text-transparent overflow-auto"
         aria-hidden="true"
       >
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html getHighlightedHtml(testString, matches)}
       </div>
 

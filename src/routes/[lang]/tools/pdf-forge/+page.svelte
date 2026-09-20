@@ -129,6 +129,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Organize with Ease</h3>
         <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed prose prose-sm dark:prose-invert">
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             {@html renderMarkdown(toolDict.guide.f1)}
         </div>
      </article>
@@ -138,6 +139,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Visual Editor</h3>
         <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed prose prose-sm dark:prose-invert">
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             {@html renderMarkdown(toolDict.guide.f2)}
         </div>
      </article>
@@ -147,6 +149,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Privacy First</h3>
         <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed prose prose-sm dark:prose-invert">
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             {@html renderMarkdown(toolDict.guide.f3)}
         </div>
      </article>

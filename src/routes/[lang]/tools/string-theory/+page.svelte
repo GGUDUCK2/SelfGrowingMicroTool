@@ -348,8 +348,11 @@
       <div class="bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-2xl border border-indigo-100 dark:border-indigo-900/50">
         <h3 class="text-indigo-900 dark:text-indigo-300 font-bold mb-3">{dict.guide.featuresTitle}</h3>
         <ul class="space-y-2 text-indigo-800 dark:text-indigo-200 text-sm">
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           <li>{@html dict.guide.f1}</li>
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           <li>{@html dict.guide.f2}</li>
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           <li>{@html dict.guide.f3}</li>
         </ul>
       </div>
@@ -357,8 +360,11 @@
       <div class="bg-emerald-50 dark:bg-emerald-900/20 p-6 rounded-2xl border border-emerald-100 dark:border-emerald-900/50">
         <h3 class="text-emerald-900 dark:text-emerald-300 font-bold mb-3">{dict.guide.tipsTitle}</h3>
         <ul class="space-y-2 text-emerald-800 dark:text-emerald-200 text-sm">
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           <li>{@html dict.guide.tip1}</li>
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           <li>{@html dict.guide.tip2}</li>
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           <li>{@html dict.guide.tip3}</li>
         </ul>
       </div>

@@ -420,6 +420,7 @@
       <section class="mb-12">
         <h2 class="text-3xl font-bold mb-6">{t.guide.title}</h2>
         <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           {@html t.guide.intro.replace(/\*\*(.*?)\*\*/g, '<strong class="text-indigo-600 dark:text-indigo-400">$1</strong>')}
         </p>
       </section>
@@ -434,6 +435,7 @@
             {#each [t.guide.f1, t.guide.f2, t.guide.f3, t.guide.f4] as feature}
               <li class="flex gap-3 text-slate-600 dark:text-slate-300">
                 <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0"></span>
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 <span>{@html feature.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-900 dark:text-white">$1</strong>')}</span>
               </li>
             {/each}
@@ -449,6 +451,7 @@
             {#each [t.guide.tech1, t.guide.tech2, t.guide.tech3] as tech}
               <li class="flex gap-3 text-slate-600 dark:text-slate-300">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-emerald-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 <span>{@html tech}</span>
               </li>
             {/each}
@@ -470,6 +473,7 @@
             {#each [t.guide.tip2, t.guide.tip3, t.guide.tip4] as tip}
               <li class="flex gap-3 text-slate-600 dark:text-slate-300 text-sm">
                 <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 <span>{@html tip.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-900 dark:text-white">$1</strong>')}</span>
               </li>
             {/each}

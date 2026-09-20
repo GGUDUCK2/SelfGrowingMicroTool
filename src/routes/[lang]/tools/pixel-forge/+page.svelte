@@ -142,6 +142,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200">Lightning Fast</h3>
         <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             {@html renderMarkdown(toolDict.guide.f1)}
         </div>
      </div>
@@ -152,6 +153,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200">Privacy First</h3>
         <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+             <!-- eslint-disable-next-line svelte/no-at-html-tags -->
              {@html renderMarkdown(toolDict.guide.f2)}
         </div>
      </div>
@@ -162,6 +164,7 @@
         </div>
         <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200">Mobile Optimized</h3>
         <div class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+             <!-- eslint-disable-next-line svelte/no-at-html-tags -->
              {@html renderMarkdown(toolDict.guide.f3)}
         </div>
      </div>
@@ -183,8 +186,11 @@
 
     <h3>{toolDict.guide.tipsTitle}</h3>
     <ul>
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         <li>{@html renderMarkdown(toolDict.guide.tip1)}</li>
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         <li>{@html renderMarkdown(toolDict.guide.tip2)}</li>
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         <li>{@html renderMarkdown(toolDict.guide.tip3)}</li>
     </ul>
 

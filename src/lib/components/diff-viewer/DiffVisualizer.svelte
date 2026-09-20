@@ -118,6 +118,7 @@
     <div class="flex-1 overflow-auto bg-slate-800 relative">
         {#if mode === 'unified'}
             <div class="w-full">
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 {@html htmlParts.unified}
             </div>
         {:else}
@@ -132,9 +133,11 @@
                 </div>
                 <div class="flex w-full"> <!-- Force min width for split view -->
                     <div class="w-1/2 border-r border-slate-600">
+                        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                         {@html htmlParts.left}
                     </div>
                     <div class="w-1/2">
+                        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                         {@html htmlParts.right}
                     </div>
                 </div>

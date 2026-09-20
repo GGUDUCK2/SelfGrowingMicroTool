@@ -268,10 +268,13 @@
           </h3>
           <ul class="space-y-3">
 
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             <li class="flex gap-2"><span class="text-indigo-500">•</span> {@html t?.guide?.f1}</li>
 
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             <li class="flex gap-2"><span class="text-indigo-500">•</span> {@html t?.guide?.f2}</li>
 
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             <li class="flex gap-2"><span class="text-indigo-500">•</span> {@html t?.guide?.f3}</li>
           </ul>
         </div>

@@ -11,6 +11,7 @@
 <svelte:head>
   <title>Terms of Service | MicroFactory</title>
   <meta name="robots" content="noindex" />
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html '<script type="application/ld+json">' + JSON.stringify({"@context":"https://schema.org","@type":"WebPage","@id":$page.url.origin + "/" + lang + "/terms-of-service","name":"Terms of Service","description":"Terms of Service for MicroFactory"}) + '</script>'}
 </svelte:head>
 

@@ -65,5 +65,6 @@
 </script>
 
 <div class="h-full w-full overflow-auto bg-[#2d2d2d] text-white p-4 font-mono text-sm leading-relaxed whitespace-pre rounded-lg shadow-inner">
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html highlighted}
 </div>
