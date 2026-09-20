@@ -70,7 +70,9 @@
       "CSS Minifier",
       "CSS Statistics Analyzer",
       "CSS Variables Extractor",
-      "Local History Workspace"
+      "Local History Workspace",
+      "CSS Specificity Analyzer",
+      "Smart Vendor Prefixer"
     ]
   };
 
@@ -181,15 +183,15 @@
       <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4">What is CSS Forge?</h2>
       <p class="text-slate-600 dark:text-slate-400 mb-4">
         CSS Forge is an advanced, free online tool specifically designed for frontend developers to instantly format, minify, and analyze CSS source code.
-        It functions as a comprehensive CSS formatter and beautifier, automatically indenting and organizing messy CSS code into a highly readable structure.
+        It functions as a comprehensive CSS formatter and beautifier, automatically indenting and organizing messy CSS code into a highly readable structure. Additionally, it features intelligent vendor prefixing and specificity analysis.
       </p>
-      <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2">How do I minify CSS code?</h3>
+      <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2">How does the Smart Vendor Prefixer work?</h3>
       <p class="text-slate-600 dark:text-slate-400 mb-4">
-        To minify CSS, simply paste your source code into the editor and click the "Minify" button. Our engine safely removes unnecessary whitespace and line breaks to drastically reduce file size and improve your website's load performance without altering its functionality.
+        The Prefix button scans your CSS properties and automatically injects standard vendor prefixes (such as `-webkit-` and `-moz-`) for modern styling features like flexbox, transforms, and transitions. This ensures your site renders correctly across all major browsers with a single click.
       </p>
       <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2">How does the CSS Analyzer work?</h3>
-      <p class="text-slate-600 dark:text-slate-400">
-        The CSS Analyzer instantly scans your CSS code and provides a real-time statistical breakdown, including the total number of selectors, rules, and declarations. This is crucial for optimizing stylesheet complexity and maintaining clean code architecture.
+      <p class="text-slate-600 dark:text-slate-400 mb-4">
+        The CSS Analyzer instantly scans your CSS code and provides a real-time statistical breakdown, including the total number of selectors, rules, and declarations. Additionally, it features a <strong>Specificity Heatmap</strong> that calculates the structural weight of your selectors and identifies the top 5 most specific items. This is crucial for optimizing stylesheet complexity, avoiding "specificity hell", and maintaining clean code architecture.
       </p>
     </section>
 

@@ -5,6 +5,7 @@ export interface CssStatistics {
     rules: number;
     declarations: number;
     variables: Array<{name: string, value: string}>;
+    topSelectors: Array<{selector: string, specificity: string}>;
 }
 
 export interface CssState {
@@ -51,11 +52,15 @@ export interface CssDictionary {
     name?: string;
     value?: string;
     noVariables?: string;
+    topSpecificSelectors?: string;
     feedback?: {
         copied?: string;
         cleared?: string;
         processed?: string;
         autoFixed?: string;
+        prefixed?: string;
+        downloaded?: string;
+        shared?: string;
     };
 }
 
