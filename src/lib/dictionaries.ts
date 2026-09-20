@@ -35,6 +35,10 @@ export const dictionaries = {
         name: "Name",
         value: "Value",
         noVariables: "No variables found.",
+        extractedColors: "Extracted Color Palette",
+        noColors: "No colors found.",
+        mediaBreakpoints: "Media Query Breakpoints",
+        noMediaQueries: "No media queries found.",
         feedback: {
             copied: "Copied to clipboard",
             cleared: "Workspace cleared",
@@ -5128,6 +5132,10 @@ export const dictionaries = {
         name: "이름",
         value: "값",
         noVariables: "변수를 찾을 수 없습니다.",
+        extractedColors: "추출된 색상 팔레트",
+        noColors: "색상을 찾을 수 없습니다.",
+        mediaBreakpoints: "미디어 쿼리 중단점",
+        noMediaQueries: "미디어 쿼리를 찾을 수 없습니다.",
         feedback: {
             copied: "클립보드에 복사되었습니다",
             cleared: "작업 공간이 초기화되었습니다",

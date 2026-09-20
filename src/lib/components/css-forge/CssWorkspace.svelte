@@ -100,7 +100,36 @@
         variables.push({ name: match[1], value: match[2].trim() });
     }
 
-    return { selectors, rules, declarations, variables, topSelectors };
+    // Extract colors (hex, rgb, rgba, hsl, hsla)
+    const colorMap = new Map<string, number>();
+    const colorRegex = /(#([0-9a-fA-F]{3,8}))|(rgba?\([^)]+\))|(hsla?\([^)]+\))/g;
+    let colorMatch;
+    while ((colorMatch = colorRegex.exec(noComments)) !== null) {
+        const color = colorMatch[0].trim();
+        // Convert to lowercase for hex normalization, keep others as is
+        const normColor = color.startsWith('#') ? color.toLowerCase() : color;
+        colorMap.set(normColor, (colorMap.get(normColor) || 0) + 1);
+    }
+    const colors = Array.from(colorMap.entries())
+        .map(([hex, count]) => ({ hex, count }))
+        .sort((a, b) => b.count - a.count);
+
+    // Extract @media queries
+    const mediaQueryMap = new Map<string, number>();
+    // Simplistic extraction: look for @media ... { and count the number of rules inside it.
+    // However, finding the matching closing brace is complex with regex.
+    // We will just extract the query strings and count how many times each query is declared.
+    const mediaRegex = /@media\s+([^{]+)\s*\{/g;
+    let mediaMatch;
+    while ((mediaMatch = mediaRegex.exec(noComments)) !== null) {
+        const query = mediaMatch[1].trim();
+        mediaQueryMap.set(query, (mediaQueryMap.get(query) || 0) + 1);
+    }
+    const mediaQueries = Array.from(mediaQueryMap.entries())
+        .map(([query, count]) => ({ query, count }))
+        .sort((a, b) => b.count - a.count);
+
+    return { selectors, rules, declarations, variables, topSelectors, colors, mediaQueries };
 
   }
 
@@ -433,6 +462,47 @@
                      {:else}
                          <div class="text-sm text-slate-500 dark:text-slate-400 p-4 bg-slate-100 dark:bg-slate-800/50 rounded-lg text-center border border-dashed border-slate-300 dark:border-slate-700">
                              No selectors found.
+                         </div>
+                     {/if}
+                </div>
+
+                <div class="mt-8">
+                     <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">{dictionary?.tools?.cssForge?.extractedColors || 'Extracted Color Palette'}</h3>
+                     {#if state.statistics.colors && state.statistics.colors.length > 0}
+                         <div class="flex flex-wrap gap-3">
+                             {#each state.statistics.colors as item, i (i)}
+                                 <div class="group relative flex flex-col items-center justify-center p-2 bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700 hover:border-blue-300 transition-colors w-20">
+                                     <button class="w-10 h-10 rounded shadow-inner border border-slate-200 dark:border-slate-700 mb-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform hover:scale-110" style="background-color: {item.hex};" on:click={() => copyToClipboard(item.hex)} title="Copy {item.hex}" aria-label="Copy color {item.hex}"></button>
+                                     <span class="text-[10px] font-mono text-slate-600 dark:text-slate-400 truncate w-full text-center" title={item.hex}>{item.hex}</span>
+                                     <span class="absolute -top-2 -right-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[9px] font-bold px-1.5 py-0.5 rounded-full">{item.count}</span>
+                                 </div>
+                             {/each}
+                         </div>
+                     {:else}
+                         <div class="text-sm text-slate-500 dark:text-slate-400 p-4 bg-slate-100 dark:bg-slate-800/50 rounded-lg text-center border border-dashed border-slate-300 dark:border-slate-700">
+                             {dictionary?.tools?.cssForge?.noColors || 'No colors found.'}
+                         </div>
+                     {/if}
+                </div>
+
+                <div class="mt-8">
+                     <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">{dictionary?.tools?.cssForge?.mediaBreakpoints || 'Media Query Breakpoints'}</h3>
+                     {#if state.statistics.mediaQueries && state.statistics.mediaQueries.length > 0}
+                         <div class="grid grid-cols-1 gap-2">
+                             {#each state.statistics.mediaQueries as item, i (i)}
+                                 <div class="flex items-center justify-between p-3 bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700">
+                                     <div class="flex flex-col overflow-hidden mr-2">
+                                         <span class="text-sm font-mono text-slate-900 dark:text-slate-100 truncate" title={item.query}>{item.query}</span>
+                                     </div>
+                                     <div class="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded text-xs font-semibold text-slate-600 dark:text-slate-300 flex-shrink-0" title="Occurrences">
+                                         {item.count}
+                                     </div>
+                                 </div>
+                             {/each}
+                         </div>
+                     {:else}
+                         <div class="text-sm text-slate-500 dark:text-slate-400 p-4 bg-slate-100 dark:bg-slate-800/50 rounded-lg text-center border border-dashed border-slate-300 dark:border-slate-700">
+                             {dictionary?.tools?.cssForge?.noMediaQueries || 'No media queries found.'}
                          </div>
                      {/if}
                 </div>
