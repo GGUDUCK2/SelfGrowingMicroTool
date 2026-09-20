@@ -498,7 +498,7 @@
                                         {/each}
                                     </select>
                                 {/if}
-                                <button on:click={clearHistory} class="text-xs text-red-500 hover:text-red-600 underline min-h-[44px] min-w-[44px]">{dict.actions.clear}</button>
+                                <button on:click={clearHistory} class="text-xs text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 underline min-h-[44px] min-w-[44px]">{dict.actions.clear}</button>
                             </div>
                         </div>
 
@@ -521,7 +521,7 @@
                                              <button aria-label={dict.actions.restore} on:click={() => restoreHistory(item)} class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 hover:bg-white dark:bg-slate-800 dark:hover:bg-slate-600 rounded text-indigo-600" title={dict.actions.restore}>
                                                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74-2.74L3 12"/><path d="M3 3v9h9"/></svg>
                                              </button>
-                                             <button aria-label={dict.actions.delete} on:click={() => deleteHistory(item.id)} class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 hover:bg-white dark:bg-slate-800 dark:hover:bg-slate-600 rounded text-red-500" title={dict.actions.delete}>
+                                             <button aria-label={dict.actions.delete} on:click={() => deleteHistory(item.id)} class="min-h-[44px] min-w-[44px] flex items-center justify-center p-1.5 hover:bg-white dark:bg-slate-800 dark:hover:bg-slate-600 rounded text-red-500 dark:text-red-400" title={dict.actions.delete}>
                                                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                                              </button>
                                          </div>

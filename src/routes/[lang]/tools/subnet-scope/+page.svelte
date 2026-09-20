@@ -429,7 +429,7 @@
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-bold text-slate-900 dark:text-white">Recent Calculations</h3>
                 <button on:click={() => clearHistory('subnet-scope')}
-                    class="text-sm text-red-500 hover:text-red-600 font-medium min-h-[44px] min-w-[44px]"
+                    class="text-sm text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 font-medium min-h-[44px] min-w-[44px]"
                 >
                     {t.clear}
                 </button>

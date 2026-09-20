@@ -452,7 +452,7 @@
               />
             </div>
           </label>
-          {#if errors.principal}<p class="text-red-500 text-xs mt-1">
+          {#if errors.principal}<p class="text-red-500 dark:text-red-400 text-xs mt-1">
               {errors.principal}
             </p>{/if}
         </div>
@@ -474,7 +474,7 @@
               />
             </div>
           </label>
-          {#if errors.contribution}<p class="text-red-500 text-xs mt-1">
+          {#if errors.contribution}<p class="text-red-500 dark:text-red-400 text-xs mt-1">
               {errors.contribution}
             </p>{/if}
         </div>
@@ -508,7 +508,7 @@
                 : "Interest Rate Slider"}
             />
           </label>
-          {#if errors.rate}<p class="text-red-500 text-xs mt-1">
+          {#if errors.rate}<p class="text-red-500 dark:text-red-400 text-xs mt-1">
               {errors.rate}
             </p>{/if}
         </div>
@@ -533,7 +533,7 @@
                 >
               </div>
             </label>
-            {#if errors.taxRate}<p class="text-red-500 text-xs mt-1">
+            {#if errors.taxRate}<p class="text-red-500 dark:text-red-400 text-xs mt-1">
                 {errors.taxRate}
               </p>{/if}
           </div>
@@ -558,7 +558,7 @@
               >
             </div>
           </label>
-          {#if errors.inflationRate}<p class="text-red-500 text-xs mt-1">
+          {#if errors.inflationRate}<p class="text-red-500 dark:text-red-400 text-xs mt-1">
               {errors.inflationRate}
             </p>{/if}
         </div>
@@ -609,7 +609,7 @@
               >
             </div>
           </label>
-          {#if errors.years}<p class="text-red-500 text-xs mt-1">
+          {#if errors.years}<p class="text-red-500 dark:text-red-400 text-xs mt-1">
               {errors.years}
             </p>{/if}
         </div>

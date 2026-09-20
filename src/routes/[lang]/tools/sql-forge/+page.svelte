@@ -258,7 +258,7 @@
                     </div>
                     <div class="p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
                         <h3 class="font-bold mb-2 flex items-center gap-2">
-                            <FolderOpen size={18} class="text-green-500" />
+                            <FolderOpen size={18} class="text-green-500 dark:text-green-400" />
                             Versatile
                         </h3>
                         <p class="text-sm text-gray-600 dark:text-gray-400"><span class="markdown-body">{@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>

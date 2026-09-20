@@ -408,7 +408,7 @@
           aria-label={t.share}
         >
             {#if showCopyNotification}
-                <Check class="w-5 h-5 text-green-500" />
+                <Check class="w-5 h-5 text-green-500 dark:text-green-400" />
             {:else}
                 <Share2 class="w-5 h-5" />
             {/if}
@@ -531,11 +531,11 @@
                 <span class="hidden md:inline">{t.mergeConflict}</span>
             </Button>
              <Button variant="secondary" on:click={downloadReport} title={t.downloadReport} class="min-h-[44px] min-w-[44px]">
-                <Download class="w-4 h-4 text-blue-500" />
+                <Download class="w-4 h-4 text-blue-500 dark:text-blue-400" />
                 <span class="hidden md:inline">Report</span>
             </Button>
             <Button variant="secondary" on:click={downloadPatch} title="Download Patch (.patch)" class="min-h-[44px] min-w-[44px]">
-                <FileUp class="w-4 h-4 text-green-500" />
+                <FileUp class="w-4 h-4 text-green-500 dark:text-green-400" />
                 <span class="hidden md:inline">Patch</span>
             </Button>
             <div class="w-px h-8 bg-gray-200 dark:bg-gray-700 mx-1 hidden sm:block"></div>

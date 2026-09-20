@@ -330,3 +330,18 @@
 #### 3. Performance Impact (기대 효과)
 - 모바일 디바이스에서의 Layout Shift 및 가로 스크롤 현상 방지로 인한 CLS(Cumulative Layout Shift) 점수 개선 및 모바일 사용자 경험(UX) 극대화.
 - 모바일 뷰포트 내 요소가 적절히 축소되거나 스크롤되도록 하여 접근성(A11y) 향상.
+
+[Project Health Report - 2026-09-20]
+## Repository Hygiene
+- 프로젝트 루트 디렉토리 스캔 결과 임시 스크립트 파일이 없는지 확인했습니다.
+- 탐색 중 생성한 임시 스크립트 파일들(check_hygiene.cjs, check_tech_debt.cjs, check_dark_mode.cjs, check_layout_overflow.cjs, fix_dark_mode_specific.cjs 등)을 전부 삭제 완료했습니다.
+
+## Design Consistency
+- 여러 도구 페이지에서 다크모드 대응(dark: 접두사)이 누락된 텍스트 색상(text-red-500, text-yellow-500, text-green-500 등) 식별.
+- 식별된 텍스트 클래스에 다크모드 대응 색상(dark:text-red-400 등)을 추가하여 다크모드 시 가독성 및 대비 문제 해결했습니다. (compound-interest-calculator, geo-forge, glassmorphism-generator, log-prism, subnet-scope, jwt-forge, markdown-studio, seo-forge, chrono-shift, svg-forge, sql-forge, diff-viewer, invoice-forge 등)
+
+## AdSense Readiness
+- 모든 도구 페이지에 AdPlaceholder 및 FAQSection 컴포넌트가 올바르게 존재하며 텍스트 콘텐츠가 풍부하게 포함되어 있는지 확인했습니다.
+
+## Tech Debt
+- npm audit 실행 후 취약점이 발견되지 않았음을 확인했습니다 (0 vulnerabilities).
