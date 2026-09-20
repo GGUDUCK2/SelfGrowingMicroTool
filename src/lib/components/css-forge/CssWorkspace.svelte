@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
 
-  import { Copy, Trash2, Wand2, Minimize, BarChart, CheckCircle2, AlertTriangle } from '@lucide/svelte';
+  import { Copy, Trash2, Wand2, Minimize, BarChart, CheckCircle2, AlertTriangle, Download, Share2, Layers } from '@lucide/svelte';
   import type { CssState, CssAction, CssStatistics, Dictionary } from './types';
   import vkbeautify from 'vkbeautify';
 
@@ -17,6 +17,24 @@
     }
   }
 
+  function calculateSpecificity(selector: string): [number, number, number] {
+      const s = selector.replace(/:not\([^)]*\)/g, ""); // strip :not content for simplicity
+      const ids = (s.match(/#[a-zA-Z0-9_-]+/g) || []).length;
+      const classes = (s.match(/\.[a-zA-Z0-9_-]+/g) || []).length +
+                (s.match(/\[[^\]]+\]/g) || []).length +
+                (s.match(/:[a-zA-Z0-9_-]+/g) || []).length;
+      const pseudoElements = (s.match(/::[a-zA-Z0-9_-]+/g) || []).length;
+      const cleaned = s.replace(/#[a-zA-Z0-9_-]+/g, "")
+                       .replace(/\.[a-zA-Z0-9_-]+/g, "")
+                       .replace(/\[[^\]]+\]/g, "")
+                       .replace(/::?[a-zA-Z0-9_-]+/g, "")
+                       .replace(/[>+~*]/g, " ")
+                       .trim();
+      const tagMatches = cleaned.split(/\s+/).filter(t => t.length > 0);
+      const tags = tagMatches.length + pseudoElements;
+      return [ids, classes, tags];
+  }
+
   function countStatistics(css: string): CssStatistics {
     // Basic heuristics for CSS statistics
     // Remove comments
@@ -30,15 +48,34 @@
     // Splitting by '}' gives rule blocks + remaining space
     const blocks = noComments.split('}');
     let selectors = 0;
+    const allSelectorsList: Array<{selector: string, specificityStr: string, weight: number}> = [];
+
     for (const block of blocks) {
         if (block.includes('{')) {
             const selectorPart = block.split('{')[0].trim();
             if (selectorPart) {
                 // count commas for multiple selectors
-                selectors += selectorPart.split(',').length;
+                const individualSelectors = selectorPart.split(',').map(s => s.trim()).filter(s => s);
+                selectors += individualSelectors.length;
+
+                for (const s of individualSelectors) {
+                    const spec = calculateSpecificity(s);
+                    // simple weight calculation for sorting
+                    const weight = spec[0] * 10000 + spec[1] * 100 + spec[2];
+                    allSelectorsList.push({
+                        selector: s,
+                        specificityStr: `[${spec[0]}, ${spec[1]}, ${spec[2]}]`,
+                        weight
+                    });
+                }
             }
         }
     }
+
+    const topSelectors = allSelectorsList
+        .sort((a, b) => b.weight - a.weight)
+        .slice(0, 5)
+        .map(item => ({ selector: item.selector, specificity: item.specificityStr }));
 
     // Count declarations (key-value pairs in blocks)
     let declarations = 0;
@@ -63,8 +100,34 @@
         variables.push({ name: match[1], value: match[2].trim() });
     }
 
-    return { selectors, rules, declarations, variables };
+    return { selectors, rules, declarations, variables, topSelectors };
 
+  }
+
+  function addVendorPrefixes() {
+      let css = state.input;
+      const prefixes = ['-webkit-', '-moz-', '-ms-', '-o-'];
+      const propertiesToPrefix = [
+          'transform', 'transition', 'box-shadow', 'border-radius',
+          'user-select', 'appearance', 'animation', 'flex', 'align-items', 'justify-content'
+      ];
+
+      propertiesToPrefix.forEach(prop => {
+          // simple heuristic matching
+          const regex = new RegExp(`(^|[{;\\s])(${prop}\\s*:\\s*[^;}]+)(;|})`, 'g');
+          css = css.replace(regex, (match, before, decl, after) => {
+              if (css.includes(`-webkit-${decl}`)) return match;
+              let prefixesStr = '';
+              prefixes.forEach(p => {
+                  prefixesStr += `${before}${p}${decl};`;
+              });
+              return `${prefixesStr}${before}${decl}${after}`;
+          });
+      });
+
+      state.input = css;
+      setAction('format');
+      triggerToast(dictionary?.tools?.cssForge?.feedback?.prefixed || 'Vendor prefixes added');
   }
 
 
@@ -72,6 +135,38 @@
 
   let showToast = false;
   let toastMessage = '';
+
+  let navigatorShareSupported = false;
+  onMount(() => {
+      navigatorShareSupported = typeof navigator !== 'undefined' && !!navigator.share;
+  });
+
+  function downloadResult() {
+      if (!state.output) return;
+      const blob = new Blob([state.output], { type: 'text/css' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `css-forge-${Date.now()}.css`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      triggerToast(dictionary?.tools?.cssForge?.feedback?.downloaded || 'Downloaded');
+  }
+
+  async function shareResult() {
+      if (!state.output || !navigatorShareSupported) return;
+      try {
+          await navigator.share({
+              title: 'CSS Forge Result',
+              text: state.output,
+          });
+          triggerToast(dictionary?.tools?.cssForge?.feedback?.shared || 'Shared successfully');
+      } catch (err) {
+          console.error('Error sharing:', err);
+      }
+  }
 
   function triggerToast(msg: string) {
       toastMessage = msg;
@@ -265,9 +360,19 @@
                     Output
                 {/if}
             </span>
-            <button class="p-1.5 text-slate-500 hover:text-blue-500 rounded-md hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors" on:click={() => copyToClipboard(state.output)} title="Copy Result (Ctrl/Cmd + S)" aria-label="Copy output">
-                <Copy size={16} />
-            </button>
+            <div class="flex gap-1">
+                <button class="p-1.5 text-slate-500 hover:text-blue-500 rounded-md hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors" on:click={() => copyToClipboard(state.output)} title="Copy Result (Ctrl/Cmd + S)" aria-label="Copy output">
+                    <Copy size={16} />
+                </button>
+                <button class="p-1.5 text-slate-500 hover:text-emerald-500 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors" on:click={downloadResult} title="Download CSS" aria-label="Download CSS">
+                    <Download size={16} />
+                </button>
+                {#if navigatorShareSupported}
+                    <button class="p-1.5 text-slate-500 hover:text-indigo-500 rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors" on:click={shareResult} title="Share CSS" aria-label="Share CSS">
+                        <Share2 size={16} />
+                    </button>
+                {/if}
+            </div>
         </div>
 
         {#if state.action === 'analyze' && state.statistics}
@@ -309,6 +414,28 @@
                          </div>
                      {/if}
                 </div>
+
+                <div class="mt-8">
+                     <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">{dictionary?.tools?.cssForge?.topSpecificSelectors || 'Top Specific Selectors'}</h3>
+                     {#if state.statistics.topSelectors && state.statistics.topSelectors.length > 0}
+                         <div class="grid grid-cols-1 gap-2">
+                             {#each state.statistics.topSelectors as item, i (i)}
+                                 <div class="flex items-center justify-between p-3 bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700">
+                                     <div class="flex flex-col overflow-hidden mr-2">
+                                         <span class="text-sm font-mono text-slate-900 dark:text-slate-100 truncate" title={item.selector}>{item.selector}</span>
+                                     </div>
+                                     <div class="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded text-xs font-semibold text-slate-600 dark:text-slate-300 flex-shrink-0" title="[id, class, tag]">
+                                         {item.specificity}
+                                     </div>
+                                 </div>
+                             {/each}
+                         </div>
+                     {:else}
+                         <div class="text-sm text-slate-500 dark:text-slate-400 p-4 bg-slate-100 dark:bg-slate-800/50 rounded-lg text-center border border-dashed border-slate-300 dark:border-slate-700">
+                             No selectors found.
+                         </div>
+                     {/if}
+                </div>
             </div>
         {:else}
             <textarea
@@ -342,6 +469,16 @@
         >
             <Wand2 size={16} class="text-emerald-500" />
             Auto-Fix
+        </button>
+
+        <button
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 border border-indigo-200 dark:border-indigo-800 min-h-[44px]"
+            on:click={addVendorPrefixes}
+            title="Auto-prefix common properties like transform, transition, box-shadow"
+            aria-label="Add vendor prefixes"
+        >
+            <Layers size={16} class="text-indigo-500" />
+            Prefix
         </button>
 
         <button
