@@ -282,9 +282,9 @@
             {t?.guide?.tipsTitle}
           </h3>
           <ul class="space-y-3">
-            <li class="flex gap-2"><span class="text-yellow-500">•</span> {t?.guide?.tip1}</li>
-            <li class="flex gap-2"><span class="text-yellow-500">•</span> {t?.guide?.tip2}</li>
-            <li class="flex gap-2"><span class="text-yellow-500">•</span> {t?.guide?.tip3}</li>
+            <li class="flex gap-2"><span class="text-yellow-500 dark:text-yellow-400">•</span> {t?.guide?.tip1}</li>
+            <li class="flex gap-2"><span class="text-yellow-500 dark:text-yellow-400">•</span> {t?.guide?.tip2}</li>
+            <li class="flex gap-2"><span class="text-yellow-500 dark:text-yellow-400">•</span> {t?.guide?.tip3}</li>
           </ul>
         </div>
       </div>

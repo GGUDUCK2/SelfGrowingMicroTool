@@ -432,7 +432,7 @@
                {/if}
              </div>
              {#if $history.length > 0}
-                <button class="w-full mt-4 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
+                <button class="w-full mt-4 py-2 text-sm text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
                   on:click={clearHistory}
                 >
                   {dict.clear}

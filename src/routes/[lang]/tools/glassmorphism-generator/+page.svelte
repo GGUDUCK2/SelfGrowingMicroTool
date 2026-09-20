@@ -434,7 +434,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
                     {dict.history}
                 </h3>
                 <button on:click={clearHistory}
-                    class="text-sm text-red-500 hover:text-red-700 font-medium touch-manipulation min-h-[44px] min-w-[44px]"
+                    class="text-sm text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium touch-manipulation min-h-[44px] min-w-[44px]"
                 >
                     {dict.clearHistory}
                 </button>

@@ -104,7 +104,7 @@
 
     $: overlapScore = TimeEngine.calculateOverlapScore(locations.map(l => l.zoneName), selectedDate);
 
-    $: overlapColor = overlapScore >= 80 ? 'text-green-500' : overlapScore >= 50 ? 'text-yellow-500' : 'text-red-500';
+    $: overlapColor = overlapScore >= 80 ? 'text-green-500 dark:text-green-400' : overlapScore >= 50 ? 'text-yellow-500 dark:text-yellow-400' : 'text-red-500 dark:text-red-400';
     $: overlapLabel = overlapScore >= 80 ? t.excellent : overlapScore >= 50 ? t.good : t.poor;
 
     $: faqItems = [
@@ -408,7 +408,7 @@
                     <Users size={16} /> {t.teams.title}
                 </button>
                 <button class="btn-secondary text-sm flex items-center gap-2 min-h-[44px] min-w-[44px]" on:click={findGoldenHour}>
-                    <Star size={16} class="text-yellow-500" /> {t.goldenHour}
+                    <Star size={16} class="text-yellow-500 dark:text-yellow-400" /> {t.goldenHour}
                 </button>
             </div>
 

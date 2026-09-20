@@ -252,7 +252,7 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
                   <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                      <Download class="text-blue-500" size={20} />
+                      <Download class="text-blue-500 dark:text-blue-400" size={20} />
                       Local Privacy
                   </h3>
                   <p class="text-gray-600 dark:text-gray-400 text-sm">
@@ -270,7 +270,7 @@
               </div>
               <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
                   <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                      <Printer class="text-green-500" size={20} />
+                      <Printer class="text-green-500 dark:text-green-400" size={20} />
                       Print Perfect
                   </h3>
                   <p class="text-gray-600 dark:text-gray-400 text-sm">

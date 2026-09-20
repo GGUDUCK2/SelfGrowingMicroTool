@@ -661,7 +661,7 @@
                          </div>
                          {#if error}
                             <div class="flex items-center gap-2">
-                                <span class="text-xs text-red-500 font-bold">{error}</span>
+                                <span class="text-xs text-red-500 dark:text-red-400 font-bold">{error}</span>
                                 {#if editorFormat === 'wkt'}
                                     <button class="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded hover:bg-red-200 min-h-[44px] min-w-[44px]" on:click={handleRepair}>Auto-Repair</button>
                                 {/if}

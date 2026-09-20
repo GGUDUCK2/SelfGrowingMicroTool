@@ -344,7 +344,7 @@
                 <div class="hidden sm:flex items-center gap-4 mr-4 text-xs font-mono text-slate-500 dark:text-slate-400 border-l border-slate-200 dark:border-slate-700 pl-4">
                     <span>{stats.filtered} / {stats.total} {dict.entries}</span>
                     {#if stats.errors > 0}
-                        <span class="text-red-500 font-bold">{stats.errors} {dict.errors}</span>
+                        <span class="text-red-500 dark:text-red-400 font-bold">{stats.errors} {dict.errors}</span>
                     {/if}
                 </div>
 
