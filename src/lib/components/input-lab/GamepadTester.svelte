@@ -99,7 +99,7 @@
                 <!-- Buttons -->
                 <div class="space-y-4">
                     <h4 class="text-sm font-medium text-slate-500 uppercase tracking-wider">{dict.gamepad.buttons}</h4>
-                    <div class="grid gap-3 grid-cols-4 sm:grid-cols-6">
+                    <div class="grid gap-3 grid-cols-1 sm:grid-cols-4 md:grid-cols-6">
                         {#each gamepad.buttons as button, btnIndex}
                             <div
                                 class="aspect-square rounded-xl border-2 flex flex-col items-center justify-center transition-all duration-75 relative overflow-hidden"

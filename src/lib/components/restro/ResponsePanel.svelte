@@ -109,7 +109,7 @@
            </button>
         </div>
         <div class="h-full overflow-auto p-4 custom-scrollbar">
-           <pre class="text-sm font-mono"><code class="language-json">{response.body}</code></pre>
+           <div class="overflow-x-auto"><pre class="text-sm font-mono"><code class="language-json">{response.body}</code></pre></div>
         </div>
       {:else}
         <div class="h-full overflow-auto p-4 space-y-2">
