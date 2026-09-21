@@ -66,7 +66,7 @@
 
   <div class="p-6 relative">
     {#if policy}
-      <pre in:fade class="text-slate-300 font-mono text-sm leading-relaxed whitespace-pre-wrap break-all">{formattedPolicy}</pre>
+      <div class="overflow-x-auto"><pre in:fade class="text-slate-300 font-mono text-sm leading-relaxed whitespace-pre-wrap break-all">{formattedPolicy}</pre></div>
     {:else}
       <div class="text-slate-500 font-mono text-sm italic">
          Select directives to build your Content Security Policy...
