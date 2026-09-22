@@ -393,3 +393,16 @@
 #### 3. Performance Impact (기대 효과)
 - 모바일 디바이스(스마트폰, 태블릿)에서 뷰포트를 벗어나는 콘텐츠(가로 스크롤링)를 방지하여 UI 안정성 및 사용자 경험(UX) 크게 향상.
 - 구글의 Core Web Vitals 중 CLS(Cumulative Layout Shift) 및 모바일 친화성(Mobile Usability) 평가 점수 개선 기대.
+
+### [Daily Improvement Report - 2024-05-24]
+#### 1. Identified Issues (발견된 문제)
+- 모바일 환경에서 Diff Viewer 도구의 `<pre>` 태그에서 가로 스크롤 문제가 발생하여 레이아웃이 깨질 가능성이 있음
+- Schema Forge 도구의 데이터 탭 테이블에서 `overflow-x-auto`가 잘못된 요소에 적용되어 가로 스크롤이 정상 작동하지 않는 문제
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/diff-viewer/+page.svelte` - 생성되는 HTML 문자열 내의 `<pre>` 태그에 `overflow-x-auto` 클래스를 추가하여 가로 스크롤 적용.
+- **Code**: `src/routes/[lang]/tools/schema-forge/+page.svelte` - 테이블 컨테이너 `<div>`의 `overflow-hidden`을 `overflow-x-auto`로 수정하고, `<table>`에서 해당 클래스 제거하여 정상적인 모바일 반응형 스크롤 보장.
+- **SEO/AEO**: 스크롤 문제 해결을 통해 UI 깨짐 현상을 방지하여, 모바일 환경의 CLS(Cumulative Layout Shift) 및 사용자 체류 시간을 개선함으로써 모바일 친화성 검색 엔진 랭킹 향상 기여.
+
+#### 3. Performance Impact (기대 효과)
+- 작은 모바일 화면에서도 코드 블록이나 긴 데이터 테이블의 내용이 레이아웃을 벗어나지 않고 부드럽게 가로 스크롤 되므로, UI 안정성과 전반적인 모바일 UX가 크게 향상됨.

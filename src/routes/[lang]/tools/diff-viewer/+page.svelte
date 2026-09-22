@@ -196,7 +196,7 @@
             ${diffResult.diffs.map(part => {
                 const colorClass = part.added ? 'added' : part.removed ? 'removed' : '';
                 const symbol = part.added ? '+' : part.removed ? '-' : ' ';
-                return `<div class="diff-block ${colorClass}"><pre>${symbol} ${escapeHtml(part.value)}</pre></div>`;
+                return `<div class="diff-block ${colorClass}"><pre class="overflow-x-auto">${symbol} ${escapeHtml(part.value)}</pre></div>`;
             }).join('')}
         </div>
     </div>
