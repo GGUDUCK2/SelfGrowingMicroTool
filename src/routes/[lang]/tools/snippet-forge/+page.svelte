@@ -281,7 +281,7 @@
 
 <!-- Toast -->
 {#if showToast}
-    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] bg-slate-900 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3" transition:slide={{ axis: 'y', duration: 300 }}>
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 px-6 py-3 rounded-full shadow-2xl flex items-center gap-3" transition:slide={{ axis: 'y', duration: 300 }}>
         <div class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center text-black">
             <Check size={12} strokeWidth={4} />
         </div>

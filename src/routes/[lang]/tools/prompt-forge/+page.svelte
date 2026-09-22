@@ -363,7 +363,7 @@
 
   <!-- Toast -->
   {#if notification}
-    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-2 rounded-full shadow-lg text-sm z-[60] flex items-center gap-2 animate-bounce-in">
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 px-4 py-2 rounded-full shadow-lg text-sm z-[60] flex items-center gap-2 animate-bounce-in">
        <span class="text-green-400">✓</span> {notification}
     </div>
   {/if}

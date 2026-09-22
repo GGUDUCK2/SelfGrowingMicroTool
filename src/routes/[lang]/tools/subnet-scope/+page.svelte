@@ -205,7 +205,7 @@
 
 <!-- Toast -->
 {#if toast}
-<div class="fixed bottom-6 right-6 z-50 px-4 py-2 bg-slate-900 text-white rounded-lg shadow-lg text-sm font-medium animate-bounce" in:fade>
+<div class="fixed bottom-6 right-6 z-50 px-4 py-2 bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 rounded-lg shadow-lg text-sm font-medium animate-bounce" in:fade>
     {toast}
 </div>
 {/if}
