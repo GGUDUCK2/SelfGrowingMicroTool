@@ -406,3 +406,16 @@
 
 #### 3. Performance Impact (기대 효과)
 - 작은 모바일 화면에서도 코드 블록이나 긴 데이터 테이블의 내용이 레이아웃을 벗어나지 않고 부드럽게 가로 스크롤 되므로, UI 안정성과 전반적인 모바일 UX가 크게 향상됨.
+
+---
+### [Daily Improvement Report - 2024-05-28]
+#### 1. Identified Issues (발견된 문제)
+- 하드코딩된 어두운 배경(bg-slate-900)에 텍스트 색상(text-white)이 적용된 토스트 알림 컴포넌트에서 라이트/다크 모드 전환 시 UI 가시성 및 디자인 일관성 저하 문제 발견 (다크 모드 미지원 하드코딩).
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/markdown-studio/+page.svelte`, `prompt-forge/+page.svelte`, `schema-forge/+page.svelte`, `shadow-forge/+page.svelte`, `snippet-forge/+page.svelte`, `table-forge/+page.svelte`, `subnet-scope/+page.svelte` - 토스트 컴포넌트 클래스를 `bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800`로 수정하여 테마 지원 강화.
+- **SEO/AEO**: JSON-LD 및 Meta 태그 무결성 점검 완료 (추가 수정 불필요).
+
+#### 3. Performance Impact (기대 효과)
+- 라이트 모드 사용 시 토스트 메시지의 텍스트 대비(Contrast) 향상 및 전체 도구의 UI 일관성(Consistency) 확보.
+---

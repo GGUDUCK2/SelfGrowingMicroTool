@@ -366,7 +366,7 @@
 
 <!-- Toast -->
 {#if showToast}
-    <div class="fixed top-4 left-1/2 -translate-x-1/2 z-[100] bg-slate-900 text-white px-4 py-2 rounded-lg shadow-lg text-sm font-medium" transition:fly={{ y: -20 }}>
+    <div class="fixed top-4 left-1/2 -translate-x-1/2 z-[100] bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 px-4 py-2 rounded-lg shadow-lg text-sm font-medium" transition:fly={{ y: -20 }}>
         {toastMessage}
     </div>
 {/if}

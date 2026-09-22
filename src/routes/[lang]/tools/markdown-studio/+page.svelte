@@ -452,7 +452,7 @@
 
   <!-- Notification Toast -->
   {#if notification}
-    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-2 rounded-full shadow-lg text-sm z-50 flex items-center gap-2" transition:fade>
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 px-4 py-2 rounded-full shadow-lg text-sm z-50 flex items-center gap-2" transition:fade>
       <Check size={16} class="text-green-400" />
       {notification}
     </div>
