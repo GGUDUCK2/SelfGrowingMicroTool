@@ -49,9 +49,11 @@
     on:input={handleInput}
     on:keydown={handleKeydown}
   ></textarea>
+  <div class="absolute inset-0 w-full h-full overflow-x-auto pointer-events-none">
   <pre
-    class="absolute inset-0 w-full h-full p-4 m-0 pointer-events-none overflow-hidden font-mono leading-relaxed overflow-x-auto"
+    class="w-full h-full p-4 m-0 overflow-hidden font-mono leading-relaxed"
     aria-hidden="true"><code class="language-sql">{@html highlightedCode}</code></pre>
+  </div>
 </div>
 
 <style>

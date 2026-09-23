@@ -419,3 +419,21 @@
 #### 3. Performance Impact (기대 효과)
 - 라이트 모드 사용 시 토스트 메시지의 텍스트 대비(Contrast) 향상 및 전체 도구의 UI 일관성(Consistency) 확보.
 ---
+
+### [Daily Improvement Report - 2026-09-22]
+#### 1. Identified Issues (발견된 문제)
+- 일부 도구의 UI 요소(`<pre>`)에서 가로 스크롤 대응이 부족하여 모바일 뷰포트에서 레이아웃 깨짐(Overflow) 발생 위험 확인.
+- 일부 컴포넌트(`HtmlWorkspace`, `DiffViewer`)에서 모바일 디바이스 크기에서도 고정된 2열 그리드(`grid-cols-2`) 또는 데스크톱 스타일 지정 시 `grid-cols-1`이 누락된 부분을 발견.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/lib/components/snippet-forge/CodeEditor.svelte`, `src/lib/components/sql-forge/SqlEditor.svelte`, `src/lib/components/structura/DataEditor.svelte`, `src/routes/[lang]/tools/glassmorphism-generator/+page.svelte`
+  - [수정 내용 요약]: `<pre>` 요소들에 `overflow-x-auto` 클래스를 포함한 래퍼를 추가하거나 클래스를 수정하여 모바일 화면을 넘지 않도록 반응형 스크롤을 안정적으로 적용.
+- **Code**: `src/lib/components/html-forge/HtmlWorkspace.svelte`
+  - [수정 내용 요약]: `grid-cols-2` 클래스를 `grid-cols-1 sm:grid-cols-2`로 변경하여 모바일 우선(Mobile-first) 원칙 준수.
+- **Code**: `src/routes/[lang]/tools/diff-viewer/+page.svelte`
+  - [수정 내용 요약]: 모바일 그리드 설정 오류를 보완하기 위해 `lg:grid lg:grid-cols-2`에 `grid-cols-1`을 추가하여 반응형 제어 향상.
+- **SEO/AEO**: 페이지의 기존 SEO 메타데이터와 JSON-LD 스키마 구조는 변경 없이 유지되었습니다.
+
+#### 3. Performance Impact (기대 효과)
+- 모바일 디바이스에서 뷰포트를 벗어나는 콘텐츠(가로 스크롤링 현상 및 레이아웃 깨짐)를 방지하여 UI 안정성을 향상시키고 사용자 경험(UX)을 개선.
+- 검색 엔진의 모바일 친화성 평가(Core Web Vitals) 기준을 충족하여 AEO/SEO 긍정적 효과 기대.
