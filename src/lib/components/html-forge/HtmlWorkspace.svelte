@@ -263,7 +263,7 @@
         <div class="relative flex-1">
             {#if state.action === 'analyze' && state.stats}
                 <div class="w-full h-full min-h-[300px] lg:min-h-[500px] p-6 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl overflow-auto flex flex-col gap-6">
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="bg-white dark:bg-slate-900 p-4 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col items-center">
                             <span class="text-sm text-slate-500 dark:text-slate-400">{t.tagCount || 'Tag Count'}</span>
                             <span class="text-3xl font-bold text-indigo-600 dark:text-indigo-400">{state.stats.tagCount}</span>
