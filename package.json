@@ -16,6 +16,7 @@
         "@sveltejs/adapter-vercel": "^6.3.3",
         "@sveltejs/kit": "^2.59.0",
         "@sveltejs/vite-plugin-svelte": "^5.0.3",
+        "@types/canvas-confetti": "^1.9.0",
         "@types/crypto-js": "^4.2.2",
         "@types/d3-array": "^3.2.2",
         "@types/d3-format": "^3.0.4",

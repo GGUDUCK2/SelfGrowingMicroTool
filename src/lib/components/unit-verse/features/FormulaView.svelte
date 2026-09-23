@@ -36,7 +36,7 @@
     <div class="flex flex-col md:flex-row md:items-center gap-4 text-sm font-mono">
          <div class="flex-1">
              <div class="text-gray-500 dark:text-slate-500 mb-1 text-xs">{t.formula || 'Formula'}</div>
-             <div class="text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-800 px-3 py-2 rounded border border-gray-200 dark:border-slate-700/50">
+             <div class="text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-800 px-3 py-2 rounded border border-gray-200 dark:border-slate-700/50 overflow-x-auto whitespace-nowrap">
                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                  {@html steps[0].val}
              </div>
@@ -46,7 +46,7 @@
 
          <div class="flex-1">
              <div class="text-gray-500 dark:text-slate-500 mb-1 text-xs">{t.result || 'Result'}</div>
-              <div class="text-emerald-600 dark:text-emerald-300 bg-white dark:bg-slate-800 px-3 py-2 rounded border border-gray-200 dark:border-slate-700/50 flex justify-between">
+              <div class="text-emerald-600 dark:text-emerald-300 bg-white dark:bg-slate-800 px-3 py-2 rounded border border-gray-200 dark:border-slate-700/50 flex justify-between overflow-x-auto whitespace-nowrap gap-2">
                   <span class="text-gray-700 dark:text-slate-300">{inputValue} {fromUnitSymbol}</span>
                   <span class="text-gray-500 dark:text-slate-500">=</span>
                   <span class="font-bold">{parseFloat(resultValue.toFixed(6))} {toUnitSymbol}</span>

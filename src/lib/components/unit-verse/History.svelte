@@ -101,7 +101,7 @@
             on:click={() => restore(item)}
             aria-label="Restore conversion"
           >
-              <div class="flex items-center space-x-2 text-sm">
+              <div class="flex items-center space-x-2 text-sm overflow-x-auto whitespace-nowrap custom-scrollbar pb-1">
                   <span class="text-gray-900 dark:text-white font-mono">{formatValue(item.fromValue)} {item.fromUnitId}</span>
                   <span class="text-gray-400 dark:text-slate-500">→</span>
                   <span class="text-indigo-600 dark:text-indigo-300 font-mono font-bold">{formatValue(item.resultValue)} {item.toUnitId}</span>
