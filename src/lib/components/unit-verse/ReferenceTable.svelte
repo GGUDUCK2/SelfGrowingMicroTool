@@ -77,7 +77,7 @@
         >
           <div class="overflow-hidden">
              <div class="text-xs text-gray-500 dark:text-slate-500 mb-0.5">{item.unit.name.en}</div>
-             <div class="text-gray-900 dark:text-slate-200 font-mono font-medium truncate" title={item.value}>
+             <div class="text-gray-900 dark:text-slate-200 font-mono font-medium overflow-hidden text-ellipsis" title={item.value}>
                {item.value} <span class="text-gray-400 dark:text-slate-500 text-xs">{item.unit.symbol}</span>
              </div>
           </div>

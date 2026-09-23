@@ -449,3 +449,21 @@
 
 #### 3. Performance Impact (기대 효과)
 - 모바일 디바이스에서 뷰포트를 벗어나는 긴 테이블 데이터로 인한 레이아웃 깨짐 현상을 방지하여 UI 안정성을 향상시키고, 코어 웹 바이탈(Core Web Vitals)의 CLS를 개선했습니다.
+
+### [Daily Improvement Report - 2026-09-23]
+#### 1. Identified Issues (발견된 문제)
+- `unit-verse` 도구의 `FormulaView`, `CategorySelector`, `History`, `ReferenceTable` 컴포넌트에서 모바일 디바이스 뷰포트를 초과하여 가로 스크롤(Layout Overflow)을 발생시키거나 레이아웃이 깨질 수 있는 잠재적 위험을 확인했습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/lib/components/unit-verse/features/FormulaView.svelte`
+  - 계산 공식과 결과가 표시되는 블록에 `overflow-x-auto whitespace-nowrap` 클래스를 추가하여 가로 스크롤 방지.
+- **Code**: `src/lib/components/unit-verse/CategorySelector.svelte`
+  - 모바일 환경에서 탭 버튼이 너무 좁게 표시되지 않도록 `grid-cols-1`을 `grid-cols-2`로 변경하여 모바일 공간 활용성 최적화.
+- **Code**: `src/lib/components/unit-verse/History.svelte`
+  - 긴 히스토리 기록에 대해 `overflow-x-auto whitespace-nowrap custom-scrollbar` 클래스를 추가하여 레이아웃 이탈 방지.
+- **Code**: `src/lib/components/unit-verse/ReferenceTable.svelte`
+  - 참조 테이블 항목에 `overflow-hidden text-ellipsis` 클래스를 적용하여 텍스트가 컨테이너를 벗어나는 문제 해결.
+- **SEO/AEO**: 기존 SEO 메타데이터와 JSON-LD 스키마 구조는 변경 없이 유지되었습니다.
+
+#### 3. Performance Impact (기대 효과)
+- 모바일 디바이스에서 뷰포트를 벗어나는 콘텐츠(가로 스크롤링 현상 및 레이아웃 깨짐)를 방지하여 UI 안정성을 향상시키고 사용자 경험(UX)을 크게 개선했습니다.
