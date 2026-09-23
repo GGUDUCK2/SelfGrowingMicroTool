@@ -437,3 +437,15 @@
 #### 3. Performance Impact (기대 효과)
 - 모바일 디바이스에서 뷰포트를 벗어나는 콘텐츠(가로 스크롤링 현상 및 레이아웃 깨짐)를 방지하여 UI 안정성을 향상시키고 사용자 경험(UX)을 개선.
 - 검색 엔진의 모바일 친화성 평가(Core Web Vitals) 기준을 충족하여 AEO/SEO 긍정적 효과 기대.
+
+### [Daily Improvement Report - 2026-09-23]
+#### 1. Identified Issues (발견된 문제)
+- `GridEditor`, `TruthTable` 컴포넌트에서 `<table>` 요소가 스크롤 가능한 래퍼(div)로 감싸져 있지 않아 모바일 환경에서 뷰포트를 초과하여 가로 스크롤(Layout Overflow)을 발생시킬 수 있는 잠재적 위험을 확인했습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/lib/components/table-forge/GridEditor.svelte`, `src/lib/components/logic-forge/TruthTable.svelte`
+  - `<table>` 요소를 `<div class="overflow-x-auto">` 컨테이너로 감싸 모바일 가로 스크롤 문제를 해결했습니다.
+- **SEO/AEO**: 페이지의 기존 SEO 메타데이터와 JSON-LD 스키마 구조는 변경 없이 유지되었습니다.
+
+#### 3. Performance Impact (기대 효과)
+- 모바일 디바이스에서 뷰포트를 벗어나는 긴 테이블 데이터로 인한 레이아웃 깨짐 현상을 방지하여 UI 안정성을 향상시키고, 코어 웹 바이탈(Core Web Vitals)의 CLS를 개선했습니다.
