@@ -16,7 +16,7 @@
     </div>
   {:else}
     <div class="overflow-auto flex-1">
-      <table class="w-full text-left text-sm whitespace-nowrap overflow-x-auto">
+      <div class="overflow-x-auto"><table class="w-full text-left text-sm whitespace-nowrap min-w-max">
         <thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 sticky top-0 z-10">
           <tr>
             <th class="px-4 py-3 font-semibold border-b border-slate-200 dark:border-slate-700 w-12 text-center">#</th>
@@ -37,7 +37,7 @@
             </tr>
           {/each}
         </tbody>
-      </table>
+      </table></div>
     </div>
     <div class="bg-slate-50 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 px-4 py-2 text-xs text-slate-500 flex justify-between">
       <span>Showing {data.length} rows</span>

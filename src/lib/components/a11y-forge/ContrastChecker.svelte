@@ -592,7 +592,7 @@ Generated via A11y Forge`;
 
         {#if paletteColors.length > 1}
           <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700 custom-scrollbar">
-            <table class="w-full text-sm text-left">
+            <table class="w-full text-sm text-left min-w-max">
               <thead class="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-slate-800/50">
                 <tr>
                   <th scope="col" class="px-4 py-3 font-medium text-center border-b border-r border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800">{c.bgVsFg || 'BG \\ FG'}</th>

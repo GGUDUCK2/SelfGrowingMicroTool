@@ -65,7 +65,7 @@
     </div>
 
     <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-      <table class="w-full text-left text-sm">
+      <table class="w-full text-left text-sm min-w-max">
         <thead class="bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-medium">
           <tr>
             <th class="px-4 py-3">#</th>

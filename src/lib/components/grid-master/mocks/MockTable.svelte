@@ -29,7 +29,7 @@
   </div>
 
   <div class="flex-1 overflow-auto custom-scrollbar">
-      <table class="w-full text-left text-xs overflow-x-auto">
+      <div class="overflow-x-auto"><table class="w-full text-left text-xs min-w-max">
           <thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 font-medium sticky top-0 z-10">
               <tr>
                   <th class="px-4 py-3 cursor-pointer hover:text-indigo-600 transition-colors" on:click={() => sort('id')}>Invoice</th>
@@ -56,7 +56,7 @@
                   </tr>
               {/each}
           </tbody>
-      </table>
+      </table></div>
   </div>
 
   <div class="p-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex justify-between items-center text-[10px] text-slate-500">

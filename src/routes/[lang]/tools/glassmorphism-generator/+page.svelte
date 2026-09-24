@@ -399,7 +399,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
 
         <!-- Glass Card -->
         <div
-          class="z-10 w-full max-w-xs h-40 flex items-center justify-center text-white/90 font-medium"
+          class="z-10 w-full max-w-xs h-40 flex items-center justify-center text-slate-900 dark:text-white/90 font-medium"
           style={cssCode}
         >
           <span class="drop-shadow-md text-lg">{dict.preview}</span>

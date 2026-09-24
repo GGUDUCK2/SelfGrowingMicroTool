@@ -642,7 +642,7 @@
                             </div>
                             <div class="flex-1 overflow-auto p-4">
                                 <div class="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 overflow-x-auto">
-                                    <table class="w-full text-sm text-left">
+                                    <table class="w-full text-sm text-left min-w-max">
                                         <thead class="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-slate-800">
                                             <tr>
                                                 {#each activeTable.columns as col}
