@@ -75,7 +75,7 @@
                     <Copy class="w-4 h-4" />
                 {/if}
             </button>
-            <div class="overflow-x-auto"><pre class="p-6 text-sm font-mono text-slate-300 leading-relaxed tab-4 whitespace-pre-wrap break-all">{code}</pre></div>
+            <pre class="overflow-x-auto p-6 text-sm font-mono text-slate-300 leading-relaxed tab-4 whitespace-pre-wrap break-all">{code}</pre>
         </div>
     </div>
 </div>

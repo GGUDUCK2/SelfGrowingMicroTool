@@ -714,7 +714,7 @@
                                             </button>
                                         </div>
                                         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                                        <div class="overflow-x-auto"><pre class="text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-all bg-gray-50 dark:bg-gray-900 p-2 rounded">{@html result.html}</pre></div>
+                                        <pre class="overflow-x-auto text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-all bg-gray-50 dark:bg-gray-900 p-2 rounded">{@html result.html}</pre>
                                     </div>
                                 {/each}
                             </div>
@@ -732,7 +732,7 @@
                                             <Copy class="w-4 h-4 text-gray-500" />
                                         </button>
                                     </div>
-                                    <div class="overflow-x-auto"><pre class="text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-all bg-gray-50 dark:bg-gray-900 p-2 rounded">const result = document.evaluate(
+                                    <pre class="overflow-x-auto text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-all bg-gray-50 dark:bg-gray-900 p-2 rounded">const result = document.evaluate(
   '{xpathExpression}',
   document,
   null,
@@ -740,7 +740,7 @@
   null
 );
 let node, nodes = [];
-while (node = result.iterateNext()) nodes.push(node);</pre></div>
+while (node = result.iterateNext()) nodes.push(node);</pre>
                                 </div>
 
                                 <!-- Playwright Snippet -->
@@ -755,7 +755,7 @@ while (node = result.iterateNext()) nodes.push(node);</pre></div>
                                             <Copy class="w-4 h-4 text-gray-500" />
                                         </button>
                                     </div>
-                                    <div class="overflow-x-auto"><pre class="text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-all bg-gray-50 dark:bg-gray-900 p-2 rounded">const elements = await page.locator('xpath={xpathExpression}').all();</pre></div>
+                                    <pre class="overflow-x-auto text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-all bg-gray-50 dark:bg-gray-900 p-2 rounded">const elements = await page.locator('xpath={xpathExpression}').all();</pre>
                                 </div>
 
                                 <!-- Python Lxml Snippet -->
@@ -770,10 +770,10 @@ while (node = result.iterateNext()) nodes.push(node);</pre></div>
                                             <Copy class="w-4 h-4 text-gray-500" />
                                         </button>
                                     </div>
-                                    <div class="overflow-x-auto"><pre class="text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-all bg-gray-50 dark:bg-gray-900 p-2 rounded">from lxml import etree
+                                    <pre class="overflow-x-auto text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-all bg-gray-50 dark:bg-gray-900 p-2 rounded">from lxml import etree
 
 tree = etree.parse('document.xml')
-nodes = tree.xpath('{xpathExpression}')</pre></div>
+nodes = tree.xpath('{xpathExpression}')</pre>
                                 </div>
                             </div>
                         {/if}
