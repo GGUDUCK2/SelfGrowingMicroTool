@@ -240,7 +240,7 @@
   bind:clientHeight={containerHeight}
 >
   <div class="absolute top-4 left-4 z-10 flex flex-col gap-1">
-      <h3 class="font-semibold text-gray-800 flex items-center gap-2 bg-white/80 px-3 py-1.5 rounded-lg shadow-sm backdrop-blur border border-gray-100">
+      <h3 class="font-semibold text-gray-800 dark:text-slate-100 flex items-center gap-2 bg-white/80 px-3 py-1.5 rounded-lg shadow-sm backdrop-blur border border-gray-100">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-600"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>
           {dict.circuit}
       </h3>

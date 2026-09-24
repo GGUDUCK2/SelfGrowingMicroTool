@@ -16,10 +16,10 @@
         {#if invoice.settings.logo}
             <img src={invoice.settings.logo} alt="Logo" class="h-16 w-auto object-contain mb-4" />
         {:else}
-            <h1 class="text-3xl font-bold text-gray-800 tracking-tight uppercase">INVOICE</h1>
+            <h1 class="text-3xl font-bold text-gray-800 dark:text-slate-100 tracking-tight uppercase">INVOICE</h1>
         {/if}
         <div class="text-sm text-gray-600 mt-2 whitespace-pre-line">
-            <span class="font-bold text-gray-900 block text-lg mb-1">{invoice.sender.name}</span>
+            <span class="font-bold text-gray-900 dark:text-white block text-lg mb-1">{invoice.sender.name}</span>
             {invoice.sender.address}
             {#if invoice.sender.email}
                 <br>{invoice.sender.email}
@@ -28,29 +28,31 @@
     </div>
     <div class="text-right">
         <h2 class="text-4xl font-light text-gray-300 mb-4">{dictionary.editor.title}</h2>
-        <table class="text-sm ml-auto overflow-x-auto">
+        <div class="overflow-x-auto">
+<table class="text-sm ml-auto ">
             <tbody>
                 <tr>
                     <td class="font-bold text-gray-600 pr-4 py-1">{dictionary.editor.number}:</td>
-                    <td class="font-mono text-gray-900">{invoice.meta.number}</td>
+                    <td class="font-mono text-gray-900 dark:text-white">{invoice.meta.number}</td>
                 </tr>
                 <tr>
                     <td class="font-bold text-gray-600 pr-4 py-1">{dictionary.editor.date}:</td>
-                    <td class="text-gray-900">{invoice.meta.date}</td>
+                    <td class="text-gray-900 dark:text-white">{invoice.meta.date}</td>
                 </tr>
                 <tr>
                     <td class="font-bold text-gray-600 pr-4 py-1">{dictionary.editor.dueDate}:</td>
-                    <td class="text-gray-900">{invoice.meta.dueDate}</td>
+                    <td class="text-gray-900 dark:text-white">{invoice.meta.dueDate}</td>
                 </tr>
             </tbody>
         </table>
+</div>
     </div>
   </div>
 
   <!-- Client -->
   <div class="mb-12">
     <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">{dictionary.editor.to}</h3>
-    <div class="text-gray-800 whitespace-pre-line">
+    <div class="text-gray-800 dark:text-slate-100 whitespace-pre-line">
         <span class="font-bold text-xl block mb-1">{invoice.client.name}</span>
         {invoice.client.address}
         {#if invoice.client.email}
@@ -60,7 +62,8 @@
   </div>
 
   <!-- Items Table -->
-  <table class="w-full mb-8 overflow-x-auto">
+  <div class="overflow-x-auto">
+<table class="w-full mb-8 ">
     <thead>
         <tr class="border-b-2 border-gray-100">
             <th class="text-left py-3 text-xs font-bold text-gray-400 uppercase tracking-wider w-1/2">{dictionary.editor.itemDesc}</th>
@@ -72,35 +75,36 @@
     <tbody>
         {#each invoice.items as item}
             <tr class="border-b border-gray-50">
-                <td class="py-4 text-gray-800 font-medium">{item.description}</td>
+                <td class="py-4 text-gray-800 dark:text-slate-100 font-medium">{item.description}</td>
                 <td class="py-4 text-center text-gray-600">{item.quantity}</td>
                 <td class="py-4 text-right text-gray-600">{invoice.settings.currency} {formatCurrency(item.price)}</td>
-                <td class="py-4 text-right text-gray-800 font-bold">{invoice.settings.currency} {formatCurrency(item.quantity * item.price)}</td>
+                <td class="py-4 text-right text-gray-800 dark:text-slate-100 font-bold">{invoice.settings.currency} {formatCurrency(item.quantity * item.price)}</td>
             </tr>
         {/each}
     </tbody>
   </table>
+</div>
 
   <!-- Totals -->
   <div class="flex justify-end mb-12">
     <div class="w-1/2 sm:w-1/3">
         <div class="flex justify-between py-2 text-gray-600 text-sm">
             <span>{dictionary.editor.subtotal}</span>
-            <span class="font-medium text-gray-900">{invoice.settings.currency} {formatCurrency(totals.subtotal)}</span>
+            <span class="font-medium text-gray-900 dark:text-white">{invoice.settings.currency} {formatCurrency(totals.subtotal)}</span>
         </div>
-        {#if invoice.settings.discount > 0}
+        {#if invoice.settings.discount> 0}
             <div class="flex justify-between py-2 text-red-500 text-sm">
                 <span>{dictionary.editor.discount} ({invoice.settings.discount}%)</span>
                 <span>- {invoice.settings.currency} {formatCurrency(totals.discountAmount)}</span>
             </div>
         {/if}
-        {#if invoice.settings.taxRate > 0}
+        {#if invoice.settings.taxRate> 0}
             <div class="flex justify-between py-2 text-gray-600 text-sm">
                 <span>{dictionary.editor.tax} ({invoice.settings.taxRate}%)</span>
                 <span>{invoice.settings.currency} {formatCurrency(totals.taxAmount)}</span>
             </div>
         {/if}
-        <div class="flex justify-between py-3 border-t-2 border-gray-100 text-lg font-bold text-gray-900 mt-2">
+        <div class="flex justify-between py-3 border-t-2 border-gray-100 text-lg font-bold text-gray-900 dark:text-white mt-2">
             <span>{dictionary.editor.total}</span>
             <span>{invoice.settings.currency} {formatCurrency(totals.total)}</span>
         </div>

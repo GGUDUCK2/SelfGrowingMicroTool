@@ -6,11 +6,11 @@
   const displayUrl = (url: string) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
 </script>
 
-<div class="p-12 min-h-[297mm] h-full bg-white text-slate-900 font-serif">
+<div class="p-12 min-h-[297mm] h-full bg-white text-slate-900 dark:text-white font-serif">
   <!-- Header -->
   <header class="text-center space-y-4 mb-8">
       <div>
-          <h1 class="text-3xl font-bold uppercase tracking-widest text-slate-900">{resume.basics.name}</h1>
+          <h1 class="text-3xl font-bold uppercase tracking-widest text-slate-900 dark:text-white">{resume.basics.name}</h1>
           <div class="text-lg text-slate-600 mt-1 italic">{resume.basics.label}</div>
       </div>
 
@@ -56,7 +56,7 @@
           {#each resume.work as work}
           <article>
               <div class="flex justify-between items-baseline mb-1">
-                  <h3 class="font-bold text-slate-900 text-base">{work.name}</h3>
+                  <h3 class="font-bold text-slate-900 dark:text-white text-base">{work.name}</h3>
                   <span class="text-sm italic text-slate-600">{work.startDate} – {work.endDate}</span>
               </div>
               <div class="text-sm font-semibold text-slate-700 italic mb-2">{work.position}</div>
@@ -84,7 +84,7 @@
           {#each resume.education as edu}
           <div class="flex justify-between items-start">
               <div>
-                  <div class="font-bold text-slate-900">{edu.institution}</div>
+                  <div class="font-bold text-slate-900 dark:text-white">{edu.institution}</div>
                   <div class="text-sm text-slate-700">{edu.studyType} in {edu.area}</div>
                   {#if edu.score}<div class="text-xs text-slate-500">GPA: {edu.score}</div>{/if}
               </div>
@@ -105,7 +105,7 @@
           {#each resume.projects as project}
           <article>
               <div class="flex justify-between items-baseline mb-1">
-                  <h3 class="font-bold text-slate-900">{project.name}</h3>
+                  <h3 class="font-bold text-slate-900 dark:text-white">{project.name}</h3>
               </div>
               <p class="text-sm text-slate-700 mb-1 leading-snug">{project.description}</p>
               <div class="text-xs text-slate-500 italic">

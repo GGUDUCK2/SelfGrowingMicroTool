@@ -150,7 +150,7 @@
                          </div>
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-sm text-gray-800 font-medium leading-none">{config.name || 'My Awesome Website'}</span>
+                        <span class="text-sm text-gray-800 dark:text-slate-100 font-medium leading-none">{config.name || 'My Awesome Website'}</span>
                         <span class="text-xs text-gray-500">https://example.com › tools</span>
                     </div>
                 </div>

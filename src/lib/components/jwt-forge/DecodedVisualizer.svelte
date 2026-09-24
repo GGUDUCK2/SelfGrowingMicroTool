@@ -23,7 +23,7 @@
     </div>
     <div class="p-4 font-mono text-sm overflow-x-auto">
       {#if header}
-        <pre class="text-slate-700 dark:text-slate-300">{JSON.stringify(header, null, 2)}</pre>
+        <pre class="overflow-x-auto text-slate-700 dark:text-slate-300">{JSON.stringify(header, null, 2)}</pre>
       {:else}
         <p class="text-slate-400 italic">Invalid Header</p>
       {/if}

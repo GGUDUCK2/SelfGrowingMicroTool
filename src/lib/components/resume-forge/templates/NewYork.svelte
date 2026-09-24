@@ -32,7 +32,7 @@
            {#if resume.basics.summary}
            <section>
                <h2 class="text-xs font-black uppercase tracking-widest mb-3 text-slate-400">About</h2>
-               <p class="text-sm leading-relaxed text-slate-800 font-medium">{resume.basics.summary}</p>
+               <p class="text-sm leading-relaxed text-slate-800 dark:text-slate-100 font-medium">{resume.basics.summary}</p>
            </section>
            {/if}
 
@@ -104,7 +104,7 @@
                           </div>
                       </div>
 
-                      <p class="text-sm text-slate-800 mb-3 whitespace-pre-wrap leading-relaxed">{work.summary}</p>
+                      <p class="text-sm text-slate-800 dark:text-slate-100 mb-3 whitespace-pre-wrap leading-relaxed">{work.summary}</p>
 
                       {#if work.highlights.length > 0}
                       <ul class="text-sm text-slate-600 space-y-1.5 list-square ml-4 marker:text-black">

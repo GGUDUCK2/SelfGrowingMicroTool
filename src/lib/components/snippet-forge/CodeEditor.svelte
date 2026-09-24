@@ -76,9 +76,7 @@
 <div class="relative w-full min-h-[100px]" style="font-family: {fontFamily}; font-size: {fontSize}px;">
   <!-- Highlighted Code (Background) -->
   <div class="overflow-x-auto w-full h-full">
-  <pre
-    bind:this={pre}
-    class="block w-full h-full m-0 p-4 overflow-hidden whitespace-pre-wrap break-words pointer-events-none overflow-x-auto"
+  <pre bind:this={pre} class="overflow-x-auto block w-full h-full m-0 p-4 overflow-hidden whitespace-pre-wrap break-words pointer-events-none overflow-x-auto"
     style="min-height: 100%; color: inherit; background: transparent;">
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   <code class="language-{language}">{@html highlightedCode}</code></pre>

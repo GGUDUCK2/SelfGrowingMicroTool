@@ -36,7 +36,7 @@
             <Clock size={18} />
             {dict.history}
         </h3>
-        <button on:click={handleClose} class="text-slate-500 hover:text-slate-800 dark:hover:text-white">
+        <button on:click={handleClose} class="text-slate-500 hover:text-slate-800 dark:text-slate-100 dark:hover:text-white">
             <X size={20} />
         </button>
     </div>

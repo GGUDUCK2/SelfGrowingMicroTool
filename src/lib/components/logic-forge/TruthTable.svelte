@@ -29,7 +29,7 @@
 
 <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-full">
   <div class="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-    <h3 class="font-semibold text-gray-800 flex items-center gap-2">
+    <h3 class="font-semibold text-gray-800 dark:text-slate-100 flex items-center gap-2">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-table"><path d="M12 3v18"/><path d="M3 12h18"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
       {dict.truthTable}
     </h3>
@@ -56,7 +56,7 @@
           {#each data.rows as row, i (i)}
             <tr class="hover:bg-indigo-50/30 transition-colors">
               {#each row.values as val, j (j)}
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono {val ? 'text-gray-900 font-semibold' : 'text-gray-400'}">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono {val ? 'text-gray-900 dark:text-white font-semibold' : 'text-gray-400'}">
                   {val ? '1' : '0'}
                 </td>
               {/each}

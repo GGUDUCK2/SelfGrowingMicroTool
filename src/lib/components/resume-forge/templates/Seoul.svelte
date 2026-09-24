@@ -113,7 +113,7 @@
   </div>
 
   <!-- Main Content -->
-  <div class="flex-1 p-10 space-y-8 bg-white text-slate-800">
+  <div class="flex-1 p-10 space-y-8 bg-white text-slate-800 dark:text-slate-100">
      <!-- Header -->
      <header class="space-y-2">
          <h1 class="text-4xl font-extrabold tracking-tight text-[var(--accent)] uppercase leading-none">{resume.basics.name}</h1>
@@ -123,7 +123,7 @@
      <!-- Summary -->
      {#if resume.basics.summary}
      <section>
-        <h2 class="text-lg font-bold uppercase tracking-wider text-slate-900 border-b-2 border-[var(--accent)] pb-1 mb-3">Profile</h2>
+        <h2 class="text-lg font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b-2 border-[var(--accent)] pb-1 mb-3">Profile</h2>
         <p class="text-sm leading-relaxed text-slate-600 whitespace-pre-wrap">{resume.basics.summary}</p>
      </section>
      {/if}
@@ -131,12 +131,12 @@
      <!-- Experience -->
      {#if resume.work.length > 0}
      <section class="space-y-6">
-        <h2 class="text-lg font-bold uppercase tracking-wider text-slate-900 border-b-2 border-[var(--accent)] pb-1 mb-2">Experience</h2>
+        <h2 class="text-lg font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b-2 border-[var(--accent)] pb-1 mb-2">Experience</h2>
 
         {#each resume.work as work}
         <article>
             <div class="flex justify-between items-baseline mb-1">
-                <h3 class="font-bold text-slate-800 text-lg">{work.position}</h3>
+                <h3 class="font-bold text-slate-800 dark:text-slate-100 text-lg">{work.position}</h3>
                 <span class="text-sm font-medium text-[var(--accent)] whitespace-nowrap">{work.startDate} — {work.endDate}</span>
             </div>
             <div class="text-sm font-semibold text-slate-600 mb-2">{work.name} {#if work.url}| <a href={work.url} class="hover:underline">{displayUrl(work.url)}</a>{/if}</div>
@@ -158,12 +158,12 @@
      <!-- Projects -->
      {#if resume.projects.length > 0}
      <section class="space-y-6">
-        <h2 class="text-lg font-bold uppercase tracking-wider text-slate-900 border-b-2 border-[var(--accent)] pb-1 mb-2">Projects</h2>
+        <h2 class="text-lg font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b-2 border-[var(--accent)] pb-1 mb-2">Projects</h2>
 
         {#each resume.projects as project}
         <article>
             <div class="flex justify-between items-baseline mb-1">
-                <h3 class="font-bold text-slate-800">{project.name}</h3>
+                <h3 class="font-bold text-slate-800 dark:text-slate-100">{project.name}</h3>
                 <span class="text-xs font-medium text-slate-500 whitespace-nowrap">{project.startDate} — {project.endDate}</span>
             </div>
             <p class="text-sm text-slate-600 mb-1">{project.description}</p>

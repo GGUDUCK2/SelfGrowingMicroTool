@@ -46,7 +46,8 @@
     </div>
 
     <div class="flex-1 overflow-auto border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900">
-        <table class="w-full text-sm text-left border-collapse overflow-x-auto">
+        <div class="overflow-x-auto">
+<table class="w-full text-sm text-left border-collapse ">
             <thead class="bg-slate-50 dark:bg-slate-800 sticky top-0 z-10 text-xs uppercase text-slate-500 font-bold">
                 <tr>
                     <th class="p-3 border-b border-slate-200 dark:border-slate-700 w-1/4">Key</th>
@@ -69,16 +70,14 @@
                                     value={item.values[lang] || ''}
                                     on:input={(e) => updateValue(item.key, lang, e.currentTarget.value)}
                                     rows="1"
-                                    placeholder="Missing..."
-                                ></textarea>
+                                    placeholder="Missing..."></textarea>
                             </td>
                         {/each}
                         <td class="p-2 align-top text-center">
                             <button
                                 class="text-slate-400 hover:text-red-500 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation"
                                 on:click={() => deleteKey(item.key)}
-                                title="Delete Key"
-                            >
+                                title="Delete Key">
                                 <Trash2 size={16} />
                             </button>
                         </td>
@@ -93,5 +92,6 @@
                 {/if}
             </tbody>
         </table>
+</div>
     </div>
 </div>
