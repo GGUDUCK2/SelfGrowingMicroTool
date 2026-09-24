@@ -54,7 +54,7 @@
             </button>
         </div>
         <div class="flex-1 overflow-auto">
-            <table class="w-full text-left text-sm whitespace-nowrap overflow-x-auto">
+            <div class="overflow-x-auto"><table class="w-full text-left text-sm whitespace-nowrap min-w-max">
                 <thead class="bg-gray-50 dark:bg-gray-700/50 sticky top-0 z-10">
                     <tr>
                         {#each result.columns as col}
@@ -73,7 +73,7 @@
                         </tr>
                     {/each}
                 </tbody>
-            </table>
+            </table></div>
         </div>
     {/if}
 </div>
