@@ -210,7 +210,7 @@
 
 <div class="max-w-2xl mx-auto text-center space-y-12 py-12 px-4">
   <div class="space-y-4">
-    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
       {dict.title}
     </h1>
     <p class="text-gray-500">
@@ -234,7 +234,7 @@
         {@const modeKey = m as keyof typeof MODES}
         <button
           on:click={() => setMode(modeKey)}
-          class="min-h-[44px] min-w-[44px] px-4 py-2 sm:px-6 sm:py-2 rounded-lg text-sm font-medium transition-all {mode === modeKey ? 'bg-white text-gray-900 shadow-sm ring-2 ring-indigo-500 ring-offset-1' : 'text-gray-500 hover:text-gray-900'}"
+          class="min-h-[44px] min-w-[44px] px-4 py-2 sm:px-6 sm:py-2 rounded-lg text-sm font-medium transition-all {mode === modeKey ? 'bg-white text-gray-900 dark:text-white shadow-sm ring-2 ring-indigo-500 ring-offset-1' : 'text-gray-500 hover:text-gray-900'}"
         >
           {dict[MODES[modeKey].key]}
         </button>
@@ -302,7 +302,7 @@
 
       <button
         on:click={reset}
-        class="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-900 transition-colors min-h-[44px] min-w-[44px]"
+        class="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-900 dark:text-white transition-colors min-h-[44px] min-w-[44px]"
         aria-label={dict.reset}
       >
         <svg
@@ -331,7 +331,7 @@
   {#if history.length > 0}
       <div transition:fade class="mt-12">
         <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -359,7 +359,7 @@
                     class="text-left cursor-pointer flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1 min-h-[44px]"
                     on:click={() => restoreHistory(item)}
                 >
-                    <div class="font-medium text-gray-900 capitalize">
+                    <div class="font-medium text-gray-900 dark:text-white capitalize">
                       {dict[MODES[item.data.mode as keyof typeof MODES]?.key] || item.data.mode} - {item.data.duration} min
                     </div>
                     <div class="text-xs text-gray-400 mt-1">

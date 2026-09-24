@@ -50,8 +50,7 @@
     on:keydown={handleKeydown}
   ></textarea>
   <div class="absolute inset-0 w-full h-full overflow-x-auto pointer-events-none">
-  <pre
-    class="w-full h-full p-4 m-0 overflow-hidden font-mono leading-relaxed"
+  <pre class="overflow-x-auto w-full h-full p-4 m-0 overflow-hidden font-mono leading-relaxed"
     aria-hidden="true"><code class="language-sql">{@html highlightedCode}</code></pre>
   </div>
 </div>

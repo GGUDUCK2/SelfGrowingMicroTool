@@ -412,8 +412,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
           {dict.cssCode}
         </h3>
         <div class="overflow-x-auto w-full max-w-full">
-        <pre
-          class="text-green-400 font-mono text-sm whitespace-pre-wrap">{cssCode}</pre>
+        <pre class="overflow-x-auto text-green-400 font-mono text-sm whitespace-pre-wrap">{cssCode}</pre>
         </div>
 
         <button on:click={copyToClipboard}

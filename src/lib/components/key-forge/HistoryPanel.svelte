@@ -36,8 +36,9 @@
     </div>
 
     <div class="max-h-96 overflow-y-auto">
-        {#if $history && $history.length > 0}
-            <table class="w-full text-sm text-left overflow-x-auto">
+        {#if $history && $history.length> 0}
+            <div class="overflow-x-auto">
+<table class="w-full text-sm text-left ">
                 <thead class="bg-slate-50 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 font-medium sticky top-0 z-10 shadow-sm">
                     <tr>
                         <th class="px-4 py-3">{dict.wpm}</th>
@@ -69,6 +70,7 @@
                     {/each}
                 </tbody>
             </table>
+</div>
         {:else}
             <div class="p-12 text-center flex flex-col items-center justify-center text-slate-400">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-3 opacity-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">

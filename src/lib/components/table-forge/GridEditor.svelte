@@ -83,7 +83,8 @@
                 <td colspan={data[0].length + 1} class="bg-slate-50 dark:bg-slate-900/50"></td>
             </tr>
         </tbody>
-      </table></div>
+      </table>
+</div>
     </div>
   </div>
 </div>

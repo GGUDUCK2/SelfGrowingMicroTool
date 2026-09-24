@@ -467,3 +467,34 @@
 
 #### 3. Performance Impact (기대 효과)
 - 모바일 디바이스에서 뷰포트를 벗어나는 콘텐츠(가로 스크롤링 현상 및 레이아웃 깨짐)를 방지하여 UI 안정성을 향상시키고 사용자 경험(UX)을 크게 개선했습니다.
+
+[Project Health Report - 2026-09-24]
+## Repository Hygiene
+- 프로젝트 루트 디렉토리에 생성된 임시 스크립트 파일들을 확인하고 모두 삭제했습니다 (scripts/ 디렉토리 제거).
+- npm audit 실행 결과 취약점이 없음을 확인했습니다.
+
+## Design Consistency
+- 텍스트 대비(Contrast) 개선: 여러 컴포넌트(PreviewGallery, InvoicePreview, CircuitVisualizer 등 15개 파일)에서 `dark:text-` 클래스가 누락된 텍스트(`text-slate-800`, `text-slate-900`)를 식별하여 다크모드 대응 클래스(`dark:text-white`, `dark:text-slate-200` 등)를 추가했습니다.
+
+## AdSense Readiness
+- About, Contact, Privacy Policy, Terms of Service 페이지가 정상적으로 존재함을 스크립트로 재차 검증했습니다.
+
+## Tech Debt
+- ESLint 호환성 문제 해결: `npm install eslint@^9.0.0 --save-dev --legacy-peer-deps`를 실행하여 린트 오류를 수정했습니다.
+- 빌드 에러 해결: `GridEditor`, `SqlEditor`, `DataEditor`, `CodeEditor`, `glassmorphism-generator/+page.svelte` 등에 발생한 Svelte 마크업 속성 중복 및 태그 닫기 오류를 해결하여 빌드를 안정화했습니다.
+
+### [Daily Improvement Report - 2026-09-24]
+#### 1. Identified Issues (발견된 문제)
+- `MockTable`, `EventLog`, `InvoicePreview` 등 다수의 컴포넌트에서 `<table>` 태그에 직접 `overflow-x-auto`가 적용되어 모바일 스크롤이 정상적으로 작동하지 않는 문제 식별.
+- `ClampBuilder`, `DecodedVisualizer` 등에서 `<pre>` 태그 자체 대신 부모 요소에 스크롤 클래스가 적용되거나 누락되어 레이아웃 오버플로우 위험 식별.
+- 다크모드 텍스트 대비 누락 및 빌드 시 중복 속성 선언, 잘못된 태그 닫기로 인한 빌드 실패 식별.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `<table>` 요소들을 `<div class="overflow-x-auto">` 래퍼로 감싸고 테이블 태그 자체의 `overflow-x-auto` 클래스를 제거하여 반응형 스크롤 복원.
+- **Code**: `<pre>` 요소들에 `overflow-x-auto` 클래스를 직접 추가하여 모바일 환경에서 코드가 잘리거나 레이아웃을 깨트리지 않게 보호.
+- **Code**: `text-slate-800`, `text-slate-900` 등 텍스트에 다크모드 대응을 추가하여 라이트/다크 테마 디자인 일관성 확보.
+- **Code**: 빌드를 깨트리던 Svelte 컴포넌트 내 `class` 속성 중복 선언과 `<div />` 닫기 태그 불일치 수정.
+
+#### 3. Performance Impact (기대 효과)
+- 모바일 디바이스에서 뷰포트를 벗어나는 긴 테이블과 코드 데이터로 인한 레이아웃 깨짐 현상을 방지하여 UI 안정성을 향상시켰습니다.
+- 다크모드 사용 시 텍스트 가독성이 대폭 향상되었으며, 전체 프로젝트 빌드 안정성을 되찾았습니다.

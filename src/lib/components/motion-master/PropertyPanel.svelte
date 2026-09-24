@@ -131,7 +131,7 @@
                     <span class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center text-xs font-mono">{selectedKeyframe.percentage}%</span>
                     Keyframe
                 </h3>
-                <button on:click={() => $selectedKeyframeId = null} class="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200" aria-label="Close Properties">
+                <button on:click={() => $selectedKeyframeId = null} class="text-xs text-slate-500 hover:text-slate-800 dark:text-slate-100 dark:hover:text-slate-200" aria-label="Close Properties">
                     <X class="w-4 h-4" />
                 </button>
              </div>

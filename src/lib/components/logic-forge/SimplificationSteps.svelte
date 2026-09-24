@@ -24,7 +24,7 @@
 
   <!-- Final Result -->
   <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-2xl border border-indigo-100 flex flex-col items-center text-center space-y-3">
-    <h3 class="text-lg font-bold text-gray-800">Simplified Expression</h3>
+    <h3 class="text-lg font-bold text-gray-800 dark:text-slate-100">Simplified Expression</h3>
     <div class="text-2xl md:text-3xl font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 break-all">
       {simplified || '0'}
     </div>

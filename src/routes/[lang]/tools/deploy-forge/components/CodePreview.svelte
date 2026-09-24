@@ -65,7 +65,7 @@
         </button>
     </div>
     <div class="p-4 overflow-x-auto text-sm font-mono max-h-[500px] overflow-y-auto custom-scrollbar">
-        <pre class="!bg-transparent !p-0 !m-0"><code class="language-{language}" bind:this={codeElement}>{code}</code></pre>
+        <pre class="overflow-x-auto !bg-transparent !p-0 !m-0"><code class="language-{language}" bind:this={codeElement}>{code}</code></pre>
     </div>
 </div>
 

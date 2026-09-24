@@ -110,7 +110,7 @@
   <!-- Preview Area -->
   <div class="flex-1 overflow-auto p-8 flex justify-center bg-slate-100 dark:bg-black/20 print:p-0 print:bg-white print:overflow-visible {fitToScreen ? 'overflow-x-hidden' : ''}" bind:clientWidth={containerWidth}>
      <div
-        class="a4-page bg-white text-slate-900 shadow-xl print:shadow-none print:w-full print:h-auto print:m-0 transition-transform duration-200 origin-top"
+        class="a4-page bg-white text-slate-900 dark:text-white shadow-xl print:shadow-none print:w-full print:h-auto print:m-0 transition-transform duration-200 origin-top"
         style="transform: scale({scale})"
         data-theme={$resumeStore.meta.theme}
         data-font={$resumeStore.meta.font}
