@@ -755,14 +755,14 @@
             <Copy class="w-4 h-4" />
           {/if}
         </button>
-        <div class="overflow-x-auto"><pre class="font-mono text-sm text-slate-300 whitespace-pre-wrap mt-2 break-all">{
+        <pre class="overflow-x-auto font-mono text-sm text-slate-300 whitespace-pre-wrap mt-2 break-all">{
           activeTab === 'curl' ? curlCode :
           activeTab === 'fetch' ? fetchCode :
           activeTab === 'python' ? pyCode :
           activeTab === 'axios' ? axiosCode :
           activeTab === 'playwright' ? playwrightCode :
           activeTab === 'typescript' ? tsCode : cypressCode
-        }</pre></div>
+        }</pre>
       </div>
     </div>
 
@@ -826,7 +826,7 @@
           {#if isSending}
               <div class="flex justify-center items-center h-full text-slate-400">Sending request...</div>
           {:else if responseData}
-              <div class="overflow-x-auto"><pre class="font-mono text-sm text-slate-800 dark:text-slate-300 whitespace-pre-wrap break-all">{filteredResponseData}</pre></div>
+              <pre class="overflow-x-auto font-mono text-sm text-slate-800 dark:text-slate-300 whitespace-pre-wrap break-all">{filteredResponseData}</pre>
           {:else}
               <div class="flex justify-center items-center h-full text-slate-400 text-sm">Hit "Send" to see the response here. Note: Client-side CORS limitations apply.</div>
           {/if}

@@ -498,3 +498,15 @@
 #### 3. Performance Impact (기대 효과)
 - 모바일 디바이스에서 뷰포트를 벗어나는 긴 테이블과 코드 데이터로 인한 레이아웃 깨짐 현상을 방지하여 UI 안정성을 향상시켰습니다.
 - 다크모드 사용 시 텍스트 가독성이 대폭 향상되었으며, 전체 프로젝트 빌드 안정성을 되찾았습니다.
+
+### [Daily Improvement Report - 2026-09-24]
+#### 1. Identified Issues (발견된 문제)
+- 일부 도구(`PolicyPreview`, `CsvConverter`, `CurlBuilder`, `CodeExport`, `ResponsePanel`, `CodeEditor`, `XPathForge`, `Glassmorphism Generator`)에서 `<pre>` 태그를 감싸는 불필요한 `<div class="overflow-x-auto">` 래퍼가 존재하여 코딩 스탠다드 위배 및 DOM 트리 깊이 불필요 증가 식별.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/lib/components/csp-forge/PolicyPreview.svelte`, `src/lib/components/csv-forge/CsvConverter.svelte`, `src/lib/components/curl-forge/CurlBuilder.svelte`, `src/lib/components/prompt-forge/CodeExport.svelte`, `src/lib/components/restro/ResponsePanel.svelte`, `src/lib/components/snippet-forge/CodeEditor.svelte`, `src/lib/components/xpath-forge/XPathForge.svelte`, `src/routes/[lang]/tools/glassmorphism-generator/+page.svelte`
+  - 불필요한 `<div class="overflow-x-auto">` 래퍼를 제거하고, `overflow-x-auto` 클래스를 `<pre>` 태그에 직접 적용하여 모바일 레이아웃 오버플로우 문제 방지 원칙 준수.
+- **SEO/AEO**: 기존 SEO 메타데이터와 JSON-LD 스키마 구조는 변경 없이 유지되었습니다.
+
+#### 3. Performance Impact (기대 효과)
+- DOM 구조를 간소화하여 렌더링 성능을 개선하고 코드베이스의 일관성 및 청결도를 유지.

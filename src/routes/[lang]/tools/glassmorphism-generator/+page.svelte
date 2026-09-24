@@ -411,9 +411,7 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);`;
         <h3 class="text-slate-400 dark:text-slate-500 text-xs font-semibold uppercase mb-4">
           {dict.cssCode}
         </h3>
-        <div class="overflow-x-auto w-full max-w-full">
         <pre class="overflow-x-auto text-green-400 font-mono text-sm whitespace-pre-wrap">{cssCode}</pre>
-        </div>
 
         <button on:click={copyToClipboard}
           class="absolute top-4 right-4 bg-white dark:bg-slate-800/10 hover:bg-white/20 text-white px-4 py-2 sm:px-3 sm:py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 backdrop-blur-sm touch-manipulation min-h-[44px] min-w-[44px]"
