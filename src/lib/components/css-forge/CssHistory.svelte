@@ -25,7 +25,7 @@
         isMounted = true;
         fetchHistory();
 
-        // Listen for new history items (e.g. from workspace component)
+
         const interval = setInterval(fetchHistory, 2000);
         return () => clearInterval(interval);
     });

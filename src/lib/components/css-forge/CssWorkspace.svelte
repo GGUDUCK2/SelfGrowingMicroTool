@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
+  import { SvelteMap } from 'svelte/reactivity';
 
   import { Copy, Trash2, Wand2, Minimize, BarChart, CheckCircle2, AlertTriangle, Download, Share2, Layers } from '@lucide/svelte';
   import type { CssState, CssAction, CssStatistics, Dictionary } from './types';
@@ -18,7 +19,7 @@
   }
 
   function calculateSpecificity(selector: string): [number, number, number] {
-      const s = selector.replace(/:not\([^)]*\)/g, ""); // strip :not content for simplicity
+      const s = selector.replace(/:not\([^)]*\)/g, "");
       const ids = (s.match(/#[a-zA-Z0-9_-]+/g) || []).length;
       const classes = (s.match(/\.[a-zA-Z0-9_-]+/g) || []).length +
                 (s.match(/\[[^\]]+\]/g) || []).length +
@@ -36,16 +37,9 @@
   }
 
   function countStatistics(css: string): CssStatistics {
-    // Basic heuristics for CSS statistics
-    // Remove comments
     const noComments = css.replace(/\/\*[\s\S]*?\*\//g, '');
-
-    // Count rules (blocks ending with '}')
     const rulesMatch = noComments.match(/\{[^}]*\}/g);
     const rules = rulesMatch ? rulesMatch.length : 0;
-
-    // Count selectors (before '{')
-    // Splitting by '}' gives rule blocks + remaining space
     const blocks = noComments.split('}');
     let selectors = 0;
     const allSelectorsList: Array<{selector: string, specificityStr: string, weight: number}> = [];
@@ -54,13 +48,11 @@
         if (block.includes('{')) {
             const selectorPart = block.split('{')[0].trim();
             if (selectorPart) {
-                // count commas for multiple selectors
                 const individualSelectors = selectorPart.split(',').map(s => s.trim()).filter(s => s);
                 selectors += individualSelectors.length;
 
                 for (const s of individualSelectors) {
                     const spec = calculateSpecificity(s);
-                    // simple weight calculation for sorting
                     const weight = spec[0] * 10000 + spec[1] * 100 + spec[2];
                     allSelectorsList.push({
                         selector: s,
@@ -76,49 +68,34 @@
         .sort((a, b) => b.weight - a.weight)
         .slice(0, 5)
         .map(item => ({ selector: item.selector, specificity: item.specificityStr }));
-
-    // Count declarations (key-value pairs in blocks)
     let declarations = 0;
     if (rulesMatch) {
         for (const rule of rulesMatch) {
-            // inside {}
             const inner = rule.substring(1, rule.length - 1).trim();
             if (inner) {
-               // split by ';'
                const decls = inner.split(';').filter(d => d.trim().includes(':'));
                declarations += decls.length;
             }
         }
     }
-
-
-    // Extract CSS variables (usually in :root or anywhere)
     const variables: Array<{name: string, value: string}> = [];
     const varRegex = /(--[\w-]+)\s*:\s*([^;]+);/g;
     let match;
     while ((match = varRegex.exec(noComments)) !== null) {
         variables.push({ name: match[1], value: match[2].trim() });
     }
-
-    // Extract colors (hex, rgb, rgba, hsl, hsla)
-    const colorMap = new Map<string, number>();
+    const colorMap = new SvelteMap<string, number>();
     const colorRegex = /(#([0-9a-fA-F]{3,8}))|(rgba?\([^)]+\))|(hsla?\([^)]+\))/g;
     let colorMatch;
     while ((colorMatch = colorRegex.exec(noComments)) !== null) {
         const color = colorMatch[0].trim();
-        // Convert to lowercase for hex normalization, keep others as is
         const normColor = color.startsWith('#') ? color.toLowerCase() : color;
         colorMap.set(normColor, (colorMap.get(normColor) || 0) + 1);
     }
     const colors = Array.from(colorMap.entries())
         .map(([hex, count]) => ({ hex, count }))
         .sort((a, b) => b.count - a.count);
-
-    // Extract @media queries
-    const mediaQueryMap = new Map<string, number>();
-    // Simplistic extraction: look for @media ... { and count the number of rules inside it.
-    // However, finding the matching closing brace is complex with regex.
-    // We will just extract the query strings and count how many times each query is declared.
+    const mediaQueryMap = new SvelteMap<string, number>();
     const mediaRegex = /@media\s+([^{]+)\s*\{/g;
     let mediaMatch;
     while ((mediaMatch = mediaRegex.exec(noComments)) !== null) {
@@ -142,7 +119,6 @@
       ];
 
       propertiesToPrefix.forEach(prop => {
-          // simple heuristic matching
           const regex = new RegExp(`(^|[{;\\s])(${prop}\\s*:\\s*[^;}]+)(;|})`, 'g');
           css = css.replace(regex, (match, before, decl, after) => {
               if (css.includes(`-webkit-${decl}`)) return match;
@@ -235,15 +211,9 @@
         window.removeEventListener('keydown', handleKeydown);
     }
   });
-
-  // Auto-Fix function
   function autoFix() {
       let css = state.input;
-
-      // Basic auto-fix: Add missing semicolons before closing brace
       css = css.replace(/([^;\s{}])\s*}/g, '$1;}');
-
-      // Add missing closing braces if there are unclosed blocks
       const openBraces = (css.match(/\{/g) || []).length;
       const closeBraces = (css.match(/\}/g) || []).length;
 
@@ -271,22 +241,15 @@
       if (openBraces !== closeBraces) {
           validationErrors.push(`Brace mismatch: ${openBraces} open, ${closeBraces} closed.`);
       }
-
-      // Check for missing semicolons (basic heuristic)
       const lines = css.split('\n');
       lines.forEach((line, index) => {
           const trimmed = line.trim();
           if (trimmed.includes(':') && !trimmed.endsWith(';') && !trimmed.endsWith('{') && !trimmed.endsWith('}') && !trimmed.startsWith('/*')) {
-             // It might be a missing semicolon if there's no comma
              if(!trimmed.includes(',')) {
-                 // basic heuristic, might have false positives on multi-line rules, but helpful
-                 // Let's refine it: inside a block
                  validationErrors.push("Potential missing semicolon at line " + (index + 1));
              }
           }
       });
-
-      // Simple heuristic for unclosed comments
       const openComments = (css.match(/\/\*/g) || []).length;
       const closeComments = (css.match(/\*\//g) || []).length;
       if (openComments !== closeComments) {

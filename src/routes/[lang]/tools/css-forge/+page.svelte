@@ -70,6 +70,8 @@
       "CSS Minifier",
       "CSS Statistics Analyzer",
       "CSS Variables Extractor",
+      "Color Palette Extractor",
+      "Media Query Analyzer",
       "Local History Workspace",
       "CSS Specificity Analyzer",
       "Smart Vendor Prefixer"
