@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RelatedTools from "$lib/components/RelatedTools.svelte";
   import AdPlaceholder from "$lib/components/AdPlaceholder.svelte";
   import Head from '$lib/components/Head.svelte';
   import { page } from "$app/stores";
@@ -80,3 +81,8 @@
 
 
 <AdPlaceholder />
+
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+  <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="privacy-policy" currentCategory="other" />
+</div>
