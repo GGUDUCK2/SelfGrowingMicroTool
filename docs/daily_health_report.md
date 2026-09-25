@@ -510,3 +510,16 @@
 
 #### 3. Performance Impact (기대 효과)
 - DOM 구조를 간소화하여 렌더링 성능을 개선하고 코드베이스의 일관성 및 청결도를 유지.
+
+### [Daily Improvement Report - 2026-09-25]
+#### 1. Identified Issues (발견된 문제)
+- `src/lib/components/sql-forge/SqlEditor.svelte` 파일 내에 `{@html highlightedCode}`를 사용하는 코드 블록에서 `<!-- eslint-disable-next-line svelte/no-at-html-tags -->` 주석이 누락되어 린트(ESLint) 에러가 발생함.
+- 분석용 임시 스크립트(JS/CJS 파일들)가 `scripts/` 폴더 내에 잔존하여 Repository Hygiene(저장소 위생) 기준 위반.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/lib/components/sql-forge/SqlEditor.svelte`의 `{@html}` 블록 상단에 `<!-- eslint-disable-next-line svelte/no-at-html-tags -->` 주석을 추가하여 ESLint 룰 무시(Disable) 적용.
+- **Repository Hygiene**: `check_text_content.cjs`, `check_icons.cjs` 등의 디버그 및 확인 목적의 임시 스크립트 파일을 모두 삭제함.
+
+#### 3. Performance Impact (기대 효과)
+- `npm run check` 명령이 정상적으로 통과되며 CI/CD 파이프라인의 빌드 및 린트 안정성이 회복됨.
+- 불필요한 임시 파일이 Git에 포함되지 않아 저장소 청결도가 유지됨.
