@@ -211,6 +211,47 @@
         window.removeEventListener('keydown', handleKeydown);
     }
   });
+  function handleDownload() {
+      if (!state.output) {
+          triggerToast(dictionary?.tools?.cssForge?.feedback?.cleared || 'No output to download');
+          return;
+      }
+      const blob = new Blob([state.output], { type: 'text/css' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `style_${state.action}_${new Date().getTime()}.css`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      triggerToast(dictionary?.tools?.cssForge?.feedback?.downloaded || 'Code downloaded successfully');
+  }
+
+  async function handleShare() {
+      if (!state.output) {
+          triggerToast(dictionary?.tools?.cssForge?.feedback?.cleared || 'No output to share');
+          return;
+      }
+
+      if (typeof navigator !== 'undefined' && navigator.share) {
+          try {
+              await navigator.share({
+                  title: 'CSS Forge Output',
+                  text: state.output,
+              });
+              triggerToast(dictionary?.tools?.cssForge?.feedback?.shared || 'Shared successfully');
+          } catch (err) {
+              if (err instanceof Error && err.name !== 'AbortError') {
+                  console.error('Error sharing:', err);
+                  copyToClipboard(state.output);
+              }
+          }
+      } else {
+          copyToClipboard(state.output);
+      }
+  }
+
   function autoFix() {
       let css = state.input;
       css = css.replace(/([^;\s{}])\s*}/g, '$1;}');
@@ -471,13 +512,25 @@
                 </div>
             </div>
         {:else}
-            <textarea
-                readonly
-                value={state.output}
-                placeholder="Result will appear here..."
-                class="w-full h-96 p-4 font-mono text-sm bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none text-slate-900 dark:text-slate-100"
-                spellcheck="false"
-            ></textarea>
+            <div class="relative w-full h-96">
+                <textarea
+                    readonly
+                    value={state.output}
+                    placeholder="Result will appear here..."
+                    class="w-full h-full p-4 font-mono text-sm bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none text-slate-900 dark:text-slate-100"
+                    spellcheck="false"
+                ></textarea>
+                {#if state.output}
+                    <button
+                        class="absolute top-3 right-3 p-2 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        on:click={() => copyToClipboard(state.output)}
+                        title="Copy Output"
+                        aria-label="Copy Output"
+                    >
+                        <Copy size={16} />
+                    </button>
+                {/if}
+            </div>
         {/if}
     </div>
 </div>
@@ -527,6 +580,24 @@
         >
             <BarChart size={16} />
             Analyze
+        </button>
+        <button
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 min-h-[44px]"
+            on:click={handleDownload}
+            title="Download Output"
+            aria-label="Download Output"
+        >
+            <Download size={16} />
+            Download
+        </button>
+        <button
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 min-h-[44px]"
+            on:click={handleShare}
+            title="Share Output"
+            aria-label="Share Output"
+        >
+            <Share2 size={16} />
+            Share
         </button>
     </div>
 
