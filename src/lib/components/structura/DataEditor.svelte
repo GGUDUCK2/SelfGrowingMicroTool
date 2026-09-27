@@ -53,8 +53,8 @@
     on:input={handleInput}
     on:keydown={handleKeydown}
   ></textarea>
-  <div class="absolute inset-0 w-full h-full overflow-x-auto pointer-events-none">
-  <pre bind:this={pre} class="overflow-x-auto w-full h-full p-4 m-0 overflow-hidden font-mono leading-relaxed">
+  <div class="absolute inset-0 w-full h-full pointer-events-none">
+  <pre bind:this={pre} class="overflow-x-auto w-full h-full p-4 m-0 font-mono leading-relaxed">
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     <div aria-hidden="true"><code class="language-{language}">{@html highlightedCode}</code></div></pre>
   </div>

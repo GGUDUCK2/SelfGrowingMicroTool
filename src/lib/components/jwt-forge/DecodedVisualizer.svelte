@@ -41,8 +41,9 @@
         DATA
       </div>
     </div>
-    <div class="p-4 font-mono text-sm overflow-x-auto">
+    <div class="p-4 font-mono text-sm">
       {#if payload}
+        <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <tbody>
             {#each Object.entries(payload) as [key, value]}
@@ -74,6 +75,7 @@
             {/each}
           </tbody>
         </table>
+        </div>
       {:else}
         <p class="text-slate-400 italic">Invalid Payload</p>
       {/if}
