@@ -154,7 +154,7 @@
          {/each}
        </div>
     {:else if activeTab === 1}
-        <div class="grid gap-2 grid-cols-6">
+        <div class="grid gap-2 grid-cols-3 sm:grid-cols-6">
          {#each OPTIONS.hours as h}
            <button
              class="rounded p-2 text-sm font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900 {isSelected(1, h) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
@@ -165,7 +165,7 @@
          {/each}
        </div>
     {:else if activeTab === 2}
-        <div class="grid gap-2 grid-cols-7">
+        <div class="grid gap-2 grid-cols-4 sm:grid-cols-7">
          {#each OPTIONS.days as d}
            <button
              class="rounded p-2 text-sm font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900 {isSelected(2, d) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
