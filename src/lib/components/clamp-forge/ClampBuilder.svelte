@@ -638,7 +638,7 @@ ${calculatedClamp}`,
                    <button class="px-3 py-1.5 text-sm font-medium rounded-md min-h-[44px] min-w-[44px] transition-colors {exportType === 'scss' ? 'bg-white dark:bg-slate-700 shadow text-pink-500' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}" on:click={() => exportType = 'scss'}>SCSS</button>
                 </div>
              </div>
-             <div class="relative bg-slate-900 rounded-lg p-4 font-mono text-sm text-slate-300 overflow-x-auto">
+             <div class="relative bg-slate-900 rounded-lg p-4 font-mono text-sm text-slate-300">
                  <pre class="overflow-x-auto"><code>{getExportCode()}</code></pre>
                  <div class="absolute top-2 right-2 flex space-x-2">
                     <button class="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded min-h-[44px] min-w-[44px] transition-colors" on:click={copyExportCode} aria-label="Copy Export Code" title="Copy">
@@ -959,7 +959,7 @@ ${calculatedClamp}`,
                         </button>
                     </div>
 
-                    <div class="bg-slate-900 p-4 rounded-xl overflow-x-auto custom-scrollbar border border-slate-700 relative group">
+                    <div class="bg-slate-900 p-4 rounded-xl custom-scrollbar border border-slate-700 relative group">
                         <pre class="overflow-x-auto text-sm font-mono text-slate-300"><code>{formattedExportText}</code></pre>
                     </div>
 

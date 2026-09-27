@@ -176,7 +176,7 @@
          {/each}
        </div>
     {:else if activeTab === 3}
-        <div class="grid gap-2 grid-cols-4">
+        <div class="grid gap-2 grid-cols-2 sm:grid-cols-4">
          {#each OPTIONS.months as m}
            <button
              class="rounded p-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900 {isSelected(3, m.val) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
@@ -187,7 +187,7 @@
          {/each}
        </div>
     {:else if activeTab === 4}
-        <div class="grid gap-2 grid-cols-4">
+        <div class="grid gap-2 grid-cols-2 sm:grid-cols-4">
          {#each OPTIONS.weekdays as d}
            <button
              class="rounded p-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900 {isSelected(4, d.val) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
