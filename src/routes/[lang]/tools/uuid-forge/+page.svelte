@@ -2,8 +2,9 @@
     import { page } from '$app/stores';
     import { v1, v4, v7 } from 'uuid';
     import { db } from '$lib/db';
+    import { workspace, type ToolHistoryItem } from '$lib/db/workspace';
     import { onMount } from 'svelte';
-    import { Copy, Download, RefreshCw, Trash2, History, Check, Settings2 } from '@lucide/svelte';
+    import { Copy, Download, RefreshCw, Trash2, History, Check, Settings2, Share2 } from '@lucide/svelte';
 
     $: lang = $page.params.lang as 'en' | 'ko';
 
@@ -46,8 +47,18 @@
             q3: "Can I generate UUIDs offline?",
             a3: "Yes, this tool runs entirely in your browser. No data is sent to any server.",
             metaTitle: "UUID Forge - Bulk UUID Generator & Formatter",
-            metaDescription: "Generate UUIDv1, UUIDv4, and UUIDv7 instantly. Features bulk generation, custom formatting, and local history. Perfect for developers."
+
+            metaDescription: "Generate UUIDv1, UUIDv4, and UUIDv7 instantly. Features bulk generation, custom formatting, and local history. Perfect for developers.",
+            presetsTitle: "Smart Presets",
+            presetDb: "Standard DB Key",
+            presetLegacy: "Legacy Windows GUID",
+            presetRaw: "Raw Hex String",
+            shortcutGen: "Generate",
+            shortcutCopy: "Copy All",
+            shortcutClear: "Clear Output",
+            share: "Share"
         },
+
         ko: {
             title: "UUID 포지 (UUID Forge)",
             description: "전문가 수준의 정밀도로 범용 고유 식별자(UUID)를 생성, 포맷팅 및 분석하기 위한 완벽한 도구입니다.",
@@ -86,8 +97,18 @@
             q3: "오프라인에서 UUID를 생성할 수 있나요?",
             a3: "예, 이 도구는 브라우저에서 완전히 실행됩니다. 어떤 데이터도 서버로 전송되지 않습니다.",
             metaTitle: "UUID 포지 - 대량 UUID 생성기 및 포맷터",
-            metaDescription: "UUIDv1, UUIDv4 및 UUIDv7을 즉시 생성하세요. 대량 생성, 사용자 지정 포맷팅 및 로컬 히스토리 기능을 제공합니다. 개발자에게 완벽한 도구입니다."
+
+            metaDescription: "UUIDv1, UUIDv4 및 UUIDv7을 즉시 생성하세요. 대량 생성, 사용자 지정 포맷팅 및 로컬 히스토리 기능을 제공합니다. 개발자에게 완벽한 도구입니다.",
+            presetsTitle: "스마트 프리셋",
+            presetDb: "표준 DB 키",
+            presetLegacy: "레거시 Windows GUID",
+            presetRaw: "순수 16진수 문자열",
+            shortcutGen: "생성하기",
+            shortcutCopy: "모두 복사",
+            shortcutClear: "결과 지우기",
+            share: "공유"
         }
+
     };
 
     $: t = dict[lang] || dict['en'];
@@ -100,23 +121,44 @@
     let generatedUuids: string[] = [];
     let rawUuids: string[] = [];
     let isCopied = false;
-    let history: any[] = [];
+    let history: ToolHistoryItem[] = [];
     let historyLoading = true;
 
     // Load History
     const loadHistory = async () => {
         try {
-            const rawHistory = await db.toolWorkspace
+            const rawHistory = await workspace.history
                 .where('toolId')
                 .equals('uuid-forge')
                 .toArray();
-            history = rawHistory.sort((a, b) => b.lastModified - a.lastModified);
+            history = rawHistory.sort((a, b) => b.timestamp - a.timestamp);
         } catch (e) {
             console.error(e);
         } finally {
             historyLoading = false;
         }
     };
+
+    onMount(() => {
+        window.addEventListener('keydown', handleKeydown);
+        return () => window.removeEventListener('keydown', handleKeydown);
+    });
+
+
+    const handleKeydown = (e: KeyboardEvent) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            e.preventDefault();
+            generate();
+        } else if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+            e.preventDefault();
+            copyAll();
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            generatedUuids = [];
+            rawUuids = [];
+        }
+    };
+
 
     onMount(() => {
         generate();
@@ -133,6 +175,30 @@
         });
     }
 
+
+    const applyPreset = (presetType: 'db' | 'legacy' | 'raw') => {
+        if (presetType === 'db') {
+            version = 'v7';
+            quantity = 5;
+            isUppercase = false;
+            includeBraces = false;
+            removeHyphens = false;
+        } else if (presetType === 'legacy') {
+            version = 'v4';
+            quantity = 3;
+            isUppercase = true;
+            includeBraces = true;
+            removeHyphens = false;
+        } else if (presetType === 'raw') {
+            version = 'v4';
+            quantity = 10;
+            isUppercase = false;
+            includeBraces = false;
+            removeHyphens = true;
+        }
+        generate();
+    };
+
     const generate = async () => {
         if (quantity > 1000) quantity = 1000;
         if (quantity < 1) quantity = 1;
@@ -148,11 +214,11 @@
         rawUuids = rawBatch;
 
         try {
-            await db.toolWorkspace.add({
+            await workspace.history.add({
                 toolId: 'uuid-forge',
                 name: `${version.toUpperCase()} x${quantity}`,
                 data: { raw: rawBatch, options: { isUppercase, includeBraces, removeHyphens } },
-                lastModified: Date.now()
+                timestamp: Date.now()
             });
             await loadHistory();
         } catch (e) {
@@ -165,6 +231,24 @@
         await navigator.clipboard.writeText(generatedUuids.join('\n'));
         isCopied = true;
         setTimeout(() => (isCopied = false), 2000);
+    };
+
+
+    const shareTxt = async () => {
+        if (!generatedUuids.length) return;
+        const text = generatedUuids.join('\n');
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: 'UUID Forge Results',
+                    text: text
+                });
+            } catch (e) {
+                console.error('Error sharing', e);
+            }
+        } else {
+            await copyAll();
+        }
     };
 
     const downloadTxt = () => {
@@ -180,16 +264,16 @@
 
     const clearHistory = async () => {
         try {
-            const items = await db.toolWorkspace.where('toolId').equals('uuid-forge').toArray();
+            const items = await workspace.history.where('toolId').equals('uuid-forge').toArray();
             const keys = items.map(i => i.id).filter(id => id !== undefined) as number[];
-            await db.toolWorkspace.bulkDelete(keys);
+            await workspace.history.bulkDelete(keys);
             history = [];
         } catch (e) {
             console.error(e);
         }
     };
 
-    const loadHistoryItem = (item: any) => {
+    const loadHistoryItem = (item: ToolHistoryItem) => {
         if(item && item.data && item.data.raw) {
             rawUuids = item.data.raw;
             if (item.data.options) {
@@ -205,7 +289,7 @@
 
     const deleteHistoryItem = async (id: number) => {
         try {
-            await db.toolWorkspace.delete(id);
+            await workspace.history.delete(id);
             await loadHistory();
         } catch (e) {
             console.error(e);
@@ -227,12 +311,32 @@
     };
 </script>
 
+
 <svelte:head>
     <title>{t.metaTitle}</title>
     <meta name="description" content="{t.metaDescription}" />
+    <meta name="keywords" content="uuid, generator, guid, developer" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{t.metaTitle}" />
+    <meta property="og:description" content="{t.metaDescription}" />
+    <meta property="og:url" content="https://microfactory.app/{lang}/tools/uuid-forge" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{t.metaTitle}" />
+    <meta name="twitter:description" content="{t.metaDescription}" />
+
+    <link rel="canonical" href="https://microfactory.app/{lang}/tools/uuid-forge" />
+    <link rel="alternate" hreflang="en" href="https://microfactory.app/en/tools/uuid-forge" />
+    <link rel="alternate" hreflang="ko" href="https://microfactory.app/ko/tools/uuid-forge" />
+    <link rel="alternate" hreflang="x-default" href="https://microfactory.app/en/tools/uuid-forge" />
+
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-    {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
+    {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
 </svelte:head>
+
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 pb-20">
     <!-- Header -->
@@ -314,7 +418,30 @@
                     </button>
                 </div>
 
+
+                <!-- Smart Examples Card -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                    <h2 class="text-lg font-semibold mb-4 text-slate-800 dark:text-slate-200">
+                        {t.presetsTitle}
+                    </h2>
+                    <div class="flex flex-col gap-2">
+                        <button on:click={() => applyPreset('db')} class="text-left px-4 py-3 rounded-xl bg-slate-50 hover:bg-indigo-50 dark:bg-slate-900/50 dark:hover:bg-indigo-900/30 text-slate-700 dark:text-slate-300 transition-colors border border-transparent hover:border-indigo-200 dark:hover:border-indigo-800">
+                            <div class="font-medium">{t.presetDb}</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">v7, 5 items</div>
+                        </button>
+                        <button on:click={() => applyPreset('legacy')} class="text-left px-4 py-3 rounded-xl bg-slate-50 hover:bg-indigo-50 dark:bg-slate-900/50 dark:hover:bg-indigo-900/30 text-slate-700 dark:text-slate-300 transition-colors border border-transparent hover:border-indigo-200 dark:hover:border-indigo-800">
+                            <div class="font-medium">{t.presetLegacy}</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">v4, Uppercase, Braces</div>
+                        </button>
+                        <button on:click={() => applyPreset('raw')} class="text-left px-4 py-3 rounded-xl bg-slate-50 hover:bg-indigo-50 dark:bg-slate-900/50 dark:hover:bg-indigo-900/30 text-slate-700 dark:text-slate-300 transition-colors border border-transparent hover:border-indigo-200 dark:hover:border-indigo-800">
+                            <div class="font-medium">{t.presetRaw}</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">v4, No Hyphens, 10 items</div>
+                        </button>
+                    </div>
+                </div>
+
                 <!-- History Card -->
+
                 <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 flex flex-col max-h-[500px]">
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-lg font-semibold flex items-center gap-2 text-slate-800 dark:text-slate-200">
@@ -344,7 +471,7 @@
                                 <div class="group flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 dark:bg-slate-900/50 dark:hover:bg-slate-700/50 rounded-xl transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-600 cursor-pointer" on:click={() => loadHistoryItem(item)} on:keydown={(e) => e.key === 'Enter' && loadHistoryItem(item)} role="button" tabindex="0">
                                     <div>
                                         <div class="text-sm font-medium text-slate-800 dark:text-slate-200">{item.name}</div>
-                                        <div class="text-xs text-slate-500 dark:text-slate-400">{new Date(item.lastModified).toLocaleString()}</div>
+                                        <div class="text-xs text-slate-500 dark:text-slate-400">{new Date(item.timestamp).toLocaleString()}</div>
                                     </div>
                                     <button on:click|stopPropagation={() => deleteHistoryItem(item.id)} class="text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity p-2">
                                         <Trash2 size={16} />
@@ -367,7 +494,12 @@
                             <Copy size={18} /> {t.copy}
                         {/if}
                     </button>
-                    <button on:click={downloadTxt} class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl font-medium transition-colors">
+
+                    <button on:click={shareTxt} class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl font-medium transition-colors">
+                        <Share2 size={18} /> {t.share}
+                    </button>
+                    <button on:click={downloadTxt}
+ class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl font-medium transition-colors">
                         <Download size={18} /> {t.download}
                     </button>
                     <button on:click={() => { generatedUuids = []; }} class="flex-none flex items-center justify-center gap-2 py-3 px-4 text-slate-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 dark:hover:text-red-400 rounded-xl font-medium transition-colors" aria-label={t.clear} title={t.clear}>
@@ -390,7 +522,15 @@
                         {generatedUuids.length} / 1000
                     </div>
                 </div>
+
+                <!-- Keyboard Shortcuts Help -->
+                <div class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-4 flex flex-wrap gap-4 text-xs text-slate-500 dark:text-slate-400 justify-center">
+                    <div class="flex items-center gap-1.5"><kbd class="px-2 py-1 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md font-sans">⌘/Ctrl + Enter</kbd> {t.shortcutGen}</div>
+                    <div class="flex items-center gap-1.5"><kbd class="px-2 py-1 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md font-sans">⌘/Ctrl + S</kbd> {t.shortcutCopy}</div>
+                    <div class="flex items-center gap-1.5"><kbd class="px-2 py-1 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md font-sans">Esc</kbd> {t.shortcutClear}</div>
+                </div>
             </div>
+
         </div>
 
         <!-- Documentation & SEO -->
