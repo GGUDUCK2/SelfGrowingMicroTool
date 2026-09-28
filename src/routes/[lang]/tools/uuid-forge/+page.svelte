@@ -5,6 +5,7 @@
     import { workspace, type ToolHistoryItem } from '$lib/db/workspace';
     import { onMount } from 'svelte';
     import { Copy, Download, RefreshCw, Trash2, History, Check, Settings2, Share2 } from '@lucide/svelte';
+    import RelatedTools from '$lib/components/RelatedTools.svelte';
 
     $: lang = $page.params.lang as 'en' | 'ko';
 
@@ -597,6 +598,8 @@
                 </div>
             </div>
         </div>
+
+        <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="uuid-forge" currentCategory="dev" />
     </div>
 </div>
 
