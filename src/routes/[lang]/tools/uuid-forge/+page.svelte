@@ -1,4 +1,5 @@
 <script lang="ts">
+    import RelatedTools from "$lib/components/RelatedTools.svelte";
     import { page } from '$app/stores';
     import { v1, v4, v7 } from 'uuid';
     import { db } from '$lib/db';
@@ -458,6 +459,10 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="mt-12">
+    <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="uuid-forge" currentCategory="development" />
 </div>
 
 <style>
