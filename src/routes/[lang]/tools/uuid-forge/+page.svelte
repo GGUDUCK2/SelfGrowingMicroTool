@@ -4,6 +4,7 @@
     import { db } from '$lib/db';
     import { onMount } from 'svelte';
     import { Copy, Download, RefreshCw, Trash2, History, Check, Settings2 } from '@lucide/svelte';
+    import RelatedTools from '$lib/components/RelatedTools.svelte';
 
     $: lang = $page.params.lang as 'en' | 'ko';
 
@@ -231,7 +232,7 @@
     <title>{t.metaTitle}</title>
     <meta name="description" content="{t.metaDescription}" />
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-    {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
+    {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 pb-20">
@@ -457,6 +458,10 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 mt-12">
+        <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="uuid-forge" currentCategory="dev" />
     </div>
 </div>
 
