@@ -1,5 +1,6 @@
 <script lang="ts">
     import { page } from '$app/stores';
+import Head from '$lib/components/Head.svelte';
     import { v1, v4, v7 } from 'uuid';
     import { db } from '$lib/db';
     import { workspace, type ToolHistoryItem } from '$lib/db/workspace';
@@ -7,6 +8,8 @@
     import { Copy, Download, RefreshCw, Trash2, History, Check, Settings2, Share2 } from '@lucide/svelte';
     import RelatedTools from '$lib/components/RelatedTools.svelte';
     import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
+    import GuideSection from '$lib/components/GuideSection.svelte';
+    import FAQSection from '$lib/components/FAQSection.svelte';
 
     $: lang = $page.params.lang as 'en' | 'ko';
 
@@ -315,21 +318,7 @@
 
 
 <svelte:head>
-    <title>{t.metaTitle}</title>
-    <meta name="description" content="{t.metaDescription}" />
-    <meta name="keywords" content="uuid, generator, guid, developer" />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="{t.metaTitle}" />
-    <meta property="og:description" content="{t.metaDescription}" />
-    <meta property="og:url" content="https://microfactory.app/{lang}/tools/uuid-forge" />
-    <meta property="og:type" content="website" />
-
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="{t.metaTitle}" />
-    <meta name="twitter:description" content="{t.metaDescription}" />
-
     <link rel="canonical" href="https://microfactory.app/{lang}/tools/uuid-forge" />
     <link rel="alternate" hreflang="en" href="https://microfactory.app/en/tools/uuid-forge" />
     <link rel="alternate" hreflang="ko" href="https://microfactory.app/ko/tools/uuid-forge" />
@@ -339,6 +328,12 @@
     {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
 </svelte:head>
 
+<Head
+  title={t.metaTitle || "UUID Forge - Online Generator"}
+  description={t.metaDescription || "Generate bulk UUIDs (v1, v4, v7) instantly"}
+  url={$page.url.origin + "/" + lang + "/tools/uuid-forge"}
+  keywords="uuid, generator, guid, developer"
+/>
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 pb-20">
     <!-- Header -->
@@ -536,70 +531,30 @@
         </div>
 
         <!-- Documentation & SEO -->
-        <div class="mt-16 bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
-            <div class="p-8 md:p-12">
-                <div class="max-w-4xl mx-auto space-y-12">
-                    <section>
-                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6">{t.guideTitle}</h2>
-                        <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8">{t.guideIntro}</p>
+        <div class="mt-16 space-y-12">
+            <GuideSection
+                title={t.guideTitle}
+                intro={t.guideIntro}
+                featuresTitle={t.featuresTitle}
+                f1={t.f1}
+                f2={t.f2}
+                f3={t.f3}
+                tipsTitle={t.proTipsTitle}
+                tip1={t.pt1}
+                tip2={t.pt2}
+                tip3={t.pt3}
+            />
 
-                        <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4">{t.featuresTitle}</h3>
-                        <ul class="space-y-4">
-                            <li class="flex gap-4">
-                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400">1</div>
-                                <p class="text-slate-600 dark:text-slate-400 pt-1">{t.f1}</p>
-                            </li>
-                            <li class="flex gap-4">
-                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400">2</div>
-                                <p class="text-slate-600 dark:text-slate-400 pt-1">{t.f2}</p>
-                            </li>
-                            <li class="flex gap-4">
-                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400">3</div>
-                                <p class="text-slate-600 dark:text-slate-400 pt-1">{t.f3}</p>
-                            </li>
-                        </ul>
-                    </section>
+            <AdPlaceholder />
 
-
-                    <section class="border-t border-slate-200 dark:border-slate-700 pt-12">
-                        <h3 class="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4">{t.proTipsTitle}</h3>
-                        <ul class="space-y-4">
-                            <li class="flex gap-4">
-                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center text-amber-600 dark:text-amber-400">💡</div>
-                                <p class="text-slate-600 dark:text-slate-400 pt-1">{t.pt1}</p>
-                            </li>
-                            <li class="flex gap-4">
-                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center text-amber-600 dark:text-amber-400">💡</div>
-                                <p class="text-slate-600 dark:text-slate-400 pt-1">{t.pt2}</p>
-                            </li>
-                            <li class="flex gap-4">
-                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center text-amber-600 dark:text-amber-400">💡</div>
-                                <p class="text-slate-600 dark:text-slate-400 pt-1">{t.pt3}</p>
-                            </li>
-                        </ul>
-                    </section>
-
-                    <AdPlaceholder />
-
-                    <section class="border-t border-slate-200 dark:border-slate-700 pt-12">
-                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">{t.faqTitle}</h2>
-                        <div class="space-y-6">
-                            <div class="bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-6">
-                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">{t.q1}</h4>
-                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{t.a1}</p>
-                            </div>
-                            <div class="bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-6">
-                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">{t.q2}</h4>
-                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{t.a2}</p>
-                            </div>
-                            <div class="bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-6">
-                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">{t.q3}</h4>
-                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{t.a3}</p>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
+            <FAQSection
+                title={t.faqTitle}
+                items={[
+                    { q: t.q1, a: t.a1 },
+                    { q: t.q2, a: t.a2 },
+                    { q: t.q3, a: t.a3 }
+                ]}
+            />
         </div>
 
         <RelatedTools lang={lang as 'en' | 'ko'} currentSlug="uuid-forge" currentCategory="dev" />
