@@ -6,6 +6,7 @@
     import { onMount } from 'svelte';
     import { Copy, Download, RefreshCw, Trash2, History, Check, Settings2, Share2 } from '@lucide/svelte';
     import RelatedTools from '$lib/components/RelatedTools.svelte';
+    import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
 
     $: lang = $page.params.lang as 'en' | 'ko';
 
@@ -577,6 +578,8 @@
                             </li>
                         </ul>
                     </section>
+
+                    <AdPlaceholder />
 
                     <section class="border-t border-slate-200 dark:border-slate-700 pt-12">
                         <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">{t.faqTitle}</h2>
