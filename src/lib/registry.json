@@ -1,5 +1,32 @@
 [
   {
+    "id": "flex-forge",
+    "slug": "flex-forge",
+    "category": "dev",
+    "name": {
+      "en": "Flex Forge",
+      "ko": "플렉스 포지"
+    },
+    "description": {
+      "en": "Visual CSS Flexbox layout builder and code generator.",
+      "ko": "시각적 CSS Flexbox 레이아웃 빌더 및 코드 생성기"
+    },
+    "icon": "layout-dashboard",
+    "tags": [
+      "css",
+      "flex",
+      "flexbox",
+      "layout",
+      "generator",
+      "tailwind"
+    ],
+    "createdAt": "2026-09-29T16:17:45.191Z",
+    "title": {
+      "en": "Flex Forge",
+      "ko": "플렉스 포지"
+    }
+  },
+  {
     "id": "xml-forge",
     "slug": "xml-forge",
     "title": {
