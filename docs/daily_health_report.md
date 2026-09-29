@@ -596,3 +596,30 @@
 
 ## Tech Debt
 - No significant issues found.
+
+### [Daily Improvement Report - 2026-09-29]
+#### 1. Identified Issues (발견된 문제)
+- `uuid-forge` 도구 페이지에서 `<Head>` 컴포넌트가 누락되어 있어 SEO 메타데이터(`title`, `description`, `keywords`) 관리가 파편화되어 있음.
+- 해당 페이지 내 안내 가이드와 FAQ 섹션이 하드코딩되어 있어, `FAQPage` 구조화 데이터(JSON-LD)가 자동 주입되는 공통 컴포넌트(`FAQSection`, `GuideSection`)의 이점을 누리지 못하고 일관성이 부족함.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/uuid-forge/+page.svelte`
+  - 하드코딩된 `<title>` 및 `<meta>` 태그를 제거하고 공통 `<Head>` 컴포넌트로 교체하여 SEO/AEO 메타데이터 구조를 표준화함.
+  - 가이드 및 FAQ 섹션을 기존 하드코딩 방식에서 `<GuideSection>` 및 `<FAQSection>` 모듈을 사용하도록 리팩토링함.
+- **SEO/AEO**: `FAQSection` 적용을 통해 검색 엔진에 노출될 수 있는 `FAQPage` JSON-LD 스키마가 자동으로 주입되도록 개선됨.
+
+#### 3. Performance Impact (기대 효과)
+- 공통 컴포넌트 도입을 통한 코드 베이스 일관성 향상 및 유지보수성 증대.
+- `FAQPage` 구조화 데이터 자동 주입으로 인한 검색 결과 리치 스니펫(Rich Snippet) 노출 가능성 및 SEO 성능 최적화.
+
+### [Daily Improvement Report - 2026-09-29]
+#### 1. Identified Issues (발견된 문제)
+- `uuid-forge` 도구 페이지 리팩토링 과정 중 "Pro Tips" 섹션이 누락된 문제 발견.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/routes/[lang]/tools/uuid-forge/+page.svelte`
+  - `<GuideSection>` 컴포넌트 호출 시 `tipsTitle`, `tip1`, `tip2`, `tip3` 속성(`t.proTipsTitle`, `t.pt1` 등)을 명시적으로 추가하여 누락되었던 Pro Tips 정보를 성공적으로 복구함.
+- **SEO/AEO**: 페이지 정보의 완전성을 복구하여 검색 엔지에 풍부한 컨텍스트 정보를 제공.
+
+#### 3. Performance Impact (기대 효과)
+- 사용자에게 고급 팁(Pro Tips) 제공을 통해 도구의 활용도 증대.
