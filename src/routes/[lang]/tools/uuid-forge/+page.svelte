@@ -5,7 +5,7 @@ import Head from '$lib/components/Head.svelte';
     import { db } from '$lib/db';
     import { workspace, type ToolHistoryItem } from '$lib/db/workspace';
     import { onMount } from 'svelte';
-    import { Copy, Download, RefreshCw, Trash2, History, Check, Settings2, Share2 } from '@lucide/svelte';
+    import { Copy, Download, RefreshCw, Trash2, History, Check, Settings2, Share2, Search, Code, Database, Table } from '@lucide/svelte';
     import RelatedTools from '$lib/components/RelatedTools.svelte';
     import AdPlaceholder from '$lib/components/AdPlaceholder.svelte';
     import GuideSection from '$lib/components/GuideSection.svelte';
@@ -61,7 +61,23 @@ import Head from '$lib/components/Head.svelte';
             shortcutGen: "Generate",
             shortcutCopy: "Copy All",
             shortcutClear: "Clear Output",
-            share: "Share"
+            share: "Share",
+            tabGenerate: "Generate",
+            tabAnalyze: "Analyze",
+            analyzePlaceholder: "Paste UUIDs here to analyze...",
+            analyzeButton: "Analyze UUIDs",
+            analyzeResults: "Analysis Results",
+            valid: "Valid",
+            invalid: "Invalid",
+            versionDetails: "Version Details",
+            variantDetails: "Variant Details",
+            timestampExtracted: "Extracted Timestamp",
+            exportAs: "Export As",
+            exportJson: "JSON Array",
+            exportSql: "SQL Inserts",
+            exportCsv: "CSV",
+            tableName: "Table Name (for SQL)",
+            columnName: "Column Name (for SQL/CSV)",
         },
 
         ko: {
@@ -111,7 +127,23 @@ import Head from '$lib/components/Head.svelte';
             shortcutGen: "생성하기",
             shortcutCopy: "모두 복사",
             shortcutClear: "결과 지우기",
-            share: "공유"
+            share: "공유",
+            tabGenerate: "생성",
+            tabAnalyze: "분석",
+            analyzePlaceholder: "분석할 UUID를 여기에 붙여넣으세요...",
+            analyzeButton: "UUID 분석",
+            analyzeResults: "분석 결과",
+            valid: "유효함",
+            invalid: "유효하지 않음",
+            versionDetails: "버전 세부 정보",
+            variantDetails: "변형 세부 정보",
+            timestampExtracted: "추출된 타임스탬프",
+            exportAs: "내보내기 포맷",
+            exportJson: "JSON 배열",
+            exportSql: "SQL Insert",
+            exportCsv: "CSV",
+            tableName: "테이블 이름 (SQL용)",
+            columnName: "컬럼 이름 (SQL/CSV용)",
         }
 
     };
@@ -128,6 +160,108 @@ import Head from '$lib/components/Head.svelte';
     let isCopied = false;
     let history: ToolHistoryItem[] = [];
     let historyLoading = true;
+
+    let activeTab: 'generate' | 'analyze' = 'generate';
+    let analyzeInput = '';
+        interface AnalyzeResult {
+        original: string;
+        isValid: boolean;
+        version: string;
+        variant: string;
+        timestamp: string | null;
+    }
+    let analyzeResults: AnalyzeResult[] = [];
+    let exportFormat: 'txt' | 'json' | 'sql' | 'csv' = 'txt';
+    let sqlTableName = 'users';
+    let sqlColumnName = 'id';
+
+    const analyzeUuids = () => {
+        const uuids = analyzeInput.split(/\s+/).filter(u => u.trim() !== '');
+        analyzeResults = uuids.map(u => {
+            const clean = u.replace(/[{}]/g, ''); // Remove braces if any
+            const isValidLength = clean.length === 36 || clean.length === 32;
+            const uuidRegex = /^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$/i;
+            const isValid = uuidRegex.test(clean);
+
+            let version = 'Unknown';
+            let variant = 'Unknown';
+            let timestamp = null;
+
+            if (isValid) {
+                const parts = clean.includes('-') ? clean.split('-') : [clean.substring(0,8), clean.substring(8,12), clean.substring(12,16), clean.substring(16,20), clean.substring(20,32)];
+                const v = parts[2].charAt(0);
+                version = 'v' + v;
+
+                const varChar = parseInt(parts[3].charAt(0), 16);
+                if (varChar >= 8 && varChar <= 11) variant = 'RFC 4122';
+                else if (varChar >= 12 && varChar <= 13) variant = 'Microsoft';
+                else if (varChar >= 14) variant = 'Reserved';
+                else variant = 'NCS';
+
+                if (version === 'v1') {
+                    // Very basic v1 timestamp extraction (not highly robust but gives an idea)
+                    const timeLow = parts[0];
+                    const timeMid = parts[1];
+                    const timeHiAndVersion = parts[2];
+                    const timeHi = timeHiAndVersion.substring(1);
+
+                    const timeTicks = BigInt('0x' + timeHi + timeMid + timeLow);
+                    // 100-nanosecond intervals since Oct 15, 1582
+                    const epochOffset = BigInt('122192928000000000');
+                    if (timeTicks >= epochOffset) {
+                        const unixTimeMs = Number((timeTicks - epochOffset) / 10000n);
+                        timestamp = new Date(unixTimeMs).toLocaleString();
+                    }
+                } else if (version === 'v7') {
+                    // v7 timestamp extraction
+                    const unixTsMs = parseInt(parts[0] + parts[1], 16);
+                    timestamp = new Date(unixTsMs).toLocaleString();
+                }
+            }
+
+            return {
+                original: u,
+                isValid,
+                version,
+                variant,
+                timestamp
+            };
+        });
+    };
+
+    const downloadAdvanced = () => {
+        if (!generatedUuids.length) return;
+
+        let content = '';
+        let extension = 'txt';
+        let mimeType = 'text/plain';
+
+        if (exportFormat === 'txt') {
+            content = generatedUuids.join('\n');
+        } else if (exportFormat === 'json') {
+            content = JSON.stringify(generatedUuids, null, 2);
+            extension = 'json';
+            mimeType = 'application/json';
+        } else if (exportFormat === 'csv') {
+            content = `${sqlColumnName}\n` + generatedUuids.join('\n');
+            extension = 'csv';
+            mimeType = 'text/csv';
+        } else if (exportFormat === 'sql') {
+            const values = generatedUuids.map(u => `('${u}')`).join(',\n');
+            content = `INSERT INTO ${sqlTableName} (${sqlColumnName}) VALUES\n${values};`;
+            extension = 'sql';
+            mimeType = 'application/sql';
+        }
+
+        const blob = new Blob([content], { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `uuid-forge-${version}-${Date.now()}.${extension}`;
+        a.click();
+        URL.revokeObjectURL(url);
+    };
+
 
     // Load History
     const loadHistory = async () => {
@@ -256,16 +390,6 @@ import Head from '$lib/components/Head.svelte';
         }
     };
 
-    const downloadTxt = () => {
-        if (!generatedUuids.length) return;
-        const blob = new Blob([generatedUuids.join('\n')], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `uuid-forge-${version}-${Date.now()}.txt`;
-        a.click();
-        URL.revokeObjectURL(url);
-    };
 
     const clearHistory = async () => {
         try {
@@ -312,7 +436,16 @@ import Head from '$lib/components/Head.svelte';
             "@type": "Offer",
             "price": "0",
             "priceCurrency": "USD"
-        }
+        },
+        "featureList": [
+            "UUID v1, v4, v7 Generation",
+            "Bulk UUID Generator",
+            "Custom Formatting (Braces, Hyphens, Uppercase)",
+            "Local History & Presets",
+            "UUID Analyzer & Validation",
+            "Unix Timestamp Extraction (v1 & v7)",
+            "Advanced Export (JSON, SQL, CSV)"
+        ]
     };
 </script>
 
@@ -349,7 +482,29 @@ import Head from '$lib/components/Head.svelte';
     </div>
 
     <!-- Main Content -->
+
+    <!-- Tabs -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <div class="flex space-x-1 bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-xl w-fit">
+            <button
+                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'generate' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                on:click={() => activeTab = 'generate'}
+            >
+                <RefreshCw size={16} class="inline-block mr-2" />
+                {t.tabGenerate}
+            </button>
+            <button
+                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'analyze' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                on:click={() => activeTab = 'analyze'}
+            >
+                <Search size={16} class="inline-block mr-2" />
+                {t.tabAnalyze}
+            </button>
+        </div>
+    </div>
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        {#if activeTab === 'generate'}
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Left Col: Controls -->
             <div class="lg:col-span-1 space-y-6">
@@ -363,7 +518,7 @@ import Head from '$lib/components/Head.svelte';
                     <!-- Version Selection -->
                     <div class="space-y-3 mb-6">
                         <label for="version-select" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{t.version}</label>
-                        <select id="version-select" bind:value={version} class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-200 transition-colors">
+                        <select id="version-select" aria-label={t.version} bind:value={version} class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-200 transition-colors">
                             <option value="v4">{t.v4}</option>
                             <option value="v1">{t.v1}</option>
                             <option value="v7">{t.v7}</option>
@@ -375,7 +530,7 @@ import Head from '$lib/components/Head.svelte';
                         <label for="quantity-input" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{t.quantity} ({quantity})</label>
                         <div class="flex items-center gap-4">
                             <input id="quantity-input" type="range" bind:value={quantity} min="1" max="1000" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
-                            <input type="number" bind:value={quantity} min="1" max="1000" class="w-20 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-center focus:ring-2 focus:ring-indigo-500" />
+                            <input type="number" aria-label={t.quantity} bind:value={quantity} min="1" max="1000" class="w-20 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-center focus:ring-2 focus:ring-indigo-500" />
                         </div>
                     </div>
 
@@ -495,7 +650,7 @@ import Head from '$lib/components/Head.svelte';
                     <button on:click={shareTxt} class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl font-medium transition-colors">
                         <Share2 size={18} /> {t.share}
                     </button>
-                    <button on:click={downloadTxt}
+                    <button on:click={downloadAdvanced}
  class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl font-medium transition-colors">
                         <Download size={18} /> {t.download}
                     </button>
@@ -520,6 +675,33 @@ import Head from '$lib/components/Head.svelte';
                     </div>
                 </div>
 
+
+                <!-- Advanced Export Options -->
+                <div class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-4 border border-slate-200 dark:border-slate-700 flex flex-wrap gap-4 items-end">
+                    <div class="flex-1 min-w-[150px]">
+                        <label for="export-format" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{t.exportAs}</label>
+                        <select id="export-format" aria-label={t.exportAs} bind:value={exportFormat} class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 dark:text-slate-200 transition-colors">
+                            <option value="txt">.txt (Raw)</option>
+                            <option value="json">.json ({t.exportJson})</option>
+                            <option value="csv">.csv ({t.exportCsv})</option>
+                            <option value="sql">.sql ({t.exportSql})</option>
+                        </select>
+                    </div>
+                    {#if exportFormat === 'sql' || exportFormat === 'csv'}
+                        {#if exportFormat === 'sql'}
+                        <div class="flex-1 min-w-[150px]">
+                            <label for="sql-table" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{t.tableName}</label>
+                            <input id="sql-table" type="text" bind:value={sqlTableName} class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 dark:text-slate-200 transition-colors" />
+                        </div>
+                        {/if}
+                        <div class="flex-1 min-w-[150px]">
+                            <label for="sql-col" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">{t.columnName}</label>
+                            <input id="sql-col" type="text" bind:value={sqlColumnName} class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 dark:text-slate-200 transition-colors" />
+                        </div>
+                    {/if}
+                </div>
+
+
                 <!-- Keyboard Shortcuts Help -->
                 <div class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-4 flex flex-wrap gap-4 text-xs text-slate-500 dark:text-slate-400 justify-center">
                     <div class="flex items-center gap-1.5"><kbd class="px-2 py-1 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md font-sans">⌘/Ctrl + Enter</kbd> {t.shortcutGen}</div>
@@ -529,6 +711,73 @@ import Head from '$lib/components/Head.svelte';
             </div>
 
         </div>
+
+        {/if}
+
+
+        {#if activeTab === 'analyze'}
+        <div class="space-y-6">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                <textarea
+                    bind:value={analyzeInput}
+                    class="w-full h-48 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl p-4 font-mono text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-200 transition-colors custom-scrollbar whitespace-pre-wrap break-all"
+                    placeholder={t.analyzePlaceholder}
+                    aria-label={t.analyzePlaceholder}
+                ></textarea>
+                <div class="mt-4 flex justify-end">
+                    <button on:click={analyzeUuids} class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-[0.98]">
+                        <Search size={18} />
+                        {t.analyzeButton}
+                    </button>
+                </div>
+            </div>
+
+            {#if analyzeResults.length > 0}
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div class="p-6 border-b border-slate-200 dark:border-slate-700">
+                    <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-200">
+                        {t.analyzeResults}
+                    </h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead class="text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/50 uppercase border-b border-slate-200 dark:border-slate-700">
+                            <tr>
+                                <th class="px-6 py-4">UUID</th>
+                                <th class="px-6 py-4">Status</th>
+                                <th class="px-6 py-4">Version</th>
+                                <th class="px-6 py-4">Variant</th>
+                                <th class="px-6 py-4">Extracted Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {#each analyzeResults as res (res.original)}
+                            <tr class="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                                <td class="px-6 py-4 font-mono text-slate-700 dark:text-slate-300">{res.original}</td>
+                                <td class="px-6 py-4">
+                                    {#if res.isValid}
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400">
+                                            {t.valid}
+                                        </span>
+                                    {:else}
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">
+                                            {t.invalid}
+                                        </span>
+                                    {/if}
+                                </td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-400">{res.version}</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-400">{res.variant}</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-400">{res.timestamp || '-'}</td>
+                            </tr>
+                            {/each}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {/if}
+        </div>
+        {/if}
+
 
         <!-- Documentation & SEO -->
         <div class="mt-16 space-y-12">
