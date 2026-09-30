@@ -6,7 +6,7 @@
   import { enUS, ko } from 'date-fns/locale';
   import type { FlexForgeHistoryItem } from '$lib/db/flex-forge';
 
-  export let dict: any;
+  export let dict: Record<string, any>;
   export let onSelect: (item: FlexForgeHistoryItem) => void;
   export let lang: string = 'en';
 

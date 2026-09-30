@@ -2,7 +2,7 @@
   import type { FlexContainerProps, FlexItemProps } from './types';
   import { Plus, Trash2, Copy, MoveUp, MoveDown } from '@lucide/svelte';
 
-  export let dict: any;
+  export let dict: Record<string, any>;
   export let containerProps: FlexContainerProps;
   export let items: FlexItemProps[];
   export let selectedItemId: string | null = null;
@@ -33,8 +33,8 @@
 
     <!-- flex-direction -->
     <div class="space-y-1">
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict.flexDirection}</label>
-      <select bind:value={containerProps.flexDirection} class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 min-h-[44px]">
+      <label for="ff-flexDirection" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict.flexDirection}</label>
+      <select id="ff-flexDirection" bind:value={containerProps.flexDirection} class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 min-h-[44px]">
         {#each selectOptions.flexDirection as option}
           <option value={option}>{option}</option>
         {/each}
@@ -43,8 +43,8 @@
 
     <!-- flex-wrap -->
     <div class="space-y-1">
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict.flexWrap}</label>
-      <select bind:value={containerProps.flexWrap} class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 min-h-[44px]">
+      <label for="ff-flexWrap" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict.flexWrap}</label>
+      <select id="ff-flexWrap" bind:value={containerProps.flexWrap} class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 min-h-[44px]">
         {#each selectOptions.flexWrap as option}
           <option value={option}>{option}</option>
         {/each}
@@ -53,8 +53,8 @@
 
     <!-- justify-content -->
     <div class="space-y-1">
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict.justifyContent}</label>
-      <select bind:value={containerProps.justifyContent} class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 min-h-[44px]">
+      <label for="ff-justifyContent" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict.justifyContent}</label>
+      <select id="ff-justifyContent" bind:value={containerProps.justifyContent} class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 min-h-[44px]">
         {#each selectOptions.justifyContent as option}
           <option value={option}>{option}</option>
         {/each}
@@ -63,8 +63,8 @@
 
     <!-- align-items -->
     <div class="space-y-1">
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict.alignItems}</label>
-      <select bind:value={containerProps.alignItems} class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 min-h-[44px]">
+      <label for="ff-alignItems" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict.alignItems}</label>
+      <select id="ff-alignItems" bind:value={containerProps.alignItems} class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 min-h-[44px]">
         {#each selectOptions.alignItems as option}
           <option value={option}>{option}</option>
         {/each}
@@ -73,8 +73,8 @@
 
     <!-- align-content -->
     <div class="space-y-1">
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict.alignContent}</label>
-      <select bind:value={containerProps.alignContent} class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 min-h-[44px]">
+      <label for="ff-alignContent" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict.alignContent}</label>
+      <select id="ff-alignContent" bind:value={containerProps.alignContent} class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 min-h-[44px]">
         {#each selectOptions.alignContent as option}
           <option value={option}>{option}</option>
         {/each}
@@ -83,8 +83,8 @@
 
     <!-- gap -->
     <div class="space-y-1">
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict.gap}</label>
-      <input type="text" bind:value={containerProps.gap} placeholder="1rem, 16px" class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-3 py-2 min-h-[44px] outline-none">
+      <label for="ff-gap" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{dict.gap}</label>
+      <input type="text" id="ff-gap" bind:value={containerProps.gap} placeholder="1rem, 16px" class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-3 py-2 min-h-[44px] outline-none">
     </div>
   </div>
 
@@ -115,23 +115,23 @@
 
         <div class="grid grid-cols-2 gap-4">
           <div class="space-y-1">
-            <label class="block text-xs font-medium text-slate-500 dark:text-slate-400">{dict.flexGrow}</label>
-            <input type="text" bind:value={selectedItem.flexGrow} class="w-full rounded-md border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm px-2 py-1.5 min-h-[44px] outline-none">
+            <label for="ff-flexGrow" class="block text-xs font-medium text-slate-500 dark:text-slate-400">{dict.flexGrow}</label>
+            <input type="text" id="ff-flexGrow" bind:value={selectedItem.flexGrow} class="w-full rounded-md border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm px-2 py-1.5 min-h-[44px] outline-none">
           </div>
           <div class="space-y-1">
-            <label class="block text-xs font-medium text-slate-500 dark:text-slate-400">{dict.flexShrink}</label>
-            <input type="text" bind:value={selectedItem.flexShrink} class="w-full rounded-md border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm px-2 py-1.5 min-h-[44px] outline-none">
+            <label for="ff-flexShrink" class="block text-xs font-medium text-slate-500 dark:text-slate-400">{dict.flexShrink}</label>
+            <input type="text" id="ff-flexShrink" bind:value={selectedItem.flexShrink} class="w-full rounded-md border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm px-2 py-1.5 min-h-[44px] outline-none">
           </div>
         </div>
 
         <div class="space-y-1">
-          <label class="block text-xs font-medium text-slate-500 dark:text-slate-400">{dict.flexBasis}</label>
-          <input type="text" bind:value={selectedItem.flexBasis} class="w-full rounded-md border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm px-2 py-1.5 min-h-[44px] outline-none">
+          <label for="ff-flexBasis" class="block text-xs font-medium text-slate-500 dark:text-slate-400">{dict.flexBasis}</label>
+          <input type="text" id="ff-flexBasis" bind:value={selectedItem.flexBasis} class="w-full rounded-md border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm px-2 py-1.5 min-h-[44px] outline-none">
         </div>
 
         <div class="space-y-1">
-          <label class="block text-xs font-medium text-slate-500 dark:text-slate-400">{dict.alignSelf}</label>
-          <select bind:value={selectedItem.alignSelf} class="w-full rounded-md border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm px-2 py-1.5 min-h-[44px] outline-none">
+          <label for="ff-alignSelf" class="block text-xs font-medium text-slate-500 dark:text-slate-400">{dict.alignSelf}</label>
+          <select id="ff-alignSelf" bind:value={selectedItem.alignSelf} class="w-full rounded-md border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm px-2 py-1.5 min-h-[44px] outline-none">
             {#each selectOptions.alignSelf as option}
               <option value={option}>{option}</option>
             {/each}
@@ -140,18 +140,18 @@
 
         <div class="grid grid-cols-2 gap-4">
            <div class="space-y-1">
-            <label class="block text-xs font-medium text-slate-500 dark:text-slate-400">{dict.width}</label>
-            <input type="text" bind:value={selectedItem.width} class="w-full rounded-md border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm px-2 py-1.5 min-h-[44px] outline-none">
+            <label for="ff-width" class="block text-xs font-medium text-slate-500 dark:text-slate-400">{dict.width}</label>
+            <input type="text" id="ff-width" bind:value={selectedItem.width} class="w-full rounded-md border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm px-2 py-1.5 min-h-[44px] outline-none">
           </div>
           <div class="space-y-1">
-            <label class="block text-xs font-medium text-slate-500 dark:text-slate-400">{dict.height}</label>
-            <input type="text" bind:value={selectedItem.height} class="w-full rounded-md border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm px-2 py-1.5 min-h-[44px] outline-none">
+            <label for="ff-height" class="block text-xs font-medium text-slate-500 dark:text-slate-400">{dict.height}</label>
+            <input type="text" id="ff-height" bind:value={selectedItem.height} class="w-full rounded-md border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm px-2 py-1.5 min-h-[44px] outline-none">
           </div>
         </div>
 
         <div class="space-y-1">
-            <label class="block text-xs font-medium text-slate-500 dark:text-slate-400">{dict.order}</label>
-            <input type="number" bind:value={selectedItem.order} class="w-full rounded-md border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm px-2 py-1.5 min-h-[44px] outline-none">
+            <label for="ff-order" class="block text-xs font-medium text-slate-500 dark:text-slate-400">{dict.order}</label>
+            <input type="number" id="ff-order" bind:value={selectedItem.order} class="w-full rounded-md border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm px-2 py-1.5 min-h-[44px] outline-none">
         </div>
 
       </div>

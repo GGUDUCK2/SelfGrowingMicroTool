@@ -3,7 +3,7 @@
   import { Copy, Check } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
 
-  export let dict: any;
+  export let dict: Record<string, any>;
   export let containerProps: FlexContainerProps;
   export let items: FlexItemProps[];
 
