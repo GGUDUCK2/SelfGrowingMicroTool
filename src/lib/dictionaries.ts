@@ -613,6 +613,11 @@ export const dictionaries = {
         load: "Load",
         delete: "Delete"
       },
+      presets: "Presets",
+      presetNavbar: "Navbar",
+      presetHolyGrail: "Holy Grail",
+      presetGallery: "Gallery",
+      presetCentered: "Centered",
       guideTitle: "How to Use Flex Forge",
       guideIntro: "Flex Forge is a visual tool to design Flexbox layouts.",
       guideFeaturesTitle: "Key Features",

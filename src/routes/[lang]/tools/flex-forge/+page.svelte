@@ -100,7 +100,49 @@
     activeTab = 'editor';
   }
 
-  $: schema = {
+
+  // --- Viewport State ---
+  let viewport: 'mobile' | 'tablet' | 'desktop' | 'full' = 'full';
+
+  // --- Presets Logic ---
+  function applyPreset(preset: string) {
+    if (preset === 'navbar') {
+      containerProps = { flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', alignItems: 'center', alignContent: 'stretch', gap: '16px' };
+      items = [
+        { id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: '100px', height: '40px', text: 'Logo' },
+        { id: crypto.randomUUID(), order: '0', flexGrow: '1', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: 'auto', height: '40px', text: 'Nav Links' },
+        { id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: '80px', height: '40px', text: 'Login' }
+      ];
+    } else if (preset === 'holygrail') {
+      containerProps = { flexDirection: 'column', flexWrap: 'nowrap', justifyContent: 'flex-start', alignItems: 'stretch', alignContent: 'stretch', gap: '0px' };
+      items = [
+        { id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: 'auto', height: '60px', text: 'Header' },
+        { id: crypto.randomUUID(), order: '0', flexGrow: '1', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: 'auto', height: '300px', text: 'Main Content' },
+        { id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: 'auto', height: '60px', text: 'Footer' }
+      ];
+    } else if (preset === 'gallery') {
+      containerProps = { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'stretch', alignContent: 'stretch', gap: '16px' };
+      items = Array(6).fill(null).map((_, i) => ({
+        id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: '150px', height: '150px', text: `Img ${i + 1}`
+      }));
+    } else if (preset === 'centered') {
+      containerProps = { flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'center', alignItems: 'center', alignContent: 'stretch', gap: '0px' };
+      items = [
+        { id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: '200px', height: '200px', text: 'Center' }
+      ];
+    }
+    selectedItemId = null;
+  }
+
+  function moveItem(index: number, direction: -1 | 1) {
+    if (index + direction < 0 || index + direction >= items.length) return;
+    const newItems = [...items];
+    const temp = newItems[index];
+    newItems[index] = newItems[index + direction];
+    newItems[index + direction] = temp;
+    items = newItems;
+  }
+$: schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "@id": `${$page.url.origin}/${lang}/tools/flex-forge`,
@@ -173,6 +215,23 @@
       </button>
     </div>
 
+    <!-- Presets -->
+    <div class="hidden lg:flex items-center gap-2">
+      <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{dict.presets}:</span>
+      <button on:click={() => applyPreset('navbar')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetNavbar}</button>
+      <button on:click={() => applyPreset('holygrail')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetHolyGrail}</button>
+      <button on:click={() => applyPreset('gallery')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetGallery}</button>
+      <button on:click={() => applyPreset('centered')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetCentered}</button>
+    </div>
+
+    <!-- Viewport -->
+    <div class="hidden lg:flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+      <button on:click={() => viewport = 'mobile'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'mobile' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Mobile</button>
+      <button on:click={() => viewport = 'tablet'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'tablet' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Tablet</button>
+      <button on:click={() => viewport = 'desktop'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'desktop' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Desktop</button>
+      <button on:click={() => viewport = 'full'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'full' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Full</button>
+    </div>
+
     <div class="flex items-center gap-2">
       <button
         on:click={resetLayout}
@@ -215,6 +274,8 @@
             bind:containerProps
             bind:items
             bind:selectedItemId
+            {viewport}
+            {moveItem}
           />
         </div>
         <div class="h-64 shrink-0 border-t border-slate-200 dark:border-slate-800 p-4 bg-slate-50 dark:bg-slate-900/50">
