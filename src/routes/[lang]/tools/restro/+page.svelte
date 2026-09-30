@@ -462,7 +462,7 @@
             <label for="docs-snippet" class="text-sm font-semibold text-slate-700 dark:text-slate-300">Markdown Docs</label>
             <button on:click={() => copySnippet(snippetDocs)} aria-label="Copy Docs" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline min-h-[44px] min-w-[44px]">Copy</button>
           </div>
-          <textarea id="docs-snippet" readonly class="w-full h-32 bg-slate-100 dark:bg-slate-900 p-4 rounded-lg text-xs font-mono overflow-x-auto text-slate-800 dark:text-slate-200 resize-none focus:outline-none whitespace-pre-wrap" value={snippetDocs}></textarea>
+          <textarea id="docs-snippet" readonly class="w-full h-32 bg-slate-100 dark:bg-slate-900 p-4 rounded-lg text-xs font-mono text-slate-800 dark:text-slate-200 resize-none focus:outline-none whitespace-pre-wrap" value={snippetDocs}></textarea>
         </div>
       </div>
     </div>

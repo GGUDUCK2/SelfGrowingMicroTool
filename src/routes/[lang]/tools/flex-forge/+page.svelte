@@ -196,7 +196,7 @@
   <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col md:flex-row h-[800px] max-h-[80vh]">
     {#if activeTab === 'editor'}
       <!-- Sidebar Controls -->
-      <div class="w-full md:w-80 border-r border-slate-200 dark:border-slate-800 shrink-0 h-full">
+      <div class="w-full md:max-w-[20rem] border-r border-slate-200 dark:border-slate-800 shrink-0 h-full">
         <ControlsSidebar
           {dict}
           bind:containerProps
