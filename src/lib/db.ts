@@ -1,3 +1,4 @@
+import type { FlexForgeHistoryItem } from "./db/flex-forge";
 import Dexie, { type Table as DexieTable } from 'dexie';
 import type { Table as SchemaTable, Relation as SchemaRelation } from './types/schema-forge';
 import type { IconConfig } from './utils/icon-forge/processor';
@@ -597,6 +598,7 @@ class MySubClassedDexie extends Dexie {
   a11yForgeHistory!: DexieTable<A11yForgeHistory>;
   cspForgeHistory!: DexieTable<CspForgeHistory>;
   patternForgeHistory!: DexieTable<PatternForgeHistory>;
+  flexForgeHistory!: DexieTable<FlexForgeHistoryItem>;
 
   constructor() {
     super('webFactoryDB');
