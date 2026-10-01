@@ -3,15 +3,45 @@
   import { Copy, Check } from '@lucide/svelte';
   import { fade } from 'svelte/transition';
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export let dict: Record<string, any>;
   export let containerProps: FlexContainerProps;
   export let items: FlexItemProps[];
 
-  let copiedState: 'css' | 'tailwind' | null = null;
+  let copiedState: 'css' | 'tailwind' | 'html' | null = null;
   let copyTimeout: ReturnType<typeof setTimeout>;
 
   $: cssCode = generateCSS(containerProps, items);
   $: tailwindCode = generateTailwind(containerProps, items);
+  $: htmlCode = generateHTML(containerProps, items);
+
+  function generateHTML(container: FlexContainerProps, children: FlexItemProps[]) {
+    let containerStyle = `display: flex;`;
+    if (container.flexDirection !== 'row') containerStyle += ` flex-direction: ${container.flexDirection};`;
+    if (container.flexWrap !== 'nowrap') containerStyle += ` flex-wrap: ${container.flexWrap};`;
+    if (container.justifyContent !== 'flex-start') containerStyle += ` justify-content: ${container.justifyContent};`;
+    if (container.alignItems !== 'stretch') containerStyle += ` align-items: ${container.alignItems};`;
+    if (container.alignContent !== 'stretch') containerStyle += ` align-content: ${container.alignContent};`;
+    if (container.gap && container.gap !== '0' && container.gap !== '0px') containerStyle += ` gap: ${container.gap};`;
+
+    let html = `<div class="flex-container" style="${containerStyle}">\n`;
+
+    children.forEach((item, index) => {
+      let itemStyle = '';
+      if (item.order !== '0') itemStyle += ` order: ${item.order};`;
+      if (item.flexGrow !== '0' || item.flexShrink !== '1' || item.flexBasis !== 'auto') {
+        itemStyle += ` flex: ${item.flexGrow} ${item.flexShrink} ${item.flexBasis};`;
+      }
+      if (item.alignSelf !== 'auto') itemStyle += ` align-self: ${item.alignSelf};`;
+      if (item.width !== 'auto' && item.width !== '') itemStyle += ` width: ${item.width};`;
+      if (item.height !== 'auto' && item.height !== '') itemStyle += ` height: ${item.height};`;
+
+      html += `  <div class="flex-item-${index + 1}"${itemStyle ? ` style="${itemStyle.trim()}"` : ''}>Item ${index + 1}</div>\n`;
+    });
+
+    html += `</div>`;
+    return html;
+  }
 
   function generateCSS(container: FlexContainerProps, children: FlexItemProps[]) {
     let css = `.flex-container {\n`;
@@ -114,7 +144,7 @@
     return twCode;
   }
 
-  async function copyToClipboard(text: string, type: 'css' | 'tailwind') {
+  async function copyToClipboard(text: string, type: 'css' | 'tailwind' | 'html') {
     try {
       await navigator.clipboard.writeText(text);
       copiedState = type;
@@ -128,7 +158,7 @@
   }
 </script>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 h-full">
   <!-- CSS Output -->
   <div class="flex flex-col bg-slate-900 rounded-xl overflow-hidden border border-slate-800 shadow-lg relative">
     <div class="flex items-center justify-between px-4 py-2 border-b border-slate-800 bg-slate-900/50">
@@ -139,7 +169,7 @@
       >
         {#if copiedState === 'css'}
           <Check size={16} />
-          Copied
+          {dict.feedback?.copied || 'Copied'}
         {:else}
           <Copy size={16} />
           {dict.copyCss}
@@ -161,7 +191,7 @@
       >
         {#if copiedState === 'tailwind'}
           <Check size={16} />
-          Copied
+          {dict.feedback?.copied || 'Copied'}
         {:else}
           <Copy size={16} />
           {dict.copyTailwind}
@@ -170,6 +200,28 @@
     </div>
     <div class="p-4 overflow-auto flex-1 font-mono text-sm text-slate-300">
       <pre class="whitespace-pre-wrap">{tailwindCode}</pre>
+    </div>
+  </div>
+
+  <!-- HTML Output -->
+  <div class="flex flex-col bg-slate-900 rounded-xl overflow-hidden border border-slate-800 shadow-lg relative">
+    <div class="flex items-center justify-between px-4 py-2 border-b border-slate-800 bg-slate-900/50">
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">HTML (Inline)</span>
+      <button
+        on:click={() => copyToClipboard(htmlCode, 'html')}
+        class="flex items-center gap-2 px-3 py-1.5 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-colors {copiedState === 'html' ? 'bg-emerald-500/20 text-emerald-400' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
+      >
+        {#if copiedState === 'html'}
+          <Check size={16} />
+          {dict.feedback?.copied || 'Copied'}
+        {:else}
+          <Copy size={16} />
+          {dict.copyHtml || 'Copy HTML'}
+        {/if}
+      </button>
+    </div>
+    <div class="p-4 overflow-auto flex-1 font-mono text-sm text-slate-300">
+      <pre class="whitespace-pre-wrap">{htmlCode}</pre>
     </div>
   </div>
 </div>

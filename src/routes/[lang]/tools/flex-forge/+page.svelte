@@ -18,6 +18,7 @@
   import { db } from '$lib/db';
 
   $: lang = $page.params.lang || 'en';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   $: dict = (getDictionary(lang) as any)?.tools?.flexForge || getDictionary('en').tools.flexForge;
 
   let activeTab: 'editor' | 'history' = 'editor';
@@ -85,11 +86,35 @@
         createdAt: Date.now(),
         starred: false
       });
+
+      const count = await db.flexForgeHistory.count();
+      if (count > 100) {
+        const oldest = await db.flexForgeHistory.orderBy('createdAt').first();
+        if (oldest && oldest.id) {
+           await db.flexForgeHistory.delete(oldest.id);
+        }
+      }
       historyKey++;
     } catch (err) {
       console.error(err);
     } finally {
       setTimeout(() => isSaving = false, 500);
+    }
+  }
+
+  function handleKeydown(e: KeyboardEvent) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      e.preventDefault();
+      addItem();
+    } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      resetLayout();
+    } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+      e.preventDefault();
+      saveLayout();
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      selectedItemId = null;
     }
   }
 
@@ -173,13 +198,15 @@ $: schema = {
   url={`${$page.url.origin}/${lang}/tools/flex-forge`}
 />
 
+<svelte:window on:keydown={handleKeydown} />
+
 <svelte:head>
   <link rel="canonical" href={`${$page.url.origin}/${lang}/tools/flex-forge`} />
   <link rel="alternate" hreflang="en" href={`${$page.url.origin}/en/tools/flex-forge`} />
   <link rel="alternate" hreflang="ko" href={`${$page.url.origin}/ko/tools/flex-forge`} />
   <link rel="alternate" hreflang="x-default" href={`${$page.url.origin}/en/tools/flex-forge`} />
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  {@html `<script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>`}
+  {@html '<scr' + 'ipt type="application/ld+json">' + JSON.stringify(schema).replace(/</g, '\\u003c') + '</scr' + 'ipt>'}
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
@@ -233,6 +260,9 @@ $: schema = {
     </div>
 
     <div class="flex items-center gap-2">
+      <div class="hidden xl:flex text-xs text-slate-400 mr-2 border-r border-slate-200 dark:border-slate-700 pr-4 py-1">
+        {dict.shortcuts?.help || 'Shortcuts: Ctrl+Enter (Add), Ctrl+K (Reset), Ctrl+S (Save), Esc (Deselect)'}
+      </div>
       <button
         on:click={resetLayout}
         class="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800 rounded-lg transition-colors font-medium text-sm min-h-[44px]"

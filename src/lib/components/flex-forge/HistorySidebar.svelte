@@ -6,6 +6,7 @@
   import { enUS, ko } from 'date-fns/locale';
   import type { FlexForgeHistoryItem } from '$lib/db/flex-forge';
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export let dict: Record<string, any>;
   export let onSelect: (item: FlexForgeHistoryItem) => void;
   export let lang: string = 'en';
@@ -44,7 +45,7 @@
     </div>
   {:else}
     <div class="space-y-3">
-      {#each historyItems as item}
+      {#each historyItems as item (item.id || item.createdAt)}
         <div class="bg-white dark:bg-slate-900 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow group relative">
           <div class="flex justify-between items-start mb-2">
             <span class="text-xs font-medium text-slate-500 dark:text-slate-400">

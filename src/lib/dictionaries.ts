@@ -605,8 +605,15 @@ export const dictionaries = {
       copyCode: "Copy Code",
       copyTailwind: "Copy Tailwind",
       copyCss: "Copy CSS",
+      copyHtml: "Copy HTML",
       reset: "Reset",
       save: "Save Layout",
+      feedback: {
+        copied: "Copied!"
+      },
+      shortcuts: {
+        help: "Shortcuts: Ctrl+Enter (Add Item), Ctrl+K (Reset), Ctrl+S (Save), Esc (Deselect)"
+      },
       historySidebar: {
         title: "Saved Layouts",
         empty: "No saved layouts found.",
@@ -5772,8 +5779,15 @@ export const dictionaries = {
       copyCode: "코드 복사",
       copyTailwind: "Tailwind 복사",
       copyCss: "CSS 복사",
+      copyHtml: "HTML 복사",
       reset: "초기화",
       save: "레이아웃 저장",
+      feedback: {
+        copied: "복사됨!"
+      },
+      shortcuts: {
+        help: "단축키: Ctrl+Enter (아이템 추가), Ctrl+K (초기화), Ctrl+S (저장), Esc (선택 취소)"
+      },
       historySidebar: {
         title: "저장된 레이아웃",
         empty: "저장된 레이아웃이 없습니다.",
