@@ -66,11 +66,12 @@
 
   // React to input changes for auto-detection
   let inputDebounceTimer: ReturnType<typeof setTimeout>;
-  $: if (input && input.length < 10000) {
+  function handleInputChanges(val: string) {
+    if (!val || val.length >= 10000) return;
     clearTimeout(inputDebounceTimer);
     inputDebounceTimer = setTimeout(() => {
-      const detected = detectFormat(input);
-      if (detected !== inputFormat && input.trim().length > 0) {
+      const detected = detectFormat(val);
+      if (detected !== inputFormat && val.trim().length > 0) {
         inputFormat = detected;
       }
 
@@ -85,6 +86,8 @@
       }
     }, 500);
   }
+
+  $: handleInputChanges(input);
 
   function runConversion() {
     isConverting = true;

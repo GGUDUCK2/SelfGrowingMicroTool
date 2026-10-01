@@ -75,7 +75,7 @@
           </tr>
         </thead>
         <tbody class="divide-y divide-slate-100 dark:divide-slate-700 bg-white dark:bg-slate-900">
-          {#each subnets as subnet, i}
+          {#each subnets as subnet, i (subnet.network)}
             <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
               <td class="px-4 py-3 text-slate-500 dark:text-slate-400">{i + 1}</td>
               <td class="px-4 py-3 font-mono text-indigo-600 dark:text-indigo-400">{subnet.network}</td>

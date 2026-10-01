@@ -94,9 +94,13 @@
 
   // History
   let history$: Observable<ToolHistoryItem[]> | undefined;
-  $: if (browser) {
-      history$ = liveQuery(() => getHistoryObservable('subnet-scope'));
-  }
+
+  onMount(() => {
+      if (browser) {
+          history$ = liveQuery(() => getHistoryObservable('subnet-scope'));
+      }
+  });
+
 
   function restore(item: ToolHistoryItem) {
       if (typeof item.input === 'string') {
@@ -437,7 +441,7 @@
 
             {#if $history$ && $history$.length > 0}
                 <div class="grid gap-3">
-                    {#each $history$ as item}
+                    {#each $history$ as item (item.id)}
                         <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex justify-between items-center hover:shadow-md transition-shadow">
                             <div>
                                 <div class="font-mono text-lg text-indigo-600 dark:text-indigo-400 font-medium">{item.input}</div>
