@@ -57,7 +57,7 @@
   };
 </script>
 
-<Head {title} {description} url={$page.url.origin + "/" + lang + "/tools/base64-forge"} />
+<Head title={title} description={description} url={$page.url.origin + "/" + lang + "/tools/base64-forge"} />
 
 <svelte:head>
   <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/base64-forge"} />

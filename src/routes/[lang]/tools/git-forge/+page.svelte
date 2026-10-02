@@ -158,8 +158,8 @@
 </script>
 
 <Head
-  title={(dict as any)?.title || 'Git Forge'}
-  description={(dict as any)?.description || 'Git tools'}
+  title={dict.title}
+  description={dict.description}
   keywords="git command generator, gitignore builder, conventional commits, git tools, developer tools, git doctor, undo git commit"
   image="{$page.url.origin}/og/git-forge.png"
   url={`${$page.url.origin}/${lang}/tools/git-forge`}

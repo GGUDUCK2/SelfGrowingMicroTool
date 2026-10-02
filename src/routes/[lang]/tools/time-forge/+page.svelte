@@ -117,8 +117,8 @@
 </svelte:head>
 
 <Head
-  title="{t.title} - {t.description}"
-  description={t.description}
+  title={dict.title}
+  description={dict.description}
   image="https://microfactory.dev/og/time-forge.png"
 />
 

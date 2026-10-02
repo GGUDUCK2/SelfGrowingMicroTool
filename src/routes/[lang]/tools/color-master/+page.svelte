@@ -257,8 +257,8 @@
 </svelte:head>
 
 <Head
-  title={t.title}
-  description={t.description}
+  title={dict.title}
+  description={dict.description}
   keywords={t.keywords}
 />
 

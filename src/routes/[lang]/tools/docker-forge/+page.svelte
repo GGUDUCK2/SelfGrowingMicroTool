@@ -82,8 +82,8 @@
 </script>
 
 <Head
-  title={title}
-  description={description}
+  title={dict.title}
+  description={dict.description}
   keywords="docker, dockerfile, generator, visual builder, docker compose, multi-stage build, container, devops"
   image="{$page.url.origin}/og-image.png"
 

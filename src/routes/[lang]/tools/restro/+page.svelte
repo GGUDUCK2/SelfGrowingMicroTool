@@ -280,8 +280,8 @@
 
 </script>
 <Head
-  title={(dict as any)?.title ?? 'Restro'}
-  description={(dict as any)?.description ?? 'API Client'}
+  title={dict.title}
+  description={dict.description}
   keywords="api client, rest, http, testing, debug, fetch, curl, developer tools"
 />
 

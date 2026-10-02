@@ -132,8 +132,8 @@
 
 </script>
 <Head
-  title={toolDict.title}
-  description={toolDict.description}
+  title={dict.title}
+  description={dict.description}
   keywords="privacy policy generator, terms of service generator, gdpr, ccpa, legal documents, free policy maker"
 />
 

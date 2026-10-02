@@ -92,8 +92,8 @@
 </script>
 
 <Head
-  title={title}
-  description={description}
+  title={dict.title}
+  description={dict.description}
   url={`${$page.url.origin}/${lang}/tools/env-forge`}
   keywords="env, environment variables, dotenv, config, kubernetes configmap, docker env file, yaml, json, format env"
   image="{$page.url.origin}/og-image.png"

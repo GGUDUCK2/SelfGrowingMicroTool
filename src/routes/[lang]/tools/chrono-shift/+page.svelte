@@ -282,8 +282,8 @@
 
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={dict.title}
+  description={dict.description}
   keywords="time zone converter, world clock, meeting planner, overlap scheduler, time zone map, global meeting, team scheduler, golden hour, dst calculator, international meeting"
 />
 

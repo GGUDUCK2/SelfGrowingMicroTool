@@ -148,8 +148,8 @@
 
 </script>
 <Head
-  title={`${((dict as any)?.tools?.deployForge || {}).title} | ${dict.home.title}`}
-  description={((dict as any)?.tools?.deployForge || {}).description}
+  title={dict.title}).title} | ${dict.home.title}`}
+  description={dict.description}).description}
   keywords="dockerfile generator, docker compose builder, container architect, devops tool"
 />
 

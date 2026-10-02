@@ -78,8 +78,8 @@
 
 </script>
 <Head
-  title={toolDict.title}
-  description={toolDict.description}
+  title={dict.title}
+  description={dict.description}
   keywords="audio editor, waveform editor, sound recorder, tone generator, wav editor, online audio tool"
 />
 

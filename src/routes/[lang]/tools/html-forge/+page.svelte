@@ -129,8 +129,8 @@
 </svelte:head>
 
 <Head
-  title={t.title || "HTML Forge - The Definitive HTML Toolkit"}
-  description={t.description || "Format, minify, and entity encode/decode HTML instantly. A professional tool for web developers."}
+  title={dict.title}
+  description={dict.description}
   url={$page.url.origin + "/" + lang + "/tools/html-forge"}
   keywords="html formatter, html minifier, html beautifier, entity encoder, html entities, extract links, analyze html"
 />

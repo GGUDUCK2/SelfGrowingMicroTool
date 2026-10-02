@@ -342,7 +342,7 @@
 
 </script>
 <Head
-  title={`${tags.title ? `${tags.title} | ` : ''}${dict.title}`}
+  title={dict.title}
   description={dict.description}
   keywords="seo, meta tags, open graph, json-ld, preview, social media, metadata, generator"
 />

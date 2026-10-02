@@ -462,10 +462,9 @@ import Head from '$lib/components/Head.svelte';
 </svelte:head>
 
 <Head
-  title={t.metaTitle || "UUID Forge - Online Generator"}
-  description={t.metaDescription || "Generate bulk UUIDs (v1, v4, v7) instantly"}
+  title={t.title}
+  description={t.description}
   url={$page.url.origin + "/" + lang + "/tools/uuid-forge"}
-  keywords="uuid, generator, guid, developer"
 />
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 pb-20">

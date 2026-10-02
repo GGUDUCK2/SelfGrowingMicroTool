@@ -342,8 +342,8 @@
 
 </script>
 <Head
-  title={t?.title}
-  description={t?.description}
+  title={t.title}
+  description={t.description}
   keywords="database schema, sql generator, prisma schema, db diagram, entity relationship diagram, mysql, postgres, sqlite"
 />
 

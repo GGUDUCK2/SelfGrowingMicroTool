@@ -135,8 +135,8 @@
 </script>
 
 <Head
-  {title}
-  {description}
+  title={title}
+  description={description}
 />
 
 <svelte:head>

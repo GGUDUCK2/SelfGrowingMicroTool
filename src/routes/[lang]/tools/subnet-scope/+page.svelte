@@ -183,8 +183,8 @@
 </script>
 
 <Head
-  title={t.title}
-  description={t.description}
+  title={dict.title}
+  description={dict.description}
 />
 
 <svelte:window on:keydown={handleKeydown} />

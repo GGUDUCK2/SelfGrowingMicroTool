@@ -226,7 +226,7 @@
 
 </script>
 <Head
-  title={`${expression ? expression + ' - ' : ''}${dict.title}`}
+  title={dict.title}${dict.title}`}
   description={dict.description}
   keywords="logic gates, truth table generator, boolean algebra, logic circuit simulator, online tool, digital logic design, karnaugh map, boolean simplifier"
 />

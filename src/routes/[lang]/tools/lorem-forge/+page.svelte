@@ -110,9 +110,9 @@
 </script>
 
 <Head
-    title={d?.title || "Lorem Forge - Professional Dummy Text Generator"}
-    description={d?.description || "Generate dummy text with custom dictionaries."}
-    url={`${$page.url.origin}/${lang}/tools/lorem-forge`}
+  title={dict.title}
+  description={dict.description}
+  url={`${$page.url.origin}/${lang}/tools/lorem-forge`}
 />
 
 <svelte:head>

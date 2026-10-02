@@ -132,8 +132,8 @@
 </svelte:head>
 
 <Head
-  title={t.title || "CSS Forge - The Definitive CSS Toolkit"}
-  description={t.description || "Format, minify, and analyze CSS instantly. A professional tool for frontend developers."}
+  title={dict.title}
+  description={dict.description}
   url={$page.url.origin + "/" + lang + "/tools/css-forge"}
   keywords="css formatter, css minifier, css beautifier, css analyzer, css statistics"
 />

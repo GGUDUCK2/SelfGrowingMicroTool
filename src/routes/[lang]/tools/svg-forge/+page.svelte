@@ -165,10 +165,9 @@
 </script>
 
 <Head
-  title={t?.title || "SVG Forge"}
-  description={t?.description}
+  title={dict.title}
+  description={dict.description}
   url={$page.url.origin + "/" + lang + "/tools/svg-forge"}
-  image="{$page.url.origin}/og/default.png"
 />
 
 <svelte:head>

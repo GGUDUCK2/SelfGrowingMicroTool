@@ -87,8 +87,8 @@
 
 </script>
 <Head
-  title={title}
-  description={description}
+  title={dict.title}
+  description={dict.description}
   keywords="image optimizer, webp converter, watermark images, extract color palette, strip exif metadata, image compressor, resize image, privacy focused, client side, pixel forge"
 />
 

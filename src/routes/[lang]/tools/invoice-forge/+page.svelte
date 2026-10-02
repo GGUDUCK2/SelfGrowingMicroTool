@@ -125,8 +125,8 @@
 
 </script>
 <Head
-  title={invoiceDict.title}
-  description={invoiceDict.description}
+  title={t.title}
+  description={t.description}
   keywords="invoice generator, free invoice maker, pdf invoice, bill generator, receipt maker"
 />
 

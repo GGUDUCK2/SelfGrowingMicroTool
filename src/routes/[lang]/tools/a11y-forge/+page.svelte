@@ -83,8 +83,8 @@ import Contrast from '@lucide/svelte/icons/contrast';
 </svelte:head>
 
 <Head
-  title={t.title || "A11y Forge - Web Accessibility Toolkit"}
-  description={t.description || "Professional web accessibility toolkit. WCAG color contrast checker and ARIA role explorer."}
+  title={dict.title}
+  description={dict.description}
   url={$page.url.origin + "/" + lang + "/tools/a11y-forge"}
   keywords="accessibility, a11y, wcag, contrast, color blindness, aria"
 />

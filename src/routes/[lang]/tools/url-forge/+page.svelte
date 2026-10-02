@@ -126,8 +126,8 @@
 
 </script>
 <Head
-  title={(dict as any)?.title}
-  description={(dict as any)?.description}
+  title={dict.title}
+  description={dict.description}
   url={canonicalUrl}
   keywords="url parser, query string editor, utm builder, url encode, url decode"
 />
