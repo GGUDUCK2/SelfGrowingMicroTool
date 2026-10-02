@@ -82,8 +82,8 @@
 
 </script>
 <Head
-  title={title}
-  description={description}
+  title={dict.title}
+  description={dict.description}
   keywords="og image generator, social media banner, youtube thumbnail maker, twitch banner, linkedin header, design tool, open graph maker"
 />
 

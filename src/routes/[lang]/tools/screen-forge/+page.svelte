@@ -90,8 +90,8 @@
 
 </script>
 <Head
-  title={t.title}
-  description={t.description}
+  title={dict.title}
+  description={dict.description}
   keywords="screen recorder, screen capture, video recorder, webm recorder, browser screen recording, no watermark"
 />
 

@@ -125,8 +125,8 @@
 
 </script>
 <Head
-  title={`${t.title} - ${t.category || 'Design'}`}
-  description={t.description}
+  title={dict.title}
+  description={dict.description}
   keywords="favicon generator, pwa icon, maskable icon, app icon generator, ios icon generator, android icon generator, svg to ico"
 />
 

@@ -78,8 +78,8 @@
 
 </script>
 <Head
-  title={title}
-  description={description}
+  title={dict.title}
+  description={dict.description}
   keywords="merge pdf, split pdf, rotate pdf, combine pdf, free pdf tool, privacy focus pdf, client side pdf editor, image to pdf, jpg to pdf, png to pdf, offline pdf editor, pdf session history, secure pdf merger, reorganize pdf pages, extract pdf pages, local pdf tools, zipper merge pdf, pdf watermark, pdf to image, export pdf pages"
 />
 

@@ -183,8 +183,8 @@
 </svelte:head>
 
 <Head
-  title={(dict as any)?.title || ''}
-  description={(dict as any)?.description || ''}
+  title={dict.title}
+  description={dict.description}
   keywords="csv editor, csv to json, csv to sql, csv analyzer, local csv tool"
 />
 

@@ -357,8 +357,8 @@
   </script>
 
   <Head
-    title={dict?.title || 'vCard Forge'}
-    description={dict?.description || 'Create vCards'}
+    title={dict.title}
+    description={dict.description}
     url={canonicalUrl}
     keywords="vcard generator, qr code contact, digital business card, vcf creator"
   />

@@ -91,8 +91,8 @@
 </script>
 
 <Head
-  title={title}
-  description={description}
+  title={dict.title}
+  description={dict.description}
   keywords="CSS clamp, fluid typography, responsive typography, font scaling, reverse clamp, CSS variables, tailwind config, frontend developer tools"
   url={$page.url.origin + "/" + lang + "/tools/clamp-forge"}
 />

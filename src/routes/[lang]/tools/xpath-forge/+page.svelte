@@ -62,7 +62,7 @@
 
 </script>
 
-<Head {title} {description} url={$page.url.origin + "/" + lang + "/tools/xpath-forge"} />
+<Head title={title} description={description} url={$page.url.origin + "/" + lang + "/tools/xpath-forge"} />
 
 <svelte:head>
   <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/xpath-forge"} />

@@ -96,8 +96,8 @@
 
 </script>
 <Head
-  title={`${t.title} | ${dict.home.title}`}
-  description={t.description}
+  title={dict.title} | ${dict.home.title}`}
+  description={dict.description}
   url={$page.url.origin + "/" + lang + "/tools/unit-verse"}
   image="{$page.url.origin}/og/unit-verse.png"
   keywords={t.keywords}

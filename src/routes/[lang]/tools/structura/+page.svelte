@@ -261,7 +261,7 @@
 
 </script>
 <Head
-  title={`${t.title} | Web Factory`}
+  title={t.title} | Web Factory`}
   description={t.description}
 />
 

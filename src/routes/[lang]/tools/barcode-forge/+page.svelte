@@ -115,8 +115,8 @@
 </svelte:head>
 
 <Head
-  title={t.title || "Barcode Forge - Universal Tag Generator"}
-  description={t.description || "The definitive tool to generate linear barcodes. Supports EAN, UPC, Code 128, ITF, and more."}
+  title={dict.title}
+  description={dict.description}
   url={$page.url.origin + "/" + lang + "/tools/barcode-forge"}
   keywords="barcode, generator, ean, upc, code128, bulk barcode, svg export"
 />

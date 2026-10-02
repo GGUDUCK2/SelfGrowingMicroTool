@@ -148,8 +148,8 @@
 </script>
 
 <Head
-    title={t.title}
-    description={t.description}
+    title={dict.title}
+    description={dict.description}
     keywords="population pyramid, demographic transition, global demographics, median age, dependency ratio, visualization"
 />
 

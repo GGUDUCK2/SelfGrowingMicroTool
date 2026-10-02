@@ -368,8 +368,8 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <Head
-  title={t.title}
-  description={t.description}
+  title={dict.title}
+  description={dict.description}
   image="{$page.url.origin}/og/diff-viewer.png"
   keywords={keywords}
 />

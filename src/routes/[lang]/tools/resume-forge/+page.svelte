@@ -162,8 +162,8 @@
 
 </script>
 <Head
-  title={toolDict.title}
-  description={toolDict.description}
+  title={dict.title}
+  description={dict.description}
   keywords="resume builder, cv maker, json resume, free resume template, ats friendly resume, pdf resume"
 />
 

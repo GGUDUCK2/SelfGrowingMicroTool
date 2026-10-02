@@ -87,8 +87,8 @@
 </script>
 
 <Head
-  title="{t.title} - MicroFactory"
-  description={t.description}
+  title={dict.title}
+  description={dict.description}
   url="{$page.url.origin}/{lang}/tools/decision-forge"
   image="{$page.url.origin}/og/decision-forge.png"
 />

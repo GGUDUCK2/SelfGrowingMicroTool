@@ -74,8 +74,8 @@
 </svelte:head>
 
 <Head
-  title={t.title || 'Pattern Forge'}
-  description={t.desc || 'Create beautiful, customizable CSS and SVG background patterns.'}
+  title={dict.title}
+  description={dict.description}
   url={$page.url.origin + "/" + lang + "/tools/pattern-forge"}
 />
 

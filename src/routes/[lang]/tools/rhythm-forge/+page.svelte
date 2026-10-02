@@ -289,7 +289,7 @@
 
 </script>
 <Head
-  title={`${mode === 'game' ? (dict.game?.title || 'Rhythm Game') : (settings.isPlaying ? `▶ ${settings.bpm} BPM` : dict.title)}`}
+  title={dict.title}
   description={dict.description}
   keywords="metronome, polyrhythm generator, online metronome, rhythm trainer, music tools, tap tempo, bpm calculator, gap click, speed trainer, timing accuracy, drum practice"
 />

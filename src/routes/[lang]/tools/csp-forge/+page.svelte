@@ -133,8 +133,8 @@
 </script>
 
 <Head
-  title={(dict as any)?.title}
-  description={(dict as any)?.description}
+  title={dict.title}
+  description={dict.description}
 />
 
 <svelte:head>
