@@ -144,6 +144,34 @@
     return twCode;
   }
 
+
+  function exportHtml() {
+    const cssEscaped = cssCode.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const htmlEscaped = htmlCode;
+    const fullHtml = '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>Flex Forge Export</title>\n<' + 'style' + '>\nbody { font-family: system-ui, -apple-system, sans-serif; background: #f8fafc; margin: 0; padding: 2rem; display: flex; justify-content: center; min-height: 100vh; }\n.demo-container { width: 100%; max-width: 1200px; background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }\n' + cssEscaped + '\n/* Basic styling for items to make them visible */\n[class^="flex-item-"] { background: #6366f1; color: white; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-weight: bold; padding: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }\n</' + 'style' + '>\n</head>\n<body>\n<div class="demo-container">\n' + htmlEscaped + '\n</div>\n</body>\n</html>';
+
+    const blob = new Blob([fullHtml], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'flex-layout.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function previewInNewTab() {
+    const cssEscaped = cssCode.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const htmlEscaped = htmlCode;
+    const fullHtml = '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>Flex Forge Preview</title>\n<' + 'style' + '>\nbody { font-family: system-ui, -apple-system, sans-serif; background: #f8fafc; margin: 0; padding: 2rem; display: flex; justify-content: center; min-height: 100vh; }\n.demo-container { width: 100%; max-width: 1200px; background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }\n' + cssEscaped + '\n[class^="flex-item-"] { background: #6366f1; color: white; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-weight: bold; padding: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }\n</' + 'style' + '>\n</head>\n<body>\n<div class="demo-container">\n' + htmlEscaped + '\n</div>\n</body>\n</html>';
+
+    const blob = new Blob([fullHtml], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
+    // Let browser clean up blob to avoid race conditions
+  }
+
   async function copyToClipboard(text: string, type: 'css' | 'tailwind' | 'html') {
     try {
       await navigator.clipboard.writeText(text);
@@ -207,6 +235,13 @@
   <div class="flex flex-col bg-slate-900 rounded-xl overflow-hidden border border-slate-800 shadow-lg relative">
     <div class="flex items-center justify-between px-4 py-2 border-b border-slate-800 bg-slate-900/50">
       <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">HTML (Inline)</span>
+      <div class="flex items-center gap-2">
+        <button aria-label="Preview in new tab" on:click={previewInNewTab} class="text-xs text-slate-400 hover:text-white px-2 py-1 rounded hover:bg-slate-800 transition-colors" title={dict.openInNewTab || 'Preview'}>
+           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </button>
+        <button aria-label="Export HTML" on:click={exportHtml} class="text-xs text-slate-400 hover:text-white px-2 py-1 rounded hover:bg-slate-800 transition-colors" title={dict.exportHtml || 'Export HTML'}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        </button>
       <button
         on:click={() => copyToClipboard(htmlCode, 'html')}
         class="flex items-center gap-2 px-3 py-1.5 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-colors {copiedState === 'html' ? 'bg-emerald-500/20 text-emerald-400' : 'text-slate-400 hover:text-white hover:bg-slate-800'}"
@@ -219,6 +254,7 @@
           {dict.copyHtml || 'Copy HTML'}
         {/if}
       </button>
+      </div>
     </div>
     <div class="p-4 overflow-auto flex-1 font-mono text-sm text-slate-300">
       <pre class="whitespace-pre-wrap">{htmlCode}</pre>

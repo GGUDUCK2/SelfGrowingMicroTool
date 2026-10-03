@@ -159,6 +159,34 @@
     selectedItemId = null;
   }
 
+
+  function surpriseMe() {
+    const layouts = [
+      {
+        props: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'flex-start', alignContent: 'flex-start', gap: '24px' },
+        items: Array(7).fill(null).map((_, i) => ({ id: crypto.randomUUID(), order: '0', flexGrow: i % 3 === 0 ? '2' : '1', flexShrink: '1', flexBasis: '250px', alignSelf: 'auto', width: 'auto', height: (100 + (i % 3) * 50) + 'px', text: 'Card ' + (i + 1) }))
+      },
+      {
+        props: { flexDirection: 'column', flexWrap: 'nowrap', justifyContent: 'space-between', alignItems: 'stretch', alignContent: 'stretch', gap: '16px' },
+        items: [
+          { id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: 'auto', height: '60px', text: 'Header' },
+          { id: crypto.randomUUID(), order: '0', flexGrow: '1', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: 'auto', height: '400px', text: 'Hero' },
+          { id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: 'auto', height: '80px', text: 'Footer' }
+        ]
+      },
+      {
+        props: { flexDirection: 'row-reverse', flexWrap: 'wrap', justifyContent: 'flex-end', alignItems: 'baseline', alignContent: 'space-around', gap: '12px' },
+        items: Array(5).fill(null).map((_, i) => ({ id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: 'auto', height: 'auto', text: 'Nav ' + (i + 1) }))
+      }
+    ];
+
+    const randomLayout = layouts[Math.floor(Math.random() * layouts.length)];
+    containerProps = randomLayout.props;
+    // We have to cast to FlexContainerProps here but it matches exactly in JS
+    items = randomLayout.items;
+    selectedItemId = null;
+  }
+
   function moveItem(index: number, direction: -1 | 1) {
     if (index + direction < 0 || index + direction >= items.length) return;
     const newItems = [...items];
@@ -178,6 +206,7 @@ $: schema = {
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript. HTML5.",
     "description": dict.description,
+    "featureList": ["Visual Flexbox Builder", "Code Export", "Responsive Preview"],
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -200,7 +229,21 @@ $: schema = {
 
 <svelte:window on:keydown={handleKeydown} />
 
+
 <svelte:head>
+  <title>{dict.title} - CSS Flexbox Layout Builder</title>
+  <meta name="description" content="{dict.description} Create and export CSS flexbox layouts effortlessly." />
+  <meta name="keywords" content="Flexbox, CSS, Layout Builder, Developer Tools, Flex Forge" />
+
+  <meta property="og:title" content="{dict.title} - CSS Flexbox Builder" />
+  <meta property="og:description" content="{dict.description}" />
+  <meta property="og:url" content={`${$page.url.origin}/${lang}/tools/flex-forge`} />
+  <meta property="og:type" content="website" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{dict.title}" />
+  <meta name="twitter:description" content="{dict.description}" />
+
   <link rel="canonical" href={`${$page.url.origin}/${lang}/tools/flex-forge`} />
   <link rel="alternate" hreflang="en" href={`${$page.url.origin}/en/tools/flex-forge`} />
   <link rel="alternate" hreflang="ko" href={`${$page.url.origin}/ko/tools/flex-forge`} />
@@ -208,6 +251,7 @@ $: schema = {
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html '<scr' + 'ipt type="application/ld+json">' + JSON.stringify(schema).replace(/</g, '\\u003c') + '</scr' + 'ipt>'}
 </svelte:head>
+
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
   <!-- Header -->
@@ -244,6 +288,12 @@ $: schema = {
 
     <!-- Presets -->
     <div class="hidden lg:flex items-center gap-2">
+
+      <button aria-label="Surprise Me" on:click={surpriseMe} class="px-3 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 rounded-md transition-all shadow-sm hover:shadow flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+        {dict.surpriseMe || 'Surprise Me'}
+      </button>
+
       <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{dict.presets}:</span>
       <button on:click={() => applyPreset('navbar')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetNavbar}</button>
       <button on:click={() => applyPreset('holygrail')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetHolyGrail}</button>
@@ -301,6 +351,7 @@ $: schema = {
       <div class="flex-1 flex flex-col h-full overflow-hidden relative" in:fade>
         <div class="flex-1 overflow-hidden p-4">
           <Workspace
+            {dict}
             bind:containerProps
             bind:items
             bind:selectedItemId

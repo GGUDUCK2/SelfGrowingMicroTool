@@ -577,6 +577,13 @@ export const dictionaries = {
 
 
     flexForge: {
+        surpriseMe: "Surprise Me",
+        analyzerTitle: "Smart Analyzer",
+        openInNewTab: "Preview",
+        exportHtml: "Export HTML",
+        analysisPerfect: "Excellent layout! Mobile responsive and properly aligned.",
+        analysisWarning: "Consider using flex-wrap for better mobile support.",
+        analysisCentered: "Perfectly centered content layout.",
       title: "Flex Forge",
       description: "Visual CSS Flexbox layout builder and code generator.",
       tabs: {
@@ -5751,6 +5758,13 @@ export const dictionaries = {
 
 
     flexForge: {
+        surpriseMe: "깜짝 레이아웃",
+        analyzerTitle: "스마트 분석기",
+        openInNewTab: "미리보기",
+        exportHtml: "HTML 내보내기",
+        analysisPerfect: "훌륭한 레이아웃입니다! 모바일 대응 및 정렬이 잘 되어 있습니다.",
+        analysisWarning: "더 나은 모바일 지원을 위해 flex-wrap 사용을 고려해보세요.",
+        analysisCentered: "콘텐츠가 완벽하게 중앙 정렬된 레이아웃입니다.",
       title: "플렉스 포지",
       description: "시각적 CSS Flexbox 레이아웃 빌더 및 코드 생성기.",
       tabs: {
