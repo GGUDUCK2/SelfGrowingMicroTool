@@ -14,7 +14,8 @@
          <div class="absolute inset-0 border-b border-gray-300 transform rotate-45 origin-bottom-left w-[141%]"></div>
       </div>
 
-      <div class="overflow-x-auto"><table class="border-collapse">
+      <div class="overflow-x-auto">
+        <table class="border-collapse">
         <thead>
           <tr>
             <th class="w-12 h-12"></th> <!-- Corner placeholder -->
@@ -41,7 +42,8 @@
             </tr>
           {/each}
         </tbody>
-      </table></div>
+      </table>
+      </div>
     </div>
 
     <div class="mt-4 text-xs text-gray-500">

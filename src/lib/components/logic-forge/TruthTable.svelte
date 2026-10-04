@@ -43,7 +43,8 @@
   <div class="flex-1 overflow-auto min-h-[300px] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
   {#if data}
     <div class="inline-block min-w-full align-middle">
-      <div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
         <thead class="bg-gray-50 sticky top-0 z-10">
           <tr>
             {#each data.variables as v (v)}
@@ -78,7 +79,8 @@
             </tr>
           {/each}
         </tbody>
-      </table></div>
+      </table>
+      </div>
     </div>
   {:else}
     <div class="h-full flex flex-col items-center justify-center text-gray-400 p-8">
