@@ -19,13 +19,23 @@
 
   let interval: ReturnType<typeof setInterval>;
 
-  $: if (isPlaying) {
+  function startPlayback() {
+      stopPlayback();
       interval = setInterval(() => {
           if (progress < 100) progress += 0.5;
-          else isPlaying = false;
+          else {
+              isPlaying = false;
+          }
       }, 100);
-  } else {
-      clearInterval(interval);
+  }
+
+  function stopPlayback() {
+      if (interval) clearInterval(interval);
+  }
+
+  $: if (isPlaying !== undefined) {
+      if (isPlaying) startPlayback();
+      else stopPlayback();
   }
 
   onMount(() => {

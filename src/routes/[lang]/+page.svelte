@@ -10,12 +10,12 @@
 
   $: lang = ($page.params.lang || "en") as Language;
   $: dict = getDictionary(lang);
-  $: tools = registry;
+  let tools = registry;
 
   let searchQuery = "";
   let selectedCategory = "all";
 
-  $: categories = ["all", ...new Set(registry.map(t => t.category))].filter(Boolean).sort();
+  let categories = ["all", ...new Set(registry.map(t => t.category))].filter(Boolean).sort();
 
   $: filteredTools = tools.filter(tool => {
     const matchesSearch = tool.title[lang]?.toLowerCase().includes(searchQuery.toLowerCase()) ||
