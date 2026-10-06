@@ -77,7 +77,7 @@
       {#if $history$}
         <div class="divide-y divide-slate-100 dark:divide-slate-700/50">
           {#each $history$ as req (req.id)}
-            <div class="group relative w-full text-left hover:bg-white dark:hover:bg-slate-700/50 transition-colors p-3 cursor-pointer outline-none focus:bg-white dark:focus:bg-slate-700/50 min-h-[44px]">
+            <div class="group relative w-full text-left hover:bg-white dark:hover:bg-slate-700/50 transition-colors p-3 cursor-pointer outline-none focus:bg-white dark:bg-slate-800 dark:focus:bg-slate-700/50 min-h-[44px]">
                 <!-- Clickable area wrapper -->
                 <button class="absolute inset-0 w-full h-full cursor-pointer z-0 min-h-[44px]" on:click={() => onLoadRequest(req)} aria-label="Load request"></button>
 
@@ -134,7 +134,7 @@
                     {#if expandedFolders[folderName]}
                         <div class="pl-0 divide-y divide-slate-100 dark:divide-slate-800/50 bg-slate-50/50 dark:bg-slate-900/20">
                             {#each folders[folderName] as req (req.id)}
-                                <div class="group relative w-full text-left hover:bg-white dark:hover:bg-slate-700/50 transition-colors p-3 pl-8 cursor-pointer outline-none border-l-2 border-transparent hover:border-indigo-500 min-h-[44px]">
+                                <div class="group relative w-full text-left hover:bg-white dark:bg-slate-800 dark:hover:bg-slate-700/50 transition-colors p-3 pl-8 cursor-pointer outline-none border-l-2 border-transparent hover:border-indigo-500 min-h-[44px]">
                                     <button class="absolute inset-0 w-full h-full cursor-pointer z-0 min-h-[44px]" on:click={() => onLoadRequest(req)} aria-label="Load request"></button>
 
                                     <div class="relative z-10 pointer-events-none">

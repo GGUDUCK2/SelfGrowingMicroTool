@@ -135,7 +135,7 @@
   </div>
   {#if hoveredOffset !== null}
       <div
-          class="absolute top-0 bottom-0 w-0.5 bg-white/80 pointer-events-none mix-blend-difference"
+          class="absolute top-0 bottom-0 w-0.5 bg-white dark:bg-slate-800/80 pointer-events-none mix-blend-difference"
           style="left: {(hoveredOffset / map.length) * 100}%"
       ></div>
   {/if}

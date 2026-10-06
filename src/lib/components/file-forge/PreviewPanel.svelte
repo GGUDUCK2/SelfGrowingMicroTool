@@ -240,7 +240,7 @@
   <!-- Image Preview & Convert -->
   {#if previewUrl}
       <div class="space-y-4 border-t border-slate-200 dark:border-slate-800 pt-6">
-          <img src={previewUrl} alt="Preview" class="max-w-full max-h-96 rounded-lg mx-auto shadow-md object-contain bg-[url('/checker.png')] bg-white" />
+          <img src={previewUrl} alt="Preview" class="max-w-full max-h-96 rounded-lg mx-auto shadow-md object-contain bg-[url('/checker.png')] bg-white dark:bg-slate-800" />
 
           <div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
               <h4 class="text-sm font-bold mb-4 flex items-center gap-2">

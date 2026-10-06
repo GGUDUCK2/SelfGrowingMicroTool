@@ -17,7 +17,7 @@
 >
   <!-- Selection Checkbox -->
   <div class="absolute top-2 left-2 z-10">
-    <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors shadow-sm {selected ? 'bg-indigo-500 border-indigo-500' : 'bg-white/90 border-slate-300 dark:border-slate-600 group-hover:border-indigo-400'}">
+    <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors shadow-sm {selected ? 'bg-indigo-500 border-indigo-500' : 'bg-white dark:bg-slate-800/90 border-slate-300 dark:border-slate-600 group-hover:border-indigo-400'}">
       {#if selected}
         <Check class="w-3.5 h-3.5 text-white" />
       {/if}

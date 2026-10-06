@@ -118,7 +118,7 @@
         on:click={() => startWithLorem = !startWithLorem}
         aria-label="Toggle Start with Lorem"
       >
-        <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform {startWithLorem ? 'translate-x-6' : 'translate-x-1'}"></span>
+        <span class="inline-block h-4 w-4 transform rounded-full bg-white dark:bg-slate-800 transition-transform {startWithLorem ? 'translate-x-6' : 'translate-x-1'}"></span>
       </button>
       <span class="text-sm font-medium text-slate-700 dark:text-slate-300">
         {(dict as any)?.config?.startWithLorem || "Start with 'Lorem ipsum...'"}

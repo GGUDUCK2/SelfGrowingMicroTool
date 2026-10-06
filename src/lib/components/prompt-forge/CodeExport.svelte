@@ -64,7 +64,7 @@
 
         <div class="relative flex-1 bg-slate-900 overflow-auto group min-h-[300px]">
             <button
-                class="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                class="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white dark:bg-slate-800/20 text-white rounded-lg transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
                 on:click={copyCode}
                 title="Copy Code"
                 aria-label="Copy Code"

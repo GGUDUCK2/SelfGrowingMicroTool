@@ -30,7 +30,7 @@
   <div class="flex-grow overflow-y-auto pr-2 custom-scrollbar">
     <div class="grid gap-2">
       {#each cheatSheetItems as item}
-        <div class="flex items-center justify-between p-2 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition-colors group">
+        <div class="flex items-center justify-between p-2 rounded-lg hover:bg-white dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors group">
           <span class="text-sm text-slate-600 dark:text-slate-300">{item.label}</span>
           <code class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 rounded text-xs font-mono font-bold group-hover:bg-indigo-50 dark:group-hover:bg-slate-800 transition-colors">
             {item.code}

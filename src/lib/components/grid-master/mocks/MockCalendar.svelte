@@ -45,7 +45,7 @@
           >
               {d.date}
               {#if d.events > 0}
-                  <div class="w-1 h-1 rounded-full {selectedDate === d.date ? 'bg-white' : 'bg-indigo-500'} mt-0.5"></div>
+                  <div class="w-1 h-1 rounded-full {selectedDate === d.date ? 'bg-white dark:bg-slate-800' : 'bg-indigo-500'} mt-0.5"></div>
               {/if}
           </button>
       {/each}

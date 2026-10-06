@@ -108,10 +108,10 @@
 
         <div class="p-4 border-t border-slate-200 dark:border-slate-800 space-y-2 bg-slate-50/50 dark:bg-slate-900">
             <div class="grid gap-2 grid-cols-1 sm:grid-cols-2">
-                <button class="min-h-[44px] min-w-[44px] px-3 py-2.5 bg-white border border-slate-200 hover:border-indigo-300 text-slate-700 text-xs font-bold rounded-lg transition-colors shadow-sm flex items-center justify-center gap-1" on:click={() => handleExport('png')}>
+                <button class="min-h-[44px] min-w-[44px] px-3 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 hover:border-indigo-300 text-slate-700 text-xs font-bold rounded-lg transition-colors shadow-sm flex items-center justify-center gap-1" on:click={() => handleExport('png')}>
                     PNG
                 </button>
-                <button class="min-h-[44px] min-w-[44px] px-3 py-2.5 bg-white border border-slate-200 hover:border-indigo-300 text-slate-700 text-xs font-bold rounded-lg transition-colors shadow-sm flex items-center justify-center gap-1" on:click={() => handleExport('jpeg')}>
+                <button class="min-h-[44px] min-w-[44px] px-3 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 hover:border-indigo-300 text-slate-700 text-xs font-bold rounded-lg transition-colors shadow-sm flex items-center justify-center gap-1" on:click={() => handleExport('jpeg')}>
                     JPG
                 </button>
             </div>

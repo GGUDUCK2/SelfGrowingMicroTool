@@ -65,7 +65,7 @@
     <div class="flex items-center gap-2">
        {#if invoice.settings.logo}
           <div class="relative group">
-            <img src={invoice.settings.logo} alt="Logo" class="h-10 w-auto object-contain border rounded bg-white" />
+            <img src={invoice.settings.logo} alt="Logo" class="h-10 w-auto object-contain border rounded bg-white dark:bg-slate-800" />
             <button on:click={removeLogo} class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
                <X size={12} />
             </button>

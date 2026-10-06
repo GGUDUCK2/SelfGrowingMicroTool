@@ -266,7 +266,7 @@
               <span class="text-xs text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">Interactive Overlay</span>
           </div>
 
-          <div class="relative w-full aspect-video bg-[url('/checker.png')] bg-white rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-inner group">
+          <div class="relative w-full aspect-video bg-[url('/checker.png')] bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-inner group">
               <!-- Primary Image (Background) -->
               <img src={primaryImageUrl} alt="Primary File" class="absolute inset-0 w-full h-full object-contain pointer-events-none select-none" />
 
@@ -289,10 +289,10 @@
 
               <!-- Slider Line -->
               <div
-                  class="absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_5px_rgba(0,0,0,0.5)] z-0 pointer-events-none flex flex-col items-center justify-center transition-transform"
+                  class="absolute top-0 bottom-0 w-1 bg-white dark:bg-slate-800 shadow-[0_0_5px_rgba(0,0,0,0.5)] z-0 pointer-events-none flex flex-col items-center justify-center transition-transform"
                   style="left: calc({sliderValue}% - 2px);"
               >
-                  <div class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center">
+                  <div class="w-8 h-8 bg-white dark:bg-slate-800 rounded-full shadow-md flex items-center justify-center">
                       <GitCompare size={14} class="text-indigo-600" />
                   </div>
               </div>
@@ -328,7 +328,7 @@
               </div>
               <div class="max-h-[400px] overflow-y-auto p-4 space-y-1">
                   {#each diffLines as line (line.offset)}
-                      <div class="grid grid-cols-[60px_1fr_1fr] hover:bg-white/5 rounded transition-colors group">
+                      <div class="grid grid-cols-[60px_1fr_1fr] hover:bg-white dark:bg-slate-800/5 rounded transition-colors group">
                           <div class="text-slate-600">{line.offset}</div>
 
                           <!-- File 1 Bytes -->

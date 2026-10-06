@@ -219,7 +219,7 @@
   </div>
 
   <div
-    class="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 md:p-12 space-y-12 relative overflow-hidden"
+    class="bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-gray-100 p-6 md:p-12 space-y-12 relative overflow-hidden"
   >
     <!-- Background Decor -->
     <div
@@ -234,7 +234,7 @@
         {@const modeKey = m as keyof typeof MODES}
         <button
           on:click={() => setMode(modeKey)}
-          class="min-h-[44px] min-w-[44px] px-4 py-2 sm:px-6 sm:py-2 rounded-lg text-sm font-medium transition-all {mode === modeKey ? 'bg-white text-gray-900 dark:text-white shadow-sm ring-2 ring-indigo-500 ring-offset-1' : 'text-gray-500 hover:text-gray-900'}"
+          class="min-h-[44px] min-w-[44px] px-4 py-2 sm:px-6 sm:py-2 rounded-lg text-sm font-medium transition-all {mode === modeKey ? 'bg-white dark:bg-slate-800 text-gray-900 dark:text-white shadow-sm ring-2 ring-indigo-500 ring-offset-1' : 'text-gray-500 hover:text-gray-900'}"
         >
           {dict[MODES[modeKey].key]}
         </button>
@@ -330,7 +330,7 @@
 
   {#if history.length > 0}
       <div transition:fade class="mt-12">
-        <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+        <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg border border-gray-100">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
             <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -6,7 +6,7 @@
   const displayUrl = (url: string) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
 </script>
 
-<div class="p-10 min-h-[297mm] h-full bg-white text-black font-sans">
+<div class="p-10 min-h-[297mm] h-full bg-white dark:bg-slate-800 text-black font-sans">
   <!-- Header -->
   <header class="grid grid-cols-[2fr_1fr] gap-8 mb-10 border-b-4 border-black pb-8">
       <div>

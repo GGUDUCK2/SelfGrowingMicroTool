@@ -56,7 +56,7 @@
                     <span class="truncate font-medium text-sm">{table.name}</span>
                 </div>
                 <button
-                    class="opacity-0 group-hover:opacity-100 p-1 hover:bg-white dark:hover:bg-slate-700 hover:text-red-500 rounded transition-all z-10 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                    class="opacity-0 group-hover:opacity-100 p-1 hover:bg-white dark:bg-slate-800 dark:hover:bg-slate-700 hover:text-red-500 rounded transition-all z-10 min-h-[44px] min-w-[44px] flex items-center justify-center"
                     on:click={(e) => deleteTable(table.id, e)}
                     aria-label="Delete Table"
                     title="Delete Table"

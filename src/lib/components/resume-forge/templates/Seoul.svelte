@@ -113,7 +113,7 @@
   </div>
 
   <!-- Main Content -->
-  <div class="flex-1 p-10 space-y-8 bg-white text-slate-800 dark:text-slate-100">
+  <div class="flex-1 p-10 space-y-8 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100">
      <!-- Header -->
      <header class="space-y-2">
          <h1 class="text-4xl font-extrabold tracking-tight text-[var(--accent)] uppercase leading-none">{resume.basics.name}</h1>

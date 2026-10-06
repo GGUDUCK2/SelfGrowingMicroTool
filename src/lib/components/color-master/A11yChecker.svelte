@@ -25,7 +25,7 @@
 
     <div class="space-y-4">
       <!-- On White -->
-      <div class="flex items-center justify-between p-4 rounded-xl border border-slate-200 bg-white">
+      <div class="flex items-center justify-between p-4 rounded-xl border border-slate-200 bg-white dark:bg-slate-800">
         <div class="flex-1">
           <p style="color: {color}" class="text-lg font-bold truncate">{t.textSample}</p>
           <p class="text-xs text-slate-400 mt-1">on #FFFFFF</p>
@@ -76,7 +76,7 @@
             {whiteOnColor.contrast.toFixed(2)}
           </div>
           <div class="flex flex-col items-end mt-1">
-            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-white/20 text-white backdrop-blur-sm">AA: {whiteOnColor.level}</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-white dark:bg-slate-800/20 text-white backdrop-blur-sm">AA: {whiteOnColor.level}</span>
             {#if whiteSuggestion}
               <div class="mt-1 text-[10px] text-white/80 text-right">
                 Try: <span class="font-mono font-bold select-all">{whiteSuggestion}</span>
