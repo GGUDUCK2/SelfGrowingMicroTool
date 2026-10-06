@@ -664,3 +664,18 @@
 
 #### 3. Performance Impact (기대 효과)
 - 리포지토리 루트가 한결 깔끔해졌으며 불필요한 파일이 없어져 리포지토리 위생 기준을 만족함.
+
+### [Daily Improvement Report - 2026-10-06]
+#### 1. Identified Issues (발견된 문제)
+- `HashGenerator.svelte`, `MockVideo.svelte`, `MarkdownPreview.svelte` 컴포넌트에서 무한 렌더링 루프(`svelte/infinite-reactive-loop`) 위험을 감지했습니다.
+- 메인 페이지(`src/routes/[lang]/+page.svelte`)에서 불변 변수를 사용하는 반응형 구문(`svelte/no-immutable-reactive-statements`)에 의한 불필요한 재평가 이슈가 있었습니다.
+- 정보성 페이지(contact, privacy-policy 등)의 JSON-LD `<script>` 태그가 Svelte 컴파일러에서 오류를 유발할 수 있는 형태로 작성되어 있었습니다.
+
+#### 2. Key Changes (주요 수정 사항)
+- **Code**: `src/lib/components/cipher-lab/HashGenerator.svelte`, `src/lib/components/grid-master/mocks/MockVideo.svelte`, `src/lib/components/markdown-studio/MarkdownPreview.svelte` - 반응형 블록(`$:`) 내에서 상태 업데이트 시 무한 루프가 발생하지 않도록 의존성을 명확히 분리하거나 이벤트를 통해 처리하도록 리팩토링했습니다.
+- **Code**: `src/routes/[lang]/+page.svelte` - `$: tools = registry;` 등 불변 데이터에 대한 반응형 선언을 일반 변수 할당(`let`)으로 변경하여 린트 경고를 해결했습니다.
+- **SEO/AEO**: `src/routes/[lang]/contact/+page.svelte` 등 정보성 페이지의 JSON-LD 구조화 데이터 `<script>` 태그의 문자열 결합 난독화를 제거하고, 표준 `<script>` 태그와 `{@html ...}`을 사용하여 깔끔하게 리팩토링했습니다.
+
+#### 3. Performance Impact (기대 효과)
+- 무한 렌더링 루프 방지를 통해 클라이언트 브라우저의 메모리 누수와 성능 저하를 방지하여 체감 속도가 향상됩니다.
+- Svelte 컴파일러 경고를 제거하여 빌드 안정성이 강화되며, 올바른 JSON-LD 렌더링으로 검색 엔진이 구조화된 데이터를 완벽히 수집할 수 있게 되었습니다.

@@ -13,7 +13,9 @@
   <title>Contact Us | MicroFactory</title>
   <meta name="description" content="Get in touch with the MicroFactory team. We welcome your feedback, feature requests, and bug reports." />
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  {@html '<script type="application/ld+json">' + JSON.stringify({"@context":"https://schema.org","@type":"WebPage","@id":$page.url.origin + "/" + lang + "/contact","name":"Contact Us","description":"Get in touch with the MicroFactory team"}) + '</script>'}
+  <script type="application/ld+json">
+    {@html JSON.stringify({"@context":"https://schema.org","@type":"WebPage","@id":$page.url.origin + "/" + lang + "/contact","name":"Contact Us","description":"Get in touch with the MicroFactory team"})}
+  </script>
 </svelte:head>
 
 <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 prose prose-slate dark:prose-invert">

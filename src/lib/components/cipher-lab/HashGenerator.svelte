@@ -98,7 +98,7 @@
 
   // Reactive calculation with debounce
   let debounceTimer: ReturnType<typeof setTimeout>;
-  $: {
+  function handleInput() {
     if (input || (mode === 'hmac' && key)) {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
@@ -107,6 +107,10 @@
     } else {
       output = '';
     }
+  }
+
+  $: if (input !== undefined || mode !== undefined || key !== undefined || algorithm !== undefined || isBulk !== undefined) {
+      handleInput();
   }
 
   function copyToClipboard() {

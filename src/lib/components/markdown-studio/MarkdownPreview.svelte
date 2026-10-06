@@ -23,7 +23,7 @@
     breaks: true
   });
 
-  $: {
+  $: if (content !== undefined) {
     if (content) {
       parseMarkdown(content);
     } else {
