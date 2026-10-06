@@ -116,7 +116,7 @@
                   <input
                     type="text"
                     value={cell}
-                    class="w-full min-h-[44px] px-4 py-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-800 transition-colors"
+                    class="w-full min-h-[44px] px-4 py-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:bg-slate-800 dark:focus:bg-slate-800 transition-colors"
                     on:blur={(e) => updateCell(rowIndex, colIndex, e)}
                     aria-label={`Cell ${rowIndex + 1}, ${colIndex + 1}`}
                   />

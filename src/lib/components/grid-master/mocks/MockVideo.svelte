@@ -45,7 +45,7 @@
   <!-- Big Play Button -->
   {#if !isPlaying}
       <button
-         class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center pl-1 hover:scale-110 hover:bg-white/20 transition-all z-10 shadow-2xl min-h-[44px] min-w-[44px]"
+         class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center pl-1 hover:scale-110 hover:bg-white dark:bg-slate-800/20 transition-all z-10 shadow-2xl min-h-[44px] min-w-[44px]"
          on:click={togglePlay}
          aria-label="Play Video"
       >
@@ -56,9 +56,9 @@
   <!-- Controls Overlay -->
   <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 flex flex-col gap-2 transition-opacity opacity-0 group-hover:opacity-100 z-20">
       <!-- Scrubber -->
-      <div class="w-full h-1 bg-white/20 rounded-full cursor-pointer relative group/scrubber">
+      <div class="w-full h-1 bg-white dark:bg-slate-800/20 rounded-full cursor-pointer relative group/scrubber">
           <div class="absolute top-0 bottom-0 left-0 bg-red-600 rounded-full" style="width: {progress}%"></div>
-          <div class="absolute w-3 h-3 bg-white rounded-full -mt-1 shadow opacity-0 group-hover/scrubber:opacity-100 transition-opacity" style="left: {progress}%"></div>
+          <div class="absolute w-3 h-3 bg-white dark:bg-slate-800 rounded-full -mt-1 shadow opacity-0 group-hover/scrubber:opacity-100 transition-opacity" style="left: {progress}%"></div>
       </div>
 
       <div class="flex justify-between items-center text-xs font-mono">
@@ -76,8 +76,8 @@
           <div class="flex items-center gap-3">
               <div class="flex items-center gap-1 group/vol">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-                  <div class="w-16 h-1 bg-white/20 rounded-full overflow-hidden cursor-pointer">
-                      <div class="h-full bg-white" style="width: {volume}%"></div>
+                  <div class="w-16 h-1 bg-white dark:bg-slate-800/20 rounded-full overflow-hidden cursor-pointer">
+                      <div class="h-full bg-white dark:bg-slate-800" style="width: {volume}%"></div>
                   </div>
               </div>
               <button aria-label="Fullscreen" class="min-h-[44px] min-w-[44px]">

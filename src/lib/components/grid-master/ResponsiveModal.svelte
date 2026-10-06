@@ -31,7 +31,7 @@
               </h2>
               <p class="text-slate-400 text-sm mt-1">Verify your layout across standard breakpoints</p>
           </div>
-          <button on:click={close} class="p-2 hover:bg-white/10 rounded-full transition-colors">
+          <button on:click={close} class="p-2 hover:bg-white dark:bg-slate-800/10 rounded-full transition-colors">
               <X size={32} />
           </button>
       </div>

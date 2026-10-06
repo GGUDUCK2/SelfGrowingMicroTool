@@ -37,7 +37,7 @@
 
   <!-- Current Time Marker -->
   <div
-      class="absolute top-0 bottom-0 w-0.5 bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] z-10 transition-all duration-300"
+      class="absolute top-0 bottom-0 w-0.5 bg-white dark:bg-slate-800 shadow-[0_0_8px_rgba(255,255,255,0.8)] z-10 transition-all duration-300"
       style="left: {progressPercent}%"
   ></div>
 </div>

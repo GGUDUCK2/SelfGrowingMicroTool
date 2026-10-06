@@ -99,7 +99,7 @@
     </button>
 
     <button
-        class="p-2 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white rounded-lg transition-colors border border-white/10"
+        class="p-2 bg-white/5 hover:bg-white dark:bg-slate-800/10 text-gray-300 hover:text-white rounded-lg transition-colors border border-white/10"
         on:click={shareUrl}
         title={dict.buttons.share}
         aria-label="Share"
@@ -121,7 +121,7 @@
     </button>
 
     <button
-        class="p-2 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white rounded-lg transition-colors border border-white/10"
+        class="p-2 bg-white/5 hover:bg-white dark:bg-slate-800/10 text-gray-300 hover:text-white rounded-lg transition-colors border border-white/10"
         on:click={downloadCrontab}
         title={dict.buttons.download}
         aria-label="Download"

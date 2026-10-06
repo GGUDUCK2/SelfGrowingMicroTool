@@ -78,7 +78,7 @@
                                     <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
                                         <button
                                             on:click={() => copy(step.command)}
-                                            class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-white/10 rounded text-slate-400 hover:text-white transition-colors"
+                                            class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-white dark:bg-slate-800/10 rounded text-slate-400 hover:text-white transition-colors"
                                             title="Copy Command"
                                             aria-label="Copy Command"
                                         >
@@ -86,7 +86,7 @@
                                         </button>
                                         <button
                                             on:click={() => save(step.command, activeScenario.title)}
-                                            class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-white/10 rounded text-slate-400 hover:text-white transition-colors"
+                                            class="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:bg-white dark:bg-slate-800/10 rounded text-slate-400 hover:text-white transition-colors"
                                             title="Save to History"
                                             aria-label="Save to History"
                                         >

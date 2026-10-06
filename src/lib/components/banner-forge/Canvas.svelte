@@ -146,7 +146,7 @@
 <div class="flex items-center justify-center p-8 bg-slate-100 dark:bg-slate-900 overflow-auto h-full w-full relative">
   <div
     {id}
-    class="relative shadow-2xl transition-all duration-300 ease-in-out origin-center bg-white shrink-0"
+    class="relative shadow-2xl transition-all duration-300 ease-in-out origin-center bg-white dark:bg-slate-800 shrink-0"
     style="
       width: {state.width}px;
       height: {state.height}px;
@@ -209,22 +209,22 @@
             {#if state.selectedLayerId === layer.id}
                 <!-- Top Left -->
                 <div
-                    class="absolute -top-1.5 -left-1.5 w-3 h-3 bg-white border border-indigo-500 rounded-full cursor-nw-resize z-50 hover:scale-125 transition-transform"
+                    class="absolute -top-1.5 -left-1.5 w-3 h-3 bg-white dark:bg-slate-800 border border-indigo-500 rounded-full cursor-nw-resize z-50 hover:scale-125 transition-transform"
                     on:mousedown={(e) => handleResizeMouseDown(e, 'top-left')}
                 ></div>
                 <!-- Top Right -->
                 <div
-                    class="absolute -top-1.5 -right-1.5 w-3 h-3 bg-white border border-indigo-500 rounded-full cursor-ne-resize z-50 hover:scale-125 transition-transform"
+                    class="absolute -top-1.5 -right-1.5 w-3 h-3 bg-white dark:bg-slate-800 border border-indigo-500 rounded-full cursor-ne-resize z-50 hover:scale-125 transition-transform"
                     on:mousedown={(e) => handleResizeMouseDown(e, 'top-right')}
                 ></div>
                 <!-- Bottom Left -->
                 <div
-                    class="absolute -bottom-1.5 -left-1.5 w-3 h-3 bg-white border border-indigo-500 rounded-full cursor-sw-resize z-50 hover:scale-125 transition-transform"
+                    class="absolute -bottom-1.5 -left-1.5 w-3 h-3 bg-white dark:bg-slate-800 border border-indigo-500 rounded-full cursor-sw-resize z-50 hover:scale-125 transition-transform"
                     on:mousedown={(e) => handleResizeMouseDown(e, 'bottom-left')}
                 ></div>
                 <!-- Bottom Right -->
                 <div
-                    class="absolute -bottom-1.5 -right-1.5 w-3 h-3 bg-white border border-indigo-500 rounded-full cursor-se-resize z-50 hover:scale-125 transition-transform"
+                    class="absolute -bottom-1.5 -right-1.5 w-3 h-3 bg-white dark:bg-slate-800 border border-indigo-500 rounded-full cursor-se-resize z-50 hover:scale-125 transition-transform"
                     on:mousedown={(e) => handleResizeMouseDown(e, 'bottom-right')}
                 ></div>
             {/if}

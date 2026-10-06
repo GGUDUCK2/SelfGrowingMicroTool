@@ -64,8 +64,8 @@
   <div class="p-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex justify-between items-center text-[10px] text-slate-500">
       <span>Showing 1-5 of 24</span>
       <div class="flex gap-1">
-          <button class="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 transition-colors min-h-[44px] min-w-[44px]">Prev</button>
-          <button class="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 transition-colors min-h-[44px] min-w-[44px]">Next</button>
+          <button class="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 hover:bg-white dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors min-h-[44px] min-w-[44px]">Prev</button>
+          <button class="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 hover:bg-white dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors min-h-[44px] min-w-[44px]">Next</button>
       </div>
   </div>
 </div>

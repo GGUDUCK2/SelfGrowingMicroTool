@@ -120,7 +120,7 @@
         </div>
     </div>
 
-    <div class="p-6 {isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'} transition-colors duration-300 min-h-[300px] flex items-center justify-center">
+    <div class="p-6 {isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-white dark:bg-slate-800 text-black'} transition-colors duration-300 min-h-[300px] flex items-center justify-center">
 
         <!-- Google -->
         {#if activePreview === 'google'}
@@ -162,7 +162,7 @@
 
         <!-- Facebook -->
         {:else if activePreview === 'facebook'}
-            <div class="w-full max-w-[500px] border {isDarkMode ? 'border-gray-700 bg-[#242526]' : 'border-gray-200 bg-white'} rounded-lg overflow-hidden font-sans">
+            <div class="w-full max-w-[500px] border {isDarkMode ? 'border-gray-700 bg-[#242526]' : 'border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800'} rounded-lg overflow-hidden font-sans">
                  {#if tags.ogImage}
                      <div class="aspect-[1.91/1] bg-gray-100 overflow-hidden w-full relative">
                          <img src={tags.ogImage} alt="Preview" class="w-full h-full object-cover" />
@@ -185,7 +185,7 @@
                                 <img src={tags.ogImage} alt="Preview" class="w-full h-full object-cover" />
                             </div>
                         {/if}
-                        <div class="p-3 flex flex-col justify-center flex-1 min-w-0 {isDarkMode ? 'bg-black' : 'bg-white'}">
+                        <div class="p-3 flex flex-col justify-center flex-1 min-w-0 {isDarkMode ? 'bg-black' : 'bg-white dark:bg-slate-800'}">
                              <div class="text-[15px] {isDarkMode ? 'text-[#71767b]' : 'text-[#536471]'} mb-0.5 truncate">{displayDomain}</div>
                              <div class="text-[15px] {isDarkMode ? 'text-[#e7e9ea]' : 'text-[#0f1419]'} font-bold mb-0.5 line-clamp-2">{displayTitle}</div>
                              <div class="text-[15px] {isDarkMode ? 'text-[#71767b]' : 'text-[#536471]'} line-clamp-2">{displayDesc}</div>
@@ -198,7 +198,7 @@
                                 <img src={tags.ogImage} alt="Preview" class="w-full h-full object-cover" />
                             </div>
                         {/if}
-                        <div class="p-3 {isDarkMode ? 'bg-black' : 'bg-white'}">
+                        <div class="p-3 {isDarkMode ? 'bg-black' : 'bg-white dark:bg-slate-800'}">
                             <div class="text-[15px] {isDarkMode ? 'text-[#71767b]' : 'text-[#536471]'} mb-0.5 truncate">{displayDomain}</div>
                             <div class="text-[15px] {isDarkMode ? 'text-[#e7e9ea]' : 'text-[#0f1419]'} mb-0.5 truncate">{displayTitle}</div>
                             <div class="text-[15px] {isDarkMode ? 'text-[#71767b]' : 'text-[#536471]'} line-clamp-2">{displayDesc}</div>
@@ -209,7 +209,7 @@
 
         <!-- LinkedIn -->
         {:else if activePreview === 'linkedin'}
-            <div class="w-full max-w-[500px] font-sans border {isDarkMode ? 'border-gray-700 bg-[#1d2226]' : 'border-gray-300 bg-white'} rounded-md overflow-hidden cursor-pointer shadow-sm">
+            <div class="w-full max-w-[500px] font-sans border {isDarkMode ? 'border-gray-700 bg-[#1d2226]' : 'border-gray-300 bg-white dark:bg-slate-800'} rounded-md overflow-hidden cursor-pointer shadow-sm">
                  {#if tags.ogImage}
                      <div class="aspect-[1.91/1] bg-gray-100 w-full">
                          <img src={tags.ogImage} alt="Preview" class="w-full h-full object-cover" />

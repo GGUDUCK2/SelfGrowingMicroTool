@@ -8,7 +8,7 @@
   $: totals = calculateTotal(invoice.items, invoice.settings);
 </script>
 
-<div id="invoice-preview" class="bg-white text-black p-8 sm:p-12 shadow-lg mx-auto min-h-[297mm] w-full max-w-[210mm] relative print:shadow-none print:w-full print:max-w-none print:m-0 print:h-auto overflow-hidden">
+<div id="invoice-preview" class="bg-white dark:bg-slate-800 text-black p-8 sm:p-12 shadow-lg mx-auto min-h-[297mm] w-full max-w-[210mm] relative print:shadow-none print:w-full print:max-w-none print:m-0 print:h-auto overflow-hidden">
 
   <!-- Header -->
   <div class="flex justify-between items-start mb-12">

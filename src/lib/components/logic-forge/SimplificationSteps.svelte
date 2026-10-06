@@ -7,14 +7,14 @@
 <div class="space-y-6 p-4">
   <!-- Canonical Forms -->
   <div class="grid gap-4 md:grid-cols-2 grid-cols-1">
-    <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm">
       <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Sum of Products (SOP)</h3>
       <div class="font-mono text-sm bg-gray-50 p-3 rounded-lg overflow-x-auto whitespace-nowrap text-indigo-700">
         {sop}
       </div>
     </div>
 
-    <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm">
       <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Product of Sums (POS)</h3>
       <div class="font-mono text-sm bg-gray-50 p-3 rounded-lg overflow-x-auto whitespace-nowrap text-indigo-700">
         {pos}

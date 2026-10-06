@@ -99,7 +99,7 @@
         <div class="absolute inset-0 opacity-30 bg-gradient-to-br from-indigo-900 to-purple-900"></div>
 
         <div class="relative flex flex-col items-center space-y-2">
-            <div class="w-16 h-16 bg-white shadow-lg overflow-hidden relative" style="border-radius: 22%; {config.transparent ? '' : `background-color: ${config.background};`}">
+            <div class="w-16 h-16 bg-white dark:bg-slate-800 shadow-lg overflow-hidden relative" style="border-radius: 22%; {config.transparent ? '' : `background-color: ${config.background};`}">
                  <div class="w-full h-full flex items-center justify-center" style="{paddingStyle}">
                     <img src={imgUrl} class="w-full h-full object-contain" alt="App Icon" />
                  </div>
@@ -141,10 +141,10 @@
         <div class="bg-slate-900/50 px-4 py-3 border-b border-slate-700">
           <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">{t.platforms.search}</span>
         </div>
-        <div class="p-6 bg-white">
+        <div class="p-6 bg-white dark:bg-slate-800">
             <div class="max-w-md">
                 <div class="flex items-center space-x-3 mb-1">
-                    <div class="w-7 h-7 rounded-full bg-gray-100 border border-gray-200 overflow-hidden flex items-center justify-center p-1">
+                    <div class="w-7 h-7 rounded-full bg-gray-100 border border-gray-200 dark:border-slate-700 overflow-hidden flex items-center justify-center p-1">
                          <div class="w-full h-full relative" style="{containerStyle}">
                             <img src={imgUrl} class="w-full h-full object-contain" style="{paddingStyle}" alt="Result" />
                          </div>

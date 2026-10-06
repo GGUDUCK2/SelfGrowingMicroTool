@@ -102,7 +102,7 @@
             ></video>
 
             <div class="absolute top-4 right-4 bg-red-600/90 backdrop-blur text-white px-3 py-1 rounded-full text-sm font-medium animate-pulse flex items-center gap-2 shadow-lg z-10">
-                <div class="w-2 h-2 bg-white rounded-full"></div>
+                <div class="w-2 h-2 bg-white dark:bg-slate-800 rounded-full"></div>
                 REC {formatDuration(duration)}
             </div>
         {:else}
@@ -166,7 +166,7 @@
                 on:click={stop}
                 title={t.stop}
             >
-                <div class="w-8 h-8 rounded bg-white"></div>
+                <div class="w-8 h-8 rounded bg-white dark:bg-slate-800"></div>
             </button>
 
             <div class="ml-4 flex flex-col items-start min-w-[100px]">

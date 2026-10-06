@@ -529,7 +529,7 @@
         bind:this={hexContainer}
       >
         {#each hexLines as line (line.offsetDisplay)}
-          <div class="flex hover:bg-white/5 rounded px-1 transition-colors group">
+          <div class="flex hover:bg-white dark:bg-slate-800/5 rounded px-1 transition-colors group">
             <span class="text-slate-500 w-12 select-none shrink-0 border-r border-slate-800 mr-3">{line.offsetDisplay}</span>
 
             <!-- Bytes Area -->
@@ -537,7 +537,7 @@
                 {#if line.bytes.length > 0}
                     {#each line.bytes as byte (byte.offset)}
                         <button
-                            class="w-6 text-center hover:bg-white/20 rounded {byte.modified ? 'text-yellow-400 font-bold' : 'text-cyan-400'} {editMode ? 'cursor-pointer hover:scale-110' : 'cursor-default'} focus:outline-none focus:bg-white/20 focus:ring-2 focus:ring-indigo-500 {hoveredByte && hoveredByte.offset === byte.offset ? 'ring-2 ring-indigo-500 bg-white/20' : ''}"
+                            class="w-6 text-center hover:bg-white/20 rounded {byte.modified ? 'text-yellow-400 font-bold' : 'text-cyan-400'} {editMode ? 'cursor-pointer hover:scale-110' : 'cursor-default'} focus:outline-none focus:bg-white/20 focus:ring-2 focus:ring-indigo-500 {hoveredByte && hoveredByte.offset === byte.offset ? 'ring-2 ring-indigo-500 bg-white dark:bg-slate-800/20' : ''}"
                             on:click={() => handleByteClick(byte)}
                             on:mouseenter={() => handleByteHover(byte)}
                             on:mouseleave={handleMouseLeave}

@@ -437,7 +437,7 @@
               aria-label="Open Grid Wizard"
           >
               <div class="flex items-center gap-3">
-                   <div class="bg-white/20 p-2 rounded-lg">
+                   <div class="bg-white dark:bg-slate-800/20 p-2 rounded-lg">
                        <Wand2 size={20} />
                    </div>
                    <div class="text-left">
@@ -445,7 +445,7 @@
                        <div class="text-[10px] opacity-80">Step-by-step Builder</div>
                    </div>
               </div>
-              <div class="bg-white/20 rounded-full p-1 group-hover:bg-white/30 transition-colors">
+              <div class="bg-white/20 rounded-full p-1 group-hover:bg-white dark:bg-slate-800/30 transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
               </div>
           </button>

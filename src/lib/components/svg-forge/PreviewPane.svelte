@@ -63,7 +63,7 @@
            <div class="w-4 h-4 rounded border border-slate-300 dark:border-slate-600 bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/ENAEAWgw8FqCAwO/N2BgYBg1AAAKZAkHh+w4YwAAAABJRU5ErkJggg==')]"></div>
         </button>
         <button onclick={() => bgMode = 'white'} class="px-2 py-1 rounded text-xs font-medium transition-colors {bgMode === 'white' ? 'bg-white dark:bg-slate-800 shadow-sm text-slate-800 dark:text-slate-200' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'} min-h-[36px]" title={t.preview.bgWhite || 'White'}>
-           <div class="w-4 h-4 rounded border border-slate-300 dark:border-slate-600 bg-white"></div>
+           <div class="w-4 h-4 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800"></div>
         </button>
         <button onclick={() => bgMode = 'dark'} class="px-2 py-1 rounded text-xs font-medium transition-colors {bgMode === 'dark' ? 'bg-white dark:bg-slate-800 shadow-sm text-slate-800 dark:text-slate-200' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'} min-h-[36px]" title={t.preview.bgDark || 'Dark'}>
            <div class="w-4 h-4 rounded border border-slate-300 dark:border-slate-600 bg-slate-900"></div>

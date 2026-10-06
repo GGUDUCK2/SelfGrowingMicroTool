@@ -176,7 +176,7 @@
 </script>
 
 <div class="bg-slate-800 rounded-xl border border-slate-700 shadow-lg p-6 flex flex-col items-center justify-center sticky top-6">
-  <div class="bg-white p-4 rounded-lg shadow-inner mb-6 transition-all duration-300 relative">
+  <div class="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-inner mb-6 transition-all duration-300 relative">
       <!-- Hidden canvas for processing -->
       <canvas bind:this={canvas} class="hidden"></canvas>
 

@@ -19,7 +19,7 @@
           <tr>
             <th class="w-12 h-12"></th> <!-- Corner placeholder -->
             {#each data.colLabels as label}
-              <th class="border border-gray-200 bg-gray-50 p-2 min-w-[3rem] text-center font-mono text-sm text-gray-600">
+              <th class="border border-gray-200 dark:border-slate-700 bg-gray-50 p-2 min-w-[3rem] text-center font-mono text-sm text-gray-600">
                 {label}
               </th>
             {/each}
@@ -28,12 +28,12 @@
         <tbody>
           {#each data.rowLabels as rowLabel, rIdx}
             <tr>
-              <th class="border border-gray-200 bg-gray-50 p-2 w-12 text-center font-mono text-sm text-gray-600">
+              <th class="border border-gray-200 dark:border-slate-700 bg-gray-50 p-2 w-12 text-center font-mono text-sm text-gray-600">
                 {rowLabel}
               </th>
               {#each data.grid[rIdx] as cell, cIdx}
-                <td class="border border-gray-200 text-center p-0 relative w-12 h-12">
-                  <div class="w-full h-full flex items-center justify-center font-bold text-lg {cell ? 'bg-indigo-50 text-indigo-700' : 'bg-white text-gray-300'} transition-colors hover:bg-indigo-100">
+                <td class="border border-gray-200 dark:border-slate-700 text-center p-0 relative w-12 h-12">
+                  <div class="w-full h-full flex items-center justify-center font-bold text-lg {cell ? 'bg-indigo-50 text-indigo-700' : 'bg-white dark:bg-slate-800 text-gray-300'} transition-colors hover:bg-indigo-100">
                     {cell ? '1' : '0'}
                   </div>
                 </td>

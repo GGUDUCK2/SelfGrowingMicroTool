@@ -59,7 +59,7 @@
                           </div>
                       </button>
                   {/each}
-                  <button class="w-full py-1.5 border border-dashed border-slate-300 dark:border-slate-600 rounded text-[10px] text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700/50 hover:text-indigo-500 transition-colors flex items-center justify-center gap-1 min-h-[44px] min-w-[44px]">
+                  <button class="w-full py-1.5 border border-dashed border-slate-300 dark:border-slate-600 rounded text-[10px] text-slate-400 hover:bg-white dark:bg-slate-800/50 dark:hover:bg-slate-700/50 hover:text-indigo-500 transition-colors flex items-center justify-center gap-1 min-h-[44px] min-w-[44px]">
                       <span>+ Add Task</span>
                   </button>
               </div>

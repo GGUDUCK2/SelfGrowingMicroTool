@@ -42,7 +42,7 @@
   }
 </script>
 
-<div class="bg-white/5 border border-white/10 rounded-xl p-6 min-h-[200px]">
+<div class="bg-white dark:bg-slate-800/5 border border-white/10 rounded-xl p-6 min-h-[200px]">
   <div class="flex items-center justify-between mb-4">
     <h3 class="text-lg font-semibold text-white">
       {dict.historyTitle}
@@ -89,7 +89,7 @@
             </p>
           </button>
           <button
-            class="p-1.5 text-gray-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all rounded hover:bg-white/5"
+            class="p-1.5 text-gray-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all rounded hover:bg-white dark:bg-slate-800/5"
             aria-label="Delete"
             on:click={() => item.id && deleteItem(item.id)}
           >
