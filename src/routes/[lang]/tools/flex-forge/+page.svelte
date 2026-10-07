@@ -15,11 +15,13 @@
   import HistorySidebar from '$lib/components/flex-forge/HistorySidebar.svelte';
 
   import type { FlexContainerProps, FlexItemProps, FlexForgeHistoryItem } from '$lib/db/flex-forge';
+  import type { ToolHistoryItem } from '$lib/db/workspace';
   import { db } from '$lib/db';
+  import { saveToHistory, loadHistory, toggleStar, deleteHistoryItem, clearHistory } from '$lib/db/workspace';
 
   $: lang = $page.params.lang || 'en';
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  $: dict = (getDictionary(lang) as any)?.tools?.flexForge || getDictionary('en').tools.flexForge;
+  export let dict: Record<string, any> = {};
+  $: dict = getDictionary(lang)?.tools?.flexForge || getDictionary('en').tools.flexForge;
 
   let activeTab: 'editor' | 'history' = 'editor';
 
@@ -80,20 +82,7 @@
   async function saveLayout() {
     isSaving = true;
     try {
-      await db.flexForgeHistory.add({
-        containerProps: { ...containerProps },
-        items: JSON.parse(JSON.stringify(items)),
-        createdAt: Date.now(),
-        starred: false
-      });
-
-      const count = await db.flexForgeHistory.count();
-      if (count > 100) {
-        const oldest = await db.flexForgeHistory.orderBy('createdAt').first();
-        if (oldest && oldest.id) {
-           await db.flexForgeHistory.delete(oldest.id);
-        }
-      }
+      await saveToHistory('flex-forge', { containerProps: { ...containerProps } }, { items: JSON.parse(JSON.stringify(items)) });
       historyKey++;
     } catch (err) {
       console.error(err);
@@ -118,9 +107,11 @@
     }
   }
 
-  function loadHistoryItem(item: FlexForgeHistoryItem) {
-    containerProps = { ...item.containerProps };
-    items = JSON.parse(JSON.stringify(item.items));
+  function loadHistoryItem(item: any) { // Hack to support both old and new history temporarily during migration if needed, but we will just cast
+    const data = item.input || item; // input has containerProps for new, item has it directly for old
+    const res = item.result || item; // result has items for new
+    containerProps = { ...data.containerProps };
+    items = JSON.parse(JSON.stringify(res.items));
     selectedItemId = null;
     activeTab = 'editor';
   }
@@ -154,6 +145,21 @@
       containerProps = { flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'center', alignItems: 'center', alignContent: 'stretch', gap: '0px' };
       items = [
         { id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: '200px', height: '200px', text: 'Center' }
+      ];
+    } else if (preset === 'sidebar') {
+      containerProps = { flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'flex-start', alignItems: 'stretch', alignContent: 'stretch', gap: '16px' };
+      items = [
+        { id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '0', flexBasis: '250px', alignSelf: 'auto', width: '250px', height: 'auto', text: 'Sidebar' },
+        { id: crypto.randomUUID(), order: '0', flexGrow: '1', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: 'auto', height: '400px', text: 'Main Content' }
+      ];
+    } else if (preset === 'masonry') {
+      containerProps = { flexDirection: 'column', flexWrap: 'wrap', justifyContent: 'flex-start', alignItems: 'stretch', alignContent: 'stretch', gap: '16px' };
+      items = [
+        { id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: '200px', height: '150px', text: '1' },
+        { id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: '200px', height: '250px', text: '2' },
+        { id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: '200px', height: '180px', text: '3' },
+        { id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: '200px', height: '200px', text: '4' },
+        { id: crypto.randomUUID(), order: '0', flexGrow: '0', flexShrink: '1', flexBasis: 'auto', alignSelf: 'auto', width: '200px', height: '120px', text: '5' }
       ];
     }
     selectedItemId = null;
@@ -245,10 +251,12 @@ $: schema = {
     <!-- Presets -->
     <div class="hidden lg:flex items-center gap-2">
       <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{dict.presets}:</span>
-      <button on:click={() => applyPreset('navbar')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetNavbar}</button>
-      <button on:click={() => applyPreset('holygrail')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetHolyGrail}</button>
-      <button on:click={() => applyPreset('gallery')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetGallery}</button>
-      <button on:click={() => applyPreset('centered')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetCentered}</button>
+      <button on:click={() => applyPreset('navbar')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetNavbar || 'Navbar'}</button>
+      <button on:click={() => applyPreset('sidebar')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetSidebar || 'Sidebar'}</button>
+      <button on:click={() => applyPreset('holygrail')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetHolyGrail || 'Holy Grail'}</button>
+      <button on:click={() => applyPreset('gallery')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetGallery || 'Gallery'}</button>
+      <button on:click={() => applyPreset('centered')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetCentered || 'Centered'}</button>
+      <button on:click={() => applyPreset('masonry')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetMasonry || 'Masonry'}</button>
     </div>
 
     <!-- Viewport -->
