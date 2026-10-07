@@ -5,29 +5,40 @@
   import { formatDistanceToNow } from 'date-fns';
   import { enUS, ko } from 'date-fns/locale';
   import type { FlexForgeHistoryItem } from '$lib/db/flex-forge';
+  import { loadHistory as loadHistoryFromWorkspace, toggleStar as toggleWorkspaceStar, deleteHistoryItem as deleteWorkspaceItem } from '$lib/db/workspace';
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export let dict: Record<string, any>;
   export let onSelect: (item: FlexForgeHistoryItem) => void;
   export let lang: string = 'en';
 
-  let historyItems: FlexForgeHistoryItem[] = [];
+  let historyItems: any[] = [];
 
   const loadHistory = async () => {
-    historyItems = await db.flexForgeHistory.orderBy('createdAt').reverse().toArray();
+    const oldHistory = await db.flexForgeHistory.orderBy('createdAt').reverse().toArray();
+    const newHistory = await loadHistoryFromWorkspace('flex-forge');
+    historyItems = [...newHistory, ...oldHistory].sort((a,b) => (b.timestamp || b.createdAt) - (a.timestamp || a.createdAt));
   };
 
   onMount(() => {
     loadHistory();
   });
 
-  const deleteItem = async (id: number) => {
-    await db.flexForgeHistory.delete(id);
+  const deleteItem = async (item: any) => {
+    if (item.toolId) {
+       await deleteWorkspaceItem(item.id);
+    } else {
+       await db.flexForgeHistory.delete(item.id);
+    }
     await loadHistory();
   };
 
-  const toggleStar = async (item: FlexForgeHistoryItem) => {
-    await db.flexForgeHistory.update(item.id!, { starred: !item.starred });
+  const toggleStar = async (item: any) => {
+    if (item.toolId) {
+       await toggleWorkspaceStar(item.id);
+    } else {
+       await db.flexForgeHistory.update(item.id!, { starred: !item.starred });
+    }
     await loadHistory();
   };
 </script>
@@ -49,7 +60,7 @@
         <div class="bg-white dark:bg-slate-900 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow group relative">
           <div class="flex justify-between items-start mb-2">
             <span class="text-xs font-medium text-slate-500 dark:text-slate-400">
-              {formatDistanceToNow(item.createdAt, { addSuffix: true, locale: lang === 'ko' ? ko : enUS })}
+              {formatDistanceToNow(item.timestamp || item.createdAt, { addSuffix: true, locale: lang === 'ko' ? ko : enUS })}
             </span>
             <button
               class="text-slate-400 hover:text-yellow-500 transition-colors p-1"
@@ -60,8 +71,8 @@
           </div>
 
           <div class="flex gap-2 flex-wrap text-xs text-slate-600 dark:text-slate-300 font-mono mb-4">
-             <span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">{item.containerProps.flexDirection}</span>
-             <span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">{item.items.length} items</span>
+             <span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">{item.toolId ? item.input.containerProps.flexDirection : item.containerProps.flexDirection}</span>
+             <span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">{item.toolId ? item.result.items.length : item.items.length} items</span>
           </div>
 
           <div class="flex gap-2 w-full mt-2">
@@ -74,7 +85,7 @@
             </button>
             <button
               class="flex items-center justify-center p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors"
-              on:click={() => deleteItem(item.id!)}
+              on:click={() => deleteItem(item)}
               title={dict.historySidebar.delete}
             >
               <Trash2 size={16} />

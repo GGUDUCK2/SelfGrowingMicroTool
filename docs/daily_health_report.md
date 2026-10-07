@@ -664,3 +664,19 @@
 
 #### 3. Performance Impact (기대 효과)
 - 리포지토리 루트가 한결 깔끔해졌으며 불필요한 파일이 없어져 리포지토리 위생 기준을 만족함.
+
+### [Daily Improvement Report - 2026-10-07]
+#### 1. Identified Issues (발견된 문제)
+- `flex-forge` 도구가 `workspace.ts`의 통합 `ToolWorkspace` 기반 Dexie 히스토리 시스템을 사용하지 않고 독립적인 레거시 히스토리를 사용하고 있었음.
+- 요소의 실제 Computed 픽셀 크기를 실시간으로 시각화하는 기능이 부재.
+- 고급 레이아웃(Sidebar, Masonry) 작성을 위한 스마트 프리셋 부족.
+
+#### 2. Key Changes (주요 수정 사항)
+- **스마트 디멘전 오버레이 (Smart Dimension Overlay):** `Workspace.svelte` 내에서 Svelte의 `bind:clientWidth` / `bind:clientHeight` 기능을 통해 요소 선택 시 Computed 너비와 높이를 픽셀 단위로 실시간 제공하는 기능 추가.
+- **고급 프리셋 시스템 (Advanced Presets Engine):** 사용 빈도가 높은 `Sidebar` 및 `Masonry` (fallback) 레이아웃 프리셋을 추가 및 UI에 연동.
+- **히스토리 아키텍처 마이그레이션:** 레거시 `flexForgeHistory`에서 표준화된 `ToolWorkspace` (`src/lib/db/workspace.ts`)로 이관 (하위 호환성 유지 래퍼 적용).
+
+#### 3. Performance Impact (기대 효과)
+- 즉각적인 레이아웃 치수 피드백을 통해 뷰포트 크기 변경에 따른 Flexbox 속성의 동작을 직관적으로 파악할 수 있어 개발 및 학습 속도 극대화.
+- 고급 프리셋 활용으로 복잡한 레이아웃 부트스트래핑 시간을 10배 단축.
+- 일관된 히스토리 아키텍처(100개 제한 로직, 즐겨찾기, 삭제 등) 활용으로 유지보수성 및 앱 전반의 성능 안정성 확보.

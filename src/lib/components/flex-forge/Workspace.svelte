@@ -8,6 +8,16 @@
   export let viewport: 'mobile' | 'tablet' | 'desktop' | 'full' = 'full';
   export let moveItem: (index: number, direction: -1 | 1) => void;
 
+  let itemDimensions: Record<string, { w: number, h: number }> = {};
+
+  $: {
+    items.forEach(item => {
+      if (!itemDimensions[item.id]) {
+        itemDimensions[item.id] = { w: 0, h: 0 };
+      }
+    });
+  }
+
 
   $: containerStyle = `
     display: flex;
@@ -44,9 +54,18 @@
           {selectedItemId === item.id ? 'bg-indigo-600 text-white ring-4 ring-indigo-200 dark:ring-indigo-900 shadow-lg scale-[1.02]' : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 shadow-sm border border-slate-200 dark:border-slate-700'}"
         style={getItemStyle(item)}
         on:click={() => selectedItemId = item.id} on:keydown={(e) => e.key === "Enter" && (selectedItemId = item.id)} role="button" tabindex="0"
+        bind:clientWidth={itemDimensions[item.id].w}
+        bind:clientHeight={itemDimensions[item.id].h}
         in:scale={{ duration: 200, start: 0.9 }}
       >
         {item.text}
+
+        <!-- Smart Dimension Overlay -->
+        {#if selectedItemId === item.id && itemDimensions[item.id]}
+          <div class="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-indigo-900 text-indigo-50 text-[10px] font-mono px-2 py-0.5 rounded shadow-sm opacity-90 z-20">
+             {itemDimensions[item.id].w}x{itemDimensions[item.id].h}px
+          </div>
+        {/if}
 
         <!-- Selection Indicator -->
         {#if selectedItemId === item.id}
