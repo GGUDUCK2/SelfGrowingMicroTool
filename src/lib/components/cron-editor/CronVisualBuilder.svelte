@@ -143,7 +143,7 @@
 
     <!-- Specific Grid -->
     {#if activeTab === 0}
-       <div class="grid gap-2 grid-cols-10">
+       <div class="grid gap-2 grid-cols-5 sm:grid-cols-10">
          {#each OPTIONS.minutes as m}
            <button
              class="rounded p-1 text-xs font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-slate-900 {isSelected(0, m) ? 'bg-indigo-600 text-white border-2 border-indigo-500' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-white/10'}"
