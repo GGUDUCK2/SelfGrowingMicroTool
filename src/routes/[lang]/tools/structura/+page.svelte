@@ -66,7 +66,7 @@
 
   // React to input changes for auto-detection
   let inputDebounceTimer: ReturnType<typeof setTimeout>;
-  $: if (input && input.length < 10000) {
+  let checkInput = () => {
     clearTimeout(inputDebounceTimer);
     inputDebounceTimer = setTimeout(() => {
       const detected = detectFormat(input);
@@ -85,6 +85,8 @@
       }
     }, 500);
   }
+
+  $: if (input && input.length < 10000) checkInput();
 
   function runConversion() {
     isConverting = true;
