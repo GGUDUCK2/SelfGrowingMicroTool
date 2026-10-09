@@ -487,14 +487,14 @@ import Head from '$lib/components/Head.svelte';
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         <div class="flex space-x-1 bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-xl w-fit">
             <button
-                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'generate' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                class="px-6 py-2.5 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'generate' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                 on:click={() => activeTab = 'generate'}
             >
                 <RefreshCw size={16} class="inline-block mr-2" />
                 {t.tabGenerate}
             </button>
             <button
-                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'analyze' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                class="px-6 py-2.5 min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium transition-all {activeTab === 'analyze' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                 on:click={() => activeTab = 'analyze'}
             >
                 <Search size={16} class="inline-block mr-2" />
@@ -601,7 +601,7 @@ import Head from '$lib/components/Head.svelte';
                             {t.history}
                         </h2>
                         {#if history.length > 0}
-                            <button on:click={clearHistory} class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1">
+                            <button on:click={clearHistory} class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1 min-h-[44px] min-w-[44px]">
                                 <Trash2 size={14} />
                                 <span class="hidden sm:inline">{t.clearHistory}</span>
                             </button>
@@ -625,7 +625,7 @@ import Head from '$lib/components/Head.svelte';
                                         <div class="text-sm font-medium text-slate-800 dark:text-slate-200">{item.name}</div>
                                         <div class="text-xs text-slate-500 dark:text-slate-400">{new Date(item.timestamp).toLocaleString()}</div>
                                     </div>
-                                    <button on:click|stopPropagation={() => deleteHistoryItem(item.id)} class="text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity p-2">
+                                    <button on:click|stopPropagation={() => deleteHistoryItem(item.id)} class="text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity p-2 min-h-[44px] min-w-[44px]">
                                         <Trash2 size={16} />
                                     </button>
                                 </div>
