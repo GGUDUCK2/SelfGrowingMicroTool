@@ -664,3 +664,16 @@
 
 #### 3. Performance Impact (기대 효과)
 - 리포지토리 루트가 한결 깔끔해졌으며 불필요한 파일이 없어져 리포지토리 위생 기준을 만족함.
+
+### [Daily Improvement Report - 2024-10-09]
+#### 1. Identified Issues (발견된 문제)
+- `src/routes/[lang]/tools/structura/+page.svelte` 내에서 Svelte 컴파일러 에러 `svelte/infinite-reactive-loop` 발생 (Reactive 블록 내에서 무한 루프 가능성).
+- `src/routes/[lang]/tools/subnet-scope/+page.svelte` 내에서 `svelte/no-immutable-reactive-statements` 에러 발생 (Dexie.js `liveQuery` observables 초기화 시 잘못된 reactive block 사용).
+
+#### 2. Key Changes (주요 수정 사항)
+- `structura` 툴: 반응형 선언(`$: if (input...)`)을 제거하고 이벤트 또는 수동 호출로 debounce 로직을 실행하는 `handleInput` 함수와 `$:` 반응형 감지를 사용하도록 구조 개선.
+- `subnet-scope` 툴: `liveQuery` 초기화 구문을 반응형 블록(`$: if (browser)`)에서 `onMount` 훅 내부로 이동하여 불변성 관련 경고 해결.
+
+#### 3. Performance Impact (기대 효과)
+- 빌드 경고 및 에러를 제거하여 CI/CD 파이프라인의 빌드 안정성 확보.
+- Svelte 컴파일러에서 잠재적 무한 루프를 방지하여 애플리케이션의 메모리 누수 방지 및 성능 향상.

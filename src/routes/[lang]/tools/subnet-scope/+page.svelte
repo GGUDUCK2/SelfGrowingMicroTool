@@ -94,9 +94,11 @@
 
   // History
   let history$: Observable<ToolHistoryItem[]> | undefined;
-  $: if (browser) {
-      history$ = liveQuery(() => getHistoryObservable('subnet-scope'));
-  }
+  onMount(() => {
+      if (browser) {
+          history$ = liveQuery(() => getHistoryObservable('subnet-scope'));
+      }
+  });
 
   function restore(item: ToolHistoryItem) {
       if (typeof item.input === 'string') {

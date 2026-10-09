@@ -66,7 +66,8 @@
 
   // React to input changes for auto-detection
   let inputDebounceTimer: ReturnType<typeof setTimeout>;
-  $: if (input && input.length < 10000) {
+  function handleInput() {
+    if (input && input.length < 10000) {
     clearTimeout(inputDebounceTimer);
     inputDebounceTimer = setTimeout(() => {
       const detected = detectFormat(input);
@@ -84,6 +85,12 @@
         runVisualizer();
       }
     }, 500);
+  }
+  }
+
+  $: {
+    input;
+    if (browser) handleInput();
   }
 
   function runConversion() {
