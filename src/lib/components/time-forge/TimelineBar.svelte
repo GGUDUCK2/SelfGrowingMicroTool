@@ -42,7 +42,7 @@
   ></div>
 </div>
 
-<div class="flex justify-between text-[10px] text-slate-600 px-0.5 mt-1 font-mono">
+<div class="flex justify-between text-[10px] text-slate-600 dark:text-slate-400 px-0.5 mt-1 font-mono">
     <span>00</span>
     <span>06</span>
     <span>12</span>
