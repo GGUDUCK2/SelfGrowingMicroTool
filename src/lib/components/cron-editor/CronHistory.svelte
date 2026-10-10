@@ -49,7 +49,7 @@
     </h3>
     {#if $history && $history.length > 0}
       <button
-        class="text-xs text-red-400 hover:text-red-300 transition-colors"
+        class="text-xs text-red-400 hover:text-red-300 transition-colors min-h-[44px] px-2"
         on:click={clearHistory}
       >
         {dict.clearAll}
@@ -71,7 +71,7 @@
           transition:slide
         >
           <button
-            class="flex-1 text-left"
+            class="flex-1 text-left min-h-[44px] flex flex-col justify-center"
             on:click={() => onSelect(item.expression)}
           >
             <div class="flex items-center space-x-2">
@@ -89,7 +89,7 @@
             </p>
           </button>
           <button
-            class="p-1.5 text-gray-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all rounded hover:bg-white/5"
+            class="p-1.5 text-gray-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all rounded hover:bg-white/5 min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Delete"
             on:click={() => item.id && deleteItem(item.id)}
           >

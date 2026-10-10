@@ -77,7 +77,7 @@
 
 <div class="flex items-center space-x-2">
     <button
-        class="flex items-center space-x-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors font-medium text-sm"
+        class="flex items-center space-x-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors font-medium text-sm min-h-[44px]"
         on:click={copyToClipboard}
         title={`${dict.buttons.copy} (Ctrl+S)`}
     >
@@ -99,7 +99,7 @@
     </button>
 
     <button
-        class="p-2 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white rounded-lg transition-colors border border-white/10"
+        class="p-2 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white rounded-lg transition-colors border border-white/10 min-h-[44px] min-w-[44px] flex items-center justify-center"
         on:click={shareUrl}
         title={dict.buttons.share}
         aria-label="Share"
