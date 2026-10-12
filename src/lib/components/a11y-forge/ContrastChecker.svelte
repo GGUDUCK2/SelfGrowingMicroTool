@@ -352,7 +352,7 @@ Generated via A11y Forge`;
     <!-- Mode Toggle -->
     <div class="flex border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 rounded-2xl overflow-hidden mb-6" role="tablist">
       <button
-        class="flex-1 py-3 flex items-center justify-center gap-2 text-sm font-medium transition-colors border-b-2 min-h-[44px] {mode === 'pair' ? 'text-indigo-600 border-indigo-600 dark:text-indigo-400 dark:border-indigo-400 bg-white dark:bg-slate-900' : 'text-slate-500 border-transparent hover:text-slate-700 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800'}"
+        class="flex-1 py-3 flex items-center justify-center gap-2 text-sm font-medium transition-colors border-b-2 min-h-[44px] {mode === 'pair' ? 'text-indigo-600 border-indigo-600 dark:text-indigo-400 dark:border-indigo-400 bg-white dark:bg-slate-900' : 'text-slate-500 border-transparent hover:text-slate-700 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800'} min-w-[44px]"
         on:click={() => mode = 'pair'}
         role="tab" aria-selected={mode === 'pair'}
       >
@@ -360,7 +360,7 @@ Generated via A11y Forge`;
         {c.pairMode || 'Pair Contrast'}
       </button>
       <button
-        class="flex-1 py-3 flex items-center justify-center gap-2 text-sm font-medium transition-colors border-b-2 min-h-[44px] {mode === 'palette' ? 'text-indigo-600 border-indigo-600 dark:text-indigo-400 dark:border-indigo-400 bg-white dark:bg-slate-900' : 'text-slate-500 border-transparent hover:text-slate-700 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800'}"
+        class="flex-1 py-3 flex items-center justify-center gap-2 text-sm font-medium transition-colors border-b-2 min-h-[44px] {mode === 'palette' ? 'text-indigo-600 border-indigo-600 dark:text-indigo-400 dark:border-indigo-400 bg-white dark:bg-slate-900' : 'text-slate-500 border-transparent hover:text-slate-700 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800'} min-w-[44px]"
         on:click={() => mode = 'palette'}
         role="tab" aria-selected={mode === 'palette'}
       >
@@ -448,7 +448,7 @@ Generated via A11y Forge`;
         {#if !(wcag.normal !== 'Fail')}
           <button
             on:click={applyAutoFix}
-            class="px-4 py-2 min-h-[44px] bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors"
+            class="px-4 py-2 min-h-[44px] bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors min-w-[44px]"
           >
             Auto-Fix Color
           </button>
@@ -513,7 +513,7 @@ Generated via A11y Forge`;
         {#if wcag.normal === 'Fail'}
         <button
           on:click={applySmartSuggestion}
-          class="flex items-center gap-2 px-4 py-2 min-h-[44px] text-sm font-medium text-indigo-700 bg-indigo-100 rounded-lg hover:bg-indigo-200 transition-colors dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-900/50"
+          class="flex items-center gap-2 px-4 py-2 min-h-[44px] text-sm font-medium text-indigo-700 bg-indigo-100 rounded-lg hover:bg-indigo-200 transition-colors dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-900/50 min-w-[44px]"
         >
           <Sparkles size={16} />
           {c.smartSuggest || 'Smart Suggestion'}
@@ -522,7 +522,7 @@ Generated via A11y Forge`;
 
         <button
           on:click={copyReport}
-          class="flex items-center gap-2 px-4 py-2 min-h-[44px] text-sm font-medium text-slate-700 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+          class="flex items-center gap-2 px-4 py-2 min-h-[44px] text-sm font-medium text-slate-700 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors min-w-[44px]"
         >
           {#if copied}
             <CheckCircle2 size={16} class="text-emerald-500" />
@@ -535,7 +535,7 @@ Generated via A11y Forge`;
 
         <button
           on:click={shareReport}
-          class="flex items-center gap-2 px-4 py-2 min-h-[44px] text-sm font-medium text-slate-700 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+          class="flex items-center gap-2 px-4 py-2 min-h-[44px] text-sm font-medium text-slate-700 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors min-w-[44px]"
         >
           <Share2 size={16} />
           {c.share || 'Share'}
@@ -560,7 +560,7 @@ Generated via A11y Forge`;
           </p>
           <button
             style="color: {bgColor}; background-color: {fgColor};"
-            class="px-5 py-2.5 min-h-[44px] rounded-lg font-medium shadow-sm transition-transform hover:scale-105 active:scale-95"
+            class="px-5 py-2.5 min-h-[44px] rounded-lg font-medium shadow-sm transition-transform hover:scale-105 active:scale-95 min-w-[44px]"
           >
             {c.uiComponents || 'UI Component'}
           </button>
@@ -623,7 +623,7 @@ Generated via A11y Forge`;
                           <span class="text-slate-300 dark:text-slate-600">-</span>
                         {:else}
                           <button
-                            class="flex flex-col items-center justify-center w-full h-full gap-1 p-1 rounded-md min-h-[44px]"
+                            class="flex flex-col items-center justify-center w-full h-full gap-1 p-1 rounded-md min-h-[44px] min-w-[44px]"
                             on:click={() => { fgColor = fg; bgColor = bg; mode = 'pair'; saveToHistory(); }}
                             aria-label="Set pair: BG {bg}, FG {fg}"
                           >
@@ -705,7 +705,7 @@ Generated via A11y Forge`;
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill={item.starred ? "currentColor" : "none"} stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
             </button>
-            <button class="flex-1 flex items-center gap-3 text-left" on:click={() => restoreItem(item)}>
+            <button class="flex-1 flex items-center gap-3 text-left min-h-[44px] min-w-[44px]" on:click={() => restoreItem(item)}>
               <div class="flex -space-x-2">
                 <div class="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700" style="background-color: {item.fgColor}"></div>
                 <div class="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700" style="background-color: {item.bgColor}"></div>
