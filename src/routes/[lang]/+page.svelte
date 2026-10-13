@@ -117,8 +117,8 @@
 
         {#each tools.slice(0, 3) as tool, i (tool.id)}
 
+          <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
           <a
-
             href="/{lang}/tools/{tool.slug}"
 
             in:fly={{ y: 20, duration: 800, delay: i * 100 }}
@@ -169,8 +169,9 @@
 
   <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     {#each filteredTools as tool, i (tool.id)}
-      <a
-        href="/{lang}/tools/{tool.slug}"
+      <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+          <a
+            href="/{lang}/tools/{tool.slug}"
         in:fly={{ y: 20, duration: 800, delay: 400 + i * 100 }}
         class="group relative bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm hover:shadow-2xl dark:hover:shadow-indigo-500/10 hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-slate-700 overflow-hidden"
       >
