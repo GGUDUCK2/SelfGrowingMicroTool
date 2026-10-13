@@ -14,8 +14,19 @@ import Head from '$lib/components/Head.svelte';
     $: lang = $page.params.lang as 'en' | 'ko';
 
     const dict = {
+
+
         en: {
             title: "UUID Forge",
+
+            collisionTitle: "Collision Insight",
+            collisionText: "Odds of collision in this batch size:",
+            collisionZero: "Practically Zero",
+            analyticsTitle: "Batch Analytics",
+            timeSpan: "Time Span",
+            minTime: "Earliest",
+            maxTime: "Latest",
+
             description: "The definitive tool for generating, formatting, and analyzing Universally Unique Identifiers (UUIDs) with pro-grade precision.",
             version: "UUID Version",
             quantity: "Quantity",
@@ -80,8 +91,19 @@ import Head from '$lib/components/Head.svelte';
             columnName: "Column Name (for SQL/CSV)",
         },
 
+
+
         ko: {
             title: "UUID 포지 (UUID Forge)",
+
+            collisionTitle: "충돌 인사이트",
+            collisionText: "현재 생성 수량의 충돌 확률:",
+            collisionZero: "사실상 0%",
+            analyticsTitle: "배치 분석",
+            timeSpan: "시간 간격",
+            minTime: "가장 빠른 시간",
+            maxTime: "가장 늦은 시간",
+
             description: "전문가 수준의 정밀도로 범용 고유 식별자(UUID)를 생성, 포맷팅 및 분석하기 위한 완벽한 도구입니다.",
             version: "UUID 버전",
             quantity: "생성 수량",
@@ -403,16 +425,27 @@ import Head from '$lib/components/Head.svelte';
     };
 
     const loadHistoryItem = (item: ToolHistoryItem) => {
-        if(item && item.data && item.data.raw) {
-            rawUuids = item.data.raw;
-            if (item.data.options) {
-                isUppercase = item.data.options.isUppercase;
-                includeBraces = item.data.options.includeBraces;
-                removeHyphens = item.data.options.removeHyphens;
+        interface HistoryData {
+            raw?: string[];
+            uuids?: string[];
+            options?: {
+                isUppercase: boolean;
+                includeBraces: boolean;
+                removeHyphens: boolean;
             }
-        } else if (item && item.data && item.data.uuids) {
+        }
+        const data = item.data as HistoryData;
+
+        if(item && data && data.raw) {
+            rawUuids = data.raw;
+            if (data.options) {
+                isUppercase = data.options.isUppercase;
+                includeBraces = data.options.includeBraces;
+                removeHyphens = data.options.removeHyphens;
+            }
+        } else if (item && data && data.uuids) {
             // Fallback for older entries without 'raw'
-            rawUuids = item.data.uuids;
+            rawUuids = data.uuids;
         }
     };
 
@@ -437,7 +470,15 @@ import Head from '$lib/components/Head.svelte';
             "price": "0",
             "priceCurrency": "USD"
         },
+
+
         "featureList": [
+            "Collision Probability Analytics",
+            "Batch Timestamp Analytics",
+
+            "Collision Probability Analytics",
+            "Batch Timestamp Analytics",
+
             "UUID v1, v4, v7 Generation",
             "Bulk UUID Generator",
             "Custom Formatting (Braces, Hyphens, Uppercase)",
@@ -669,8 +710,16 @@ import Head from '$lib/components/Head.svelte';
                             placeholder="Generated UUIDs will appear here..."
                         ></textarea>
                     </div>
+
                     <!-- Stats overlay -->
+                    {#if version === 'v4' && quantity > 1}
+                        <div class="absolute top-4 right-4 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs px-3 py-2 rounded-lg shadow-sm border border-indigo-100 dark:border-indigo-800 flex flex-col items-end">
+                            <span class="font-bold flex items-center gap-1">✨ {t.collisionTitle}</span>
+                            <span class="opacity-80">{t.collisionText} {t.collisionZero}</span>
+                        </div>
+                    {/if}
                     <div class="absolute bottom-4 right-4 bg-slate-900/80 dark:bg-black/60 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-lg shadow-lg font-medium">
+
                         {generatedUuids.length} / 1000
                     </div>
                 </div>
@@ -732,8 +781,55 @@ import Head from '$lib/components/Head.svelte';
                 </div>
             </div>
 
+
             {#if analyzeResults.length > 0}
+            <!-- Batch Analytics Summary -->
+            {#if analyzeResults.some(r => r.timestamp)}
+            <div class="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800 rounded-2xl p-6 mb-6">
+                <h3 class="text-indigo-800 dark:text-indigo-300 font-bold mb-4 flex items-center gap-2">
+                    <Search size={18} />
+                    {t.analyticsTitle}
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-indigo-50 dark:border-indigo-900/50">
+                        <div class="text-xs text-indigo-500 dark:text-indigo-400 mb-1">{t.minTime}</div>
+                        <div class="font-medium text-slate-800 dark:text-slate-200 text-sm">
+                            {(() => {
+                                const times = analyzeResults.map(r => r.timestamp ? new Date(r.timestamp).getTime() : 0).filter(t => t > 0);
+                                return times.length ? new Date(Math.min(...times)).toLocaleString() : '-';
+                            })()}
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-indigo-50 dark:border-indigo-900/50">
+                        <div class="text-xs text-indigo-500 dark:text-indigo-400 mb-1">{t.maxTime}</div>
+                        <div class="font-medium text-slate-800 dark:text-slate-200 text-sm">
+                            {(() => {
+                                const times = analyzeResults.map(r => r.timestamp ? new Date(r.timestamp).getTime() : 0).filter(t => t > 0);
+                                return times.length ? new Date(Math.max(...times)).toLocaleString() : '-';
+                            })()}
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-indigo-50 dark:border-indigo-900/50">
+                        <div class="text-xs text-indigo-500 dark:text-indigo-400 mb-1">{t.timeSpan}</div>
+                        <div class="font-medium text-slate-800 dark:text-slate-200 text-sm">
+                            {(() => {
+                                const times = analyzeResults.map(r => r.timestamp ? new Date(r.timestamp).getTime() : 0).filter(t => t > 0);
+                                if (times.length < 2) return '-';
+                                const diff = Math.max(...times) - Math.min(...times);
+                                const secs = Math.floor(diff / 1000);
+                                if (secs < 60) return `${secs}s`;
+                                const mins = Math.floor(secs / 60);
+                                if (mins < 60) return `${mins}m ${secs % 60}s`;
+                                return `${Math.floor(mins / 60)}h ${mins % 60}m`;
+                            })()}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/if}
+
             <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
+
                 <div class="p-6 border-b border-slate-200 dark:border-slate-700">
                     <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-200">
                         {t.analyzeResults}
