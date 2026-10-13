@@ -226,15 +226,13 @@ $: schema = {
   <!-- Main Toolbar -->
   <div class="flex flex-wrap gap-4 items-center justify-between bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
     <div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
-       <button
-        class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all min-h-[44px] {activeTab === 'editor' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+       <button class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all min-h-[44px] {activeTab === 'editor' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'} min-w-[44px]"
         on:click={() => activeTab = 'editor'}
       >
         <LayoutDashboard size={18} />
         <span class="hidden sm:inline">{dict.tabs.editor}</span>
       </button>
-      <button
-        class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all min-h-[44px] {activeTab === 'history' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+      <button class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all min-h-[44px] {activeTab === 'history' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'} min-w-[44px]"
         on:click={() => activeTab = 'history'}
       >
         <Clock size={18} />
@@ -263,17 +261,15 @@ $: schema = {
       <div class="hidden xl:flex text-xs text-slate-400 mr-2 border-r border-slate-200 dark:border-slate-700 pr-4 py-1">
         {dict.shortcuts?.help || 'Shortcuts: Ctrl+Enter (Add), Ctrl+K (Reset), Ctrl+S (Save), Esc (Deselect)'}
       </div>
-      <button
-        on:click={resetLayout}
-        class="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800 rounded-lg transition-colors font-medium text-sm min-h-[44px]"
+      <button on:click={resetLayout}
+        class="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800 rounded-lg transition-colors font-medium text-sm min-h-[44px] min-w-[44px]"
       >
         <RotateCcw size={18} />
         <span class="hidden sm:inline">{dict.reset}</span>
       </button>
-      <button
-        on:click={saveLayout}
+      <button on:click={saveLayout}
         disabled={isSaving}
-        class="flex items-center gap-2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors shadow-md hover:shadow-lg font-medium text-sm min-h-[44px] disabled:opacity-50"
+        class="flex items-center gap-2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors shadow-md hover:shadow-lg font-medium text-sm min-h-[44px] disabled:opacity-50 min-w-[44px]"
       >
         <Save size={18} class={isSaving ? 'animate-bounce' : ''} />
         {dict.save}
