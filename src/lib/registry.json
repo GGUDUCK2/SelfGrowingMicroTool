@@ -1554,5 +1554,25 @@
       "developer"
     ],
     "createdAt": "2026-09-27"
+  },
+  {
+    "id": "radix-forge",
+    "slug": "radix-forge",
+    "title": {
+      "en": "Radix Forge",
+      "ko": "Radix Forge"
+    },
+    "description": {
+      "en": "Advanced Number Base Converter with BigInt, IEEE 754, and signed integer support.",
+      "ko": "BigInt, IEEE 754 및 부호 있는 정수를 지원하는 고급 진수 변환기."
+    },
+    "category": "dev",
+    "tags": [
+      "base",
+      "converter",
+      "hex",
+      "binary",
+      "math"
+    ]
   }
 ]
