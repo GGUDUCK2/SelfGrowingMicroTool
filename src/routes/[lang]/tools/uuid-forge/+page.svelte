@@ -1,9 +1,9 @@
 <script lang="ts">
     import { page } from '$app/stores';
 import Head from '$lib/components/Head.svelte';
-    import { v1, v4, v7 } from 'uuid';
+    import { v1, v3, v4, v5, v7, validate, version as uuidVersion } from 'uuid';
     import { db } from '$lib/db';
-    import { workspace, type ToolHistoryItem } from '$lib/db/workspace';
+    import { workspace, saveToHistory, loadHistory, clearHistory, deleteHistoryItem, type ToolHistoryItem } from '$lib/db/workspace';
     import { onMount } from 'svelte';
     import { Copy, Download, RefreshCw, Trash2, History, Check, Settings2, Share2, Search, Code, Database, Table } from '@lucide/svelte';
     import RelatedTools from '$lib/components/RelatedTools.svelte';
@@ -34,6 +34,16 @@ import Head from '$lib/components/Head.svelte';
             v1: "Version 1 (Time-based)",
             v4: "Version 4 (Random - Default)",
             v7: "Version 7 (Time-ordered)",
+            v3: "Version 3 (MD5 Name-based)",
+            v5: "Version 5 (SHA-1 Name-based)",
+            namespace: "Namespace UUID",
+            nameString: "Name String",
+            namespaceHelp: "Required for v3/v5. Must be a valid UUID.",
+            nameHelp: "The string to hash. For bulk, index is appended.",
+            analyzeTime: "Extracted Time (Local)",
+            invalidNamespace: "Invalid Namespace UUID",
+            v5Description: "Generate deterministic UUIDs from a namespace and a name.",
+
             guideTitle: "UUID Forge Guide",
             guideIntro: "UUID Forge is a professional-grade tool designed for developers needing reliable, compliant, and bulk UUID generation.",
             featuresTitle: "Core Features",
@@ -150,9 +160,13 @@ import Head from '$lib/components/Head.svelte';
 
     $: t = dict[lang] || dict['en'];
 
+
     let version: 'v1' | 'v4' | 'v7' = 'v4';
     let quantity = 5;
     let isUppercase = false;
+    let namespace = '1b671a64-40d5-491e-99b0-da01ff1f3341'; // default UUID
+    let nameInput = 'example';
+
     let includeBraces = false;
     let removeHyphens = false;
     let generatedUuids: string[] = [];
@@ -264,12 +278,9 @@ import Head from '$lib/components/Head.svelte';
 
 
     // Load History
-    const loadHistory = async () => {
+    const loadUserHistory = async () => {
         try {
-            const rawHistory = await workspace.history
-                .where('toolId')
-                .equals('uuid-forge')
-                .toArray();
+            const rawHistory = await loadHistory('uuid-forge', 100);
             history = rawHistory.sort((a, b) => b.timestamp - a.timestamp);
         } catch (e) {
             console.error(e);
@@ -279,6 +290,7 @@ import Head from '$lib/components/Head.svelte';
     };
 
     onMount(() => {
+        loadUserHistory();
         window.addEventListener('keydown', handleKeydown);
         return () => window.removeEventListener('keydown', handleKeydown);
     });
@@ -301,7 +313,6 @@ import Head from '$lib/components/Head.svelte';
 
     onMount(() => {
         generate();
-        loadHistory();
     });
 
     $: {
@@ -353,13 +364,8 @@ import Head from '$lib/components/Head.svelte';
         rawUuids = rawBatch;
 
         try {
-            await workspace.history.add({
-                toolId: 'uuid-forge',
-                name: `${version.toUpperCase()} x${quantity}`,
-                data: { raw: rawBatch, options: { isUppercase, includeBraces, removeHyphens } },
-                timestamp: Date.now()
-            });
-            await loadHistory();
+            await saveToHistory('uuid-forge', { raw: rawBatch }, { name: `${version.toUpperCase()} x${quantity}` });
+            await loadUserHistory();
         } catch (e) {
             console.error(e);
         }
@@ -391,7 +397,7 @@ import Head from '$lib/components/Head.svelte';
     };
 
 
-    const clearHistory = async () => {
+    const clearUserHistory = async () => {
         try {
             const items = await workspace.history.where('toolId').equals('uuid-forge').toArray();
             const keys = items.map(i => i.id).filter(id => id !== undefined) as number[];
@@ -416,10 +422,10 @@ import Head from '$lib/components/Head.svelte';
         }
     };
 
-    const deleteHistoryItem = async (id: number) => {
+    const deleteUserHistoryItem = async (id: number) => {
         try {
-            await workspace.history.delete(id);
-            await loadHistory();
+            await deleteHistoryItem(id);
+            await loadUserHistory();
         } catch (e) {
             console.error(e);
         }
@@ -449,6 +455,27 @@ import Head from '$lib/components/Head.svelte';
     };
 </script>
 
+<Head
+    title={`${t.title} - ${lang === 'ko' ? '초정밀 UUID 생성기 & 분석기' : 'Pro-grade UUID Generator & Analyzer'}`}
+    description={t.description}
+    url={`https://tools.microfactory.dev/${lang}/tools/uuid-forge`}
+/>
+
+<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+{@html '<scr' + 'ipt type="application/ld+json">' + JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "UUID Forge",
+    "description": t.description,
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "offers": {
+        "@type": "Offer",
+        "price": "0"
+    }
+}) + '</scr' + 'ipt>'}
+
+
 
 <svelte:head>
     <!-- Twitter Card -->
@@ -458,7 +485,8 @@ import Head from '$lib/components/Head.svelte';
     <link rel="alternate" hreflang="x-default" href="https://microfactory.app/en/tools/uuid-forge" />
 
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-    {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+{@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
 </svelte:head>
 
 <Head
@@ -601,7 +629,7 @@ import Head from '$lib/components/Head.svelte';
                             {t.history}
                         </h2>
                         {#if history.length > 0}
-                            <button on:click={clearHistory} class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1">
+                            <button on:click={clearUserHistory} class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1">
                                 <Trash2 size={14} />
                                 <span class="hidden sm:inline">{t.clearHistory}</span>
                             </button>
@@ -725,7 +753,7 @@ import Head from '$lib/components/Head.svelte';
                     aria-label={t.analyzePlaceholder}
                 ></textarea>
                 <div class="mt-4 flex justify-end">
-                    <button on:click={analyzeUuids} class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-[0.98]">
+                    <button aria-label={t.analyzeButton} on:click={analyzeUuids} class="flex items-center gap-2 min-h-[44px] bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-[0.98]">
                         <Search size={18} />
                         {t.analyzeButton}
                     </button>
@@ -747,7 +775,7 @@ import Head from '$lib/components/Head.svelte';
                                 <th class="px-6 py-4">Status</th>
                                 <th class="px-6 py-4">Version</th>
                                 <th class="px-6 py-4">Variant</th>
-                                <th class="px-6 py-4">Extracted Time</th>
+                                <th class="px-6 py-4">{t.analyzeTime}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -767,7 +795,16 @@ import Head from '$lib/components/Head.svelte';
                                 </td>
                                 <td class="px-6 py-4 text-slate-600 dark:text-slate-400">{res.version}</td>
                                 <td class="px-6 py-4 text-slate-600 dark:text-slate-400">{res.variant}</td>
-                                <td class="px-6 py-4 text-slate-600 dark:text-slate-400">{res.timestamp || '-'}</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-400">
+                                    {#if res.timestamp}
+                                        <div class="flex flex-col">
+                                            <span class="font-medium text-slate-800 dark:text-slate-200">{new Date(res.timestamp).toLocaleString()}</span>
+                                            <span class="text-xs text-slate-500">{res.timestamp}</span>
+                                        </div>
+                                    {:else}
+                                        -
+                                    {/if}
+                                </td>
                             </tr>
                             {/each}
                         </tbody>
