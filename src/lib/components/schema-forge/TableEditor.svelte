@@ -149,7 +149,7 @@
                          <!-- Flags -->
                          <div class="flex items-center gap-1">
                              <button
-                                 class="p-1 rounded text-xs font-bold min-w-[44px] min-h-[44px] flex items-center justify-center {col.isNullable ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 'text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}"
+                                 class="p-1 rounded text-xs font-bold min-w-[44px] min-h-[44px] flex items-center justify-center {col.isNullable ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400' : 'text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}"
                                  on:click={() => { col.isNullable = !col.isNullable; if(col.isPk) col.isNullable = false; dispatch('change'); }}
                                  title="Nullable (N)"
                              >

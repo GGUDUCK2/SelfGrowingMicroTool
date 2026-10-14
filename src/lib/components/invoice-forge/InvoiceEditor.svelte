@@ -71,7 +71,7 @@
             </button>
           </div>
        {:else}
-          <label class="cursor-pointer text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1">
+          <label class="cursor-pointer text-sm text-indigo-600 hover:text-indigo-700 flex items-center gap-1">
             <Upload size={16} />
             {dictionary.editor.uploadLogo}
             <input type="file" accept="image/*" class="hidden" on:change={handleLogoUpload} />
@@ -126,19 +126,19 @@
   <div class="grid gap-4 bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
      <div class="space-y-1">
         <label for="invoiceNumber" class="text-xs font-medium text-gray-500 dark:text-gray-400">{dictionary.editor.number}</label>
-        <input id="invoiceNumber" type="text" bind:value={invoice.meta.number} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none font-mono" />
+        <input id="invoiceNumber" type="text" bind:value={invoice.meta.number} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-indigo-500 outline-none font-mono" />
      </div>
      <div class="space-y-1">
         <label for="invoiceDate" class="text-xs font-medium text-gray-500 dark:text-gray-400">{dictionary.editor.date}</label>
-        <input id="invoiceDate" type="date" bind:value={invoice.meta.date} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none" />
+        <input id="invoiceDate" type="date" bind:value={invoice.meta.date} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-indigo-500 outline-none" />
      </div>
      <div class="space-y-1">
         <label for="invoiceDueDate" class="text-xs font-medium text-gray-500 dark:text-gray-400">{dictionary.editor.dueDate}</label>
-        <input id="invoiceDueDate" type="date" bind:value={invoice.meta.dueDate} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none" />
+        <input id="invoiceDueDate" type="date" bind:value={invoice.meta.dueDate} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-indigo-500 outline-none" />
      </div>
      <div class="space-y-1">
         <label for="invoiceCurrency" class="text-xs font-medium text-gray-500 dark:text-gray-400">{dictionary.editor.currency}</label>
-        <input id="invoiceCurrency" type="text" bind:value={invoice.settings.currency} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-blue-500 outline-none text-center font-bold" />
+        <input id="invoiceCurrency" type="text" bind:value={invoice.settings.currency} class="w-full p-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:border-indigo-500 outline-none text-center font-bold" />
      </div>
   </div>
 
@@ -146,7 +146,7 @@
   <div class="space-y-4">
     <div class="flex items-center justify-between">
         <h3 class="font-medium text-gray-900 dark:text-white">{dictionary.editor.items}</h3>
-        <button on:click={addItem} class="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1 font-medium">
+        <button on:click={addItem} class="text-sm text-indigo-600 hover:text-indigo-700 flex items-center gap-1 font-medium">
             <Plus size={16} /> {dictionary.editor.addItem}
         </button>
     </div>

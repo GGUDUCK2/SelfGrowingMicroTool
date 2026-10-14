@@ -291,8 +291,8 @@ export function generateHTML(state: GridState, theme = 'standard'): string {
         bodyBg = '#000000';
         textColor = '#00ff00';
     } else if (theme === 'blueprint') {
-        bodyBg = '#eff6ff'; // blue-50
-        textColor = '#1e3a8a'; // blue-900
+        bodyBg = '#eff6ff'; // indigo-50
+        textColor = '#1e3a8a'; // indigo-900
     } else if (theme === 'wireframe') {
         bodyBg = '#ffffff';
         textColor = '#000000';
