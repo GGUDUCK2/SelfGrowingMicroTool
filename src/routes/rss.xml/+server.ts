@@ -17,7 +17,7 @@ export async function GET() {
       <title>${tool.title.en}</title>
       <link>${BASE_URL}/en/tools/${tool.slug}</link>
       <description>${tool.description.en}</description>
-      <pubDate>${new Date(tool.createdAt).toUTCString()}</pubDate>
+      <pubDate>${new Date(tool.createdAt || "2024-01-01").toUTCString()}</pubDate>
       <guid>${BASE_URL}/tools/${tool.slug}</guid>
     </item>
     `).join('')}
