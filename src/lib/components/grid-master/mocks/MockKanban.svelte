@@ -6,7 +6,7 @@
           { id: 1, title: 'Research competitors', tag: 'Strategy', tagColor: 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/30' },
           { id: 2, title: 'Draft wireframes', tag: 'Design', tagColor: 'text-pink-600 bg-pink-50 dark:bg-pink-900/30' }
       ]},
-      { id: 2, title: 'In Progress', color: 'bg-blue-50 dark:bg-blue-900/10', tasks: [
+      { id: 2, title: 'In Progress', color: 'bg-indigo-50 dark:bg-indigo-900/10', tasks: [
           { id: 3, title: 'Implement auth', tag: 'Backend', tagColor: 'text-amber-600 bg-amber-50 dark:bg-amber-900/30' }
       ]},
       { id: 3, title: 'Done', color: 'bg-green-50 dark:bg-green-900/10', tasks: [

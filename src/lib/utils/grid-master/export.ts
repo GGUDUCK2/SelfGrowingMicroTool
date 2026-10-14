@@ -255,8 +255,8 @@ export function generateSVG(state: GridState, theme = 'standard', width = 800, h
         let strokeWidth = 0;
 
         if (theme === 'blueprint') {
-            fill = '#1e3a8a'; // blue-900
-            stroke = '#60a5fa'; // blue-400
+            fill = '#1e3a8a'; // indigo-900
+            stroke = '#60a5fa'; // indigo-400
             strokeWidth = 2;
             textFill = '#ffffff';
         } else if (theme === 'wireframe') {

@@ -39,7 +39,7 @@
       switch(level) {
           case 'error': return 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/10 border-l-4 border-red-500';
           case 'warn': return 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/10 border-l-4 border-amber-500';
-          case 'info': return 'text-blue-600 dark:text-blue-400 border-l-4 border-blue-500';
+          case 'info': return 'text-indigo-600 dark:text-indigo-400 border-l-4 border-indigo-500';
           case 'debug': return 'text-slate-500 dark:text-slate-400 border-l-4 border-slate-300 dark:border-slate-700';
           default: return 'text-slate-600 dark:text-slate-300 border-l-4 border-transparent';
       }
@@ -90,7 +90,7 @@
             {#each clusteredEntries as cluster (cluster.id)}
                  <div class="p-3 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex gap-3 items-start group">
                     <div class="shrink-0 pt-0.5">
-                       <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase {cluster.level === 'error' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' : cluster.level === 'warn' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'}">
+                       <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase {cluster.level === 'error' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' : cluster.level === 'warn' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' : 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400'}">
                            {cluster.level}
                        </span>
                     </div>
