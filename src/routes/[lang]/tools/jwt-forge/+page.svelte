@@ -172,7 +172,7 @@
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 pb-20">
   <!-- Header -->
   <div class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
-    <div class="max-w-7xl mx-auto px-4 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <h1 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
         <div class="p-2 bg-pink-500 rounded-lg text-white">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -185,7 +185,7 @@
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
     <!-- Left Column: Input -->
     <div class="space-y-6">
       <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
