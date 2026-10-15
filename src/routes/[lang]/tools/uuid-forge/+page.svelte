@@ -601,7 +601,7 @@ import Head from '$lib/components/Head.svelte';
                             {t.history}
                         </h2>
                         {#if history.length > 0}
-                            <button on:click={clearHistory} class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1">
+                            <button on:click={clearHistory} class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1 min-h-[44px] min-w-[44px] p-2">
                                 <Trash2 size={14} />
                                 <span class="hidden sm:inline">{t.clearHistory}</span>
                             </button>
@@ -625,7 +625,7 @@ import Head from '$lib/components/Head.svelte';
                                         <div class="text-sm font-medium text-slate-800 dark:text-slate-200">{item.name}</div>
                                         <div class="text-xs text-slate-500 dark:text-slate-400">{new Date(item.timestamp).toLocaleString()}</div>
                                     </div>
-                                    <button on:click|stopPropagation={() => deleteHistoryItem(item.id)} class="text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity p-2">
+                                    <button on:click|stopPropagation={() => deleteHistoryItem(item.id)} class="text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity p-2 min-h-[44px] min-w-[44px]">
                                         <Trash2 size={16} />
                                     </button>
                                 </div>

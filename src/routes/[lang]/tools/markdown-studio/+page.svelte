@@ -239,7 +239,7 @@
 
   <!-- Header -->
   <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30 print:hidden">
-    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <a href="/{lang}" class="text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center p-2 -ml-2 rounded-lg" aria-label={commonDict.back}>
           <ArrowLeft size={20} />
@@ -272,7 +272,7 @@
   </header>
 
   <!-- Main Workspace -->
-  <main class="flex-1 flex flex-col max-w-7xl mx-auto w-full px-0 sm:px-4 py-4 gap-4 h-[calc(100dvh-4rem)]">
+  <main class="flex-1 flex flex-col max-w-7xl mx-auto w-full px-0 sm:px-6 lg:px-8 py-4 gap-4 h-[calc(100dvh-4rem)]">
 
     <!-- Toolbar -->
     <div class="sticky top-16 z-20 shadow-sm print:hidden">

@@ -196,7 +196,7 @@
 
   <!-- Header -->
   <div class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
-    <div class="max-w-7xl mx-auto px-4 py-6 lg:py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 class="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
@@ -223,7 +223,7 @@
   </div>
 
   <!-- Workspace -->
-  <div class="max-w-7xl mx-auto px-4 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
       <!-- Left Column: Config & History -->

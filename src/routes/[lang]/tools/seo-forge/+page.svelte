@@ -599,7 +599,7 @@
   </div>
 
   <!-- FAQ / Guide Section -->
-   <div class="max-w-7xl mx-auto px-4 mt-24">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">
       <GuideSection
         title={dict.guide.title}
         intro={dict.guide.intro}

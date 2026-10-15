@@ -157,7 +157,7 @@
 
   <!-- Top Bar (Hidden on print) -->
   <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30 print:hidden">
-    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div class="flex items-center gap-4">
             <a href="/{lang}" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full text-gray-500 dark:text-slate-400 min-h-[44px] min-w-[44px] flex items-center justify-center">
                 <ArrowLeft size={20} />
@@ -189,7 +189,7 @@
   </header>
 
   <!-- Main Content -->
-  <div class="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row gap-6 items-start h-[calc(100vh-4rem)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-6 items-start h-[calc(100vh-4rem)]">
 
     <!-- Sidebar / Editor -->
     <div class="w-full lg:w-[450px] shrink-0 flex flex-col h-full bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden print:hidden">
