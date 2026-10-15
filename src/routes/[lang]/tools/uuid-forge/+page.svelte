@@ -425,6 +425,31 @@ import Head from '$lib/components/Head.svelte';
         }
     };
 
+
+    $: howToSchema = {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": t.guideTitle,
+        "description": t.guideIntro,
+        "step": [
+            {
+                "@type": "HowToStep",
+                "name": "Select Version",
+                "text": "Choose between UUID v1, v4, or v7 based on your needs."
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Configure Quantity and Options",
+                "text": "Adjust the quantity (up to 1000) and choose formatting options like uppercase, braces, or no hyphens."
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Generate and Export",
+                "text": "Click generate and easily export your UUIDs in TXT, JSON, CSV, or SQL formats."
+            }
+        ]
+    };
+
     $: jsonLd = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
@@ -459,6 +484,8 @@ import Head from '$lib/components/Head.svelte';
 
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+    {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema)}</scr` + `ipt>`}
 </svelte:head>
 
 <Head
