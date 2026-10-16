@@ -10,6 +10,62 @@ export const dictionaries = {
       actions: "Actions",
     },
     tools: {
+
+      xmlForge: {
+        title: "XML Forge: The Definitive XML Toolkit",
+        description: "Format, convert, and validate XML instantly. A professional tool for developers.",
+        guideTitle: "Why XML Forge?",
+        guideIntro: "XML Forge provides a seamless workflow for manipulating XML data. Whether you need to convert XML to JSON, format messy code, or validate syntax, this tool has you covered.",
+        guideFeaturesTitle: "Core Features",
+        guideF1: "**Converter:** Seamlessly convert between XML and JSON.",
+        guideF2: "**Formatter:** Clean up messy XML with customizable indentation.",
+        guideF3: "**Validator:** Instantly validate XML syntax and pinpoint errors.",
+        guideTipsTitle: "Pro Tips",
+        guideTip1: "Use the history sidebar to quickly access previous conversions and formats.",
+        guideTip2: "Click the star icon to save important conversions permanently.",
+        guideTip3: "Use the copy and download buttons to easily export your results.",
+        faqTitle: "XML Forge FAQ",
+        faqQ1: "Does XML Forge send my data to a server?",
+        faqA1: "No. All processing happens locally in your browser. Your data remains private and secure.",
+        faqQ2: "Can I convert JSON back to XML?",
+        faqA2: "Yes. The converter works in both directions: XML to JSON and JSON to XML.",
+        faqQ3: "How does the validator work?",
+        faqA3: "It uses a robust parsing engine to check your XML against standard syntax rules, providing exact line and column numbers for any errors.",
+        tabs: {
+          converter: "Converter",
+          formatter: "Formatter",
+          validator: "Validator",
+          history: "History"
+        },
+        converter: {
+          modeXmlToJson: "XML to JSON",
+          modeJsonToXml: "JSON to XML",
+          inputPlaceholder: "Enter your input here...",
+          outputPlaceholder: "Output will appear here...",
+          clear: "Clear Input",
+          copy: "Copy to Clipboard",
+          download: "Download File",
+          errorInvalidInput: "Invalid input format."
+        },
+        formatter: {
+          title: "XML Formatter",
+          indent2: "2 Spaces",
+          indent4: "4 Spaces",
+          format: "Format",
+          inputPlaceholder: "Enter unformatted XML here..."
+        },
+        validator: {
+          title: "XML Validator",
+          inputPlaceholder: "Enter XML to validate...",
+          valid: "Valid XML",
+          invalid: "Invalid XML"
+        },
+        history: {
+          title: "Workspace History",
+          clear: "Clear Unstarred",
+          empty: "Your history is empty."
+        }
+      },
       cssForge: {
         title: "CSS Forge: The Definitive CSS Toolkit",
         description: "Format, minify, and analyze CSS instantly. A professional tool for frontend developers.",
@@ -5175,6 +5231,62 @@ export const dictionaries = {
       actions: "작업",
     },
     tools: {
+
+      xmlForge: {
+        title: "XML Forge: 완벽한 XML 툴킷",
+        description: "XML을 즉시 포맷팅, 변환 및 유효성 검사하세요. 개발자를 위한 전문 도구입니다.",
+        guideTitle: "왜 XML Forge인가요?",
+        guideIntro: "XML Forge는 XML 데이터를 조작하기 위한 원활한 워크플로우를 제공합니다. XML을 JSON으로 변환하거나, 지저분한 코드를 포맷팅하거나, 구문을 유효성 검사해야 할 때 이 도구가 완벽한 해결책입니다.",
+        guideFeaturesTitle: "핵심 기능",
+        guideF1: "**변환기:** XML과 JSON 간에 원활하게 변환합니다.",
+        guideF2: "**포맷터:** 사용자 정의 들여쓰기로 지저분한 XML을 정리합니다.",
+        guideF3: "**검사기:** XML 구문을 즉시 유효성 검사하고 오류를 정확히 찾아냅니다.",
+        guideTipsTitle: "프로 팁",
+        guideTip1: "히스토리 사이드바를 사용하여 이전 변환 및 포맷팅 결과에 빠르게 액세스하세요.",
+        guideTip2: "별표 아이콘을 클릭하여 중요한 변환을 영구적으로 저장하세요.",
+        guideTip3: "복사 및 다운로드 버튼을 사용하여 결과를 쉽게 내보내세요.",
+        faqTitle: "XML Forge FAQ",
+        faqQ1: "XML Forge는 제 데이터를 서버로 전송하나요?",
+        faqA1: "아니요. 모든 처리는 브라우저에서 로컬로 진행됩니다. 귀하의 데이터는 비공개로 안전하게 유지됩니다.",
+        faqQ2: "JSON을 다시 XML로 변환할 수 있나요?",
+        faqA2: "네. 변환기는 XML에서 JSON으로, JSON에서 XML로 양방향 모두 작동합니다.",
+        faqQ3: "검사기는 어떻게 작동하나요?",
+        faqA3: "강력한 파싱 엔진을 사용하여 표준 구문 규칙에 따라 XML을 검사하고 오류에 대한 정확한 줄과 열 번호를 제공합니다.",
+        tabs: {
+          converter: "변환기",
+          formatter: "포맷터",
+          validator: "검사기",
+          history: "히스토리"
+        },
+        converter: {
+          modeXmlToJson: "XML → JSON",
+          modeJsonToXml: "JSON → XML",
+          inputPlaceholder: "여기에 입력을 입력하세요...",
+          outputPlaceholder: "출력이 여기에 표시됩니다...",
+          clear: "입력 지우기",
+          copy: "클립보드에 복사",
+          download: "파일 다운로드",
+          errorInvalidInput: "잘못된 입력 형식입니다."
+        },
+        formatter: {
+          title: "XML 포맷터",
+          indent2: "2칸 들여쓰기",
+          indent4: "4칸 들여쓰기",
+          format: "포맷",
+          inputPlaceholder: "여기에 포맷되지 않은 XML을 입력하세요..."
+        },
+        validator: {
+          title: "XML 검사기",
+          inputPlaceholder: "유효성을 검사할 XML을 입력하세요...",
+          valid: "유효한 XML",
+          invalid: "유효하지 않은 XML"
+        },
+        history: {
+          title: "작업 공간 히스토리",
+          clear: "별표 없음 지우기",
+          empty: "히스토리가 비어 있습니다."
+        }
+      },
       cssForge: {
         title: "CSS Forge: 완벽한 CSS 툴킷",
         description: "CSS를 즉시 포맷팅, 최소화 및 분석하세요. 프론트엔드 개발자를 위한 전문 도구입니다.",
