@@ -85,7 +85,7 @@
           stats.streak++;
           stats.totalOffset += absDelta;
       } else if (absDelta < 60) {
-          feedback = { text: trainerDict?.great || 'Great', color: 'text-blue-500', delta: result.delta };
+          feedback = { text: trainerDict?.great || 'Great', color: 'text-indigo-500', delta: result.delta };
           stats.hits++;
           stats.streak++;
           stats.totalOffset += absDelta;

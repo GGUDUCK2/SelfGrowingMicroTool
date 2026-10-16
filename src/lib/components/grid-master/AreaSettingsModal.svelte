@@ -41,7 +41,7 @@
   const colors = [
       'slate', 'gray', 'zinc', 'neutral', 'stone',
       'red', 'orange', 'amber', 'yellow', 'lime', 'green',
-      'emerald', 'teal', 'cyan', 'sky', 'blue', 'indigo',
+      'emerald', 'teal', 'cyan', 'sky', 'indigo',
       'violet', 'purple', 'fuchsia', 'pink', 'rose'
   ];
 
@@ -134,7 +134,6 @@
                               class:bg-teal-500={c==='teal'}
                               class:bg-cyan-500={c==='cyan'}
                               class:bg-sky-500={c==='sky'}
-                              class:bg-blue-500={c==='blue'}
                               class:bg-indigo-500={c==='indigo'}
                               class:bg-violet-500={c==='violet'}
                               class:bg-purple-500={c==='purple'}
