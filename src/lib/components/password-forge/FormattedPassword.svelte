@@ -19,7 +19,7 @@
     switch (type) {
       case 'uppercase': return 'text-emerald-600 dark:text-emerald-400 font-semibold';
       case 'lowercase': return 'text-slate-700 dark:text-slate-300';
-      case 'number': return 'text-blue-600 dark:text-blue-400 font-bold';
+      case 'number': return 'text-indigo-600 dark:text-indigo-400 font-bold';
       case 'symbol': return 'text-pink-600 dark:text-pink-400 font-bold';
       case 'space': return 'opacity-50';
       default: return 'text-slate-800 dark:text-slate-100';
