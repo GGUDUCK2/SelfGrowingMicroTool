@@ -77,7 +77,11 @@ import Head from '$lib/components/Head.svelte';
             exportSql: "SQL Inserts",
             exportCsv: "CSV",
             tableName: "Table Name (for SQL)",
+
             columnName: "Column Name (for SQL/CSV)",
+            cleanAndDedup: "Clean & Deduplicate",
+            exportCsvBtn: "Export CSV",
+
         },
 
         ko: {
@@ -143,7 +147,11 @@ import Head from '$lib/components/Head.svelte';
             exportSql: "SQL Insert",
             exportCsv: "CSV",
             tableName: "테이블 이름 (SQL용)",
+
             columnName: "컬럼 이름 (SQL/CSV용)",
+            cleanAndDedup: "정리 & 중복 제거",
+            exportCsvBtn: "CSV 내보내기",
+
         }
 
     };
@@ -227,6 +235,53 @@ import Head from '$lib/components/Head.svelte';
                 timestamp
             };
         });
+    };
+
+
+    const cleanAndDeduplicate = () => {
+        const uuids = analyzeInput.split(/\s+/).filter(u => u.trim() !== '');
+        const validUuids = new Set<string>();
+
+        uuids.forEach(u => {
+            const clean = u.replace(/[{}]/g, '').toLowerCase();
+            let normalized = clean;
+            if (clean.length === 32) {
+                normalized = `${clean.slice(0, 8)}-${clean.slice(8, 12)}-${clean.slice(12, 16)}-${clean.slice(16, 20)}-${clean.slice(20)}`;
+            }
+
+            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+            if (uuidRegex.test(normalized)) {
+                validUuids.add(normalized);
+            }
+        });
+
+        analyzeInput = Array.from(validUuids).join('\n');
+        analyzeUuids();
+    };
+
+    const exportAnalyzeResultsCsv = () => {
+        if (analyzeResults.length === 0) return;
+
+        const headers = ['UUID', 'Valid', 'Version', 'Variant', 'Timestamp'];
+        const rows = analyzeResults.map(r => [
+            r.original,
+            r.isValid ? 'Yes' : 'No',
+            r.version,
+            r.variant,
+            r.timestamp || ''
+        ]);
+
+        const csvContent = [
+            headers.join(','),
+            ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+        ].join('\n');
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `uuid-analysis-${Date.now()}.csv`;
+        a.click();
     };
 
     const downloadAdvanced = () => {
@@ -487,14 +542,14 @@ import Head from '$lib/components/Head.svelte';
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         <div class="flex space-x-1 bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-xl w-fit">
             <button
-                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'generate' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'generate' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'generate'}
             >
                 <RefreshCw size={16} class="inline-block mr-2" />
                 {t.tabGenerate}
             </button>
             <button
-                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'analyze' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'analyze' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'analyze'}
             >
                 <Search size={16} class="inline-block mr-2" />
@@ -564,7 +619,7 @@ import Head from '$lib/components/Head.svelte';
                         </label>
                     </div>
 
-                    <button on:click={generate} class="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-6 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-[0.98]">
+                    <button on:click={generate} class="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-6 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-[0.98] min-h-[44px] min-w-[44px]">
                         <RefreshCw size={20} />
                         {t.generate}
                     </button>
@@ -601,7 +656,7 @@ import Head from '$lib/components/Head.svelte';
                             {t.history}
                         </h2>
                         {#if history.length > 0}
-                            <button on:click={clearHistory} class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1">
+                            <button aria-label="Clear history" on:click={clearHistory} class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1 min-h-[44px] min-w-[44px]">
                                 <Trash2 size={14} />
                                 <span class="hidden sm:inline">{t.clearHistory}</span>
                             </button>
@@ -639,7 +694,7 @@ import Head from '$lib/components/Head.svelte';
             <div class="lg:col-span-2 space-y-6 flex flex-col h-full">
                 <!-- Action Bar -->
                 <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 flex flex-wrap gap-3">
-                    <button on:click={copyAll} class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-medium transition-all {isCopied ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 ring-2 ring-emerald-500/50' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200'}">
+                    <button on:click={copyAll} class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-medium transition-all {isCopied ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 ring-2 ring-emerald-500/50' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200'} min-h-[44px] min-w-[44px]">
                         {#if isCopied}
                             <Check size={18} /> {t.copied}
                         {:else}
@@ -647,11 +702,11 @@ import Head from '$lib/components/Head.svelte';
                         {/if}
                     </button>
 
-                    <button on:click={shareTxt} class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl font-medium transition-colors">
+                    <button on:click={shareTxt} class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl font-medium transition-colors min-h-[44px] min-w-[44px]">
                         <Share2 size={18} /> {t.share}
                     </button>
                     <button on:click={downloadAdvanced}
- class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl font-medium transition-colors">
+ class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl font-medium transition-colors min-h-[44px] min-w-[44px]">
                         <Download size={18} /> {t.download}
                     </button>
                     <button on:click={() => { generatedUuids = []; }} class="flex-none flex items-center justify-center gap-2 py-3 px-4 text-slate-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 dark:hover:text-red-400 rounded-xl font-medium transition-colors" aria-label={t.clear} title={t.clear}>
@@ -724,21 +779,33 @@ import Head from '$lib/components/Head.svelte';
                     placeholder={t.analyzePlaceholder}
                     aria-label={t.analyzePlaceholder}
                 ></textarea>
-                <div class="mt-4 flex justify-end">
-                    <button on:click={analyzeUuids} class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-[0.98]">
+
+                <div class="mt-4 flex justify-end gap-3">
+                    <button on:click={cleanAndDeduplicate} aria-label={t.cleanAndDedup} class="flex items-center gap-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 dark:hover:bg-emerald-900/50 font-semibold py-3 px-6 rounded-xl transition-all shadow-sm hover:shadow active:scale-[0.98] min-h-[44px] min-w-[44px]">
+                        <RefreshCw size={18} />
+                        {t.cleanAndDedup}
+                    </button>
+                    <button on:click={analyzeUuids} aria-label={t.analyzeButton} class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-[0.98] min-h-[44px] min-w-[44px]">
                         <Search size={18} />
                         {t.analyzeButton}
                     </button>
                 </div>
+
             </div>
 
             {#if analyzeResults.length > 0}
             <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
-                <div class="p-6 border-b border-slate-200 dark:border-slate-700">
+
+                <div class="p-6 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
                     <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-200">
                         {t.analyzeResults}
                     </h2>
+                    <button on:click={exportAnalyzeResultsCsv} aria-label={t.exportCsvBtn} class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 py-2 px-4 rounded-lg text-sm font-medium transition-colors min-h-[44px] min-w-[44px]">
+                        <Download size={16} />
+                        {t.exportCsvBtn}
+                    </button>
                 </div>
+
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left">
                         <thead class="text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/50 uppercase border-b border-slate-200 dark:border-slate-700">
