@@ -144,7 +144,7 @@
                             <div class="p-1.5 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 text-[10px] text-gray-500 font-mono text-center min-h-[44px] flex items-center justify-center">
                                 {translations?.headCurrent || 'HEAD (Current)'}
                             </div>
-                            <div class="p-2 font-mono text-xs bg-white dark:bg-gray-900 min-h-[60px] whitespace-pre-wrap flex-1 overflow-x-auto">
+                            <div class="p-2 font-mono text-xs bg-white dark:bg-gray-900 min-h-[60px] whitespace-pre-wrap flex-1 ">
                                 {block.original}
                             </div>
                             <button
@@ -160,7 +160,7 @@
                             <div class="p-1.5 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 text-[10px] text-gray-500 font-mono text-center min-h-[44px] flex items-center justify-center">
                                 {translations?.incoming || 'Incoming'}
                             </div>
-                            <div class="p-2 font-mono text-xs bg-white dark:bg-gray-900 min-h-[60px] whitespace-pre-wrap flex-1 overflow-x-auto">
+                            <div class="p-2 font-mono text-xs bg-white dark:bg-gray-900 min-h-[60px] whitespace-pre-wrap flex-1 ">
                                 {block.modified}
                             </div>
                             <button

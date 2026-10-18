@@ -76,7 +76,7 @@
             <AlertCircle size={20} class="shrink-0 mt-0.5" />
             <div class="flex-1 min-w-0">
                 <p class="font-bold text-xs uppercase mb-1">Syntax Error</p>
-                <pre class="whitespace-pre-wrap font-mono text-xs overflow-x-auto max-h-32">{error}</pre>
+                <pre class="whitespace-pre-wrap font-mono text-xs  max-h-32">{error}</pre>
             </div>
         </div>
     {/if}

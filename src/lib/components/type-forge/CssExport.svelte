@@ -40,6 +40,6 @@
       </button>
   </div>
   <div class="p-4 bg-slate-900 relative group">
-      <pre class="overflow-x-auto text-xs font-mono text-slate-300 whitespace-pre-wrap">{cssCode}</pre>
+      <pre class=" text-xs font-mono text-slate-300 whitespace-pre-wrap">{cssCode}</pre>
   </div>
 </div>
