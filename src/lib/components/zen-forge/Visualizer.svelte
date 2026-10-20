@@ -8,7 +8,7 @@
     let time = 0;
 
     const colors: Record<string, string> = {
-        rain: '#3b82f6', // blue-500
+        rain: '#3b82f6', // indigo-500
         wind: '#94a3b8', // slate-400
         white: '#e2e8f0', // slate-200
         pink: '#f472b6', // pink-400
@@ -16,7 +16,7 @@
         drone: '#6366f1', // indigo-500
         binaural_alpha: '#10b981', // emerald-500
         binaural_theta: '#8b5cf6', // violet-500
-        binaural_delta: '#3b82f6'  // blue-500
+        binaural_delta: '#3b82f6'  // indigo-500
     };
 
     function draw() {
