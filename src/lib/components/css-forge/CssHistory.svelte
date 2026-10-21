@@ -48,7 +48,7 @@
 <div class="flex flex-col h-full max-h-[800px]">
     <div class="flex justify-between items-center mb-4">
         <h3 class="text-lg font-semibold flex items-center gap-2 text-slate-800 dark:text-white">
-            <History size={20} class="text-blue-500" />
+            <History size={20} class="text-indigo-500" />
             History
         </h3>
         {#if history.length > 0}
@@ -73,7 +73,7 @@
             </div>
         {:else}
             {#each history as item (item.id)}
-                <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-3 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-700 transition-colors group">
+                <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-3 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors group">
                     <div class="flex justify-between items-start mb-2">
                         <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                             <Clock size={12} />
@@ -91,7 +91,7 @@
                     </div>
 
                     <button
-                        class="w-full flex items-center justify-center gap-2 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 rounded-lg transition-colors min-h-[44px]"
+                        class="w-full flex items-center justify-center gap-2 py-1.5 text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 rounded-lg transition-colors min-h-[44px]"
                         on:click={() => handleLoadItem(item)}
                     >
                         <Play size={14} />

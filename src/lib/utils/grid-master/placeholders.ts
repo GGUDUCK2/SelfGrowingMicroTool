@@ -322,7 +322,7 @@ export function getPlaceholderContent(area: GridArea): string {
                <div class="w-2 h-2 rounded-full bg-green-500"></div>
            </div>
            <div class="opacity-70 leading-relaxed">
-               <span class="text-purple-400">const</span> <span class="text-blue-400">grid</span> = {<br>
+               <span class="text-purple-400">const</span> <span class="text-indigo-400">grid</span> = {<br>
                &nbsp;&nbsp;rows: [<span class="text-green-400">'1fr'</span>],<br>
                &nbsp;&nbsp;cols: [<span class="text-green-400">'1fr'</span>],<br>
                &nbsp;&nbsp;gap: <span class="text-green-400">'1rem'</span><br>

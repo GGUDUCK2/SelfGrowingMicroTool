@@ -24,7 +24,7 @@
   function getMethodColor(method: string) {
     switch (method.toUpperCase()) {
       case 'GET': return 'text-green-600 dark:text-green-400';
-      case 'POST': return 'text-blue-600 dark:text-blue-400';
+      case 'POST': return 'text-indigo-600 dark:text-indigo-400';
       case 'PUT': return 'text-orange-600 dark:text-orange-400';
       case 'DELETE': return 'text-red-600 dark:text-red-400';
       default: return 'text-slate-600 dark:text-slate-400';
@@ -35,7 +35,7 @@
 <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6">
   <div class="flex items-center justify-between mb-6">
     <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center">
-      <History class="w-5 h-5 mr-2 text-blue-500" />
+      <History class="w-5 h-5 mr-2 text-indigo-500" />
       {(dict as any)?.history?.title || 'Recent Activities'}
     </h3>
     {#if $history$ && $history$.length > 0}
@@ -71,7 +71,7 @@
           <div class="flex items-center shrink-0 ml-2">
             <button
               on:click={() => onLoad(item)}
-              class="p-2 text-slate-400 hover:text-blue-500 opacity-0 group-hover:opacity-100 transition-all min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg"
+              class="p-2 text-slate-400 hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-all min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg"
               aria-label="Load Request"
             >
               <ArrowRight class="w-4 h-4" />
