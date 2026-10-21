@@ -75,11 +75,11 @@ module.exports = {
 
     <div class="flex-1 overflow-auto bg-slate-900 text-slate-300 p-4 font-mono text-sm leading-relaxed custom-scrollbar relative">
         <pre class="overflow-x-auto"><code><span class="text-indigo-400">.shadow-box</span> {'{'}
-  <span class="text-blue-300">width</span>: <span class="text-emerald-400">{config.canvas.width}px</span>;
-  <span class="text-blue-300">height</span>: <span class="text-emerald-400">{config.canvas.height}px</span>;
-  <span class="text-blue-300">border-radius</span>: <span class="text-emerald-400">{config.canvas.borderRadius}px</span>;
-  <span class="text-blue-300">background</span>: <span class="text-amber-300">{config.mode === 'neumorphism' ? getNeumorphismBackground(config.neumorphismConfig, config.canvas.bgColor) : config.canvas.boxColor}</span>;
-  <span class="text-blue-300">box-shadow</span>: <span class="text-pink-300">{cssShadow}</span>;
+  <span class="text-indigo-300">width</span>: <span class="text-emerald-400">{config.canvas.width}px</span>;
+  <span class="text-indigo-300">height</span>: <span class="text-emerald-400">{config.canvas.height}px</span>;
+  <span class="text-indigo-300">border-radius</span>: <span class="text-emerald-400">{config.canvas.borderRadius}px</span>;
+  <span class="text-indigo-300">background</span>: <span class="text-amber-300">{config.mode === 'neumorphism' ? getNeumorphismBackground(config.neumorphismConfig, config.canvas.bgColor) : config.canvas.boxColor}</span>;
+  <span class="text-indigo-300">box-shadow</span>: <span class="text-pink-300">{cssShadow}</span>;
 }</code></pre>
     </div>
 </div>

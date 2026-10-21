@@ -84,7 +84,7 @@
         </div>
       {:else}
         {#each items as item (item.id)}
-          <div transition:fade class="group relative bg-slate-50 dark:bg-slate-800/50 rounded-lg p-3 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 transition-colors">
+          <div transition:fade class="group relative bg-slate-50 dark:bg-slate-800/50 rounded-lg p-3 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-600 transition-colors">
             <div class="flex justify-between items-start gap-2 mb-2">
               <div class="font-mono text-sm text-slate-900 dark:text-white truncate" title={getBaseImage(item)}>
                 {getBaseImage(item)}
@@ -99,7 +99,7 @@
                   <Star size={16} class={item.starred ? 'fill-yellow-500 text-yellow-500' : ''} />
                 </button>
                 <button
-                  class="text-slate-400 hover:text-blue-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center p-1"
+                  class="text-slate-400 hover:text-indigo-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center p-1"
                   on:click={() => onRestore(item)}
                   title={hp.restore}
                   aria-label={hp.restore}
