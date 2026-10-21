@@ -60,7 +60,7 @@
             Warn
         </button>
         <button
-            class="px-3 py-1.5 rounded-full text-xs font-bold transition-colors border {selectedLevels.info ? 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-900/50' : 'bg-transparent text-slate-500 border-slate-200 dark:border-slate-700'}"
+            class="px-3 py-1.5 rounded-full text-xs font-bold transition-colors border {selectedLevels.info ? 'bg-indigo-100 text-indigo-700 border-indigo-200 dark:bg-indigo-900/30 dark:text-indigo-300 dark:border-indigo-900/50' : 'bg-transparent text-slate-500 border-slate-200 dark:border-slate-700'}"
             on:click={() => toggle('info')}
         >
             Info

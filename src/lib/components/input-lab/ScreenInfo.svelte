@@ -28,7 +28,7 @@
                 value: window.devicePixelRatio.toFixed(2),
                 sub: `1 logical px = ${window.devicePixelRatio} physical px`,
                 icon: Monitor,
-                color: 'text-blue-500'
+                color: 'text-indigo-500'
             },
             {
                 label: dict.screen.colorDepth,
