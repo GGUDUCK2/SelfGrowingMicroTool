@@ -162,7 +162,7 @@
             <a href="/{lang}" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full text-gray-500 dark:text-slate-400 min-h-[44px] min-w-[44px] flex items-center justify-center">
                 <ArrowLeft size={20} />
             </a>
-            <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 hidden sm:block">
+            <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-600 hidden sm:block">
                 {invoiceDict.title}
             </h1>
         </div>
@@ -180,7 +180,7 @@
                 <ImageIcon size={18} />
                 <span class="hidden sm:inline">{invoiceDict.actions.downloadImage}</span>
             </button>
-            <button on:click={printInvoice} class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm shadow-blue-500/30 min-h-[44px] min-w-[44px]">
+            <button on:click={printInvoice} class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 shadow-sm shadow-indigo-500/30 min-h-[44px] min-w-[44px]">
                 <Printer size={18} />
                 <span class="hidden sm:inline">{invoiceDict.actions.downloadPdf}</span>
             </button>
@@ -195,19 +195,19 @@
     <div class="w-full lg:w-[450px] shrink-0 flex flex-col h-full bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden print:hidden">
         <!-- Tabs -->
         <div class="flex border-b border-gray-200 dark:border-gray-700">
-            <button class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'editor' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px] min-w-[44px]"
+            <button class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'editor' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'editor'}
             >
                 <Edit3 size={16} />
                 Editor
             </button>
-            <button class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'clients' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px] min-w-[44px]"
+            <button class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'clients' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'clients'}
             >
                 <Users size={16} />
                 Clients
             </button>
-            <button class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'history' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px] min-w-[44px]"
+            <button class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'history' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'history'}
             >
                 <FileText size={16} />
@@ -252,7 +252,7 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
                   <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                      <Download class="text-blue-500 dark:text-blue-400" size={20} />
+                      <Download class="text-indigo-500 dark:text-indigo-400" size={20} />
                       Local Privacy
                   </h3>
                   <p class="text-gray-600 dark:text-gray-400 text-sm">
@@ -279,19 +279,19 @@
               </div>
           </div>
 
-          <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800">
-              <h3 class="font-bold text-blue-900 dark:text-blue-100 mb-4">{invoiceDict.guide.tipsTitle}</h3>
-              <ul class="space-y-2 text-blue-800 dark:text-blue-200 text-sm">
+          <div class="bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-xl border border-indigo-100 dark:border-indigo-800">
+              <h3 class="font-bold text-indigo-900 dark:text-indigo-100 mb-4">{invoiceDict.guide.tipsTitle}</h3>
+              <ul class="space-y-2 text-indigo-800 dark:text-indigo-200 text-sm">
                   <li class="flex items-start gap-2">
-                      <span class="mt-1 block w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></span>
+                      <span class="mt-1 block w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></span>
                       <span>{invoiceDict.guide.tip1.replace(/\*\*(.*?)\*\*/g, '$1')}</span>
                   </li>
                   <li class="flex items-start gap-2">
-                      <span class="mt-1 block w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></span>
+                      <span class="mt-1 block w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></span>
                       <span>{invoiceDict.guide.tip2.replace(/\*\*(.*?)\*\*/g, '$1')}</span>
                   </li>
                   <li class="flex items-start gap-2">
-                      <span class="mt-1 block w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></span>
+                      <span class="mt-1 block w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></span>
                       <span>{invoiceDict.guide.tip3.replace(/\*\*(.*?)\*\*/g, '$1')}</span>
                   </li>
               </ul>
