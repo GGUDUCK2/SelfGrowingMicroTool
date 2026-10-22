@@ -71,8 +71,8 @@
           title: 'Landing Page',
           desc: 'Stacked sections: Hero, Features, Testimonials, Footer.',
           icon: Columns,
-          color: 'text-blue-500',
-          bg: 'bg-blue-50 dark:bg-blue-900/20',
+          color: 'text-indigo-500',
+          bg: 'bg-indigo-50 dark:bg-indigo-900/20',
           action: () => {
               // Custom generator for Landing
               loadSmart('blog'); // Fallback for now, or implement custom

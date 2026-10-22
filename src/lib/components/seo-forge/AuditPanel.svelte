@@ -72,7 +72,7 @@
     <!-- Issues List -->
     <div class="space-y-2 max-h-[300px] overflow-y-auto pr-1">
         {#each issues as issue (issue.id)}
-            <div class="p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-sm border-l-4 {issue.severity === 'critical' ? 'border-red-500' : issue.severity === 'warning' ? 'border-orange-500' : issue.severity === 'success' ? 'border-green-500' : 'border-blue-500'}">
+            <div class="p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-sm border-l-4 {issue.severity === 'critical' ? 'border-red-500' : issue.severity === 'warning' ? 'border-orange-500' : issue.severity === 'success' ? 'border-green-500' : 'border-indigo-500'}">
                 <div class="flex gap-2">
                     <span class="flex-shrink-0 mt-0.5">{getIcon(issue.severity)}</span>
                     <div class="flex-1">
