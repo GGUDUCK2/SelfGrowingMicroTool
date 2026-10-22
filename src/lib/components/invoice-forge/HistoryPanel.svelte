@@ -28,7 +28,7 @@
     <div class="space-y-2 max-h-[500px] overflow-y-auto">
         {#if $historyQuery && $historyQuery.length > 0}
             {#each $historyQuery as item (item.id)}
-                <div class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg group hover:border-blue-500 transition-colors">
+                <div class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg group hover:border-indigo-500 transition-colors">
                     <!-- svelte-ignore a11y-click-events-have-key-events -->
                     <div class="grow cursor-pointer" on:click={() => load(item)} role="button" tabindex="0">
                         <div class="flex items-center justify-between">

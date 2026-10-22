@@ -48,7 +48,7 @@
   function getMethodColor(method: string) {
     switch (method) {
         case 'GET': return 'text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30';
-        case 'POST': return 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30';
+        case 'POST': return 'text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/30';
         case 'PUT': return 'text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-900/30';
         case 'DELETE': return 'text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/30';
         default: return 'text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800';
