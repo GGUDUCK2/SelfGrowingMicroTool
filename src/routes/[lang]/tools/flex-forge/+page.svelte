@@ -227,14 +227,14 @@ $: schema = {
   <div class="flex flex-wrap gap-4 items-center justify-between bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
     <div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
        <button
-        class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all min-h-[44px] {activeTab === 'editor' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+        class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all min-h-[44px] {activeTab === 'editor' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'} min-w-[44px]"
         on:click={() => activeTab = 'editor'}
       >
         <LayoutDashboard size={18} />
         <span class="hidden sm:inline">{dict.tabs.editor}</span>
       </button>
       <button
-        class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all min-h-[44px] {activeTab === 'history' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+        class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all min-h-[44px] {activeTab === 'history' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'} min-w-[44px]"
         on:click={() => activeTab = 'history'}
       >
         <Clock size={18} />
@@ -245,18 +245,18 @@ $: schema = {
     <!-- Presets -->
     <div class="hidden lg:flex items-center gap-2">
       <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{dict.presets}:</span>
-      <button on:click={() => applyPreset('navbar')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetNavbar}</button>
-      <button on:click={() => applyPreset('holygrail')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetHolyGrail}</button>
-      <button on:click={() => applyPreset('gallery')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetGallery}</button>
-      <button on:click={() => applyPreset('centered')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetCentered}</button>
+      <button on:click={() => applyPreset('navbar')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors min-h-[44px] min-w-[44px]">{dict.presetNavbar}</button>
+      <button on:click={() => applyPreset('holygrail')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors min-h-[44px] min-w-[44px]">{dict.presetHolyGrail}</button>
+      <button on:click={() => applyPreset('gallery')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors min-h-[44px] min-w-[44px]">{dict.presetGallery}</button>
+      <button on:click={() => applyPreset('centered')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors min-h-[44px] min-w-[44px]">{dict.presetCentered}</button>
     </div>
 
     <!-- Viewport -->
     <div class="hidden lg:flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
-      <button on:click={() => viewport = 'mobile'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'mobile' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Mobile</button>
-      <button on:click={() => viewport = 'tablet'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'tablet' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Tablet</button>
-      <button on:click={() => viewport = 'desktop'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'desktop' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Desktop</button>
-      <button on:click={() => viewport = 'full'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'full' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Full</button>
+      <button on:click={() => viewport = 'mobile'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'mobile' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'} min-h-[44px] min-w-[44px]">Mobile</button>
+      <button on:click={() => viewport = 'tablet'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'tablet' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'} min-h-[44px] min-w-[44px]">Tablet</button>
+      <button on:click={() => viewport = 'desktop'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'desktop' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'} min-h-[44px] min-w-[44px]">Desktop</button>
+      <button on:click={() => viewport = 'full'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'full' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'} min-h-[44px] min-w-[44px]">Full</button>
     </div>
 
     <div class="flex items-center gap-2">
@@ -265,7 +265,7 @@ $: schema = {
       </div>
       <button
         on:click={resetLayout}
-        class="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800 rounded-lg transition-colors font-medium text-sm min-h-[44px]"
+        class="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800 rounded-lg transition-colors font-medium text-sm min-h-[44px] min-w-[44px]"
       >
         <RotateCcw size={18} />
         <span class="hidden sm:inline">{dict.reset}</span>
@@ -273,7 +273,7 @@ $: schema = {
       <button
         on:click={saveLayout}
         disabled={isSaving}
-        class="flex items-center gap-2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors shadow-md hover:shadow-lg font-medium text-sm min-h-[44px] disabled:opacity-50"
+        class="flex items-center gap-2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors shadow-md hover:shadow-lg font-medium text-sm min-h-[44px] disabled:opacity-50 min-w-[44px]"
       >
         <Save size={18} class={isSaving ? 'animate-bounce' : ''} />
         {dict.save}
