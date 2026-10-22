@@ -6,8 +6,7 @@
   import { enUS, ko } from 'date-fns/locale';
   import type { FlexForgeHistoryItem } from '$lib/db/flex-forge';
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  export let dict: Record<string, any>;
+  export let dict: Record<string, unknown>;
   export let onSelect: (item: FlexForgeHistoryItem) => void;
   export let lang: string = 'en';
 
@@ -52,7 +51,7 @@
               {formatDistanceToNow(item.createdAt, { addSuffix: true, locale: lang === 'ko' ? ko : enUS })}
             </span>
             <button
-              class="text-slate-400 hover:text-yellow-500 transition-colors p-1"
+              class="text-slate-400 hover:text-yellow-500 transition-colors p-1 min-h-[44px] min-w-[44px]"
               on:click={() => toggleStar(item)}
             >
               <Star size={16} class={item.starred ? "fill-yellow-500 text-yellow-500" : ""} />
@@ -66,14 +65,14 @@
 
           <div class="flex gap-2 w-full mt-2">
             <button
-              class="flex-1 flex items-center justify-center gap-2 py-2 px-3 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-900/50 rounded-lg text-sm font-medium transition-colors"
+              class="flex-1 flex items-center justify-center gap-2 py-2 px-3 min-h-[44px] bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-900/50 rounded-lg text-sm font-medium transition-colors"
               on:click={() => onSelect(item)}
             >
               <Play size={14} />
               {dict.historySidebar.load}
             </button>
             <button
-              class="flex items-center justify-center p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors"
+              class="flex items-center justify-center p-2 min-h-[44px] min-w-[44px] text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors"
               on:click={() => deleteItem(item.id!)}
               title={dict.historySidebar.delete}
             >

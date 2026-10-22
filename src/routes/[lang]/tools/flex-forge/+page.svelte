@@ -18,8 +18,7 @@
   import { db } from '$lib/db';
 
   $: lang = $page.params.lang || 'en';
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  $: dict = (getDictionary(lang) as any)?.tools?.flexForge || getDictionary('en').tools.flexForge;
+  $: dict = (getDictionary(lang) as Record<string, Record<string, unknown>>)?.tools?.flexForge || (getDictionary('en') as Record<string, Record<string, unknown>>).tools.flexForge;
 
   let activeTab: 'editor' | 'history' = 'editor';
 
@@ -245,18 +244,18 @@ $: schema = {
     <!-- Presets -->
     <div class="hidden lg:flex items-center gap-2">
       <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{dict.presets}:</span>
-      <button on:click={() => applyPreset('navbar')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetNavbar}</button>
-      <button on:click={() => applyPreset('holygrail')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetHolyGrail}</button>
-      <button on:click={() => applyPreset('gallery')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetGallery}</button>
-      <button on:click={() => applyPreset('centered')} class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetCentered}</button>
+      <button on:click={() => applyPreset('navbar')} class="px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetNavbar}</button>
+      <button on:click={() => applyPreset('holygrail')} class="px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetHolyGrail}</button>
+      <button on:click={() => applyPreset('gallery')} class="px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetGallery}</button>
+      <button on:click={() => applyPreset('centered')} class="px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-md transition-colors">{dict.presetCentered}</button>
     </div>
 
     <!-- Viewport -->
     <div class="hidden lg:flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
-      <button on:click={() => viewport = 'mobile'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'mobile' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Mobile</button>
-      <button on:click={() => viewport = 'tablet'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'tablet' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Tablet</button>
-      <button on:click={() => viewport = 'desktop'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'desktop' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Desktop</button>
-      <button on:click={() => viewport = 'full'} class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {viewport === 'full' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Full</button>
+      <button on:click={() => viewport = 'mobile'} class="px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium rounded-lg transition-colors {viewport === 'mobile' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Mobile</button>
+      <button on:click={() => viewport = 'tablet'} class="px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium rounded-lg transition-colors {viewport === 'tablet' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Tablet</button>
+      <button on:click={() => viewport = 'desktop'} class="px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium rounded-lg transition-colors {viewport === 'desktop' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Desktop</button>
+      <button on:click={() => viewport = 'full'} class="px-3 py-1.5 min-h-[44px] min-w-[44px] text-xs font-medium rounded-lg transition-colors {viewport === 'full' ? 'bg-white dark:bg-slate-700 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">Full</button>
     </div>
 
     <div class="flex items-center gap-2">
