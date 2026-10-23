@@ -38,7 +38,7 @@
              // 16 (1): Variant
              // 17-31 (15): Rand B
              anatomy = [
-                 { label: 'Timestamp (48 bit)', value: clean.substr(0, 12), color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300', desc: 'Unix Timestamp in ms' },
+                 { label: 'Timestamp (48 bit)', value: clean.substr(0, 12), color: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300', desc: 'Unix Timestamp in ms' },
                  { label: 'Ver', value: clean.substr(12, 1), color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300', desc: 'Version 7' },
                  { label: 'Rand A', value: clean.substr(13, 3), color: 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300', desc: 'Random Bits' },
                  { label: 'Var', value: clean.substr(16, 1), color: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300', desc: 'Variant' },
@@ -57,7 +57,7 @@
       } else if (type === 'ULID') {
           // ULID: 10 chars timestamp, 16 chars randomness
           anatomy = [
-              { label: 'Timestamp (48 bit)', value: clean.substr(0, 10), color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300', desc: 'Unix Timestamp in ms (Base32)' },
+              { label: 'Timestamp (48 bit)', value: clean.substr(0, 10), color: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300', desc: 'Unix Timestamp in ms (Base32)' },
               { label: 'Randomness (80 bit)', value: clean.substr(10), color: 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300', desc: 'Cryptographically Secure Randomness' }
           ];
       }
