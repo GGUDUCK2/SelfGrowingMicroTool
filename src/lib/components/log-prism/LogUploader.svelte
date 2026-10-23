@@ -93,7 +93,7 @@
                 on:click={() => loadExample('syslog')}
                 aria-label="Load Syslog Example"
              >
-                <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                <div class="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
                     <Play size={14} fill="currentColor" />
                 </div>
                 Syslog

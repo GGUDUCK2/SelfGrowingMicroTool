@@ -49,7 +49,7 @@
       </button>
       <button
         on:click={() => onExport('sql')}
-        class="flex items-center justify-center gap-2 px-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all text-sm font-medium min-h-[44px] min-w-[44px]"
+        class="flex items-center justify-center gap-2 px-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all text-sm font-medium min-h-[44px] min-w-[44px]"
       >
         <Database size={18} />
         {dictionary.formats.sql}
