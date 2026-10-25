@@ -81,11 +81,11 @@
     if (!token || !parsed.header) return;
 
     // Check if exists
-    const existing = await db.jwtForgeHistory.where('token').equals(token).first();
+    const existing = await db.jwtHistory.where('token').equals(token).first();
     if (existing) {
-        await db.jwtForgeHistory.update(existing.id!, { createdAt: new Date() });
+        await db.jwtHistory.update(existing.id!, { createdAt: new Date() });
     } else {
-        await db.jwtForgeHistory.add({
+        await db.jwtHistory.add({
             token,
             header: parsed.header,
             payload: parsed.payload,
