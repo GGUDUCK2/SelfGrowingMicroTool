@@ -188,7 +188,7 @@
         <a href="/{lang}" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full transition-colors group min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Back">
           <MoveLeft size={20} class="text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:text-white" />
         </a>
-        <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
+        <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
           {((dict as any)?.tools?.deployForge || {}).title}
         </h1>
       </div>
@@ -278,7 +278,7 @@
 
     <div class="mt-20 border-t border-slate-200 dark:border-slate-800 pt-16">
         <div class="prose dark:prose-invert max-w-none">
-            <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400 mb-6">
+            <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 mb-6">
                 {((dict as any)?.tools?.deployForge || {}).guide.title}
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-slate-700 dark:text-slate-300 leading-relaxed">
