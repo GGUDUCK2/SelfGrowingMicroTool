@@ -8,18 +8,18 @@
 
   const dispatch = createEventDispatcher();
 
-  let history = liveQuery(() => db.jwtForgeHistory.orderBy('createdAt').reverse().limit(10).toArray());
+  let history = liveQuery(() => db.jwtHistory.orderBy('createdAt').reverse().limit(10).toArray());
 
   function restore(item: any) {
     dispatch('restore', item);
   }
 
   function deleteItem(id: number) {
-    db.jwtForgeHistory.delete(id);
+    db.jwtHistory.delete(id);
   }
 
   function clearHistory() {
-    db.jwtForgeHistory.clear();
+    db.jwtHistory.clear();
   }
 </script>
 
@@ -27,10 +27,10 @@
   <div class="p-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
     <h3 class="font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12"/><path d="M3 3v9h9"/><path d="M12 7v5l4 2"/></svg>
-      {dictionary.jwtForge.history}
+      {dictionary?.tools?.jwtForge.history}
     </h3>
     <button on:click={clearHistory} class="min-h-[44px] min-w-[44px] text-xs text-red-500 hover:text-red-600 font-medium">
-      {dictionary.jwtForge.clear}
+      {dictionary?.tools?.jwtForge.clear}
     </button>
   </div>
 
@@ -64,7 +64,7 @@
 
       {#if $history.length === 0}
         <div class="p-8 text-center text-slate-400 text-sm">
-          {dictionary.jwtForge.noHistory}
+          {dictionary?.tools?.jwtForge.noHistory}
         </div>
       {/if}
     {:else}

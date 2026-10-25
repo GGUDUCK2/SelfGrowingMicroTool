@@ -14,7 +14,7 @@
   <div class="bg-white dark:bg-slate-800 rounded-xl border-l-4 border-red-500 shadow-sm overflow-hidden">
     <div class="px-4 py-2 bg-slate-50 dark:bg-slate-900 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
       <div>
-        <h3 class="font-medium text-red-500">{dictionary.jwtForge.header}</h3>
+        <h3 class="font-medium text-red-500">{dictionary?.tools?.jwtForge.header}</h3>
         <p class="text-xs text-slate-500">Algorithm & Token Type</p>
       </div>
       <div class="text-xs font-mono bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 px-2 py-1 rounded">
@@ -34,7 +34,7 @@
   <div class="bg-white dark:bg-slate-800 rounded-xl border-l-4 border-purple-500 shadow-sm overflow-hidden">
     <div class="px-4 py-2 bg-slate-50 dark:bg-slate-900 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
       <div>
-        <h3 class="font-medium text-purple-500">{dictionary.jwtForge.payload}</h3>
+        <h3 class="font-medium text-purple-500">{dictionary?.tools?.jwtForge.payload}</h3>
         <p class="text-xs text-slate-500">Data & Claims</p>
       </div>
       <div class="text-xs font-mono bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 px-2 py-1 rounded">
@@ -61,7 +61,7 @@
                 <td class="py-3 text-slate-700 dark:text-slate-300 break-all">
                   {#if ['exp', 'iat', 'nbf'].includes(key) && typeof value === 'number'}
                     <div class="flex flex-col gap-1">
-                      <span class="text-blue-600 dark:text-blue-400 font-bold">{value}</span>
+                      <span class="text-indigo-600 dark:text-indigo-400 font-bold">{value}</span>
                       <span class="text-xs text-slate-500 flex items-center gap-1">
                          <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                         {format(new Date(value * 1000), 'yyyy-MM-dd HH:mm:ss')}

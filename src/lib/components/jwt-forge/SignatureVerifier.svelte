@@ -14,16 +14,16 @@
   }
 </script>
 
-<div class="bg-white dark:bg-slate-800 rounded-xl border-l-4 shadow-sm overflow-hidden {isValid === true ? 'border-emerald-500' : isValid === false ? 'border-red-500' : 'border-blue-500'}">
+<div class="bg-white dark:bg-slate-800 rounded-xl border-l-4 shadow-sm overflow-hidden {isValid === true ? 'border-emerald-500' : isValid === false ? 'border-red-500' : 'border-indigo-500'}">
   <div class="px-4 py-2 bg-slate-50 dark:bg-slate-900 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
     <div>
-      <h3 class="font-medium {isValid === true ? 'text-emerald-500' : isValid === false ? 'text-red-500' : 'text-blue-500'}">
-        {dictionary.jwtForge.signature}
+      <h3 class="font-medium {isValid === true ? 'text-emerald-500' : isValid === false ? 'text-red-500' : 'text-indigo-500'}">
+        {dictionary?.tools?.jwtForge.signature}
       </h3>
       <p class="text-xs text-slate-500">Verify Integrity</p>
     </div>
-     <div class="text-xs font-mono {isValid === true ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400' : isValid === false ? 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400' : 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400'} px-2 py-1 rounded">
-        {isValid === true ? dictionary.jwtForge.isVerified : isValid === false ? dictionary.jwtForge.isInvalid : dictionary.jwtForge.verify}
+     <div class="text-xs font-mono {isValid === true ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400' : isValid === false ? 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400' : 'bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400'} px-2 py-1 rounded">
+        {isValid === true ? dictionary?.tools?.jwtForge.isVerified : isValid === false ? dictionary?.tools?.jwtForge.isInvalid : dictionary?.tools?.jwtForge.verify}
       </div>
   </div>
 
@@ -31,8 +31,8 @@
     <div class="relative">
       <input
         type="text"
-        class="w-full min-h-[44px] pl-10 pr-4 py-2 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-        placeholder={dictionary.jwtForge.secret}
+        class="w-full min-h-[44px] pl-10 pr-4 py-2 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
+        placeholder={dictionary?.tools?.jwtForge.secret}
         value={secret}
         on:input={handleInput}
       />
