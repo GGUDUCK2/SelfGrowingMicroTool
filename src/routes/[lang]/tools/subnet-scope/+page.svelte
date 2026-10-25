@@ -230,7 +230,7 @@
           <button on:click={() => loadExample('10.0.0.0/16')} class="px-3 py-1 text-xs min-h-[44px] min-w-[44px] font-medium bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-100 dark:border-orange-800 rounded-full hover:bg-orange-100 dark:hover:bg-orange-900/40 transition-colors">
               {t.presets.aws}
           </button>
-          <button on:click={() => loadExample('10.0.0.0/16')} class="px-3 py-1 text-xs min-h-[44px] min-w-[44px] font-medium bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800 rounded-full hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
+          <button on:click={() => loadExample('10.0.0.0/16')} class="px-3 py-1 text-xs min-h-[44px] min-w-[44px] font-medium bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition-colors">
               {t.presets.azure}
           </button>
           <button on:click={() => loadExample('192.168.1.0/24')} class="px-3 py-1 text-xs min-h-[44px] min-w-[44px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
@@ -488,9 +488,9 @@
               <h3 class="text-xl font-bold text-purple-900 dark:text-purple-300 mb-3">Visual Learning</h3>
               <p class="text-purple-800 dark:text-purple-200">Understand the binary nature of subnetting. The color-coded visualizer shows exactly where the network ends and the host begins.</p>
           </div>
-          <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-2xl">
-              <h3 class="text-xl font-bold text-blue-900 dark:text-blue-300 mb-3">VLSM Planning</h3>
-              <p class="text-blue-800 dark:text-blue-200">Variable Length Subnet Masking is complex. Use our generator to verify your subnet divisions before deploying.</p>
+          <div class="bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-indigo-900 dark:text-indigo-300 mb-3">VLSM Planning</h3>
+              <p class="text-indigo-800 dark:text-indigo-200">Variable Length Subnet Masking is complex. Use our generator to verify your subnet divisions before deploying.</p>
           </div>
       </div>
 
@@ -520,7 +520,7 @@
         @apply block text-sm font-medium text-slate-500 dark:text-slate-400 mb-2;
     }
     .card .value {
-        @apply text-lg font-mono font-semibold text-slate-900 dark:text-white break-all;
+        @apply text-lg font-mono font-semibold text-slate-900 dark:text-white overflow-x-auto whitespace-nowrap block;
     }
     .badge {
         @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300;
