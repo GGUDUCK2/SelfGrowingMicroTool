@@ -28,7 +28,7 @@
   function getTypeColor(t: string) {
     switch(t) {
       case 'string': return 'text-green-600 dark:text-green-400';
-      case 'number': return 'text-blue-600 dark:text-blue-400';
+      case 'number': return 'text-indigo-600 dark:text-indigo-400';
       case 'boolean': return 'text-purple-600 dark:text-purple-400';
       case 'null': return 'text-gray-400 italic';
       default: return 'text-gray-600 dark:text-gray-300';
