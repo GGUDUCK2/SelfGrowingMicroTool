@@ -155,8 +155,8 @@
     long: {
       time: 15 * 60,
       key: "longBreak",
-      color: "text-blue-600",
-      bg: "bg-blue-50",
+      color: "text-indigo-600",
+      bg: "bg-indigo-50",
     },
   };
 
