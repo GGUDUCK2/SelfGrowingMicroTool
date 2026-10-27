@@ -40,7 +40,7 @@
         <input type="text" bind:value={newClientName} placeholder={dictionary.clients.name} class="w-full p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800" />
         <input type="email" bind:value={newClientEmail} placeholder={dictionary.clients.email} class="w-full p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800" />
         <textarea bind:value={newClientAddress} placeholder={dictionary.clients.address} rows="2" class="w-full p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 resize-none"></textarea>
-        <button on:click={addClient} class="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-medium">
+        <button on:click={addClient} class="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 font-medium">
             <Plus size={16} />
             {dictionary.clients.add}
         </button>
