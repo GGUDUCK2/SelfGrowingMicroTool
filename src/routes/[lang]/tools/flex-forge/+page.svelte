@@ -19,7 +19,7 @@
 
   $: lang = $page.params.lang || 'en';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  $: dict = (getDictionary(lang) as any)?.tools?.flexForge || getDictionary('en').tools.flexForge;
+  $: dict = (getDictionary(lang) as Record<string, any>)?.tools?.flexForge || getDictionary('en').tools.flexForge;
 
   let activeTab: 'editor' | 'history' = 'editor';
 
@@ -103,6 +103,7 @@
   }
 
   function handleKeydown(e: KeyboardEvent) {
+    if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
       e.preventDefault();
       addItem();
@@ -173,6 +174,13 @@ $: schema = {
     "@id": `${$page.url.origin}/${lang}/tools/flex-forge`,
     "isAccessibleForFree": true,
     "name": dict.title,
+    "featureList": [
+      "Visual Flexbox editing",
+      "Tailwind CSS code generation",
+      "Standard CSS code generation",
+      "Responsive viewports",
+      "History with Dexie.js"
+    ],
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "Developer Tool",
     "operatingSystem": "Any",
@@ -193,9 +201,10 @@ $: schema = {
 </script>
 
 <Head
-  title={dict.title}
+  title={dict.title + ' | Dev Tools'}
   description={dict.description}
   url={`${$page.url.origin}/${lang}/tools/flex-forge`}
+  keywords="css, flex, flexbox, layout, generator, tailwind"
 />
 
 <svelte:window on:keydown={handleKeydown} />
