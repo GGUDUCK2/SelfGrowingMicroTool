@@ -512,7 +512,7 @@
                     <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-800/50">
                         <div class="flex items-center gap-4">
                             <h3 class="font-semibold text-sm flex items-center gap-2">
-                                <Code class="w-4 h-4 text-blue-500" />
+                                <Code class="w-4 h-4 text-indigo-500" />
                                 {t?.editor?.title}
                             </h3>
                             <div class="flex bg-gray-200 dark:bg-gray-700 p-0.5 rounded-lg">
@@ -584,7 +584,7 @@
                                                         class="cursor-pointer flex flex-wrap gap-2 items-center hover:bg-gray-200 dark:hover:bg-gray-800 px-2 py-1 -my-1 rounded relative z-10"
                                                         on:click={() => selectTreeNode(n.xpath)}
                                                     >
-                                                        <span class="text-blue-600 dark:text-blue-400 font-semibold">&lt;{n.name}&gt;</span>
+                                                        <span class="text-indigo-600 dark:text-indigo-400 font-semibold">&lt;{n.name}&gt;</span>
                                                         {#each n.attributes as attr (attr.name)}
                                                             <span class="text-orange-600 dark:text-orange-400">
                                                                 {attr.name}="<span class="text-green-600 dark:text-green-400">{attr.value}</span>"
@@ -629,7 +629,7 @@
                                                                         class="cursor-pointer flex flex-wrap gap-2 items-center hover:bg-gray-200 dark:hover:bg-gray-800 px-2 py-1 -my-1 rounded relative z-10"
                                                                         on:click={() => selectTreeNode(child.xpath)}
                                                                     >
-                                                                        <span class="text-blue-600 dark:text-blue-400 font-semibold">&lt;{child.name}&gt;</span>
+                                                                        <span class="text-indigo-600 dark:text-indigo-400 font-semibold">&lt;{child.name}&gt;</span>
                                                                         {#each child.attributes as attr (attr.name)}
                                                                             <span class="text-orange-600 dark:text-orange-400">
                                                                                 {attr.name}="<span class="text-green-600 dark:text-green-400">{attr.value}</span>"
@@ -714,7 +714,7 @@
                                             </button>
                                         </div>
                                         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                                        <pre class="overflow-x-auto text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-all bg-gray-50 dark:bg-gray-900 p-2 rounded">{@html result.html}</pre>
+                                        <pre class="overflow-x-auto text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap bg-gray-50 dark:bg-gray-900 p-2 rounded">{@html result.html}</pre>
                                     </div>
                                 {/each}
                             </div>
@@ -732,7 +732,7 @@
                                             <Copy class="w-4 h-4 text-gray-500" />
                                         </button>
                                     </div>
-                                    <pre class="overflow-x-auto text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-all bg-gray-50 dark:bg-gray-900 p-2 rounded">const result = document.evaluate(
+                                    <pre class="overflow-x-auto text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap bg-gray-50 dark:bg-gray-900 p-2 rounded">const result = document.evaluate(
   '{xpathExpression}',
   document,
   null,
@@ -755,13 +755,13 @@ while (node = result.iterateNext()) nodes.push(node);</pre>
                                             <Copy class="w-4 h-4 text-gray-500" />
                                         </button>
                                     </div>
-                                    <pre class="overflow-x-auto text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-all bg-gray-50 dark:bg-gray-900 p-2 rounded">const elements = await page.locator('xpath={xpathExpression}').all();</pre>
+                                    <pre class="overflow-x-auto text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap bg-gray-50 dark:bg-gray-900 p-2 rounded">const elements = await page.locator('xpath={xpathExpression}').all();</pre>
                                 </div>
 
                                 <!-- Python Lxml Snippet -->
                                 <div class="bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-700 shadow-sm relative group">
                                     <div class="flex justify-between items-center mb-2">
-                                        <span class="text-xs font-semibold text-blue-500 uppercase tracking-wider">Python (lxml)</span>
+                                        <span class="text-xs font-semibold text-indigo-500 uppercase tracking-wider">Python (lxml)</span>
                                         <button
                                             class="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-all min-h-[44px] min-w-[44px] flex items-center justify-center absolute top-1 right-1"
                                             on:click={() => handleCopy(`from lxml import etree\ntree = etree.parse('document.xml')\nnodes = tree.xpath('${xpathExpression.replace(/'/g, "\\'")}')`)}
@@ -770,7 +770,7 @@ while (node = result.iterateNext()) nodes.push(node);</pre>
                                             <Copy class="w-4 h-4 text-gray-500" />
                                         </button>
                                     </div>
-                                    <pre class="overflow-x-auto text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-all bg-gray-50 dark:bg-gray-900 p-2 rounded">from lxml import etree
+                                    <pre class="overflow-x-auto text-xs font-mono text-gray-700 dark:text-gray-300 whitespace-pre-wrap bg-gray-50 dark:bg-gray-900 p-2 rounded">from lxml import etree
 
 tree = etree.parse('document.xml')
 nodes = tree.xpath('{xpathExpression}')</pre>

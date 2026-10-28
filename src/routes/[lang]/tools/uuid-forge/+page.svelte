@@ -662,12 +662,7 @@ import Head from '$lib/components/Head.svelte';
                 <!-- Textarea -->
                 <div class="flex-1 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden relative min-h-[400px]">
                     <div class="absolute inset-0 p-4">
-                        <textarea
-                            readonly
-                            value={generatedUuids.join('\n')}
-                            class="w-full h-full resize-none bg-transparent font-mono text-sm sm:text-base leading-relaxed text-slate-800 dark:text-slate-300 focus:outline-none custom-scrollbar whitespace-pre-wrap break-all"
-                            placeholder="Generated UUIDs will appear here..."
-                        ></textarea>
+                        <textarea readonly value={generatedUuids.join('\n')} class="overflow-x-auto w-full h-full resize-none bg-transparent font-mono text-sm sm:text-base leading-relaxed text-slate-800 dark:text-slate-300 focus:outline-none custom-scrollbar whitespace-pre-wrap" placeholder="Generated UUIDs will appear here..." ></textarea>
                     </div>
                     <!-- Stats overlay -->
                     <div class="absolute bottom-4 right-4 bg-slate-900/80 dark:bg-black/60 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-lg shadow-lg font-medium">
@@ -718,12 +713,7 @@ import Head from '$lib/components/Head.svelte';
         {#if activeTab === 'analyze'}
         <div class="space-y-6">
             <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
-                <textarea
-                    bind:value={analyzeInput}
-                    class="w-full h-48 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl p-4 font-mono text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-200 transition-colors custom-scrollbar whitespace-pre-wrap break-all"
-                    placeholder={t.analyzePlaceholder}
-                    aria-label={t.analyzePlaceholder}
-                ></textarea>
+                <textarea bind:value={analyzeInput} class="overflow-x-auto w-full h-48 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl p-4 font-mono text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-200 transition-colors custom-scrollbar whitespace-pre-wrap" placeholder={t.analyzePlaceholder} aria-label={t.analyzePlaceholder} ></textarea>
                 <div class="mt-4 flex justify-end">
                     <button on:click={analyzeUuids} class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-[0.98]">
                         <Search size={18} />

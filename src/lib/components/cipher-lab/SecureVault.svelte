@@ -159,14 +159,7 @@
            </button>
         </div>
       </div>
-      <textarea
-        id="vault-output"
-        readonly
-        value={result}
-        rows="10"
-        class="w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 font-mono break-all focus:outline-none"
-        placeholder={mode === 'encrypt' ? "Encrypted result will appear here..." : "Decrypted message will appear here..."}
-      ></textarea>
+      <textarea id="vault-output" readonly value={result} rows="10" class="overflow-x-auto w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 font-mono focus:outline-none" placeholder={mode === 'encrypt' ?"Encrypted result will appear here..." : "Decrypted message will appear here..."} ></textarea>
     </div>
   </div>
 </div>

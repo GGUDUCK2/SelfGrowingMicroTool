@@ -77,13 +77,7 @@
     <label for="jwt-input" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
       JWT Token
     </label>
-    <textarea
-      id="jwt-input"
-      bind:value={token}
-      rows="3"
-      class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white font-mono break-all text-xs"
-      placeholder={dict.jwt.paste}
-    ></textarea>
+    <textarea id="jwt-input" bind:value={token} rows="3" class="overflow-x-auto w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white font-mono text-xs" placeholder={dict.jwt.paste} ></textarea>
   </div>
 
   {#if parsed}
