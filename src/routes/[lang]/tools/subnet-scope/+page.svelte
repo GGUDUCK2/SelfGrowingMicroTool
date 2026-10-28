@@ -520,7 +520,7 @@
         @apply block text-sm font-medium text-slate-500 dark:text-slate-400 mb-2;
     }
     .card .value {
-        @apply text-lg font-mono font-semibold text-slate-900 dark:text-white break-all;
+        @apply text-lg font-mono font-semibold text-slate-900 dark:text-white overflow-x-auto whitespace-pre;
     }
     .badge {
         @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300;
