@@ -372,14 +372,7 @@
       </div>
     </div>
     <div class="relative">
-      <textarea
-        id="output"
-        value={output}
-        readonly
-        rows="2"
-        class="w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 font-mono break-all"
-        aria-label="Hash Result"
-      ></textarea>
+      <textarea id="output" value={output} readonly rows="2" class="overflow-x-auto w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 font-mono" aria-label="Hash Result" ></textarea>
       {#if isCalculating}
         <div class="absolute inset-0 flex items-center justify-center bg-white/50 dark:bg-black/50 rounded-lg backdrop-blur-[1px]" transition:fade>
           <div class="flex items-center space-x-2 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-slate-800 px-3 py-1.5 rounded-full shadow-lg">

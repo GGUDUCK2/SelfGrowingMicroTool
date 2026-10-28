@@ -72,13 +72,7 @@
       </div>
 
       <!-- Textarea -->
-      <textarea
-        id="test-string"
-        class="w-full h-full p-4 font-mono text-sm bg-transparent border-none resize-none focus:ring-0 whitespace-pre-wrap break-all text-slate-700 dark:text-slate-300 z-10 relative leading-relaxed"
-        value={testString}
-        on:input={handleInput}
-        spellcheck="false"
-      ></textarea>
+      <textarea id="test-string" class="overflow-x-auto w-full h-full p-4 font-mono text-sm bg-transparent border-none resize-none focus:ring-0 whitespace-pre-wrap text-slate-700 dark:text-slate-300 z-10 relative leading-relaxed" value={testString} on:input={handleInput} spellcheck="false" ></textarea>
     </div>
   </div>
 

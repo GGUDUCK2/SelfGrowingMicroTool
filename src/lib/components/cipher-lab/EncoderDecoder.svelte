@@ -181,12 +181,6 @@
         </button>
       </div>
     </div>
-    <textarea
-      id="enc-output"
-      value={output}
-      readonly
-      rows="4"
-      class="w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 font-mono break-all"
-    ></textarea>
+    <textarea id="enc-output" value={output} readonly rows="4" class="overflow-x-auto w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 font-mono" ></textarea>
   </div>
 </div>
