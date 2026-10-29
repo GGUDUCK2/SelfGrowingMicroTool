@@ -180,7 +180,7 @@
         .added { background-color: #dcfce7; color: #166534; }
         .removed { background-color: #fee2e2; color: #991b1b; }
         .stats { margin-bottom: 20px; font-size: 0.9em; color: #6b7280; }
-        pre { margin: 0; white-space: pre-wrap; word-break: break-all; }
+        pre { margin: 0; white-space: pre-wrap;  }
     </style>
 </head>
 <body>
