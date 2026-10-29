@@ -356,8 +356,9 @@ import Head from '$lib/components/Head.svelte';
             await workspace.history.add({
                 toolId: 'uuid-forge',
                 name: `${version.toUpperCase()} x${quantity}`,
-                data: { raw: rawBatch, options: { isUppercase, includeBraces, removeHyphens } },
-                timestamp: Date.now()
+                result: { raw: rawBatch, options: { isUppercase, includeBraces, removeHyphens } },
+                timestamp: Date.now(),
+                starred: false
             });
             await loadHistory();
         } catch (e) {
@@ -402,17 +403,17 @@ import Head from '$lib/components/Head.svelte';
         }
     };
 
-    const loadHistoryItem = (item: ToolHistoryItem) => {
-        if(item && item.data && item.data.raw) {
-            rawUuids = item.data.raw;
-            if (item.data.options) {
-                isUppercase = item.data.options.isUppercase;
-                includeBraces = item.data.options.includeBraces;
-                removeHyphens = item.data.options.removeHyphens;
+    const loadHistoryItem = (item: ToolHistoryItem<any, any>) => {
+        if(item && item.result && item.result.raw) {
+            rawUuids = item.result.raw;
+            if (item.result.options) {
+                isUppercase = item.result.options.isUppercase;
+                includeBraces = item.result.options.includeBraces;
+                removeHyphens = item.result.options.removeHyphens;
             }
-        } else if (item && item.data && item.data.uuids) {
+        } else if (item && item.result && item.result.uuids) {
             // Fallback for older entries without 'raw'
-            rawUuids = item.data.uuids;
+            rawUuids = item.result.uuids;
         }
     };
 
@@ -625,7 +626,7 @@ import Head from '$lib/components/Head.svelte';
                                         <div class="text-sm font-medium text-slate-800 dark:text-slate-200">{item.name}</div>
                                         <div class="text-xs text-slate-500 dark:text-slate-400">{new Date(item.timestamp).toLocaleString()}</div>
                                     </div>
-                                    <button on:click|stopPropagation={() => deleteHistoryItem(item.id)} class="text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity p-2">
+                                    <button on:click|stopPropagation={() => deleteHistoryItem(item.id!)} class="text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity p-2">
                                         <Trash2 size={16} />
                                     </button>
                                 </div>
