@@ -157,9 +157,9 @@
 
                  <!-- Examples -->
                  <div class="flex gap-2 mb-4 overflow-x-auto pb-2">
-                     <button class="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs rounded-full whitespace-nowrap min-h-[44px]" on:click={() => loadExample(1)}>{t.example1 || 'Basic CSS'}</button>
-                     <button class="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs rounded-full whitespace-nowrap min-h-[44px]" on:click={() => loadExample(2)}>{t.example2 || 'Nested Rules'}</button>
-                     <button class="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs rounded-full whitespace-nowrap min-h-[44px]" on:click={() => loadExample(3)}>{t.example3 || 'Minified CSS'}</button>
+                     <button class="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs rounded-full whitespace-nowrap min-h-[44px] min-w-[44px]" on:click={() => loadExample(1)}>{t.example1 || 'Basic CSS'}</button>
+                     <button class="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs rounded-full whitespace-nowrap min-h-[44px] min-w-[44px]" on:click={() => loadExample(2)}>{t.example2 || 'Nested Rules'}</button>
+                     <button class="px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs rounded-full whitespace-nowrap min-h-[44px] min-w-[44px]" on:click={() => loadExample(3)}>{t.example3 || 'Minified CSS'}</button>
                  </div>
                  <CssWorkspace bind:this={workspaceComponent} bind:state dictionary={dict} on:process={handleProcess} />
 

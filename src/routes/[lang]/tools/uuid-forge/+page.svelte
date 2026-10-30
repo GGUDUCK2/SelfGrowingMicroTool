@@ -487,14 +487,14 @@ import Head from '$lib/components/Head.svelte';
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         <div class="flex space-x-1 bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-xl w-fit">
             <button
-                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'generate' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'generate' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'generate'}
             >
                 <RefreshCw size={16} class="inline-block mr-2" />
                 {t.tabGenerate}
             </button>
             <button
-                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'analyze' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'analyze' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'analyze'}
             >
                 <Search size={16} class="inline-block mr-2" />
@@ -564,7 +564,7 @@ import Head from '$lib/components/Head.svelte';
                         </label>
                     </div>
 
-                    <button on:click={generate} class="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-6 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-[0.98]">
+                    <button on:click={generate} class="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-6 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-[0.98] min-h-[44px] min-w-[44px]">
                         <RefreshCw size={20} />
                         {t.generate}
                     </button>
@@ -601,7 +601,7 @@ import Head from '$lib/components/Head.svelte';
                             {t.history}
                         </h2>
                         {#if history.length > 0}
-                            <button on:click={clearHistory} class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1">
+                            <button on:click={clearHistory} class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1 min-h-[44px] min-w-[44px]">
                                 <Trash2 size={14} />
                                 <span class="hidden sm:inline">{t.clearHistory}</span>
                             </button>
@@ -639,7 +639,7 @@ import Head from '$lib/components/Head.svelte';
             <div class="lg:col-span-2 space-y-6 flex flex-col h-full">
                 <!-- Action Bar -->
                 <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 flex flex-wrap gap-3">
-                    <button on:click={copyAll} class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-medium transition-all {isCopied ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 ring-2 ring-emerald-500/50' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200'}">
+                    <button on:click={copyAll} class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-medium transition-all {isCopied ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 ring-2 ring-emerald-500/50' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200'} min-h-[44px] min-w-[44px]">
                         {#if isCopied}
                             <Check size={18} /> {t.copied}
                         {:else}
@@ -647,11 +647,11 @@ import Head from '$lib/components/Head.svelte';
                         {/if}
                     </button>
 
-                    <button on:click={shareTxt} class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl font-medium transition-colors">
+                    <button on:click={shareTxt} class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl font-medium transition-colors min-h-[44px] min-w-[44px]">
                         <Share2 size={18} /> {t.share}
                     </button>
                     <button on:click={downloadAdvanced}
- class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl font-medium transition-colors">
+ class="flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl font-medium transition-colors min-h-[44px] min-w-[44px]">
                         <Download size={18} /> {t.download}
                     </button>
                     <button on:click={() => { generatedUuids = []; }} class="flex-none flex items-center justify-center gap-2 py-3 px-4 text-slate-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 dark:hover:text-red-400 rounded-xl font-medium transition-colors" aria-label={t.clear} title={t.clear}>
@@ -665,7 +665,7 @@ import Head from '$lib/components/Head.svelte';
                         <textarea
                             readonly
                             value={generatedUuids.join('\n')}
-                            class="w-full h-full resize-none bg-transparent font-mono text-sm sm:text-base leading-relaxed text-slate-800 dark:text-slate-300 focus:outline-none custom-scrollbar whitespace-pre-wrap break-all"
+                            class="w-full h-full resize-none bg-transparent font-mono text-sm sm:text-base leading-relaxed text-slate-800 dark:text-slate-300 focus:outline-none custom-scrollbar whitespace-pre-wrap overflow-x-auto block"
                             placeholder="Generated UUIDs will appear here..."
                         ></textarea>
                     </div>
@@ -720,12 +720,12 @@ import Head from '$lib/components/Head.svelte';
             <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
                 <textarea
                     bind:value={analyzeInput}
-                    class="w-full h-48 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl p-4 font-mono text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-200 transition-colors custom-scrollbar whitespace-pre-wrap break-all"
+                    class="w-full h-48 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl p-4 font-mono text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-200 transition-colors custom-scrollbar whitespace-pre-wrap overflow-x-auto block"
                     placeholder={t.analyzePlaceholder}
                     aria-label={t.analyzePlaceholder}
                 ></textarea>
                 <div class="mt-4 flex justify-end">
-                    <button on:click={analyzeUuids} class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-[0.98]">
+                    <button on:click={analyzeUuids} class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-[0.98] min-h-[44px] min-w-[44px]">
                         <Search size={18} />
                         {t.analyzeButton}
                     </button>
