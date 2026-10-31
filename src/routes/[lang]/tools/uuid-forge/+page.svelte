@@ -665,7 +665,7 @@ import Head from '$lib/components/Head.svelte';
                         <textarea
                             readonly
                             value={generatedUuids.join('\n')}
-                            class="w-full h-full resize-none bg-transparent font-mono text-sm sm:text-base leading-relaxed text-slate-800 dark:text-slate-300 focus:outline-none custom-scrollbar whitespace-pre-wrap break-all"
+                            class="w-full h-full resize-none bg-transparent font-mono text-sm sm:text-base leading-relaxed text-slate-800 dark:text-slate-300 focus:outline-none custom-scrollbar whitespace-pre overflow-x-auto"
                             placeholder="Generated UUIDs will appear here..."
                         ></textarea>
                     </div>
@@ -720,7 +720,7 @@ import Head from '$lib/components/Head.svelte';
             <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
                 <textarea
                     bind:value={analyzeInput}
-                    class="w-full h-48 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl p-4 font-mono text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-200 transition-colors custom-scrollbar whitespace-pre-wrap break-all"
+                    class="w-full h-48 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl p-4 font-mono text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-200 transition-colors custom-scrollbar whitespace-pre overflow-x-auto"
                     placeholder={t.analyzePlaceholder}
                     aria-label={t.analyzePlaceholder}
                 ></textarea>
