@@ -487,14 +487,14 @@ import Head from '$lib/components/Head.svelte';
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         <div class="flex space-x-1 bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-xl w-fit">
             <button
-                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'generate' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'generate' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'generate'}
             >
                 <RefreshCw size={16} class="inline-block mr-2" />
                 {t.tabGenerate}
             </button>
             <button
-                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'analyze' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
+                class="px-6 py-2.5 rounded-lg text-sm font-medium transition-all {activeTab === 'analyze' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'analyze'}
             >
                 <Search size={16} class="inline-block mr-2" />
@@ -601,7 +601,7 @@ import Head from '$lib/components/Head.svelte';
                             {t.history}
                         </h2>
                         {#if history.length > 0}
-                            <button on:click={clearHistory} class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1">
+                            <button on:click={clearHistory} class="text-sm text-red-500 hover:text-red-600 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1 min-h-[44px] min-w-[44px]">
                                 <Trash2 size={14} />
                                 <span class="hidden sm:inline">{t.clearHistory}</span>
                             </button>
@@ -665,7 +665,7 @@ import Head from '$lib/components/Head.svelte';
                         <textarea
                             readonly
                             value={generatedUuids.join('\n')}
-                            class="w-full h-full resize-none bg-transparent font-mono text-sm sm:text-base leading-relaxed text-slate-800 dark:text-slate-300 focus:outline-none custom-scrollbar whitespace-pre-wrap break-all"
+                            class="w-full h-full resize-none bg-transparent font-mono text-sm sm:text-base leading-relaxed text-slate-800 dark:text-slate-300 focus:outline-none custom-scrollbar whitespace-pre overflow-x-auto"
                             placeholder="Generated UUIDs will appear here..."
                         ></textarea>
                     </div>
@@ -720,7 +720,7 @@ import Head from '$lib/components/Head.svelte';
             <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
                 <textarea
                     bind:value={analyzeInput}
-                    class="w-full h-48 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl p-4 font-mono text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-200 transition-colors custom-scrollbar whitespace-pre-wrap break-all"
+                    class="w-full h-48 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl p-4 font-mono text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-200 transition-colors custom-scrollbar whitespace-pre overflow-x-auto"
                     placeholder={t.analyzePlaceholder}
                     aria-label={t.analyzePlaceholder}
                 ></textarea>

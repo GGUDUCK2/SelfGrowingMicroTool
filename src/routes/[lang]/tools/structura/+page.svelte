@@ -451,7 +451,7 @@
                                 <div class="absolute inset-x-0 bottom-0 p-4 bg-red-50 dark:bg-red-900/20 border-t border-red-100 dark:border-red-900/50 backdrop-blur-sm" transition:fly={{ y: 20 }}>
                                     <div class="flex items-start gap-2 text-red-600 dark:text-red-400">
                                         <span class="font-bold text-sm">{t.error}:</span>
-                                        <span class="text-sm font-mono break-all">{error}</span>
+                                        <span class="text-sm font-mono overflow-x-auto block whitespace-nowrap">{error}</span>
                                     </div>
                                 </div>
                             {/if}
