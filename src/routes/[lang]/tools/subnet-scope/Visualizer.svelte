@@ -19,7 +19,7 @@
 </script>
 
 <div class="p-6 bg-slate-900 rounded-xl overflow-x-auto border border-slate-700 shadow-inner">
-    <div class="flex flex-wrap gap-y-2 font-mono text-sm md:text-base leading-relaxed break-all max-w-full">
+    <div class="flex flex-wrap gap-y-2 font-mono text-sm md:text-base leading-relaxed overflow-x-auto whitespace-nowrap max-w-full">
         {#each chars as { char, type, index } (index)}
             <div class="relative inline-flex flex-col items-center group">
                  <span
