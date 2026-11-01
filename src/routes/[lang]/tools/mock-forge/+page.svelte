@@ -21,7 +21,7 @@
   // Dictionary
   $: lang = $page.params.lang || 'en';
   $: dictionary = getDictionary(lang);
-  $: t = (dictionary as any)?.tools?.mockForge;
+  $: t = (dictionary as Record<string, any>)?.tools?.mockForge;
   $: common = dictionary.common;
 
   $: faqItems = [
