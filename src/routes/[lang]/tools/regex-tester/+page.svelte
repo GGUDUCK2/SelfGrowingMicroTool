@@ -18,7 +18,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dictionary = getDictionary(lang);
-  $: t = (dictionary as any).tools.regexTester;
+  $: t = (dictionary as Record<string, any>).tools.regexTester;
 
   $: faqItems = [
     { q: t.q1, a: t.a1 },

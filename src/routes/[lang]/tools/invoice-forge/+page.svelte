@@ -22,7 +22,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dictionary = getDictionary(lang);
-  $: invoiceDict = (dictionary as any)?.tools?.invoiceForge;
+  $: invoiceDict = (dictionary as Record<string, any>)?.tools?.invoiceForge;
 
   let invoice: Invoice = createEmptyInvoice();
   let showSidebar = true;

@@ -21,7 +21,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dictionary = getDictionary(lang);
-  $: dict = (dictionary as any)?.tools.motionMaster;
+  $: dict = (dictionary as Record<string, any>)?.tools.motionMaster;
 
   let showSidebar = false;
   let showCodeModal = false;

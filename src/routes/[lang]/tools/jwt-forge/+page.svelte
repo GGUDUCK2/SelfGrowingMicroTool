@@ -17,7 +17,7 @@
 
   $: lang = $page.params.lang || 'en';
   $: dictionary = getDictionary(lang);
-  $: t = (dictionary as any)?.tools?.jwtForge;
+  $: t = (dictionary as Record<string, any>)?.tools?.jwtForge;
 
   let token = '';
   let secret = '';
