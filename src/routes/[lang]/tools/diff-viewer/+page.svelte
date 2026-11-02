@@ -180,7 +180,7 @@
         .added { background-color: #dcfce7; color: #166534; }
         .removed { background-color: #fee2e2; color: #991b1b; }
         .stats { margin-bottom: 20px; font-size: 0.9em; color: #6b7280; }
-        pre { margin: 0; white-space: pre-wrap; word-break: break-all; }
+        pre { margin: 0; overflow-x: auto; white-space: pre; }
     </style>
 </head>
 <body>
@@ -350,6 +350,8 @@
 
   const keywords = "diff checker, text compare, json compare, merge conflict solver, online diff tool, file comparison, text difference";
 </script>
+
+
 
 <svelte:head>
   <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/diff-viewer"} />
