@@ -66,7 +66,7 @@
                         <div class="w-10 text-right pr-2 select-none text-slate-500 text-xs border-r border-slate-700 py-0.5">${lnLeft}</div>
                         <div class="w-10 text-right pr-2 select-none text-slate-500 text-xs border-r border-slate-700 py-0.5">${lnRight}</div>
                         <div class="w-6 text-center select-none text-slate-400 text-xs py-0.5">${prefix}</div>
-                        <div class="flex-1 font-mono text-sm whitespace-pre-wrap break-all py-0.5 px-2">${line || ' '}</div>
+                        <div class="flex-1 font-mono text-sm  overflow-x-auto block whitespace-pre py-0.5 px-2">${line || ' '}</div>
                     </div>
                  `;
              } else {
@@ -77,7 +77,7 @@
         // Split view simple construction
         if (viewMode === 'split') {
              lines.forEach(line => {
-                const lineHtml = `<div class="font-mono text-sm whitespace-pre-wrap break-all py-0.5 px-2 ${colorClass} min-h-[1.5rem]">${line || ' '}</div>`;
+                const lineHtml = `<div class="font-mono text-sm  overflow-x-auto block whitespace-pre py-0.5 px-2 ${colorClass} min-h-[1.5rem]">${line || ' '}</div>`;
 
                 if (type === 'removed') {
                     leftHtml += `<div class="flex"><div class="w-8 text-right pr-2 text-slate-500 text-xs select-none py-0.5 border-r border-slate-700 bg-slate-900">${leftLineNum++}</div><div class="flex-1 ${colorClass}">${lineHtml}</div></div>`;

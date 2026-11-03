@@ -278,7 +278,7 @@ export function getStrength(entropy: number): { label: string, color: string, sc
     if (entropy < 36) return { label: 'Weak', color: 'bg-orange-500', score: 2 };
     if (entropy < 60) return { label: 'Reasonable', color: 'bg-yellow-500', score: 3 };
     if (entropy < 128) return { label: 'Strong', color: 'bg-green-500', score: 4 };
-    return { label: 'Very Strong', color: 'bg-blue-500', score: 5 };
+    return { label: 'Very Strong', color: 'bg-indigo-500', score: 5 };
 }
 
 export function getCrackTimeEstimation(entropy: number): string {

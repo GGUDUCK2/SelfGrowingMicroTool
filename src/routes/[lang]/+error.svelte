@@ -14,7 +14,7 @@
     <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-slate-50">{$page.error?.message || 'Something went wrong'}</h2>
 
     <p class="text-gray-500 dark:text-slate-400 mb-8 text-lg">
-      <span class="text-sm opacity-80 mt-2 block">문제가 발생했습니다. 다시 시도해 주세요.</span>
+      <span class="text-sm opacity-80 mt-2 block">{$page.params.lang === "ko" ? "문제가 발생했습니다. 다시 시도해 주세요." : "An error occurred. Please try again."}</span>
     </p>
 
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -23,12 +23,12 @@
         href={$page.params.lang ? '/' + $page.params.lang : '/'}
         class="bg-indigo-500 text-white px-6 py-3 rounded-lg hover:bg-indigo-600 transition-colors font-medium min-h-[44px] min-w-[44px] flex items-center justify-center"
       >
-        Go Home / 홈으로 돌아가기
+        {$page.params.lang === "ko" ? "홈으로 돌아가기" : "Go Home"}
       </a>
       <button class="border border-gray-300 dark:border-slate-600 text-gray-600 dark:text-slate-300 bg-white dark:bg-transparent px-6 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
          on:click={() => window.location.href = 'https://github.com/microfactory/issues'}
       >
-        Report Issue / 문제 신고하기
+        {$page.params.lang === "ko" ? "문제 신고하기" : "Report Issue"}
       </button>
     </div>
   </div>
