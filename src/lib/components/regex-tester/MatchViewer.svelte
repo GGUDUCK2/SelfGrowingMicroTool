@@ -64,7 +64,7 @@
     <div class="relative flex-grow">
       <!-- Backdrop for highlights (same styling as textarea) -->
       <div
-        class="absolute inset-0 p-4 font-mono text-sm whitespace-pre-wrap break-all pointer-events-none text-transparent overflow-auto"
+        class="absolute inset-0 p-4 font-mono text-sm whitespace-pre-wrap overflow-x-auto block pointer-events-none text-transparent overflow-auto"
         aria-hidden="true"
       >
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -74,7 +74,7 @@
       <!-- Textarea -->
       <textarea
         id="test-string"
-        class="w-full h-full p-4 font-mono text-sm bg-transparent border-none resize-none focus:ring-0 whitespace-pre-wrap break-all text-slate-700 dark:text-slate-300 z-10 relative leading-relaxed"
+        class="w-full h-full p-4 font-mono text-sm bg-transparent border-none resize-none focus:ring-0 whitespace-pre  text-slate-700 dark:text-slate-300 z-10 relative leading-relaxed overflow-x-auto"
         value={testString}
         on:input={handleInput}
         spellcheck="false"
@@ -118,7 +118,7 @@
                 <span class="text-xs font-mono text-slate-500">Match #{i + 1}</span>
                 <span class="text-xs font-mono text-slate-400">Index: {match.index}</span>
               </div>
-              <div class="p-3 font-mono text-sm text-slate-700 dark:text-slate-300 break-all bg-white dark:bg-slate-900">
+              <div class="p-3 font-mono text-sm text-slate-700 dark:text-slate-300 overflow-x-auto block bg-white dark:bg-slate-900">
                 {match.content}
               </div>
               {#if match.groups && match.groups.length > 0}
@@ -128,7 +128,7 @@
                     {#each match.groups as group, j}
                       <div class="flex gap-2 text-xs">
                         <span class="font-mono text-slate-400 w-6 text-right">${j + 1}</span>
-                        <span class="font-mono text-slate-700 dark:text-slate-300 break-all">{group}</span>
+                        <span class="font-mono text-slate-700 dark:text-slate-300 overflow-x-auto block">{group}</span>
                       </div>
                     {/each}
                   </div>
