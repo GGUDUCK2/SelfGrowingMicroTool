@@ -451,7 +451,7 @@
                                 <div class="absolute inset-x-0 bottom-0 p-4 bg-red-50 dark:bg-red-900/20 border-t border-red-100 dark:border-red-900/50 backdrop-blur-sm" transition:fly={{ y: 20 }}>
                                     <div class="flex items-start gap-2 text-red-600 dark:text-red-400">
                                         <span class="font-bold text-sm">{t.error}:</span>
-                                        <span class="text-sm font-mono break-all">{error}</span>
+                                        <span class="text-sm font-mono overflow-x-auto block whitespace-pre">{error}</span>
                                     </div>
                                 </div>
                             {/if}
@@ -620,7 +620,7 @@
   </div>
 
   <!-- Documentation & Guides -->
-  <article class="prose dark:prose-invert max-w-none mt-20 p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 min-h-[44px] min-w-[44px]">
+  <article class="prose dark:prose-invert max-w-none mt-20 p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
     <h2>{t.guide.title}</h2>
     <p>
       {t.guide.intro}

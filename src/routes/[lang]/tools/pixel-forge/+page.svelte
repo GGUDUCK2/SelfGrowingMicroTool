@@ -171,7 +171,7 @@
   </section>
 
   <!-- Documentation -->
-  <article class="prose dark:prose-invert prose-slate max-w-none pt-12 border-t border-slate-200 dark:border-slate-800 min-h-[44px] min-w-[44px]">
+  <article class="prose dark:prose-invert prose-slate max-w-none pt-12 border-t border-slate-200 dark:border-slate-800">
     <h2>{toolDict.guide.title}</h2>
     <p>
       {toolDict.guide.intro}
