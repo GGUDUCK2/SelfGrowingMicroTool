@@ -475,7 +475,7 @@
   </div>
 
   <!-- Documentation -->
-  <article class="prose dark:prose-invert max-w-none mt-20 pt-12 border-t border-slate-200 dark:border-slate-800 min-h-[44px] min-w-[44px]">
+  <article class="prose dark:prose-invert max-w-none mt-20 pt-12 border-t border-slate-200 dark:border-slate-800">
       <h2 class="text-3xl font-bold mb-6">{t.guide.title}</h2>
       <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-400">{t.guide.intro}</p>
 
@@ -520,7 +520,7 @@
         @apply block text-sm font-medium text-slate-500 dark:text-slate-400 mb-2;
     }
     .card .value {
-        @apply text-lg font-mono font-semibold text-slate-900 dark:text-white break-all;
+        @apply text-lg font-mono font-semibold text-slate-900 dark:text-white overflow-x-auto block whitespace-nowrap;
     }
     .badge {
         @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300;

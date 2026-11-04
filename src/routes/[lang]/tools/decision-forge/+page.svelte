@@ -183,7 +183,7 @@
         class="
             fixed inset-y-0 left-0 z-40 w-full max-w-sm bg-white dark:bg-gray-800 shadow-xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-auto lg:shadow-none lg:bg-transparent dark:lg:bg-transparent lg:w-1/4 lg:block
             {showSidebar ? 'translate-x-0' : '-translate-x-full'}
-         min-h-[44px] min-w-[44px]"
+        "
       >
         <div class="h-full lg:h-[calc(100vh-8rem)] lg:sticky lg:top-24">
             <HistoryPanel />

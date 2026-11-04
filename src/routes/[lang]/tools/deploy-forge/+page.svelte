@@ -193,7 +193,7 @@
         </h1>
       </div>
       <div class="flex items-center space-x-2">
-         <button on:click={saveToHistory} class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center min-h-[44px] min-w-[44px]" aria-label={((dict as any)?.tools?.deployForge || {}).save}>
+         <button on:click={saveToHistory} class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center " aria-label={((dict as any)?.tools?.deployForge || {}).save}>
             <Save size={20} />
          </button>
      <button on:click={downloadProject} class="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-slate-900 dark:text-white rounded-lg font-medium transition-colors text-sm min-h-[44px] min-w-[44px]">

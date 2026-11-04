@@ -218,8 +218,8 @@
 
                    <!-- Preview Controls -->
                    <div class="absolute bottom-4 left-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur p-2 rounded-lg shadow border border-slate-200 dark:border-slate-600 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                       <button on:click={() => $previewStore.type = 'box'} class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded min-h-[44px] min-w-[44px]" title="Box"><div class="w-4 h-4 bg-indigo-500 rounded min-h-[44px] min-w-[44px]"></div></button>
-                       <button on:click={() => $previewStore.type = 'circle'} class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded min-h-[44px] min-w-[44px]" title="Circle"><div class="w-4 h-4 bg-indigo-500 rounded-full min-h-[44px] min-w-[44px]"></div></button>
+                       <button on:click={() => $previewStore.type = 'box'} class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded min-h-[44px] min-w-[44px]" title="Box"><div class="w-4 h-4 bg-indigo-500 rounded"></div></button>
+                       <button on:click={() => $previewStore.type = 'circle'} class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded min-h-[44px] min-w-[44px]" title="Circle"><div class="w-4 h-4 bg-indigo-500 rounded-full"></div></button>
                        <button on:click={() => $previewStore.type = 'text'} class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded font-bold text-xs flex items-center justify-center w-6 h-6 min-h-[44px] min-w-[44px]" title="Text">T</button>
                    </div>
                </div>
@@ -269,7 +269,7 @@
 <!-- Documentation Section -->
 <div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <article class="prose dark:prose-invert max-w-none min-h-[44px] min-w-[44px]">
+    <article class="prose dark:prose-invert max-w-none">
       <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 mb-6">
         {dict.guide.title}
       </h2>

@@ -123,7 +123,7 @@
 
   <!-- Features -->
   <section class="grid grid-cols-1 md:grid-cols-3 gap-8">
-     <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm min-h-[44px] min-w-[44px]">
+     <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
         <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center mb-4 text-indigo-600 dark:text-indigo-400">
             <Layers class="w-6 h-6" />
         </div>
@@ -133,7 +133,7 @@
             {@html renderMarkdown(toolDict.guide.f1)}
         </div>
      </article>
-     <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm min-h-[44px] min-w-[44px]">
+     <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
         <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center mb-4 text-indigo-600 dark:text-indigo-400">
             <Zap class="w-6 h-6" />
         </div>
@@ -143,7 +143,7 @@
             {@html renderMarkdown(toolDict.guide.f2)}
         </div>
      </article>
-     <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm min-h-[44px] min-w-[44px]">
+     <article class="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
         <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center mb-4 text-indigo-600 dark:text-indigo-400">
             <Shield class="w-6 h-6" />
         </div>
