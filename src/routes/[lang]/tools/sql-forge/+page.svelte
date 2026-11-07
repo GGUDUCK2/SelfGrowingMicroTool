@@ -155,11 +155,11 @@
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
-<div class="h-[calc(100vh-4rem)] flex flex-col bg-gray-50 dark:bg-gray-900">
+<div class="h-[calc(100vh-4rem)] flex flex-col bg-slate-50 dark:bg-slate-900">
     <!-- Toolbar -->
-    <header class="h-14 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-4 shrink-0 z-20">
+    <header class="h-14 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between px-4 shrink-0 z-20">
         <div class="flex items-center gap-3">
-            <button class="md:hidden p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-600 dark:text-gray-400 min-h-[44px] min-w-[44px]" on:click={() => isSidebarOpen = !isSidebarOpen} aria-label="Toggle Menu">
+            <button class="md:hidden p-1.5 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-600 dark:text-slate-400 min-h-[44px] min-w-[44px]" on:click={() => isSidebarOpen = !isSidebarOpen} aria-label="Toggle Menu">
                 {#if isSidebarOpen}
                     <X size={20} />
                 {:else}
@@ -169,11 +169,11 @@
             <div class="p-1.5 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400 hidden md:block">
                 <Database size={20} />
             </div>
-            <h1 class="font-bold text-gray-900 dark:text-white truncate hidden sm:block">{t.title}</h1>
+            <h1 class="font-bold text-slate-900 dark:text-white truncate hidden sm:block">{t.title}</h1>
         </div>
 
         <div class="flex items-center gap-2">
-            <button class="flex items-center gap-2 px-3 py-1.5 min-h-[44px] min-w-[44px] text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            <button class="flex items-center gap-2 px-3 py-1.5 min-h-[44px] min-w-[44px] text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
                 on:click={() => showImport = true}
             >
                 <Upload size={16} />
@@ -207,7 +207,7 @@
         {/if}
 
         <!-- Sidebar -->
-        <div class={`absolute md:static inset-y-0 left-0 z-30 w-full max-w-xs transform transition-transform duration-300 md:transform-none bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div class={`absolute md:static inset-y-0 left-0 z-30 w-full max-w-xs transform transition-transform duration-300 md:transform-none bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
             <Sidebar
                 {tables}
                 {t}
@@ -219,15 +219,15 @@
         </div>
 
         <!-- Workspace -->
-        <main class="flex-1 flex flex-col min-w-0 bg-gray-100 dark:bg-gray-900/50 p-2 sm:p-4 gap-4 overflow-y-auto">
+        <main class="flex-1 flex flex-col min-w-0 bg-slate-100 dark:bg-slate-900/50 p-2 sm:p-4 gap-4 overflow-y-auto">
             <!-- Editor Pane -->
             <div class="flex flex-col gap-2 min-h-[200px] flex-shrink-0">
                 <div class="flex items-center justify-between px-1">
-                    <label class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
                         <Terminal size={14} />
                         {t.input}
                     </label>
-                    <span class="text-xs text-gray-400 dark:text-slate-500">Ctrl + Enter to Run</span>
+                    <span class="text-xs text-slate-400 dark:text-slate-500">Ctrl + Enter to Run</span>
                 </div>
                 <SqlEditor bind:value={query} placeholder="SELECT * FROM ..." on:run={() => handleRun()} />
             </div>
@@ -235,7 +235,7 @@
             <!-- Results Pane -->
             <div class="flex-1 min-h-0 flex flex-col gap-2">
                 <div class="flex items-center justify-between px-1">
-                    <label class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
                         <Code size={14} />
                         {t.output}
                     </label>
@@ -244,41 +244,41 @@
             </div>
 
             <!-- Guide Section (Below fold) -->
-            <div class="mt-8 prose dark:prose-invert max-w-none bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+            <div class="mt-8 prose dark:prose-invert max-w-none bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
                 <h2>{t.guide.title}</h2>
                 <p>{t.guide.intro}</p>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 not-prose my-8">
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
+                    <div class="p-4 bg-slate-50 dark:bg-slate-700/30 rounded-lg">
                         <h3 class="font-bold mb-2 flex items-center gap-2">
                             <Clock size={18} class="text-indigo-500" />
                             Fast
                         </h3>
                         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                        <p class="text-sm text-gray-600 dark:text-gray-400"><span class="markdown-body">{@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>
+                        <p class="text-sm text-slate-600 dark:text-slate-400"><span class="markdown-body">{@html t.guide.f1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>
                     </div>
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
+                    <div class="p-4 bg-slate-50 dark:bg-slate-700/30 rounded-lg">
                         <h3 class="font-bold mb-2 flex items-center gap-2">
                             <FolderOpen size={18} class="text-green-500 dark:text-green-400" />
                             Versatile
                         </h3>
                         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                        <p class="text-sm text-gray-600 dark:text-gray-400"><span class="markdown-body">{@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>
+                        <p class="text-sm text-slate-600 dark:text-slate-400"><span class="markdown-body">{@html t.guide.f2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>
                     </div>
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
+                    <div class="p-4 bg-slate-50 dark:bg-slate-700/30 rounded-lg">
                         <h3 class="font-bold mb-2 flex items-center gap-2">
                             <Database size={18} class="text-purple-500" />
                             Private
                         </h3>
                         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                        <p class="text-sm text-gray-600 dark:text-gray-400"><span class="markdown-body">{@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>
+                        <p class="text-sm text-slate-600 dark:text-slate-400"><span class="markdown-body">{@html t.guide.f3.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></p>
                     </div>
                 </div>
 
                 <h3>{t.guide.tipsTitle}</h3>
                 <ul>
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                    <li><span class="markdown-body">{@html t.guide.tip1.replace(/`(.*?)`/g, '<code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">$1</code>')}</span></li>
+                    <li><span class="markdown-body">{@html t.guide.tip1.replace(/`(.*?)`/g, '<code class="bg-slate-100 dark:bg-slate-700 px-1 rounded">$1</code>')}</span></li>
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     <li><span class="markdown-body">{@html t.guide.tip2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span></li>
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->

@@ -286,16 +286,16 @@
     <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600 tracking-tight">
       Structura
     </h1>
-    <p class="text-lg text-gray-600 dark:text-gray-300 max-w-7xl mx-auto">
+    <p class="text-lg text-slate-600 dark:text-slate-300 max-w-7xl mx-auto">
       {t.description}
     </p>
   </div>
 
   <!-- Main Interface -->
-  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+  <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 overflow-hidden">
       <!-- Tabs -->
-      <div class="flex border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
-          <button class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'convert' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-gray-300'}"
+      <div class="flex border-b border-slate-200 dark:border-slate-700 overflow-x-auto">
+          <button class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'convert' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}"
             on:click={() => activeTab = 'convert'}
           >
               <Zap size={18} />
@@ -304,7 +304,7 @@
                 <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400" transition:slide={{ axis: 'x' }}></div>
               {/if}
           </button>
-          <button class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'codegen' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-gray-300'}"
+          <button class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'codegen' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}"
             on:click={() => { activeTab = 'codegen'; runCodeGen(); }}
           >
               <Code size={18} />
@@ -313,7 +313,7 @@
                 <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400" transition:slide={{ axis: 'x' }}></div>
               {/if}
           </button>
-          <button class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'visualizer' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-gray-300'}"
+          <button class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'visualizer' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}"
             on:click={() => { activeTab = 'visualizer'; runVisualizer(); }}
           >
               <Network size={18} />
@@ -322,7 +322,7 @@
                 <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400" transition:slide={{ axis: 'x' }}></div>
               {/if}
           </button>
-          <button class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-gray-300'}"
+          <button class="flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative min-w-[120px] min-h-[44px] min-w-[44px] {activeTab === 'history' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}"
             on:click={() => activeTab = 'history'}
           >
               <History size={18} />
@@ -342,42 +342,42 @@
                     <div class="flex items-center gap-4 w-full md:w-auto">
                         <!-- Examples Dropdown -->
                         <div class="relative group">
-                            <button class="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors min-h-[44px] min-w-[44px]">
+                            <button class="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors min-h-[44px] min-w-[44px]">
                                 <span class="text-indigo-600 dark:text-indigo-400">★</span>
                                 {t.examples.label}
                             </button>
-                            <div class="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-1 hidden group-hover:block z-20">
+                            <div class="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-100 dark:border-slate-700 py-1 hidden group-hover:block z-20">
                                 {#each structuraExamples as ex (ex.label)}
                                     <button class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors min-h-[44px] min-w-[44px]"
                                         on:click={() => loadExample(ex)}
                                     >
-                                        <span class="font-bold text-xs bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded mr-2">{ex.format}</span>
+                                        <span class="font-bold text-xs bg-slate-100 dark:bg-slate-700 px-1.5 py-0.5 rounded mr-2">{ex.format}</span>
                                         {ex.label}
                                     </button>
                                 {/each}
                             </div>
                         </div>
 
-                        <div class="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
+                        <div class="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-2"></div>
 
                         <label for="input-format" class="sr-only">Input Format</label>
                         <select
                             id="input-format"
                             bind:value={inputFormat}
-                            class="pl-3 pr-8 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500 min-h-[44px]"
+                            class="pl-3 pr-8 py-2 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500 min-h-[44px]"
                         >
                             {#each formats as f (f.value)}
                                 <option value={f.value}>{f.label}</option>
                             {/each}
                         </select>
 
-                        <ArrowRight class="text-gray-400 dark:text-slate-500" size={16} />
+                        <ArrowRight class="text-slate-400 dark:text-slate-500" size={16} />
 
                         <label for="output-format" class="sr-only">Output Format</label>
                         <select
                             id="output-format"
                             bind:value={outputFormat}
-                            class="pl-3 pr-8 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500 min-h-[44px]"
+                            class="pl-3 pr-8 py-2 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500 min-h-[44px]"
                         >
                             {#each formats as f (f.value)}
                                 <option value={f.value}>{f.label}</option>
@@ -394,7 +394,7 @@
                                 <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                             {/if}
                         </button>
-                        <button class="p-2 text-gray-500 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                        <button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                             on:click={() => showSettings = !showSettings}
                             aria-label={t.settings}
                         >
@@ -421,7 +421,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[500px]">
                     <div class="flex flex-col gap-2 h-full">
                         <div class="flex justify-between items-center px-1">
-                            <span class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">{t.input}</span>
+                            <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t.input}</span>
                             <Toolbar
                                 showDownload={false}
                                 on:copy={() => handleCopy(input)}
@@ -429,14 +429,14 @@
                                 labels={{ copy: t.copy, download: t.download, clear: t.clear }}
                             />
                         </div>
-                        <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+                        <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
                             <DataEditor bind:value={input} language={inputFormat} placeholder={t.inputPlaceholder} />
                         </div>
                     </div>
 
                     <div class="flex flex-col gap-2 h-full">
                         <div class="flex justify-between items-center px-1">
-                            <span class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">{t.output}</span>
+                            <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t.output}</span>
                             <Toolbar
                                 showClear={false}
                                 on:copy={() => handleCopy(output)}
@@ -444,7 +444,7 @@
                                 labels={{ copy: t.copy, download: t.download, clear: t.clear }}
                             />
                         </div>
-                        <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 relative">
+                        <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 relative">
                             <DataEditor bind:value={output} language={outputFormat} readonly={true} placeholder={t.outputPlaceholder} />
 
                             {#if error}
@@ -463,15 +463,15 @@
         <!-- Code Gen Tab -->
         {:else if activeTab === 'codegen'}
             <div transition:fade={{ duration: 200 }} class="space-y-6">
-                <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-gray-50 dark:bg-gray-700/50 p-4 rounded-xl">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-slate-50 dark:bg-slate-700/50 p-4 rounded-xl">
                     <div class="flex items-center gap-4 w-full">
                         <div class="flex-1">
-                            <label for="codegen-lang" class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">{t.codegen.language}</label>
+                            <label for="codegen-lang" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">{t.codegen.language}</label>
                             <select
                                 id="codegen-lang"
                                 bind:value={codeGenLang}
                                 on:change={runCodeGen}
-                                class="w-full pl-3 pr-8 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg text-sm min-h-[44px]"
+                                class="w-full pl-3 pr-8 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg text-sm min-h-[44px]"
                             >
                                 <option value="typescript">{t.codegen.typescript}</option>
                                 <option value="zod">{t.codegen.zod}</option>
@@ -482,13 +482,13 @@
                             </select>
                         </div>
                         <div class="flex-1">
-                            <label for="codegen-name" class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">{t.codegen.name}</label>
+                            <label for="codegen-name" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">{t.codegen.name}</label>
                             <input
                                 id="codegen-name"
                                 type="text"
                                 bind:value={rootName}
                                 on:input={runCodeGen}
-                                class="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg text-sm min-h-[44px]"
+                                class="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg text-sm min-h-[44px]"
                             />
                         </div>
                     </div>
@@ -504,15 +504,15 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[500px]">
                      <div class="flex flex-col gap-2 h-full">
                          <div class="flex justify-between items-center px-1">
-                             <span class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">{t.input}</span>
+                             <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t.input}</span>
                          </div>
-                         <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+                         <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
                              <DataEditor bind:value={input} language={inputFormat} placeholder={t.inputPlaceholder} />
                          </div>
                      </div>
                      <div class="flex flex-col gap-2 h-full">
                         <div class="flex justify-between items-center px-1">
-                            <span class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">{t.codegen.title}</span>
+                            <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t.codegen.title}</span>
                              <Toolbar
                                 showDownload={false}
                                 showClear={false}
@@ -520,7 +520,7 @@
                                 labels={{ copy: t.copy, download: t.download, clear: t.clear }}
                             />
                         </div>
-                         <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 relative">
+                         <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 relative">
                              <DataEditor
                                 bind:value={generatedCode}
                                 language={codeGenLang === 'go' ? 'go' : codeGenLang === 'python' || codeGenLang === 'pydantic' ? 'python' : 'typescript'}
@@ -543,9 +543,9 @@
                      <!-- Input Side (Small) -->
                      <div class="w-1/3 flex flex-col gap-2">
                         <div class="flex justify-between items-center px-1">
-                             <span class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">{t.input}</span>
+                             <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t.input}</span>
                         </div>
-                        <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+                        <div class="flex-1 min-h-0 shadow-inner rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
                              <DataEditor bind:value={input} language={inputFormat} placeholder={t.inputPlaceholder} />
                          </div>
                      </div>
@@ -553,13 +553,13 @@
                      <!-- Visualizer Side -->
                      <div class="w-2/3 flex flex-col gap-2">
                          <div class="flex justify-between items-center px-1">
-                             <span class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">{t.visualizer.title}</span>
+                             <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t.visualizer.title}</span>
                          </div>
                          <div class="flex-1 min-h-0">
                             {#if visualizerData}
                                 <TreeVisualizer data={visualizerData} />
                             {:else}
-                                <div class="h-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-400 dark:text-slate-500 p-8 text-center">
+                                <div class="h-full flex items-center justify-center bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-400 dark:text-slate-500 p-8 text-center">
                                     <div>
                                         <Network size={48} class="mx-auto mb-4 opacity-20" />
                                         <p>{t.visualizer.empty}</p>
@@ -577,21 +577,21 @@
                  {#if history && history.length > 0}
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {#each history as item (item.id)}
-                            <div class="group relative bg-gray-50 dark:bg-gray-700/30 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all">
+                            <div class="group relative bg-slate-50 dark:bg-slate-700/30 rounded-xl p-4 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all">
                                 <div class="flex justify-between items-start mb-3">
                                     <div class="flex items-center gap-2 text-xs font-mono">
-                                        <span class="bg-white dark:bg-gray-800 px-2 py-1 rounded shadow-sm">{item.inputFormat}</span>
-                                        <ArrowRight size={12} class="text-gray-400 dark:text-slate-500" />
+                                        <span class="bg-white dark:bg-slate-800 px-2 py-1 rounded shadow-sm">{item.inputFormat}</span>
+                                        <ArrowRight size={12} class="text-slate-400 dark:text-slate-500" />
                                         <span class="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 px-2 py-1 rounded shadow-sm">{item.outputFormat}</span>
                                     </div>
                                     <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <button class="p-1.5 hover:bg-white dark:bg-slate-800 dark:hover:bg-gray-600 rounded-lg text-gray-400 dark:text-slate-500 hover:text-yellow-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                                        <button class="p-1.5 hover:bg-white dark:bg-slate-800 dark:hover:bg-slate-600 rounded-lg text-slate-400 dark:text-slate-500 hover:text-yellow-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                                             on:click|stopPropagation={() => structuraWorkspace.toggleStar(item.id || 0)}
                                             aria-label={t.star || "Star"}
                                         >
                                             <Star size={16} fill={item.starred ? "currentColor" : "none"} class={item.starred ? "text-yellow-500" : ""} />
                                         </button>
-                                        <button class="p-1.5 hover:bg-white dark:bg-slate-800 dark:hover:bg-gray-600 rounded-lg text-gray-400 dark:text-slate-500 hover:text-red-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                                        <button class="p-1.5 hover:bg-white dark:bg-slate-800 dark:hover:bg-slate-600 rounded-lg text-slate-400 dark:text-slate-500 hover:text-red-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                                             on:click|stopPropagation={() => structuraWorkspace.delete(item.id || 0)}
                                             aria-label={t.delete || "Delete"}
                                         >
@@ -600,8 +600,8 @@
                                     </div>
                                 </div>
                                 <button class="w-full text-left min-h-[44px] min-w-[44px]" on:click={() => restoreHistory(item)}>
-                                    <p class="text-xs text-gray-500 dark:text-slate-400 mb-2">{new Date(item.createdAt).toLocaleString()}</p>
-                                    <p class="text-sm font-mono text-gray-700 dark:text-gray-300 line-clamp-3 bg-white dark:bg-gray-800 p-2 rounded border border-gray-100 dark:border-gray-700">
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">{new Date(item.createdAt).toLocaleString()}</p>
+                                    <p class="text-sm font-mono text-slate-700 dark:text-slate-300 line-clamp-3 bg-white dark:bg-slate-800 p-2 rounded border border-slate-100 dark:border-slate-700">
                                         {item.inputPreview}
                                     </p>
                                 </button>
@@ -609,7 +609,7 @@
                         {/each}
                     </div>
                  {:else}
-                    <div class="text-center py-20 text-gray-500 dark:text-slate-400">
+                    <div class="text-center py-20 text-slate-500 dark:text-slate-400">
                         <History size={48} class="mx-auto mb-4 opacity-20" />
                         <p>{t.history}</p>
                     </div>
@@ -620,7 +620,7 @@
   </div>
 
   <!-- Documentation & Guides -->
-  <article class="prose dark:prose-invert max-w-none mt-20 p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 min-h-[44px] min-w-[44px]">
+  <article class="prose dark:prose-invert max-w-none mt-20 p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 min-h-[44px] min-w-[44px]">
     <h2>{t.guide.title}</h2>
     <p>
       {t.guide.intro}
@@ -660,10 +660,10 @@
   <FAQSection title={t.faqTitle} items={faqItems} />
   </article>
 
-  <div class="flex justify-center mt-8 text-sm text-gray-400 dark:text-slate-500">
+  <div class="flex justify-center mt-8 text-sm text-slate-400 dark:text-slate-500">
       <div class="flex items-center gap-2">
           <span>{t.shortcuts.help}:</span>
-          <kbd class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 text-xs">Ctrl + Enter</kbd>
+          <kbd class="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600 text-xs">Ctrl + Enter</kbd>
           <span>to Convert</span>
       </div>
   </div>
