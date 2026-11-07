@@ -349,6 +349,23 @@
 
 
   const keywords = "diff checker, text compare, json compare, merge conflict solver, online diff tool, file comparison, text difference";
+
+
+    $: jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": t.title || "Diff Viewer",
+        "description": t.description || "Compare text and code easily.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": ["Text Diff","Code Comparison","Side-by-side View"]
+    };
+
 </script>
 
 <svelte:head>
@@ -363,6 +380,7 @@
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 
 
+        {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
 </svelte:head>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -531,7 +549,7 @@
                 <span class="hidden md:inline">{t.mergeConflict}</span>
             </Button>
              <Button variant="secondary" on:click={downloadReport} title={t.downloadReport} class="min-h-[44px] min-w-[44px]">
-                <Download class="w-4 h-4 text-blue-500 dark:text-blue-400" />
+                <Download class="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
                 <span class="hidden md:inline">Report</span>
             </Button>
             <Button variant="secondary" on:click={downloadPatch} title="Download Patch (.patch)" class="min-h-[44px] min-w-[44px]">
