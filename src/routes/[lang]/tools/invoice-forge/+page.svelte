@@ -153,13 +153,13 @@
   {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(howToSchema).replace(/</g, '\\u003c')}</scr` + `ipt>`}
 </svelte:head>
 
-<div class="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20 print:bg-white print:pb-0">
+<div class="min-h-screen bg-slate-50 dark:bg-slate-900 pb-20 print:bg-white print:pb-0">
 
   <!-- Top Bar (Hidden on print) -->
-  <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30 print:hidden">
+  <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-30 print:hidden">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <div class="flex items-center gap-4">
-            <a href="/{lang}" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full text-gray-500 dark:text-slate-400 min-h-[44px] min-w-[44px] flex items-center justify-center">
+            <a href="/{lang}" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full text-slate-500 dark:text-slate-400 min-h-[44px] min-w-[44px] flex items-center justify-center">
                 <ArrowLeft size={20} />
             </a>
             <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 hidden sm:block">
@@ -168,15 +168,15 @@
         </div>
 
         <div class="flex items-center gap-2">
-            <button on:click={resetInvoice} class="p-2 text-gray-500 dark:text-slate-400 hover:text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg min-h-[44px] min-w-[44px]" title={invoiceDict.actions.reset}>
+            <button on:click={resetInvoice} class="p-2 text-slate-500 dark:text-slate-400 hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg min-h-[44px] min-w-[44px]" title={invoiceDict.actions.reset}>
                 <RefreshCw size={20} />
             </button>
-            <div class="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1"></div>
-            <button on:click={saveInvoice} class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 min-h-[44px] min-w-[44px]">
+            <div class="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
+            <button on:click={saveInvoice} class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 min-h-[44px] min-w-[44px]">
                 <Save size={18} />
                 <span class="hidden sm:inline">{invoiceDict.actions.save}</span>
             </button>
-            <button on:click={downloadImage} class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 min-h-[44px] min-w-[44px]">
+            <button on:click={downloadImage} class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 min-h-[44px] min-w-[44px]">
                 <ImageIcon size={18} />
                 <span class="hidden sm:inline">{invoiceDict.actions.downloadImage}</span>
             </button>
@@ -192,22 +192,22 @@
   <div class="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row gap-6 items-start h-[calc(100vh-4rem)]">
 
     <!-- Sidebar / Editor -->
-    <div class="w-full lg:w-[450px] shrink-0 flex flex-col h-full bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden print:hidden">
+    <div class="w-full lg:w-[450px] shrink-0 flex flex-col h-full bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden print:hidden">
         <!-- Tabs -->
-        <div class="flex border-b border-gray-200 dark:border-gray-700">
-            <button class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'editor' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px] min-w-[44px]"
+        <div class="flex border-b border-slate-200 dark:border-slate-700">
+            <button class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'editor' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'editor'}
             >
                 <Edit3 size={16} />
                 Editor
             </button>
-            <button class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'clients' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px] min-w-[44px]"
+            <button class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'clients' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'clients'}
             >
                 <Users size={16} />
                 Clients
             </button>
-            <button class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'history' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'} min-h-[44px] min-w-[44px]"
+            <button class="flex-1 py-3 text-sm font-medium border-b-2 transition-colors flex items-center justify-center gap-2 {activeTab === 'history' ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'} min-h-[44px] min-w-[44px]"
                 on:click={() => activeTab = 'history'}
             >
                 <FileText size={16} />
@@ -234,7 +234,7 @@
     </div>
 
     <!-- Preview Area -->
-    <div class="flex-1 w-full h-full overflow-y-auto bg-gray-100 dark:bg-gray-900/50 rounded-xl flex items-start justify-center p-4 sm:p-8 print:p-0 print:bg-white print:h-auto print:overflow-visible">
+    <div class="flex-1 w-full h-full overflow-y-auto bg-slate-100 dark:bg-slate-900/50 rounded-xl flex items-start justify-center p-4 sm:p-8 print:p-0 print:bg-white print:h-auto print:overflow-visible">
         <InvoicePreview {invoice} dictionary={invoiceDict} />
     </div>
 
@@ -244,36 +244,36 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 print:hidden">
       <!-- Guide Section -->
       <section class="mb-16">
-          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">{invoiceDict.guide.title}</h2>
-          <p class="text-lg text-gray-600 dark:text-gray-300 mb-10 text-center leading-relaxed max-w-7xl mx-auto">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6 text-center">{invoiceDict.guide.title}</h2>
+          <p class="text-lg text-slate-600 dark:text-slate-300 mb-10 text-center leading-relaxed max-w-7xl mx-auto">
               {invoiceDict.guide.intro}
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+              <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+                  <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
                       <Download class="text-blue-500 dark:text-blue-400" size={20} />
                       Local Privacy
                   </h3>
-                  <p class="text-gray-600 dark:text-gray-400 text-sm">
+                  <p class="text-slate-600 dark:text-slate-400 text-sm">
                       {invoiceDict.guide.f1.replace('**Local Privacy:** ', '')}
                   </p>
               </div>
-              <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+              <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+                  <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
                       <RefreshCw class="text-purple-500" size={20} />
                       Smart Defaults
                   </h3>
-                  <p class="text-gray-600 dark:text-gray-400 text-sm">
+                  <p class="text-slate-600 dark:text-slate-400 text-sm">
                       {invoiceDict.guide.f2.replace('**Smart Defaults:** ', '')}
                   </p>
               </div>
-              <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+              <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+                  <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
                       <Printer class="text-green-500 dark:text-green-400" size={20} />
                       Print Perfect
                   </h3>
-                  <p class="text-gray-600 dark:text-gray-400 text-sm">
+                  <p class="text-slate-600 dark:text-slate-400 text-sm">
                       {invoiceDict.guide.f3.replace('**Print Perfect:** ', '')}
                   </p>
               </div>

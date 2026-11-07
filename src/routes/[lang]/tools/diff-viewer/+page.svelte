@@ -374,12 +374,12 @@
   keywords={keywords}
 />
 
-<div class="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20">
+<div class="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20">
   <!-- Header -->
-  <div class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-30 shadow-sm">
+  <div class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-16 py-2 flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-4 w-full md:w-auto">
-        <a href="/{lang}" aria-label="Back to home" class="p-2 -ml-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-500 dark:text-gray-400 shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center">
+        <a href="/{lang}" aria-label="Back to home" class="p-2 -ml-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400 shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center">
            <ArrowLeftRight class="w-5 h-5" />
         </a>
         <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 truncate">
@@ -390,19 +390,19 @@
       <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
          <!-- Example Dropdown (Simple) -->
          <div class="flex items-center gap-1 mr-2 overflow-x-auto pb-1 md:pb-0 scrollbar-hide">
-            <button class="text-sm px-3 py-2 min-h-[44px] min-w-[44px] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 dark:text-slate-400 transition-colors shrink-0 min-h-[44px] min-w-[44px]" aria-label="Load Code Example" on:click={() => loadExample('code')}>Code</button>
-            <button class="text-sm px-3 py-2 min-h-[44px] min-w-[44px] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 dark:text-slate-400 transition-colors shrink-0 min-h-[44px] min-w-[44px]" aria-label="Load JSON Example" on:click={() => loadExample('json')}>JSON</button>
-            <button class="text-sm px-3 py-2 min-h-[44px] min-w-[44px] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 dark:text-slate-400 transition-colors shrink-0 min-h-[44px] min-w-[44px]" aria-label="Load Text Example" on:click={() => loadExample('text')}>Text</button>
+            <button class="text-sm px-3 py-2 min-h-[44px] min-w-[44px] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-500 dark:text-slate-400 transition-colors shrink-0 min-h-[44px] min-w-[44px]" aria-label="Load Code Example" on:click={() => loadExample('code')}>Code</button>
+            <button class="text-sm px-3 py-2 min-h-[44px] min-w-[44px] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-500 dark:text-slate-400 transition-colors shrink-0 min-h-[44px] min-w-[44px]" aria-label="Load JSON Example" on:click={() => loadExample('json')}>JSON</button>
+            <button class="text-sm px-3 py-2 min-h-[44px] min-w-[44px] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-500 dark:text-slate-400 transition-colors shrink-0 min-h-[44px] min-w-[44px]" aria-label="Load Text Example" on:click={() => loadExample('text')}>Text</button>
          </div>
 
-        <button class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors relative"
+        <button class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors relative"
           on:click={() => isHistoryOpen = !isHistoryOpen}
           title={t.history + ' (Cmd+/)'}
           aria-label={t.history}
         >
           <History class="w-5 h-5" />
         </button>
-        <button class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors"
+        <button class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors"
           on:click={copyShareLink}
           title={t.share}
           aria-label={t.share}
@@ -427,23 +427,23 @@
                 on:click={() => showConflictModal = false}
                 on:keydown={(e) => e.key === 'Escape' && (showConflictModal = false)}
             ></button>
-            <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-7xl p-0 overflow-hidden flex flex-col max-h-[90vh]" role="dialog" tabindex="-1" aria-modal="true">
+            <div class="relative bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-7xl p-0 overflow-hidden flex flex-col max-h-[90vh]" role="dialog" tabindex="-1" aria-modal="true">
                  {#if !isResolving}
                     <!-- Input State -->
                      <div class="p-6 flex flex-col h-full">
                         <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                                 <GitMerge class="w-5 h-5 text-indigo-500" />
                                 {t.mergeConflict}
                             </h3>
-                            <button class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 min-h-[44px] min-w-[44px]" on:click={cancelConflict}>
+                            <button class="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 min-h-[44px] min-w-[44px]" on:click={cancelConflict}>
                                 <X class="w-5 h-5" />
                             </button>
                         </div>
-                         <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">{t.pasteConflict}</p>
+                         <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">{t.pasteConflict}</p>
                          <textarea
                             bind:value={conflictInput}
-                            class="flex-1 w-full p-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg font-mono text-xs focus:ring-2 focus:ring-indigo-500 outline-none resize-none mb-4 min-h-[300px]"
+                            class="flex-1 w-full p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg font-mono text-xs focus:ring-2 focus:ring-indigo-500 outline-none resize-none mb-4 min-h-[300px]"
                             placeholder={`<<<<<<< HEAD\nvar x = 1;\n=======\nvar x = 2;\n>>>>>>> feature/new-x`}
                         ></textarea>
                          <div class="flex justify-end gap-2 mt-4">
@@ -466,10 +466,10 @@
 
     <!-- History Sidebar -->
     {#if isHistoryOpen}
-        <div class="fixed inset-y-0 right-0 z-50 w-full max-w-sm shadow-2xl bg-white dark:bg-gray-800" transition:fly={{ x: 300, duration: 300 }}>
+        <div class="fixed inset-y-0 right-0 z-50 w-full max-w-sm shadow-2xl bg-white dark:bg-slate-800" transition:fly={{ x: 300, duration: 300 }}>
             <DiffHistory {translations} onSelect={loadHistoryItem} />
              <!-- Backdrop -->
-             <button class="absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 min-h-[44px] min-w-[44px]"
+             <button class="absolute top-2 right-2 p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 min-h-[44px] min-w-[44px]"
                 on:click={() => isHistoryOpen = false}
                 aria-label="Close"
              >
@@ -486,13 +486,13 @@
     {/if}
 
     <!-- Toolbar -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 mb-6 flex flex-wrap gap-2 sm:gap-4 items-center justify-between static md:sticky md:top-20 z-20">
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 mb-6 flex flex-wrap gap-2 sm:gap-4 items-center justify-between static md:sticky md:top-20 z-20">
 
         <div class="flex flex-wrap gap-2 sm:gap-4 items-center">
             <!-- Mode Selection -->
             <div class="flex items-center gap-2">
-                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{t.mode}:</span>
-                <select bind:value={mode} class="min-h-[44px] min-w-[44px] bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white">
+                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">{t.mode}:</span>
+                <select bind:value={mode} class="min-h-[44px] min-w-[44px] bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white">
                     <option value="lines">{t.lines}</option>
                     <option value="words">{t.words}</option>
                     <option value="chars">{t.chars}</option>
@@ -501,13 +501,13 @@
             </div>
 
             <!-- View Mode -->
-            <div class="flex bg-gray-100 dark:bg-gray-900 rounded-lg p-1">
-                <button class="px-3 py-1.5 min-h-[44px] min-w-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'split' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
+            <div class="flex bg-slate-100 dark:bg-slate-900 rounded-lg p-1">
+                <button class="px-3 py-1.5 min-h-[44px] min-w-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'split' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                     on:click={() => viewMode = 'split'}
                 >
                     <Columns class="w-4 h-4 inline mr-1" /> {t.split}
                 </button>
-                <button class="px-3 py-1.5 min-h-[44px] min-w-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'unified' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}"
+                <button class="px-3 py-1.5 min-h-[44px] min-w-[44px] rounded-md text-sm font-medium transition-all {viewMode === 'unified' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}"
                     on:click={() => viewMode = 'unified'}
                 >
                     <AlignLeft class="w-4 h-4 inline mr-1" /> {t.unified}
@@ -515,12 +515,12 @@
             </div>
 
             <!-- Options -->
-            <label class="flex items-center gap-2 min-h-[44px] min-w-[44px] text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
-                <input type="checkbox" bind:checked={ignoreWhitespace} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800">
+            <label class="flex items-center gap-2 min-h-[44px] min-w-[44px] text-sm text-slate-700 dark:text-slate-300 cursor-pointer select-none">
+                <input type="checkbox" bind:checked={ignoreWhitespace} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 dark:border-slate-600 dark:bg-slate-800">
                 {t.ignoreWhitespace}
             </label>
-            <label class="flex items-center gap-2 min-h-[44px] min-w-[44px] text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
-                <input type="checkbox" bind:checked={ignoreCase} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800">
+            <label class="flex items-center gap-2 min-h-[44px] min-w-[44px] text-sm text-slate-700 dark:text-slate-300 cursor-pointer select-none">
+                <input type="checkbox" bind:checked={ignoreCase} class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 dark:border-slate-600 dark:bg-slate-800">
                 {t.ignoreCase}
             </label>
         </div>
@@ -538,7 +538,7 @@
                 <FileUp class="w-4 h-4 text-green-500 dark:text-green-400" />
                 <span class="hidden md:inline">Patch</span>
             </Button>
-            <div class="w-px h-8 bg-gray-200 dark:bg-gray-700 mx-1 hidden sm:block"></div>
+            <div class="w-px h-8 bg-slate-200 dark:bg-slate-700 mx-1 hidden sm:block"></div>
             <Button variant="secondary" on:click={swapSides} title={t.swap} class="min-h-[44px] min-w-[44px]">
                 <ArrowLeftRight class="w-4 h-4" />
                 <span class="hidden sm:inline">{t.swap}</span>
