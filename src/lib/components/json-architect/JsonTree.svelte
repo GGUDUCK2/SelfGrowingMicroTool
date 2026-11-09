@@ -53,7 +53,7 @@
            {#each Object.entries(data) as [key, val]}
              <div class="flex flex-col">
                <div class="flex items-start">
-                  <span class="text-blue-600 dark:text-blue-400 mr-2 font-semibold">"{key}":</span>
+                  <span class="text-indigo-600 dark:text-indigo-400 mr-2 font-semibold">"{key}":</span>
                   <svelte:self data={val} level={1} />
                </div>
              </div>

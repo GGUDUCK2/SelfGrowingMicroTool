@@ -270,7 +270,7 @@
                         </div>
                         <div class="bg-white dark:bg-slate-900 p-4 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col items-center">
                             <span class="text-sm text-slate-500 dark:text-slate-400">{t.linksCount || 'Links Count'}</span>
-                            <span class="text-3xl font-bold text-blue-600 dark:text-blue-400">{state.stats.linkCount}</span>
+                            <span class="text-3xl font-bold text-indigo-600 dark:text-indigo-400">{state.stats.linkCount}</span>
                         </div>
                         <div class="bg-white dark:bg-slate-900 p-4 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col items-center">
                             <span class="text-sm text-slate-500 dark:text-slate-400">{t.charCount || 'Character Count'}</span>

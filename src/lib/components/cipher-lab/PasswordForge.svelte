@@ -70,7 +70,7 @@
        {:else if strength === 'fair'}
           <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
        {:else if strength === 'good'}
-          <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+          <div class="w-2 h-2 rounded-full bg-indigo-500"></div>
        {:else}
           <div class="w-2 h-2 rounded-full bg-green-500"></div>
        {/if}
@@ -80,7 +80,7 @@
       readonly
       value={password}
       aria-label="Generated Password"
-      class="w-full text-center text-2xl font-mono py-4 rounded-xl border-2 bg-slate-50 dark:bg-slate-900 dark:text-white outline-none transition-colors {strength === 'weak' ? 'border-red-200 dark:border-red-900' : strength === 'fair' ? 'border-yellow-200 dark:border-yellow-900' : strength === 'good' ? 'border-blue-200 dark:border-blue-900' : 'border-green-200 dark:border-green-900'}"
+      class="w-full text-center text-2xl font-mono py-4 rounded-xl border-2 bg-slate-50 dark:bg-slate-900 dark:text-white outline-none transition-colors {strength === 'weak' ? 'border-red-200 dark:border-red-900' : strength === 'fair' ? 'border-yellow-200 dark:border-yellow-900' : strength === 'good' ? 'border-indigo-200 dark:border-indigo-900' : 'border-green-200 dark:border-green-900'}"
     />
     <div class="absolute inset-y-0 right-0 pr-2 flex items-center space-x-1">
       <button

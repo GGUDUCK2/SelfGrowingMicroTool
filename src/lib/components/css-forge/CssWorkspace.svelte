@@ -368,7 +368,7 @@
             bind:value={state.input}
             on:input={handleProcess}
             placeholder="Paste your CSS here..."
-            class="w-full h-96 p-4 font-mono text-sm bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none text-slate-900 dark:text-slate-100"
+            class="w-full h-96 p-4 font-mono text-sm bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none resize-none text-slate-900 dark:text-slate-100"
             spellcheck="false"
         ></textarea>
     </div>
@@ -394,7 +394,7 @@
                 {/if}
             </span>
             <div class="flex gap-1">
-                <button class="p-1.5 text-slate-500 hover:text-blue-500 rounded-md hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors" on:click={() => copyToClipboard(state.output)} title="Copy Result (Ctrl/Cmd + S)" aria-label="Copy output">
+                <button class="p-1.5 text-slate-500 hover:text-indigo-500 rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors" on:click={() => copyToClipboard(state.output)} title="Copy Result (Ctrl/Cmd + S)" aria-label="Copy output">
                     <Copy size={16} />
                 </button>
                 <button class="p-1.5 text-slate-500 hover:text-emerald-500 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors" on:click={downloadResult} title="Download CSS" aria-label="Download CSS">
@@ -413,15 +413,15 @@
                 <div class="grid grid-cols-1 gap-4">
                      <div class="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700">
                           <h3 class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Selectors</h3>
-                          <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">{state.statistics.selectors}</div>
+                          <div class="text-3xl font-bold text-indigo-600 dark:text-indigo-400">{state.statistics.selectors}</div>
                      </div>
                      <div class="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700">
                           <h3 class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Rules</h3>
-                          <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">{state.statistics.rules}</div>
+                          <div class="text-3xl font-bold text-indigo-600 dark:text-indigo-400">{state.statistics.rules}</div>
                      </div>
                      <div class="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700">
                           <h3 class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Declarations</h3>
-                          <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">{state.statistics.declarations}</div>
+                          <div class="text-3xl font-bold text-indigo-600 dark:text-indigo-400">{state.statistics.declarations}</div>
                      </div>
                 </div>
 
@@ -475,8 +475,8 @@
                      {#if state.statistics.colors && state.statistics.colors.length > 0}
                          <div class="flex flex-wrap gap-3">
                              {#each state.statistics.colors as item, i (i)}
-                                 <div class="group relative flex flex-col items-center justify-center p-2 bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700 hover:border-blue-300 transition-colors w-20">
-                                     <button class="w-10 h-10 rounded shadow-inner border border-slate-200 dark:border-slate-700 mb-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform hover:scale-110" style="background-color: {item.hex};" on:click={() => copyToClipboard(item.hex)} title="Copy {item.hex}" aria-label="Copy color {item.hex}"></button>
+                                 <div class="group relative flex flex-col items-center justify-center p-2 bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700 hover:border-indigo-300 transition-colors w-20">
+                                     <button class="w-10 h-10 rounded shadow-inner border border-slate-200 dark:border-slate-700 mb-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-transform hover:scale-110" style="background-color: {item.hex};" on:click={() => copyToClipboard(item.hex)} title="Copy {item.hex}" aria-label="Copy color {item.hex}"></button>
                                      <span class="text-[10px] font-mono text-slate-600 dark:text-slate-400 truncate w-full text-center" title={item.hex}>{item.hex}</span>
                                      <span class="absolute -top-2 -right-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[9px] font-bold px-1.5 py-0.5 rounded-full">{item.count}</span>
                                  </div>
@@ -517,12 +517,12 @@
                     readonly
                     value={state.output}
                     placeholder="Result will appear here..."
-                    class="w-full h-full p-4 font-mono text-sm bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none text-slate-900 dark:text-slate-100"
+                    class="w-full h-full p-4 font-mono text-sm bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none resize-none text-slate-900 dark:text-slate-100"
                     spellcheck="false"
                 ></textarea>
                 {#if state.output}
                     <button
-                        class="absolute top-3 right-3 p-2 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        class="absolute top-3 right-3 p-2 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         on:click={() => copyToClipboard(state.output)}
                         title="Copy Output"
                         aria-label="Copy Output"
@@ -539,7 +539,7 @@
     <div class="flex flex-wrap gap-2">
 
         <button
-            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all {state.action === 'format' ? 'bg-blue-600 text-white shadow-md' : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'} min-h-[44px]"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all {state.action === 'format' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'} min-h-[44px]"
             on:click={() => setAction('format')}
             title="Format CSS (Ctrl/Cmd + Enter)"
             aria-label="Format CSS"
@@ -568,14 +568,14 @@
         </button>
 
         <button
-            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all {state.action === 'minify' ? 'bg-blue-600 text-white shadow-md' : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'} min-h-[44px]"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all {state.action === 'minify' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'} min-h-[44px]"
             on:click={() => setAction('minify')}
         >
             <Minimize size={16} />
             Minify
         </button>
         <button
-            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all {state.action === 'analyze' ? 'bg-blue-600 text-white shadow-md' : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'} min-h-[44px]"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all {state.action === 'analyze' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'} min-h-[44px]"
             on:click={() => setAction('analyze')}
         >
             <BarChart size={16} />
@@ -608,7 +608,7 @@
             id="indentSize"
             bind:value={state.indentSize}
             on:change={handleProcess}
-            class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm px-3 py-2 text-slate-900 dark:text-slate-100 outline-none focus:ring-2 focus:ring-blue-500 min-h-[44px]"
+            class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm px-3 py-2 text-slate-900 dark:text-slate-100 outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]"
         >
             <option value={2}>2 Spaces</option>
             <option value={4}>4 Spaces</option>

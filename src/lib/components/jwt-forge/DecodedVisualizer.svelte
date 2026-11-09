@@ -61,7 +61,7 @@
                 <td class="py-3 text-slate-700 dark:text-slate-300 break-all">
                   {#if ['exp', 'iat', 'nbf'].includes(key) && typeof value === 'number'}
                     <div class="flex flex-col gap-1">
-                      <span class="text-blue-600 dark:text-blue-400 font-bold">{value}</span>
+                      <span class="text-indigo-600 dark:text-indigo-400 font-bold">{value}</span>
                       <span class="text-xs text-slate-500 flex items-center gap-1">
                          <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                         {format(new Date(value * 1000), 'yyyy-MM-dd HH:mm:ss')}

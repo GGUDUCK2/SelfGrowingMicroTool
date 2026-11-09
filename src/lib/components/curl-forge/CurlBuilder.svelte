@@ -460,7 +460,7 @@
           <textarea
             id="import-curl"
             bind:value={importRaw}
-            class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg p-3 text-sm font-mono focus:ring-2 focus:ring-blue-500 mb-3"
+            class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg p-3 text-sm font-mono focus:ring-2 focus:ring-indigo-500 mb-3"
             rows="4"
             placeholder="curl -X POST https://api..."></textarea>
           <div class="flex justify-end space-x-2">
@@ -479,7 +479,7 @@
               id="method-select"
               bind:value={data.method}
               on:change={() => onSave(data)}
-              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-900 dark:text-white min-h-[44px] focus:ring-2 focus:ring-blue-500"
+              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-900 dark:text-white min-h-[44px] focus:ring-2 focus:ring-indigo-500"
             >
               {#each methods as m (m)}
                 <option value={m}>{m}</option>
@@ -495,7 +495,7 @@
                   bind:value={data.url}
                   on:input={() => onSave(data)}
                   placeholder="https://api.example.com"
-                  class="flex-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-900 dark:text-white min-h-[44px] focus:ring-2 focus:ring-blue-500"
+                  class="flex-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-900 dark:text-white min-h-[44px] focus:ring-2 focus:ring-indigo-500"
                 />
                 <Button variant="primary" on:click={handleSend} disabled={isSending || !data.url} class="min-w-[44px] min-h-[44px] px-4 whitespace-nowrap">
                     {#if isSending}
@@ -512,7 +512,7 @@
         <div class="pt-4 border-t border-slate-200 dark:border-slate-800">
           <div class="flex justify-between items-center mb-2">
             <span class="block text-sm font-medium text-slate-700 dark:text-slate-300">Query Parameters</span>
-            <button on:click={addParam} class="text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 flex items-center text-sm min-h-[44px] min-w-[44px] px-2 rounded-lg transition-colors">
+            <button on:click={addParam} class="text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center text-sm min-h-[44px] min-w-[44px] px-2 rounded-lg transition-colors">
               <Plus class="w-4 h-4 mr-1" />
               Add
             </button>
@@ -558,7 +558,7 @@
                 <button on:click={() => showAuth = !showAuth} class="text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center text-sm min-h-[44px] px-2 rounded-lg transition-colors font-medium">
                   Auth Quick-Add
                 </button>
-                <button on:click={addHeader} class="text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 flex items-center text-sm min-h-[44px] min-w-[44px] px-2 rounded-lg transition-colors">
+                <button on:click={addHeader} class="text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center text-sm min-h-[44px] min-w-[44px] px-2 rounded-lg transition-colors">
                   <Plus class="w-4 h-4 mr-1" />
                   {(dict as any)?.builder?.addHeader || 'Add'}
                 </button>
@@ -691,7 +691,7 @@
               {/if}
               <button
                 on:click={formatBodyJson}
-                class="text-xs text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 font-medium px-2 min-h-[32px] flex items-center bg-blue-50 dark:bg-blue-900/20 rounded-md transition-colors"
+                class="text-xs text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-2 min-h-[32px] flex items-center bg-indigo-50 dark:bg-indigo-900/20 rounded-md transition-colors"
               >
                 {(dict as any)?.export?.formatJson || 'Format JSON'}
               </button>
@@ -702,7 +702,7 @@
             bind:value={data.body}
             on:input={() => { invalidJson = false; onSave(data); }}
             rows="6"
-            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-3 font-mono text-sm min-h-[44px] focus:ring-2 focus:ring-blue-500 {invalidJson ? 'border-red-500 ring-1 ring-red-500' : ''}"
+            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-3 font-mono text-sm min-h-[44px] focus:ring-2 focus:ring-indigo-500 {invalidJson ? 'border-red-500 ring-1 ring-red-500' : ''}"
             placeholder={`{"key": "value"}`}
           ></textarea>
         </div>
@@ -727,7 +727,7 @@
           ] as tab (tab.id)}
             <button
               on:click={() => activeTab = tab.id}
-              class="px-4 py-3 text-sm font-medium whitespace-nowrap min-h-[44px] transition-colors border-b-2 {activeTab === tab.id ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300'}"
+              class="px-4 py-3 text-sm font-medium whitespace-nowrap min-h-[44px] transition-colors border-b-2 {activeTab === tab.id ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300'}"
             >
               {tab.label}
             </button>
@@ -781,7 +781,7 @@
                 <div class="flex items-center space-x-1">
                     <button
                         on:click={() => copyToClipboard(responseData, 'response')}
-                        class="p-2 text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded min-h-[32px] min-w-[32px] flex items-center justify-center transition-colors"
+                        class="p-2 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded min-h-[32px] min-w-[32px] flex items-center justify-center transition-colors"
                         title={(dict as any)?.export?.copyResponse || 'Copy Response'}
                     >
                         {#if copiedStates['response']}
@@ -802,7 +802,7 @@
                             document.body.removeChild(a);
                             URL.revokeObjectURL(url);
                         }}
-                        class="p-2 text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded min-h-[32px] min-w-[32px] flex items-center justify-center transition-colors"
+                        class="p-2 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded min-h-[32px] min-w-[32px] flex items-center justify-center transition-colors"
                         title={(dict as any)?.export?.downloadResponse || 'Download JSON'}
                     >
                         <ArrowDownToLine class="w-4 h-4" />
@@ -817,7 +817,7 @@
               type="text"
               bind:value={responseSearchTerm}
               placeholder="Search Response JSON..."
-              class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-sm min-h-[44px] focus:ring-2 focus:ring-blue-500"
+              class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-sm min-h-[44px] focus:ring-2 focus:ring-indigo-500"
               aria-label="Search Response"
           />
       </div>

@@ -155,7 +155,7 @@
     <Shuffle class="w-5 h-5" />
   </button>
 
-  <button class="min-h-[44px] min-w-[44px] p-3 text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-colors"
+  <button class="min-h-[44px] min-w-[44px] p-3 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl transition-colors"
     title={dict.actions?.sort || "Sort by Name"}
     on:click={() => sortPages('name')}
     aria-label="Sort"
