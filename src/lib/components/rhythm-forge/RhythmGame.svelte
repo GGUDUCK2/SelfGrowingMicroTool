@@ -109,7 +109,7 @@
 
       switch (type) {
           case 'perfect': text = 'PERFECT!'; color = 'text-emerald-400'; break;
-          case 'great': text = 'GREAT'; color = 'text-blue-400'; break;
+          case 'great': text = 'GREAT'; color = 'text-indigo-400'; break;
           case 'good': text = 'GOOD'; color = 'text-amber-400'; break;
           case 'miss': text = 'MISS'; color = 'text-rose-500'; break;
       }
@@ -235,7 +235,7 @@
                     <div class="text-xs text-slate-500 uppercase">Perfect</div>
                 </div>
                 <div class="bg-slate-800/50 p-4 rounded-xl text-center border border-slate-700">
-                    <div class="text-blue-400 font-black text-xl">{stats.great}</div>
+                    <div class="text-indigo-400 font-black text-xl">{stats.great}</div>
                     <div class="text-xs text-slate-500 uppercase">Great</div>
                 </div>
                 <div class="bg-slate-800/50 p-4 rounded-xl text-center border border-slate-700">

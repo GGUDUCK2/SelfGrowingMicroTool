@@ -164,7 +164,7 @@
                                 {block.modified}
                             </div>
                             <button
-                                class="p-2 min-h-[44px] text-xs font-medium text-center hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors border-t border-gray-200 dark:border-gray-700 {block.resolved === 'modified' ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-400'}"
+                                class="p-2 min-h-[44px] text-xs font-medium text-center hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors border-t border-gray-200 dark:border-gray-700 {block.resolved === 'modified' ? 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300' : 'text-gray-600 dark:text-gray-400'}"
                                 on:click={() => resolveBlock(block.id, 'modified')}
                             >
                                 {translations?.acceptIncoming || 'Accept Incoming'}

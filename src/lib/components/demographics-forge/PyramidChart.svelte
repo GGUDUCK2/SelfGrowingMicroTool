@@ -90,7 +90,7 @@
                     y="{yScale(d.age)}"
                     width="{xScale(d.malePercent)}"
                     height="{yScale.bandwidth()}"
-                    class="fill-blue-500 hover:fill-blue-400 transition-colors"
+                    class="fill-indigo-500 hover:fill-indigo-400 transition-colors"
                 />
 
                 <!-- Female (Right) -->
@@ -140,7 +140,7 @@
     <!-- Legend -->
     <div class="absolute top-2 right-4 flex flex-col gap-1 items-end pointer-events-none">
         <div class="flex items-center gap-2">
-            <span class="w-3 h-3 bg-blue-500 rounded-sm"></span>
+            <span class="w-3 h-3 bg-indigo-500 rounded-sm"></span>
             <span class="text-xs opacity-70 font-medium">{lang === 'ko' ? '남성' : 'Male'}</span>
         </div>
         <div class="flex items-center gap-2">

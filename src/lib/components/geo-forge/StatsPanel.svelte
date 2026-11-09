@@ -49,7 +49,7 @@
   </div>
 
   <div class="flex items-start gap-3">
-    <div class="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-blue-600 dark:text-blue-400">
+    <div class="p-2 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400">
       <MapPin class="w-5 h-5" />
     </div>
     <div>
