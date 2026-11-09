@@ -356,7 +356,7 @@ import Head from '$lib/components/Head.svelte';
             await workspace.history.add({
                 toolId: 'uuid-forge',
                 name: `${version.toUpperCase()} x${quantity}`,
-                data: { raw: rawBatch, options: { isUppercase, includeBraces, removeHyphens } },
+                result: { raw: rawBatch, options: { isUppercase, includeBraces, removeHyphens } },
                 timestamp: Date.now()
             });
             await loadHistory();
@@ -403,16 +403,17 @@ import Head from '$lib/components/Head.svelte';
     };
 
     const loadHistoryItem = (item: ToolHistoryItem) => {
-        if(item && item.data && item.data.raw) {
-            rawUuids = item.data.raw;
-            if (item.data.options) {
-                isUppercase = item.data.options.isUppercase;
-                includeBraces = item.data.options.includeBraces;
-                removeHyphens = item.data.options.removeHyphens;
+        const itemData = item.result || (item as any).data;
+        if (itemData && itemData.raw) {
+            rawUuids = itemData.raw;
+            if (itemData.options) {
+                isUppercase = itemData.options.isUppercase;
+                includeBraces = itemData.options.includeBraces;
+                removeHyphens = itemData.options.removeHyphens;
             }
-        } else if (item && item.data && item.data.uuids) {
+        } else if (itemData && itemData.uuids) {
             // Fallback for older entries without 'raw'
-            rawUuids = item.data.uuids;
+            rawUuids = itemData.uuids;
         }
     };
 
@@ -665,7 +666,7 @@ import Head from '$lib/components/Head.svelte';
                         <textarea
                             readonly
                             value={generatedUuids.join('\n')}
-                            class="w-full h-full resize-none bg-transparent font-mono text-sm sm:text-base leading-relaxed text-slate-800 dark:text-slate-300 focus:outline-none custom-scrollbar whitespace-pre-wrap break-all"
+                            class="w-full h-full resize-none bg-transparent font-mono text-sm sm:text-base leading-relaxed text-slate-800 dark:text-slate-300 focus:outline-none custom-scrollbar whitespace-pre overflow-x-auto"
                             placeholder="Generated UUIDs will appear here..."
                         ></textarea>
                     </div>
@@ -720,7 +721,7 @@ import Head from '$lib/components/Head.svelte';
             <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
                 <textarea
                     bind:value={analyzeInput}
-                    class="w-full h-48 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl p-4 font-mono text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-200 transition-colors custom-scrollbar whitespace-pre-wrap break-all"
+                    class="w-full h-48 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl p-4 font-mono text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-200 transition-colors custom-scrollbar whitespace-pre overflow-x-auto"
                     placeholder={t.analyzePlaceholder}
                     aria-label={t.analyzePlaceholder}
                 ></textarea>
