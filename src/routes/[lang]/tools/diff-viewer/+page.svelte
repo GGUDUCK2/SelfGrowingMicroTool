@@ -180,7 +180,7 @@
         .added { background-color: #dcfce7; color: #166534; }
         .removed { background-color: #fee2e2; color: #991b1b; }
         .stats { margin-bottom: 20px; font-size: 0.9em; color: #6b7280; }
-        pre { margin: 0; white-space: pre-wrap; word-break: break-all; }
+        pre { margin: 0; white-space: pre-wrap; white-space: pre; overflow-x: auto; display: block; }
     </style>
 </head>
 <body>
@@ -349,9 +349,19 @@
 
 
   const keywords = "diff checker, text compare, json compare, merge conflict solver, online diff tool, file comparison, text difference";
+
+$: jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": t.title || "Tool",
+        "description": t.description || "Description",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any"
+    };
 </script>
 
 <svelte:head>
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/diff-viewer"} />
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/diff-viewer"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/diff-viewer"} />
@@ -366,6 +376,9 @@
 </svelte:head>
 
 <svelte:window on:keydown={handleKeydown} />
+
+
+
 
 <Head
   title={t.title}
