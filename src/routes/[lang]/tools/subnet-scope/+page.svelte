@@ -180,7 +180,19 @@
 
   };
 
+
+$: jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": t.title || "Tool",
+        "description": t.description || "Description",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any"
+    };
 </script>
+
+
+
 
 <Head
   title={t.title}
@@ -190,6 +202,7 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
   <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/subnet-scope"} />
   <link rel="alternate" hreflang="en" href={$page.url.origin + "/en/tools/subnet-scope"} />
   <link rel="alternate" hreflang="ko" href={$page.url.origin + "/ko/tools/subnet-scope"} />
@@ -520,7 +533,7 @@
         @apply block text-sm font-medium text-slate-500 dark:text-slate-400 mb-2;
     }
     .card .value {
-        @apply text-lg font-mono font-semibold text-slate-900 dark:text-white break-all;
+        @apply text-lg font-mono font-semibold text-slate-900 dark:text-white overflow-x-auto whitespace-pre block;
     }
     .badge {
         @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300;

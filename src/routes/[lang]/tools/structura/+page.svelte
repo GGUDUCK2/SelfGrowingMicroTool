@@ -259,7 +259,19 @@
 
   };
 
+
+$: jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": t.title || "Tool",
+        "description": t.description || "Description",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any"
+    };
 </script>
+
+
+
 <Head
   title={`${t.title} | Web Factory`}
   description={t.description}
@@ -267,6 +279,7 @@
 
 
 <svelte:head>
+  {@html `<scr` + `ipt type="application/ld+json">${JSON.stringify(jsonLd)}</scr` + `ipt>`}
 
 
   <link rel="canonical" href={$page.url.origin + "/" + lang + "/tools/structura"} />
@@ -451,7 +464,7 @@
                                 <div class="absolute inset-x-0 bottom-0 p-4 bg-red-50 dark:bg-red-900/20 border-t border-red-100 dark:border-red-900/50 backdrop-blur-sm" transition:fly={{ y: 20 }}>
                                     <div class="flex items-start gap-2 text-red-600 dark:text-red-400">
                                         <span class="font-bold text-sm">{t.error}:</span>
-                                        <span class="text-sm font-mono break-all">{error}</span>
+                                        <span class="text-sm font-mono overflow-x-auto whitespace-pre block">{error}</span>
                                     </div>
                                 </div>
                             {/if}
