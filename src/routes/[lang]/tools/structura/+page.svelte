@@ -66,13 +66,17 @@
 
   // React to input changes for auto-detection
   let inputDebounceTimer: ReturnType<typeof setTimeout>;
-  $: if (input && input.length < 10000) {
-    clearTimeout(inputDebounceTimer);
-    inputDebounceTimer = setTimeout(() => {
+  const handleInputCheck = () => {
       const detected = detectFormat(input);
       if (detected !== inputFormat && input.trim().length > 0) {
         inputFormat = detected;
       }
+  };
+
+  $: if (input && input.length < 10000) {
+    clearTimeout(inputDebounceTimer);
+    inputDebounceTimer = setTimeout(() => {
+      handleInputCheck();
 
       // Auto-update code gen if active
       if (activeTab === 'codegen') {
