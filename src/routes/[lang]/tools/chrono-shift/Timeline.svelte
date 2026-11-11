@@ -130,7 +130,7 @@
         </div>
 
         <!-- Day/Night Gradient Overlay -->
-        <div class="absolute inset-0 opacity-10 pointer-events-none bg-gradient-to-r from-indigo-900 via-yellow-200 to-indigo-900"></div>
+        <div class="absolute inset-0 opacity-10 pointer-events-none bg-gradient-to-r from-indigo-900 via-yellow-200 to-purple-900"></div>
     </div>
 
     <!-- Handle -->
